@@ -34,6 +34,10 @@ export const routes = {
 		de: '/impressumsservice/',
 		en: '/impressumsservice/',
 	},
+	vtuber: {
+		de: '/en/vtuber/',
+		en: '/en/vtuber/',
+	},
 	legal: {
 		de: '/impressum/',
 		en: '/impressum/',

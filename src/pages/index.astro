@@ -1,11 +1,15 @@
 ---
-import StructureReview from '../components/StructureReview.astro';
+import PageRenderer from '../components/PageRenderer.astro';
 import BaseLayout from '../components/layout/BaseLayout.astro';
-import { findPagePlan } from '../data/pages';
+import { findSitePage } from '../data/pages';
 
-const page = findPagePlan('/');
+const page = findSitePage('/');
+
+if (!page) {
+	throw new Error('Missing homepage content');
+}
 ---
 
-<BaseLayout locale="de" title={page?.title ?? 'Astro Migration'}>
-	<StructureReview locale="de" currentPage={page} />
+<BaseLayout locale={page.locale} title={page.title} description={page.description}>
+	<PageRenderer page={page} />
 </BaseLayout>

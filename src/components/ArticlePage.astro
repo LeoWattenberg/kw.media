@@ -1,0 +1,63 @@
+---
+import type { SourcePost } from '../lib/source-content';
+import ContentHtml from './blocks/ContentHtml.astro';
+
+interface Props {
+	post: SourcePost;
+}
+
+const { post } = Astro.props;
+const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US', {
+	day: 'numeric',
+	month: 'long',
+	year: 'numeric',
+});
+---
+
+<article>
+	<header class="article-hero">
+		<div class="container article-head">
+			<p class="eyebrow">{formattedDate}</p>
+			<h1>{post.title}</h1>
+			{post.excerpt && <p>{post.excerpt}</p>}
+		</div>
+		{post.image && <img src={post.image} alt="" loading="eager" />}
+	</header>
+	<ContentHtml html={post.contentHtml} />
+</article>
+
+<style>
+	.article-hero {
+		padding-block: clamp(48px, 8vw, 92px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.article-head {
+		max-width: 920px;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.6rem);
+		line-height: 0.98;
+		letter-spacing: 0;
+		text-wrap: balance;
+	}
+
+	.article-head > p:not(.eyebrow) {
+		max-width: 720px;
+		margin: 22px 0 0;
+		color: var(--color-muted);
+		font-size: 1.12rem;
+	}
+
+	.article-hero img {
+		display: block;
+		width: min(1120px, calc(100% - 32px));
+		max-height: 560px;
+		margin: 36px auto 0;
+		object-fit: cover;
+		border-radius: 8px;
+	}
+</style>

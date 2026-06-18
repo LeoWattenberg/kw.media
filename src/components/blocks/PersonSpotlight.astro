@@ -1,0 +1,103 @@
+---
+import type { PersonBlock } from '../../data/pages';
+
+interface Props {
+	block: PersonBlock;
+}
+
+const { block } = Astro.props;
+---
+
+<section class="section person">
+	<div class="container person-inner">
+		{
+			block.image && (
+				<img src={block.image} alt={block.imageAlt ?? ''} loading="lazy" />
+			)
+		}
+		<div>
+			{block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
+			<h2>{block.title}</h2>
+			<h3>{block.name}</h3>
+			{block.role && <p class="role">{block.role}</p>}
+			<ul>
+				{block.credentials.map((credential) => <li>{credential}</li>)}
+			</ul>
+			{block.body.map((paragraph) => <p>{paragraph}</p>)}
+			<a href={`mailto:${block.email}`}>{block.email}</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.person {
+		background: var(--color-surface-alt);
+	}
+
+	.person-inner {
+		display: grid;
+		grid-template-columns: 280px minmax(0, 1fr);
+		gap: clamp(28px, 6vw, 70px);
+		align-items: center;
+	}
+
+	img {
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		border-radius: 8px;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: clamp(2rem, 5vw, 4rem);
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	h3 {
+		margin: 18px 0 0;
+		font-size: 1.5rem;
+	}
+
+	.role,
+	p:not(.eyebrow) {
+		color: var(--color-muted);
+	}
+
+	ul {
+		display: grid;
+		gap: 8px;
+		margin: 18px 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	li {
+		font-weight: 800;
+	}
+
+	li::before {
+		content: '✓';
+		margin-right: 8px;
+		color: var(--color-accent);
+	}
+
+	a {
+		display: inline-block;
+		margin-top: 10px;
+		color: var(--color-accent-dark);
+		font-weight: 850;
+		text-decoration: none;
+	}
+
+	@media (max-width: 720px) {
+		.person-inner {
+			grid-template-columns: 1fr;
+		}
+
+		img {
+			max-width: 280px;
+		}
+	}
+</style>

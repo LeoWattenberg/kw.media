@@ -1,0 +1,74 @@
+---
+import type { FaqBlock } from '../../data/pages';
+
+interface Props {
+	block: FaqBlock;
+}
+
+const { block } = Astro.props;
+---
+
+<section class="section faq">
+	<div class="container faq-inner">
+		<h2>{block.title}</h2>
+		<div class="items">
+			{
+				block.items.map((item) => (
+					<details>
+						<summary>{item.question}</summary>
+						{item.answer.map((paragraph) => <p>{paragraph}</p>)}
+					</details>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.faq {
+		background: var(--color-surface-alt);
+	}
+
+	.faq-inner {
+		display: grid;
+		grid-template-columns: minmax(220px, 0.38fr) minmax(0, 1fr);
+		gap: clamp(28px, 6vw, 72px);
+	}
+
+	h2 {
+		margin: 0;
+		font-size: clamp(2.2rem, 5vw, 4.2rem);
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.items {
+		display: grid;
+		gap: 12px;
+	}
+
+	details {
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	summary {
+		cursor: pointer;
+		padding: 18px 20px;
+		color: var(--color-deep);
+		font-weight: 850;
+	}
+
+	p {
+		margin: 0;
+		padding: 0 20px 20px;
+		color: var(--color-muted);
+	}
+
+	@media (max-width: 780px) {
+		.faq-inner {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

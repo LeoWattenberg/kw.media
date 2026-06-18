@@ -1,0 +1,151 @@
+---
+import type { PricingBlock } from '../../data/pages';
+
+interface Props {
+	block: PricingBlock;
+}
+
+const { block } = Astro.props;
+---
+
+<section class="section pricing">
+	<div class="container">
+		<div class="section-head">
+			{block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
+			<h2>{block.title}</h2>
+			{block.note && <p>{block.note}</p>}
+		</div>
+		<div class="plans">
+			{
+				block.items.map((item) => (
+					<article class:list={[item.highlight && 'featured']}>
+						{item.highlight && <span class="badge">{item.highlight}</span>}
+						<h3>{item.name}</h3>
+						<p class="summary">{item.summary}</p>
+						<div class="price">
+							<strong>{item.price}</strong>
+							{item.period && <span>{item.period}</span>}
+						</div>
+						<ul>
+							{item.features.map((feature) => (
+								<li>{feature}</li>
+							))}
+						</ul>
+						<a href={item.action.href}>{item.action.label}</a>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.pricing {
+		background: #fff;
+	}
+
+	.section-head {
+		max-width: 760px;
+		margin-bottom: 34px;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: clamp(2rem, 5vw, 4rem);
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.section-head > p:not(.eyebrow) {
+		color: var(--color-muted);
+	}
+
+	.plans {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 16px;
+	}
+
+	article {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		min-height: 420px;
+		padding: 24px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	article.featured {
+		border-color: var(--color-accent);
+		box-shadow: 0 18px 50px rgba(230, 59, 53, 0.12);
+	}
+
+	.badge {
+		position: absolute;
+		top: 16px;
+		right: 16px;
+		padding: 4px 8px;
+		color: #fff;
+		background: var(--color-accent);
+		border-radius: 6px;
+		font-size: 0.78rem;
+		font-weight: 850;
+	}
+
+	h3 {
+		margin: 0;
+		padding-right: 70px;
+		font-size: 1.35rem;
+		letter-spacing: 0;
+	}
+
+	.summary {
+		min-height: 48px;
+		margin: 8px 0 0;
+		color: var(--color-muted);
+	}
+
+	.price {
+		margin: 22px 0;
+	}
+
+	.price strong {
+		display: block;
+		font-size: 2.2rem;
+		line-height: 1;
+	}
+
+	.price span {
+		color: var(--color-muted);
+		font-weight: 750;
+	}
+
+	ul {
+		display: grid;
+		gap: 10px;
+		margin: 0 0 24px;
+		padding: 0;
+		list-style: none;
+	}
+
+	li::before {
+		content: '✓';
+		margin-right: 8px;
+		color: var(--color-accent);
+	}
+
+	a {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 44px;
+		margin-top: auto;
+		color: #fff;
+		background: var(--color-deep);
+		border-radius: 6px;
+		font-weight: 850;
+		text-decoration: none;
+	}
+</style>

@@ -1,0 +1,67 @@
+---
+interface Props {
+	html: string;
+}
+
+const { html } = Astro.props;
+---
+
+<section class="section raw-content">
+	<div class="container content-html" set:html={html} />
+</section>
+
+<style is:global>
+	.content-html {
+		max-width: 860px;
+	}
+
+	.content-html h1,
+	.content-html h2,
+	.content-html h3,
+	.content-html h4 {
+		margin: 1.6em 0 0.45em;
+		line-height: 1.08;
+		letter-spacing: 0;
+	}
+
+	.content-html h1 {
+		font-size: clamp(2.4rem, 6vw, 4.6rem);
+	}
+
+	.content-html h2 {
+		font-size: clamp(1.9rem, 4vw, 3rem);
+	}
+
+	.content-html p,
+	.content-html li {
+		color: var(--color-muted);
+		font-size: 1.05rem;
+	}
+
+	.content-html a {
+		color: var(--color-accent-dark);
+		font-weight: 750;
+	}
+
+	.content-html img {
+		max-width: 100%;
+		height: auto;
+		border-radius: 8px;
+	}
+
+	.content-html figure {
+		margin: 32px 0;
+	}
+
+	.content-html iframe {
+		width: 100%;
+		max-width: 100%;
+		aspect-ratio: 16 / 9;
+		height: auto;
+		border: 0;
+	}
+
+	.raw-content {
+		background: #fff;
+	}
+</style>

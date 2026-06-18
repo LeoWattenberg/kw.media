@@ -1,0 +1,106 @@
+---
+import type { PostListBlock } from '../../data/pages';
+import { getAllPosts, getPostsByCategory } from '../../lib/source-content';
+
+interface Props {
+	block: PostListBlock;
+}
+
+const { block } = Astro.props;
+const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllPosts()).slice(0, block.limit);
+---
+
+<section class="section posts">
+	<div class="container">
+		<div class="section-head">
+			<h2>{block.title}</h2>
+			{block.moreHref && <a href={block.moreHref}>{block.moreLabel ?? 'More'}</a>}
+		</div>
+		<div class="post-grid">
+			{
+				posts.map((post) => (
+					<article>
+						{post.image && <img src={post.image} alt="" loading="lazy" />}
+						<div>
+							<time datetime={post.date}>{new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US')}</time>
+							<h3><a href={post.path}>{post.title}</a></h3>
+							<p>{post.excerpt}</p>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.posts {
+		background: #fff;
+	}
+
+	.section-head {
+		display: flex;
+		align-items: end;
+		justify-content: space-between;
+		gap: 16px;
+		margin-bottom: 30px;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: clamp(2rem, 5vw, 4rem);
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.section-head > a {
+		color: var(--color-accent-dark);
+		font-weight: 850;
+		text-decoration: none;
+	}
+
+	.post-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 16px;
+	}
+
+	article {
+		overflow: hidden;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	img {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		background: var(--color-line);
+	}
+
+	article > div {
+		padding: 20px;
+	}
+
+	time {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+		font-weight: 750;
+	}
+
+	h3 {
+		margin: 8px 0 10px;
+		font-size: 1.2rem;
+		line-height: 1.2;
+	}
+
+	h3 a {
+		text-decoration: none;
+	}
+
+	p {
+		margin: 0;
+		color: var(--color-muted);
+	}
+</style>

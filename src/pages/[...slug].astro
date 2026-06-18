@@ -1,24 +1,47 @@
 ---
-import StructureReview from '../components/StructureReview.astro';
+import ArticlePage from '../components/ArticlePage.astro';
+import PageRenderer from '../components/PageRenderer.astro';
 import BaseLayout from '../components/layout/BaseLayout.astro';
-import { pagePlans } from '../data/pages';
+import { sitePages } from '../data/pages';
+import { getAllPosts } from '../lib/source-content';
 
 export function getStaticPaths() {
-	return pagePlans
+	const pagePaths = sitePages
 		.filter((page) => page.path !== '/')
 		.map((page) => ({
 			params: {
 				slug: page.path.replace(/^\/|\/$/g, ''),
 			},
 			props: {
+				kind: 'page',
 				page,
 			},
 		}));
+
+	const postPaths = getAllPosts().map((post) => ({
+		params: {
+			slug: post.path.replace(/^\/|\/$/g, ''),
+		},
+		props: {
+			kind: 'post',
+			post,
+		},
+	}));
+
+	return [...pagePaths, ...postPaths];
 }
 
-const { page } = Astro.props;
+const { kind, page, post } = Astro.props;
 ---
 
-<BaseLayout locale={page.locale} title={page.title}>
-	<StructureReview locale={page.locale} currentPage={page} />
-</BaseLayout>
+{
+	kind === 'post' ? (
+		<BaseLayout locale={post.locale} title={post.title} description={post.excerpt}>
+			<ArticlePage post={post} />
+		</BaseLayout>
+	) : (
+		<BaseLayout locale={page.locale} title={page.title} description={page.description}>
+			<PageRenderer page={page} />
+		</BaseLayout>
+	)
+}

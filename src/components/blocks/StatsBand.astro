@@ -1,0 +1,54 @@
+---
+import type { StatsBlock } from '../../data/pages';
+
+interface Props {
+	block: StatsBlock;
+}
+
+const { block } = Astro.props;
+---
+
+<section class="stats">
+	<div class="container stats-inner">
+		{
+			block.items.map((item) => (
+				<div>
+					<strong>{item.value}</strong>
+					<span>{item.label}</span>
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.stats {
+		color: #fff;
+		background: var(--color-accent);
+	}
+
+	.stats-inner {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	}
+
+	div div {
+		padding-block: 34px;
+	}
+
+	strong,
+	span {
+		display: block;
+		text-align: center;
+	}
+
+	strong {
+		font-size: clamp(2.5rem, 8vw, 5rem);
+		line-height: 1;
+	}
+
+	span {
+		margin-top: 8px;
+		font-weight: 800;
+	}
+</style>

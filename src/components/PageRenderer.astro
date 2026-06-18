@@ -1,0 +1,40 @@
+---
+import type { PageBlock, SitePage } from '../data/pages';
+import { getSourcePage } from '../lib/source-content';
+import Hero from './Hero.astro';
+import CallToAction from './blocks/CallToAction.astro';
+import ContentHtml from './blocks/ContentHtml.astro';
+import Credentials from './blocks/Credentials.astro';
+import FaqList from './blocks/FaqList.astro';
+import PersonSpotlight from './blocks/PersonSpotlight.astro';
+import PostList from './blocks/PostList.astro';
+import Pricing from './blocks/Pricing.astro';
+import ServiceGrid from './blocks/ServiceGrid.astro';
+import StatsBand from './blocks/StatsBand.astro';
+import Testimonials from './blocks/Testimonials.astro';
+import TextPanel from './blocks/TextPanel.astro';
+
+interface Props {
+	page: SitePage;
+}
+
+const { page } = Astro.props;
+---
+
+{
+	page.blocks.map((block: PageBlock) => (
+		block.type === 'hero' ? <Hero block={block} /> :
+		block.type === 'credentials' ? <Credentials block={block} /> :
+		block.type === 'services' ? <ServiceGrid block={block} /> :
+		block.type === 'stats' ? <StatsBand block={block} /> :
+		block.type === 'text' ? <TextPanel block={block} /> :
+		block.type === 'testimonials' ? <Testimonials block={block} /> :
+		block.type === 'faq' ? <FaqList block={block} /> :
+		block.type === 'pricing' ? <Pricing block={block} /> :
+		block.type === 'person' ? <PersonSpotlight block={block} /> :
+		block.type === 'posts' ? <PostList block={block} /> :
+		block.type === 'cta' ? <CallToAction block={block} /> :
+		getSourcePage(block.sourceId) ? <ContentHtml html={getSourcePage(block.sourceId)!.contentHtml} /> :
+		null
+	))
+}
