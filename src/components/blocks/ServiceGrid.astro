@@ -1,5 +1,6 @@
 ---
 import type { ServicesBlock } from '../../data/pages';
+import { withBase } from '../../lib/url';
 
 interface Props {
 	block: ServicesBlock;
@@ -21,7 +22,7 @@ const { block } = Astro.props;
 					<article>
 						<h3>{item.title}</h3>
 						<p>{item.text}</p>
-						{item.href && <a href={item.href}>{block.linkLabel ?? 'Learn more'}</a>}
+						{item.href && <a href={withBase(item.href)}>{block.linkLabel ?? 'Learn more'}</a>}
 					</article>
 				))
 			}

@@ -37,6 +37,9 @@ jobs:
 
       - name: Build site
         run: npm run build
+        env:
+          ASTRO_SITE: https://leowattenberg.github.io
+          ASTRO_BASE: /kw.media
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

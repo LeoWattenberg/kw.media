@@ -1,5 +1,6 @@
 ---
 import type { CtaBlock } from '../../data/pages';
+import { withBase } from '../../lib/url';
 
 interface Props {
 	block: CtaBlock;
@@ -21,7 +22,7 @@ const { block } = Astro.props;
 				)
 			}
 		</div>
-		<a href={`mailto:${block.email}`}>{block.email}</a>
+		<a href={withBase(`mailto:${block.email}`)}>{block.email}</a>
 	</div>
 </section>
 

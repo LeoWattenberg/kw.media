@@ -37,6 +37,7 @@ export function stripHtml(value: string): string {
 
 export function prepareContentHtml(value: string): string {
 	return decodeHtml(value)
-		.replaceAll('https://kw.media', '')
+		.replace(/href="https:\/\/kw\.media(\/[^"]*)"/g, 'href="$1"')
+		.replace(/href='https:\/\/kw\.media(\/[^']*)'/g, "href='$1'")
 		.replace(/<script[\s\S]*?<\/script>/gi, '');
 }

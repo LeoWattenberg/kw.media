@@ -4,10 +4,12 @@ interface Props {
 }
 
 const { html } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const contentHtml = base ? html.replaceAll('href="/', `href="${base}/`) : html;
 ---
 
 <section class="section raw-content">
-	<div class="container content-html" set:html={html} />
+	<div class="container content-html" set:html={contentHtml} />
 </section>
 
 <style is:global>

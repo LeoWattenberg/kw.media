@@ -1,5 +1,6 @@
 ---
 import type { HeroBlock } from '../data/pages';
+import { withBase } from '../lib/url';
 
 interface Props {
 	block: HeroBlock;
@@ -18,7 +19,7 @@ const { block } = Astro.props;
 				block.actions && (
 					<div class="actions">
 						{block.actions.map((action) => (
-							<a class:list={['button', action.variant === 'secondary' && 'secondary']} href={action.href}>
+							<a class:list={['button', action.variant === 'secondary' && 'secondary']} href={withBase(action.href)}>
 								{action.label}
 							</a>
 						))}

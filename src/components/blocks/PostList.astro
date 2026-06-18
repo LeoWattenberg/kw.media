@@ -1,6 +1,7 @@
 ---
 import type { PostListBlock } from '../../data/pages';
 import { getAllPosts, getPostsByCategory } from '../../lib/source-content';
+import { withBase } from '../../lib/url';
 
 interface Props {
 	block: PostListBlock;
@@ -14,7 +15,7 @@ const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllP
 	<div class="container">
 		<div class="section-head">
 			<h2>{block.title}</h2>
-			{block.moreHref && <a href={block.moreHref}>{block.moreLabel ?? 'More'}</a>}
+			{block.moreHref && <a href={withBase(block.moreHref)}>{block.moreLabel ?? 'More'}</a>}
 		</div>
 		<div class="post-grid">
 			{
@@ -23,7 +24,7 @@ const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllP
 						{post.image && <img src={post.image} alt="" loading="lazy" />}
 						<div>
 							<time datetime={post.date}>{new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US')}</time>
-							<h3><a href={post.path}>{post.title}</a></h3>
+							<h3><a href={withBase(post.path)}>{post.title}</a></h3>
 							<p>{post.excerpt}</p>
 						</div>
 					</article>

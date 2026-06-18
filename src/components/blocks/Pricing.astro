@@ -1,5 +1,6 @@
 ---
 import type { PricingBlock } from '../../data/pages';
+import { withBase } from '../../lib/url';
 
 interface Props {
 	block: PricingBlock;
@@ -31,7 +32,7 @@ const { block } = Astro.props;
 								<li>{feature}</li>
 							))}
 						</ul>
-						<a href={item.action.href}>{item.action.label}</a>
+						<a href={withBase(item.action.href)}>{item.action.label}</a>
 					</article>
 				))
 			}

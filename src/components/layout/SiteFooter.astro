@@ -1,6 +1,7 @@
 ---
 import { socialLinks } from '../../data/site';
 import { routeFor, type Locale, useTranslations } from '../../i18n';
+import { withBase } from '../../lib/url';
 
 interface Props {
 	locale: Locale;
@@ -22,7 +23,7 @@ const t = useTranslations(locale);
 		</section>
 		<section>
 			<h2>{locale === 'de' ? 'Links' : 'Links'}</h2>
-			<a href={routeFor('legal', locale)}>{t('footer.legal')}</a>
+			<a href={withBase(routeFor('legal', locale))}>{t('footer.legal')}</a>
 			<div class="social-links">
 				{socialLinks.map((link) => <a href={link.href}>{link.label}</a>)}
 			</div>

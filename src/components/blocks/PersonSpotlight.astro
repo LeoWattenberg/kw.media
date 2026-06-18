@@ -1,5 +1,6 @@
 ---
 import type { PersonBlock } from '../../data/pages';
+import { withBase } from '../../lib/url';
 
 interface Props {
 	block: PersonBlock;
@@ -24,7 +25,7 @@ const { block } = Astro.props;
 				{block.credentials.map((credential) => <li>{credential}</li>)}
 			</ul>
 			{block.body.map((paragraph) => <p>{paragraph}</p>)}
-			<a href={`mailto:${block.email}`}>{block.email}</a>
+			<a href={withBase(`mailto:${block.email}`)}>{block.email}</a>
 		</div>
 	</div>
 </section>
