@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { decodeHtml, prepareContentHtml, stripHtml } from './html';
+import { localizeMediaHtml, localizeMediaUrl } from './media';
 import type { Locale } from '../i18n';
 
 interface WpRendered {
@@ -78,12 +79,12 @@ export function getAllPosts(): SourcePost[] {
 		path: pathFromUrl(post.link),
 		title: decodeHtml(post.title.rendered),
 		excerpt: stripHtml(post.excerpt.rendered || post.content.rendered).replace(/\s*Read More.*$/i, ''),
-		contentHtml: prepareContentHtml(post.content.rendered),
+		contentHtml: prepareContentHtml(localizeMediaHtml(post.content.rendered)),
 		date: post.date,
 		modified: post.modified,
 		locale: post.categories.includes(17) ? 'de' : 'en',
 		categoryIds: post.categories,
-		image: post.yoast_head_json?.og_image?.[0]?.url,
+		image: localizeMediaUrl(post.yoast_head_json?.og_image?.[0]?.url),
 		sourceUrl: post.link,
 	}));
 }

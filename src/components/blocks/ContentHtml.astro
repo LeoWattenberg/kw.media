@@ -5,7 +5,14 @@ interface Props {
 
 const { html } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const contentHtml = base ? html.replaceAll('href="/', `href="${base}/`) : html;
+let contentHtml = html;
+
+if (base) {
+	const baseSegment = base.replace(/^\//, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	contentHtml = contentHtml
+		.replaceAll('/assets/wp-content/uploads/', `${base}/assets/wp-content/uploads/`)
+		.replace(new RegExp(`(href|src)="/(?!${baseSegment}/)`, 'g'), `$1="${base}/`);
+}
 ---
 
 <section class="section raw-content">

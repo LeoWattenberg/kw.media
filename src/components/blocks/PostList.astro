@@ -21,7 +21,7 @@ const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllP
 			{
 				posts.map((post) => (
 					<article>
-						{post.image && <img src={post.image} alt="" loading="lazy" />}
+						{post.image && <img src={withBase(post.image)} alt="" loading="lazy" />}
 						<div>
 							<time datetime={post.date}>{new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US')}</time>
 							<h3><a href={withBase(post.path)}>{post.title}</a></h3>

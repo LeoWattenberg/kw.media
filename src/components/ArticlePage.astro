@@ -1,5 +1,6 @@
 ---
 import type { SourcePost } from '../lib/source-content';
+import { withBase } from '../lib/url';
 import ContentHtml from './blocks/ContentHtml.astro';
 
 interface Props {
@@ -21,7 +22,7 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 			<h1>{post.title}</h1>
 			{post.excerpt && <p>{post.excerpt}</p>}
 		</div>
-		{post.image && <img src={post.image} alt="" loading="eager" />}
+		{post.image && <img src={withBase(post.image)} alt="" loading="eager" />}
 	</header>
 	<ContentHtml html={post.contentHtml} />
 </article>
