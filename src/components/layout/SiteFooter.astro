@@ -1,0 +1,80 @@
+---
+import { socialLinks } from '../../data/site';
+import { routeFor, type Locale, useTranslations } from '../../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<footer class="site-footer">
+	<div class="container footer-grid">
+		<section>
+			<h2>{t('siteName')}</h2>
+			<p>{t('footer.about')}</p>
+		</section>
+		<section>
+			<h2>{locale === 'de' ? 'Für Sie da' : 'Available'}</h2>
+			<p>{t('footer.availability')}</p>
+		</section>
+		<section>
+			<h2>{locale === 'de' ? 'Links' : 'Links'}</h2>
+			<a href={routeFor('legal', locale)}>{t('footer.legal')}</a>
+			<div class="social-links">
+				{socialLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+			</div>
+		</section>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		padding-block: 44px;
+		color: #fff;
+		background: var(--color-deep);
+	}
+
+	.footer-grid {
+		display: grid;
+		grid-template-columns: 1.4fr 1fr 1fr;
+		gap: 32px;
+	}
+
+	h2 {
+		margin: 0 0 10px;
+		font-size: 1rem;
+	}
+
+	p {
+		max-width: 34rem;
+		margin: 0;
+		color: rgba(255, 255, 255, 0.78);
+	}
+
+	a {
+		display: inline-block;
+		color: #fff;
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	a:hover {
+		text-decoration: underline;
+	}
+
+	.social-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-top: 14px;
+	}
+
+	@media (max-width: 760px) {
+		.footer-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

@@ -1,16 +1,11 @@
 ---
+import StructureReview from '../components/StructureReview.astro';
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { findPagePlan } from '../data/pages';
 
+const page = findPagePlan('/');
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout locale="de" title={page?.title ?? 'Astro Migration'}>
+	<StructureReview locale="de" currentPage={page} />
+</BaseLayout>

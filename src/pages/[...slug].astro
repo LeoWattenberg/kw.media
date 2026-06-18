@@ -1,0 +1,24 @@
+---
+import StructureReview from '../components/StructureReview.astro';
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { pagePlans } from '../data/pages';
+
+export function getStaticPaths() {
+	return pagePlans
+		.filter((page) => page.path !== '/')
+		.map((page) => ({
+			params: {
+				slug: page.path.replace(/^\/|\/$/g, ''),
+			},
+			props: {
+				page,
+			},
+		}));
+}
+
+const { page } = Astro.props;
+---
+
+<BaseLayout locale={page.locale} title={page.title}>
+	<StructureReview locale={page.locale} currentPage={page} />
+</BaseLayout>
