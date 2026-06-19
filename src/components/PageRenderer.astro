@@ -1,6 +1,5 @@
 ---
 import type { PageBlock, SitePage } from '../data/pages';
-import { getSourcePage } from '../lib/source-content';
 import Hero from './Hero.astro';
 import CallToAction from './blocks/CallToAction.astro';
 import ContentHtml from './blocks/ContentHtml.astro';
@@ -25,6 +24,7 @@ const { page } = Astro.props;
 {
 	page.blocks.map((block: PageBlock) => (
 		block.type === 'hero' ? <Hero block={block} /> :
+		block.type === 'html' ? <ContentHtml html={block.html} /> :
 		block.type === 'credentials' ? <Credentials block={block} /> :
 		block.type === 'services' ? <ServiceGrid block={block} /> :
 		block.type === 'stats' ? <StatsBand block={block} /> :
@@ -36,7 +36,6 @@ const { page } = Astro.props;
 		block.type === 'posts' ? <PostList block={block} /> :
 		block.type === 'youtubePlaylist' ? <YouTubePlaylist block={block} /> :
 		block.type === 'cta' ? <CallToAction block={block} /> :
-		getSourcePage(block.sourceId) ? <ContentHtml html={getSourcePage(block.sourceId)!.contentHtml} /> :
 		null
 	))
 }

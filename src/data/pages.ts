@@ -2,6 +2,7 @@ import type { Locale } from '../i18n';
 
 export type PageBlock =
 	| HeroBlock
+	| HtmlBlock
 	| CredentialsBlock
 	| ServicesBlock
 	| StatsBlock
@@ -12,8 +13,7 @@ export type PageBlock =
 	| PersonBlock
 	| PostListBlock
 	| YouTubePlaylistBlock
-	| CtaBlock
-	| RawPageBlock;
+	| CtaBlock;
 
 export interface Action {
 	label: string;
@@ -29,6 +29,11 @@ export interface HeroBlock {
 	actions?: Action[];
 	image?: string;
 	imageAlt?: string;
+}
+
+export interface HtmlBlock {
+	type: 'html';
+	html: string;
 }
 
 export interface CredentialsBlock {
@@ -142,11 +147,6 @@ export interface CtaBlock {
 	items?: string[];
 }
 
-export interface RawPageBlock {
-	type: 'rawPage';
-	sourceId: number;
-}
-
 export interface SitePage {
 	id: string;
 	path: string;
@@ -167,6 +167,61 @@ const assets = {
 	martin: 'https://kw.media/wp-content/uploads/2020/01/martinkoytek_540.jpg',
 	leo: 'https://kw.media/wp-content/uploads/2021/03/Leo_mit_angel.png',
 };
+
+const legalHtml = `
+	<h1>Impressum und Datenschutzerklärung</h1>
+
+	<h2>Impressum</h2>
+	<p>Angaben gemäß § 5 DDG:</p>
+	<p>
+		Koytek Wattenberg Media UG (haftungsbeschränkt)<br />
+		Spiekerskamp 26<br />
+		45772 Marl<br />
+		Deutschland
+	</p>
+	<p>
+		E-Mail: <a href="mailto:martin@kw.media">martin@kw.media</a><br />
+		Website: <a href="https://kw.media">kw.media</a><br />
+		USt-IdNr.: DE34 2553 512<br />
+		Amtsgericht Gelsenkirchen, HRB 18975
+	</p>
+	<p>Inhaltlich verantwortlich gemäß § 18 Abs. 2 MStV: Martin Koytek, Anschrift wie oben.</p>
+
+	<h2>Datenschutzerklärung</h2>
+	<p>Wir freuen uns über Ihr Interesse an kw.media. Der Schutz personenbezogener Daten ist uns wichtig. Diese Datenschutzerklärung informiert darüber, welche Daten beim Besuch dieser Website und bei der Kontaktaufnahme verarbeitet werden.</p>
+
+	<h3>Verantwortlicher</h3>
+	<p>Verantwortlich für die Datenverarbeitung auf dieser Website ist die Koytek Wattenberg Media UG (haftungsbeschränkt), Spiekerskamp 26, 45772 Marl, Deutschland. Sie erreichen uns per E-Mail unter <a href="mailto:martin@kw.media">martin@kw.media</a>.</p>
+
+	<h3>Server-Logfiles</h3>
+	<p>Beim Aufruf dieser Website werden technisch notwendige Zugriffsdaten verarbeitet. Dazu können IP-Adresse, Datum und Uhrzeit des Zugriffs, angefragte URL, Referrer, Browsertyp, Betriebssystem und vergleichbare technische Informationen gehören. Diese Daten dienen der sicheren und stabilen Bereitstellung der Website und werden nicht zur persönlichen Profilbildung genutzt.</p>
+
+	<h3>Kontakt per E-Mail</h3>
+	<p>Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir die von Ihnen übermittelten Daten, um Ihre Anfrage zu bearbeiten und mögliche Anschlussfragen zu beantworten. Die Daten werden gelöscht, sobald sie für die Bearbeitung nicht mehr erforderlich sind und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+
+	<h3>Cookies und Einwilligung</h3>
+	<p>Diese Website kann technisch notwendige Cookies verwenden. Für optionale Analysefunktionen wird eine Einwilligung über den Cookie-Hinweis eingeholt. Sie können eine erteilte Einwilligung jederzeit widerrufen, indem Sie die entsprechenden Cookies in Ihrem Browser löschen und die Website erneut aufrufen.</p>
+
+	<h3>Google Analytics</h3>
+	<p>Sofern Sie über den Cookie-Hinweis einwilligen und eine Google-Analytics-Mess-ID für diese Website konfiguriert ist, verwenden wir Google Analytics, einen Webanalysedienst von Google. Google Analytics hilft uns zu verstehen, wie Besucherinnen und Besucher unsere Website nutzen. Das Google-Analytics-Skript wird erst nach Ihrer Zustimmung geladen.</p>
+	<p>Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Im Rahmen der Nutzung können Daten an Google-Server übertragen werden. Wir verwenden Google Analytics mit IP-Anonymisierung, soweit dies technisch durch die eingesetzte Konfiguration unterstützt wird.</p>
+	<p>Rechtsgrundlage ist Ihre Einwilligung. Sie können die Einwilligung für zukünftige Besuche widerrufen, indem Sie den Consent-Cookie in Ihrem Browser löschen.</p>
+
+	<h3>YouTube-Einbettungen</h3>
+	<p>Diese Website kann YouTube-Videos oder Playlists einbetten. Anbieter ist Google Ireland Limited. Wenn Sie eine Seite mit eingebettetem YouTube-Inhalt aufrufen, kann Ihr Browser Verbindungen zu YouTube beziehungsweise Google herstellen. Dabei können personenbezogene Daten, insbesondere technische Zugriffsdaten, verarbeitet werden.</p>
+
+	<h3>Ihre Rechte</h3>
+	<p>Sie haben im Rahmen der gesetzlichen Voraussetzungen das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit sowie Widerspruch gegen bestimmte Verarbeitungen. Soweit eine Verarbeitung auf Ihrer Einwilligung beruht, können Sie diese Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen.</p>
+
+	<h3>Beschwerderecht</h3>
+	<p>Sie haben das Recht, sich bei einer zuständigen Datenschutzaufsichtsbehörde zu beschweren, wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen Datenschutzrecht verstößt.</p>
+
+	<h3>Speicherdauer</h3>
+	<p>Personenbezogene Daten werden nur so lange gespeichert, wie dies für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen.</p>
+
+	<h3>Änderungen dieser Datenschutzerklärung</h3>
+	<p>Wir passen diese Datenschutzerklärung an, wenn sich die Website, eingesetzte Dienste oder rechtliche Anforderungen ändern.</p>
+`;
 
 const credentialsDe: CredentialsBlock = {
 	type: 'credentials',
@@ -988,7 +1043,7 @@ export const sitePages: SitePage[] = [
 		locale: 'de',
 		title: 'Impressum und Datenschutzerklärung',
 		description: 'Impressum und Datenschutzerklärung der Koytek Wattenberg Media UG.',
-		blocks: [{ type: 'rawPage', sourceId: 3 }],
+		blocks: [{ type: 'html', html: legalHtml }],
 	},
 ];
 

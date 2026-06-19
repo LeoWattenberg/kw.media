@@ -28,20 +28,6 @@ interface WpPost {
 	};
 }
 
-interface WpPage {
-	id: number;
-	slug: string;
-	link: string;
-	title: WpRendered;
-	content: WpRendered;
-	excerpt: WpRendered;
-	date: string;
-	modified: string;
-	yoast_head_json?: {
-		description?: string;
-	};
-}
-
 export interface SourcePost {
 	id: number;
 	slug: string;
@@ -54,15 +40,6 @@ export interface SourcePost {
 	locale: Locale;
 	categoryIds: number[];
 	image?: string;
-	sourceUrl: string;
-}
-
-export interface SourcePage {
-	id: number;
-	path: string;
-	title: string;
-	contentHtml: string;
-	description?: string;
 	sourceUrl: string;
 }
 
@@ -135,21 +112,4 @@ export function getPostsByCategory(categoryId: number): SourcePost[] {
 export function getPostByPath(path: string): SourcePost | undefined {
 	const normalizedPath = path.endsWith('/') ? path : `${path}/`;
 	return getAllPosts().find((post) => post.path === normalizedPath);
-}
-
-export function getSourcePage(id: number): SourcePage | undefined {
-	const page = readJson<WpPage[]>('pages.json').find((item) => item.id === id);
-
-	if (!page) {
-		return undefined;
-	}
-
-	return {
-		id: page.id,
-		path: pathFromUrl(page.link),
-		title: decodeHtml(page.title.rendered),
-		contentHtml: prepareContentHtml(page.content.rendered),
-		description: page.yoast_head_json?.description,
-		sourceUrl: page.link,
-	};
 }
