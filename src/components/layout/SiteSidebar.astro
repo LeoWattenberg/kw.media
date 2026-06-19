@@ -1,0 +1,189 @@
+---
+import { sitePages } from '../../data/pages';
+import { localeLabels, routeFor, type Locale, useTranslations } from '../../i18n';
+import { withBase } from '../../lib/url';
+
+interface Props {
+	locale: Locale;
+	currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+const t = useTranslations(locale);
+const alternateLocale = locale === 'de' ? 'en' : 'de';
+const normalizedCurrentPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+
+const pageOrder = [
+	'home',
+	'creator',
+	'brands',
+	'live',
+	'ads',
+	'vtuber',
+	'tips',
+	'imprint-service',
+	'legal',
+];
+
+const labelKeys: Record<string, string> = {
+	home: 'nav.home',
+	creator: 'nav.forCreators',
+	brands: 'nav.forBrands',
+	live: 'nav.live',
+	ads: 'nav.ads',
+	vtuber: 'nav.vtuber',
+	'imprint-service': 'nav.imprintService',
+	blog: 'nav.blog',
+	tips: 'nav.tips',
+	legal: 'nav.legal',
+};
+
+function pageGroup(id: string) {
+	return id.replace(/-(de|en)$/, '');
+}
+
+const sidebarPages = sitePages
+	.filter((page) => page.locale === locale || ['blog', 'imprint-service', 'legal'].includes(page.id))
+	.sort((first, second) => pageOrder.indexOf(pageGroup(first.id)) - pageOrder.indexOf(pageGroup(second.id)));
+---
+
+<aside class="site-sidebar" aria-label="Site navigation">
+	<a class="brand" href={withBase(routeFor('home', locale))} aria-label={t('siteName')}>
+		<span class="brand-mark">kw</span>
+		<span>{t('siteName')}</span>
+	</a>
+
+	<nav class="sidebar-nav" aria-label="Main navigation">
+		{
+			sidebarPages.map((page) => {
+				const group = pageGroup(page.id);
+				const isActive = page.path === normalizedCurrentPath;
+
+				return (
+					<a class:list={['sidebar-link', { 'is-active': isActive }]} href={withBase(page.path)} aria-current={isActive ? 'page' : undefined}>
+						<span>{t(labelKeys[group] ?? page.title)}</span>
+					</a>
+				);
+			})
+		}
+	</nav>
+
+	<a class="language-link" href={withBase(routeFor('home', alternateLocale))}>
+		{localeLabels[alternateLocale]}
+	</a>
+</aside>
+
+<style>
+	.site-sidebar {
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		display: flex;
+		flex-direction: column;
+		width: 280px;
+		height: 100vh;
+		padding: 28px 20px;
+		color: var(--color-ink);
+		background: #ffffff;
+		border-right: 1px solid var(--color-line);
+	}
+
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		min-width: 0;
+		color: var(--color-ink);
+		font-weight: 800;
+		text-decoration: none;
+	}
+
+	.brand span:last-child {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.brand-mark {
+		display: grid;
+		flex: 0 0 auto;
+		width: 38px;
+		height: 38px;
+		place-items: center;
+		color: #fff;
+		background: var(--color-deep);
+		border-radius: 6px;
+	}
+
+	.sidebar-nav {
+		display: grid;
+		gap: 4px;
+		margin-top: 34px;
+	}
+
+	.sidebar-link,
+	.language-link {
+		text-decoration: none;
+	}
+
+	.sidebar-link {
+		display: flex;
+		align-items: center;
+		min-height: 42px;
+		padding: 10px 12px;
+		color: var(--color-muted);
+		border-radius: 6px;
+		font-size: 0.95rem;
+		font-weight: 800;
+	}
+
+	.sidebar-link:hover,
+	.sidebar-link.is-active {
+		color: var(--color-accent-dark);
+		background: var(--color-surface-alt);
+	}
+
+	.language-link {
+		margin-top: auto;
+		padding: 10px 12px;
+		color: var(--color-deep);
+		font-size: 0.92rem;
+		font-weight: 800;
+	}
+
+	.language-link:hover {
+		color: var(--color-accent-dark);
+	}
+
+	@media (max-width: 900px) {
+		.site-sidebar {
+			position: static;
+			width: 100%;
+			height: auto;
+			padding: 16px;
+			border-right: 0;
+			border-bottom: 1px solid var(--color-line);
+		}
+
+		.sidebar-nav {
+			display: flex;
+			gap: 8px;
+			margin-top: 16px;
+			overflow-x: auto;
+			padding-bottom: 4px;
+		}
+
+		.sidebar-link {
+			flex: 0 0 auto;
+			min-height: 38px;
+			white-space: nowrap;
+		}
+
+		.language-link {
+			position: absolute;
+			top: 16px;
+			right: 16px;
+			margin-top: 0;
+		}
+	}
+</style>

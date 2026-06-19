@@ -11,7 +11,9 @@ export const ui = {
 			ads: 'Werbung',
 			tips: 'YouTube Tipps',
 			vtuber: 'VTuber',
+			blog: 'Blog',
 			imprintService: 'Impressumsservice',
+			legal: 'Impressum',
 			language: 'English',
 		},
 		footer: {
@@ -37,7 +39,9 @@ export const ui = {
 			ads: 'Ads',
 			tips: 'YouTube Tips',
 			vtuber: 'VTubers',
+			blog: 'Blog',
 			imprintService: 'Imprint service',
+			legal: 'Imprint',
 			language: 'Deutsch',
 		},
 		footer: {

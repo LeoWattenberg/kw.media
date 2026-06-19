@@ -1,6 +1,6 @@
 ---
 import SiteFooter from './SiteFooter.astro';
-import SiteHeader from './SiteHeader.astro';
+import SiteSidebar from './SiteSidebar.astro';
 import type { Locale } from '../../i18n';
 import { useTranslations } from '../../i18n';
 import { withBase } from '../../lib/url';
@@ -13,6 +13,7 @@ interface Props {
 
 const { locale, title, description = 'Koytek Wattenberg Media' } = Astro.props;
 const t = useTranslations(locale);
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -26,11 +27,15 @@ const t = useTranslations(locale);
 		<title>{title} | {t('siteName')}</title>
 	</head>
 	<body>
-		<SiteHeader locale={locale} />
-		<main>
-			<slot />
-		</main>
-		<SiteFooter locale={locale} />
+		<div class="site-shell">
+			<SiteSidebar locale={locale} currentPath={currentPath} />
+			<div class="site-content">
+				<main>
+					<slot />
+				</main>
+				<SiteFooter locale={locale} />
+			</div>
+		</div>
 	</body>
 </html>
 
@@ -68,6 +73,23 @@ const t = useTranslations(locale);
 		min-height: 60vh;
 	}
 
+	.site-shell {
+		display: flex;
+		min-height: 100vh;
+		background: var(--color-surface);
+	}
+
+	.site-content {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		min-width: 0;
+	}
+
+	.site-content main {
+		flex: 1;
+	}
+
 	.container {
 		width: min(1120px, calc(100% - 32px));
 		margin-inline: auto;
@@ -84,5 +106,11 @@ const t = useTranslations(locale);
 		font-weight: 800;
 		letter-spacing: 0;
 		text-transform: uppercase;
+	}
+
+	@media (max-width: 900px) {
+		.site-shell {
+			display: block;
+		}
 	}
 </style>
