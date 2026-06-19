@@ -11,6 +11,7 @@ export type PageBlock =
 	| PricingBlock
 	| PersonBlock
 	| PostListBlock
+	| YouTubePlaylistBlock
 	| CtaBlock
 	| RawPageBlock;
 
@@ -124,6 +125,12 @@ export interface PostListBlock {
 	limit?: number;
 	moreHref?: string;
 	moreLabel?: string;
+}
+
+export interface YouTubePlaylistBlock {
+	type: 'youtubePlaylist';
+	title: string;
+	playlistId: string;
 }
 
 export interface CtaBlock {
@@ -382,6 +389,7 @@ export const sitePages: SitePage[] = [
 					{ title: 'Online-Werbung', text: 'Beratung und Optimierung von Google Ads-Kampagnen und anderen Plattformen.', href: '/de/werbung/' },
 				],
 			},
+			{ type: 'youtubePlaylist', title: 'News', playlistId: 'PLpM9DoCHlaQGBxm1J6FUwkB0N3ITDIzey' },
 			{ type: 'stats', items: [{ value: '100M+', label: 'Videoaufrufe in DACH' }, { value: '1M+', label: 'Abonnenten insgesamt' }] },
 			aboutDe,
 			germanTestimonials,
@@ -417,6 +425,7 @@ export const sitePages: SitePage[] = [
 					{ title: 'Online advertisement', text: 'Consultation and optimization of Google Ads campaigns and other platforms.', href: '/en/ads/' },
 				],
 			},
+			{ type: 'youtubePlaylist', title: 'News', playlistId: 'PLpM9DoCHlaQGBxm1J6FUwkB0N3ITDIzey' },
 			{ type: 'posts', title: 'YouTube Tips & Tricks', categoryId: 18, limit: 3, moreHref: '/en/youtube-tips/', moreLabel: 'More tips' },
 			{ type: 'stats', items: [{ value: '100M+', label: 'Views in DACH' }, { value: '1M+', label: 'Subscribers' }] },
 			aboutEn,
