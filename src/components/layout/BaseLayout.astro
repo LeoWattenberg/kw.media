@@ -16,6 +16,9 @@ const { locale, title, description = 'Koytek Wattenberg Media' } = Astro.props;
 const t = useTranslations(locale);
 const currentPath = Astro.url.pathname;
 const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? 'G-YTNCM94GGV';
+const rssHref = withBase(locale === 'de' ? '/de/rss.xml' : '/en/rss.xml');
+const rssUrl = Astro.site ? new URL(rssHref, Astro.site).toString() : rssHref;
+const rssTitle = locale === 'de' ? 'Koytek Wattenberg Media - YouTube Tipps' : 'Koytek Wattenberg Media - YouTube Tips';
 ---
 
 <!doctype html>
@@ -26,6 +29,7 @@ const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? 'G-YTNCM94GGV'
 		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="alternate" type="application/rss+xml" title={rssTitle} href={rssUrl} />
 		<title>{title} | {t('siteName')}</title>
 	</head>
 	<body>
