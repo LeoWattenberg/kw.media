@@ -8,11 +8,12 @@ interface Props {
 }
 
 const { block } = Astro.props;
-const heroImage = block.image ? withBase(localizeMediaUrl(block.image) ?? block.image) : undefined;
-const heroStyle = heroImage ? `--hero-image: url(${encodeURI(heroImage)})` : undefined;
+const heroImage = block.image ? localizeMediaUrl(block.image) : undefined;
+const heroImageUrl = heroImage ? withBase(heroImage) : undefined;
+const heroStyle = heroImageUrl ? `--hero-image: url(${encodeURI(heroImageUrl)})` : undefined;
 ---
 
-<section class:list={['hero', heroImage && 'has-image']} style={heroStyle}>
+<section class:list={['hero', heroImageUrl && 'has-image']} style={heroStyle}>
 	<div class="container hero-inner">
 		<div class="hero-copy">
 			{block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}

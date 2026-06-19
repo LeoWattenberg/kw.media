@@ -1,5 +1,6 @@
 ---
 import type { PersonBlock } from '../../data/pages';
+import { localizeMediaUrl } from '../../lib/media';
 import { withBase } from '../../lib/url';
 
 interface Props {
@@ -7,13 +8,14 @@ interface Props {
 }
 
 const { block } = Astro.props;
+const image = block.image ? localizeMediaUrl(block.image) : undefined;
 ---
 
 <section class="section person">
-	<div class="container person-inner">
+	<div class:list={['container', 'person-inner', !image && 'no-image']}>
 		{
-			block.image && (
-				<img src={block.image} alt={block.imageAlt ?? ''} loading="lazy" />
+			image && (
+				<img src={withBase(image)} alt={block.imageAlt ?? ''} loading="lazy" />
 			)
 		}
 		<div>
@@ -40,6 +42,11 @@ const { block } = Astro.props;
 		grid-template-columns: 280px minmax(0, 1fr);
 		gap: clamp(28px, 6vw, 70px);
 		align-items: center;
+	}
+
+	.person-inner.no-image {
+		display: block;
+		max-width: 920px;
 	}
 
 	img {

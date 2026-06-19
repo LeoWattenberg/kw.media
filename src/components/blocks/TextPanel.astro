@@ -1,15 +1,18 @@
 ---
 import type { TextBlock } from '../../data/pages';
+import { localizeMediaUrl } from '../../lib/media';
+import { withBase } from '../../lib/url';
 
 interface Props {
 	block: TextBlock;
 }
 
 const { block } = Astro.props;
+const image = block.image ? localizeMediaUrl(block.image) : undefined;
 ---
 
 <section class="section text-panel">
-	<div class:list={['container', 'text-inner', block.reverse && 'reverse']}>
+	<div class:list={['container', 'text-inner', block.reverse && 'reverse', !image && 'no-image']}>
 		<div>
 			{block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
 			<h2>{block.title}</h2>
@@ -25,8 +28,8 @@ const { block } = Astro.props;
 			}
 		</div>
 		{
-			block.image && (
-				<img src={block.image} alt={block.imageAlt ?? ''} loading="lazy" />
+			image && (
+				<img src={withBase(image)} alt={block.imageAlt ?? ''} loading="lazy" />
 			)
 		}
 	</div>
@@ -46,6 +49,11 @@ const { block } = Astro.props;
 
 	.text-inner.reverse {
 		grid-template-columns: minmax(280px, 0.68fr) minmax(0, 1fr);
+	}
+
+	.text-inner.no-image {
+		display: block;
+		max-width: 920px;
 	}
 
 	.text-inner.reverse img {
