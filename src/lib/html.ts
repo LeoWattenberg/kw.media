@@ -39,5 +39,8 @@ export function prepareContentHtml(value: string): string {
 	return decodeHtml(value)
 		.replace(/href="https:\/\/kw\.media(\/[^"]*)"/g, 'href="$1"')
 		.replace(/href='https:\/\/kw\.media(\/[^']*)'/g, "href='$1'")
+		.replaceAll('/category/youtube-tipps-de/', '/de/youtube-tipps/')
+		.replaceAll('/category/youtube-tips-de/', '/de/youtube-tipps/')
+		.replaceAll('/category/youtube-tips-en/', '/en/youtube-tips/')
 		.replace(/<script[\s\S]*?<\/script>/gi, '');
 }

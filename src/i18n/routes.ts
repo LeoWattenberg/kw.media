@@ -27,8 +27,8 @@ export const routes = {
 		en: '/en/ads/',
 	},
 	tips: {
-		de: '/category/youtube-tipps-de/',
-		en: '/category/youtube-tips-en/',
+		de: '/de/youtube-tipps/',
+		en: '/en/youtube-tips/',
 	},
 	imprintService: {
 		de: '/impressumsservice/',
