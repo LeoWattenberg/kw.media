@@ -163,7 +163,7 @@ const assets = {
 	live: 'https://kw.media/wp-content/uploads/2022/04/shooting-concert-professional-camera-view-of-the-2021-08-26-22-32-50-utc-scaled.jpg',
 	ads: 'https://kw.media/wp-content/uploads/2022/04/close-up-woman-hand-holding-mobile-watching-video-2021-11-01-17-23-58-utc-scaled.jpg',
 	brand: 'https://kw.media/wp-content/uploads/2022/03/professional-film-camera-and-lens-2021-08-30-08-50-07-utc-scaled.jpg',
-	vtuber: 'https://kw.media/wp-content/uploads/2021/03/Leo_mit_angel.png',
+	vtuber: 'https://kw.media/wp-content/uploads/2022/09/g1-kwm.jpg',
 	martin: 'https://kw.media/wp-content/uploads/2020/01/martinkoytek_540.jpg',
 	leo: 'https://kw.media/wp-content/uploads/2021/03/Leo_mit_angel.png',
 };
