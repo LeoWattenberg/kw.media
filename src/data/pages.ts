@@ -130,6 +130,7 @@ export interface PostListBlock {
 export interface YouTubePlaylistBlock {
 	type: 'youtubePlaylist';
 	title: string;
+	eyebrow?: string;
 	playlistId: string;
 }
 
@@ -389,7 +390,12 @@ export const sitePages: SitePage[] = [
 					{ title: 'Online-Werbung', text: 'Beratung und Optimierung von Google Ads-Kampagnen und anderen Plattformen.', href: '/de/werbung/' },
 				],
 			},
-			{ type: 'youtubePlaylist', title: 'News', playlistId: 'PLpM9DoCHlaQGBxm1J6FUwkB0N3ITDIzey' },
+			{
+				type: 'youtubePlaylist',
+				title: 'Creator News',
+				eyebrow: 'Wöchentliche YouTube-Updates für Creator.',
+				playlistId: 'PLpM9DoCHlaQGBxm1J6FUwkB0N3ITDIzey',
+			},
 			{ type: 'stats', items: [{ value: '100M+', label: 'Videoaufrufe in DACH' }, { value: '1M+', label: 'Abonnenten insgesamt' }] },
 			aboutDe,
 			germanTestimonials,
@@ -425,7 +431,12 @@ export const sitePages: SitePage[] = [
 					{ title: 'Online advertisement', text: 'Consultation and optimization of Google Ads campaigns and other platforms.', href: '/en/ads/' },
 				],
 			},
-			{ type: 'youtubePlaylist', title: 'News', playlistId: 'PLpM9DoCHlaQGBxm1J6FUwkB0N3ITDIzey' },
+			{
+				type: 'youtubePlaylist',
+				title: 'Creator News',
+				eyebrow: 'Weekly YouTube updates for creators.',
+				playlistId: 'PLpM9DoCHlaQGBxm1J6FUwkB0N3ITDIzey',
+			},
 			{ type: 'posts', title: 'YouTube Tips & Tricks', categoryId: 18, limit: 3, moreHref: '/en/youtube-tips/', moreLabel: 'More tips' },
 			{ type: 'stats', items: [{ value: '100M+', label: 'Views in DACH' }, { value: '1M+', label: 'Subscribers' }] },
 			aboutEn,
