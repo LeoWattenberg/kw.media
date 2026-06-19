@@ -21,7 +21,6 @@ const pageOrder = [
 	'ads',
 	'vtuber',
 	'tips',
-	'blog',
 	'imprint-service',
 	'legal',
 ];
@@ -34,7 +33,6 @@ const labelKeys: Record<string, string> = {
 	ads: 'nav.ads',
 	vtuber: 'nav.vtuber',
 	'imprint-service': 'nav.imprintService',
-	blog: 'nav.blog',
 	tips: 'nav.tips',
 	legal: 'nav.legal',
 };
@@ -44,7 +42,7 @@ function pageGroup(id: string) {
 }
 
 const sidebarPages = sitePages
-	.filter((page) => page.locale === locale || ['blog', 'imprint-service', 'legal'].includes(page.id))
+	.filter((page) => page.locale === locale || ['imprint-service', 'legal'].includes(page.id))
 	.sort((first, second) => pageOrder.indexOf(pageGroup(first.id)) - pageOrder.indexOf(pageGroup(second.id)));
 ---
 

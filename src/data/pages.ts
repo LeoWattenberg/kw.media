@@ -162,12 +162,12 @@ const assets = {
 
 const credentialsDe: CredentialsBlock = {
 	type: 'credentials',
-	items: ['YouTube Certified', 'YouTube Diamond Product Expert', 'Google Partner'],
+	items: ['YouTube Certified', 'YouTube Product Expert', 'Google Partner'],
 };
 
 const credentialsEn: CredentialsBlock = {
 	type: 'credentials',
-	items: ['YouTube Certified', 'YouTube Diamond Product Expert', 'Google Partner'],
+	items: ['YouTube Certified', 'YouTube Product Expert', 'Google Partner'],
 };
 
 const germanTestimonials: TestimonialsBlock = {
@@ -265,7 +265,7 @@ const martinEn: PersonBlock = {
 	name: 'Martin Koytek',
 	image: assets.martin,
 	imageAlt: 'Martin Koytek',
-	credentials: ['YouTube Certified', 'Google Ads Partner', 'YouTube Platinum Product Expert'],
+	credentials: ['YouTube Certified', 'Google Ads Partner', 'YouTube Product Expert'],
 	body: [
 		"I'm always available for your questions. If you have any concerns whether kw.media is the right partner for your strategy, just write me and we'll figure it out in a free initial meeting.",
 	],
@@ -790,7 +790,7 @@ export const sitePages: SitePage[] = [
 				role: 'Creative Director',
 				image: assets.leo,
 				imageAlt: 'Leo Wattenberg',
-				credentials: ['YouTube Certified', 'VTuber Specialist', 'YouTube Gold Product Expert'],
+				credentials: ['YouTube Certified', 'VTuber Specialist', 'YouTube Product Expert'],
 				body: ['Leo works across multimedia production, film making, web design and VR, and has researched VTubers in depth since early 2020.'],
 				email: 'team@kw.media',
 			},
@@ -840,14 +840,6 @@ export const sitePages: SitePage[] = [
 				items: ['Dein voller Name und Adresse', 'Deine Präsenzen, auf denen du das Impressum verwenden möchtest', 'Welches Paket du abonnieren willst', 'Gegebenenfalls Sonderwünsche'],
 			},
 		],
-	},
-	{
-		id: 'blog',
-		path: '/blog/',
-		locale: 'en',
-		title: 'Blog',
-		description: 'All kw.media posts and guides.',
-		blocks: [{ type: 'posts', title: 'Blog' }],
 	},
 	{
 		id: 'tips-de',
