@@ -42,7 +42,7 @@ function pageGroup(id: string) {
 }
 
 const sidebarPages = sitePages
-	.filter((page) => page.locale === locale || ['imprint-service', 'legal'].includes(page.id))
+	.filter((page) => page.locale === locale || page.id === 'legal')
 	.sort((first, second) => pageOrder.indexOf(pageGroup(first.id)) - pageOrder.indexOf(pageGroup(second.id)));
 ---
 

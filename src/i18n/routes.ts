@@ -32,10 +32,10 @@ export const routes = {
 	},
 	imprintService: {
 		de: '/impressumsservice/',
-		en: '/impressumsservice/',
+		en: '/en/imprint-service/',
 	},
 	vtuber: {
-		de: '/en/vtuber/',
+		de: '/de/vtuber/',
 		en: '/en/vtuber/',
 	},
 	legal: {

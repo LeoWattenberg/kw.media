@@ -32,14 +32,10 @@ export function getNavigation(locale: Locale): NavItem[] {
 				},
 			],
 		},
-		...(locale === 'en'
-			? [
-					{
-						labelKey: 'nav.vtuber',
-						href: routeFor('vtuber', locale),
-					},
-				]
-			: []),
+		{
+			labelKey: 'nav.vtuber',
+			href: routeFor('vtuber', locale),
+		},
 		{
 			labelKey: 'nav.imprintService',
 			href: routeFor('imprintService', locale),
