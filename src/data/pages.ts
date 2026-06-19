@@ -314,7 +314,7 @@ const martinDe: PersonBlock = {
 	name: 'Martin Koytek',
 	image: assets.martin,
 	imageAlt: 'Martin Koytek',
-	credentials: ['YouTube Certified', 'Google Ads Partner', 'YouTube Diamond Produktexperte'],
+	credentials: ['YouTube Certified', 'Google Ads Partner', 'YouTube-Produktexperte'],
 	body: [
 		'Ich bin gerne für Ihre Fragen da. Wenn Sie noch zweifeln, ob kw.media Ihr richtiger Partner für Ihre Strategie ist, dann schreiben Sie mir und in einem kostenlosen Erstgespräch finden wir es heraus.',
 	],
@@ -847,7 +847,7 @@ export const sitePages: SitePage[] = [
 				role: 'Dozent für Medienkompetenz, KI und Content Creation',
 				image: assets.martin,
 				imageAlt: 'Martin Koytek',
-				credentials: ['YouTube Certified', 'Google Ads Partner', 'YouTube Diamond Produktexperte'],
+				credentials: ['YouTube Certified', 'Google Ads Partner', 'YouTube-Produktexperte'],
 				body: ['Martin Koytek erklärt digitale Plattformen, KI und Content Creation aus der Praxis heraus: verständlich, ehrlich und mit Blick auf das, was Schüler*innen wirklich online erleben.'],
 				email: 'team@kw.media',
 			},
