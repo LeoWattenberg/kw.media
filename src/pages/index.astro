@@ -8,8 +8,10 @@ const page = findSitePage('/');
 if (!page) {
 	throw new Error('Missing homepage content');
 }
+
+const heroBlock = page.blocks.find((block) => block.type === 'hero');
 ---
 
-<BaseLayout locale={page.locale} title={page.title} description={page.description}>
+<BaseLayout locale={page.locale} title={page.title} description={page.description} preloadImage={heroBlock?.image}>
 	<PageRenderer page={page} />
 </BaseLayout>

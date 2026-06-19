@@ -32,15 +32,16 @@ export function getStaticPaths() {
 }
 
 const { kind, page, post } = Astro.props;
+const heroBlock = kind === 'page' ? page.blocks.find((block) => block.type === 'hero') : undefined;
 ---
 
 {
 	kind === 'post' ? (
-		<BaseLayout locale={post.locale} title={post.title} description={post.excerpt}>
+		<BaseLayout locale={post.locale} title={post.title} description={post.excerpt} preloadImage={post.image}>
 			<ArticlePage post={post} />
 		</BaseLayout>
 	) : (
-		<BaseLayout locale={page.locale} title={page.title} description={page.description}>
+		<BaseLayout locale={page.locale} title={page.title} description={page.description} preloadImage={heroBlock?.image}>
 			<PageRenderer page={page} />
 		</BaseLayout>
 	)
