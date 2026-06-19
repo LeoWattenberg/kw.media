@@ -1,4 +1,5 @@
 ---
+import CookieConsent from './CookieConsent.astro';
 import SiteFooter from './SiteFooter.astro';
 import SiteSidebar from './SiteSidebar.astro';
 import type { Locale } from '../../i18n';
@@ -14,6 +15,7 @@ interface Props {
 const { locale, title, description = 'Koytek Wattenberg Media' } = Astro.props;
 const t = useTranslations(locale);
 const currentPath = Astro.url.pathname;
+const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 
 <!doctype html>
@@ -36,6 +38,7 @@ const currentPath = Astro.url.pathname;
 				<SiteFooter locale={locale} />
 			</div>
 		</div>
+		<CookieConsent locale={locale} measurementId={measurementId} />
 	</body>
 </html>
 

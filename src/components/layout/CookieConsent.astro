@@ -1,0 +1,167 @@
+---
+import type { Locale } from '../../i18n';
+
+interface Props {
+	locale: Locale;
+	measurementId?: string;
+}
+
+const { locale, measurementId } = Astro.props;
+const copy = {
+	de: {
+		text: 'Wir nutzen Google Analytics, um zu verstehen, wie unsere Website genutzt wird. Tracking startet erst nach Ihrer Zustimmung.',
+		accept: 'Akzeptieren',
+		decline: 'Ablehnen',
+	},
+	en: {
+		text: 'We use Google Analytics to understand how our website is used. Tracking only starts after your consent.',
+		accept: 'Accept',
+		decline: 'Decline',
+	},
+}[locale];
+const consentCookie = 'kwm_cookie_consent';
+---
+
+{
+	measurementId && (
+		<div class="cookie-banner" data-cookie-banner hidden>
+			<p>{copy.text}</p>
+			<div class="cookie-actions">
+				<button type="button" class="secondary" data-cookie-decline>
+					{copy.decline}
+				</button>
+				<button type="button" data-cookie-accept>
+					{copy.accept}
+				</button>
+			</div>
+		</div>
+	)
+}
+
+{
+	measurementId && (
+		<script define:vars={{ consentCookie, measurementId }}>
+			const getConsent = () => {
+				const match = document.cookie.match(new RegExp(`(?:^|; )${consentCookie}=([^;]*)`));
+				return match ? decodeURIComponent(match[1]) : undefined;
+			};
+
+			const setConsent = (value) => {
+				const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+				document.cookie = `${consentCookie}=${encodeURIComponent(value)}; Max-Age=31536000; Path=/; SameSite=Lax${secure}`;
+			};
+
+			const loadAnalytics = () => {
+				if (window.kwmAnalyticsLoaded) {
+					return;
+				}
+
+				window.kwmAnalyticsLoaded = true;
+				window.dataLayer = window.dataLayer || [];
+				window.gtag = function gtag() {
+					window.dataLayer.push(arguments);
+				};
+
+				window.gtag('js', new Date());
+				window.gtag('config', measurementId, { anonymize_ip: true });
+
+				const script = document.createElement('script');
+				script.async = true;
+				script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+				document.head.appendChild(script);
+			};
+
+			const banner = document.querySelector('[data-cookie-banner]');
+			const consent = getConsent();
+
+			if (consent === 'accepted') {
+				loadAnalytics();
+			} else if (consent !== 'declined' && banner) {
+				banner.hidden = false;
+			}
+
+			document.querySelector('[data-cookie-accept]')?.addEventListener('click', () => {
+				setConsent('accepted');
+				banner?.setAttribute('hidden', '');
+				loadAnalytics();
+			});
+
+			document.querySelector('[data-cookie-decline]')?.addEventListener('click', () => {
+				setConsent('declined');
+				banner?.setAttribute('hidden', '');
+			});
+		</script>
+	)
+}
+
+<style>
+	.cookie-banner {
+		position: fixed;
+		right: 18px;
+		bottom: 18px;
+		z-index: 50;
+		display: grid;
+		width: min(420px, calc(100vw - 36px));
+		gap: 16px;
+		padding: 18px;
+		color: var(--color-ink);
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		box-shadow: 0 18px 60px rgba(36, 25, 19, 0.18);
+	}
+
+	.cookie-banner[hidden] {
+		display: none;
+	}
+
+	p {
+		margin: 0;
+		color: var(--color-muted);
+		font-size: 0.94rem;
+	}
+
+	.cookie-actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: 10px;
+	}
+
+	button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 40px;
+		padding: 0 14px;
+		color: #fff;
+		background: var(--color-accent);
+		border: 1px solid var(--color-accent);
+		border-radius: 6px;
+		font: inherit;
+		font-weight: 850;
+		cursor: pointer;
+	}
+
+	button.secondary {
+		color: var(--color-deep);
+		background: #fff;
+		border-color: var(--color-line);
+	}
+
+	@media (max-width: 560px) {
+		.cookie-banner {
+			right: 12px;
+			bottom: 12px;
+			width: calc(100vw - 24px);
+		}
+
+		.cookie-actions {
+			justify-content: stretch;
+		}
+
+		button {
+			flex: 1 1 140px;
+		}
+	}
+</style>
