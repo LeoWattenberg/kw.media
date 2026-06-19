@@ -16,8 +16,7 @@ const alternateLocale = locale === 'de' ? 'en' : 'de';
 <header class="site-header">
 	<div class="container header-inner">
 		<a class="brand" href={withBase(routeFor('home', locale))} aria-label={t('siteName')}>
-			<span class="brand-mark">kw</span>
-			<span>{t('siteName')}</span>
+			<img src={withBase('/logo/logo-schwarz.svg')} alt="" width="230" height="91" />
 		</a>
 		<nav class="nav" aria-label="Main navigation">
 			{
@@ -51,23 +50,17 @@ const alternateLocale = locale === 'de' ? 'en' : 'de';
 	}
 
 	.brand {
-		display: inline-flex;
-		align-items: center;
-		gap: 10px;
+		display: block;
 		color: var(--color-ink);
 		font-weight: 800;
 		text-decoration: none;
 		white-space: nowrap;
 	}
 
-	.brand-mark {
-		display: grid;
-		width: 36px;
-		height: 36px;
-		place-items: center;
-		color: #fff;
-		background: var(--color-deep);
-		border-radius: 6px;
+	.brand img {
+		display: block;
+		width: 184px;
+		height: auto;
 	}
 
 	.nav {

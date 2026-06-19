@@ -21,6 +21,7 @@ const pageOrder = [
 	'ads',
 	'vtuber',
 	'tips',
+	'blog',
 	'imprint-service',
 	'legal',
 ];
@@ -49,8 +50,7 @@ const sidebarPages = sitePages
 
 <aside class="site-sidebar" aria-label="Site navigation">
 	<a class="brand" href={withBase(routeFor('home', locale))} aria-label={t('siteName')}>
-		<span class="brand-mark">kw</span>
-		<span>{t('siteName')}</span>
+		<img src={withBase('/logo/logo-schwarz.svg')} alt="" width="230" height="91" />
 	</a>
 
 	<nav class="sidebar-nav" aria-label="Main navigation">
@@ -89,30 +89,17 @@ const sidebarPages = sitePages
 	}
 
 	.brand {
-		display: inline-flex;
-		align-items: center;
-		gap: 10px;
+		display: block;
 		min-width: 0;
 		color: var(--color-ink);
 		font-weight: 800;
 		text-decoration: none;
 	}
 
-	.brand span:last-child {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.brand-mark {
-		display: grid;
-		flex: 0 0 auto;
-		width: 38px;
-		height: 38px;
-		place-items: center;
-		color: #fff;
-		background: var(--color-deep);
-		border-radius: 6px;
+	.brand img {
+		display: block;
+		width: min(190px, 100%);
+		height: auto;
 	}
 
 	.sidebar-nav {
@@ -157,7 +144,7 @@ const sidebarPages = sitePages
 
 	@media (max-width: 900px) {
 		.site-sidebar {
-			position: static;
+			position: relative;
 			width: 100%;
 			height: auto;
 			padding: 16px;

@@ -14,7 +14,7 @@ const t = useTranslations(locale);
 <footer class="site-footer">
 	<div class="container footer-grid">
 		<section>
-			<h2>{t('siteName')}</h2>
+			<img class="footer-logo" src={withBase('/logo/logo-weiß.svg')} alt={t('siteName')} width="230" height="91" />
 			<p>{t('footer.about')}</p>
 		</section>
 		<section>
@@ -47,6 +47,13 @@ const t = useTranslations(locale);
 	h2 {
 		margin: 0 0 10px;
 		font-size: 1rem;
+	}
+
+	.footer-logo {
+		display: block;
+		width: min(190px, 100%);
+		height: auto;
+		margin-bottom: 14px;
 	}
 
 	p {
