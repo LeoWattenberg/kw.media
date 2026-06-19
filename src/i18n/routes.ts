@@ -18,6 +18,10 @@ export const routes = {
 		de: '/de/b2b/',
 		en: '/en/b2b/',
 	},
+	courses: {
+		de: '/de/kurse/',
+		en: '/en/lectures-courses/',
+	},
 	live: {
 		de: '/de/live/',
 		en: '/en/live/',
