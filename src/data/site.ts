@@ -37,6 +37,10 @@ export function getNavigation(locale: Locale): NavItem[] {
 			href: routeFor('vtuber', locale),
 		},
 		{
+			labelKey: 'nav.dubbing',
+			href: routeFor('dubbing', locale),
+		},
+		{
 			labelKey: 'nav.imprintService',
 			href: routeFor('imprintService', locale),
 		},
