@@ -2,8 +2,8 @@
 import ArticlePage from '../components/ArticlePage.astro';
 import PageRenderer from '../components/PageRenderer.astro';
 import BaseLayout from '../components/layout/BaseLayout.astro';
-import { sitePages } from '../data/pages';
-import { getAllPosts } from '../lib/source-content';
+import { getSitePageAlternatePaths, getSitePageFaqItems, sitePages } from '../data/pages';
+import { getAllPosts, getPostAlternatePaths } from '../lib/source-content';
 
 export function getStaticPaths() {
 	const pagePaths = sitePages
@@ -37,11 +37,34 @@ const heroBlock = kind === 'page' ? page.blocks.find((block) => block.type === '
 
 {
 	kind === 'post' ? (
-		<BaseLayout locale={post.locale} title={post.title} description={post.excerpt} preloadImage={post.image}>
+		<BaseLayout
+			locale={post.locale}
+			title={post.title}
+			description={post.excerpt}
+			preloadImage={post.image}
+			canonicalPath={post.path}
+			alternatePaths={getPostAlternatePaths(post)}
+			image={post.image}
+			imageAlt={post.title}
+			schemaType="BlogPosting"
+			publishedTime={post.date}
+			modifiedTime={post.modified}
+			authorName={post.authorName}
+		>
 			<ArticlePage post={post} />
 		</BaseLayout>
 	) : (
-		<BaseLayout locale={page.locale} title={page.title} description={page.description} preloadImage={heroBlock?.image}>
+		<BaseLayout
+			locale={page.locale}
+			title={page.title}
+			description={page.description}
+			preloadImage={heroBlock?.image}
+			canonicalPath={page.path}
+			alternatePaths={getSitePageAlternatePaths(page)}
+			image={heroBlock?.image}
+			imageAlt={heroBlock?.imageAlt}
+			faqItems={getSitePageFaqItems(page)}
+		>
 			<PageRenderer page={page} />
 		</BaseLayout>
 	)

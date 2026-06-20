@@ -7,15 +7,48 @@ import { useTranslations } from '../../i18n';
 import { localizeMediaUrl } from '../../lib/media';
 import { withBase } from '../../lib/url';
 
+type SchemaType = 'WebPage' | 'BlogPosting';
+type AlternatePaths = Partial<Record<Locale, string>>;
+
+interface FaqItem {
+	question: string;
+	answer: string[];
+}
+
 interface Props {
 	locale: Locale;
 	title: string;
 	description?: string;
 	preloadImage?: string;
+	canonicalPath?: string;
+	alternatePaths?: AlternatePaths;
+	image?: string;
+	imageAlt?: string;
+	schemaType?: SchemaType;
+	publishedTime?: string;
+	modifiedTime?: string;
+	authorName?: string;
+	faqItems?: FaqItem[];
 }
 
-const { locale, title, description = 'Koytek Wattenberg Media', preloadImage } = Astro.props;
+const {
+	locale,
+	title,
+	description = 'Koytek Wattenberg Media',
+	preloadImage,
+	canonicalPath = Astro.url.pathname,
+	alternatePaths,
+	image,
+	imageAlt,
+	schemaType = 'WebPage',
+	publishedTime,
+	modifiedTime,
+	authorName,
+	faqItems = [],
+} = Astro.props;
 const t = useTranslations(locale);
+const siteName = t('siteName');
+const fullTitle = title === siteName ? siteName : `${title} | ${siteName}`;
 const currentPath = Astro.url.pathname;
 const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? 'G-YTNCM94GGV';
 const rssHref = withBase(locale === 'de' ? '/de/rss.xml' : '/en/rss.xml');
@@ -24,6 +57,145 @@ const rssTitle = locale === 'de' ? 'Koytek Wattenberg Media - YouTube Tipps' : '
 const priorityImage = localizeMediaUrl(preloadImage);
 const priorityImageHref = priorityImage ? withBase(priorityImage) : undefined;
 const priorityImagePreloadHref = priorityImageHref ? encodeURI(priorityImageHref) : undefined;
+const socialImage = localizeMediaUrl(image ?? preloadImage);
+
+function absoluteUrl(href: string): string {
+	const url = withBase(href);
+	return Astro.site ? new URL(url, Astro.site).toString() : url;
+}
+
+const canonicalHref = absoluteUrl(canonicalPath);
+const socialImageHref = socialImage ? absoluteUrl(socialImage) : undefined;
+const effectiveAlternatePaths = {
+	[locale]: canonicalPath,
+	...alternatePaths,
+};
+const alternateLinks = Object.entries(effectiveAlternatePaths)
+	.filter((entry): entry is [Locale, string] => Boolean(entry[1]))
+	.map(([hreflang, path]) => ({ hreflang, href: absoluteUrl(path) }));
+const alternateLinksWithDefault =
+	alternateLinks.length > 1 && effectiveAlternatePaths.de
+		? [...alternateLinks, { hreflang: 'x-default', href: absoluteUrl(effectiveAlternatePaths.de) }]
+		: alternateLinks;
+const ogLocaleByLocale = {
+	de: 'de_DE',
+	en: 'en_US',
+} satisfies Record<Locale, string>;
+const schemaLanguageByLocale = {
+	de: 'de-DE',
+	en: 'en-US',
+} satisfies Record<Locale, string>;
+const ogLocaleAlternates = alternateLinks
+	.map((alternate) => alternate.hreflang)
+	.filter((hreflang): hreflang is Locale => hreflang !== locale && hreflang in ogLocaleByLocale)
+	.map((alternateLocale) => ogLocaleByLocale[alternateLocale]);
+const siteUrl = absoluteUrl('/');
+const organizationId = `${siteUrl}#organization`;
+const websiteId = `${siteUrl}#website`;
+const webPageId = `${canonicalHref}#webpage`;
+const breadcrumbId = `${canonicalHref}#breadcrumb`;
+const articleId = `${canonicalHref}#article`;
+const homePath = locale === 'en' ? '/en/' : '/';
+const isHomePage = canonicalPath === '/' || canonicalPath === '/en/';
+const breadcrumbItems = [
+	{
+		'@type': 'ListItem',
+		position: 1,
+		name: siteName,
+		item: absoluteUrl(homePath),
+	},
+	...(
+		isHomePage
+			? []
+			: [
+					{
+						'@type': 'ListItem',
+						position: 2,
+						name: title,
+						item: canonicalHref,
+					},
+				]
+	),
+];
+const organizationSchema = {
+	'@type': 'Organization',
+	'@id': organizationId,
+	name: 'Koytek Wattenberg Media UG (haftungsbeschränkt)',
+	alternateName: siteName,
+	url: siteUrl,
+	logo: {
+		'@type': 'ImageObject',
+		url: absoluteUrl('/icon-192.png'),
+	},
+	sameAs: [
+		'https://www.youtube.com/channel/UCGu6U-UNczXKxShRiJj6kXQ',
+		'https://www.linkedin.com/company/kwmediaug',
+		'https://x.com/kwmediaUG',
+	],
+};
+const websiteSchema = {
+	'@type': 'WebSite',
+	'@id': websiteId,
+	url: siteUrl,
+	name: siteName,
+	publisher: { '@id': organizationId },
+	inLanguage: schemaLanguageByLocale[locale],
+};
+const webPageSchema = {
+	'@type': 'WebPage',
+	'@id': webPageId,
+	url: canonicalHref,
+	name: fullTitle,
+	headline: title,
+	description,
+	isPartOf: { '@id': websiteId },
+	breadcrumb: { '@id': breadcrumbId },
+	primaryImageOfPage: socialImageHref ? { '@type': 'ImageObject', url: socialImageHref } : undefined,
+	mainEntity: schemaType === 'BlogPosting' ? { '@id': articleId } : undefined,
+	inLanguage: schemaLanguageByLocale[locale],
+};
+const articleSchema =
+	schemaType === 'BlogPosting'
+		? {
+				'@type': 'BlogPosting',
+				'@id': articleId,
+				mainEntityOfPage: { '@id': webPageId },
+				headline: title,
+				description,
+				image: socialImageHref ? [socialImageHref] : undefined,
+				datePublished: publishedTime,
+				dateModified: modifiedTime ?? publishedTime,
+				author: {
+					'@type': 'Person',
+					name: authorName ?? siteName,
+				},
+				publisher: { '@id': organizationId },
+				inLanguage: schemaLanguageByLocale[locale],
+			}
+		: undefined;
+const breadcrumbSchema = {
+	'@type': 'BreadcrumbList',
+	'@id': breadcrumbId,
+	itemListElement: breadcrumbItems,
+};
+const faqSchema = faqItems.length
+	? {
+			'@type': 'FAQPage',
+			'@id': `${canonicalHref}#faq`,
+			mainEntity: faqItems.map((item) => ({
+				'@type': 'Question',
+				name: item.question,
+				acceptedAnswer: {
+					'@type': 'Answer',
+					text: item.answer.join(' '),
+				},
+			})),
+		}
+	: undefined;
+const jsonLd = JSON.stringify({
+	'@context': 'https://schema.org',
+	'@graph': [organizationSchema, websiteSchema, webPageSchema, articleSchema, breadcrumbSchema, faqSchema].filter(Boolean),
+});
 ---
 
 <!doctype html>
@@ -36,9 +208,30 @@ const priorityImagePreloadHref = priorityImageHref ? encodeURI(priorityImageHref
 		<meta name="viewport" content="width=device-width" />
 		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalHref} />
+		{alternateLinksWithDefault.map((alternate) => <link rel="alternate" hreflang={alternate.hreflang} href={alternate.href} />)}
 		<link rel="alternate" type="application/rss+xml" title={rssTitle} href={rssUrl} />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content={schemaType === 'BlogPosting' ? 'article' : 'website'} />
+		<meta property="og:url" content={canonicalHref} />
+		<meta property="og:locale" content={ogLocaleByLocale[locale]} />
+		{ogLocaleAlternates.map((alternateLocale) => <meta property="og:locale:alternate" content={alternateLocale} />)}
+		{socialImageHref && <meta property="og:image" content={socialImageHref} />}
+		{socialImageHref && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+		<meta name="twitter:card" content={socialImageHref ? 'summary_large_image' : 'summary'} />
+		<meta name="twitter:site" content="@kwmediaUG" />
+		<meta name="twitter:title" content={fullTitle} />
+		<meta name="twitter:description" content={description} />
+		{socialImageHref && <meta name="twitter:image" content={socialImageHref} />}
+		{socialImageHref && imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
+		{schemaType === 'BlogPosting' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+		{schemaType === 'BlogPosting' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+		{schemaType === 'BlogPosting' && authorName && <meta property="article:author" content={authorName} />}
 		{priorityImagePreloadHref && <link rel="preload" as="image" href={priorityImagePreloadHref} fetchpriority="high" />}
-		<title>{title} | {t('siteName')}</title>
+		<script type="application/ld+json" set:html={jsonLd} />
+		<title>{fullTitle}</title>
 	</head>
 	<body>
 		<div class="site-shell">
