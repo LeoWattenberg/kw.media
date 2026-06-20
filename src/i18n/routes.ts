@@ -30,6 +30,10 @@ export const routes = {
 		de: '/de/werbung/',
 		en: '/en/ads/',
 	},
+	dubbing: {
+		de: '/de/video-synchronisation/',
+		en: '/en/video-dubbing/',
+	},
 	tips: {
 		de: '/de/youtube-tipps/',
 		en: '/en/youtube-tips/',
