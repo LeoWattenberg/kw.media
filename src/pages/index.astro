@@ -1,7 +1,7 @@
 ---
 import PageRenderer from '../components/PageRenderer.astro';
 import BaseLayout from '../components/layout/BaseLayout.astro';
-import { findSitePage } from '../data/pages';
+import { findSitePage, getSitePageAlternatePaths, getSitePageFaqItems } from '../data/pages';
 
 const page = findSitePage('/');
 
@@ -12,6 +12,16 @@ if (!page) {
 const heroBlock = page.blocks.find((block) => block.type === 'hero');
 ---
 
-<BaseLayout locale={page.locale} title={page.title} description={page.description} preloadImage={heroBlock?.image}>
+<BaseLayout
+	locale={page.locale}
+	title={page.title}
+	description={page.description}
+	preloadImage={heroBlock?.image}
+	canonicalPath={page.path}
+	alternatePaths={getSitePageAlternatePaths(page)}
+	image={heroBlock?.image}
+	imageAlt={heroBlock?.imageAlt}
+	faqItems={getSitePageFaqItems(page)}
+>
 	<PageRenderer page={page} />
 </BaseLayout>

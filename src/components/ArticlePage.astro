@@ -18,7 +18,7 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 <article>
 	<header class="article-hero">
 		<div class="container article-head">
-			<p class="eyebrow">{formattedDate}</p>
+			<time class="eyebrow" datetime={post.date}>{formattedDate}</time>
 			<h1>{post.title}</h1>
 			{post.excerpt && <p>{post.excerpt}</p>}
 		</div>

@@ -1480,3 +1480,18 @@ export function findSitePage(pathname: string): SitePage | undefined {
 	const normalizedPath = pathname.endsWith('/') ? pathname : `${pathname}/`;
 	return sitePages.find((page) => page.path === normalizedPath);
 }
+
+function pageGroup(id: string) {
+	return id.replace(/-(de|en)$/, '');
+}
+
+export function getSitePageAlternatePaths(page: SitePage): Partial<Record<Locale, string>> {
+	const group = pageGroup(page.id);
+	const alternates = sitePages.filter((candidate) => pageGroup(candidate.id) === group);
+
+	return Object.fromEntries(alternates.map((alternate) => [alternate.locale, alternate.path])) as Partial<Record<Locale, string>>;
+}
+
+export function getSitePageFaqItems(page: SitePage): FaqBlock['items'] {
+	return page.blocks.flatMap((block) => (block.type === 'faq' ? block.items : []));
+}
