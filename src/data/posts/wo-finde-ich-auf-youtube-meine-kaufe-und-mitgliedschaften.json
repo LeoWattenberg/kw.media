@@ -4,14 +4,20 @@
 	"path": "/youtube-tipps-de/wo-finde-ich-auf-youtube-meine-kaufe-und-mitgliedschaften/",
 	"title": "Wo finde ich auf YouTube meine Käufe und Mitgliedschaften?",
 	"excerpt": "So findest du in YouTube deine Käufe, Mitgliedschaften, Premium-Ausgaben und Rückerstattungen.",
-	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"Wo finde ich auf YouTube meine Käufe und Mitgliedschaften?\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/hOXK7RMR4Qk\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Falls ihr eine Übersicht zu euren Einkäufen auf YouTube haben wollt, klickt ihr oben rechts auf euer Profilbild gefolgt von &quot;Käufe und Mitgliedschaften&quot;.</p>\n\n<p class=\"wp-block-paragraph\">Dort habt ihr eine Übersicht von allen Ausgaben wie Mitgliedschaften, Filmkäufen, YouTube Premium sowie die jeweiligen Rückerstattungen.</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Falls ihr eine Übersicht zu euren Einkäufen auf YouTube haben wollt, klickt ihr oben rechts auf euer Profilbild gefolgt von &quot;Käufe und Mitgliedschaften&quot;.</p>\n\n<p class=\"wp-block-paragraph\">Dort habt ihr eine Übersicht von allen Ausgaben wie Mitgliedschaften, Filmkäufen, YouTube Premium sowie die jeweiligen Rückerstattungen.</p>\n",
 	"date": "2022-06-14T12:30:10",
 	"modified": "2022-06-14T12:30:10",
 	"locale": "de",
 	"categoryIds": [
 		17
 	],
-	"image": "https://i.ytimg.com/vi/hOXK7RMR4Qk/hqdefault.jpg",
+	"image": "https://i.ytimg.com/vi/hOXK7RMR4Qk/maxresdefault.jpg",
 	"authorName": "Koytek Wattenberg Media",
-	"sourceUrl": "https://www.youtube.com/shorts/hOXK7RMR4Qk"
+	"sourceUrl": "https://www.youtube.com/shorts/hOXK7RMR4Qk",
+	"video": {
+		"youtubeId": "hOXK7RMR4Qk",
+		"embedUrl": "https://www.youtube.com/embed/hOXK7RMR4Qk",
+		"watchUrl": "https://www.youtube.com/shorts/hOXK7RMR4Qk",
+		"thumbnailUrl": "https://i.ytimg.com/vi/hOXK7RMR4Qk/maxresdefault.jpg"
+	}
 }

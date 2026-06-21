@@ -4,14 +4,20 @@
 	"path": "/youtube-tipps-de/so-funktioniert-youtube-membership-gifting/",
 	"title": "So funktioniert: YouTube Membership Gifting",
 	"excerpt": "Erklärt, wie Zuschauer YouTube-Mitgliedschaften im Livechat verschenken und wie YouTube Empfänger auswählt.",
-	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"So funktioniert: YouTube Membership Gifting\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/nMgllfy0VUc\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Die neue Membership Gifting Beta ermöglicht es euch als Mitglied auf einem Kanal anderen zufällig ausgewählten Personen im Chat eine Mitgliedschaft zu schenken. Dafür klickt ihr im Livechat auf den &quot;Supers&quot; Button gefolgt von Membership Gifting.</p>\n\n<p class=\"wp-block-paragraph\">Jetzt könnt ihr auswählen, wie viele Mitgliedschaften ihr verschenken wollt. Dann müsst ihr nur noch die Zahlungsmethode bestätigen und YouTube verteilt die Mitgliedschaften an die aktivsten Abonnenten im Livechat.</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Die neue Membership Gifting Beta ermöglicht es euch als Mitglied auf einem Kanal anderen zufällig ausgewählten Personen im Chat eine Mitgliedschaft zu schenken. Dafür klickt ihr im Livechat auf den &quot;Supers&quot; Button gefolgt von Membership Gifting.</p>\n\n<p class=\"wp-block-paragraph\">Jetzt könnt ihr auswählen, wie viele Mitgliedschaften ihr verschenken wollt. Dann müsst ihr nur noch die Zahlungsmethode bestätigen und YouTube verteilt die Mitgliedschaften an die aktivsten Abonnenten im Livechat.</p>\n",
 	"date": "2022-05-31T15:00:24",
 	"modified": "2022-05-31T15:00:24",
 	"locale": "de",
 	"categoryIds": [
 		17
 	],
-	"image": "https://i.ytimg.com/vi/nMgllfy0VUc/hqdefault.jpg",
+	"image": "https://i.ytimg.com/vi/nMgllfy0VUc/maxresdefault.jpg",
 	"authorName": "Koytek Wattenberg Media",
-	"sourceUrl": "https://www.youtube.com/shorts/nMgllfy0VUc"
+	"sourceUrl": "https://www.youtube.com/shorts/nMgllfy0VUc",
+	"video": {
+		"youtubeId": "nMgllfy0VUc",
+		"embedUrl": "https://www.youtube.com/embed/nMgllfy0VUc",
+		"watchUrl": "https://www.youtube.com/shorts/nMgllfy0VUc",
+		"thumbnailUrl": "https://i.ytimg.com/vi/nMgllfy0VUc/maxresdefault.jpg"
+	}
 }

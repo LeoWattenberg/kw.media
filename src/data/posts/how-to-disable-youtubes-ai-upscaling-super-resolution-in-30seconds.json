@@ -4,14 +4,20 @@
 	"path": "/youtube-tips-en/how-to-disable-youtubes-ai-upscaling-super-resolution-in-30seconds/",
 	"title": "How to Disable YouTube's AI Upscaling / Super Resolution (in 30seconds)",
 	"excerpt": "A quick walkthrough for disabling YouTube's AI super resolution setting in Studio so uploads are not upscaled automatically.",
-	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"How to Disable YouTube's AI Upscaling / Super Resolution (in 30seconds)\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/iVVTODHIeP4\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transcript</h2>\n\n<p class=\"wp-block-paragraph\">Here's how to disable YouTube's new AI super resolution for your videos. Go to your YouTube studio. Click settings in the bottom left corner. In the pop-up, go to the channel tab. Click advanced settings. Now scroll down. You'll find the new video quality enhancement section. By default, it's enabled. Toggle this switch off. Make sure to hit save in the bottom right corner.</p>\n\n<p class=\"wp-block-paragraph\">That's it. Your videos are now safe from unwanted upscaling. Subscribe for more YouTube tips.</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transcript</h2>\n\n<p class=\"wp-block-paragraph\">Here's how to disable YouTube's new AI super resolution for your videos. Go to your YouTube studio. Click settings in the bottom left corner. In the pop-up, go to the channel tab. Click advanced settings. Now scroll down. You'll find the new video quality enhancement section. By default, it's enabled. Toggle this switch off. Make sure to hit save in the bottom right corner.</p>\n\n<p class=\"wp-block-paragraph\">That's it. Your videos are now safe from unwanted upscaling. Subscribe for more YouTube tips.</p>\n",
 	"date": "2025-10-31T10:13:19",
 	"modified": "2025-10-31T10:13:19",
 	"locale": "en",
 	"categoryIds": [
 		18
 	],
-	"image": "https://i.ytimg.com/vi/iVVTODHIeP4/hqdefault.jpg",
+	"image": "https://i.ytimg.com/vi/iVVTODHIeP4/maxresdefault.jpg",
 	"authorName": "Koytek Wattenberg Media",
-	"sourceUrl": "https://www.youtube.com/shorts/iVVTODHIeP4"
+	"sourceUrl": "https://www.youtube.com/shorts/iVVTODHIeP4",
+	"video": {
+		"youtubeId": "iVVTODHIeP4",
+		"embedUrl": "https://www.youtube.com/embed/iVVTODHIeP4",
+		"watchUrl": "https://www.youtube.com/shorts/iVVTODHIeP4",
+		"thumbnailUrl": "https://i.ytimg.com/vi/iVVTODHIeP4/maxresdefault.jpg"
+	}
 }

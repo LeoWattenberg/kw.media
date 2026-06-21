@@ -4,14 +4,20 @@
 	"path": "/youtube-tipps-de/so-funktioniert-markdown/",
 	"title": "So funktioniert: Markdown",
 	"excerpt": "Erklärt, wie Markdown in YouTube-Beschreibungen Text kursiv, fett oder durchgestrichen formatiert.",
-	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"So funktioniert: Markdown\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/39fXwnCNd3I\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Die neue Markdown Funktion ermöglicht es euch Texte in eurer Videobeschreibung hervorzuheben.</p>\n\n<p class=\"wp-block-paragraph\">Text, welcher zwischen einem Stern links und rechts steht wird *kursiv* angezeigt, Zwischen zwei Sternen wird er **Fett* und zwischen 2 tilden wird er ~~Durchgestrichen~</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Die neue Markdown Funktion ermöglicht es euch Texte in eurer Videobeschreibung hervorzuheben.</p>\n\n<p class=\"wp-block-paragraph\">Text, welcher zwischen einem Stern links und rechts steht wird *kursiv* angezeigt, Zwischen zwei Sternen wird er **Fett* und zwischen 2 tilden wird er ~~Durchgestrichen~</p>\n",
 	"date": "2022-07-26T15:00:02",
 	"modified": "2022-07-26T15:00:02",
 	"locale": "de",
 	"categoryIds": [
 		17
 	],
-	"image": "https://i.ytimg.com/vi/39fXwnCNd3I/hqdefault.jpg",
+	"image": "https://i.ytimg.com/vi/39fXwnCNd3I/maxresdefault.jpg",
 	"authorName": "Koytek Wattenberg Media",
-	"sourceUrl": "https://www.youtube.com/shorts/39fXwnCNd3I"
+	"sourceUrl": "https://www.youtube.com/shorts/39fXwnCNd3I",
+	"video": {
+		"youtubeId": "39fXwnCNd3I",
+		"embedUrl": "https://www.youtube.com/embed/39fXwnCNd3I",
+		"watchUrl": "https://www.youtube.com/shorts/39fXwnCNd3I",
+		"thumbnailUrl": "https://i.ytimg.com/vi/39fXwnCNd3I/maxresdefault.jpg"
+	}
 }

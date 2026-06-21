@@ -14,6 +14,12 @@ export interface SourcePost {
 	image?: string;
 	authorName: string;
 	sourceUrl: string;
+	video?: {
+		youtubeId: string;
+		embedUrl: string;
+		watchUrl: string;
+		thumbnailUrl: string;
+	};
 }
 
 const postModules = import.meta.glob<SourcePost>('../data/posts/*.json', {

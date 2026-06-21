@@ -4,14 +4,20 @@
 	"path": "/youtube-tipps-de/youtube-video-kapitel-sind-awesome-und-das-ist-der-grund-shorts/",
 	"title": "YouTube Video Kapitel sind awesome und das ist der Grund #Shorts",
 	"excerpt": "Erklärt, wie Zuschauer YouTube-Kapitel am Desktop und in der App schneller nutzen können.",
-	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"YouTube Video Kapitel sind awesome und das ist der Grund #Shorts\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/RfSTdOXEqhs\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Falls ihr ein Video mit Kapiteln anschaut könnt ihr am PC unter dem Video auf das aktuelle Kapitel klicken. Dadurch öffnet sich an der rechten Seite eine Auflistung aller Kapitel mit welcher ihr schnell zu anderen Kapiteln skippen könnt.</p>\n\n<p class=\"wp-block-paragraph\">Noch einfacher geht das in der YouTube App. Da könnt ihr doppelt mit zwei Fingern auf der linken oder rechten Seite des Videos tappen. Dadurch geht ihr entweder ein Kapitel vor oder zurück.</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Falls ihr ein Video mit Kapiteln anschaut könnt ihr am PC unter dem Video auf das aktuelle Kapitel klicken. Dadurch öffnet sich an der rechten Seite eine Auflistung aller Kapitel mit welcher ihr schnell zu anderen Kapiteln skippen könnt.</p>\n\n<p class=\"wp-block-paragraph\">Noch einfacher geht das in der YouTube App. Da könnt ihr doppelt mit zwei Fingern auf der linken oder rechten Seite des Videos tappen. Dadurch geht ihr entweder ein Kapitel vor oder zurück.</p>\n",
 	"date": "2022-03-14T23:00:17",
 	"modified": "2022-03-14T23:00:17",
 	"locale": "de",
 	"categoryIds": [
 		17
 	],
-	"image": "https://i.ytimg.com/vi/RfSTdOXEqhs/hqdefault.jpg",
+	"image": "https://i.ytimg.com/vi/RfSTdOXEqhs/maxresdefault.jpg",
 	"authorName": "Koytek Wattenberg Media",
-	"sourceUrl": "https://www.youtube.com/shorts/RfSTdOXEqhs"
+	"sourceUrl": "https://www.youtube.com/shorts/RfSTdOXEqhs",
+	"video": {
+		"youtubeId": "RfSTdOXEqhs",
+		"embedUrl": "https://www.youtube.com/embed/RfSTdOXEqhs",
+		"watchUrl": "https://www.youtube.com/shorts/RfSTdOXEqhs",
+		"thumbnailUrl": "https://i.ytimg.com/vi/RfSTdOXEqhs/maxresdefault.jpg"
+	}
 }

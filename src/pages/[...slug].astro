@@ -41,15 +41,16 @@ const heroBlock = kind === 'page' ? page.blocks.find((block) => block.type === '
 			locale={post.locale}
 			title={post.title}
 			description={post.excerpt}
-			preloadImage={post.image}
+			preloadImage={post.video ? undefined : post.image}
 			canonicalPath={post.path}
 			alternatePaths={getPostAlternatePaths(post)}
 			image={post.image}
 			imageAlt={post.title}
-			schemaType="BlogPosting"
+			schemaType={post.video ? 'VideoObject' : 'BlogPosting'}
 			publishedTime={post.date}
 			modifiedTime={post.modified}
 			authorName={post.authorName}
+			video={post.video}
 		>
 			<ArticlePage post={post} />
 		</BaseLayout>

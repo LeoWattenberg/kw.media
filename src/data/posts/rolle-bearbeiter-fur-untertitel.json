@@ -4,14 +4,20 @@
 	"path": "/youtube-tipps-de/rolle-bearbeiter-fur-untertitel/",
 	"title": "Rolle: Bearbeiter für Untertitel",
 	"excerpt": "Erklärt die YouTube-Rolle für Untertitelbearbeiter und wie du Personen dafür per E-Mail hinzufügst.",
-	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"Rolle: Bearbeiter für Untertitel\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/ejYerCk6F_k\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Im letzten YouTube Update gab es Änderungen für das Erstellen von Untertiteln. Die neue Rolle &quot;Bearbeiter für Untertitel&quot; gibt Nutzern die Berechtigung Untertitel zu euren Videos zu erstellen oder zu verändern. Dafür braucht ihr nur die Email Adresse der Person die ihr hinzufügen wollt.</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Im letzten YouTube Update gab es Änderungen für das Erstellen von Untertiteln. Die neue Rolle &quot;Bearbeiter für Untertitel&quot; gibt Nutzern die Berechtigung Untertitel zu euren Videos zu erstellen oder zu verändern. Dafür braucht ihr nur die Email Adresse der Person die ihr hinzufügen wollt.</p>\n",
 	"date": "2022-04-11T22:00:24",
 	"modified": "2022-04-11T22:00:24",
 	"locale": "de",
 	"categoryIds": [
 		17
 	],
-	"image": "https://i.ytimg.com/vi/ejYerCk6F_k/hqdefault.jpg",
+	"image": "https://i.ytimg.com/vi/ejYerCk6F_k/maxresdefault.jpg",
 	"authorName": "Koytek Wattenberg Media",
-	"sourceUrl": "https://www.youtube.com/shorts/ejYerCk6F_k"
+	"sourceUrl": "https://www.youtube.com/shorts/ejYerCk6F_k",
+	"video": {
+		"youtubeId": "ejYerCk6F_k",
+		"embedUrl": "https://www.youtube.com/embed/ejYerCk6F_k",
+		"watchUrl": "https://www.youtube.com/shorts/ejYerCk6F_k",
+		"thumbnailUrl": "https://i.ytimg.com/vi/ejYerCk6F_k/maxresdefault.jpg"
+	}
 }

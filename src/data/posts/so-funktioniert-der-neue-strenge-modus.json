@@ -4,14 +4,20 @@
 	"path": "/youtube-tipps-de/so-funktioniert-der-neue-strenge-modus/",
 	"title": "So funktioniert der neue strenge Modus",
 	"excerpt": "Erklärt den strengen Modus für Kommentarfilter und wo du ihn in den Community-Einstellungen testest.",
-	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"So funktioniert der neue strenge Modus\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/_KvD9yQ9YUo\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Seit dem letzten YouTube Update habt ihr die Möglichkeit mit dem &quot;Strengen Modus&quot; mehr mögliche Spam Kommentare automatisch filtern zu lassen.</p>\n\n<p class=\"wp-block-paragraph\">Dafür geht ihr im Studio in die Einstellungen; in den Tab &quot;Community&quot; und &quot;Standardeinstellungen&quot;.</p>\n\n<p class=\"wp-block-paragraph\">Hier könnt ihr den neuen &quot;Strengen Modus&quot; testen.</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Seit dem letzten YouTube Update habt ihr die Möglichkeit mit dem &quot;Strengen Modus&quot; mehr mögliche Spam Kommentare automatisch filtern zu lassen.</p>\n\n<p class=\"wp-block-paragraph\">Dafür geht ihr im Studio in die Einstellungen; in den Tab &quot;Community&quot; und &quot;Standardeinstellungen&quot;.</p>\n\n<p class=\"wp-block-paragraph\">Hier könnt ihr den neuen &quot;Strengen Modus&quot; testen.</p>\n",
 	"date": "2022-07-05T16:30:05",
 	"modified": "2022-07-05T16:30:05",
 	"locale": "de",
 	"categoryIds": [
 		17
 	],
-	"image": "https://i.ytimg.com/vi/_KvD9yQ9YUo/hqdefault.jpg",
+	"image": "https://i.ytimg.com/vi/_KvD9yQ9YUo/maxresdefault.jpg",
 	"authorName": "Koytek Wattenberg Media",
-	"sourceUrl": "https://www.youtube.com/shorts/_KvD9yQ9YUo"
+	"sourceUrl": "https://www.youtube.com/shorts/_KvD9yQ9YUo",
+	"video": {
+		"youtubeId": "_KvD9yQ9YUo",
+		"embedUrl": "https://www.youtube.com/embed/_KvD9yQ9YUo",
+		"watchUrl": "https://www.youtube.com/shorts/_KvD9yQ9YUo",
+		"thumbnailUrl": "https://i.ytimg.com/vi/_KvD9yQ9YUo/maxresdefault.jpg"
+	}
 }

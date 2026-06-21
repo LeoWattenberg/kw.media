@@ -4,14 +4,20 @@
 	"path": "/youtube-tipps-de/jetzt-neu-superthanks/",
 	"title": "Jetzt neu: SuperThanks",
 	"excerpt": "Erklärt, wie Zuschauer Super Thanks senden und wie Creator die Einnahmen aus YouTube-Transaktionen erhalten.",
-	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"Jetzt neu: SuperThanks\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/OYppjzpPs8U\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">SuperThanks sind jetzt für alle Creator im YPP verfügbar. Falls ihr einen SuperThanks senden wollt, klickt ihr unter einem Video auf den &quot;Thanks&quot;-Button. Dort könnt ihr zwischen den vordefinierten Beträgen auswählen und eine Kommentar mitschicken. Wie immer gilt bei YouTube Transaktionseinnahmen: Ihr bekommt als Creator 70% nach Steuern ausgezahlt.</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">SuperThanks sind jetzt für alle Creator im YPP verfügbar. Falls ihr einen SuperThanks senden wollt, klickt ihr unter einem Video auf den &quot;Thanks&quot;-Button. Dort könnt ihr zwischen den vordefinierten Beträgen auswählen und eine Kommentar mitschicken. Wie immer gilt bei YouTube Transaktionseinnahmen: Ihr bekommt als Creator 70% nach Steuern ausgezahlt.</p>\n",
 	"date": "2022-04-27T08:29:36",
 	"modified": "2022-04-27T08:29:36",
 	"locale": "de",
 	"categoryIds": [
 		17
 	],
-	"image": "https://i.ytimg.com/vi/OYppjzpPs8U/hqdefault.jpg",
+	"image": "https://i.ytimg.com/vi/OYppjzpPs8U/maxresdefault.jpg",
 	"authorName": "Koytek Wattenberg Media",
-	"sourceUrl": "https://www.youtube.com/shorts/OYppjzpPs8U"
+	"sourceUrl": "https://www.youtube.com/shorts/OYppjzpPs8U",
+	"video": {
+		"youtubeId": "OYppjzpPs8U",
+		"embedUrl": "https://www.youtube.com/embed/OYppjzpPs8U",
+		"watchUrl": "https://www.youtube.com/shorts/OYppjzpPs8U",
+		"thumbnailUrl": "https://i.ytimg.com/vi/OYppjzpPs8U/maxresdefault.jpg"
+	}
 }
