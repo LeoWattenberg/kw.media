@@ -33,7 +33,7 @@ const { page } = Astro.props;
 		block.type === 'faq' ? <FaqList block={block} /> :
 		block.type === 'pricing' ? <Pricing block={block} /> :
 		block.type === 'person' ? <PersonSpotlight block={block} /> :
-		block.type === 'posts' ? <PostList block={block} /> :
+		block.type === 'posts' ? <PostList block={block} locale={page.locale} /> :
 		block.type === 'youtubePlaylist' ? <YouTubePlaylist block={block} /> :
 		block.type === 'cta' ? <CallToAction block={block} /> :
 		null

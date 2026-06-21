@@ -1,4 +1,5 @@
 import type { Locale } from '../i18n';
+import { authorProfiles } from './authors';
 
 export type PageBlock =
 	| HeroBlock
@@ -127,6 +128,7 @@ export interface PostListBlock {
 	type: 'posts';
 	title: string;
 	categoryId?: number;
+	authorName?: string;
 	limit?: number;
 	moreHref?: string;
 	moreLabel?: string;
@@ -168,6 +170,9 @@ const assets = {
 	martin: '/assets/martinkoytek.jpg',
 	leo: '/assets/Leo_mit_angel.png',
 };
+
+const leoAuthor = authorProfiles.find((author) => author.id === 'leo-wattenberg')!;
+const martinAuthor = authorProfiles.find((author) => author.id === 'martin-koytek')!;
 
 const legalHtml = `
 	<h1>Impressum und Datenschutzerklärung</h1>
@@ -1448,6 +1453,126 @@ export const sitePages: SitePage[] = [
 				email: 'team@kw.media',
 				items: ['Your full name and address', 'The channels or sites where you want to use the imprint', 'The package you want to subscribe to', 'Any special requests'],
 			},
+		],
+	},
+	{
+		id: 'author-leo-de',
+		path: leoAuthor.paths.de,
+		locale: 'de',
+		title: leoAuthor.name,
+		description: leoAuthor.description.de,
+		blocks: [
+			{
+				type: 'hero',
+				eyebrow: 'Autor',
+				title: leoAuthor.name,
+				text: leoAuthor.description.de,
+				image: leoAuthor.image,
+				imageAlt: leoAuthor.imageAlt,
+				actions: [{ label: 'Kontakt aufnehmen', href: `mailto:${leoAuthor.email}`, variant: 'primary' }],
+			},
+			{
+				type: 'person',
+				title: 'Über Leo',
+				name: leoAuthor.name,
+				role: leoAuthor.role,
+				image: leoAuthor.image,
+				imageAlt: leoAuthor.imageAlt,
+				credentials: leoAuthor.credentials,
+				body: leoAuthor.bio.de,
+				email: leoAuthor.email,
+			},
+			{ type: 'posts', title: 'Blogbeiträge von Leo Wattenberg', authorName: leoAuthor.name },
+		],
+	},
+	{
+		id: 'author-leo-en',
+		path: leoAuthor.paths.en,
+		locale: 'en',
+		title: leoAuthor.name,
+		description: leoAuthor.description.en,
+		blocks: [
+			{
+				type: 'hero',
+				eyebrow: 'Author',
+				title: leoAuthor.name,
+				text: leoAuthor.description.en,
+				image: leoAuthor.image,
+				imageAlt: leoAuthor.imageAlt,
+				actions: [{ label: 'Get in touch', href: `mailto:${leoAuthor.email}`, variant: 'primary' }],
+			},
+			{
+				type: 'person',
+				title: 'About Leo',
+				name: leoAuthor.name,
+				role: leoAuthor.role,
+				image: leoAuthor.image,
+				imageAlt: leoAuthor.imageAlt,
+				credentials: leoAuthor.credentials,
+				body: leoAuthor.bio.en,
+				email: leoAuthor.email,
+			},
+			{ type: 'posts', title: 'Blog posts by Leo Wattenberg', authorName: leoAuthor.name },
+		],
+	},
+	{
+		id: 'author-martin-de',
+		path: martinAuthor.paths.de,
+		locale: 'de',
+		title: martinAuthor.name,
+		description: martinAuthor.description.de,
+		blocks: [
+			{
+				type: 'hero',
+				eyebrow: 'Autor',
+				title: martinAuthor.name,
+				text: martinAuthor.description.de,
+				image: martinAuthor.image,
+				imageAlt: martinAuthor.imageAlt,
+				actions: [{ label: 'Kontakt aufnehmen', href: `mailto:${martinAuthor.email}`, variant: 'primary' }],
+			},
+			{
+				type: 'person',
+				title: 'Über Martin',
+				name: martinAuthor.name,
+				role: martinAuthor.role,
+				image: martinAuthor.image,
+				imageAlt: martinAuthor.imageAlt,
+				credentials: martinAuthor.credentials,
+				body: martinAuthor.bio.de,
+				email: martinAuthor.email,
+			},
+			{ type: 'posts', title: 'Videos von Martin Koytek', authorName: martinAuthor.name },
+		],
+	},
+	{
+		id: 'author-martin-en',
+		path: martinAuthor.paths.en,
+		locale: 'en',
+		title: martinAuthor.name,
+		description: martinAuthor.description.en,
+		blocks: [
+			{
+				type: 'hero',
+				eyebrow: 'Author',
+				title: martinAuthor.name,
+				text: martinAuthor.description.en,
+				image: martinAuthor.image,
+				imageAlt: martinAuthor.imageAlt,
+				actions: [{ label: 'Get in touch', href: `mailto:${martinAuthor.email}`, variant: 'primary' }],
+			},
+			{
+				type: 'person',
+				title: 'About Martin',
+				name: martinAuthor.name,
+				role: martinAuthor.role,
+				image: martinAuthor.image,
+				imageAlt: martinAuthor.imageAlt,
+				credentials: martinAuthor.credentials,
+				body: martinAuthor.bio.en,
+				email: martinAuthor.email,
+			},
+			{ type: 'posts', title: 'Videos by Martin Koytek', authorName: martinAuthor.name },
 		],
 	},
 	{

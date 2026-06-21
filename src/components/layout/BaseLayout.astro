@@ -4,6 +4,7 @@ import SiteFooter from './SiteFooter.astro';
 import SiteSidebar from './SiteSidebar.astro';
 import type { Locale } from '../../i18n';
 import { useTranslations } from '../../i18n';
+import { getAuthorPath } from '../../data/authors';
 import { localizeMediaUrl } from '../../lib/media';
 import { withBase } from '../../lib/url';
 
@@ -65,6 +66,7 @@ const priorityImage = localizeMediaUrl(preloadImage);
 const priorityImageHref = priorityImage ? withBase(priorityImage) : undefined;
 const priorityImagePreloadHref = priorityImageHref ? encodeURI(priorityImageHref) : undefined;
 const socialImage = localizeMediaUrl(image ?? preloadImage);
+const authorPath = authorName ? getAuthorPath(authorName, locale) : undefined;
 
 function absoluteUrl(href: string): string {
 	const url = withBase(href);
@@ -73,6 +75,7 @@ function absoluteUrl(href: string): string {
 
 const canonicalHref = absoluteUrl(canonicalPath);
 const socialImageHref = socialImage ? absoluteUrl(socialImage) : undefined;
+const authorHref = authorPath ? absoluteUrl(authorPath) : undefined;
 const effectiveAlternatePaths = {
 	[locale]: canonicalPath,
 	...alternatePaths,
@@ -181,6 +184,7 @@ const articleSchema =
 				author: {
 					'@type': 'Person',
 					name: authorName ?? siteName,
+					url: authorHref,
 				},
 				publisher: { '@id': organizationId },
 				inLanguage: schemaLanguageByLocale[locale],
@@ -200,8 +204,9 @@ const videoSchema =
 				embedUrl: video.embedUrl,
 				contentUrl: video.watchUrl,
 				creator: {
-					'@type': 'Organization',
+					'@type': 'Person',
 					name: authorName ?? siteName,
+					url: authorHref,
 				},
 				publisher: { '@id': organizationId },
 				potentialAction: {

@@ -1,14 +1,19 @@
 ---
 import type { PostListBlock } from '../../data/pages';
+import type { Locale } from '../../i18n';
 import { getAllPosts, getPostsByCategory } from '../../lib/source-content';
 import { withBase } from '../../lib/url';
 
 interface Props {
 	block: PostListBlock;
+	locale: Locale;
 }
 
-const { block } = Astro.props;
-const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllPosts()).slice(0, block.limit);
+const { block, locale } = Astro.props;
+const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllPosts())
+	.filter((post) => post.locale === locale)
+	.filter((post) => (block.authorName ? post.authorName === block.authorName : true))
+	.slice(0, block.limit);
 ---
 
 <section class="section posts">
