@@ -1,6 +1,7 @@
 ---
 import type { SourcePost } from '../lib/source-content';
 import { withBase } from '../lib/url';
+import { getAuthorPath } from '../data/authors';
 import ContentHtml from './blocks/ContentHtml.astro';
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const authorPath = getAuthorPath(post.authorName, post.locale);
 const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US', {
 	day: 'numeric',
 	month: 'long',
@@ -18,7 +20,16 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 <article>
 	<header class="article-hero">
 		<div class="container article-head">
-			<time class="eyebrow" datetime={post.date}>{formattedDate}</time>
+			<div class="article-meta">
+				<time class="eyebrow" datetime={post.date}>{formattedDate}</time>
+				{
+					authorPath ? (
+						<a class="eyebrow" href={withBase(authorPath)}>{post.authorName}</a>
+					) : (
+						<span class="eyebrow">{post.authorName}</span>
+					)
+				}
+			</div>
 			<h1>{post.title}</h1>
 			{post.excerpt && <p>{post.excerpt}</p>}
 		</div>
@@ -50,6 +61,23 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 
 	.article-head {
 		max-width: 920px;
+	}
+
+	.article-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px 14px;
+		align-items: center;
+		margin-bottom: 8px;
+	}
+
+	.article-meta a {
+		color: var(--color-accent-dark);
+		text-decoration: none;
+	}
+
+	.article-meta a:hover {
+		text-decoration: underline;
 	}
 
 	h1 {

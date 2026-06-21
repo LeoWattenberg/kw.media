@@ -47,6 +47,7 @@ function pageGroup(id: string) {
 
 const sidebarPages = sitePages
 	.filter((page) => page.locale === locale || page.id === 'legal')
+	.filter((page) => pageOrder.includes(pageGroup(page.id)))
 	.sort((first, second) => pageOrder.indexOf(pageGroup(first.id)) - pageOrder.indexOf(pageGroup(second.id)));
 ---
 
