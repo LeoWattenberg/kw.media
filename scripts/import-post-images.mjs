@@ -1,4 +1,4 @@
-import { createWriteStream, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createWriteStream, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { get } from 'node:https';
 
@@ -11,7 +11,9 @@ if (!xmlPath) {
 
 const root = process.cwd();
 const xml = readFileSync(xmlPath, 'utf8');
-const posts = JSON.parse(readFileSync(join(root, 'reference/source-site/posts.json'), 'utf8'));
+const posts = readdirSync(join(root, 'src/data/posts'))
+	.filter((fileName) => fileName.endsWith('.json'))
+	.map((fileName) => JSON.parse(readFileSync(join(root, 'src/data/posts', fileName), 'utf8')));
 const postIds = new Set(posts.map((post) => post.id));
 
 function cdata(tag, text) {
@@ -93,14 +95,8 @@ function download(url, filePath) {
 const referencedUrls = new Set();
 
 for (const post of posts) {
-	for (const match of post.content.rendered.matchAll(/https?:\/\/[^"' <>)]+/g)) {
+	for (const match of post.contentHtml.matchAll(/https?:\/\/[^"' <>)]+/g)) {
 		referencedUrls.add(match[0].replaceAll('&amp;', '&'));
-	}
-
-	for (const image of post.yoast_head_json?.og_image ?? []) {
-		if (image.url) {
-			referencedUrls.add(image.url);
-		}
 	}
 }
 
