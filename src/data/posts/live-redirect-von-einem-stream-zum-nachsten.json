@@ -1,0 +1,17 @@
+{
+	"id": 3013,
+	"slug": "live-redirect-von-einem-stream-zum-nachsten",
+	"path": "/youtube-tipps-de/live-redirect-von-einem-stream-zum-nachsten/",
+	"title": "Live Redirect - Von einem Stream zum nächsten",
+	"excerpt": "Erklärt YouTube Live Redirects und wie Kanäle einstellen, wer Zuschauer nach einem Stream weiterleiten darf.",
+	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"Live Redirect - Von einem Stream zum nächsten\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/eUxLizKDC6M\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">YouTube Live Redirect sind dasselbe wie Twitch Raids. Hat euer Kanal mehr als 1000 Abonnenten ist für euch die neue Live Redirect Funktion freigeschaltet. Sie erlaubt es euch nach einem Stream zu einem anderen Kanal weiterzuleiten.</p>\n\n<p class=\"wp-block-paragraph\">Um Zuschauer empfangen zu können, müsst ihr dies im Studio unter den Einstellungen im Reiter Community einstellen. Dort könnt ihr angeben wer zu euch weiterleiten darf und ob Kanäle, welche ihr öffentlich abonniert habt, das automatisch dürfen.</p>\n",
+	"date": "2022-05-10T10:00:31",
+	"modified": "2022-05-10T10:00:31",
+	"locale": "de",
+	"categoryIds": [
+		17
+	],
+	"image": "https://i.ytimg.com/vi/eUxLizKDC6M/hqdefault.jpg",
+	"authorName": "Koytek Wattenberg Media",
+	"sourceUrl": "https://www.youtube.com/shorts/eUxLizKDC6M"
+}
