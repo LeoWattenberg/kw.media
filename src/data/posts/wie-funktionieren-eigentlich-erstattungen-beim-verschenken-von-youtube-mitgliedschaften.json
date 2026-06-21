@@ -4,14 +4,20 @@
 	"path": "/youtube-tipps-de/wie-funktionieren-eigentlich-erstattungen-beim-verschenken-von-youtube-mitgliedschaften/",
 	"title": "Wie funktionieren eigentlich Erstattungen beim Verschenken von YouTube Mitgliedschaften?",
 	"excerpt": "Erklärt, wann YouTube verschenkte Mitgliedschaften erstattet und wann Creator die Einnahmen erhalten.",
-	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"Wie funktionieren eigentlich Erstattungen beim Verschenken von YouTube Mitgliedschaften?\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/dnT2t4c94kw\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Falls YouTube während eines Streams keine anderen aktiven Zuschauer findet, an welche es die verschenkten Mitgliedschaften verteilen kann bekommt der schenkende User nach 1 bis 2 Tagen eine volle Erstattung.</p>\n\n<p class=\"wp-block-paragraph\">Sollte auch nur eine Mitgliedschaft erfolgreich verschenkt worden sein, bekommt der Creator sofort den gesamten Gewinn abzüglich YouTube Anteil und Mehrwertsteuer und ALLE Mitgliedschaften werden an aktive Chat-User sowie offline Abonnenten vergeben.</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Falls YouTube während eines Streams keine anderen aktiven Zuschauer findet, an welche es die verschenkten Mitgliedschaften verteilen kann bekommt der schenkende User nach 1 bis 2 Tagen eine volle Erstattung.</p>\n\n<p class=\"wp-block-paragraph\">Sollte auch nur eine Mitgliedschaft erfolgreich verschenkt worden sein, bekommt der Creator sofort den gesamten Gewinn abzüglich YouTube Anteil und Mehrwertsteuer und ALLE Mitgliedschaften werden an aktive Chat-User sowie offline Abonnenten vergeben.</p>\n",
 	"date": "2022-06-07T21:44:12",
 	"modified": "2022-06-07T21:44:12",
 	"locale": "de",
 	"categoryIds": [
 		17
 	],
-	"image": "https://i.ytimg.com/vi/dnT2t4c94kw/hqdefault.jpg",
+	"image": "https://i.ytimg.com/vi/dnT2t4c94kw/maxresdefault.jpg",
 	"authorName": "Koytek Wattenberg Media",
-	"sourceUrl": "https://www.youtube.com/shorts/dnT2t4c94kw"
+	"sourceUrl": "https://www.youtube.com/shorts/dnT2t4c94kw",
+	"video": {
+		"youtubeId": "dnT2t4c94kw",
+		"embedUrl": "https://www.youtube.com/embed/dnT2t4c94kw",
+		"watchUrl": "https://www.youtube.com/shorts/dnT2t4c94kw",
+		"thumbnailUrl": "https://i.ytimg.com/vi/dnT2t4c94kw/maxresdefault.jpg"
+	}
 }

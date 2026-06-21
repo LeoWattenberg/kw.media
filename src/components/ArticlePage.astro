@@ -22,7 +22,21 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 			<h1>{post.title}</h1>
 			{post.excerpt && <p>{post.excerpt}</p>}
 		</div>
-		{post.image && <img src={withBase(post.image)} alt="" loading="eager" />}
+		{
+			post.video ? (
+				<div class="container hero-video">
+					<iframe
+						title={post.title}
+						src={post.video.embedUrl}
+						loading="eager"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						allowfullscreen
+					/>
+				</div>
+			) : (
+				post.image && <img src={withBase(post.image)} alt="" loading="eager" />
+			)
+		}
 	</header>
 	<ContentHtml html={post.contentHtml} />
 </article>
@@ -60,5 +74,20 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 		margin: 36px auto 0;
 		object-fit: cover;
 		border-radius: 8px;
+	}
+
+	.hero-video {
+		max-width: 420px;
+		margin-top: 36px;
+	}
+
+	.hero-video iframe {
+		display: block;
+		width: 100%;
+		aspect-ratio: 9 / 16;
+		height: auto;
+		border: 0;
+		border-radius: 8px;
+		background: #000;
 	}
 </style>

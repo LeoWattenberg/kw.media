@@ -7,7 +7,7 @@ import { useTranslations } from '../../i18n';
 import { localizeMediaUrl } from '../../lib/media';
 import { withBase } from '../../lib/url';
 
-type SchemaType = 'WebPage' | 'BlogPosting';
+type SchemaType = 'WebPage' | 'BlogPosting' | 'VideoObject';
 type AlternatePaths = Partial<Record<Locale, string>>;
 
 interface FaqItem {
@@ -28,6 +28,12 @@ interface Props {
 	publishedTime?: string;
 	modifiedTime?: string;
 	authorName?: string;
+	video?: {
+		youtubeId: string;
+		embedUrl: string;
+		watchUrl: string;
+		thumbnailUrl: string;
+	};
 	faqItems?: FaqItem[];
 }
 
@@ -44,6 +50,7 @@ const {
 	publishedTime,
 	modifiedTime,
 	authorName,
+	video,
 	faqItems = [],
 } = Astro.props;
 const t = useTranslations(locale);
@@ -95,6 +102,7 @@ const websiteId = `${siteUrl}#website`;
 const webPageId = `${canonicalHref}#webpage`;
 const breadcrumbId = `${canonicalHref}#breadcrumb`;
 const articleId = `${canonicalHref}#article`;
+const videoId = `${canonicalHref}#video`;
 const homePath = locale === 'en' ? '/en/' : '/';
 const isHomePage = canonicalPath === '/' || canonicalPath === '/en/';
 const breadcrumbItems = [
@@ -151,7 +159,12 @@ const webPageSchema = {
 	isPartOf: { '@id': websiteId },
 	breadcrumb: { '@id': breadcrumbId },
 	primaryImageOfPage: socialImageHref ? { '@type': 'ImageObject', url: socialImageHref } : undefined,
-	mainEntity: schemaType === 'BlogPosting' ? { '@id': articleId } : undefined,
+	mainEntity:
+		schemaType === 'BlogPosting'
+			? { '@id': articleId }
+			: schemaType === 'VideoObject' && video
+				? { '@id': videoId }
+				: undefined,
 	inLanguage: schemaLanguageByLocale[locale],
 };
 const articleSchema =
@@ -170,6 +183,31 @@ const articleSchema =
 					name: authorName ?? siteName,
 				},
 				publisher: { '@id': organizationId },
+				inLanguage: schemaLanguageByLocale[locale],
+			}
+		: undefined;
+const videoSchema =
+	schemaType === 'VideoObject' && video
+		? {
+				'@type': 'VideoObject',
+				'@id': videoId,
+				mainEntityOfPage: { '@id': webPageId },
+				name: title,
+				description,
+				thumbnailUrl: [absoluteUrl(video.thumbnailUrl)],
+				uploadDate: publishedTime,
+				dateModified: modifiedTime ?? publishedTime,
+				embedUrl: video.embedUrl,
+				contentUrl: video.watchUrl,
+				creator: {
+					'@type': 'Organization',
+					name: authorName ?? siteName,
+				},
+				publisher: { '@id': organizationId },
+				potentialAction: {
+					'@type': 'WatchAction',
+					target: canonicalHref,
+				},
 				inLanguage: schemaLanguageByLocale[locale],
 			}
 		: undefined;
@@ -194,7 +232,7 @@ const faqSchema = faqItems.length
 	: undefined;
 const jsonLd = JSON.stringify({
 	'@context': 'https://schema.org',
-	'@graph': [organizationSchema, websiteSchema, webPageSchema, articleSchema, breadcrumbSchema, faqSchema].filter(Boolean),
+	'@graph': [organizationSchema, websiteSchema, webPageSchema, articleSchema, videoSchema, breadcrumbSchema, faqSchema].filter(Boolean),
 });
 ---
 
@@ -214,7 +252,10 @@ const jsonLd = JSON.stringify({
 		<meta property="og:site_name" content={siteName} />
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
-		<meta property="og:type" content={schemaType === 'BlogPosting' ? 'article' : 'website'} />
+		<meta
+			property="og:type"
+			content={schemaType === 'BlogPosting' ? 'article' : schemaType === 'VideoObject' ? 'video.other' : 'website'}
+		/>
 		<meta property="og:url" content={canonicalHref} />
 		<meta property="og:locale" content={ogLocaleByLocale[locale]} />
 		{ogLocaleAlternates.map((alternateLocale) => <meta property="og:locale:alternate" content={alternateLocale} />)}

@@ -4,14 +4,20 @@
 	"path": "/youtube-tipps-de/so-funktionieren-kanaltrailer/",
 	"title": "So funktionieren: Kanaltrailer",
 	"excerpt": "So wählst du Kanaltrailer und hervorgehobene Videos für neue und wiederkehrende Zuschauer aus.",
-	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"So funktionieren: Kanaltrailer\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/s05L2eJ4j7g\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">YouTube bietet euch an, Videos für nicht abonnierte User und wiederkehrende Abonnenten auf eurer Kanalseite hervorzuheben.</p>\n\n<p class=\"wp-block-paragraph\">Um diese auszuwählen, geht ihr in eurem Studio in den &quot;Anpassen&quot; Tab. Von dort aus könnt ihr für beide Kategorien ein Video auswählen.</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">YouTube bietet euch an, Videos für nicht abonnierte User und wiederkehrende Abonnenten auf eurer Kanalseite hervorzuheben.</p>\n\n<p class=\"wp-block-paragraph\">Um diese auszuwählen, geht ihr in eurem Studio in den &quot;Anpassen&quot; Tab. Von dort aus könnt ihr für beide Kategorien ein Video auswählen.</p>\n",
 	"date": "2022-07-12T18:09:00",
 	"modified": "2022-07-12T18:09:00",
 	"locale": "de",
 	"categoryIds": [
 		17
 	],
-	"image": "https://i.ytimg.com/vi/s05L2eJ4j7g/hqdefault.jpg",
+	"image": "https://i.ytimg.com/vi/s05L2eJ4j7g/maxresdefault.jpg",
 	"authorName": "Koytek Wattenberg Media",
-	"sourceUrl": "https://www.youtube.com/shorts/s05L2eJ4j7g"
+	"sourceUrl": "https://www.youtube.com/shorts/s05L2eJ4j7g",
+	"video": {
+		"youtubeId": "s05L2eJ4j7g",
+		"embedUrl": "https://www.youtube.com/embed/s05L2eJ4j7g",
+		"watchUrl": "https://www.youtube.com/shorts/s05L2eJ4j7g",
+		"thumbnailUrl": "https://i.ytimg.com/vi/s05L2eJ4j7g/maxresdefault.jpg"
+	}
 }

@@ -4,14 +4,20 @@
 	"path": "/youtube-tipps-de/so-funktionieren-endcards/",
 	"title": "So funktionieren: Endcards",
 	"excerpt": "So erstellst du Endcards mit Elementen oder Vorlagen und importierst bestehende Endcards aus anderen Videos.",
-	"contentHtml": "<figure class=\"wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-9-16 wp-has-aspect-ratio\"><div class=\"wp-block-embed__wrapper\">\n<div class=\"nv-iframe-embed\"><iframe title=\"So funktionieren: Endcards\" width=\"405\" height=\"720\" src=\"https://www.youtube.com/embed/MESXE9-pLDc\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe></div>\n</div></figure>\n\n<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Um eine Endcard in YouTube zu erstellen geht ihr beim jeweiligen Video in den Editor Tab. Von dort aus könnt eure eigene Endcard mit bis zu 4 Elementen erstellen oder eine der 9 Vorlagen nutzen.</p>\n\n<p class=\"wp-block-paragraph\">Außerdem könnt ihr die Dauer der Endcard anpassen und bei Videos bzw. Playlists auswählen, welche angezeigt werden sollen. Falls ihr die gleiche Endcard aus einem anderen Video wieder nutzen wollt, könnt ihr Endcards aus anderen Videos importieren.</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Um eine Endcard in YouTube zu erstellen geht ihr beim jeweiligen Video in den Editor Tab. Von dort aus könnt eure eigene Endcard mit bis zu 4 Elementen erstellen oder eine der 9 Vorlagen nutzen.</p>\n\n<p class=\"wp-block-paragraph\">Außerdem könnt ihr die Dauer der Endcard anpassen und bei Videos bzw. Playlists auswählen, welche angezeigt werden sollen. Falls ihr die gleiche Endcard aus einem anderen Video wieder nutzen wollt, könnt ihr Endcards aus anderen Videos importieren.</p>\n",
 	"date": "2022-06-28T16:00:12",
 	"modified": "2022-06-28T16:00:12",
 	"locale": "de",
 	"categoryIds": [
 		17
 	],
-	"image": "https://i.ytimg.com/vi/MESXE9-pLDc/hqdefault.jpg",
+	"image": "https://i.ytimg.com/vi/MESXE9-pLDc/maxresdefault.jpg",
 	"authorName": "Koytek Wattenberg Media",
-	"sourceUrl": "https://www.youtube.com/shorts/MESXE9-pLDc"
+	"sourceUrl": "https://www.youtube.com/shorts/MESXE9-pLDc",
+	"video": {
+		"youtubeId": "MESXE9-pLDc",
+		"embedUrl": "https://www.youtube.com/embed/MESXE9-pLDc",
+		"watchUrl": "https://www.youtube.com/shorts/MESXE9-pLDc",
+		"thumbnailUrl": "https://i.ytimg.com/vi/MESXE9-pLDc/maxresdefault.jpg"
+	}
 }
