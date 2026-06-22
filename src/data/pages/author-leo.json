@@ -1,0 +1,97 @@
+{
+	"id": "author-leo",
+	"translations": {
+		"de": {
+			"id": "author-leo-de",
+			"path": "/de/autor/leo-wattenberg/",
+			"title": "Leo Wattenberg",
+			"description": "Autor der kw.media Blogbeiträge zu YouTube, Creator-Strategie, VTubing und Plattformfragen.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Autor",
+					"title": "Leo Wattenberg",
+					"text": "Autor der kw.media Blogbeiträge zu YouTube, Creator-Strategie, VTubing und Plattformfragen.",
+					"image": "/assets/Leo_mit_angel.png",
+					"imageAlt": "Leo Wattenberg",
+					"actions": [
+						{
+							"label": "Kontakt aufnehmen",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "person",
+					"title": "Über Leo",
+					"name": "Leo Wattenberg",
+					"role": "Creative Director",
+					"image": "/assets/Leo_mit_angel.png",
+					"imageAlt": "Leo Wattenberg",
+					"credentials": [
+						"YouTube Certified",
+						"YouTube Product Expert",
+						"VTuber Specialist"
+					],
+					"body": [
+						"Leo Wattenberg schreibt die Blogbeiträge von kw.media. Seine Themen reichen von YouTube-Strategie und Urheberrecht bis zu VTubing, Plattformpolitik und Creator-Modellen.",
+						"Er arbeitet in Multimedia-Produktion, Film, Webdesign und VR und verbindet technische YouTube-Erfahrung mit einem klaren Blick auf die Realität von Creatorn."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "posts",
+					"title": "Blogbeiträge von Leo Wattenberg",
+					"authorName": "Leo Wattenberg"
+				}
+			]
+		},
+		"en": {
+			"id": "author-leo-en",
+			"path": "/en/author/leo-wattenberg/",
+			"title": "Leo Wattenberg",
+			"description": "Author of kw.media blog posts about YouTube, creator strategy, VTubing and platform questions.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Author",
+					"title": "Leo Wattenberg",
+					"text": "Author of kw.media blog posts about YouTube, creator strategy, VTubing and platform questions.",
+					"image": "/assets/Leo_mit_angel.png",
+					"imageAlt": "Leo Wattenberg",
+					"actions": [
+						{
+							"label": "Get in touch",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "person",
+					"title": "About Leo",
+					"name": "Leo Wattenberg",
+					"role": "Creative Director",
+					"image": "/assets/Leo_mit_angel.png",
+					"imageAlt": "Leo Wattenberg",
+					"credentials": [
+						"YouTube Certified",
+						"YouTube Product Expert",
+						"VTuber Specialist"
+					],
+					"body": [
+						"Leo Wattenberg writes the blog posts for kw.media. His topics range from YouTube strategy and copyright to VTubing, platform policy and creator models.",
+						"He works across multimedia production, film, web design and VR, combining practical YouTube experience with a clear view of creator realities."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "posts",
+					"title": "Blog posts by Leo Wattenberg",
+					"authorName": "Leo Wattenberg"
+				}
+			]
+		}
+	}
+}

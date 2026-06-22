@@ -1,0 +1,321 @@
+{
+	"id": "vtuber",
+	"translations": {
+		"de": {
+			"id": "vtuber-de",
+			"path": "/de/vtuber/",
+			"title": "VTuber",
+			"description": "VTuber-Modelle, Rigging und Creator-Support.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "Deine nächste VTuber-Identität",
+					"text": "Werde ein einzigartiger VTuber und starte mit kw.media professionell durch.",
+					"image": "/assets/g1-kwm.jpg",
+					"imageAlt": "VTuber-Charakter von kw.media",
+					"actions": [
+						{
+							"label": "Lass uns starten",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "faq",
+					"title": "Häufige Fragen",
+					"items": [
+						{
+							"question": "Seid ihr eine Agentur?",
+							"answer": [
+								"Wir sind keine Agentur wie Hololive oder Nijisanji. Wir glauben, dass die freie Gestaltung der eigenen Ausstrahlung einer der besten Aspekte an YouTube ist."
+							]
+						},
+						{
+							"question": "Welche Software eignet sich für VTubing?",
+							"answer": [
+								"Wir empfehlen VSeeFace für virtuelle Webcam-Nutzung und VRChat für Content und Interaktion in virtuellen Welten."
+							]
+						},
+						{
+							"question": "Könnt ihr ein bestehendes Modell erweitern?",
+							"answer": [
+								"Ja. Haare und Kleidung wechseln oder zusätzliche Augenformen und Gesichtsausdrücke ergänzen gehört zu den Dingen, bei denen wir helfen können."
+							]
+						},
+						{
+							"question": "Ist es zu spät, VTuber zu werden?",
+							"answer": [
+								"Definitiv nicht. Ein gutes Konzept, starke Ausdrucksmöglichkeiten und passendes Marketing können dich weiterhin nach vorn bringen."
+							]
+						}
+					]
+				},
+				{
+					"type": "pricing",
+					"title": "Modellierungsservices",
+					"note": "Inklusive einem kostenlosen Monat kw.media basic pro Bestellung. Preise ohne MwSt.",
+					"items": [
+						{
+							"name": "VRChat-Modell",
+							"summary": "Ein guter virtueller Körper für VRChat",
+							"price": "399,99 €",
+							"features": [
+								"Basismodell, Haare und Kleidung",
+								"Einfaches Rigging",
+								"FBX",
+								"3 Emotionen, 1 Augenform"
+							],
+							"action": {
+								"label": "Jetzt anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "3D-VTuber-Modell",
+							"summary": "Ein vielseitiges Paket für viele Einsatzzwecke",
+							"price": "600 €",
+							"highlight": "Beliebt",
+							"features": [
+								"Basismodell, Haare und Kleidung",
+								"Fortgeschrittenes Rigging",
+								"FBX, VRM",
+								"Viseme",
+								"ARKit",
+								"5 Emotionen, 2 Augenformen"
+							],
+							"action": {
+								"label": "Jetzt anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Voll ausgestattetes VTuber-Modell",
+							"summary": "Mehr Details und Optionen",
+							"price": "1200 €",
+							"features": [
+								"Alles aus dem VTuber-Paket",
+								"Mehrere Haar- und Kleidungsoptionen",
+								"Mehr Emotionen und Augenformen",
+								"Höherer Detailgrad"
+							],
+							"action": {
+								"label": "Jetzt anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Erreiche dein Next Level",
+					"title": "kw.media hilft dir, deinen Kanal wachsen zu lassen",
+					"items": [
+						{
+							"title": "Analyse und Beratung",
+							"text": "Contentstrategie, Wachstumsideen, Kanalanalyse und mehr: Du musst nicht im Blindflug unterwegs sein."
+						},
+						{
+							"title": "Technik-Support",
+							"text": "YouTube, OBS oder Tracking machen Probleme? Wir helfen beim Lösen."
+						},
+						{
+							"title": "Bessere Monetarisierung",
+							"text": "Wir optimieren deinen Kanal und helfen dir, mehr aus Sponsorships herauszuholen."
+						}
+					]
+				},
+				{
+					"type": "posts",
+					"title": "YouTube Tipps & Tricks",
+					"categoryId": 17,
+					"limit": 3,
+					"moreHref": "/de/youtube-tipps/",
+					"moreLabel": "Mehr Tipps"
+				},
+				{
+					"type": "person",
+					"eyebrow": "Dein persönlicher Kontakt",
+					"title": "VTuber-Spezialist",
+					"name": "Leo Wattenberg",
+					"role": "Creative Director",
+					"image": "/assets/Leo_mit_angel.png",
+					"imageAlt": "Leo Wattenberg",
+					"credentials": [
+						"YouTube Certified",
+						"VTuber Specialist",
+						"YouTube Product Expert"
+					],
+					"body": [
+						"Leo arbeitet in Multimedia-Produktion, Film, Webdesign und VR und beschäftigt sich seit Anfang 2020 intensiv mit VTubern."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "cta",
+					"title": "Jetzt durchstarten!",
+					"text": "Jeder Kanal und jedes Projekt ist anders. Schildern Sie uns Ihr Projekt und Ihre Vorstellungen, und wir erarbeiten gemeinsam eine individuelle Lösung.",
+					"email": "team@kw.media"
+				}
+			]
+		},
+		"en": {
+			"id": "vtuber-en",
+			"path": "/en/vtuber/",
+			"title": "VTubers",
+			"description": "VTuber model creation, rigging and creator support.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "Your next VTuber identity",
+					"text": "Become a unique VTuber and get set up for success, with kw.media.",
+					"image": "/assets/g1-kwm.jpg",
+					"imageAlt": "VTuber style character by kw.media",
+					"actions": [
+						{
+							"label": "Let's start",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "faq",
+					"title": "FAQ",
+					"items": [
+						{
+							"question": "Are you an agency?",
+							"answer": [
+								"We are not an agency like Hololive or Nijisanji. We believe broadcasting yourself freely is one of the best things about YouTube."
+							]
+						},
+						{
+							"question": "What software to use for VTubing?",
+							"answer": [
+								"We recommend VSeeFace for virtual webcam use and VRChat for virtual-world content and interaction."
+							]
+						},
+						{
+							"question": "Can I upgrade an existing model?",
+							"answer": [
+								"Definitely. Switching hair and clothing or adding eye shapes and facial expressions is something we can do."
+							]
+						},
+						{
+							"question": "Is it too late to become a VTuber?",
+							"answer": [
+								"Definitely not. A good concept, expression and marketing can still put you ahead of many channels."
+							]
+						}
+					]
+				},
+				{
+					"type": "pricing",
+					"title": "Modelling services",
+					"note": "Includes one free month of kw.media basic per order. Prices without VAT.",
+					"items": [
+						{
+							"name": "VRChat model",
+							"summary": "A good lookin' virtual body for VRChat",
+							"price": "399.99 €",
+							"features": [
+								"Base model, hair and clothing",
+								"Basic rigging",
+								"FBX",
+								"3 emotions, 1 eye shape"
+							],
+							"action": {
+								"label": "Order now",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "3D VTuber Model",
+							"summary": "A versatile pack for a wide range of uses",
+							"price": "600 €",
+							"highlight": "Popular",
+							"features": [
+								"Base model, hair and clothing",
+								"Advanced rigging",
+								"FBX, VRM",
+								"Visemes",
+								"ARKit",
+								"5 emotions, 2 eye shapes"
+							],
+							"action": {
+								"label": "Order now",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Fully Featured VTuber Model",
+							"summary": "Caught in 4K",
+							"price": "1200 €",
+							"features": [
+								"Everything from the VTuber pack",
+								"Multiple hair and clothing options",
+								"More emotions and eye shapes",
+								"Increased detail"
+							],
+							"action": {
+								"label": "Order now",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Reach your next level",
+					"title": "kw.media helps you grow your channel",
+					"items": [
+						{
+							"title": "Analysis and consulting",
+							"text": "Content strategy, growth tricks, channel analysis and more: you'll never fly blind."
+						},
+						{
+							"title": "Tech support",
+							"text": "Got stuck with YouTube, OBS or your tracking? We'll help fix things."
+						},
+						{
+							"title": "Better monetization",
+							"text": "We optimize your channel and help you get the most out of sponsorships."
+						}
+					]
+				},
+				{
+					"type": "posts",
+					"title": "YouTube Tips & Tricks",
+					"categoryId": 18,
+					"limit": 3,
+					"moreHref": "/en/youtube-tips/",
+					"moreLabel": "More tips"
+				},
+				{
+					"type": "person",
+					"eyebrow": "Your personal contact",
+					"title": "VTuber specialist",
+					"name": "Leo Wattenberg",
+					"role": "Creative Director",
+					"image": "/assets/Leo_mit_angel.png",
+					"imageAlt": "Leo Wattenberg",
+					"credentials": [
+						"YouTube Certified",
+						"VTuber Specialist",
+						"YouTube Product Expert"
+					],
+					"body": [
+						"Leo works across multimedia production, film making, web design and VR, and has researched VTubers in depth since early 2020."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "cta",
+					"title": "Interested?",
+					"text": "Every channel and every project is a different challenge. Tell us about your vision and we will work on an individual solution for you.",
+					"email": "team@kw.media"
+				}
+			]
+		}
+	}
+}

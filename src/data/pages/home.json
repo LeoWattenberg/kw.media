@@ -1,0 +1,248 @@
+{
+	"id": "home",
+	"translations": {
+		"de": {
+			"id": "home-de",
+			"path": "/",
+			"title": "Koytek Wattenberg Media",
+			"description": "Strategien für YouTube, Liveübertragungen und Online-Marketing.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Online Marketing, YouTube und Live",
+					"title": "Die beste Lösung für Ihr Online Marketing",
+					"text": "Wir erstellen effektive Strategien für YouTube, Liveübertragungen und alles für Ihren Erfolg im Netz.",
+					"image": "/assets/kwmedia couch.avif",
+					"imageAlt": "YouTube Banner von kw.media",
+					"actions": [
+						{
+							"label": "Für Firmen",
+							"href": "/de/b2b/",
+							"variant": "primary"
+						},
+						{
+							"label": "Für Creator",
+							"href": "/de/creator/",
+							"variant": "secondary"
+						}
+					]
+				},
+				{
+					"type": "credentials",
+					"items": [
+						"YouTube Certified",
+						"YouTube Product Expert",
+						"Google Partner"
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Ihr Erfolg ist unsere Priorität",
+					"title": "So bringen wir Ihr Business auf das nächste Level",
+					"linkLabel": "Mehr erfahren",
+					"items": [
+						{
+							"title": "Events",
+							"text": "Aufnahmen, Liveübertragung und Produktion von Events.",
+							"href": "/de/live/"
+						},
+						{
+							"title": "Beratung",
+							"text": "Content Strategie, Beratungen und Analysen für YouTube Kanäle.",
+							"href": "/de/creator/"
+						},
+						{
+							"title": "Online-Werbung",
+							"text": "Beratung und Optimierung von Google Ads-Kampagnen und anderen Plattformen.",
+							"href": "/de/werbung/"
+						},
+						{
+							"title": "Video-Synchronisation",
+							"text": "Mehrsprachige Fassungen für Videos, Kurse und Social Content.",
+							"href": "/de/video-synchronisation/"
+						}
+					]
+				},
+				{
+					"type": "youtubePlaylist",
+					"title": "Creator News",
+					"eyebrow": "Wöchentliche YouTube-Updates für Creator.",
+					"playlistId": "PLpM9DoCHlaQGBxm1J6FUwkB0N3ITDIzey"
+				},
+				{
+					"type": "stats",
+					"items": [
+						{
+							"value": "100M+",
+							"label": "Videoaufrufe in DACH"
+						},
+						{
+							"value": "1M+",
+							"label": "Abonnenten insgesamt"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"eyebrow": "Erfahren - Anpassungsfähig - Schnell",
+					"title": "Wir erreichen Ihre Ziele",
+					"body": [
+						"Gemeinsam bringen wir 20 Jahre Webvideo-Erfahrung in Ihre Projekte ein. Wir kennen die Plattformen, ihre Regeln und die Arbeit hinter erfolgreichen Web-Events."
+					],
+					"checks": [
+						"Gemeinsam 20 Jahre Webvideo Erfahrung",
+						"Kontinuierliche Weiterbildung",
+						"Erfassung aktueller Trends im Online Marketing",
+						"Zügige und sorgfältige Umsetzung von Projekten",
+						"Ehrliche Beratung",
+						"Kompetente Partner für Ihren Erfolg"
+					],
+					"image": "/assets/about.jpg",
+					"imageAlt": "Teamarbeit bei kw.media"
+				},
+				{
+					"type": "testimonials",
+					"eyebrow": "Kundenstimmen",
+					"title": "Das sagen unsere Kunden über uns",
+					"intro": "Wir legen Wert auf individuelle Betreuung - maßgeschneidert für Ihre Ziele.",
+					"items": [
+						{
+							"quote": "Die Zusammenarbeit hätte besser nicht laufen können. Mit kurzer Vorlaufzeit wurde das Event schnell und kompetent umgesetzt. Die Adaption auf unsere Bedürfnisse war super. Gerne wieder!",
+							"name": "Bündnis 90 Die Grünen",
+							"meta": "Kreisverband Köln"
+						},
+						{
+							"quote": "Unser Lösungsweg bei allen Fragen und Problemen rund um Social Media. Gerade im Bereich YouTube ein starker Partner mit hohem Wissensstand und einer schnellen Reaktionszeit.",
+							"name": "Pirate Racing",
+							"meta": "YouTube-Kanal"
+						},
+						{
+							"quote": "Super angenehme Zusammenarbeit. Schnelle Antworten und zielorientierte Lösungsvorschläge. Seriöses, strukturiertes und engagiertes gehören zu den Stärken von Martin.",
+							"name": "Maki",
+							"meta": "YouTube-Kanal"
+						},
+						{
+							"quote": "Die Arbeit mit Martin ist sehr freundschaftlich und professionell. Ich schätze seine YouTube-Expertise sehr und kann mich bei jedem YouTube-Problem auf eine hilfreiche Antwort verlassen.",
+							"name": "Chris Kiss",
+							"meta": "YouTube-Kanal"
+						}
+					]
+				},
+				{
+					"type": "cta",
+					"title": "Jetzt durchstarten!",
+					"text": "Jeder Kanal und jedes Projekt ist anders. Schildern Sie uns Ihr Projekt und Ihre Vorstellungen, und wir erarbeiten gemeinsam eine individuelle Lösung.",
+					"email": "team@kw.media"
+				}
+			]
+		},
+		"en": {
+			"id": "home-en",
+			"path": "/en/",
+			"title": "YouTube Consulting, Live Stream Production, Ads and SEO",
+			"description": "YouTube consulting, live streaming, ads and creator support.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "YouTube, live streaming and ads",
+					"title": "Questions about YouTube, live streaming and ads?",
+					"text": "We are here to help with strategy, production, advertising and the practical work that moves channels forward.",
+					"image": "/assets/kwmedia couch.avif",
+					"imageAlt": "kw.media YouTube banner",
+					"actions": [
+						{
+							"label": "Contact us",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "credentials",
+					"items": [
+						"YouTube Certified",
+						"YouTube Product Expert",
+						"Google Partner"
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "What we do best",
+					"title": "Your success is our priority",
+					"linkLabel": "Learn more",
+					"items": [
+						{
+							"title": "Consultation",
+							"text": "Content strategy consultation and analyses for YouTube channels.",
+							"href": "/en/creator/"
+						},
+						{
+							"title": "VTuber model creation",
+							"text": "Creation, rigging and stream integration of 3D models.",
+							"href": "/en/vtuber/"
+						},
+						{
+							"title": "Events",
+							"text": "Recording, livestreaming and event production.",
+							"href": "/en/live/"
+						},
+						{
+							"title": "Online advertisement",
+							"text": "Consultation and optimization of Google Ads campaigns and other platforms.",
+							"href": "/en/ads/"
+						},
+						{
+							"title": "Video dubbing",
+							"text": "Multilingual versions for videos, courses and social content.",
+							"href": "/en/video-dubbing/"
+						}
+					]
+				},
+				{
+					"type": "youtubePlaylist",
+					"title": "Creator News",
+					"eyebrow": "Weekly YouTube updates for creators.",
+					"playlistId": "PLpM9DoCHlaQGBxm1J6FUwkB0N3ITDIzey"
+				},
+				{
+					"type": "posts",
+					"title": "YouTube Tips & Tricks",
+					"categoryId": 18,
+					"limit": 3,
+					"moreHref": "/en/youtube-tips/",
+					"moreLabel": "More tips"
+				},
+				{
+					"type": "stats",
+					"items": [
+						{
+							"value": "100M+",
+							"label": "Views in DACH"
+						},
+						{
+							"value": "1M+",
+							"label": "Subscribers"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"eyebrow": "Experienced, adaptable, fast and honest",
+					"title": "About us",
+					"body": [
+						"Together we bring 20 years of web video experience into our work, answered several ten thousand YouTube questions, supported and grew countless creators.",
+						"We adapt quickly to changes on YouTube and with our customers. Instead of promising the blue out of the sky, we remain humble and realistic, brainstorm with you and focus our work to deliver only the highest quality."
+					],
+					"image": "/assets/about.jpg",
+					"imageAlt": "kw.media team workspace"
+				},
+				{
+					"type": "cta",
+					"title": "Interested?",
+					"text": "Every channel and every project is a different challenge. Tell us about your vision and we will work on an individual solution for you.",
+					"email": "team@kw.media"
+				}
+			]
+		}
+	}
+}

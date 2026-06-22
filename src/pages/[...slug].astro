@@ -1,8 +1,7 @@
 ---
 import ArticlePage from '../components/ArticlePage.astro';
-import PageRenderer from '../components/PageRenderer.astro';
 import BaseLayout from '../components/layout/BaseLayout.astro';
-import { getSitePageAlternatePaths, getSitePageFaqItems, sitePages } from '../data/pages';
+import { getSitePageAlternatePaths, getSitePageComponent, sitePages } from '../data/pages';
 import { getAllPosts, getPostAlternatePaths } from '../lib/source-content';
 
 export function getStaticPaths() {
@@ -15,6 +14,7 @@ export function getStaticPaths() {
 			props: {
 				kind: 'page',
 				page,
+				PageComponent: getSitePageComponent(page),
 			},
 		}));
 
@@ -31,8 +31,7 @@ export function getStaticPaths() {
 	return [...pagePaths, ...postPaths];
 }
 
-const { kind, page, post } = Astro.props;
-const heroBlock = kind === 'page' ? page.blocks.find((block) => block.type === 'hero') : undefined;
+const { kind, page, post, PageComponent } = Astro.props;
 ---
 
 {
@@ -55,18 +54,6 @@ const heroBlock = kind === 'page' ? page.blocks.find((block) => block.type === '
 			<ArticlePage post={post} />
 		</BaseLayout>
 	) : (
-		<BaseLayout
-			locale={page.locale}
-			title={page.title}
-			description={page.description}
-			preloadImage={heroBlock?.image}
-			canonicalPath={page.path}
-			alternatePaths={getSitePageAlternatePaths(page)}
-			image={heroBlock?.image}
-			imageAlt={heroBlock?.imageAlt}
-			faqItems={getSitePageFaqItems(page)}
-		>
-			<PageRenderer page={page} />
-		</BaseLayout>
+		<PageComponent page={page} alternatePaths={getSitePageAlternatePaths(page)} />
 	)
 }

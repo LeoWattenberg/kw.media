@@ -1,0 +1,417 @@
+{
+	"id": "courses",
+	"translations": {
+		"de": {
+			"id": "courses-de",
+			"path": "/de/kurse/",
+			"title": "Vorträge und Kurse für Schulen",
+			"description": "Medienkompetenz, KI, Fake News und Content Creation als Vorträge, Workshops und Projektkurse für Schulen.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Medienkompetenz, KI und Content Creation",
+					"title": "Vorträge und Kurse für Schulen",
+					"text": "Wir unterrichten online oder vor Ort: praxisnah, verständlich und passend für Schüler*innen, Lehrkräfte, Elternabende und Projektwochen.",
+					"image": "/assets/creator-video-production.jpg",
+					"imageAlt": "Creator bei der Videoproduktion",
+					"actions": [
+						{
+							"label": "Kurs anfragen",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"eyebrow": "Buchbar für Schulen und Bildungsträger",
+					"title": "Unterricht, der digitale Lebenswelten ernst nimmt",
+					"body": [
+						"Unsere Kurse verbinden Medienkompetenz mit echter Plattformpraxis: YouTube, KI, Fake News, Social Media, Video-Produktion und digitale Berufskompetenzen.",
+						"Eine UE ist eine Übungseinheit von 45 Minuten. Viele Formate lassen sich als Einzelvortrag, Workshop, Projekttag, Online-Einheit oder Ferienkurs anpassen."
+					],
+					"checks": [
+						"Online oder offline buchbar",
+						"Für Klassen, Kurse, Medien-AGs, Projektwochen und Elternabende",
+						"Praxisnah mit Live-Demos, Übungen und echten Beispielen",
+						"Dozent: Martin Koytek"
+					],
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek"
+				},
+				{
+					"type": "services",
+					"eyebrow": "Kurskatalog",
+					"title": "Beispiele aus unserem Programm",
+					"intro": "Die Formate werden an Alter, Vorwissen, technische Ausstattung und Zeitrahmen Ihrer Schule angepasst.",
+					"items": [
+						{
+							"title": "Fakt oder Fake? - Wahrheit im digitalen Zeitalter",
+							"text": "Workshop für Schüler*innen ab Klasse 9. In 4-6 UE lernen Gruppen, Fake News, Deepfakes und Desinformation zu erkennen und Quellen praktisch zu prüfen."
+						},
+						{
+							"title": "KI verstehen - ganz ohne Informatik-Studium",
+							"text": "Vortrag oder Workshop ab 6 UE. Verständlicher Einstieg in ChatGPT, Bild-KI, Chancen, Grenzen, Halluzinationen und verantwortungsvolle Nutzung."
+						},
+						{
+							"title": "Grill dich schlau: Der Creator-Snack",
+							"text": "Kompakter Impuls-Workshop für Jugendliche von 13-18 Jahren. In 2-3 UE geht es um Thumbnails, Hooks und den ersten Eindruck von Videos."
+						},
+						{
+							"title": "Traumberuf YouTuber? - Blick hinter die Kulissen",
+							"text": "Vortrag für Jugendliche von 13-18 Jahren. In 4-6 UE sprechen wir über Technik, Algorithmus, Aufwand, Geld, Pflichten und Realitäten des Creator-Alltags."
+						},
+						{
+							"title": "Traumberuf YouTuber? - Das Praxis-Camp",
+							"text": "Tageskurs mit 10 UE. Schüler*innen planen, drehen und schneiden ein eigenes vertikales Kurzvideo direkt mit dem Smartphone."
+						},
+						{
+							"title": "Creator Camp: Dein Start auf YouTube & Co.",
+							"text": "Ferienkurs oder Projektwoche über 3-5 Tage. Von Idee, Storyboard, Dreh und Ton bis Schnitt, Export, Medienrecht und Abschlusspräsentation."
+						},
+						{
+							"title": "Storytelling für Creator",
+							"text": "Online-Workshop mit 4-6 UE. Dramaturgie, Zuschauerbindung und Skriptstruktur für Videos, Präsentationen und Social-Media-Formate."
+						},
+						{
+							"title": "Content Creation - The Professional Way",
+							"text": "Praxis-Workshop mit 4-6 UE zu Kamera, Belichtung, Lichtsetzung und Ton. Ideal für Medien-AGs, Projektkurse und Berufskollegs."
+						},
+						{
+							"title": "Hollywood für zu Hause",
+							"text": "EDV-Workshop mit 6-8 UE. Kostenlos nutzbare Profi-Tools wie OBS Studio, GIMP und DaVinci Resolve im kompletten Produktionsworkflow."
+						},
+						{
+							"title": "KI-Power für den Job",
+							"text": "Kompaktseminar mit 6-8 UE für Berufskollegs, Lehrkräfte oder Oberstufe. ChatGPT, Copilot und Gemini für Text, Recherche und Organisation."
+						},
+						{
+							"title": "Was treiben meine Enkel im Internet?",
+							"text": "Eltern- oder Großelternabend mit 6 UE. Ein verständlicher Blick auf Online-Games, Influencer, Kostenfallen, Cybermobbing und Generationendialog."
+						}
+					]
+				},
+				{
+					"type": "pricing",
+					"eyebrow": "Buchungsformate",
+					"title": "Vom Impuls bis zur Projektwoche",
+					"note": "Preise und konkrete Abläufe stimmen wir nach Format, Gruppengröße, Ort, Technikbedarf und Vorbereitungsaufwand ab.",
+					"items": [
+						{
+							"name": "Impuls oder Vortrag",
+							"summary": "Für Einstieg, Elternabend oder Pädagogischen Tag",
+							"price": "Auf Anfrage",
+							"period": "2-6 UE",
+							"features": [
+								"Klare Einführung ins Thema",
+								"Live-Demos und Q&A",
+								"Online oder vor Ort"
+							],
+							"action": {
+								"label": "Anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Workshop oder Projekttag",
+							"summary": "Für Klassen, Kurse und Medien-AGs",
+							"price": "Auf Anfrage",
+							"period": "4-10 UE",
+							"highlight": "Beliebt",
+							"features": [
+								"Interaktive Übungen",
+								"Material- und Technikabstimmung",
+								"Praxisnahes Arbeiten in Gruppen"
+							],
+							"action": {
+								"label": "Anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Projektwoche oder Ferienkurs",
+							"summary": "Für intensive Medienprojekte",
+							"price": "Auf Anfrage",
+							"period": "3-5 Tage",
+							"features": [
+								"Konzept, Produktion und Abschlusspräsentation",
+								"Begleitete Kreativarbeit",
+								"Individuell planbarer Ablauf"
+							],
+							"action": {
+								"label": "Anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "faq",
+					"title": "Häufige Fragen",
+					"items": [
+						{
+							"question": "Für welche Klassenstufen sind die Kurse geeignet?",
+							"answer": [
+								"Viele Formate sind für Jugendliche ab 13 Jahren oder ab Klasse 9 konzipiert. Für Oberstufe, Berufskollegs, Lehrkräfte und Elternabende passen wir Inhalte und Sprache entsprechend an."
+							]
+						},
+						{
+							"question": "Kann der Kurs online stattfinden?",
+							"answer": [
+								"Ja. Viele Themen funktionieren als Online-Workshop oder Webinar. Praxisformate mit Dreh, Schnitt oder Technik profitieren oft von einem Termin vor Ort."
+							]
+						},
+						{
+							"question": "Was muss die Schule vorbereiten?",
+							"answer": [
+								"Das hängt vom Format ab. Für Vorträge reichen meist Beamer, Ton und Internet. Für Praxisformate stimmen wir Geräte, Software, Räume und Gruppengrößen vorab ab."
+							]
+						},
+						{
+							"question": "Wer unterrichtet die Kurse?",
+							"answer": [
+								"Dozent ist Martin Koytek. Er verbindet langjährige YouTube-, Medien- und Online-Marketing-Erfahrung mit verständlicher Vermittlung für unterschiedliche Zielgruppen."
+							]
+						}
+					]
+				},
+				{
+					"type": "person",
+					"eyebrow": "Dozent",
+					"title": "Unterricht mit Plattformpraxis",
+					"name": "Martin Koytek",
+					"role": "Dozent für Medienkompetenz, KI und Content Creation",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube-Produktexperte"
+					],
+					"body": [
+						"Martin Koytek erklärt digitale Plattformen, KI und Content Creation aus der Praxis heraus: verständlich, ehrlich und mit Blick auf das, was Schüler*innen wirklich online erleben."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "cta",
+					"title": "Kurs anfragen",
+					"text": "Schicken Sie uns kurz Thema, Zielgruppe, gewünschtes Format, Ort und möglichen Zeitraum. Wir melden uns mit einem passenden Vorschlag.",
+					"email": "team@kw.media",
+					"items": [
+						"Schule oder Bildungsträger",
+						"Klassenstufe und Gruppengröße",
+						"Online oder vor Ort",
+						"Gewünschter Umfang in UE oder Tagen"
+					]
+				}
+			]
+		},
+		"en": {
+			"id": "courses-en",
+			"path": "/en/lectures-courses/",
+			"title": "Lectures and Courses for Schools",
+			"description": "Media literacy, AI, fake news and content creation as lectures, workshops and project courses for schools.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Media literacy, AI and content creation",
+					"title": "Lectures and courses for schools",
+					"text": "We teach online or on site: practical, understandable and tailored to students, teachers, parent evenings and project weeks.",
+					"image": "/assets/creator-video-production.jpg",
+					"imageAlt": "Creators recording a video",
+					"actions": [
+						{
+							"label": "Request a course",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "text",
+					"eyebrow": "For schools and education providers",
+					"title": "Teaching digital life as it actually happens",
+					"body": [
+						"Our courses connect media literacy with real platform experience: YouTube, AI, misinformation, social media, video production and digital work skills.",
+						"One teaching unit is 45 minutes. Most formats can be adapted as a lecture, workshop, project day, online session or holiday course."
+					],
+					"checks": [
+						"Available online or on site",
+						"For classes, media clubs, project weeks and parent evenings",
+						"Practical teaching with live demos, exercises and real examples",
+						"Teacher: Martin Koytek"
+					],
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek"
+				},
+				{
+					"type": "services",
+					"eyebrow": "Course catalogue",
+					"title": "Examples from the programme",
+					"intro": "Formats are adapted to age, prior knowledge, technical setup and the school schedule.",
+					"items": [
+						{
+							"title": "Fact or Fake? Truth in the Digital Age",
+							"text": "Workshop for students from grade 9. In 4-6 teaching units, groups learn how misinformation, deepfakes and source verification work."
+						},
+						{
+							"title": "Understanding AI without a Computer Science Degree",
+							"text": "Lecture or workshop from 6 teaching units. A clear introduction to ChatGPT, image AI, opportunities, limits, hallucinations and responsible use."
+						},
+						{
+							"title": "Creator Snack: Hooks, Thumbnails and Attention",
+							"text": "Compact impulse workshop for ages 13-18. In 2-3 teaching units, students learn why videos get clicked or skipped."
+						},
+						{
+							"title": "Dream Job YouTuber? Behind the Scenes",
+							"text": "Lecture for ages 13-18. In 4-6 teaching units, Martin explains technology, algorithms, effort, money, obligations and creator reality."
+						},
+						{
+							"title": "Mobile Creator Practice Camp",
+							"text": "One-day course with 10 teaching units. Students plan, shoot and edit their own vertical short video with a smartphone."
+						},
+						{
+							"title": "Creator Camp: Start on YouTube & Co.",
+							"text": "Holiday course or project week over 3-5 days. From idea, storyboard, camera and sound to editing, export, media law and final screening."
+						},
+						{
+							"title": "Storytelling for Creators",
+							"text": "Online workshop with 4-6 teaching units. Dramaturgy, audience retention and script structure for video, presentation and social formats."
+						},
+						{
+							"title": "Content Creation - The Professional Way",
+							"text": "Hands-on workshop with 4-6 teaching units covering cameras, exposure, lighting and audio for media classes and project groups."
+						},
+						{
+							"title": "Hollywood at Home",
+							"text": "Computer lab workshop with 6-8 teaching units. Free professional tools such as OBS Studio, GIMP and DaVinci Resolve in one workflow."
+						},
+						{
+							"title": "AI Power for Work",
+							"text": "Compact seminar with 6-8 teaching units for vocational schools, teachers or older students using ChatGPT, Copilot and Gemini productively."
+						},
+						{
+							"title": "What Are My Grandchildren Doing Online?",
+							"text": "Parent or grandparent evening with 6 teaching units about online games, influencers, cost traps, cyberbullying and intergenerational dialogue."
+						}
+					]
+				},
+				{
+					"type": "pricing",
+					"eyebrow": "Booking formats",
+					"title": "From short impulse to project week",
+					"note": "Pricing and structure depend on format, group size, location, technical setup and preparation needs.",
+					"items": [
+						{
+							"name": "Impulse or lecture",
+							"summary": "For introductions, parent evenings or teacher training days",
+							"price": "On request",
+							"period": "2-6 units",
+							"features": [
+								"Clear topic introduction",
+								"Live demos and Q&A",
+								"Online or on site"
+							],
+							"action": {
+								"label": "Request",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Workshop or project day",
+							"summary": "For classes, courses and media clubs",
+							"price": "On request",
+							"period": "4-10 units",
+							"highlight": "Popular",
+							"features": [
+								"Interactive exercises",
+								"Material and tech planning",
+								"Practical group work"
+							],
+							"action": {
+								"label": "Request",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Project week or holiday course",
+							"summary": "For intensive media projects",
+							"price": "On request",
+							"period": "3-5 days",
+							"features": [
+								"Concept, production and final screening",
+								"Guided creative work",
+								"Individually planned schedule"
+							],
+							"action": {
+								"label": "Request",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "faq",
+					"title": "FAQ",
+					"items": [
+						{
+							"question": "Which age groups are the courses for?",
+							"answer": [
+								"Many formats are designed for students from age 13 or grade 9. We adapt the content and language for older students, vocational schools, teachers and parent evenings."
+							]
+						},
+						{
+							"question": "Can the course happen online?",
+							"answer": [
+								"Yes. Many topics work well as an online workshop or webinar. Practical formats with filming, editing or hardware usually benefit from an on-site session."
+							]
+						},
+						{
+							"question": "What does the school need to prepare?",
+							"answer": [
+								"It depends on the format. Lectures usually need a projector, audio and internet. For practical courses, we agree devices, software, rooms and group sizes in advance."
+							]
+						},
+						{
+							"question": "Who teaches the courses?",
+							"answer": [
+								"The teacher is Martin Koytek. He combines many years of YouTube, media and online marketing experience with clear explanations for different audiences."
+							]
+						}
+					]
+				},
+				{
+					"type": "person",
+					"eyebrow": "Teacher",
+					"title": "Platform practice in the classroom",
+					"name": "Martin Koytek",
+					"role": "Teacher for media literacy, AI and content creation",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube Product Expert"
+					],
+					"body": [
+						"Martin Koytek explains digital platforms, AI and content creation from real practice: clearly, honestly and with attention to what students actually experience online."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "cta",
+					"title": "Request a course",
+					"text": "Send us the topic, audience, preferred format, location and possible time frame. We will reply with a fitting proposal.",
+					"email": "team@kw.media",
+					"items": [
+						"School or education provider",
+						"Grade level and group size",
+						"Online or on site",
+						"Preferred length in teaching units or days"
+					]
+				}
+			]
+		}
+	}
+}

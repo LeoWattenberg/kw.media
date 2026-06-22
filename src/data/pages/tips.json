@@ -1,0 +1,31 @@
+{
+	"id": "tips",
+	"translations": {
+		"de": {
+			"id": "tips-de",
+			"path": "/de/youtube-tipps/",
+			"title": "YouTube Tipps & Tricks auf Deutsch",
+			"description": "Deutschsprachige YouTube Tipps und Tutorials von kw.media.",
+			"blocks": [
+				{
+					"type": "posts",
+					"title": "YouTube Tipps & Tricks auf Deutsch",
+					"categoryId": 17
+				}
+			]
+		},
+		"en": {
+			"id": "tips-en",
+			"path": "/en/youtube-tips/",
+			"title": "YouTube Tips & Tricks in English",
+			"description": "English YouTube tips and tutorials by kw.media.",
+			"blocks": [
+				{
+					"type": "posts",
+					"title": "YouTube Tips & Tricks in English",
+					"categoryId": 18
+				}
+			]
+		}
+	}
+}
