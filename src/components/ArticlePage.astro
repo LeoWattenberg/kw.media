@@ -3,6 +3,7 @@ import type { SourcePost } from '../lib/source-content';
 import { withBase } from '../lib/url';
 import { getAuthorPath } from '../data/authors';
 import ContentHtml from './blocks/ContentHtml.astro';
+import YouTubeConsentEmbed from './YouTubeConsentEmbed.astro';
 
 interface Props {
 	post: SourcePost;
@@ -37,21 +38,13 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 		</div>
 		{
 			post.video ? (
-				<div class={videoClass}>
-					<iframe
-						title={post.title}
-						src={post.video.embedUrl}
-						loading="eager"
-						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-						allowfullscreen
-					/>
-				</div>
+				<YouTubeConsentEmbed class={videoClass} locale={post.locale} title={post.title} src={post.video.embedUrl} loading="eager" />
 			) : (
 				post.image && <img src={withBase(post.image)} alt="" loading="eager" />
 			)
 		}
 	</header>
-	<ContentHtml html={post.contentHtml} />
+	<ContentHtml html={post.contentHtml} locale={post.locale} />
 </article>
 
 <style>
@@ -111,10 +104,12 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 	}
 
 	.hero-video--short {
+		aspect-ratio: 9 / 16;
 		max-width: 420px;
 	}
 
-	.hero-video iframe {
+	.hero-video :global(iframe),
+	.hero-video :global(.youtube-consent-placeholder) {
 		display: block;
 		width: 100%;
 		aspect-ratio: 16 / 9;
@@ -124,7 +119,8 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 		background: #000;
 	}
 
-	.hero-video--short iframe {
+	.hero-video--short :global(iframe),
+	.hero-video--short :global(.youtube-consent-placeholder) {
 		aspect-ratio: 9 / 16;
 	}
 </style>
