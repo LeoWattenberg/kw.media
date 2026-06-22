@@ -22,12 +22,21 @@ export interface SourcePost {
 	};
 }
 
-const postModules = import.meta.glob<SourcePost>('../data/posts/*.json', {
+interface MarkdownPostModule {
+	frontmatter: Omit<SourcePost, 'contentHtml'>;
+	compiledContent: () => Promise<string>;
+}
+
+const postModules = import.meta.glob<MarkdownPostModule>('../data/posts/*.md', {
 	eager: true,
-	import: 'default',
 });
 
-const posts = Object.values(postModules).sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+const posts = (
+	await Promise.all(Object.values(postModules).map(async (post) => ({
+		...post.frontmatter,
+		contentHtml: await post.compiledContent(),
+	})))
+).sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
 const translatedPostPaths: Array<Partial<Record<Locale, string>>> = [
 	{

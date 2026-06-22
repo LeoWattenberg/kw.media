@@ -1,0 +1,88 @@
+---
+id: 1834
+slug: "wie-du-social-media-nutzen-kannst-um-deinen-youtube-kanal-zu-vergrosern"
+path: "/youtube-tipps-de/wie-du-social-media-nutzen-kannst-um-deinen-youtube-kanal-zu-vergrosern/"
+title: "WIE DU SOCIAL MEDIA NUTZEN KANNST, UM DEINEN YOUTUBE KANAL ZU VERGRÖßERN!"
+excerpt: "Wie du Social Media gezielt nutzt, um neue Zuschauer zu erreichen, alte Videos wiederzubeleben und deinen YouTube-Kanal zu stärken."
+date: "2021-10-15T08:24:51"
+modified: "2023-03-17T12:57:28"
+locale: "de"
+categoryIds: [17]
+image: "/assets/wp-content/uploads/2021/10/HOW-TO-USE-SOCIAL-MEDIA-TO-GROW-YOUR-YOUTUBE-CHANNEL.png"
+authorName: "Leo Wattenberg"
+sourceUrl: "https://kw.media/youtube-tipps-de/wie-du-social-media-nutzen-kannst-um-deinen-youtube-kanal-zu-vergrosern/"
+---
+
+Moin.
+
+Social Media kann, wenn man es richtig nutzt, ein sehr mächtiges Werkzeug sein. Es kann neue Zuschauer erreichen, deine alten Videos wieder aufleben lassen und vielleicht sogar Content von dir viral gehen lassen. Aber bevor wir damit anfangen, sollten wir auf die Social Media Strategien schauen, die nicht funktionieren. Wir kommen später zu dem, was funktioniert, bis hin zu den Strategien für jeden Abschnitt.
+
+## 3 Strategien die nicht funktionieren
+
+1. Sich ausschließlich auf die Automatisierung verlassen. Du kannst ganz einfach einen Social Media Account für deinen Kanal betreiben, indem du einen Bot automatisch deine Updates posten lässt. Das machen die meisten mit IFTTT. Das zu tun wird dir aber nicht helfen deinen YouTube Kanal zu vergrößern, denn ein Twitter Feed der lediglich alle paar Tage deine Videos postet ist einfach langweilig. Das hat zwar einen Nutzen für die Leute, die es aus irgendeinem Grund vorziehen von Twitter benachrichtigt zu werden, für alle anderen ist es allerdings nur nerviger Spam. Außerdem erreichst du damit auch keine neuen Zuschauer.
+2. Alles und jedem antworten. Social Media ist super um mit Leuten in Kontakt zu kommen, aber es ist auch einfach sich damit ablenken zu lassen. Wenn du anfängst den ganzen Tag mit Leuten zu chatten findest du vielleicht neue Follower oder sogar Freunde – aber diese Menschen sind nicht automatisch an deinen Videos interessiert. Diese Strategie ist also nicht nur sehr ineffizient, sondern bringt dich auch dazu das Arbeiten an deinen Videos zu prokrastinieren.
+3. Sich auf Reddit, Discord und in Facebook-Gruppen selbst bewerben. Das gilt insbesondere für Kanäle und Communitys, die sich an die Creators und Selbstdarstellung richten. Im Wesentlichen wirst du damit nicht nur keine neue Zuschauerschaft erreichen, sondern nur andere Creators die selbst ihren Content teilen wollen. Es ist, als würde ein Klempner auf der Weltklempnerkonferenz herumfragen, ob jemand ein Leck repariert haben möchte. Es ist einfach sinnlos. Aber es ist möglich deinen Content an Orten mit den richten Leuten zu bewerben. Diese Orte zu finden ist allerdings etwas schwerer, als nur die richtige Community zu finden, um deine Videos zu teilen. Wir machen mal einen Abschnitt dazu:
+
+## Bewerbe deine Videos in Reddit / Discord / Facebook Communities
+
+Wie oben schon erwähnt solltest du deine Videos nicht in self-promotion Communities teilen. Aber wo dann? Die Antwort ist vermutlich genauso einfach wie offensichtlich: In Communities in denen es um deinen Content geht. Machst du Beauty Content, teile deine Videos in Beauty tip Communities. Outdoor Content passt vermutlich gut in Outdoor, Natur oder sogar Fitness Communities, oder Communities über die Orte, die du besucht hast.
+
+Davon abgesehen davon, dass diese Communities fantastische Orte zur Selbstbewerbung sind, sind sie auch der Ort für dich an dem du Inspirationen und Kooperationspartner finden kannst. Vielleicht redet jemand über einen Insider tip den sonst nur Einheimische kennen. Vielleicht findest du Leute, die großartigen Textanalysen machen, welche du als Basis für ein Video nutzen kannst. Und vielleicht ist es auch einfach nur eine angenehme Community, in der man sich gerne aufhält.
+
+Wenn du nach Communities Ausschau hältst wirst du welche mit Millionen von Mitgliedern bis hin zu manchen mit nur ein paar dutzend Mitgliedern finden. In allen von denen Teilen ist fair. Mehr Mitglieder bedeuten mehr potenzielle neue Zuschauer, aber gleichzeitig auch weniger Fokus auf dem einzelnen und mehr Konkurrenz. Wenn du beispielsweise ein Video über eine bestimmte Schuhmarke in einer allgemeinen Schuh-Community teilst und in einer Community über diese bestimmte Marke kann es sein, das die marktspezifische Community wesentlich mehr aufrufe bringt, auch wenn die Marken-Community in der Größenordnung kleiner ist.
+
+## …aber so einfach ist es nicht immer
+
+Angenommen du hast ein Video über ein Spiel, du gehst vielleicht in einen Subreddit und einen Discord Kanal welche über dieses Spiel gehen – und schnell bemerkst du das dein Video ignoriert, in die Hölle gedownvoted, oder noch schlimmer, von einem Moderator gelöscht wird. Was ist passiert? Das Problem ist zweiseitig:
+
+Auf der einen Seite ist das vielleicht einfach etwas, was diese Community jeden Tag sieht. Besonders im Videospiel Genre ist es wahrscheinlich das, wenn du nicht eine besondere Videoreihe über dieses Spiel machst, es dutzende von anderen auch schon machen. Das macht dich weniger sichtbar und auch weniger interessant. Das kann auch immernoch passieren wenn du nur die Highlights zeigst: Im Großen und Ganzen sind die Highlights vielleicht einfach nicht besonders interessant.
+
+Auf der anderen Seite sind die zuschauer denen du dein Video Teilst vielleicht unterschiedlich von der Community. Zum Beispiel: Hast du ein Mathematikvideo ondem du zuerst die Verständnis notwendigen Grundlagen erklärst bevor du zur eigentlichen auflösung kommst wird sich die Community von Matheprofis dafür wahrscheinlich nicht interessieren. Einfach weil es zu einfach ist.
+
+Ich kann dir nicht wirklich eine Lösung für das erste Problem anbieten. Wenn dein Content nicht interessant genug für die Community ist, kann man da nicht viel machen. Mancher Content ist einfach nicht gute teilbar, persönliche VLog zum Beispiel. Das bedeutet nicht direkt, dass du dein Format verändern musst. Hub Content (oder alles, was nach SEE-NTS Modell in erster Linie für Abonnenten optimiert ist) ist sehr hilfreich deine Abonnenten glücklich zu machen, sodass Abonnenten zu Fans werden. Du wirst damit halt nur nicht viele neue Leute erreichen.
+
+Für das zweite Problem gibt es eine Lösung, welche nicht nur für Communities, sondern social media allgemein gilt.
+
+## Erstelle Teaser für deinen Content
+
+Social Media Seiten haben bemerkt, dass Bilder mehr auffallen als Links, also zeigen sie automatisch auch eins, sobald du einen Link teilst. Aber was ist noch besser als Bilder? Sich bewegende Bilder! Das bedeutet, wenn du ein Video auf Plattformen teilst, solltest du vielleicht einen kleinen Videoausschnitt oder ein GIF von dem Video dazu posten.
+
+Es gibt eine Reihe von Ausschnitten, die man teilen kann:
+
+- Der Teil der für die Community am relevantesten ist: Wenn dein volles Video in einer Community nicht gut geklickt werden würde, weil die Zuschauer etwas erwarten das nur ein kleiner Teil deines Videos ist, teile genau diesen Ausschnitt! Dadurch wirst du keine Views verlieren, da das volle Video für die Community ja eh nicht so ansprechend ist. Das ist vielleicht nicht super effizient, aber du würdest deinen Namen (und vielleicht sogar backlinks für SEO Zwecke) verbreiten.
+- Trailer. So wie Trailer für Filme gemacht werden kannst du auch einen Trailer für ein Youtube Video machen. Ein Trailer sollte die prämisse deines Videos darlegen, ein paar Ausschnitte die ihn interessant machen genau so wie ein paar witzige oder unvergessliche Zeilen. Im zusammenhang eines Youtube Videos könnte es ein Ausschnitt sein wie du lauthals über etwas lachst. Oder vielleicht etwas beeindruckendes von dem der Zuschauer den ganzen Kontext verstehen möchte.
+- Das Meme. Das muss kein Standard Internet Meme sein, du kannst auch Teile deines Contents bewusst Meme-bar machen und dafür den Weg zur Kreativität deiner Follower ebnen, die damit sich eventuell verbreitende Memes erstellen können.
+- Eine konzentrierte, vage Version. Etwas, das auf TikTok funktionieren würde (oder vielleicht sogar auf einem separaten YouTube Channel für #shorts). Es sollte alleinstehend Sinn ergeben, aber vielleicht Fragen offen lassen, die das ganze Video beantworten kann. Zum Beispiel: Machst du ein Handy Review, kann das Nutzen eines Teasers im Stil von „ In diesem Video reden wir über das Handy mit dem besten Preis-leistungs- verhältnis, solange dich die Schwächen im Display nicht stören. Warum? Das erfährst du im ganzen Video” vielleicht gut funktionieren.
+
+(es gibt noch andere Optionen, aber bevor ich dazu komme, lass mich dir etwas Kontext geben)
+
+## Nutze Social Media richtig
+
+Vermutlich kennst du die Regeln, um deinen YouTube Channel zu vergrößern: Veröffentliche regelmäßig Content, finde deine Nische, optimiere deinen Content und so weiter. Die gleichen Regeln gelten für Social Media. Denn diese Regeln sind nicht unbedingt YouTube Regeln, sie sind Regeln für das Wachstum deines Publikums. Du könntest sie sogar für Fernsehshows benutzen! Also funktionieren sie für Social Media natürlich auch.
+
+Da kommt der Punkt, den ich vorhin ausgelassen habe wieder ins Spiel:
+
+- Das Herz des Content. Die Wahl dieser Option ist etwas gruselig. Du zeigst einfach den Hauptgrund, wegen dem ein potenzieller Zuschauer dein Video schauen wollen würde. Das zu tun bedeutet, dass dein volles Video überflüssig wird und nicht mehr geschaut werden muss, denn dieser kurze Ausschnitt hat ja schon alle Neugierde befriedigt.
+
+Deinen YouTube Channel damit zu promoten wäre eine schlechte Idee. Du gibst eigentlich nur Zuschauer auf, wofür? Facebook Likes? Na ja, ja! Der Grund so etwas zu tun ist für das Wachstum deiner Social Media präsenz. Nicht nur beim posten der passenden Videos auf deinem YouTube Channel, sondern indem sie auch Menschen, die ihnen nicht folgen, wertvollen Content liefern.
+
+Und eventuell überraschend: Das ist keine totale Verschwendung von Geld. Deine neuen Follower werden in Zukunft vielleicht deinen Content schauen, klar, aber wo es tatsächlich interessant wird sind Werbedeals. Hast du eine Million YouTube Abonnenten aber keine wirkliche twitter/Facebook/Instagram Präsenz zeigt das Firmen, dass du vielleicht gute Videos machst, aber kein guter Influencer bist. Das ist jemand, der andere dazu bringt Dinge zu tun (und zu kaufen). Hast du aber viele Follower und ein paar virale Posts, die du aufzeigen kannst, kannst du damit die Preise für Werbedeals deutlich anheben. Wenn wir schon darüber sprechen, verkauf dich nicht unter deinem Preis!
+
+Du könntest das “Herz deines Contents” von älteren Videos benutzen, die so oder so nicht mehr allzu viele Views bekommen, anstatt neuere Videos zu nehmen.
+
+## Social Media Strategien
+
+Ich hab davon schon einige angesprochen, aber hier sind einige mehr, damit es komplett ist. Dieser Teil ist mehr “wie du deinen Twitteraccount vergrößern kannst” als YouTube bezogen, aber wenn du damit nicht vertraut bist, kann es vielleicht hilfreich sein:
+
+- Benutze relevante (Am besten: Trends) Hashtags, für die Plattform geeignet (Ein paar auf Twitter, mehr auf Instagram).
+- Regelmäßig posten
+- Nutze Automatisierung, wenn möglich
+- Teile älteren Content nochmal wenn er wieder relevant wird (Bestimmte daten, Events etc.)
+- Interagiere mit deinem Publikum und anderen Creatoren in deiner Nische
+- Mache jeden social Media Account wertvoll genug damit es sich lohnt ihm zu folgen.
+
+## Lasse deine Marke wachsen, nicht nur deinen Kanal
+
+Benutzt du die oben aufgelisteten Strategien machst du das vermutlich schon. Der Punkt ist, eine starke Marke über verschiedene social Media zu haben wird dich neue Zuschauer gewinnen lassen, wird dir bessere sponsorship einbringen, gibt dir einen backup falls eine deiner accounts gesperrt wird und ja, es hilft dir auch deinen YouTube Channel zu vergrößern.
+
+Es ist auch eine Menge Arbeit. Reiß dich und deine Community nicht auseinander im Versuch alle Social Media Plattformen zu bedienen. Wenn nötig kannst du auch Leute einstellen, die dir helfen, damit du nicht von der Produktion zu den Analytics und Marketing bis hin zu social Media Management alles selber machen musst. Wir sind zwar keine social Media Manager, aber wir können dir auf anderen Wegen helfen. Wir beraten dich gerne in den Bereichen Content Strategien, Hilfe mit sponsorship Deals, analysieren deines Kanals, und ja, auch social media Strategien. Auch wenn ich glaube das du bereits weißt, was wir dir im Großen und Ganzen erzählen würden, wenn du bis hier hin gelesen hast. Na ja, vielleicht können wir dir ja noch anders helfen?

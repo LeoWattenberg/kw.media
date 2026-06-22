@@ -1,0 +1,23 @@
+---
+id: 3022
+slug: "so-funktionieren-kanaltrailer"
+path: "/youtube-tipps-de/so-funktionieren-kanaltrailer/"
+title: "So funktionieren: Kanaltrailer"
+excerpt: "So wählst du Kanaltrailer und hervorgehobene Videos für neue und wiederkehrende Zuschauer aus."
+date: "2022-07-12T18:09:00"
+modified: "2022-07-12T18:09:00"
+locale: "de"
+categoryIds: [17]
+image: "https://i.ytimg.com/vi/s05L2eJ4j7g/maxresdefault.jpg"
+authorName: "Martin Koytek"
+sourceUrl: "https://www.youtube.com/shorts/s05L2eJ4j7g"
+video:
+  youtubeId: "s05L2eJ4j7g"
+  embedUrl: "https://www.youtube.com/embed/s05L2eJ4j7g"
+  watchUrl: "https://www.youtube.com/shorts/s05L2eJ4j7g"
+  thumbnailUrl: "https://i.ytimg.com/vi/s05L2eJ4j7g/maxresdefault.jpg"
+---
+
+## Transkript
+
+YouTube bietet euch an, Videos für nicht abonnierte User und wiederkehrende Abonnenten auf eurer Kanalseite hervorzuheben. Um diese Videos auszuwählen, geht ihr in eurem Studio in den Tab „Anpassen“. Von dort aus könnt ihr für beide Kategorien ein Video auswählen.
