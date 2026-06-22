@@ -1,0 +1,23 @@
+{
+	"id": 3030,
+	"slug": "how-to-use-youtube-lives-take-a-break-feature-step-by-step-tutorial-with-obs-setup",
+	"path": "/youtube-tips-en/how-to-use-youtube-lives-take-a-break-feature-step-by-step-tutorial-with-obs-setup/",
+	"title": "How to Use YouTube Live’s “Take a Break” Feature (Step-by-Step Tutorial with OBS Setup)",
+	"excerpt": "Walks through YouTube Live's Take a Break feature and how to configure it in a stream setup with OBS.",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">To enable the break overlay, head to the YouTube live control room or LCR for short. This is your command center for YouTube live streaming. Click on channel level settings. You will find it at the bottom of the lefth hand menu of your dashboard. If monetization is enabled, you'll now see two sub menus. The first is monetization defaults. Definitely worth checking out if you haven't yet. And more importantly for today, overlay for brakes. Quick note, the dialogue might look a little different the first time you set it up.</p>\n\n<p class=\"wp-block-paragraph\">Just follow the instructions. Click on overlay for breaks. Here you can choose a custom video to play during your break or stick with the default YouTube break overlay. Open the OBS that shall receive the break overlay. To add a new browser source, click the plus under sources, then choose browser. Give it a name like YouTube break overlay and hit okay. In the URL field, paste the link you copied from the live control room. Set the width and height to match your stream resolution. In my case, 2560x440.</p>\n\n<p class=\"wp-block-paragraph\">Check the box labeled deactivate when source is not visible. This ensures the overlay won't interfere with your stream outside of break times. Click okay and you're done. Let's take a look how that would look like in action. Open the LCR of one of your streams or set up a scheduled stream. The stream doesn't have to be live yet. You just need to open it in LCR. Look for the coffee cup icon at the top. That's your break button. Click it and select the duration of your break.</p>\n\n<p class=\"wp-block-paragraph\">You'll see a list of preset options for 1, three, and five minutes. Click start to go on break. You should see the break overlay playing in OBS. Please keep in mind your audio does not automatically mute, so mute your mic and any system audio manually, unless it's the overlay audio. What happens during the break for viewers? YouTube will try to show ads to non-premium viewers while the overlay is live and they haven't gotten an ad recently.</p>\n\n<p class=\"wp-block-paragraph\">For example, if they just joined the stream and already had a pre-roll ad, it is very likely they won't get a midroll ad. This is called ad saturation. During the break, a countdown timer will appear showing the remaining break time. You can either end the break early by clicking the timer icon again or wait until the timer hits zero, then extend or end your break. The break overlay does not end automatically. You have to manually confirm when your break is over.</p>\n\n<p class=\"wp-block-paragraph\">That means you can take longer or shorter breaks than the timer depending on what you need. One more thing to know about the take a break feature. There is only one overlay URL per channel. So the brake system is synchronized across all your streams. That means if you go live from multiple encoders, starting or ending a break will affect all of them. While not ideal for multiream setups, it can work if you're aware of this channelwide behavior. And that's it.</p>\n\n<p class=\"wp-block-paragraph\">Now you can take a breather during your streams without confusing your audience and maybe earn a little ad revenue while you're at it. If you found this helpful, hit that like button and subscribe for more YouTube live tips. Questions? Drop them in the comments.</p>",
+	"date": "2025-04-06T13:03:01",
+	"modified": "2025-04-06T13:03:01",
+	"locale": "en",
+	"categoryIds": [
+		18
+	],
+	"image": "https://i.ytimg.com/vi/bYTAbOg_qzE/maxresdefault.jpg",
+	"authorName": "Martin Koytek",
+	"sourceUrl": "https://www.youtube.com/watch?v=bYTAbOg_qzE",
+	"video": {
+		"youtubeId": "bYTAbOg_qzE",
+		"embedUrl": "https://www.youtube.com/embed/bYTAbOg_qzE",
+		"watchUrl": "https://www.youtube.com/watch?v=bYTAbOg_qzE",
+		"thumbnailUrl": "https://i.ytimg.com/vi/bYTAbOg_qzE/maxresdefault.jpg"
+	}
+}
