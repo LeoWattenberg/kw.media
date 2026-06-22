@@ -1,0 +1,179 @@
+{
+	"id": "live",
+	"translations": {
+		"de": {
+			"id": "live-de",
+			"path": "/de/live/",
+			"title": "Live",
+			"description": "Professionelle Livestreams und Eventvideos.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "Professionelle Livestreams und Eventvideos",
+					"text": "Online und vor Ort: Wir helfen Ihnen so, wie Sie es brauchen.",
+					"image": "/assets/live-camera-concert.jpg",
+					"imageAlt": "Videokamera bei einem Konzert",
+					"actions": [
+						{
+							"label": "Schreiben Sie uns",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Wir holen das Beste aus Ihrem Event",
+					"title": "Liveproduktion für Ihr Format",
+					"items": [
+						{
+							"title": "Teamwork",
+							"text": "Durch unsere Erfahrung und unser Teamwork holen wir das Beste aus Ihrem Event."
+						},
+						{
+							"title": "Ortsunabhängig",
+							"text": "Bei großem Publikum, im kleinen Studio oder remote: Wir arrangieren Ihr Event da, wo Sie sind."
+						},
+						{
+							"title": "Community Interaktion",
+							"text": "Professionelle Livechat-Moderation, Social Media-Einblendungen und mehr."
+						},
+						{
+							"title": "Technik",
+							"text": "Wir adaptieren uns in bestehende Konferenztechnik und Tonanlagen oder bringen unsere eigene mit."
+						},
+						{
+							"title": "Support und Beratung",
+							"text": "Wir beraten Sie bei ausfallender Technik oder konzipieren Ihren Livestream."
+						},
+						{
+							"title": "Und mehr",
+							"text": "Wir kümmern uns um Ihre Bedürfnisse und sorgen für Ihr perfektes Liveevent."
+						}
+					]
+				},
+				{
+					"type": "cta",
+					"title": "Jetzt durchstarten!",
+					"text": "Jeder Kanal und jedes Projekt ist anders. Schildern Sie uns Ihr Projekt und Ihre Vorstellungen, und wir erarbeiten gemeinsam eine individuelle Lösung.",
+					"email": "team@kw.media"
+				}
+			]
+		},
+		"en": {
+			"id": "live-en",
+			"path": "/en/live/",
+			"title": "Live",
+			"description": "Professional livestreams and event recordings.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "Professional livestreams and event recordings",
+					"text": "Big stadium, small studio or completely remote: we can produce what your event needs.",
+					"image": "/assets/live-camera-concert.jpg",
+					"imageAlt": "Video camera filming a concert",
+					"actions": [
+						{
+							"label": "Contact us",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "credentials",
+					"items": [
+						"YouTube Certified",
+						"YouTube Product Expert",
+						"Google Partner"
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Our services",
+					"title": "We can help you with",
+					"items": [
+						{
+							"title": "Teamwork",
+							"text": "As a communicating team, cameras and mixing stay where they should be."
+						},
+						{
+							"title": "Remote",
+							"text": "Big stadium, small studio or completely remote: we can produce everything."
+						},
+						{
+							"title": "Interaction",
+							"text": "Livechat moderation, social media embeddings and more."
+						},
+						{
+							"title": "Integration into your equipment",
+							"text": "We integrate into existing conference and audio equipment or set up independently."
+						},
+						{
+							"title": "Support and consultation",
+							"text": "Need redundancy or help planning your next live event? We help all the way."
+						},
+						{
+							"title": "And more",
+							"text": "YouTube Live, Vimeo Live, DVDs, RTMPS, multistreams and individual workflows."
+						}
+					]
+				},
+				{
+					"type": "pricing",
+					"title": "Pricing",
+					"note": "Excluding VAT plus call-out charge.",
+					"items": [
+						{
+							"name": "Small events",
+							"summary": "Single camera",
+							"price": "120 €",
+							"period": "per hour",
+							"features": [
+								"Conferences",
+								"Recording and streaming"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Larger events",
+							"summary": "Up to 4 cameras",
+							"price": "300 €",
+							"period": "per hour",
+							"features": [
+								"Live image mixing",
+								"Concert recording"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Individual",
+							"summary": "Custom production",
+							"price": "Individual",
+							"features": [
+								"Nearly unlimited possibilities",
+								"Integration with other services"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "cta",
+					"title": "Interested?",
+					"text": "Every channel and every project is a different challenge. Tell us about your vision and we will work on an individual solution for you.",
+					"email": "team@kw.media"
+				}
+			]
+		}
+	}
+}

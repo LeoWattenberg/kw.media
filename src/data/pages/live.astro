@@ -1,0 +1,11 @@
+---
+import SitePageShell from '../../components/SitePageShell.astro';
+import { definePageModule } from '../../lib/site-page-module';
+import translations from './live.json';
+
+export const pageModule = definePageModule('live', translations);
+
+const { page, alternatePaths } = Astro.props;
+---
+
+<SitePageShell page={page} alternatePaths={alternatePaths} />

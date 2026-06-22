@@ -1,0 +1,97 @@
+{
+	"id": "author-martin",
+	"translations": {
+		"de": {
+			"id": "author-martin-de",
+			"path": "/de/autor/martin-koytek/",
+			"title": "Martin Koytek",
+			"description": "Produzent der kw.media YouTube-Tutorials und Ansprechpartner für YouTube-Beratung, Kurse und Creator-Support.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Autor",
+					"title": "Martin Koytek",
+					"text": "Produzent der kw.media YouTube-Tutorials und Ansprechpartner für YouTube-Beratung, Kurse und Creator-Support.",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"actions": [
+						{
+							"label": "Kontakt aufnehmen",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "person",
+					"title": "Über Martin",
+					"name": "Martin Koytek",
+					"role": "Managing Director",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube Product Expert"
+					],
+					"body": [
+						"Martin Koytek produziert die Video-Tutorials von kw.media. Er erklärt YouTube-Funktionen, Creator-Workflows und Plattformänderungen kompakt und praxisnah.",
+						"Als Geschäftsführer von kw.media berät er Creator, Unternehmen und Bildungseinrichtungen zu YouTube, Online-Marketing, Kursen und digitalen Plattformen."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "posts",
+					"title": "Videos von Martin Koytek",
+					"authorName": "Martin Koytek"
+				}
+			]
+		},
+		"en": {
+			"id": "author-martin-en",
+			"path": "/en/author/martin-koytek/",
+			"title": "Martin Koytek",
+			"description": "Producer of the kw.media YouTube tutorials and point of contact for YouTube consulting, courses and creator support.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Author",
+					"title": "Martin Koytek",
+					"text": "Producer of the kw.media YouTube tutorials and point of contact for YouTube consulting, courses and creator support.",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"actions": [
+						{
+							"label": "Get in touch",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "person",
+					"title": "About Martin",
+					"name": "Martin Koytek",
+					"role": "Managing Director",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube Product Expert"
+					],
+					"body": [
+						"Martin Koytek produces the video tutorials for kw.media. He explains YouTube features, creator workflows and platform changes in a compact, practical way.",
+						"As managing director of kw.media, he advises creators, companies and educational institutions on YouTube, online marketing, courses and digital platforms."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "posts",
+					"title": "Videos by Martin Koytek",
+					"authorName": "Martin Koytek"
+				}
+			]
+		}
+	}
+}

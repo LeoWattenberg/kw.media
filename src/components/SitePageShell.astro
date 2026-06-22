@@ -1,0 +1,29 @@
+---
+import type { Locale } from '../i18n';
+import type { SitePage } from '../lib/page-types';
+import BaseLayout from './layout/BaseLayout.astro';
+import PageRenderer from './PageRenderer.astro';
+
+interface Props {
+	page: SitePage;
+	alternatePaths: Partial<Record<Locale, string>>;
+}
+
+const { page, alternatePaths } = Astro.props;
+const heroBlock = page.blocks.find((block) => block.type === 'hero');
+const faqItems = page.blocks.flatMap((block) => (block.type === 'faq' ? block.items : []));
+---
+
+<BaseLayout
+	locale={page.locale}
+	title={page.title}
+	description={page.description}
+	preloadImage={heroBlock?.image}
+	canonicalPath={page.path}
+	alternatePaths={alternatePaths}
+	image={heroBlock?.image}
+	imageAlt={heroBlock?.imageAlt}
+	faqItems={faqItems}
+>
+	<PageRenderer page={page} />
+</BaseLayout>

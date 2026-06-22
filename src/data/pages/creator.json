@@ -1,0 +1,319 @@
+{
+	"id": "creator",
+	"translations": {
+		"de": {
+			"id": "creator-de",
+			"path": "/de/creator/",
+			"title": "Creator Support und Beratung",
+			"description": "YouTube Support, Kanalberatung, Monetarisierung und Backups für Creator.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "Wir helfen Talenten",
+					"text": "Du möchtest mehr aus deinem YouTube-Kanal rausholen? Dann komm zu kw.media.",
+					"image": "/assets/creator-video-production.jpg",
+					"imageAlt": "Creator bei der Videoproduktion",
+					"actions": [
+						{
+							"label": "Lass uns starten",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Erreiche dein Next Level",
+					"title": "So bringen wir dich voran",
+					"items": [
+						{
+							"title": "Kanalanalysen",
+							"text": "Wir helfen dir, deine Zahlen zu interpretieren und das Maximum aus deinem Kanal zu holen."
+						},
+						{
+							"title": "Bessere Monetarisierung",
+							"text": "Wir optimieren deinen Kanal für höhere Einnahmen und holen mit dir mehr aus Product Placements heraus."
+						},
+						{
+							"title": "Backups",
+							"text": "Kontinuierliche, verschlüsselte Backups für deine Daten und Videoprojekte."
+						},
+						{
+							"title": "Beratung",
+							"text": "Ob Contentstrategie, neue Kanalausrichtung oder Kanalwiederbelebung: wir helfen dir auf deinem Weg."
+						},
+						{
+							"title": "Individueller YouTube-Support",
+							"text": "Direkter YouTube Support bei Fragen und Problemen aller Art."
+						},
+						{
+							"title": "Community-Richtlinien und mehr",
+							"text": "Wir sind zwar keine Anwälte, kennen uns aber im Gestrüpp diverser YouTube-Regeln gut aus."
+						}
+					]
+				},
+				{
+					"type": "faq",
+					"title": "Häufige Fragen",
+					"items": [
+						{
+							"question": "Wie verdient ein Influencer Geld?",
+							"answer": [
+								"Neben Werbeeinnahmen auf YouTube kannst du Kooperationen eingehen, eigene Produkte verkaufen oder weitere Einnahmequellen wie Merchandise und Kurse aufbauen."
+							]
+						},
+						{
+							"question": "Ab wann gilt man als Influencer?",
+							"answer": [
+								"Als Influencer brauchst du eine Community, die dir vertraut und deine Meinung schätzt. Das entsteht durch guten Content und gezielte Ansprache."
+							]
+						},
+						{
+							"question": "Kann man in YouTube Deutschland noch erfolgreich werden?",
+							"answer": [
+								"Ja. Mit dem richtigen Thema und einer passenden Strategie kannst du auch heute erfolgreich werden. Dabei helfen wir dir gerne."
+							]
+						},
+						{
+							"question": "Kann ich andere YouTube Creator kennenlernen?",
+							"answer": [
+								"Als Teil des kw.media Teams lernst du auch andere Creator kennen und sparst dir viel mühsames Networking."
+							]
+						}
+					]
+				},
+				{
+					"type": "posts",
+					"title": "YouTube Tipps & Tricks",
+					"categoryId": 17,
+					"limit": 3,
+					"moreHref": "/de/youtube-tipps/",
+					"moreLabel": "Mehr Tipps"
+				},
+				{
+					"type": "pricing",
+					"title": "Unsere Preise",
+					"note": "Ein Monat kostenlos bei Buchung für ein ganzes Jahr. Preise ohne MwSt. Individuelle Preise auf Anfrage möglich.",
+					"items": [
+						{
+							"name": "kw.media basic",
+							"summary": "Für neue Creator",
+							"price": "20 €",
+							"period": "monatlich",
+							"features": [
+								"YouTube Feature Support",
+								"Regelmäßige Kanalanalysen"
+							],
+							"action": {
+								"label": "Jetzt anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "kw.media classic",
+							"summary": "Für Creator mit Wachstumsambitionen",
+							"price": "50 €",
+							"period": "monatlich",
+							"highlight": "Beliebt",
+							"features": [
+								"Alles aus basic",
+								"Individueller Support",
+								"Einrichtung von Community-Funktionen",
+								"Backups von deinen Videos",
+								"Anbieterkennzeichnung für deinen Kanal"
+							],
+							"action": {
+								"label": "Jetzt anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "kw.media premium",
+							"summary": "Damit dein Kanal brummt",
+							"price": "500 €",
+							"period": "monatlich",
+							"features": [
+								"Alles aus classic",
+								"Assetproduktion",
+								"Google Ads Kampagnenpflege"
+							],
+							"action": {
+								"label": "Jetzt anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "person",
+					"eyebrow": "Ihr persönlicher Ansprechpartner",
+					"title": "Direkter Kontakt",
+					"name": "Martin Koytek",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube-Produktexperte"
+					],
+					"body": [
+						"Ich bin gerne für Ihre Fragen da. Wenn Sie noch zweifeln, ob kw.media Ihr richtiger Partner für Ihre Strategie ist, dann schreiben Sie mir und in einem kostenlosen Erstgespräch finden wir es heraus."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "cta",
+					"title": "Jetzt durchstarten!",
+					"text": "Jeder Kanal und jedes Projekt ist anders. Schildern Sie uns Ihr Projekt und Ihre Vorstellungen, und wir erarbeiten gemeinsam eine individuelle Lösung.",
+					"email": "team@kw.media"
+				}
+			]
+		},
+		"en": {
+			"id": "creator-en",
+			"path": "/en/creator/",
+			"title": "Creator Services",
+			"description": "YouTube support, channel analytics, monetization and creator consulting.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "We'll help bring your channel to the next level",
+					"text": "Creator support, analytics, monetization, consulting and practical YouTube problem solving.",
+					"image": "/assets/creator-video-production.jpg",
+					"imageAlt": "Creators recording a video",
+					"actions": [
+						{
+							"label": "Contact us",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "credentials",
+					"items": [
+						"YouTube Certified",
+						"YouTube Product Expert",
+						"Google Partner"
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Our services",
+					"title": "We can help with the following",
+					"items": [
+						{
+							"title": "Channel analytics",
+							"text": "The numbers matter, and we can tell you what they mean so your content can improve."
+						},
+						{
+							"title": "Better monetization",
+							"text": "We get your channel ready for more revenue and help with sponsorship deals."
+						},
+						{
+							"title": "Ads",
+							"text": "Reach new potential viewers with ads, starting at 1 euro per day."
+						},
+						{
+							"title": "Consulting",
+							"text": "Content strategy, pivoting or reviving your channel: we advise you on your next steps."
+						},
+						{
+							"title": "Individual YouTube support",
+							"text": "Direct YouTube support for questions and problems of all kinds and sizes."
+						},
+						{
+							"title": "Community Guidelines and more",
+							"text": "We might not be lawyers, but we know our way around YouTube-related rules."
+						}
+					]
+				},
+				{
+					"type": "posts",
+					"title": "YouTube Tips & Tricks",
+					"categoryId": 18,
+					"limit": 3,
+					"moreHref": "/en/youtube-tips/",
+					"moreLabel": "More tips"
+				},
+				{
+					"type": "person",
+					"eyebrow": "Your personal point of contact",
+					"title": "Direct contact",
+					"name": "Martin Koytek",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube Product Expert"
+					],
+					"body": [
+						"I'm always available for your questions. If you have any concerns whether kw.media is the right partner for your strategy, just write me and we'll figure it out in a free initial meeting."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "pricing",
+					"title": "Our prices",
+					"note": "One free month when booking for an entire year. Prices excluding VAT. Individual pricing available on request.",
+					"items": [
+						{
+							"name": "kw.media basic",
+							"summary": "For new creators",
+							"price": "20 €",
+							"period": "per month",
+							"features": [
+								"YouTube feature support",
+								"Regular channel analysis"
+							],
+							"action": {
+								"label": "Order now",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "kw.media classic",
+							"summary": "For creators looking to grow",
+							"price": "50 €",
+							"period": "per month",
+							"highlight": "Popular",
+							"features": [
+								"Everything from basic",
+								"Individual support",
+								"Setup of community features",
+								"Video backups included",
+								"Provider identification service for your channel"
+							],
+							"action": {
+								"label": "Order now",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "kw.media premium",
+							"summary": "To make your channel soar",
+							"price": "500 €",
+							"period": "per month",
+							"features": [
+								"Everything from classic",
+								"Asset production",
+								"Google Ads campaign maintenance"
+							],
+							"action": {
+								"label": "Order now",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "cta",
+					"title": "Interested?",
+					"text": "Every channel and every project is a different challenge. Tell us about your vision and we will work on an individual solution for you.",
+					"email": "team@kw.media"
+				}
+			]
+		}
+	}
+}

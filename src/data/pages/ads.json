@@ -1,0 +1,215 @@
+{
+	"id": "ads",
+	"translations": {
+		"de": {
+			"id": "ads-de",
+			"path": "/de/werbung/",
+			"title": "Werbung",
+			"description": "Online-Werbung für YouTuber, KMU und mehr.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "Online-Werbung für YouTuber, KMU und mehr",
+					"text": "Wir übernehmen Ihre Werbung, damit Ihr Budget gezielt arbeitet.",
+					"image": "/assets/smartphone-video.jpg",
+					"imageAlt": "Online-Werbung auf einem Smartphone",
+					"actions": [
+						{
+							"label": "Jetzt richtig werben",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "credentials",
+					"items": [
+						"YouTube Certified",
+						"YouTube Product Expert",
+						"Google Partner"
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Mit Werbung trifft es immer die Richtigen",
+					"title": "Keine Budgetverschwendung mehr",
+					"items": [
+						{
+							"title": "Konzeption",
+							"text": "Wir entwerfen Ihre Kampagne, von Brand-Awareness-Bumpern bis zu größeren Werbungen."
+						},
+						{
+							"title": "Produktion",
+							"text": "Wir erstellen Creatives nach Ihren Wünschen und passend für Ihre Zielgruppe."
+						},
+						{
+							"title": "Google Ads",
+							"text": "Wir erstellen maßgeschneiderte Google Ads Kampagnen für Ihr Ziel."
+						},
+						{
+							"title": "Alle relevanten Plattformen",
+							"text": "Wir erstellen Kampagnen für Plattformen von Google bis Social Media."
+						},
+						{
+							"title": "Individuelles Targeting",
+							"text": "Durch das richtige Targeting holen wir das Beste aus Ihrem Budget heraus."
+						},
+						{
+							"title": "Beratung und Support",
+							"text": "Wir sind bei Problemen schnellstmöglich für Sie da."
+						}
+					]
+				},
+				{
+					"type": "person",
+					"eyebrow": "Ihr persönlicher Ansprechpartner",
+					"title": "Direkter Kontakt",
+					"name": "Martin Koytek",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube-Produktexperte"
+					],
+					"body": [
+						"Ich bin gerne für Ihre Fragen da. Wenn Sie noch zweifeln, ob kw.media Ihr richtiger Partner für Ihre Strategie ist, dann schreiben Sie mir und in einem kostenlosen Erstgespräch finden wir es heraus."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "cta",
+					"title": "Jetzt durchstarten!",
+					"text": "Jeder Kanal und jedes Projekt ist anders. Schildern Sie uns Ihr Projekt und Ihre Vorstellungen, und wir erarbeiten gemeinsam eine individuelle Lösung.",
+					"email": "team@kw.media"
+				}
+			]
+		},
+		"en": {
+			"id": "ads-en",
+			"path": "/en/ads/",
+			"title": "Ads",
+			"description": "Easy online ads for YouTubers, SMBs and more.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "Easy online ads for YouTubers, SMBs and more",
+					"text": "Advertising concepts, production, delivery, targeting and support from one team.",
+					"image": "/assets/smartphone-video.jpg",
+					"imageAlt": "Online ads on a smartphone",
+					"actions": [
+						{
+							"label": "Contact us",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "credentials",
+					"items": [
+						"YouTube Certified",
+						"YouTube Product Expert",
+						"Google Partner"
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Our services",
+					"title": "We are offering",
+					"items": [
+						{
+							"title": "Concepts",
+							"text": "Advertising, but what? We find ideas from simple awareness bumpers to larger creatives."
+						},
+						{
+							"title": "Production",
+							"text": "Filmed or animated, green screen or nature, banner or video ad: we can produce it."
+						},
+						{
+							"title": "Delivery",
+							"text": "Google Ads is complex. We take care of setup and delivery."
+						},
+						{
+							"title": "All relevant platforms",
+							"text": "Google, LinkedIn, Reddit, Instagram and more."
+						},
+						{
+							"title": "Individual targeting",
+							"text": "We minimize coverage waste with precise targeting."
+						},
+						{
+							"title": "Consulting and support",
+							"text": "As a second pair of eyes for problems, we are available quickly."
+						}
+					]
+				},
+				{
+					"type": "pricing",
+					"title": "Our prices",
+					"note": "Prices excluding advertising budget and VAT.",
+					"items": [
+						{
+							"name": "Supported channels",
+							"summary": "Ads for channels supported by us",
+							"price": "Free",
+							"features": [
+								"Starting at 1 euro per day ad budget"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Campaign delivery",
+							"summary": "Existing creatives",
+							"price": "200 €",
+							"period": "per campaign",
+							"features": [
+								"Delivery",
+								"Targeting"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Production",
+							"summary": "From scratch or assets",
+							"price": "90 €",
+							"period": "per hour",
+							"features": [
+								"Concept",
+								"Production"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Individual",
+							"summary": "Custom offers",
+							"price": "Individual",
+							"features": [
+								"Other kw.media services available"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "cta",
+					"title": "Interested?",
+					"text": "Every channel and every project is a different challenge. Tell us about your vision and we will work on an individual solution for you.",
+					"email": "team@kw.media"
+				}
+			]
+		}
+	}
+}

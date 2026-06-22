@@ -1,0 +1,237 @@
+{
+	"id": "brands",
+	"translations": {
+		"de": {
+			"id": "brands-de",
+			"path": "/de/b2b/",
+			"title": "YouTube für Firmen",
+			"description": "YouTube Consulting, Schulungen, Werbung und Support für Firmen.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "YouTube für Firmen",
+					"text": "Gemeinsam sorgen wir für den perfekten YouTube Auftritt Ihrer Firma.",
+					"image": "/assets/camera-lens.jpg",
+					"imageAlt": "Professionelle Kamera bei einer Produktion",
+					"actions": [
+						{
+							"label": "Schreiben Sie uns an",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Wir erreichen Ihre Ziele",
+					"title": "Gemeinsam für Ihren Auftritt",
+					"items": [
+						{
+							"title": "Kanalanalysen",
+							"text": "Wir schaffen aus YouTube-Daten sinnvolle und leicht verständliche Analysen."
+						},
+						{
+							"title": "Schulungen",
+							"text": "Schulungen für Ihr Social Media Team für effiziente und zielgerichtete YouTube Strategien."
+						},
+						{
+							"title": "Werbung",
+							"text": "Neue Zuschauer, Kunden und Fans gewinnen: wir konzipieren, produzieren und distributieren."
+						},
+						{
+							"title": "Beratung",
+							"text": "Egal, was Ihre Ziele sind: Wir stehen Ihnen strategisch zur Seite."
+						},
+						{
+							"title": "Individueller YouTube-Support",
+							"text": "Fragen, Probleme oder Feedback? Mit unserem zeitnahen Service bekommen Sie schnell eine Antwort."
+						},
+						{
+							"title": "Rechtliche Stolperfallen",
+							"text": "Wir kennen uns im Gestrüpp diverser YouTube-relevanter Regeln gut aus."
+						}
+					]
+				},
+				{
+					"type": "faq",
+					"title": "Häufige Fragen",
+					"items": [
+						{
+							"question": "Welche Vorteile hat YouTube für Firmen?",
+							"answer": [
+								"Mit YouTube erreichen Sie Ihre Zielgruppe dort, wo sie sich im Alltag viel aufhält. Videos, Kommentare, Links und Werbung greifen hier sinnvoll ineinander."
+							]
+						},
+						{
+							"question": "Was kostet YouTube für Unternehmen?",
+							"answer": [
+								"Ein YouTube Account und das Hochladen von Videos sind grundsätzlich kostenlos. Kosten entstehen vor allem bei Strategie, Produktion und Werbung."
+							]
+						},
+						{
+							"question": "Wie beginnt man am besten mit YouTube für Firmen?",
+							"answer": [
+								"Erstmal machen und Erfahrungen sammeln. Wenn Sie zielgerichteter starten wollen, helfen wir mit Ihrer Erfolgsstrategie."
+							]
+						},
+						{
+							"question": "Welches Equipment brauchen wir für unseren Kanal?",
+							"answer": [
+								"Das hängt vom Projekt ab. Für manches reicht ein Smartphone, für anderes sind professionelle Kameras sinnvoll. Ein externes Mikrofon und Schnittprogramm helfen fast immer."
+							]
+						}
+					]
+				},
+				{
+					"type": "person",
+					"eyebrow": "Ihr persönlicher Ansprechpartner",
+					"title": "Direkter Kontakt",
+					"name": "Martin Koytek",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube-Produktexperte"
+					],
+					"body": [
+						"Ich bin gerne für Ihre Fragen da. Wenn Sie noch zweifeln, ob kw.media Ihr richtiger Partner für Ihre Strategie ist, dann schreiben Sie mir und in einem kostenlosen Erstgespräch finden wir es heraus."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "cta",
+					"title": "Jetzt durchstarten!",
+					"text": "Jeder Kanal und jedes Projekt ist anders. Schildern Sie uns Ihr Projekt und Ihre Vorstellungen, und wir erarbeiten gemeinsam eine individuelle Lösung.",
+					"email": "team@kw.media"
+				}
+			]
+		},
+		"en": {
+			"id": "brands-en",
+			"path": "/en/b2b/",
+			"title": "YouTube Consulting for Brands",
+			"description": "YouTube consulting, training, ads and support for brands.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "We help brands reach the next level with their channels",
+					"text": "Strategy, support, training and production for companies working with YouTube.",
+					"image": "/assets/camera-lens.jpg",
+					"imageAlt": "Professional camera lens",
+					"actions": [
+						{
+							"label": "Contact us",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "credentials",
+					"items": [
+						"YouTube Certified",
+						"YouTube Product Expert",
+						"Google Partner"
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Our services",
+					"title": "We can offer",
+					"items": [
+						{
+							"title": "Channel check-ups",
+							"text": "From the data YouTube provides, we filter and prepare easy to understand analyses."
+						},
+						{
+							"title": "Training",
+							"text": "We teach social media teams the ins and outs of YouTube, so they can be more effective."
+						},
+						{
+							"title": "Ads",
+							"text": "Gain potential viewers, customers and fans with ads we plan, produce and distribute."
+						},
+						{
+							"title": "Consulting",
+							"text": "Content strategy, channel revival or influencer marketing: we find fitting next steps."
+						},
+						{
+							"title": "Individual YouTube support",
+							"text": "Direct YouTube support for questions and problems."
+						},
+						{
+							"title": "Avoiding legal issues",
+							"text": "Although we are no lawyers, we know our way around rules and laws that apply to YouTube."
+						}
+					]
+				},
+				{
+					"type": "text",
+					"eyebrow": "Experienced, adaptable, fast and honest",
+					"title": "About us",
+					"body": [
+						"Together we bring 20 years of web video experience into our work, answered several ten thousand YouTube questions, supported and grew countless creators.",
+						"We adapt quickly to changes on YouTube and with our customers. Instead of promising the blue out of the sky, we remain humble and realistic, brainstorm with you and focus our work to deliver only the highest quality."
+					],
+					"image": "/assets/about.jpg",
+					"imageAlt": "kw.media team workspace"
+				},
+				{
+					"type": "pricing",
+					"title": "Pricing",
+					"note": "Excluding VAT.",
+					"items": [
+						{
+							"name": "Free resources",
+							"summary": "Updates and guides",
+							"price": "Free",
+							"features": [
+								"YouTube updates on our channel",
+								"Creator guides"
+							],
+							"action": {
+								"label": "Read tips",
+								"href": "/en/youtube-tips/"
+							}
+						},
+						{
+							"name": "Support",
+							"summary": "For support or consultation",
+							"price": "90 €",
+							"period": "per hour",
+							"features": [
+								"Direct help",
+								"Consulting sessions"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Individual",
+							"summary": "Custom offer",
+							"price": "Individual",
+							"features": [
+								"Support",
+								"Consultation",
+								"Other kw.media services"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "cta",
+					"title": "Interested?",
+					"text": "Every channel and every project is a different challenge. Tell us about your vision and we will work on an individual solution for you.",
+					"email": "team@kw.media"
+				}
+			]
+		}
+	}
+}

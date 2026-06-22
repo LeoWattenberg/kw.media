@@ -1,7 +1,5 @@
 ---
-import PageRenderer from '../components/PageRenderer.astro';
-import BaseLayout from '../components/layout/BaseLayout.astro';
-import { findSitePage, getSitePageAlternatePaths, getSitePageFaqItems } from '../data/pages';
+import { findSitePage, getSitePageAlternatePaths, getSitePageComponent } from '../data/pages';
 
 const page = findSitePage('/');
 
@@ -9,19 +7,7 @@ if (!page) {
 	throw new Error('Missing homepage content');
 }
 
-const heroBlock = page.blocks.find((block) => block.type === 'hero');
+const PageComponent = getSitePageComponent(page);
 ---
 
-<BaseLayout
-	locale={page.locale}
-	title={page.title}
-	description={page.description}
-	preloadImage={heroBlock?.image}
-	canonicalPath={page.path}
-	alternatePaths={getSitePageAlternatePaths(page)}
-	image={heroBlock?.image}
-	imageAlt={heroBlock?.imageAlt}
-	faqItems={getSitePageFaqItems(page)}
->
-	<PageRenderer page={page} />
-</BaseLayout>
+<PageComponent page={page} alternatePaths={getSitePageAlternatePaths(page)} />

@@ -1,0 +1,309 @@
+{
+	"id": "dubbing",
+	"translations": {
+		"de": {
+			"id": "dubbing-de",
+			"path": "/de/video-synchronisation/",
+			"title": "Video-Synchronisation und Dubbing",
+			"description": "Video-Synchronisation, Voiceover und Untertitel für YouTube, Kurse, Social Media und Unternehmensvideos.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Mehrsprachige Videofassungen",
+					"title": "Video-Dubbing für Content, Kurse und Marken",
+					"text": "Wir machen Ihre Videos für neue Märkte verständlich: mit Übersetzung, Voiceover, Untertiteln und sauberer Tonmischung.",
+					"image": "/assets/wp-content/uploads/2021/06/AM_STREAMMIC.jpg",
+					"imageAlt": "Mikrofon für professionelle Sprachaufnahmen",
+					"actions": [
+						{
+							"label": "Projekt anfragen",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "credentials",
+					"items": [
+						"YouTube Certified",
+						"YouTube Product Expert",
+						"Google Partner"
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Von der Übersetzung bis zum fertigen Export",
+					"title": "Dubbing, das zum Video passt",
+					"intro": "Ob YouTube-Serie, Onlinekurs, Erklärvideo oder Kampagne: Wir erstellen lokalisierte Fassungen, die inhaltlich stimmen und technisch sauber funktionieren.",
+					"items": [
+						{
+							"title": "Übersetzung und Adaption",
+							"text": "Wir übertragen Skripte, Timings und Formulierungen so, dass die neue Sprachfassung natürlich wirkt."
+						},
+						{
+							"title": "Voiceover und Sprecherkoordination",
+							"text": "Auf Wunsch koordinieren wir passende Stimmen und produzieren verständliche, konsistente Sprachaufnahmen."
+						},
+						{
+							"title": "Untertitel und Captions",
+							"text": "Wir erstellen Untertitel, SRT-Dateien und plattformgerechte Captions für YouTube, Kurse und Social Media."
+						},
+						{
+							"title": "Audio-Postproduktion",
+							"text": "Lautstärke, Rauschminderung, Musikbett und Mischung werden auf Webvideo und Plattformstandards abgestimmt."
+						},
+						{
+							"title": "Video-Export und Upload-Vorbereitung",
+							"text": "Wir liefern fertige Sprachversionen, separate Tonspuren oder Upload-Dateien für Ihre bestehende Distribution."
+						},
+						{
+							"title": "Beratung für internationale Kanäle",
+							"text": "Wir helfen bei Sprachstrategie, Kanalstruktur, Metadaten und Workflows für mehrsprachige Inhalte."
+						}
+					]
+				},
+				{
+					"type": "text",
+					"eyebrow": "Für Webvideo gedacht",
+					"title": "Lokalisierung ohne unnötige Reibung",
+					"body": [
+						"Gutes Dubbing ist mehr als eine übersetzte Tonspur. Timing, Zielgruppe, Plattform und Tonmischung müssen zusammenpassen, damit die neue Fassung nicht wie ein Fremdkörper wirkt.",
+						"Wir kommen aus der Webvideo-Praxis und denken deshalb immer auch an YouTube-SEO, Zuschauerbindung, Kapitel, Untertitel, Shorts-Ableger und wiederholbare Produktionsprozesse."
+					],
+					"checks": [
+						"Deutsch- und englischsprachige Videofassungen",
+						"Voiceover, Untertitel oder kombinierte Workflows",
+						"Lieferung als fertiges Video, Tonspur oder SRT-Datei",
+						"Praktische Beratung für YouTube und Kursplattformen"
+					],
+					"image": "/assets/about.jpg",
+					"imageAlt": "Arbeitsplatz für Videoproduktion bei kw.media"
+				},
+				{
+					"type": "pricing",
+					"title": "Video-Dubbing Preise",
+					"note": "Preise zzgl. MwSt. Der Aufwand hängt von Videolänge, Sprache, Skriptlage und gewünschter Sprecherbesetzung ab.",
+					"items": [
+						{
+							"name": "Untertitel",
+							"summary": "Transkription, Übersetzung und SRT",
+							"price": "Individuell",
+							"features": [
+								"Timed captions",
+								"YouTube-geeignete Dateien"
+							],
+							"action": {
+								"label": "Anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Voiceover",
+							"summary": "Sprachfassung mit Mischung",
+							"price": "Individuell",
+							"highlight": "Beliebt",
+							"features": [
+								"Skriptadaption",
+								"Aufnahmekoordination",
+								"Audio-Mix"
+							],
+							"action": {
+								"label": "Anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Kanal-Lokalisierung",
+							"summary": "Workflow für Serien und Kurse",
+							"price": "Individuell",
+							"features": [
+								"Mehrere Videos",
+								"Metadaten-Beratung",
+								"Wiederholbarer Prozess"
+							],
+							"action": {
+								"label": "Anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "person",
+					"eyebrow": "Ihr persönlicher Ansprechpartner",
+					"title": "Direkter Kontakt",
+					"name": "Martin Koytek",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube-Produktexperte"
+					],
+					"body": [
+						"Ich bin gerne für Ihre Fragen da. Wenn Sie noch zweifeln, ob kw.media Ihr richtiger Partner für Ihre Strategie ist, dann schreiben Sie mir und in einem kostenlosen Erstgespräch finden wir es heraus."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "cta",
+					"title": "Jetzt durchstarten!",
+					"text": "Jeder Kanal und jedes Projekt ist anders. Schildern Sie uns Ihr Projekt und Ihre Vorstellungen, und wir erarbeiten gemeinsam eine individuelle Lösung.",
+					"email": "team@kw.media"
+				}
+			]
+		},
+		"en": {
+			"id": "dubbing-en",
+			"path": "/en/video-dubbing/",
+			"title": "Video Dubbing Services",
+			"description": "Video dubbing, voiceover and subtitles for YouTube, courses, social media and brand videos.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Multilingual video versions",
+					"title": "Video dubbing for content, courses and brands",
+					"text": "We prepare your videos for new audiences with translation, voiceover, subtitles and clean audio post-production.",
+					"image": "/assets/wp-content/uploads/2021/06/AM_STREAMMIC.jpg",
+					"imageAlt": "Microphone for professional voice recording",
+					"actions": [
+						{
+							"label": "Request a project",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "credentials",
+					"items": [
+						"YouTube Certified",
+						"YouTube Product Expert",
+						"Google Partner"
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "From translation to final export",
+					"title": "Dubbing that fits the video",
+					"intro": "For YouTube series, online courses, explainers and campaigns, we create localized versions that sound natural and work technically.",
+					"items": [
+						{
+							"title": "Translation and adaptation",
+							"text": "We adapt scripts, timing and wording so the new language version feels natural."
+						},
+						{
+							"title": "Voiceover coordination",
+							"text": "When needed, we coordinate fitting voices and produce clear, consistent recordings."
+						},
+						{
+							"title": "Subtitles and captions",
+							"text": "We create subtitles, SRT files and platform-ready captions for YouTube, courses and social media."
+						},
+						{
+							"title": "Audio post-production",
+							"text": "Loudness, noise reduction, music beds and mix are prepared for web video and platform standards."
+						},
+						{
+							"title": "Export and upload preparation",
+							"text": "We deliver finished language versions, separate audio tracks or upload-ready files for your workflow."
+						},
+						{
+							"title": "International channel consulting",
+							"text": "We help with language strategy, channel structure, metadata and repeatable multilingual workflows."
+						}
+					]
+				},
+				{
+					"type": "text",
+					"eyebrow": "Built for web video",
+					"title": "Localization without extra friction",
+					"body": [
+						"Good dubbing is more than a translated audio track. Timing, audience, platform and mix need to work together so the localized version feels intentional.",
+						"Our background is web video, so we also think about YouTube SEO, retention, chapters, subtitles, Shorts derivatives and repeatable production workflows."
+					],
+					"checks": [
+						"German and English video versions",
+						"Voiceover, subtitles or combined workflows",
+						"Delivery as final video, audio track or SRT file",
+						"Practical consulting for YouTube and course platforms"
+					],
+					"image": "/assets/about.jpg",
+					"imageAlt": "kw.media video production workspace"
+				},
+				{
+					"type": "pricing",
+					"title": "Video dubbing pricing",
+					"note": "Prices excluding VAT. Scope depends on video length, target language, script state and voice requirements.",
+					"items": [
+						{
+							"name": "Subtitles",
+							"summary": "Transcription, translation and SRT",
+							"price": "Individual",
+							"features": [
+								"Timed captions",
+								"YouTube-ready files"
+							],
+							"action": {
+								"label": "Request quote",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Voiceover",
+							"summary": "Spoken version with mix",
+							"price": "Individual",
+							"highlight": "Popular",
+							"features": [
+								"Script adaptation",
+								"Recording coordination",
+								"Audio mix"
+							],
+							"action": {
+								"label": "Request quote",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Channel localization",
+							"summary": "Workflow for series and courses",
+							"price": "Individual",
+							"features": [
+								"Multiple videos",
+								"Metadata consulting",
+								"Repeatable process"
+							],
+							"action": {
+								"label": "Request quote",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "person",
+					"eyebrow": "Your personal point of contact",
+					"title": "Direct contact",
+					"name": "Martin Koytek",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube Product Expert"
+					],
+					"body": [
+						"I'm always available for your questions. If you have any concerns whether kw.media is the right partner for your strategy, just write me and we'll figure it out in a free initial meeting."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "cta",
+					"title": "Interested?",
+					"text": "Every channel and every project is a different challenge. Tell us about your vision and we will work on an individual solution for you.",
+					"email": "team@kw.media"
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,245 @@
+{
+	"id": "imprint-service",
+	"translations": {
+		"de": {
+			"id": "imprint-service-de",
+			"path": "/impressumsservice/",
+			"title": "Impressumsservice",
+			"description": "Impressum ohne Privatadresse: sicher, legal und privat.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "Impressum ohne Privatadresse",
+					"text": "Sicher, legal und privat: Impressumsservice für YouTuber, Creator und alle anderen, die in die Öffentlichkeit wollen.",
+					"image": "/assets/about.jpg",
+					"imageAlt": "kw.media Büro",
+					"actions": [
+						{
+							"label": "Jetzt anfragen",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "faq",
+					"title": "Häufige Fragen",
+					"items": [
+						{
+							"question": "Warum brauche ich ein Impressum?",
+							"answer": [
+								"Für Creator existiert eine Informationspflicht für Name und ladungsfähige Adresse. Mit unserem Impressumsservice schützt du deine Privatsphäre und kommst deinen Pflichten nach."
+							]
+						},
+						{
+							"question": "Was ist die Rechtsgrundlage dieses Services?",
+							"answer": [
+								"kw.media bekommt eine Generalvollmacht, um Briefe annehmen zu dürfen. Unser Büro ist eine ladungsfähige Adresse und fast ständig besetzt."
+							]
+						},
+						{
+							"question": "Ist Anbieterkennzeichnung ein Impressum?",
+							"answer": [
+								"Anbieterkennzeichnung ist technisch gesehen der korrektere Begriff. In der Praxis verwenden die meisten das Wort Impressum."
+							]
+						},
+						{
+							"question": "Was passiert, wenn ich kein Impressum habe?",
+							"answer": [
+								"Wer erwischt wird, riskiert hohe Strafen. Die Impressumspflicht gilt nicht für rein private Kanäle, aber bei Gewinnabsicht bist du sehr wahrscheinlich geschäftsmäßig unterwegs."
+							]
+						}
+					]
+				},
+				{
+					"type": "pricing",
+					"title": "Unsere Preise",
+					"note": "Ein Monat kostenlos bei Buchung für ein ganzes Jahr. Preise inkl. MwSt.",
+					"items": [
+						{
+							"name": "Impressumsservice Lite",
+							"summary": "Nur das Nötigste",
+							"price": "12 €",
+							"period": "monatlich",
+							"features": [
+								"Rechtliche Sicherheit mit unserem Impressum",
+								"Scans von deiner Post",
+								"Keine Einrichtungsgebühr"
+							],
+							"action": {
+								"label": "Jetzt anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Impressumsservice Standard",
+							"summary": "Erweiterter Privatsphärenschutz",
+							"price": "20 €",
+							"period": "monatlich",
+							"highlight": "Beliebt",
+							"features": [
+								"Rechtliche Sicherheit mit unserem Impressum",
+								"Scans von deiner Post",
+								"Physische Weiterleitung inklusive",
+								"Prüfung auf AirTags/GPS-Tracker",
+								"Keine Einrichtungsgebühr"
+							],
+							"action": {
+								"label": "Jetzt anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Impressum + Beratung",
+							"summary": "Das Rundum-sorglos-Paket",
+							"price": "60 €",
+							"period": "monatlich",
+							"features": [
+								"Alles aus Standard",
+								"Beratung für YouTuber",
+								"Backups von wichtigen Dateien",
+								"Keine Einrichtungsgebühr"
+							],
+							"action": {
+								"label": "Jetzt anfragen",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "cta",
+					"title": "Anmeldung zum Impressumsservice",
+					"text": "Schick uns eine Email mit den folgenden Infos:",
+					"email": "team@kw.media",
+					"items": [
+						"Dein voller Name und Adresse",
+						"Deine Präsenzen, auf denen du das Impressum verwenden möchtest",
+						"Welches Paket du abonnieren willst",
+						"Gegebenenfalls Sonderwünsche"
+					]
+				}
+			]
+		},
+		"en": {
+			"id": "imprint-service-en",
+			"path": "/en/imprint-service/",
+			"title": "Imprint service",
+			"description": "Use an imprint without exposing your private address.",
+			"blocks": [
+				{
+					"type": "hero",
+					"title": "An imprint without your private address",
+					"text": "Safe, legal and private: an imprint service for YouTubers, creators and anyone else publishing online.",
+					"image": "/assets/about.jpg",
+					"imageAlt": "kw.media office",
+					"actions": [
+						{
+							"label": "Contact us",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "faq",
+					"title": "FAQ",
+					"items": [
+						{
+							"question": "Why do I need an imprint?",
+							"answer": [
+								"Creators in Germany and similar jurisdictions may need to provide a real name and serviceable address. Our imprint service helps protect your privacy while meeting those obligations."
+							]
+						},
+						{
+							"question": "What is the legal basis for this service?",
+							"answer": [
+								"kw.media receives authorization to accept mail on your behalf. Our office is a serviceable address and is staffed regularly."
+							]
+						},
+						{
+							"question": "Is provider identification the same as an imprint?",
+							"answer": [
+								"Provider identification is the more precise term. In practice, most people refer to it as an imprint."
+							]
+						},
+						{
+							"question": "What happens if I do not have an imprint?",
+							"answer": [
+								"Missing required provider information can lead to penalties. The rules usually do not apply to purely private channels, but monetized or public-facing creator work is often treated differently."
+							]
+						}
+					]
+				},
+				{
+					"type": "pricing",
+					"title": "Pricing",
+					"note": "One free month when booking for an entire year. Prices include VAT.",
+					"items": [
+						{
+							"name": "Imprint service Lite",
+							"summary": "Just the essentials",
+							"price": "12 €",
+							"period": "per month",
+							"features": [
+								"Legal coverage with our imprint",
+								"Scans of your mail",
+								"No setup fee"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Imprint service Standard",
+							"summary": "Extended privacy protection",
+							"price": "20 €",
+							"period": "per month",
+							"highlight": "Popular",
+							"features": [
+								"Legal coverage with our imprint",
+								"Scans of your mail",
+								"Physical forwarding included",
+								"AirTag/GPS tracker check",
+								"No setup fee"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						},
+						{
+							"name": "Imprint + consulting",
+							"summary": "The complete package",
+							"price": "60 €",
+							"period": "per month",
+							"features": [
+								"Everything from Standard",
+								"Consulting for YouTubers",
+								"Backups of important files",
+								"No setup fee"
+							],
+							"action": {
+								"label": "Contact us",
+								"href": "mailto:team@kw.media"
+							}
+						}
+					]
+				},
+				{
+					"type": "cta",
+					"title": "Sign up for the imprint service",
+					"text": "Send us an email with the following information:",
+					"email": "team@kw.media",
+					"items": [
+						"Your full name and address",
+						"The channels or sites where you want to use the imprint",
+						"The package you want to subscribe to",
+						"Any special requests"
+					]
+				}
+			]
+		}
+	}
+}
