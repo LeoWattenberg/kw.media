@@ -4,7 +4,7 @@
 	"path": "/youtube-tipps-de/so-funktioniert-markdown/",
 	"title": "So funktioniert: Markdown",
 	"excerpt": "Erklärt, wie Markdown in YouTube-Beschreibungen Text kursiv, fett oder durchgestrichen formatiert.",
-	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Die neue Markdown Funktion ermöglicht es euch Texte in eurer Videobeschreibung hervorzuheben.</p>\n\n<p class=\"wp-block-paragraph\">Text, welcher zwischen einem Stern links und rechts steht wird *kursiv* angezeigt, Zwischen zwei Sternen wird er **Fett* und zwischen 2 tilden wird er ~~Durchgestrichen~</p>\n",
+	"contentHtml": "<h2 class=\"wp-block-heading\">Transkript</h2>\n\n<p class=\"wp-block-paragraph\">Die neue Markdown-Funktion ermöglicht es euch, Texte in eurer Videobeschreibung hervorzuheben. Text, der zwischen je einem Stern links und rechts steht, wird kursiv angezeigt. Zwischen zwei Sternen wird er fett, und zwischen zwei Tilden wird er durchgestrichen.</p>",
 	"date": "2022-07-26T15:00:02",
 	"modified": "2022-07-26T15:00:02",
 	"locale": "de",
