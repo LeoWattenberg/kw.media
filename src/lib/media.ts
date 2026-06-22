@@ -1,6 +1,3 @@
-import { wpMedia } from '../data/wp-media';
-
-const mediaEntries = Object.entries(wpMedia);
 const legacyMediaHost = 'https://kw.media/wp-content/uploads/';
 
 export function localizeMediaUrl(url: string | undefined): string | undefined {
@@ -8,19 +5,9 @@ export function localizeMediaUrl(url: string | undefined): string | undefined {
 		return url;
 	}
 
-	if (url in wpMedia) {
-		return wpMedia[url as keyof typeof wpMedia];
-	}
-
 	if (url.startsWith(legacyMediaHost)) {
 		return undefined;
 	}
 
 	return url;
-}
-
-export function localizeMediaHtml(html: string): string {
-	return mediaEntries.reduce((content, [remoteUrl, localPath]) => {
-		return content.replaceAll(remoteUrl, localPath);
-	}, html);
 }
