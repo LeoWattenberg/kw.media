@@ -10,6 +10,8 @@ interface Props {
 
 const { post } = Astro.props;
 const authorPath = getAuthorPath(post.authorName, post.locale);
+const isShortVideo = post.video?.watchUrl.includes('/shorts/');
+const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
 const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US', {
 	day: 'numeric',
 	month: 'long',
@@ -35,7 +37,7 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 		</div>
 		{
 			post.video ? (
-				<div class="container hero-video">
+				<div class={videoClass}>
 					<iframe
 						title={post.title}
 						src={post.video.embedUrl}
@@ -105,17 +107,24 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 	}
 
 	.hero-video {
-		max-width: 420px;
 		margin-top: 36px;
+	}
+
+	.hero-video--short {
+		max-width: 420px;
 	}
 
 	.hero-video iframe {
 		display: block;
 		width: 100%;
-		aspect-ratio: 9 / 16;
+		aspect-ratio: 16 / 9;
 		height: auto;
 		border: 0;
 		border-radius: 8px;
 		background: #000;
+	}
+
+	.hero-video--short iframe {
+		aspect-ratio: 9 / 16;
 	}
 </style>
