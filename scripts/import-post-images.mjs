@@ -1,4 +1,4 @@
-import { createWriteStream, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { createWriteStream, existsSync, mkdirSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { get } from 'node:https';
 
@@ -132,24 +132,6 @@ for (const match of xml.matchAll(/<item>[\s\S]*?<\/item>/g)) {
 const attachments = allAttachments.filter((attachment) => {
 	return postIds.has(attachment.parentId) || referencedCanonicalKeys.has(attachment.canonicalKey);
 });
-const localByCanonical = new Map(attachments.map((attachment) => [attachment.canonicalKey, attachment.localPath]));
-const mediaMap = new Map();
-
-for (const attachment of attachments) {
-	mediaMap.set(attachment.url, attachment.localPath);
-}
-
-for (const url of referencedUrls) {
-	if (!/^https:\/\/kw\.media\/wp-content\/uploads\//.test(url)) {
-		continue;
-	}
-
-	const localPath = localByCanonical.get(canonicalUploadKey(url));
-
-	if (localPath) {
-		mediaMap.set(url, localPath);
-	}
-}
 
 let downloaded = 0;
 
@@ -160,11 +142,5 @@ for (const attachment of attachments) {
 	}
 }
 
-const entries = [...mediaMap.entries()].sort(([a], [b]) => a.localeCompare(b));
-const mapSource = `export const wpMedia = ${JSON.stringify(Object.fromEntries(entries), null, '\t')} as const;\n`;
-
-writeFileSync(join(root, 'src/data/wp-media.ts'), mapSource);
-
 console.log(`Imported ${attachments.length} post attachments.`);
 console.log(`Downloaded ${downloaded} new files.`);
-console.log(`Mapped ${entries.length} remote URLs to local assets.`);
