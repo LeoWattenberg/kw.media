@@ -1,11 +1,15 @@
 ---
+import type { Locale } from '../../i18n';
+import { gateYouTubeEmbedsInHtml } from '../../lib/youtube-consent';
+
 interface Props {
 	html: string;
+	locale: Locale;
 }
 
-const { html } = Astro.props;
+const { html, locale } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-let contentHtml = html;
+let contentHtml = gateYouTubeEmbedsInHtml(html, locale);
 
 if (base) {
 	const baseSegment = base.replace(/^\//, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

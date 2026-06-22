@@ -9,90 +9,135 @@ interface Props {
 const { locale, measurementId } = Astro.props;
 const copy = {
 	de: {
-		text: 'Wir nutzen Google Analytics, um zu verstehen, wie unsere Website genutzt wird. Tracking startet erst nach Ihrer Zustimmung.',
-		accept: 'Akzeptieren',
+		text: 'Wir nutzen Google Analytics und YouTube-Einbettungen nur nach Ihrer Zustimmung. YouTube kann separat erlaubt werden.',
+		accept: 'Alle akzeptieren',
+		youtube: 'Nur YouTube-Einbettungen',
 		decline: 'Ablehnen',
 	},
 	en: {
-		text: 'We use Google Analytics to understand how our website is used. Tracking only starts after your consent.',
-		accept: 'Accept',
+		text: 'We use Google Analytics and YouTube embeds only after your consent. YouTube can be allowed separately.',
+		accept: 'Accept all',
+		youtube: 'YouTube embeds only',
 		decline: 'Decline',
 	},
 }[locale];
 const consentCookie = 'kwm_cookie_consent';
 ---
 
-{
-	measurementId && (
-		<div class="cookie-banner" data-cookie-banner hidden>
-			<p>{copy.text}</p>
-			<div class="cookie-actions">
-				<button type="button" class="secondary" data-cookie-decline>
-					{copy.decline}
-				</button>
-				<button type="button" class="secondary" data-cookie-accept>
-					{copy.accept}
-				</button>
-			</div>
-		</div>
-	)
-}
+<div class="cookie-banner" data-cookie-banner hidden>
+	<p>{copy.text}</p>
+	<div class="cookie-actions">
+		<button type="button" class="secondary" data-cookie-decline>
+			{copy.decline}
+		</button>
+		<button type="button" class="secondary" data-cookie-youtube>
+			{copy.youtube}
+		</button>
+		<button type="button" data-cookie-accept>
+			{copy.accept}
+		</button>
+	</div>
+</div>
 
-{
-	measurementId && (
-		<script define:vars={{ consentCookie, measurementId }}>
-			const getConsent = () => {
-				const match = document.cookie.match(new RegExp(`(?:^|; )${consentCookie}=([^;]*)`));
-				return match ? decodeURIComponent(match[1]) : undefined;
-			};
+<script define:vars={{ consentCookie, measurementId }}>
+	const getConsent = () => {
+		const match = document.cookie.match(new RegExp(`(?:^|; )${consentCookie}=([^;]*)`));
+		return match ? decodeURIComponent(match[1]) : undefined;
+	};
 
-			const setConsent = (value) => {
-				const secure = window.location.protocol === 'https:' ? '; Secure' : '';
-				document.cookie = `${consentCookie}=${encodeURIComponent(value)}; Max-Age=31536000; Path=/; SameSite=Lax${secure}`;
-			};
+	const setConsent = (value) => {
+		const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+		document.cookie = `${consentCookie}=${encodeURIComponent(value)}; Max-Age=31536000; Path=/; SameSite=Lax${secure}`;
+	};
 
-			const loadAnalytics = () => {
-				if (window.kwmAnalyticsLoaded) {
-					return;
-				}
+	const loadAnalytics = () => {
+		if (!measurementId || window.kwmAnalyticsLoaded) {
+			return;
+		}
 
-				window.kwmAnalyticsLoaded = true;
-				window.dataLayer = window.dataLayer || [];
-				window.gtag = function gtag() {
-					window.dataLayer.push(arguments);
-				};
+		window.kwmAnalyticsLoaded = true;
+		window.dataLayer = window.dataLayer || [];
+		window.gtag = function gtag() {
+			window.dataLayer.push(arguments);
+		};
 
-				window.gtag('js', new Date());
-				window.gtag('config', measurementId, { anonymize_ip: true });
+		window.gtag('js', new Date());
+		window.gtag('config', measurementId, { anonymize_ip: true });
 
-				const script = document.createElement('script');
-				script.async = true;
-				script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
-				document.head.appendChild(script);
-			};
+		const script = document.createElement('script');
+		script.async = true;
+		script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+		document.head.appendChild(script);
+	};
 
-			const banner = document.querySelector('[data-cookie-banner]');
-			const consent = getConsent();
-
-			if (consent === 'accepted') {
-				loadAnalytics();
-			} else if (consent !== 'declined' && banner) {
-				banner.hidden = false;
+	const loadYouTubeEmbeds = () => {
+		document.querySelectorAll('[data-youtube-embed]').forEach((embed) => {
+			if (embed.dataset.youtubeLoaded === 'true' || !embed.dataset.youtubeSrc) {
+				return;
 			}
 
-			document.querySelector('[data-cookie-accept]')?.addEventListener('click', () => {
-				setConsent('accepted');
-				banner?.setAttribute('hidden', '');
-				loadAnalytics();
-			});
+			const iframe = document.createElement('iframe');
+			iframe.src = embed.dataset.youtubeSrc;
+			iframe.title = embed.dataset.youtubeTitle || 'YouTube video';
+			iframe.loading = embed.dataset.youtubeLoading || 'lazy';
+			iframe.allow = embed.dataset.youtubeAllow || 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
 
-			document.querySelector('[data-cookie-decline]')?.addEventListener('click', () => {
-				setConsent('declined');
-				banner?.setAttribute('hidden', '');
-			});
-		</script>
-	)
-}
+			if (embed.dataset.youtubeReferrerpolicy) {
+				iframe.setAttribute('referrerpolicy', embed.dataset.youtubeReferrerpolicy);
+			}
+
+			if (embed.hasAttribute('data-youtube-allowfullscreen')) {
+				iframe.allowFullscreen = true;
+			}
+
+			embed.dataset.youtubeLoaded = 'true';
+			embed.querySelector('.youtube-consent-placeholder')?.remove();
+			embed.appendChild(iframe);
+		});
+	};
+
+	const applyConsent = (value) => {
+		if (value === 'accepted') {
+			loadAnalytics();
+			loadYouTubeEmbeds();
+		} else if (value === 'youtube') {
+			loadYouTubeEmbeds();
+		}
+	};
+
+	const saveConsent = (value) => {
+		setConsent(value);
+		banner?.setAttribute('hidden', '');
+		applyConsent(value);
+	};
+
+	const banner = document.querySelector('[data-cookie-banner]');
+	const consent = getConsent();
+
+	applyConsent(consent);
+
+	if (!consent && banner) {
+		banner.hidden = false;
+	}
+
+	document.querySelector('[data-cookie-accept]')?.addEventListener('click', () => {
+		saveConsent('accepted');
+	});
+
+	document.querySelector('[data-cookie-youtube]')?.addEventListener('click', () => {
+		saveConsent('youtube');
+	});
+
+	document.querySelector('[data-cookie-decline]')?.addEventListener('click', () => {
+		saveConsent('declined');
+	});
+
+	document.addEventListener('click', (event) => {
+		if (event.target instanceof Element && event.target.closest('[data-youtube-accept]')) {
+			saveConsent('youtube');
+		}
+	});
+</script>
 
 <style>
 	.cookie-banner {

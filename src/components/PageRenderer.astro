@@ -24,7 +24,7 @@ const { page } = Astro.props;
 {
 	page.blocks.map((block: PageBlock) => (
 		block.type === 'hero' ? <Hero block={block} /> :
-		block.type === 'html' ? <ContentHtml html={block.html} /> :
+		block.type === 'html' ? <ContentHtml html={block.html} locale={page.locale} /> :
 		block.type === 'credentials' ? <Credentials block={block} /> :
 		block.type === 'services' ? <ServiceGrid block={block} /> :
 		block.type === 'stats' ? <StatsBand block={block} /> :
@@ -34,7 +34,7 @@ const { page } = Astro.props;
 		block.type === 'pricing' ? <Pricing block={block} /> :
 		block.type === 'person' ? <PersonSpotlight block={block} /> :
 		block.type === 'posts' ? <PostList block={block} locale={page.locale} /> :
-		block.type === 'youtubePlaylist' ? <YouTubePlaylist block={block} /> :
+		block.type === 'youtubePlaylist' ? <YouTubePlaylist block={block} locale={page.locale} /> :
 		block.type === 'cta' ? <CallToAction block={block} /> :
 		null
 	))

@@ -1,0 +1,41 @@
+---
+import type { Locale } from '../i18n';
+import { youtubeConsentCopy } from '../lib/youtube-consent';
+
+interface Props {
+	src: string;
+	title: string;
+	locale: Locale;
+	class?: string;
+	loading?: 'eager' | 'lazy';
+	allow?: string;
+	referrerpolicy?: string;
+}
+
+const {
+	src,
+	title,
+	locale,
+	class: className,
+	loading = 'lazy',
+	allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+	referrerpolicy,
+} = Astro.props;
+const copy = youtubeConsentCopy[locale];
+---
+
+<div
+	class:list={['youtube-consent-frame', className]}
+	data-youtube-embed
+	data-youtube-src={src}
+	data-youtube-title={title}
+	data-youtube-loading={loading}
+	data-youtube-allow={allow}
+	data-youtube-referrerpolicy={referrerpolicy}
+	data-youtube-allowfullscreen
+>
+	<div class="youtube-consent-placeholder">
+		<p>{copy.text}</p>
+		<button type="button" data-youtube-accept>{copy.button}</button>
+	</div>
+</div>
