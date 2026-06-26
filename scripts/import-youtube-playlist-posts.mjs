@@ -1,28 +1,27 @@
-import { execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const playlists = [
 	{
-		url: 'https://www.youtube.com/playlist?list=PLpM9DoCHlaQHdyH6R1XWPYmQLsrif1Y9F',
+		id: 'PLpM9DoCHlaQHdyH6R1XWPYmQLsrif1Y9F',
 		defaultWatchKind: 'shorts',
 	},
 	{
-		url: 'https://www.youtube.com/playlist?list=PLpM9DoCHlaQFlsYdZiGUVG3eREZTs706N',
+		id: 'PLpM9DoCHlaQFlsYdZiGUVG3eREZTs706N',
 		defaultWatchKind: 'watch',
 	},
 ];
 
 const postsDir = join(process.cwd(), 'src/data/posts');
-const ytDlpCommand = (process.env.YT_DLP_COMMAND ?? 'yt-dlp').split(/\s+/).filter(Boolean);
+const apiKey = process.env.YOUTUBE_API_KEY;
+const oauthClientId = process.env.YOUTUBE_OAUTH_CLIENT_ID;
+const oauthClientSecret = process.env.YOUTUBE_OAUTH_CLIENT_SECRET;
+const oauthRefreshToken = process.env.YOUTUBE_OAUTH_REFRESH_TOKEN;
+const hasCaptionOAuth = Boolean(oauthClientId && oauthClientSecret && oauthRefreshToken);
 
-function runYtDlp(args, options = {}) {
-	return execFileSync(ytDlpCommand[0], [...ytDlpCommand.slice(1), ...args], {
-		encoding: 'utf8',
-		maxBuffer: 1024 * 1024 * 128,
-		stdio: ['ignore', 'pipe', options.quiet ? 'pipe' : 'inherit'],
-	});
+if (!apiKey) {
+	console.error('Missing YOUTUBE_API_KEY. Add a YouTube Data API key to the workflow secrets.');
+	process.exit(1);
 }
 
 function readPosts() {
@@ -53,38 +52,96 @@ function extractExistingSlugs(posts) {
 	return new Set(posts.map((post) => post.fileName.replace(/\.md$/, '')));
 }
 
-function parseMetadataLine(line) {
-	const parts = line.trim().split('\t');
-	const [id, title, uploadDate, timestamp, language, duration, description] = parts.map((part) => {
-		if (part === 'NA') {
-			return null;
+async function apiGet(path, params, accessToken) {
+	const url = new URL(`https://www.googleapis.com/youtube/v3/${path}`);
+	for (const [key, value] of Object.entries(params)) {
+		if (value !== undefined && value !== null) {
+			url.searchParams.set(key, String(value));
 		}
+	}
 
-		try {
-			return JSON.parse(part);
-		} catch {
-			return part;
-		}
+	if (!accessToken) {
+		url.searchParams.set('key', apiKey);
+	}
+
+	const response = await fetch(url, {
+		headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined,
 	});
 
-	return { id, title, uploadDate, timestamp, language, duration, description };
+	if (!response.ok) {
+		const body = await response.text();
+		throw new Error(`YouTube API ${path} failed with HTTP ${response.status}: ${body}`);
+	}
+
+	return response.json();
 }
 
-function videoMetadata(videoId) {
-	const line = runYtDlp([
-		'--skip-download',
-		'--no-warnings',
-		'--print',
-		'%(id)j\t%(title)j\t%(upload_date)j\t%(timestamp)j\t%(language)j\t%(duration)j\t%(description)j',
-		`https://www.youtube.com/watch?v=${videoId}`,
-	]);
+async function captionAccessToken() {
+	if (!hasCaptionOAuth) {
+		return undefined;
+	}
 
-	return parseMetadataLine(line);
+	const response = await fetch('https://oauth2.googleapis.com/token', {
+		method: 'POST',
+		headers: { 'content-type': 'application/x-www-form-urlencoded' },
+		body: new URLSearchParams({
+			client_id: oauthClientId,
+			client_secret: oauthClientSecret,
+			refresh_token: oauthRefreshToken,
+			grant_type: 'refresh_token',
+		}),
+	});
+
+	if (!response.ok) {
+		const body = await response.text();
+		throw new Error(`Failed to refresh YouTube OAuth token: HTTP ${response.status}: ${body}`);
+	}
+
+	const token = await response.json();
+	return token.access_token;
 }
 
-function flatPlaylistEntries(playlistUrl) {
-	const playlist = JSON.parse(runYtDlp(['--flat-playlist', '--dump-single-json', playlistUrl]));
-	return (playlist.entries ?? []).filter((entry) => entry?.id);
+async function playlistVideoIds(playlistId) {
+	const ids = [];
+	let pageToken;
+
+	do {
+		const page = await apiGet('playlistItems', {
+			part: 'contentDetails',
+			playlistId,
+			maxResults: 50,
+			pageToken,
+		});
+
+		for (const item of page.items ?? []) {
+			if (item.contentDetails?.videoId) {
+				ids.push(item.contentDetails.videoId);
+			}
+		}
+
+		pageToken = page.nextPageToken;
+	} while (pageToken);
+
+	return ids;
+}
+
+async function videoMetadata(videoIds) {
+	const videos = new Map();
+
+	for (let index = 0; index < videoIds.length; index += 50) {
+		const batch = videoIds.slice(index, index + 50);
+		const response = await apiGet('videos', {
+			part: 'snippet,contentDetails',
+			id: batch.join(','),
+			maxResults: 50,
+		});
+
+		for (const item of response.items ?? []) {
+			videos.set(item.id, item);
+		}
+	}
+
+	return videos;
 }
 
 function likelyGerman(text) {
@@ -92,16 +149,18 @@ function likelyGerman(text) {
 		|| /[äöüß]/i.test(text);
 }
 
-function localeFor(metadata) {
-	if (metadata.language?.toLowerCase().startsWith('de')) {
+function localeFor(video) {
+	const language = (video.snippet?.defaultAudioLanguage ?? video.snippet?.defaultLanguage ?? '').toLowerCase();
+
+	if (language.startsWith('de')) {
 		return 'de';
 	}
 
-	if (metadata.language?.toLowerCase().startsWith('en')) {
+	if (language.startsWith('en')) {
 		return 'en';
 	}
 
-	return likelyGerman(metadata.title) ? 'de' : 'en';
+	return likelyGerman(video.snippet?.title ?? '') ? 'de' : 'en';
 }
 
 function slugify(input, locale) {
@@ -132,18 +191,6 @@ function uniqueSlug(baseSlug, existingSlugs) {
 	return slug;
 }
 
-function isoDate(timestamp, uploadDate) {
-	if (timestamp) {
-		return new Date(timestamp * 1000).toISOString().replace(/\.\d{3}Z$/, '');
-	}
-
-	if (/^\d{8}$/.test(uploadDate ?? '')) {
-		return `${uploadDate.slice(0, 4)}-${uploadDate.slice(4, 6)}-${uploadDate.slice(6, 8)}T00:00:00`;
-	}
-
-	return new Date().toISOString().replace(/\.\d{3}Z$/, '');
-}
-
 function decodeEntities(text) {
 	return text
 		.replace(/&amp;/g, '&')
@@ -153,11 +200,10 @@ function decodeEntities(text) {
 		.replace(/&#39;/g, "'");
 }
 
-function parseVtt(filePath) {
-	const raw = readFileSync(filePath, 'utf8');
+function parseVtt(text) {
 	const cues = [];
 
-	for (const block of raw.split(/\n\s*\n/)) {
+	for (const block of text.split(/\n\s*\n/)) {
 		const lines = block.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
 		if (!lines.length || lines[0].startsWith('WEBVTT') || lines[0].startsWith('Kind:') || lines[0].startsWith('Language:')) {
 			continue;
@@ -168,14 +214,14 @@ function parseVtt(filePath) {
 			continue;
 		}
 
-		const text = decodeEntities(lines.slice(timestampIndex + 1).join(' ')
+		const cueText = decodeEntities(lines.slice(timestampIndex + 1).join(' ')
 			.replace(/<\/?c[^>]*>/g, '')
 			.replace(/<\d{2}:\d{2}:\d{2}\.\d{3}>/g, '')
 			.replace(/\s+/g, ' ')
 			.trim());
 
-		if (text && cues[cues.length - 1] !== text) {
-			cues.push(text);
+		if (cueText && cues[cues.length - 1] !== cueText) {
+			cues.push(cueText);
 		}
 	}
 
@@ -283,6 +329,51 @@ function summarizeTranscript(transcript) {
 	return `${summary.slice(0, 217).replace(/\s+\S*$/, '')}...`;
 }
 
+async function captionTrack(videoId, locale, accessToken) {
+	if (!accessToken) {
+		return undefined;
+	}
+
+	const captions = await apiGet('captions', {
+		part: 'snippet',
+		videoId,
+	}, accessToken);
+	const tracks = captions.items ?? [];
+	const localeTracks = tracks.filter((track) => track.snippet?.language?.toLowerCase().startsWith(locale));
+
+	return (
+		localeTracks.find((track) => track.snippet?.trackKind?.toLowerCase() !== 'asr')
+		?? localeTracks[0]
+		?? tracks.find((track) => track.snippet?.trackKind?.toLowerCase() !== 'asr')
+		?? tracks[0]
+	);
+}
+
+async function downloadCaption(trackId, accessToken) {
+	const url = new URL(`https://www.googleapis.com/youtube/v3/captions/${trackId}`);
+	url.searchParams.set('tfmt', 'vtt');
+
+	const response = await fetch(url, {
+		headers: { Authorization: `Bearer ${accessToken}` },
+	});
+
+	if (!response.ok) {
+		const body = await response.text();
+		throw new Error(`Caption download failed with HTTP ${response.status}: ${body}`);
+	}
+
+	return response.text();
+}
+
+async function transcriptFor(videoId, locale, accessToken) {
+	const track = await captionTrack(videoId, locale, accessToken);
+	if (!track?.id) {
+		return undefined;
+	}
+
+	return parseVtt(await downloadCaption(track.id, accessToken));
+}
+
 function frontmatterString(data) {
 	const quote = (value) => `"${String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
 
@@ -314,111 +405,96 @@ function markdownBody(locale, paragraphs) {
 	return [`## ${heading}`, ...paragraphs].join('\n\n');
 }
 
-function downloadTranscript(videoId, locale, tempDir) {
-	const languagePreference = locale === 'de' ? 'de-orig,de' : 'en-orig,en';
-
-	try {
-		runYtDlp([
-			'--ignore-errors',
-			'--skip-download',
-			'--write-subs',
-			'--write-auto-subs',
-			'--sub-langs',
-			languagePreference,
-			'--sub-format',
-			'vtt',
-			'-o',
-			join(tempDir, '%(id)s.%(ext)s'),
-			`https://www.youtube.com/watch?v=${videoId}`,
-		], { quiet: true });
-	} catch (error) {
-		// yt-dlp can exit non-zero when one requested subtitle variant fails while
-		// another one was downloaded successfully, so inspect the output directory.
-	}
-
-	const files = readdirSync(tempDir).filter((fileName) => fileName.startsWith(`${videoId}.`) && fileName.endsWith('.vtt'));
-	const preferredSuffixes = locale === 'de'
-		? ['.de-orig.vtt', '.de.vtt']
-		: ['.en-orig.vtt', '.en.vtt'];
-	const fileName = preferredSuffixes
-		.map((suffix) => files.find((file) => file.endsWith(suffix)))
-		.find(Boolean) ?? files[0];
-
-	if (!fileName) {
-		return undefined;
-	}
-
-	return parseVtt(join(tempDir, fileName));
-}
-
 function watchUrl(videoId, watchKind) {
 	return watchKind === 'shorts'
 		? `https://www.youtube.com/shorts/${videoId}`
 		: `https://www.youtube.com/watch?v=${videoId}`;
 }
 
+function thumbnailUrl(video) {
+	const thumbnails = video.snippet?.thumbnails ?? {};
+	return thumbnails.maxres?.url
+		?? thumbnails.standard?.url
+		?? thumbnails.high?.url
+		?? `https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`;
+}
+
 const posts = readPosts();
 const existingVideoIds = extractExistingVideoIds(posts);
 const existingSlugs = extractExistingSlugs(posts);
 let nextId = extractMaxId(posts) + 1;
-const tempDir = mkdtempSync(join(tmpdir(), 'kwmedia-youtube-import-'));
 const created = [];
 const skipped = [];
+const accessToken = await captionAccessToken();
 
-try {
-	for (const playlist of playlists) {
-		const entries = flatPlaylistEntries(playlist.url);
+if (!accessToken) {
+	console.warn('Caption OAuth secrets are not configured. New videos will be skipped because YouTube Data API caption downloads require OAuth.');
+}
 
-		for (const entry of entries) {
-			if (existingVideoIds.has(entry.id)) {
-				continue;
-			}
+for (const playlist of playlists) {
+	const ids = await playlistVideoIds(playlist.id);
+	const newIds = ids.filter((id) => !existingVideoIds.has(id));
 
-			const metadata = videoMetadata(entry.id);
-			const locale = localeFor(metadata);
-			const transcript = downloadTranscript(entry.id, locale, tempDir);
-
-			if (!transcript) {
-				skipped.push(`${metadata.title} (${entry.id}): no ${locale} transcript found`);
-				continue;
-			}
-
-			const cleanedTranscript = cleanTranscript(transcript, locale);
-			const slug = uniqueSlug(slugify(metadata.title, locale), existingSlugs);
-			const postPath = `/${locale === 'de' ? 'youtube-tipps-de' : 'youtube-tips-en'}/${slug}/`;
-			const date = isoDate(metadata.timestamp, metadata.uploadDate);
-			const currentWatchUrl = watchUrl(entry.id, playlist.defaultWatchKind);
-			const thumbnailUrl = `https://i.ytimg.com/vi/${entry.id}/maxresdefault.jpg`;
-			const post = {
-				id: nextId,
-				slug,
-				path: postPath,
-				title: metadata.title,
-				excerpt: summarizeTranscript(cleanedTranscript),
-				date,
-				modified: date,
-				locale,
-				categoryIds: [locale === 'de' ? 17 : 18],
-				image: thumbnailUrl,
-				authorName: 'Martin Koytek',
-				sourceUrl: currentWatchUrl,
-				video: {
-					youtubeId: entry.id,
-					embedUrl: `https://www.youtube.com/embed/${entry.id}`,
-					watchUrl: currentWatchUrl,
-					thumbnailUrl,
-				},
-			};
-
-			const fileContent = `${frontmatterString(post)}\n\n${markdownBody(locale, transcriptParagraphs(cleanedTranscript))}\n`;
-			writeFileSync(join(postsDir, `${slug}.md`), fileContent);
-			existingVideoIds.add(entry.id);
-			nextId += 1;
-			created.push(`${metadata.title} (${entry.id})`);
-		}
+	if (!newIds.length) {
+		continue;
 	}
-} finally {
-	rmSync(tempDir, { recursive: true, force: true });
+
+	const videos = await videoMetadata(newIds);
+
+	for (const videoId of newIds) {
+		const video = videos.get(videoId);
+
+		if (!video) {
+			skipped.push(`${videoId}: video metadata not found`);
+			continue;
+		}
+
+		const locale = localeFor(video);
+		let transcript;
+		try {
+			transcript = await transcriptFor(videoId, locale, accessToken);
+		} catch (error) {
+			skipped.push(`${video.snippet.title} (${videoId}): ${error.message}`);
+			continue;
+		}
+
+		if (!transcript) {
+			skipped.push(`${video.snippet.title} (${videoId}): no downloadable ${locale} caption track found`);
+			continue;
+		}
+
+		const cleanedTranscript = cleanTranscript(transcript, locale);
+		const slug = uniqueSlug(slugify(video.snippet.title, locale), existingSlugs);
+		const postPath = `/${locale === 'de' ? 'youtube-tipps-de' : 'youtube-tips-en'}/${slug}/`;
+		const date = video.snippet.publishedAt.replace(/\.\d{3}Z$/, '');
+		const currentWatchUrl = watchUrl(videoId, playlist.defaultWatchKind);
+		const post = {
+			id: nextId,
+			slug,
+			path: postPath,
+			title: video.snippet.title,
+			excerpt: summarizeTranscript(cleanedTranscript),
+			date,
+			modified: date,
+			locale,
+			categoryIds: [locale === 'de' ? 17 : 18],
+			image: thumbnailUrl(video),
+			authorName: 'Martin Koytek',
+			sourceUrl: currentWatchUrl,
+			video: {
+				youtubeId: videoId,
+				embedUrl: `https://www.youtube.com/embed/${videoId}`,
+				watchUrl: currentWatchUrl,
+				thumbnailUrl: thumbnailUrl(video),
+			},
+		};
+
+		const fileContent = `${frontmatterString(post)}\n\n${markdownBody(locale, transcriptParagraphs(cleanedTranscript))}\n`;
+		writeFileSync(join(postsDir, `${slug}.md`), fileContent);
+		existingVideoIds.add(videoId);
+		nextId += 1;
+		created.push(`${video.snippet.title} (${videoId})`);
+	}
 }
 
 if (created.length) {
@@ -427,7 +503,7 @@ if (created.length) {
 		console.log(`- ${item}`);
 	}
 } else {
-	console.log('No new YouTube videos found.');
+	console.log('No new YouTube videos imported.');
 }
 
 if (skipped.length) {
