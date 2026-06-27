@@ -27,7 +27,7 @@ interface MarkdownPostModule {
 	compiledContent: () => Promise<string>;
 }
 
-const postModules = import.meta.glob<MarkdownPostModule>('../data/posts/*.md', {
+const postModules = import.meta.glob<MarkdownPostModule>('../data/posts/**/*.md', {
 	eager: true,
 });
 

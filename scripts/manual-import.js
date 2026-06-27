@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
 
 const playlists = [
 	{
@@ -15,6 +15,16 @@ const playlists = [
 ];
 
 const postsDir = join(process.cwd(), 'src/data/posts');
+const postDirectories = {
+	blog: {
+		de: join(postsDir, 'blog/de'),
+		en: join(postsDir, 'blog/en'),
+	},
+	video: {
+		de: join(postsDir, 'video/de'),
+		en: join(postsDir, 'video/en'),
+	},
+};
 const localYtDlp = join(process.cwd(), 'scripts/yt-dlp');
 const ytDlpCommand = (process.env.YT_DLP_COMMAND ?? localYtDlp).split(/\s+/).filter(Boolean);
 
@@ -27,12 +37,23 @@ function runYtDlp(args, options = {}) {
 }
 
 function readPosts() {
-	return readdirSync(postsDir)
-		.filter((fileName) => fileName.endsWith('.md'))
-		.map((fileName) => ({
-			fileName,
-			content: readFileSync(join(postsDir, fileName), 'utf8'),
-		}));
+	const files = [];
+	const readDirectory = (directory) => {
+		for (const entry of readdirSync(directory, { withFileTypes: true })) {
+			const filePath = join(directory, entry.name);
+			if (entry.isDirectory()) {
+				readDirectory(filePath);
+			} else if (entry.isFile() && entry.name.endsWith('.md')) {
+				files.push({
+					fileName: entry.name,
+					content: readFileSync(filePath, 'utf8'),
+				});
+			}
+		}
+	};
+
+	readDirectory(postsDir);
+	return files;
 }
 
 function extractExistingVideoIds(posts) {
@@ -51,7 +72,7 @@ function extractMaxId(posts) {
 }
 
 function extractExistingSlugs(posts) {
-	return new Set(posts.map((post) => post.fileName.replace(/\.md$/, '')));
+	return new Set(posts.map((post) => basename(post.fileName, '.md')));
 }
 
 function parseYtDlpValue(value) {
@@ -124,13 +145,29 @@ function uniqueSlug(baseSlug, existingSlugs) {
 	let slug = baseSlug;
 	let counter = 2;
 
-	while (existingSlugs.has(slug) || existsSync(join(postsDir, `${slug}.md`))) {
+	while (existingSlugs.has(slug) || postFileExists(slug)) {
 		slug = `${baseSlug}-${counter}`;
 		counter += 1;
 	}
 
 	existingSlugs.add(slug);
 	return slug;
+}
+
+function postFileExists(slug) {
+	return Object.values(postDirectories).some((directories) => (
+		Object.values(directories).some((directory) => existsSync(join(directory, `${slug}.md`)))
+	));
+}
+
+function postOutputDirectory(type, locale) {
+	const directory = postDirectories[type]?.[locale];
+	if (!directory) {
+		throw new Error(`Unsupported post output target: ${type}/${locale}`);
+	}
+
+	mkdirSync(directory, { recursive: true });
+	return directory;
 }
 
 function isoDate(timestamp, uploadDate) {
@@ -412,7 +449,7 @@ try {
 			};
 
 			const fileContent = `${frontmatterString(post)}\n\n${markdownBody(locale, transcriptParagraphs(cleanedTranscript))}\n`;
-			writeFileSync(join(postsDir, `${slug}.md`), fileContent);
+			writeFileSync(join(postOutputDirectory('video', locale), `${slug}.md`), fileContent);
 			existingVideoIds.add(entry.id);
 			nextId += 1;
 			created.push(`${metadata.title} (${entry.id})`);
