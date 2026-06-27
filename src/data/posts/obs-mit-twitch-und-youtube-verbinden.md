@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-YouTube und Twitch bieten euch jeweils an euer Konto direkt mit obs zu verbinden um eure Konten mit obs zu verbinden wählt in den ubs-einstellungen und das Stream eure wunschplattform aus mit Konto verbinden öffnet sich dann ein Tab in eurem Browser bei dem ihr die Anmeldung durchführen könnt dadurch könnt ihr von eurem obs aus euren Stream planen und einstellen ohne dass ihr einen Stream key benötigt fortgeschrittenen empfehle ich dennoch die Nutzung des YouTube live control rooms in Kombination mit einem auf eure Anforderungen zugeschnittenen stream
+YouTube und Twitch bieten euch jeweils an, euer Konto direkt mit OBS zu verbinden. Um eure Konten mit OBS zu verbinden, wählt in den OBS-Einstellungen unter „Stream“ eure Wunschplattform aus und klickt auf „Konto verbinden“. Es öffnet sich dann ein Tab in eurem Browser, in dem ihr die Anmeldung durchführen könnt. Dadurch könnt ihr von eurem OBS aus euren Stream planen und einstellen, ohne dass ihr einen Stream-Key benötigt. Fortgeschrittenen empfehle ich dennoch die Nutzung des YouTube-Live-Control-Rooms in Kombination mit einem auf eure Anforderungen zugeschnittenen Stream

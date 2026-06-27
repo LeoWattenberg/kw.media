@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-Um mit obs Spielekonsolen oder DSLR facecams aufzunehmen benötigt ihr einen sogenannte capture Karte sobald diese mit der Konsole und eurem Rechner verbunden ist könnt ihr die Capture Card dann in obs als Quelle hinzufügen diese findet ihr unter videoaufnahmegeräte
+Um mit OBS Spielekonsolen oder DSLR-Facecams aufzunehmen, benötigt ihr eine sogenannte Capture Card. Sobald diese mit der Konsole und eurem Rechner verbunden ist, könnt ihr die Capture Card dann in OBS als Quelle hinzufügen. Diese findet ihr unter „Videoaufnahmegeräte“.

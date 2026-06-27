@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-Um deinen YouTube-Kanal mit discord zu verbinden klicke zunächst auf Einstellungen und dann Verbindungen hier wählst du YouTube aus als nächstes musst du dich mit deinem richtigen Google-Konto anmelden und die App autorisieren discord weiß nun ob du zum Beispiel einen Kanal Mitglied auf einem Kanal bist und wird dir so automatisch Rollen zuweisen
+Um deinen YouTube-Kanal mit Discord zu verbinden, klicke zunächst auf Einstellungen und dann auf Verbindungen. Hier wählst du YouTube aus. Als Nächstes musst du dich mit deinem richtigen Google-Konto anmelden und die App autorisieren. Discord weiß nun, ob du zum Beispiel Kanalmitglied auf einem Kanal bist, und wird dir so automatisch Rollen zuweisen.

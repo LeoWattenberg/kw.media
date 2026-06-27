@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-YouTube hat viele Wege andere User zu eurem Channel weiterzuleiten bis jetzt gab es den Link mit eurer Channel ID einen Link mit eurer custom URL bzw Kanalnamen und neu dazu kommen jetzt seine bis 30 Alpha numerischen Zeichen inklusive minus unterstrich und Punkt falls ihr bereits eine Custom URL habt wird aus dieser automatisch ein Handy generiert falls Sie ein Handel erstellen wollt oder ein aktuelles ändern wollt könnt ihr dieses auf YouTube.com/andal machen
+YouTube hat viele Wege, andere User zu eurem Channel weiterzuleiten. Bis jetzt gab es den Link mit eurer Channel-ID, einen Link mit eurer Custom URL bzw. Kanalnamen, und neu dazu kommen jetzt bis zu 30 alphanumerische Zeichen inklusive Minus, Unterstrich und Punkt. Falls ihr bereits eine Custom URL habt, wird aus dieser automatisch ein Handle generiert. Falls ihr ein Handle erstellen oder ein aktuelles ändern wollt, könnt ihr dies auf YouTube.com/handle machen.

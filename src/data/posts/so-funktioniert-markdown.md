@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-Die neue Markdown-Funktion ermöglicht es euch, Texte in eurer Videobeschreibung hervorzuheben. Text, der zwischen je einem Stern links und rechts steht, wird kursiv angezeigt. Zwischen zwei Sternen wird er fett, und zwischen zwei Tilden wird er durchgestrichen.
+Die neue Markdown-Funktion ermöglicht es euch, Texte in eurer Videobeschreibung hervorzuheben. Text, der jeweils zwischen einem Stern links und rechts steht, wird kursiv angezeigt. Zwischen zwei Sternen wird er fett, und zwischen zwei Tilden wird er durchgestrichen.
