@@ -20,6 +20,4 @@ video:
 
 ## Transkript
 
-Um in euren Streams HDR korrekt zu zeigen, müsst ihr euren Stream über das HLS-Protokoll senden. Damit YouTube dies korrekt annehmen kann, müsst ihr einen Stream-Tier erstellen, der das HLS-Protokoll unterstützt. Dafür geht ihr vor Stream-Start im Live Control Room auf das Menü, wählt „Stream-Schlüssel“ und klickt auf „Neuen Stream-Schlüssel erstellen“. Dort gebt ihr dem Schlüssel einen Namen und wählt als Streaming-Protokoll HLS Advanced aus. Nachdem ihr auf „Erstellen“ drückt, könnt ihr diesen Schlüssel nutzen, um HDR-Content zu streamen. Wichtig hierbei ist, dass
-
-ihr nicht die manuellen optionen aktiviert
+Um in euren Streams HDR korrekt zu zeigen, müsst ihr euren Stream über das HLS-Protokoll senden. Damit YouTube dies korrekt annehmen kann, müsst ihr einen Stream-Tier erstellen, der das HLS-Protokoll unterstützt. Dafür geht ihr vor Stream-Start im Live Control Room auf das Menü, wählt „Stream-Schlüssel“ und klickt auf „Neuen Stream-Schlüssel erstellen“. Dort gebt ihr dem Schlüssel einen Namen und wählt als Streaming-Protokoll HLS Advanced aus. Nachdem ihr auf „Erstellen“ drückt, könnt ihr diesen Schlüssel nutzen, um HDR-Content zu streamen. Wichtig hierbei ist, dass ihr nicht die manuellen Optionen aktiviert.

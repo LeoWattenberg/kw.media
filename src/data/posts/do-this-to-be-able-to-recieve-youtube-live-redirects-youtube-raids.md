@@ -20,4 +20,4 @@ video:
 
 ## Transcript
 
-Every YouTube Creator can receive YouTube live redirects to enable them for your stream you have to allow other creators to redirect to you you'll find their setting in the YouTube Studio under settings Community scroll down and either allows specific channels or tick the box to allow all creators to redirect to you
+Every YouTube creator can receive YouTube Live Redirects. To enable them for your stream, you have to allow other creators to redirect to you. You'll find that setting in YouTube Studio under Settings > Community. Scroll down and either allow specific channels or tick the box to allow all creators to redirect to you.

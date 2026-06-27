@@ -20,6 +20,6 @@ video:
 
 ## Transcript
 
-YouTube ABC. After subscribing, viewers can activate notifications to be informed about new content. The overview of a video in YouTube Studio shows you how many viewers of all of them watch it. On this way, the reach tab gives you these key figures as percentages with a choice of several time frames. Viewers can decide whether they want to be informed about all news or only personalized news. If they choose personalized, YouTube selects which new content is relevant for them based on their watch history. This setting is
+YouTube ABC. After subscribing, viewers can activate notifications to be informed about new content. The overview of a video in YouTube Studio shows you how many viewers of all of them watch it. In this way, the reach tab gives you these key figures as percentages with a choice of several time frames. Viewers can decide whether they want to be informed about all news or only personalized news. If they choose personalized, YouTube selects which new content is relevant for them based on their watch history. This setting is
 
-especially practical if viewers are only interested in certain content subscribe to our channnel and put on the notifications
+especially practical if viewers are only interested in certain content. Subscribe to our channel and turn on notifications.

@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-Die neue Membership-Gifting-Beta ermöglicht es euch, als Mitglied auf einem Kanal, anderen zufällig ausgewählten Personen im Chat eine Mitgliedschaft zu schenken. Dafür klickt ihr im Livechat auf den „Supers“-Button, gefolgt von „Membership Gifting“. Jetzt könnt ihr auswählen, wie viele Mitgliedschaften ihr verschenken wollt. Dann müsst ihr nur noch die Zahlungsmethode bestätigen, und YouTube verteilt die Mitgliedschaften an die aktivsten Abonnenten im Livechat.
+Die neue Membership-Gifting-Beta ermöglicht es euch, als Mitglied auf einem Kanal anderen zufällig ausgewählten Personen im Chat eine Mitgliedschaft zu schenken. Dafür klickt ihr im Livechat auf den „Supers“-Button, gefolgt von „Membership Gifting“. Jetzt könnt ihr auswählen, wie viele Mitgliedschaften ihr verschenken wollt. Dann müsst ihr nur noch die Zahlungsmethode bestätigen, und YouTube verteilt die Mitgliedschaften an die aktivsten Abonnenten im Livechat.
