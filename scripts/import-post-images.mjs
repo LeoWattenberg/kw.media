@@ -11,9 +11,22 @@ if (!xmlPath) {
 
 const root = process.cwd();
 const xml = readFileSync(xmlPath, 'utf8');
-const posts = readdirSync(join(root, 'src/data/posts'))
-	.filter((fileName) => fileName.endsWith('.json'))
-	.map((fileName) => JSON.parse(readFileSync(join(root, 'src/data/posts', fileName), 'utf8')));
+const postsDir = join(root, 'src/data/posts');
+
+function readPostJsonFiles(directory) {
+	return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+		const entryPath = join(directory, entry.name);
+		if (entry.isDirectory()) {
+			return readPostJsonFiles(entryPath);
+		}
+
+		return entry.isFile() && entry.name.endsWith('.json')
+			? [JSON.parse(readFileSync(entryPath, 'utf8'))]
+			: [];
+	});
+}
+
+const posts = readPostJsonFiles(postsDir);
 const postIds = new Set(posts.map((post) => post.id));
 
 function cdata(tag, text) {
