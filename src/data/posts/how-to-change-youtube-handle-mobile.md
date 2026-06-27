@@ -20,6 +20,6 @@ video:
 
 ## Transcript
 
-Stop looking like a bot in live chat. YouTube just replaced display names with ad handles. If yours is at user123, you need to change it. Open the YouTube app. Tap your profile picture in the bottom right. Tap view channel. Now hit this little pencil icon. Tap on handle. Pick something unique between three and 30 characters. Underscores and dots work, but keep it clean. Watch out. You can only change this twice every 14 days. So check your spelling before you save or you're stuck with a typo for 2 weeks. Hit save.
+Stop looking like a bot in live chat. YouTube just replaced display names with @ handles. If yours is at user123, you need to change it. Open the YouTube app. Tap your profile picture in the bottom right. Tap View Channel. Now hit this little pencil icon. Tap on Handle. Pick something unique between three and 30 characters. Underscores and dots work, but keep it clean. Watch out: you can only change this twice every 14 days. So check your spelling before you save, or you're stuck with a typo for 2 weeks. Hit save.
 
 Now go say hi in chat.

@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-YouTube hat viele Wege, andere User zu eurem Channel weiterzuleiten. Bis jetzt gab es den Link mit eurer Channel-ID, einen Link mit eurer Custom URL bzw. Kanalnamen, und neu dazu kommen jetzt bis zu 30 alphanumerische Zeichen inklusive Minus, Unterstrich und Punkt. Falls ihr bereits eine Custom URL habt, wird aus dieser automatisch ein Handle generiert. Falls ihr ein Handle erstellen oder ein aktuelles ändern wollt, könnt ihr dies auf YouTube.com/handle machen.
+YouTube hat viele Wege, andere User zu eurem Channel weiterzuleiten. Bis jetzt gab es den Link mit eurer Channel-ID, einen Link mit eurer Custom URL bzw. Kanalnamen, und neu dazu kommen jetzt bis zu 30 alphanumerische Zeichen inklusive Minus, Unterstrich und Punkt. Falls ihr bereits eine Custom URL habt, wird daraus automatisch ein Handle generiert. Falls ihr ein Handle erstellen oder ein aktuelles ändern wollt, könnt ihr das auf YouTube.com/handle machen.

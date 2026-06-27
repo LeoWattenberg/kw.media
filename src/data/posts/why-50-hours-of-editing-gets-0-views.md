@@ -22,4 +22,4 @@ video:
 
 What is the hardest lesson you've learned from your YouTube channel? It's the realization that effort doesn't equal views. You can pour 50 hours into editing an absolute masterpiece, obsessing over every frame, and it will completely flop because the core idea wasn't clickable. Then, a random 2-hour no-edit VOD goes viral. It will hurt. But, the algorithm doesn't care about your sweet equity. It cares about audience satisfaction.
 
-And the moment you accept that, you stop grinding yourself into burnout and start focusing on the concept first because if you tie yourself worth to the analytics dashboard, you will always end up asking
+And the moment you accept that, you stop grinding yourself into burnout and start focusing on the concept first. If you tie your worth to the analytics dashboard, you will always end up asking yourself

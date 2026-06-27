@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-Um live wieder rechts in euren Livestreams empfangen zu können müsst ihr zuerst einstellen wer euch live Redirect senden darf dafür geht ihr im YouTube-studio in den Einstellungen auf Community und scrollt nach unten hier könnt ihr entweder spezifische Kanäle eintragen oder allen creators erlauben zu euch weiterzuleiten
+Um Live Redirects in euren Livestreams empfangen zu können, müsst ihr zuerst einstellen, wer euch Live Redirects senden darf. Dafür geht ihr im YouTube-Studio in den Einstellungen auf „Community“ und scrollt nach unten. Hier könnt ihr entweder spezifische Kanäle eintragen oder allen Creators erlauben, zu euch weiterzuleiten.
