@@ -20,6 +20,6 @@ video:
 
 ## Transcript
 
-The YouTube ABC YouTube analytics is a free tool provided by YouTube that makes it easy to measure the success of your channel and helps you optimize your strategy you can find it in the YouTube studio app or on studio.
+The YouTube ABC YouTube Analytics is a free tool provided by YouTube that makes it easy to measure the success of your channel and helps you optimize your strategy. You can find it in the YouTube Studio app or on studio.youtube.com by clicking on the Analytics tab.
 
-YouTube.com by clicking on the analytics tab for beginners the most important metrics are Impressions or how often the video is shown on the website views or how often viewers actually watch the video The Click through rid that connects Impressions to views and the audience retention or how long viewers stayed on your video with those four metrics you can already identify why your channel might be growing comment your questions on analytics to get a more detailed explanation on specific analytics areas and don't forget to subscribe for more Creator content
+For beginners, the most important metrics are impressions, or how often the video is shown, views, or how often viewers actually watch the video, the click-through rate that connects impressions to views, and audience retention, or how long viewers stayed on your video. With those four metrics, you can already identify why your channel might be growing. Comment your questions on analytics to get a more detailed explanation on specific analytics areas, and don't forget to subscribe for more creator content.

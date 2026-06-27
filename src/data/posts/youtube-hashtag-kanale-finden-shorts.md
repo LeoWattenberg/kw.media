@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-Um bei YouTube nach einem hashtags versuchungen gehst du auf die suchleiste und gibt es den gewünschten hashtag ein direkt unter der suchleiste siehst du nun den hashtag channel in dem du durch ein einfaches draufklicken gelangst du kannst doch über videos in hälfte gelangen dazu gehst du einfach in die video beschreibung und klicks auf den gewünschten hashtag für mehr infos rund um die YouTube abonniere den carry media kanal
+Um bei YouTube nach einem Hashtag zu suchen, gehst du auf die Suchleiste und gibst den gewünschten Hashtag ein. Direkt unter der Suchleiste siehst du nun den Hashtag-Channel, in den du durch einfaches Draufklicken gelangst. Du kannst auch über Videos in die Hashtag-Übersicht gelangen. Dazu gehst du einfach in die Videobeschreibung und klickst auf den gewünschten Hashtag. Für mehr Infos rund um YouTube abonniere den kw.media-Kanal.
