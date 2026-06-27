@@ -3,7 +3,7 @@ id: 3063
 slug: "stay-up-to-date-put-on-the-notifications"
 path: "/youtube-tips-en/stay-up-to-date-put-on-the-notifications/"
 title: "Stay up to date! Put on the notifications 🔔"
-excerpt: "YouTube ABC after subscribing viewers can activate notifications to be informed about new content the overview of a video in YouTube Studio shows you how many viewers of all of them watch it on this way the reach tab..."
+excerpt: "YouTube ABC: after subscribing viewers can activate notifications to be informed about new content the overview of a video in YouTube Studio shows you how many viewers of all of them watch it on this way the reach tab..."
 date: "2024-08-31T15:58:14"
 modified: "2024-08-31T15:58:14"
 locale: "en"
@@ -20,6 +20,4 @@ video:
 
 ## Transcript
 
-YouTube ABC. After subscribing, viewers can activate notifications to be informed about new content. The overview of a video in YouTube Studio shows you how many viewers of all of them watch it. In this way, the reach tab gives you these key figures as percentages with a choice of several time frames. Viewers can decide whether they want to be informed about all news or only personalized news. If they choose personalized, YouTube selects which new content is relevant for them based on their watch history. This setting is
-
-especially practical if viewers are only interested in certain content. Subscribe to our channel and turn on notifications.
+YouTube ABC:. After subscribing, viewers can activate notifications to be informed about new content. The overview of a video in YouTube Studio shows you how many viewers watch it. In this way, the reach tab gives you these key figures as percentages with a choice of several time frames. Viewers can decide whether they want to be informed about all news or only personalized news. If they choose personalized, YouTube selects which new content is relevant for them based on their watch history. This setting is especially practical if viewers are only interested in certain content. Subscribe to our channel and turn on notifications.

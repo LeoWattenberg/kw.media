@@ -3,7 +3,7 @@ id: 3075
 slug: "expand-your-reach-stay-in-touch-with-your-community"
 path: "/youtube-tips-en/expand-your-reach-stay-in-touch-with-your-community/"
 title: "Expand your reach! Stay in touch with your community!"
-excerpt: "YouTube ABC Community tab next to interactions and videos shorts and streams YouTube offers creators the ability to publish Community posts you can access the community posts on your YouTube channel by clicking on..."
+excerpt: "YouTube ABC: Community tab next to interactions and videos shorts and streams YouTube offers creators the ability to publish Community posts you can access the community posts on your YouTube channel by clicking on..."
 date: "2024-06-26T08:06:29"
 modified: "2024-06-26T08:06:29"
 locale: "en"
@@ -20,6 +20,6 @@ video:
 
 ## Transcript
 
-YouTube ABC Community tab. Next to interactions and videos, shorts and streams, YouTube offers creators the ability to publish Community posts. You can access the community posts on your YouTube channel by clicking on the Community tab. From there, you can view all previously published posts or create a new one. Additionally, you have the option to switch to scheduled and archived posts. Not only do these interactions support the growth of your channel, but they also play a crucial role in receiving likes, comments and subscriptions. Therefore, it's important
+YouTube ABC: Community tab. Next to interactions and videos, shorts and streams, YouTube offers creators the ability to publish Community posts. You can access the community posts on your YouTube channel by clicking on the Community tab. From there, you can view all previously published posts or create a new one. Additionally, you have the option to switch to scheduled and archived posts. Not only do these interactions support the growth of your channel, but they also play a crucial role in receiving likes, comments and subscriptions. Therefore, it's important
 
 to regularly update your community with posts about what's happening on your channel posts can be PS images announcements or blog posts nice to know the requirements on community posts have been removed you can now post without having Advanced features enabled on your channel as long as you haven't received a community guidelines strike for more information check out our Channel and don't forget to subscribe

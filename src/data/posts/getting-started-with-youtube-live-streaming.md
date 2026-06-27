@@ -81,7 +81,7 @@ We recommend to use the RTMP/RTMPS streaming protocol – this should be the set
 
 *and paste the Streamkey into OBS*
 
-By default the stream key is displayed as a string of hidden characters because you are supposed to keep the stream key to yourself so noone can stream to your channel but yourself. If you have the feeling that a stream key is compromised, you can just generate a new one in the YouTube Live Dashboard with the “Reset” button.  Now if you press the “Start Streaming” button in OBS your stream will connect to YouTube and start the preview. You can go live via the big blue “Go Live” button in the top right corner or if you have selected the “enable auto-start” the stream will start once it receives data.
+By default the stream key is displayed as a string of hidden characters because you are supposed to keep the stream key to yourself, so no one can stream to your channel but yourself. If you have the feeling that a stream key is compromised, you can just generate a new one in the YouTube Live Dashboard with the “Reset” button. Now if you press the “Start Streaming” button in OBS, your stream will connect to YouTube and start the preview. You can go live via the big blue “Go Live” button in the top right corner, or if you have selected “enable auto-start” the stream will start once it receives data.
 
 Same goes for stopping a stream:
 
@@ -91,7 +91,7 @@ Unless you have selected the “enable auto-stop” option you will have to manu
 
 YouTube streaming has some unique settings up the sleeve.
 
-For example YouTube let’s you choose one of 3 different latency settings before the stream starts, all of which can be found on the bottom left side in the live dashboard:
+For example, YouTube lets you choose one of 3 different latency settings before the stream starts, all of which can be found on the bottom left side in the live dashboard:
 
 - **Normal Latency** , ~7 seconds delay depending on internet speed on the viewer side, but all resolutions are supported. This is the best setting for a good viewing experience but less suitable for a lot of chat interaction
 - **Low Latency** , ~3 seconds delay depending on internet speed on the viewer side, resolutions up to 1440p60 are supported. This is a good balance between chat interaction and viewing experience
@@ -99,11 +99,11 @@ For example YouTube let’s you choose one of 3 different latency settings befor
 
 Additionally YouTube allows you to add an artificial delay up to 1 minute, which can be used in competitive environments (esports).
 
-In contrast to other large livestreaming platforms, YouTube offers up to 2 hours **DVR**(Digital Video Recording) playback. That means your viewers can pause the stream, come back and don’t miss anything. Keep in mind that while they have paused the live stream, the live chat will continue to show new messages. If they want to catch up they can resume the live stream and set the playback speed to 2x. The playback speed will reset to 1x once the playback has caught up.
+In contrast to other large livestreaming platforms, YouTube offers up to 2 hours of **DVR** (Digital Video Recording) playback. That means your viewers can pause the stream, come back and not miss anything. Keep in mind that while they have paused the live stream, the live chat will continue to show new messages. If they want to catch up, they can resume the live stream and set the playback speed to 2x. The playback speed will reset to 1x once the playback has caught up.
 
 You can also disable DVR if you don’t want your viewers to be able to use that feature.
 
-The YouTube Live Chat will let you pin a message to the top of the chat. This **pinned message**will be highlighted in blue. To pin a message, send the message first into chat like you normally would. Click on the 3-dot menu next to the message and select the “pin message” option. To release a pinned message you can either click on the 3-dot menu and hit the “unpin message” button or repeat the same process as before. The name of the button will change to “replace pinned message”.
+The YouTube Live Chat will let you pin a message to the top of the chat. This **pinned message** will be highlighted in blue. To pin a message, send the message first into chat like you normally would. Click on the 3-dot menu next to the message and select the “pin message” option. To release a pinned message, you can either click on the 3-dot menu and hit the “unpin message” button or repeat the same process as before. The name of the button will change to “replace pinned message”.
 
 The YouTube Live Dashboard natively supports **chat polls**. You can create a poll by pressing the poll button in the chat area. A new pop-up will open where you can ask the question and give up to 4 possible answers. The poll feature defaults to “Yes” or “No” answer options but you can just rename them. Once the poll has been started, it will be pinned to the live chat and users will be able to cast their vote. Once you end the poll, the results will be posted into the chat.
 
@@ -111,4 +111,4 @@ The YouTube Live Dashboard natively supports **chat polls**. You can create a po
 
 *Add Polls to your Livechat*
 
-Viewers can also **Clip**small highlights from your livestream via the watchpage. Unfortunately at the time of writing this guide there is no way to directly see what parts people clipped by the creator. As a best practice: Ask your viewers to share the clips on social media with a special Hashtag or in a dedicated area of your discord server. Dont worry, even if you didn’t create the clip yourself, both views and watchtime will be counted toward your stream archive. This wayFeature you can even create a short with material collected by your fans with YouTube’s Clip-2-Short feature. Keep in mind that YouTube Shorts are one of the most powerful growth tools right now.
+Viewers can also **clip** small highlights from your livestream via the watch page. Unfortunately, at the time of writing this guide, there is no way for the creator to directly see what parts people clipped. As a best practice, ask your viewers to share the clips on social media with a special hashtag or in a dedicated area of your Discord server. Don't worry: even if you didn’t create the clip yourself, both views and watch time will be counted toward your stream archive. With this feature, you can even create a short with material collected by your fans using YouTube’s Clip-to-Short feature. Keep in mind that YouTube Shorts are one of the most powerful growth tools right now.

@@ -20,4 +20,4 @@ video:
 
 ## Transcript
 
-What features would you like to see on YouTube we've been collecting your ideas and we'll be introducing them to YouTube however development resources are limited so we need you to rank them vote in the survey from 1 to four according to how important you think each idea is if your idea is not included yet just add them in the end now it's your turn make YouTube a better place for creators
+What features would you like to see on YouTube? We've been collecting your ideas and we'll be introducing them to YouTube. However, development resources are limited, so we need you to rank them. Vote in the survey from 1 to 4 according to how important you think each idea is. If your idea is not included yet, just add it at the end. Now it's your turn. Make YouTube a better place for creators.
