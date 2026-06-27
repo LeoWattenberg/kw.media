@@ -7,8 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "import:youtube": "node scripts/import-youtube-playlist-posts.mjs",
-    "youtube:refresh-token": "node scripts/generate-youtube-refresh-token.mjs"
+    "import:youtube": "node scripts/manual-import.js"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
