@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-Falls ihr Musik in euren Videos nutzen, euch jedoch nicht mit Lizenzen herumschlagen wollt, bietet euch YouTube die Audio-Mediathek im YouTube Studio. Dort könnt ihr über 1.000 verschiedene Musikstücke herunterladen und in euren YouTube-Videos verwenden, sogar wenn ihr diese monetarisiert. Ihr dürft die Songs auch außerhalb von YouTube in Videos einbauen, jedoch immer nur begleitend zu euren restlichen Inhalten.
+Falls ihr Musik in euren Videos nutzen wollt, euch jedoch nicht mit Lizenzen herumschlagen wollt, bietet euch YouTube die Audio-Mediathek im YouTube Studio. Dort könnt ihr über 1.000 verschiedene Musikstücke herunterladen und in euren YouTube-Videos verwenden, sogar wenn ihr diese monetarisiert. Ihr dürft die Songs auch außerhalb von YouTube in Videos einbauen, jedoch immer nur begleitend zu euren restlichen Inhalten.

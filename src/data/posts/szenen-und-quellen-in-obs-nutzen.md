@@ -20,6 +20,6 @@ video:
 
 ## Transkript
 
-Das kein Prinzip bitte obs besteht aus Szenen und Quellen dabei ist eine Szene aus mindestens einer Quelle aufgebaut und eine Szene ist sozusagen eine Quellensammlung die Quellen in der Szene werden dabei aufeinander gestapelt und je weiter oben eine Quelle ist desto weiter im Vordergrund ist letztendlich dieses Szene im Stream oder immer mehr Aufnahme zu sehen Quellen können dabei verschiedene Formen annehmen wie zum Beispiel Textquellen Kameras Bildschirmaufnahmen oder Spiele Quellen aber auch Audioquellen sind möglich außerdem kann der Creator die Größe oder Position von Quellen verändern oder
+Das Kernprinzip bei OBS besteht aus Szenen und Quellen. Dabei ist eine Szene aus mindestens einer Quelle aufgebaut und eine Szene ist sozusagen eine Quellensammlung. Die Quellen in der Szene werden dabei aufeinander gestapelt, und je weiter oben eine Quelle ist, desto weiter im Vordergrund ist sie letztendlich im Stream oder in der Aufnahme zu sehen. Quellen können dabei verschiedene Formen annehmen, wie zum Beispiel Textquellen, Kameras, Bildschirmaufnahmen oder Spielquellen. Aber auch Audioquellen sind möglich. Außerdem kann der Creator die Größe oder Position von Quellen verändern oder
 
 durch Filter wie ein kalaki Anpassen die man z.B für Greenscreens braucht denkt daran regelmäßig eure szenensammlungen zu exportieren um Backups zu machen wenn ihr die später noch mal braucht könnt ihr sie einfach wieder rein importieren
