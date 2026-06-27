@@ -3,7 +3,7 @@ id: 3090
 slug: "shorts-erstellen-auf-youtube-youtube-tutorial-shorts-2"
 path: "/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts-2/"
 title: "Shorts erstellen auf YouTube | YouTube Tutorial | #shorts"
-excerpt: "Um selbst einen short zu produzieren clique in einer YouTube app auf das plus symbol klick auf kurz video erstellen nimm deinen short auf oder verwende einen bereits bestehenden clips schnell musik oder einen text..."
+excerpt: "Um selbst einen Short zu produzieren, klicke in einer YouTube-App auf das Plus-Symbol, klick auf Kurzvideo erstellen, nimm deinen Short auf oder verwende einen bereits bestehenden Clip, füge Musik oder Text ein, ..."
 date: "2021-07-12T16:19:11"
 modified: "2021-07-12T16:19:11"
 locale: "de"
@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-Um selbst einen short zu produzieren clique in einer YouTube app auf das plus symbol klick auf kurz video erstellen nimm deinen short auf oder verwende einen bereits bestehenden clips schnell musik oder einen text einfügen zu recht zehn titel eingeben und abfahrt für mehr creator infos rund um YouTube und YouTube shorts abonniere den kaffee media kanal
+Um selbst einen Short zu produzieren, klicke in einer YouTube-App auf das Plus-Symbol, klick auf Kurzvideo erstellen, nimm deinen Short auf oder verwende einen bereits bestehenden Clip, füge Musik oder Text ein, gib einen Titel ein und fertig. Für mehr Creator-Infos rund um YouTube und YouTube Shorts abonniere den kw.media-Kanal.

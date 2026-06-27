@@ -3,7 +3,7 @@ id: 3050
 slug: "vorsicht-phishing-emails-sind-auf-euren-youtube-kanal-aus"
 path: "/youtube-tipps-de/vorsicht-phishing-emails-sind-auf-euren-youtube-kanal-aus/"
 title: "⚠ VORSICHT: Phishing Emails sind auf euren YouTube Kanal aus! ⚠"
-excerpt: "In letzter Zeit sehen wir wieder vermehrt Facebook E-Mails das Herunterladen und öffnen der darin enthaltenen PDFs kopiert dabei euren Browser so dass eure YouTube Kanäle ohne das Eingeben eines Passwortes oder oder..."
+excerpt: "In letzter Zeit sehen wir wieder vermehrt Phishing-E-Mails. Das Herunterladen und Öffnen der darin enthaltenen PDFs kopiert dabei euren Browser, sodass eure YouTube-Kanäle ohne das Eingeben eines Passworts oder einer Zwei-Faktor-Authentifizierung einfach übernommen werden können..."
 date: "2023-04-03T15:30:01"
 modified: "2023-04-03T15:30:01"
 locale: "de"
@@ -20,4 +20,4 @@ video:
 
 ## Transkript
 
-In letzter Zeit sehen wir wieder vermehrt Facebook E-Mails das Herunterladen und öffnen der darin enthaltenen PDFs kopiert dabei euren Browser so dass eure YouTube Kanäle ohne das Eingeben eines Passwortes oder oder eingeben der zwei Faktor Authentifizierung einfach übernommen werden können achtet deshalb bitte immer auf die Vertrauenswürdigkeit des Absenders und öffnet niemals irgendwelche Anhänger aus unsicheren Quellen solltet ihr denn noch mal fragen haben meldet euch bei team@kw Punkt Media oder auf disco.de / YouTube gaming
+In letzter Zeit sehen wir wieder vermehrt Phishing-E-Mails. Das Herunterladen und Öffnen der darin enthaltenen PDFs kopiert dabei euren Browser, sodass eure YouTube-Kanäle ohne das Eingeben eines Passworts oder einer Zwei-Faktor-Authentifizierung einfach übernommen werden können. Achtet deshalb bitte immer auf die Vertrauenswürdigkeit des Absenders und öffnet niemals irgendwelche Anhänge aus unsicheren Quellen. Solltet ihr dennoch mal Fragen haben, meldet euch bei team@kw.media oder auf Discord im YouTube-Gaming-Kanal.

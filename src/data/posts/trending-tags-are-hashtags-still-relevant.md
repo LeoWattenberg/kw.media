@@ -20,6 +20,6 @@ video:
 
 ## Transcript
 
-YouTube ABC hashtags as a content creator using hashtags in your video description can help categorize your content more precise this practice simplifies the process for your audience to discover your channel selecting hashtags carefully is crucial to attract your intended audience otherwise your content might be pered as spam here are some tips do not use more than five hashtags regularly monitor the effectiveness of the choosen hashtags and revise these as needed use General and specific wording to cover more search query but what is the reality team
+YouTube ABC hashtags. As a content creator, using hashtags in your video description can help categorize your content more precisely. This practice simplifies the process for your audience to discover your channel. Selecting hashtags carefully is crucial to attract your intended audience; otherwise, your content might be perceived as spam. Here are some tips: do not use more than five hashtags, regularly monitor the effectiveness of the chosen hashtags, and revise them as needed. Use general and specific wording to cover more search queries. But what is the reality team
 
 do audience search for hashtags we launched a survey that shows that most people don't look for hashtags what about you answer our Paul and don't forget to subscribe
