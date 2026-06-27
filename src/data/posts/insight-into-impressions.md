@@ -20,6 +20,6 @@ video:
 
 ## Transcript
 
-YouTube ABC you can locate The Impressions in the YouTube Studio by selecting video and navigating to the reach tab for further details click on the graph to access more information the top sources category shows how fewers discovered the video the click-through rate for these Impressions is interesting as it indicates the number of viewers who have really watched the video the statistics are accessible for various time frames impressions are crucial metrics that show how many times a video was display to viewers regardless of whether it was
+YouTube ABC. You can locate the impressions in the YouTube Studio by selecting a video and navigating to the reach tab. For further details, click on the graph to access more information. The top sources category shows how viewers discovered the video. The click-through rate for these impressions is interesting as it indicates the number of viewers who have really watched the video. The statistics are accessible for various time frames. Impressions are crucial metrics that show how many times a video was displayed to viewers, regardless of whether it was
 
 watched subscribe to our channel for more information

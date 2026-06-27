@@ -20,6 +20,6 @@ video:
 
 ## Transcript
 
-YouTube ABC YouTube guidelines are standardized rules that promote respectful interactions within the community compliance with the guidelines pretends conflicts and improves the quality of your content the platform provides a comprehensive list of rules to be observed an automated system filters out spam and reuploaded videos that have already been deleted review teams analyze reported content to identify any violations if necessary they use an age restriction the Creator faces potential consequences like onics and restrictions to monetize your content successfully it's essential to review the monetization guidelines additionally
+YouTube ABC YouTube guidelines are standardized rules that promote respectful interactions within the community. Compliance with the guidelines prevents conflicts and improves the quality of your content. The platform provides a comprehensive list of rules to be observed. An automated system filters out spam and reuploaded videos that have already been deleted. Review teams analyze reported content to identify any violations. If necessary, they use age restrictions. The creator faces potential consequences like sanctions and restrictions. To monetize your content successfully, it's essential to review the monetization guidelines additionally.
 
 consider setting up your own Community guidelines subscribe to our channel to find more useful information

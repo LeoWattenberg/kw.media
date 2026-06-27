@@ -20,6 +20,6 @@ video:
 
 ## Transcript
 
-The YouTube ABC engagement is part of video analytics it shows you the interactions of viewers with a specific video open YouTube Studio you will find an overview of your fuse impression click through rate and error VI duration access video analytics using this button select the engagement tab now you find the watch time for an individual viewer then compare it with the nearby displayed average view duration scroll down to view the graph displaying audience retention it shows you how long viewers watch your videos before they switch
+The YouTube ABC engagement is part of video analytics. It shows you the interactions of viewers with a specific video. Open YouTube Studio and you will find an overview of your views, impressions, click-through rate and average view duration. Access video analytics using this button and select the engagement tab. There you find the watch time for an individual viewer, then compare it with the nearby displayed average view duration. Scroll down to view the graph displaying audience retention. It shows you how long viewers watch your videos before they switch
 
 off leave your questions in the comments and subscribe our Channel
