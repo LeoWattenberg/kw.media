@@ -1,0 +1,25 @@
+---
+id: 3064
+slug: "youtube-abc-quick-start-with-youtube-analytics"
+path: "/youtube-tips-en/youtube-abc-quick-start-with-youtube-analytics/"
+title: "YouTube ABC: Quick Start with YouTube Analytics 📊"
+excerpt: "The YouTube ABC YouTube analytics is a free tool provided by YouTube that makes it easy to measure the success of your channel and helps you optimize your strategy you can find it in the YouTube studio app or on..."
+date: "2024-06-13T10:09:08"
+modified: "2024-06-13T10:09:08"
+locale: "en"
+categoryIds: [18]
+image: "https://i.ytimg.com/vi/R5ReoaOEaG0/maxresdefault.jpg"
+authorName: "Martin Koytek"
+sourceUrl: "https://www.youtube.com/shorts/R5ReoaOEaG0"
+video:
+  youtubeId: "R5ReoaOEaG0"
+  embedUrl: "https://www.youtube.com/embed/R5ReoaOEaG0"
+  watchUrl: "https://www.youtube.com/shorts/R5ReoaOEaG0"
+  thumbnailUrl: "https://i.ytimg.com/vi/R5ReoaOEaG0/maxresdefault.jpg"
+---
+
+## Transcript
+
+The YouTube ABC YouTube analytics is a free tool provided by YouTube that makes it easy to measure the success of your channel and helps you optimize your strategy you can find it in the YouTube studio app or on studio.
+
+YouTube.com by clicking on the analytics tab for beginners the most important metrics are Impressions or how often the video is shown on the website views or how often viewers actually watch the video The Click through rid that connects Impressions to views and the audience retention or how long viewers stayed on your video with those four metrics you can already identify why your channel might be growing comment your questions on analytics to get a more detailed explanation on specific analytics areas and don't forget to subscribe for more Creator content
