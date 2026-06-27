@@ -1,0 +1,25 @@
+---
+id: 3081
+slug: "boost-your-channel-with-effective-branding"
+path: "/youtube-tips-en/boost-your-channel-with-effective-branding/"
+title: "Boost Your Channel with Effective Branding! 🎨"
+excerpt: "As a Creator you want to be remembered a branding can help with that once you figured out what kind of Creator you want to be you think about what people could or should associate with you this includes a channel..."
+date: "2024-06-14T10:24:16"
+modified: "2024-06-14T10:24:16"
+locale: "en"
+categoryIds: [18]
+image: "https://i.ytimg.com/vi/xIG7D8RdP2I/maxresdefault.jpg"
+authorName: "Martin Koytek"
+sourceUrl: "https://www.youtube.com/shorts/xIG7D8RdP2I"
+video:
+  youtubeId: "xIG7D8RdP2I"
+  embedUrl: "https://www.youtube.com/embed/xIG7D8RdP2I"
+  watchUrl: "https://www.youtube.com/shorts/xIG7D8RdP2I"
+  thumbnailUrl: "https://i.ytimg.com/vi/xIG7D8RdP2I/maxresdefault.jpg"
+---
+
+## Transcript
+
+As a Creator you want to be remembered a branding can help with that once you figured out what kind of Creator you want to be you think about what people could or should associate with you this includes a channel Banner profile picture recurring elements on thumbnails asset you reuse in your videos and much more the name and concept of reusing the same assets colors and phones comes from Big Brands hence the name branding funny enough when talking about branding of a brand this is often called a corporate Identity or corporate design to change your channel branding head to studio.
+
+YouTube.com and click the customiz ation tab on the left side then click branding make sure your profile picture has a clean design and is easily recognizable for users on small screens because they make up the majority of viewers you want to have high contrasts in your profile picture and as little text as possible the banner is even more intricate to build not only do we have to stick to our set colors and fonts but we also have to watch out for image composition since not everything is going to be visible to all viewers on different devices we've made a whole video about this in the past including a free downloadable template don't forget to subscribe to this channel to learn more about YouTube

@@ -15,7 +15,8 @@ const playlists = [
 ];
 
 const postsDir = join(process.cwd(), 'src/data/posts');
-const ytDlpCommand = (process.env.YT_DLP_COMMAND ?? 'yt-dlp').split(/\s+/).filter(Boolean);
+const localYtDlp = join(process.cwd(), 'scripts/yt-dlp');
+const ytDlpCommand = (process.env.YT_DLP_COMMAND ?? localYtDlp).split(/\s+/).filter(Boolean);
 
 function runYtDlp(args, options = {}) {
 	return execFileSync(ytDlpCommand[0], [...ytDlpCommand.slice(1), ...args], {
