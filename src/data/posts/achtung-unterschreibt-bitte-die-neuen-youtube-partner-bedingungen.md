@@ -1,0 +1,23 @@
+---
+id: 3084
+slug: "achtung-unterschreibt-bitte-die-neuen-youtube-partner-bedingungen"
+path: "/youtube-tipps-de/achtung-unterschreibt-bitte-die-neuen-youtube-partner-bedingungen/"
+title: "Achtung: Unterschreibt bitte die neuen YouTube Partner Bedingungen!"
+excerpt: "Für alle Creator die bereits Teil des YouTube partnerschaftsprogramms sind und keine Musik Creator sind ihr bekommt einen veränderten Basisvertrag welchen ihr bis zum 10 Juli 2023 unterschreiben müsst um weiterhin im..."
+date: "2023-01-12T10:43:31"
+modified: "2023-01-12T10:43:31"
+locale: "de"
+categoryIds: [17]
+image: "https://i.ytimg.com/vi/5vBlAeXG_uE/maxresdefault.jpg"
+authorName: "Martin Koytek"
+sourceUrl: "https://www.youtube.com/shorts/5vBlAeXG_uE"
+video:
+  youtubeId: "5vBlAeXG_uE"
+  embedUrl: "https://www.youtube.com/embed/5vBlAeXG_uE"
+  watchUrl: "https://www.youtube.com/shorts/5vBlAeXG_uE"
+  thumbnailUrl: "https://i.ytimg.com/vi/5vBlAeXG_uE/maxresdefault.jpg"
+---
+
+## Transkript
+
+Für alle Creator die bereits Teil des YouTube partnerschaftsprogramms sind und keine Musik Creator sind ihr bekommt einen veränderten Basisvertrag welchen ihr bis zum 10 Juli 2023 unterschreiben müsst um weiterhin im YouTube
