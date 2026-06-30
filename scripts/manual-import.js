@@ -7,10 +7,17 @@ const playlists = [
 	{
 		url: 'https://www.youtube.com/playlist?list=PLpM9DoCHlaQHdyH6R1XWPYmQLsrif1Y9F',
 		defaultWatchKind: 'shorts',
+		postType: 'short-tutorial',
 	},
 	{
 		url: 'https://www.youtube.com/playlist?list=PLpM9DoCHlaQFlsYdZiGUVG3eREZTs706N',
 		defaultWatchKind: 'watch',
+		postType: 'video-tutorial',
+	},
+	{
+		url: 'https://www.youtube.com/playlist?list=PLpM9DoCHlaQHzYpHUvIH5GECRL7rtA4F1',
+		defaultWatchKind: 'watch',
+		postType: 'news-video',
 	},
 ];
 
@@ -335,6 +342,7 @@ function frontmatterString(data) {
 		`modified: ${quote(data.modified)}`,
 		`locale: ${quote(data.locale)}`,
 		`categoryIds: [${data.categoryIds.join(', ')}]`,
+		`postType: ${quote(data.postType)}`,
 		`image: ${quote(data.image)}`,
 		`authorName: ${quote(data.authorName)}`,
 		`sourceUrl: ${quote(data.sourceUrl)}`,
@@ -437,6 +445,7 @@ try {
 				modified: date,
 				locale,
 				categoryIds: [locale === 'de' ? 17 : 18],
+				postType: playlist.postType,
 				image: thumbnailUrl,
 				authorName: 'Martin Koytek',
 				sourceUrl: currentWatchUrl,
