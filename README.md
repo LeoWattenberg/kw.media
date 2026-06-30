@@ -1,43 +1,40 @@
-# Astro Starter Kit: Minimal
+# KW Media
+
+Astro site for KW Media pages and post content.
+
+## Commands
+
+Run commands from the project root:
+
+| Command | Action |
+| :-- | :-- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Start the local dev server at `localhost:4321` |
+| `npm run build` | Build the production site to `./dist/` |
+| `npm run preview` | Preview the production build locally |
+| `npm run import:youtube` | Import new YouTube posts, clean transcripts, and create translations |
+| `IMPORT_AI=0 npm run import:youtube` | Import new YouTube posts without Ollama cleanup/translation |
+| `npm run cleanup:post -- src/data/posts/.../post.md` | Clean one or more existing posts |
+| `npm run cleanup:last-commit` | Clean markdown posts touched by the latest commit |
+| `npm run translate:post -- src/data/posts/.../post.md` | Translate one or more posts into the other locale |
+| `npm run translate:all-missing` | Create missing translations for all posts |
+| `npm run astro -- --help` | Show Astro CLI help |
+
+## AI Cleanup And Translation
+
+The import and one-off scripts use Ollama by default:
 
 ```sh
-npm create astro@latest -- --template minimal
+OLLAMA_URL=http://172.20.208.1:11434
+OLLAMA_CLEANUP_FAST_MODEL=aya-expanse:32b
+OLLAMA_CLEANUP_DEEP_MODEL=gemma4:31b
+OLLAMA_TRANSLATE_MODEL=aya-expanse:32b
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Cleanup model selection:
 
-## 🚀 Project Structure
+- `short-tutorial` and `news-video` use `OLLAMA_CLEANUP_FAST_MODEL`.
+- `blog` and `video-tutorial` use `OLLAMA_CLEANUP_DEEP_MODEL`.
+- Translation uses `OLLAMA_TRANSLATE_MODEL`.
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Generated translation pairs are connected with `translationKey` frontmatter, and video translations can also be inferred from shared `youtubeId`.
