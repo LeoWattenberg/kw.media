@@ -3,7 +3,7 @@ id: 3133
 slug: "casual-vs-regular-viewers-new-youtube-analytics-will-tell-you-more"
 path: "/youtube-tips-en/casual-vs-regular-viewers-new-youtube-analytics-will-tell-you-more/"
 title: "“Casual” vs. “Regular” Viewers? NEW YouTube Analytics will tell you more!"
-excerpt: "Let's talk about the YouTube updates. Audience segments are now a thing in YouTube analytics and they will split the new and returning viewers into more granular categories which are new viewers, casual viewers which..."
+excerpt: "Let's talk about the YouTube updates. Audience segments are now available in YouTube Analytics, splitting new and returning viewers into more granular categories: New Viewers, Casual Viewers (those who occasionally..."
 date: "2025-07-05T12:15:11"
 modified: "2025-07-05T12:15:11"
 locale: "en"
@@ -21,12 +21,12 @@ video:
 
 ## Transcript
 
-Let's talk about the YouTube updates. Audience segments are now a thing in YouTube analytics and they will split the new and returning viewers into more granular categories which are new viewers, casual viewers which occasionally watch the channel for 1 to 5 months out of the last 12 months and regular viewers which watch the channel more than six months out of the last 12 months which is hard to achieve apparently. Well, Creator Insider says so. So do expect a lower regular viewer count than a casual viewer count, right?
+Let's talk about the YouTube updates. Audience segments are now available in YouTube Analytics, splitting new and returning viewers into more granular categories: New Viewers, Casual Viewers (those who occasionally watch the channel for 1 to 5 months out of the last 12 months), and Regular Viewers (those who watch the channel for more than 6 months out of the last 12 months, which is apparently a tough milestone to reach). Creator Insider mentions this, so expect a lower Regular Viewer count compared to Casual Viewers.
 
-So casual is more available and will be probably your most or your largest audience segment. Let's let's phrase it like this. The roll out for this started this week. I haven't seen it on any of our channels or on our clients channels yet, but it should be completed within the next four to 6 weeks. So keep an eye out on that. If you have questions, please feel free to leave them in the comments below. Let's stick to the YouTube Studio and YouTube Studio Mobile because we're getting an upgraded comment filter.
+Casual Viewers will likely be your largest audience segment. The rollout began this week, and while I haven't seen it on our channels or clients' channels yet, it should be completed within the next 4 to 6 weeks. Keep an eye out for it. If you have questions, feel free to leave them in the comments below.
 
-So instead of the newest comment where you can you can now filter by the most relevant content and make that a default. However, it is not changing your defaults and you can still keep the show me the newest comment first filter as the default. I think this is important for folks that get a lot of comments and a lot of unregulated comments, like unfiltered comments. And yeah, obviously I do think that it is a good addition for those kinds of creators.
+Let's stick to YouTube Studio and YouTube Studio Mobile, as we're getting an upgraded comment filter. Instead of just "Newest Comment," you can now filter by "Most Relevant" content and set that as your default. However, it won't change your existing defaults; you can still keep the "Show me the newest comment first" filter as default if you prefer. I think this is crucial for creators who receive a high volume of unfiltered comments. It's a valuable addition for them.
 
-And for everyone else, you can just keep using the show me the newest comment first. So I do think giving the creator agency on choosing what their own default setting should be is always a good thing. So this is much appreciated. That's all for today. Oh, thank you very much for stopping by and talking about YouTube updates with me. If you have questions, please feel free to leave them below. It doesn't have to be about today's topic. You can ask any YouTube related questions.
+For everyone else, you can simply stick with the "Show me the newest comment first" setting. Giving creators control over their default comment sorting is always a positive change.
 
-We can make a tutorial guide for out of it if needed. And yeah, let's see you next week when we get some more YouTube updates. All right, take care and bye-bye.
+That's all for today. Thank you for joining me to discuss YouTube updates. If you have any questions, please leave them below—they don't have to be related to today's topic. We can even create a tutorial guide if needed. See you next week for more YouTube updates! Take care and bye-bye.

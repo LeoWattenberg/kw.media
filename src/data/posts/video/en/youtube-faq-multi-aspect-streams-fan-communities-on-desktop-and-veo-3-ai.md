@@ -3,7 +3,7 @@ id: 3122
 slug: "youtube-faq-multi-aspect-streams-fan-communities-on-desktop-and-veo-3-ai"
 path: "/youtube-tips-en/youtube-faq-multi-aspect-streams-fan-communities-on-desktop-and-veo-3-ai/"
 title: "YouTube FAQ: Multi-Aspect Streams, Fan Communities on Desktop & Veo 3 AI"
-excerpt: "What's up everyone? After our follow-up video on the made on YouTube announcements, in the comment sections, we're full of some excellent, very specific questions, and I love the energy."
+excerpt: "What's up everyone? After our follow up video on the recent YouTube announcements, we've received some excellent, very specific questions in the comment section—and I love the energy!"
 date: "2025-09-27T12:15:04"
 modified: "2025-09-27T12:15:04"
 locale: "en"
@@ -21,22 +21,44 @@ video:
 
 ## Transcript
 
-What's up everyone? After our follow-up video on the made on YouTube announcements, in the comment sections, we're full of some excellent, very specific questions, and I love the energy. Keep the questions coming. So, in this video, we are doing a quick FAQ session to answer your most pressing questions. Before we start, make sure you're subscribed so you don't miss out on future YouTube updates like these. And now, let's get right into it. Can you use the new collaborations feature on live streams? The answer is unfortunately yes and no.
+What's up everyone? After our follow-up video on the recent YouTube announcements, we've received some excellent, very specific questions in the comment section—and I love the energy! Keep those questions coming. In this video, we'll address your most pressing queries during a quick FAQ session. 
 
-So yes, you can collaborate us to the archive of a live stream after it has ended, but you cannot have multiple creators collaborating on an active live live stream, at least for now. My take on this is it's a technical limitation. Adding a collaborator to a VOD is just a simple metadata change while doing it live would require much more complex infrastructure. For now suggest they might be working on it, but don't expect it too soon.
+Before we begin, make sure you're subscribed so you don't miss future YouTube updates like these. Let's dive right in!
 
-If you create a short using the VO3 texttovideo feature or any of the other AI features, do you have to disclose it as AI generated content? Simple answer is yes. Any content generated with V3 will automatically get the standard AI disclosure label from YouTube? This is consistent with their existing policy. So, no surprises here. This is a big one. Will YouTube give viewers an option to disable or hide AI generated content from their feeds?
+**Can you use the new collaborations feature on live streams?**
 
-I took this question to my contacts and the answer is that they have not heard any plans for this. It seems very unlikely to happen. YouTube is very heavily investing in these tools and they want to encourage creation and viewership with this content and not give a user to button to turn it off at all. So unfortunately for now expect to see more AI content and not less. Up next are a few questions regarding the new multi-aspect streaming feature. First, will it send two live stream notifications to your subscribers?
+The answer is both yes and no. You can collaborate *after* a live stream has ended, adding your input to the archive. However, multiple creators cannot collaborate on an active live stream—at least not yet. My guess is this is due to technical limitations. Adding a collaborator to a VOD (video-on-demand) is a simple metadata change, whereas doing so during a live stream would require more complex infrastructure. While YouTube might be working on it, don't expect this feature anytime soon.
 
-And will two streams show up in their feed? The answer here is actually pretty smart. Only one notification gets sent and it's for the horizontal live stream. From there, the horizontal version will appear in the usual places like the subset, the recommendations, and the home feed while the vertical version will only appear in the shorts feed. So, they have thought about it and went for a solution that doesn't spam your subscribers. Next, can a viewer who is watching the vertical stream swap over through the horizontal one or vice versa?
+**If you create a short using the V3 text-to-video feature or any other AI tools, do you need to disclose it as AI-generated content?**
 
-The answer is no. There's currently no swapping functionality. The version the viewer sees is determined by where they discovered the stream. So, if they find it in the short feed, they'll see the vertical version. If they find it on your channel page or through recommendations, they will see the horizontal one. No one is stopping you from pinning a link to either version in the chat, though. All right, the next question is actually more of a complaint. Why are fan communities so clunky and basically unusable on desktop?
+Short answer: Yes. Any content created with V3 will automatically receive YouTube's standard AI disclosure label, in line with their existing policy. No surprises here.
 
-It's a fantastic question, and you're 100% correct. So far, the desktop experience has been terrible. But on good news, that is finally changing. YouTube has started a 1% launch of a massive update that brings full functionality to fan communities on desktop. Viewers can finally view and post from the desktop for the first time. And as a creator, you can now post, reply, and moderate directly from the community page on your desktop channel. You get all the standard moderation tools with only pinning and hearting posts missing for now.
+**Will YouTube give viewers the option to disable or hide AI-generated content from their feeds?**
 
-It's a slow roll out, but it's a clear sign that YouTube is finally taking desktop experience for communities seriously. There is a rollout plan and it says it should be finished by October 9th, but I'm still a little bit hesitant on that. So, we'll see how it goes. Please check your channels if you have access by then. And finally, a great technical question. Is the new R Studio feature just a fork of the public Gemini model? And the answer is a little bit nuanced.
+I've checked with my sources, and the answer is no. YouTube is heavily investing in these tools and wants to encourage both creation and viewership of AI-generated content. They won't provide a button for users to turn it off. So, expect to see more AI content, not less.
 
-Uh, all of Google's AI chat tools are built using some version of the Gemini family of models, but my contact has made it very clear that Studio is very different from the public Gemini model. Think of it this way. They both use the same core engine, but they are tuned for completely different purposes. The public Gemini is a generalist while studio is a specialist that has been highly trained on YouTube analytics and creator data. All right, that's it for this FAQ session.
+**Next up are questions about the new multi-aspect streaming feature:**
 
-Thanks for the excellent questions from all of you folks. If you have more, keep them leaving in the comments below. We are always digging for answers. And one last thing, if you're watching this from a personal account on your mobile phone, I would really appreciate it if you hyped this video. It's a free way to support the channel and it helps more creators see this information. So, thanks for watching. Take care and see you next week with more YouTube updates.
+* **Will it send two live stream notifications to subscribers?**
+   No, only one notification is sent—for the horizontal live stream. This stream will appear in the usual places like the subtitle, recommendations, and home feed. The vertical version will only be visible in the Shorts feed. YouTube has implemented a smart solution that avoids spamming your subscribers.
+
+* **Can viewers watching the vertical stream switch to the horizontal one (or vice versa)?**
+   Unfortunately, no. There's currently no swapping functionality. The version a viewer sees depends on where they discovered the stream. If they found it in the Shorts feed, they'll see the vertical version; if they encountered it on your channel page or through recommendations, they'll watch the horizontal stream. However, nothing stops you from pinning links to either version in the chat.
+
+**Now, a complaint that's been echoing:**
+
+* **Why are Fan Communities so clunky and basically unusable on desktop?**
+
+You're right; the desktop experience has been terrible so far. But there's good news! YouTube has started a 1% rollout of a major update bringing full functionality to Fan Communities on desktop. For the first time, viewers can view and post from their computers. Creators can now post, reply, and moderate directly from the community page on their desktop channel, with standard moderation tools available (pinning and hearting posts are missing for now).
+
+This is a gradual rollout, but it demonstrates YouTube's commitment to improving the desktop experience for communities. The plan is to complete the rollout by October 9th, though I remain slightly skeptical about that timeline. Check your channel for access by then!
+
+**Finally, a great technical question:**
+
+* **Is the new Studio feature just a fork of the public Gemini model?**
+
+The answer is nuanced. All of Google's AI chat tools are built using some version of the Gemini family of models. However, my contact emphasized that Studio is distinct from the public Gemini model. Think of them as sharing the same core engine but being tuned for different purposes: Public Gemini is a generalist, while Studio is a specialist highly trained on YouTube analytics and creator data.
+
+That's all for this FAQ session! Thanks for the great questions, everyone. Keep them coming in the comments below—we're always digging for answers. 
+
+One last request: If you're watching this from a personal account on your mobile phone, please give this video a "hype." It's a free way to support the channel and helps more creators discover this information. Thanks for watching! Take care, and see you next week with more YouTube updates.

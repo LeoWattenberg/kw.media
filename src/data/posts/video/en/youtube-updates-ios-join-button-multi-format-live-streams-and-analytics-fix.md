@@ -3,7 +3,7 @@ id: 3126
 slug: "youtube-updates-ios-join-button-multi-format-live-streams-and-analytics-fix"
 path: "/youtube-tips-en/youtube-updates-ios-join-button-multi-format-live-streams-and-analytics-fix/"
 title: "YouTube Updates: iOS Join Button, Multi-Format Live Streams & Analytics Fix"
-excerpt: "Let's talk about YouTube updates, especially the memberships button on iOS. For some viewers, it was already visible."
+excerpt: "Let's talk about YouTube updates, specifically the memberships button on iOS. For some viewers, it was already visible, while others didn't see it."
 date: "2025-08-23T12:15:05"
 modified: "2025-08-23T12:15:05"
 locale: "en"
@@ -21,20 +21,16 @@ video:
 
 ## Transcript
 
-Let's talk about YouTube updates, especially the memberships button on iOS. For some viewers, it was already visible. For others, it wasn't. The change will be that it will be visible to all viewers on iOS devices until the end of September. So, the thing is it has to do with some Apple payment infrastructure shenanigans that were well, YouTube and Apple had a back and forth and some things didn't match up and for some markets it was available, for others it wasn't. For you.
+Let's talk about YouTube updates, specifically the memberships button on iOS. For some viewers, it was already visible, while others didn't see it. The change is that it will be visible to all iOS users until the end of September. This is due to some Apple payment infrastructure issues; YouTube and Apple had disagreements, resulting in inconsistent availability across markets.
 
-The important thing is until the end of September, every viewer will be able to see the memberships join button on their iOS device, which also means more people seeing the button potentially means more people actually buying memberships. Please keep in mind if a viewer buys a membership via the Apple payment infrastructure, there's a 30% cut going to Apple, which means a lower revenue share for you.
+From now until September, every iOS user will see the memberships join button. This could lead to more people purchasing memberships. However, if a viewer buys a membership through Apple's payment system, Apple takes a 30% cut, reducing your revenue share. To maximize revenue, encourage iOS viewers to pay via credit card or PayPal directly on a laptop or Mac, avoiding Apple's fee.
 
-If you want to encourage iOS viewers, you might want to tell them to well open your channel on a laptop or Mac for example and try to pay via their credit card directly or via via PayPal. Then you don't have the 30% share going to Apple which means more revenue for you. So keep that in mind if you well welcome the iOS members. Cool. There has been a very tiny followup for the views and engaged metrics in the YouTube analytics which is only eligible for advertisers.
+Another update concerns views and engaged metrics in YouTube Analytics, but this only affects those using their videos as ads. The old view metric has been replaced with the new engaged view metric for advertising views. This change impacts a very small fraction of creators.
 
-So like a fraction of you. I know very very few people run their videos as ads in front of other people but for those who do the advertising views use the old view metric and have been swapped over to the new engage view metric. That's all the change. As I said, it's like maybe half a percent of you are actually doing this. So, this this update is for you. Also, side by side ads are running on mobile devices starting out next week. Well, not starting out.
+Additionally, side-by-side ads will start rolling out on mobile devices next week. If you've seen these ads, please share your thoughts. As a YouTube Premium member, I don't see ads, but I believe this format allows viewers to still watch the stream alongside the ad, albeit muted.
 
-The roll out has been finished next week. So, you might already see them. Please tell me how you like these side-by-side ads if you've seen them in the wild. I unfortunately do not see them since I am YouTube premium member. Um, so I don't get ads at all. But I do think for people watching ads, still being able to view the stream on the side is a good thing even though it will be muted in favor of the actual ad. Cool.
+Regarding live streaming, there's been a leak of a new YouTube Live dashboard setup featuring horizontal and vertical streams. This is called multiformat streaming (MFS) and includes combined chat, views, watch time, and concurrent viewers (CCV). The launch window is Q4 2025, with specific dates yet to be announced. It's unclear if the vertical archive will be removed post-stream or if views and watch time will be separated once the dual livestream ends. I believe this is a positive step as vertical streams can attract more engaging audiences, especially with combined chat.
 
-Then when we are talking about live streaming, we need to talk about something. Well, I don't want to say it has been leaked but yeah, it has been leaked. So there has been a a screenshot floating around of a new well setup for the YouTube live dashboard which includes a horizontal stream and a vertical stream. So what's happening? This is called multiformat streaming MFS. It will have combined chats and the views and watch time will get combined for at least the duration of the stream and the CCV.
+Have you tried vertical streaming on YouTube? If so, how did it go? If not, why not? It's an interesting experiment.
 
-So, the concurrent viewers or people that watch the stream at the same time will also be combined. The launch window for this is in Q4 2025. I do have a more specific date here on my sheet but I can't talk about it yet. And we don't know if the vertical archive is getting ditched or not after the stream has been well processed. And we don't know if the views and watch time will get separated into the horizontal part and vertical part once this double live stream is finished.
-
-And yeah, I do think it is an interesting step in the right direction as vertical streams do offer a lot more well interesting people that join the stream and maybe interact and especially with a combined chat this can be very very interesting. We will we will take a look and see how it goes. I'm curious if have you streamed vertically on YouTube yet? If so, how is it going? If not, why haven't you? It could be interesting. We'll see. All right.
-
-And I do have a couple of more things on here, but I do think we can talk about that at a later time. Um, so if you have any questions about any of the topics for today, please feel free to leave them in the comments below, unless um, well, you can also talk to me on Discord, of course. And, um, yeah, I'll see you next time. Take care and bye-bye.
+I have more to share, but we can discuss that later. If you have questions about today's topics, leave them in the comments or feel free to message me on Discord. See you next time!

@@ -3,7 +3,7 @@ id: 3130
 slug: "youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us"
 path: "/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/"
 title: "YouTube News: 100% Audience Metrics Rollout, Shorts AI Launch & What VShojo Teaches Us"
-excerpt: "YouTube Shorts is releasing an AI update that lets you transform photos into videos with VO2 and later on with VO3. I would love to show you the update."
+excerpt: "YouTube Shorts is releasing an AI update that lets you transform photos into videos with VO2 and later on with VO3. I'd love to show you the update, but unfortunately, it's currently region locked to the US, Canada,..."
 date: "2025-07-26T12:15:02"
 modified: "2025-07-26T12:15:02"
 locale: "en"
@@ -21,18 +21,17 @@ video:
 
 ## Transcript
 
-YouTube Shorts is releasing an AI update that lets you transform photos into videos with VO2 and later on with VO3. I would love to show you the update. Unfortunately, it is region locked to the US, Canada, Australia, and New Zealand for now. So, we'll have to make do with the screenshot I have. If you're in one of those countries, you have access via the big plus button in the YouTube main app.
+YouTube Shorts is releasing an AI update that lets you transform photos into videos with VO2 and later on with VO3. I'd love to show you the update, but unfortunately, it's currently region-locked to the US, Canada, Australia, and New Zealand. For those of you in these regions, you can access it via the big plus button in the YouTube main app.
 
-Go to create shorts and hit the sparkle icon on the side to pull up the effects and therefore the AI effects. All content created with that feature is labeled as synthetic content and has a synth ID watermark baked into the video which makes it recognizable for other platforms that this has been synthetic content. It the synth ID watermark is basically the opposite of the C2PA watermark which ensures that from the camera to uploading the video hasn't been tampered with.
+To use it, go to create Shorts and hit the sparkle icon on the side to pull up the effects, including the AI effects. All content created with this feature is labeled as synthetic content and has a synth ID watermark embedded into the video, making it recognizable for other platforms as synthetically generated. This is essentially the opposite of the C2PA watermark, which ensures that the video hasn't been tampered with from the camera to uploading—no edits or manipulations. This is also very interesting and something we'll keep an eye on in the future. If you're able to try out these new features, let me know in the comments below! And don't forget to subscribe to this channel for weekly YouTube updates; we often provide them even faster than Creator Insider.
 
-So, no edits or something like that, which is also very very interesting and something we will keep an eye out on in the future. Are you going to try out the new features if they are enabled in your country? Let me know in the comments below. And also don't forget to subscribe to this channel because you'll get weekly YouTube updates here and usually we are a little bit faster even than Creator Insider. All right, let's go on with the analytics audience split.
+Now, let's move on to the analytics audience split. As a quick reminder, the returning and new viewers metric has been further divided. We now have:
+- New viewers who haven't interacted with the channel at all.
+- Casual viewers who came back at least once per month in the last 6 months.
+- Regular viewers who came back at least once per month for more than 6 months.
 
-So, quick reminder, um, the returning and new viewers metric has been split a little bit. So, we now have new viewers who haven't interacted with the channel at all. Casual viewers that came back at least once per month in the last 6 months, and regular viewers who came back at least once per month for more than 6 months.
+Keep in mind that these percentages can vary depending on your content and upload frequency. For example, here's how it looks for a video where most traffic comes from tutorials—people view the code tutorial and then leave, never returning—compared to a daily live show on a channel with more subscribers. I'd be interested to see how your percentages look and what kind of content you produce. Please share in the comments below!
 
-Keep in mind that this is how it looks like for a video where the main traffic comes from a couple of tutorials and people view the code tutorial and then leave, never come back. And this is how the main traffic looks like from a daily live show on a channel with a little bit more subscribers. So the percentages may vary and for me it would be interesting to see how are your percentages looking and what kind of content and how often do you upload. Please feel free to comment below.
+Lastly, Leo has written an interesting blog post following the downfall of V Choyo VTuber agency—for older folks, think of it as an MCN or, even older, Hollywood in a nutshell. He points out that the concept of corporatizing artists has been failing for the past 70 years and presents cooperatives or co-ops as an interesting alternative: they're easy to set up, democratic, and have proven successful in other areas like agriculture. If this interests you, I've linked the blog post below. And if you'd like to start a cooperative with us, please reach out! It's pretty straightforward to set up and could be beneficial for everyone involved.
 
-And last but not least, Leo has written an interesting blog post following the downfall of V Choyo VTuber agency or for the older folks around here, the equivalent of an MCN or if for even older folks, that's basically Hollywood in a nutshell.
-
-And yeah, he's pointing out what the same concept of piling up artists into corporations has been failing for the past 70 years and presents with cooperatives or co-ops, an interesting alternative that are easy to set up, democratic, and a system that we've already seen work in other areas such as agriculture. If you're interested in that, I've linked the blog post below. And if you want to create a cooperative with maybe us, please let us know somehow get in touch with us.
-
-It's pretty easy to set up actually and could be beneficial for you all. If you have any questions about the topics of today or YouTube in general, please feel free to leave a comment below or send a post in our fan community. Otherwise, see you next week with more YouTube updates. Take care and bye-bye. [Music]
+If you have any questions about today's topics or YouTube in general, feel free to leave a comment below or send a post in our fan community. Otherwise, see you next week for more YouTube updates. Take care and bye-bye! [Music]

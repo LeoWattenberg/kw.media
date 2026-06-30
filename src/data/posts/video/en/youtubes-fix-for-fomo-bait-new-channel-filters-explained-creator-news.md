@@ -3,7 +3,7 @@ id: 3117
 slug: "youtubes-fix-for-fomo-bait-new-channel-filters-explained-creator-news"
 path: "/youtube-tips-en/youtubes-fix-for-fomo-bait-new-channel-filters-explained-creator-news/"
 title: "YouTube's Fix for \"FOMO-Bait\"? New Channel Filters Explained | Creator News"
-excerpt: "What's up everyone and welcome back to the YouTube creator news. First off, huge thank you to the hundreds of you who have already participated in our creator struggle survey."
+excerpt: "What's up, everyone? Welcome back to the YouTube Creator News!"
 date: "2025-11-15T13:15:04"
 modified: "2025-11-15T13:15:04"
 locale: "en"
@@ -21,12 +21,27 @@ video:
 
 ## Transcript
 
-What's up everyone and welcome back to the YouTube creator news. First off, huge thank you to the hundreds of you who have already participated in our creator struggle survey. The feedback is incredible and honestly it's much more interesting than the official news this week. If you haven't shared your thoughts yet, the link is still in the description. And now speaking of YouTube updates, I'll be honest, this week is pretty mega. We have two small but solid quality of life updates YouTube has officially announced. So let's get right into it.
+What's up, everyone? Welcome back to the YouTube Creator News! First off, a huge thank you to the hundreds of you who have already participated in our Creator Struggle Survey. The feedback is incredible and honestly, it's much more interesting than the official news this week. If you haven't shared your thoughts yet, the link is still in the description.
 
-All right, first up, let's talk about the hype feature again. Yes, it's still a thing, and if you haven't already, hyped this video. Anyway, YouTube is now rolling out the new functions they promised back in the fall. First, category leaderboards are here. Viewers can now browse leaderboards for specific interests like gaming, beauty, and so on. This should in theory lead to more targeted discovery. The second update is viewers who hype a video can now share that hype as a public post into the creators community tab, making fan communities more available.
+Now, speaking of YouTube updates, this week is pretty mega. We have two small but solid quality-of-life updates that YouTube has officially announced. Let's dive right in.
 
-Finally, YouTube made some clarifications due to confusion. Hype is still not available in all markets and it's still mobile only. There's no word for a desktop rollout. In my opinion, the lack of a desktop version for hype still holds it back. The next update is actually a good one and something channels with memberships have needed for a while in my opinion. The content tabs on your channel page are getting two new filter chips, members only and public. Until now, viewers could only sort by latest, popular, and oldest.
+**Hype Feature Updates**
 
-This new filter makes it easier for your paying members to find the exclusive content. This kind of feels like a direct response to the feedback we saw sparked by creators like Linus Tech Tips where channels were being accused of using member only content as fobate for non-members cluttering up their feeds. If this filter is the elegant solution to the problem, we will see. Unfortunately, I don't think it will make members only content vanish from recommendations. And that's it for this week. Like I said, it's a short one.
+Yes, it's still a thing! If you haven't already, make sure to hype this video. YouTube is now rolling out the new functions they promised back in the fall:
 
-What do you think about the new filter chips? A useful addition for your channel? Are you actively using the hype feature? Let me know your thoughts in the comments below and let's discuss. Thanks for stopping by. Take care and I'll see you next week with more creator updates.
+1. **Category Leaderboards**: Viewers can now browse leaderboards for specific interests like gaming, beauty, and more. This should lead to more targeted discovery.
+2. **Public Hype Sharing**: Viewers who hype a video can now share that hype as a public post in the creator's community tab, making fan communities more accessible.
+
+YouTube also clarified some points due to confusion: Hype is still not available in all markets and it's currently mobile-only. There's no word on a desktop rollout yet. In my opinion, the lack of a desktop version for Hype still holds it back.
+
+**Memberships Content Tabs Update**
+
+The next update is a good one and something channels with memberships have needed for a while. The content tabs on your channel page are getting two new filter chips: "Members Only" and "Public". Until now, viewers could only sort by Latest, Popular, and Oldest. This new filter makes it easier for your paying members to find exclusive content.
+
+This feels like a direct response to the feedback sparked by creators like Linus Tech Tips, where channels were being accused of using member-only content as a ploy to clutter non-members' feeds. If this filter is the elegant solution to the problem, we'll see. Unfortunately, I don't think it will make members-only content vanish from recommendations.
+
+And that's it for this week. It's a short one.
+
+What do you think about the new filter chips? A useful addition for your channel? Are you actively using the Hype feature? Let me know your thoughts in the comments below and let's discuss!
+
+Thanks for stopping by. Take care, and I'll see you next week with more creator updates.

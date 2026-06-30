@@ -3,7 +3,7 @@ id: 3123
 slug: "a-b-testing-and-edit-with-ai-are-here-made-on-youtube-follow-up"
 path: "/youtube-tips-en/a-b-testing-and-edit-with-ai-are-here-made-on-youtube-follow-up/"
 title: "A/B Testing & Edit with AI are HERE | Made on YouTube Follow-Up"
-excerpt: "Just a few days ago, we went over all the announcements from the made on YouTube event. If you haven't checked out those videos, please do so in the video description below."
+excerpt: "Just a few days ago, we discussed all the announcements from the Made on YouTube event. If you haven't watched those videos yet, you can find them in the description below."
 date: "2025-09-19T12:15:04"
 modified: "2025-09-19T12:15:04"
 locale: "en"
@@ -21,14 +21,16 @@ video:
 
 ## Transcript
 
-Just a few days ago, we went over all the announcements from the made on YouTube event. If you haven't checked out those videos, please do so in the video description below. Some good stuff is in there. And it looks like some of the timelines YouTube gave us were conservative to say the least. Things are moving much faster than expected. So, this is a follow-up on some of the features that are rolling out right now. Let's start with the big one. AB title and thumbnail testing.
+Just a few days ago, we discussed all the announcements from the Made on YouTube event. If you haven't watched those videos yet, you can find them in the description below. There's some great content there. It seems that some of the timelines YouTube provided were more conservative than expected. Things are progressing much faster than anticipated. So, this is a follow-up on some of the features currently being rolled out.
 
-YouTube said this would be available for the end of the year. And well, it started rolling out on our KW media channel yesterday. That also means you should be checking your own channels right now and in the coming days to see if you have access. This is one of the most powerful tools for optimization we've ever gotten and it's coming sooner than we thought. Next up, edit with AI for shorts.
+Let's start with the big one: A/B testing for titles and thumbnails. YouTube mentioned this would be available by the end of the year, but it started rolling out on our KW Media channel yesterday. That means you should check your channels now and in the coming days to see if you have access. This is one of the most powerful optimization tools we've ever received, and it's arriving sooner than expected.
 
-Again, the official timeline was in the coming weeks, but we've gotten confirmation that this has already started rolling out to about 1% of eligible creators. This is classic soft launch to catch any early bugs. The feature will be available in the shorts creation tools and in the YouTube create app in a long list of countries including the US, Brazil, Canada, Australia, and the UK.
+Next up, AI editing for Shorts. The official timeline indicated it would be available in the coming weeks, but we've confirmed that it has already started rolling out to approximately 1% of eligible creators. This is a classic soft launch to identify and fix any early bugs. The feature will be accessible in the Shorts creation tools and the YouTube Create app in several countries, including the US, Brazil, Canada, Australia, and the UK.
 
-The AI voiceover feature within the tool is currently limited to English and Hindi as announced and is only available in the creator for now, but it's clear sign that things are moving. Finally, a quick update for everyone who left comments and questions on all last videos. I've already forwarded all your questions to my contacts, and if I have a direct line to the product manager for a specific feature, it went directly to them. If not, it went through the YouTube community managers.
+The AI voiceover feature within the tool is currently limited to English and Hindi, as announced, and is only available in the creator app for now. However, it's a clear indication that things are moving forward.
 
-We are working to get you some answers, so expect an FAQ video soon. And if you have more questions regarding the features announced at the made on YouTube event, make sure to leave them in the comments below. Oh, and on that note, if you work at YouTube and you're watching this, my Discord DMs and my email are always open. We're trying to understand these tools better, and the best way to do that is talking to the devs directly. That's it for the YouTube news this week.
+Finally, a quick update for those who left comments and questions on our previous videos. I've already forwarded your questions to my contacts, and if I have a direct line to the product manager for a specific feature, it went straight to them. Otherwise, it was sent through the YouTube Community managers. We're working on getting you some answers, so an FAQ video will be coming soon. If you have more questions about the features announced at the Made on YouTube event, feel free to leave them in the comments below.
 
-Check your channels for the new features. Take care and make sure to subscribe and hit the bell so you don't miss the next YouTube update video.
+On that note, if you work at YouTube and are watching this, my Discord DMs and email are always open. We're aiming to understand these tools better, and the best way to do that is by speaking directly with the developers.
+
+That concludes this week's YouTube news. Check your channels for the new features, and don't forget to subscribe and click the bell to stay updated on future YouTube videos.

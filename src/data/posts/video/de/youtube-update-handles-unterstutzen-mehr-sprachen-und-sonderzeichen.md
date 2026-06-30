@@ -3,7 +3,7 @@ id: 3176
 slug: "youtube-update-handles-unterstutzen-mehr-sprachen-und-sonderzeichen"
 path: "/youtube-tipps-de/youtube-update-handles-unterstutzen-mehr-sprachen-und-sonderzeichen/"
 title: "YouTube Update: @ Handles Unterstützen Mehr Sprachen & Sonderzeichen!"
-excerpt: "Adendles unterstützen jetzt Buchstaben und Ziffern von insgesamt 75 verschiedenen Sprachen allerdings gibt es ein niedrigeres Zeichn als statt 30 Zeichen nur noch 20 oder 10 Zeichen für die Alphabete han äthiopisch..."
+excerpt: "@handles unterstützen jetzt Buchstaben und Ziffern in insgesamt 75 verschiedenen Sprachen. Allerdings gibt es ein paar Änderungen: Statt 30 Zeichen sind nun nur noch 20 oder 10 Zeichen für die Alphabete..."
 date: "2024-06-29T12:30:32"
 modified: "2024-06-29T12:30:32"
 locale: "de"
@@ -21,8 +21,8 @@ video:
 
 ## Transkript
 
-Adendles unterstützen jetzt Buchstaben und Ziffern von insgesamt 75 verschiedenen Sprachen allerdings gibt es ein niedrigeres Zeichn als statt 30 Zeichen nur noch 20 oder 10 Zeichen für die Alphabete han äthiopisch Hiragana und katagana mehr Infos habe ich euch aber auf jeden Fall auch unten in die Videobeschreibung gepackt außerdem gibt es jetzt neue neue Sonderzeichen Unterstriche Bindestriche Punkte und sogenannte lateinische Mittelpunkte sind jetzt auch erlaubt von letzteren wusste ich nicht mal bis zur Recherche dieses Video dass das ein Ding ist aber scheinbar schon ihr könnt jetzt
+@handles unterstützen jetzt Buchstaben und Ziffern in insgesamt 75 verschiedenen Sprachen. Allerdings gibt es ein paar Änderungen: Statt 30 Zeichen sind nun nur noch 20 oder 10 Zeichen für die Alphabete Arabisch, Äthiopisch, Hiragana und Katakana erlaubt. Mehr Infos dazu findet ihr in der Videobeschreibung. Außerdem gibt es jetzt neue Sonderzeichen: Unterstriche, Bindestriche, Punkte und lateinische Mittelpunkte sind nun ebenfalls zulässig. Letztere kannte ich bis zu meiner Recherche für dieses Video gar nicht, aber anscheinend sind sie bereits im Einsatz. Ihr könnt sie nun in euren Handles verwenden.
 
-benutzen in euren handles wunderbar schauen wir uns an die die Rollouts an in der letzten Woche und zwar haben wir einmal Jump ahead für Premium Nutzer jetzt für 100% der Nutzer auf Android verfügbar das heißt wenn ihr Premium Kunde seid und ein Android Gerät habt dann könnt ihr das jumpahead Feature jetzt nutzen nicht nur USA sondern überall und Test und compare sprich das Thumbnail A/B testing ist jetzt auch für 100% der Creator mit erweiterten Funktionen freigeschaltet ne bitte schaut danach wenn euer Kanal das nicht hat
+Schauen wir uns die Neuigkeiten der letzten Woche an: Jump Ahead für Premium-Nutzer ist nun zu 100% auf Android-Geräten verfügbar. Das bedeutet, wenn ihr Premium-Kunde seid und ein Android-Gerät besitzt, könnt ihr das Jump-Ahead-Feature jetzt nutzen – nicht nur in den USA, sondern weltweit. Auch Test & Compare, also das A/B-Testing von Thumbnails, ist nun für 100% der Creator mit erweiterten Funktionen freigeschaltet. Schaut doch mal nach, ob ihr diese Funktionen aktiviert habt. Falls nicht, ist das der Grund, warum ihr kein Thumbnail-Testing nutzen könnt.
 
-habt ihr die erweiterten Funktionen aktiviert ja Nein falls nein das ist der Grund warum ihr kein Thum testing habt gut in dem Sinne würde ich sagen wir bleiben auf dem Laufenden vielen lieben Dank dass ihr so zahlreich erschienen seid zum Q&A Stream war eine fantastische Stunde gerne wieder holen falls ihr weitere Fragen habt gerne damit in die Kommentare Kanal abonnieren wir sind auf dem Weg zur 1000 ne und ich würde sagen bis zur nächsten Woche macht's gut und haut rein
+In diesem Sinne: Bleibt auf dem Laufenden! Vielen Dank, dass so viele von euch beim Q&A-Stream dabei waren. Es war eine fantastische Stunde, die wir gerne wiederholen können, wenn ihr weitere Fragen habt. Hinterlasst diese doch einfach in den Kommentaren. Abonniert den Kanal – wir sind auf dem Weg zu 1000 Abonnenten! Bis zur nächsten Woche, macht's gut und haut rein!
