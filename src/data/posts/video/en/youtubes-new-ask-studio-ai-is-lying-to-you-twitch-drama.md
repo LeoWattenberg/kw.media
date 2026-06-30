@@ -41,8 +41,6 @@ We're looking at a toxic chicken-and-egg cycle. It started because Twitch has no
 
 But those external agencies demand massive numbers, which now just fuels the view-botting cycle all over again. Zack also pointed out a brutal metric in his breakdown: if you pitch a brand with 1,000 concurrent viewers today, they will treat you like you have 300. To verify your actual influence, brands now check your YouTube, TikTok, and Instagram. And if your Twitch numbers are high but your YouTube videos get zero views, you won't get the deal. Cross-platform presence is mandatory.
 
-# Creator News: YouTube Engagement Policies & Voice Replies
-
 Now, let's consider YouTube as a parallel. They have strict policies against fake engagement, but they also offer YouTube Promotions, which is their way of undercutting the black market for views. Essentially, you can pay YouTube to promote your video. However, it's important to remember that even with paid promotion, poor content will still be poor content. Investing in better production quality is often a more effective strategy than trying to artificially inflate views.
 
 On a personal note, voice replies are now officially available for all creators in YouTube comments. As someone who dislikes voice messages, I find them to be a bit rude, as they often require the recipient to invest more time than a simple text comment. While YouTube does transcribe voice replies on desktop, allowing you to read them, it's still a matter of personal preference. How do you feel about voice replies? Share your thoughts in the comments below.
