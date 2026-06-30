@@ -1,0 +1,193 @@
+{
+	"id": "website-design-management",
+	"translations": {
+		"de": {
+			"id": "website-design-management-de",
+			"path": "/de/webdesign-management/",
+			"title": "Webdesign & Website-Management",
+			"description": "Website-Design, technische Umsetzung und laufende Betreuung von Leo Wattenberg.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Websites von Leo Wattenberg",
+					"title": "Webdesign & Website-Management",
+					"text": "Klare, schnelle und gut wartbare Websites für Creator, Projekte und kleine Unternehmen.",
+					"image": "/assets/camera-lens.jpg",
+					"imageAlt": "Kameraobjektiv als Symbol für digitale Gestaltung",
+					"actions": [
+						{
+							"label": "Projekt anfragen",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Von der Idee bis zur laufenden Betreuung",
+					"title": "Websites, die man benutzen und pflegen kann",
+					"items": [
+						{
+							"title": "Website-Konzept",
+							"text": "Struktur, Inhalte und Ziele werden so sortiert, dass Besucher schnell verstehen, wer Sie sind und was sie tun sollen."
+						},
+						{
+							"title": "Design und Umsetzung",
+							"text": "Leo gestaltet und baut moderne Websites, die zu Ihrer Marke passen und auf Desktop sowie Mobile funktionieren."
+						},
+						{
+							"title": "Technische Pflege",
+							"text": "Updates, kleine Anpassungen, Fehlerbehebung und technische Wartung bleiben nicht an Ihnen hängen."
+						},
+						{
+							"title": "Performance und SEO-Grundlagen",
+							"text": "Schnelle Ladezeiten, saubere Seitenstruktur und gute Metadaten sorgen dafür, dass die Website eine solide Basis hat."
+						},
+						{
+							"title": "Content-Updates",
+							"text": "Neue Seiten, aktualisierte Texte, Landingpages oder Kampagneninhalte können laufend ergänzt werden."
+						},
+						{
+							"title": "Persönliche Beratung",
+							"text": "Direkter Austausch mit Leo statt anonymer Agenturprozesse: pragmatisch, technisch sauber und verständlich erklärt."
+						}
+					]
+				},
+				{
+					"type": "text",
+					"eyebrow": "Für wen ist das gedacht?",
+					"title": "Für Projekte, die eine verlässliche Website brauchen",
+					"body": [
+						"Ob Portfolio, Angebotsseite, Creator-Website, Projektseite oder kleine Unternehmenswebsite: Der Fokus liegt auf einem Auftritt, der gut aussieht, verständlich ist und langfristig gepflegt werden kann.",
+						"Statt eine Website einmal abzugeben und dann allein zu lassen, kann Leo auch die laufende technische und inhaltliche Betreuung übernehmen."
+					],
+					"checks": [
+						"Neue Websites und Relaunches",
+						"Landingpages und Angebotsseiten",
+						"Laufende Website-Pflege",
+						"Technische Beratung und Problemlösung"
+					]
+				},
+				{
+					"type": "person",
+					"eyebrow": "Ihr Ansprechpartner",
+					"title": "Design und Management durch Leo",
+					"name": "Leo Wattenberg",
+					"role": "Creative Director",
+					"image": "/assets/Leo_mit_angel.png",
+					"imageAlt": "Leo Wattenberg",
+					"credentials": [
+						"Webdesign",
+						"Multimedia-Produktion",
+						"Technische Website-Betreuung"
+					],
+					"body": [
+						"Leo Wattenberg arbeitet an der Schnittstelle von Gestaltung, Webtechnik und Content. Er baut Websites mit Blick auf Nutzbarkeit, Wartbarkeit und die realen Abläufe hinter einem Projekt.",
+						"Wenn Sie eine Website brauchen, die nicht nur beim Start gut aussieht, sondern danach weiter betreut werden kann, ist Leo Ihr Ansprechpartner."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "cta",
+					"title": "Website-Projekt starten",
+					"text": "Schreiben Sie uns, worum es geht: neue Website, Relaunch, laufende Pflege oder ein technisches Problem. Wir melden uns mit den nächsten sinnvollen Schritten.",
+					"email": "team@kw.media"
+				}
+			]
+		},
+		"en": {
+			"id": "website-design-management-en",
+			"path": "/en/website-design-management/",
+			"title": "Website Design & Management",
+			"description": "Website design, technical implementation and ongoing website management by Leo Wattenberg.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Websites by Leo Wattenberg",
+					"title": "Website Design & Management",
+					"text": "Clear, fast and maintainable websites for creators, projects and small businesses.",
+					"image": "/assets/camera-lens.jpg",
+					"imageAlt": "Camera lens as a symbol for digital design",
+					"actions": [
+						{
+							"label": "Discuss a project",
+							"href": "mailto:team@kw.media",
+							"variant": "primary"
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "From the first idea to ongoing care",
+					"title": "Websites people can use and maintain",
+					"items": [
+						{
+							"title": "Website concept",
+							"text": "Structure, content and goals are shaped so visitors quickly understand who you are and what to do next."
+						},
+						{
+							"title": "Design and implementation",
+							"text": "Leo designs and builds modern websites that fit your brand and work well on desktop and mobile."
+						},
+						{
+							"title": "Technical maintenance",
+							"text": "Updates, small changes, bug fixes and technical upkeep do not have to stay on your desk."
+						},
+						{
+							"title": "Performance and SEO basics",
+							"text": "Fast loading, clean page structure and useful metadata give the website a solid foundation."
+						},
+						{
+							"title": "Content updates",
+							"text": "New pages, revised copy, landing pages and campaign content can be added as the project grows."
+						},
+						{
+							"title": "Personal consulting",
+							"text": "Direct contact with Leo instead of anonymous agency loops: pragmatic, technically clean and explained clearly."
+						}
+					]
+				},
+				{
+					"type": "text",
+					"eyebrow": "Who is this for?",
+					"title": "For projects that need a dependable website",
+					"body": [
+						"Portfolio, offer page, creator website, project site or small business website: the focus is a web presence that looks good, is easy to understand and can be cared for long term.",
+						"Instead of handing over a website once and leaving you alone with it, Leo can also handle ongoing technical and content management."
+					],
+					"checks": [
+						"New websites and relaunches",
+						"Landing pages and offer pages",
+						"Ongoing website care",
+						"Technical consulting and troubleshooting"
+					]
+				},
+				{
+					"type": "person",
+					"eyebrow": "Your contact",
+					"title": "Design and management by Leo",
+					"name": "Leo Wattenberg",
+					"role": "Creative Director",
+					"image": "/assets/Leo_mit_angel.png",
+					"imageAlt": "Leo Wattenberg",
+					"credentials": [
+						"Web design",
+						"Multimedia production",
+						"Technical website management"
+					],
+					"body": [
+						"Leo Wattenberg works where design, web technology and content meet. He builds websites with usability, maintainability and the real workflows behind a project in mind.",
+						"If you need a website that does not only look good at launch but can keep being cared for afterwards, Leo is your point of contact."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "cta",
+					"title": "Start a website project",
+					"text": "Tell us what you need: a new website, a relaunch, ongoing care or help with a technical problem. We will reply with sensible next steps.",
+					"email": "team@kw.media"
+				}
+			]
+		}
+	}
+}
