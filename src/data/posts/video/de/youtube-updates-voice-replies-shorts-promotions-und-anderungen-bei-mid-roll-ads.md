@@ -41,7 +41,7 @@ Diese werden ab dem 12. Mai 2025 eingeführt. Der generelle Gedanke ist: YouTube
 
 Wichtig: Alte Videos, die vor dem 24. Februar 2025 hochgeladen wurden und manuell gesetzte Midroll-Werbungen haben, erhalten zusätzlich automatische Werbeplätze, es sei denn, ihr widersprecht dem. Ihr habt bis zum 12. Mai Zeit, der automatischen Platzierung zu widersprechen. Danach ist sie die Standardvariante. Natürlich könnt ihr auch weiterhin manuell...
 
-##  Neue Funktionen für Werbeanzeigen im YouTube Studio
+Neue Funktionen für Werbeanzeigen im YouTube Studio
 
 Die Platzierung von Werbeanzeigen wird auf YouTube weiter optimiert. Im YouTube Studio findet ihr nun einen Indikator, der einschätzt, ob eine Werbeunterbrechung als störend wahrgenommen werden könnte. Ihr könnt diese Anzeigen natürlich beibehalten, allerdings besteht dann die Möglichkeit, dass keine Werbung ausgespielt wird. Zusätzlich fügt YouTube automatische Ads an natürlichen Pausen in euren Videos hinzu.
 

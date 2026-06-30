@@ -33,7 +33,7 @@ Next, we have a short update on Dreamscreen: Dreamscreen is essentially an AI ge
 
 Staying on the topic of AI: training data is an important issue, and YouTube now wants to use Creator data to train AIs. Before you get upset, we've spoken with the team, and our concerns have been heard here as well. By default, this won't happen, so your data won't be used if you don't take action. However, if you say, "That would actually be cool if the AI got better because I'm sharing my data," then you can perform what's called an opt-in. This is voluntary, of course—those who want to participate will, and those who don't, won't. And those who didn't know about it won't do anything either. So no one will be harmed. In this case, one can say: well done!
 
-# End-of-Year Gaming Recap
+End-of-Year Gaming Recap
 
 Lastly, we have the year-in-review gaming recap for YouTube gamers among you, or for Creators and viewers who follow other Creators in the gaming space. I'll quickly show you some screenshots of what it looks like for me. For instance, I'm a big fan of "Hand of Blood," so I'm in the top 1% of viewers.
 

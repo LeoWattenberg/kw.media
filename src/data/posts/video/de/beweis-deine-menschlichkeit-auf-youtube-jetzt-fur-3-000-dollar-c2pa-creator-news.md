@@ -39,4 +39,4 @@ Apropos die Plattform lässt alte Funktionen wieder aufleben: YouTube-Direktnach
 
 Abschließend zu den Fehlern: Wenn du am 11. März in deinem YouTube Studio warst und einen kleinen Herzinfarkt hattest, weil alle deine Aufrufe verschwunden waren, keine Sorge – es war ein globaler Bug. YouTube Analytics ist kurzzeitig ausgefallen, aber YouTube Support hat ihn offiziell behoben, sodass deine Daten nicht verloren sind. Sie sollten in den nächsten Tagen wieder erscheinen, falls sie es noch nicht getan haben. Und das war's für diese Woche.
 
-# Diskutieren wir das Deepfake-Dilemma und deine Fragen an den Welt-Nerd in den Kommentaren unten. Ich bin Martin, der dir die relevanten Creator-News bringt, und ich sehen dich nächste Woche wieder.
+Diskutieren wir das Deepfake-Dilemma und deine Fragen an den Welt-Nerd in den Kommentaren unten. Ich bin Martin, der dir die relevanten Creator-News bringt, und ich sehen dich nächste Woche wieder.

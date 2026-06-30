@@ -29,11 +29,11 @@ Then, as we already discussed in recent weeks, there will be a reminder of upcom
 
 And yes, as I said, I look forward to your feedback. Let's stay with vertical live streams, specifically in the shorts feed, but move on to vertical live streams. In the coming weeks, so-called YouTube Jewels or Jeels will be introduced, unfortunately only for US creators. Still, listen up because maybe all this stuff will come to us eventually, and we can already learn what we want to do with it. So, a quick recap: Jeels are a digital currency that viewers can buy in packages. Those of you who game will recognize this from having digital currencies somewhere. For 1000 jewels, you can pay $8.99 and get some extra jewels. The more you spend, the more extras you get. Therefore, the exact price of jewels varies depending on the package purchased. That's good or bad. Microtransactions are always a tricky topic. Jewels can only be used in vertical live streams for so-called gifts or in the...
 
-# Gifts and Rubies: An Overview
+Gifts and Rubies: An Overview
 
 The English gifts that are bought with jewels have a fixed ruby value. Here is an important distinction we need to make:
 
-# Jewels and Gifts: A New Monetization Feature
+Jewels and Gifts: A New Monetization Feature
 
 - **Jewels:** These are what viewers purchase.
 - **Gift:** The gift that costs jewels and generates rubies for the creator.
@@ -41,7 +41,7 @@ The English gifts that are bought with jewels have a fixed ruby value. Here is a
 
 If you have any questions, feel free to leave them in the comments! I can explain it again or provide a visual representation if needed. Rubies are counted as your earnings, but the exact price of gifts is not yet known. I'll be sending out my "spies" in the English and American markets to gather more information on pricing and the conversion rate between jewels and rubies. We can then create a list to see which gifts are worth it and how much reaches the creator's pocket.
 
-## Using Jewels
+Using Jewels
 
 This feature is not yet available in Germany, but here's a preview: There's a new module on the YouTube Partnership or Monetization page called "Virtual Items." It's located in the same area as Fan Funding (Memberships), Super Chats, and Shorts Ads. To use this feature, you need to activate the module in your agreements/contracts. **Important:** If you enable jewel gifts, Super Stickers will be disabled. So, you can choose to use either one or the other, but not both simultaneously. Personally, I find Super Chats more interactive and enjoyable for creators compared to Super Stickers.
 

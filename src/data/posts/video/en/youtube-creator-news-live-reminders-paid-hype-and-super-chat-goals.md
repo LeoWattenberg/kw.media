@@ -33,7 +33,7 @@ Let's stay with the transaction revenues, as we have already discussed the Super
 
 Now let's move from transaction revenues to YouTube Studio Mobile, as it now also has a horizontal mode, known as landscape mode in English. This is quite nice for viewing graphics. But first of all, I wonder: who really analyzes analytics in depth on their phone? I mean, it's nice that you can see the charts...
 
-# YouTube Updates: Community Engagement and New Features
+YouTube Updates: Community Engagement and New Features
 
 An interesting piece of news: We've been talking to someone at YouTube and we're currently collecting topics for a management presentation. You're surely familiar with PowerPoint - one of the slides can be designed by us as a community with content or desired features. I'm collecting ideas from all possible sources, and you're more than welcome to share your suggestions in the comments. Then I'll create a big list and we'll let the community vote on it. This way, we can see which features are most wanted and which are less so. Afterward, we'll submit the top 10 features that our community, including the YouTube Gaming community, desires. I think this is a great initiative that we should all participate in!
 

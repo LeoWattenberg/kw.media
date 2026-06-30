@@ -33,7 +33,7 @@ Danach haben wir eine kurze Nachricht zu Dreamscreen: Dreamscreen ist praktisch 
 
 Bleiben wir beim Thema KI: Trainingsdaten sind ein wichtiges Thema, und YouTube möchte nun Creator-Daten nutzen, um KIs zu trainieren. Bevor ihr euch aufregt, haben wir mit dem Team gesprochen, und auch hier wurde auf unsere Bedenken gehört. Standardmäßig wird das nicht passieren, also werden eure Daten nicht verwendet, wenn ihr nichts unternehmt. Wenn ihr jedoch sagt: "Das wäre eigentlich cool, wenn die KI besser würde, weil ich meine Daten teile", dann könnt ihr einen sogenannten Opt-In durchführen. Das ist natürlich freiwillig – wer möchte, macht mit, wer nicht, lässt es bleiben. Und wer nichts davon wusste, macht auch nichts. Also wird niemandem geschadet. In diesem Fall kann man mal sagen: Gut gemacht!
 
-# End-of-Year Gaming Recap
+End-of-Year Gaming Recap
 
 Zu guter Letzt haben wir noch das Jahresrückblick-Gaming-Recap für die YouTube-Gamer unter euch, bzw. für die Creator und Zuschauer, die andere Creator im Gaming-Bereich verfolgen. Ich zeige euch mal schnell ein paar Screenshots, wie das bei mir aussieht. Zum Beispiel bin ich ein großer Fan von "Hand of Blood" und befinde mich daher in den Top 1% der Zuschauer.
 

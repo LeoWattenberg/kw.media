@@ -29,13 +29,13 @@ A very interesting story, which we already discussed in May, is Super Chat repli
 
 And while we're on the topic of live streams, there's new information about AI live stream summaries. We've discussed this before: AI will summarize live streams. There are enough data being collected, and it was unclear how much data is actually needed for an AI summary to be created. Well, we now have a concrete value. I'm quite surprised by this, but it seems to be a step towards transparency. We're not complaining. AI summaries for live streams will only work if there were over 30 non-repeating English messages in the last 2 minutes. And they won't work in the EU due to AI restrictions. We'll see when this might be the case in the EU. But if you're in the UK or other English-speaking countries, you may already be seeing these features, although they won't be available on this channel for now. Even with 30 messages in 2 minutes—a message every 2 seconds—I don't think that's too much. Please share your thoughts in the comments!
 
-## Live Streams and Mid-Roll Ads
+Live Streams and Mid-Roll Ads
 
 Live streams are really taking off today. Previously, live streams on YouTube were interrupted by ads, often resulting in an asynchronous experience for viewers. From August 5th onwards, this will be resolved with picture-in-picture ads. This means the screen will be compressed, and the ad will run alongside the stream with black bars at the top and bottom. After the ad, the screen will expand back to normal, and the stream will continue.
 
 I've suggested as a feature request that automatic subtitles should be enabled by default during these mid-rolls, as this could be particularly useful for talk shows or similar formats. Let me know what you think about this!
 
-## YouTube Hype
+YouTube Hype
 
 Another experiment is currently running in Turkey, Taiwan, and Brazil: YouTube Hype. Originally conceived as a paid feature to boost videos into the trends, this idea was quickly abandoned. Now we know more: Hype is a new way for viewers to interact.
 
@@ -43,7 +43,7 @@ Hype is available for channels with fewer than 500,000 subscribers, no community
 
 I'm curious how prominent this Hype feed will be and whether it really leads to more people seeing these videos. Please share your thoughts in the comments!
 
-## ADD yours Sticker
+ADD yours Sticker
 
 The ADD yours Stickers are now in full rollout and will be available to everyone by the end of August/beginning of September. Have you tried them out yet? Share your experiences in the comments!
 

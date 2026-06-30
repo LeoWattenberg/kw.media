@@ -33,7 +33,7 @@ Let's continue and stay with transaction revenue: Moving on to Super Chats. Ther
 
 A US-only or US-first launch with a few English-speaking countries: In about 1.5 months, YouTube Playables are set to return. That means if you're a YouTube Premium subscriber, you'll be able to play small games on YouTube for free. Whether that's necessarily useful remains to be seen. But it also confirms a rumor: Some Stadia developers - Stadia was Google's gaming platform - have now moved to YouTube and are continuing work on their Crowdplay feature. Crowdplay was originally a way for Stadia users to join another Stadia user's stream. That interface is set to be expanded, and there's work being done to include a button in streams by the end of 2024 that lets you buy and download games.
 
-# Current Updates on YouTube and Gaming
+Current Updates on YouTube and Gaming
 
 It's important to connect a suitable third-party platform with YouTube. Currently, there are options like Epic Games and Battlenet, for example. In my opinion, these are all just rumors, but this interface between the two accounts already exists. This means that you can ultimately click a button, buy the game through Battlenet or Epic Games, download it, and join the streamer. In this vision, there is also talk of affiliate keys. When we look at the ecosystem in the YouTube and YouTube Live space, we know that Epic Games offers so-called Creator Codes, which are exactly that: a revenue share, a kind of affiliation when selling keys. That's why Epic Games is actually the strongest partner you can imagine here. Definitely an interesting story that gaming creators should keep an eye on.
 

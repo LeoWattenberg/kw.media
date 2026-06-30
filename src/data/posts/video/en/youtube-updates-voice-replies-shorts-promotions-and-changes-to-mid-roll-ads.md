@@ -41,7 +41,7 @@ These will be introduced on May 12, 2025. The general idea is: YouTube knows tha
 
 Important: Older videos uploaded before February 24, 2025, with manually placed mid-roll ads will get additional automated ad placements unless you opt out. You have until May 12 to object to the automated placement. After that, it becomes the default option. Of course, you can still manually...
 
-## New Ad Features in YouTube Studio
+New Ad Features in YouTube Studio
 
 Ad placement on YouTube is being further optimized. In YouTube Studio, you'll now find an indicator estimating whether an ad break might be perceived as intrusive. You can, of course, keep these ads, but there's a chance no ad will play. Additionally, YouTube is automatically adding ads at natural pauses in your videos.
 
@@ -49,21 +49,21 @@ The impact on creators was extrapolated from test data from July 2024: Creators 
 
 **Some questions that came up:**
 
-# **Will the changes affect videos under 8 minutes?**
+**Will the changes affect videos under 8 minutes?**
 No, videos under 8 minutes will continue to be ad-free.
 
-# **Will mid-roll ads be enabled for videos that previously didn't have them?**
+**Will mid-roll ads be enabled for videos that previously didn't have them?**
 No, if you've opted out of mid-roll ads, that decision will remain. Automatic mid-roll ads will only be added to videos that already contain manual mid-roll ads.
 
-# **Can I disable the automatic mid-roll ads?**
+**Can I disable the automatic mid-roll ads?**
 Yes, this will be possible in YouTube Studio under Monetization. However, keep in mind that poorly placed manual mid-roll ads may result in reduced revenue starting May 2025, as YouTube aims to improve ad quality.
 
 YouTube believes that less intrusive ads will enhance viewer engagement. This is also beneficial for you as longer watch time on your videos translates to better metrics and, consequently, more recommendations.
 
-# **Can mid-roll ads still be placed manually?**
+**Can mid-roll ads still be placed manually?**
 Yes, but YouTube recommends using the feedback tool. It indicates whether a mid-roll ad is considered intrusive, helping you find more suitable placement spots.
 
-# **Will the overall number of ads displayed change?**
+**Will the overall number of ads displayed change?**
 No, there won't be an increase in the number of ads shown; they will simply be placed at more appropriate times.
 
 I think this is a positive development and a good opportunity to reevaluate your ad strategies. Why not test out the automatic placement? The test begins next week and will be finalized by May.

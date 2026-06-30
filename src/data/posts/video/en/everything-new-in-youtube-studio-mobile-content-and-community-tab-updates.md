@@ -37,7 +37,7 @@ Of course, you can also ask me in the comments or as a customer, and I'll tell y
 
 Finally, we looked at the rolling-out Super Chat Goals. Thank you for that!
 
-# YouTube Updates: Super Chat Goals
+YouTube Updates: Super Chat Goals
 
 At this point, I have already enabled the feature and we conducted a small test stream to see how everything works. Creating a goal is quite simple: You just click on the symbol in the live stream or live chat and can then choose whether you want to set a target of 5 or 50 Super Chats. Everything is pretty straightforward here as well.
 

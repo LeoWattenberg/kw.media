@@ -37,7 +37,7 @@ Bleiben wir bei den Shorts: Ihr könnt nun mehrere Entwürfe im Erstellungstool 
 
 Außerdem gibt es eine kleine Paritätsaktualisierung: Das Hinweisfeld für Produktplatzierung kann nun sowohl für Shorts als auch für Videos im Desktop- und Mobile-Studio aktiviert oder deaktiviert werden – praktisch, wenn man es unterwegs vergessen hat. Dazu sollten wir vielleicht ein separates Video machen.
 
-# Aktualisierungen zu Mitgliedschaften und Umfragen
+Aktualisierungen zu Mitgliedschaften und Umfragen
 
 Bisher mussten die Abzeichen für die Dauer der Mitgliedschaft und die Emotes für den Live-Chat separat hochgeladen werden, doch dieser Prozess wurde nun vereinfacht. Insbesondere für mobile Creator ist dies eine nützliche Verbesserung.
 

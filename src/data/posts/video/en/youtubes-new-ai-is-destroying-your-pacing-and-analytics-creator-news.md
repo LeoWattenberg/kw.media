@@ -35,7 +35,7 @@ Staying on the platform but shifting to educational content, I recently got a no
 
 As someone who frequently pushes platform limits (shout-out to the YouTube devs watching—love your work and always appreciate your feedback!), I can't let this stand. Theoretically, you could bypass the PDF restriction using base 64 encoding. This converts binary data from a DaVinci Resolve preset or zip file into regular text, which you can then place in a PDF. After uploading to Google Drive and passing its scanner, viewers can download, decode, and retrieve the original file.
 
-# Creator News Update
+Creator News Update
 
 Of course, this was just a thought experiment, and we certainly didn't build an internal tool this week to test it (although it did work flawlessly). Before you get too excited, we're not releasing that tool to the public, and I highly recommend against creating your own to share files on YouTube that exceed the limits outlined in the help article. Obfuscating files to bypass security scanners is a surefire way to land yourself in hot water with spam, scam, and deceptive practices policies, which is why I won't be demonstrating it here.
 
@@ -45,13 +45,13 @@ If a malicious actor truly wants to distribute malware, they'll either use the m
 
 Perhaps I'm being too optimistic and there's an attack vector I'm missing, but what are your thoughts? Share them in the comments below.
 
-## B2B Update: YouTube Studio Media Kit
+B2B Update: YouTube Studio Media Kit
 
 YouTube has updated the native media kit feature in YouTube Studio. Previously part of the Brand Connect feature set, it was separated out a few months ago, and now all YouTube partners can access and share their media kits with sponsors. This kit now includes data on income brackets and parental status within your audience—a nice addition, but likely not a deal-breaker in sponsorship negotiations.
 
 In my experience, brands prioritize core demographics (age and gender) and the integration concept over these additional metrics. Whether 35% or 30% of your audience are parents is rarely decisive, but it does enhance your pitch deck's appeal.
 
-## Auto Speak Feature: Helpful or Insulting?
+Auto Speak Feature: Helpful or Insulting?
 
 As we wrap up this week, I want to know your thoughts on the auto-speak feature. Is it a valuable tool for viewers or an affront to video creators? Share your opinions in the comments below.
 

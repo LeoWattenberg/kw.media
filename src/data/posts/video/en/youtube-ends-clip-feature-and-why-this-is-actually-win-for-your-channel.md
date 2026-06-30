@@ -43,7 +43,7 @@ Regarding another significant feature, Neal Mohan confirmed 'Voice Boost,' a You
 
 Finally, YouTube has updated its support pages, detailing changes to how subscriber notifications are handled.
 
-# YouTube's Push Notifications: A Dying Feature?
+YouTube's Push Notifications: A Dying Feature?
 
 If a subscriber has enabled the bell icon but consistently ignores or dismisses your push notifications without engaging, YouTube may reduce these alerts to enhance user experience. While this might seem concerning for content reach, there's no need to panic. Here at KW Media, we analyzed notification data from three diverse channels in our portfolio this week, and the results are quite consistent.
 
@@ -53,7 +53,7 @@ If a subscriber has enabled the bell icon but consistently ignores or dismisses 
 
 These metrics suggest that the YouTube bell icon's impact is diminishing. Push notifications account for a minuscule fraction of overall traffic, making them statistically insignificant. If YouTube adjusts a feature that yields around 60 views on a 15,000-view video, it has little to no effect. Therefore, creators should shift their focus from push notifications to optimizing for the browse and suggested algorithms, where real audience growth lies. It might also be time to revisit emphasizing subscriptions, likes, and comments instead of the bell icon.
 
-## This Week's Takeaway:
+This Week's Takeaway:
 - Push notifications have a minimal impact on content reach.
 - Focus on browse and suggested algorithms for audience growth.
 - Re-evaluate subscription, like, and comment calls-to-action.

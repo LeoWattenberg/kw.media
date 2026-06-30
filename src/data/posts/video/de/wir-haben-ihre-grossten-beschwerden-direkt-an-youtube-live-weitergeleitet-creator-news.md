@@ -49,7 +49,7 @@ Weiter geht es mit einer bedeutenden Workflow-Aktualisierung von YouTube. Wenn i
 
 Seit dem Test im November gab es Updates. Sie können nun bis zu 10 Bilder in einem Karussell verwenden. Sie können jedoch auch Textüberlagerungen und lizenzfreie Musik aus der Audiobibliothek oder Dream Track (falls in Ihrem Land verfügbar) hinzufügen. Dies könnte eine unglaublich aufwandsarme, aber ertragreiche Engagement-Strategie sein. Denkt darüber nach: Ihr müsst keine Videos mehr filmen und farblich bearbeiten, um den Shorts-Algorithmus zu treffen.
 
-# Creator News: Nutzung von YouTube Shorts für ansprechende Inhalte
+Creator News: Nutzung von YouTube Shorts für ansprechende Inhalte
 
 Ein schneller Drei-Bild-Meme-Karussell, ein Vorher-Nachher-Kurzvideo oder ein Foto-Dump können nun direkt zum Shorts-Ansichtspool beitragen. Diese Funktion ermöglicht es dir, an Tagen, an denen die Produktion eines vollständigen Videos nicht möglich ist, innerhalb des Algorithmus sichtbar zu bleiben. Allerdings ein Wort der Warnung: Vermeide den exzessiven Einsatz gestohlener Memes. Wenn dein Kanal zu einem Zufluchtsort für minderwertige Meme-Dumps wird, riskierst du, gegen YouTubes Richtlinien gegen wiederverwendete oder unauthentische Inhalte zu verstoßen, was potenziell zu einem Verlust der Monetarisierung auf allen deinen Kanälen führen kann. Stelle sicher, dass dein Inhalt deiner Markenidentität entspricht.
 

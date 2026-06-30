@@ -33,7 +33,7 @@ Bleiben wir bei den Transaktions-Einnahmen, denn wir hatten schon ein paar Mal �
 
 Gut, dann gehen wir von den Transaktions-Einnahmen ins YouTube Studio Mobile, denn das gibt es jetzt auch im horizontalen Modus, im Landscape-Modus, wie es auf Englisch heißt. Das ist ganz nett, um sich Grafiken anzuschauen. Aber mich interessiert erstmal: Wer schaut sich wirklich tiefgehend Analytics am Handy an? Also, ich meine, es ist nett, dass man die Grafiken sehen kann...
 
-# YouTube-Updates: Community-Beteiligung und neue Funktionen
+YouTube-Updates: Community-Beteiligung und neue Funktionen
 
 Ich finde es schwierig, die Bewertungen wirklich auszuwerten, und das Herumfummeln mit den Fingern auf dem Handy ist auch nicht ideal. Es ist nett, aber meiner Meinung nach nicht revolutionär, wenn ihr eine andere Meinung habt, schreibt sie gerne in die Kommentare! Wenn ihr YouTube Studio mobil im Querformat niemals nutzen werdet, lasst es mich auch dort wissen.
 

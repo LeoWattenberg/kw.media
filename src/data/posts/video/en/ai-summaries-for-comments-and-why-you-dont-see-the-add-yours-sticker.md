@@ -31,7 +31,7 @@ Some of you have asked about the "Add your Sticker" feature in YouTube Shorts. I
 
 Lastly: We're collecting questions again for our Q&A stream next Thursday. As we have a meeting with YouTube beforehand, you can send us your questions so we can clarify them and then discuss them on Thursday. So, get commenting!
 
-# KW Media - Creator News
+KW Media - Creator News
 
 We'll write back soon, you know the drill, and we hope to have answers for you by next Thursday. I think I'll say: See you next week, but that's the 19th, September 19th. By then, a lot will likely already be in place by the time you watch this video. You can simply set a reminder and get notified when we go live.
 

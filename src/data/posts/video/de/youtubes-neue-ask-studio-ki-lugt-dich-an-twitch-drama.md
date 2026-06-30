@@ -41,17 +41,17 @@ Wir befinden uns in einem toxischen Teufelskreis. Es begann damit, dass Twitch k
 
 Aber diese externen Agenturen verlangen massive Zahlen, was den View-Botting-Zyklus nun wieder anfacht. Zack wies auch auf eine brutale Metrik in seiner Analyse hin: Wenn du heute einer Marke mit 1000 gleichzeitigen Zuschauern einen Vorschlag unterbreitest, werden sie dich so behandeln, als hättest du 300. Um deinen tatsächlichen Einfluss zu überprüfen, prüfen Marken nun deine YouTube-, TikTok- und Instagram-Präsenz. Und wenn deine Twitch-Zahlen hoch sind, aber deine YouTube-Videos keine Aufrufe haben, wirst du den Deal nicht bekommen. Eine Präsenz auf mehreren Plattformen ist obligatorisch.
 
-# Creator News: YouTube Engagement Richtlinien & Sprachantworten
+Creator News: YouTube Engagement Richtlinien & Sprachantworten
 
-# YouTube als Vergleich
+YouTube als Vergleich
 
 YouTube hat strenge Richtlinien gegen gefälschtes Engagement, bietet aber auch *YouTube Promotions* an, was ihre Art ist, den Schwarzmarkt für Views zu unterbieten. Im Grunde kannst du YouTube dafür bezahlen, dein Video zu bewerben. Es ist jedoch wichtig zu bedenken, dass selbst mit bezahlter Promotion schlechtes Content immer noch schlechter Content bleibt. In bessere Produktionsqualität zu investieren, ist oft eine effektivere Strategie, als versucht Views künstlich zu erhöhen.
 
-# Persönliche Anmerkung:
+Persönliche Anmerkung:
 
 Stimmantworten sind nun offiziell für alle Creator in YouTube-Kommentaren verfügbar. Als jemand, der Sprachnachrichten nicht mag, finde ich sie etwas unhöflich, da sie vom Empfänger oft mehr Zeit fordern als ein einfacher Textkommentar. Während YouTube Stimmantworten auf dem Desktop transkribiert und dir so ermöglicht, sie zu lesen, ist es dennoch eine Frage der persönlichen Präferenz. Was hältst du von Stimmantworten? Teile deine Gedanken in den Kommentaren unten.
 
-# Weitere News:
+Weitere News:
 
 Auf Twitch gibt es weiterhin Drama bezüglich View-Botting. Ist Reed richtig damit, dies als moderne Distributionsstrategie zu bezeichnen, oder sollte Twitch sofortige Maßnahmen ergreifen, um diese Nutzer zu bannen? Lass mich deine Gedanken in den Kommentaren wissen.
 

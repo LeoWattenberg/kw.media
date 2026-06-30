@@ -45,7 +45,7 @@ Wie immer könnte "wird eingeführt" bedeuten, dass es Tage oder Wochen dauern k
 
 Nun zu einigen exklusiven Details direkt von jemandem, der an YouTube Live arbeitet: Stream Across Formats wird sehr schrittweise eingeführt. Es gibt zwei Versionen: eine mit automatischer Beschneidung bei 20% Zugänglichkeit und die Version mit Drittanbieter-Encodern wie OBS, die derzeit bei 0% liegt.
 
-# YouTube Creator News
+YouTube Creator News
 
 YouTube plant, seine neuen Funktionen bis Ende des Jahres auf 500.000 Kanäle auszurollen. Wie immer ist Geduld gefragt. Bald auf YouTube Live: Eisbrecher-Anfragen wie "sag hallo". Die Integration von interaktiven Inhalten (Playables) ist für Q4 bestätigt. Es gibt keine Pläne, Channel Points einzuführen; stattdessen liegt der Fokus auf Playables, Live-F&A, Stickern und geschenkten Mitgliedschaften. Drittanbieter-Widgets haben ebenfalls keine Priorität. API-Upgrades für Live und Chat werden in diesem Quartal eingeführt, um Latenzprobleme zu reduzieren.
 
