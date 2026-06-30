@@ -32,7 +32,7 @@ if (base) {
 	.content-html h2,
 	.content-html h3,
 	.content-html h4 {
-		margin: 1.6em 0 0.45em;
+		margin: 1.15em 0 0.35em;
 		line-height: 1.08;
 		letter-spacing: 0;
 	}
@@ -45,10 +45,22 @@ if (base) {
 		font-size: clamp(1.9rem, 4vw, 3rem);
 	}
 
+	.content-html > :first-child {
+		margin-top: 0;
+	}
+
 	.content-html p,
 	.content-html li {
 		color: var(--color-muted);
 		font-size: 1.05rem;
+	}
+
+	.content-html p {
+		margin: 0 0 0.85em;
+	}
+
+	.content-html :is(h1, h2, h3, h4) + p {
+		margin-top: 0;
 	}
 
 	.content-html a {

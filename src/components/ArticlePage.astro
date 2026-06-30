@@ -113,14 +113,13 @@ function formatPostDate(navigationPost: SourcePost): string {
 			<aside class="related-posts" aria-labelledby="related-posts-heading">
 				<div class="container related-posts-inner">
 					<h2 id="related-posts-heading">{navigationLabels.related}</h2>
-					<div class="related-posts-grid">
+					<ul class="related-posts-list">
 						{relatedPosts.map((relatedPost) => (
-							<a class="related-post-card" href={withBase(relatedPost.path)}>
-								<strong>{relatedPost.title}</strong>
-								{relatedPost.excerpt && <span>{relatedPost.excerpt}</span>}
-							</a>
+							<li>
+								<a href={withBase(relatedPost.path)}>{relatedPost.title}</a>
+							</li>
 						))}
-					</div>
+					</ul>
 				</div>
 			</aside>
 		)
@@ -245,54 +244,49 @@ function formatPostDate(navigationPost: SourcePost): string {
 	}
 
 	.related-posts {
-		padding-block: clamp(38px, 6vw, 64px);
-		background: var(--color-surface-alt);
-		border-top: 1px solid var(--color-line);
+		padding-block: 0 clamp(34px, 5vw, 56px);
+		background: #fff;
 	}
 
 	.related-posts-inner {
-		max-width: 920px;
+		max-width: 860px;
+		padding-inline: 18px;
 	}
 
 	.related-posts h2 {
-		margin: 0 0 20px;
-		font-size: clamp(1.7rem, 3vw, 2.6rem);
-		line-height: 1.1;
+		margin: 0 0 12px;
+		color: var(--color-muted);
+		font-size: 0.86rem;
+		font-weight: 850;
 		letter-spacing: 0;
+		text-transform: uppercase;
 	}
 
-	.related-posts-grid {
+	.related-posts-list {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 16px;
+		gap: 0;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		border-block: 1px solid var(--color-line);
 	}
 
-	.related-post-card {
-		display: grid;
-		gap: 10px;
-		align-content: start;
-		min-height: 160px;
-		padding: 18px;
-		background: #fff;
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-		color: inherit;
+	.related-posts-list li + li {
+		border-top: 1px solid var(--color-line);
+	}
+
+	.related-posts-list a {
+		display: block;
+		padding: 12px 0;
+		color: var(--color-accent-dark);
+		font-size: 1.02rem;
+		font-weight: 750;
+		line-height: 1.35;
 		text-decoration: none;
 	}
 
-	.related-post-card:hover {
-		border-color: var(--color-accent-dark);
-	}
-
-	.related-post-card strong {
-		font-size: 1.04rem;
-		line-height: 1.22;
-	}
-
-	.related-post-card span {
-		color: var(--color-muted);
-		font-size: 0.92rem;
-		line-height: 1.45;
+	.related-posts-list a:hover {
+		text-decoration: underline;
 	}
 
 	.post-navigation {
@@ -382,10 +376,6 @@ function formatPostDate(navigationPost: SourcePost): string {
 	}
 
 	@media (max-width: 760px) {
-		.related-posts-grid {
-			grid-template-columns: 1fr;
-		}
-
 		.post-navigation-grid {
 			grid-template-columns: 1fr;
 		}
