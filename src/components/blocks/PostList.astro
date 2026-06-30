@@ -1,6 +1,7 @@
 ---
 import type { PostListBlock } from '../../data/pages';
 import type { Locale } from '../../i18n';
+import type { PostType } from '../../lib/source-content';
 import { getAllPosts, getPostsByCategory } from '../../lib/source-content';
 import { withBase } from '../../lib/url';
 
@@ -14,18 +15,58 @@ const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllP
 	.filter((post) => post.locale === locale)
 	.filter((post) => (block.authorName ? post.authorName === block.authorName : true))
 	.slice(0, block.limit);
+
+const postTypeLabels: Record<Locale, Record<PostType, string>> = {
+	de: {
+		blog: 'Blog',
+		'short-tutorial': 'Kurztutorials',
+		'video-tutorial': 'Video-Tutorials',
+		'news-video': 'News-Videos',
+	},
+	en: {
+		blog: 'Blog',
+		'short-tutorial': 'Short tutorials',
+		'video-tutorial': 'Video tutorials',
+		'news-video': 'News videos',
+	},
+};
+
+const allLabel = locale === 'de' ? 'Alle' : 'All';
+const emptyLabel = locale === 'de' ? 'Keine Beiträge in dieser Kategorie.' : 'No posts in this category.';
+const postTypeOrder: PostType[] = ['blog', 'short-tutorial', 'video-tutorial', 'news-video'];
+const postCounts = Object.fromEntries(postTypeOrder.map((postType) => [postType, posts.filter((post) => post.postType === postType).length])) as Record<
+	PostType,
+	number
+>;
+const showCategoryControls = !block.limit && posts.length > 0;
 ---
 
-<section class="section posts">
+<section class="section posts" data-post-list>
 	<div class="container">
 		<div class="section-head">
 			<h2>{block.title}</h2>
 			{block.moreHref && <a href={withBase(block.moreHref)}>{block.moreLabel ?? 'More'}</a>}
 		</div>
+		{
+			showCategoryControls && (
+				<div class="category-controls" aria-label={locale === 'de' ? 'Beitragskategorien' : 'Post categories'}>
+					<button type="button" class="active" data-post-filter="all" aria-pressed="true">
+						{allLabel}
+						<span>{posts.length}</span>
+					</button>
+					{postTypeOrder.map((postType) => (
+						<button type="button" data-post-filter={postType} aria-pressed="false">
+							{postTypeLabels[locale][postType]}
+							<span>{postCounts[postType]}</span>
+						</button>
+					))}
+				</div>
+			)
+		}
 		<div class="post-grid">
 			{
 				posts.map((post) => (
-					<article>
+					<article data-post-type={post.postType}>
 						{post.image && <img src={withBase(post.image)} alt="" loading="lazy" />}
 						<div>
 							<time datetime={post.date}>{new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US')}</time>
@@ -36,8 +77,42 @@ const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllP
 				))
 			}
 		</div>
+		{showCategoryControls && <p class="empty-state" data-empty-message hidden>{emptyLabel}</p>}
 	</div>
 </section>
+
+<script>
+	document.querySelectorAll<HTMLElement>('[data-post-list]').forEach((list) => {
+		const buttons = Array.from(list.querySelectorAll<HTMLButtonElement>('[data-post-filter]'));
+		const posts = Array.from(list.querySelectorAll<HTMLElement>('[data-post-type]'));
+		const emptyMessage = list.querySelector<HTMLElement>('[data-empty-message]');
+
+		buttons.forEach((button) => {
+			button.addEventListener('click', () => {
+				const filter = button.dataset.postFilter;
+				let visibleCount = 0;
+
+				buttons.forEach((candidate) => {
+					const isActive = candidate === button;
+					candidate.classList.toggle('active', isActive);
+					candidate.setAttribute('aria-pressed', String(isActive));
+				});
+
+				posts.forEach((post) => {
+					const shouldShow = filter === 'all' || post.dataset.postType === filter;
+					post.hidden = !shouldShow;
+					if (shouldShow) {
+						visibleCount += 1;
+					}
+				});
+
+				if (emptyMessage) {
+					emptyMessage.hidden = visibleCount > 0;
+				}
+			});
+		});
+	});
+</script>
 
 <style>
 	.posts {
@@ -65,6 +140,43 @@ const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllP
 		text-decoration: none;
 	}
 
+	.category-controls {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin: -10px 0 28px;
+	}
+
+	.category-controls button {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		border: 1px solid var(--color-line);
+		border-radius: 999px;
+		background: #fff;
+		color: var(--color-text);
+		cursor: pointer;
+		font: inherit;
+		font-weight: 800;
+		padding: 9px 14px;
+	}
+
+	.category-controls button.active {
+		border-color: var(--color-accent-dark);
+		background: var(--color-accent-dark);
+		color: #fff;
+	}
+
+	.category-controls span {
+		color: var(--color-muted);
+		font-size: 0.82rem;
+	}
+
+	.category-controls button.active span {
+		color: currentColor;
+		opacity: 0.78;
+	}
+
 	.post-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -76,6 +188,11 @@ const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllP
 		background: var(--color-surface-alt);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
+	}
+
+	article[hidden],
+	.empty-state[hidden] {
+		display: none;
 	}
 
 	img {
@@ -108,5 +225,12 @@ const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllP
 	p {
 		margin: 0;
 		color: var(--color-muted);
+	}
+
+	.empty-state {
+		border: 1px dashed var(--color-line);
+		border-radius: 8px;
+		padding: 24px;
+		text-align: center;
 	}
 </style>

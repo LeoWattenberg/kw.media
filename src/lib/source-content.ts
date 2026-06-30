@@ -11,6 +11,7 @@ export interface SourcePost {
 	modified: string;
 	locale: Locale;
 	categoryIds: number[];
+	postType: PostType;
 	image?: string;
 	authorName: string;
 	sourceUrl: string;
@@ -22,8 +23,10 @@ export interface SourcePost {
 	};
 }
 
+export type PostType = 'blog' | 'short-tutorial' | 'video-tutorial' | 'news-video';
+
 interface MarkdownPostModule {
-	frontmatter: Omit<SourcePost, 'contentHtml'>;
+	frontmatter: Omit<SourcePost, 'contentHtml' | 'postType'> & { postType?: PostType };
 	compiledContent: () => Promise<string>;
 }
 
@@ -34,9 +37,26 @@ const postModules = import.meta.glob<MarkdownPostModule>('../data/posts/**/*.md'
 const posts = (
 	await Promise.all(Object.values(postModules).map(async (post) => ({
 		...post.frontmatter,
+		postType: getPostType(post.frontmatter),
 		contentHtml: await post.compiledContent(),
 	})))
 ).sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+
+function getPostType(post: MarkdownPostModule['frontmatter']): PostType {
+	if (post.postType) {
+		return post.postType;
+	}
+
+	if (!post.video) {
+		return 'blog';
+	}
+
+	if (post.video.watchUrl.includes('/shorts/')) {
+		return 'short-tutorial';
+	}
+
+	return 'video-tutorial';
+}
 
 const translatedPostPaths: Array<Partial<Record<Locale, string>>> = [
 	{
