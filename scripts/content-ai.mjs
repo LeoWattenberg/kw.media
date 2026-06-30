@@ -27,6 +27,7 @@ const cleanupModels = {
 
 const ollamaUrl = process.env.OLLAMA_URL ?? process.env.OLLAMA_TRANSLATE_URL ?? 'http://172.20.208.1:11434';
 const translateModel = process.env.OLLAMA_TRANSLATE_MODEL ?? 'aya-expanse:32b';
+const metadataModel = process.env.OLLAMA_METADATA_MODEL ?? process.env.OLLAMA_EXCERPT_MODEL ?? translateModel;
 const timeoutMs = Number(process.env.OLLAMA_TIMEOUT_MS ?? 300000);
 const chunkSize = Number(process.env.OLLAMA_CHUNK_SIZE ?? 5200);
 
@@ -216,6 +217,43 @@ export async function translateAllMissingPosts() {
 	return results;
 }
 
+export async function generateExcerptForPostFile(filePath, options = {}) {
+	const post = readPostFile(filePath);
+	const model = options.model ?? metadataModel;
+	const excerpt = await generateExcerptForPost(post, model);
+
+	if (!options.dryRun) {
+		writePostFile(filePath, { ...post.frontmatter, excerpt }, post.body);
+	}
+
+	return {
+		filePath,
+		model,
+		oldExcerpt: post.frontmatter.excerpt,
+		excerpt,
+		changed: post.frontmatter.excerpt !== excerpt,
+	};
+}
+
+export async function suggestPostMetadataFile(filePath, options = {}) {
+	const post = readPostFile(filePath);
+	const model = options.model ?? metadataModel;
+	const suggestion = await suggestPostMetadata(post, model);
+
+	return {
+		filePath,
+		path: post.frontmatter.path,
+		locale: post.frontmatter.locale,
+		category: post.frontmatter.category,
+		model,
+		current: {
+			title: post.frontmatter.title,
+			excerpt: post.frontmatter.excerpt,
+		},
+		suggestion,
+	};
+}
+
 function parseFrontmatter(raw) {
 	const data = {};
 	let section;
@@ -356,6 +394,73 @@ ${text}`;
 	return ollamaGenerate(translateModel, prompt);
 }
 
+async function generateExcerptForPost(post, model) {
+	const locale = post.frontmatter.locale;
+	const maxLength = post.frontmatter.category === 'short-tutorial' ? 150 : 170;
+	const prompt = `Write a concise metadata excerpt for this KW Media post.
+
+Rules:
+- Return only the excerpt text.
+- Use ${languageName(locale)}.
+- Write one natural sentence if possible.
+- Keep it between 90 and ${maxLength} characters.
+- Summarize what the reader or viewer learns.
+- Preserve platform and product names such as YouTube, YouTube Studio, Shorts, Twitch, OBS, Super Chat, and A/B testing.
+- In German, keep "Creator" as "Creator" and use natural "du" wording if the post speaks directly to viewers.
+- Do not add facts, quotes, markdown, labels, alternatives, or notes.
+
+Post:
+title: ${post.frontmatter.title}
+category: ${post.frontmatter.category}
+current excerpt: ${post.frontmatter.excerpt}
+
+Content:
+${postPlainText(post, 3600)}`;
+	const excerpt = normalizeAiOutput(await ollamaGenerate(model, prompt))
+		.replace(/^excerpt:\s*/i, '')
+		.trim();
+
+	validateGeneratedExcerpt(excerpt, locale, maxLength);
+	return excerpt;
+}
+
+async function suggestPostMetadata(post, model) {
+	const prompt = `Create metadata suggestions for this KW Media post.
+
+Return only JSON with this exact shape:
+{
+  "title": "recommended title",
+  "excerpt": "recommended meta excerpt",
+  "summary": "one sentence editorial summary",
+  "searchKeywords": ["keyword"],
+  "topics": ["topic"],
+  "audienceIntent": "what the reader wants to solve or understand",
+  "qualityNotes": ["metadata or content issue to review"]
+}
+
+Rules:
+- Use ${languageName(post.frontmatter.locale)} for title, excerpt, summary, audienceIntent, and qualityNotes.
+- Keep the excerpt between 90 and 170 characters.
+- Keep the title close to the existing title unless it is clearly broken.
+- Preserve platform and product names such as YouTube, YouTube Studio, Shorts, Twitch, OBS, Super Chat, and A/B testing.
+- In German, keep "Creator" as "Creator".
+- Do not invent facts or external context.
+- Use 5 to 8 searchKeywords and 3 to 6 topics.
+
+Current metadata:
+title: ${post.frontmatter.title}
+excerpt: ${post.frontmatter.excerpt}
+locale: ${post.frontmatter.locale}
+category: ${post.frontmatter.category}
+path: ${post.frontmatter.path}
+
+Content:
+${postPlainText(post, 5200)}`;
+	const suggestion = await ollamaGenerateJson(model, prompt);
+
+	return normalizeMetadataSuggestion(suggestion, post);
+}
+
 function cleanupPrompt(markdown, frontmatter, index, total) {
 	const language = languageName(frontmatter.locale);
 	const contentKind = frontmatter.category === 'blog' ? 'article' : 'transcript';
@@ -431,6 +536,42 @@ async function ollamaGenerate(model, prompt) {
 	}
 }
 
+async function ollamaGenerateJson(model, prompt) {
+	const controller = new AbortController();
+	const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+	try {
+		const response = await fetch(`${ollamaUrl}/api/generate`, {
+			method: 'POST',
+			headers: { 'content-type': 'application/json' },
+			signal: controller.signal,
+			body: JSON.stringify({
+				model,
+				prompt,
+				stream: false,
+				format: 'json',
+				options: {
+					temperature: 0.1,
+					num_ctx: 8192,
+				},
+			}),
+		});
+
+		if (!response.ok) {
+			throw new Error(`Ollama ${model} JSON request failed: HTTP ${response.status}`);
+		}
+
+		const data = await response.json();
+		if (!data.response) {
+			throw new Error(`Ollama ${model} returned no JSON response`);
+		}
+
+		return parseJsonResponse(data.response);
+	} finally {
+		clearTimeout(timeout);
+	}
+}
+
 function normalizeAiOutput(text) {
 	let output = text.trim();
 	const fence = output.match(/^```(?:markdown|md|text)?\s*([\s\S]*?)\s*```$/i);
@@ -443,6 +584,113 @@ function normalizeAiOutput(text) {
 	}
 
 	return output.replace(/\r\n/g, '\n').trim();
+}
+
+function parseJsonResponse(text) {
+	const output = normalizeAiOutput(String(text ?? ''));
+
+	try {
+		return JSON.parse(output);
+	} catch {
+		const match = output.match(/\{[\s\S]*\}/);
+		if (match) {
+			return JSON.parse(match[0]);
+		}
+	}
+
+	throw new Error('Ollama returned invalid JSON');
+}
+
+function normalizeMetadataSuggestion(value, post) {
+	if (!value || typeof value !== 'object' || Array.isArray(value)) {
+		throw new Error(`Metadata suggestion for ${post.frontmatter.path} is not a JSON object`);
+	}
+
+	const title = stringField(value.title, post.frontmatter.title);
+	const excerpt = stringField(value.excerpt, excerptFromBody(post.body, post.frontmatter.locale));
+	const summary = stringField(value.summary, '');
+	const audienceIntent = stringField(value.audienceIntent, '');
+	const searchKeywords = stringArrayField(value.searchKeywords).slice(0, 8);
+	const topics = stringArrayField(value.topics).slice(0, 6);
+	const qualityNotes = stringArrayField(value.qualityNotes).slice(0, 8);
+
+	validateGeneratedExcerpt(excerpt, post.frontmatter.locale, 170);
+
+	return {
+		title,
+		excerpt,
+		summary,
+		searchKeywords,
+		topics,
+		audienceIntent,
+		qualityNotes,
+	};
+}
+
+function stringField(value, fallback) {
+	return typeof value === 'string' && value.trim() ? normalizeAiOutput(value) : fallback;
+}
+
+function stringArrayField(value) {
+	if (!Array.isArray(value)) {
+		return [];
+	}
+
+	return value
+		.map((item) => (typeof item === 'string' ? normalizeAiOutput(item) : ''))
+		.filter(Boolean);
+}
+
+function validateGeneratedExcerpt(excerpt, locale, maxLength) {
+	if (!excerpt || excerpt.length < 45) {
+		throw new Error(`Generated excerpt is too short: ${excerpt}`);
+	}
+
+	if (excerpt.length > maxLength) {
+		throw new Error(`Generated excerpt is too long (${excerpt.length}/${maxLength}): ${excerpt}`);
+	}
+
+	if (/\n|```|^\s*["“]|["”]\s*$|translated text|return only|for KW Media|as an ai/i.test(excerpt)) {
+		throw new Error(`Generated excerpt contains notes, quotes, or prompt leakage: ${excerpt}`);
+	}
+
+	if (locale === 'en' && likelyGermanText(excerpt)) {
+		throw new Error(`Generated English excerpt looks German: ${excerpt}`);
+	}
+
+	if (locale === 'de' && likelyEnglishText(excerpt)) {
+		throw new Error(`Generated German excerpt looks English: ${excerpt}`);
+	}
+}
+
+function postPlainText(post, maxLength = 4000) {
+	const text = post.body
+		.replace(/```[\s\S]*?```/g, ' ')
+		.replace(/^#+\s+.*$/gm, ' ')
+		.replace(/<[^>]+>/g, ' ')
+		.replace(/!\[[^\]]*]\([^)]+\)/g, ' ')
+		.replace(/\[([^\]]+)]\([^)]+\)/g, '$1')
+		.replace(/[`*_>#-]/g, ' ')
+		.replace(/\s+/g, ' ')
+		.trim();
+
+	return text.slice(0, maxLength);
+}
+
+function likelyGermanText(text) {
+	const germanHits = countMatches(text, /\b(und|oder|nicht|dass|dein|deine|deinen|euer|eure|fur|für|uber|über|mit|ist|sind|wird|werden|kann|konnen|können|zuschauer|untertitel)\b|[äöüß]/gi);
+	const englishHits = countMatches(text, /\b(the|and|with|your|you|this|that|for|from|can|will|should|viewers|subtitles)\b/gi);
+	return germanHits >= 3 && germanHits > englishHits * 1.5;
+}
+
+function likelyEnglishText(text) {
+	const germanHits = countMatches(text, /\b(und|oder|nicht|dass|dein|deine|deinen|euer|eure|fur|für|uber|über|mit|ist|sind|wird|werden|kann|konnen|können|zuschauer|untertitel)\b|[äöüß]/gi);
+	const englishHits = countMatches(text, /\b(the|and|with|your|you|this|that|for|from|can|will|should|viewers|subtitles)\b/gi);
+	return englishHits >= 5 && englishHits > germanHits * 2;
+}
+
+function countMatches(text, pattern) {
+	return (String(text ?? '').match(pattern) ?? []).length;
 }
 
 function chunkMarkdown(markdown) {
@@ -475,7 +723,7 @@ function chunkMarkdown(markdown) {
 	return chunks;
 }
 
-function excerptFromBody(body, locale) {
+export function excerptFromBody(body, locale) {
 	const text = body
 		.replace(/^#+\s+.*$/gm, ' ')
 		.replace(/<[^>]+>/g, ' ')
