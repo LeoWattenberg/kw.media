@@ -31,17 +31,17 @@ On March 31st, the definitions for Shorts views are changing. What was previousl
 
 Important: The partner requirements remain unaffected by this change. They continue to be based on Engaged Views, and the payout from the YouTube Ads pool for Shorts remains unchanged. Views of videos and streams still follow the criteria of Engaged Views. There will merely be an inflation of Shorts views.
 
-# The Impact of New YouTube Algorithm Changes
+The Impact of New YouTube Algorithm Changes
 
 As mentioned before, the immediate consequence of this inflation will be a distortion of view counts for YouTube Shorts. In an example from Creator Insider, we saw a difference of almost 50% more views: While the views were at 23-24,000, the Engaged Views were only around 15,000. I've included the graph for you.
 
 My personal assessment is that larger view numbers devalue Shorts views and will lead to communication problems, especially when it comes to the requirements for the YouTube Partner Program. These problems are already visible now when calculating the playback time of Shorts, which doesn't count toward long-form playback times. Now, you might have a much higher number of YouTube Shorts views, but only Engaged Views count. In my opinion, this merely shifts the problem from A to B. I feel that Creators will be in a worse negotiating position with companies as a result.
 
-## A Current Experiment: Push Notifications
+A Current Experiment: Push Notifications
 
 Currently, there's an experiment running for three days: A small group of viewers no longer receives push notifications if they haven't interacted with a channel for a longer period. The notification is still sent, but you have to actively retrieve it by opening the YouTube app and clicking on the notification. For example, if you tap on "K Media has uploaded a video" and indicate that you want to watch it later, YouTube remembers this and continues to send push notifications.
 
-# Important Notes:
+Important Notes:
 
 - You will definitely receive push notifications if a channel uploads very rarely and the feature is enabled. You won't be filtered out. However, the cutoff point for being considered a "rare uploader" or "spammer" was not specified, leaving room for interpretation once again. It would be interesting to see if there are differences in view counts from push notifications depending on how often a channel uploads - daily, weekly, or monthly.
 

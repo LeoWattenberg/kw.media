@@ -35,7 +35,7 @@ Bleiben wir auf der Plattform, aber wechseln wir zu Bildungsinhalten. Ich habe k
 
 Als jemand, der häufig die Grenzen der Plattform ausreizt (ein Gruß an die YouTube-Entwickler, die zuschauen – ich liebe eure Arbeit und schätze euer Feedback immer!), kann ich das nicht akzeptieren. Theoretisch könntest du die PDF-Beschränkung mit Base64-Codierung umgehen. Dies wandelt binäre Daten aus einem DaVinci Resolve-Preset oder einer Zip-Datei in normalen Text um, den du dann in ein PDF einfügen kannst. Nach dem Hochladen auf Google Drive und dem Passieren seines Scanners können Zuschauer es herunterladen, decodieren und die ursprüngliche Datei abrufen.
 
-# Creator News Update
+Creator News Update
 
 Natürlich war das nur ein Gedankenexperiment, und wir haben diese Woche sicherlich kein internes Tool entwickelt, um es zu testen (obwohl es einwandfrei funktioniert hat). Bevor du dich zu sehr freust, werden wir dieses Tool nicht öffentlich freigeben, und ich rate dringend davon ab, dein eigenes zu erstellen, um Dateien auf YouTube zu teilen, die die in der Hilfebroschüre beschriebenen Grenzen überschreiten. Das Verschleiern von Dateien, um Sicherheitsscanner zu umgehen, ist eine sichere Methode, Ärger mit den Richtlinien gegen Spam, Betrug und irreführende Praktiken zu bekommen, weshalb ich es hier nicht vorführen werde.
 
@@ -45,13 +45,13 @@ Wenn ein bösartiger Akteur wirklich Malware verteilen möchte, wird er entweder
 
 Vielleicht bin ich zu optimistisch und es gibt einen Angriffsvektor, den ich übersehe, aber was denkst du? Teile deine Gedanken in den Kommentaren unten.
 
-## B2B-Update: YouTube Studio Media Kit
+B2B-Update: YouTube Studio Media Kit
 
 YouTube hat die native Media-Kit-Funktion in YouTube Studio aktualisiert. Früher Teil des Brand Connect-Funktionsumfangs, wurde es vor ein paar Monaten ausgegliedert und nun können alle YouTube-Partner auf ihre Media Kits zugreifen und sie mit Sponsoren teilen. Dieses Kit enthält nun Daten zu Einkommensgruppen und Elternstatus innerhalb deines Publikums – eine nette Ergänzung, aber wahrscheinlich kein entscheidender Faktor bei Sponsoring-Verhandlungen.
 
 Aus meiner Erfahrung heraus setzen Marken bei ihren Kernzielgruppen (Alter und Geschlecht) sowie beim Integrationskonzept an, bevor sie diese zusätzlichen Metriken berücksichtigen. Ob nun 35 % oder 30 % deines Publikums Eltern sind, ist selten entscheidend, aber es verleiht deinem Pitch-Deck definitiv einen Mehrwert.
 
-## Sprachausgabe-Funktion: Hilfreich oder beleidigend?
+Sprachausgabe-Funktion: Hilfreich oder beleidigend?
 
 Zum Abschluss dieser Woche möchte ich eure Meinung zur Sprachausgabe-Funktion hören. Ist sie ein wertvolles Werkzeug für die Zuschauer oder eine Beleidigung für Videocreator? Teilt eure Gedanken in den Kommentaren unten mit.
 

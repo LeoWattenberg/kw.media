@@ -39,7 +39,7 @@ You first need to go to the corresponding website, which I've linked in the vide
 
 I explicitly don't want any questions about this topic in the comments because I'm not allowed to answer them anyway. Please ask your accountants. And if you're still so arrogant and think you don't need an accountant to fill this out, then please do your own research. It's just an administrative matter.
 
-# Recent Changes Regarding Community Guidelines Violations
+Recent Changes Regarding Community Guidelines Violations
 
 There's an interesting development regarding community guideline violations: Normally, you can appeal YouTube's decision to apply age restrictions or remove content (also known as an "appeal"). Currently, however, a test is being conducted where creators have the opportunity to adjust parts of their videos that would result in age restriction or removal directly in the YouTube Studio Editor. This means you can cut out content, blur it, or make other necessary changes.
 

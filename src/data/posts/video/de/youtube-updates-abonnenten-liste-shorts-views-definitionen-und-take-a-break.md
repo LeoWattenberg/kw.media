@@ -31,13 +31,13 @@ Am 31. März ändern sich die Definitionen für Shorts-Aufrufe. Was bisher als S
 
 Wichtig: Die Partneranforderungen bleiben von dieser Änderung unberührt. Sie basieren weiterhin auf Engaged Views, und auch die Auszahlung aus dem YouTube Ads Topf für Shorts bleibt davon unbeeinflusst. Aufrufe von Videos und Streams folgen weiterhin den Kriterien der Engaged Views. Es wird lediglich eine Inflation bei Shorts-Aufrufen geben.
 
-# Die Auswirkungen der neuen YouTube-Algorithmusänderungen
+Die Auswirkungen der neuen YouTube-Algorithmusänderungen
 
 Wie bereits erwähnt, werden die unmittelbaren Folgen dieser Inflation eine Verzerrung der Aufrufzahlen bei YouTube Shorts sein. In einem Beispiel von Creator Insider haben wir einen Unterschied von fast 50 % mehr Aufrufen gesehen: Während die Aufrufe bei 23-24.000 lagen, waren es bei den *engaged views* nur etwa 15.000. Ich habe euch die Grafik dazu eingeblendet.
 
 Meine persönliche Einschätzung ist, dass größere Aufrufzahlen eine Entwertung der Shorts-Aufrufe darstellen und zu Kommunikationsproblemen führen werden, insbesondere wenn es um die Anforderungen für das YouTube Partnerprogramm geht. Diese Probleme sind bereits jetzt sichtbar, wenn es um die Berechnung der Wiedergabezeit von Shorts geht, die nicht zu den Longform-Wiedergabezeiten gezählt wird. Nun hat man zwar eine viel höhere Anzahl an YouTube-Shorts-Aufrufen, aber nur die *engaged views* zählen. Das verschiebt das Problem meiner Meinung nach nur von A nach B. Ich habe das Gefühl, dass Creator dadurch in einer schlechteren Verhandlungsposition mit Firmen stehen.
 
-## Ein aktuelles Experiment: Push-Benachrichtigungen
+Ein aktuelles Experiment: Push-Benachrichtigungen
 
 Aktuell gibt es ein Experiment, das seit drei Tagen läuft: Eine kleine Gruppe von Zuschauern erhält keine Push-Benachrichtigungen mehr, wenn sie längere Zeit nicht mit einem Kanal interagiert haben. Die Benachrichtigung wird zwar immer noch gesendet, aber man muss sie sich aktiv abholen, indem man die YouTube-App öffnet und auf die Benachrichtigung klickt. Wenn man beispielsweise auf "K Media hat ein Video hochgeladen" tippt und angibt, dass man es sich später ansehen möchte, merkt sich YouTube das und sendet weiterhin Push-Benachrichtigungen.
 

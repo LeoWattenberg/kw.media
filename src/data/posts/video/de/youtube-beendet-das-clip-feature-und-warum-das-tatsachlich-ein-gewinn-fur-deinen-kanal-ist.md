@@ -43,7 +43,7 @@ Bezüglich einer weiteren bedeutenden Funktion hat Neal Mohan 'Voice Boost' best
 
 Abschließend hat YouTube seine Support-Seiten aktualisiert und Details zu Änderungen bei den Abonnenten-Benachrichtigungen veröffentlicht.
 
-# YouTube's Push-Benachrichtigungen: Eine sterbende Funktion?
+YouTube's Push-Benachrichtigungen: Eine sterbende Funktion?
 
 Wenn ein Abonnent das Glöckchen-Symbol aktiviert hat, aber deine Push-Benachrichtigungen konsequent ignoriert oder abweist, ohne sich zu engagieren, kann YouTube diese Warnungen reduzieren, um das Nutzererlebnis zu verbessern. Während dies zunächst besorgniserregend für die Inhaltsreichweite erscheinen mag, besteht kein Grund zur Panik. Hier bei KW Media haben wir in dieser Woche Benachrichtigungsdaten von drei verschiedenen Kanälen in unserem Portfolio analysiert und die Ergebnisse sind recht konsistent.
 
@@ -53,7 +53,7 @@ Wenn ein Abonnent das Glöckchen-Symbol aktiviert hat, aber deine Push-Benachric
 
 Diese Metriken deuten darauf hin, dass der Einfluss des YouTube-Glöckchen-Symbols abnimmt. Push-Benachrichtigungen machen nur einen winzigen Bruchteil des gesamten Traffics aus und sind statistisch nicht signifikant. Wenn YouTube eine Funktion anpasst, die bei einem Video mit 15.000 Aufrufen etwa 60 Aufrufe generiert, hat das kaum Auswirkungen. Daher sollten Creator ihren Fokus von Push-Benachrichtigungen auf die Optimierung für den Browse- und Suggested-Algorithmus verlagern, wo das tatsächliche Publikumswachstum liegt. Es könnte auch an der Zeit sein, wieder mehr Wert auf Abonnements, Likes und Kommentare statt auf das Glöckchen-Symbol zu legen.
 
-## Diese Woche zusammengefasst:
+Diese Woche zusammengefasst:
 - Push-Benachrichtigungen haben einen minimalen Einfluss auf die Reichweite des Inhalts.
 - Konzentriere dich auf Browse- und Vorschlagsalgorithmen für das Wachstum deiner Zielgruppe.
 - Überdenke Abonnement-, Like- und Kommentar-Aufrufe.

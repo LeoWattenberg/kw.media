@@ -45,7 +45,7 @@ As always, "rolling out" could mean it might take days or weeks for you to see t
 
 Now, some exclusive details directly from someone working on YouTube Live: Stream Across Formats is being released very gradually. There are two versions: one with autocrop at 20% accessibility, and the version using third-party encoders like OBS is currently at 0%.
 
-# YouTube Creator News
+YouTube Creator News
 
 YouTube aims to have its new features rolled out to 500,000 channels by the end of the year. As always, patience is key. Coming soon to YouTube Live: icebreaker prompts like "say hi". The integration of playables is confirmed for Q4. There are no plans to introduce channel points; instead, the focus will be on playables, live Q&A, stickers, and gifted memberships. No third-party widgets are a priority either. API upgrades for Live and Chat are coming this quarter to reduce latency issues.
 

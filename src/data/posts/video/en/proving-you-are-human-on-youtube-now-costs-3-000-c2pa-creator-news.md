@@ -39,4 +39,4 @@ Speaking of the platform resurfacing old features, YouTube DMs are officially ro
 
 Finally, regarding glitches: if you checked your YouTube Studio on March 11th and had a minor heart attack because all your views were gone, don't worry – it was a global bug. YouTube Analytics went down briefly, but YouTube Support has officially marked it as fixed, so your data isn't lost. It should reappear over the next few days if it hasn't already. And that's it for this week.
 
-# Let's discuss the deepfake dilemma and your questions for the Nerd-of-the-World in the comments below. I'm Martin, bringing you the relevant creator news, and I'll see you next week.
+Let's discuss the deepfake dilemma and your questions for the Nerd-of-the-World in the comments below. I'm Martin, bringing you the relevant creator news, and I'll see you next week.

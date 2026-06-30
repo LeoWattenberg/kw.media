@@ -35,7 +35,7 @@ In turn, that also means: Please make Shorts! Your Shorts are the foundation for
 
 We'll also create a short tutorial in the near future on how to use your streaming software (in this case, OBS) to A set up a vertical scene, B how to then set up a 5-minute buffer for the vertical scene, and C how to save good material retroactively with one click so you have 5 minutes of content to edit. I think this is super important, and we'll definitely show you how it's done.
 
-# How does it work? No problem!
+How does it work? No problem!
 
 You can already look forward to it in the comments. And finally: A huge thank you for all the sharing and commenting! Last week was an incredible celebration, we're already almost at 1100 subscribers – that even surprises me how quickly it's going. But of course, you still have until October 12th to leave an orange heart and a nice comment. I'll reach out to the comments I like best so they can also get a great CAPI, and yes, another YouTube bag. You know the drill, right?
 

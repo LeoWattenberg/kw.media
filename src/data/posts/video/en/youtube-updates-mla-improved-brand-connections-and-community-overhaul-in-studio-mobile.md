@@ -35,7 +35,7 @@ Let's stay in the Studio, both mobile and desktop, as the Community section is b
 
 This text mentions "including top comments," but it's about the most engaged users. Others are included as well, for example, those who may have written only one or two comments per year but always watch, like, and share. These users will also be featured in the Community Spotlight.
 
-## Community Spotlight and Creator-Initiated Brand Video Links
+Community Spotlight and Creator-Initiated Brand Video Links
 
 People you regularly see in chats and streams, actively commenting, are of course part of the Community Spotlight as well. It's an interesting feature. Be sure to check out the mobile YouTube Studio because the desktop version doesn't have this function yet. Share your thoughts with me! Do you generally think it's cool to have a Community Spotlight? Would you like to know why the people in the Community Spotlight were chosen? If there's a high comment count, they are top commentators, but I'd also like to know if users who give a lot of likes can be marked separately. Let's discuss this!
 
@@ -47,7 +47,7 @@ This could lead to a change in negotiations between Creators and companies. Also
 
 Do you have any further questions? Feel free to write them in the comments! And finally, a quick reminder: if you file an appeal for "reused content,"...
 
-# Reused Content and Video Appeals
+Reused Content and Video Appeals
 
 Please remember that video appeals must be submitted in English. In the last two months, I had two cases where Creators who created their own content were mistakenly identified as copyright infringers, submitted their appeals in German, and they were automatically rejected. This is a bit annoying, but we can still forward it to YouTube if an English version of the video is available. However, it's in your best interest to write the appeal directly in English.
 

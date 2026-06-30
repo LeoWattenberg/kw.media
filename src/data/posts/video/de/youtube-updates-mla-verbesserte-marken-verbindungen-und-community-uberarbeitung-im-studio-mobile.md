@@ -35,7 +35,7 @@ Bleiben wir im Studio, sowohl mobil als auch Desktop, denn dort rollt die Commun
 
 Dieser Text erwähnt "including top comments", aber es geht um die meist engagierten Nutzer. Andere werden damit einbezogen, zum Beispiel solche, die vielleicht nur ein oder zwei Kommentare im Jahr geschrieben haben, aber immer schauen, liken und teilen. Diese Nutzer werden ebenfalls im Community Spotlight aufgeführt.
 
-##  Community Spotlight und Creator Initiated Brand Video Links
+Community Spotlight und Creator Initiated Brand Video Links
 
 Leute, die man regelmäßig in den Chats und Streams sieht und die fleißig kommentieren, sind natürlich auch im Community Spotlight dabei. Es ist eine interessante Geschichte. Schaut auf jeden Fall im YouTube Studio mobil vorbei, denn das Studio Desktop hat diese Funktion noch nicht.  Teilt mir gerne eure Meinung dazu mit! Findet ihr es generell cool, dass ein Community Spotlight gemacht wird? Würdet ihr gerne wissen, warum die Personen im Community Spotlight ausgewählt wurden? Wenn eine hohe Kommentar-Zahl steht, sind es Top-Kommentatoren, aber ich würde schon gerne wissen, ob Nutzer, die sehr viele Likes vergeben haben, separat gekennzeichnet werden können. Lasst uns darüber sprechen!
 
@@ -47,7 +47,7 @@ Dies könnte zu einem Umdenken in den Verhandlungen zwischen Creator und Unterne
 
 Habt ihr weitere Fragen? Schreibt sie gerne in die Kommentare!  Und zum Schluss noch ein kleiner Hinweis: Wenn ihr einen Appeal wegen "reused content" einlegt, ...
 
-# Wiederverwerteter Inhalt und Videoeinsprüche
+Wiederverwerteter Inhalt und Videoeinsprüche
 
 Denkt bitte daran, dass Videoeinsprüche auf Englisch eingereicht werden müssen. In den letzten zwei Monaten hatte ich zwei Fälle, in denen Creator, die eigenen Content erstellen, fälschlicherweise als Copyright-Infringer bezeichnet wurden, ihre Einsprüche auf Deutsch einreichten und diese automatisch abgelehnt wurden. Das ist etwas ärgerlich, aber wir können das noch immer an YouTube weiterleiten, wenn eine englische Version des Videos verfügbar ist. Es ist jedoch in eurem Interesse, den Einspruch direkt auf Englisch zu verfassen.
 

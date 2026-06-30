@@ -31,7 +31,7 @@ Wechseln wir zu Shorts: Die Remix-Funktion wurde überarbeitet und ermöglicht n
 
 Ein kleines Update noch zum Kapitel am Ende der Patch-Notes: Wir wissen, dass Kapitel eine geheime Metrik haben, die nicht an die Intermediate- oder Advanced-Features gebunden sind. Es ist etwas unklar, warum sie funktionieren, aber...
 
-# Warum Kapitel auf YouTube wichtig sind
+Warum Kapitel auf YouTube wichtig sind
 
 In unserem letzten Video haben wir bereits die Grundlagen zu diesem Thema behandelt und YouTube hat nun endlich angekündigt, dass Kapitel bald zu den erweiterten Funktionen gehören sollen. Das ist für das zweite Quartal 2024 geplant, also April, Mai oder Juni, aber es kann auch noch etwas länger dauern. Ich bin jedoch überzeugt, dass dies ein wichtiger Schritt nach vorne ist. Wenn ihr noch keine Kapitel verwendet, solltet ihr das unbedingt tun! Es mag zwar nicht intuitiv erscheinen, aber es hilft dabei, neue Zuschauer zu erreichen, was doch in eurem Interesse sein sollte.
 

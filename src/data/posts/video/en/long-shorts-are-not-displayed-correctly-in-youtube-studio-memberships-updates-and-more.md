@@ -37,7 +37,7 @@ Staying on Shorts: You can now save multiple drafts in the creation tool. When y
 
 There's also a small parity update: The disclosure box for product placement can now be enabled or disabled for both Shorts and videos in Desktop and Mobile Studio—handy if you forget to do it on the go. We should maybe make a separate video about that.
 
-# Memberships and Surveys Updates
+Memberships and Surveys Updates
 
 Previously, membership badges and live chat emojis had to be uploaded separately, but this process has now been simplified, especially for mobile Creators.
 

@@ -29,7 +29,7 @@ Dann hatten wir bereits in den letzten Wochen darüber gesprochen, dass es eine 
 
 Und ja, wie gesagt, ich freue mich auf eure Zuschriften. Bleiben wir bei den vertikalen Livestreams bzw. im Shortsfeed, aber gehen wir zu den vertikalen Livestreams über. In den kommenden Wochen kommen die sogenannten YouTube Juwelen bzw. Jeels, leider nur für US-Creator. Hört es euch trotzdem an, denn vielleicht kommt der ganze Kram ja irgendwann auch zu uns, und wir können jetzt schon Learnings daraus ziehen, was wir damit machen wollen. Also, kurze Wiederholung: Jels sind eine digitale Währung, die von Zuschauern in Paketen gekauft werden kann. Diese Pakete kennen die Gamer unter euch, wenn man irgendwo eine digitale Währung hat. Für 1000 Juwelen kann man dann irgendwie 899 zahlen und bekommt ein paar Extra-Juwelen dazu. Je mehr man ausgibt, desto mehr Extra bekommt man. Daher variiert der genaue Preis von Juwelen je nach gekauftem Paket. Soweit so gut bzw. schlecht. Mikrotransaktionen sind immer ein schwieriges Thema. Juwelen können ausschließlich in vertikalen Livestreams für sogenannte Geschenke oder im...
 
-# Geschenke und Rubine: Ein Überblick
+Geschenke und Rubine: Ein Überblick
 
 Die englischen Geschenke, die mit Juwelen gekauft werden, haben einen festen Rubinwert. Hier ist eine wichtige Unterscheidung, die wir treffen müssen:
 
@@ -39,7 +39,7 @@ Die englischen Geschenke, die mit Juwelen gekauft werden, haben einen festen Rub
 
 Wenn ihr Fragen habt, schreibt sie gerne in die Kommentare! Ich kann es auch noch einmal anders erklären oder eine bildliche Darstellung liefern. Die Rubine werden zu euren Einnahmen gezählt, aber der genaue Preis der Geschenke ist nicht bekannt. Ich werde meine "Spione" im englischen und amerikanischen Markt losschicken, um mehr über die Preisgestaltung und die Umrechnung zwischen Juwelen und Rubinen herauszufinden. Wir können dann eine Liste erstellen, um zu sehen, welche Geschenke sinnvoll sind und wie viel beim Creator ankommt.
 
-## Nutzung der Juwelen
+Nutzung der Juwelen
 
 Diese Funktion ist noch nicht in Deutschland verfügbar, aber hier ist eine Vorschau: Es gibt ein neues Modul auf der YouTube-Partnerschaftsseite oder der Monetarisierungsseite namens "Virtuelle Gegenstände" (im Original: *Virtual Items*). Ihr findet es an der gleichen Stelle wie Fan-Funding (Mitgliedschaften), Super Chats und Shorts-Anzeigen. Um diese Funktion zu nutzen, müsst ihr das Modul in euren Vereinbarungen/Verträgen aktivieren. Wichtig: Wenn ihr die Juwelen-Geschenke aktiviert, werden die Super Sticker deaktiviert. Ihr könnt also entweder das eine oder das andere verwenden, aber nicht beides gleichzeitig. Persönlich finde ich Super Chats interaktiver und angenehmer für Creator als Super Sticker.
 

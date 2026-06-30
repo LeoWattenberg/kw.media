@@ -37,28 +37,28 @@ Was denkt ihr über dieses Thema? Schreibt eure Gedanken gerne in die Kommentare
 
 Bis zum nächsten Mal!
 
-# YouTube-Updates dieser Woche
+YouTube-Updates dieser Woche
 
-## Voice Replies
+Voice Replies
 Wir starten mit den Voice Replies für iOS in den USA für englischsprachige Videos. Die Anzahl der Creator, die Zugriff haben, hat sich vervierfacht, von 25 auf 100. Das ist eine verrückte Entwicklung! Bald werden auch Android-Nutzer hinzukommen. Wie bereits erwähnt, nur der Creator kann eine Sprachnachricht erstellen, um Missbrauch zu vermeiden. Ich bin persönlich kein großer Fan von Voice Replies, aber ihr könnt mir gerne eure Meinung dazu mitteilen.
 
-## Multilinguales Audio
+Multilinguales Audio
 Der ursprüngliche Plan, das Feature bis Mitte Dezember einzuführen, wurde verworfen. Der aktuelle Plan sieht einen monatlichen Rollout vor, bis im April 100% Autodubbing erreicht sind. Es wird geprüft, ob das Fehlen der Möglichkeit, manuell erstellte Tonspuren hochzuladen, ein Fehler oder eine bewusste Entscheidung des Teams ist. Viele Creator sind derzeit von Autodubbing nicht begeistert. Wir bleiben dran und halten euch auf dem Laufenden.
 
-## PIN-Verifizierung in Google AdSense
+PIN-Verifizierung in Google AdSense
 Google hat sich entschieden, die Verifizierungsmethode für Creator in Schwellen- und Entwicklungsländern zu ändern, da der Postversand dort oft problematisch ist. Anstatt eine Postkarte mit einer PIN zu verschicken, kann man sich nun mit einem Selfie und seinem Pass verifizieren. Dies wird zunächst in 24 Schwellenländern ausgerollt. Ich finde diese Methode einerseits praktisch, andererseits möchte man nicht überall seinen Pass angeben. Vielleicht ist es aber eine sinnvolle Alternative für diejenigen, bei denen die Post nicht ankommt.
 
-## Fan Communities
+Fan Communities
 Fan Communities werden seit letztem Jahr getestet. Sie ermöglichen einen bidirektionalen Austausch zwischen Creator und Fans. Community Posts sind nur in eine Richtung, während in den Fan Communities sowohl Creator als auch Fans Posts erstellen können, einschließlich Bildern. Dies kann eine großartige Möglichkeit sein, Inhalte zu generieren, birgt aber auch das Risiko von Missbrauch. Daher erhalten Creator Moderations- und Kontrolltools, um die Posts zu verwalten und unerwünschte Inhalte zu entfernen. Die genauen Details dieser Tools sind noch nicht bekannt, was angesichts des bevorstehenden Rollouts in wenigen Wochen problematisch ist.
 
-# Schwierigkeiten und Benachrichtigungen
+Schwierigkeiten und Benachrichtigungen
 
 Wenn ihr bereits Zugriff habt, werdet ihr sowohl eine Benachrichtigung im YouTube Studio als auch eine E-Mail erhalten. So könnt ihr einen ersten Blick auf die Neuigkeiten werfen. Sobald wir mehr Informationen haben, werden wir natürlich aktiv werden und uns freuen, wenn ihr eure Gedanken in Posts und Kommentaren teilt.
 
-## Zusammenfassung der Updates
+Zusammenfassung der Updates
 
 Das waren die Updates für diese Woche. Ich hoffe, ihr konntet etwas Neues lernen und mitnehmen. Bei Fragen oder Unklarheiten zögert nicht, mich zu kontaktieren. Ich freue mich immer, Dinge zu klären und eure Fragen zu beantworten.
 
-## Nächste Schritte
+Nächste Schritte
 
 Wir sehen uns dann nächste Woche im Livestream! Falls ihr Fragen habt, schreibt sie gerne in die Kommentare. Ich habe noch einige Nachfragen vom letzten Mal, auf die wir ebenfalls eingehen werden. Vielen Dank für eure Aufmerksamkeit, bis zum nächsten Mal beim Patch-Rundown! Bleibt aktiv und haut rein!

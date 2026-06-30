@@ -29,7 +29,7 @@ There are currently no free memberships in the Vertical Live program. This is ac
 
 The next point is "Shorts Live Feed Eligibility," which is essentially the ability for Vertical Streams to appear in the Shorts Live Feed. This is actually a rephrasing by YouTube's legal team to avoid content like minors going live and possibly doing nonsensical things, or extremists and the like, appearing in the live feed. Anything we don't want in the live feed, YouTube reserves the right to censor. Of course, this will upset some people, but it's not censorship; it's a sensible measure. Multistreamers need to be especially careful now. These are people who stream on multiple platforms simultaneously. YouTube is currently considering modifying its spam policies to make it unacceptable to write in titles, thumbnails, or chat that you won't interact on YouTube and want to direct viewers to another platform.
 
-# Tips for Using YouTube
+Tips for Using YouTube
 
 This is more or less already included in the guidelines from time to time, but it's being made more explicit: Please interact with your community on YouTube and create your content properly and decently. If you only want to use the platform to generate reach and redirect it to another platform, you can expect the corresponding consequences.
 

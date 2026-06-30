@@ -39,7 +39,7 @@ Ihr müsst zunächst auf die entsprechende Website gehen, die ich in der Videobe
 
 Ich möchte ausdrücklich keine Fragen zu diesem Thema unter dem Video haben, weil ich sie sowieso nicht beantworten darf. Fragt bitte eure Steuerberater. Und wenn ihr immer noch so arrogant seid und meint, ihr braucht keinen Steuerberater, um das auszufüllen, dann macht bitte eure eigene Recherche. Das ist ja nur eine verwaltungstechnische Angelegenheit.
 
-# Aktuelle Änderungen bei Community-Richtlinien-Verstößen
+Aktuelle Änderungen bei Community-Richtlinien-Verstößen
 
 Es gibt eine interessante Entwicklung bezüglich Community-Richtlinien-Verstößen: Normalerweise kann man gegen die Entscheidung von YouTube, Videos mit Altersbeschränkung oder entfernten Inhalten zu versehen, Einspruch erheben (auch als "Appeal" bekannt). Aktuell wird jedoch ein Test durchgeführt, bei dem Creator die Möglichkeit haben, Teile ihrer Videos, die eine Altersbeschränkung zur Folge hätten oder entfernt wurden, im YouTube Studio Editor anzupassen. Das bedeutet, ihr könnt Inhalte schneiden, unkenntlich machen (bluren) oder andere notwendige Änderungen vornehmen.
 

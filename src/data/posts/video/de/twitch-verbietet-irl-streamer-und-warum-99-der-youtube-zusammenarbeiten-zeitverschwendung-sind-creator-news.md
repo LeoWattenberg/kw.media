@@ -33,7 +33,7 @@ Dies führt zu Video-Ketten, bei denen Zuschauer zwischen Kanälen springen und 
 
 Wenn euer Collab-Beitrag keine Resonanz findet, gibt es wahrscheinlich einen Grund. Ständiges Hochschieben mit "Bump" oder versteckten Punkten ist nicht die Lösung. Seien wir ehrlich: Wenn sich niemand engagieren möchte, ist es an der Zeit, den Ansatz zu überdenken.
 
-# Creator-Zusammenarbeit: Ein neues Matchmaking-System?
+Creator-Zusammenarbeit: Ein neues Matchmaking-System?
 
 Aber ich denke, was wir brauchen, ist ein Matchmaking-System für Creator – nicht nur für Gaming-Creator, sondern für alle Arten von Creator. Der Fokus sollte auf Qualität und gemeinsamen Projektzielen liegen. Ich spreche hier nicht nur von Gaming-Creatorn, sondern von Creatorn im Allgemeinen, die eine Idee oder ein Konzept posten, das sie zum Leben erwecken möchten. Andere können dann diese Ideen vorschlagen und daran zusammenarbeiten, was zu einem communitygetriebenen kreativen Prozess führt.
 

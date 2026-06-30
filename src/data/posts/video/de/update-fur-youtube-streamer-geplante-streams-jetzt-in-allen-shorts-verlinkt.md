@@ -35,7 +35,7 @@ Im Umkehrschluss heißt das natürlich auch: Macht bitte Shorts! Das heißt, eur
 
 Wir werden auch in naher Zukunft ein kleines Tutorial machen, wie man seine Streaming-Software (in dem Fall OBS) dazu nutzen kann, A eine vertikale Szene einzurichten, B wie man dann einen 5-Minuten-Buffer einrichtet für die vertikale Szene und wir dann per Knopfdruck rückwirkend gutes Material speichern können, damit ihr 5 Minuten Material habt, aus dem ihr euch dann etwas zusammenschneiden könnt. Ich finde, das ist eine super wichtige Geschichte. Wir werden es euch natürlich zeigen.
 
-# Wie das geht? Gar kein Thema!
+Wie das geht? Gar kein Thema!
 
 Ihr könnt euch schon mal in den Kommentaren darauf freuen. Und zum Schluss: Vielen lieben Dank fürs fleißige Teilen und Kommentieren! Letzte Woche war ein unglaubliches Fest, wir sind jetzt schon fast bei 1100 Abonnenten – das überrascht mich selbst, dass es auf einmal so schnell geht. Aber natürlich habt ihr weiterhin bis zum 12. Oktober Zeit, ein orangenes Herz und einen netten Kommentar zu hinterlassen. Die Kommentare, die mir am besten gefallen, schreibe ich an, dass sie auch eine tolle CAPI bekommen, und ja, noch einen YouTube-Beutel. Ihr wisst Bescheid, ne?
 

@@ -35,23 +35,23 @@ Here's how it works: YouTube AI estimates a user's age based on their viewing hi
 
 For creators, if you're identified as under 18, your uploads will be private by default, but you can make them public. This ensures you can't accidentally upload something inappropriate.
 
-# YouTube Updates: Impact on Creator Revenue and New Features
+YouTube Updates: Impact on Creator Revenue and New Features
 
 In this video, we discuss the recent changes to YouTube's age verification process and how they might affect creators' revenue.
 
-## Privacy and Public Access
+Privacy and Public Access
 
 Initially, your content will be private, and you'll need to make a conscious decision to make it public. This is a positive step in my view.
 
-## Earning Gifts on Vertical Live Stream
+Earning Gifts on Vertical Live Stream
 
 You'll have limited capabilities to earn gifts during vertical live streams, but this feature is currently only available in the US. To take advantage of this, your account must be linked to a guardian or parent, which means it will fall under the 18+ category. Therefore, the potential decrease in earnings may not be significant.
 
-## Impact on Creator Revenue for Those Over 18
+Impact on Creator Revenue for Those Over 18
 
 There might be a minor revenue decrease for creators over 18 due to some viewers being categorized as under 18, resulting in non-personalized ads. However, YouTube assures that the impact will be minimal, and our initial data supports this claim. Age reports and YouTube Analytics will soon reflect these AI-driven estimates. Remember, this change only affects US viewers, so if only a portion of your audience is from the US, only their demographics will be adjusted.
 
-## Tasks for Creators:
+Tasks for Creators:
 
 1. **Monitor Your Demographics:** Keep track of your viewer demographics over the next few weeks and note any changes. Share your channel's category and the distribution of your audience before and after August 13th, especially if you're affected by age verification.
 

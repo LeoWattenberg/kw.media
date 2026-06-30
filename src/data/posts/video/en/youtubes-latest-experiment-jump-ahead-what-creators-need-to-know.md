@@ -31,7 +31,7 @@ Let's switch to Shorts: The remix function has been improved and now allows you 
 
 A small update regarding chapters at the end of the patch notes: We know that chapters have a secret metric that isn't tied to intermediate or advanced features. It's a bit unclear why they work, but...
 
-# Why YouTube Chapters Are Important
+Why YouTube Chapters Are Important
 
 In our last video, we already covered the basics on this topic, and YouTube has finally announced that chapters will soon be part of the advanced features. This is planned for the second quarter of 2024, so April, May, or June, but it might take a bit longer. However, I'm convinced this is an important step forward. If you're not using chapters yet, you absolutely should! It may not seem intuitive, but it helps reach new viewers, which should be in your interest.
 

@@ -49,7 +49,7 @@ Moving on to a significant workflow update from YouTube. If you've followed KW M
 
 Since the November test, there have been updates. You can now use up to 10 images in a carousel. However, you can now also add text overlays and royalty-free music from the audio library or Dream Track (if available in your country). This could be an incredible low-effort, high-reward engagement strategy. Think about it: you no longer need to film and color grade a video to hit the Shorts algorithm.
 
-# Creator News: Leveraging YouTube Shorts for Engaging Content
+Creator News: Leveraging YouTube Shorts for Engaging Content
 
 A quick three-image meme carousel, a before-and-after short, or a photo dump can now directly contribute to the Shorts view pool. This feature allows you to maintain visibility within the algorithm on days when producing a full video isn't feasible. However, a word of caution: refrain from excessive use of stolen memes. If your channel becomes a haven for low-effort meme dumps, you risk violating YouTube's policies against reused or inauthentic content, potentially leading to monetization loss across all your channels. Ensure that your content remains true to your brand identity.
 
