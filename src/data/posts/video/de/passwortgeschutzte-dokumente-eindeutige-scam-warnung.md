@@ -3,7 +3,7 @@ id: 3147
 slug: "passwortgeschutzte-dokumente-eindeutige-scam-warnung"
 path: "/youtube-tipps-de/passwortgeschutzte-dokumente-eindeutige-scam-warnung/"
 title: "Passwortgeschützte Dokumente? Eindeutige Scam-Warnung!"
-excerpt: "Diese Woche keine YouTube Updates dafür ein kleiner scam der aktuell um sich greift und gar nicht mal ein so schlecht gemacht hab das untrainierte Auge könnte da schon ein bisschen Schwierigkeiten haben den zu..."
+excerpt: "Diese Woche gibt es keine YouTube Updates, dafür möchte ich euch vor einem aktuellen Scam warnen, der ziemlich raffiniert ist und das untrainierte Auge möglicherweise täuschen könnte. Es geht darum, dass auf Kanälen,..."
 date: "2025-03-15T13:15:02"
 modified: "2025-03-15T13:15:02"
 locale: "de"
@@ -21,10 +21,10 @@ video:
 
 ## Transkript
 
-Diese Woche keine YouTube Updates dafür ein kleiner scam der aktuell um sich greift und gar nicht mal ein so schlecht gemacht hab das untrainierte Auge könnte da schon ein bisschen Schwierigkeiten haben den zu erkennen und zwar geht es darum dass von vermeintlich offiziell aussehenden YouTube-kanälen private Videos hochgeladen werden und die dann freigegeben werden für andere Personen hauptsächlich Creator in diesen Videos ist dann ein gediebfakter YouTube CEO zu sehen der euch auffordert euch ein verschlüsseltes Dokument runterzuladen um die neuesten Updates zur YouTube Monetarisierung euch anzuschauen das
+Diese Woche gibt es keine YouTube-Updates, dafür möchte ich euch vor einem aktuellen Scam warnen, der ziemlich raffiniert ist und das untrainierte Auge möglicherweise täuschen könnte. Es geht darum, dass auf Kanälen, die offiziell aussehen, private Videos hochgeladen werden, die dann für andere Personen, hauptsächlich Creator, freigegeben werden. In diesen Videos sieht man einen gefälschten YouTube-CEO, der euch auffordert, ein verschlüsseltes Dokument herunterzuladen, um die neuesten Updates zur YouTube-Monetarisierung zu sehen.
 
-macht ihr natürlich nicht diese Updates gibt es nämlich öffentlich verfügbar von Creator Insider von offiziellen YouTube Kanälen unter anderem auch von PE Kanälen wie meinen oder den meiner PE Kollegin auf Team YouTube auf Twitter im Forum und im YouTube Blogpost die werden niemals als verschlüsselte E-Mail oder oder als verschlüsseltes Dokument an eure E-Mail gesendet die auf ein privates Video verweist okay hab es verstanden wunderbar ihr öffnet sowas bitte nicht ne also das macht ihr generell nicht egal ob das per E-Mail kommt oder wie gesagt in
+Natürlich solltet ihr das nicht tun! Diese Updates sind öffentlich verfügbar und werden von offiziellen YouTube-Kanälen, wie z.B. Creator Insider, PE-Kanälen wie meinem oder dem meiner PE-Kollegin auf Twitter, im Forum und im YouTube-Blogpost veröffentlicht. Sie werden niemals als verschlüsselte E-Mail oder Dokument an eure E-Mail-Adresse gesendet, die auf ein privates Video verweist. Habt ihr das verstanden? Wunderbar! Bitte öffnet solche Links nicht, egal ob sie per E-Mail kommen oder in der Beschreibung eines privaten Videos erscheinen.
 
-der Beschreibung von dem privaten Video passiert gut es ist auch wie gesagt unerheblich wie das genau im Backend funktioniert und dass YouTube mal wieder unfähig ist die vermeintlichen YouTube offiziellen Kanäle nicht einfach rauszukegeln zumal sie ja auch erst letztes Jahr eine Policy dagegen eingeführt haben ne die impersonation Policy und also es ist wieder alles schwierig ich hoffe das wird möglichst schnell gefixt ich halte euch natürlich auf dem laufenden hier und bis dahin bleibt ihr bitte wachsam und falls ihr Fragen zum Thema YouTube habt gerne dann
+Es ist auch unerheblich, wie genau das im Backend funktioniert und dass YouTube offenbar Schwierigkeiten hat, diese angeblich offiziellen Kanäle zu entfernen, obwohl sie erst letztes Jahr eine Policy gegen Impersonation eingeführt haben. Es ist wieder einmal alles etwas schwierig. Ich hoffe, das wird schnell behoben. Ich halte euch natürlich auf dem Laufenden. Bis dahin bleibt bitte wachsam! Wenn ihr Fragen zum Thema YouTube habt, schreibt sie gerne in die Kommentare, dann können wir darüber diskutieren, was euch am meisten beschäftigt.
 
-mit in die Kommentare dann können wir das mal in Ruhe besprechen was euch so oft im Herzen liegt würde sagen wir sehen uns nächste Woche wieder zu weiteren Updates bis dahin macht's gut und haut rein
+Ich sage bis nächste Woche, wenn es weitere Updates gibt. Bis dahin, macht's gut und haut rein!

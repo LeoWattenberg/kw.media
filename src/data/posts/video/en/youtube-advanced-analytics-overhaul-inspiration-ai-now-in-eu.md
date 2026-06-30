@@ -3,7 +3,7 @@ id: 3134
 slug: "youtube-advanced-analytics-overhaul-inspiration-ai-now-in-eu"
 path: "/youtube-tips-en/youtube-advanced-analytics-overhaul-inspiration-ai-now-in-eu/"
 title: "YouTube Advanced Analytics Overhaul + Inspiration AI Now in EU"
-excerpt: "The YouTube updates. Let's start by revisiting the live streaming policy we teased about last week."
+excerpt: "Let's dive into the latest YouTube updates. First up, a recap of the live streaming policy we mentioned last week."
 date: "2025-06-28T12:15:00"
 modified: "2025-06-28T12:15:00"
 locale: "en"
@@ -21,20 +21,18 @@ video:
 
 ## Transcript
 
-The YouTube updates. Let's start by revisiting the live streaming policy we teased about last week. YouTubers shuffled around the wording one last time. So, the finalized wording is creators age 13 to 15 must be visibly accompanied by an adult, otherwise they will face chatbing feature. If you have lost access to the streaming feature, please do not try to stream on another channel because that will lead to a ban circumvention ban and that also means well, you know, not being able to ever have a YouTube channel again. Don't do it.
+Let's dive into the latest YouTube updates. First up, a recap of the live streaming policy we mentioned last week. After some fine-tuning, the final wording is: creators aged 13 to 15 must be visibly accompanied by an adult during live streams; otherwise, they risk losing the live streaming feature. If you've lost access to this feature, please refrain from attempting to stream on another channel. This could lead to a ban circumvention penalty, resulting in permanent loss of your YouTube channel.
 
-Creators aged 16 plus can stream without supervision, which wasn't clear in the last week, but well, they cleared these things up and added a very good help center article with general helpful information for young streamers. Uh, I really appreciate that article. Uh, it clears up a lot of things and um, yeah, that's a huge win on my opinion. If you want to check it out, it's linked in the description below. Up next, we have the advanced mode for analytics, which has gotten an overhaul, a major overhaul to be fair.
+Creators aged 16 and above can now stream without supervision, which was previously unclear. YouTube has also published a comprehensive help center article with valuable information for young streamers—a fantastic resource, in my opinion, addressing many concerns. You can find the link in the description below.
 
-Um, completely new UI. Um, you can now save filter settings, so you don't have to rearrange the metrics all the time. Um, so you can simply like load up a filter setting and have your report ready in and at the go instead of like clicking through 700 sub menus. Um, also the sidebar and the chart can be collapsed. So you can focus on the data if that's your thing. You can collapse them separately. So if you don't want the chart but need the sidebar, you can do that.
+Next, we have an exciting update to the analytics advanced mode, which has undergone a significant overhaul. The new UI includes several improvements: you can now save filter settings, eliminating the need to adjust metrics manually every time. Simply load your saved filters for quick access to your reports. Additionally, both the sidebar and chart can be collapsed separately, allowing you to focus on the data or the chart as needed.
 
-And the other way around, if you don't need the sidebar, but would like to like take a closer look at the chart, that's also possible. Um, I feel like we should make a video about my top filter recommendations for creators and what they are used for. Um, maybe you folks have suggestions too. Any metrics you want to know more about, please drop them in the comments below. Up next, we have autodubbing, which has been expanded into new languages.
+Considering the enhanced filtering options, I think a video detailing my top filter recommendations for creators would be valuable. If you have specific metrics you'd like to explore further, please share them in the comments below.
 
-Um, since I'm not going to read them all out, please read them yourself on the screen. And yeah, unfortunately there are no news yet on why transcriptbased clips don't work with autodubbing. I have u well filed an inquiry with YouTube, but the person that is usually answering to us is currently out of office, so this might take a while, but we'll get there. And there's also no news about multilinguage audio yet either. Finally, we need to quickly talk about the inspiration tab in the EU and UK.
+Moving on, autodubbing has expanded to additional languages. You can see the full list on screen. Unfortunately, there's no new information yet on why transcript-based clips aren't compatible with autodubbing. I've submitted an inquiry to YouTube, but as the usual contact is currently unavailable, we'll have to wait for a response. There's also no update on multilingual audio at this time.
 
-Basically, it analyzes what's your channel about and well checks the audience interests and gives you recommendations on what videos might fit your channel going forward. Um, so if you want to explore a topic further, you can click on it and it will give you a hook and an outline on how your video could be structured. You can well bounce ideas with it and if you like the idea, you can save it for later. And basically, I do think it's not bad at what it does.
+Lastly, let's discuss the Inspiration tab available in the EU and UK. This feature analyzes your channel's content and audience interests to suggest relevant video ideas. You can explore these suggestions, save them for later, or use them as a starting point for your own creative process. While some ideas may not be perfect, it's a useful tool for brainstorming, outperforming similar idea-generating AI tools like ChatGPT or Gemini in my experience.
 
-Sure some of the ideas are bad but so are your ideas. So not not every idea is a 10 out of 10 idea obviously and I think for bouncing ideas it is totally helpful and you can totally do it and I do think it does a better job at what it does than for example chatgpt or Gemini which I have used in the past to bounce ideas with. So I do really appreciate that. Um, and yeah, I think you should give it a try if you haven't already.
+However, the related Dream Screen feature, which generates AI images for posts and backgrounds for Shorts, is currently only available in the UK, not the EU. If you were hoping to utilize this for your content, you'll need to explore alternative solutions for now. Feel free to ask any questions about this feature in the comments.
 
-Unfortunately, the related dream screen feature, which is used to generate, for example, AI generated images for posts or AI generated backgrounds for shorts, is only available in the UK, but not in the EU. So if you had hopes to well use it for your posts, you have to rely on other sources than Dreamcreen to get that done. If you have any questions about this feature, please let me know in the comments below and let me know what you think.
-
-Don't forget to subscribe for weekly YouTube updates and I'll see you next week. Take care. Bye.
+Don't forget to subscribe for weekly YouTube updates! See you next time. Take care, bye!

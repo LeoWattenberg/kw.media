@@ -3,7 +3,7 @@ id: 3169
 slug: "neu-auf-youtube-mitglied-werden-button-animation"
 path: "/youtube-tipps-de/neu-auf-youtube-mitglied-werden-button-animation/"
 title: "Neu auf YouTube: \"Mitglied Werden\"-Button Animation"
-excerpt: "Ein kleines Update für Creator mit kanalmitgliedschaften wenn ihr jetzt einen call to action macht also eure Zuschauer auffordert kanalmitglied zu werden indem ihr z.B sagt werdet kanalmitglied oder im englischen..."
+excerpt: "Ein kleines Update für Creator mit Kanal Mitgliedschaften: Wenn ihr jetzt einen Call to Action macht und eure Zuschauer auffordert, Kanal Mitglied zu werden – zum Beispiel mit \"Werdet Kanal Mitglied\" oder auf..."
 date: "2024-08-17T12:30:41"
 modified: "2024-08-17T12:30:41"
 locale: "de"
@@ -21,6 +21,6 @@ video:
 
 ## Transkript
 
-Ein kleines Update für Creator mit kanalmitgliedschaften wenn ihr jetzt einen call to action macht also eure Zuschauer auffordert kanalmitglied zu werden indem ihr z.B sagt werdet kanalmitglied oder im englischen join my channel become a channel Member dann wird der join Button also der Mitglied werden Button unter einem Video entsprechend farbig animiert aufleuchten finde ich es eine nette Geschichte das gab's auch schon mit abonniert meinen Kanal und das ist jetzt einfach nur so eine neue Funktionalität die halt aufgrund der Spracherkennung mit baut wurde ist eine ganz
+Ein kleines Update für Creator mit Kanal-Mitgliedschaften: Wenn ihr jetzt einen Call-to-Action macht und eure Zuschauer auffordert, Kanal-Mitglied zu werden – zum Beispiel mit "Werdet Kanal-Mitglied" oder auf Englisch "Join my channel, become a Channel Member" –, dann wird der "Mitglied werden"-Button unter einem Video farbig animiert aufleuchten. Ich finde, das ist eine nette Geschichte. Das gab es schon mit "Abonniere meinen Kanal", und das ist jetzt einfach eine neue Funktion, die aufgrund der Spracherkennung hinzugefügt wurde. Eine wirklich nette Geschichte.
 
-nette Geschichte mehr gibt's diese Woche leider gar nicht deswegen sehen wir uns nächste Woche wieder bis dahin macht's gut und rein
+Mehr gibt's diese Woche leider gar nicht, also sehen wir uns nächste Woche wieder. Bis dahin, macht's gut und bis bald!
