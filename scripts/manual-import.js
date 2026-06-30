@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, join } from 'node:path';
+import { cleanupPostFile, translatePostFile } from './content-ai.mjs';
 
 const playlists = [
 	{
@@ -330,8 +331,7 @@ function summarizeTranscript(transcript) {
 
 function frontmatterString(data) {
 	const quote = (value) => `"${String(value).replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
-
-	return [
+	const lines = [
 		'---',
 		`id: ${data.id}`,
 		`slug: ${quote(data.slug)}`,
@@ -341,6 +341,13 @@ function frontmatterString(data) {
 		`date: ${quote(data.date)}`,
 		`modified: ${quote(data.modified)}`,
 		`locale: ${quote(data.locale)}`,
+	];
+
+	if (data.translationKey) {
+		lines.push(`translationKey: ${quote(data.translationKey)}`);
+	}
+
+	lines.push(
 		`categoryIds: [${data.categoryIds.join(', ')}]`,
 		`postType: ${quote(data.postType)}`,
 		`image: ${quote(data.image)}`,
@@ -352,7 +359,9 @@ function frontmatterString(data) {
 		`  watchUrl: ${quote(data.video.watchUrl)}`,
 		`  thumbnailUrl: ${quote(data.video.thumbnailUrl)}`,
 		'---',
-	].join('\n');
+	);
+
+	return lines.join('\n');
 }
 
 function markdownBody(locale, paragraphs) {
@@ -409,7 +418,9 @@ const existingSlugs = extractExistingSlugs(posts);
 let nextId = extractMaxId(posts) + 1;
 const tempDir = mkdtempSync(join(tmpdir(), 'kwmedia-youtube-import-'));
 const created = [];
+const translated = [];
 const skipped = [];
+const runAiPostProcessing = process.env.IMPORT_AI !== '0';
 
 try {
 	for (const playlist of playlists) {
@@ -444,6 +455,7 @@ try {
 				date,
 				modified: date,
 				locale,
+				translationKey: `video:${entry.id}`,
 				categoryIds: [locale === 'de' ? 17 : 18],
 				postType: playlist.postType,
 				image: thumbnailUrl,
@@ -458,9 +470,24 @@ try {
 			};
 
 			const fileContent = `${frontmatterString(post)}\n\n${markdownBody(locale, transcriptParagraphs(cleanedTranscript))}\n`;
-			writeFileSync(join(postOutputDirectory('video', locale), `${slug}.md`), fileContent);
+			const outputPath = join(postOutputDirectory('video', locale), `${slug}.md`);
+			let createdTranslation = false;
+			writeFileSync(outputPath, fileContent);
+
+			if (runAiPostProcessing) {
+				console.log(`Cleaning ${outputPath}`);
+				await cleanupPostFile(outputPath);
+
+				console.log(`Translating ${outputPath}`);
+				const translation = await translatePostFile(outputPath);
+				if (!translation.skipped) {
+					createdTranslation = true;
+					translated.push(`${metadata.title} (${entry.id}) -> ${translation.targetPath}`);
+				}
+			}
+
 			existingVideoIds.add(entry.id);
-			nextId += 1;
+			nextId += createdTranslation ? 2 : 1;
 			created.push(`${metadata.title} (${entry.id})`);
 		}
 	}
@@ -475,6 +502,13 @@ if (created.length) {
 	}
 } else {
 	console.log('No new YouTube videos found.');
+}
+
+if (translated.length) {
+	console.log(`Translated ${translated.length} YouTube post(s):`);
+	for (const item of translated) {
+		console.log(`- ${item}`);
+	}
 }
 
 if (skipped.length) {

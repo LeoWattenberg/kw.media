@@ -10,6 +10,7 @@ export interface SourcePost {
 	date: string;
 	modified: string;
 	locale: Locale;
+	translationKey?: string;
 	categoryIds: number[];
 	postType: PostType;
 	image?: string;
@@ -85,12 +86,32 @@ const translatedPostPathsByPath = new Map(
 	translatedPostPaths.flatMap((paths) => Object.values(paths).map((path) => [path, paths] as const)),
 );
 
+function translationGroupKey(post: SourcePost): string {
+	return post.translationKey ?? (post.video ? `video:${post.video.youtubeId}` : post.path);
+}
+
+const inferredTranslatedPostPaths = new Map<string, SourcePost[]>();
+
+for (const post of posts) {
+	const key = translationGroupKey(post);
+	inferredTranslatedPostPaths.set(key, [...(inferredTranslatedPostPaths.get(key) ?? []), post]);
+}
+
+const inferredTranslatedPostPathsByPath = new Map(
+	[...inferredTranslatedPostPaths.values()]
+		.filter((group) => group.length > 1)
+		.map((group) => Object.fromEntries(group.map((post) => [post.locale, post.path])) as Partial<Record<Locale, string>>)
+		.flatMap((paths) => Object.values(paths).map((path) => [path, paths] as const)),
+);
+
 export function getAllPosts(): SourcePost[] {
 	return [...posts];
 }
 
 export function getPostAlternatePaths(post: SourcePost): Partial<Record<Locale, string>> {
-	return translatedPostPathsByPath.get(post.path) ?? { [post.locale]: post.path };
+	return translatedPostPathsByPath.get(post.path)
+		?? inferredTranslatedPostPathsByPath.get(post.path)
+		?? { [post.locale]: post.path };
 }
 
 export function getPostsByCategory(categoryId: number): SourcePost[] {

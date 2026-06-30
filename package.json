@@ -7,7 +7,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "import:youtube": "node scripts/manual-import.js"
+    "import:youtube": "node scripts/manual-import.js",
+    "cleanup:post": "node scripts/cleanup-post.mjs",
+    "cleanup:last-commit": "node scripts/cleanup-last-commit-posts.mjs",
+    "translate:post": "node scripts/translate-post.mjs",
+    "translate:all-missing": "node scripts/translate-all-missing-posts.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
