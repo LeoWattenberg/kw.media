@@ -1,4 +1,5 @@
 import type { Locale } from '../i18n';
+import relatedPostPaths from '../data/related-posts.json';
 
 export interface SourcePost {
 	id: number;
@@ -131,6 +132,14 @@ export function getPostNavigation(post: SourcePost): PostNavigation {
 			post,
 		),
 	};
+}
+
+export function getRelatedPosts(post: SourcePost): SourcePost[] {
+	const paths = (relatedPostPaths as Record<string, string[]>)[post.path] ?? [];
+
+	return paths
+		.map((path) => getPostByPath(path))
+		.filter((candidate): candidate is SourcePost => Boolean(candidate));
 }
 
 export function getPostByPath(path: string): SourcePost | undefined {
