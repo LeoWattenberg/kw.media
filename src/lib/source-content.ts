@@ -26,6 +26,16 @@ export interface SourcePost {
 
 export type PostType = 'blog' | 'short-tutorial' | 'video-tutorial' | 'news-video';
 
+export interface AdjacentPosts {
+	previous?: SourcePost;
+	next?: SourcePost;
+}
+
+export interface PostNavigation {
+	chronological: AdjacentPosts;
+	category: AdjacentPosts;
+}
+
 interface MarkdownPostModule {
 	frontmatter: Omit<SourcePost, 'contentHtml' | 'postType'> & { postType?: PostType };
 	compiledContent: () => Promise<string>;
@@ -118,7 +128,30 @@ export function getPostsByCategory(categoryId: number): SourcePost[] {
 	return posts.filter((post) => post.categoryIds.includes(categoryId));
 }
 
+export function getPostNavigation(post: SourcePost): PostNavigation {
+	return {
+		chronological: getAdjacentPosts(posts.filter((candidate) => candidate.locale === post.locale), post),
+		category: getAdjacentPosts(
+			posts.filter((candidate) => candidate.locale === post.locale && candidate.postType === post.postType),
+			post,
+		),
+	};
+}
+
 export function getPostByPath(path: string): SourcePost | undefined {
 	const normalizedPath = path.endsWith('/') ? path : `${path}/`;
 	return posts.find((post) => post.path === normalizedPath);
+}
+
+function getAdjacentPosts(candidates: SourcePost[], post: SourcePost): AdjacentPosts {
+	const currentIndex = candidates.findIndex((candidate) => candidate.path === post.path);
+
+	if (currentIndex === -1) {
+		return {};
+	}
+
+	return {
+		previous: candidates[currentIndex + 1],
+		next: candidates[currentIndex - 1],
+	};
 }
