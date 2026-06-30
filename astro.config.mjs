@@ -20,6 +20,8 @@ export default defineConfig({
       '/imprint-service/': '/en/imprint-service/',
       '/live/': '/de/live/',
       '/vtuber/': '/en/vtuber/',
+      '/webdesign/': '/de/webdesign-management/',
+      '/website-design-management/': '/en/website-design-management/',
       '/werbung/': '/de/werbung/',
 
       '/new/ads/': '/en/ads/',

@@ -30,6 +30,10 @@ export const routes = {
 		de: '/de/werbung/',
 		en: '/en/ads/',
 	},
+	websiteDesignManagement: {
+		de: '/de/webdesign-management/',
+		en: '/en/website-design-management/',
+	},
 	dubbing: {
 		de: '/de/video-synchronisation/',
 		en: '/en/video-dubbing/',
