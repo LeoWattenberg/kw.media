@@ -7,7 +7,9 @@ excerpt: "YouTube ABC: YouTube guidelines are standardized rules that promote re
 date: "2024-07-11T14:00:19"
 modified: "2024-07-11T14:00:19"
 locale: "en"
+translationKey: "video:OiALToW1vk8"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/OiALToW1vk8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OiALToW1vk8"

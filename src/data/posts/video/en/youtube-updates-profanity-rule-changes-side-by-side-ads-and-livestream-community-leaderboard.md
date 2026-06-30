@@ -7,6 +7,7 @@ excerpt: "We had the opportunity to talk to someone who is actually working on t
 date: "2025-05-03T12:15:03"
 modified: "2025-05-03T12:15:03"
 locale: "en"
+translationKey: "video:9SP8lXBW-wk"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/9SP8lXBW-wk/maxresdefault.jpg"

@@ -7,7 +7,9 @@ excerpt: "Klärt, ob YouTube-Live-Wiedergabestunden für die Anforderungen des Y
 date: "2024-01-20T12:30:00"
 modified: "2024-01-20T12:30:00"
 locale: "de"
+translationKey: "video:aIFl-V2c47o"
 categoryIds: [17]
+postType: "video-tutorial"
 image: "https://i.ytimg.com/vi/aIFl-V2c47o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=aIFl-V2c47o"

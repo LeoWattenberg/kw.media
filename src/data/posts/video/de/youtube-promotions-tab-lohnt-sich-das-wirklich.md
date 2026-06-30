@@ -7,7 +7,9 @@ excerpt: "Erklärt den YouTube Promotions Tab, welche Ziele er verfolgt und wann
 date: "2024-05-11T10:08:15"
 modified: "2024-05-11T10:08:15"
 locale: "de"
+translationKey: "video:TjSGf5YjMtI"
 categoryIds: [17]
+postType: "video-tutorial"
 image: "https://i.ytimg.com/vi/TjSGf5YjMtI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=TjSGf5YjMtI"

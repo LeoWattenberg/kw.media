@@ -7,7 +7,9 @@ excerpt: "The YouTube ABC: engagement is part of video analytics it shows you th
 date: "2024-07-05T12:05:39"
 modified: "2024-07-05T12:05:39"
 locale: "en"
+translationKey: "video:nhfBKX1ZYWc"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/nhfBKX1ZYWc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nhfBKX1ZYWc"

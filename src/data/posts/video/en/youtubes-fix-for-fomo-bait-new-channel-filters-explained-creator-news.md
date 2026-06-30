@@ -7,6 +7,7 @@ excerpt: "What's up, everyone? Welcome back to the YouTube Creator News!"
 date: "2025-11-15T13:15:04"
 modified: "2025-11-15T13:15:04"
 locale: "en"
+translationKey: "video:N4NERKAfs5k"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/N4NERKAfs5k/maxresdefault.jpg"

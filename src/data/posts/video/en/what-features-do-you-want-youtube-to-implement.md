@@ -7,7 +7,9 @@ excerpt: "What features would you like to see on YouTube we've been collecting y
 date: "2024-11-10T16:15:02"
 modified: "2024-11-10T16:15:02"
 locale: "en"
+translationKey: "video:dweBFb3ts3k"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/dweBFb3ts3k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/dweBFb3ts3k"

@@ -7,7 +7,9 @@ excerpt: "Up until recently you were only able to select thumbnails for shorts w
 date: "2024-11-06T16:15:03"
 modified: "2024-11-06T16:15:03"
 locale: "en"
+translationKey: "video:ncaW0WL9X9E"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/ncaW0WL9X9E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ncaW0WL9X9E"

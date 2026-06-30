@@ -7,7 +7,9 @@ excerpt: "Kleiner fun fact an der Stelle Wasserzeichen von drittanbieterplattfor
 date: "2023-01-12T10:43:32"
 modified: "2023-01-12T10:43:32"
 locale: "de"
+translationKey: "video:O6H6KRNoFsQ"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/O6H6KRNoFsQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/O6H6KRNoFsQ"

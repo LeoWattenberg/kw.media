@@ -7,6 +7,7 @@ excerpt: "Let's talk about YouTube updates, specifically the memberships button 
 date: "2025-08-23T12:15:05"
 modified: "2025-08-23T12:15:05"
 locale: "en"
+translationKey: "video:ge8wm6W-EF0"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/ge8wm6W-EF0/maxresdefault.jpg"

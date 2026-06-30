@@ -7,6 +7,7 @@ excerpt: "We need to talk about YouTube's Subscribe Plus experiment. For some us
 date: "2025-04-12T12:15:01"
 modified: "2025-04-12T12:15:01"
 locale: "en"
+translationKey: "video:7dB5B_EKnYE"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/7dB5B_EKnYE/maxresdefault.jpg"

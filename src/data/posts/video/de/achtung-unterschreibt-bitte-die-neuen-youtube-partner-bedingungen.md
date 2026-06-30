@@ -7,7 +7,9 @@ excerpt: "Für alle Creator die bereits Teil des YouTube partnerschaftsprogramms
 date: "2023-01-12T10:43:31"
 modified: "2023-01-12T10:43:31"
 locale: "de"
+translationKey: "video:5vBlAeXG_uE"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/5vBlAeXG_uE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5vBlAeXG_uE"

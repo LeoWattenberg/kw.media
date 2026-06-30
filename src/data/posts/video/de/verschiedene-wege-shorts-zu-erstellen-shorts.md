@@ -7,7 +7,9 @@ excerpt: "Zeigt mehrere Wege, Shorts zu erstellen: über die Shorts-Kamera, Hoch
 date: "2022-02-21T13:14:34"
 modified: "2022-02-21T13:14:34"
 locale: "de"
+translationKey: "video:Tan75JmMd18"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/Tan75JmMd18/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Tan75JmMd18"

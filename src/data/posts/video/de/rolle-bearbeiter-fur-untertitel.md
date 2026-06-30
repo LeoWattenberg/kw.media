@@ -7,7 +7,9 @@ excerpt: "Erklärt die YouTube-Rolle für Untertitelbearbeiter und wie du Person
 date: "2022-04-11T22:00:24"
 modified: "2022-04-11T22:00:24"
 locale: "de"
+translationKey: "video:ejYerCk6F_k"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/ejYerCk6F_k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ejYerCk6F_k"

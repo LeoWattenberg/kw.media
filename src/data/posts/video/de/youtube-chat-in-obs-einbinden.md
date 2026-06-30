@@ -7,7 +7,9 @@ excerpt: "Um einen YouTube Live Chat in eurem obs einzubinden müsst ihr zunäch
 date: "2023-03-24T16:30:02"
 modified: "2023-03-24T16:30:02"
 locale: "de"
+translationKey: "video:E5BmjrCT1LE"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/E5BmjrCT1LE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/E5BmjrCT1LE"

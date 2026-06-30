@@ -7,7 +7,9 @@ excerpt: "Shows how to set up YouTube channel guidelines with an intro message a
 date: "2026-01-10T10:31:11"
 modified: "2026-01-10T10:31:11"
 locale: "en"
+translationKey: "video:xS8QSY5GC68"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/xS8QSY5GC68/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/xS8QSY5GC68"

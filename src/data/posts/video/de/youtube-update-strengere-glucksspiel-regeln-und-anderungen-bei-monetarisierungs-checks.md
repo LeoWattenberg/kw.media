@@ -7,6 +7,7 @@ excerpt: "YouTube verschärft seine Online Glücksspielrichtlinien: Es ist nun n
 date: "2025-03-08T13:15:00"
 modified: "2025-03-08T13:15:00"
 locale: "de"
+translationKey: "video:4vqgeulXPO8"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/4vqgeulXPO8/maxresdefault.jpg"

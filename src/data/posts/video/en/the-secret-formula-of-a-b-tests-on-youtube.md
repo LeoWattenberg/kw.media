@@ -7,7 +7,9 @@ excerpt: "Explains how YouTube A/B tests use statistical confidence, sample size
 date: "2026-06-19T15:58:15"
 modified: "2026-06-19T15:58:15"
 locale: "en"
+translationKey: "video:ouFl0bkCWx4"
 categoryIds: [18]
+postType: "video-tutorial"
 image: "https://i.ytimg.com/vi/ouFl0bkCWx4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=ouFl0bkCWx4"

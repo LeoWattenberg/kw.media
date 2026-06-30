@@ -7,7 +7,9 @@ excerpt: "Explains YouTube's Thumbnail Test & Compare feature and how creators c
 date: "2024-06-11T18:08:39"
 modified: "2024-06-11T18:08:39"
 locale: "en"
+translationKey: "video:R7uZYO3UbB0"
 categoryIds: [18]
+postType: "video-tutorial"
 image: "https://i.ytimg.com/vi/R7uZYO3UbB0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=R7uZYO3UbB0"

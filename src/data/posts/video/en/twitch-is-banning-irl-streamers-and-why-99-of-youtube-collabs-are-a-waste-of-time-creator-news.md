@@ -7,6 +7,7 @@ excerpt: "Hey everyone, and welcome to the creator news. Usually, we'd be a bit 
 date: "2026-05-09T12:15:06"
 modified: "2026-05-09T12:15:06"
 locale: "en"
+translationKey: "video:tQ4Qxdz5diI"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/tQ4Qxdz5diI/maxresdefault.jpg"

@@ -7,7 +7,9 @@ excerpt: "Um schnell mit Voreinstellungen auf anderen Geräten zu streamen biete
 date: "2023-03-29T15:30:01"
 modified: "2023-03-29T15:30:01"
 locale: "de"
+translationKey: "video:5jWzRRKKR2k"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/5jWzRRKKR2k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5jWzRRKKR2k"

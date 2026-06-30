@@ -7,7 +7,9 @@ excerpt: "Um live wieder rechts in euren Livestreams empfangen zu können müsst
 date: "2023-04-04T15:30:06"
 modified: "2023-04-04T15:30:06"
 locale: "de"
+translationKey: "video:Hy3CFCjHYog"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/Hy3CFCjHYog/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Hy3CFCjHYog"

@@ -7,6 +7,7 @@ excerpt: "YouTube Shopping bekommt einige Updates: sogenannte Shopping Collectio
 date: "2024-04-13T12:30:13"
 modified: "2024-04-13T12:30:13"
 locale: "de"
+translationKey: "video:FZw6pXiSETg"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/FZw6pXiSETg/maxresdefault.jpg"

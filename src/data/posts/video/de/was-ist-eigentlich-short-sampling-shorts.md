@@ -7,7 +7,9 @@ excerpt: "Erklärt, wie Creator das Sampling ihrer Videos für Shorts erlauben o
 date: "2022-03-07T23:00:24"
 modified: "2022-03-07T23:00:24"
 locale: "de"
+translationKey: "video:FlH6HGVR82A"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/FlH6HGVR82A/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/FlH6HGVR82A"

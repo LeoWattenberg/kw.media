@@ -7,6 +7,7 @@ excerpt: "Das Teilen von Kanälen soll einfacher werden. Deshalb läuft gerade e
 date: "2024-06-15T12:30:35"
 modified: "2024-06-15T12:30:35"
 locale: "de"
+translationKey: "video:hsmHl_LDtxg"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/hsmHl_LDtxg/maxresdefault.jpg"

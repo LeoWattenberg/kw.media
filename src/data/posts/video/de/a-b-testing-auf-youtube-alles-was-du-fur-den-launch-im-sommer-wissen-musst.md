@@ -7,6 +7,7 @@ excerpt: "Thumbnail A/B Testing, oder auch Test und Compare, wie YouTube es gena
 date: "2024-04-27T12:30:17"
 modified: "2024-04-27T12:30:17"
 locale: "de"
+translationKey: "video:WwNMa1XUVsg"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/WwNMa1XUVsg/maxresdefault.jpg"

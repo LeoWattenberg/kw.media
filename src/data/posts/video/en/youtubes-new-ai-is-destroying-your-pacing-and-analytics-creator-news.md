@@ -7,6 +7,7 @@ excerpt: "We're starting today with an open source escape route from the Adobe s
 date: "2026-04-11T12:15:07"
 modified: "2026-04-11T12:15:07"
 locale: "en"
+translationKey: "video:S_Qwsk7CKB0"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/S_Qwsk7CKB0/maxresdefault.jpg"

@@ -7,7 +7,9 @@ excerpt: "YouTube ABC: Community tab next to interactions and videos shorts and 
 date: "2024-06-26T08:06:29"
 modified: "2024-06-26T08:06:29"
 locale: "en"
+translationKey: "video:mZgmJ4ch5Mo"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/mZgmJ4ch5Mo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/mZgmJ4ch5Mo"

@@ -7,7 +7,9 @@ excerpt: "So nutzt du Bildumfragen im Community Tab auf Android und verlinkst da
 date: "2022-05-17T10:00:18"
 modified: "2022-05-17T10:00:18"
 locale: "de"
+translationKey: "video:eFpsYo_qJbM"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/eFpsYo_qJbM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/eFpsYo_qJbM"

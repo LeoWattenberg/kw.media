@@ -7,6 +7,7 @@ excerpt: "We've got some new YouTube updates to share. But before we dive in, we
 date: "2025-08-30T12:15:16"
 modified: "2025-08-30T12:15:16"
 locale: "en"
+translationKey: "video:pgpp8FB-Jwg"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/pgpp8FB-Jwg/maxresdefault.jpg"

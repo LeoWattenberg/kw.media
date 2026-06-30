@@ -7,7 +7,9 @@ excerpt: "Erklärt, wann das Membershelf erscheint und wie Creator es im Studio 
 date: "2022-05-24T15:00:14"
 modified: "2022-05-24T15:00:14"
 locale: "de"
+translationKey: "video:CPUIzFT6wmM"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/CPUIzFT6wmM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CPUIzFT6wmM"

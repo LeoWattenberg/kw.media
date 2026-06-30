@@ -7,6 +7,7 @@ excerpt: "The YouTube free hype beta is expanding into the EU and a few other co
 date: "2025-07-19T12:15:05"
 modified: "2025-07-19T12:15:05"
 locale: "en"
+translationKey: "video:jnVTl0DWVWs"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/jnVTl0DWVWs/maxresdefault.jpg"

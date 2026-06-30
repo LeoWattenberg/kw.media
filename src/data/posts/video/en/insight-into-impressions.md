@@ -7,7 +7,9 @@ excerpt: "YouTube ABC: you can locate The Impressions in the YouTube Studio by s
 date: "2024-07-23T14:00:05"
 modified: "2024-07-23T14:00:05"
 locale: "en"
+translationKey: "video:3sIpLIwsQEo"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/3sIpLIwsQEo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/3sIpLIwsQEo"

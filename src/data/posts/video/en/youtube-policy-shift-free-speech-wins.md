@@ -7,6 +7,7 @@ excerpt: "All right, if you thought the YouTube search overhaul last week was al
 date: "2026-01-17T13:15:13"
 modified: "2026-01-17T13:15:13"
 locale: "en"
+translationKey: "video:kTWDA2-4MKI"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/kTWDA2-4MKI/maxresdefault.jpg"

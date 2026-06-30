@@ -7,6 +7,7 @@ excerpt: "Gifts on vertical live streams purchased with YouTube's digital curren
 date: "2025-04-19T12:15:10"
 modified: "2025-04-19T12:15:10"
 locale: "en"
+translationKey: "video:glHG5LA9-4E"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/glHG5LA9-4E/maxresdefault.jpg"

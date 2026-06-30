@@ -7,6 +7,7 @@ excerpt: "Wo du den YouTube Patch Rundown findest, was die News-Serie bietet und
 date: "2021-06-07T14:10:19"
 modified: "2022-07-16T12:47:21"
 locale: "de"
+translationKey: "post:1389"
 categoryIds: [17]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"

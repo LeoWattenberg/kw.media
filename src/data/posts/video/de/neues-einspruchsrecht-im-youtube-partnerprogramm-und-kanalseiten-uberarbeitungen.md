@@ -7,6 +7,7 @@ excerpt: "Sollten Sie aus dem YouTube Partnerschaftsprogramm ausgeschlossen werd
 date: "2024-08-03T13:04:32"
 modified: "2024-08-03T13:04:32"
 locale: "de"
+translationKey: "video:KAWEPkrS2eI"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/KAWEPkrS2eI/maxresdefault.jpg"

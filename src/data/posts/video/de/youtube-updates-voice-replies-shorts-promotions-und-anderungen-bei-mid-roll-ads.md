@@ -7,6 +7,7 @@ excerpt: "Willkommen zu den neuesten YouTube Updates! Heute sprechen wir über S
 date: "2025-02-22T13:15:06"
 modified: "2025-02-22T13:15:06"
 locale: "de"
+translationKey: "video:KHAFS_SR8IQ"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/KHAFS_SR8IQ/maxresdefault.jpg"

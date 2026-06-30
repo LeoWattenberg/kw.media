@@ -7,7 +7,9 @@ excerpt: "The YouTube ABC: YouTube analytics is a free tool provided by YouTube 
 date: "2024-06-13T10:09:08"
 modified: "2024-06-13T10:09:08"
 locale: "en"
+translationKey: "video:R5ReoaOEaG0"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/R5ReoaOEaG0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/R5ReoaOEaG0"

@@ -7,6 +7,7 @@ excerpt: "Twitch is quietly introducing up to 90 second pre roll ads, effectivel
 date: "2026-06-27T12:15:16"
 modified: "2026-06-27T12:15:16"
 locale: "en"
+translationKey: "video:PtwJQOyhdwU"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/PtwJQOyhdwU/maxresdefault.jpg"

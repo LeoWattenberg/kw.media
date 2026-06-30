@@ -7,7 +7,9 @@ excerpt: "Um bei YouTube nach einem hashtags versuchungen gehst du auf die suchl
 date: "2021-09-09T13:00:06"
 modified: "2021-09-09T13:00:06"
 locale: "de"
+translationKey: "video:CtyhveAZNRo"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/CtyhveAZNRo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CtyhveAZNRo"

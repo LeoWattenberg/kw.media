@@ -7,6 +7,7 @@ excerpt: "Frohes Neues! YouTube hat die ersten Updates im Jahr 2025 veröffentli
 date: "2025-01-11T13:15:04"
 modified: "2025-01-11T13:15:04"
 locale: "de"
+translationKey: "video:WTD5Zfk4pIY"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/WTD5Zfk4pIY/maxresdefault.jpg"

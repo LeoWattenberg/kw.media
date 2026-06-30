@@ -7,6 +7,7 @@ excerpt: "MLA bzw. Auto Dubbing wird nach und nach ausgerollt."
 date: "2024-11-16T13:15:01"
 modified: "2024-11-16T13:15:01"
 locale: "de"
+translationKey: "video:Ca2UQvh5p5Q"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/Ca2UQvh5p5Q/maxresdefault.jpg"

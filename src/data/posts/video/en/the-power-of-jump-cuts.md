@@ -7,7 +7,9 @@ excerpt: "YouTube ABC: jump cuts are a popular method of cutting out unnecessary
 date: "2024-07-31T14:00:38"
 modified: "2024-07-31T14:00:38"
 locale: "en"
+translationKey: "video:gs5hdwEO9gs"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/gs5hdwEO9gs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/gs5hdwEO9gs"

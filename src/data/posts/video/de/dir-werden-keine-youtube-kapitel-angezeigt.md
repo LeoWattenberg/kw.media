@@ -7,7 +7,9 @@ excerpt: "Erklärt, warum YouTube-Kapitel in Videos manchmal nicht angezeigt wer
 date: "2023-03-13T16:30:14"
 modified: "2023-03-13T16:30:14"
 locale: "de"
+translationKey: "video:raKkureDLlA"
 categoryIds: [17]
+postType: "video-tutorial"
 image: "https://i.ytimg.com/vi/raKkureDLlA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=raKkureDLlA"

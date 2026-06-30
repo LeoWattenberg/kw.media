@@ -7,7 +7,9 @@ excerpt: "So richtest du Kanalrichtlinien ein, damit neue Zuschauer Chat- und Ko
 date: "2022-04-19T20:23:36"
 modified: "2022-04-19T20:23:36"
 locale: "de"
+translationKey: "video:SI8OKrwxSu8"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/SI8OKrwxSu8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/SI8OKrwxSu8"

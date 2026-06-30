@@ -7,7 +7,9 @@ excerpt: "As a Creator you want to be remembered a branding can help with that o
 date: "2024-06-14T10:24:16"
 modified: "2024-06-14T10:24:16"
 locale: "en"
+translationKey: "video:xIG7D8RdP2I"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/xIG7D8RdP2I/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/xIG7D8RdP2I"

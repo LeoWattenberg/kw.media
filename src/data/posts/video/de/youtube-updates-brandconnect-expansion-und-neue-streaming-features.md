@@ -7,6 +7,7 @@ excerpt: "Die YouTube Updates diese Woche: Thumbnails sind jetzt bearbeitbar. Da
 date: "2024-09-07T12:30:54"
 modified: "2024-09-07T12:30:54"
 locale: "de"
+translationKey: "video:yOHQeHV2iYk"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/yOHQeHV2iYk/maxresdefault.jpg"

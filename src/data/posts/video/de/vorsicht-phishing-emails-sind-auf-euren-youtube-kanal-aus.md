@@ -7,7 +7,9 @@ excerpt: "In letzter Zeit sehen wir wieder vermehrt Phishing-E-Mails. Das Herunt
 date: "2023-04-03T15:30:01"
 modified: "2023-04-03T15:30:01"
 locale: "de"
+translationKey: "video:8ADk4DxW_EA"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/8ADk4DxW_EA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8ADk4DxW_EA"

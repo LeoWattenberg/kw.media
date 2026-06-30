@@ -7,6 +7,7 @@ excerpt: "Die YouTube Updates diese Woche starten wir mit dem Memberships Bonusp
 date: "2024-08-24T12:30:32"
 modified: "2024-08-24T12:30:32"
 locale: "de"
+translationKey: "video:XDdgidkQSUc"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/XDdgidkQSUc/maxresdefault.jpg"

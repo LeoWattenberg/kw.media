@@ -7,6 +7,7 @@ excerpt: "Use the AIDA model to plan YouTube thumbnails that earn attention, cre
 date: "2021-07-02T12:41:20"
 modified: "2023-03-17T12:57:29"
 locale: "en"
+translationKey: "post:1676"
 categoryIds: [18]
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png"
 authorName: "Leo Wattenberg"

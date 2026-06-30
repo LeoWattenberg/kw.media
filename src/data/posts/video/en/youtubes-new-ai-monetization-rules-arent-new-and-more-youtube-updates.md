@@ -7,6 +7,7 @@ excerpt: "We need to talk about the YouTube AI monetization policy update, which
 date: "2025-07-12T12:15:00"
 modified: "2025-07-12T12:15:00"
 locale: "en"
+translationKey: "video:37D_qt7XH7c"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/37D_qt7XH7c/maxresdefault.jpg"

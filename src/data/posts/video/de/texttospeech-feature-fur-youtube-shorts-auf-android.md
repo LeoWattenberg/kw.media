@@ -7,6 +7,7 @@ excerpt: "YouTube experimentiert gerade mit einer Text zu Sprache Funktion für 
 date: "2024-07-20T15:15:03"
 modified: "2024-07-20T15:15:03"
 locale: "de"
+translationKey: "video:YSv_5uNMHds"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/YSv_5uNMHds/maxresdefault.jpg"

@@ -7,6 +7,7 @@ excerpt: "Superchat Antworten, auch als Superchat Threads bezeichnet, befinden s
 date: "2024-05-18T12:30:27"
 modified: "2024-05-18T12:30:27"
 locale: "de"
+translationKey: "video:nTyBDl2lbMg"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/nTyBDl2lbMg/maxresdefault.jpg"

@@ -7,7 +7,9 @@ excerpt: "This new YouTube feature makes your shorts even more interactive last 
 date: "2024-11-04T09:54:45"
 modified: "2024-11-04T09:54:45"
 locale: "en"
+translationKey: "video:BIzqRnp_0cQ"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/BIzqRnp_0cQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/BIzqRnp_0cQ"

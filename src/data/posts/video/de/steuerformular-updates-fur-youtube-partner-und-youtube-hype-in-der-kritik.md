@@ -7,6 +7,7 @@ excerpt: "Letzte Woche war das \"made on YouTube\" Event. Wir haben natürlich b
 date: "2024-09-21T11:25:21"
 modified: "2024-09-21T11:25:21"
 locale: "de"
+translationKey: "video:SERd4-20rtI"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/SERd4-20rtI/maxresdefault.jpg"

@@ -7,6 +7,7 @@ excerpt: "YouTube ist derzeit dabei, eine Funktion zu testen, die deine Festplat
 date: "2026-06-06T12:15:07"
 modified: "2026-06-06T12:15:07"
 locale: "en"
+translationKey: "video:qQOhV-QmOU4"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/qQOhV-QmOU4/maxresdefault.jpg"

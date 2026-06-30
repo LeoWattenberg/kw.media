@@ -7,6 +7,7 @@ excerpt: "A direct guide to better YouTube thumbnails, covering titles, contrast
 date: "2021-06-08T21:59:29"
 modified: "2022-07-16T12:47:21"
 locale: "en"
+translationKey: "post:1400"
 categoryIds: [18]
 image: "https://preview.redd.it/kyowv0gqyjf51.png?width=871&format=png&auto=webp&s=3dd0d8ac5dcc28d8239a720c6d0e94aded380d63"
 authorName: "Leo Wattenberg"

@@ -7,6 +7,7 @@ excerpt: "YouTube buries Brand Connect for an AI driven ad machine, Twitch delet
 date: "2026-03-28T13:15:09"
 modified: "2026-03-28T13:15:09"
 locale: "en"
+translationKey: "video:XuyGt9x2FYc"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/XuyGt9x2FYc/maxresdefault.jpg"

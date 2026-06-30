@@ -7,6 +7,7 @@ excerpt: "A creator-focused review of the AVerMedia NEXUS AX310 and Streamer MIC
 date: "2021-06-28T08:40:10"
 modified: "2023-03-17T12:57:29"
 locale: "en"
+translationKey: "post:1638"
 categoryIds: [18]
 image: "/assets/wp-content/uploads/2021/06/AM_NEXUS_BACK.jpg"
 authorName: "Leo Wattenberg"

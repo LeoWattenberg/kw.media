@@ -7,7 +7,9 @@ excerpt: "So fügst du das Shorts-Shelf als Kanalabschnitt auf Desktop-Kanalseit
 date: "2022-03-01T05:00:16"
 modified: "2022-03-01T05:00:16"
 locale: "de"
+translationKey: "video:nTHIqtc2GyY"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/nTHIqtc2GyY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nTHIqtc2GyY"

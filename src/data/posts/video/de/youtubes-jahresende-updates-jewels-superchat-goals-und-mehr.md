@@ -7,6 +7,7 @@ excerpt: "Es gibt Neuigkeiten bezüglich YouTube Jels: Diese werden nun in den U
 date: "2024-11-23T13:15:01"
 modified: "2024-11-23T13:15:01"
 locale: "de"
+translationKey: "video:AvwEC8I-7Vk"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/AvwEC8I-7Vk/maxresdefault.jpg"

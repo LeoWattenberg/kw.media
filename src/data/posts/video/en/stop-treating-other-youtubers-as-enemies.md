@@ -7,7 +7,9 @@ excerpt: "Are YouTube collaborations actually worth it? Or are other creators ju
 date: "2026-06-22T05:00:14"
 modified: "2026-06-22T05:00:14"
 locale: "en"
+translationKey: "video:5Wev7kFqnZg"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/5Wev7kFqnZg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5Wev7kFqnZg"

@@ -7,7 +7,9 @@ excerpt: "Here are seven ways creators are earning money right now. Sure, you mi
 date: "2025-06-17T09:28:44"
 modified: "2025-06-17T09:28:44"
 locale: "en"
+translationKey: "video:c_wnvd3Ru0A"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/c_wnvd3Ru0A/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/c_wnvd3Ru0A"

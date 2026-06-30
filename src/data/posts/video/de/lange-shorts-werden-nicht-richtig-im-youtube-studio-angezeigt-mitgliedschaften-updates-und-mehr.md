@@ -7,6 +7,7 @@ excerpt: "Wir müssen noch einmal über die langen Shorts sprechen. Letztes Mal 
 date: "2024-10-19T12:15:02"
 modified: "2024-10-19T12:15:02"
 locale: "de"
+translationKey: "video:J7MHBNgxp5w"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/J7MHBNgxp5w/maxresdefault.jpg"

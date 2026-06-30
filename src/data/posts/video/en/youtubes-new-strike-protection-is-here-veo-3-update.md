@@ -7,6 +7,7 @@ excerpt: "We teach you to build sustainable, safe channels. You know the rules a
 date: "2025-11-29T13:15:13"
 modified: "2025-11-29T13:15:13"
 locale: "en"
+translationKey: "video:sFADjkaHI2s"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/sFADjkaHI2s/maxresdefault.jpg"

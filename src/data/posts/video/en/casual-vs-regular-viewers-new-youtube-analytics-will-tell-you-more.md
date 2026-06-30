@@ -7,6 +7,7 @@ excerpt: "Let's talk about the YouTube updates. Audience segments are now availa
 date: "2025-07-05T12:15:11"
 modified: "2025-07-05T12:15:11"
 locale: "en"
+translationKey: "video:gw2bfa-N8b8"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/gw2bfa-N8b8/maxresdefault.jpg"

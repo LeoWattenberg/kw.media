@@ -7,7 +7,9 @@ excerpt: "Erklärt den strengen Modus für Kommentarfilter und wo du ihn in den 
 date: "2022-07-05T16:30:05"
 modified: "2022-07-05T16:30:05"
 locale: "de"
+translationKey: "video:_KvD9yQ9YUo"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/_KvD9yQ9YUo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/_KvD9yQ9YUo"

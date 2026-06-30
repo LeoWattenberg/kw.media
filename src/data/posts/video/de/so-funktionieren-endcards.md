@@ -7,7 +7,9 @@ excerpt: "So erstellst du Endcards mit Elementen oder Vorlagen und importierst b
 date: "2022-06-28T16:00:12"
 modified: "2022-06-28T16:00:12"
 locale: "de"
+translationKey: "video:MESXE9-pLDc"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/MESXE9-pLDc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/MESXE9-pLDc"

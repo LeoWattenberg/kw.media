@@ -7,6 +7,7 @@ excerpt: "YouTube hat gestern die sogenannten Fan Communities eingeführt, zunä
 date: "2025-02-01T13:15:00"
 modified: "2025-02-01T13:15:00"
 locale: "de"
+translationKey: "video:5nw4Hz0d2mk"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/5nw4Hz0d2mk/maxresdefault.jpg"

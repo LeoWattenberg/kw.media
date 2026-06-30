@@ -7,7 +7,9 @@ excerpt: "Walks through YouTube Live's Take a Break feature and how to configure
 date: "2025-04-06T13:03:01"
 modified: "2025-04-06T13:03:01"
 locale: "en"
+translationKey: "video:bYTAbOg_qzE"
 categoryIds: [18]
+postType: "video-tutorial"
 image: "https://i.ytimg.com/vi/bYTAbOg_qzE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=bYTAbOg_qzE"

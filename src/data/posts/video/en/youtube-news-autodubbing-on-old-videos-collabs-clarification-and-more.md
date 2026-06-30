@@ -7,6 +7,7 @@ excerpt: "This week's YouTube updates: We need to talk about autodubbing. First,
 date: "2025-08-09T12:15:02"
 modified: "2025-08-09T12:15:02"
 locale: "en"
+translationKey: "video:J8RN6vLmLh4"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/J8RN6vLmLh4/maxresdefault.jpg"

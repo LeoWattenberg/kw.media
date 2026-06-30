@@ -7,7 +7,9 @@ excerpt: "Erklärt YouTube Test & Compare, wie Thumbnail A/B-Tests funktionieren
 date: "2024-06-11T18:08:41"
 modified: "2024-06-11T18:08:41"
 locale: "de"
+translationKey: "video:7K_1NHsygk0"
 categoryIds: [17]
+postType: "video-tutorial"
 image: "https://i.ytimg.com/vi/7K_1NHsygk0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=7K_1NHsygk0"

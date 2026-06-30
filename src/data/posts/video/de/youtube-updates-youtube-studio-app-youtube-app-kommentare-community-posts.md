@@ -7,6 +7,7 @@ excerpt: "Letzten November hatten wir bereits kurz über die neue Ansicht in der
 date: "2024-06-01T12:30:19"
 modified: "2024-06-01T12:30:19"
 locale: "de"
+translationKey: "video:EBJz7RhXxOA"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/EBJz7RhXxOA/maxresdefault.jpg"

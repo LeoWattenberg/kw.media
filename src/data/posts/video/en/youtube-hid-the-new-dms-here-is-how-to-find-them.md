@@ -7,7 +7,9 @@ excerpt: "Explains where YouTube hid its new mobile DMs, how invite links work a
 date: "2026-03-12T21:26:27"
 modified: "2026-03-12T21:26:27"
 locale: "en"
+translationKey: "video:Q5OFnSBrn3U"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/Q5OFnSBrn3U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Q5OFnSBrn3U"

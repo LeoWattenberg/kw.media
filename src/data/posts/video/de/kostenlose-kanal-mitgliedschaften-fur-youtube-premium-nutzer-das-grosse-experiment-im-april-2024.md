@@ -7,6 +7,7 @@ excerpt: "Ich bin im Urlaub, dieser Rechner ist am Sterben, daher entschuldigt b
 date: "2024-03-09T13:30:34"
 modified: "2024-03-09T13:30:34"
 locale: "de"
+translationKey: "video:u_wzOQranLY"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/u_wzOQranLY/maxresdefault.jpg"

@@ -7,6 +7,7 @@ excerpt: "If your YouTube revenue suddenly drops next month, don't panic. Twitch
 date: "2026-02-28T13:15:00"
 modified: "2026-02-28T13:15:00"
 locale: "en"
+translationKey: "video:3BrtN4P1Qnc"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/3BrtN4P1Qnc/maxresdefault.jpg"

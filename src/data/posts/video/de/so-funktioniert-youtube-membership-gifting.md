@@ -7,7 +7,9 @@ excerpt: "Erklärt, wie Zuschauer YouTube-Mitgliedschaften im Livechat verschenk
 date: "2022-05-31T15:00:24"
 modified: "2022-05-31T15:00:24"
 locale: "de"
+translationKey: "video:nMgllfy0VUc"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/nMgllfy0VUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nMgllfy0VUc"

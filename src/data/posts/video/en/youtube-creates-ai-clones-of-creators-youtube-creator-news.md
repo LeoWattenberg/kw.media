@@ -7,6 +7,7 @@ excerpt: "YouTube ist in diesem Jahr vor dem Code Break viel Aufhebens wert. Sel
 date: "2025-12-12T11:27:18"
 modified: "2025-12-12T11:27:18"
 locale: "en"
+translationKey: "video:rhGWPkzn91o"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/rhGWPkzn91o/maxresdefault.jpg"

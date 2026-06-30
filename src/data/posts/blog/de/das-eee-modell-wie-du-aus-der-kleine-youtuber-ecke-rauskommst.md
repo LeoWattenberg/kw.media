@@ -7,6 +7,7 @@ excerpt: "Das EEE-Modell erklärt, wie kleine YouTuber aus der Wachstumsfalle ko
 date: "2021-06-11T16:51:11"
 modified: "2023-03-17T12:57:30"
 locale: "de"
+translationKey: "post:1419"
 categoryIds: [17]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"

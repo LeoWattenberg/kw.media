@@ -7,7 +7,9 @@ excerpt: "Ab dem ersten Februar 2023 ist es möglich für Creator im YouTube Par
 date: "2023-01-12T10:43:31"
 modified: "2023-01-12T10:43:31"
 locale: "de"
+translationKey: "video:5DBif93dBc4"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/5DBif93dBc4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5DBif93dBc4"

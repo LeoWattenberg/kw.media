@@ -7,6 +7,7 @@ excerpt: "Mit den YouTube Updates starten wir diese Woche bei den Analytics, den
 date: "2025-02-08T13:15:03"
 modified: "2025-02-08T13:15:03"
 locale: "de"
+translationKey: "video:W_IFK4IqfHo"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/W_IFK4IqfHo/maxresdefault.jpg"

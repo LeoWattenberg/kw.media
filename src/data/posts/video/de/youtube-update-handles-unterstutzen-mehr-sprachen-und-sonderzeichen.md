@@ -7,6 +7,7 @@ excerpt: "@handles unterstützen jetzt Buchstaben und Ziffern in insgesamt 75 ve
 date: "2024-06-29T12:30:32"
 modified: "2024-06-29T12:30:32"
 locale: "de"
+translationKey: "video:cZ3k13Ca0n8"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/cZ3k13Ca0n8/maxresdefault.jpg"

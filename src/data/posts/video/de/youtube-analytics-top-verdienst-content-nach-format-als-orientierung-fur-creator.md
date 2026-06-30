@@ -7,6 +7,7 @@ excerpt: "Es gibt eine neue Analytics Card: \"Top Earning Content\" bei \"Format
 date: "2024-03-02T13:30:30"
 modified: "2024-03-02T13:30:30"
 locale: "de"
+translationKey: "video:k67uRZ1mEw4"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/k67uRZ1mEw4/maxresdefault.jpg"

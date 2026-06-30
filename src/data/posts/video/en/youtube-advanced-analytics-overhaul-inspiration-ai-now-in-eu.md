@@ -7,6 +7,7 @@ excerpt: "Let's dive into the latest YouTube updates. First up, a recap of the l
 date: "2025-06-28T12:15:00"
 modified: "2025-06-28T12:15:00"
 locale: "en"
+translationKey: "video:1TRWw2aQu2w"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/1TRWw2aQu2w/maxresdefault.jpg"

@@ -7,7 +7,9 @@ excerpt: "YouTube ABC: to plan a live stream press the schedule stream button in
 date: "2024-08-14T14:00:21"
 modified: "2024-08-14T14:00:21"
 locale: "en"
+translationKey: "video:OcihdaM-hro"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/OcihdaM-hro/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OcihdaM-hro"
