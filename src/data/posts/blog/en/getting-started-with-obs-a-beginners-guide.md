@@ -7,8 +7,8 @@ excerpt: "Learn the OBS basics for recording and streaming, from scenes and sour
 date: "2022-10-24T16:34:05"
 modified: "2025-01-30T10:48:05"
 locale: "en"
+category: "blog"
 translationKey: "post:2275"
-categoryIds: [18]
 image: "https://lh5.googleusercontent.com/s9rkISe0KpvpU_IC2a_CnpznbTIxp41h7ojyWIroeD0bmY3xwCUpdTnh-uOgGAiGcIojmZmxcA4tsgoIZzOpCwiAw7Zmq7tmhAWxOSArIctQ2-DDZR4xYpiZjIG0vhOfCTzW-SflST-cOLeI2ps7te9j_8B8291CgAltZdglZJfo7XmXFSijFjVu_w"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-obs-a-beginners-guide/"

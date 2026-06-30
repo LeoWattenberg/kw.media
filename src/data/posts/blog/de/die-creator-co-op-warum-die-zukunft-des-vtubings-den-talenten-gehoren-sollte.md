@@ -7,8 +7,8 @@ excerpt: "Ein Blick auf VTubing mit Fokus auf Talente, Agenturmodelle und warum 
 date: "2025-07-25T20:54:40"
 modified: "2025-07-25T20:54:41"
 locale: "de"
+category: "blog"
 translationKey: "post:2389"
-categoryIds: [17]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/blog/the-creator-co-op-why-the-future-of-vtubing-should-belong-to-the-talent/"

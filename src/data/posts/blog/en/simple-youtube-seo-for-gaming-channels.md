@@ -7,8 +7,8 @@ excerpt: "A practical YouTube SEO guide for gaming channels, covering keywords, 
 date: "2021-06-06T21:27:50"
 modified: "2022-07-16T12:47:21"
 locale: "en"
+category: "blog"
 translationKey: "post:1366"
-categoryIds: [18]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/simple-youtube-seo-for-gaming-channels/"

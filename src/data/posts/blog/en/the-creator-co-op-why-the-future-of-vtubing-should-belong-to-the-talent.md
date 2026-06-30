@@ -7,8 +7,8 @@ excerpt: "A talent-first look at VTubing, agency models and why creator-owned co
 date: "2025-07-25T20:54:40"
 modified: "2025-07-25T20:54:41"
 locale: "en"
+category: "blog"
 translationKey: "post:2389"
-categoryIds: [2, 18]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/blog/the-creator-co-op-why-the-future-of-vtubing-should-belong-to-the-talent/"

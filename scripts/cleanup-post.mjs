@@ -9,5 +9,5 @@ if (!filePaths.length) {
 
 for (const filePath of filePaths) {
 	const result = await cleanupPostFile(filePath);
-	console.log(`Cleaned ${result.filePath} with ${result.model} (${result.postType})`);
+	console.log(`Cleaned ${result.filePath} with ${result.model} (${result.category})`);
 }

@@ -7,8 +7,8 @@ excerpt: "How to start a gaming channel on a budget, including practical priorit
 date: "2021-06-11T09:49:31"
 modified: "2022-07-16T12:47:21"
 locale: "en"
+category: "blog"
 translationKey: "post:1425"
-categoryIds: [18]
 image: "/assets/wp-content/uploads/2021/06/Starting-Gaming-Channel-on-a-Budget.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/starting-a-gaming-channel-on-a-budget/"

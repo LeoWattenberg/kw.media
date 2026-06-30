@@ -7,8 +7,8 @@ excerpt: "Ein praktisches Inhaltsmodell zur Erfassung der Absichten des Publikum
 date: "2022-01-08T10:31:12"
 modified: "2023-03-17T12:57:27"
 locale: "de"
+category: "blog"
 translationKey: "post:1875"
-categoryIds: [17]
 image: "https://leowattenberg.files.wordpress.com/2020/10/3d-see-nts-1.png?w=300"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-wattenberg-indicator/"

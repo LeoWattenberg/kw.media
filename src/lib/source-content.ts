@@ -11,8 +11,7 @@ export interface SourcePost {
 	modified: string;
 	locale: Locale;
 	translationKey?: string;
-	categoryIds: number[];
-	postType: PostType;
+	category: Category;
 	image?: string;
 	authorName: string;
 	sourceUrl: string;
@@ -24,7 +23,7 @@ export interface SourcePost {
 	};
 }
 
-export type PostType = 'blog' | 'short-tutorial' | 'video-tutorial' | 'news-video';
+export type Category = 'blog' | 'short-tutorial' | 'video-tutorial' | 'news-video';
 
 export interface AdjacentPosts {
 	previous?: SourcePost;
@@ -37,7 +36,7 @@ export interface PostNavigation {
 }
 
 interface MarkdownPostModule {
-	frontmatter: Omit<SourcePost, 'contentHtml' | 'postType'> & { postType?: PostType };
+	frontmatter: Omit<SourcePost, 'contentHtml' | 'category'> & { category?: Category };
 	compiledContent: () => Promise<string>;
 }
 
@@ -48,14 +47,14 @@ const postModules = import.meta.glob<MarkdownPostModule>('../data/posts/**/*.md'
 const posts = (
 	await Promise.all(Object.values(postModules).map(async (post) => ({
 		...post.frontmatter,
-		postType: getPostType(post.frontmatter),
+		category: getCategory(post.frontmatter),
 		contentHtml: await post.compiledContent(),
 	})))
 ).sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
-function getPostType(post: MarkdownPostModule['frontmatter']): PostType {
-	if (post.postType) {
-		return post.postType;
+function getCategory(post: MarkdownPostModule['frontmatter']): Category {
+	if (post.category) {
+		return post.category;
 	}
 
 	if (!post.video) {
@@ -124,15 +123,11 @@ export function getPostAlternatePaths(post: SourcePost): Partial<Record<Locale, 
 		?? { [post.locale]: post.path };
 }
 
-export function getPostsByCategory(categoryId: number): SourcePost[] {
-	return posts.filter((post) => post.categoryIds.includes(categoryId));
-}
-
 export function getPostNavigation(post: SourcePost): PostNavigation {
 	return {
 		chronological: getAdjacentPosts(posts.filter((candidate) => candidate.locale === post.locale), post),
 		category: getAdjacentPosts(
-			posts.filter((candidate) => candidate.locale === post.locale && candidate.postType === post.postType),
+			posts.filter((candidate) => candidate.locale === post.locale && candidate.category === post.category),
 			post,
 		),
 	};

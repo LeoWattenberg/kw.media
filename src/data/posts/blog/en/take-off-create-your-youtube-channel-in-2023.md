@@ -9,8 +9,8 @@ This is how you create a YouTube channel in 2023, choose the right account, and 
 date: "2023-08-01T11:54:13"
 modified: "2023-08-01T11:54:33"
 locale: "en"
+category: "blog"
 translationKey: "post:2314"
-categoryIds: [18]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-kanal-erstellen-in-2023/"

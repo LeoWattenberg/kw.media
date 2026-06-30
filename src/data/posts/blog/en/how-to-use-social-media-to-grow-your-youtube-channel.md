@@ -7,7 +7,7 @@ excerpt: "How to use social media to reach new viewers, revive older videos and 
 date: "2021-06-21T03:18:06"
 modified: "2023-03-17T12:57:29"
 locale: "en"
-categoryIds: [18]
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-use-social-media-to-grow-your-youtube-channel/"

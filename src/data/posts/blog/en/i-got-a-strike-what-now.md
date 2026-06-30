@@ -7,7 +7,7 @@ excerpt: "What to do after receiving a YouTube strike: stay calm, understand dea
 date: "2021-10-19T19:37:17"
 modified: "2023-03-17T12:57:28"
 locale: "en"
-categoryIds: [18]
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/i-got-a-strike-what-now/"

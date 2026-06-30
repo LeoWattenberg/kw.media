@@ -7,8 +7,8 @@ excerpt: "Download and use a YouTube channel banner template with safe areas and
 date: "2023-08-02T18:49:02"
 modified: "2024-07-01T10:48:42"
 locale: "en"
+category: "blog"
 translationKey: "post:2325"
-categoryIds: [18]
 image: "/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-channel-banner-template-updated-2024/"

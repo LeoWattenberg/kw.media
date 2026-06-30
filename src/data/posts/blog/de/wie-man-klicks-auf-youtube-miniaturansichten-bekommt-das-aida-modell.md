@@ -7,8 +7,8 @@ excerpt: "Nutze das AIDA-Modell, um YouTube-Miniaturansichten zu planen, die Auf
 date: "2021-07-02T12:41:20"
 modified: "2023-03-17T12:57:29"
 locale: "de"
+category: "blog"
 translationKey: "post:1676"
-categoryIds: [17]
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-get-clicks-on-thumbnails-the-aida-model/"

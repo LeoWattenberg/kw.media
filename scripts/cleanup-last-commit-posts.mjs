@@ -7,6 +7,6 @@ if (!results.length) {
 } else {
 	console.log(`Cleaned ${results.length} post(s) from the last commit:`);
 	for (const result of results) {
-		console.log(`- ${result.filePath} with ${result.model} (${result.postType})`);
+		console.log(`- ${result.filePath} with ${result.model} (${result.category})`);
 	}
 }

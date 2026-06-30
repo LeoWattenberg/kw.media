@@ -7,8 +7,8 @@ excerpt: "So erstellst du 2023 einen YouTube-Kanal, wählst das richtige Konto u
 date: "2023-08-01T11:54:13"
 modified: "2023-08-01T11:54:33"
 locale: "de"
+category: "blog"
 translationKey: "post:2314"
-categoryIds: [17]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-kanal-erstellen-in-2023/"
