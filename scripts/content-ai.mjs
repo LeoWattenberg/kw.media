@@ -254,6 +254,80 @@ export async function suggestPostMetadataFile(filePath, options = {}) {
 	};
 }
 
+export async function applyPostMetadataFile(filePath, options = {}) {
+	const post = readPostFile(filePath);
+	const model = options.model ?? metadataModel;
+	const suggestion = await suggestPostMetadata(post, model);
+	const frontmatter = {
+		...post.frontmatter,
+		title: options.title === false ? post.frontmatter.title : suggestion.title,
+		excerpt: options.excerpt === false ? post.frontmatter.excerpt : suggestion.excerpt,
+	};
+
+	if (!options.dryRun) {
+		writePostFile(filePath, frontmatter, post.body);
+	}
+
+	return {
+		filePath,
+		model,
+		oldTitle: post.frontmatter.title,
+		oldExcerpt: post.frontmatter.excerpt,
+		title: frontmatter.title,
+		excerpt: frontmatter.excerpt,
+		changed: post.frontmatter.title !== frontmatter.title || post.frontmatter.excerpt !== frontmatter.excerpt,
+		suggestion,
+	};
+}
+
+export async function repairTranslationPostFile(filePath, options = {}) {
+	const target = readPostFile(filePath);
+	const sourceLocale = options.sourceLocale ?? otherLocale(target.frontmatter.locale);
+	const targetLocale = target.frontmatter.locale;
+	const groupKey = translationGroupKey(target.frontmatter);
+	const source = readAllPosts().find((post) => (
+		post.filePath !== target.filePath
+		&& post.frontmatter.locale === sourceLocale
+		&& translationGroupKey(post.frontmatter) === groupKey
+	));
+
+	if (!source) {
+		throw new Error(`No ${sourceLocale} source post found for ${target.frontmatter.path}`);
+	}
+
+	const translatedTitle = await translatePlainText(source.frontmatter.title, sourceLocale, targetLocale, 'post title');
+	const translatedBody = await translateMarkdown(source.body, source.frontmatter, targetLocale);
+	const translatedExcerpt = await translatePlainText(
+		source.frontmatter.excerpt || excerptFromBody(source.body, sourceLocale),
+		sourceLocale,
+		targetLocale,
+		'post excerpt',
+	);
+	const frontmatter = {
+		...target.frontmatter,
+		title: translatedTitle,
+		excerpt: translatedExcerpt,
+		translationKey: target.frontmatter.translationKey ?? source.frontmatter.translationKey ?? groupKey,
+	};
+
+	if (!options.dryRun) {
+		writePostFile(filePath, frontmatter, translatedBody);
+	}
+
+	return {
+		filePath,
+		sourcePath: source.filePath,
+		model: translateModel,
+		oldTitle: target.frontmatter.title,
+		oldExcerpt: target.frontmatter.excerpt,
+		title: translatedTitle,
+		excerpt: translatedExcerpt,
+		changed: target.frontmatter.title !== translatedTitle
+			|| target.frontmatter.excerpt !== translatedExcerpt
+			|| target.body !== translatedBody,
+	};
+}
+
 function parseFrontmatter(raw) {
 	const data = {};
 	let section;
@@ -420,8 +494,7 @@ ${postPlainText(post, 3600)}`;
 		.replace(/^excerpt:\s*/i, '')
 		.trim();
 
-	validateGeneratedExcerpt(excerpt, locale, maxLength);
-	return excerpt;
+	return ensureValidExcerpt(excerpt, { locale, maxLength, model });
 }
 
 async function suggestPostMetadata(post, model) {
@@ -458,7 +531,7 @@ Content:
 ${postPlainText(post, 5200)}`;
 	const suggestion = await ollamaGenerateJson(model, prompt);
 
-	return normalizeMetadataSuggestion(suggestion, post);
+	return normalizeMetadataSuggestion(suggestion, post, model);
 }
 
 function cleanupPrompt(markdown, frontmatter, index, total) {
@@ -601,20 +674,23 @@ function parseJsonResponse(text) {
 	throw new Error('Ollama returned invalid JSON');
 }
 
-function normalizeMetadataSuggestion(value, post) {
+async function normalizeMetadataSuggestion(value, post, model) {
 	if (!value || typeof value !== 'object' || Array.isArray(value)) {
 		throw new Error(`Metadata suggestion for ${post.frontmatter.path} is not a JSON object`);
 	}
 
 	const title = stringField(value.title, post.frontmatter.title);
-	const excerpt = stringField(value.excerpt, excerptFromBody(post.body, post.frontmatter.locale));
+	const rawExcerpt = stringField(value.excerpt, excerptFromBody(post.body, post.frontmatter.locale));
+	const excerpt = await ensureValidExcerpt(rawExcerpt, {
+		locale: post.frontmatter.locale,
+		maxLength: 170,
+		model,
+	});
 	const summary = stringField(value.summary, '');
 	const audienceIntent = stringField(value.audienceIntent, '');
 	const searchKeywords = stringArrayField(value.searchKeywords).slice(0, 8);
 	const topics = stringArrayField(value.topics).slice(0, 6);
 	const qualityNotes = stringArrayField(value.qualityNotes).slice(0, 8);
-
-	validateGeneratedExcerpt(excerpt, post.frontmatter.locale, 170);
 
 	return {
 		title,
@@ -639,6 +715,91 @@ function stringArrayField(value) {
 	return value
 		.map((item) => (typeof item === 'string' ? normalizeAiOutput(item) : ''))
 		.filter(Boolean);
+}
+
+async function ensureValidExcerpt(excerpt, { locale, maxLength, model, attempts = 2 }) {
+	let current = normalizeAiOutput(excerpt)
+		.replace(/^excerpt:\s*/i, '')
+		.trim();
+
+	for (let attempt = 0; attempt <= attempts; attempt += 1) {
+		try {
+			validateGeneratedExcerpt(current, locale, maxLength);
+			return current;
+		} catch (error) {
+			if (!isTooLongExcerptError(error)) {
+				throw error;
+			}
+
+			if (attempt === attempts) {
+				current = trimExcerptToMaxLength(current, maxLength);
+				validateGeneratedExcerpt(current, locale, maxLength);
+				return current;
+			}
+
+			current = await shortenExcerpt(current, { locale, maxLength, model });
+		}
+	}
+
+	return current;
+}
+
+async function shortenExcerpt(excerpt, { locale, maxLength, model }) {
+	const targetLength = Math.max(45, maxLength - 15);
+	const prompt = `Shorten this ${languageName(locale)} metadata excerpt for KW Media.
+
+Rules:
+- Return only the shortened excerpt text.
+- Aim for ${targetLength} characters or fewer, and never exceed ${maxLength} characters.
+- The current excerpt is ${excerpt.length} characters long.
+- Keep the meaning and do not add facts.
+- Preserve product names, platform names, creator names, and acronyms.
+- No markdown, labels, alternatives, quotes, or notes.
+
+Excerpt:
+${excerpt}`;
+
+	return normalizeAiOutput(await ollamaGenerate(model, prompt))
+		.replace(/^excerpt:\s*/i, '')
+		.trim();
+}
+
+function trimExcerptToMaxLength(excerpt, maxLength) {
+	if (excerpt.length <= maxLength) {
+		return excerpt;
+	}
+
+	const withoutFinalPunctuation = excerpt.replace(/[.!?]+$/, '').trimEnd();
+	if (withoutFinalPunctuation.length <= maxLength) {
+		return withoutFinalPunctuation;
+	}
+
+	const sentencePrefix = excerpt
+		.match(/[^.!?]+[.!?]?/g)
+		?.map((sentence) => sentence.trim())
+		.filter(Boolean)
+		.reduce((best, sentence) => {
+			const candidate = best ? `${best} ${sentence}` : sentence;
+			return candidate.length <= maxLength ? candidate : best;
+		}, '');
+
+	if (sentencePrefix && sentencePrefix.length >= 45) {
+		return sentencePrefix.replace(/[.!?]+$/, '').trimEnd();
+	}
+
+	const truncated = excerpt.slice(0, maxLength).trimEnd();
+	const lastSpace = truncated.lastIndexOf(' ');
+	let shortened = lastSpace > 45 ? truncated.slice(0, lastSpace) : truncated;
+	shortened = shortened.replace(
+		/\s+(a|an|and|as|at|bei|das|der|die|for|für|in|mit|of|oder|on|the|to|um|und|von|with|zu)$/i,
+		'',
+	);
+
+	return shortened.replace(/[,:;.!?]+$/, '').trimEnd();
+}
+
+function isTooLongExcerptError(error) {
+	return error instanceof Error && /^Generated excerpt is too long/.test(error.message);
 }
 
 function validateGeneratedExcerpt(excerpt, locale, maxLength) {
@@ -799,6 +960,12 @@ function postFileExists(slug) {
 
 function maxPostId(posts) {
 	return Math.max(0, ...posts.map((post) => Number(post.frontmatter.id ?? 0)));
+}
+
+function translationGroupKey(frontmatter) {
+	return frontmatter.translationKey
+		?? (frontmatter.video?.youtubeId ? `video:${frontmatter.video.youtubeId}` : undefined)
+		?? `post:${frontmatter.id}`;
 }
 
 function translationKeyFor(frontmatter) {
