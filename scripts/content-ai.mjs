@@ -20,11 +20,6 @@ const routePrefixes = {
 	en: '/youtube-tips-en',
 };
 
-const categoryIdsByLocale = {
-	de: [17],
-	en: [18],
-};
-
 const cleanupModels = {
 	fast: process.env.OLLAMA_CLEANUP_FAST_MODEL ?? process.env.OLLAMA_CLEANUP_MODEL ?? 'aya-expanse:32b',
 	deep: process.env.OLLAMA_CLEANUP_DEEP_MODEL ?? process.env.OLLAMA_CLEANUP_MODEL ?? 'gemma4:31b',
@@ -59,7 +54,7 @@ export function readPostFile(filePath) {
 	}
 
 	const frontmatter = parseFrontmatter(match[1]);
-	frontmatter.postType = getPostType(frontmatter);
+	frontmatter.category = getCategory(frontmatter);
 
 	return {
 		filePath,
@@ -73,9 +68,9 @@ export function writePostFile(filePath, frontmatter, body) {
 	writeFileSync(filePath, `${frontmatterString(frontmatter)}\n\n${body.trim()}\n`);
 }
 
-export function getPostType(frontmatter) {
-	if (frontmatter.postType) {
-		return frontmatter.postType;
+export function getCategory(frontmatter) {
+	if (frontmatter.category) {
+		return frontmatter.category;
 	}
 
 	if (!frontmatter.video) {
@@ -89,15 +84,15 @@ export function getPostType(frontmatter) {
 	return 'video-tutorial';
 }
 
-export function cleanupModelForPostType(postType) {
-	return postType === 'short-tutorial' || postType === 'news-video'
+export function cleanupModelForCategory(category) {
+	return category === 'short-tutorial' || category === 'news-video'
 		? cleanupModels.fast
 		: cleanupModels.deep;
 }
 
 export async function cleanupPostFile(filePath, options = {}) {
 	const post = readPostFile(filePath);
-	const model = options.model ?? cleanupModelForPostType(post.frontmatter.postType);
+	const model = options.model ?? cleanupModelForCategory(post.frontmatter.category);
 	const cleanedBody = await cleanupMarkdown(post.body, post.frontmatter, model);
 	const frontmatter = {
 		...post.frontmatter,
@@ -109,7 +104,7 @@ export async function cleanupPostFile(filePath, options = {}) {
 	return {
 		filePath,
 		model,
-		postType: post.frontmatter.postType,
+		category: post.frontmatter.category,
 	};
 }
 
@@ -171,7 +166,6 @@ export async function translatePostFile(filePath, options = {}) {
 		title: translatedTitle,
 		excerpt: translatedExcerpt,
 		locale: targetLocale,
-		categoryIds: categoryIdsByLocale[targetLocale],
 		translationKey,
 	};
 
@@ -292,10 +286,8 @@ function frontmatterString(data) {
 		lines.push(`translationKey: ${quote(data.translationKey)}`);
 	}
 
-	lines.push(`categoryIds: [${data.categoryIds.join(', ')}]`);
-
-	if (data.postType && data.postType !== 'blog') {
-		lines.push(`postType: ${quote(data.postType)}`);
+	if (data.category) {
+		lines.push(`category: ${quote(data.category)}`);
 	}
 
 	if (data.image) {
@@ -366,7 +358,7 @@ ${text}`;
 
 function cleanupPrompt(markdown, frontmatter, index, total) {
 	const language = languageName(frontmatter.locale);
-	const contentKind = frontmatter.postType === 'blog' ? 'article' : 'transcript';
+	const contentKind = frontmatter.category === 'blog' ? 'article' : 'transcript';
 	const chunkNote = total > 1 ? `\nThis is chunk ${index} of ${total}; clean only this chunk.` : '';
 
 	return `Clean up this ${language} ${contentKind} markdown for publication on KW Media.${chunkNote}
@@ -397,7 +389,7 @@ Rules:
 - Preserve product/platform names such as YouTube, YouTube Studio, YouTube Live, Shorts, Twitch, Community Posts, Fan Communities, Creator Support, Super Chat, and A/B testing.
 - Preserve creator names, company names, and acronyms.
 - Use creator-industry wording. In German, keep "Creator" as "Creator"; do not translate it as "Schöpfer" or "Kreativkraft".
-- Keep the tone natural for a KW Media ${frontmatter.postType === 'blog' ? 'article' : 'video transcript'}.
+- Keep the tone natural for a KW Media ${frontmatter.category === 'blog' ? 'article' : 'video transcript'}.
 - Do not summarize, add facts, or add translator notes.
 
 Markdown:

@@ -7,8 +7,8 @@ excerpt: "Ein praktischer Audioführer für Creator, der Mikrofone, Pegel, Gerä
 date: "2021-06-11T17:14:02"
 modified: "2023-03-17T12:57:30"
 locale: "de"
+category: "blog"
 translationKey: "post:1434"
-categoryIds: [17]
 image: "/assets/wp-content/uploads/2021/06/audioguide-FINAL.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/"

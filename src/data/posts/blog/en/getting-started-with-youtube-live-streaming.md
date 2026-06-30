@@ -7,8 +7,8 @@ excerpt: "A beginner-friendly walkthrough for setting up YouTube Live streams, c
 date: "2022-11-05T14:53:41"
 modified: "2023-03-17T12:57:27"
 locale: "en"
+category: "blog"
 translationKey: "post:2280"
-categoryIds: [18]
 image: "https://lh6.googleusercontent.com/eWeMjTqNdIR4AOgH_aTWqYslVE3cj1h2iIxrAnWMUycTQgDXzGClDJ33m8xucehQ4q91mnw4q86QtQSGhiU3bbJZrIvUMlOFP-vZmb8FkcH7PJndZXYRrKxWKhxeL82GP9FvtvmwYkQB5NwoNL6uZlt5O-T0AdzpOJg7vL_eoHTWNtoaXBZkhD-SJFfuCA"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-youtube-live-streaming/"

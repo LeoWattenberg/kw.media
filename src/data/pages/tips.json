@@ -9,8 +9,7 @@
 			"blocks": [
 				{
 					"type": "posts",
-					"title": "YouTube Tipps & Tricks auf Deutsch",
-					"categoryId": 17
+					"title": "YouTube Tipps & Tricks auf Deutsch"
 				}
 			]
 		},
@@ -22,8 +21,7 @@
 			"blocks": [
 				{
 					"type": "posts",
-					"title": "YouTube Tips & Tricks in English",
-					"categoryId": 18
+					"title": "YouTube Tips & Tricks in English"
 				}
 			]
 		}

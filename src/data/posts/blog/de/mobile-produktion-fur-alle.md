@@ -7,8 +7,8 @@ excerpt: "Ein praktischer Leitfaden für die mobile Produktion für YouTube und 
 date: "2021-06-11T10:20:19"
 modified: "2022-07-16T12:47:06"
 locale: "de"
+category: "blog"
 translationKey: "post:1432"
-categoryIds: [17]
 image: "https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-mobile-producion-for-everyone/"

@@ -1,8 +1,8 @@
 ---
 import type { PostListBlock } from '../../data/pages';
 import type { Locale } from '../../i18n';
-import type { PostType } from '../../lib/source-content';
-import { getAllPosts, getPostsByCategory } from '../../lib/source-content';
+import type { Category } from '../../lib/source-content';
+import { getAllPosts } from '../../lib/source-content';
 import { withBase } from '../../lib/url';
 
 interface Props {
@@ -11,12 +11,12 @@ interface Props {
 }
 
 const { block, locale } = Astro.props;
-const posts = (block.categoryId ? getPostsByCategory(block.categoryId) : getAllPosts())
+const posts = getAllPosts()
 	.filter((post) => post.locale === locale)
 	.filter((post) => (block.authorName ? post.authorName === block.authorName : true))
 	.slice(0, block.limit);
 
-const postTypeLabels: Record<Locale, Record<PostType, string>> = {
+const categoryLabels: Record<Locale, Record<Category, string>> = {
 	de: {
 		blog: 'Blog',
 		'short-tutorial': 'Kurztutorials',
@@ -33,9 +33,9 @@ const postTypeLabels: Record<Locale, Record<PostType, string>> = {
 
 const allLabel = locale === 'de' ? 'Alle' : 'All';
 const emptyLabel = locale === 'de' ? 'Keine Beiträge in dieser Kategorie.' : 'No posts in this category.';
-const postTypeOrder: PostType[] = ['blog', 'short-tutorial', 'video-tutorial', 'news-video'];
-const postCounts = Object.fromEntries(postTypeOrder.map((postType) => [postType, posts.filter((post) => post.postType === postType).length])) as Record<
-	PostType,
+const categoryOrder: Category[] = ['blog', 'short-tutorial', 'video-tutorial', 'news-video'];
+const postCounts = Object.fromEntries(categoryOrder.map((category) => [category, posts.filter((post) => post.category === category).length])) as Record<
+	Category,
 	number
 >;
 const showCategoryControls = !block.limit && posts.length > 0;
@@ -54,10 +54,10 @@ const showCategoryControls = !block.limit && posts.length > 0;
 						{allLabel}
 						<span>{posts.length}</span>
 					</button>
-					{postTypeOrder.map((postType) => (
-						<button type="button" data-post-filter={postType} aria-pressed="false">
-							{postTypeLabels[locale][postType]}
-							<span>{postCounts[postType]}</span>
+					{categoryOrder.map((category) => (
+						<button type="button" data-post-filter={category} aria-pressed="false">
+							{categoryLabels[locale][category]}
+							<span>{postCounts[category]}</span>
 						</button>
 					))}
 				</div>
@@ -66,7 +66,7 @@ const showCategoryControls = !block.limit && posts.length > 0;
 		<div class="post-grid">
 			{
 				posts.map((post) => (
-					<article data-post-type={post.postType}>
+					<article data-post-category={post.category}>
 						{post.image && <img src={withBase(post.image)} alt="" loading="lazy" />}
 						<div>
 							<time datetime={post.date}>{new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US')}</time>
@@ -84,7 +84,7 @@ const showCategoryControls = !block.limit && posts.length > 0;
 <script>
 	document.querySelectorAll<HTMLElement>('[data-post-list]').forEach((list) => {
 		const buttons = Array.from(list.querySelectorAll<HTMLButtonElement>('[data-post-filter]'));
-		const posts = Array.from(list.querySelectorAll<HTMLElement>('[data-post-type]'));
+		const posts = Array.from(list.querySelectorAll<HTMLElement>('[data-post-category]'));
 		const emptyMessage = list.querySelector<HTMLElement>('[data-empty-message]');
 
 		function applyFilter(filter: string | undefined, updateUrl = false) {
@@ -98,7 +98,7 @@ const showCategoryControls = !block.limit && posts.length > 0;
 			});
 
 			posts.forEach((post) => {
-				const shouldShow = activeFilter === 'all' || post.dataset.postType === activeFilter;
+				const shouldShow = activeFilter === 'all' || post.dataset.postCategory === activeFilter;
 				post.hidden = !shouldShow;
 				if (shouldShow) {
 					visibleCount += 1;
@@ -112,15 +112,16 @@ const showCategoryControls = !block.limit && posts.length > 0;
 			if (updateUrl) {
 				const url = new URL(window.location.href);
 				if (activeFilter && activeFilter !== 'all') {
-					url.searchParams.set('type', activeFilter);
+					url.searchParams.set('category', activeFilter);
 				} else {
-					url.searchParams.delete('type');
+					url.searchParams.delete('category');
 				}
 				window.history.replaceState({}, '', url);
 			}
 		}
 
-		const requestedFilter = new URLSearchParams(window.location.search).get('type') ?? window.location.hash.replace(/^#/, '');
+		const searchParams = new URLSearchParams(window.location.search);
+		const requestedFilter = searchParams.get('category') ?? searchParams.get('type') ?? window.location.hash.replace(/^#/, '');
 		if (requestedFilter) {
 			applyFilter(requestedFilter);
 		}

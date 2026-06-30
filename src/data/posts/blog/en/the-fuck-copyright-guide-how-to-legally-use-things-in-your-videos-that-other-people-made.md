@@ -7,7 +7,7 @@ excerpt: "A plain-language copyright guide for creators who want to use music, c
 date: "2021-06-11T10:05:53"
 modified: "2022-07-16T12:47:06"
 locale: "en"
-categoryIds: [18]
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-fuck-copyright-guide-how-to-legally-use-things-in-your-videos-that-other-people-made/"

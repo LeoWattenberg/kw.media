@@ -7,8 +7,8 @@ excerpt: "The EEE model explains how small YouTubers escape the growth trap and 
 date: "2021-06-11T16:51:11"
 modified: "2023-03-17T12:57:30"
 locale: "en"
+category: "blog"
 translationKey: "post:1419"
-categoryIds: [18]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/"

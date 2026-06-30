@@ -126,7 +126,6 @@ export interface PersonBlock {
 export interface PostListBlock {
 	type: 'posts';
 	title: string;
-	categoryId?: number;
 	authorName?: string;
 	limit?: number;
 	moreHref?: string;

@@ -1,5 +1,5 @@
 ---
-import { getPostNavigation, type PostType, type SourcePost } from '../lib/source-content';
+import { getPostNavigation, type Category, type SourcePost } from '../lib/source-content';
 import { withBase } from '../lib/url';
 import { getAuthorPath } from '../data/authors';
 import { routeFor } from '../i18n';
@@ -22,7 +22,7 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 	year: 'numeric',
 });
 
-const postTypeLabels: Record<typeof post.locale, Record<PostType, string>> = {
+const categoryLabels: Record<typeof post.locale, Record<Category, string>> = {
 	de: {
 		blog: 'Blog',
 		'short-tutorial': 'Kurztutorials',
@@ -41,14 +41,14 @@ const navigationLabels = {
 	de: {
 		heading: 'Weitere Beiträge',
 		chronological: 'Chronologisch',
-		category: 'Im selben Beitragstyp',
+		category: 'In derselben Kategorie',
 		previous: 'Älterer Beitrag',
 		next: 'Neuerer Beitrag',
 	},
 	en: {
 		heading: 'More posts',
 		chronological: 'Chronological',
-		category: 'In the same post type',
+		category: 'In the same category',
 		previous: 'Older post',
 		next: 'Newer post',
 	},
@@ -62,8 +62,8 @@ const navigationSections = [
 	},
 	{
 		title: navigationLabels.category,
-		categoryLabel: postTypeLabels[post.locale][post.postType],
-		categoryHref: `${postOverviewPath}?type=${post.postType}`,
+		categoryLabel: categoryLabels[post.locale][post.category],
+		categoryHref: `${postOverviewPath}?category=${post.category}`,
 		previous: postNavigation.category.previous,
 		next: postNavigation.category.next,
 	},

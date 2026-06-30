@@ -7,8 +7,8 @@ excerpt: "Warum ständiges Produzieren Creators schaden kann und wie intelligent
 date: "2021-06-11T10:13:42"
 modified: "2022-07-16T12:47:06"
 locale: "de"
+category: "blog"
 translationKey: "post:1430"
-categoryIds: [17]
 image: "/assets/wp-content/uploads/2021/06/WHY-GRINDING-IS-BAD-FOR-YOU.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/"

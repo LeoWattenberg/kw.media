@@ -7,7 +7,7 @@ excerpt: "Was du nach einem YouTube-Strike tun solltest: Ruhe bewahren, Fristen 
 date: "2021-11-03T13:24:40"
 modified: "2023-03-17T12:57:27"
 locale: "de"
-categoryIds: [17]
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-strike-was-nun/"

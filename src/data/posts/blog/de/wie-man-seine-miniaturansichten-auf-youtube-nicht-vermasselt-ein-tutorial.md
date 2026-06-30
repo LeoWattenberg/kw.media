@@ -7,8 +7,8 @@ excerpt: "Ein direkter Leitfaden für bessere YouTube-Miniaturansichten, der Tit
 date: "2021-06-08T21:59:29"
 modified: "2022-07-16T12:47:21"
 locale: "de"
+category: "blog"
 translationKey: "post:1400"
-categoryIds: [17]
 image: "https://preview.redd.it/kyowv0gqyjf51.png?width=871&format=png&auto=webp&s=3dd0d8ac5dcc28d8239a720c6d0e94aded380d63"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/"

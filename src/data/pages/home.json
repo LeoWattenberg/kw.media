@@ -207,7 +207,6 @@
 				{
 					"type": "posts",
 					"title": "YouTube Tips & Tricks",
-					"categoryId": 18,
 					"limit": 3,
 					"moreHref": "/en/youtube-tips/",
 					"moreLabel": "More tips"

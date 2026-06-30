@@ -7,8 +7,8 @@ excerpt: "Sieben praktische Möglichkeiten, Live-Streams nach der Ausstrahlung w
 date: "2022-07-17T22:31:38"
 modified: "2023-03-17T12:57:27"
 locale: "de"
+category: "blog"
 translationKey: "post:2205"
-categoryIds: [17]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-best-7-methods-of-secondary-stream-usage/"

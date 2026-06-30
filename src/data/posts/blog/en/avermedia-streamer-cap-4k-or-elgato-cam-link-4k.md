@@ -7,8 +7,8 @@ excerpt: "A practical comparison between AVerMedia Streamer Cap 4K and Elgato Ca
 date: "2021-10-27T15:50:28"
 modified: "2023-03-17T12:57:27"
 locale: "en"
+category: "blog"
 translationKey: "post:1847"
-categoryIds: [18]
 image: "/assets/wp-content/uploads/2021/10/camlink_cap4k_vergleich.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/avermedia-streamer-cap4k-bu113-oder-elgato-camlink4k/"
