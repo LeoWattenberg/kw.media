@@ -33,12 +33,16 @@ const categoryLabels: Record<Locale, Record<Category, string>> = {
 
 const allLabel = locale === 'de' ? 'Alle' : 'All';
 const emptyLabel = locale === 'de' ? 'Keine Beiträge in dieser Kategorie.' : 'No posts in this category.';
+const searchLabel = locale === 'de' ? 'Beiträge durchsuchen' : 'Search posts';
+const searchPlaceholder = locale === 'de' ? 'Nach YouTube, OBS, Shorts ... suchen' : 'Search YouTube, OBS, Shorts ...';
 const categoryOrder: Category[] = ['blog', 'short-tutorial', 'video-tutorial', 'news-video'];
 const postCounts = Object.fromEntries(categoryOrder.map((category) => [category, posts.filter((post) => post.category === category).length])) as Record<
 	Category,
 	number
 >;
 const showCategoryControls = !block.limit && posts.length > 0;
+const showSearchControls = !block.limit && posts.length > 0;
+const searchId = `post-search-${locale}-${block.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'posts'}`;
 ---
 
 <section class="section posts" data-post-list>
@@ -47,6 +51,14 @@ const showCategoryControls = !block.limit && posts.length > 0;
 			<h2>{block.title}</h2>
 			{block.moreHref && <a href={withBase(block.moreHref)}>{block.moreLabel ?? 'More'}</a>}
 		</div>
+		{
+			showSearchControls && (
+				<div class="post-search">
+					<label for={searchId}>{searchLabel}</label>
+					<input id={searchId} type="search" placeholder={searchPlaceholder} autocomplete="off" data-post-search />
+				</div>
+			)
+		}
 		{
 			showCategoryControls && (
 				<div class="category-controls" aria-label={locale === 'de' ? 'Beitragskategorien' : 'Post categories'}>
@@ -85,10 +97,24 @@ const showCategoryControls = !block.limit && posts.length > 0;
 	document.querySelectorAll<HTMLElement>('[data-post-list]').forEach((list) => {
 		const buttons = Array.from(list.querySelectorAll<HTMLButtonElement>('[data-post-filter]'));
 		const posts = Array.from(list.querySelectorAll<HTMLElement>('[data-post-category]'));
+		const searchInput = list.querySelector<HTMLInputElement>('[data-post-search]');
 		const emptyMessage = list.querySelector<HTMLElement>('[data-empty-message]');
+
+		function normalizeSearch(value: string) {
+			return value
+				.toLowerCase()
+				.normalize('NFD')
+				.replace(/[\u0300-\u036f]/g, '')
+				.trim();
+		}
+
+		function activeCategory() {
+			return buttons.find((button) => button.classList.contains('active'))?.dataset.postFilter ?? 'all';
+		}
 
 		function applyFilter(filter: string | undefined, updateUrl = false) {
 			const activeFilter = buttons.some((button) => button.dataset.postFilter === filter) ? filter : 'all';
+			const query = normalizeSearch(searchInput?.value ?? '');
 			let visibleCount = 0;
 
 			buttons.forEach((candidate) => {
@@ -98,7 +124,9 @@ const showCategoryControls = !block.limit && posts.length > 0;
 			});
 
 			posts.forEach((post) => {
-				const shouldShow = activeFilter === 'all' || post.dataset.postCategory === activeFilter;
+				const matchesCategory = activeFilter === 'all' || post.dataset.postCategory === activeFilter;
+				const matchesSearch = !query || normalizeSearch(post.textContent ?? '').includes(query);
+				const shouldShow = matchesCategory && matchesSearch;
 				post.hidden = !shouldShow;
 				if (shouldShow) {
 					visibleCount += 1;
@@ -116,20 +144,31 @@ const showCategoryControls = !block.limit && posts.length > 0;
 				} else {
 					url.searchParams.delete('category');
 				}
+				if (searchInput?.value.trim()) {
+					url.searchParams.set('q', searchInput.value.trim());
+				} else {
+					url.searchParams.delete('q');
+				}
 				window.history.replaceState({}, '', url);
 			}
 		}
 
 		const searchParams = new URLSearchParams(window.location.search);
 		const requestedFilter = searchParams.get('category') ?? searchParams.get('type') ?? window.location.hash.replace(/^#/, '');
-		if (requestedFilter) {
-			applyFilter(requestedFilter);
+		const requestedSearch = searchParams.get('q') ?? '';
+		if (searchInput && requestedSearch) {
+			searchInput.value = requestedSearch;
 		}
+		applyFilter(requestedFilter);
 
 		buttons.forEach((button) => {
 			button.addEventListener('click', () => {
 				applyFilter(button.dataset.postFilter, true);
 			});
+		});
+
+		searchInput?.addEventListener('input', () => {
+			applyFilter(activeCategory(), true);
 		});
 	});
 </script>
@@ -165,6 +204,37 @@ const showCategoryControls = !block.limit && posts.length > 0;
 		flex-wrap: wrap;
 		gap: 8px;
 		margin: -10px 0 28px;
+	}
+
+	.post-search {
+		display: grid;
+		gap: 8px;
+		max-width: 560px;
+		margin: -12px 0 24px;
+	}
+
+	.post-search label {
+		color: var(--color-muted);
+		font-size: 0.86rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.post-search input {
+		width: 100%;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		background: #fff;
+		color: var(--color-text);
+		font: inherit;
+		font-size: 1rem;
+		padding: 12px 14px;
+	}
+
+	.post-search input:focus {
+		border-color: var(--color-accent-dark);
+		outline: 2px solid color-mix(in srgb, var(--color-accent) 28%, transparent);
+		outline-offset: 2px;
 	}
 
 	.category-controls button {
