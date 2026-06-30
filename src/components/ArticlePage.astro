@@ -1,5 +1,5 @@
 ---
-import type { SourcePost } from '../lib/source-content';
+import { getPostNavigation, type PostType, type SourcePost } from '../lib/source-content';
 import { withBase } from '../lib/url';
 import { getAuthorPath } from '../data/authors';
 import ContentHtml from './blocks/ContentHtml.astro';
@@ -13,11 +13,66 @@ const { post } = Astro.props;
 const authorPath = getAuthorPath(post.authorName, post.locale);
 const isShortVideo = post.video?.watchUrl.includes('/shorts/');
 const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
+const postNavigation = getPostNavigation(post);
 const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US', {
 	day: 'numeric',
 	month: 'long',
 	year: 'numeric',
 });
+
+const postTypeLabels: Record<typeof post.locale, Record<PostType, string>> = {
+	de: {
+		blog: 'Blog',
+		'short-tutorial': 'Kurztutorials',
+		'video-tutorial': 'Video-Tutorials',
+		'news-video': 'News-Videos',
+	},
+	en: {
+		blog: 'Blog',
+		'short-tutorial': 'Short tutorials',
+		'video-tutorial': 'Video tutorials',
+		'news-video': 'News videos',
+	},
+};
+
+const navigationLabels = {
+	de: {
+		heading: 'Weitere Beiträge',
+		chronological: 'Chronologisch',
+		category: 'In derselben Kategorie',
+		previous: 'Älterer Beitrag',
+		next: 'Neuerer Beitrag',
+	},
+	en: {
+		heading: 'More posts',
+		chronological: 'Chronological',
+		category: 'In the same category',
+		previous: 'Older post',
+		next: 'Newer post',
+	},
+}[post.locale];
+
+const navigationSections = [
+	{
+		title: navigationLabels.chronological,
+		previous: postNavigation.chronological.previous,
+		next: postNavigation.chronological.next,
+	},
+	{
+		title: `${navigationLabels.category}: ${postTypeLabels[post.locale][post.postType]}`,
+		previous: postNavigation.category.previous,
+		next: postNavigation.category.next,
+	},
+];
+const hasPostNavigation = navigationSections.some((section) => section.previous || section.next);
+
+function formatPostDate(navigationPost: SourcePost): string {
+	return new Date(navigationPost.date).toLocaleDateString(navigationPost.locale === 'de' ? 'de-DE' : 'en-US', {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric',
+	});
+}
 ---
 
 <article>
@@ -45,6 +100,38 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 		}
 	</header>
 	<ContentHtml html={post.contentHtml} locale={post.locale} />
+	{
+		hasPostNavigation && (
+			<nav class="post-navigation" aria-labelledby="post-navigation-heading">
+				<div class="container post-navigation-inner">
+					<h2 id="post-navigation-heading">{navigationLabels.heading}</h2>
+					<div class="post-navigation-grid">
+						{navigationSections.map((section) => (
+							<section class="post-navigation-section">
+								<h3>{section.title}</h3>
+								<div class="post-navigation-links">
+									{section.previous && (
+										<a class="post-navigation-card" href={withBase(section.previous.path)}>
+											<span>{navigationLabels.previous}</span>
+											<strong>{section.previous.title}</strong>
+											<time datetime={section.previous.date}>{formatPostDate(section.previous)}</time>
+										</a>
+									)}
+									{section.next && (
+										<a class="post-navigation-card post-navigation-card--next" href={withBase(section.next.path)}>
+											<span>{navigationLabels.next}</span>
+											<strong>{section.next.title}</strong>
+											<time datetime={section.next.date}>{formatPostDate(section.next)}</time>
+										</a>
+									)}
+								</div>
+							</section>
+						))}
+					</div>
+				</div>
+			</nav>
+		)
+	}
 </article>
 
 <style>
@@ -122,5 +209,88 @@ const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de
 	.hero-video--short :global(iframe),
 	.hero-video--short :global(.youtube-consent-placeholder) {
 		aspect-ratio: 9 / 16;
+	}
+
+	.post-navigation {
+		padding-block: clamp(42px, 7vw, 76px);
+		background: #fff;
+		border-top: 1px solid var(--color-line);
+	}
+
+	.post-navigation-inner {
+		max-width: 860px;
+	}
+
+	.post-navigation h2 {
+		margin: 0 0 24px;
+		font-size: clamp(1.9rem, 4vw, 3rem);
+		line-height: 1.08;
+		letter-spacing: 0;
+	}
+
+	.post-navigation-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 24px;
+	}
+
+	.post-navigation-section {
+		min-width: 0;
+	}
+
+	.post-navigation-section h3 {
+		margin: 0 0 12px;
+		color: var(--color-muted);
+		font-size: 0.86rem;
+		font-weight: 850;
+		letter-spacing: 0;
+		text-transform: uppercase;
+	}
+
+	.post-navigation-links {
+		display: grid;
+		gap: 16px;
+	}
+
+	.post-navigation-card {
+		display: grid;
+		gap: 6px;
+		min-height: 132px;
+		align-content: start;
+		padding: 18px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.post-navigation-card:hover {
+		border-color: var(--color-accent-dark);
+	}
+
+	.post-navigation-card span {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.post-navigation-card strong {
+		font-size: 1.08rem;
+		line-height: 1.22;
+	}
+
+	.post-navigation-card time {
+		margin-top: auto;
+		color: var(--color-muted);
+		font-size: 0.88rem;
+		font-weight: 750;
+	}
+
+	@media (max-width: 760px) {
+		.post-navigation-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>
