@@ -73,6 +73,7 @@ const navigationSections = [
 ];
 const hasPostNavigation = navigationSections.some((section) => section.previous || section.next);
 const hasRelatedPosts = relatedPosts.length > 0;
+const hasMorePosts = hasRelatedPosts || hasPostNavigation;
 
 function formatPostDate(navigationPost: SourcePost): string {
 	return new Date(navigationPost.date).toLocaleDateString(navigationPost.locale === 'de' ? 'de-DE' : 'en-US', {
@@ -109,59 +110,65 @@ function formatPostDate(navigationPost: SourcePost): string {
 	</header>
 	<ContentHtml html={post.contentHtml} locale={post.locale} />
 	{
-		hasRelatedPosts && (
-			<aside class="related-posts" aria-labelledby="related-posts-heading">
-				<div class="container related-posts-inner">
-					<h2 id="related-posts-heading">{navigationLabels.related}</h2>
-					<ul class="related-posts-list">
-						{relatedPosts.map((relatedPost) => (
-							<li>
-								<a href={withBase(relatedPost.path)}>{relatedPost.title}</a>
-							</li>
-						))}
-					</ul>
-				</div>
-			</aside>
-		)
-	}
-	{
-		hasPostNavigation && (
-			<nav class="post-navigation" aria-labelledby="post-navigation-heading">
-				<div class="container post-navigation-inner">
-					<h2 id="post-navigation-heading">{navigationLabels.heading}</h2>
-					<div class="post-navigation-grid">
-						{navigationSections.map((section) => (
-							<section class="post-navigation-section">
-								<h3>
-									{section.categoryLabel && section.categoryHref && (
-										<>
-											{section.title}: {' '}
-											<a href={withBase(section.categoryHref)}>{section.categoryLabel}</a>
-										</>
-									)}
-									{!section.categoryLabel && section.title}
-								</h3>
-								<div class="post-navigation-links">
-									{section.previous && (
-										<a class="post-navigation-card" href={withBase(section.previous.path)}>
-											<span>{navigationLabels.previous}</span>
-											<strong>{section.previous.title}</strong>
-											<time datetime={section.previous.date}>{formatPostDate(section.previous)}</time>
-										</a>
-									)}
-									{section.next && (
-										<a class="post-navigation-card post-navigation-card--next" href={withBase(section.next.path)}>
-											<span>{navigationLabels.next}</span>
-											<strong>{section.next.title}</strong>
-											<time datetime={section.next.date}>{formatPostDate(section.next)}</time>
-										</a>
-									)}
-								</div>
-							</section>
-						))}
+		hasMorePosts && (
+			<aside class="more-posts" aria-labelledby="more-posts-heading">
+				<div class="container more-posts-inner">
+					<h2 id="more-posts-heading">{navigationLabels.heading}</h2>
+					<div class="more-posts-grid">
+						{
+							hasRelatedPosts && (
+								<section class="related-posts" aria-labelledby="related-posts-heading">
+									<h3 id="related-posts-heading">{navigationLabels.related}</h3>
+									<ul class="related-posts-list">
+										{relatedPosts.map((relatedPost) => (
+											<li>
+												<a href={withBase(relatedPost.path)}>{relatedPost.title}</a>
+											</li>
+										))}
+									</ul>
+								</section>
+							)
+						}
+						{
+							hasPostNavigation && (
+								<nav class="post-navigation" aria-label={navigationLabels.heading}>
+									<div class="post-navigation-grid">
+										{navigationSections.map((section) => (
+											<section class="post-navigation-section">
+												<h3>
+													{section.categoryLabel && section.categoryHref && (
+														<>
+															{section.title}: {' '}
+															<a href={withBase(section.categoryHref)}>{section.categoryLabel}</a>
+														</>
+													)}
+													{!section.categoryLabel && section.title}
+												</h3>
+												<div class="post-navigation-links">
+													{section.previous && (
+														<a class="post-navigation-card" href={withBase(section.previous.path)}>
+															<span>{navigationLabels.previous}</span>
+															<strong>{section.previous.title}</strong>
+															<time datetime={section.previous.date}>{formatPostDate(section.previous)}</time>
+														</a>
+													)}
+													{section.next && (
+														<a class="post-navigation-card post-navigation-card--next" href={withBase(section.next.path)}>
+															<span>{navigationLabels.next}</span>
+															<strong>{section.next.title}</strong>
+															<time datetime={section.next.date}>{formatPostDate(section.next)}</time>
+														</a>
+													)}
+												</div>
+											</section>
+										))}
+									</div>
+								</nav>
+							)
+						}
 					</div>
 				</div>
-			</nav>
+			</aside>
 		)
 	}
 </article>
@@ -243,17 +250,30 @@ function formatPostDate(navigationPost: SourcePost): string {
 		aspect-ratio: 9 / 16;
 	}
 
-	.related-posts {
-		padding-block: 0 clamp(34px, 5vw, 56px);
+	.more-posts {
+		padding-block: clamp(42px, 7vw, 76px);
 		background: #fff;
+		border-top: 1px solid var(--color-line);
 	}
 
-	.related-posts-inner {
+	.more-posts-inner {
 		max-width: 860px;
-		padding-inline: 18px;
 	}
 
-	.related-posts h2 {
+	.more-posts h2 {
+		margin: 0 0 24px;
+		font-size: clamp(1.9rem, 4vw, 3rem);
+		line-height: 1.08;
+		letter-spacing: 0;
+	}
+
+	.more-posts-grid {
+		display: grid;
+		gap: 28px;
+	}
+
+	.related-posts h3,
+	.post-navigation-section h3 {
 		margin: 0 0 12px;
 		color: var(--color-muted);
 		font-size: 0.86rem;
@@ -290,20 +310,7 @@ function formatPostDate(navigationPost: SourcePost): string {
 	}
 
 	.post-navigation {
-		padding-block: clamp(42px, 7vw, 76px);
-		background: #fff;
-		border-top: 1px solid var(--color-line);
-	}
-
-	.post-navigation-inner {
-		max-width: 860px;
-	}
-
-	.post-navigation h2 {
-		margin: 0 0 24px;
-		font-size: clamp(1.9rem, 4vw, 3rem);
-		line-height: 1.08;
-		letter-spacing: 0;
+		min-width: 0;
 	}
 
 	.post-navigation-grid {
@@ -314,15 +321,6 @@ function formatPostDate(navigationPost: SourcePost): string {
 
 	.post-navigation-section {
 		min-width: 0;
-	}
-
-	.post-navigation-section h3 {
-		margin: 0 0 12px;
-		color: var(--color-muted);
-		font-size: 0.86rem;
-		font-weight: 850;
-		letter-spacing: 0;
-		text-transform: uppercase;
 	}
 
 	.post-navigation-section h3 a {
