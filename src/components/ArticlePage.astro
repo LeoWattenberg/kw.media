@@ -1,5 +1,5 @@
 ---
-import { getPostNavigation, type Category, type SourcePost } from '../lib/source-content';
+import { getPostNavigation, getRelatedPosts, type Category, type SourcePost } from '../lib/source-content';
 import { withBase } from '../lib/url';
 import { getAuthorPath } from '../data/authors';
 import { routeFor } from '../i18n';
@@ -15,6 +15,7 @@ const authorPath = getAuthorPath(post.authorName, post.locale);
 const isShortVideo = post.video?.watchUrl.includes('/shorts/');
 const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
 const postNavigation = getPostNavigation(post);
+const relatedPosts = getRelatedPosts(post);
 const postOverviewPath = routeFor('tips', post.locale);
 const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US', {
 	day: 'numeric',
@@ -40,6 +41,7 @@ const categoryLabels: Record<typeof post.locale, Record<Category, string>> = {
 const navigationLabels = {
 	de: {
 		heading: 'Weitere Beiträge',
+		related: 'Passende Beiträge',
 		chronological: 'Chronologisch',
 		category: 'In derselben Kategorie',
 		previous: 'Älterer Beitrag',
@@ -47,6 +49,7 @@ const navigationLabels = {
 	},
 	en: {
 		heading: 'More posts',
+		related: 'Related posts',
 		chronological: 'Chronological',
 		category: 'In the same category',
 		previous: 'Older post',
@@ -69,6 +72,7 @@ const navigationSections = [
 	},
 ];
 const hasPostNavigation = navigationSections.some((section) => section.previous || section.next);
+const hasRelatedPosts = relatedPosts.length > 0;
 
 function formatPostDate(navigationPost: SourcePost): string {
 	return new Date(navigationPost.date).toLocaleDateString(navigationPost.locale === 'de' ? 'de-DE' : 'en-US', {
@@ -104,6 +108,23 @@ function formatPostDate(navigationPost: SourcePost): string {
 		}
 	</header>
 	<ContentHtml html={post.contentHtml} locale={post.locale} />
+	{
+		hasRelatedPosts && (
+			<aside class="related-posts" aria-labelledby="related-posts-heading">
+				<div class="container related-posts-inner">
+					<h2 id="related-posts-heading">{navigationLabels.related}</h2>
+					<div class="related-posts-grid">
+						{relatedPosts.map((relatedPost) => (
+							<a class="related-post-card" href={withBase(relatedPost.path)}>
+								<strong>{relatedPost.title}</strong>
+								{relatedPost.excerpt && <span>{relatedPost.excerpt}</span>}
+							</a>
+						))}
+					</div>
+				</div>
+			</aside>
+		)
+	}
 	{
 		hasPostNavigation && (
 			<nav class="post-navigation" aria-labelledby="post-navigation-heading">
@@ -223,6 +244,57 @@ function formatPostDate(navigationPost: SourcePost): string {
 		aspect-ratio: 9 / 16;
 	}
 
+	.related-posts {
+		padding-block: clamp(38px, 6vw, 64px);
+		background: var(--color-surface-alt);
+		border-top: 1px solid var(--color-line);
+	}
+
+	.related-posts-inner {
+		max-width: 920px;
+	}
+
+	.related-posts h2 {
+		margin: 0 0 20px;
+		font-size: clamp(1.7rem, 3vw, 2.6rem);
+		line-height: 1.1;
+		letter-spacing: 0;
+	}
+
+	.related-posts-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 16px;
+	}
+
+	.related-post-card {
+		display: grid;
+		gap: 10px;
+		align-content: start;
+		min-height: 160px;
+		padding: 18px;
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.related-post-card:hover {
+		border-color: var(--color-accent-dark);
+	}
+
+	.related-post-card strong {
+		font-size: 1.04rem;
+		line-height: 1.22;
+	}
+
+	.related-post-card span {
+		color: var(--color-muted);
+		font-size: 0.92rem;
+		line-height: 1.45;
+	}
+
 	.post-navigation {
 		padding-block: clamp(42px, 7vw, 76px);
 		background: #fff;
@@ -310,6 +382,10 @@ function formatPostDate(navigationPost: SourcePost): string {
 	}
 
 	@media (max-width: 760px) {
+		.related-posts-grid {
+			grid-template-columns: 1fr;
+		}
+
 		.post-navigation-grid {
 			grid-template-columns: 1fr;
 		}

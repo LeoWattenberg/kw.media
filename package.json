@@ -10,6 +10,7 @@
     "import:youtube": "node scripts/manual-import.js",
     "cleanup:post": "node scripts/cleanup-post.mjs",
     "cleanup:last-commit": "node scripts/cleanup-last-commit-posts.mjs",
+    "related:posts": "node scripts/build-related-posts.mjs",
     "translate:post": "node scripts/translate-post.mjs",
     "translate:all-missing": "node scripts/translate-all-missing-posts.mjs"
   },
