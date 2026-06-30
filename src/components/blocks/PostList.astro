@@ -87,28 +87,47 @@ const showCategoryControls = !block.limit && posts.length > 0;
 		const posts = Array.from(list.querySelectorAll<HTMLElement>('[data-post-type]'));
 		const emptyMessage = list.querySelector<HTMLElement>('[data-empty-message]');
 
+		function applyFilter(filter: string | undefined, updateUrl = false) {
+			const activeFilter = buttons.some((button) => button.dataset.postFilter === filter) ? filter : 'all';
+			let visibleCount = 0;
+
+			buttons.forEach((candidate) => {
+				const isActive = candidate.dataset.postFilter === activeFilter;
+				candidate.classList.toggle('active', isActive);
+				candidate.setAttribute('aria-pressed', String(isActive));
+			});
+
+			posts.forEach((post) => {
+				const shouldShow = activeFilter === 'all' || post.dataset.postType === activeFilter;
+				post.hidden = !shouldShow;
+				if (shouldShow) {
+					visibleCount += 1;
+				}
+			});
+
+			if (emptyMessage) {
+				emptyMessage.hidden = visibleCount > 0;
+			}
+
+			if (updateUrl) {
+				const url = new URL(window.location.href);
+				if (activeFilter && activeFilter !== 'all') {
+					url.searchParams.set('type', activeFilter);
+				} else {
+					url.searchParams.delete('type');
+				}
+				window.history.replaceState({}, '', url);
+			}
+		}
+
+		const requestedFilter = new URLSearchParams(window.location.search).get('type') ?? window.location.hash.replace(/^#/, '');
+		if (requestedFilter) {
+			applyFilter(requestedFilter);
+		}
+
 		buttons.forEach((button) => {
 			button.addEventListener('click', () => {
-				const filter = button.dataset.postFilter;
-				let visibleCount = 0;
-
-				buttons.forEach((candidate) => {
-					const isActive = candidate === button;
-					candidate.classList.toggle('active', isActive);
-					candidate.setAttribute('aria-pressed', String(isActive));
-				});
-
-				posts.forEach((post) => {
-					const shouldShow = filter === 'all' || post.dataset.postType === filter;
-					post.hidden = !shouldShow;
-					if (shouldShow) {
-						visibleCount += 1;
-					}
-				});
-
-				if (emptyMessage) {
-					emptyMessage.hidden = visibleCount > 0;
-				}
+				applyFilter(button.dataset.postFilter, true);
 			});
 		});
 	});

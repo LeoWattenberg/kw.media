@@ -2,6 +2,7 @@
 import { getPostNavigation, type PostType, type SourcePost } from '../lib/source-content';
 import { withBase } from '../lib/url';
 import { getAuthorPath } from '../data/authors';
+import { routeFor } from '../i18n';
 import ContentHtml from './blocks/ContentHtml.astro';
 import YouTubeConsentEmbed from './YouTubeConsentEmbed.astro';
 
@@ -14,6 +15,7 @@ const authorPath = getAuthorPath(post.authorName, post.locale);
 const isShortVideo = post.video?.watchUrl.includes('/shorts/');
 const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
 const postNavigation = getPostNavigation(post);
+const postOverviewPath = routeFor('tips', post.locale);
 const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US', {
 	day: 'numeric',
 	month: 'long',
@@ -39,14 +41,14 @@ const navigationLabels = {
 	de: {
 		heading: 'Weitere Beiträge',
 		chronological: 'Chronologisch',
-		category: 'In derselben Kategorie',
+		category: 'Im selben Beitragstyp',
 		previous: 'Älterer Beitrag',
 		next: 'Neuerer Beitrag',
 	},
 	en: {
 		heading: 'More posts',
 		chronological: 'Chronological',
-		category: 'In the same category',
+		category: 'In the same post type',
 		previous: 'Older post',
 		next: 'Newer post',
 	},
@@ -59,7 +61,9 @@ const navigationSections = [
 		next: postNavigation.chronological.next,
 	},
 	{
-		title: `${navigationLabels.category}: ${postTypeLabels[post.locale][post.postType]}`,
+		title: navigationLabels.category,
+		categoryLabel: postTypeLabels[post.locale][post.postType],
+		categoryHref: `${postOverviewPath}?type=${post.postType}`,
 		previous: postNavigation.category.previous,
 		next: postNavigation.category.next,
 	},
@@ -108,7 +112,15 @@ function formatPostDate(navigationPost: SourcePost): string {
 					<div class="post-navigation-grid">
 						{navigationSections.map((section) => (
 							<section class="post-navigation-section">
-								<h3>{section.title}</h3>
+								<h3>
+									{section.categoryLabel && section.categoryHref && (
+										<>
+											{section.title}: {' '}
+											<a href={withBase(section.categoryHref)}>{section.categoryLabel}</a>
+										</>
+									)}
+									{!section.categoryLabel && section.title}
+								</h3>
 								<div class="post-navigation-links">
 									{section.previous && (
 										<a class="post-navigation-card" href={withBase(section.previous.path)}>
@@ -245,6 +257,15 @@ function formatPostDate(navigationPost: SourcePost): string {
 		font-weight: 850;
 		letter-spacing: 0;
 		text-transform: uppercase;
+	}
+
+	.post-navigation-section h3 a {
+		color: var(--color-accent-dark);
+		text-decoration: none;
+	}
+
+	.post-navigation-section h3 a:hover {
+		text-decoration: underline;
 	}
 
 	.post-navigation-links {
