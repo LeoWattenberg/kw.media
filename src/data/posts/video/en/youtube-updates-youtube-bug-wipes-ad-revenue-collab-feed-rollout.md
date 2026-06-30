@@ -7,6 +7,7 @@ excerpt: "Let's talk about the recent YouTube updates. First things first: money
 date: "2025-08-02T12:15:03"
 modified: "2025-08-02T12:15:03"
 locale: "en"
+translationKey: "video:JhqpnMVoupA"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/JhqpnMVoupA/maxresdefault.jpg"

@@ -7,7 +7,9 @@ excerpt: "Warum du Passwörter nie teilen solltest und wie du YouTube-Kanalberec
 date: "2022-03-29T16:13:33"
 modified: "2022-03-29T16:13:33"
 locale: "de"
+translationKey: "video:6KcwfJbEdDk"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/6KcwfJbEdDk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/6KcwfJbEdDk"

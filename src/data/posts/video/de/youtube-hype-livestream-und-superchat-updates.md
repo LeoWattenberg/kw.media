@@ -7,6 +7,7 @@ excerpt: "Der YouTube Shorts Feed bekommt jetzt die Möglichkeit, Sounds bzw. Mu
 date: "2024-07-27T12:30:40"
 modified: "2024-07-27T12:30:40"
 locale: "de"
+translationKey: "video:t-36QlpRlEc"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/t-36QlpRlEc/maxresdefault.jpg"

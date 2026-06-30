@@ -7,6 +7,7 @@ excerpt: "YouTube Shopping Sticker in Shorts werden aufgewertet. Anstatt ein Pal
 date: "2025-06-21T12:15:02"
 modified: "2025-06-21T12:15:02"
 locale: "en"
+translationKey: "video:EwZklcCUoO8"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/EwZklcCUoO8/maxresdefault.jpg"

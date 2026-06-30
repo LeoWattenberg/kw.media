@@ -7,6 +7,7 @@ excerpt: "Moin! Wir starten mit einigen interessanten Updates rund um YouTube."
 date: "2024-04-06T12:30:26"
 modified: "2024-04-06T12:30:26"
 locale: "de"
+translationKey: "video:gw-LkDbK_R8"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/gw-LkDbK_R8/maxresdefault.jpg"

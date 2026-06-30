@@ -7,6 +7,7 @@ excerpt: "Eine kurze Empfehlung, bevor wir mit den YouTube Updates für diese Wo
 date: "2025-01-25T13:15:00"
 modified: "2025-01-25T13:15:00"
 locale: "de"
+translationKey: "video:5P1Bw-qOnJM"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/5P1Bw-qOnJM/maxresdefault.jpg"

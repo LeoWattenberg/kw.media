@@ -7,6 +7,7 @@ excerpt: "Hallo und herzlich willkommen zu einem weiteren Video auf meinem YouTu
 date: "2025-01-18T13:15:03"
 modified: "2025-01-18T13:15:03"
 locale: "de"
+translationKey: "video:bJbym4s4auQ"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/bJbym4s4auQ/maxresdefault.jpg"

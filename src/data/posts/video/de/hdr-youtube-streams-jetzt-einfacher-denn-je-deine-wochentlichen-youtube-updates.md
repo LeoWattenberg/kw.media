@@ -7,6 +7,7 @@ excerpt: "Es gab bereits in der Vergangenheit im YouTube Studio Desktop keine Is
 date: "2024-03-16T13:30:01"
 modified: "2024-03-16T13:30:01"
 locale: "de"
+translationKey: "video:0g-IDgMvpRs"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/0g-IDgMvpRs/maxresdefault.jpg"

@@ -7,7 +7,9 @@ excerpt: "Um deinen YouTube-Kanal mit discord zu verbinden klicke zunächst auf 
 date: "2023-06-05T07:00:15"
 modified: "2023-06-05T07:00:15"
 locale: "de"
+translationKey: "video:iN-yGbTd3z4"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/iN-yGbTd3z4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iN-yGbTd3z4"

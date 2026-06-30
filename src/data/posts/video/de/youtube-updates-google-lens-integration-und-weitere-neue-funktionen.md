@@ -7,6 +7,7 @@ excerpt: "Es gibt frische YouTube Updates. Lassen Sie uns mit einem kleinen Andr
 date: "2024-07-06T12:30:15"
 modified: "2024-07-06T12:30:15"
 locale: "de"
+translationKey: "video:Rl2fol2fqhg"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/Rl2fol2fqhg/maxresdefault.jpg"

@@ -7,6 +7,7 @@ excerpt: "Happy New Year! While most of YouTube's engineering teams are still on
 date: "2026-01-10T11:21:05"
 modified: "2026-01-10T11:21:05"
 locale: "en"
+translationKey: "video:L0009GyER00"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/L0009GyER00/maxresdefault.jpg"

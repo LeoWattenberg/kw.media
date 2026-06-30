@@ -7,6 +7,7 @@ excerpt: "Wir hatten letzte Woche bereits kurz über die Benachrichtigung für b
 date: "2024-10-12T12:15:01"
 modified: "2024-10-12T12:15:01"
 locale: "de"
+translationKey: "video:EA7skAF4qLA"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/EA7skAF4qLA/maxresdefault.jpg"

@@ -7,6 +7,7 @@ excerpt: "YouTube updates weekly, fresh off the press. Let's start with the auto
 date: "2025-05-10T12:15:05"
 modified: "2025-05-10T12:15:05"
 locale: "en"
+translationKey: "video:jkTohCOCLdg"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/jkTohCOCLdg/maxresdefault.jpg"

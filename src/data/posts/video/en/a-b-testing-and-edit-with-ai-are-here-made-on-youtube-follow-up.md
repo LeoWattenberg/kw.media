@@ -7,6 +7,7 @@ excerpt: "Just a few days ago, we discussed all the announcements from the Made 
 date: "2025-09-19T12:15:04"
 modified: "2025-09-19T12:15:04"
 locale: "en"
+translationKey: "video:WWV1rfDxlcE"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/WWV1rfDxlcE/maxresdefault.jpg"

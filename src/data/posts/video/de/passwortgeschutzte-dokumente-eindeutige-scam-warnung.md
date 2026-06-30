@@ -7,6 +7,7 @@ excerpt: "Diese Woche gibt es keine YouTube Updates, dafür möchte ich euch vor
 date: "2025-03-15T13:15:02"
 modified: "2025-03-15T13:15:02"
 locale: "de"
+translationKey: "video:I26HIlgDa64"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/I26HIlgDa64/maxresdefault.jpg"

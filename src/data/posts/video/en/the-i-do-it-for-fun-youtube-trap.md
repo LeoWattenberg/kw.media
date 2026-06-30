@@ -7,7 +7,9 @@ excerpt: "Is it okay if I really don't care about making money from YouTube? Yes
 date: "2026-06-17T05:00:13"
 modified: "2026-06-17T05:00:13"
 locale: "en"
+translationKey: "video:JIJbmewxJVk"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/JIJbmewxJVk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/JIJbmewxJVk"

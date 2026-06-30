@@ -7,7 +7,9 @@ excerpt: "YouTube hat viele Wege andere User zu eurem Channel weiterzuleiten bis
 date: "2022-10-10T16:21:11"
 modified: "2022-10-10T16:21:11"
 locale: "de"
+translationKey: "video:jQdcFKeY1xA"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/jQdcFKeY1xA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/jQdcFKeY1xA"

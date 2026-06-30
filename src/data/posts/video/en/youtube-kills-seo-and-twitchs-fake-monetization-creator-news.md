@@ -7,6 +7,7 @@ excerpt: "YouTube ist dabei, deinen Suchverkehr zu killen, und Gemini Omni will 
 date: "2026-05-23T12:15:01"
 modified: "2026-05-23T12:15:01"
 locale: "en"
+translationKey: "video:DSZHozupVlk"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/DSZHozupVlk/maxresdefault.jpg"

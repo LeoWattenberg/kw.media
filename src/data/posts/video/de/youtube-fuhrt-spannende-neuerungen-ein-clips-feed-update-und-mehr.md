@@ -7,6 +7,7 @@ excerpt: "Das Update für den Clips Feed ist wie geplant ausgerollt worden und z
 date: "2024-02-17T12:30:17"
 modified: "2024-02-17T12:30:17"
 locale: "de"
+translationKey: "video:K7CyD1EvaeE"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/K7CyD1EvaeE/maxresdefault.jpg"

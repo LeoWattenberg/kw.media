@@ -7,7 +7,9 @@ excerpt: "Is a face cam actually necessary for channel growth? The short answer 
 date: "2026-06-16T05:00:14"
 modified: "2026-06-16T05:00:14"
 locale: "en"
+translationKey: "video:2gVOJsKlUbo"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/2gVOJsKlUbo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/2gVOJsKlUbo"

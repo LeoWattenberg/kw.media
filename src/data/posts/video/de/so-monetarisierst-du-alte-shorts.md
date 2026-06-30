@@ -7,7 +7,9 @@ excerpt: "Wenn ihr bereits Shorts erstellt habt denkt bitte auch daran die Monet
 date: "2023-01-12T10:43:31"
 modified: "2023-01-12T10:43:31"
 locale: "de"
+translationKey: "video:BpTFWaLGDR4"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/BpTFWaLGDR4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/BpTFWaLGDR4"

@@ -7,7 +7,9 @@ excerpt: "Does your name in live chat look like a barcode or bot? YouTube just u
 date: "2025-12-05T11:33:19"
 modified: "2025-12-05T11:33:19"
 locale: "en"
+translationKey: "video:hqePaFc8fCA"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/hqePaFc8fCA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hqePaFc8fCA"

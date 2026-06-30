@@ -7,7 +7,9 @@ excerpt: "What is the hardest lesson you've learned from your YouTube channel? I
 date: "2026-06-15T07:44:54"
 modified: "2026-06-15T07:44:54"
 locale: "en"
+translationKey: "video:ym_qnPaIiCk"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/ym_qnPaIiCk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ym_qnPaIiCk"

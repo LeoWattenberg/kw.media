@@ -7,6 +7,7 @@ excerpt: "Wait a second, I'm getting a serious déjà vu here. Am I just reading
 date: "2026-06-13T12:15:04"
 modified: "2026-06-13T12:15:04"
 locale: "en"
+translationKey: "video:TRS0NIOahBM"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/TRS0NIOahBM/maxresdefault.jpg"

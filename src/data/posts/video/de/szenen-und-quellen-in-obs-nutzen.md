@@ -7,7 +7,9 @@ excerpt: "Das kein Prinzip bitte obs besteht aus Szenen und Quellen dabei ist ei
 date: "2023-03-27T17:00:10"
 modified: "2023-03-27T17:00:10"
 locale: "de"
+translationKey: "video:CVIdTBgfJ4g"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/CVIdTBgfJ4g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CVIdTBgfJ4g"

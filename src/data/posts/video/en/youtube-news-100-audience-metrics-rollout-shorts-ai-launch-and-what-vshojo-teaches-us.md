@@ -7,6 +7,7 @@ excerpt: "YouTube Shorts is releasing an AI update that lets you transform photo
 date: "2025-07-26T12:15:02"
 modified: "2025-07-26T12:15:02"
 locale: "en"
+translationKey: "video:BR7qbvP5ceY"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/BR7qbvP5ceY/maxresdefault.jpg"

@@ -7,6 +7,7 @@ excerpt: "Quick YouTube updates this week. YouTube has changed the way thumbnail
 date: "2025-06-07T12:15:07"
 modified: "2025-06-07T12:15:07"
 locale: "en"
+translationKey: "video:tvpXlghvKzo"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/tvpXlghvKzo/maxresdefault.jpg"

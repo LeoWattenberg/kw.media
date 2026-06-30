@@ -7,7 +7,9 @@ excerpt: "YouTube membership is a crowdsourcing feature to connect yourself with
 date: "2024-08-22T14:00:12"
 modified: "2024-08-22T14:00:12"
 locale: "en"
+translationKey: "video:EWyU591a1JM"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/EWyU591a1JM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/EWyU591a1JM"

@@ -7,7 +7,9 @@ excerpt: "Um selbst einen Short zu produzieren, klicke in einer YouTube-App auf 
 date: "2021-07-12T16:19:11"
 modified: "2021-07-12T16:19:11"
 locale: "de"
+translationKey: "video:Ym4aBQ-W2BM"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/Ym4aBQ-W2BM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Ym4aBQ-W2BM"

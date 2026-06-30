@@ -7,7 +7,9 @@ excerpt: "Erklärt YouTube Live Redirects und wie Kanäle einstellen, wer Zuscha
 date: "2022-05-10T10:00:31"
 modified: "2022-05-10T10:00:31"
 locale: "de"
+translationKey: "video:eUxLizKDC6M"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/eUxLizKDC6M/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/eUxLizKDC6M"

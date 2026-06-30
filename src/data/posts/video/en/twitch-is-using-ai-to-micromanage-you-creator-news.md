@@ -7,6 +7,7 @@ excerpt: "YouTube wants to clone you, Twitch wants to micromanage your sponsorsh
 date: "2026-05-30T12:15:08"
 modified: "2026-05-30T12:15:08"
 locale: "en"
+translationKey: "video:JhAvOlIInDk"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/JhAvOlIInDk/maxresdefault.jpg"

@@ -7,6 +7,7 @@ excerpt: "A practical content model for understanding audience intent on YouTube
 date: "2022-01-08T10:31:12"
 modified: "2023-03-17T12:57:27"
 locale: "en"
+translationKey: "post:1875"
 categoryIds: [18]
 image: "https://leowattenberg.files.wordpress.com/2020/10/3d-see-nts-1.png?w=300"
 authorName: "Leo Wattenberg"

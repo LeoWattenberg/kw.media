@@ -7,7 +7,9 @@ excerpt: "So aktivierst oder deaktivierst du Super Thanks im Monetarisierungsber
 date: "2022-05-03T11:00:30"
 modified: "2022-05-03T11:00:30"
 locale: "de"
+translationKey: "video:iKf9XHFUSos"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/iKf9XHFUSos/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iKf9XHFUSos"

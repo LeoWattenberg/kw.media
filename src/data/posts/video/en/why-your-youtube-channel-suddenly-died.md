@@ -7,7 +7,9 @@ excerpt: "Why did my YouTube channel suddenly stop growing after 6 months? Becau
 date: "2026-06-19T05:00:10"
 modified: "2026-06-19T05:00:10"
 locale: "en"
+translationKey: "video:2JIHi4MVn9w"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/2JIHi4MVn9w/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/2JIHi4MVn9w"

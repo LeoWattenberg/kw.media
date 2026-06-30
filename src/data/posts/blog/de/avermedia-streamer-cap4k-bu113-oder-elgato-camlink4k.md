@@ -7,6 +7,7 @@ excerpt: "Ein praktischer Vergleich zwischen AVerMedia Streamer Cap 4K und Elgat
 date: "2021-10-27T15:50:28"
 modified: "2023-03-17T12:57:27"
 locale: "de"
+translationKey: "post:1847"
 categoryIds: [17]
 image: "/assets/wp-content/uploads/2021/10/camlink_cap4k_vergleich.jpg"
 authorName: "Leo Wattenberg"

@@ -7,7 +7,9 @@ excerpt: "So nutzt du @-Mentions, um andere YouTube-Kanäle in Titeln oder Besch
 date: "2022-04-05T11:00:16"
 modified: "2022-04-05T11:00:16"
 locale: "de"
+translationKey: "video:JXe3Pop5N3U"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/JXe3Pop5N3U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/JXe3Pop5N3U"

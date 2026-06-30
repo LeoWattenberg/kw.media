@@ -7,7 +7,9 @@ excerpt: "YouTube und Twitch bieten euch jeweils an euer Konto direkt mit obs zu
 date: "2023-03-26T15:30:20"
 modified: "2023-03-26T15:30:20"
 locale: "de"
+translationKey: "video:s5_yhiar6UU"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/s5_yhiar6UU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/s5_yhiar6UU"

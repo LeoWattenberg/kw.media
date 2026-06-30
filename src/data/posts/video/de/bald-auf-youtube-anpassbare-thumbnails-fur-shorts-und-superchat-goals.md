@@ -7,6 +7,7 @@ excerpt: "Es gibt wieder YouTube News! Wir starten direkt mit den sogenannten Sh
 date: "2024-08-10T12:30:10"
 modified: "2024-08-10T12:30:10"
 locale: "de"
+translationKey: "video:E8hipk1TNNc"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/E8hipk1TNNc/maxresdefault.jpg"

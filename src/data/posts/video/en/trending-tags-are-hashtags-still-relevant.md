@@ -7,7 +7,9 @@ excerpt: "YouTube ABC: hashtags as a content creator using hashtags in your vide
 date: "2024-07-16T14:30:44"
 modified: "2024-07-16T14:30:44"
 locale: "en"
+translationKey: "video:b5xKbnpC8P4"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/b5xKbnpC8P4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/b5xKbnpC8P4"

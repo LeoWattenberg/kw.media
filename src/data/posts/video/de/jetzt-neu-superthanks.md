@@ -7,7 +7,9 @@ excerpt: "Erklärt, wie Zuschauer Super Thanks senden und wie Creator die Einnah
 date: "2022-04-27T08:29:36"
 modified: "2022-04-27T08:29:36"
 locale: "de"
+translationKey: "video:OYppjzpPs8U"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/OYppjzpPs8U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OYppjzpPs8U"

@@ -7,7 +7,9 @@ excerpt: "Erklärt, wie Creator Musik aus der YouTube Audio-Mediathek finden, he
 date: "2022-06-21T15:00:05"
 modified: "2022-06-21T15:00:05"
 locale: "de"
+translationKey: "video:8xWKE5cgjbU"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/8xWKE5cgjbU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8xWKE5cgjbU"

@@ -7,6 +7,7 @@ excerpt: "Das mobile Studio wird aufgeräumt: Die Registerkarte \"Inhalte\" wird
 date: "2024-11-02T13:15:00"
 modified: "2024-11-02T13:15:00"
 locale: "de"
+translationKey: "video:1gcduEf8HXE"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/1gcduEf8HXE/maxresdefault.jpg"

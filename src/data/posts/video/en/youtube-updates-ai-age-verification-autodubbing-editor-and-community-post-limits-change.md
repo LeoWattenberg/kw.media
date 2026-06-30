@@ -7,6 +7,7 @@ excerpt: "Editing autodub videos is now available in YouTube Studio Editor. You 
 date: "2025-08-16T12:15:03"
 modified: "2025-08-16T12:15:03"
 locale: "en"
+translationKey: "video:JvwkzUSuNFM"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/JvwkzUSuNFM/maxresdefault.jpg"

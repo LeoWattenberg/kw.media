@@ -7,7 +7,9 @@ excerpt: "So findest du in YouTube deine Käufe, Mitgliedschaften, Premium-Ausga
 date: "2022-06-14T12:30:10"
 modified: "2022-06-14T12:30:10"
 locale: "de"
+translationKey: "video:hOXK7RMR4Qk"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/hOXK7RMR4Qk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hOXK7RMR4Qk"

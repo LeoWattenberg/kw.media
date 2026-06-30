@@ -7,7 +7,9 @@ excerpt: "YouTube ABC: videos showcased on the homepage known as featured conten
 date: "2024-07-08T07:43:38"
 modified: "2024-07-08T07:43:38"
 locale: "en"
+translationKey: "video:4i-aEErmV08"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/4i-aEErmV08/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/4i-aEErmV08"

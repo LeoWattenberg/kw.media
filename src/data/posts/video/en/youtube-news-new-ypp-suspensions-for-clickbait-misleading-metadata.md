@@ -7,6 +7,7 @@ excerpt: "What's up everyone, and welcome back to the YouTube News! Let's dive r
 date: "2025-11-01T13:15:08"
 modified: "2025-11-01T13:15:08"
 locale: "en"
+translationKey: "video:pjUSbdGlmvs"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/pjUSbdGlmvs/maxresdefault.jpg"

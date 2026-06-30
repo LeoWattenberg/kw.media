@@ -7,6 +7,7 @@ excerpt: "Wir müssen über YouTube Shorts reden: Ab dem 15. Oktober unterstütz
 date: "2024-09-28T17:06:56"
 modified: "2024-09-28T17:06:56"
 locale: "de"
+translationKey: "video:RaauubMlzic"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/RaauubMlzic/maxresdefault.jpg"

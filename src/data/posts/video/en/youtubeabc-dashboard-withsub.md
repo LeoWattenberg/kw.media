@@ -7,7 +7,9 @@ excerpt: "The YouTube ABC: dashboard opening the YouTube studio app transports y
 date: "2024-06-27T08:11:21"
 modified: "2024-06-27T08:11:21"
 locale: "en"
+translationKey: "video:1prNYRTvh8Y"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/1prNYRTvh8Y/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/1prNYRTvh8Y"

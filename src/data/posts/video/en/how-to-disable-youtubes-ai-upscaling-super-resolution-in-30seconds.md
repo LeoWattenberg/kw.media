@@ -7,7 +7,9 @@ excerpt: "A quick walkthrough for disabling YouTube's AI super resolution settin
 date: "2025-10-31T10:13:19"
 modified: "2025-10-31T10:13:19"
 locale: "en"
+translationKey: "video:iVVTODHIeP4"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/iVVTODHIeP4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iVVTODHIeP4"

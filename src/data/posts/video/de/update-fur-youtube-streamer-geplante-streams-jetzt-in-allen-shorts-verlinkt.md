@@ -7,6 +7,7 @@ excerpt: "YouTube hat nun auch offiziell die 3 Minuten Shorts angekündigt. Die 
 date: "2024-10-05T12:30:02"
 modified: "2024-10-05T12:30:02"
 locale: "de"
+translationKey: "video:1xInnsGnSxM"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/1xInnsGnSxM/maxresdefault.jpg"

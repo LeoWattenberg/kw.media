@@ -7,7 +7,9 @@ excerpt: "Shows a quick free workflow for creating gaming thumbnails in GIMP, fr
 date: "2025-08-28T15:53:55"
 modified: "2025-08-28T15:53:55"
 locale: "en"
+translationKey: "video:gdibcpbh45g"
 categoryIds: [18]
+postType: "video-tutorial"
 image: "https://i.ytimg.com/vi/gdibcpbh45g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gdibcpbh45g"

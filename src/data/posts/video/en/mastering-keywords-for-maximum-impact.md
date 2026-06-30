@@ -7,7 +7,9 @@ excerpt: "YouTube ads can be displayed higher up in search. In some cases it's p
 date: "2024-08-07T14:00:41"
 modified: "2024-08-07T14:00:41"
 locale: "en"
+translationKey: "video:j1kZ_CuZOG8"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/j1kZ_CuZOG8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/j1kZ_CuZOG8"

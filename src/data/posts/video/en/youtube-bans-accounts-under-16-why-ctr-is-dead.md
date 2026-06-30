@@ -7,6 +7,7 @@ excerpt: "Welcome back to the channel! Today, we're diving into some significant
 date: "2025-12-06T13:15:09"
 modified: "2025-12-06T13:15:09"
 locale: "en"
+translationKey: "video:nYCqLniFimk"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/nYCqLniFimk/maxresdefault.jpg"

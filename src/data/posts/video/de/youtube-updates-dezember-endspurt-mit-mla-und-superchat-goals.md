@@ -7,6 +7,7 @@ excerpt: "Vorschaubilder auf YouTube, die sogenannten Thumbnails, waren sehr lan
 date: "2024-12-07T13:15:10"
 modified: "2024-12-07T13:15:10"
 locale: "de"
+translationKey: "video:rhThVpigPqY"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/rhThVpigPqY/maxresdefault.jpg"

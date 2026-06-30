@@ -7,6 +7,7 @@ excerpt: "Wir müssen über den Elefanten im Raum sprechen, denn YouTube hat ein
 date: "2024-02-24T13:30:12"
 modified: "2024-02-24T13:30:12"
 locale: "de"
+translationKey: "video:UtI-KzQha-M"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/UtI-KzQha-M/maxresdefault.jpg"

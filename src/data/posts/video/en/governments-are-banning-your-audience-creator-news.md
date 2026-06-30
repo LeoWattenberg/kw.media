@@ -7,6 +7,7 @@ excerpt: "Entire governments are pushing to legally ban a large portion of your 
 date: "2026-06-20T12:15:08"
 modified: "2026-06-20T12:15:08"
 locale: "en"
+translationKey: "video:U4ZQqoBy7nU"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/U4ZQqoBy7nU/maxresdefault.jpg"

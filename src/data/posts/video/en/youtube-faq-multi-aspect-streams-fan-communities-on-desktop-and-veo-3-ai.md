@@ -7,6 +7,7 @@ excerpt: "What's up everyone? After our follow up video on the recent YouTube an
 date: "2025-09-27T12:15:04"
 modified: "2025-09-27T12:15:04"
 locale: "en"
+translationKey: "video:GSv_RD1b7b8"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/GSv_RD1b7b8/maxresdefault.jpg"

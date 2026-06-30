@@ -7,6 +7,7 @@ excerpt: "YouTube ist wieder dabei, Ihre Aufrufzahlen künstlich zu erhöhen, un
 date: "2026-04-04T12:15:03"
 modified: "2026-04-04T12:15:03"
 locale: "en"
+translationKey: "video:XKiJKhwk7vE"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/XKiJKhwk7vE/maxresdefault.jpg"

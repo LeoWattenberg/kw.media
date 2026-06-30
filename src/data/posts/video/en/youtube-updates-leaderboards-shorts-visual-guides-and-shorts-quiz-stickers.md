@@ -7,6 +7,7 @@ excerpt: "Let's talk about YouTube updates. The launch window for the YouTube AI
 date: "2025-05-24T12:15:13"
 modified: "2025-05-24T12:15:13"
 locale: "en"
+translationKey: "video:pGAgrTShuHc"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/pGAgrTShuHc/maxresdefault.jpg"

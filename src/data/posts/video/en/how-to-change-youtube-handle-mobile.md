@@ -7,7 +7,9 @@ excerpt: "Stop looking like a bot in live chat. YouTube just replaced display na
 date: "2025-12-05T11:34:07"
 modified: "2025-12-05T11:34:07"
 locale: "en"
+translationKey: "video:67GI43uGC4s"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/67GI43uGC4s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/67GI43uGC4s"

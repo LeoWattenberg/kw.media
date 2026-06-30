@@ -7,7 +7,9 @@ excerpt: "Will I lose my YouTube monetization if my watch time drops below 4,000
 date: "2026-06-21T05:00:08"
 modified: "2026-06-21T05:00:08"
 locale: "en"
+translationKey: "video:Xtu2XYmDfy4"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/Xtu2XYmDfy4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Xtu2XYmDfy4"

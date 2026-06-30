@@ -7,6 +7,7 @@ excerpt: "A practical guide to mobile production for YouTube and livestreaming, 
 date: "2021-06-11T10:20:19"
 modified: "2022-07-16T12:47:06"
 locale: "en"
+translationKey: "post:1432"
 categoryIds: [18]
 image: "https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b"
 authorName: "Leo Wattenberg"

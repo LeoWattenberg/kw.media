@@ -7,6 +7,7 @@ excerpt: "YouTube experimentiert gerade mit einem sogenannten \"Add Yours\" Stic
 date: "2024-07-13T12:30:22"
 modified: "2024-07-13T12:30:22"
 locale: "de"
+translationKey: "video:K7OVwIz48o8"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/K7OVwIz48o8/maxresdefault.jpg"

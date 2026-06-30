@@ -7,7 +7,9 @@ excerpt: "Erklärt den Live-Indikator in der YouTube-App und wie Zuschauer darü
 date: "2022-03-21T23:00:29"
 modified: "2022-03-21T23:00:29"
 locale: "de"
+translationKey: "video:nmWIRLz-2LA"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/nmWIRLz-2LA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nmWIRLz-2LA"

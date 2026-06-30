@@ -7,7 +7,9 @@ excerpt: "Still stuck under 100 views? Let's fix your discoverability today with
 date: "2025-05-26T08:03:47"
 modified: "2025-05-26T08:03:47"
 locale: "en"
+translationKey: "video:-WgXyaoL1LI"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/-WgXyaoL1LI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/-WgXyaoL1LI"

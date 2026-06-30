@@ -7,6 +7,7 @@ excerpt: "Ein kleines Update für Creator mit Kanal Mitgliedschaften: Wenn ihr j
 date: "2024-08-17T12:30:41"
 modified: "2024-08-17T12:30:41"
 locale: "de"
+translationKey: "video:oYttE8RpUqQ"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/oYttE8RpUqQ/maxresdefault.jpg"

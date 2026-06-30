@@ -7,6 +7,7 @@ excerpt: "YouTube Updates: This week, we begin with the AV1 codec, now available
 date: "2025-05-31T12:15:06"
 modified: "2025-05-31T12:15:06"
 locale: "en"
+translationKey: "video:RHJcqSPlG_s"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/RHJcqSPlG_s/maxresdefault.jpg"

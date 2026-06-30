@@ -7,7 +7,9 @@ excerpt: "Explains what reused content means for YouTube monetization and what c
 date: "2024-05-25T12:30:25"
 modified: "2024-05-25T12:30:25"
 locale: "en"
+translationKey: "video:mnMu7iY7i7E"
 categoryIds: [18]
+postType: "video-tutorial"
 image: "https://i.ytimg.com/vi/mnMu7iY7i7E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=mnMu7iY7i7E"

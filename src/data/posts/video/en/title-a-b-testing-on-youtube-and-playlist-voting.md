@@ -7,6 +7,7 @@ excerpt: "YouTube Updates: This week, we start with a new playlist feature calle
 date: "2025-05-17T12:15:06"
 modified: "2025-05-17T12:15:06"
 locale: "en"
+translationKey: "video:bXbIz9BKeUc"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/bXbIz9BKeUc/maxresdefault.jpg"

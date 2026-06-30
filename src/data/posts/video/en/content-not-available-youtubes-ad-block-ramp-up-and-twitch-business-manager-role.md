@@ -7,6 +7,7 @@ excerpt: "YouTube verschärft den Kampf gegen Ad Blocker und Twitch hilft profes
 date: "2026-02-14T13:15:03"
 modified: "2026-02-14T13:15:03"
 locale: "en"
+translationKey: "video:VTYh7opEoNY"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/VTYh7opEoNY/maxresdefault.jpg"

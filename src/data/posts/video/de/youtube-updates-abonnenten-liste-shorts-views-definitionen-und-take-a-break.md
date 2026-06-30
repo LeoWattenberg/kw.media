@@ -7,6 +7,7 @@ excerpt: "Wenn ihr als Creator eine Liste eurer Abonnenten sehen wollt, war dies
 date: "2025-03-29T13:15:04"
 modified: "2025-03-29T13:15:04"
 locale: "de"
+translationKey: "video:j6Ki4mps6nA"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/j6Ki4mps6nA/maxresdefault.jpg"

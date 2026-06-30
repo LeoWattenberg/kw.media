@@ -7,7 +7,9 @@ excerpt: "Here's how to use the new YouTube Collabs feature in under 60 seconds.
 date: "2025-09-26T10:15:57"
 modified: "2025-09-26T10:15:57"
 locale: "en"
+translationKey: "video:SazJMCMxsQo"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/SazJMCMxsQo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/SazJMCMxsQo"

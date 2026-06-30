@@ -7,6 +7,7 @@ excerpt: "The code break is here. YouTube Engineering is on vacation."
 date: "2025-12-20T13:15:09"
 modified: "2025-12-20T13:15:09"
 locale: "en"
+translationKey: "video:N301RW3y69E"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/N301RW3y69E/maxresdefault.jpg"

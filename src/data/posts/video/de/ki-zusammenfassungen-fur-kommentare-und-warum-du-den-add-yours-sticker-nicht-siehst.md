@@ -7,6 +7,7 @@ excerpt: "Die YouTube Updates diese Woche: Wir starten mit den KI Zusammenfassun
 date: "2024-09-14T12:30:21"
 modified: "2024-09-14T12:30:21"
 locale: "de"
+translationKey: "video:HNKwk_tm1Vo"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/HNKwk_tm1Vo/maxresdefault.jpg"

@@ -7,6 +7,7 @@ excerpt: "YouTube is taking offline the Clips feature, breaking a native marketi
 date: "2026-04-25T13:15:03"
 modified: "2026-04-25T13:15:03"
 locale: "en"
+translationKey: "video:DetnFFjfqKA"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/DetnFFjfqKA/maxresdefault.jpg"

@@ -7,6 +7,7 @@ excerpt: "TikTok LIVE is bleeding viewers while Twitch survives Amazon's corpora
 date: "2026-04-18T12:15:03"
 modified: "2026-04-18T12:15:03"
 locale: "en"
+translationKey: "video:K5t4DGO_J2I"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/K5t4DGO_J2I/maxresdefault.jpg"

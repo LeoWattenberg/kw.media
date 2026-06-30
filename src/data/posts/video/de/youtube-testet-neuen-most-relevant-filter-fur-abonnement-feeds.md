@@ -7,6 +7,7 @@ excerpt: "YouTube experimentiert wieder fleißig, und zwar nicht nur mit der Wat
 date: "2024-04-20T12:30:06"
 modified: "2024-04-20T12:30:06"
 locale: "de"
+translationKey: "video:D8AioV3AM6Y"
 categoryIds: [17]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/D8AioV3AM6Y/maxresdefault.jpg"

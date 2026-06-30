@@ -7,6 +7,7 @@ excerpt: "Welcome to Creator News! If you're a thumbnail designer, your YouTube 
 date: "2026-03-21T13:15:02"
 modified: "2026-03-21T13:15:02"
 locale: "en"
+translationKey: "video:IICk-BdIuXQ"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/IICk-BdIuXQ/maxresdefault.jpg"

@@ -7,7 +7,9 @@ excerpt: "Keine Sorge falls ihr es mit euren Shorts nicht geschafft habt die nö
 date: "2023-01-12T10:43:31"
 modified: "2023-01-12T10:43:31"
 locale: "de"
+translationKey: "video:oyX_dfP3Wv8"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/oyX_dfP3Wv8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/oyX_dfP3Wv8"

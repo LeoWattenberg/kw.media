@@ -7,7 +7,9 @@ excerpt: "Um in euren streams adr konnte zu zeigen müsst ihr euren stream über
 date: "2022-09-13T18:42:14"
 modified: "2022-09-13T18:42:14"
 locale: "de"
+translationKey: "video:RSeROQWVAPk"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/RSeROQWVAPk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/RSeROQWVAPk"

@@ -7,7 +7,9 @@ excerpt: "Ab sofort könnt ihr mit eurem Smartphone auf Kommentare unter euren e
 date: "2023-04-19T17:01:57"
 modified: "2023-04-19T17:01:57"
 locale: "de"
+translationKey: "video:hJLZbzvabYE"
 categoryIds: [17]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/hJLZbzvabYE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hJLZbzvabYE"

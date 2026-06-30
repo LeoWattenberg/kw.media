@@ -7,6 +7,7 @@ excerpt: "YouTube hat gerade eine neue KI Funktion vorgestellt, die sie als ihre
 date: "2026-02-07T13:15:04"
 modified: "2026-02-07T13:15:04"
 locale: "en"
+translationKey: "video:EUX5WpvVvB8"
 categoryIds: [18]
 postType: "news-video"
 image: "https://i.ytimg.com/vi/EUX5WpvVvB8/maxresdefault.jpg"

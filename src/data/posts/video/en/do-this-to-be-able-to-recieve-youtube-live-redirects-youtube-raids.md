@@ -7,7 +7,9 @@ excerpt: "Every YouTube Creator can receive YouTube live redirects to enable the
 date: "2023-04-04T15:30:04"
 modified: "2023-04-04T15:30:04"
 locale: "en"
+translationKey: "video:KPkL5wj7NzI"
 categoryIds: [18]
+postType: "short-tutorial"
 image: "https://i.ytimg.com/vi/KPkL5wj7NzI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/KPkL5wj7NzI"
