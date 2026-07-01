@@ -29,6 +29,7 @@ const pageOrder = [
 	'dubbing',
 	'tips',
 	'audacity',
+	'tools',
 	'imprint-service',
 	'legal',
 ];
@@ -46,6 +47,7 @@ const labelKeys: Record<string, string> = {
 	'imprint-service': 'nav.imprintService',
 	tips: 'nav.tips',
 	audacity: 'nav.audacity',
+	tools: 'nav.tools',
 	legal: 'nav.legal',
 };
 
@@ -68,10 +70,15 @@ const sidebarPages = sitePages
 		{
 			sidebarPages.map((page) => {
 				const group = pageGroup(page.id);
-				const isActive = page.path === normalizedCurrentPath;
+				const isCurrentPage = page.path === normalizedCurrentPath;
+				const isActive = isCurrentPage || (group === 'tools' && normalizedCurrentPath.startsWith(page.path));
 
 				return (
-					<a class:list={['sidebar-link', { 'is-active': isActive }]} href={withBase(page.path)} aria-current={isActive ? 'page' : undefined}>
+					<a
+						class:list={['sidebar-link', { 'is-active': isActive }]}
+						href={withBase(page.path)}
+						aria-current={isCurrentPage ? 'page' : isActive ? 'location' : undefined}
+					>
 						<span>{t(labelKeys[group] ?? page.title)}</span>
 					</a>
 				);

@@ -1,0 +1,120 @@
+---
+import type { Locale } from '../../i18n';
+import { toolPages } from '../../data/tools';
+import { withBase } from '../../lib/url';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Tools',
+		title: 'Audio-Tools',
+		intro: 'Kleine, clientseitige Werkzeuge für Audiotests und Produktionsentscheidungen.',
+		open: 'Tool öffnen',
+	},
+	en: {
+		eyebrow: 'Tools',
+		title: 'Audio Tools',
+		intro: 'Small client-side tools for audio testing and production decisions.',
+		open: 'Open tool',
+	},
+}[locale];
+const tools = toolPages
+	.filter((tool) => tool.locale === locale)
+	.sort((first, second) => first.title.localeCompare(second.title));
+---
+
+<section class="tool-index-hero">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{copy.title}</h1>
+		<p>{copy.intro}</p>
+	</div>
+</section>
+
+<section class="section tool-index-section">
+	<div class="container tool-grid">
+		{
+			tools.map((tool) => (
+				<a class="tool-card" href={withBase(tool.path)}>
+					<span>{copy.open}</span>
+					<h2>{tool.title}</h2>
+					<p>{tool.description}</p>
+				</a>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.tool-index-hero {
+		padding-block: clamp(42px, 7vw, 82px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.tool-index-hero h1 {
+		max-width: 780px;
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.6rem);
+		line-height: 0.96;
+		letter-spacing: 0;
+	}
+
+	.tool-index-hero p:not(.eyebrow) {
+		max-width: 720px;
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+	}
+
+	.tool-index-section {
+		background: #fff;
+	}
+
+	.tool-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 16px;
+	}
+
+	.tool-card {
+		display: grid;
+		gap: 12px;
+		padding: clamp(18px, 3vw, 28px);
+		color: inherit;
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		text-decoration: none;
+	}
+
+	.tool-card:hover {
+		background: var(--color-surface-alt);
+		border-color: var(--color-accent);
+	}
+
+	.tool-card span {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.tool-card h2 {
+		margin: 0;
+		color: var(--color-deep);
+		font-size: clamp(1.35rem, 3vw, 2rem);
+		line-height: 1.1;
+		letter-spacing: 0;
+	}
+
+	.tool-card p {
+		margin: 0;
+		color: var(--color-muted);
+		font-weight: 700;
+	}
+</style>

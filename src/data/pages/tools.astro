@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import ToolsIndex from '../../components/tools/ToolsIndex.astro';
+import { definePageModule } from '../../lib/site-page-module';
+
+export const pageModule = definePageModule('tools', {
+	id: 'tools',
+	translations: {
+		de: {
+			id: 'tools-de',
+			path: '/de/tools/',
+			title: 'Tools',
+			description: 'Clientseitige Audio-Tools von Koytek Wattenberg Media.',
+			blocks: [],
+		},
+		en: {
+			id: 'tools-en',
+			path: '/tools/',
+			title: 'Tools',
+			description: 'Client-side audio tools by Koytek Wattenberg Media.',
+			blocks: [],
+		},
+	},
+});
+
+const { page, alternatePaths } = Astro.props;
+---
+
+<BaseLayout
+	locale={page.locale}
+	title={page.title}
+	description={page.description}
+	canonicalPath={page.path}
+	alternatePaths={alternatePaths}
+>
+	<ToolsIndex locale={page.locale} />
+</BaseLayout>

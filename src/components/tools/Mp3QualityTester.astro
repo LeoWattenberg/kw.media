@@ -1,0 +1,1443 @@
+---
+import type { Locale } from '../../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Audio-Tool',
+		title: 'MP3-Qualitätstester',
+		intro: 'Lade eine lokale Audiodatei hoch, lasse daraus MP3-Versionen erstellen und prüfe blind, ob du das Original erkennst.',
+		privacy: 'Deine Datei bleibt lokal. FFmpeg wasm wird nur im Browser geladen und erzeugt die MP3-Versionen clientseitig.',
+		fileTitle: 'Quelldatei',
+		chooseFile: 'Audiodatei wählen',
+		fileHint: 'WAV, FLAC, AIFF, MP3, OGG, M4A und mehr',
+		settingsTitle: 'MP3-Versionen',
+		preset320: '320 kbps CBR',
+		presetV0: 'V0 (~245 kbps VBR)',
+		presetV3: 'V3 (~175 kbps VBR)',
+		presetV6: 'V6 (~115 kbps VBR)',
+		repeats: 'Durchgänge pro MP3-Version',
+		totalTrials: 'Gesamte Durchgänge',
+		generate: 'MP3s erzeugen und Test starten',
+		clear: 'Datei entfernen',
+		playbackTitle: 'Blindtest',
+		answerTitle: 'Welche Probe ist das Original?',
+		originalA: 'Original ist A',
+		originalB: 'Original ist B',
+		play: 'Abspielen',
+		pause: 'Pause',
+		stop: 'Stopp',
+		sampleA: 'Probe A',
+		sampleB: 'Probe B',
+		blindSample: 'Blinde Probe',
+		resultsTitle: 'Ergebnis',
+		newRun: 'Noch einmal',
+		client: {
+			answerCorrect: 'richtig',
+			answerWrong: 'falsch',
+			chance: 'Wahrscheinlichkeit für dieses Ergebnis oder besser durch Raten: {probability}%.',
+			chooseFile: 'Audiodatei wählen',
+			convertedReady: '{preset} ist bereit ({duration}).',
+			decodeError: 'Die Datei konnte nicht vorbereitet werden: {message}',
+			encoding: '{preset} wird erzeugt...',
+			ffmpegLoading: 'FFmpeg wasm wird geladen...',
+			ffmpegProgress: '{task}: {progress}%',
+			ffmpegReady: 'FFmpeg wasm ist bereit.',
+			ffmpegTimeout: 'FFmpeg wasm hat nicht innerhalb von 90 Sekunden geladen. Prüfe deine Verbindung und versuche es erneut.',
+			fileHint: 'WAV, FLAC, AIFF, MP3, OGG, M4A und mehr',
+			fileMeta: '{size} | {type}',
+			fileReady: '{name} ist ausgewählt ({size}).',
+			mismatchedDuration: 'Getestet werden die ersten {duration}, weil eine MP3-Version kürzer ist.',
+			nativeDecoder: 'Browser-Dekoder',
+			nextTrial: 'Antwort gespeichert. Durchgang {current} von {total}.',
+			noAudio: 'Dieser Browser unterstützt die Web Audio API nicht.',
+			noPreset: 'Wähle mindestens eine MP3-Version.',
+			originalTask: 'Original vorbereiten',
+			pause: 'Pause',
+			play: 'Abspielen',
+			preparingOriginal: 'Original wird vorbereitet...',
+			ready: '{count} MP3-Versionen sind bereit. Gemeinsame Testdauer: {duration}.',
+			reset: 'Der Test wurde zurückgesetzt.',
+			resultLine: '{preset}: du hast {choice} gewählt; Original war {actual}.',
+			score: '{correct}/{total} richtig ({percent}%)',
+			startDisabled: 'Wähle zuerst eine Audiodatei und mindestens eine MP3-Version.',
+			started: 'Durchgang {current} von {total}. Finde das Original gegen {preset}.',
+			trialLabel: 'Durchgang {current} von {total} · {preset}',
+			unknownError: 'Unbekannter Fehler',
+			waiting: 'Wähle eine Audiodatei, um MP3-Versionen zu erzeugen.',
+		},
+	},
+	en: {
+		eyebrow: 'Audio tool',
+		title: 'MP3 Quality Tester',
+		intro: 'Upload one local audio file, generate MP3 versions from it, and blind-test whether you can spot the original.',
+		privacy: 'Your file stays local. FFmpeg wasm runs in the browser and creates the MP3 versions client-side.',
+		fileTitle: 'Source file',
+		chooseFile: 'Choose audio file',
+		fileHint: 'WAV, FLAC, AIFF, MP3, OGG, M4A and more',
+		settingsTitle: 'MP3 versions',
+		preset320: '320 kbps CBR',
+		presetV0: 'V0 (~245 kbps VBR)',
+		presetV3: 'V3 (~175 kbps VBR)',
+		presetV6: 'V6 (~115 kbps VBR)',
+		repeats: 'Trials per MP3 version',
+		totalTrials: 'Total trials',
+		generate: 'Generate MP3s and start test',
+		clear: 'Clear file',
+		playbackTitle: 'Blind test',
+		answerTitle: 'Which sample is the original?',
+		originalA: 'Original is A',
+		originalB: 'Original is B',
+		play: 'Play',
+		pause: 'Pause',
+		stop: 'Stop',
+		sampleA: 'Sample A',
+		sampleB: 'Sample B',
+		blindSample: 'Blind sample',
+		resultsTitle: 'Results',
+		newRun: 'Run again',
+		client: {
+			answerCorrect: 'correct',
+			answerWrong: 'wrong',
+			chance: 'Chance probability for this score or better: {probability}%.',
+			chooseFile: 'Choose audio file',
+			convertedReady: '{preset} is ready ({duration}).',
+			decodeError: 'Could not prepare the file: {message}',
+			encoding: 'Encoding {preset}...',
+			ffmpegLoading: 'Loading FFmpeg wasm...',
+			ffmpegProgress: '{task}: {progress}%',
+			ffmpegReady: 'FFmpeg wasm is ready.',
+			ffmpegTimeout: 'FFmpeg wasm did not finish loading within 90 seconds. Check your connection and try again.',
+			fileHint: 'WAV, FLAC, AIFF, MP3, OGG, M4A and more',
+			fileMeta: '{size} | {type}',
+			fileReady: '{name} is selected ({size}).',
+			mismatchedDuration: 'Testing is limited to the first {duration} because one MP3 version is shorter.',
+			nativeDecoder: 'browser decoder',
+			nextTrial: 'Answer saved. Trial {current} of {total}.',
+			noAudio: 'This browser does not support the Web Audio API.',
+			noPreset: 'Choose at least one MP3 version.',
+			originalTask: 'Preparing original',
+			pause: 'Pause',
+			play: 'Play',
+			preparingOriginal: 'Preparing original...',
+			ready: '{count} MP3 versions are ready. Common test duration: {duration}.',
+			reset: 'The test has been reset.',
+			resultLine: '{preset}: you chose {choice}; original was {actual}.',
+			score: '{correct}/{total} correct ({percent}%)',
+			startDisabled: 'Choose an audio file and at least one MP3 version first.',
+			started: 'Trial {current} of {total}. Find the original against {preset}.',
+			trialLabel: 'Trial {current} of {total} · {preset}',
+			unknownError: 'Unknown error',
+			waiting: 'Choose an audio file to generate MP3 versions.',
+		},
+	},
+} satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy.client);
+---
+
+<section class="tool-intro">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{copy.title}</h1>
+		<p class="tool-lede">{copy.intro}</p>
+		<p class="tool-note">{copy.privacy}</p>
+	</div>
+</section>
+
+<section class="section mp3-tool-section">
+	<div class="container">
+		<div class="mp3-tester" data-mp3-quality-tester data-copy={copyJson}>
+			<div class="mp3-setup">
+				<section class="mp3-panel">
+					<h2>{copy.fileTitle}</h2>
+					<div class="file-grid single-file">
+						<label class="file-picker">
+							<span>{copy.fileTitle}</span>
+							<strong data-file-name>{copy.chooseFile}</strong>
+							<small data-file-meta>{copy.fileHint}</small>
+							<input data-file type="file" accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba" />
+						</label>
+					</div>
+					<p class="mp3-status" data-status>{copy.client.waiting}</p>
+				</section>
+
+				<section class="mp3-panel">
+					<h2>{copy.settingsTitle}</h2>
+					<div class="preset-grid">
+						<label class="preset-option">
+							<input data-preset type="checkbox" value="mp3-320" data-label={copy.preset320} checked />
+							<span>{copy.preset320}</span>
+						</label>
+						<label class="preset-option">
+							<input data-preset type="checkbox" value="mp3-v0" data-label={copy.presetV0} checked />
+							<span>{copy.presetV0}</span>
+						</label>
+						<label class="preset-option">
+							<input data-preset type="checkbox" value="mp3-v3" data-label={copy.presetV3} checked />
+							<span>{copy.presetV3}</span>
+						</label>
+						<label class="preset-option">
+							<input data-preset type="checkbox" value="mp3-v6" data-label={copy.presetV6} checked />
+							<span>{copy.presetV6}</span>
+						</label>
+					</div>
+					<label class="range-control">
+						<span>{copy.repeats}: <strong data-repeat-count-label>2</strong></span>
+						<input data-repeat-count type="range" min="1" max="5" step="1" value="2" />
+					</label>
+					<p class="trial-total">{copy.totalTrials}: <strong data-total-trials-label>8</strong></p>
+					<div class="setup-actions">
+						<button class="button primary" data-start disabled>{copy.generate}</button>
+						<button class="button secondary" data-clear>{copy.clear}</button>
+					</div>
+				</section>
+			</div>
+
+			<section class="mp3-panel mp3-player" data-stage hidden>
+				<div class="player-heading">
+					<div>
+						<h2>{copy.playbackTitle}</h2>
+						<p data-round-label></p>
+					</div>
+					<progress data-round-progress value="0" max="1"></progress>
+				</div>
+
+				<div class="slot-buttons two-slot" aria-label={copy.playbackTitle}>
+					<button class="slot-button" data-play-slot="A" type="button">
+						<strong>A</strong>
+						<span>{copy.blindSample}</span>
+					</button>
+					<button class="slot-button" data-play-slot="B" type="button">
+						<strong>B</strong>
+						<span>{copy.blindSample}</span>
+					</button>
+				</div>
+
+				<div class="timeline">
+					<span data-current-time>0:00</span>
+					<input data-seek type="range" min="0" max="1000" step="10" value="0" aria-label="Seek" />
+					<span data-duration>0:00</span>
+				</div>
+
+				<div class="transport-actions">
+					<button class="button primary" data-play-toggle type="button">{copy.play}</button>
+					<button class="button secondary" data-stop type="button">{copy.stop}</button>
+				</div>
+
+				<div class="answer-panel">
+					<h3>{copy.answerTitle}</h3>
+					<div class="answer-buttons">
+						<button class="answer-button" data-answer="A" type="button">{copy.originalA}</button>
+						<button class="answer-button" data-answer="B" type="button">{copy.originalB}</button>
+					</div>
+				</div>
+			</section>
+
+			<section class="mp3-panel mp3-results" data-results hidden>
+				<h2>{copy.resultsTitle}</h2>
+				<p class="score" data-score></p>
+				<p class="result-note" data-result-note></p>
+				<ol class="result-list" data-result-list></ol>
+				<button class="button primary" data-new-run type="button">{copy.newRun}</button>
+			</section>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	(() => {
+		const roots = document.querySelectorAll('[data-mp3-quality-tester]:not([data-mp3-bound])');
+
+		for (const root of roots) {
+			root.dataset.mp3Bound = 'true';
+			initMp3QualityTester(root);
+		}
+
+		function initMp3QualityTester(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const fileInput = root.querySelector('[data-file]');
+			const fileName = root.querySelector('[data-file-name]');
+			const fileMeta = root.querySelector('[data-file-meta]');
+			const status = root.querySelector('[data-status]');
+			const presetInputs = [...root.querySelectorAll('[data-preset]')];
+			const repeatCountInput = root.querySelector('[data-repeat-count]');
+			const repeatCountLabel = root.querySelector('[data-repeat-count-label]');
+			const totalTrialsLabel = root.querySelector('[data-total-trials-label]');
+			const startButton = root.querySelector('[data-start]');
+			const clearButton = root.querySelector('[data-clear]');
+			const stage = root.querySelector('[data-stage]');
+			const results = root.querySelector('[data-results]');
+			const roundLabel = root.querySelector('[data-round-label]');
+			const roundProgress = root.querySelector('[data-round-progress]');
+			const seek = root.querySelector('[data-seek]');
+			const currentTime = root.querySelector('[data-current-time]');
+			const durationTime = root.querySelector('[data-duration]');
+			const playToggle = root.querySelector('[data-play-toggle]');
+			const stopButton = root.querySelector('[data-stop]');
+			const slotButtons = [...root.querySelectorAll('[data-play-slot]')];
+			const answerButtons = [...root.querySelectorAll('[data-answer]')];
+			const score = root.querySelector('[data-score]');
+			const resultNote = root.querySelector('[data-result-note]');
+			const resultList = root.querySelector('[data-result-list]');
+			const newRunButton = root.querySelector('[data-new-run]');
+
+			const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+			const encodePresets = {
+				'mp3-320': {
+					args: ['-codec:a', 'libmp3lame', '-b:a', '320k'],
+					suffix: '320-cbr.mp3',
+				},
+				'mp3-v0': {
+					args: ['-codec:a', 'libmp3lame', '-q:a', '0'],
+					suffix: 'v0.mp3',
+				},
+				'mp3-v3': {
+					args: ['-codec:a', 'libmp3lame', '-q:a', '3'],
+					suffix: 'v3.mp3',
+				},
+				'mp3-v6': {
+					args: ['-codec:a', 'libmp3lame', '-q:a', '6'],
+					suffix: 'v6.mp3',
+				},
+			};
+			const state = {
+				audioContext: null,
+				file: null,
+				originalBuffer: null,
+				converted: {},
+				testPresets: [],
+				ffmpeg: null,
+				ffmpegPromise: null,
+				ffmpegUrls: [],
+				progressTask: '',
+				isWorking: false,
+				trials: [],
+				answers: [],
+				trialIndex: 0,
+				commonDuration: 0,
+				activeSlot: 'A',
+				source: null,
+				isPlaying: false,
+				position: 0,
+				startedAt: 0,
+				raf: 0,
+			};
+
+			if (!AudioContextConstructor) {
+				setStatus(copy.noAudio, 'error');
+				fileInput.disabled = true;
+				startButton.disabled = true;
+				return;
+			}
+
+			fileInput.addEventListener('change', () => {
+				setFile(fileInput.files && fileInput.files[0]);
+			});
+
+			for (const input of presetInputs) {
+				input.addEventListener('change', () => {
+					resetPreparedSamples();
+					updateTrialCount();
+					updateReadyState();
+				});
+			}
+
+			repeatCountInput.addEventListener('input', () => {
+				repeatCountLabel.textContent = repeatCountInput.value;
+				updateTrialCount();
+			});
+
+			startButton.addEventListener('click', () => {
+				void prepareAndStart();
+			});
+			clearButton.addEventListener('click', clearFile);
+			playToggle.addEventListener('click', () => {
+				if (state.isPlaying) {
+					pausePlayback();
+				} else {
+					void playSlot(state.activeSlot);
+				}
+			});
+			stopButton.addEventListener('click', stopPlayback);
+			seek.addEventListener('input', () => {
+				seekTo(Number(seek.value) / 1000);
+			});
+			newRunButton.addEventListener('click', () => {
+				startPreparedTest();
+			});
+
+			for (const button of slotButtons) {
+				button.addEventListener('click', () => {
+					void playSlot(button.dataset.playSlot || 'A');
+				});
+			}
+
+			for (const button of answerButtons) {
+				button.addEventListener('click', () => {
+					recordAnswer(button.dataset.answer || 'A');
+				});
+			}
+
+			updateTrialCount();
+			updateReadyState();
+
+			function setFile(file) {
+				state.file = file || null;
+				resetPreparedSamples();
+				resetRun(false);
+				updateFileView(state.file);
+
+				if (state.file) {
+					setStatus(format(copy.fileReady, {
+						name: state.file.name,
+						size: formatBytes(state.file.size),
+					}), 'success');
+				} else {
+					setStatus(copy.waiting, 'info');
+				}
+
+				updateReadyState();
+			}
+
+			async function prepareAndStart() {
+				const selected = getSelectedPresets();
+
+				if (!state.file || !selected.length) {
+					setStatus(selected.length ? copy.startDisabled : copy.noPreset, 'error');
+					return;
+				}
+
+				setWorking(true);
+				resetRun(false);
+				state.originalBuffer = null;
+				state.converted = {};
+				state.testPresets = selected;
+
+				const file = state.file;
+				const inputName = `source-${Date.now()}-${Math.random().toString(16).slice(2)}${fileExtension(file.name)}`;
+
+				try {
+					const sourceBuffer = await file.arrayBuffer();
+					const ffmpeg = await loadFfmpeg();
+					await ffmpeg.writeFile(inputName, new Uint8Array(sourceBuffer.slice(0)));
+					ffmpeg.on('progress', handleFfmpegProgress);
+
+					try {
+						state.progressTask = copy.originalTask;
+						setStatus(copy.preparingOriginal, 'info');
+						state.originalBuffer = await decodeOriginal(ffmpeg, inputName, sourceBuffer);
+
+						for (const preset of selected) {
+							state.progressTask = preset.label;
+							setStatus(format(copy.encoding, { preset: preset.label }), 'info');
+							state.converted[preset.id] = await encodePreset(ffmpeg, inputName, preset);
+							setStatus(format(copy.convertedReady, {
+								preset: preset.label,
+								duration: formatTime(state.converted[preset.id].buffer.duration),
+							}), 'success');
+						}
+					} finally {
+						ffmpeg.off('progress', handleFfmpegProgress);
+						state.progressTask = '';
+						await ffmpeg.deleteFile(inputName).catch(() => {});
+					}
+
+					setWorking(false);
+					startPreparedTest();
+				} catch (error) {
+					setWorking(false);
+					state.originalBuffer = null;
+					state.converted = {};
+					state.testPresets = [];
+					setStatus(format(copy.decodeError, { message: messageFromError(error) }), 'error');
+					updateReadyState();
+				}
+			}
+
+			async function decodeOriginal(ffmpeg, inputName, sourceBuffer) {
+				const context = getAudioContext();
+
+				try {
+					return await context.decodeAudioData(sourceBuffer.slice(0));
+				} catch {
+					const outputName = `${inputName}.source.wav`;
+
+					try {
+						const result = await ffmpeg.exec(['-i', inputName, '-vn', '-acodec', 'pcm_s16le', '-f', 'wav', outputName]);
+
+						if (result !== 0) {
+							throw new Error(`FFmpeg exited with code ${result}`);
+						}
+
+						const output = await ffmpeg.readFile(outputName);
+						return decodeAudioBytes(output);
+					} finally {
+						await ffmpeg.deleteFile(outputName).catch(() => {});
+					}
+				}
+			}
+
+			async function encodePreset(ffmpeg, inputName, preset) {
+				const definition = encodePresets[preset.id];
+				const outputName = `${inputName}.${definition.suffix}`;
+				const result = await ffmpeg.exec(['-i', inputName, '-vn', ...definition.args, outputName]);
+
+				if (result !== 0) {
+					throw new Error(`FFmpeg exited with code ${result}`);
+				}
+
+				try {
+					const output = await ffmpeg.readFile(outputName);
+
+					return {
+						buffer: await decodeAudioBytes(output),
+						label: preset.label,
+					};
+				} finally {
+					await ffmpeg.deleteFile(outputName).catch(() => {});
+				}
+			}
+
+			async function decodeAudioBytes(data) {
+				const context = getAudioContext();
+				const bytes = data instanceof Uint8Array ? data : new TextEncoder().encode(String(data));
+				const buffer = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
+
+				return context.decodeAudioData(buffer);
+			}
+
+			function handleFfmpegProgress(event) {
+				const progress = Math.max(0, Math.min(100, Math.round((event.progress || 0) * 100)));
+				setStatus(format(copy.ffmpegProgress, {
+					task: state.progressTask || copy.ffmpegLoading,
+					progress,
+				}), 'info');
+			}
+
+			async function loadFfmpeg() {
+				if (state.ffmpeg) {
+					return state.ffmpeg;
+				}
+
+				if (state.ffmpegPromise) {
+					return state.ffmpegPromise;
+				}
+
+				state.ffmpegPromise = (async () => {
+					setStatus(copy.ffmpegLoading, 'info');
+
+					const ffmpegVersion = '0.12.15';
+					const coreVersion = '0.12.9';
+					const ffmpegBase = `https://unpkg.com/@ffmpeg/ffmpeg@${ffmpegVersion}/dist/esm`;
+					const coreBase = `https://unpkg.com/@ffmpeg/core@${coreVersion}/dist/esm`;
+					const [{ FFmpeg }, classWorkerURL, coreURL, wasmURL] = await Promise.all([
+						import(/* @vite-ignore */ `${ffmpegBase}/index.js`),
+						createModuleWorkerUrl(`${ffmpegBase}/worker.js`),
+						toBlobUrl(`${coreBase}/ffmpeg-core.js`, 'text/javascript'),
+						toBlobUrl(`${coreBase}/ffmpeg-core.wasm`, 'application/wasm'),
+					]);
+
+					const ffmpeg = new FFmpeg();
+					await withTimeout(
+						ffmpeg.load({ classWorkerURL, coreURL, wasmURL }),
+						90000,
+						copy.ffmpegTimeout,
+					);
+
+					state.ffmpeg = ffmpeg;
+					state.ffmpegUrls = [classWorkerURL, coreURL, wasmURL];
+					setStatus(copy.ffmpegReady, 'success');
+
+					return ffmpeg;
+				})().catch((error) => {
+					state.ffmpegPromise = null;
+					throw error;
+				});
+
+				return state.ffmpegPromise;
+			}
+
+			function createModuleWorkerUrl(url) {
+				return URL.createObjectURL(new Blob([
+					`import ${JSON.stringify(url)};`,
+				], { type: 'text/javascript' }));
+			}
+
+			async function toBlobUrl(url, mimeType) {
+				const response = await fetch(url);
+
+				if (!response.ok) {
+					throw new Error(`${response.status} ${response.statusText}`);
+				}
+
+				const buffer = await response.arrayBuffer();
+				return URL.createObjectURL(new Blob([buffer], { type: mimeType }));
+			}
+
+			function withTimeout(promise, timeoutMs, message) {
+				let timeoutId = 0;
+				const timeout = new Promise((_resolve, reject) => {
+					timeoutId = window.setTimeout(() => {
+						reject(new Error(message));
+					}, timeoutMs);
+				});
+
+				return Promise.race([promise, timeout]).finally(() => {
+					window.clearTimeout(timeoutId);
+				});
+			}
+
+			function startPreparedTest() {
+				const selected = state.testPresets.filter((preset) => state.converted[preset.id]);
+
+				if (!state.originalBuffer || !selected.length) {
+					setStatus(copy.startDisabled, 'error');
+					return;
+				}
+
+				state.commonDuration = Math.min(
+					state.originalBuffer.duration,
+					...selected.map((preset) => state.converted[preset.id].buffer.duration),
+				);
+
+				if (!Number.isFinite(state.commonDuration) || state.commonDuration <= 0) {
+					setStatus(copy.startDisabled, 'error');
+					return;
+				}
+
+				state.trials = createTrials(selected, Number(repeatCountInput.value));
+				state.answers = [];
+				state.trialIndex = 0;
+				state.activeSlot = 'A';
+				state.position = 0;
+				stage.hidden = false;
+				results.hidden = true;
+				updateTrialUi();
+
+				const message = selected.some((preset) => Math.abs(state.originalBuffer.duration - state.converted[preset.id].buffer.duration) > 0.05)
+					? format(copy.mismatchedDuration, { duration: formatTime(state.commonDuration) })
+					: format(copy.ready, {
+							count: selected.length,
+							duration: formatTime(state.commonDuration),
+						});
+				setStatus(message, 'success');
+			}
+
+			function createTrials(presets, repeats) {
+				const trials = [];
+
+				for (let repeat = 0; repeat < repeats; repeat += 1) {
+					for (const preset of presets) {
+						trials.push({
+							presetId: preset.id,
+							presetLabel: preset.label,
+							originalSlot: Math.random() < 0.5 ? 'A' : 'B',
+						});
+					}
+				}
+
+				return shuffle(trials);
+			}
+
+			function shuffle(items) {
+				const shuffled = [...items];
+
+				for (let index = shuffled.length - 1; index > 0; index -= 1) {
+					const swapIndex = Math.floor(Math.random() * (index + 1));
+					[shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+				}
+
+				return shuffled;
+			}
+
+			function recordAnswer(choice) {
+				if (!state.trials.length) {
+					return;
+				}
+
+				const trial = state.trials[state.trialIndex];
+				state.answers.push({
+					trial: state.trialIndex + 1,
+					preset: trial.presetLabel,
+					choice,
+					actual: trial.originalSlot,
+					correct: choice === trial.originalSlot,
+				});
+
+				pausePlayback();
+				state.position = 0;
+
+				if (state.trialIndex < state.trials.length - 1) {
+					state.trialIndex += 1;
+					state.activeSlot = 'A';
+					updateTrialUi();
+					setStatus(format(copy.nextTrial, {
+						current: state.trialIndex + 1,
+						total: state.trials.length,
+					}), 'success');
+					return;
+				}
+
+				finishTest();
+			}
+
+			function finishTest() {
+				stage.hidden = true;
+				results.hidden = false;
+				stopPlayback();
+
+				const total = state.answers.length;
+				const correct = state.answers.filter((answer) => answer.correct).length;
+				const percent = total ? Math.round((correct / total) * 100) : 0;
+				const probability = total ? chanceProbability(correct, total) * 100 : 100;
+
+				score.textContent = format(copy.score, { correct, total, percent });
+				resultNote.textContent = format(copy.chance, { probability: formatProbability(probability) });
+				resultList.replaceChildren(...state.answers.map(createResultItem));
+			}
+
+			function createResultItem(answer) {
+				const item = document.createElement('li');
+				item.className = answer.correct ? 'is-correct' : 'is-wrong';
+
+				const line = document.createElement('span');
+				line.textContent = format(copy.resultLine, {
+					preset: answer.preset,
+					choice: answer.choice,
+					actual: answer.actual,
+				});
+
+				const verdict = document.createElement('strong');
+				verdict.textContent = answer.correct ? copy.answerCorrect : copy.answerWrong;
+
+				item.append(line, verdict);
+				return item;
+			}
+
+			async function playSlot(slot) {
+				if (!state.trials.length) {
+					return;
+				}
+
+				const context = getAudioContext();
+				await context.resume();
+
+				const wasPlaying = state.isPlaying;
+				const nextPosition = wasPlaying ? getCurrentPosition() : state.position;
+				stopSource();
+
+				state.activeSlot = slot;
+				state.position = nextPosition >= state.commonDuration ? 0 : Math.max(0, nextPosition);
+
+				const source = context.createBufferSource();
+				source.buffer = getBufferForSlot(slot);
+				source.connect(context.destination);
+				source.onended = () => {
+					if (state.source !== source) {
+						return;
+					}
+
+					state.source = null;
+					state.position = state.commonDuration;
+					state.isPlaying = false;
+					stopAnimation();
+					updatePlaybackUi();
+				};
+
+				const remaining = Math.max(0.01, state.commonDuration - state.position);
+				source.start(0, state.position, remaining);
+				state.source = source;
+				state.startedAt = context.currentTime;
+				state.isPlaying = true;
+				startAnimation();
+				updatePlaybackUi();
+			}
+
+			function pausePlayback() {
+				if (state.isPlaying) {
+					state.position = getCurrentPosition();
+				}
+
+				state.isPlaying = false;
+				stopSource();
+				stopAnimation();
+				updatePlaybackUi();
+			}
+
+			function stopPlayback() {
+				state.position = 0;
+				state.isPlaying = false;
+				stopSource();
+				stopAnimation();
+				updatePlaybackUi();
+			}
+
+			function stopSource() {
+				if (!state.source) {
+					return;
+				}
+
+				state.source.onended = null;
+				try {
+					state.source.stop();
+				} catch {
+					// The source may already have ended.
+				}
+				state.source.disconnect();
+				state.source = null;
+			}
+
+			function seekTo(position) {
+				state.position = Math.max(0, Math.min(state.commonDuration, position));
+
+				if (state.isPlaying) {
+					void playSlot(state.activeSlot);
+				} else {
+					updatePlaybackUi();
+				}
+			}
+
+			function getBufferForSlot(slot) {
+				const trial = state.trials[state.trialIndex];
+
+				if (slot === trial.originalSlot) {
+					return state.originalBuffer;
+				}
+
+				return state.converted[trial.presetId].buffer;
+			}
+
+			function getAudioContext() {
+				if (!state.audioContext) {
+					state.audioContext = new AudioContextConstructor();
+				}
+
+				return state.audioContext;
+			}
+
+			function getCurrentPosition() {
+				if (!state.isPlaying || !state.audioContext) {
+					return state.position;
+				}
+
+				const elapsed = state.audioContext.currentTime - state.startedAt;
+				return Math.min(state.commonDuration, state.position + elapsed);
+			}
+
+			function startAnimation() {
+				stopAnimation();
+
+				const tick = () => {
+					updatePlaybackUi();
+					state.raf = window.requestAnimationFrame(tick);
+				};
+
+				state.raf = window.requestAnimationFrame(tick);
+			}
+
+			function stopAnimation() {
+				if (state.raf) {
+					window.cancelAnimationFrame(state.raf);
+					state.raf = 0;
+				}
+			}
+
+			function updateTrialUi() {
+				const current = state.trialIndex + 1;
+				const total = state.trials.length;
+				const trial = state.trials[state.trialIndex];
+
+				roundLabel.textContent = format(copy.trialLabel, {
+					current,
+					total,
+					preset: trial.presetLabel,
+				});
+				roundProgress.value = total ? current / total : 0;
+				seek.max = String(Math.round(state.commonDuration * 1000));
+				durationTime.textContent = formatTime(state.commonDuration);
+				updatePlaybackUi();
+				setStatus(format(copy.started, {
+					current,
+					total,
+					preset: trial.presetLabel,
+				}), 'info');
+			}
+
+			function updatePlaybackUi() {
+				const position = getCurrentPosition();
+				currentTime.textContent = formatTime(position);
+				durationTime.textContent = formatTime(state.commonDuration);
+				seek.value = String(Math.round(position * 1000));
+				playToggle.textContent = state.isPlaying ? copy.pause : copy.play;
+
+				for (const button of slotButtons) {
+					const isActive = button.dataset.playSlot === state.activeSlot;
+					button.classList.toggle('is-active', isActive);
+					button.setAttribute('aria-pressed', String(isActive));
+				}
+			}
+
+			function updateReadyState() {
+				const ready = Boolean(state.file && getSelectedPresets().length);
+				startButton.disabled = state.isWorking || !ready;
+				clearButton.disabled = state.isWorking || !state.file;
+				fileInput.disabled = state.isWorking;
+				repeatCountInput.disabled = state.isWorking;
+
+				for (const input of presetInputs) {
+					input.disabled = state.isWorking;
+				}
+			}
+
+			function updateTrialCount() {
+				const repeats = Number(repeatCountInput.value);
+				const selectedCount = getSelectedPresets().length;
+				repeatCountLabel.textContent = repeatCountInput.value;
+				totalTrialsLabel.textContent = String(repeats * selectedCount);
+			}
+
+			function updateFileView(file) {
+				if (!file) {
+					fileName.textContent = copy.chooseFile;
+					fileMeta.textContent = copy.fileHint;
+					return;
+				}
+
+				fileName.textContent = file.name;
+				fileMeta.textContent = format(copy.fileMeta, {
+					size: formatBytes(file.size),
+					type: file.type || fileExtension(file.name).replace('.', '').toUpperCase(),
+				});
+			}
+
+			function getSelectedPresets() {
+				return presetInputs
+					.filter((input) => input.checked)
+					.map((input) => ({
+						id: input.value,
+						label: input.dataset.label || input.value,
+					}))
+					.filter((preset) => preset.id in encodePresets);
+			}
+
+			function setWorking(isWorking) {
+				state.isWorking = isWorking;
+				updateReadyState();
+			}
+
+			function resetPreparedSamples() {
+				stopPlayback();
+				state.originalBuffer = null;
+				state.converted = {};
+				state.testPresets = [];
+				resetRun(false);
+			}
+
+			function clearFile() {
+				state.file = null;
+				fileInput.value = '';
+				resetPreparedSamples();
+				updateFileView(null);
+				setStatus(copy.reset, 'info');
+				updateReadyState();
+			}
+
+			function resetRun(showMessage = true) {
+				stopPlayback();
+				state.trials = [];
+				state.answers = [];
+				state.trialIndex = 0;
+				state.position = 0;
+				state.activeSlot = 'A';
+				stage.hidden = true;
+				results.hidden = true;
+
+				if (showMessage) {
+					setStatus(copy.reset, 'info');
+				}
+			}
+
+			function setStatus(message, type) {
+				status.textContent = message;
+				status.dataset.state = type;
+			}
+
+			function format(template, values) {
+				return String(template).replace(/\{(\w+)\}/g, (_match, key) => {
+					return values && key in values ? String(values[key]) : '';
+				});
+			}
+
+			function formatTime(seconds) {
+				if (!Number.isFinite(seconds) || seconds <= 0) {
+					return '0:00';
+				}
+
+				const minutes = Math.floor(seconds / 60);
+				const wholeSeconds = Math.floor(seconds % 60);
+				return `${minutes}:${String(wholeSeconds).padStart(2, '0')}`;
+			}
+
+			function formatBytes(bytes) {
+				if (!Number.isFinite(bytes) || bytes <= 0) {
+					return '0 B';
+				}
+
+				const units = ['B', 'KB', 'MB', 'GB'];
+				const power = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
+				const value = bytes / (1024 ** power);
+				return `${value.toFixed(value >= 10 || power === 0 ? 0 : 1)} ${units[power]}`;
+			}
+
+			function formatProbability(value) {
+				if (value < 0.1 && value > 0) {
+					return '<0.1';
+				}
+
+				return value.toFixed(value >= 10 ? 1 : 2);
+			}
+
+			function chanceProbability(correct, total) {
+				let probability = 0;
+
+				for (let successes = correct; successes <= total; successes += 1) {
+					probability += combination(total, successes) * (0.5 ** total);
+				}
+
+				return probability;
+			}
+
+			function combination(total, successes) {
+				const k = Math.min(successes, total - successes);
+				let result = 1;
+
+				for (let index = 1; index <= k; index += 1) {
+					result = result * (total - k + index) / index;
+				}
+
+				return result;
+			}
+
+			function fileExtension(name) {
+				const match = name.toLowerCase().match(/\.[a-z0-9]+$/);
+				return match ? match[0] : '.audio';
+			}
+
+			function messageFromError(error) {
+				return error && typeof error === 'object' && 'message' in error
+					? String(error.message)
+					: copy.unknownError;
+			}
+		}
+	})();
+</script>
+
+<style>
+	.tool-intro {
+		padding-block: clamp(42px, 7vw, 82px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.tool-intro h1 {
+		max-width: 780px;
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.6rem);
+		line-height: 0.96;
+		letter-spacing: 0;
+	}
+
+	.tool-lede,
+	.tool-note {
+		max-width: 760px;
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+	}
+
+	.tool-note {
+		font-size: 0.98rem;
+		font-weight: 700;
+	}
+
+	.mp3-tool-section {
+		background: #fff;
+	}
+
+	.mp3-tester {
+		display: grid;
+		gap: 18px;
+	}
+
+	.mp3-tester [hidden] {
+		display: none !important;
+	}
+
+	.mp3-setup {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(280px, 0.45fr);
+		gap: 18px;
+		align-items: start;
+	}
+
+	.mp3-panel {
+		padding: clamp(18px, 3vw, 28px);
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.mp3-panel h2,
+	.answer-panel h3 {
+		margin: 0;
+		color: var(--color-deep);
+		line-height: 1.1;
+		letter-spacing: 0;
+	}
+
+	.mp3-panel h2 {
+		font-size: clamp(1.4rem, 3vw, 2rem);
+	}
+
+	.file-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+		margin-top: 18px;
+	}
+
+	.file-grid.single-file {
+		grid-template-columns: 1fr;
+	}
+
+	.file-picker {
+		position: relative;
+		display: grid;
+		gap: 8px;
+		min-height: 148px;
+		padding: 18px;
+		background: var(--color-surface-alt);
+		border: 1px dashed color-mix(in srgb, var(--color-accent) 58%, var(--color-line));
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.file-picker:focus-within {
+		outline: 3px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+		outline-offset: 2px;
+	}
+
+	.file-picker span,
+	.preset-option span {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.file-picker strong {
+		align-self: end;
+		overflow-wrap: anywhere;
+		color: var(--color-deep);
+		font-size: 1.05rem;
+	}
+
+	.file-picker small {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.file-picker input[type='file'] {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	.mp3-status {
+		margin: 16px 0 0;
+		padding: 12px 14px;
+		color: var(--color-muted);
+		background: #f9f5f0;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 700;
+	}
+
+	.mp3-status[data-state='success'] {
+		color: #225d2d;
+		background: #edf8ef;
+		border-color: #b7dec0;
+	}
+
+	.mp3-status[data-state='error'] {
+		color: #8a2317;
+		background: #fff0ed;
+		border-color: #efb6aa;
+	}
+
+	.preset-grid {
+		display: grid;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	.preset-option {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		min-height: 42px;
+		padding: 10px 12px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.preset-option input {
+		width: 18px;
+		height: 18px;
+		accent-color: var(--color-accent);
+	}
+
+	.preset-option span {
+		color: var(--color-deep);
+		text-transform: none;
+	}
+
+	.range-control {
+		display: grid;
+		gap: 10px;
+		margin-top: 18px;
+		color: var(--color-deep);
+		font-weight: 800;
+	}
+
+	.range-control input {
+		width: 100%;
+		accent-color: var(--color-accent);
+	}
+
+	.trial-total {
+		margin: 12px 0 0;
+		color: var(--color-muted);
+		font-weight: 800;
+	}
+
+	.setup-actions,
+	.transport-actions,
+	.answer-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-top: 22px;
+	}
+
+	.button,
+	.slot-button,
+	.answer-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 44px;
+		padding: 0 16px;
+		border-radius: 6px;
+		font: inherit;
+		font-weight: 850;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.button:disabled,
+	.slot-button:disabled,
+	.answer-button:disabled {
+		cursor: not-allowed;
+		opacity: 0.55;
+	}
+
+	.button.primary {
+		color: #fff;
+		background: var(--color-accent);
+		border: 1px solid var(--color-accent);
+	}
+
+	.button.secondary {
+		color: var(--color-deep);
+		background: #fff;
+		border: 1px solid var(--color-line);
+	}
+
+	.mp3-player {
+		display: grid;
+		gap: 22px;
+	}
+
+	.player-heading {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(180px, 0.35fr);
+		gap: 18px;
+		align-items: center;
+	}
+
+	.player-heading p {
+		margin: 8px 0 0;
+		color: var(--color-muted);
+		font-weight: 800;
+	}
+
+	progress {
+		width: 100%;
+		height: 12px;
+		accent-color: var(--color-accent);
+	}
+
+	.slot-buttons {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 10px;
+	}
+
+	.slot-buttons.two-slot {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.slot-button {
+		flex-direction: column;
+		gap: 4px;
+		min-height: 82px;
+		color: var(--color-deep);
+		background: #fff;
+		border: 1px solid var(--color-line);
+	}
+
+	.slot-button strong {
+		font-size: 1.5rem;
+		line-height: 1;
+	}
+
+	.slot-button span {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.slot-button:hover,
+	.slot-button.is-active {
+		background: var(--color-surface-alt);
+		border-color: var(--color-accent);
+	}
+
+	.timeline {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		gap: 12px;
+		align-items: center;
+		color: var(--color-muted);
+		font-weight: 800;
+	}
+
+	.timeline input {
+		width: 100%;
+		accent-color: var(--color-accent);
+	}
+
+	.answer-panel {
+		padding-top: 20px;
+		border-top: 1px solid var(--color-line);
+	}
+
+	.answer-panel h3 {
+		font-size: 1.2rem;
+	}
+
+	.answer-button {
+		flex: 1 1 180px;
+		min-height: 54px;
+		color: var(--color-deep);
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+	}
+
+	.answer-button:hover {
+		color: #fff;
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+	}
+
+	.mp3-results {
+		display: grid;
+		gap: 14px;
+	}
+
+	.score {
+		margin: 0;
+		color: var(--color-deep);
+		font-size: clamp(2rem, 5vw, 3.4rem);
+		font-weight: 900;
+		line-height: 1;
+	}
+
+	.result-note {
+		margin: 0;
+		color: var(--color-muted);
+		font-weight: 800;
+	}
+
+	.result-list {
+		display: grid;
+		gap: 8px;
+		margin: 8px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.result-list li {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 10px;
+		padding: 12px 14px;
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-left-width: 4px;
+		border-radius: 8px;
+	}
+
+	.result-list li.is-correct {
+		border-left-color: #2e7b35;
+	}
+
+	.result-list li.is-wrong {
+		border-left-color: #b83a24;
+	}
+
+	.result-list strong {
+		color: var(--color-deep);
+	}
+
+	@media (max-width: 900px) {
+		.mp3-setup,
+		.player-heading {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 680px) {
+		.file-grid,
+		.slot-buttons,
+		.slot-buttons.two-slot,
+		.timeline {
+			grid-template-columns: 1fr;
+		}
+
+		.timeline span {
+			text-align: center;
+		}
+	}
+</style>
