@@ -1,0 +1,785 @@
+---
+import type { Locale } from '../../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Creator-Tool',
+		title: 'YouTube-Thumbnail-Vorschau',
+		intro: 'Teste, wie dein Thumbnail und Titel in typischen YouTube-Web- und App-Karten wirken, bevor du sie veröffentlichst.',
+		privacy: 'Dein Bild bleibt lokal im Browser. Die Vorschau ist eine Annäherung, weil YouTube Layouts je nach Gerät und Testgruppe ändern kann.',
+		contentTitle: 'Video-Metadaten',
+		previewTitle: 'Live-Vorschau',
+		thumbnailTitle: 'Thumbnail',
+		chooseFile: 'Thumbnail wählen',
+		fileHint: 'JPG, PNG, GIF, WebP oder AVIF, idealerweise 16:9',
+		clearImage: 'Bild entfernen',
+		titleLabel: 'Titel',
+		channelLabel: 'Kanalname',
+		metadataLabel: 'Metadatenzeile',
+		durationLabel: 'Videolänge',
+		webWidthLabel: 'Web-Kartenbreite',
+		appWidthLabel: 'App-Gerätebreite',
+		titleCount: 'Zeichen',
+		webPreview: 'YouTube Webseite',
+		webContext: 'Startseite / Suchraster',
+		appPreview: 'YouTube App',
+		appContext: 'Mobile Startseite',
+		defaultTitle: 'Das perfekte Thumbnail ist nicht laut. Es ist sofort lesbar.',
+		defaultChannel: 'KW Media',
+		defaultMetadata: '24.000 Aufrufe vor 2 Tagen',
+		defaultDuration: '12:34',
+		avatarLabel: 'Kanalavatar',
+		appHeader: 'YouTube',
+		client: {
+			chooseFile: 'Thumbnail wählen',
+			fileHint: 'JPG, PNG, GIF, WebP oder AVIF, idealerweise 16:9',
+			fileMeta: '{type} ({size})',
+			imageRemoved: 'Bild entfernt',
+			noTitle: 'Titel eingeben',
+			titleCount: '{count} Zeichen',
+		},
+	},
+	en: {
+		eyebrow: 'Creator tool',
+		title: 'YouTube Thumbnail Preview',
+		intro: 'Test how your thumbnail and title read in typical YouTube web and app cards before you publish.',
+		privacy: 'Your image stays local in the browser. The preview is an approximation because YouTube can change layouts by device and experiment group.',
+		contentTitle: 'Video metadata',
+		previewTitle: 'Live preview',
+		thumbnailTitle: 'Thumbnail',
+		chooseFile: 'Choose thumbnail',
+		fileHint: 'JPG, PNG, GIF, WebP, or AVIF, ideally 16:9',
+		clearImage: 'Remove image',
+		titleLabel: 'Title',
+		channelLabel: 'Channel name',
+		metadataLabel: 'Metadata line',
+		durationLabel: 'Video length',
+		webWidthLabel: 'Web card width',
+		appWidthLabel: 'App device width',
+		titleCount: 'Characters',
+		webPreview: 'YouTube Website',
+		webContext: 'Home / search grid',
+		appPreview: 'YouTube App',
+		appContext: 'Mobile home feed',
+		defaultTitle: 'The perfect thumbnail is not loud. It is instantly readable.',
+		defaultChannel: 'KW Media',
+		defaultMetadata: '24K views 2 days ago',
+		defaultDuration: '12:34',
+		avatarLabel: 'Channel avatar',
+		appHeader: 'YouTube',
+		client: {
+			chooseFile: 'Choose thumbnail',
+			fileHint: 'JPG, PNG, GIF, WebP, or AVIF, ideally 16:9',
+			fileMeta: '{type} ({size})',
+			imageRemoved: 'Image removed',
+			noTitle: 'Enter a title',
+			titleCount: '{count} characters',
+		},
+	},
+} satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy.client);
+---
+
+<section class="tool-intro">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{copy.title}</h1>
+		<p class="tool-lede">{copy.intro}</p>
+		<p class="tool-note">{copy.privacy}</p>
+	</div>
+</section>
+
+<section class="section thumbnail-preview-section">
+	<div class="container">
+		<div class="thumbnail-preview-tool" data-thumbnail-preview data-copy={copyJson}>
+			<section class="preview-panel controls-panel" aria-labelledby="thumbnail-preview-controls">
+				<h2 id="thumbnail-preview-controls">{copy.contentTitle}</h2>
+
+				<div class="file-grid">
+					<label class="file-picker">
+						<span>{copy.thumbnailTitle}</span>
+						<strong data-file-name>{copy.chooseFile}</strong>
+						<small data-file-meta>{copy.fileHint}</small>
+						<input data-thumbnail-file type="file" accept="image/avif,image/gif,image/jpeg,image/png,image/webp" />
+					</label>
+					<button class="button secondary" data-clear-image type="button">{copy.clearImage}</button>
+				</div>
+
+				<label class="field-control">
+					<span>{copy.titleLabel}</span>
+					<textarea data-title-input rows="4" maxlength="140">{copy.defaultTitle}</textarea>
+					<small data-title-count>{copy.titleCount}</small>
+				</label>
+
+				<div class="field-grid">
+					<label class="field-control">
+						<span>{copy.channelLabel}</span>
+						<input data-channel-input type="text" value={copy.defaultChannel} maxlength="80" />
+					</label>
+					<label class="field-control">
+						<span>{copy.durationLabel}</span>
+						<input data-duration-input type="text" value={copy.defaultDuration} maxlength="12" />
+					</label>
+				</div>
+
+				<label class="field-control">
+					<span>{copy.metadataLabel}</span>
+					<input data-meta-input type="text" value={copy.defaultMetadata} maxlength="90" />
+				</label>
+
+				<div class="range-grid">
+					<label class="range-control">
+						<span>{copy.webWidthLabel}: <strong data-web-width-label>360 px</strong></span>
+						<input data-web-width type="range" min="260" max="420" step="10" value="360" />
+					</label>
+					<label class="range-control">
+						<span>{copy.appWidthLabel}: <strong data-app-width-label>390 px</strong></span>
+						<input data-app-width type="range" min="320" max="430" step="10" value="390" />
+					</label>
+				</div>
+			</section>
+
+			<section class="preview-panel output-panel" aria-labelledby="thumbnail-preview-output">
+				<div class="panel-heading">
+					<div>
+						<h2 id="thumbnail-preview-output">{copy.previewTitle}</h2>
+					</div>
+				</div>
+
+				<div class="preview-grid">
+					<article class="youtube-web-preview" aria-labelledby="web-preview-heading">
+						<div class="preview-label">
+							<h3 id="web-preview-heading">{copy.webPreview}</h3>
+							<p>{copy.webContext}</p>
+						</div>
+						<div class="yt-web-card">
+							<div class="yt-thumbnail">
+								<img data-preview-image alt="" hidden />
+								<div class="thumbnail-placeholder" data-thumbnail-placeholder>
+									<span>16:9</span>
+								</div>
+								<span class="duration-badge" data-duration-preview>{copy.defaultDuration}</span>
+							</div>
+							<div class="yt-web-meta">
+								<div class="channel-avatar" aria-label={copy.avatarLabel} data-avatar></div>
+								<div class="yt-copy">
+									<h4 data-title-preview>{copy.defaultTitle}</h4>
+									<p data-channel-preview>{copy.defaultChannel}</p>
+									<p data-meta-preview>{copy.defaultMetadata}</p>
+								</div>
+							</div>
+						</div>
+					</article>
+
+					<article class="youtube-app-preview" aria-labelledby="app-preview-heading">
+						<div class="preview-label">
+							<h3 id="app-preview-heading">{copy.appPreview}</h3>
+							<p>{copy.appContext}</p>
+						</div>
+						<div class="phone-frame">
+							<div class="app-bar">
+								<span class="app-play-mark"></span>
+								<strong>{copy.appHeader}</strong>
+							</div>
+							<div class="yt-app-card">
+								<div class="yt-thumbnail">
+									<img data-preview-image alt="" hidden />
+									<div class="thumbnail-placeholder" data-thumbnail-placeholder>
+										<span>16:9</span>
+									</div>
+									<span class="duration-badge" data-duration-preview>{copy.defaultDuration}</span>
+								</div>
+								<div class="yt-app-meta">
+									<div class="channel-avatar" aria-label={copy.avatarLabel} data-avatar></div>
+									<div class="yt-copy">
+										<h4 data-title-preview>{copy.defaultTitle}</h4>
+										<p>
+											<span data-channel-preview>{copy.defaultChannel}</span>
+											<span aria-hidden="true"> - </span>
+											<span data-meta-preview>{copy.defaultMetadata}</span>
+										</p>
+									</div>
+									<span class="app-menu" aria-hidden="true"></span>
+								</div>
+							</div>
+						</div>
+					</article>
+				</div>
+			</section>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	(() => {
+		const roots = document.querySelectorAll('[data-thumbnail-preview]:not([data-thumbnail-bound])');
+
+		for (const root of roots) {
+			root.dataset.thumbnailBound = 'true';
+			initThumbnailPreview(root);
+		}
+
+		function initThumbnailPreview(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const fileInput = root.querySelector('[data-thumbnail-file]');
+			const fileName = root.querySelector('[data-file-name]');
+			const fileMeta = root.querySelector('[data-file-meta]');
+			const clearImageButton = root.querySelector('[data-clear-image]');
+			const titleInput = root.querySelector('[data-title-input]');
+			const channelInput = root.querySelector('[data-channel-input]');
+			const metaInput = root.querySelector('[data-meta-input]');
+			const durationInput = root.querySelector('[data-duration-input]');
+			const webWidthInput = root.querySelector('[data-web-width]');
+			const appWidthInput = root.querySelector('[data-app-width]');
+			const webWidthLabel = root.querySelector('[data-web-width-label]');
+			const appWidthLabel = root.querySelector('[data-app-width-label]');
+			const titleCount = root.querySelector('[data-title-count]');
+			const previewImages = [...root.querySelectorAll('[data-preview-image]')];
+			const placeholders = [...root.querySelectorAll('[data-thumbnail-placeholder]')];
+			const titlePreviews = [...root.querySelectorAll('[data-title-preview]')];
+			const channelPreviews = [...root.querySelectorAll('[data-channel-preview]')];
+			const metaPreviews = [...root.querySelectorAll('[data-meta-preview]')];
+			const durationPreviews = [...root.querySelectorAll('[data-duration-preview]')];
+			const avatars = [...root.querySelectorAll('[data-avatar]')];
+
+			let imageUrl = '';
+
+			fileInput.addEventListener('change', () => {
+				setImage(fileInput.files && fileInput.files[0]);
+			});
+			clearImageButton.addEventListener('click', () => {
+				fileInput.value = '';
+				setImage(null);
+			});
+
+			for (const input of [titleInput, channelInput, metaInput, durationInput, webWidthInput, appWidthInput]) {
+				input.addEventListener('input', updatePreview);
+			}
+
+			updatePreview();
+
+			function setImage(file) {
+				if (imageUrl) {
+					URL.revokeObjectURL(imageUrl);
+					imageUrl = '';
+				}
+
+				if (!file) {
+					for (const image of previewImages) {
+						image.removeAttribute('src');
+						image.hidden = true;
+					}
+
+					for (const placeholder of placeholders) {
+						placeholder.hidden = false;
+					}
+
+					fileName.textContent = copy.chooseFile;
+					fileMeta.textContent = copy.fileHint;
+					return;
+				}
+
+				imageUrl = URL.createObjectURL(file);
+
+				for (const image of previewImages) {
+					image.src = imageUrl;
+					image.hidden = false;
+				}
+
+				for (const placeholder of placeholders) {
+					placeholder.hidden = true;
+				}
+
+				fileName.textContent = file.name;
+				fileMeta.textContent = format(copy.fileMeta, {
+					type: file.type || file.name.split('.').pop()?.toUpperCase() || 'Image',
+					size: formatBytes(file.size),
+				});
+			}
+
+			function updatePreview() {
+				const title = titleInput.value.trim() || copy.noTitle;
+				const channel = channelInput.value.trim();
+				const meta = metaInput.value.trim();
+				const duration = durationInput.value.trim();
+				const webWidth = Number(webWidthInput.value);
+				const appWidth = Number(appWidthInput.value);
+
+				root.style.setProperty('--web-card-width', `${webWidth}px`);
+				root.style.setProperty('--app-card-width', `${appWidth}px`);
+				webWidthLabel.textContent = `${webWidth} px`;
+				appWidthLabel.textContent = `${appWidth} px`;
+				titleCount.textContent = format(copy.titleCount, { count: titleInput.value.length });
+
+				for (const preview of titlePreviews) {
+					preview.textContent = title;
+				}
+
+				for (const preview of channelPreviews) {
+					preview.textContent = channel;
+				}
+
+				for (const preview of metaPreviews) {
+					preview.textContent = meta;
+				}
+
+				for (const preview of durationPreviews) {
+					preview.textContent = duration;
+					preview.hidden = !duration;
+				}
+
+				for (const avatar of avatars) {
+					avatar.textContent = avatarInitial(channel || title);
+				}
+			}
+
+			function avatarInitial(value) {
+				return value.trim().charAt(0).toUpperCase() || 'K';
+			}
+
+			function format(template, values) {
+				return String(template).replace(/\{(\w+)\}/g, (_match, key) => {
+					return values && key in values ? String(values[key]) : '';
+				});
+			}
+
+			function formatBytes(bytes) {
+				if (!Number.isFinite(bytes) || bytes <= 0) {
+					return '0 B';
+				}
+
+				const units = ['B', 'KB', 'MB', 'GB'];
+				const power = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
+				const value = bytes / (1024 ** power);
+				return `${value.toFixed(value >= 10 || power === 0 ? 0 : 1)} ${units[power]}`;
+			}
+		}
+	})();
+</script>
+
+<style>
+	.tool-intro {
+		padding-block: clamp(42px, 7vw, 82px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.tool-intro h1 {
+		max-width: 820px;
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.6rem);
+		line-height: 0.96;
+		letter-spacing: 0;
+	}
+
+	.tool-lede,
+	.tool-note {
+		max-width: 760px;
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+	}
+
+	.tool-note {
+		font-size: 0.98rem;
+		font-weight: 700;
+	}
+
+	.thumbnail-preview-section {
+		background: #fff;
+	}
+
+	.thumbnail-preview-tool {
+		--web-card-width: 360px;
+		--app-card-width: 390px;
+		display: grid;
+		grid-template-columns: minmax(300px, 0.42fr) minmax(0, 1fr);
+		gap: 18px;
+		align-items: start;
+	}
+
+	.preview-panel {
+		padding: clamp(18px, 3vw, 28px);
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.preview-panel h2,
+	.preview-label h3 {
+		margin: 0;
+		color: var(--color-deep);
+		line-height: 1.1;
+		letter-spacing: 0;
+	}
+
+	.preview-panel h2 {
+		font-size: clamp(1.4rem, 3vw, 2rem);
+	}
+
+	.file-grid {
+		display: grid;
+		gap: 12px;
+		margin-top: 18px;
+	}
+
+	.file-picker {
+		position: relative;
+		display: grid;
+		gap: 8px;
+		min-height: 148px;
+		padding: 18px;
+		background: var(--color-surface-alt);
+		border: 1px dashed color-mix(in srgb, var(--color-accent) 58%, var(--color-line));
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.file-picker:focus-within {
+		outline: 3px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+		outline-offset: 2px;
+	}
+
+	.file-picker span,
+	.field-control span,
+	.range-control span {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.file-picker strong {
+		align-self: end;
+		overflow-wrap: anywhere;
+		color: var(--color-deep);
+		font-size: 1.05rem;
+	}
+
+	.file-picker small,
+	.field-control small {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.file-picker input[type='file'] {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	.field-control,
+	.range-control {
+		display: grid;
+		gap: 8px;
+		margin-top: 18px;
+	}
+
+	.field-grid,
+	.range-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+	}
+
+	.field-control input,
+	.field-control textarea {
+		width: 100%;
+		padding: 12px 13px;
+		color: var(--color-deep);
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font: inherit;
+		font-weight: 700;
+	}
+
+	.field-control textarea {
+		min-height: 118px;
+		resize: vertical;
+	}
+
+	.field-control input:focus,
+	.field-control textarea:focus {
+		border-color: var(--color-accent);
+		outline: 3px solid color-mix(in srgb, var(--color-accent) 24%, transparent);
+		outline-offset: 1px;
+	}
+
+	.range-control input {
+		width: 100%;
+		accent-color: var(--color-accent);
+	}
+
+	.button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 44px;
+		padding: 0 16px;
+		border-radius: 6px;
+		font: inherit;
+		font-weight: 850;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.button.secondary {
+		color: var(--color-deep);
+		background: #fff;
+		border: 1px solid var(--color-line);
+	}
+
+	.button.secondary:hover {
+		border-color: var(--color-accent);
+	}
+
+	.panel-heading {
+		display: flex;
+		align-items: start;
+		justify-content: space-between;
+		gap: 16px;
+	}
+
+	.preview-grid {
+		display: grid;
+		gap: 18px;
+		margin-top: 18px;
+		align-items: start;
+	}
+
+	.youtube-web-preview,
+	.youtube-app-preview {
+		min-width: 0;
+	}
+
+	.preview-label {
+		margin-bottom: 12px;
+	}
+
+	.preview-label h3 {
+		font-size: 1rem;
+	}
+
+	.preview-label p {
+		margin: 4px 0 0;
+		color: var(--color-muted);
+		font-size: 0.9rem;
+		font-weight: 700;
+	}
+
+	.yt-web-card {
+		width: min(100%, var(--web-card-width));
+		color: #0f0f0f;
+		font-family: Roboto, Arial, sans-serif;
+	}
+
+	.yt-thumbnail {
+		position: relative;
+		overflow: hidden;
+		aspect-ratio: 16 / 9;
+		background: #f1f1f1;
+		border-radius: 12px;
+	}
+
+	.yt-thumbnail img {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.thumbnail-placeholder {
+		display: grid;
+		width: 100%;
+		height: 100%;
+		place-items: center;
+		color: #4a4038;
+		background:
+			linear-gradient(135deg, rgba(255, 105, 0, 0.18), rgba(255, 246, 237, 0.92)),
+			repeating-linear-gradient(45deg, rgba(36, 25, 19, 0.08) 0 10px, transparent 10px 20px);
+		font-weight: 900;
+	}
+
+	.duration-badge {
+		position: absolute;
+		right: 6px;
+		bottom: 6px;
+		min-width: 32px;
+		padding: 2px 5px;
+		color: #fff;
+		background: rgba(0, 0, 0, 0.84);
+		border-radius: 4px;
+		font-size: 12px;
+		font-weight: 700;
+		line-height: 1.25;
+		text-align: center;
+	}
+
+	.yt-web-meta {
+		display: grid;
+		grid-template-columns: 36px minmax(0, 1fr);
+		gap: 12px;
+		margin-top: 12px;
+	}
+
+	.channel-avatar {
+		display: grid;
+		width: 36px;
+		height: 36px;
+		place-items: center;
+		color: #fff;
+		background: var(--color-accent-dark);
+		border-radius: 50%;
+		font-family: var(--font-body);
+		font-size: 0.88rem;
+		font-weight: 900;
+	}
+
+	.yt-copy {
+		min-width: 0;
+	}
+
+	.yt-copy h4 {
+		display: -webkit-box;
+		overflow: hidden;
+		margin: 0;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: var(--title-lines, 2);
+		color: #0f0f0f;
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 22px;
+		letter-spacing: 0;
+	}
+
+	.yt-copy p {
+		overflow: hidden;
+		margin: 2px 0 0;
+		color: #606060;
+		font-size: 14px;
+		line-height: 20px;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.phone-frame {
+		width: min(100%, calc(var(--app-card-width) + 20px));
+		padding: 10px;
+		background: #f4f4f4;
+		border: 1px solid #dadada;
+		border-radius: 28px;
+		box-shadow: 0 14px 40px rgba(36, 25, 19, 0.08);
+	}
+
+	.app-bar {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		min-height: 42px;
+		padding: 0 8px 8px;
+		color: #0f0f0f;
+		font-family: Roboto, Arial, sans-serif;
+		font-size: 18px;
+	}
+
+	.app-play-mark {
+		display: inline-block;
+		width: 28px;
+		height: 20px;
+		background: #ff0000;
+		border-radius: 6px;
+		clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+	}
+
+	.app-play-mark::after {
+		display: block;
+		width: 0;
+		height: 0;
+		margin: 5px 0 0 11px;
+		border-top: 5px solid transparent;
+		border-bottom: 5px solid transparent;
+		border-left: 8px solid #fff;
+		content: '';
+	}
+
+	.yt-app-card {
+		width: min(100%, var(--app-card-width));
+		overflow: hidden;
+		background: #fff;
+		border-radius: 18px;
+		font-family: Roboto, Arial, sans-serif;
+	}
+
+	.yt-app-card .yt-thumbnail {
+		border-radius: 0;
+	}
+
+	.yt-app-meta {
+		display: grid;
+		grid-template-columns: 36px minmax(0, 1fr) 24px;
+		gap: 12px;
+		padding: 12px;
+	}
+
+	.yt-app-meta .yt-copy h4 {
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 20px;
+	}
+
+	.yt-app-meta .yt-copy p {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	.app-menu {
+		position: relative;
+		width: 24px;
+		height: 24px;
+	}
+
+	.app-menu::before {
+		position: absolute;
+		top: 5px;
+		left: 10px;
+		width: 4px;
+		height: 4px;
+		background: #606060;
+		border-radius: 50%;
+		box-shadow: 0 6px 0 #606060, 0 12px 0 #606060;
+		content: '';
+	}
+
+	@media (max-width: 1120px) {
+		.thumbnail-preview-tool,
+		.preview-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 680px) {
+		.field-grid,
+		.range-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.preview-panel {
+			padding: 16px;
+		}
+
+		.phone-frame {
+			padding: 8px;
+			border-radius: 22px;
+		}
+	}
+</style>
