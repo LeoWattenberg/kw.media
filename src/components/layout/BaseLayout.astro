@@ -188,6 +188,7 @@ const profilePersonSchema =
 				description: profileAuthor.description[locale],
 				image: absoluteUrl(profileAuthor.image),
 				email: profileAuthor.email,
+				sameAs: profileAuthor.sameAs,
 				affiliation: { '@id': organizationId },
 				knowsAbout: profileAuthor.credentials,
 			}

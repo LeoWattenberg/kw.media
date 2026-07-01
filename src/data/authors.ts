@@ -9,6 +9,7 @@ export interface AuthorProfile {
 	email: string;
 	credentials: string[];
 	paths: Record<Locale, string>;
+	sameAs?: string[];
 	description: Record<Locale, string>;
 	bio: Record<Locale, string[]>;
 }
@@ -26,6 +27,7 @@ export const authorProfiles = [
 			de: '/de/autor/leo-wattenberg/',
 			en: '/en/author/leo-wattenberg/',
 		},
+		sameAs: ['https://leo.wattenberg.dk/author/leowattenberg/'],
 		description: {
 			de: 'Autor der kw.media Blogbeiträge zu YouTube, Creator-Strategie, VTubing und Plattformfragen.',
 			en: 'Author of kw.media blog posts about YouTube, creator strategy, VTubing and platform questions.',
