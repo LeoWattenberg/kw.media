@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import ImageFormatConverter from '../../components/tools/ImageFormatConverter.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('image-format-converter', {
+	id: 'image-format-converter',
+	translations: {
+		de: {
+			id: 'image-format-converter-de',
+			path: '/de/tools/image-format-converter/',
+			title: 'Bildformat-Konverter',
+			description: 'Konvertiere lokale Bilder clientseitig mit ImageMagick WASM in PNG, JPEG, WebP und weitere Formate.',
+		},
+		en: {
+			id: 'image-format-converter-en',
+			path: '/en/tools/image-format-converter/',
+			title: 'Image Format Converter',
+			description: 'Convert local images client-side with ImageMagick WASM into PNG, JPEG, WebP, and more formats.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<ImageFormatConverter locale={tool.locale} />
+</ToolPageShell>
