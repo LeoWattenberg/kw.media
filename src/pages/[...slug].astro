@@ -2,6 +2,7 @@
 import ArticlePage from '../components/ArticlePage.astro';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import { getSitePageAlternatePaths, getSitePageComponent, sitePages } from '../data/pages';
+import { getToolPageAlternatePaths, getToolPageComponent, toolPages } from '../data/tools';
 import { getAllPosts, getPostAlternatePaths } from '../lib/source-content';
 
 export function getStaticPaths() {
@@ -28,10 +29,21 @@ export function getStaticPaths() {
 		},
 	}));
 
-	return [...pagePaths, ...postPaths];
+	const toolPaths = toolPages.map((tool) => ({
+		params: {
+			slug: tool.path.replace(/^\/|\/$/g, ''),
+		},
+		props: {
+			kind: 'tool',
+			tool,
+			ToolComponent: getToolPageComponent(tool),
+		},
+	}));
+
+	return [...pagePaths, ...toolPaths, ...postPaths];
 }
 
-const { kind, page, post, PageComponent } = Astro.props;
+const { kind, page, post, tool, PageComponent, ToolComponent } = Astro.props;
 ---
 
 {
@@ -53,6 +65,8 @@ const { kind, page, post, PageComponent } = Astro.props;
 		>
 			<ArticlePage post={post} />
 		</BaseLayout>
+	) : kind === 'tool' ? (
+		<ToolComponent tool={tool} alternatePaths={getToolPageAlternatePaths(tool)} />
 	) : (
 		<PageComponent page={page} alternatePaths={getSitePageAlternatePaths(page)} />
 	)

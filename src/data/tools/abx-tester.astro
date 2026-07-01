@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import AbxTester from '../../components/tools/AbxTester.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('abx-tester', {
+	id: 'abx-tester',
+	translations: {
+		de: {
+			id: 'abx-tester-de',
+			path: '/de/tools/abx-tester/',
+			title: 'ABX-Audiotester',
+			description: 'Ein clientseitiger ABX-Test für lokale Audiodateien.',
+		},
+		en: {
+			id: 'abx-tester-en',
+			path: '/tools/abx-tester/',
+			title: 'ABX Audio Tester',
+			description: 'A client-side ABX listening test for local audio files.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<AbxTester locale={tool.locale} />
+</ToolPageShell>

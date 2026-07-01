@@ -1,0 +1,1306 @@
+---
+import type { Locale } from '../../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Audio-Tool',
+		title: 'ABX-Audiotester',
+		intro: 'Vergleiche zwei lokale Audiodateien blind im Browser. A und B sind bekannt, X ist pro Durchgang zufällig A oder B.',
+		privacy: 'Deine Dateien bleiben lokal. FFmpeg wasm wird nur geladen, wenn der Browser eine Datei nicht selbst dekodieren kann.',
+		filesTitle: 'Audiodateien',
+		fileA: 'Referenz A',
+		fileB: 'Referenz B',
+		chooseFile: 'Audiodatei wählen',
+		fileHint: 'WAV, MP3, FLAC, OGG, M4A und mehr',
+		settingsTitle: 'Test einrichten',
+		trials: 'Durchgänge',
+		loop: 'Am Ende der Auswahl wiederholen',
+		start: 'ABX-Test starten',
+		clear: 'Dateien entfernen',
+		playbackTitle: 'Hörtest',
+		answerTitle: 'Was ist X?',
+		xIsA: 'X ist A',
+		xIsB: 'X ist B',
+		play: 'Abspielen',
+		pause: 'Pause',
+		stop: 'Stopp',
+		knownA: 'Bekanntes A',
+		knownB: 'Bekanntes B',
+		hiddenX: 'Verdecktes X',
+		resultsTitle: 'Ergebnis',
+		newRun: 'Noch einmal',
+		client: {
+			answerCorrect: 'richtig',
+			answerWrong: 'falsch',
+			chance: 'Wahrscheinlichkeit für dieses Ergebnis oder besser durch Raten: {probability}%.',
+			chooseFile: 'Audiodatei wählen',
+			decodeError: '{slot} konnte nicht vorbereitet werden: {message}',
+			decoded: '{slot} ist bereit ({duration}, {decoder}).',
+			decoding: '{slot} wird vorbereitet: {name}',
+			ffmpegDecoder: 'FFmpeg wasm',
+			ffmpegLoading: 'FFmpeg wasm wird im Hintergrund geladen...',
+			ffmpegProgress: 'FFmpeg dekodiert... {progress}%',
+			ffmpegReady: 'FFmpeg wasm ist bereit.',
+			ffmpegTimeout: 'FFmpeg wasm hat nicht innerhalb von 90 Sekunden geladen. Prüfe deine Verbindung und versuche es erneut.',
+			fileHint: 'WAV, MP3, FLAC, OGG, M4A und mehr',
+			fileMeta: '{size} | {decoder} | {duration}',
+			mismatchedDuration: 'Getestet werden die ersten {duration}, weil eine Datei kürzer ist.',
+			nativeDecoder: 'Browser-Dekoder',
+			nativeFailed: 'Der Browser konnte {slot} nicht dekodieren. FFmpeg wasm wird asynchron geladen.',
+			nextTrial: 'Antwort gespeichert. Durchgang {current} von {total}.',
+			noAudio: 'Dieser Browser unterstützt die Web Audio API nicht.',
+			pause: 'Pause',
+			pending: 'Wird vorbereitet...',
+			play: 'Abspielen',
+			ready: 'Beide Dateien sind bereit. Gemeinsame Testdauer: {duration}.',
+			reset: 'Der Test wurde zurückgesetzt.',
+			resultLine: 'Durchgang {trial}: du hast {choice} gewählt; X war {actual}.',
+			score: '{correct}/{total} richtig ({percent}%)',
+			startDisabled: 'Wähle zuerst zwei erfolgreich dekodierte Audiodateien.',
+			started: 'Durchgang {current} von {total}. Höre A, B und X, dann entscheide, wozu X passt.',
+			trialLabel: 'Durchgang {current} von {total}',
+			unknownError: 'Unbekannter Fehler',
+			waiting: 'Wähle zwei Audiodateien, um den Test zu starten.',
+		},
+	},
+	en: {
+		eyebrow: 'Audio tool',
+		title: 'ABX Audio Tester',
+		intro: 'Blind-compare two local audio files in your browser. A and B are known, X is randomly A or B on every trial.',
+		privacy: 'Your files stay local. FFmpeg wasm is loaded only if the browser cannot decode a file natively.',
+		filesTitle: 'Audio files',
+		fileA: 'Reference A',
+		fileB: 'Reference B',
+		chooseFile: 'Choose audio file',
+		fileHint: 'WAV, MP3, FLAC, OGG, M4A and more',
+		settingsTitle: 'Test setup',
+		trials: 'Trials',
+		loop: 'Loop at end of selection',
+		start: 'Start ABX test',
+		clear: 'Clear files',
+		playbackTitle: 'Listening test',
+		answerTitle: 'What is X?',
+		xIsA: 'X is A',
+		xIsB: 'X is B',
+		play: 'Play',
+		pause: 'Pause',
+		stop: 'Stop',
+		knownA: 'Known A',
+		knownB: 'Known B',
+		hiddenX: 'Hidden X',
+		resultsTitle: 'Results',
+		newRun: 'Run again',
+		client: {
+			answerCorrect: 'correct',
+			answerWrong: 'wrong',
+			chance: 'Chance probability for this score or better: {probability}%.',
+			chooseFile: 'Choose audio file',
+			decodeError: 'Could not prepare {slot}: {message}',
+			decoded: '{slot} is ready ({duration}, {decoder}).',
+			decoding: 'Preparing {slot}: {name}',
+			ffmpegDecoder: 'FFmpeg wasm',
+			ffmpegLoading: 'Loading FFmpeg wasm in the background...',
+			ffmpegProgress: 'FFmpeg decoding... {progress}%',
+			ffmpegReady: 'FFmpeg wasm is ready.',
+			ffmpegTimeout: 'FFmpeg wasm did not finish loading within 90 seconds. Check your connection and try again.',
+			fileHint: 'WAV, MP3, FLAC, OGG, M4A and more',
+			fileMeta: '{size} | {decoder} | {duration}',
+			mismatchedDuration: 'Testing is limited to the first {duration} because one file is shorter.',
+			nativeDecoder: 'browser decoder',
+			nativeFailed: 'The browser could not decode {slot}. FFmpeg wasm is loading asynchronously.',
+			nextTrial: 'Answer saved. Trial {current} of {total}.',
+			noAudio: 'This browser does not support the Web Audio API.',
+			pause: 'Pause',
+			pending: 'Preparing...',
+			play: 'Play',
+			ready: 'Both files are ready. Common test duration: {duration}.',
+			reset: 'The test has been reset.',
+			resultLine: 'Trial {trial}: you chose {choice}; X was {actual}.',
+			score: '{correct}/{total} correct ({percent}%)',
+			startDisabled: 'Choose two successfully decoded audio files first.',
+			started: 'Trial {current} of {total}. Listen to A, B, and X, then choose what X matches.',
+			trialLabel: 'Trial {current} of {total}',
+			unknownError: 'Unknown error',
+			waiting: 'Choose two audio files to start.',
+		},
+	},
+} satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy.client);
+---
+
+<section class="tool-intro">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{copy.title}</h1>
+		<p class="tool-lede">{copy.intro}</p>
+		<p class="tool-note">{copy.privacy}</p>
+	</div>
+</section>
+
+<section class="section abx-tool-section">
+	<div class="container">
+		<div class="abx-tester" data-abx-tester data-copy={copyJson}>
+			<div class="abx-setup">
+				<section class="abx-panel">
+					<h2>{copy.filesTitle}</h2>
+					<div class="file-grid">
+						<label class="file-picker">
+							<span>{copy.fileA}</span>
+							<strong data-file-a-name>{copy.chooseFile}</strong>
+							<small data-file-a-meta>{copy.fileHint}</small>
+							<input data-file-a type="file" accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba" />
+						</label>
+						<label class="file-picker">
+							<span>{copy.fileB}</span>
+							<strong data-file-b-name>{copy.chooseFile}</strong>
+							<small data-file-b-meta>{copy.fileHint}</small>
+							<input data-file-b type="file" accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba" />
+						</label>
+					</div>
+					<p class="abx-status" data-status>{copy.client.waiting}</p>
+				</section>
+
+				<section class="abx-panel">
+					<h2>{copy.settingsTitle}</h2>
+					<label class="range-control">
+						<span>{copy.trials}: <strong data-trial-count-label>8</strong></span>
+						<input data-trial-count type="range" min="4" max="20" step="2" value="8" />
+					</label>
+					<label class="toggle-control">
+						<input data-loop type="checkbox" checked />
+						<span>{copy.loop}</span>
+					</label>
+					<div class="setup-actions">
+						<button class="button primary" data-start disabled>{copy.start}</button>
+						<button class="button secondary" data-clear>{copy.clear}</button>
+					</div>
+				</section>
+			</div>
+
+			<section class="abx-panel abx-player" data-stage hidden>
+				<div class="player-heading">
+					<div>
+						<h2>{copy.playbackTitle}</h2>
+						<p data-round-label></p>
+					</div>
+					<progress data-round-progress value="0" max="1"></progress>
+				</div>
+
+				<div class="slot-buttons" aria-label={copy.playbackTitle}>
+					<button class="slot-button" data-play-slot="A" type="button">
+						<strong>A</strong>
+						<span>{copy.knownA}</span>
+					</button>
+					<button class="slot-button" data-play-slot="B" type="button">
+						<strong>B</strong>
+						<span>{copy.knownB}</span>
+					</button>
+					<button class="slot-button" data-play-slot="X" type="button">
+						<strong>X</strong>
+						<span>{copy.hiddenX}</span>
+					</button>
+				</div>
+
+				<div class="timeline">
+					<span data-current-time>0:00</span>
+					<input data-seek type="range" min="0" max="1000" step="10" value="0" aria-label="Seek" />
+					<span data-duration>0:00</span>
+				</div>
+
+				<div class="transport-actions">
+					<button class="button primary" data-play-toggle type="button">{copy.play}</button>
+					<button class="button secondary" data-stop type="button">{copy.stop}</button>
+				</div>
+
+				<div class="answer-panel">
+					<h3>{copy.answerTitle}</h3>
+					<div class="answer-buttons">
+						<button class="answer-button" data-answer="A" type="button">{copy.xIsA}</button>
+						<button class="answer-button" data-answer="B" type="button">{copy.xIsB}</button>
+					</div>
+				</div>
+			</section>
+
+			<section class="abx-panel abx-results" data-results hidden>
+				<h2>{copy.resultsTitle}</h2>
+				<p class="score" data-score></p>
+				<p class="result-note" data-result-note></p>
+				<ol class="result-list" data-result-list></ol>
+				<button class="button primary" data-new-run type="button">{copy.newRun}</button>
+			</section>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	(() => {
+		const roots = document.querySelectorAll('[data-abx-tester]:not([data-abx-bound])');
+
+		for (const root of roots) {
+			root.dataset.abxBound = 'true';
+			initAbxTester(root);
+		}
+
+		function initAbxTester(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const fileInputA = root.querySelector('[data-file-a]');
+			const fileInputB = root.querySelector('[data-file-b]');
+			const fileNameA = root.querySelector('[data-file-a-name]');
+			const fileNameB = root.querySelector('[data-file-b-name]');
+			const fileMetaA = root.querySelector('[data-file-a-meta]');
+			const fileMetaB = root.querySelector('[data-file-b-meta]');
+			const status = root.querySelector('[data-status]');
+			const trialCountInput = root.querySelector('[data-trial-count]');
+			const trialCountLabel = root.querySelector('[data-trial-count-label]');
+			const loopInput = root.querySelector('[data-loop]');
+			const startButton = root.querySelector('[data-start]');
+			const clearButton = root.querySelector('[data-clear]');
+			const stage = root.querySelector('[data-stage]');
+			const results = root.querySelector('[data-results]');
+			const roundLabel = root.querySelector('[data-round-label]');
+			const roundProgress = root.querySelector('[data-round-progress]');
+			const seek = root.querySelector('[data-seek]');
+			const currentTime = root.querySelector('[data-current-time]');
+			const durationTime = root.querySelector('[data-duration]');
+			const playToggle = root.querySelector('[data-play-toggle]');
+			const stopButton = root.querySelector('[data-stop]');
+			const slotButtons = [...root.querySelectorAll('[data-play-slot]')];
+			const answerButtons = [...root.querySelectorAll('[data-answer]')];
+			const score = root.querySelector('[data-score]');
+			const resultNote = root.querySelector('[data-result-note]');
+			const resultList = root.querySelector('[data-result-list]');
+			const newRunButton = root.querySelector('[data-new-run]');
+
+			const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+			const state = {
+				audioContext: null,
+				samples: { A: null, B: null },
+				decodeVersion: { A: 0, B: 0 },
+				ffmpeg: null,
+				ffmpegPromise: null,
+				ffmpegQueue: Promise.resolve(),
+				ffmpegUrls: [],
+				trials: [],
+				answers: [],
+				trialIndex: 0,
+				commonDuration: 0,
+				activeSlot: 'A',
+				source: null,
+				isPlaying: false,
+				position: 0,
+				startedAt: 0,
+				raf: 0,
+			};
+
+			if (!AudioContextConstructor) {
+				setStatus(copy.noAudio, 'error');
+				fileInputA.disabled = true;
+				fileInputB.disabled = true;
+				return;
+			}
+
+			trialCountInput.addEventListener('input', () => {
+				trialCountLabel.textContent = trialCountInput.value;
+			});
+
+			fileInputA.addEventListener('change', () => {
+				void prepareFile('A', fileInputA.files && fileInputA.files[0]);
+			});
+
+			fileInputB.addEventListener('change', () => {
+				void prepareFile('B', fileInputB.files && fileInputB.files[0]);
+			});
+
+			startButton.addEventListener('click', () => {
+				void startTest();
+			});
+
+			clearButton.addEventListener('click', clearFiles);
+			playToggle.addEventListener('click', () => {
+				if (state.isPlaying) {
+					pausePlayback();
+				} else {
+					void playSlot(state.activeSlot);
+				}
+			});
+			stopButton.addEventListener('click', stopPlayback);
+			seek.addEventListener('input', () => {
+				seekTo(Number(seek.value) / 1000);
+			});
+			newRunButton.addEventListener('click', resetRun);
+
+			for (const button of slotButtons) {
+				button.addEventListener('click', () => {
+					void playSlot(button.dataset.playSlot || 'A');
+				});
+			}
+
+			for (const button of answerButtons) {
+				button.addEventListener('click', () => {
+					recordAnswer(button.dataset.answer || 'A');
+				});
+			}
+
+			updateReadyState();
+
+			async function prepareFile(slot, file) {
+				state.decodeVersion[slot] += 1;
+				const version = state.decodeVersion[slot];
+				state.samples[slot] = null;
+				resetRun(false);
+
+				if (!file) {
+					updateFileView(slot, null);
+					updateReadyState();
+					return;
+				}
+
+				updateFileView(slot, file, null, copy.pending);
+				setStatus(format(copy.decoding, { slot, name: file.name }), 'info');
+				updateReadyState();
+
+				try {
+					const sample = await decodeAudioFile(slot, file);
+
+					if (version !== state.decodeVersion[slot]) {
+						return;
+					}
+
+					state.samples[slot] = {
+						file,
+						buffer: sample.buffer,
+						decoder: sample.decoder,
+					};
+					updateFileView(slot, file, state.samples[slot]);
+					setStatus(format(copy.decoded, {
+						slot,
+						duration: formatTime(sample.buffer.duration),
+						decoder: sample.decoder,
+					}), 'success');
+				} catch (error) {
+					if (version !== state.decodeVersion[slot]) {
+						return;
+					}
+
+					state.samples[slot] = null;
+					updateFileView(slot, file, null, messageFromError(error));
+					setStatus(format(copy.decodeError, {
+						slot,
+						message: messageFromError(error),
+					}), 'error');
+				}
+
+				updateReadyState();
+			}
+
+			async function decodeAudioFile(slot, file) {
+				const context = getAudioContext();
+				const sourceBuffer = await file.arrayBuffer();
+
+				try {
+					const nativeBuffer = await context.decodeAudioData(sourceBuffer.slice(0));
+					return {
+						buffer: nativeBuffer,
+						decoder: copy.nativeDecoder,
+					};
+				} catch {
+					setStatus(format(copy.nativeFailed, { slot }), 'info');
+				}
+
+				const wavBytes = await decodeWithFfmpeg(slot, file, sourceBuffer);
+				const wavBuffer = wavBytes.buffer.slice(wavBytes.byteOffset, wavBytes.byteOffset + wavBytes.byteLength);
+				return {
+					buffer: await context.decodeAudioData(wavBuffer),
+					decoder: copy.ffmpegDecoder,
+				};
+			}
+
+			async function decodeWithFfmpeg(slot, file, sourceBuffer) {
+				return queueFfmpegTask(async () => {
+					const ffmpeg = await loadFfmpeg();
+					const inputName = `${slot.toLowerCase()}-${Date.now()}-${Math.random().toString(16).slice(2)}${fileExtension(file.name)}`;
+					const outputName = `${inputName}.wav`;
+
+					await ffmpeg.writeFile(inputName, new Uint8Array(sourceBuffer.slice(0)));
+					ffmpeg.on('progress', handleFfmpegProgress);
+
+					try {
+						const result = await ffmpeg.exec(['-i', inputName, '-vn', '-acodec', 'pcm_s16le', '-f', 'wav', outputName]);
+
+						if (result !== 0) {
+							throw new Error(`FFmpeg exited with code ${result}`);
+						}
+
+						const output = await ffmpeg.readFile(outputName);
+						return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
+					} finally {
+						ffmpeg.off('progress', handleFfmpegProgress);
+						await ffmpeg.deleteFile(inputName).catch(() => {});
+						await ffmpeg.deleteFile(outputName).catch(() => {});
+					}
+				});
+			}
+
+			function queueFfmpegTask(task) {
+				const run = state.ffmpegQueue.then(task, task);
+				state.ffmpegQueue = run.catch(() => {});
+				return run;
+			}
+
+			function handleFfmpegProgress(event) {
+				const progress = Math.max(0, Math.min(100, Math.round((event.progress || 0) * 100)));
+				setStatus(format(copy.ffmpegProgress, { progress }), 'info');
+			}
+
+			async function loadFfmpeg() {
+				if (state.ffmpeg) {
+					return state.ffmpeg;
+				}
+
+				if (state.ffmpegPromise) {
+					return state.ffmpegPromise;
+				}
+
+				state.ffmpegPromise = (async () => {
+					setStatus(copy.ffmpegLoading, 'info');
+
+					const ffmpegVersion = '0.12.15';
+					const coreVersion = '0.12.9';
+					const ffmpegBase = `https://unpkg.com/@ffmpeg/ffmpeg@${ffmpegVersion}/dist/esm`;
+					const coreBase = `https://unpkg.com/@ffmpeg/core@${coreVersion}/dist/esm`;
+					const [{ FFmpeg }, classWorkerURL, coreURL, wasmURL] = await Promise.all([
+						import(/* @vite-ignore */ `${ffmpegBase}/index.js`),
+						createModuleWorkerUrl(`${ffmpegBase}/worker.js`),
+						toBlobUrl(`${coreBase}/ffmpeg-core.js`, 'text/javascript'),
+						toBlobUrl(`${coreBase}/ffmpeg-core.wasm`, 'application/wasm'),
+					]);
+
+					const ffmpeg = new FFmpeg();
+					await withTimeout(
+						ffmpeg.load({ classWorkerURL, coreURL, wasmURL }),
+						90000,
+						copy.ffmpegTimeout,
+					);
+
+					state.ffmpeg = ffmpeg;
+					state.ffmpegUrls = [classWorkerURL, coreURL, wasmURL];
+					setStatus(copy.ffmpegReady, 'success');
+
+					return ffmpeg;
+				})().catch((error) => {
+					state.ffmpegPromise = null;
+					throw error;
+				});
+
+				return state.ffmpegPromise;
+			}
+
+			function createModuleWorkerUrl(url) {
+				return URL.createObjectURL(new Blob([
+					`import ${JSON.stringify(url)};`,
+				], { type: 'text/javascript' }));
+			}
+
+			async function toBlobUrl(url, mimeType) {
+				const response = await fetch(url);
+
+				if (!response.ok) {
+					throw new Error(`${response.status} ${response.statusText}`);
+				}
+
+				const buffer = await response.arrayBuffer();
+				return URL.createObjectURL(new Blob([buffer], { type: mimeType }));
+			}
+
+			function withTimeout(promise, timeoutMs, message) {
+				let timeoutId = 0;
+				const timeout = new Promise((_resolve, reject) => {
+					timeoutId = window.setTimeout(() => {
+						reject(new Error(message));
+					}, timeoutMs);
+				});
+
+				return Promise.race([promise, timeout]).finally(() => {
+					window.clearTimeout(timeoutId);
+				});
+			}
+
+			async function startTest() {
+				if (!state.samples.A || !state.samples.B) {
+					setStatus(copy.startDisabled, 'error');
+					return;
+				}
+
+				state.commonDuration = Math.min(state.samples.A.buffer.duration, state.samples.B.buffer.duration);
+
+				if (!Number.isFinite(state.commonDuration) || state.commonDuration <= 0) {
+					setStatus(copy.startDisabled, 'error');
+					return;
+				}
+
+				state.trials = createTrials(Number(trialCountInput.value));
+				state.answers = [];
+				state.trialIndex = 0;
+				state.activeSlot = 'A';
+				state.position = 0;
+				stage.hidden = false;
+				results.hidden = true;
+				updateTrialUi();
+
+				const message = Math.abs(state.samples.A.buffer.duration - state.samples.B.buffer.duration) > 0.05
+					? format(copy.mismatchedDuration, { duration: formatTime(state.commonDuration) })
+					: format(copy.ready, { duration: formatTime(state.commonDuration) });
+				setStatus(message, 'success');
+			}
+
+			function createTrials(count) {
+				return Array.from({ length: count }, () => ({
+					xIs: Math.random() < 0.5 ? 'A' : 'B',
+				}));
+			}
+
+			function recordAnswer(choice) {
+				if (!state.trials.length) {
+					return;
+				}
+
+				const trial = state.trials[state.trialIndex];
+				state.answers.push({
+					trial: state.trialIndex + 1,
+					choice,
+					actual: trial.xIs,
+					correct: choice === trial.xIs,
+				});
+
+				pausePlayback();
+				state.position = 0;
+
+				if (state.trialIndex < state.trials.length - 1) {
+					state.trialIndex += 1;
+					state.activeSlot = 'A';
+					updateTrialUi();
+					setStatus(format(copy.nextTrial, {
+						current: state.trialIndex + 1,
+						total: state.trials.length,
+					}), 'success');
+					return;
+				}
+
+				finishTest();
+			}
+
+			function finishTest() {
+				stage.hidden = true;
+				results.hidden = false;
+				stopPlayback();
+
+				const total = state.answers.length;
+				const correct = state.answers.filter((answer) => answer.correct).length;
+				const percent = total ? Math.round((correct / total) * 100) : 0;
+				const probability = total ? chanceProbability(correct, total) * 100 : 100;
+
+				score.textContent = format(copy.score, { correct, total, percent });
+				resultNote.textContent = format(copy.chance, { probability: formatProbability(probability) });
+				resultList.replaceChildren(...state.answers.map(createResultItem));
+			}
+
+			function createResultItem(answer) {
+				const item = document.createElement('li');
+				item.className = answer.correct ? 'is-correct' : 'is-wrong';
+
+				const line = document.createElement('span');
+				line.textContent = format(copy.resultLine, {
+					trial: answer.trial,
+					choice: answer.choice,
+					actual: answer.actual,
+				});
+
+				const verdict = document.createElement('strong');
+				verdict.textContent = answer.correct ? copy.answerCorrect : copy.answerWrong;
+
+				item.append(line, verdict);
+				return item;
+			}
+
+			async function playSlot(slot) {
+				if (!state.trials.length) {
+					return;
+				}
+
+				const context = getAudioContext();
+				await context.resume();
+
+				const wasPlaying = state.isPlaying;
+				const nextPosition = wasPlaying ? getCurrentPosition() : state.position;
+				stopSource();
+
+				state.activeSlot = slot;
+				state.position = nextPosition >= state.commonDuration ? 0 : Math.max(0, nextPosition);
+
+				const source = context.createBufferSource();
+				source.buffer = getBufferForSlot(slot);
+				source.connect(context.destination);
+				source.onended = () => {
+					if (state.source !== source) {
+						return;
+					}
+
+					state.source = null;
+
+					if (loopInput.checked && state.isPlaying) {
+						state.position = 0;
+						void playSlot(state.activeSlot);
+						return;
+					}
+
+					state.position = state.commonDuration;
+					state.isPlaying = false;
+					stopAnimation();
+					updatePlaybackUi();
+				};
+
+				const remaining = Math.max(0.01, state.commonDuration - state.position);
+				source.start(0, state.position, remaining);
+				state.source = source;
+				state.startedAt = context.currentTime;
+				state.isPlaying = true;
+				startAnimation();
+				updatePlaybackUi();
+			}
+
+			function pausePlayback() {
+				if (state.isPlaying) {
+					state.position = getCurrentPosition();
+				}
+
+				state.isPlaying = false;
+				stopSource();
+				stopAnimation();
+				updatePlaybackUi();
+			}
+
+			function stopPlayback() {
+				state.position = 0;
+				state.isPlaying = false;
+				stopSource();
+				stopAnimation();
+				updatePlaybackUi();
+			}
+
+			function stopSource() {
+				if (!state.source) {
+					return;
+				}
+
+				state.source.onended = null;
+				try {
+					state.source.stop();
+				} catch {
+					// The source may already have ended.
+				}
+				state.source.disconnect();
+				state.source = null;
+			}
+
+			function seekTo(position) {
+				state.position = Math.max(0, Math.min(state.commonDuration, position));
+
+				if (state.isPlaying) {
+					void playSlot(state.activeSlot);
+				} else {
+					updatePlaybackUi();
+				}
+			}
+
+			function getBufferForSlot(slot) {
+				if (slot === 'X') {
+					return state.samples[state.trials[state.trialIndex].xIs].buffer;
+				}
+
+				return state.samples[slot].buffer;
+			}
+
+			function getAudioContext() {
+				if (!state.audioContext) {
+					state.audioContext = new AudioContextConstructor();
+				}
+
+				return state.audioContext;
+			}
+
+			function getCurrentPosition() {
+				if (!state.isPlaying || !state.audioContext) {
+					return state.position;
+				}
+
+				const elapsed = state.audioContext.currentTime - state.startedAt;
+				return Math.min(state.commonDuration, state.position + elapsed);
+			}
+
+			function startAnimation() {
+				stopAnimation();
+
+				const tick = () => {
+					updatePlaybackUi();
+					state.raf = window.requestAnimationFrame(tick);
+				};
+
+				state.raf = window.requestAnimationFrame(tick);
+			}
+
+			function stopAnimation() {
+				if (state.raf) {
+					window.cancelAnimationFrame(state.raf);
+					state.raf = 0;
+				}
+			}
+
+			function updateTrialUi() {
+				const current = state.trialIndex + 1;
+				const total = state.trials.length;
+
+				roundLabel.textContent = format(copy.trialLabel, { current, total });
+				roundProgress.value = total ? current / total : 0;
+				seek.max = String(Math.round(state.commonDuration * 1000));
+				durationTime.textContent = formatTime(state.commonDuration);
+				updatePlaybackUi();
+				setStatus(format(copy.started, { current, total }), 'info');
+			}
+
+			function updatePlaybackUi() {
+				const position = getCurrentPosition();
+				currentTime.textContent = formatTime(position);
+				durationTime.textContent = formatTime(state.commonDuration);
+				seek.value = String(Math.round(position * 1000));
+				playToggle.textContent = state.isPlaying ? copy.pause : copy.play;
+
+				for (const button of slotButtons) {
+					const isActive = button.dataset.playSlot === state.activeSlot;
+					button.classList.toggle('is-active', isActive);
+					button.setAttribute('aria-pressed', String(isActive));
+				}
+			}
+
+			function updateReadyState() {
+				const ready = Boolean(state.samples.A && state.samples.B);
+				startButton.disabled = !ready;
+
+				if (ready) {
+					const commonDuration = Math.min(state.samples.A.buffer.duration, state.samples.B.buffer.duration);
+					setStatus(format(copy.ready, { duration: formatTime(commonDuration) }), 'success');
+				} else if (!status.textContent) {
+					setStatus(copy.waiting, 'info');
+				}
+			}
+
+			function updateFileView(slot, file, sample, pendingOrError) {
+				const name = slot === 'A' ? fileNameA : fileNameB;
+				const meta = slot === 'A' ? fileMetaA : fileMetaB;
+
+				if (!file) {
+					name.textContent = copy.chooseFile;
+					meta.textContent = copy.fileHint;
+					return;
+				}
+
+				name.textContent = file.name;
+
+				if (sample) {
+					meta.textContent = format(copy.fileMeta, {
+						size: formatBytes(file.size),
+						decoder: sample.decoder,
+						duration: formatTime(sample.buffer.duration),
+					});
+					return;
+				}
+
+				meta.textContent = pendingOrError || copy.pending;
+			}
+
+			function clearFiles() {
+				stopPlayback();
+				state.samples.A = null;
+				state.samples.B = null;
+				state.decodeVersion.A += 1;
+				state.decodeVersion.B += 1;
+				state.trials = [];
+				state.answers = [];
+				state.position = 0;
+				fileInputA.value = '';
+				fileInputB.value = '';
+				updateFileView('A', null);
+				updateFileView('B', null);
+				stage.hidden = true;
+				results.hidden = true;
+				setStatus(copy.reset, 'info');
+				updateReadyState();
+			}
+
+			function resetRun(showMessage = true) {
+				stopPlayback();
+				state.trials = [];
+				state.answers = [];
+				state.trialIndex = 0;
+				state.position = 0;
+				state.activeSlot = 'A';
+				stage.hidden = true;
+				results.hidden = true;
+
+				if (showMessage) {
+					setStatus(copy.reset, 'info');
+				}
+			}
+
+			function setStatus(message, type) {
+				status.textContent = message;
+				status.dataset.state = type;
+			}
+
+			function format(template, values) {
+				return String(template).replace(/\{(\w+)\}/g, (_match, key) => {
+					return values && key in values ? String(values[key]) : '';
+				});
+			}
+
+			function formatTime(seconds) {
+				if (!Number.isFinite(seconds) || seconds <= 0) {
+					return '0:00';
+				}
+
+				const minutes = Math.floor(seconds / 60);
+				const wholeSeconds = Math.floor(seconds % 60);
+				return `${minutes}:${String(wholeSeconds).padStart(2, '0')}`;
+			}
+
+			function formatBytes(bytes) {
+				if (!Number.isFinite(bytes) || bytes <= 0) {
+					return '0 B';
+				}
+
+				const units = ['B', 'KB', 'MB', 'GB'];
+				const power = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
+				const value = bytes / (1024 ** power);
+				return `${value.toFixed(value >= 10 || power === 0 ? 0 : 1)} ${units[power]}`;
+			}
+
+			function formatProbability(value) {
+				if (value < 0.1 && value > 0) {
+					return '<0.1';
+				}
+
+				return value.toFixed(value >= 10 ? 1 : 2);
+			}
+
+			function chanceProbability(correct, total) {
+				let probability = 0;
+
+				for (let successes = correct; successes <= total; successes += 1) {
+					probability += combination(total, successes) * (0.5 ** total);
+				}
+
+				return probability;
+			}
+
+			function combination(total, successes) {
+				const k = Math.min(successes, total - successes);
+				let result = 1;
+
+				for (let index = 1; index <= k; index += 1) {
+					result = result * (total - k + index) / index;
+				}
+
+				return result;
+			}
+
+			function fileExtension(name) {
+				const match = name.toLowerCase().match(/\.[a-z0-9]+$/);
+				return match ? match[0] : '.audio';
+			}
+
+			function messageFromError(error) {
+				return error && typeof error === 'object' && 'message' in error
+					? String(error.message)
+					: copy.unknownError;
+			}
+		}
+	})();
+</script>
+
+<style>
+	.tool-intro {
+		padding-block: clamp(42px, 7vw, 82px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.tool-intro h1 {
+		max-width: 780px;
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.6rem);
+		line-height: 0.96;
+		letter-spacing: 0;
+	}
+
+	.tool-lede,
+	.tool-note {
+		max-width: 760px;
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+	}
+
+	.tool-note {
+		font-size: 0.98rem;
+		font-weight: 700;
+	}
+
+	.abx-tool-section {
+		background: #fff;
+	}
+
+	.abx-tester {
+		display: grid;
+		gap: 18px;
+	}
+
+	.abx-tester [hidden] {
+		display: none !important;
+	}
+
+	.abx-setup {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(280px, 0.45fr);
+		gap: 18px;
+		align-items: start;
+	}
+
+	.abx-panel {
+		padding: clamp(18px, 3vw, 28px);
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.abx-panel h2,
+	.answer-panel h3 {
+		margin: 0;
+		color: var(--color-deep);
+		line-height: 1.1;
+		letter-spacing: 0;
+	}
+
+	.abx-panel h2 {
+		font-size: clamp(1.4rem, 3vw, 2rem);
+	}
+
+	.file-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+		margin-top: 18px;
+	}
+
+	.file-picker {
+		position: relative;
+		display: grid;
+		gap: 8px;
+		min-height: 148px;
+		padding: 18px;
+		background: var(--color-surface-alt);
+		border: 1px dashed color-mix(in srgb, var(--color-accent) 58%, var(--color-line));
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.file-picker:focus-within {
+		outline: 3px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+		outline-offset: 2px;
+	}
+
+	.file-picker span {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.file-picker strong {
+		align-self: end;
+		overflow-wrap: anywhere;
+		color: var(--color-deep);
+		font-size: 1.05rem;
+	}
+
+	.file-picker small {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.file-picker input {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	.abx-status {
+		margin: 16px 0 0;
+		padding: 12px 14px;
+		color: var(--color-muted);
+		background: #f9f5f0;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 700;
+	}
+
+	.abx-status[data-state='success'] {
+		color: #225d2d;
+		background: #edf8ef;
+		border-color: #b7dec0;
+	}
+
+	.abx-status[data-state='error'] {
+		color: #8a2317;
+		background: #fff0ed;
+		border-color: #efb6aa;
+	}
+
+	.range-control,
+	.toggle-control {
+		display: grid;
+		gap: 10px;
+		margin-top: 18px;
+		color: var(--color-deep);
+		font-weight: 800;
+	}
+
+	.range-control input {
+		width: 100%;
+		accent-color: var(--color-accent);
+	}
+
+	.toggle-control {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.toggle-control input {
+		width: 18px;
+		height: 18px;
+		accent-color: var(--color-accent);
+	}
+
+	.setup-actions,
+	.transport-actions,
+	.answer-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-top: 22px;
+	}
+
+	.button,
+	.slot-button,
+	.answer-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 44px;
+		padding: 0 16px;
+		border-radius: 6px;
+		font: inherit;
+		font-weight: 850;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.button:disabled,
+	.slot-button:disabled,
+	.answer-button:disabled {
+		cursor: not-allowed;
+		opacity: 0.55;
+	}
+
+	.button.primary {
+		color: #fff;
+		background: var(--color-accent);
+		border: 1px solid var(--color-accent);
+	}
+
+	.button.secondary {
+		color: var(--color-deep);
+		background: #fff;
+		border: 1px solid var(--color-line);
+	}
+
+	.abx-player {
+		display: grid;
+		gap: 22px;
+	}
+
+	.player-heading {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(180px, 0.35fr);
+		gap: 18px;
+		align-items: center;
+	}
+
+	.player-heading p {
+		margin: 8px 0 0;
+		color: var(--color-muted);
+		font-weight: 800;
+	}
+
+	progress {
+		width: 100%;
+		height: 12px;
+		accent-color: var(--color-accent);
+	}
+
+	.slot-buttons {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 10px;
+	}
+
+	.slot-button {
+		flex-direction: column;
+		gap: 4px;
+		min-height: 82px;
+		color: var(--color-deep);
+		background: #fff;
+		border: 1px solid var(--color-line);
+	}
+
+	.slot-button strong {
+		font-size: 1.5rem;
+		line-height: 1;
+	}
+
+	.slot-button span {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.slot-button:hover,
+	.slot-button.is-active {
+		background: var(--color-surface-alt);
+		border-color: var(--color-accent);
+	}
+
+	.timeline {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		gap: 12px;
+		align-items: center;
+		color: var(--color-muted);
+		font-weight: 800;
+	}
+
+	.timeline input {
+		width: 100%;
+		accent-color: var(--color-accent);
+	}
+
+	.answer-panel {
+		padding-top: 20px;
+		border-top: 1px solid var(--color-line);
+	}
+
+	.answer-panel h3 {
+		font-size: 1.2rem;
+	}
+
+	.answer-button {
+		flex: 1 1 180px;
+		min-height: 54px;
+		color: var(--color-deep);
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+	}
+
+	.answer-button:hover {
+		color: #fff;
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+	}
+
+	.abx-results {
+		display: grid;
+		gap: 14px;
+	}
+
+	.score {
+		margin: 0;
+		color: var(--color-deep);
+		font-size: clamp(2rem, 5vw, 3.4rem);
+		font-weight: 900;
+		line-height: 1;
+	}
+
+	.result-note {
+		margin: 0;
+		color: var(--color-muted);
+		font-weight: 800;
+	}
+
+	.result-list {
+		display: grid;
+		gap: 8px;
+		margin: 8px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.result-list li {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 10px;
+		padding: 12px 14px;
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-left-width: 4px;
+		border-radius: 8px;
+	}
+
+	.result-list li.is-correct {
+		border-left-color: #2e7b35;
+	}
+
+	.result-list li.is-wrong {
+		border-left-color: #b83a24;
+	}
+
+	.result-list strong {
+		color: var(--color-deep);
+	}
+
+	@media (max-width: 900px) {
+		.abx-setup,
+		.player-heading {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 680px) {
+		.file-grid,
+		.slot-buttons,
+		.timeline {
+			grid-template-columns: 1fr;
+		}
+
+		.timeline span {
+			text-align: center;
+		}
+	}
+</style>
