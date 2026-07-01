@@ -22,7 +22,11 @@ const { block } = Astro.props;
 					<article>
 						<h3>{item.title}</h3>
 						<p>{item.text}</p>
-						{item.href && <a href={withBase(item.href)}>{block.linkLabel ?? 'Learn more'}</a>}
+						{item.href && (
+							<a href={withBase(item.href)} aria-label={`${block.linkLabel ?? 'Learn more'}: ${item.title}`}>
+								{block.linkLabel ?? 'Learn more'}
+							</a>
+						)}
 					</article>
 				))
 			}
@@ -37,7 +41,7 @@ const { block } = Astro.props;
 
 	.section-head {
 		max-width: 760px;
-		margin-bottom: 34px;
+		margin-bottom: 28px;
 	}
 
 	h2 {
@@ -56,20 +60,20 @@ const { block } = Astro.props;
 	.grid {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 16px;
+		gap: 12px;
 	}
 
 	article {
-		min-height: 210px;
-		padding: 24px;
+		min-height: 176px;
+		padding: 20px;
 		background: var(--color-surface-alt);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
 	}
 
 	h3 {
-		margin: 0 0 12px;
-		font-size: 1.3rem;
+		margin: 0 0 10px;
+		font-size: 1.2rem;
 		letter-spacing: 0;
 	}
 
@@ -80,7 +84,7 @@ const { block } = Astro.props;
 
 	a {
 		display: inline-block;
-		margin-top: 18px;
+		margin-top: 14px;
 		color: var(--color-accent-dark);
 		font-weight: 800;
 		text-decoration: none;

@@ -42,14 +42,24 @@
 					"linkLabel": "Mehr erfahren",
 					"items": [
 						{
-							"title": "Events",
-							"text": "Aufnahmen, Liveübertragung und Produktion von Events.",
-							"href": "/de/live/"
-						},
-						{
 							"title": "Beratung",
 							"text": "Content Strategie, Beratungen und Analysen für YouTube Kanäle.",
 							"href": "/de/creator/"
+						},
+						{
+							"title": "YouTube für Firmen",
+							"text": "YouTube Consulting, Schulungen, Werbung und Support für Firmen.",
+							"href": "/de/b2b/"
+						},
+						{
+							"title": "Vorträge und Kurse",
+							"text": "Medienkompetenz, KI, Fake News und Content Creation für Schulen.",
+							"href": "/de/kurse/"
+						},
+						{
+							"title": "Events",
+							"text": "Aufnahmen, Liveübertragung und Produktion von Events.",
+							"href": "/de/live/"
 						},
 						{
 							"title": "Online-Werbung",
@@ -57,9 +67,39 @@
 							"href": "/de/werbung/"
 						},
 						{
+							"title": "Webdesign & Website-Management",
+							"text": "Website-Design, technische Umsetzung und laufende Betreuung.",
+							"href": "/de/webdesign-management/"
+						},
+						{
+							"title": "VTuber",
+							"text": "Erstellung, Rigging und Stream-Integration von 3D-Modellen.",
+							"href": "/de/vtuber/"
+						},
+						{
 							"title": "Video-Synchronisation",
 							"text": "Mehrsprachige Fassungen für Videos, Kurse und Social Content.",
 							"href": "/de/video-synchronisation/"
+						},
+						{
+							"title": "YouTube Tipps & Tricks",
+							"text": "Deutschsprachige YouTube-Tipps und Tutorials von kw.media.",
+							"href": "/de/youtube-tipps/"
+						},
+						{
+							"title": "Audacity Tutorials",
+							"text": "Audacity Tutorials und Updates von Leo Wattenberg.",
+							"href": "/de/audacity/"
+						},
+						{
+							"title": "Tools",
+							"text": "Clientseitige Creator-Tools von Koytek Wattenberg Media.",
+							"href": "/de/tools/"
+						},
+						{
+							"title": "Impressumsservice",
+							"text": "Impressum ohne Privatadresse: sicher, legal und privat.",
+							"href": "/impressumsservice/"
 						}
 					]
 				},
@@ -177,9 +217,14 @@
 							"href": "/en/creator/"
 						},
 						{
-							"title": "VTuber model creation",
-							"text": "Creation, rigging and stream integration of 3D models.",
-							"href": "/en/vtuber/"
+							"title": "YouTube for brands",
+							"text": "YouTube consulting, training, ads and support for brands.",
+							"href": "/en/b2b/"
+						},
+						{
+							"title": "Lectures and courses",
+							"text": "Media literacy, AI, fake news and content creation for schools.",
+							"href": "/en/lectures-courses/"
 						},
 						{
 							"title": "Events",
@@ -192,9 +237,39 @@
 							"href": "/en/ads/"
 						},
 						{
+							"title": "Website Design & Management",
+							"text": "Website design, technical implementation and ongoing website management.",
+							"href": "/en/website-design-management/"
+						},
+						{
+							"title": "VTuber model creation",
+							"text": "Creation, rigging and stream integration of 3D models.",
+							"href": "/en/vtuber/"
+						},
+						{
 							"title": "Video dubbing",
 							"text": "Multilingual versions for videos, courses and social content.",
 							"href": "/en/video-dubbing/"
+						},
+						{
+							"title": "YouTube Tips & Tricks",
+							"text": "English YouTube tips and tutorials by kw.media.",
+							"href": "/en/youtube-tips/"
+						},
+						{
+							"title": "Audacity Tutorials",
+							"text": "Audacity tutorials and updates by Leo Wattenberg.",
+							"href": "/en/audacity/"
+						},
+						{
+							"title": "Tools",
+							"text": "Client-side creator tools by Koytek Wattenberg Media.",
+							"href": "/en/tools/"
+						},
+						{
+							"title": "Imprint service",
+							"text": "Use an imprint without exposing your private address.",
+							"href": "/en/imprint-service/"
 						}
 					]
 				},
