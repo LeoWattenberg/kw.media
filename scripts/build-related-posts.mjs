@@ -41,6 +41,7 @@ for (const [index, post] of selectedPosts.entries()) {
 	const candidates = posts
 		.filter((candidate) => candidate.frontmatter.path !== post.frontmatter.path)
 		.filter((candidate) => candidate.frontmatter.locale === post.frontmatter.locale)
+		.filter((candidate) => compatibleRelatedCategory(post, candidate))
 		.map((candidate) => ({
 			post: candidate,
 			score: cosine(embeddings.get(post.frontmatter.path), embeddings.get(candidate.frontmatter.path)),
@@ -178,12 +179,12 @@ function parsePathArray(text) {
 		}
 	}
 
-	return [...trimmed.matchAll(/\/youtube-[^"\s]+\/(?=["\s,}\]])/g)].map((match) => match[0]);
+	return [...trimmed.matchAll(/\/(?:youtube-[^"\s]+|audacity\/[^"\s]+)\/(?=["\s,}\]])/g)].map((match) => match[0]);
 }
 
 function collectPathStrings(value) {
 	if (typeof value === 'string') {
-		return value.startsWith('/youtube-') ? [value] : [];
+		return value.startsWith('/youtube-') || value.startsWith('/audacity/') ? [value] : [];
 	}
 
 	if (Array.isArray(value)) {
@@ -195,6 +196,10 @@ function collectPathStrings(value) {
 	}
 
 	return [];
+}
+
+function compatibleRelatedCategory(post, candidate) {
+	return (post.frontmatter.category === 'audacity') === (candidate.frontmatter.category === 'audacity');
 }
 
 async function ollamaJson(path, body) {

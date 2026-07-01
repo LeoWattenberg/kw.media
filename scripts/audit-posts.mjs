@@ -91,7 +91,11 @@ function auditPost(post, allPosts) {
 		addIssue(issues, post, 'error', 'locale', `Unsupported locale: ${frontmatter.locale}`);
 	}
 
-	const expectedPathPrefixes = frontmatter.locale === 'de' ? ['/youtube-tipps-de/'] : ['/youtube-tips-en/', '/blog/'];
+	const expectedPathPrefixes = frontmatter.category === 'audacity'
+		? ['/audacity/']
+		: frontmatter.locale === 'de'
+			? ['/youtube-tipps-de/']
+			: ['/youtube-tips-en/', '/blog/'];
 	if (frontmatter.path && frontmatter.locale && !expectedPathPrefixes.some((prefix) => frontmatter.path.startsWith(prefix))) {
 		addIssue(issues, post, 'error', 'path-locale', `Path does not match locale. Expected one of: ${expectedPathPrefixes.join(', ')}`);
 	}
@@ -159,6 +163,7 @@ function auditBrandTerms(post, textSample, issues) {
 	const checks = [
 		{ pattern: /\bYoutube\b/g, code: 'brand-case', message: 'Use "YouTube" casing.' },
 		{ pattern: /\bobs\b/g, code: 'brand-case', message: 'Use "OBS" casing.' },
+		{ pattern: /\baudacity\b/g, code: 'brand-case', message: 'Use "Audacity" casing.' },
 		{ pattern: /\bSuperchat\b/g, code: 'brand-case', message: 'Use "Super Chat" unless quoting a UI label.' },
 		{ pattern: /\bFusionsimpressionen\b/gi, code: 'speech-cleanup', message: 'Possible speech-to-text error: "Fusionsimpressionen".' },
 		{ pattern: /\bubs-einstellungen\b/gi, code: 'speech-cleanup', message: 'Possible speech-to-text error: "ubs-einstellungen".' },

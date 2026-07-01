@@ -128,6 +128,7 @@
 				{
 					"type": "posts",
 					"title": "YouTube Tipps & Tricks",
+					"categories": ["blog", "short-tutorial", "video-tutorial", "news-video"],
 					"limit": 3,
 					"moreHref": "/de/youtube-tipps/",
 					"moreLabel": "Mehr Tipps"
@@ -285,6 +286,7 @@
 				{
 					"type": "posts",
 					"title": "YouTube Tips & Tricks",
+					"categories": ["blog", "short-tutorial", "video-tutorial", "news-video"],
 					"limit": 3,
 					"moreHref": "/en/youtube-tips/",
 					"moreLabel": "More tips"

@@ -13,6 +13,10 @@ const postDirectories = {
 		de: join(postsDir, 'video/de'),
 		en: join(postsDir, 'video/en'),
 	},
+	audacity: {
+		de: join(postsDir, 'audacity'),
+		en: join(postsDir, 'audacity'),
+	},
 };
 
 const routePrefixes = {
@@ -111,6 +115,14 @@ export async function cleanupPostFile(filePath, options = {}) {
 
 export async function translatePostFile(filePath, options = {}) {
 	const source = readPostFile(filePath);
+	if (source.frontmatter.category === 'audacity') {
+		return {
+			sourcePath: filePath,
+			skipped: true,
+			reason: 'audacity posts are not translated into the YouTube tips archive',
+		};
+	}
+
 	const targetLocale = options.targetLocale ?? otherLocale(source.frontmatter.locale);
 	const allPosts = readAllPosts();
 	const translationKey = source.frontmatter.translationKey ?? translationKeyFor(source.frontmatter);
@@ -479,7 +491,7 @@ Rules:
 - Write one natural sentence if possible.
 - Keep it between 90 and ${maxLength} characters.
 - Summarize what the reader or viewer learns.
-- Preserve platform and product names such as YouTube, YouTube Studio, Shorts, Twitch, OBS, Super Chat, and A/B testing.
+- Preserve platform and product names such as YouTube, YouTube Studio, Shorts, Twitch, OBS, Audacity, Super Chat, and A/B testing.
 - In German, keep "Creator" as "Creator" and use natural "du" wording if the post speaks directly to viewers.
 - Do not add facts, quotes, markdown, labels, alternatives, or notes.
 
@@ -515,7 +527,7 @@ Rules:
 - Use ${languageName(post.frontmatter.locale)} for title, excerpt, summary, audienceIntent, and qualityNotes.
 - Keep the excerpt between 90 and 170 characters.
 - Keep the title close to the existing title unless it is clearly broken.
-- Preserve platform and product names such as YouTube, YouTube Studio, Shorts, Twitch, OBS, Super Chat, and A/B testing.
+- Preserve platform and product names such as YouTube, YouTube Studio, Shorts, Twitch, OBS, Audacity, Super Chat, and A/B testing.
 - In German, keep "Creator" as "Creator".
 - Do not invent facts or external context.
 - Use 5 to 8 searchKeywords and 3 to 6 topics.
@@ -547,7 +559,7 @@ Rules:
 - Preserve Markdown structure, headings, links, lists, HTML, and embedded URLs.
 - Fix punctuation, capitalization, paragraph flow, obvious speech-to-text errors, duplicated words, and grammar.
 - Preserve the speaker's casual creator-news voice for transcripts.
-- Preserve product/platform names such as YouTube, YouTube Studio, YouTube Live, Shorts, Twitch, Community Posts, Fan Communities, Creator Support, Super Chat, and A/B testing.
+- Preserve product/platform names such as YouTube, YouTube Studio, YouTube Live, Shorts, Twitch, OBS, Audacity, Community Posts, Fan Communities, Creator Support, Super Chat, and A/B testing.
 - In German, keep "Creator" as "Creator"; do not replace it with "Schöpfer" or "Kreativkraft".
 - Return only the cleaned markdown, no notes.
 
@@ -564,7 +576,7 @@ function translateMarkdownPrompt(markdown, frontmatter, targetLocale, index, tot
 Rules:
 - Return only the translated markdown.
 - Preserve Markdown structure, headings, links, lists, HTML tags, embedded URLs, and code exactly where possible.
-- Preserve product/platform names such as YouTube, YouTube Studio, YouTube Live, Shorts, Twitch, Community Posts, Fan Communities, Creator Support, Super Chat, and A/B testing.
+- Preserve product/platform names such as YouTube, YouTube Studio, YouTube Live, Shorts, Twitch, OBS, Audacity, Community Posts, Fan Communities, Creator Support, Super Chat, and A/B testing.
 - Preserve creator names, company names, and acronyms.
 - Use creator-industry wording. In German, keep "Creator" as "Creator"; do not translate it as "Schöpfer" or "Kreativkraft".
 - Keep the tone natural for a KW Media ${frontmatter.category === 'blog' ? 'article' : 'video transcript'}.

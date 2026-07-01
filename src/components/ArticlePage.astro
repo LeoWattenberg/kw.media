@@ -30,12 +30,14 @@ const categoryLabels: Record<typeof post.locale, Record<Category, string>> = {
 		'short-tutorial': 'Kurztutorials',
 		'video-tutorial': 'Video-Tutorials',
 		'news-video': 'News-Videos',
+		audacity: 'Audacity',
 	},
 	en: {
 		blog: 'Blog',
 		'short-tutorial': 'Short tutorials',
 		'video-tutorial': 'Video tutorials',
 		'news-video': 'News videos',
+		audacity: 'Audacity',
 	},
 };
 
@@ -82,7 +84,7 @@ const navigationSections = [
 	{
 		title: navigationLabels.category,
 		categoryLabel: categoryLabels[post.locale][post.category],
-		categoryHref: `${postOverviewPath}?category=${post.category}`,
+		categoryHref: post.category === 'audacity' ? undefined : `${postOverviewPath}?category=${post.category}`,
 		previous: postNavigation.category.previous,
 		next: postNavigation.category.next,
 	},
@@ -180,6 +182,7 @@ function formatPostDate(navigationPost: SourcePost): string {
 															<a href={withBase(section.categoryHref)}>{section.categoryLabel}</a>
 														</>
 													)}
+													{section.categoryLabel && !section.categoryHref && `${section.title}: ${section.categoryLabel}`}
 													{!section.categoryLabel && section.title}
 												</h3>
 												<div class="post-navigation-links">

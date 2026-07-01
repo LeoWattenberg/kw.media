@@ -20,6 +20,15 @@ const playlists = [
 		defaultWatchKind: 'watch',
 		category: 'news-video',
 	},
+	{
+		url: 'https://www.youtube.com/playlist?list=PLpM9DoCHlaQFDdZFQMkx27Jp9CB2x4uI3',
+		defaultWatchKind: 'watch',
+		category: 'audacity',
+		postType: 'audacity',
+		pathPrefix: '/audacity',
+		authorName: 'Leo Wattenberg',
+		translate: false,
+	},
 ];
 
 const postsDir = join(process.cwd(), 'src/data/posts');
@@ -31,6 +40,10 @@ const postDirectories = {
 	video: {
 		de: join(postsDir, 'video/de'),
 		en: join(postsDir, 'video/en'),
+	},
+	audacity: {
+		de: join(postsDir, 'audacity'),
+		en: join(postsDir, 'audacity'),
 	},
 };
 const localYtDlp = join(process.cwd(), 'scripts/yt-dlp');
@@ -260,6 +273,7 @@ function cleanTranscript(text, locale) {
 		.replace(/\s+/g, ' ')
 		.replace(/\bYoutube\b/gi, 'YouTube')
 		.replace(/\byoutuber\b/gi, 'YouTuber')
+		.replace(/\baudacity\b/gi, 'Audacity')
 		.replace(/\bab testing\b/gi, 'A/B testing')
 		.replace(/\bclickthrough\b/gi, 'click-through')
 		.trim();
@@ -441,7 +455,8 @@ try {
 
 			const cleanedTranscript = cleanTranscript(transcript, locale);
 			const slug = uniqueSlug(slugify(metadata.title, locale), existingSlugs);
-			const postPath = `/${locale === 'de' ? 'youtube-tipps-de' : 'youtube-tips-en'}/${slug}/`;
+			const routePrefix = playlist.pathPrefix ?? `/${locale === 'de' ? 'youtube-tipps-de' : 'youtube-tips-en'}`;
+			const postPath = `${routePrefix}/${slug}/`;
 			const date = isoDate(metadata.timestamp, metadata.uploadDate);
 			const currentWatchUrl = watchUrl(entry.id, playlist.defaultWatchKind);
 			const thumbnailUrl = `https://i.ytimg.com/vi/${entry.id}/maxresdefault.jpg`;
@@ -457,7 +472,7 @@ try {
 				translationKey: `video:${entry.id}`,
 				category: playlist.category,
 				image: thumbnailUrl,
-				authorName: 'Martin Koytek',
+				authorName: playlist.authorName ?? 'Martin Koytek',
 				sourceUrl: currentWatchUrl,
 				video: {
 					youtubeId: entry.id,
@@ -468,14 +483,16 @@ try {
 			};
 
 			const fileContent = `${frontmatterString(post)}\n\n${markdownBody(locale, transcriptParagraphs(cleanedTranscript))}\n`;
-			const outputPath = join(postOutputDirectory('video', locale), `${slug}.md`);
+			const outputPath = join(postOutputDirectory(playlist.postType ?? 'video', locale), `${slug}.md`);
 			let createdTranslation = false;
 			writeFileSync(outputPath, fileContent);
 
 			if (runAiPostProcessing) {
 				console.log(`Cleaning ${outputPath}`);
 				await cleanupPostFile(outputPath);
+			}
 
+			if (runAiPostProcessing && playlist.translate !== false) {
 				console.log(`Translating ${outputPath}`);
 				const translation = await translatePostFile(outputPath);
 				if (!translation.skipped) {
@@ -494,16 +511,16 @@ try {
 }
 
 if (created.length) {
-	console.log(`Created ${created.length} YouTube post(s):`);
+	console.log(`Created ${created.length} imported post(s):`);
 	for (const item of created) {
 		console.log(`- ${item}`);
 	}
 } else {
-	console.log('No new YouTube videos found.');
+	console.log('No new playlist videos found.');
 }
 
 if (translated.length) {
-	console.log(`Translated ${translated.length} YouTube post(s):`);
+	console.log(`Translated ${translated.length} imported post(s):`);
 	for (const item of translated) {
 		console.log(`- ${item}`);
 	}

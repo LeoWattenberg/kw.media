@@ -146,7 +146,12 @@ function candidatePostsFor(post) {
 
 	for (const path of relatedPaths) {
 		const candidate = postsByPath.get(path);
-		if (candidate && candidate.frontmatter.locale === post.frontmatter.locale && !seen.has(path)) {
+		if (
+			candidate
+			&& candidate.frontmatter.locale === post.frontmatter.locale
+			&& compatibleLinkCategory(post, candidate)
+			&& !seen.has(path)
+		) {
 			candidates.push(candidate);
 			seen.add(path);
 		}
@@ -155,7 +160,11 @@ function candidatePostsFor(post) {
 	if (!relatedPaths.length) {
 		for (const candidate of allPosts) {
 			const path = candidate.frontmatter.path;
-			if (candidate.frontmatter.locale === post.frontmatter.locale && !seen.has(path)) {
+			if (
+				candidate.frontmatter.locale === post.frontmatter.locale
+				&& compatibleLinkCategory(post, candidate)
+				&& !seen.has(path)
+			) {
 				candidates.push(candidate);
 				seen.add(path);
 			}
@@ -163,6 +172,10 @@ function candidatePostsFor(post) {
 	}
 
 	return candidates;
+}
+
+function compatibleLinkCategory(post, candidate) {
+	return (post.frontmatter.category === 'audacity') === (candidate.frontmatter.category === 'audacity');
 }
 
 async function linkPostBody(post, candidates) {

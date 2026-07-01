@@ -24,7 +24,7 @@ export interface SourcePost {
 	};
 }
 
-export type Category = 'blog' | 'short-tutorial' | 'video-tutorial' | 'news-video';
+export type Category = 'blog' | 'short-tutorial' | 'video-tutorial' | 'news-video' | 'audacity';
 
 export interface AdjacentPosts {
 	previous?: SourcePost;
