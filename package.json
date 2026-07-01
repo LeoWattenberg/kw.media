@@ -14,6 +14,7 @@
     "fix:posts": "node scripts/fix-post-issues.mjs",
     "metadata:posts": "node scripts/generate-post-metadata.mjs",
     "excerpt:posts": "node scripts/generate-excerpts.mjs",
+    "links:posts": "node scripts/add-inline-post-links.mjs",
     "related:posts": "node scripts/build-related-posts.mjs",
     "translate:post": "node scripts/translate-post.mjs",
     "translate:all-missing": "node scripts/translate-all-missing-posts.mjs"
