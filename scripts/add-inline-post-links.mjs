@@ -11,7 +11,7 @@ const args = process.argv.slice(2);
 const help = args.includes('--help') || args.includes('-h');
 const write = args.includes('--write');
 const dryRun = !write;
-const maxLinks = Number(argumentValue('--max-links') ?? process.env.INLINE_POST_LINK_COUNT ?? 2);
+const linkDensity = Number(argumentValue('--link-density') ?? process.env.INLINE_POST_LINK_DENSITY ?? 2);
 const limit = Number(argumentValue('--limit') ?? 0);
 const relatedPath = resolve(argumentValue('--related') ?? join(process.cwd(), 'src/data/related-posts.json'));
 const commonStopWords = new Set([
@@ -28,21 +28,21 @@ const brandOnlyWords = new Set(['youtube', 'twitch', 'google', 'shorts', 'creato
 
 if (help) {
 	console.log(`Usage:
-node scripts/add-inline-post-links.mjs [--write] [--max-links=2] [--limit=20] [post.md ...]
+node scripts/add-inline-post-links.mjs [--write] [--link-density=2] [--limit=20] [post.md ...]
 
 Creates inline Markdown links from post bodies to other same-locale posts.
 Defaults to dry-run mode. Add --write to edit files.
 
 Options:
-- --write        Apply changes. Without it, only print proposed links.
-- --max-links=N Maximum new links per post. Defaults to 2.
-- --limit=N     Process only the first N selected posts.
-- --related=... Related-post JSON path. Defaults to src/data/related-posts.json.`);
+- --write          Apply changes. Without it, only print proposed links.
+- --link-density=N Maximum new links per 1000 body words. Defaults to 2.
+- --limit=N       Process only the first N selected posts.
+- --related=...   Related-post JSON path. Defaults to src/data/related-posts.json.`);
 	process.exit(0);
 }
 
-if (!Number.isFinite(maxLinks) || maxLinks < 1) {
-	throw new Error('--max-links must be a positive number');
+if (!Number.isFinite(linkDensity) || linkDensity <= 0) {
+	throw new Error('--link-density must be a positive number');
 }
 
 const allPosts = readAllPosts();
@@ -59,7 +59,7 @@ for (const [index, post] of selectedPosts.entries()) {
 	const result = linkPostBody(post, candidates);
 	const label = relative(process.cwd(), post.filePath);
 
-	console.log(`${index + 1}/${selectedPosts.length} ${label}`);
+	console.log(`${index + 1}/${selectedPosts.length} ${label} (${result.wordCount} words, max ${result.linkLimit} link(s))`);
 
 	if (!result.links.length) {
 		console.log('  no natural inline link target found');
@@ -145,10 +145,12 @@ function candidatePostsFor(post) {
 function linkPostBody(post, candidates) {
 	let body = post.body;
 	const existingPaths = linkedPostPaths(body);
+	const wordCount = countBodyWords(body);
+	const linkLimit = linkLimitForWordCount(wordCount);
 	const links = [];
 
 	for (const candidate of candidates) {
-		if (links.length >= maxLinks) {
+		if (links.length >= linkLimit) {
 			break;
 		}
 
@@ -172,7 +174,7 @@ function linkPostBody(post, candidates) {
 		links.push({ anchor, path: targetPath });
 	}
 
-	return { body, links };
+	return { body, links, linkLimit, wordCount };
 }
 
 function linkedPostPaths(body) {
@@ -180,6 +182,23 @@ function linkedPostPaths(body) {
 		[...body.matchAll(/\]\((\/youtube-[^)#\s]+\/)(?:#[^)]+)?\)/g)]
 			.map((match) => match[1]),
 	);
+}
+
+function linkLimitForWordCount(wordCount) {
+	return Math.max(1, Math.floor((wordCount * linkDensity) / 1000));
+}
+
+function countBodyWords(body) {
+	const text = body
+		.replace(/```[\s\S]*?```/g, ' ')
+		.replace(/`[^`\n]+`/g, ' ')
+		.replace(/!\[[^\]]*]\([^)]+\)/g, ' ')
+		.replace(/\[([^\]]+)]\([^)]+\)/g, '$1')
+		.replace(/<[^>\n]+>/g, ' ')
+		.replace(/^#{1,6}\s+/gm, ' ')
+		.replace(/[>*_~()[\]{}.,:;!?'"“”‘’]/g, ' ');
+
+	return (text.match(/[\p{L}\p{N}][\p{L}\p{N}+/#.-]*/gu) ?? []).length;
 }
 
 function findAnchor(body, candidate, locale) {
