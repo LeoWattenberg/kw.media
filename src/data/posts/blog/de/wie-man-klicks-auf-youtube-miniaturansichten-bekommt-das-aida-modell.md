@@ -7,8 +7,8 @@ excerpt: "Nutze das AIDA-Modell, um YouTube-Miniaturansichten zu planen, die Auf
 date: "2021-07-02T12:41:20"
 modified: "2023-03-17T12:57:29"
 locale: "de"
-category: "blog"
 translationKey: "post:1676"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-get-clicks-on-thumbnails-the-aida-model/"
@@ -22,7 +22,7 @@ Um dies zu verstehen, müssen wir zunächst an einen potenziellen Zuschauer denk
 
 Wenn deine Miniaturansicht nicht sofort auffällt, hast du ein kleines Problem. Tama hat nur begrenzte Zeit, also gibt es vielleicht nur wenige Videos, die sie sich tatsächlich ansehen kann. Wenn Tama deine Miniaturansicht beim ersten Mal nicht bemerkt, hast du vielleicht eine zweite Chance. Aber je öfter sie übersehen wird, desto größer ist die Wahrscheinlichkeit, dass sie dein Video überhaupt nicht ansehen wird.
 
-Es gibt verschiedene Möglichkeiten, um sicherzustellen, dass deine Miniaturansicht mehr Aufmerksamkeit erregt, einige davon haben wir bereits in unserem praktischen Leitfaden besprochen: [Wie man seine Miniaturansicht nicht ruiniert](/youtube-tipps/wie-man-seine-youtube-miniaturansichten-nicht-ruiniert/). Kurz gesagt, sind das:
+Es gibt verschiedene Möglichkeiten, um sicherzustellen, dass deine Miniaturansicht mehr Aufmerksamkeit erregt, einige davon haben wir bereits in unserem praktischen Leitfaden besprochen: [Wie man seine Miniaturansicht nicht ruiniert](/youtube-tipps-de/wie-man-seine-miniaturansichten-auf-youtube-nicht-vermasselt-ein-tutorial/). Kurz gesagt, sind das:
 
 - Verwende einen hohen Kontrast.
 - Verwende helle Farben.
@@ -69,7 +69,7 @@ Im Gegensatz zu Produkten (für die dieses Aufmerksamkeit–Interesse–Wunsch�
 
 ## Fazit: Wie man die Klickrate von Miniaturansichten mit AIDA erhöht
 
-Neben [guter SEO](/youtube-tipps/einfache-youtube-seo-fuer-gaming-kanala/) , um sicherzustellen, dass deine Miniaturansichten in Suchanfragen erscheinen, die für deinen Inhalt relevant sind, kannst du die Wirkung deiner Miniaturansicht optimieren:
+Neben [guter SEO](/youtube-tipps-de/einfache-youtube-seo-fur-gaming-kanale/) , um sicherzustellen, dass deine Miniaturansichten in Suchanfragen erscheinen, die für deinen Inhalt relevant sind, kannst du die Wirkung deiner Miniaturansicht optimieren:
 
 - **Optimiere für Aufmerksamkeit**. Stelle sicher, dass dein Video das erste ist, das jemand sieht, wenn er YouTube durchsucht (und dein Video algorithmisch hervorgehoben wird).
 - **Optimiere für Interesse**. Gib den Leuten einen Grund, auf deine Miniaturansicht zu klicken.

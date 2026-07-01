@@ -80,7 +80,7 @@ Ich hoffe, diese Tipps waren hilfreich für dich. Wenn du weitere Fragen hast od
 
 ## Weiterführende Lektüre
 
-- Dieser Beitrag befasst sich mit der Praxis der Vorschaubild-Erstellung, aber wir haben auch einen Leitfaden für die theoretische Seite von *warum* wir hier die Dinge tun, die wir tun: [Wie du mehr Klicks auf dein YouTube-Vorschaubild bekommst: Das AIDA-Modell](/youtube-tipps/wie-du-mehr-klicks-auf-dein-youtube-vorschau-bild-bekommst-das-aida-modell/) .
+- Dieser Beitrag befasst sich mit der Praxis der Vorschaubild-Erstellung, aber wir haben auch einen Leitfaden für die theoretische Seite von *warum* wir hier die Dinge tun, die wir tun: [Wie du mehr Klicks auf dein YouTube-Vorschaubild bekommst: Das AIDA-Modell](/youtube-tipps-de/wie-man-klicks-auf-youtube-miniaturansichten-bekommt-das-aida-modell/) .
 - Weitere Informationen zu Vorschaubildern findest du in der Creator Academy:  [https://creatoracademy.youtube.com/page/lesson/thumbnails](https://creatoracademy.youtube.com/page/lesson/thumbnails)
 - Software zur Erstellung von Vorschaubildern (falls du noch keine verwendest):  [https://www.reddit.com/r/youtubegaming/wiki/tools#wiki_thumbnail_and_channel_art_software](https://www.reddit.com/r/youtubegaming/wiki/tools#wiki_thumbnail_and_channel_art_software)
 - Verschiedene Fotoregeln, wie z.B.

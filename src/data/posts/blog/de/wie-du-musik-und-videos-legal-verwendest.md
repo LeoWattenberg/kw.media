@@ -96,4 +96,4 @@ Die Ressourcen dort gehen von Musik über Soundeffekte, Bilder und Videos bis hi
 
 Ich gehe davon aus, dass dir dein YouTube-Kanal mehr wert ist, als jedes Videos an sich. Wenn du das auch so siehst, bedenke: Es braucht nur 3 Strikes, dann ist dein Kanal weg. Und jedes mal wenn du einen Claim auf deine Videos bekommst und jemand anders Geld mit deinen Videos verdient, denk dran: **Jeder Claim kann jederzeit zu einem Strike werden**.
 
-Wenn du Hilfe brauchst, was genau du tun und nicht tun darfst, kannst du gerne dich an den Anwalt deines Vertrauens wenden. Die geben auch oftmals kostenlose Erstberatung. Für alles andere kannst du auch [uns fragen](/creator/).
+Wenn du Hilfe brauchst, was genau du tun und nicht tun darfst, kannst du gerne dich an den Anwalt deines Vertrauens wenden. Die geben auch oftmals kostenlose Erstberatung. Für alles andere kannst du auch [uns fragen](/de/creator/).

@@ -62,7 +62,7 @@ If you have already streamed before you will see a blue “Reuse Settings” but
 
 If you haven’t yet, read our [OBS guide on setting up OBS](/youtube-tips-en/getting-started-with-obs-a-beginners-guide/).
 
-> [Getting started with OBS: A beginner’s guide](/youtube-tips-en/getting-started-with-OBS-a-beginners-guide/)
+> [Getting started with OBS: A beginner’s guide](/youtube-tips-en/getting-started-with-obs-a-beginners-guide/)
 
 Now let’s get to the exciting part: If you want to livestream, you either need to [connect your YouTube Account to OBS](/youtube-tips-en/connecting-obs-to-twitch-and-youtube/) or you need to find your stream key. Since you want to go and do advanced streaming anyway in the future I recommend you invest a little bit of time and get familiar with stream keys, then you don’t have to switch in the future.  You can find your stream key [in the Live Dashboard](https://studio.youtube.com/channel/UC/livestreaming/dashboard) on the left side, and you need to paste it into **OBS’ settings → Stream → stream key** field.
 
