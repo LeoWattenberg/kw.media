@@ -1,0 +1,1023 @@
+---
+import type { Locale } from '../../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const outputFormats = [
+	{ value: 'PNG', label: 'PNG', extension: 'png', mime: 'image/png', quality: false },
+	{ value: 'WEBP', label: 'WebP', extension: 'webp', mime: 'image/webp', quality: true },
+];
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Bild-Tool',
+		title: 'Hintergrund entfernen',
+		intro: 'Entferne einfarbige oder nahezu einfarbige Bildhintergründe direkt im Browser mit ImageMagick WASM.',
+		privacy: 'Deine Datei wird nicht hochgeladen. Die Transparenz wird clientseitig erzeugt.',
+		fileTitle: 'Quelldatei',
+		chooseFile: 'Bilddatei wählen',
+		fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC und mehr',
+		settingsTitle: 'Entfernung',
+		mode: 'Modus',
+		modeEdges: 'Hintergrund an den Rändern',
+		modeColor: 'Farbe im ganzen Bild',
+		corners: 'Ecken prüfen',
+		topLeft: 'Oben links',
+		topRight: 'Oben rechts',
+		bottomLeft: 'Unten links',
+		bottomRight: 'Unten rechts',
+		backgroundColor: 'Hintergrundfarbe',
+		tolerance: 'Toleranz',
+		outputFormat: 'Ausgabeformat',
+		quality: 'Qualität',
+		remove: 'Hintergrund entfernen',
+		clear: 'Datei entfernen',
+		sourcePreview: 'Quelle',
+		resultTitle: 'Freigestelltes Bild',
+		outputPreview: 'Ausgabe',
+		download: 'Bild herunterladen',
+		client: {
+			chooseFile: 'Bilddatei wählen',
+			cleared: 'Die Datei wurde entfernt.',
+			converted: '{name} wurde erzeugt.',
+			converting: 'Hintergrund wird entfernt...',
+			fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC und mehr',
+			fileMeta: '{size} | {type}',
+			fileReady: '{name} ist ausgewählt ({size}).',
+			imageMeta: '{width} x {height}px | {frames} | {size}',
+			loadingMagick: 'ImageMagick WASM wird geladen...',
+			magickReady: '{version} ist bereit.',
+			magickTimeout: 'ImageMagick WASM hat nicht innerhalb von 90 Sekunden geladen. Prüfe deine Verbindung und versuche es erneut.',
+			noCorners: 'Wähle mindestens eine Ecke oder wechsle zum Farbmodus.',
+			noFile: 'Wähle zuerst eine Bilddatei.',
+			noFrames: 'ImageMagick konnte kein Bild in dieser Datei finden.',
+			pickColor: 'Klicke in die Vorschau, um eine Farbe zu übernehmen.',
+			previewUnavailable: 'Für dieses Format ist keine Browser-Vorschau verfügbar. Der Download ist trotzdem bereit.',
+			sampledColor: 'Farbe {color} wurde übernommen.',
+			sourcePreviewUnavailable: 'Die Browser-Vorschau kann dieses Quellformat nicht anzeigen. Die Entfernung kann trotzdem funktionieren.',
+			singleFrame: '1 Frame',
+			multipleFrames: '{count} Frames',
+			unknownError: 'Unbekannter Fehler',
+			waiting: 'Wähle ein Bild. Der Ränder-Modus entfernt zusammenhängende, einfarbige Hintergründe am zuverlässigsten.',
+		},
+	},
+	en: {
+		eyebrow: 'Image tool',
+		title: 'Background Remover',
+		intro: 'Remove solid or near-solid image backgrounds directly in your browser with ImageMagick WASM.',
+		privacy: 'Your file is not uploaded. Transparency is created client-side.',
+		fileTitle: 'Source file',
+		chooseFile: 'Choose image file',
+		fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC and more',
+		settingsTitle: 'Removal',
+		mode: 'Mode',
+		modeEdges: 'Background at edges',
+		modeColor: 'Color across image',
+		corners: 'Check corners',
+		topLeft: 'Top left',
+		topRight: 'Top right',
+		bottomLeft: 'Bottom left',
+		bottomRight: 'Bottom right',
+		backgroundColor: 'Background color',
+		tolerance: 'Tolerance',
+		outputFormat: 'Output format',
+		quality: 'Quality',
+		remove: 'Remove background',
+		clear: 'Clear file',
+		sourcePreview: 'Source',
+		resultTitle: 'Cutout image',
+		outputPreview: 'Output',
+		download: 'Download image',
+		client: {
+			chooseFile: 'Choose image file',
+			cleared: 'The file has been cleared.',
+			converted: '{name} was created.',
+			converting: 'Removing background...',
+			fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC and more',
+			fileMeta: '{size} | {type}',
+			fileReady: '{name} is selected ({size}).',
+			imageMeta: '{width} x {height}px | {frames} | {size}',
+			loadingMagick: 'Loading ImageMagick WASM...',
+			magickReady: '{version} is ready.',
+			magickTimeout: 'ImageMagick WASM did not finish loading within 90 seconds. Check your connection and try again.',
+			noCorners: 'Choose at least one corner or switch to color mode.',
+			noFile: 'Choose an image file first.',
+			noFrames: 'ImageMagick could not find an image in this file.',
+			pickColor: 'Click the preview to pick a color.',
+			previewUnavailable: 'This format cannot be previewed by the browser. The download is ready.',
+			sampledColor: 'Picked {color}.',
+			sourcePreviewUnavailable: 'The browser cannot preview this source format. Removal may still work.',
+			singleFrame: '1 frame',
+			multipleFrames: '{count} frames',
+			unknownError: 'Unknown error',
+			waiting: 'Choose an image. Edge mode works best for connected, solid-color backgrounds.',
+		},
+	},
+} satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy.client);
+const outputFormatsJson = JSON.stringify(outputFormats);
+---
+
+<section class="tool-intro">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{copy.title}</h1>
+		<p class="tool-lede">{copy.intro}</p>
+		<p class="tool-note">{copy.privacy}</p>
+	</div>
+</section>
+
+<section class="section background-remover-section">
+	<div class="container">
+		<div class="background-remover" data-background-remover data-copy={copyJson} data-formats={outputFormatsJson}>
+			<div class="remover-grid">
+				<section class="remover-panel source-panel">
+					<h2>{copy.fileTitle}</h2>
+					<label class="file-picker">
+						<span>{copy.fileTitle}</span>
+						<strong data-file-name>{copy.chooseFile}</strong>
+						<small data-file-meta>{copy.fileHint}</small>
+						<input
+							data-file
+							type="file"
+							accept="image/*,.avif,.bmp,.gif,.heic,.heif,.ico,.jpeg,.jpg,.png,.psd,.svg,.tif,.tiff,.webp"
+						/>
+					</label>
+					<div class="preview-card" data-source-preview hidden>
+						<p>{copy.sourcePreview}</p>
+						<div class="preview-frame source-frame">
+							<img data-source-image alt="" />
+							<span data-source-preview-note hidden>{copy.client.sourcePreviewUnavailable}</span>
+						</div>
+						<small data-source-meta></small>
+					</div>
+				</section>
+
+				<section class="remover-panel settings-panel">
+					<h2>{copy.settingsTitle}</h2>
+					<label class="select-control">
+						<span>{copy.mode}</span>
+						<select data-mode>
+							<option value="edges" selected>{copy.modeEdges}</option>
+							<option value="color">{copy.modeColor}</option>
+						</select>
+					</label>
+					<div class="corner-group" data-corner-group>
+						<span>{copy.corners}</span>
+						<label><input data-corner type="checkbox" value="top-left" checked /> {copy.topLeft}</label>
+						<label><input data-corner type="checkbox" value="top-right" checked /> {copy.topRight}</label>
+						<label><input data-corner type="checkbox" value="bottom-left" checked /> {copy.bottomLeft}</label>
+						<label><input data-corner type="checkbox" value="bottom-right" checked /> {copy.bottomRight}</label>
+					</div>
+					<label class="color-control" data-color-control hidden>
+						<span>{copy.backgroundColor}</span>
+						<input data-color type="color" value="#ffffff" />
+						<small>{copy.client.pickColor}</small>
+					</label>
+					<label class="range-control">
+						<span>{copy.tolerance}: <strong data-fuzz-label>8%</strong></span>
+						<input data-fuzz type="range" min="0" max="30" step="1" value="8" />
+					</label>
+					<label class="select-control">
+						<span>{copy.outputFormat}</span>
+						<select data-format>
+							{
+								outputFormats.map((format) => (
+									<option value={format.value} selected={format.value === 'PNG'}>
+										{format.label}
+									</option>
+								))
+							}
+						</select>
+					</label>
+					<label class="range-control" data-quality-control hidden>
+						<span>{copy.quality}: <strong data-quality-label>90</strong></span>
+						<input data-quality type="range" min="1" max="100" step="1" value="90" />
+					</label>
+					<div class="remover-actions">
+						<button class="button primary" data-remove type="button" disabled>{copy.remove}</button>
+						<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
+					</div>
+					<p class="remover-status" data-status role="status">{copy.client.waiting}</p>
+				</section>
+			</div>
+
+			<section class="remover-panel result-panel" data-result hidden>
+				<div class="result-heading">
+					<div>
+						<p class="eyebrow">{copy.outputPreview}</p>
+						<h2>{copy.resultTitle}</h2>
+					</div>
+					<a class="button primary" data-download href="#" download hidden>{copy.download}</a>
+				</div>
+				<div class="result-preview">
+					<div class="preview-frame output-frame">
+						<img data-output-image alt="" />
+						<span data-output-preview-note hidden>{copy.client.previewUnavailable}</span>
+					</div>
+					<dl class="result-meta">
+						<div>
+							<dt>{copy.outputFormat}</dt>
+							<dd data-output-format></dd>
+						</div>
+						<div>
+							<dt>{copy.resultTitle}</dt>
+							<dd data-output-meta></dd>
+						</div>
+					</dl>
+				</div>
+			</section>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	(() => {
+		const roots = document.querySelectorAll('[data-background-remover]:not([data-background-remover-bound])');
+
+		for (const root of roots) {
+			root.dataset.backgroundRemoverBound = 'true';
+			initBackgroundRemover(root);
+		}
+
+		function initBackgroundRemover(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const outputFormats = JSON.parse(root.dataset.formats || '[]');
+			const fileInput = root.querySelector('[data-file]');
+			const fileName = root.querySelector('[data-file-name]');
+			const fileMeta = root.querySelector('[data-file-meta]');
+			const modeSelect = root.querySelector('[data-mode]');
+			const cornerGroup = root.querySelector('[data-corner-group]');
+			const cornerInputs = Array.from(root.querySelectorAll('[data-corner]'));
+			const colorControl = root.querySelector('[data-color-control]');
+			const colorInput = root.querySelector('[data-color]');
+			const fuzzInput = root.querySelector('[data-fuzz]');
+			const fuzzLabel = root.querySelector('[data-fuzz-label]');
+			const formatSelect = root.querySelector('[data-format]');
+			const qualityControl = root.querySelector('[data-quality-control]');
+			const qualityInput = root.querySelector('[data-quality]');
+			const qualityLabel = root.querySelector('[data-quality-label]');
+			const removeButton = root.querySelector('[data-remove]');
+			const clearButton = root.querySelector('[data-clear]');
+			const status = root.querySelector('[data-status]');
+			const sourcePreview = root.querySelector('[data-source-preview]');
+			const sourceImage = root.querySelector('[data-source-image]');
+			const sourcePreviewNote = root.querySelector('[data-source-preview-note]');
+			const sourceMeta = root.querySelector('[data-source-meta]');
+			const result = root.querySelector('[data-result]');
+			const outputImage = root.querySelector('[data-output-image]');
+			const outputPreviewNote = root.querySelector('[data-output-preview-note]');
+			const outputFormat = root.querySelector('[data-output-format]');
+			const outputMeta = root.querySelector('[data-output-meta]');
+			const downloadLink = root.querySelector('[data-download]');
+
+			if (
+				!fileInput || !fileName || !fileMeta || !modeSelect || !cornerGroup || !colorControl ||
+				!colorInput || !fuzzInput || !fuzzLabel || !formatSelect || !qualityControl || !qualityInput ||
+				!qualityLabel || !removeButton || !clearButton || !status || !sourcePreview || !sourceImage ||
+				!sourcePreviewNote || !sourceMeta || !result || !outputImage || !outputPreviewNote ||
+				!outputFormat || !outputMeta || !downloadLink
+			) {
+				return;
+			}
+
+			const state = {
+				file: null,
+				inputUrl: null,
+				outputUrl: null,
+				isWorking: false,
+				magick: null,
+				magickPromise: null,
+			};
+
+			fileInput.addEventListener('change', () => {
+				setSourceFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
+			});
+			modeSelect.addEventListener('change', updateModeView);
+			formatSelect.addEventListener('change', updateQualityControl);
+			fuzzInput.addEventListener('input', () => {
+				fuzzLabel.textContent = `${fuzzInput.value}%`;
+			});
+			qualityInput.addEventListener('input', () => {
+				qualityLabel.textContent = qualityInput.value;
+			});
+			removeButton.addEventListener('click', () => {
+				void removeBackground();
+			});
+			clearButton.addEventListener('click', clearFile);
+			sourceImage.addEventListener('click', sampleColorFromPreview);
+			sourceImage.addEventListener('load', () => {
+				sourceImage.hidden = false;
+				sourcePreviewNote.hidden = true;
+			});
+			sourceImage.addEventListener('error', () => {
+				sourceImage.hidden = true;
+				sourcePreviewNote.hidden = false;
+			});
+			outputImage.addEventListener('load', () => {
+				outputImage.hidden = false;
+				outputPreviewNote.hidden = true;
+			});
+			outputImage.addEventListener('error', () => {
+				outputImage.hidden = true;
+				outputPreviewNote.hidden = false;
+			});
+
+			updateModeView();
+			updateQualityControl();
+			updateReadyState();
+
+			function setSourceFile(file) {
+				revokeUrl('inputUrl');
+				resetOutput();
+				state.file = file;
+
+				if (!file) {
+					fileName.textContent = copy.chooseFile || 'Choose image file';
+					fileMeta.textContent = copy.fileHint || '';
+					sourcePreview.hidden = true;
+					sourceImage.removeAttribute('src');
+					sourceMeta.textContent = '';
+					setStatus(copy.waiting, 'info');
+					updateReadyState();
+					return;
+				}
+
+				state.inputUrl = URL.createObjectURL(file);
+				fileName.textContent = file.name;
+				fileMeta.textContent = format(copy.fileMeta, {
+					size: formatBytes(file.size),
+					type: file.type || fileExtension(file.name).slice(1).toUpperCase(),
+				});
+				sourceImage.hidden = false;
+				sourcePreviewNote.hidden = true;
+				sourceImage.src = state.inputUrl;
+				sourcePreview.hidden = false;
+				sourceMeta.textContent = format(copy.fileReady, {
+					name: file.name,
+					size: formatBytes(file.size),
+				});
+				setStatus(sourceMeta.textContent, 'success');
+				updateReadyState();
+			}
+
+			async function removeBackground() {
+				if (!state.file) {
+					setStatus(copy.noFile, 'error');
+					return;
+				}
+
+				const selectedFormat = getSelectedFormat();
+				const selectedCorners = getSelectedCorners();
+
+				if (modeSelect.value === 'edges' && !selectedCorners.length) {
+					setStatus(copy.noCorners, 'error');
+					return;
+				}
+
+				const outputName = createOutputName(state.file.name, selectedFormat.extension);
+
+				setWorking(true);
+				resetOutput();
+
+				try {
+					const magick = await loadMagick();
+					setStatus(copy.converting, 'info');
+
+					const inputBytes = new Uint8Array(await state.file.arrayBuffer());
+					const cutout = removeWithMagick(magick, inputBytes, {
+						color: colorInput.value,
+						corners: selectedCorners,
+						format: selectedFormat,
+						fuzz: Number(fuzzInput.value),
+						mode: modeSelect.value,
+						quality: Number(qualityInput.value),
+					});
+					const outputBlob = new Blob([cutout.bytes], { type: selectedFormat.mime });
+
+					state.outputUrl = URL.createObjectURL(outputBlob);
+					outputImage.hidden = false;
+					outputPreviewNote.hidden = true;
+					outputImage.src = state.outputUrl;
+					outputFormat.textContent = selectedFormat.label;
+					outputMeta.textContent = format(copy.imageMeta, {
+						width: cutout.width || '?',
+						height: cutout.height || '?',
+						frames: formatFrames(cutout.frames),
+						size: formatBytes(outputBlob.size),
+					});
+					downloadLink.href = state.outputUrl;
+					downloadLink.download = outputName;
+					downloadLink.hidden = false;
+					result.hidden = false;
+					setStatus(format(copy.converted, { name: outputName }), 'success');
+				} catch (error) {
+					setStatus(messageFromError(error), 'error');
+					resetOutput();
+				} finally {
+					setWorking(false);
+				}
+			}
+
+			function removeWithMagick(magick, inputBytes, settings) {
+				const { AlphaAction, ImageMagick, MagickColor, Percentage } = magick;
+				let metadata = {
+					width: 0,
+					height: 0,
+					frames: 0,
+				};
+
+				const bytes = ImageMagick.readCollection(inputBytes, (images) => {
+					if (!images.length) {
+						throw new Error(copy.noFrames);
+					}
+
+					metadata = {
+						width: images[0].width,
+						height: images[0].height,
+						frames: images.length,
+					};
+
+					for (const image of images) {
+						image.alpha(AlphaAction.Set);
+						image.colorFuzz = new Percentage(settings.fuzz);
+
+						if (settings.mode === 'edges') {
+							for (const corner of settings.corners) {
+								const point = cornerToPoint(corner, image.width, image.height);
+								image.floodFill(0, point.x, point.y);
+							}
+						} else {
+							image.transparent(new MagickColor(settings.color));
+						}
+
+						if (settings.format.quality) {
+							image.quality = settings.quality;
+						}
+					}
+
+					return images.write(settings.format.value, (data) => new Uint8Array(data));
+				});
+
+				return {
+					bytes,
+					...metadata,
+				};
+			}
+
+			async function loadMagick() {
+				if (state.magick) {
+					return state.magick;
+				}
+
+				if (state.magickPromise) {
+					return state.magickPromise;
+				}
+
+				state.magickPromise = (async () => {
+					setStatus(copy.loadingMagick, 'info');
+
+					const magickVersion = '0.0.41';
+					const moduleUrl = `https://cdn.jsdelivr.net/npm/@imagemagick/magick-wasm@${magickVersion}/+esm`;
+					const wasmUrl = `https://cdn.jsdelivr.net/npm/@imagemagick/magick-wasm@${magickVersion}/dist/magick.wasm`;
+					const magick = await import(/* @vite-ignore */ moduleUrl);
+
+					await withTimeout(
+						magick.initializeImageMagick(new URL(wasmUrl)),
+						90000,
+						copy.magickTimeout,
+					);
+
+					state.magick = magick;
+					setStatus(format(copy.magickReady, {
+						version: magick.Magick && magick.Magick.imageMagickVersion
+							? magick.Magick.imageMagickVersion
+							: 'ImageMagick WASM',
+					}), 'success');
+
+					return magick;
+				})().catch((error) => {
+					state.magickPromise = null;
+					throw error;
+				});
+
+				return state.magickPromise;
+			}
+
+			function sampleColorFromPreview(event) {
+				if (!sourceImage.complete || !sourceImage.naturalWidth || sourceImage.hidden) {
+					return;
+				}
+
+				const rect = sourceImage.getBoundingClientRect();
+				const x = Math.round(((event.clientX - rect.left) / rect.width) * (sourceImage.naturalWidth - 1));
+				const y = Math.round(((event.clientY - rect.top) / rect.height) * (sourceImage.naturalHeight - 1));
+				const canvas = document.createElement('canvas');
+				canvas.width = sourceImage.naturalWidth;
+				canvas.height = sourceImage.naturalHeight;
+				const context = canvas.getContext('2d', { willReadFrequently: true });
+
+				if (!context) {
+					return;
+				}
+
+				context.drawImage(sourceImage, 0, 0);
+				const [red, green, blue] = context.getImageData(x, y, 1, 1).data;
+				const color = rgbToHex(red, green, blue);
+				colorInput.value = color;
+				modeSelect.value = 'color';
+				updateModeView();
+				setStatus(format(copy.sampledColor, { color }), 'success');
+			}
+
+			function updateModeView() {
+				const isColorMode = modeSelect.value === 'color';
+				colorControl.hidden = !isColorMode;
+				cornerGroup.hidden = isColorMode;
+			}
+
+			function updateQualityControl() {
+				const selectedFormat = getSelectedFormat();
+				qualityControl.hidden = !selectedFormat.quality;
+				qualityLabel.textContent = qualityInput.value;
+			}
+
+			function getSelectedFormat() {
+				return outputFormats.find((formatOption) => formatOption.value === formatSelect.value) || outputFormats[0];
+			}
+
+			function getSelectedCorners() {
+				return cornerInputs
+					.filter((input) => input.checked)
+					.map((input) => input.value);
+			}
+
+			function updateReadyState() {
+				removeButton.disabled = state.isWorking || !state.file;
+				clearButton.disabled = state.isWorking || !state.file;
+				modeSelect.disabled = state.isWorking;
+				formatSelect.disabled = state.isWorking;
+				colorInput.disabled = state.isWorking;
+				fuzzInput.disabled = state.isWorking;
+				qualityInput.disabled = state.isWorking;
+				fileInput.disabled = state.isWorking;
+
+				for (const input of cornerInputs) {
+					input.disabled = state.isWorking;
+				}
+			}
+
+			function setWorking(isWorking) {
+				state.isWorking = isWorking;
+				updateReadyState();
+			}
+
+			function resetOutput() {
+				revokeUrl('outputUrl');
+				result.hidden = true;
+				downloadLink.hidden = true;
+				downloadLink.removeAttribute('href');
+				outputImage.removeAttribute('src');
+				outputImage.hidden = false;
+				outputPreviewNote.hidden = true;
+				outputFormat.textContent = '';
+				outputMeta.textContent = '';
+			}
+
+			function clearFile() {
+				state.file = null;
+				fileInput.value = '';
+				revokeUrl('inputUrl');
+				resetOutput();
+				sourcePreview.hidden = true;
+				sourceImage.removeAttribute('src');
+				sourceImage.hidden = false;
+				sourcePreviewNote.hidden = true;
+				sourceMeta.textContent = '';
+				fileName.textContent = copy.chooseFile || 'Choose image file';
+				fileMeta.textContent = copy.fileHint || '';
+				setStatus(copy.cleared, 'info');
+				updateReadyState();
+			}
+
+			function revokeUrl(key) {
+				if (state[key]) {
+					URL.revokeObjectURL(state[key]);
+					state[key] = null;
+				}
+			}
+
+			function setStatus(message, type) {
+				status.textContent = message;
+				status.dataset.state = type;
+			}
+
+			function createOutputName(name, extension) {
+				const baseName = name.replace(/\.[^.]+$/, '') || 'cutout-image';
+				return `${baseName}-no-bg.${extension}`;
+			}
+
+			function cornerToPoint(corner, width, height) {
+				const maxX = Math.max(0, width - 1);
+				const maxY = Math.max(0, height - 1);
+
+				return {
+					x: corner.endsWith('right') ? maxX : 0,
+					y: corner.startsWith('bottom') ? maxY : 0,
+				};
+			}
+
+			function fileExtension(name) {
+				const match = name.toLowerCase().match(/\.[a-z0-9]+$/);
+				return match ? match[0] : '.image';
+			}
+
+			function format(template, values) {
+				return String(template).replace(/\{(\w+)\}/g, (_match, key) => {
+					return values && key in values ? String(values[key]) : '';
+				});
+			}
+
+			function formatBytes(bytes) {
+				if (!Number.isFinite(bytes) || bytes <= 0) {
+					return '0 B';
+				}
+
+				const units = ['B', 'KB', 'MB', 'GB'];
+				const power = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
+				const value = bytes / (1024 ** power);
+				return `${value.toFixed(value >= 10 || power === 0 ? 0 : 1)} ${units[power]}`;
+			}
+
+			function formatFrames(frames) {
+				if (!Number.isFinite(frames) || frames <= 1) {
+					return copy.singleFrame;
+				}
+
+				return format(copy.multipleFrames, { count: frames });
+			}
+
+			function messageFromError(error) {
+				if (typeof error === 'string') {
+					return error;
+				}
+
+				return error && typeof error === 'object' && 'message' in error
+					? String(error.message)
+					: copy.unknownError;
+			}
+
+			function rgbToHex(red, green, blue) {
+				return `#${[red, green, blue].map((channel) => {
+					return channel.toString(16).padStart(2, '0');
+				}).join('')}`;
+			}
+
+			function withTimeout(promise, timeoutMs, message) {
+				let timeoutId;
+				const timeout = new Promise((_resolve, reject) => {
+					timeoutId = window.setTimeout(() => reject(new Error(message)), timeoutMs);
+				});
+
+				return Promise.race([promise, timeout]).finally(() => {
+					window.clearTimeout(timeoutId);
+				});
+			}
+		}
+	})();
+</script>
+
+<style>
+	.tool-intro {
+		padding-block: clamp(42px, 7vw, 82px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.tool-intro h1 {
+		max-width: 780px;
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.6rem);
+		line-height: 0.96;
+		letter-spacing: 0;
+	}
+
+	.tool-lede,
+	.tool-note {
+		max-width: 760px;
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+	}
+
+	.tool-note {
+		font-size: 0.98rem;
+		font-weight: 700;
+	}
+
+	.background-remover-section {
+		background: #fff;
+	}
+
+	.background-remover,
+	.remover-grid,
+	.result-preview {
+		display: grid;
+		gap: 18px;
+	}
+
+	.background-remover [hidden] {
+		display: none !important;
+	}
+
+	.remover-grid {
+		grid-template-columns: minmax(0, 1fr) minmax(300px, 0.44fr);
+		align-items: start;
+	}
+
+	.remover-panel {
+		padding: clamp(18px, 3vw, 28px);
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.remover-panel h2 {
+		margin: 0;
+		color: var(--color-deep);
+		font-size: clamp(1.4rem, 3vw, 2rem);
+		line-height: 1.1;
+		letter-spacing: 0;
+	}
+
+	.file-picker {
+		position: relative;
+		display: grid;
+		gap: 8px;
+		min-height: 160px;
+		margin-top: 18px;
+		padding: 18px;
+		background: var(--color-surface-alt);
+		border: 1px dashed color-mix(in srgb, var(--color-accent) 58%, var(--color-line));
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.file-picker:focus-within {
+		outline: 3px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+		outline-offset: 2px;
+	}
+
+	.file-picker span,
+	.select-control span,
+	.range-control span,
+	.color-control span,
+	.corner-group > span,
+	.preview-card p,
+	.result-meta dt {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.file-picker strong {
+		align-self: end;
+		overflow-wrap: anywhere;
+		color: var(--color-deep);
+		font-size: 1.05rem;
+	}
+
+	.file-picker small,
+	.preview-card small,
+	.color-control small {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.file-picker input[type='file'] {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	.select-control,
+	.range-control,
+	.color-control,
+	.corner-group {
+		display: grid;
+		gap: 8px;
+		margin-top: 18px;
+	}
+
+	.corner-group label {
+		color: var(--color-deep);
+		font-weight: 800;
+	}
+
+	.corner-group input,
+	.range-control input {
+		accent-color: var(--color-accent);
+	}
+
+	.select-control select {
+		width: 100%;
+		min-height: 48px;
+		padding: 0 14px;
+		color: var(--color-deep);
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font: inherit;
+		font-weight: 800;
+	}
+
+	.select-control select:focus-visible {
+		border-color: var(--color-accent);
+		outline: 3px solid color-mix(in srgb, var(--color-accent) 24%, transparent);
+	}
+
+	.color-control input[type='color'] {
+		width: 100%;
+		height: 48px;
+		padding: 4px;
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.range-control input {
+		width: 100%;
+	}
+
+	.remover-actions,
+	.result-heading {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 20px;
+	}
+
+	.button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 46px;
+		padding: 0 16px;
+		border-radius: 6px;
+		font: inherit;
+		font-weight: 850;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.button:disabled {
+		opacity: 0.52;
+		cursor: not-allowed;
+	}
+
+	.button.primary {
+		color: #fff;
+		background: var(--color-accent);
+		border: 1px solid var(--color-accent);
+	}
+
+	.button.secondary {
+		color: var(--color-deep);
+		background: #fff;
+		border: 1px solid var(--color-line);
+	}
+
+	.remover-status {
+		margin: 16px 0 0;
+		padding: 12px 14px;
+		color: var(--color-muted);
+		background: #f9f5f0;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 700;
+	}
+
+	.remover-status[data-state='success'] {
+		color: #225d2d;
+		background: #edf8ef;
+		border-color: #b7dec0;
+	}
+
+	.remover-status[data-state='error'] {
+		color: #8a1f17;
+		background: #fff0ed;
+		border-color: #f1b8ad;
+	}
+
+	.preview-card {
+		display: grid;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	.preview-card p,
+	.result-heading .eyebrow {
+		margin: 0;
+	}
+
+	.preview-frame {
+		display: grid;
+		overflow: hidden;
+		min-height: 260px;
+		place-items: center;
+		padding: 12px;
+		background:
+			linear-gradient(45deg, #f3eee9 25%, transparent 25%),
+			linear-gradient(-45deg, #f3eee9 25%, transparent 25%),
+			linear-gradient(45deg, transparent 75%, #f3eee9 75%),
+			linear-gradient(-45deg, transparent 75%, #f3eee9 75%);
+		background-color: #fff;
+		background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+		background-size: 20px 20px;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.preview-frame img {
+		display: block;
+		max-width: 100%;
+		max-height: 420px;
+		object-fit: contain;
+	}
+
+	.source-frame img {
+		cursor: crosshair;
+	}
+
+	.preview-frame span {
+		max-width: 42ch;
+		color: var(--color-muted);
+		font-weight: 700;
+		text-align: center;
+	}
+
+	.result-panel {
+		margin-top: 18px;
+	}
+
+	.result-heading {
+		margin-top: 0;
+	}
+
+	.result-heading h2 {
+		margin-top: 4px;
+	}
+
+	.result-preview {
+		grid-template-columns: minmax(0, 1fr) minmax(240px, 0.35fr);
+		margin-top: 18px;
+		align-items: start;
+	}
+
+	.output-frame {
+		min-height: 360px;
+	}
+
+	.result-meta {
+		display: grid;
+		gap: 12px;
+		margin: 0;
+	}
+
+	.result-meta div {
+		padding: 14px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.result-meta dt,
+	.result-meta dd {
+		margin: 0;
+	}
+
+	.result-meta dd {
+		margin-top: 6px;
+		overflow-wrap: anywhere;
+		color: var(--color-deep);
+		font-weight: 800;
+	}
+
+	@media (max-width: 880px) {
+		.remover-grid,
+		.result-preview {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
