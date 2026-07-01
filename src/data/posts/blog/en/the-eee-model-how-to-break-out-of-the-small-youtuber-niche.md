@@ -22,7 +22,7 @@ A common beginner mistake on YouTube is building a channel around a single idea.
 
 > A young creator, usually between 13-16 years old, watches their favorite YouTubers daily (for example, Gronkh) and one boring day comes up with an idea: "I could also install OBS and make Let's Plays." And so they do. In no time, our newcomer not only figures out how to record, edit, and upload videos but is already optimizing individual aspects like SEO or thumbnail design. But once the novelty wears off, disillusionment sets in because no matter what they try, [nothing seems to work](/youtube-tips-en/why-your-youtube-channel-suddenly-died/). Keyword optimization, self-promotion, two videos a day, maybe even three or four—none of them get more than a handful of views. In fact, most new videos seem to perform worse than the old ones!
 
-**What happened?** To find the solution, you need to take a step back. What exactly are these videos? How are they relevant to target audiences? Who are your target audiences in the first place? And how do your videos stand out from the sea of videos on YouTube? If you're stuck here and don't know how to proceed, [you could hire us](/creator/), but before you spend money unnecessarily, I have a better idea: Try following the EEE model. (Or rather, the [EDE model](https://leo.wattenberg.dk/2020/11/03/the-ede-model-exploring-developing-established-creators/). The model is the same, just in English and German.)
+**What happened?** To find the solution, you need to take a step back. What exactly are these videos? How are they relevant to target audiences? Who are your target audiences in the first place? And how do your videos stand out from the sea of videos on YouTube? If you're stuck here and don't know how to proceed, [you could hire us](/en/creator/), but before you spend money unnecessarily, I have a better idea: Try following the EEE model. (Or rather, the [EDE model](https://leo.wattenberg.dk/2020/11/03/the-ede-model-exploring-developing-established-creators/). The model is the same, just in English and German.)
 
 ## Explore — The First E in the EEE Model
 
@@ -45,7 +45,7 @@ This is where all the tips from the internet start to make sense. I won't list e
 - You can find our tips [in German](/de/youtube-tipps/) and [in English](/en/youtube-tips/).
 - YouTube has the [Creator Academy](https://creatoracademy.youtube.com/page/home) with various courses.
 - YouTube channels like Video Creators, So geht YouTube, Little Monster Media Co., and many others have videos addressing various channel growth questions.
-- [We offer consulting services](/creator/) and can tell you which channel optimizations are most beneficial in what order.
+- [We offer consulting services](/en/creator/) and can tell you which channel optimizations are most beneficial in what order.
 
 There are two ways out of the development phase: either into the third phase, where the channel is established, or back into the exploration phase, where you take a fresh look at what exactly it is that you want to do. Going back might initially sound like you're losing ground. However, this isn't the case: YouTube is suitable as a hobby in most cases, even deep into the established phase. This means you have two options when it becomes less enjoyable and progress stalls: either continue exactly as before or make changes. And making changes is clearly the better option, even though it might set you back in this model.
 
@@ -53,7 +53,7 @@ There are two ways out of the development phase: either into the third phase, wh
 
 Channels in the 3rd phase are functionally similar to those in the 2nd phase. However, they are generally more routine-based, aware of most best practices, and often have some of the largest channels in their niche. This doesn't mean they have it easier. As an established creator, time usually becomes tight as projects grow larger and more frequent, eventually requiring task distribution among entire teams.
 
-If you're already an established YouTuber, uh, thanks for reading, I guess. If you feel like YouTube is evolving faster than you can keep up, you can subscribe to our [YouTube Patch Rundown](http://kw.media/youtube). We'll tell you everything that's happened on the platform in just 5 minutes every week. Alternatively, you can [hire us](/creator/) to prevent tunnel vision or have a more direct support line to YouTube.
+If you're already an established YouTuber, uh, thanks for reading, I guess. If you feel like YouTube is evolving faster than you can keep up, you can subscribe to our [YouTube Patch Rundown](http://kw.media/youtube). We'll tell you everything that's happened on the platform in just 5 minutes every week. Alternatively, you can [hire us](/en/creator/) to prevent tunnel vision or have a more direct support line to YouTube.
 
 ## Summary
 
