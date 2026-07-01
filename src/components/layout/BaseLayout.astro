@@ -281,7 +281,7 @@ const jsonLd = JSON.stringify({
 	</head>
 	<body>
 		<div class="site-shell">
-			<SiteSidebar locale={locale} currentPath={currentPath} />
+			<SiteSidebar locale={locale} currentPath={currentPath} alternatePaths={effectiveAlternatePaths} />
 			<div class="site-content">
 				<main>
 					<slot />
