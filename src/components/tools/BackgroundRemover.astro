@@ -693,27 +693,28 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 						return;
 					}
 
-					const tileSize = colors.length > 1
-						? estimateCheckerTileSize(pixelsData, width, height, channels, colors, matchToleranceSq)
-						: 0;
-					const model = tileSize
-						? fitCheckerGrid(borderSamples, colors, tileSize, matchToleranceSq)
+					const pattern = colors.length > 1
+						? analyzeCheckerPattern(pixelsData, width, height, channels, colors, matchToleranceSq)
+						: null;
+					const model = pattern && pattern.xBoundaries.length && pattern.yBoundaries.length
+						? fitCheckerGrid(borderSamples, colors, pattern, matchToleranceSq)
 						: null;
 
 					for (let y = 0; y < height; y += 1) {
 						for (let x = 0; x < width; x += 1) {
 							const offset = ((y * width) + x) * channelCount;
-							const label = matchCheckerColor(
-								{
-									b: pixelsData[offset + blueIndex],
-									g: pixelsData[offset + greenIndex],
-									r: pixelsData[offset + redIndex],
-								},
-								colors,
-								matchToleranceSq,
-							);
+							const color = {
+								b: pixelsData[offset + blueIndex],
+								g: pixelsData[offset + greenIndex],
+								r: pixelsData[offset + redIndex],
+							};
+							const label = matchCheckerColor(color, colors, matchToleranceSq);
 
 							if (label < 0) {
+								if (model && isNearCheckerBoundary(x, y, model) && isCheckerBoundaryBlend(color, colors, matchToleranceSq)) {
+									pixelsData[offset + alphaIndex] = 0;
+								}
+
 								continue;
 							}
 
@@ -810,20 +811,18 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				return colors;
 			}
 
-			function estimateCheckerTileSize(pixelsData, width, height, channels, colors, matchToleranceSq) {
-				const runs = [];
-
-				addCheckerRuns(runs, readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'top'));
-				addCheckerRuns(runs, readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'bottom'));
-				addCheckerRuns(runs, readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'left'));
-				addCheckerRuns(runs, readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'right'));
-
-				if (!runs.length) {
-					return 0;
-				}
-
-				runs.sort((a, b) => a - b);
-				return Math.max(2, Math.min(64, Math.round(runs[Math.floor(runs.length / 2)])));
+			function analyzeCheckerPattern(pixelsData, width, height, channels, colors, matchToleranceSq) {
+				const edgeSequences = [
+					{ axis: 'x', labels: readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'top') },
+					{ axis: 'x', labels: readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'bottom') },
+					{ axis: 'y', labels: readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'left') },
+					{ axis: 'y', labels: readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'right') },
+				];
+				return {
+					edgeSequences,
+					xBoundaries: estimateAxisBoundaries(edgeSequences, 'x'),
+					yBoundaries: estimateAxisBoundaries(edgeSequences, 'y'),
+				};
 			}
 
 			function readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, edge) {
@@ -841,30 +840,67 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				return labels;
 			}
 
-			function addCheckerRuns(runs, labels) {
-				let currentLabel = -1;
-				let currentLength = 0;
+			function getLabelTransitions(labels) {
+				const transitions = [];
+				let lastKnownIndex = -1;
+				let lastKnownLabel = -1;
 
-				for (const label of labels) {
-					if (label === currentLabel) {
-						currentLength += 1;
+				for (let index = 0; index < labels.length; index += 1) {
+					const current = labels[index];
+
+					if (current < 0) {
 						continue;
 					}
 
-					if (currentLabel >= 0 && currentLength >= 2 && currentLength <= 96) {
-						runs.push(currentLength);
+					if (lastKnownLabel >= 0 && current !== lastKnownLabel) {
+						transitions.push((lastKnownIndex + index) / 2);
 					}
 
-					currentLabel = label;
-					currentLength = 1;
+					lastKnownIndex = index;
+					lastKnownLabel = current;
 				}
 
-				if (currentLabel >= 0 && currentLength >= 2 && currentLength <= 96) {
-					runs.push(currentLength);
-				}
+				return transitions;
 			}
 
-			function fitCheckerGrid(samples, colors, tileSize, matchToleranceSq) {
+			function estimateAxisBoundaries(edgeSequences, axis) {
+				const transitions = [];
+
+				for (const sequence of edgeSequences) {
+					if (sequence.axis === axis) {
+						transitions.push(...getLabelTransitions(sequence.labels));
+					}
+				}
+
+				if (!transitions.length) {
+					return [];
+				}
+
+				transitions.sort((a, b) => a - b);
+
+				const clusters = [];
+				let cluster = [];
+
+				for (const transition of transitions) {
+					if (!cluster.length || Math.abs(transition - median(cluster)) <= 2) {
+						cluster.push(transition);
+						continue;
+					}
+
+					clusters.push(cluster);
+					cluster = [transition];
+				}
+
+				if (cluster.length) {
+					clusters.push(cluster);
+				}
+
+				return clusters
+					.map((values) => median(values))
+					.filter((boundary, index, boundaries) => index === 0 || boundary - boundaries[index - 1] >= 2);
+			}
+
+			function fitCheckerGrid(samples, colors, pattern, matchToleranceSq) {
 				let best = null;
 				const maxSamples = 3000;
 				const labeledSamples = samples
@@ -880,44 +916,99 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 					return null;
 				}
 
-				for (let offsetX = 0; offsetX < tileSize; offsetX += 1) {
-					for (let offsetY = 0; offsetY < tileSize; offsetY += 1) {
-						for (let parity = 0; parity < 2; parity += 1) {
-							let matches = 0;
+				for (let parity = 0; parity < 2; parity += 1) {
+					let matches = 0;
 
-							for (const sample of labeledSamples) {
-								if (sample.label === expectedCheckerLabel(sample.x, sample.y, {
-									offsetX,
-									offsetY,
-									parity,
-									tileSize,
-								})) {
-									matches += 1;
-								}
-							}
-
-							if (!best || matches > best.matches) {
-								best = {
-									confidence: matches / labeledSamples.length,
-									matches,
-									offsetX,
-									offsetY,
-									parity,
-									tileSize,
-								};
-							}
+					for (const sample of labeledSamples) {
+						if (sample.label === expectedCheckerLabel(sample.x, sample.y, {
+							parity,
+							xBoundaries: pattern.xBoundaries,
+							yBoundaries: pattern.yBoundaries,
+						})) {
+							matches += 1;
 						}
+					}
+
+					if (!best || matches > best.matches) {
+						best = {
+							confidence: matches / labeledSamples.length,
+							matches,
+							parity,
+							xBoundaries: pattern.xBoundaries,
+							yBoundaries: pattern.yBoundaries,
+						};
 					}
 				}
 
 				return best && best.confidence >= 0.62 ? best : null;
 			}
 
+			function boundaryIndex(boundaries, value) {
+				let low = 0;
+				let high = boundaries.length;
+
+				while (low < high) {
+					const mid = Math.floor((low + high) / 2);
+
+					if (value < boundaries[mid]) {
+						high = mid;
+					} else {
+						low = mid + 1;
+					}
+				}
+
+				return low;
+			}
+
+			function median(values) {
+				if (!values.length) {
+					return 0;
+				}
+
+				const sorted = [...values].sort((a, b) => a - b);
+				const middle = Math.floor(sorted.length / 2);
+
+				return sorted.length % 2
+					? sorted[middle]
+					: (sorted[middle - 1] + sorted[middle]) / 2;
+			}
+
 			function expectedCheckerLabel(x, y, model) {
-				const column = Math.floor((x + model.offsetX) / model.tileSize);
-				const row = Math.floor((y + model.offsetY) / model.tileSize);
+				const column = boundaryIndex(model.xBoundaries, x);
+				const row = boundaryIndex(model.yBoundaries, y);
 
 				return ((column + row + model.parity) % 2 + 2) % 2;
+			}
+
+			function isNearCheckerBoundary(x, y, model) {
+				const threshold = 1.25;
+				const column = boundaryIndex(model.xBoundaries, x);
+				const row = boundaryIndex(model.yBoundaries, y);
+				const previousX = model.xBoundaries[column - 1];
+				const nextX = model.xBoundaries[column];
+				const previousY = model.yBoundaries[row - 1];
+				const nextY = model.yBoundaries[row];
+
+				return (
+					Number.isFinite(previousX) && Math.abs(x - previousX) <= threshold ||
+					Number.isFinite(nextX) && Math.abs(x - nextX) <= threshold ||
+					Number.isFinite(previousY) && Math.abs(y - previousY) <= threshold ||
+					Number.isFinite(nextY) && Math.abs(y - nextY) <= threshold
+				);
+			}
+
+			function isCheckerBoundaryBlend(color, colors, matchToleranceSq) {
+				if (colors.length < 2) {
+					return false;
+				}
+
+				const blend = {
+					b: (colors[0].b + colors[1].b) / 2,
+					g: (colors[0].g + colors[1].g) / 2,
+					r: (colors[0].r + colors[1].r) / 2,
+				};
+
+				return colorDistanceSq(color, blend) <= matchToleranceSq * 1.5;
 			}
 
 			function matchCheckerColor(color, colors, matchToleranceSq) {
