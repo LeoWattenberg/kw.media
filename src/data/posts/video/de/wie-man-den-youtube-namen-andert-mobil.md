@@ -21,6 +21,6 @@ video:
 
 ## Transkript
 
-Höre auf, im Live-Chat wie ein Bot auszusehen. YouTube hat gerade die Anzeigenamen durch @-Handles ersetzt. Wenn deiner user123 lautet, musst du ihn ändern. Öffne die YouTube-App. Tippe auf dein Profilbild unten rechts. Tippe auf Kanal anzeigen. Jetzt tippe auf dieses kleine Bleistiftsymbol. Tippe auf Handle. Wähle etwas Einzigartiges zwischen drei und 30 Zeichen. Unterstriche und Punkte funktionieren, aber halte es sauber. Achtung: Du kannst dies nur zweimal alle 14 Tage ändern. Überprüfe also deine Rechtschreibung, bevor du speicherst, oder du steckst zwei Wochen lang mit einem Tippfehler fest. Tippe auf Speichern.
+Höre auf, im Live-Chat wie ein Bot auszusehen. [YouTube hat gerade die Anzeigenamen durch @-Handles ersetzt](/youtube-tipps-de/was-sind-youtube-handles-aliasse/). Wenn deiner user123 lautet, musst du ihn ändern. Öffne die YouTube-App. Tippe auf dein Profilbild unten rechts. Tippe auf Kanal anzeigen. Jetzt tippe auf dieses kleine Bleistiftsymbol. Tippe auf Handle. Wähle etwas Einzigartiges zwischen drei und 30 Zeichen. Unterstriche und Punkte funktionieren, aber halte es sauber. Achtung: Du kannst dies nur zweimal alle 14 Tage ändern. Überprüfe also deine Rechtschreibung, bevor du speicherst, oder du steckst zwei Wochen lang mit einem Tippfehler fest. Tippe auf Speichern.
 
 Gehe jetzt und sage Hallo im Chat.

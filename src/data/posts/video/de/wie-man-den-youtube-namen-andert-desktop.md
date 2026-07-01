@@ -21,6 +21,6 @@ video:
 
 ## Transkript
 
-Sieht dein Name im Live-Chat wie ein Barcode oder ein Bot aus? YouTube hat gerade die Chat-Logik aktualisiert. Anzeigenamen sind weg. Du bist jetzt nur noch dein Benutzername. Willst du nicht als Nutzer 123 da stehen? Dann behebe das gleich. Gehe auf studio.YouTube.com. Klicke links auf "Anpassung". Dann auf die Registerkarte "Grundlegende Informationen". Hier ist dein Benutzername. Mache ihn lesbar. Du hast 3 bis 30 Zeichen zur Verfügung. Buchstaben, Zahlen, Unterstriche und Punkte sind erlaubt, aber keine URLs und keine Telefonnummern. Und pass auf: Du kannst das nur zweimal alle 14 Tage ändern.
+Sieht dein Name im Live-Chat wie ein Barcode oder ein Bot aus? [YouTube hat](/youtube-tipps-de/wie-man-den-youtube-namen-andert-mobil/) gerade die Chat-Logik aktualisiert. Anzeigenamen sind weg. Du bist jetzt nur noch dein Benutzername. Willst du nicht als Nutzer 123 da stehen? Dann behebe das gleich. Gehe auf studio.YouTube.com. Klicke links auf "Anpassung". Dann auf die Registerkarte "Grundlegende Informationen". Hier ist dein Benutzername. Mache ihn lesbar. Du hast 3 bis 30 Zeichen zur Verfügung. Buchstaben, Zahlen, Unterstriche und Punkte sind erlaubt, aber keine URLs und keine Telefonnummern. Und pass auf: Du kannst das nur zweimal alle 14 Tage ändern.
 
 Wenn du also einen Tippfehler machst, bist du 2 Wochen damit gefangen. Auf "Veröffentlichen" klicken und du bist wieder menschlich.

@@ -37,4 +37,4 @@ Finally, an interesting update from India: YouTube is testing a new creator bonu
 
 This is something to keep an eye on as it encourages both video and Shorts creation. Please share your thoughts in the comments below.
 
-And that's a wrap for this week's YouTube updates. Don't forget to subscribe so you never miss them. See you next week! Bye-bye.
+And that's a wrap for [this week's YouTube updates](/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/). Don't forget to subscribe so you never miss them. See you next week! Bye-bye.

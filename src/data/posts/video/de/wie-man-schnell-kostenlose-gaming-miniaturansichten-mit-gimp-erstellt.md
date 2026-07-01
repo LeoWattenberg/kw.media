@@ -23,7 +23,7 @@ video:
 
 In diesem Tutorial erstellen wir einen Gaming-Miniaturansicht kostenlos mit GIMP. Das Ziel ist es, etwas Lesbares, Klare und Anklickbares zu schaffen, ohne teure Designsoftware zu benötigen. Beginnen Sie damit, einen starken Screenshot oder ein Charakterbild auszuwählen, und platzieren Sie dann das wichtigste Motiv prominent im Bild.
 
-Eine gute Miniaturansicht benötigt Kontrast. Trennen Sie das Motiv vom Hintergrund, hellen Sie die wichtigsten Elemente auf und verdunkeln oder verwischen Sie Bereiche, die von der Hauptidee ablenken. Fügen Sie nur Text hinzu, wenn er hilft, den Inhalt des Videos schnell zu erklären. Halten Sie ihn kurz, groß und leicht lesbar auf einem Handybildschirm.
+[Eine gute Miniaturansicht benötigt Kontrast](/youtube-tipps-de/wie-man-seine-miniaturansichten-auf-youtube-nicht-vermasselt-ein-tutorial/). Trennen Sie das Motiv vom Hintergrund, hellen Sie die wichtigsten Elemente auf und verdunkeln oder verwischen Sie Bereiche, die von der Hauptidee ablenken. Fügen Sie nur Text hinzu, wenn er hilft, den Inhalt des Videos schnell zu erklären. Halten Sie ihn kurz, groß und leicht lesbar auf einem Handybildschirm.
 
 Verwenden Sie Umrisse, Schatten und Farbkorrekturen, um das Motiv hervorstechen zu lassen. GIMP bietet Ihnen die notwendigen Werkzeuge: Ebenen, Auswahlen, Kurven, Text und einfache Effekte. Die Miniaturansicht muss nicht kompliziert sein; sie muss die Idee sofort vermitteln.
 

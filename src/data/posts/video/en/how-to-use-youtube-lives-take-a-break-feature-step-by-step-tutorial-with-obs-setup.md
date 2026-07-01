@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-This tutorial shows how to use YouTube Live's Take a Break feature and how to set it up with OBS. The feature lets you temporarily show a break screen during a livestream without ending the stream itself. That is useful when you need a pause, have to fix something, or want to step away for a moment.
+This tutorial shows how to use YouTube Live's [Take a Break feature](/youtube-tips-en/youtube-updates-subscriber-list-shorts-view-definitions-and-take-a-break/) and how to set it up with OBS. The feature lets you temporarily show a break screen during a livestream without ending the stream itself. That is useful when you need a pause, have to fix something, or want to step away for a moment.
 
 In YouTube Studio, open the livestream settings and look for the Take a Break option. Prepare the break screen you want viewers to see. In OBS, create a dedicated scene for the break, add the graphics or text you need, and make sure the audio setup matches what you want during the pause.
 

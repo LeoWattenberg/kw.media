@@ -7,8 +7,8 @@ excerpt: "Use the AIDA model to plan YouTube thumbnails that earn attention, cre
 date: "2021-07-02T12:41:20"
 modified: "2023-03-17T12:57:29"
 locale: "en"
-category: "blog"
 translationKey: "post:1676"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-get-clicks-on-thumbnails-the-aida-model/"
@@ -22,7 +22,7 @@ To figure this out, we must first think about a potential viewer browsing the ho
 
 If your thumbnail doesn’t get noticed immediately, you have a bit of a problem. Tama only has so much free time in her day, so there might be only a few videos she can actually watch. If Tama doesn’t notice your thumbnail on the first go, you might have another chance. But the more often it’s not noticed, the higher the chance she won’t get around to watching your video at all.
 
-There are various ways to make your thumbnail generate more attention, some of which we already talked about in our more practical guide: [How to not fuck up your thumbnail](/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/). But in short, they are:
+There are various ways to [make your thumbnail generate more attention](/youtube-tips-en/how-to-use-youtubes-new-thumbnail-test-and-compare-feature-for-better-engagement/), some of which we already talked about in our more practical guide: [How to not fuck up your thumbnail](/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/). But in short, they are:
 
 - Use a high contrast.
 - Use bright colors.
@@ -69,7 +69,7 @@ Unlike products (for which this Attention–Interest–Desire–Action, or in sh
 
 ## Conclusion: How to increase thumbnail CTR using AIDA
 
-On top of [good SEO](/youtube-tips-en/simple-youtube-seo-for-gaming-channels/) to make sure that your thumbnails appear in search queries relevant to your content, you can optimize the effect your thumbnail has:
+On top of [good SEO](/youtube-tips-en/simple-youtube-seo-for-gaming-channels/) to make sure that your thumbnails appear in search queries relevant to your content, you can [optimize the effect your thumbnail has](/youtube-tips-en/what-is-youtube-test-and-compare-or-thumbnail-a-b-testing/):
 
 - **Optimize for attention** . Ensure that your video will be the first that’s seen when someone looks at YouTube (and your video algorithmically is featured there).
 - **Optimize for interest** . Give people a reason to click on your thumbnail.

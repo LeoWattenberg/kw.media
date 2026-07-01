@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-YouTube Live Redirects sind im Prinzip dasselbe wie Twitch Raids. Wenn euer Kanal mehr als 1.000 Abonnenten hat, ist für euch die neue Live-Redirect-Funktion freigeschaltet. Sie erlaubt es euch, nach einem Stream zu einem anderen Kanal weiterzuleiten. Um Zuschauer empfangen zu können, müsst ihr das im Studio in den Einstellungen unter „Community“ einstellen. Dort könnt ihr angeben, wer zu euch weiterleiten darf und ob Kanäle, die ihr öffentlich abonniert habt, das automatisch dürfen.
+YouTube Live Redirects sind im Prinzip dasselbe wie Twitch Raids. Wenn euer Kanal mehr als 1.000 Abonnenten hat, ist für euch die neue Live-Redirect-Funktion freigeschaltet. Sie erlaubt es euch, nach einem Stream zu einem anderen Kanal weiterzuleiten. [Um Zuschauer empfangen zu können](/youtube-tipps-de/so-kannst-du-auf-youtube-redirects-youtube-raids-empfangen/), müsst ihr das im Studio in den Einstellungen unter „Community“ einstellen. Dort könnt ihr angeben, wer zu euch weiterleiten darf und ob Kanäle, die ihr öffentlich abonniert habt, das automatisch dürfen.

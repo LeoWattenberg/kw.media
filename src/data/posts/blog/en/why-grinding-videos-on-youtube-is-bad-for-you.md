@@ -7,8 +7,8 @@ excerpt: "Why constant grinding can hurt creators, and how smarter planning, hea
 date: "2021-06-11T10:13:42"
 modified: "2022-07-16T12:47:06"
 locale: "en"
-category: "blog"
 translationKey: "post:1430"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/06/WHY-GRINDING-IS-BAD-FOR-YOU.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/"
@@ -18,7 +18,7 @@ We often see small YouTubers, especially of the gaming variety, talk about “Th
 
 At its core, this strategy has some merit: You gotta make videos to improve. And having a schedule to follow forces you to declare a project as finished and move on and prevents you from procrastinating too much. But it also comes with a huge drawback:
 
-When you’re just starting out, your main issue *isn’t* whether you have enough content for people to watch. Or whether your schedule matches that of your viewers. Or whether your SEO is good. When you’re just starting out, your main issue is making videos that are entertaining and unique.
+When you’re just starting out, your main issue *isn’t* whether you have enough content for people to watch. Or whether your schedule matches that of your viewers. Or whether your SEO is good. When you’re just starting out, your main issue is [making videos that are entertaining and unique](/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/).
 
 And yes, unless you’re completely learning resistant, regular uploads will improve your video quality and entertainment value over time. But there is a huge difference in how fast you can learn if you are focused on just improving your quality, vs if you’re mindlessly grinding out videos just to meet some self-imposed quota.
 
@@ -36,7 +36,7 @@ In the development phase, you can still switch things up, but the overall idea a
 
 In the established state, you’ll probably have worked out a formula that “just works”, and where you can get quite far while being on auto-pilot. But even here, if you don’t pay attention to the rest of the world, you’ll find yourself stagnating eventually – same example as above, let’s plays used to be super popular, and now sit at 5-ish % of their peak search volume.
 
-The main thing that changes between the EDE model and The Grind is that you don’t start out trying to make it with the first thing that comes to your head when hearing “I’m gonna be a YouTuber”, but have tried different things and techniques before settling down on the kind of content that you’ll. This gives you an advantage over anyone just grinding the same thing over and over again, in that you a) can make more thoughtful videos, and b) already have a better handle on understanding what your content even is.
+The main thing that changes between [the EDE model](/youtube-tips-en/the-eee-model-how-to-break-out-of-the-small-youtuber-niche/) and The Grind is that you don’t start out trying to make it with the first thing that comes to your head when hearing “I’m gonna be a YouTuber”, but have tried different things and techniques before settling down on the kind of content that you’ll. This gives you an advantage over anyone just grinding the same thing over and over again, in that you a) can make more thoughtful videos, and b) already have a better handle on understanding what your content even is.
 
 The Development stage itself is fairly similar to The Grind, with one major exception. The mindset. Grinding per definition is very repetitious, and all you’re doing is anxiously waiting for the game (or YouTube) to drop the rare loot (or subscriber/view/discoverability boost). Even if you enjoy grinding, you’re putting the responsibility of possible success into The Algorithm’s hands. This is fine if you only want to have fun on YouTube and don’t really care about your numbers, but if you do care about growth, thinking of yourself as being in a helpless position really hinders you.
 

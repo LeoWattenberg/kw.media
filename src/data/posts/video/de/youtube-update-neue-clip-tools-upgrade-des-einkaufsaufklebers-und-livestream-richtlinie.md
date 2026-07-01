@@ -23,7 +23,7 @@ video:
 
 YouTube Shopping-Sticker in Shorts werden aufgewertet. Anstatt ein Palette unter dem Short zu öffnen, werden Zuschauer nun direkt auf die Website des Verkäufers weitergeleitet, um das markierte Produkt zu kaufen. Klicken sie auf den Sticker und sind mehrere Produkte markiert, erscheint neben dem Sticker ein Pfeil, um die Liste der markierten Produkte zu öffnen. Der Sticker wird aus dem ersten Produkt der Liste generiert, aber man kann die Reihenfolge ändern, um das gewünschte Produkt als Sticker auszuwählen.
 
-Bitte beachten Sie, dass das YouTube Shopping Affiliate-Programm nur verfügbar ist, wenn Sie über 10.000 Abonnenten haben und sich in einem der folgenden Länder befinden.
+Bitte beachten Sie, dass das [YouTube Shopping Affiliate-Programm](/youtube-tipps-de/erweiterte-shopping-optionen-auf-youtube-was-gibts-neues-fur-creator/) nur verfügbar ist, wenn Sie über 10.000 Abonnenten haben und sich in einem der folgenden Länder befinden.
 
 Multisprachige Audios erhalten ein Thumbnail-Experiment. Wenn Sie bereits Zugang zu Autodubbs "großem Bruder" MLA haben, bei dem Sie statt der automatischen Übersetzungen von YouTube eigene Audiospuren hochladen können, könnten Sie für ein weiteres Experiment in Frage kommen. Sie können unterschiedliche Thumbnails für die verschiedenen Sprachen hochladen, was ziemlich cool ist.
 
@@ -41,4 +41,4 @@ Das ist schön, aber auch etwas seltsam, wie der Upload-Ablauf dafür funktionie
 
 Zuletzt haben wir vorhin kurz über Live-Streaming gesprochen. YouTube erhöht das Mindestalter für Live-Streams von 13 auf 16 Jahre. Wie zuvor müssen Minderjährige – laut YouTube Personen unter 18 Jahren – in ihrem Stream von einem Erziehungsberechtigten oder Elternteil begleitet werden, ansonsten könnten sie gegen die Richtlinien zum Kinderschutz verstoßen und Live-Streaming sowie Live-Chat werden deaktiviert.
 
-Für Volljährige ab 18 Jahren ändert sich nichts. Diese Änderung wird in den kommenden Wochen umgesetzt und die Durchsetzung erfolgt einige Wochen danach. Wenn Sie Fragen zu einem der Themen haben, lassen Sie es mich bitte in den Kommentaren wissen. Bis nächste Woche zu weiteren YouTube-Updates! Auf Wiedersehen.
+Für Volljährige ab 18 Jahren ändert sich nichts. Diese Änderung wird in den kommenden Wochen umgesetzt und die Durchsetzung erfolgt einige Wochen danach. Wenn Sie Fragen zu einem der Themen haben, lassen Sie es mich bitte in den Kommentaren wissen. Bis nächste Woche zu weiteren [YouTube-Updates](/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/)! Auf Wiedersehen.

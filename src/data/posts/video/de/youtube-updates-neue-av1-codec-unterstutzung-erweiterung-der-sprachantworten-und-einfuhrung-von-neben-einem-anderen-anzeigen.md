@@ -27,7 +27,7 @@ Diese Woche beginnen wir mit dem AV1-Codec, der nun für ausgewählte Live-Strea
 
 Sie können AV1-Daten senden, aber es ist unsicher, wann die Zuschauer sie erhalten. Um den für Ihren Stream verwendeten Codec zu überprüfen, besuchen Sie die Watch-Seite, klicken Sie mit der rechten Maustaste und wählen Sie "Nerd-Statistiken". Die Codec-Informationen werden dort angezeigt. Beachten Sie den Unterschied zwischen AV1 und AV01 – sie sind nicht dasselbe.
 
-Bleiben wir bei Live-Streams: Die Ausrollung von Neben-an-Neben-Anzeigen ist nun zu 100% abgeschlossen. Wir haben auch neue Details zu dieser Funktion. Ihr Stream muss auf normale Latenz eingestellt sein (die meisten verwenden eine kürzere Latenz) und Untertitel müssen deaktiviert sein (keine automatischen oder manuellen Untertitel). Der Werbeautomator sollte so konfiguriert sein, dass YouTube die Platzierung der Anzeigen übernimmt.
+Bleiben wir bei Live-Streams: Die Ausrollung von [Neben-an-Neben-Anzeigen](/youtube-tipps-de/youtube-updates-anderungen-bei-der-regel-zu-schimpfwortern-neben-an-neben-anzeigen-und-live-stream-community-bestenliste/) ist nun zu 100% abgeschlossen. Wir haben auch neue Details zu dieser Funktion. Ihr Stream muss auf normale Latenz eingestellt sein (die meisten verwenden eine kürzere Latenz) und Untertitel müssen deaktiviert sein (keine automatischen oder manuellen Untertitel). Der Werbeautomator sollte so konfiguriert sein, dass YouTube die Platzierung der Anzeigen übernimmt.
 
 Mit diesen Einstellungen wird Ihr Stream für Neben-an-Neben-Anzeigen geeignet, sodass Zuschauer weiter schauen können, während eine Anzeige neben dem Video läuft. Wenn Sie dies ausprobieren möchten, passen Sie Ihre Einstellungen entsprechend an. Weitere Informationen zu Neben-an-Neben-Anzeigen finden Sie in der Beschreibung unten.
 
@@ -41,4 +41,4 @@ Wenn Sie einen Short anhalten, sehen Sie oben ovale Chips, darunter einen neuen 
 
 Obwohl dies vielleicht keine stark nachgefragte Funktion ist, ist sie eine nette Ergänzung. Es gibt jedoch dringendere Probleme auf der Plattform, die zuerst angegangen werden sollten. Teilen Sie gerne Ihre Gedanken in den Kommentaren!
 
-Das war's für diese Woche an YouTube-Updates. Bis zum nächsten Mal und vielleicht schaffen wir es auch zu einem Live-Stream. Passt gut auf euch auf!
+Das war's für diese Woche an [YouTube-Updates](/youtube-tipps-de/youtube-updates-voice-replies-shorts-promotions-und-anderungen-bei-mid-roll-ads/). Bis zum nächsten Mal und vielleicht schaffen wir es auch zu einem Live-Stream. Passt gut auf euch auf!

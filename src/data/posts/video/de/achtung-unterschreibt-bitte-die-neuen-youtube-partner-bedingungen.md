@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Für alle Creator die bereits Teil des YouTube partnerschaftsprogramms sind und keine Musik Creator sind ihr bekommt einen veränderten Basisvertrag welchen ihr bis zum 10 Juli 2023 unterschreiben müsst um weiterhin im YouTube
+Für alle Creator die bereits Teil des [YouTube partnerschaftsprogramms](/youtube-tipps-de/neues-einspruchsrecht-im-youtube-partnerprogramm-und-kanalseiten-uberarbeitungen/) sind und keine Musik Creator sind ihr bekommt einen veränderten Basisvertrag welchen ihr bis zum 10 Juli 2023 unterschreiben müsst um weiterhin im YouTube

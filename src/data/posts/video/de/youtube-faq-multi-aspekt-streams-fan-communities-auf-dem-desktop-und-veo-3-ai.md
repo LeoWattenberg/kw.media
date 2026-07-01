@@ -29,7 +29,7 @@ Bevor wir beginnen, stellt sicher, dass ihr abonniert seid, damit ihr künftige 
 
 Die Antwort lautet sowohl ja als auch nein. Ihr könnt *nach* Ende eines Live-Streams kollaborieren und eure Beiträge zum Archiv hinzufügen. Allerdings können mehrere Creator nicht gleichzeitig einen aktiven Live-Stream kollaborativ gestalten – zumindest noch nicht. Ich vermute, das liegt an technischen Einschränkungen. Einen Kollaborateur zu einem VoD (Video on Demand) hinzuzufügen, ist eine einfache Metadatenänderung, während dies während eines Live-Streams komplexere Infrastruktur erfordern würde. Auch wenn YouTube möglicherweise daran arbeitet, erwartet diese Funktion nicht in naher Zukunft.
 
-**Wenn ihr ein Short mit der V3 Text-to-Video-Funktion oder anderen KI-Tools erstellt, müsst ihr es dann als KI-generierten Inhalt kennzeichnen?**
+**Wenn ihr ein Short mit der [V3 Text-to-Video-Funktion](/youtube-tipps-de/die-neue-schutzbestimmung-von-youtube-ist-da-veo-3-update/) oder anderen KI-Tools erstellt, müsst ihr es dann als KI-generierten Inhalt kennzeichnen?**
 
 Kurze Antwort: Ja. Jeder mit V3 erstellte Inhalt erhält automatisch das Standard-KI-Kennzeichnungsetikett von YouTube, entsprechend ihrer bestehenden Richtlinie. Keine Überraschungen hier.
 
@@ -47,7 +47,7 @@ Ich habe bei meinen Quellen nachgefragt, und die Antwort lautet nein. YouTube in
 
 **Jetzt eine Beschwerde, die immer wieder auftaucht:**
 
-* **Warum sind Fan Communities am Desktop so umständlich und praktisch unbrauchbar?**
+* **Warum sind [Fan Communities am Desktop](/youtube-tipps-de/youtube-fan-communities-alles-was-du-wissen-musst/) so umständlich und praktisch unbrauchbar?**
 
 Ihr habt Recht; die Desktop-Erfahrung war bisher schrecklich. Aber es gibt gute Nachrichten! YouTube hat mit einem 1%-Rollout eines großen Updates begonnen, das die volle Funktionalität von Fan Communities am Desktop ermöglicht. Zum ersten Mal können Zuschauer Inhalte ansehen und posten – direkt von ihren Computern aus. Creator können nun ebenfalls direkt von der Community-Seite auf ihrem Desktop-Kanal posten, antworten und moderieren, wobei standardmäßige Moderationswerkzeuge verfügbar sind (das Anpinnen und "Herzen" von Beiträgen fehlt vorerst).
 

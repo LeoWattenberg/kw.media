@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Falls ihr ein Video mit Kapiteln anschaut, könnt ihr am PC unter dem Video auf das aktuelle Kapitel klicken. Dadurch öffnet sich rechts eine Auflistung aller Kapitel, mit der ihr schnell zu anderen Kapiteln springen könnt. Noch einfacher geht das in der YouTube-App: Dort könnt ihr doppelt mit zwei Fingern auf die linke oder rechte Seite des Videos tippen. Dadurch springt ihr entweder ein Kapitel vor oder zurück.
+Falls ihr ein Video mit Kapiteln anschaut, könnt ihr am PC unter dem Video auf das aktuelle Kapitel klicken. Dadurch öffnet sich rechts eine Auflistung aller Kapitel, mit der ihr schnell zu anderen Kapiteln springen könnt. [Noch einfacher](/youtube-tipps-de/livestreams-sind-auf-youtube-jetzt-noch-einfacher-zu-finden-shorts/) geht das in der YouTube-App: Dort könnt ihr doppelt mit zwei Fingern auf die linke oder rechte Seite des Videos tippen. Dadurch springt ihr entweder ein Kapitel vor oder zurück.

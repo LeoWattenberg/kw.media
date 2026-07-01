@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-Is a face cam actually necessary for channel growth? The short answer is no. Large channels thrive completely faceless, but read the details of this post. If your humor relies on physical comedy like doing stupid dances, hiding behind a microphone is nerfing your biggest asset. Don't force a face cam just because other streamers do it, but if your personality is already highly visual, you need to show it to build an audience connection, and ignoring your own strength is the only wrong answer when people ask
+Is a face cam actually necessary for [channel growth](/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/)? The short answer is no. Large channels thrive completely faceless, but read the details of this post. If your humor relies on physical comedy like doing stupid dances, hiding behind a microphone is nerfing your biggest asset. Don't force a face cam just because other streamers do it, but if your personality is already highly visual, you need to show it to build an audience connection, and ignoring your own strength is the only wrong answer when people ask

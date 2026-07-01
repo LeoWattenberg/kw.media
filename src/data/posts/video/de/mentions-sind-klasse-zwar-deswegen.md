@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Falls ihr einen anderen YouTuber im Rahmen einer Kollaboration im Videotitel oder in der Beschreibung verlinken wollt, könnt ihr die YouTube-@-Mention-Tags benutzen. Dafür gebt ihr einfach ein @ gefolgt vom Namen des YouTube-Kanals ein, den ihr verlinken wollt. Nutzer können durch das Klicken auf die @-Mention direkt zum Zielkanal kommen.
+Falls ihr einen anderen YouTuber im Rahmen einer Kollaboration im Videotitel oder in der Beschreibung verlinken wollt, könnt ihr die [YouTube-@-Mention-Tags](/youtube-tipps-de/was-sind-youtube-handles-aliasse/) benutzen. Dafür gebt ihr einfach ein @ gefolgt vom Namen des YouTube-Kanals ein, den ihr verlinken wollt. Nutzer können durch das Klicken auf die @-Mention direkt zum Zielkanal kommen.

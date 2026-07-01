@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-With the YouTube updates, we're starting this week with Analytics, as there's a new Analytics card in the Audience section. It displays the device types that were previously available in advanced mode but are now presented in a clear card format. This provides a percentage breakdown of the device types your viewers are actively using. This can be helpful to adjust on-screen elements proportionally and understand which device you're primarily producing for—is it more smartphone or TV viewing?
+With the YouTube updates, we're starting this week with Analytics, as there's a new [Analytics card](/youtube-tips-en/youtube-analytics-top-earning-content-by-format-as-a-guide-for-creators/) in the Audience section. It displays the device types that were previously available in advanced mode but are now presented in a clear card format. This provides a percentage breakdown of the device types your viewers are actively using. This can be helpful to adjust on-screen elements proportionally and understand which device you're primarily producing for—is it more smartphone or TV viewing?
 
 Feel free to drop a comment about your content genre, and if you're in gaming, what game you play and how your device type distribution looks. Maybe we can learn from each other and identify an average. I find this super interesting!
 

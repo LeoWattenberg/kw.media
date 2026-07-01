@@ -14,7 +14,7 @@ authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-youtube-live-streaming/"
 ---
 
-Du möchtest mit dem YouTube-Streaming beginnen – super! YouTube funktioniert in seinem Kern wie die meisten Live-Streaming-Plattformen, aber lasst uns gemeinsam die wichtigsten Punkte durchgehen.
+Du möchtest mit dem [YouTube-Streaming](/youtube-tipps-de/wie-man-live-streams-beherrscht/) beginnen – super! YouTube funktioniert in seinem Kern wie die meisten Live-Streaming-Plattformen, aber lasst uns gemeinsam die wichtigsten Punkte durchgehen.
 
 Bevor du mit dem YouTube-Streaming beginnst, musst du tatsächlich einen Stream erstellen.
 
@@ -64,7 +64,7 @@ Wenn du es noch nicht getan hast, lies unseren OBS-Leitfaden zum Einrichten von 
 
 > [Einstieg in OBS: Ein Leitfaden für Anfänger](/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/)
 
-Nun kommen wir zum spannenden Teil: Wenn du Livestreams senden möchtest, musst du entweder dein YouTube-Konto mit OBS verbinden oder deinen Stream-Schlüssel finden. Da du in Zukunft ohnehin fortgeschrittenes Streaming betreiben möchtest, empfehle ich dir, etwas Zeit zu investieren und dich mit Stream-Schlüsseln vertraut zu machen, damit du später nicht wechseln musst. Du kannst deinen Stream-Schlüssel [im Live-Dashboard](https://studio.youtube.com/channel/UC/livestreaming/dashboard) auf der linken Seite finden und musst ihn in das **OBS-Einstellungsfeld „Stream“ → „Stream-Schlüssel** einfügen.
+Nun kommen wir zum spannenden Teil: Wenn du Livestreams senden möchtest, musst du entweder dein [YouTube-Konto mit OBS verbinden](/youtube-tipps-de/obs-mit-twitch-und-youtube-verbinden/) oder deinen Stream-Schlüssel finden. Da du in Zukunft ohnehin fortgeschrittenes Streaming betreiben möchtest, empfehle ich dir, etwas Zeit zu investieren und dich mit Stream-Schlüsseln vertraut zu machen, damit du später nicht wechseln musst. Du kannst deinen Stream-Schlüssel [im Live-Dashboard](https://studio.youtube.com/channel/UC/livestreaming/dashboard) auf der linken Seite finden und musst ihn in das **OBS-Einstellungsfeld „Stream“ → „Stream-Schlüssel** einfügen.
 
 Wir empfehlen die Verwendung des RTMP/RTMPS-Streaming-Protokolls – dies sollte die Einstellung für Ihren zufällig generierten Standard-Streamkey sein. Stellen Sie sicher, dass Sie in OBS den YouTube RTMP-Dienst auswählen, „Stream Key verwenden (erweitert)“ aktivieren und den korrekten Streamkey einfügen, damit Ihr Stream von YouTube empfangen werden kann.
 

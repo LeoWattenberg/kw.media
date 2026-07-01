@@ -33,7 +33,7 @@ Wir haben auch einige Lizenzprobleme bezüglich YouTube Shorts und Creator-Musik
 
 - **Warner Music Group (WMG):** Lizenzen für WMG-Songs, die über YouTube's Creator Music erworben wurden, werden widerrufen und in Urheberrechtsansprüche umgewandelt, wobei alle Einnahmen an WMG gehen. Wenn ihr YouTube Music oder Creator Music verwendet habt, überprüft eure E-Mails und stellt sicher, dass ihr Lizenzen von anderswo habt. Habt immer eure Unterlagen in Ordnung, um rechtliche Probleme zu vermeiden.
 
-Als Letztes werden einige neue Funktionen im Inspiration-Tab (früher Research) außerhalb der EU ausgerollt:
+Als Letztes werden einige neue Funktionen im [Inspiration-Tab](/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/) (früher Research) außerhalb der EU ausgerollt:
 
 - **Brainstorming:** Daten und Kommentare aus euren vorherigen Videos werden verwendet, um Ideen zu generieren, die ihr dann mit KI-unterstützten Haken und Brainstorming-Tools verfeinern könnt. Dies sollte die Video-Retention und das Engagement verbessern.
 
@@ -43,6 +43,6 @@ Obwohl sie nicht bahnbrechend sind, könnten diese Tools nützlich sein, um von 
 
 **Abschließende Bemerkungen:**
 
-Dieser Kanal hat nun automatische Untertitel aktiviert, daher können deutsche Zuschauer eine weniger als perfekte Übersetzung bemerken. Wir arbeiten daran, eine hochwertige deutsche Audiospur hochzuladen, um unsere üblichen Standards aufrechtzuerhalten. Während wir uns in Richtung englischsprachiger Inhalte bewegen, um ein breiteres Publikum zu erreichen, danke fürs Einschalten! Abonniert für weitere YouTube-Updates, bis nächste Woche!
+Dieser Kanal hat nun automatische Untertitel aktiviert, daher können deutsche Zuschauer eine weniger als perfekte Übersetzung bemerken. Wir arbeiten daran, eine hochwertige deutsche Audiospur hochzuladen, um unsere üblichen Standards aufrechtzuerhalten. Während wir uns in Richtung englischsprachiger Inhalte bewegen, um ein breiteres Publikum zu erreichen, danke fürs Einschalten! Abonniert für weitere [YouTube-Updates](/youtube-tipps-de/youtube-updates-neue-untertitel-fur-shorts-und-erweiterung-der-hype-funktion/), bis nächste Woche!
 
 *Tschüss!*

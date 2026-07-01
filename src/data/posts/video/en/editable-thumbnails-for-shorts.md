@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-Up until recently you were only able to select thumbnails for shorts while uploading now you can also edit short thumbnails in your main YouTube app by navigating to your shorts click edit and select the pen icon scrub through the short to find a frame that you want to use then add text in the size font and color that is fitting make sure to save your changes subscribe for more YouTube updates
+Up until recently you were only able to select thumbnails for shorts while uploading now you can also [edit short thumbnails](/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/) in your main YouTube app by navigating to your shorts click edit and select the pen icon scrub through the short to find a frame that you want to use then add text in the size font and color that is fitting make sure to save your changes subscribe for more YouTube updates

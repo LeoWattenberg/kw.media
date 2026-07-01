@@ -21,6 +21,6 @@ video:
 
 ## Transkript
 
-Sind YouTube-Zusammenarbeiten tatsächlich sinnvoll? Oder sind andere Creator einfach nur meine Konkurrenten? Andere Creator in deinem Genre als Konkurrenz zu betrachten, ist der schnellste Weg, um deinen Kanal zu ruinieren. YouTube ist kein Nullsummenspiel. Zuschauer können sich problemlos bei beiden abonnieren. Zusammenarbeiten sind buchstäblich das mächtigste Wachstumshack auf der Plattform, aber nur, wenn man sich auf professioneller Ebene ergänzt. Es geht nicht darum, zusammen Spiele zu spielen. Es geht darum, zwei etablierte Zielgruppen mit einem gemeinsamen Konzept zu vermischen. Sieh dein Genre als Netzwerk, nicht als Schlachtfeld an.
+Sind [YouTube-Zusammenarbeiten](/youtube-tipps-de/wie-man-die-neue-kollaborationsfunktion-von-youtube-nutzt-in-30-sek/) tatsächlich sinnvoll? Oder sind andere Creator einfach nur meine Konkurrenten? Andere Creator in deinem Genre als Konkurrenz zu betrachten, ist der schnellste Weg, um deinen Kanal zu ruinieren. YouTube ist kein Nullsummenspiel. Zuschauer können sich problemlos bei beiden abonnieren. Zusammenarbeiten sind buchstäblich das mächtigste Wachstumshack auf der Plattform, aber nur, wenn man sich auf professioneller Ebene ergänzt. Es geht nicht darum, zusammen Spiele zu spielen. Es geht darum, zwei etablierte Zielgruppen mit einem gemeinsamen Konzept zu vermischen. Sieh dein Genre als Netzwerk, nicht als Schlachtfeld an.
 
 Denn in dem Moment, in dem du dich isolierst, musst du dir ernsthaft fragen,

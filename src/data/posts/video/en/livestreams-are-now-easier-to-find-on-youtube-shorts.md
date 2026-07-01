@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-Since the last YouTube Mobile update, there's an indicator whenever a Creator is live. If you see a red circle with the word "Live" around a profile picture, there's a live stream currently running on the associated YouTube channel. Clicking on the Creator's profile picture will take you directly to the stream. This works anytime you see this symbol: in suggested videos, your home feed, or YouTube search.
+Since the last YouTube Mobile update, there's an indicator whenever a Creator is live. If you see a red circle with the word "Live" around a profile picture, there's a [live stream](/youtube-tips-en/getting-started-with-youtube-live-streaming/) currently running on the associated YouTube channel. Clicking on the Creator's profile picture will take you directly to the stream. This works anytime you see this symbol: in suggested videos, your home feed, or YouTube search.

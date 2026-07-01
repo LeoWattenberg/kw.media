@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-We need to talk about the YouTube AI monetization policy update, which isn't really an update since 2019. The policy has remained unchanged and active. So, the only thing changing is the detection algorithms, which will be able to identify more mass-produced content and AI-generated "slop" after July 15th. 
+We need to talk about the [YouTube AI monetization policy update](/youtube-tips-en/reused-content-monetization-disabled-what-now/), which isn't really an update since 2019. The policy has remained unchanged and active. So, the only thing changing is the detection algorithms, which will be able to identify more mass-produced content and AI-generated "slop" after July 15th. 
 
 To recap: yes, you can still use AI and monetize as long as it's not low-quality, mass-produced content like Reddit stories, fake news, or other similar types of Shorts. You can upload these kinds of videos, but you won't be able to participate in the YouTube Partner Program. If you use AI creatively, monetization is still possible.
 

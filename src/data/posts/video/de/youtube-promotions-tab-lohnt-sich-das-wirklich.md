@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-In diesem Video geht es um den YouTube Promotions-Tab und die Frage, ob sich diese Funktion wirklich lohnt. Mit Promotions könnt ihr Videos direkt über YouTube bewerben. YouTube erstellt daraus im Hintergrund eine Kampagne, die Zuschauerinnen und Zuschauer auf euer Video bringen soll.
+In diesem Video geht es um den YouTube Promotions-Tab und die Frage, ob sich [diese Funktion](/youtube-tipps-de/wie-funktioniert-der-youtube-hype-wirklich-wir-haben-die-daten/) wirklich lohnt. Mit Promotions könnt ihr Videos direkt über YouTube bewerben. YouTube erstellt daraus im Hintergrund eine Kampagne, die Zuschauerinnen und Zuschauer auf euer Video bringen soll.
 
 Wichtig ist: Promotion ersetzt keinen guten Inhalt. Wenn Thumbnail, Titel oder Video nicht funktionieren, löst bezahlte Reichweite das Problem nicht automatisch. Sie kann zwar zusätzliche Aufrufe bringen, aber die Zuschauer müssen danach trotzdem zum Video und zum Kanal passen.
 

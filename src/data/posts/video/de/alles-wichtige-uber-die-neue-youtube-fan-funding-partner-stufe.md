@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-YouTube führt eine neue Stufe im Partnerprogramm ein, mit der Creator früher Zugriff auf Fan-Funding-Funktionen bekommen können. Dazu gehören zum Beispiel Kanalmitgliedschaften, Super Chat, Super Sticker oder Super Thanks, je nachdem welche Funktionen im jeweiligen Markt verfügbar sind.
+YouTube führt eine neue Stufe im Partnerprogramm ein, mit der Creator früher Zugriff auf Fan-Funding-Funktionen bekommen können. Dazu gehören zum Beispiel Kanalmitgliedschaften, Super Chat, Super Sticker oder [Super Thanks](/youtube-tipps-de/jetzt-neu-superthanks/), je nachdem welche Funktionen im jeweiligen Markt verfügbar sind.
 
 Der wichtige Punkt ist: Diese Stufe ist nicht dasselbe wie die vollständige Monetarisierung über Werbung. Sie soll Creatorn früher ermöglichen, direkt von ihrer Community unterstützt zu werden. Für Werbeeinnahmen gelten weiterhin zusätzliche Anforderungen.
 

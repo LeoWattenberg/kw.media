@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-YouTube is taking offline the Clips feature, breaking a native marketing tool for streamers for now. We'll explore why this forced shutdown could be a win for your channel and when to expect the replacement. Additionally, we'll delve into the real cost of the new ad-free windows for live streams. This and more in this week's Creator News.
+YouTube is taking offline the [Clips feature](/youtube-tips-en/youtube-introduces-exciting-innovations-clips-feed-update-and-more/), breaking a native marketing tool for streamers for now. We'll explore why this forced shutdown could be a win for your channel and when to expect the replacement. Additionally, we'll delve into the real cost of the new ad-free windows for live streams. This and more in [this week](/youtube-tips-en/youtube-kills-the-subscribe-watermark-new-gift-goals-and-more/)'s Creator News.
 
 Following last week's blog post about the future of streaming, YouTube has shaken up the streaming community. According to a recent thread on the support forums, YouTube is discontinuing the current Clips feature.
 

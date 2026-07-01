@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-YouTube ABC:. To plan a live stream, press the schedule stream button. In the first step, you define the details like title and description. If your channel is multilingual, make sure you set the correct language. Finally, you set the visibility and start of the stream. We organize a live stream monthly, so subscribe to our channel so you don't miss the next live stream in August.
+YouTube ABC:. To [plan a live stream](/youtube-tips-en/getting-started-with-youtube-live-streaming/), press the schedule stream button. In the first step, you define the details like title and description. If your channel is multilingual, make sure you set the correct language. Finally, you set the visibility and start of the stream. We organize a live stream monthly, so subscribe to our channel so you don't miss the next live stream in August.

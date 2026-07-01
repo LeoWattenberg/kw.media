@@ -45,7 +45,7 @@ Wir schlugen vor, Channel-Mitgliedschaften in Live-Ziele einzubeziehen, und ford
 
 Ich sammle euer Feedback und wir senden es direkt an das Engineering-Team als Folgecharge.
 
-Weiter geht es mit einer bedeutenden Workflow-Aktualisierung von YouTube. Wenn ihr KW Media schon länger folgt, erinnert ihr euch vielleicht an unser Video aus November 2025, in dem wir über ein kleines Experiment sprachen, das nur 5 % der Creator betraf: Bildbeiträge im Shorts-Feed. Wie vorhergesagt, geht es nun global. Ab dem 14. April führt YouTube offiziell Bildkarussells direkt in den Shorts-Feed ein.
+Weiter geht es mit einer bedeutenden Workflow-Aktualisierung von YouTube. Wenn ihr KW Media schon länger folgt, erinnert ihr euch vielleicht an unser Video aus November 2025, in dem wir über ein kleines Experiment sprachen, das nur 5 % der Creator betraf: Bildbeiträge im [Shorts-Feed](/youtube-tipps-de/warum-youtube-dir-im-shorts-feed-qr-codes-anzeigt-creator-news/). Wie vorhergesagt, geht es nun global. Ab dem 14. April führt YouTube offiziell Bildkarussells direkt in den Shorts-Feed ein.
 
 Seit dem Test im November gab es Updates. Sie können nun bis zu 10 Bilder in einem Karussell verwenden. Sie können jedoch auch Textüberlagerungen und lizenzfreie Musik aus der Audiobibliothek oder Dream Track (falls in Ihrem Land verfügbar) hinzufügen. Dies könnte eine unglaublich aufwandsarme, aber ertragreiche Engagement-Strategie sein. Denkt darüber nach: Ihr müsst keine Videos mehr filmen und farblich bearbeiten, um den Shorts-Algorithmus zu treffen.
 

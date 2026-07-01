@@ -7,8 +7,8 @@ excerpt: "A talent-first look at VTubing, agency models and why creator-owned co
 date: "2025-07-25T20:54:40"
 modified: "2025-07-25T20:54:41"
 locale: "en"
-category: "blog"
 translationKey: "post:2389"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/blog/the-creator-co-op-why-the-future-of-vtubing-should-belong-to-the-talent/"
@@ -131,6 +131,6 @@ That alone is worth building.
 
 Building another agency like VShojo doesn’t work. VShojo was meant to be the alternative to Hololive. But it ended up just the same, if not worse (at least Hololive still exists).
 
-Going Indie forever can make sense for some creators, but there is a reason companies are the “big players” in every single industry. Staying Indie will keep you on a backfoot in many regards compared to corporate folks.
+Going Indie forever can make sense for some creators, [but there](/youtube-tips-en/7-ways-creators-make-money-beyond-youtube-ads/) is a reason companies are the “big players” in every single industry. Staying Indie will keep you on a backfoot in many regards compared to corporate folks.
 
 Also, Co-Ops are cool. Let’s make one!

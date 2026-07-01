@@ -27,11 +27,11 @@ This week, we begin with the AV1 codec, now available for select live streams. W
 
 You can send AV1 data, but it's uncertain when viewers will receive it. To check the codec used for your stream, visit the watch page, right-click, and select "Stats for Nerds." The codec information will be displayed there. Note the distinction between AV1 and AV01—they are not the same.
 
-Staying with live streams, the side-by-side ads rollout is now at 100%. We also have new details about this feature. Your stream must be set to normal latency (most use shorter latency) and captions must be disabled (no auto or manual captions). The ad automator should be configured to let YouTube decide ad placement.
+Staying with live streams, the [side-by-side ads](/youtube-tips-en/youtube-updates-profanity-rule-changes-side-by-side-ads-and-livestream-community-leaderboard/) rollout is now at 100%. We also have new details about this feature. Your stream must be set to normal latency (most use shorter latency) and captions must be disabled (no auto or manual captions). The ad automator should be configured to let YouTube decide ad placement.
 
 With these settings, your stream becomes eligible for side-by-side ads, allowing viewers to continue watching while an ad plays alongside. If you wish to try this, adjust your settings accordingly. For more on side-by-side ads, see the description below.
 
-Next up: voice replies. They are now expanding to Android creators after a 6-month beta on iOS. However, they can only be recorded and posted via the main YouTube app—not ideal for most users, especially creators replying to fans. It's odd that they aren't available in YouTube Studio (mobile or desktop), given similar functionality in apps like Discord and WhatsApp.
+Next up: [voice replies](/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/). They are now expanding to Android creators after a 6-month beta on iOS. However, they can only be recorded and posted via the main YouTube app—not ideal for most users, especially creators replying to fans. It's odd that they aren't available in YouTube Studio (mobile or desktop), given similar functionality in apps like Discord and WhatsApp.
 
 I'm not a big fan of voice replies, but restricting them to 30 seconds is a good idea. If you love voice replies and have access on Android, share your thoughts below! Do you use them daily, or do you skip them due to the main app requirement?
 

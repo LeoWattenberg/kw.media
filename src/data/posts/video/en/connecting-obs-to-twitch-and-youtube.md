@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-YouTube and Twitch both offer the option to directly connect your account with OBS. To connect your accounts with OBS, go to the "Stream" settings in OBS, select your preferred platform, and click on "Connect Account". A browser tab will then open where you can log in. This allows you to plan and adjust your stream directly from your OBS without needing a stream key. For advanced users, I still recommend using the YouTube Live Control Room in combination with a stream tailored to your specific needs.
+YouTube and Twitch both offer the option to directly connect your account with OBS. To connect your accounts with OBS, go to the "Stream" settings in OBS, select your preferred platform, and click on "Connect Account". A browser tab will then open where you can log in. This allows you to plan and adjust your stream directly from your OBS without needing a stream key. For advanced users, I still recommend using the [YouTube Live](/youtube-tips-en/integrating-youtube-chat-into-obs/) Control Room in combination with a stream tailored to your specific needs.

@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-In a recent creator news episode, we briefly talked about YouTube Hype. Right away, there was a request from Game Masters asking us to explain it in detail, so that is what we are doing here. Hype is a YouTube feature designed to help emerging creators get more visibility. It works like a community voting system where viewers can support a recent video for free.
+In a recent creator news episode, we briefly talked about [YouTube Hype](/youtube-tips-en/youtube-expands-free-hype-to-the-eu-10-year-member-badges/). Right away, there was a request from Game Masters asking us to explain it in detail, so that is what we are doing here. Hype is a YouTube feature designed to help emerging creators get more visibility. It works like a community voting system where viewers can support a recent video for free.
 
 YouTube wants to give channels in their growth phase an extra push. Videos that receive a lot of hype can appear on country-specific leaderboards and become more discoverable. The hype button appears on long-form videos uploaded within the last seven days by creators in the Partner Programme with roughly 500 to 500,000 subscribers. Viewers need to use a personal account; brand accounts do not work.
 

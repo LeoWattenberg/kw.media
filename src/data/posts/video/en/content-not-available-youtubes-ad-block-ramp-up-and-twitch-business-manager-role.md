@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-YouTube is intensifying its fight against ad blockers, and Twitch is helping professional creators separate business from talent. Welcome to the Creator News, with everything you need to know this week as a creator. Let's start with an aggressive move by YouTube. From January 27th onwards, ad blocker enforcement will be significantly tightened. Users of popular blockers will likely see an error message stating that the content is unavailable. The video player simply won't work.
+YouTube is intensifying its fight against ad blockers, and Twitch is helping professional creators separate business from talent. Welcome to the Creator News, with everything you need to know this week as a creator. Let's start with an aggressive move by YouTube. From January 27th onwards, [ad blocker enforcement](/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/) will be significantly tightened. Users of popular blockers will likely see an error message stating that the content is unavailable. The video player simply won't work.
 
 So, expect a decrease in desktop views in your analytics but possibly a slight increase in RPM as unmonetized impressions are filtered out. To confirm this, we analyzed the data of a channel from our portfolio during the launch week. Look at the desktop performance from January 27th to 28th. Desktop views dropped by almost 9%, likely due to blocker users, while revenue increased by 10%. This resulted in a 21% overnight increase in RPM for desktop users to €582, even surpassing the mobile RPM value.
 

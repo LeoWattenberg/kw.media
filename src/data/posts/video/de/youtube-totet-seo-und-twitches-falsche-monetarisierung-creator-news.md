@@ -27,7 +27,7 @@ Seit Jahren ist YouTube die zweitgrößte Suchmaschine der Welt, und im Moment w
 
 Die KI extrahiert einfach deine harte Arbeit und serviert sie kostenlos in der Suche. Aber hier kommt der Haken: Die KI verlinkt direkt zu einem Zeitstempel innerhalb des Videos als Primärquelle. Wenn du die Restansichten bekommen möchtest – also diejenigen, die nicht durch das Lesen eines kleinen Auszugs zufriedengestellt sind –, musst du deine Metadaten aktualisieren und deine Kapitel wirklich präzise gestalten.
 
-Du musst den Wert in den ersten Sekunden jedes Kapitels vorladen, denn das ist es, was Gemini oder die YouTube-KI im Wesentlichen liest. Du musst die KI dazu zwingen, dich als Quelle zu zitieren. Und wenn dein informativer Inhalt das nicht tut, wird er unsichtbar werden.
+Du musst den Wert in den ersten Sekunden jedes Kapitels vorladen, denn das ist es, was Gemini oder die [YouTube-KI](/youtube-tipps-de/youtubes-neue-ask-studio-ki-lugt-dich-an-twitch-drama/) im Wesentlichen liest. Du musst die KI dazu zwingen, dich als Quelle zu zitieren. Und wenn dein informativer Inhalt das nicht tut, wird er unsichtbar werden.
 
 Wenn wir schon von KI sprechen, die tun und lassen kann, was sie will: YouTube rollt derzeit Gemini Omni als seine erste Funktion für die Inhaltsneuverwendung ein. Und nun ja, die PR sagt, es geht darum, Kreativität zu fördern, ich nenne es jedoch einen Albtraum.
 

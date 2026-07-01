@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Super Thanks sind jetzt für alle Creator im YouTube-Partnerprogramm verfügbar. Falls ihr einen Super Thanks senden wollt, klickt ihr unter einem Video auf den „Thanks“-Button. Dort könnt ihr zwischen den vordefinierten Beträgen auswählen und einen Kommentar mitschicken. Wie immer gilt bei YouTube-Transaktionseinnahmen: Ihr bekommt als Creator 70 Prozent nach Steuern ausgezahlt.
+[Super Thanks](/youtube-tipps-de/so-aktivierst-du-super-thanks/) sind jetzt für alle Creator im YouTube-Partnerprogramm verfügbar. Falls ihr einen Super Thanks senden wollt, klickt ihr unter einem Video auf den „Thanks“-Button. Dort könnt ihr zwischen den vordefinierten Beträgen auswählen und einen Kommentar mitschicken. Wie immer gilt bei YouTube-Transaktionseinnahmen: Ihr bekommt als Creator 70 Prozent nach Steuern ausgezahlt.

@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Ab dem ersten Februar 2023 ist es möglich für Creator im YouTube Partnerprogramm YouTube Shorts mit dem YouTube short atreat share Modell zu monetarisieren dabei kommen vermutlich alle fünf bis zehn Shorts
+Ab dem ersten Februar 2023 ist es möglich für Creator im [YouTube Partnerprogramm](/youtube-tipps-de/so-kommst-du-mit-youtube-shorts-ins-partner-programm/) YouTube Shorts mit dem YouTube short atreat share Modell zu monetarisieren dabei kommen vermutlich alle fünf bis zehn Shorts

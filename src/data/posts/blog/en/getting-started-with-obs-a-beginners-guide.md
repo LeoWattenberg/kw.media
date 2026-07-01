@@ -7,14 +7,14 @@ excerpt: "Learn the OBS basics for recording and streaming, from scenes and sour
 date: "2022-10-24T16:34:05"
 modified: "2025-01-30T10:48:05"
 locale: "en"
-category: "blog"
 translationKey: "post:2275"
+category: "blog"
 image: "https://lh5.googleusercontent.com/s9rkISe0KpvpU_IC2a_CnpznbTIxp41h7ojyWIroeD0bmY3xwCUpdTnh-uOgGAiGcIojmZmxcA4tsgoIZzOpCwiAw7Zmq7tmhAWxOSArIctQ2-DDZR4xYpiZjIG0vhOfCTzW-SflST-cOLeI2ps7te9j_8B8291CgAltZdglZJfo7XmXFSijFjVu_w"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-obs-a-beginners-guide/"
 ---
 
-*OBS is an amazing tool for creators, if you want to live stream; record your videos or even do both at the same time. This guide will focus on beginner advice, and a later guide will tackle more advanced advice regarding the use of OBS and the YouTube Live Dashboard.*
+*OBS is an amazing tool for creators, if you want to live stream; record your videos or even do both at the same time. This guide will focus on beginner advice, and a later guide will tackle more advanced advice regarding the use of OBS and the [YouTube Live Dashboard](/youtube-tips-en/connecting-obs-to-twitch-and-youtube/).*
 
 <figure><div>
 <div class="nv-iframe-embed"><iframe title="How to use OBS Studio - OBS Studio QUICKSTART Tutorial for Beginners (2025)" width="1200" height="675" src="https://www.youtube.com/embed/UYYrZnRHVHI?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
@@ -76,7 +76,7 @@ Regardless of what you do, there’s two settings which probably are useful for 
 
 ## Scenes and sources
 
-So, now we’ve set up the various things needed to stream and record, except the one that you probably care about: ***What is actually visible on the video or stream?!*** That’s what you need scenes and sources for.
+So, now we’ve set up the various things needed to stream and record, except the one that you probably care about: ***What is actually visible on the video or stream?!*** That’s what you need [scenes and sources](/youtube-tips-en/using-scenes-and-sources-in-obs/) for.
 
 A source is a description of an (image) input. A scene is a collection of sources, already ordered, so you can quickly switch between things.
 

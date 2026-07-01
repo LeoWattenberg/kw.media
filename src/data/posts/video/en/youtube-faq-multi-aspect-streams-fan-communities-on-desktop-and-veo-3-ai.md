@@ -29,7 +29,7 @@ Before we begin, make sure you're subscribed so you don't miss future YouTube up
 
 The answer is both yes and no. You can collaborate *after* a live stream has ended, adding your input to the archive. However, multiple creators cannot collaborate on an active live stream—at least not yet. My guess is this is due to technical limitations. Adding a collaborator to a VOD (video-on-demand) is a simple metadata change, whereas doing so during a live stream would require more complex infrastructure. While YouTube might be working on it, don't expect this feature anytime soon.
 
-**If you create a short using the V3 text-to-video feature or any other AI tools, do you need to disclose it as AI-generated content?**
+**If you create a short using the [V3 text-to-video feature](/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/) or any other AI tools, do you need to disclose it as AI-generated content?**
 
 Short answer: Yes. Any content created with V3 will automatically receive YouTube's standard AI disclosure label, in line with their existing policy. No surprises here.
 
@@ -47,7 +47,7 @@ I've checked with my sources, and the answer is no. YouTube is heavily investing
 
 **Now, a complaint that's been echoing:**
 
-* **Why are Fan Communities so clunky and basically unusable on desktop?**
+* **Why are [Fan Communities](/youtube-tips-en/youtube-fan-communities-everything-you-need-to-know/) so clunky and basically unusable on desktop?**
 
 You're right; the desktop experience has been terrible so far. But there's good news! YouTube has started a 1% rollout of a major update bringing full functionality to Fan Communities on desktop. For the first time, viewers can view and post from their computers. Creators can now post, reply, and moderate directly from the community page on their desktop channel, with standard moderation tools available (pinning and hearting posts are missing for now).
 

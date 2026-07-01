@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-If you have enabled the YouTube Community tab, you can now post polls with image options on your Android smartphone. These replace the respective text lines. Other users can interact with the poll normally on all devices. Additionally, you can link to one of your videos.
+If you have enabled the [YouTube Community tab](/youtube-tips-en/expand-your-reach-stay-in-touch-with-your-community/), you can now post polls with image options on your Android smartphone. These replace the respective text lines. Other users can interact with the poll normally on all devices. Additionally, you can link to one of your videos.

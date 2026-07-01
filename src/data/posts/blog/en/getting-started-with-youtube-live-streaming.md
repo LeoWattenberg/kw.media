@@ -16,7 +16,7 @@ sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-youtube-live-s
 
 You want to get started with YouTube streaming – great! YouTube works as most live streaming platforms in its core, but let’s go over the most important bits together.
 
-Before starting a YouTube streaming you need to actually create a stream.
+Before starting a YouTube streaming you need to actually [create a stream](/youtube-tips-en/how-to-master-live-streams/).
 
 The creation process resembles closely a video upload because after the stream is done, the stream archive is treated just like a video.  **Note:**Before your first stream you have to wait a 24 hour safety period until you can actually start streaming
 
@@ -60,11 +60,11 @@ If you have already streamed before you will see a blue “Reuse Settings” but
 
 ## Connect OBS to YouTube
 
-If you haven’t yet, read our OBS guide on setting up OBS.
+If you haven’t yet, read our [OBS guide on setting up OBS](/youtube-tips-en/getting-started-with-obs-a-beginners-guide/).
 
 > [Getting started with OBS: A beginner’s guide](/youtube-tips-en/getting-started-with-OBS-a-beginners-guide/)
 
-Now let’s get to the exciting part: If you want to livestream, you either need to connect your YouTube Account to OBS or you need to find your stream key. Since you want to go and do advanced streaming anyway in the future I recommend you invest a little bit of time and get familiar with stream keys, then you don’t have to switch in the future.  You can find your stream key [in the Live Dashboard](https://studio.youtube.com/channel/UC/livestreaming/dashboard) on the left side, and you need to paste it into **OBS’ settings → Stream → stream key** field.
+Now let’s get to the exciting part: If you want to livestream, you either need to [connect your YouTube Account to OBS](/youtube-tips-en/connecting-obs-to-twitch-and-youtube/) or you need to find your stream key. Since you want to go and do advanced streaming anyway in the future I recommend you invest a little bit of time and get familiar with stream keys, then you don’t have to switch in the future.  You can find your stream key [in the Live Dashboard](https://studio.youtube.com/channel/UC/livestreaming/dashboard) on the left side, and you need to paste it into **OBS’ settings → Stream → stream key** field.
 
 We recommend to use the RTMP/RTMPS streaming protocol – this should be the setting for your randomly generated default streamkey. Make sure you select the YouTube RTMP Service in OBS, select “Use Stream Key (advanced)” and paste the correct streamkey so your stream can be received by YouTube.
 

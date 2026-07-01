@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-You can access the YouTube Shorts camera in several ways. One is the plus sign in the center of the app, you can also click on the camera in the top right corner of the Shorts feed. Additionally, you can sample audio from other creators and create a Short from it.
+You can access the YouTube Shorts camera in several ways. One is the plus sign in the center of the app, you can also click on the camera in the top right corner of the Shorts feed. Additionally, you can [sample audio from other creators](/youtube-tips-en/what-exactly-is-short-sampling-shorts/) and create a Short from it.

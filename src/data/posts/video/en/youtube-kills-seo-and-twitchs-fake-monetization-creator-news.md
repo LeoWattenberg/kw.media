@@ -23,7 +23,7 @@ video:
 
 YouTube is killing your search traffic, and Gemini Omni wants to turn your face into a deepfake template by default. And Twitch has just found a new way to squeeze small streamers as their new cash cow. I've been doing YouTube and online media for over a decade, and right now, the platforms don't seem to be your friends. Let's cut the crap and dive straight into the Creator News.
 
-For years, YouTube has been the second-largest search engine in the world, and it's increasingly becoming an AI response machine, much like Google Search has in recent years. When a viewer searches for something on YouTube, the new "Ask YouTube" feature synthesizes an answer and gives it to them directly as text. For simple queries, that means no click on your thumbnail, no view, and of course, no revenue.
+For years, YouTube has been the second-largest search engine in the world, and it's increasingly becoming an AI response machine, much like Google Search has in recent years. When a viewer searches for something on YouTube, the new "[Ask YouTube](/youtube-tips-en/youtubes-new-ask-studio-ai-is-lying-to-you-twitch-drama/)" feature synthesizes an answer and gives it to them directly as text. For simple queries, that means no click on your thumbnail, no view, and of course, no revenue.
 
 The AI is simply extracting your hard work and serving it up for free in search. But here's the catch: The AI links directly to a timestamp within the video as the primary source. If you want those residual views—the ones who aren't satisfied with reading a little snippet—you're going to have to update your metadata and really nail your chapters.
 

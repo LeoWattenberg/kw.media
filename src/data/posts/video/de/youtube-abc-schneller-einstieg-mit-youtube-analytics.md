@@ -21,6 +21,6 @@ video:
 
 ## Transkript
 
-Das YouTube-ABC: YouTube Analytics ist ein kostenloses Tool von YouTube, das es einfach macht, den Erfolg deines Kanals zu messen und dir hilft, deine Strategie zu optimieren. Du findest es in der YouTube Studio App oder auf studio.youtube.com, indem du auf die Registerkarte "Analytics" klickst.
+[Das YouTube-ABC](/youtube-tipps-de/analyse-der-beteiligung/): YouTube Analytics ist ein kostenloses Tool von YouTube, das es einfach macht, den Erfolg deines Kanals zu messen und dir hilft, deine Strategie zu optimieren. Du findest es in der YouTube Studio App oder auf studio.youtube.com, indem du auf die Registerkarte "Analytics" klickst.
 
 Für Anfänger sind die wichtigsten Metriken Impressions, also wie oft das Video angezeigt wird, Views, also wie oft Zuschauer das Video tatsächlich anschauen, die Click-Through-Rate, die Impressions und Views verbindet, und die Zuschauerbindung, also wie lange die Zuschauer bei deinem Video geblieben sind. Mit diesen vier Metriken kannst du bereits identifizieren, warum dein Kanal wachsen könnte. Hinterlasse Kommentare mit deinen Fragen zu Analytics, um eine detailliertere Erklärung zu bestimmten Analytics-Bereichen zu erhalten, und vergiss nicht, dich für mehr Creator-Content zu abonnieren.

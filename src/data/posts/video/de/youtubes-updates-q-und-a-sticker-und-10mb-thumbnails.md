@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Eine kurze Empfehlung, bevor wir mit den YouTube-Updates für diese Woche beginnen: Wir hatten einen Creator Q&A Livestream hier auf dem Kanal mit einigen spannenden Ausblicken auf 2025 und was YouTube alles geplant hat. Schaut gerne mal in der Infocard oder am Ende des Videos in der Endcard vorbei, dort ist es ebenfalls verlinkt.
+Eine kurze Empfehlung, bevor wir mit den YouTube-Updates für [diese Woche](/youtube-tipps-de/youtube-updates-brandconnect-expansion-und-neue-streaming-features/) beginnen: Wir hatten einen Creator Q&A Livestream hier auf dem Kanal mit einigen spannenden Ausblicken auf 2025 und was YouTube alles geplant hat. Schaut gerne mal in der Infocard oder am Ende des Videos in der Endcard vorbei, dort ist es ebenfalls verlinkt.
 
 **Sprachnachrichten**
 
@@ -35,7 +35,7 @@ Hierzu müssen wir wohl nicht viel sagen. Es handelt sich um eine sinnvolle Funk
 
 Zu diesem Thema gibt es aktuell eine Umfrage von "Creator Zeider", die ihr in der Videobeschreibung findet. Wenn ihr euch wünscht, dass das YouTube Studio besser wird, nehmt gerne daran teil und teilt eure Meinung mit!
 
-**Größere Thumbnails**
+**[Größere Thumbnails](/youtube-tipps-de/youtube-updates-dezember-endspurt-mit-mla-und-superchat-goals/)**
 
 Wie bereits angesprochen, werden die Dateigrößen für Vorschaubilder erhöht – bis zu 10 MB. Dies ist bei Podcasts bereits der Fall, und laut Plan sollen Videos im Februar 2025 ebenfalls dieses Update erhalten, sodass ihr größere Thumbnails hochladen könnt.
 

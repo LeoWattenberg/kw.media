@@ -37,4 +37,4 @@ Abschließend eine interessante Neuigkeit aus Indien: YouTube testet ein neues C
 
 Dieses Programm sollten wir im Auge behalten, da es sowohl die Erstellung von Videos als auch von Shorts fördert. Bitte teilen Sie Ihre Gedanken in den Kommentaren unten mit.
 
-Und das war's für diese Woche an YouTube-Updates. Vergessen Sie nicht, sich zu abonnieren, damit Sie keines verpassen. Bis nächste Woche! Tschüss.
+Und das war's für diese Woche an [YouTube-Updates](/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/). Vergessen Sie nicht, sich zu abonnieren, damit Sie keines verpassen. Bis nächste Woche! Tschüss.

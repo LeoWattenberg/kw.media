@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-YouTube schaltet die Clips-Funktion ab und beraubt Streamer damit vorerst eines nativen Marketingtools. Wir werden untersuchen, warum dieses erzwungene Aus möglicherweise ein Gewinn für deinen Kanal sein könnte und wann wir mit einem Ersatz rechnen können. Außerdem werden wir uns mit den tatsächlichen Kosten der neuen werbefreien Fenster für Live-Streams befassen. Das und mehr in den Creator News dieser Woche.
+YouTube schaltet die [Clips-Funktion](/youtube-tipps-de/youtube-fuhrt-spannende-neuerungen-ein-clips-feed-update-und-mehr/) ab und beraubt Streamer damit vorerst eines nativen Marketingtools. Wir werden untersuchen, warum dieses erzwungene Aus möglicherweise ein Gewinn für deinen Kanal sein könnte und wann wir mit einem Ersatz rechnen können. Außerdem werden wir uns mit den tatsächlichen Kosten der neuen werbefreien Fenster für Live-Streams befassen. Das und mehr in den Creator News dieser Woche.
 
 Nach dem Blogbeitrag letzte Woche über die Zukunft des Streamings hat YouTube die Streaming-Community aufgewirbelt. Laut einem aktuellen Thread im Support-Forum stellt YouTube die aktuelle Clips-Funktion ein.
 
@@ -35,7 +35,7 @@ Um in 2026 und darüber hinaus zu florieren, musst du deinen Kurzform-Funnel pro
 
 Also, während der Verlust der nativen Clips-Funktion eine Lücke hinterlässt, könnte er dich auch dazu drängen, eine proaktive Inhaltsstrategie zu entwickeln, anstatt dich auf ein unterentwickeltes Tool zu verlassen.
 
-Bleiben wir bei den Live-Funktionen, sprechen wir über das Gleichgewicht zwischen Zuschauerbindung und dem Verdienen von Geld. YouTube-CEO Neal Mohan hat kürzlich Updates angekündigt, und frühe Tests auf Twitter zeigen, dass YouTube ein werbefreies Fenstersystem einführt. Hatte dein epischer Boss-Kill oder der Moment mit massiver Chat-Hype schon einmal durch eine Mid-Roll-Werbung eine Unterbrechung? Das wird in Zukunft weniger häufig vorkommen. Die von YouTube automatisch geplanten Werbungen pausieren nun Mid-Rolls während hyperaktiver Chat- oder Super-Chat-Momente, um das Erlebnis zu bewahren.
+Bleiben wir bei den Live-Funktionen, sprechen wir über das Gleichgewicht zwischen Zuschauerbindung und dem Verdienen von Geld. YouTube-CEO Neal Mohan hat kürzlich Updates angekündigt, und frühe Tests auf Twitter zeigen, dass YouTube ein werbefreies Fenstersystem einführt. Hatte dein epischer Boss-Kill oder der Moment mit massiver Chat-Hype schon einmal durch eine Mid-Roll-Werbung eine Unterbrechung? Das wird in Zukunft weniger häufig vorkommen. Die von YouTube automatisch geplanten Werbungen pausieren nun Mid-Rolls während hyperaktiver Chat- oder [Super-Chat-Momente](/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/), um das Erlebnis zu bewahren.
 
 Auf dem Papier scheint dies zuschauerfreundlich zu sein, aber aus geschäftlicher Sicht ist es ein zweischneidiges Schwert. Weniger Werbeplätze bedeuten potenziellen Umsatzverlust. Bist du bereit, Werbeeinnahmen für eine verbesserte Sitzungsdauer einzutauschen? Lassen Sie uns das in den Kommentaren diskutieren.
 
@@ -53,7 +53,7 @@ Wenn ein Abonnent das Glöckchen-Symbol aktiviert hat, aber deine Push-Benachric
 
 Diese Metriken deuten darauf hin, dass der Einfluss des YouTube-Glöckchen-Symbols abnimmt. Push-Benachrichtigungen machen nur einen winzigen Bruchteil des gesamten Traffics aus und sind statistisch nicht signifikant. Wenn YouTube eine Funktion anpasst, die bei einem Video mit 15.000 Aufrufen etwa 60 Aufrufe generiert, hat das kaum Auswirkungen. Daher sollten Creator ihren Fokus von Push-Benachrichtigungen auf die Optimierung für den Browse- und Suggested-Algorithmus verlagern, wo das tatsächliche Publikumswachstum liegt. Es könnte auch an der Zeit sein, wieder mehr Wert auf Abonnements, Likes und Kommentare statt auf das Glöckchen-Symbol zu legen.
 
-Diese Woche zusammengefasst:
+[Diese Woche](/youtube-tipps-de/youtube-killt-das-abonennten-wasserzeichen-neue-geschenkziele-und-mehr/) zusammengefasst:
 - Push-Benachrichtigungen haben einen minimalen Einfluss auf die Reichweite des Inhalts.
 - Konzentriere dich auf Browse- und Vorschlagsalgorithmen für das Wachstum deiner Zielgruppe.
 - Überdenke Abonnement-, Like- und Kommentar-Aufrufe.

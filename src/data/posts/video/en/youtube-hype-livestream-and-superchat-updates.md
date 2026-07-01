@@ -25,7 +25,7 @@ The YouTube Shorts feed is getting the ability to save sounds or music for later
 
 Now, this Chrome Extension is intended to make it easier to find products when you're browsing and think, "Oh, this product would be suitable for the affiliate program." It's frustrating that once again, it's only available in the US and the affiliate program isn't being rolled out further. But we have to work with what we've got and use competitor products until YouTube offers something similar.
 
-A very interesting story, which we already discussed in May, is Super Chat replies. This means that within a Super Chat, I can click and there are a series of replies that are 100% rolled out. This has been active for a few days now, since August 1st. So, if you see Super Chats, you can now click in and view the replies or write your own. Let me know what you think about it. I think it's a great feature.
+A very interesting story, which we already discussed in May, is [Super Chat replies](/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/). This means that within a Super Chat, I can click and there are a series of replies that are 100% rolled out. This has been active for a few days now, since August 1st. So, if you see Super Chats, you can now click in and view the replies or write your own. Let me know what you think about it. I think it's a great feature.
 
 And while we're on the topic of live streams, there's new information about AI live stream summaries. We've discussed this before: AI will summarize live streams. There are enough data being collected, and it was unclear how much data is actually needed for an AI summary to be created. Well, we now have a concrete value. I'm quite surprised by this, but it seems to be a step towards transparency. We're not complaining. AI summaries for live streams will only work if there were over 30 non-repeating English messages in the last 2 minutes. And they won't work in the EU due to AI restrictions. We'll see when this might be the case in the EU. But if you're in the UK or other English-speaking countries, you may already be seeing these features, although they won't be available on this channel for now. Even with 30 messages in 2 minutes—a message every 2 seconds—I don't think that's too much. Please share your thoughts in the comments!
 
@@ -35,7 +35,7 @@ Live streams are really taking off today. Previously, live streams on YouTube we
 
 I've suggested as a feature request that automatic subtitles should be enabled by default during these mid-rolls, as this could be particularly useful for talk shows or similar formats. Let me know what you think about this!
 
-YouTube Hype
+[YouTube Hype](/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/)
 
 Another experiment is currently running in Turkey, Taiwan, and Brazil: YouTube Hype. Originally conceived as a paid feature to boost videos into the trends, this idea was quickly abandoned. Now we know more: Hype is a new way for viewers to interact.
 

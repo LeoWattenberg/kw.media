@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-Quick fun fact: Watermarks from third-party platforms and, of course, from free video editing software like Power Director or whatever are negatively factored into the ranking. So, if you want to make money, invest in [watermark-free solutions].
+Quick fun fact: Watermarks from third-party platforms and, of course, from free video editing software like Power Director or whatever are negatively factored into the ranking. So, if you want to [make money](/youtube-tips-en/how-to-get-into-the-partner-program-with-youtube-shorts/), invest in [watermark-free solutions].

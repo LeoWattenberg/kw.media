@@ -23,4 +23,4 @@ video:
 
 Was ist die härteste Lektion, die du durch deinen YouTube-Kanal gelernt hast? Es ist die Erkenntnis, dass Aufwand nicht gleich Aufrufe bedeutet. Du kannst 50 Stunden in die Bearbeitung eines absoluten Meisterwerks stecken, bei dem du jeden Frame perfektionierst, und es wird trotzdem floppen, weil die Grundidee nicht klickbar war. Dann geht ein zufälliges, zweistündiges, ungeschnittenes VOD viral. Das tut weh. Aber der Algorithmus interessiert sich nicht für deine harte Arbeit. Er achtet auf die Zufriedenheit des Publikums.
 
-Und in dem Moment, in dem du das akzeptierst, hörst du auf, dich selbst zu überarbeiten und zu verbrennen, und fängst an, dich zuerst auf das Konzept zu konzentrieren. Wenn du deinen Wert mit dem Analyse-Dashboard verknüpfst, wirst du immer wieder in Selbstzweifel geraten.
+Und in dem Moment, in dem du das akzeptierst, hörst du auf, [dich selbst zu überarbeiten und zu verbrennen](/youtube-tipps-de/warum-grinden-schlecht-fur-dich-ist/), und fängst an, dich zuerst auf das Konzept zu konzentrieren. Wenn du deinen Wert mit dem Analyse-Dashboard verknüpfst, wirst du immer wieder in Selbstzweifel geraten.

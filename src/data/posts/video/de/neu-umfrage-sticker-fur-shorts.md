@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Diese neue YouTube-Funktion macht deine Shorts noch interaktiver. Letzte Woche hat YouTube die Umfragefunktion eingeführt, mit der deine Community über Antworten auf deine Fragen abstimmen kann. Diese Funktion ähnelt den Umfragen, die bereits im Community-Tab zu finden sind, mit dem Unterschied, dass bei Shorts-Umfragen nur zwei verschiedene Optionen zur Auswahl stehen. Glaubst du, das reicht aus, oder würdest du dir mehr Optionen wünschen?
+Diese neue YouTube-Funktion macht deine Shorts noch interaktiver. Letzte Woche hat YouTube die Umfragefunktion eingeführt, mit der deine Community über Antworten auf deine Fragen abstimmen kann. Diese Funktion ähnelt den [Umfragen, die bereits im Community-Tab zu finden sind](/youtube-tipps-de/bild-umfragen-so-funktioniert-das-neue-community-tab-feature/), mit dem Unterschied, dass bei Shorts-Umfragen nur zwei verschiedene Optionen zur Auswahl stehen. Glaubst du, das reicht aus, oder würdest du dir mehr Optionen wünschen?

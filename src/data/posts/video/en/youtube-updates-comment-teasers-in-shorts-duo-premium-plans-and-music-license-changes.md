@@ -23,7 +23,7 @@ video:
 
 **YouTube Updates:**
 
-This week, we had a launch on March 27th. YouTube Shorts is getting an update with a small rectangle at the bottom of the shorts, displaying or teasing comments—a "comment teaser," if you will. Clicking it takes you to the comment section, where the teased comments will be at the top of the list. I think it's a great update; let me know your thoughts!
+This week, we had a launch on March 27th. YouTube Shorts is getting an update with a small rectangle at the bottom of the shorts, displaying or teasing comments—a "comment teaser," if you will. Clicking it takes you to the [comment section](/youtube-tips-en/ai-summaries-for-comments-and-why-you-dont-see-the-add-yours-sticker/), where the teased comments will be at the top of the list. I think it's a great update; let me know your thoughts!
 
 Next up: YouTube Premium for two-person households is launching as an experiment in India, Hong Kong, France, and Taiwan. Around 50% of users in these areas will see it. You can access it by visiting [YouTube.com/premium/2person](https://www.youtube.com/premium/2person). It's essentially a small family plan, but we don't yet know the pricing. If you're in one of these regions and have access to the experiment, please share your experience!
 
@@ -33,7 +33,7 @@ We also have some license issues regarding YouTube Shorts and creator music:
 
 - **Warner Music Group (WMG):** Licenses for WMG songs obtained via YouTube's Creator Music are being revoked and turned into copyright claims, with all proceeds going to WMG. If you've used YouTube Music or Creator Music, check your emails and ensure you have licenses from elsewhere. Always have your paperwork in order to avoid legal issues.
 
-Lastly, some new features are rolling out in the Inspiration tab (formerly Research), available outside the EU:
+Lastly, some new features are rolling out in the [Inspiration tab](/youtube-tips-en/youtube-updates-leaderboards-shorts-visual-guides-and-shorts-quiz-stickers/) (formerly Research), available outside the EU:
 
 - **Brainstorming:** Data and comments from your previous videos will be used to help brainstorm ideas, which you can then refine using AI-assisted hooks and brainstorming tools. This should improve video retention and engagement.
 

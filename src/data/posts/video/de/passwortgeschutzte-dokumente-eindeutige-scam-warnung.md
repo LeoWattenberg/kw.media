@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Diese Woche gibt es keine YouTube-Updates, dafür möchte ich euch vor einem aktuellen Scam warnen, der ziemlich raffiniert ist und das untrainierte Auge möglicherweise täuschen könnte. Es geht darum, dass auf Kanälen, die offiziell aussehen, private Videos hochgeladen werden, die dann für andere Personen, hauptsächlich Creator, freigegeben werden. In diesen Videos sieht man einen gefälschten YouTube-CEO, der euch auffordert, ein verschlüsseltes Dokument herunterzuladen, um die neuesten Updates zur YouTube-Monetarisierung zu sehen.
+Diese Woche gibt es keine YouTube-Updates, dafür möchte ich euch vor einem [aktuellen Scam warnen](/youtube-tipps-de/vorsicht-phishing-emails-sind-auf-euren-youtube-kanal-aus/), der ziemlich raffiniert ist und das untrainierte Auge möglicherweise täuschen könnte. Es geht darum, dass auf Kanälen, die offiziell aussehen, private Videos hochgeladen werden, die dann für andere Personen, hauptsächlich Creator, freigegeben werden. In diesen Videos sieht man einen gefälschten YouTube-CEO, der euch auffordert, ein verschlüsseltes Dokument herunterzuladen, um die neuesten Updates zur YouTube-Monetarisierung zu sehen.
 
 Natürlich solltet ihr das nicht tun! Diese Updates sind öffentlich verfügbar und werden von offiziellen YouTube-Kanälen, wie z.B. Creator Insider, PE-Kanälen wie meinem oder dem meiner PE-Kollegin auf Twitter, im Forum und im YouTube-Blogpost veröffentlicht. Sie werden niemals als verschlüsselte E-Mail oder Dokument an eure E-Mail-Adresse gesendet, die auf ein privates Video verweist. Habt ihr das verstanden? Wunderbar! Bitte öffnet solche Links nicht, egal ob sie per E-Mail kommen oder in der Beschreibung eines privaten Videos erscheinen.
 

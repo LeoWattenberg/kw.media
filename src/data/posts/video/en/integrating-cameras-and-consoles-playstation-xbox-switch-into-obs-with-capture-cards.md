@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-To capture gameplay from gaming consoles or DSLR facecams using OBS, you'll need a device known as a "capture card." Once connected to your console and computer, you can add the capture card as a source in OBS. You'll find this under "Video Capture Devices."
+To capture gameplay from gaming consoles or DSLR facecams using OBS, you'll need a device known as a "[capture card](/youtube-tips-en/avermedia-streamer-cap-4k-or-elgato-cam-link-4k/)." Once connected to your console and computer, you can add the capture card as a source in OBS. You'll find this under "Video Capture Devices."

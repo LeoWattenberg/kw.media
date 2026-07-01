@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-YouTube is experimenting again, not just with the Watchpage UI—the subscription feed is also getting a little experiment: the so-called "most relevant" filter chip. This displays the videos that YouTube deems most relevant based on your recently watched videos, comments written, etc., at the top. Essentially, YouTube is creating a small user profile.
+YouTube is experimenting again, not just with the Watchpage UI—the [subscription feed](/youtube-tips-en/youtube-introduces-exciting-innovations-clips-feed-update-and-more/) is also getting a little experiment: the so-called "most relevant" filter chip. This displays the videos that YouTube deems most relevant based on your recently watched videos, comments written, etc., at the top. Essentially, YouTube is creating a small user profile.
 
 It's an opt-in feature, meaning users must actively choose to use this filter chip. Otherwise, everything stays as it was—I initially think this is a very good thing. Since it concerns the subscription feed, it ensures that the experiment will be a success for both Creators and viewers and will be closely monitored. I consider these good test conditions to try something like this out. Check if you already have it and share your concerns as a Creator with me if you have any.
 

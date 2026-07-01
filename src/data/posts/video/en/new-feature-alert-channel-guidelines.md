@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-With the new Channel Guidelines feature, you can quickly and concisely explain your chat and comment rules to new viewers. To add them, go to your Settings under "Community" and select the "Channel Guidelines" tab. There, you can set a welcome message and fill in up to three text boxes for your guidelines.
+With the new [Channel Guidelines](/youtube-tips-en/how-to-set-up-youtube-channel-guidelines/) feature, you can quickly and concisely explain your chat and comment rules to new viewers. To add them, go to your Settings under "Community" and select the "Channel Guidelines" tab. There, you can set a welcome message and fill in up to three text boxes for your guidelines.

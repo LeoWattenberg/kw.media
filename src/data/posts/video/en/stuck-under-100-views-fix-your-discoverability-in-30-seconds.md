@@ -21,6 +21,6 @@ video:
 
 ## Transcript
 
-Still stuck under 100 views? Let's fix your discoverability today with five easy steps. Nail your titles. Use clear, searchable phrases like how to beat Boss X and not just epic playthrough. Thumbnails need to pop. Use bright colors, bold faces, and simple text. If your thumbnail looks good on a phone, you're winning. Hook viewers in the first seconds. Jump straight into the action. No boring intros, no loading screens. Upload consistently. Same days, same times. Teach the audience when to expect your videos. Boost your session time.
+Still stuck under 100 views? Let's fix your discoverability today with five easy steps. Nail your titles. Use clear, searchable phrases like how to beat Boss X and not just epic playthrough. [Thumbnails need to pop](/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/). Use bright colors, bold faces, and simple text. If your thumbnail looks good on a phone, you're winning. Hook viewers in the first seconds. Jump straight into the action. No boring intros, no loading screens. Upload consistently. Same days, same times. Teach the audience when to expect your videos. Boost your session time.
 
 Create overarching stories and link your videos together. Playlist and end screens are your best friends. Struggling with something else on YouTube? Drop us your biggest problem as a creator in the comments.

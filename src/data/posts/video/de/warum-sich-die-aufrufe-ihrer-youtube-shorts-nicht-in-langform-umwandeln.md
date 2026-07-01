@@ -23,4 +23,4 @@ video:
 
 Meine Shorts bekommen Tausende von Aufrufen, aber meine Hauptvideos bekommen buchstäblich nur zwei. Sollte ich aufhören? Das Problem ist nicht, dass deine Videos schlecht sind. Das Problem ist, zu erwarten, dass das Publikum der hungrigen Swipes plötzlich tiefgründige, 15-minütige Videos haben möchte. Shorts und Langform sind zwei verschiedene Plattformen in derselben App. Wenn dein Hauptvideo nur zwei Aufrufe bekommt, liegt es nicht an deiner Promo-Strategie. Es liegt an deinem Titel und deinem Miniaturbild oder sogar an der Videoidee selbst.
 
-Hör auf, kurze Aufmerksamkeitsspannen zu konvertieren und beginne damit, deinen Hauptinhalt für Menschen zu verpacken, die tatsächlich danach suchen, denn sonst verbrennst du dich nur und fragst dich, warum du nicht die erwarteten Aufrufe bekommst.
+Hör auf, kurze Aufmerksamkeitsspannen zu konvertieren und beginne damit, deinen Hauptinhalt für Menschen zu verpacken, die tatsächlich danach suchen, denn sonst verbrennst du dich nur und fragst dich, warum du nicht die [erwarteten Aufrufe](/youtube-tipps-de/warum-50-stunden-schnittarbeit-0-aufrufe-bringen/) bekommst.

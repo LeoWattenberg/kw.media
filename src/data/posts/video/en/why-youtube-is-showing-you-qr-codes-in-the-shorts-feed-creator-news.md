@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-YouTube buries Brand Connect for an AI-driven ad machine, Twitch deletes its TikTok clone, Adobe wants to replace your editor with an AI co-worker, and why is YouTube showing you QR codes in your desktop Shorts feed right now? These are the creator news of the week. Let's dive in.
+YouTube buries [Brand Connect](/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/) for an AI-driven ad machine, Twitch deletes its TikTok clone, Adobe wants to replace your editor with an AI co-worker, and why is YouTube showing you QR codes in your desktop Shorts feed right now? These are the creator news of the week. Let's dive in.
 
 We start with a major B2B update for those doing brand deals on YouTube as YouTube restructures Brand Connect. It's now called YouTube Creator Partnership and is integrated directly into Google Ads and YouTube Studio.
 

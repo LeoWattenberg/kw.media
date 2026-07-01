@@ -21,6 +21,6 @@ video:
 
 ## Transkript
 
-Ist es in Ordnung, wenn ich wirklich kein Interesse daran habe, Geld mit YouTube zu verdienen? Ja, absolut. Eine Karriere zu haben und YouTube ausschließlich als kreativen Ausgleich zu betrachten, ist eine der gesündesten Einstellungen, um Burnout zu vermeiden. Aber hier kommt der Haken: Sabotiere deine zukünftigen Möglichkeiten nicht aktiv, nur weil du dich heute nicht darum kümmerst. Verwende keine urheberrechtlich geschützten Inhalte. Missachte nicht die Community-Richtlinien.
+Ist es in Ordnung, wenn ich wirklich kein Interesse daran habe, Geld mit YouTube zu verdienen? Ja, absolut. Eine Karriere zu haben und YouTube ausschließlich als kreativen Ausgleich zu betrachten, ist eine der gesündesten Einstellungen, um [Burnout zu vermeiden](/youtube-tipps-de/warum-grinden-schlecht-fur-dich-ist/). Aber hier kommt der Haken: Sabotiere deine zukünftigen Möglichkeiten nicht aktiv, nur weil du dich heute nicht darum kümmerst. Verwende keine urheberrechtlich geschützten Inhalte. Missachte nicht die Community-Richtlinien.
 
 Baue deinen Kanal auf einer sauberen, professionellen Grundlage auf, denn wenn eines deiner Videos in einem oder zwei Jahren viral geht und plötzlich Türen öffnet, von denen du nie erwartet hättest, dass sie sich öffnen, möchtest du die Infrastruktur bereit haben, damit du den Tag, an dem du gesagt hast, niemals bereust.

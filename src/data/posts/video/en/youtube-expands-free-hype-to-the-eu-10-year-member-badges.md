@@ -21,9 +21,9 @@ video:
 
 ## Transcript
 
-The YouTube free hype beta is expanding into the EU and a few other countries. I've listed them on the site. Not all users will see the new hype button, but everyone should be able to view their regional hype leaderboard. Here's how you can access it—it's quite hidden, similar to the training page at present.
+The YouTube free hype beta is expanding into the EU and a few other countries. I've listed them on the site. Not all users will see the new [hype button](/youtube-tips-en/how-does-youtube-hype-actually-work-we-have-the-data/), but everyone should be able to view their regional hype leaderboard. Here's how you can access it—it's quite hidden, similar to the training page at present.
 
-Unless most of your audience understands what the hype button does and actively uses the hype leaderboard, I don't think you'll gain much from the hype feature. It's more of a nice-to-have, but it doesn't impact video searchability or discoverability, so it's not crucial. Additionally, as of now, paid hype features aren't allowed in the EU, so you can't monetize it.
+Unless most of your audience understands what the hype button does and actively uses the hype leaderboard, I don't think you'll gain much from the [hype feature](/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/). It's more of a nice-to-have, but it doesn't impact video searchability or discoverability, so it's not crucial. Additionally, as of now, paid hype features aren't allowed in the EU, so you can't monetize it.
 
 So, it's... eh. I don't think it's a huge deal, but if you feel differently, please comment below. Let me know if you like or dislike the hype feature, and we can discuss it.
 

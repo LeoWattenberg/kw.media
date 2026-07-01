@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-For all Creators who are already part of the YouTube Partner Program and are not music Creators, you will receive an amended base contract that you must sign by July 10, 2023, to continue on YouTube.
+For all Creators who are already part of the [YouTube Partner Program](/youtube-tips-en/everything-important-about-the-new-youtube-fan-funding-partner-level/) and are not music Creators, you will receive an amended base contract that you must sign by July 10, 2023, to continue on YouTube.

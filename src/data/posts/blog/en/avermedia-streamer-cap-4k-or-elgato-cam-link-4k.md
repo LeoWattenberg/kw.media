@@ -7,16 +7,16 @@ excerpt: "A practical comparison between AVerMedia Streamer Cap 4K and Elgato Ca
 date: "2021-10-27T15:50:28"
 modified: "2023-03-17T12:57:27"
 locale: "en"
-category: "blog"
 translationKey: "post:1847"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/10/camlink_cap4k_vergleich.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/avermedia-streamer-cap4k-bu113-oder-elgato-camlink4k/"
 ---
 
-AVerMedia has released a new capture card, and they sent me a sample to take a closer look at and share my thoughts. I made sure to approach the comparison as objectively as possible.
+AVerMedia has released a new [capture card](/youtube-tips-en/integrating-cameras-and-consoles-playstation-xbox-switch-into-obs-with-capture-cards/), and they sent me a sample to take a closer look at and share my thoughts. I made sure to approach the comparison as objectively as possible.
 
-The [AVerMedia Streamer Cap4K (BU113)](https://www.avermedia.com/de/product-detail/bu113?utm_source=PR&utm_medium=post&utm_campaign=BU113_NPI) is designed to connect DSLR cameras to a PC for recording or streaming using recording software such as OBS or AVerMedia's own RECentral. This makes it a direct competitor to Elgato's Camlink4K. So, our central question today is: Can AVerMedia overcome Elgato's market dominance and convince with cheaper products?
+The [AVerMedia Streamer Cap4K (BU113)](https://www.avermedia.com/de/product-detail/bu113?utm_source=PR&utm_medium=post&utm_campaign=BU113_NPI) is designed to connect DSLR cameras to a PC for recording or streaming using [recording software such as OBS](/youtube-tips-en/getting-started-with-obs-a-beginners-guide/) or AVerMedia's own RECentral. This makes it a direct competitor to Elgato's Camlink4K. So, our central question today is: Can AVerMedia overcome Elgato's market dominance and convince with cheaper products?
 
 <figure class="image-full"><img width="1000" height="400" src="/assets/wp-content/uploads/2021/10/camlink_cap4k_vergleich.jpg" alt></figure>
 

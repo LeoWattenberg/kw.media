@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-To quickly stream with presets on other devices, OBS offers Profile and Scene Collections. The Profile Collection allows you to transfer streaming settings such as bitrates, while the Scene Collection contains your scenes and sources. You can export both collections for backup and either import them to stream on other devices or use them to quickly switch all settings and scenes if, for example, you want to record or stream in a different format.
+To quickly stream with presets on other devices, OBS offers Profile and Scene Collections. The Profile Collection allows you to transfer streaming settings such as bitrates, while the Scene Collection contains your [scenes and sources](/youtube-tips-en/using-scenes-and-sources-in-obs/). You can export both collections for backup and either import them to stream on other devices or use them to quickly switch all settings and scenes if, for example, you want to record or stream in a different format.

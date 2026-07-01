@@ -21,6 +21,6 @@ video:
 
 ## Transkript
 
-So funktioniert die neue YouTube-Collabs-Funktion in unter 60 Sekunden. Gehe in YouTube Studio zu den Videodetails, scrolle ganz nach unten und klicke auf "Mehr anzeigen". Im neuen Kollaborationsbereich suchst du nach dem Kanal des Creators, mit dem du zusammenarbeiten möchtest. Entscheide, ob er Zugriff auf die Analysen erhält, und klicke dann auf "Link erstellen". Kopiere diesen Link und sende ihn deinem Kollaborationspartner. Er muss darauf klicken, um ihn zu akzeptieren. Vergiss nicht, zu speichern! Warum dieser komplizierte Link? Um Spam zu verhindern.
+So funktioniert die neue [YouTube-Collabs-Funktion](/youtube-tipps-de/youtube-updates-youtube-fehler-loscht-werbeeinnahmen-einfuhrung-der-kollaborations-feed-funktion/) in unter 60 Sekunden. Gehe in YouTube Studio zu den Videodetails, scrolle ganz nach unten und klicke auf "Mehr anzeigen". Im neuen Kollaborationsbereich suchst du nach dem Kanal des Creators, mit dem du zusammenarbeiten möchtest. Entscheide, ob er Zugriff auf die Analysen erhält, und klicke dann auf "Link erstellen". Kopiere diesen Link und sende ihn deinem Kollaborationspartner. Er muss darauf klicken, um ihn zu akzeptieren. Vergiss nicht, zu speichern! Warum dieser komplizierte Link? Um Spam zu verhindern.
 
 So werden große Creator nicht mit Benachrichtigungen in ihrem YouTube Studio überflutet. Und das war's. Ein leistungsstarkes neues Werkzeug für die Auffindbarkeit.

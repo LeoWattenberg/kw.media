@@ -7,14 +7,14 @@ excerpt: "Ein praktischer Leitfaden für die mobile Produktion für YouTube und 
 date: "2021-06-11T10:20:19"
 modified: "2022-07-16T12:47:06"
 locale: "de"
-category: "blog"
 translationKey: "post:1432"
+category: "blog"
 image: "https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-mobile-producion-for-everyone/"
 ---
 
-Heute sprechen wir über mobile Produktion für YouTube und YouTube Live. Dies ist ein allgemeinerer Ansatz für die mobile Produktion, später im Artikel gehen wir jedoch auf spezifischere Gaming-Details ein, also bleibt dran.
+Heute sprechen wir über mobile Produktion für YouTube und [YouTube Live](/youtube-tipps-de/einstieg-in-das-live-streaming-auf-youtube/). Dies ist ein allgemeinerer Ansatz für die mobile Produktion, später im Artikel gehen wir jedoch auf spezifischere Gaming-Details ein, also bleibt dran.
 
 [![r/youtubegaming - Mobile Produktion für alle](https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b)](https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b)
 
@@ -28,7 +28,7 @@ In der Regel ist dein Smartphone dein All-in-One-Gerät für die grobe mobile Pr
 
 ## Audio:
 
-Wie wir alle wissen, sind Smartphone-Mikrofone nicht die besten, was die Qualität betrifft, und wir haben bereits festgestellt, dass Audio > Video ist, wenn es um die Bedeutung der Qualität geht (siehe [diesen Leitfaden](https://www.reddit.com/r/youtubegaming/comments/hbdknw/starting_a_gaming_channel_on_a_budget/)). Deine Optionen zur Verbesserung des mobilen Audios bei kleinen Produktionen sind in der Regel auf Lavalier- und Richtmikrofone beschränkt. Natürlich kannst du auch zu einem tragbaren Audio-Link greifen (aber die kosten jeweils weit über 500 €, also lassen wir die mal weg, da wir alle wissen, dass Creator mit einem begrenzten Budget arbeiten 😉). Persönlich habe ich günstige Lösungen von bekannten Marken wie Røde oder Sennheiser gefunden, die zwischen 50 € und 200 € für Richt- und Lavaliermikrofone kosten. Das ist keine schlechte Investition, wenn du vorhast, dieses Hobby beizubehalten oder deinen Channel auf eine halbprofessionelle oder Vollzeit-Ebene zu bringen. Denke auch an die Form der Umgebung/des Raums, in dem du filmst. Atmosphärischer Klang ist schön, um eine Szene zu setzen, aber du möchtest immer noch ein Gespräch von Hintergrundgeräuschen unterscheiden können. Wenn du mehr über Audio lernen möchtest, lass es uns wissen und wir werden einen Audio-Leitfaden auf unsere Liste setzen.
+Wie wir alle wissen, sind Smartphone-Mikrofone nicht die besten, was die Qualität betrifft, und wir haben bereits festgestellt, dass Audio > Video ist, wenn es um die Bedeutung der Qualität geht (siehe [diesen Leitfaden](https://www.reddit.com/r/youtubegaming/comments/hbdknw/starting_a_gaming_channel_on_a_budget/)). Deine Optionen zur Verbesserung des mobilen Audios bei kleinen Produktionen sind in der Regel auf Lavalier- und Richtmikrofone beschränkt. Natürlich kannst du auch zu einem tragbaren Audio-Link greifen (aber die kosten jeweils weit über 500 €, also lassen wir die mal weg, da wir alle wissen, dass Creator mit einem [begrenzten Budget](/youtube-tipps-de/einen-gaming-kanal-mit-kleinem-budget-starten/) arbeiten 😉). Persönlich habe ich günstige Lösungen von bekannten Marken wie Røde oder Sennheiser gefunden, die zwischen 50 € und 200 € für Richt- und Lavaliermikrofone kosten. Das ist keine schlechte Investition, wenn du vorhast, dieses Hobby beizubehalten oder deinen Channel auf eine halbprofessionelle oder Vollzeit-Ebene zu bringen. Denke auch an die Form der Umgebung/des Raums, in dem du filmst. Atmosphärischer Klang ist schön, um eine Szene zu setzen, aber du möchtest immer noch ein Gespräch von Hintergrundgeräuschen unterscheiden können. Wenn du mehr über Audio lernen möchtest, lass es uns wissen und wir werden einen Audio-Leitfaden auf unsere Liste setzen.
 
 ## Akku:
 

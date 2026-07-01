@@ -31,11 +31,11 @@ We've already seen them on iOS, but don't worry: an experiment will also be cond
 
 There's not much to say about this. It's a useful feature to encourage engagement in the chat or comments. The key distinction is that the creator asks the question, and the chat/viewers respond. This differs from the classic Q&A feature during horizontal streaming, where viewers ask questions and the creator answers. The feature is now fully launched, and I've already seen it on my phone.
 
-**Improvements to the YouTube Studio Dashboard**
+**Improvements to the [YouTube Studio](/youtube-tips-en/membership-bonus-program-thumbnail-updates-and-ai-dubbing-on-the-horizon/) Dashboard**
 
 On this topic, there's currently a survey by "Creator Zeider" that you can find in the video description. If you want YouTube Studio to improve, participate and share your thoughts!
 
-**Larger Thumbnails**
+**[Larger Thumbnails](/youtube-tips-en/youtube-updates-end-of-year-sprint-with-mla-and-superchat-goals/)**
 
 As mentioned, the file sizes for thumbnails will be increased—up to 10 MB. This is already the case for podcasts, and according to the plan, videos will also receive this update in February 2025, allowing you to upload larger thumbnails.
 

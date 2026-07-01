@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Es gibt eine neue Analytics-Card: "Top-Earning-Content" bei "Format". Hier wird der umsatzstärkste Inhalt nach Formaten wie Videos, Kurzinhalten und Livestreams aufgeschlüsselt. Ich bin mir sicher, dass ich diese Funktion bereits gesehen habe, sie wird nun aber für alle im Revenue-Tab eurer YouTube Analytics angezeigt. Es gibt eine neue Karte namens "Content Performance", die den umsatzstärksten Inhalt in Shorts, Videos und Livestreams auflistet. Dies kann besonders für Creator mit gemischten Inhalten nützlich sein, um zu sehen, was am lukrativsten ist und ihre Strategie entsprechend anzupassen.
+Es gibt eine neue Analytics-Card: "Top-Earning-Content" bei "Format". Hier wird der umsatzstärkste Inhalt nach Formaten wie Videos, Kurzinhalten und Livestreams aufgeschlüsselt. Ich bin mir sicher, dass ich diese Funktion bereits gesehen habe, sie wird nun aber für alle im Revenue-Tab eurer [YouTube Analytics](/youtube-tipps-de/youtube-abc-schneller-einstieg-mit-youtube-analytics/) angezeigt. Es gibt eine neue Karte namens "Content Performance", die den umsatzstärksten Inhalt in Shorts, Videos und Livestreams auflistet. Dies kann besonders für Creator mit gemischten Inhalten nützlich sein, um zu sehen, was am lukrativsten ist und ihre Strategie entsprechend anzupassen.
 
 Diese Funktion wird auch in der YouTube Mobile Studio App verfügbar sein. Außerdem wird die YouTube Create App in weiteren Ländern eingeführt, Deutschland war bereits verfügbar. Ich habe die Liste der neuen Launch-Länder in der Videobeschreibung verlinkt. Es gab auch ein Update mit einem Audio-Cleanup-Tool für die Create App, das ich jedoch noch nicht ausprobiert habe. Ich würde mich freuen, eure Erfahrungen damit in den Kommentaren zu lesen.
 

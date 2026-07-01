@@ -21,6 +21,6 @@ video:
 
 ## Transcript
 
-A small update for Creators with Channel Memberships: When you now make a call-to-action and ask your viewers to become a channel member - for example, with "Become a channel member" or in English "Join my channel, become a Channel Member" - the "Become a Member" button below a video will light up with a colorful animation. I think that's a nice feature. It already existed with "Subscribe to my channel", and this is simply a new function that has been added due to language recognition. A really nice feature.
+A small update for Creators with Channel Memberships: When you now make a call-to-action and ask your viewers to [become a channel member](/youtube-tips-en/elevate-your-channel-with-memberships/) - for example, with "Become a channel member" or in English "Join my channel, become a Channel Member" - the "Become a Member" button below a video will light up with a colorful animation. I think that's a nice feature. It already existed with "Subscribe to my channel", and this is simply a new function that has been added due to language recognition. A really nice feature.
 
 Unfortunately, that's all for this week, so see you again next week. Until then, take care and see you soon!

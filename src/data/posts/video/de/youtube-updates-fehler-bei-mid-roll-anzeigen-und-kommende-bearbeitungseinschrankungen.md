@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-YouTube-Updates wöchentlich, frisch von der Presse. Beginnen wir mit dem Update zu den automatisierten Midroll-Anzeigen für Videos mit einer Laufzeit von mindestens 8 Minuten, das am 12. Mai starten soll. Während die automatisierten Werbeplätze angezeigt werden, wenn eine Werbepause als unterbrechend angesehen wird, initiierten sie keinen Werbeauktionen. Dies führte bei einigen Creators zu einem Rückgang der Einnahmen.
+[YouTube-Updates](/youtube-tipps-de/youtube-updates-youtube-fehler-loscht-werbeeinnahmen-einfuhrung-der-kollaborations-feed-funktion/) wöchentlich, frisch von der Presse. Beginnen wir mit dem Update zu den [automatisierten Midroll-Anzeigen](/youtube-tipps-de/youtube-updates-voice-replies-shorts-promotions-und-anderungen-bei-mid-roll-ads/) für Videos mit einer Laufzeit von mindestens 8 Minuten, das am 12. Mai starten soll. Während die automatisierten Werbeplätze angezeigt werden, wenn eine Werbepause als unterbrechend angesehen wird, initiierten sie keinen Werbeauktionen. Dies führte bei einigen Creators zu einem Rückgang der Einnahmen.
 
 Die aktuelle Best Practice besteht darin, die automatisierten Werbeplätze laufen zu lassen, um den optimalen Platzierungsslot zu identifizieren, und dann manuell eine Werbepause in den von YouTube vorgeschlagenen Slot einzufügen. Wenn Sie weitere Fragen zu diesem Thema haben, hinterlassen Sie gerne einen Kommentar unten und halten Sie Ihre meistgesehenen Videos auf dem neuesten Stand. Als nächstes: Im kommenden Monat wird YouTube die Funktion "zurück zum Original" im YouTube-Video-Editor einstellen.
 

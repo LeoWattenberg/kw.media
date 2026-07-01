@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-Welcome to the latest YouTube updates! Today we're discussing voice messages in comments, Shorts promotions (ads on Shorts), a new live feature, and major changes to mid-roll ads taking effect in May 2025.
+Welcome to the latest YouTube updates! Today we're discussing [voice messages in comments](/youtube-tips-en/youtube-updates-new-av1-codec-support-voice-replies-expansion-and-side-by-side-ads-rollout/), Shorts promotions (ads on Shorts), a new live feature, and major changes to [mid-roll ads](/youtube-tips-en/youtube-updates-mid-roll-ad-bug-and-editing-restrictions-incoming/) taking effect in May 2025.
 
 **Voice Messages in Comments:**
 Currently, this feature is only available on iOS and exclusively in the US. Replies can be up to 30 seconds long—that's new information. Android users are expected to get access in the first quarter of 2025 (ending March 31st). So you can do the math on what's coming next. However, the feature will remain limited to the US for now. But you can always take a digital trip with a VPN.

@@ -25,7 +25,7 @@ YouTube Shorts is releasing an AI update that lets you transform photos into vid
 
 To use it, go to create Shorts and hit the sparkle icon on the side to pull up the effects, including the AI effects. All content created with this feature is labeled as synthetic content and has a synth ID watermark embedded into the video, making it recognizable for other platforms as synthetically generated. This is essentially the opposite of the C2PA watermark, which ensures that the video hasn't been tampered with from the camera to uploading—no edits or manipulations. This is also very interesting and something we'll keep an eye on in the future. If you're able to try out these new features, let me know in the comments below! And don't forget to subscribe to this channel for weekly YouTube updates; we often provide them even faster than Creator Insider.
 
-Now, let's move on to the analytics audience split. As a quick reminder, the returning and new viewers metric has been further divided. We now have:
+Now, let's move on to the analytics audience split. As a quick reminder, the [returning and new viewers metric](/youtube-tips-en/casual-vs-regular-viewers-new-youtube-analytics-will-tell-you-more/) has been further divided. We now have:
 - New viewers who haven't interacted with the channel at all.
 - Casual viewers who came back at least once per month in the last 6 months.
 - Regular viewers who came back at least once per month for more than 6 months.
@@ -34,4 +34,4 @@ Keep in mind that these percentages can vary depending on your content and uploa
 
 Lastly, Leo has written an interesting blog post following the downfall of V Choyo VTuber agency—for older folks, think of it as an MCN or, even older, Hollywood in a nutshell. He points out that the concept of corporatizing artists has been failing for the past 70 years and presents cooperatives or co-ops as an interesting alternative: they're easy to set up, democratic, and have proven successful in other areas like agriculture. If this interests you, I've linked the blog post below. And if you'd like to start a cooperative with us, please reach out! It's pretty straightforward to set up and could be beneficial for everyone involved.
 
-If you have any questions about today's topics or YouTube in general, feel free to leave a comment below or send a post in our fan community. Otherwise, see you next week for more YouTube updates. Take care and bye-bye! [Music]
+If you have any questions about today's topics or YouTube in general, feel free to leave a comment below or send a post in our [fan community](/youtube-tips-en/youtube-faq-multi-aspect-streams-fan-communities-on-desktop-and-veo-3-ai/). Otherwise, see you next week for more YouTube updates. Take care and bye-bye! [Music]

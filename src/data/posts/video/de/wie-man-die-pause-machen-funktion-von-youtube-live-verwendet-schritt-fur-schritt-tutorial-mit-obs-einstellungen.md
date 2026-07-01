@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Dieses Tutorial zeigt, wie man die "Pause machen"-Funktion von YouTube Live verwendet und wie man sie mit OBS einrichtet. Die Funktion ermöglicht es Ihnen, während eines Livestreams vorübergehend einen Pausebildschirm anzuzeigen, ohne den Stream selbst zu beenden. Das ist nützlich, wenn Sie eine Pause brauchen, etwas reparieren müssen oder für einen Moment wegtreten möchten.
+Dieses Tutorial zeigt, wie man die "[Pause machen](/youtube-tipps-de/youtube-updates-abonnenten-liste-shorts-views-definitionen-und-take-a-break/)"-Funktion von YouTube Live verwendet und wie man sie mit OBS einrichtet. Die Funktion ermöglicht es Ihnen, während eines Livestreams vorübergehend einen Pausebildschirm anzuzeigen, ohne [den Stream](/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/) selbst zu beenden. Das ist nützlich, wenn Sie eine Pause brauchen, etwas reparieren müssen oder für einen Moment wegtreten möchten.
 
 In YouTube Studio öffnen Sie die Livestream-Einstellungen und suchen nach der "Pause machen"-Option. Bereiten Sie den Pausebildschirm vor, den Sie Ihren Zuschauern zeigen möchten. In OBS erstellen Sie eine dedizierte Szene für die Pause, fügen die benötigten Grafiken oder Texte hinzu und stellen sicher, dass die Audioeinstellungen mit dem übereinstimmen, was Sie während der Pause haben möchten.
 

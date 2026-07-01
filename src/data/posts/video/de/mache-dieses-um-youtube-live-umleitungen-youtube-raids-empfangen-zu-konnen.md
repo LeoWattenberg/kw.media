@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Jeder YouTube-Creator kann YouTube Live Redirects erhalten. Um sie für deinen Stream zu aktivieren, musst du anderen Creatorn erlauben, auf dich umzuleiten. Diese Einstellung findest du in YouTube Studio unter Einstellungen > Community. Scrolle nach unten und erlaube entweder spezifischen Kanälen die Umleitung oder setze das Häkchen, um allen Creatorn die Umleitung auf dich zu ermöglichen.
+Jeder YouTube-Creator kann [YouTube Live Redirects](/youtube-tipps-de/live-redirect-von-einem-stream-zum-nachsten/) erhalten. Um sie für deinen Stream zu aktivieren, musst du anderen Creatorn erlauben, auf dich umzuleiten. Diese Einstellung findest du in YouTube Studio unter Einstellungen > Community. Scrolle nach unten und erlaube entweder spezifischen Kanälen die Umleitung oder setze das Häkchen, um allen Creatorn die Umleitung auf dich zu ermöglichen.

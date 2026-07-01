@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-Let's start with the biggest story of the week. Coffeezilla published a 30-minute investigative piece on the current state of deepfakes and AI scams. If you haven't watched it yet, I highly recommend adding it to your watch list – it's linked in the description below. While Coffeezilla discusses YouTube's likeness detection tool, he also highlights a limitation: likeness detection only protects you on YouTube itself. Gamers can still steal your face and voice and move on to unregulated platforms like Facebook, where YouTube's protections don't apply.
+Let's start with the biggest story of the week. Coffeezilla published a 30-minute investigative piece on the current state of [deepfakes and AI scams](/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/). If you haven't watched it yet, I highly recommend adding it to your watch list – it's linked in the description below. While Coffeezilla discusses YouTube's likeness detection tool, he also highlights a limitation: likeness detection only protects you on YouTube itself. Gamers can still steal your face and voice and move on to unregulated platforms like Facebook, where YouTube's protections don't apply.
 
 The most terrifying part of the video was an interview with Professor Hany Farid from UC Berkeley. Dr. Farid conducts extensive studies on human perception of AI, and the video incorporates his data as well as research from others in the field. According to his research published in the National Academy of Sciences, people have a 48.2% success rate in spotting AI-generated photos – worse than a coin flip. Even more alarming, the study suggests that AI faces are now perceived as more trustworthy than real human faces.
 

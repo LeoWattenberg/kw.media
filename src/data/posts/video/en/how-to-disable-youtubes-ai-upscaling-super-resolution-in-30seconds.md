@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-Here's how to disable YouTube's new AI Super Resolution for your videos. Go to YouTube Studio and click Settings in the bottom-left corner. In the pop-up, go to the Channel tab, then click Advanced settings. Scroll down until you find the new Video quality enhancement section. By default, it is enabled. Toggle the switch off and make sure to hit Save in the bottom-right corner. That's it: your videos are now safe from unwanted upscaling. Subscribe for more YouTube tips.
+Here's how to disable [YouTube's new AI Super Resolution](/youtube-tips-en/youtubes-new-ai-is-destroying-your-pacing-and-analytics-creator-news/) for your videos. Go to YouTube Studio and click Settings in the bottom-left corner. In the pop-up, go to the Channel tab, then click Advanced settings. Scroll down until you find the new Video quality enhancement section. By default, it is enabled. Toggle the switch off and make sure to hit Save in the bottom-right corner. That's it: your videos are now safe from unwanted upscaling. Subscribe for more YouTube tips.

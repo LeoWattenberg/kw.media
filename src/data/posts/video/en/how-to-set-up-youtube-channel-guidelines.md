@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-With the new YouTube channel guidelines feature, you can easily explain your community rules to new viewers and chatters. To add channel guidelines, open the Community tab in your YouTube Studio settings, then switch to Channel guidelines. You can provide an introductory message for your viewers and fill out three text boxes for custom rules.
+With the new [YouTube channel guidelines feature](/youtube-tips-en/new-feature-alert-channel-guidelines/), you can easily explain your community rules to new viewers and chatters. To add channel guidelines, open the Community tab in your YouTube Studio settings, then switch to Channel guidelines. You can provide an introductory message for your viewers and fill out three text boxes for custom rules.

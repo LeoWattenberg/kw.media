@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-There were already no issues in the YouTube Studio Desktop in the past, and now there will also be a filter for the notification feed in the YouTube Studio Mobile App. This means that where you receive your comments or subscriptions, you can click: "I want to see non-issues, i.e., known bugs." I think this is a useful feature to stay up-to-date, just like subscribing to this channel. No, I know exactly that you haven't subscribed yet. So please do it now! Wonderful, let's stay directly in Studio Mobile.
+There were already no issues in the YouTube Studio Desktop in the past, and now there will also be a filter for the notification feed in the [YouTube Studio Mobile App](/youtube-tips-en/everything-new-in-youtube-studio-mobile-content-and-community-tab-updates/). This means that where you receive your comments or subscriptions, you can click: "I want to see non-issues, i.e., known bugs." I think this is a useful feature to stay up-to-date, just like subscribing to this channel. No, I know exactly that you haven't subscribed yet. So please do it now! Wonderful, let's stay directly in Studio Mobile.
 
 While we saw the Clips Library in the YouTube Studio Desktop last month, or on the desktop homepage, it is now coming to the YouTube Studio Mobile as well. Then you can also check which content your viewers are clipping. I think this could be a very useful feature, especially I'm curious to see if your viewers are already using the clip culture and, if so, whether you're using it to create Shorts.
 

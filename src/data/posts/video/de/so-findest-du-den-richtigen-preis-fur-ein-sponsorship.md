@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Verkaufe dich als Creator nicht unter Wert. Behalte bei Kooperationen mit Firmen immer Produktionskosten, Reichweitenwert und Steuern im Hinterkopf.
+Verkaufe dich als Creator nicht unter Wert. Behalte bei [Kooperationen mit Firmen](/youtube-tipps-de/lass-uns-uber-geld-und-sponsorships-reden/) immer Produktionskosten, Reichweitenwert und Steuern im Hinterkopf.

@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-YouTube is currently experimenting with a text-to-speech feature for the Shorts Editor in the YouTube app on Android. This means that iOS users will have to wait for now, while Android users will soon have the option to have on-screen text inserted via the Shorts Editor read out loud in one of four voices. This rollout will take place over the next few weeks. If you don't have the feature yet, just check back in a week or two.
+YouTube is currently experimenting with a text-to-speech feature for the [Shorts Editor](/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts-2/) in the YouTube app on Android. This means that iOS users will have to wait for now, while Android users will soon have the option to have on-screen text inserted via the Shorts Editor read out loud in one of four voices. This rollout will take place over the next few weeks. If you don't have the feature yet, just check back in a week or two.
 
 It could be a very interesting option, especially for people who don't like to hear themselves in videos but still want to present something. However, keep in mind that excessive use of the text-to-speech function can lead to exclusion from the YouTube Partnership Program if it doesn't add value. YouTube wants to see that the Creator has actually worked on the video and that it's not just a haphazard collection of content with half-hearted text thrown over it.
 

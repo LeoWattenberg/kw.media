@@ -7,8 +7,8 @@ excerpt: "A direct guide to better YouTube thumbnails, covering titles, contrast
 date: "2021-06-08T21:59:29"
 modified: "2022-07-16T12:47:21"
 locale: "en"
-category: "blog"
 translationKey: "post:1400"
+category: "blog"
 image: "https://preview.redd.it/kyowv0gqyjf51.png?width=871&format=png&auto=webp&s=3dd0d8ac5dcc28d8239a720c6d0e94aded380d63"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/"
@@ -36,11 +36,11 @@ Your thumbnail and title are always being shown together. There really is no nee
 
 There’s two problems with this: For one, the default game art is just that. Default. It’s being used by anyone on this planet who makes a video about this game, so it doesn’t help you stand out at all. For another, the numbers don’t help you in the thumbnail either. Your viewers don’t have a mental model of “ah yes, last time I watched part #193, can’t wait for #194”, they’re just watching your video (hopefully!) and looking for the “watched” indicator YouTube gets them. And the number in the thumbnail doesn’t even help with SEO as thumbnails aren’t searchable. On top of that, a number also isn’t attention grabbing, but that doesn’t really matter anymore here as the rest of your thumbnail isn’t either if you use the default game art.
 
-So, don’t use the default game art for all your thumbnails, instead make your own thumbnails which are distinct from each other.
+So, don’t use the default game art for all your thumbnails, instead [make your own thumbnails](/youtube-tips-en/how-to-use-youtubes-new-thumbnail-test-and-compare-feature-for-better-engagement/) which are distinct from each other.
 
 <figure class="image-large"><img src="https://preview.redd.it/4kidv2vg2kf51.png?width=898&amp;format=png&amp;auto=webp&amp;s=8826c01679b65ed1d3c303068c5a08c3986b7847" alt><figcaption>BAD: The same thumbnail everywhere. Note that some of these videos do have fairly high view counts, but that’s because they are titled after the game missions, so people stuck on the mission could find the video (SEO). The numbers don’t add anything to it though; note how the video without a mission title only has 7 views.</figcaption></figure>
 
-<figure class="image-large"><img src="https://preview.redd.it/r2gx5vgqikf51.png?width=1142&amp;format=png&amp;auto=webp&amp;s=bc373691328dbbbd590fd934ef66a24602d4ef64" alt><figcaption>GOOD: Different thumbnails for each video. The similarity between the thumbnails helps showing that they belong together and are a series. They follow mostly the rule of center.</figcaption></figure>
+<figure class="image-large"><img src="https://preview.redd.it/r2gx5vgqikf51.png?width=1142&amp;format=png&amp;auto=webp&amp;s=bc373691328dbbbd590fd934ef66a24602d4ef64" alt><figcaption>GOOD: [Different thumbnails for each video](/youtube-tips-en/what-is-youtube-test-and-compare-or-thumbnail-a-b-testing/). The similarity between the thumbnails helps showing that they belong together and are a series. They follow mostly the rule of center.</figcaption></figure>
 
 ## Make it mobile friendly
 

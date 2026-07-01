@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Wenn ihr den YouTube Community Tab freigeschaltet habt, könnt ihr ab sofort auf eurem Android-Smartphone Umfragen mit Bildern als Auswahlmöglichkeiten posten. Diese ersetzen die jeweiligen Textzeilen. Andere User können auf allen Endgeräten ganz normal mit der Umfrage interagieren. Außerdem könnt ihr zusätzlich auf eines eurer Videos verlinken.
+Wenn ihr den [YouTube Community Tab](/youtube-tipps-de/alles-neu-im-youtube-studio-mobile-inhalts-und-community-tab-updates/) freigeschaltet habt, könnt ihr ab sofort auf eurem Android-Smartphone Umfragen mit Bildern als Auswahlmöglichkeiten posten. Diese ersetzen die jeweiligen Textzeilen. Andere User können auf allen Endgeräten ganz normal mit der Umfrage interagieren. Außerdem könnt ihr zusätzlich auf eines eurer Videos verlinken.

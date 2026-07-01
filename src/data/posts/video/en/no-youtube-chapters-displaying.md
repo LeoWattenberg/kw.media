@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-If you're not seeing YouTube chapters, there are a few possible reasons. First, check that your chapters are correctly formatted in the video description. The first chapter must start at 0:00, and after that, you need additional timestamps with appropriate titles.
+If you're not seeing [YouTube chapters](/youtube-tips-en/youtube-video-chapters-are-awesome-and-this-is-the-reason-shorts/), there are a few possible reasons. First, check that your chapters are correctly formatted in the video description. The first chapter must start at 0:00, and after that, you need additional timestamps with appropriate titles.
 
 Also, the video needs to be long enough, and the chapters can't violate YouTube's guidelines. Sometimes, YouTube hides chapters if the timestamps are too close together or if the description isn't clearly recognized.
 

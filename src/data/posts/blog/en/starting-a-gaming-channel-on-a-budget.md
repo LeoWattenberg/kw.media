@@ -7,8 +7,8 @@ excerpt: "How to start a gaming channel on a budget, including practical priorit
 date: "2021-06-11T09:49:31"
 modified: "2022-07-16T12:47:21"
 locale: "en"
-category: "blog"
 translationKey: "post:1425"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/06/Starting-Gaming-Channel-on-a-Budget.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/starting-a-gaming-channel-on-a-budget/"
@@ -16,7 +16,7 @@ sourceUrl: "https://kw.media/youtube-tips-en/starting-a-gaming-channel-on-a-budg
 
 So if you want to get started with YouTube, especially as a gaming channel you might not want to spend a fortune on equipment just to try it out. I mean it’s the same with every hobby. You don’t start archery and buy the best bow on the market, but you don’t start with the cheapest toy either.
 
-In this guide, we will talk about some core factors of getting started with a YouTube channel producing gaming related content and how you might be able to reduce expenses for yourself.
+In this guide, we will talk about some core factors of [getting started](/youtube-tips-en/getting-started-with-obs-a-beginners-guide/) with a YouTube channel producing gaming related content and how you might be able to reduce expenses for yourself.
 
 Remember though: It’s always advised to upgrade your equipment to meet industry standards if you want to go semi-professional or even full time.
 
@@ -40,7 +40,7 @@ All of these are **FREE**:
 
 - **PC** . If you want to play some basic games and do a little video editing this setup could be interesting to you. If you are a console player, well, you still need it in combination with a capture card for recording and editing. The base for the PC would be an [AMD Ryzen APU](https://www.mindfactory.de/product_info.php/AMD-Ryzen-3-3200G-4x-3-60GHz-So-AM4-BOX_1313641.html) (~80€) this could be paired with either a [B550](https://www.mindfactory.de/product_info.php/ASRock-B550-PRO4-AMD-ATX-M-2-So-AM4-retail_1364644.html) motherboard (~140€) or a [B450](https://www.mindfactory.de/product_info.php/ASRock-B450-Pro4-AMD-B450-So-AM4-Dual-Channel-DDR4-ATX-Retail_1268754.html) *with an* ***UPDATED BIOS*** (~90€). For video editing you should get at least [8gb of RAM](https://www.mindfactory.de/product_info.php/8GB-G-Skill-Aegis-DDR4-3200-DIMM-CL16-Single_1332854.html) (~35€) and because it is an APU it has to be a bit faster than the minimum which can be easily upgraded by buying a second stick of RAM. Pair this with a low-priced power supply like this [Xilence](https://www.mindfactory.de/product_info.php/350-Watt-Xilence-Performance-C-Series-Non-Modular_982959.html) (30~50€) with a budget casing such as this [LC-Power](https://www.mindfactory.de/product_info.php/LC-Power-2014MB-Mini-Tower-ohne-Netzteil-schwarz_1274065.html) (20-30€). As for storage, a simple [500gb HDD](https://www.mindfactory.de/product_info.php/500GB-WD-Blue-WD5000AAKX-16MB-3-5Zoll--8-9cm--SATA-6Gb-s_684828.html) by Western Digital (~25€) will do just fine but that depends entirely on your needs and workflow with video data.
 - **Capture card.** For console players capturing their gameplay is a big task to get around. Most HDMI consoles can be grabbed and looped with a simple AVerMedia or Elgato capture card ranging from 20-120€. For retro consoles, you might want to look for a SCART/Composite/YPbPr Grabber (Hauppage).
-- **Audio** . Audio is the most important thing for a channel. You can get away with a slightly blurry video (many people still watch in 480p anyway), but you cannot get away with poor audio quality as even the shittiest smartphones have a decent speaker or in-ears included nowadays. As for the model, anything not totally cheap which isn’t a headset will probably do, but here are two examples for mics in the upper and lower end of the spectrum:
+- **Audio** . Audio is the most important thing for a channel. You can get away with a slightly blurry video (many people still watch in 480p anyway), but you cannot get away with poor [audio quality](/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/) as even the shittiest smartphones have a decent speaker or in-ears included nowadays. As for the model, anything not totally cheap which isn’t a headset will probably do, but here are two examples for mics in the upper and lower end of the spectrum:
   - Røde NT-USB-Mini ~120€ (stand and pop filter incl)
   - t.bone SC300 ~30€ (stand and pop filter not incl)
 

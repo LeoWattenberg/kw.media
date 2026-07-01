@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-YouTube allows you to highlight videos for non-subscribed users and returning subscribers on your channel page. To select these videos, go to the "Customize" tab in YouTube Studio. From there, you can choose a video for both categories.
+YouTube allows you to highlight videos for non-subscribed users and returning subscribers on your channel page. To select these videos, go to the "Customize" tab in [YouTube Studio](/youtube-tips-en/your-youtube-channel-guide-to-customizing-profile-picture-banner-and-watermark/). From there, you can choose a video for both categories.

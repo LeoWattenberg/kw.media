@@ -7,8 +7,8 @@ excerpt: "A creator-focused review of the AVerMedia NEXUS AX310 and Streamer MIC
 date: "2021-06-28T08:40:10"
 modified: "2023-03-17T12:57:29"
 locale: "en"
-category: "blog"
 translationKey: "post:1638"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/06/AM_NEXUS_BACK.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/avermedia-nexus-ax310-streamer-mic-330-review/"
@@ -62,7 +62,7 @@ System functions also include a text macro with up to 500 characters. This unfor
 
 ## Conclusion
 
-This post was about the question: Is it worth getting the AVermedia Streamer [MIC 330](https://amzn.to/3djiurC) and Nexus [AX310](https://amzn.to/3zYrnka) for 450€? As someone who always struggles with free space on my desk, I think the combo is indeed worth it. If you are in need of an audio interface for your mic anyway and don’t want to clutter your desk further with a Streamdeck, this is the right choice.
+This post was about the question: Is it worth getting the [AVermedia Streamer](/youtube-tips-en/avermedia-streamer-cap-4k-or-elgato-cam-link-4k/) [MIC 330](https://amzn.to/3djiurC) and Nexus [AX310](https://amzn.to/3zYrnka) for 450€? As someone who always struggles with free space on my desk, I think the combo is indeed worth it. If you are in need of an audio interface for your mic anyway and don’t want to clutter your desk further with a Streamdeck, this is the right choice.
 
 Comparing it to the setup I’ve been using up until then (Rode NT-USB (~150€) & Elgato Streamdeck (115€)), the really big difference is having the haptic audio line mixer. Benefits will of course stack if you are using AVerMedia’s recording software & hardware as well, giving you a one-stop-shop solution for streaming. I have to admit after the test, I do like the clarity of dynamic mics over condenser mics.
 

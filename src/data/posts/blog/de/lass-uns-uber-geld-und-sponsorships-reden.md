@@ -25,7 +25,7 @@ Auch wenn du glaubst, du hast noch keinen Wert, da dein Kanal noch sehr klein is
 
 - Materialkosten Hast du Ausgaben, weil du vielleicht eine Musik, Lizenz oder ein Spiel gekauft hast? Hat jemand für dich Materialien wie ein Overlay oder eine Bauchbinde erstellt?
 - Produktionszeit Hast du alleine gearbeitet oder hat dir jemand geholfen? Wie lang hat jede beteiligte Person daran gearbeitet? Denk dran das es je nach Land auch einen Mindestlohn gibt.
-- Ausstattungskosten Hast du eine Kamera oder einen Greenscreen für diesen Dreh gemietet? Denk dran, dass du bereits auch einen Computer zum Aufnehmen, ein Mikrofon etc. gekauft hast und du diese Ausrüstung mit deinen Einnahmen aus Werbung und Kooperationen decken möchtest. Denk auch daran etwas für zukünftige Ausstattungen zurückzulegen.
+- Ausstattungskosten Hast du eine Kamera oder einen Greenscreen für diesen Dreh gemietet? Denk dran, dass du bereits auch einen Computer zum Aufnehmen, ein Mikrofon etc. gekauft hast und du diese Ausrüstung mit deinen [Einnahmen aus Werbung und Kooperationen](/youtube-tipps-de/7-wege-wie-creator-geld-verdienen-jenseits-von-youtube-anzeigen/) decken möchtest. Denk auch daran etwas für zukünftige Ausstattungen zurückzulegen.
 
 ## Marktwert
 

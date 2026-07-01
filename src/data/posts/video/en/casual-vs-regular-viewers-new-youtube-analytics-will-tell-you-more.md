@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-Let's talk about the YouTube updates. Audience segments are now available in YouTube Analytics, splitting new and returning viewers into more granular categories: New Viewers, Casual Viewers (those who occasionally watch the channel for 1 to 5 months out of the last 12 months), and Regular Viewers (those who watch the channel for more than 6 months out of the last 12 months, which is apparently a tough milestone to reach). Creator Insider mentions this, so expect a lower Regular Viewer count compared to Casual Viewers.
+Let's talk about the YouTube updates. Audience segments are now available in [YouTube Analytics](/youtube-tips-en/new-in-youtube-analytics-impressions-for-new-and-returning-viewers/), splitting new and returning viewers into more granular categories: New Viewers, Casual Viewers (those who occasionally watch the channel for 1 to 5 months out of the last 12 months), and Regular Viewers (those who watch the channel for more than 6 months out of the last 12 months, which is apparently a tough milestone to reach). Creator Insider mentions this, so expect a lower Regular Viewer count compared to Casual Viewers.
 
 Casual Viewers will likely be your largest audience segment. The rollout began this week, and while I haven't seen it on our channels or clients' channels yet, it should be completed within the next 4 to 6 weeks. Keep an eye out for it. If you have questions, feel free to leave them in the comments below.
 

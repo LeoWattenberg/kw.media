@@ -7,8 +7,8 @@ excerpt: "Das EEE-Modell erklärt, wie kleine YouTuber aus der Wachstumsfalle ko
 date: "2021-06-11T16:51:11"
 modified: "2023-03-17T12:57:30"
 locale: "de"
-category: "blog"
 translationKey: "post:1419"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/"
@@ -16,11 +16,11 @@ sourceUrl: "https://kw.media/youtube-tipps-de/das-eee-modell-wie-du-aus-der-klei
 
 Moin.
 
-Dieser Post richtet sich insbesondere an YouTube-Beginner und soll dich davor bewahren, aus lauter Enthusiasmus an der Sache sich direkt in den ersten 500 Abonnenten in den Burnout zu grinden. Aber eins nach dem anderen.
+Dieser Post richtet sich insbesondere an YouTube-Beginner und soll dich davor bewahren, aus lauter Enthusiasmus an der Sache sich direkt in den ersten 500 Abonnenten [in den Burnout zu grinden](/youtube-tipps-de/warum-grinden-schlecht-fur-dich-ist/). Aber eins nach dem anderen.
 
 Ein häufiger Anfängerfehler bei YouTube ist es, aus einer einzigen Idee einen Kanal aufzuziehen. Ich habe fast wöchentlich genau damit zu tun:
 
-> Ein:e junge:r Creator:in, meist zwischen 13-16 Jahren guckt sich täglich seine Lieblingsyoutuber an (zum Beispiel: Gronkh) und kommt eines langweiligen Tages auf eine Idee: “Ich kann doch auch mal OBS installieren und Let’s Plays machen”. Gesagt, getan. Und innerhalb kürzester Zeit hat unser Nachwuchs nicht nur raus, wie man Videos aufnimmt, schneidet und hochlädt, sondern ist schon dabei, sich mit einzelnen Optimierungen zu beschäftigen wie SEO oder Thumbnail-Design. Doch nachdem die Neuheit verflogen ist, bahnt sich Ernüchterung an, denn: Egal, was versucht wird, nichts scheint zu funktionieren. Ob Keyword-Optimierung, Eigenwerbung, zwei Videos pro Tag, vielleicht sogar drei oder vier: Keine davon kriegen mehr als eine Handvoll Aufrufe. Eher im Gegenteil, die meisten neuen Videos scheinen schlechter zu laufen als die alten!
+> Ein:e junge:r Creator:in, meist zwischen 13-16 Jahren guckt sich täglich seine Lieblingsyoutuber an (zum Beispiel: Gronkh) und kommt eines langweiligen Tages auf eine Idee: “Ich kann doch auch mal OBS installieren und Let’s Plays machen”. Gesagt, getan. Und innerhalb kürzester Zeit hat unser Nachwuchs nicht nur raus, wie man Videos aufnimmt, schneidet und hochlädt, sondern ist schon dabei, sich mit einzelnen Optimierungen zu beschäftigen wie [SEO oder Thumbnail-Design](/youtube-tipps-de/sei-ein-youtuber-kein-newtuber-mach-guten-content/). Doch nachdem die Neuheit verflogen ist, bahnt sich Ernüchterung an, denn: Egal, was versucht wird, nichts scheint zu funktionieren. Ob Keyword-Optimierung, Eigenwerbung, zwei Videos pro Tag, vielleicht sogar drei oder vier: Keine davon kriegen mehr als eine Handvoll Aufrufe. Eher im Gegenteil, die meisten neuen Videos scheinen schlechter zu laufen als die alten!
 
 **Was ist passiert?** Um die Lösung zu finden, musst du einen Schritt zurücktreten. Was genau sind das eigentlich für Videos? Inwiefern sind sie für Zielgruppen relevant? Was sind überhaupt deine Zielgruppen? Und inwiefern heben die Videos sich von der Masse an Videos auf YouTube ab? Wenn du hier feststeckst und nicht weiterkommst, [könntest du uns anheuern](/creator/), aber bevor du unnötig Geld ausgibst, hätte ich noch eine bessere Idee: Versuche, dem EEE-Modell zu folgen. (Beziehungsweise, dem [EDE-Modell](https://leo.wattenberg.dk/2020/11/03/the-ede-model-exploring-developing-established-creators/). Das Modell ist das gleiche, nur einmal isses auf Englisch und einmal eben nicht.)
 

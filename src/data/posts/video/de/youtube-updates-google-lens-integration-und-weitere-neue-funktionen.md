@@ -21,9 +21,9 @@ video:
 
 ## Transkript
 
-Es gibt frische YouTube-Updates. Lassen Sie uns mit einem kleinen Android-Experiment beginnen, denn die Google-Lensuche ist nun über die YouTube-Suche für einige ausgewählte Android-Nutzer verfügbar. Das bedeutet, dass Google Lens eine App ist (falls Sie sie noch nicht kennen), die Ihre Smartphone-Kamera nutzt, um...
+Es gibt frische [YouTube-Updates](/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/). Lassen Sie uns mit einem kleinen Android-Experiment beginnen, denn die Google-Lensuche ist nun über die YouTube-Suche für einige ausgewählte Android-Nutzer verfügbar. [Das bedeutet](/youtube-tipps-de/youtube-updates-brandconnect-expansion-und-neue-streaming-features/), dass Google Lens eine App ist (falls Sie sie noch nicht kennen), die Ihre Smartphone-Kamera nutzt, um...
 
-YouTube-Updates: Was ist neu?
+[YouTube-Updates](/youtube-tipps-de/youtubes-updates-q-und-a-sticker-und-10mb-thumbnails/): Was ist neu?
 
 Es ist nun möglich, Bildersuchen auf Google und auch auf YouTube durchzuführen. Ich kann mir vorstellen, dass dies für Reparaturanleitungen nützlich sein kann. Wenn man beispielsweise unter dem Spülbecken hängt und den Sifon auseinanderbauen muss, ohne davon Ahnung zu haben, könnte man ein Tutorial suchen, da man vielleicht nicht weiß, wie man "Sifon" schreibt oder das Wort einfach nicht kennt. Ich denke, für solche Situationen kann diese Funktion sehr praktisch sein. Teilt mir gerne eure Meinungen in den Kommentaren mit!
 

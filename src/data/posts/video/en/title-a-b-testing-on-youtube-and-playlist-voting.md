@@ -31,7 +31,7 @@ I think it's a great addition, beneficial for both viewers and creators.  It cou
 
 Please share your thoughts on this feature! Now, let's move on to the next experiment:
 
-Last year, YouTube introduced A/B testing for thumbnails. Many creators requested a similar feature for titles, and currently, an experiment is underway (still in a very early alpha stage). I've seen some experimental screenshots, but the creator asked me to redact their title, so the source remains anonymous.
+Last year, YouTube introduced [A/B testing for thumbnails](/youtube-tips-en/what-is-youtube-test-and-compare-or-thumbnail-a-b-testing/). Many creators requested a similar feature for titles, and currently, an experiment is underway (still in a very early alpha stage). I've seen some experimental screenshots, but the creator asked me to redact their title, so the source remains anonymous.
 
 This new feature allows you to enter up to three variations of a title, three thumbnails (as with the existing thumbnail A/B testing), or a combination of three titles and three thumbnails. This raises interesting questions about autodubbing and auto-translations for titles and descriptions. Since titles are limited to around 100 characters, translating multiple variations shouldn't be too challenging.
 

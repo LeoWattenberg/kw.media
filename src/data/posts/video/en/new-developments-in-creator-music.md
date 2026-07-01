@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-The next big topic on the horizon is Creator Music. This is a growing library of music tracks that you can use in your videos and even further monetize, as long as you naturally pay the licensing fees upon upload.
+The next big topic on the horizon is [Creator Music](/youtube-tips-en/how-the-youtube-audio-library-works/). This is a growing library of music tracks that you can use in your videos and even further monetize, as long as you naturally pay the licensing fees upon upload.

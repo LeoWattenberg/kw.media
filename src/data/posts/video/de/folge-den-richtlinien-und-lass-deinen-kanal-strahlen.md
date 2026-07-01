@@ -23,4 +23,4 @@ video:
 
 YouTube ABC: Die YouTube-Richtlinien sind standardisierte Regeln, die respektvolle Interaktionen innerhalb der Community fördern. Die Einhaltung der Richtlinien verhindert Konflikte und verbessert die Qualität deines Inhalts. Die Plattform bietet eine umfassende Liste an zu beachtenden Regeln. Ein automatisiertes System filtert Spam und bereits gelöschte, neu hochgeladene Videos heraus. Review-Teams analysieren gemeldete Inhalte, um Verstöße zu identifizieren. Bei Bedarf setzen sie Altersbeschränkungen ein. Der Creator muss mit möglichen Konsequenzen wie Sanktionen und Einschränkungen rechnen. Um deine Inhalte erfolgreich zu monetarisieren, ist es außerdem wichtig, die Monetarisierungsrichtlinien zu prüfen.
 
-Überlege dir, eigene Community-Richtlinien aufzustellen. Abonniere unseren Kanal, um weitere nützliche Informationen zu finden.
+Überlege dir, [eigene Community-Richtlinien aufzustellen](/youtube-tipps-de/jetzt-neu-kanalrichtlinien/). Abonniere unseren Kanal, um weitere nützliche Informationen zu finden.

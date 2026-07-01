@@ -23,7 +23,7 @@ video:
 
 Das mobile Studio wird aufgeräumt: Die Registerkarte "Inhalte" wird angepasst und bietet nun "Shelfs" (Regale) mit allen Formaten. Es gibt weiterhin die Listenansicht, die über "View All" ausgewählt werden kann. Geplante Inhalte werden nur dann angezeigt, wenn solche vorhanden sind. Sinnvolle Performance-Daten werden unter dem Inhalt selbst angezeigt, und der Monetarisierungs- und Sichtbarkeitsstatus wird nur bei Problemen oder nicht-öffentlichen Inhalten angezeigt – aber auch in der klassischen Listenansicht, wie bereits bekannt. Der Rollout soll in den nächsten Wochen erfolgen, also Ausschau halten, ob eure Studio-App ein Update benötigt!
 
-Bleiben wir im YouTube Studio, einen bis zwei Tabs weiter rechts: Dort findet ihr die Kommentare-Registerkarte, die in "Community"-Registerkarte umbenannt wird. Warum dieser Wechsel? Vermutlich brauchen sie Platz für Community Posts und Fan Communities, also werden diese nun unter dem Community-Tab zusammengefasst.
+Bleiben wir im YouTube Studio, einen bis zwei Tabs weiter rechts: Dort findet ihr die Kommentare-Registerkarte, die in "Community"-Registerkarte umbenannt wird. Warum dieser Wechsel? Vermutlich brauchen sie Platz für Community Posts und [Fan Communities](/youtube-tipps-de/youtube-fan-communities-alles-was-du-wissen-musst/), also werden diese nun unter dem Community-Tab zusammengefasst.
 
 Es gibt eine Umbenennung in "Community", Anzeige der Anzahl der Kommentare und wiederkehrenden Zuschauer – eine sinnvolle Metrik, um zu sehen, wer bei euch aktiv ist, wie viele Leute aktiv sind und wie viele regelmäßig zurückkehren. "Community Spotlights" zeigt die aktivsten und engagiertesten Zuschauer an, ähnlich wie bereits bei Top-Kommentatoren mit vielen Herzen. Diese erhalten einen kleinen Badge neben ihrem Namen.
 
@@ -37,7 +37,7 @@ Ihr könnt mich natürlich auch in den Kommentaren oder als Kunden fragen, ich e
 
 Zu guter Letzt haben wir uns die ausrollenden Super Chat Goals angeschaut. Vielen Dank dafür!
 
-YouTube-Updates: Super Chat Goals
+[YouTube-Updates](/youtube-tipps-de/youtube-updates-youtube-studio-app-youtube-app-kommentare-community-posts/): Super Chat Goals
 
 An dieser Stelle habe ich die Funktion bereits aktiviert und wir haben einen kleinen Teststream durchgeführt, um zu sehen, wie alles funktioniert. Ein Goal erstellen ist ziemlich einfach: Man klickt einfach auf das Symbol im Livestream oder Live Chat und kann dann auswählen, ob man 5 oder 50 Super Chats als Ziel setzen möchte. Auch hier ist alles recht unkompliziert.
 

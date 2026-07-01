@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Seit dem letzten YouTube-Update habt ihr die Möglichkeit, mit dem „Strengen Modus“ mehr mögliche Spam-Kommentare automatisch filtern zu lassen. Dafür geht ihr im Studio in die Einstellungen, dann in den Tab „Community“ und weiter zu „Standardeinstellungen“. Dort könnt ihr den neuen „Strengen Modus“ testen.
+Seit dem letzten YouTube-Update habt ihr die Möglichkeit, mit dem „Strengen Modus“ mehr mögliche [Spam-Kommentare](/youtube-tipps-de/jetzt-neu-kanalrichtlinien/) automatisch filtern zu lassen. Dafür geht ihr im Studio in die Einstellungen, dann in den Tab „Community“ und weiter zu „Standardeinstellungen“. Dort könnt ihr den neuen „Strengen Modus“ testen.

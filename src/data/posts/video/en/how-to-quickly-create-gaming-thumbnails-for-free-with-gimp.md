@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-In this tutorial, we create a gaming thumbnail for free with GIMP. The goal is to make something readable, clear, and clickable without needing paid design software. Start by choosing a strong screenshot or character image, then place the most important subject prominently in the frame.
+In this tutorial, we create a [gaming thumbnail](/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/) for free with GIMP. The goal is to make something readable, clear, and clickable without needing paid design software. Start by choosing a strong screenshot or character image, then place the most important subject prominently in the frame.
 
 A good thumbnail needs contrast. Separate the subject from the background, brighten the key elements, and darken or blur areas that distract from the main idea. Add text only if it helps explain the video quickly. Keep it short, large, and easy to read on a phone screen.
 

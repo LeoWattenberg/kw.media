@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-Let's talk about the recent YouTube updates. First things first: money. Or rather, a lack thereof. On July 29th and 30th, between 11:00 AM and 12:00 PM Pacific Time, there were issues with ad serving for newly uploaded videos and ad reporting for all videos. Both bugs have now been fixed. While the ad revenue for new videos published during this time is lost, as no ads were served, the revenue for older videos, Shorts, and YouTube Premium earnings remained unaffected.
+Let's talk about the recent YouTube updates. First things first: money. Or rather, a lack thereof. On July 29th and 30th, between 11:00 AM and 12:00 PM Pacific Time, there were issues with ad serving for newly uploaded videos and [ad reporting](/youtube-tips-en/youtube-updates-mid-roll-ad-bug-and-editing-restrictions-incoming/) for all videos. Both bugs have now been fixed. While the [ad revenue](/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/) for new videos published during this time is lost, as no ads were served, the revenue for older videos, Shorts, and [YouTube Premium earnings](/youtube-tips-en/youtube-premium-bug-why-your-revenue-will-drop-in-march/) remained unaffected.
 
 The collaboration feature, which has been around for a while, is now live on YouTube. In simple terms, one creator uploads a video, invites others to collaborate via a link, and the video appears on all collaborators' channels and subscription feeds. However, it's unclear whether views and revenue are shared among all creators or only with the original uploader. We've reached out to YouTube for clarification but haven't heard back yet.
 

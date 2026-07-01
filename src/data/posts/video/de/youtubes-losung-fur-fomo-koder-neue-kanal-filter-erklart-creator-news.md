@@ -23,14 +23,14 @@ video:
 
 Was geht ab, Leute? Herzlich willkommen zurück zu den YouTube Creator News! Zuallererst ein riesiges Dankeschön an die Hunderten von euch, die bereits an unserer Creator Struggle Umfrage teilgenommen haben. Das Feedback ist unglaublich und ehrlich gesagt ist es viel interessanter als die offiziellen Nachrichten dieser Woche. Wenn ihr noch nicht eure Gedanken geteilt habt, der Link ist immer noch in der Beschreibung.
 
-Nun, wenn wir über YouTube-Updates sprechen, diese Woche ist ziemlich mega. Wir haben zwei kleine, aber solide Updates zur Verbesserung der Lebensqualität, die YouTube offiziell angekündigt hat. Lass uns direkt einsteigen.
+Nun, wenn wir über YouTube-Updates sprechen, [diese Woche](/youtube-tipps-de/youtube-update-der-inspiration-tab-fruher-research-tab-und-seine-neuen-funktionen/) ist ziemlich mega. Wir haben zwei kleine, aber solide Updates zur Verbesserung der Lebensqualität, die YouTube offiziell angekündigt hat. [Lass uns](/youtube-tipps-de/uberarbeitung-der-erweiterten-youtube-analyse-inspiration-ai-jetzt-in-der-eu/) direkt einsteigen.
 
 **Hype-Funktionsupdates**
 
 Ja, es ist immer noch aktuell! Wenn du es noch nicht getan hast, stelle sicher, dieses Video zu hypen. YouTube rollt nun die neuen Funktionen aus, die sie im Herbst versprochen haben:
 
 1. **Kategorie-Bestenlisten**: Zuschauer können jetzt Bestenlisten für spezifische Interessen wie Gaming, Beauty und mehr durchsuchen. Dies sollte zu einer gezielteren Entdeckung führen.
-2. **Öffentliches Hype-Teilen**: Zuschauer, die ein Video hypen, können diesen Hype nun als öffentlichen Beitrag im Community-Tab des Creators teilen, wodurch Fan-Communities zugänglicher werden.
+2. **Öffentliches Hype-Teilen**: Zuschauer, die ein Video hypen, können diesen Hype nun als öffentlichen Beitrag im Community-Tab des Creators teilen, wodurch [Fan-Communities](/youtube-tipps-de/youtube-fuhrt-spannende-neuerungen-ein-clips-feed-update-und-mehr/) zugänglicher werden.
 
 YouTube hat auch einige Punkte aufgrund von Verwirrung geklärt: Hype ist immer noch nicht in allen Märkten verfügbar und es ist derzeit nur mobil nutzbar. Es gibt noch keine Informationen über eine Desktop-Ausgabe. Meiner Meinung nach hält der Mangel an einer Desktop-Version für Hype die Funktion immer noch zurück.
 

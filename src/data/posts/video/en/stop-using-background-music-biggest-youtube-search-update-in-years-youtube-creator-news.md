@@ -26,7 +26,7 @@ Happy New Year! While most of YouTube's engineering teams are still on vacation,
 - The custom channel guidelines expansion is now fully live for all creators with access to intermediate or advanced features. If you haven't already set up your chat rules, do it now.
 - YouTube is updating how family groups appear on TV devices. Cool for viewers, irrelevant for us creators.
 
-Anyway, let's talk about the elephant in the room: the YouTube search overhaul. Neil Mohan, YouTube CEO, dropped a quick note on threads about this, so I thought, might as well look into it.
+Anyway, let's talk about the elephant in the room: the [YouTube search overhaul](/youtube-tips-en/youtube-policy-shift-free-speech-wins/). Neil Mohan, YouTube CEO, dropped a quick note on threads about this, so I thought, might as well look into it.
 
 The first change is format splitting. You can finally filter search results to only show Shorts or only show long-form content. This stops the mixed feed chaos temporarily. However, you still have to set it up for every search individually, and it's not an account-level setting.
 

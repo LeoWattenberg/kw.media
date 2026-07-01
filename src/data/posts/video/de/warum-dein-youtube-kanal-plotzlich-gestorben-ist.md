@@ -23,4 +23,4 @@ video:
 
 Warum hat mein YouTube-Kanal nach 6 Monaten plötzlich aufgehört zu wachsen? Weil du dein Limit erreicht hast. Es fühlt sich an, als hätte der Algorithmus über Nacht einfach abgeschaltet, aber was tatsächlich passiert ist, ist, dass YouTube dein anfängliches Publikum erfolgreich gefunden hat und du dann aufgehört hast, dich anzupassen. Du hast genau den gleichen Content weitergemacht und dabei unterschiedliche Ergebnisse erwartet. Und YouTube bestraft dich hier nicht. Es gibt einfach keine neuen Leute mehr, die diese spezifische Form von Video wollen. Wenn du willst, dass der Graph wieder nach oben geht, musst du deine Verpackung und deine Retention erheblich aktualisieren.
 
-Und bis du dieses Kernproblem behoben hast, wirst du immer auf demselben Plateau feststecken.
+Und bis du dieses Kernproblem behoben hast, wirst du immer [auf demselben Plateau feststecken](/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/).

@@ -21,11 +21,11 @@ video:
 
 ## Transcript
 
-What's up, everyone? Welcome back to the YouTube Creator News! First off, a huge thank you to the hundreds of you who have already participated in our Creator Struggle Survey. The feedback is incredible and honestly, it's much more interesting than the official news this week. If you haven't shared your thoughts yet, the link is still in the description.
+What's up, everyone? [Welcome back to the YouTube](/youtube-tips-en/youtube-news-new-ypp-suspensions-for-clickbait-misleading-metadata/) Creator News! First off, a huge thank you to the hundreds of you who have already participated in our Creator Struggle Survey. The feedback is incredible and honestly, it's much more interesting than the official news this week. If you haven't shared your thoughts yet, the link is still in the description.
 
 Now, speaking of YouTube updates, this week is pretty mega. We have two small but solid quality-of-life updates that YouTube has officially announced. Let's dive right in.
 
-**Hype Feature Updates**
+**[Hype Feature](/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/) Updates**
 
 Yes, it's still a thing! If you haven't already, make sure to hype this video. YouTube is now rolling out the new functions they promised back in the fall:
 

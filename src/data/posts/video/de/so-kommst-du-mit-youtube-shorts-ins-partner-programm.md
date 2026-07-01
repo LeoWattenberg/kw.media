@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Keine Sorge falls ihr es mit euren Shorts nicht geschafft habt die nötige Wiedergabe Zeit fürs YouTube Partnerschaftsprogramm zu sammeln es gibt eine weitere Möglichkeit sich für das Partnerprogramm zu bewerben und das sind 10 Millionen Aufrufe 10 Millionen Shorts Aufrufe in den letzten 90 Tagen und zusätzlich die
+Keine Sorge falls ihr es mit euren Shorts nicht geschafft habt die nötige Wiedergabe Zeit fürs [YouTube Partnerschaftsprogramm](/youtube-tipps-de/wann-kommt-die-shorts-monetarisierung/) zu sammeln es gibt eine weitere Möglichkeit sich für das Partnerprogramm zu bewerben und das sind 10 Millionen Aufrufe 10 Millionen Shorts Aufrufe in den letzten 90 Tagen und zusätzlich die

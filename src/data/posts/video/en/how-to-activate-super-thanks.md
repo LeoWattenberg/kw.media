@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-To receive the new Super Thanks as a Creator in the YouTube Partner Program, you first need to enable them. Go to your Studio under "Monetization" and click on the new tab "Supers." There, you have the option to activate or deactivate individual Supers.
+To receive the new [Super Thanks](/youtube-tips-en/new-feature-alert-superthanks/) as a Creator in the YouTube Partner Program, you first need to enable them. Go to your Studio under "Monetization" and click on the new tab "Supers." There, you have the option to activate or deactivate individual Supers.
