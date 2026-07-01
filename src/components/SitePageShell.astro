@@ -1,5 +1,6 @@
 ---
 import type { Locale } from '../i18n';
+import { getAuthorByPath } from '../data/authors';
 import type { SitePage } from '../lib/page-types';
 import BaseLayout from './layout/BaseLayout.astro';
 import PageRenderer from './PageRenderer.astro';
@@ -12,6 +13,7 @@ interface Props {
 const { page, alternatePaths } = Astro.props;
 const heroBlock = page.blocks.find((block) => block.type === 'hero');
 const faqItems = page.blocks.flatMap((block) => (block.type === 'faq' ? block.items : []));
+const profileAuthor = getAuthorByPath(page.path);
 ---
 
 <BaseLayout
@@ -23,6 +25,8 @@ const faqItems = page.blocks.flatMap((block) => (block.type === 'faq' ? block.it
 	alternatePaths={alternatePaths}
 	image={heroBlock?.image}
 	imageAlt={heroBlock?.imageAlt}
+	schemaType={profileAuthor ? 'ProfilePage' : 'WebPage'}
+	profileAuthor={profileAuthor}
 	faqItems={faqItems}
 >
 	<PageRenderer page={page} />

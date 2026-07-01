@@ -74,6 +74,11 @@ export function getAuthorByName(name: string): AuthorProfile | undefined {
 	return authorProfiles.find((author) => author.name === name);
 }
 
+export function getAuthorByPath(path: string): AuthorProfile | undefined {
+	const normalizedPath = path.endsWith('/') ? path : `${path}/`;
+	return authorProfiles.find((author) => Object.values(author.paths).includes(normalizedPath));
+}
+
 export function getAuthorPath(name: string, locale: Locale): string | undefined {
 	return getAuthorByName(name)?.paths[locale];
 }
