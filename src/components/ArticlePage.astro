@@ -17,7 +17,9 @@ const isShortVideo = post.video?.watchUrl.includes('/shorts/');
 const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
 const postNavigation = getPostNavigation(post);
 const relatedPosts = getRelatedPosts(post);
-const postOverviewPath = routeFor('tips', post.locale);
+const postOverviewPath = post.category === 'audacity'
+	? routeFor('audacity', post.locale)
+	: routeFor('tips', post.locale);
 const formattedDate = new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US', {
 	day: 'numeric',
 	month: 'long',
@@ -84,7 +86,7 @@ const navigationSections = [
 	{
 		title: navigationLabels.category,
 		categoryLabel: categoryLabels[post.locale][post.category],
-		categoryHref: post.category === 'audacity' ? undefined : `${postOverviewPath}?category=${post.category}`,
+		categoryHref: post.category === 'audacity' ? postOverviewPath : `${postOverviewPath}?category=${post.category}`,
 		previous: postNavigation.category.previous,
 		next: postNavigation.category.next,
 	},
@@ -182,7 +184,6 @@ function formatPostDate(navigationPost: SourcePost): string {
 															<a href={withBase(section.categoryHref)}>{section.categoryLabel}</a>
 														</>
 													)}
-													{section.categoryLabel && !section.categoryHref && `${section.title}: ${section.categoryLabel}`}
 													{!section.categoryLabel && section.title}
 												</h3>
 												<div class="post-navigation-links">
