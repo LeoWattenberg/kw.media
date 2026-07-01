@@ -52,6 +52,8 @@ const copyByLocale = {
 			fileHint: 'WAV, FLAC, AIFF, MP3, OGG, M4A und mehr',
 			fileMeta: '{size} | {type}',
 			fileReady: '{name} ist ausgewählt ({size}).',
+			feedbackCorrect: 'Richtig! Das Original war {actual}.',
+			feedbackWrong: 'Leider falsch. Das Original war {actual}.',
 			mismatchedDuration: 'Getestet werden die ersten {duration}, weil eine MP3-Version kürzer ist.',
 			nativeDecoder: 'Browser-Dekoder',
 			nextTrial: 'Antwort gespeichert. Durchgang {current} von {total}.',
@@ -116,6 +118,8 @@ const copyByLocale = {
 			fileHint: 'WAV, FLAC, AIFF, MP3, OGG, M4A and more',
 			fileMeta: '{size} | {type}',
 			fileReady: '{name} is selected ({size}).',
+			feedbackCorrect: 'Correct! The original was {actual}.',
+			feedbackWrong: 'Nope. The original was {actual}.',
 			mismatchedDuration: 'Testing is limited to the first {duration} because one MP3 version is shorter.',
 			nativeDecoder: 'browser decoder',
 			nextTrial: 'Answer saved. Trial {current} of {total}.',
@@ -328,6 +332,8 @@ const copyJson = JSON.stringify(copy.client);
 				position: 0,
 				startedAt: 0,
 				raf: 0,
+				feedbackTimer: 0,
+				isFeedbackPending: false,
 			};
 
 			if (!AudioContextConstructor) {
@@ -658,34 +664,46 @@ const copyJson = JSON.stringify(copy.client);
 			}
 
 			function recordAnswer(choice) {
-				if (!state.trials.length) {
+				if (!state.trials.length || state.isFeedbackPending) {
 					return;
 				}
 
 				const trial = state.trials[state.trialIndex];
-				state.answers.push({
+				const answer = {
 					trial: state.trialIndex + 1,
 					preset: trial.presetLabel,
 					choice,
 					actual: trial.originalSlot,
 					correct: choice === trial.originalSlot,
-				});
+				};
+				state.answers.push(answer);
 
 				pausePlayback();
 				state.position = 0;
+				state.isFeedbackPending = true;
+				setAnswerButtonsDisabled(true);
+				setStatus(format(answer.correct ? copy.feedbackCorrect : copy.feedbackWrong, {
+					actual: answer.actual,
+				}), answer.correct ? 'success' : 'error');
 
-				if (state.trialIndex < state.trials.length - 1) {
-					state.trialIndex += 1;
-					state.activeSlot = 'A';
-					updateTrialUi();
-					setStatus(format(copy.nextTrial, {
-						current: state.trialIndex + 1,
-						total: state.trials.length,
-					}), 'success');
-					return;
-				}
+				state.feedbackTimer = window.setTimeout(() => {
+					state.feedbackTimer = 0;
+					state.isFeedbackPending = false;
+					setAnswerButtonsDisabled(false);
 
-				finishTest();
+					if (state.trialIndex < state.trials.length - 1) {
+						state.trialIndex += 1;
+						state.activeSlot = 'A';
+						updateTrialUi();
+						setStatus(format(copy.nextTrial, {
+							current: state.trialIndex + 1,
+							total: state.trials.length,
+						}), 'success');
+						return;
+					}
+
+					finishTest();
+				}, 900);
 			}
 
 			function finishTest() {
@@ -951,6 +969,7 @@ const copyJson = JSON.stringify(copy.client);
 
 			function resetRun(showMessage = true) {
 				stopPlayback();
+				clearFeedbackTimer();
 				state.trials = [];
 				state.answers = [];
 				state.trialIndex = 0;
@@ -961,6 +980,22 @@ const copyJson = JSON.stringify(copy.client);
 
 				if (showMessage) {
 					setStatus(copy.reset, 'info');
+				}
+			}
+
+			function clearFeedbackTimer() {
+				if (state.feedbackTimer) {
+					window.clearTimeout(state.feedbackTimer);
+					state.feedbackTimer = 0;
+				}
+
+				state.isFeedbackPending = false;
+				setAnswerButtonsDisabled(false);
+			}
+
+			function setAnswerButtonsDisabled(disabled) {
+				for (const button of answerButtons) {
+					button.disabled = disabled;
 				}
 			}
 
