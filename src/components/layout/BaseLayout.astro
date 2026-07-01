@@ -4,11 +4,12 @@ import SiteFooter from './SiteFooter.astro';
 import SiteSidebar from './SiteSidebar.astro';
 import type { Locale } from '../../i18n';
 import { useTranslations } from '../../i18n';
+import type { AuthorProfile } from '../../data/authors';
 import { getAuthorPath } from '../../data/authors';
 import { localizeMediaUrl } from '../../lib/media';
 import { withBase } from '../../lib/url';
 
-type SchemaType = 'WebPage' | 'BlogPosting' | 'VideoObject';
+type SchemaType = 'WebPage' | 'BlogPosting' | 'VideoObject' | 'ProfilePage';
 type AlternatePaths = Partial<Record<Locale, string>>;
 
 interface FaqItem {
@@ -29,6 +30,7 @@ interface Props {
 	publishedTime?: string;
 	modifiedTime?: string;
 	authorName?: string;
+	profileAuthor?: AuthorProfile;
 	video?: {
 		youtubeId: string;
 		embedUrl: string;
@@ -51,6 +53,7 @@ const {
 	publishedTime,
 	modifiedTime,
 	authorName,
+	profileAuthor,
 	video,
 	faqItems = [],
 } = Astro.props;
@@ -76,6 +79,7 @@ function absoluteUrl(href: string): string {
 const canonicalHref = absoluteUrl(canonicalPath);
 const socialImageHref = socialImage ? absoluteUrl(socialImage) : undefined;
 const authorHref = authorPath ? absoluteUrl(authorPath) : undefined;
+const authorId = authorHref ? `${authorHref}#person` : undefined;
 const effectiveAlternatePaths = {
 	[locale]: canonicalPath,
 	...alternatePaths,
@@ -106,6 +110,7 @@ const webPageId = `${canonicalHref}#webpage`;
 const breadcrumbId = `${canonicalHref}#breadcrumb`;
 const articleId = `${canonicalHref}#article`;
 const videoId = `${canonicalHref}#video`;
+const profilePersonId = `${canonicalHref}#person`;
 const homePath = locale === 'en' ? '/en/' : '/';
 const isHomePage = canonicalPath === '/' || canonicalPath === '/en/';
 const breadcrumbItems = [
@@ -153,7 +158,7 @@ const websiteSchema = {
 	inLanguage: schemaLanguageByLocale[locale],
 };
 const webPageSchema = {
-	'@type': 'WebPage',
+	'@type': schemaType === 'ProfilePage' && profileAuthor ? 'ProfilePage' : 'WebPage',
 	'@id': webPageId,
 	url: canonicalHref,
 	name: fullTitle,
@@ -167,9 +172,26 @@ const webPageSchema = {
 			? { '@id': articleId }
 			: schemaType === 'VideoObject' && video
 				? { '@id': videoId }
-				: undefined,
+				: schemaType === 'ProfilePage' && profileAuthor
+					? { '@id': profilePersonId }
+					: undefined,
 	inLanguage: schemaLanguageByLocale[locale],
 };
+const profilePersonSchema =
+	schemaType === 'ProfilePage' && profileAuthor
+		? {
+				'@type': 'Person',
+				'@id': profilePersonId,
+				name: profileAuthor.name,
+				url: canonicalHref,
+				jobTitle: profileAuthor.role,
+				description: profileAuthor.description[locale],
+				image: absoluteUrl(profileAuthor.image),
+				email: profileAuthor.email,
+				affiliation: { '@id': organizationId },
+				knowsAbout: profileAuthor.credentials,
+			}
+		: undefined;
 const articleSchema =
 	schemaType === 'BlogPosting'
 		? {
@@ -183,6 +205,7 @@ const articleSchema =
 				dateModified: modifiedTime ?? publishedTime,
 				author: {
 					'@type': 'Person',
+					'@id': authorId,
 					name: authorName ?? siteName,
 					url: authorHref,
 				},
@@ -205,6 +228,7 @@ const videoSchema =
 				contentUrl: video.watchUrl,
 				creator: {
 					'@type': 'Person',
+					'@id': authorId,
 					name: authorName ?? siteName,
 					url: authorHref,
 				},
@@ -237,7 +261,16 @@ const faqSchema = faqItems.length
 	: undefined;
 const jsonLd = JSON.stringify({
 	'@context': 'https://schema.org',
-	'@graph': [organizationSchema, websiteSchema, webPageSchema, articleSchema, videoSchema, breadcrumbSchema, faqSchema].filter(Boolean),
+	'@graph': [
+		organizationSchema,
+		websiteSchema,
+		webPageSchema,
+		profilePersonSchema,
+		articleSchema,
+		videoSchema,
+		breadcrumbSchema,
+		faqSchema,
+	].filter(Boolean),
 });
 ---
 
