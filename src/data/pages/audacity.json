@@ -1,0 +1,31 @@
+{
+	"id": "audacity",
+	"translations": {
+		"de": {
+			"id": "audacity-de",
+			"path": "/de/audacity/",
+			"title": "Audacity Tutorials",
+			"description": "Audacity Tutorials und Updates von Leo Wattenberg.",
+			"blocks": [
+				{
+					"type": "posts",
+					"title": "Audacity Tutorials",
+					"categories": ["audacity"]
+				}
+			]
+		},
+		"en": {
+			"id": "audacity-en",
+			"path": "/audacity/",
+			"title": "Audacity Tutorials",
+			"description": "Audacity tutorials and updates by Leo Wattenberg.",
+			"blocks": [
+				{
+					"type": "posts",
+					"title": "Audacity Tutorials",
+					"categories": ["audacity"]
+				}
+			]
+		}
+	}
+}

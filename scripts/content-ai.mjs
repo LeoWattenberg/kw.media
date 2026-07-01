@@ -115,14 +115,6 @@ export async function cleanupPostFile(filePath, options = {}) {
 
 export async function translatePostFile(filePath, options = {}) {
 	const source = readPostFile(filePath);
-	if (source.frontmatter.category === 'audacity') {
-		return {
-			sourcePath: filePath,
-			skipped: true,
-			reason: 'audacity posts are not translated into the YouTube tips archive',
-		};
-	}
-
 	const targetLocale = options.targetLocale ?? otherLocale(source.frontmatter.locale);
 	const allPosts = readAllPosts();
 	const translationKey = source.frontmatter.translationKey ?? translationKeyFor(source.frontmatter);
@@ -166,8 +158,8 @@ export async function translatePostFile(filePath, options = {}) {
 		'post excerpt',
 	);
 	const translatedSlug = uniqueSlug(slugify(translatedTitle, targetLocale), existingSlugs(allPosts));
-	const targetKind = source.frontmatter.video ? 'video' : 'blog';
-	const targetPath = `${routePrefixes[targetLocale]}/${translatedSlug}/`;
+	const targetKind = postDirectoryKind(source.frontmatter);
+	const targetPath = routePathForPost(source.frontmatter, targetLocale, translatedSlug);
 	const targetFilePath = join(postDirectories[targetKind][targetLocale], `${translatedSlug}.md`);
 	const nextId = maxPostId(allPosts) + 1;
 
@@ -194,6 +186,22 @@ export async function translatePostFile(filePath, options = {}) {
 		model: translateModel,
 		skipped: false,
 	};
+}
+
+function postDirectoryKind(frontmatter) {
+	if (frontmatter.category === 'audacity') {
+		return 'audacity';
+	}
+
+	return frontmatter.video ? 'video' : 'blog';
+}
+
+function routePathForPost(frontmatter, targetLocale, slug) {
+	if (frontmatter.category === 'audacity') {
+		return `/audacity/${slug}/`;
+	}
+
+	return `${routePrefixes[targetLocale]}/${slug}/`;
 }
 
 export async function cleanupLastCommitPosts() {

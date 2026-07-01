@@ -42,6 +42,10 @@ export const routes = {
 		de: '/de/youtube-tipps/',
 		en: '/en/youtube-tips/',
 	},
+	audacity: {
+		de: '/de/audacity/',
+		en: '/audacity/',
+	},
 	imprintService: {
 		de: '/impressumsservice/',
 		en: '/en/imprint-service/',
