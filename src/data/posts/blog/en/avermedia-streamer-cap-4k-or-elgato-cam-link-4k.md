@@ -22,7 +22,12 @@ The [AVerMedia Streamer Cap4K (BU113)](https://www.avermedia.com/de/product-deta
 
 First and foremost, both capture devices do exactly what they're supposed to. The image is crystal clear on both, and even during long-term testing—in our case, 3-4 hour livestreams—I didn't notice any delays or image errors.
 
-<figure><table><tbody><tr><td></td><td>Price</td><td>Size</td><td>Performance</td></tr><tr><td><a href="https://www.avermedia.com/de/product-detail/bu113?utm_source=PR&amp;utm_medium=post&amp;utm_campaign=BU113_NPI">Cap4k</a></td><td>  €99.99</td><td>9.42 x 4.54 x 1.60 cm</td><td>4k30</td></tr><tr><td>Camlink4K</td><td>€129.99</td><td>8.08 x 3.10 x 1.19 cm</td><td>4k30</td></tr></tbody></table><figcaption>Cap4k & Camlink4K Comparison at a Glance</figcaption></figure>
+| Device | Price | Size | Performance |
+| --- | --- | --- | --- |
+| [Cap4k](https://www.avermedia.com/de/product-detail/bu113?utm_source=PR&utm_medium=post&utm_campaign=BU113_NPI) | €99.99 | 9.42 x 4.54 x 1.60 cm | 4k30 |
+| Camlink4K | €129.99 | 8.08 x 3.10 x 1.19 cm | 4k30 |
+
+*Cap4k & Camlink4K Comparison at a Glance*
 
 ## Dimensions, Setup & Heat Management:
 

@@ -16,7 +16,7 @@ sourceUrl: "https://kw.media/youtube-tips-en/youtube-mobile-producion-for-everyo
 
 Today we’ll be talking about mobile production for YouTube and YouTube Live. This will be a broader approach to mobile production but we’ll go into more gaming-specific details further down the article, so bear with me.
 
-<figure><a href="https://preview.redd.it/4qkmx58k7sh51.png?width=1800&amp;format=png&amp;auto=webp&amp;s=680b7612091c15be4832e8f1f9960ecc64d5438b" target="_blank" rel="noreferrer noopener"><img src="https://preview.redd.it/4qkmx58k7sh51.png?width=1800&amp;format=png&amp;auto=webp&amp;s=680b7612091c15be4832e8f1f9960ecc64d5438b" alt="r/youtubegaming - Mobile Production for Everyone"></a></figure>
+[![r/youtubegaming - Mobile Production for Everyone](https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b)](https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b)
 
 Most of us in 2020 have a smartphone ready to use at all times, so making content isn’t limited to sets and recording rooms anymore. For almost 4 years now, mobile production has been around on a larger scale with the introduction of Instagram stories in 2016 and the YouTube Player allowing vertical videos since the beta in 2017. For a large portion of that timespan, this branch of web video has been smiled at, including me not believing in this type of content. But here we are now with one of the fastest-growing web video platforms taking off (TikTok) and we need to rethink how we can adopt basic principles of mobile production so they fit within our YouTube workflow.
 

@@ -7,14 +7,14 @@ excerpt: "Ein praktischer Vergleich zwischen AVerMedia Streamer Cap 4K und Elgat
 date: "2021-10-27T15:50:28"
 modified: "2023-03-17T12:57:27"
 locale: "de"
-category: "blog"
 translationKey: "post:1847"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/10/camlink_cap4k_vergleich.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/avermedia-streamer-cap4k-bu113-oder-elgato-camlink4k/"
 ---
 
-AVerMedia hat eine neue Capture Card auf den Markt gebracht und mir ein Exemplar geschickt um mir das Teil mal genauer anzuschauen und eine Meinung dazu abzugeben. Ich habe mich selbstredend bemüht möglichst objektiv an den Vergleich zu gehen.
+AVerMedia hat eine neue [Capture Card](/youtube-tipps-de/kameras-und-konsolen-playstation-xbox-switch-in-obs-einbinden-mit-capture-cards/) auf den Markt gebracht und mir ein Exemplar geschickt um mir das Teil mal genauer anzuschauen und eine Meinung dazu abzugeben. Ich habe mich selbstredend bemüht möglichst objektiv an den Vergleich zu gehen.
 
 Das [AVerMedia Streamer Cap4K (BU113)](https://www.avermedia.com/de/product-detail/bu113?utm_source=PR&utm_medium=post&utm_campaign=BU113_NPI) ist gedacht, um DSLR Kameras für die Aufnahme bzw. das Streamen mit einem PC und dem darauflaufenden Aufnahmeprogramm zu verbinden. Das könnte z.B. OBS oder das AVerMedia eigene RECentral. Wir haben hier also ein direktes Konkurrenzprodukt zum Camlink4k von Elgato. Unsere zentrale Frage heute lautet also:  Kann AVerMedia die Marktdominanz von Elgato überwinden & mit günstigeren Produkten überzeugen?
 
@@ -22,7 +22,12 @@ Das [AVerMedia Streamer Cap4K (BU113)](https://www.avermedia.com/de/product-deta
 
 Zunächst einmal vorweg: Beide Aufnahme-Geräte tun genau das, was sie sollen. Das Bild ist bei beiden kristallklar und auch im Langzeittest, in unserem Fall Livestreams von 3-4 Stunden konnte ich keine Verzögerungen oder Bildfehler feststellen.
 
-<figure><table><tbody><tr><td></td><td>Preis</td><td>Größe</td><td>Leistung</td></tr><tr><td><a href="https://www.avermedia.com/de/product-detail/bu113?utm_source=PR&amp;utm_medium=post&amp;utm_campaign=BU113_NPI">Cap4k</a></td><td>  99,99 EUR</td><td>9.42 x 4.54 x 1.60 cm</td><td>4k30</td></tr><tr><td>Camlink4K</td><td>129,99 EUR</td><td>8.08 x 3.10 x 1.19 cm</td><td>4k30</td></tr></tbody></table><figcaption>Cap4k &amp; Camlink4K Vergleich auf einen Blick</figcaption></figure>
+| Gerät | Preis | Größe | Leistung |
+| --- | --- | --- | --- |
+| [Cap4k](https://www.avermedia.com/de/product-detail/bu113?utm_source=PR&utm_medium=post&utm_campaign=BU113_NPI) | 99,99 EUR | 9.42 x 4.54 x 1.60 cm | 4k30 |
+| Camlink4K | 129,99 EUR | 8.08 x 3.10 x 1.19 cm | 4k30 |
+
+*Cap4k & Camlink4K Vergleich auf einen Blick*
 
 ## Abmessungen, Einrichtung & Hitze-Verhalten:
 

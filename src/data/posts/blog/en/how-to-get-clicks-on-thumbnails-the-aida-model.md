@@ -37,7 +37,9 @@ When your thumbnail has done the heavy lifting, your title can jump in to help o
 
 That said, to generate interest:
 
-<figure class="align-right image-large resized"><img src="/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-15-37-25.png" alt width="255" height="214"><figcaption>Example of a Thumbnail that both generates attention (bright color) and interest (title contradicts the obvious). <a href="https://www.youtube.com/watch?v=R3unPcJDbCc" target="_blank" rel="noreferrer noopener">Thumbnail source: Vsauce</a></figcaption></figure>
+![](/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-15-37-25.png)
+
+*Example of a Thumbnail that both generates attention (bright color) and interest (title contradicts the obvious). [Thumbnail source: Vsauce](https://www.youtube.com/watch?v=R3unPcJDbCc)*
 
 - Have a solution for a problem. Especially if people come from search, with a question like “how do I fix XYZ”, a video with the title “How to fix XYZ” would probably have them very interested.
 - Use Clickbait. You can withhold information from the title and thumbnail (censoring part of the image, have the title refer to a vague “this”, etc.). Doing so may come back to bite you later on though.
@@ -51,7 +53,9 @@ We’re almost there now. But not quite.
 
 We now want Tama to actually *want* to watch the video. For this, we can promise her that our video is worth watching. This promise usually is implied rather than explicit. In above “this is not yellow” example, the promise is “it will make sense by the end of this video” or maybe “you will learn something”. In a repair tutorial, it’s “you can make your thing work again”.
 
-<figure class="align-right image-large resized"><img src="/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png" alt width="255" height="221"><figcaption>A rare example of an explicit promise. <a href="https://www.youtube.com/watch?v=2tdiKTSdE9Y" target="_blank" rel="noreferrer noopener">Thumbnail source: Tom Scott</a></figcaption></figure>
+![](/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png)
+
+*A rare example of an explicit promise. [Thumbnail source: Tom Scott](https://www.youtube.com/watch?v=2tdiKTSdE9Y)*
 
 Desire, even moreso than Interest, is not just dependent on your channel, but also to each individual viewer, so even coming up with examples is difficult here. Even if you have interest already, there are a lot of reasons why Tama might not want to watch your video:
 
