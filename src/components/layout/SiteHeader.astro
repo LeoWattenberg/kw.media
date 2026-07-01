@@ -3,14 +3,18 @@ import { getNavigation } from '../../data/site';
 import { localeLabels, routeFor, type Locale, useTranslations } from '../../i18n';
 import { withBase } from '../../lib/url';
 
+type AlternatePaths = Partial<Record<Locale, string>>;
+
 interface Props {
 	locale: Locale;
+	alternatePaths?: AlternatePaths;
 }
 
-const { locale } = Astro.props;
+const { locale, alternatePaths = {} } = Astro.props;
 const t = useTranslations(locale);
 const navigation = getNavigation(locale);
 const alternateLocale = locale === 'de' ? 'en' : 'de';
+const alternatePath = alternatePaths[alternateLocale] ?? routeFor('home', alternateLocale);
 ---
 
 <header class="site-header">
@@ -25,7 +29,7 @@ const alternateLocale = locale === 'de' ? 'en' : 'de';
 				))
 			}
 		</nav>
-		<a class="language-link" href={withBase(routeFor('home', alternateLocale))}>
+		<a class="language-link" href={withBase(alternatePath)}>
 			{localeLabels[alternateLocale]}
 		</a>
 	</div>

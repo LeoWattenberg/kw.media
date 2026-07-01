@@ -3,14 +3,18 @@ import { sitePages } from '../../data/pages';
 import { localeLabels, routeFor, type Locale, useTranslations } from '../../i18n';
 import { withBase } from '../../lib/url';
 
+type AlternatePaths = Partial<Record<Locale, string>>;
+
 interface Props {
 	locale: Locale;
 	currentPath: string;
+	alternatePaths?: AlternatePaths;
 }
 
-const { locale, currentPath } = Astro.props;
+const { locale, currentPath, alternatePaths = {} } = Astro.props;
 const t = useTranslations(locale);
 const alternateLocale = locale === 'de' ? 'en' : 'de';
+const alternatePath = alternatePaths[alternateLocale] ?? routeFor('home', alternateLocale);
 const normalizedCurrentPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
 
 const pageOrder = [
@@ -73,7 +77,7 @@ const sidebarPages = sitePages
 		}
 	</nav>
 
-	<a class="language-link" href={withBase(routeFor('home', alternateLocale))}>
+	<a class="language-link" href={withBase(alternatePath)}>
 		{localeLabels[alternateLocale]}
 	</a>
 </aside>
