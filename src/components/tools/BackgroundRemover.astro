@@ -163,14 +163,12 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 
 				<section class="remover-panel settings-panel">
 					<h2>{copy.settingsTitle}</h2>
-					<label class="select-control">
-						<span>{copy.mode}</span>
-						<select data-mode>
-							<option value="edges" selected>{copy.modeEdges}</option>
-							<option value="checkerboard">{copy.modeCheckerboard}</option>
-							<option value="color">{copy.modeColor}</option>
-						</select>
-					</label>
+					<fieldset class="mode-control">
+						<legend>{copy.mode}</legend>
+						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="edges" checked /> {copy.modeEdges}</label>
+						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="checkerboard" /> {copy.modeCheckerboard}</label>
+						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="color" /> {copy.modeColor}</label>
+					</fieldset>
 					<div class="corner-group" data-corner-group>
 						<span>{copy.corners}</span>
 						<label><input data-corner type="checkbox" value="top-left" checked /> {copy.topLeft}</label>
@@ -255,7 +253,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			const fileInput = root.querySelector('[data-file]');
 			const fileName = root.querySelector('[data-file-name]');
 			const fileMeta = root.querySelector('[data-file-meta]');
-			const modeSelect = root.querySelector('[data-mode]');
+			const modeInputs = Array.from(root.querySelectorAll('[data-mode]'));
 			const cornerGroup = root.querySelector('[data-corner-group]');
 			const cornerInputs = Array.from(root.querySelectorAll('[data-corner]'));
 			const colorControl = root.querySelector('[data-color-control]');
@@ -281,7 +279,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			const downloadLink = root.querySelector('[data-download]');
 
 			if (
-				!fileInput || !fileName || !fileMeta || !modeSelect || !cornerGroup || !colorControl ||
+				!fileInput || !fileName || !fileMeta || !modeInputs.length || !cornerGroup || !colorControl ||
 				!colorInput || !fuzzInput || !fuzzLabel || !formatSelect || !qualityControl || !qualityInput ||
 				!qualityLabel || !removeButton || !clearButton || !status || !sourcePreview || !sourceImage ||
 				!sourcePreviewNote || !sourceMeta || !result || !outputImage || !outputPreviewNote ||
@@ -302,7 +300,9 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			fileInput.addEventListener('change', () => {
 				setSourceFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
 			});
-			modeSelect.addEventListener('change', updateModeView);
+			for (const input of modeInputs) {
+				input.addEventListener('change', updateModeView);
+			}
 			formatSelect.addEventListener('change', updateQualityControl);
 			fuzzInput.addEventListener('input', () => {
 				fuzzLabel.textContent = `${fuzzInput.value}%`;
@@ -379,7 +379,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				const selectedFormat = getSelectedFormat();
 				const selectedCorners = getSelectedCorners();
 
-				if (modeSelect.value === 'edges' && !selectedCorners.length) {
+				if (getMode() === 'edges' && !selectedCorners.length) {
 					setStatus(copy.noCorners, 'error');
 					return;
 				}
@@ -399,7 +399,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 						corners: selectedCorners,
 						format: selectedFormat,
 						fuzz: Number(fuzzInput.value),
-						mode: modeSelect.value,
+						mode: getMode(),
 						quality: Number(qualityInput.value),
 					});
 					const outputBlob = new Blob([cutout.bytes], { type: selectedFormat.mime });
@@ -539,15 +539,16 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				const [red, green, blue] = context.getImageData(x, y, 1, 1).data;
 				const color = rgbToHex(red, green, blue);
 				colorInput.value = color;
-				modeSelect.value = 'color';
+				setMode('color');
 				updateModeView();
 				setStatus(format(copy.sampledColor, { color }), 'success');
 			}
 
 			function updateModeView() {
-				const isColorMode = modeSelect.value === 'color';
+				const currentMode = getMode();
+				const isColorMode = currentMode === 'color';
 				colorControl.hidden = !isColorMode;
-				cornerGroup.hidden = modeSelect.value !== 'edges';
+				cornerGroup.hidden = currentMode !== 'edges';
 			}
 
 			function updateQualityControl() {
@@ -560,6 +561,17 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				return outputFormats.find((formatOption) => formatOption.value === formatSelect.value) || outputFormats[0];
 			}
 
+			function getMode() {
+				const selected = modeInputs.find((input) => input.checked);
+				return selected ? selected.value : 'edges';
+			}
+
+			function setMode(mode) {
+				for (const input of modeInputs) {
+					input.checked = input.value === mode;
+				}
+			}
+
 			function getSelectedCorners() {
 				return cornerInputs
 					.filter((input) => input.checked)
@@ -569,12 +581,15 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			function updateReadyState() {
 				removeButton.disabled = state.isWorking || !state.file;
 				clearButton.disabled = state.isWorking || !state.file;
-				modeSelect.disabled = state.isWorking;
 				formatSelect.disabled = state.isWorking;
 				colorInput.disabled = state.isWorking;
 				fuzzInput.disabled = state.isWorking;
 				qualityInput.disabled = state.isWorking;
 				fileInput.disabled = state.isWorking;
+
+				for (const input of modeInputs) {
+					input.disabled = state.isWorking;
+				}
 
 				for (const input of cornerInputs) {
 					input.disabled = state.isWorking;
@@ -1071,6 +1086,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 	}
 
 	.file-picker span,
+	.mode-control > legend,
 	.select-control span,
 	.range-control span,
 	.color-control span,
@@ -1105,6 +1121,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 	}
 
 	.select-control,
+	.mode-control,
 	.range-control,
 	.color-control,
 	.corner-group {
@@ -1113,12 +1130,43 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 		margin-top: 18px;
 	}
 
+	.mode-control {
+		padding: 0;
+		border: 0;
+	}
+
+	.mode-control label {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		min-height: 46px;
+		padding: 10px 12px;
+		color: var(--color-deep);
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 850;
+		cursor: pointer;
+	}
+
+	.mode-control label:has(input:checked) {
+		color: var(--color-accent-dark);
+		background: color-mix(in srgb, var(--color-accent) 9%, #fff);
+		border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-line));
+	}
+
+	.mode-control label:has(input:focus-visible) {
+		outline: 3px solid color-mix(in srgb, var(--color-accent) 24%, transparent);
+		outline-offset: 2px;
+	}
+
 	.corner-group label {
 		color: var(--color-deep);
 		font-weight: 800;
 	}
 
 	.corner-group input,
+	.mode-control input,
 	.range-control input {
 		accent-color: var(--color-accent);
 	}
