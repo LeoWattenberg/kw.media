@@ -21,15 +21,21 @@ video:
 
 ## Transcript
 
+### Introduction
+
 Hello and welcome to this Audacity 4 tour. My name is Leo Wattenberg, and I was a designer on Audacity 4. Today I wanted to show you all of the things we have been up to in the past couple of years. For this, I'm using the Audacity 4 beta. And as you can see, it has an actual functioning dark theme. It also has a functioning light theme that looks pretty sleek. On the next screen here, we ask you about what clip visualizations you want.
 
 We have added a new and colorful logic which just colors each track differently. However, if you prefer the Audacity 3 style, you also have that available to you. You'll notice that this is going to be a little bit of a theme in this video because one of our guiding principles was to keep Audacity modern, of course, but to keep it familiar to those who have been used to Audacity 3 for the past many, many years. Because of this, we also have different options for what you want in your toolbar.
 
 I'll get back to that later. And of course, audio.com is with us, as was the case in Audacity 3. We also have, last but not least, some info we need to show you about updates and such. And you see here that we also use a UUID to track how many people use Audacity each day. This is the entire extent of telemetry in Audacity; it just tells the team how many people use Audacity each day. And with that, we are already through the setup.
 
+### Recording and Track Controls
+
 We're now on the welcome screen, just like you would be in Audacity 3. And after we set up our playback device and recording device, we are ready. I can now just start recording. And as you can see—well, it's pretty unexciting—it records, all right. You see that we have a little bar here on the left. That is your input and output bar for the track, or meter for the track, and it tells you how loud you're recording at any given time.
 
 The choice to put it into a track was made because we want to add multitrack recording at some point in the future, so you can record your microphone and something like a Zoom call at the same time. This functionality is not in this Audacity 4 beta and it will not be in Audacity 4 at launch, but this is definitely something that the team wants to add in the future. Anyway, once we have made our recording, we can now start editing.
+
+### Editing Tools and Workflow
 
 If you're familiar with Audacity 3's ways, you will remember that we have all these different modes, and if you're using an even older version of Audacity, there are even more of these tool modes in them. In Audacity 4, we have gotten rid of them. That's not to say that we have removed them; you still can draw just fine, but it's not a mode anymore because even though I can draw now, if I just move my cursor away from what I'm drawing here, I can still select. Look at that.
 
@@ -57,6 +63,8 @@ So, I can drag it up or down to increase and decrease the value, or right or lef
 
 So, I can edit things while messing about with the effect and it reacts immediately. When I'm done making my changes, I can just close it and it will continue working. Now it's possible to change effects at any point in time without having to undo a whole bunch and losing hours of work just to make the change. If you want to hard-apply an effect, that of course is still possible through the Effect menu, just like it was before.
 
+### Effects and Interface
+
 The only thing you may notice that has changed here is that the effects look slightly different, but they work just the same. For the noise reduction, for example, we have just made it a little bit clearer for people who maybe don't know how this effect works. It's at this point where I have to acknowledge that something like AI noise reduction exists, and this is something that may well end up in Audacity, maybe even Audacity 4.0.
 
 It's just that the way AI noise reduction works is very different from the classic method that we're using here. AI noise reduction tends to regard music as noise, which is correct if you're trying to make a Zoom call intelligible while there's some bar music playing in the background. But if you actually want to use noise reduction on music content, it's, well, garbage. So, whatever happens, this guy will definitely stick around. Letting our gaze move upwards, you'll see that we have a toolbar—just one this time.
@@ -71,7 +79,11 @@ Right now, all of these features that you're seeing are pretty much present in A
 
 Because this is the beta, it doesn't quite work yet, but you can see that the position of these bars, the sidebar, and things like that change when I switch between them. At the very tippy top of Audacity 4 in the menus, you'll see that the transport menu has given way to just a record menu. The reason is that I don't think anyone ever goes to Transport > Play and then any of these options by hand; they would rather just use these buttons.
 
-And so, we didn't think this menu was necessary. Record has a couple of features like the lead-in recording—previously known as punch and roll recording—that need to be distinguished. Although, in the future, I think there will be a little triangle next to this record button, maybe similar to this guy over here that you can click and that then contains all of the options that you could want here. There's one more thing in the preferences I want to show you. The preferences are inherently unexciting.
+And so, we didn't think this menu was necessary. Record has a couple of features like the lead-in recording—previously known as punch and roll recording—that need to be distinguished. Although, in the future, I think there will be a little triangle next to this record button, maybe similar to this guy over here that you can click and that then contains all of the options that you could want here. 
+
+### Preferences and Project Saving
+
+There's one more thing in the preferences I want to show you. The preferences are inherently unexciting.
 
 We have slightly reorganized them to match what Audacity 4 is actually doing. And if you are unhappy with your theme, you can go back into light theme in here and do whatever other change you think is best for you. However, what I wanted to show you is that some of these preferences—and by the time launch happens, hopefully most of them—have some sort of visualization or visual aid where appropriate to show you what the preference is actually about.
 
@@ -82,3 +94,7 @@ If I now have this project and name it in a way that I definitely will be able t
 So, if you then look at it in the home tab in the projects view, you can see what you have been working on recently and hopefully the image is a little bit more recognizable to you if you're not that great at naming your files. And here you also see a learn tab, and hopefully by the time Audacity 4 actually gets released, there will be a whole bunch of tutorials in here waiting for you. And there you go. It's Audacity 4 beta 1.
 
 I hope you enjoy testing this and if you're watching this later, I hope you're enjoying a more stable version of Audacity than I'm using here. If you like this video, give it a like and I hope to see you soon.
+
+### Audacity 4 beta download
+
+You can download the Audacity 4 beta from https://www.audacityteam.org/next/
