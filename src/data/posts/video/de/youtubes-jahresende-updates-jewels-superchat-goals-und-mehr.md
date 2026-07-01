@@ -2,8 +2,8 @@
 id: 3157
 slug: "youtubes-jahresende-updates-jewels-superchat-goals-und-mehr"
 path: "/youtube-tipps-de/youtubes-jahresende-updates-jewels-superchat-goals-und-mehr/"
-title: "YouTube's Jahresende Updates: Jewels, SuperChat Goals und mehr!"
-excerpt: "Es gibt Neuigkeiten bezüglich YouTube Jels: Diese werden nun in den USA in der ersten Woche ausgerollt. Leider haben wir immer noch keine genauen Daten zu den Bundle Preisen, aber wir kennen nun die Konversionsrate..."
+title: "YouTube-Updates zum Jahresende: Jewels, Super Chat Goals und mehr!"
+excerpt: "Erhalte Updates zu YouTube-Funktionen wie Jewels, Super Chat Goals. Informiere dich über die Konversion von Jewels zu Rubies und kommende Änderungen."
 date: "2024-11-23T13:15:01"
 modified: "2024-11-23T13:15:01"
 locale: "de"
@@ -25,7 +25,7 @@ Es gibt Neuigkeiten bezüglich YouTube-Jels: Diese werden nun in den USA in der 
 
 Der ursprüngliche Jel-Preis ist variabel und wird sich laut YouTube oft ändern, da es zahlreiche Promotions und Sonderangebote geben wird. Die Bundle-Preise werden nahe an einem Cent pro Duel liegen, was bedeutet, dass der Creator im Endeffekt einen 50%igen Share generiert. Bei den höherwertigen Bundles soll der Preis aber deutlich unter einem Cent pro Duel liegen, sodass der Creator-Share entsprechend steigt. Wenn Nutzer also günstig einkaufen, ist das gut für den Creator, da dann 70-80% oder sogar mehr der Einnahmen von den Jels an die Creators weitergegeben werden. Das finde ich eine sehr gute Sache! Wir werden dazu noch eine ausführliche Rechnung erstellen, sobald wir mehr Informationen zu den Bundles haben. Wenn ihr in den USA lebt und bereits Zugriff habt, schickt mir gerne einen Screenshot an meine E-Mail-Adresse oder auf Discord, ich werde ihn anonymisieren, und wir können das hier ausführlicher besprechen.
 
-Zum Ende des Jahres: Superchat-Goals werden endlich aus der experimentellen Phase herausgenommen und für alle Creators ausgerollt. Der 100%-Launch soll bis zum 16. Dezember erfolgen. Ich habe mich kürzlich darüber aufgeregt, und meine Stimme wurde erhört: Normale Moderatoren sollen beim Launch in der Lage sein, Superchat-Ziele zu erstellen, zu stoppen und zu bearbeiten. Das ist doch alles, was ich wollte! Muss ich mich immer erst aufregen? Für diesen Erfolg können wir ja vielleicht ein orangenes Herz in die Kommentare schreiben, das würde mich sehr freuen.
+Zum Ende des Jahres: Super Chat-Goals werden endlich aus der experimentellen Phase herausgenommen und für alle Creators ausgerollt. Der 100%-Launch soll bis zum 16. Dezember erfolgen. Ich habe mich kürzlich darüber aufgeregt, und meine Stimme wurde erhört: Normale Moderatoren sollen beim Launch in der Lage sein, Super Chat-Ziele zu erstellen, zu stoppen und zu bearbeiten. Das ist doch alles, was ich wollte! Muss ich mich immer erst aufregen? Für diesen Erfolg können wir ja vielleicht ein orangenes Herz in die Kommentare schreiben, das würde mich sehr freuen.
 
 Kommen wir kurz zu Hype: Wie bereits angedeutet, soll Hype eine bezahlte Funktion erhalten, die derzeit in Brasilien getestet wird. Normalerweise hat man drei kostenlose Hypes pro Woche, aber wenn man mehr möchte, kann man zusätzliche kaufen. Auch hier kenne ich die Preise noch nicht und habe keine verlässlichen Informationen gefunden, also warten wir ab, wie sich das Experiment entwickelt, und behalten es im Auge.
 

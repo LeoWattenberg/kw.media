@@ -2,8 +2,8 @@
 id: 3277
 slug: "youtube-autodubbing-disappoints-and-youtube-introduces-jewels-for-vertical-live-streams"
 path: "/youtube-tips-en/youtube-autodubbing-disappoints-and-youtube-introduces-jewels-for-vertical-live-streams/"
-title: "YouTube AutoDubbing Disappoints & YouTube Introduces Jewels for Vertical Live Streams!"
-excerpt: "MLA and Auto Dubbing are being rolled out gradually."
+title: "YouTube Updates: AutoDubbing Issues & New Features for Vertical Live Streams"
+excerpt: "Learn about YouTube's gradual rollout of MLA and Auto Dubbing, and discover upcoming features like correct display of long shorts and 'Jewels' for vertical live streams."
 date: "2024-11-16T13:15:01"
 modified: "2024-11-16T13:15:01"
 locale: "en"

@@ -2,8 +2,8 @@
 id: 3342
 slug: "die-macht-von-sprungchnitten"
 path: "/youtube-tipps-de/die-macht-von-sprungchnitten/"
-title: "Die Macht von Sprungchnitten 💪"
-excerpt: "YouTube ABC: Jump Cuts sind eine beliebte Methode, um unnötige Prozesse in Videos herauszuschneiden und die Zuschauer vor langweiligen Inhalten zu bewahren. Creator verwenden diese oft in ihren Videos, um Füllwörter oder -sätze zu löschen oder..."
+title: "Die Kraft der Sprungbilder: So verbessern Sie Ihre YouTube-Videos"
+excerpt: "Entdecken Sie die Kunst der Jump Cuts, um Ihre Videos zu optimieren und das Zuschauerengagement zu steigern. Erfahren Sie, wie Creator diese Technik einsetzen."
 date: "2024-07-31T14:00:38"
 modified: "2024-07-31T14:00:38"
 locale: "de"

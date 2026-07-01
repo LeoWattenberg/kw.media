@@ -2,8 +2,8 @@
 id: 3379
 slug: "youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits"
 path: "/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/"
-title: "YouTube-Updates: KI-Altersverifizierung, AutoDubbing-Editor & Änderung der Community-Beitragslimits"
-excerpt: "Die Bearbeitung von Autodub-Videos ist nun im YouTube Studio Editor verfügbar. Sie können den Anfang, die Mitte oder das Ende Ihres Videos kürzen, wenn Sie möchten, und es wird die autodubbte Audiospur entsprechend Ihren Anpassungen neu generieren,..."
+title: "YouTube-Updates: KI-Altersverifizierung, Autodubbing-Editor & Änderung der Community-Beitragslimits"
+excerpt: "Autodub-Video-Bearbeitung jetzt im YouTube Studio Editor. Kürze Videos, die Audiospur passt sich an. Höhere Bildlimite bei Community Posts und Updates zu YouTube Promote."
 date: "2025-08-16T12:15:03"
 modified: "2025-08-16T12:15:03"
 locale: "de"

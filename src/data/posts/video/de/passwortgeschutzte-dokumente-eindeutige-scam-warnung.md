@@ -2,8 +2,8 @@
 id: 3147
 slug: "passwortgeschutzte-dokumente-eindeutige-scam-warnung"
 path: "/youtube-tipps-de/passwortgeschutzte-dokumente-eindeutige-scam-warnung/"
-title: "Passwortgeschützte Dokumente? Eindeutige Scam-Warnung!"
-excerpt: "Diese Woche gibt es keine YouTube Updates, dafür möchte ich euch vor einem aktuellen Scam warnen, der ziemlich raffiniert ist und das untrainierte Auge möglicherweise täuschen könnte. Es geht darum, dass auf Kanälen,..."
+title: "Achtung: Betrug mit passwortgeschützten Dokumenten!"
+excerpt: "Warnung vor einem raffinierten Scam auf YouTube: Angebliche offizielle Kanäle verbreiten gefälschte Videos mit Links zu verschlüsselten Dokumenten."
 date: "2025-03-15T13:15:02"
 modified: "2025-03-15T13:15:02"
 locale: "de"

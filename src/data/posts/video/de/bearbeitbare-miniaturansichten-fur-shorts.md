@@ -2,8 +2,8 @@
 id: 3312
 slug: "bearbeitbare-miniaturansichten-fur-shorts"
 path: "/youtube-tipps-de/bearbeitbare-miniaturansichten-fur-shorts/"
-title: "Bearbeitbare Miniaturansichten für Shorts ✍"
-excerpt: "Bis vor kurzem konntet ihr beim Hochladen von Shorts nur Miniaturansichten auswählen. Jetzt könnt ihr auch in der Haupt-YouTube-App Miniaturansichten für Shorts bearbeiten, indem ihr zu euren Shorts geht, auf „Bearbeiten“ klickt und das Stiftsymbol auswählt..."
+title: "Bearbeitbare Miniaturansichten für YouTube Shorts: So geht's"
+excerpt: "Jetzt kannst du in der YouTube-App Miniaturansichten für deine Shorts bearbeiten. Wähle einen Frame aus deinem Short und füge Text hinzu – ganz einfach!"
 date: "2024-11-06T16:15:03"
 modified: "2024-11-06T16:15:03"
 locale: "de"

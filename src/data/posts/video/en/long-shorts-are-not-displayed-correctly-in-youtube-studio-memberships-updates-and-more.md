@@ -2,8 +2,8 @@
 id: 3229
 slug: "long-shorts-are-not-displayed-correctly-in-youtube-studio-memberships-updates-and-more"
 path: "/youtube-tips-en/long-shorts-are-not-displayed-correctly-in-youtube-studio-memberships-updates-and-more/"
-title: "Long shorts are not displayed correctly in YouTube Studio | Memberships updates & more"
-excerpt: "We need to talk about the long shorts again. Last time there were many inquiries, so here's a recap: Just because a product is launched doesn't mean all Creators can immediately..."
+title: "YouTube Shorts Updates: Long Shorts Display Issues & Memberships Enhancements"
+excerpt: "YouTube's Shorts rollout: Delays in Studio, feed changes, legal risks. Memberships mark 5 years with new badges."
 date: "2024-10-19T12:15:02"
 modified: "2024-10-19T12:15:02"
 locale: "en"

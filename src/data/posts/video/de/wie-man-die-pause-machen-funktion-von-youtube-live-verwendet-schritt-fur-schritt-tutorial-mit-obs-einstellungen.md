@@ -2,8 +2,8 @@
 id: 3325
 slug: "wie-man-die-pause-machen-funktion-von-youtube-live-verwendet-schritt-fur-schritt-tutorial-mit-obs-einstellungen"
 path: "/youtube-tipps-de/wie-man-die-pause-machen-funktion-von-youtube-live-verwendet-schritt-fur-schritt-tutorial-mit-obs-einstellungen/"
-title: "Wie man die „Pause machen“-Funktion von YouTube Live verwendet (Schritt-für-Schritt-Tutorial mit OBS-Einstellungen)"
-excerpt: "Durchlauf der Funktion „Take a Break“ von YouTube Live und wie man sie in einer Stream-Konfiguration mit OBS einrichtet."
+title: "Wie man die „Pause machen“-Funktion von YouTube Live nutzt: Schritt-für-Schritt-Anleitung mit OBS-Einstellungen"
+excerpt: "Erfahren Sie, wie Sie die 'Pause machen' Funktion von YouTube Live einrichten und in OBS konfigurieren, um während eines Livestreams eine Pause einzulegen."
 date: "2025-04-06T13:03:01"
 modified: "2025-04-06T13:03:01"
 locale: "de"

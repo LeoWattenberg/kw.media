@@ -2,8 +2,8 @@
 id: 3135
 slug: "youtube-update-new-clip-tools-shopping-sticker-upgrade-and-livestream-policy"
 path: "/youtube-tips-en/youtube-update-new-clip-tools-shopping-sticker-upgrade-and-livestream-policy/"
-title: "YouTube Update: New Clip Tools, Shopping Sticker Upgrade & Livestream Policy!"
-excerpt: "YouTube Shopping Sticker in Shorts werden aufgewertet. Anstatt ein Palette unter dem Short zu öffnen, werden Zuschauer nun direkt auf die Website des Verkäufers weitergeleitet, um das markierte Produkt zu kaufen."
+title: "YouTube Update: New Clip Tools, Shopping Sticker Upgrade & Live Stream Policy!"
+excerpt: "The YouTube Shopping sticker in Shorts is being upgraded. Instead of opening a palette beneath the short, viewers will now be directed directly to the seller's website to purchase the tagged product."
 date: "2025-06-21T12:15:02"
 modified: "2025-06-21T12:15:02"
 locale: "en"
@@ -21,24 +21,24 @@ video:
 
 ## Transcript
 
-YouTube Shopping-Sticker in Shorts werden aufgewertet. Anstatt ein Palette unter dem Short zu öffnen, werden Zuschauer nun direkt auf die Website des Verkäufers weitergeleitet, um das markierte Produkt zu kaufen. Wenn sie auf den Sticker klicken und mehrere Produkte markiert sind, erscheint neben dem Sticker ein Pfeil, um die Liste der markierten Produkte zu öffnen. Der Sticker wird aus dem ersten Produkt der Liste generiert, aber Sie können die Reihenfolge ändern, um das gewünschte Produkt als Sticker zu wählen.
+YouTube Shopping stickers in Shorts are being upgraded. Instead of opening a palette underneath the Short, viewers will now be directed straight to the seller's website to purchase the tagged product. If they click on the sticker and there are multiple products tagged, a chevron will appear next to the sticker to open the list of tagged products. The sticker is generated from the first product in the list, but you can change the order to select the desired product as the sticker.
 
-Bitte beachten Sie, dass das YouTube Shopping Affiliate-Programm nur verfügbar ist, wenn Sie über 10.000 Abonnenten haben und sich in einem der folgenden Länder befinden.
+Please note that the YouTube Shopping Affiliate Program is only available if you have over 10,000 subscribers and are located in one of the following countries.
 
-Multisprachige Audios erhalten ein Thumbnail-Experiment. Wenn Sie bereits Zugang zu Autodubbs größerem Bruder MLA haben, bei dem Sie anstelle der automatischen Übersetzungen von YouTube eigene Audiospuren hochladen können, könnten Sie für ein weiteres Experiment geeignet sein. Sie können unterschiedliche Thumbnails für die verschiedenen Sprachen hochladen, was ziemlich cool ist.
+Multilingual audios are getting a thumbnail experiment. If you already have access to Autodub's "big brother" MLA, where you can upload your own audio tracks instead of YouTube's automatic translations, you might be eligible for another experiment. You can upload different thumbnails for the various languages, which is pretty cool.
 
-Ich wünschte, mehr Menschen hätten Zugang zu MLA, damit wir mehr von diesem Experiment sehen würden. Wenn Sie Zugang zu MLA haben und am Experiment teilnehmen, senden Sie mir bitte Screenshots, da ich sehr daran interessiert bin, wie es funktioniert. Angeblich sind die sprachspefischen Thumbnails mit A/B-Tests für Thumbnails inkompatibel. Sie können also entweder das normale Thumbnail oder die sprachspecifischen Thumbnails oder den A/B-Test verwenden.
+I wish more people had access to MLA so we could see more of this experiment. If you have access to MLA and are participating in the experiment, please send me screenshots as I'm very interested in how it works. Apparently, language-specific thumbnails are incompatible with A/B testing for thumbnails. So you can either use the regular thumbnail or the language-specific thumbnails or the A/B test.
 
-Das ist in gewisser Weise nachvollziehbar, da Sie andernfalls für jedes Video drei verschiedene Thumbnails hochladen müssten, was den Rahmen sprengen würde. Aber es wäre auch irgendwie cool. Teilen Sie mir Ihre Gedanken dazu in den Kommentaren mit.
+That's somewhat understandable as otherwise, you'd have to upload three different thumbnails for each video, which would be excessive. But it would also be kind of cool. Share your thoughts on this in the comments.
 
-Außerdem erhalten wir etwas Neues, das mit multisprachigen Audios zusammenhängt. Wir müssen über Clips aus Transkripten sprechen. Grundsätzlich können Videos und Live-Streams nun aus dem Transkript herausgeclippt werden, solange mehrsprachige Audios und Autodubbing deaktiviert sind. Da bei Live-Streams weder MLA noch Autodubbing aktiviert zu sein scheinen, sollte dies kein großes Problem darstellen. Sie können einfach einen Abschnitt des Transkripts auswählen, YouTube setzt automatisch Ein- und Auspunkte für das Video, und Sie können eine 30-sekündige Einleitung und einen 30-sekündigen Abspann hinzufügen, wenn Sie möchten.
+Also, we're getting something new related to multilingual audios: We need to talk about clips from transcripts. Essentially, videos and live streams can now be clipped from the transcript as long as multilingual audios and Autodubbing are disabled. Since live streams don't seem to have MLA or Autodubbing enabled, this shouldn't be a big issue. You can simply select a section of the transcript, YouTube automatically sets in and out points for the video, and you can add a 30-second intro and 30-second outro if you want.
 
-Mein Rat: Fügen Sie keinen Abspann hinzu und nur einen kurzen Intro. Es wird ein neues Video erstellt, und wenn Sie auf "Entwurf erstellen" klicken, erhalten Sie den vollständigen Upload-Ablauf für ein Video. Die Begriffe sind etwas verwirrend, da diese Art von Clips ein neues Video aus Ihrem bestehenden Video oder Live-Stream erstellt, während die Clips, die normalerweise als Clips bezeichnet werden, mit dem Schere-Symbol erstellt werden.
+My advice: Don't add an outro and only a short intro. A new video will be created, and when you click "Create Draft," you'll get the full upload flow for a video. The terminology is a bit confusing as this type of clip creates a new video from your existing video or live stream, whereas clips typically created with the scissors symbol are called, well, clips.
 
-Es ist also etwas unglücklich mit der Terminologie, aber ich hoffe, wir können das klären. Vielleicht habt ihr eine Idee, wie wir es nennen sollten – lasst es mich in den Kommentaren wissen. Lustigerweise zählt ein erstelleter Clip als neues Video, sodass Sie es erneut clippen können, wenn es noch zu lang ist. Da es als neues Video betrachtet wird, wird auch Autodubbing wieder aktiviert, sodass Sie eine neue Sprache hinzufügen können.
+So, it's a bit unfortunate with the terminology, but I hope we can clarify that. Maybe you have an idea of what we should call them—let me know in the comments. Interestingly, a created clip counts as a new video, so you can clip it again if it's still too long. Since it's considered a new video, Autodubbing is re-enabled, allowing you to add a new language.
 
-Das ist schön, aber auch etwas seltsam, wie der Upload-Ablauf dafür funktioniert.
+That's nice but also a bit weird how the upload flow works for that.
 
-Zuletzt haben wir vorhin kurz über Live-Streaming gesprochen. YouTube erhöht das Mindestalter für Live-Streams von 13 auf 16 Jahre. Wie zuvor müssen Minderjährige – laut YouTube Personen unter 18 Jahren – in ihrem Stream von einem Erziehungsberechtigten oder Elternteil begleitet werden, ansonsten könnten sie gegen die Richtlinien zum Kinderschutz verstoßen und Live-Streaming sowie Live-Chat werden deaktiviert.
+Lastly, we briefly touched on live streaming earlier. YouTube is increasing the minimum age for live streams from 13 to 16 years old. As before, minors—according to YouTube, individuals under 18—must be accompanied by a parent or guardian in their stream, otherwise, they may violate child safety guidelines, and live streaming and live chat will be disabled.
 
-Für Volljährige ab 18 Jahren ändert sich nichts. Diese Änderung wird in den kommenden Wochen umgesetzt und die Durchsetzung erfolgt einige Wochen danach. Wenn Sie Fragen zu einem der Themen haben, lassen Sie es mich bitte in den Kommentaren wissen. Bis nächste Woche zu weiteren YouTube-Updates! Auf Wiedersehen.
+For adults aged 18 and above, nothing changes. This change will be implemented in the coming weeks, and enforcement will follow a few weeks after. If you have any questions about any of these topics, please let me know in the comments. Until next week for more YouTube updates! Goodbye.

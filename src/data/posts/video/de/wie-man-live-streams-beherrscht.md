@@ -2,8 +2,8 @@
 id: 3322
 slug: "wie-man-live-streams-beherrscht"
 path: "/youtube-tipps-de/wie-man-live-streams-beherrscht/"
-title: "Wie man Live-Streams beherrscht"
-excerpt: "YouTube ABC: Um einen Live-Stream zu planen, drücken Sie auf den Button „Stream planen“. Im ersten Schritt definieren Sie die Details wie Titel und Beschreibung. Wenn Ihr Kanal mehrsprachig ist, stellen Sie sicher, dass Sie die richtige Sprache einstellen. Abschließend..."
+title: "Wie man Live-Streams auf YouTube meistert"
+excerpt: "Erfahre, wie du einen Live-Stream auf YouTube planst und einrichtest. Von der Planung bis zur Veröffentlichung - wir zeigen dir die Schritte."
 date: "2024-08-14T14:00:21"
 modified: "2024-08-14T14:00:21"
 locale: "de"

@@ -2,8 +2,8 @@
 id: 3263
 slug: "using-scenes-and-sources-in-obs"
 path: "/youtube-tips-en/using-scenes-and-sources-in-obs/"
-title: "Using Scenes and Sources in OBS"
-excerpt: "The principle is as follows: it consists of scenes and sources. A scene is composed of at least one source, and a scene can be understood as a collection of sources. The sources within a scene are interconnected..."
+title: "Using Scenes and Sources in OBS: A Short Tutorial"
+excerpt: "Understand the core principle of OBS: scenes composed of sources. Learn how to use various source types and customize their position and size."
 date: "2023-03-27T17:00:10"
 modified: "2023-03-27T17:00:10"
 locale: "en"

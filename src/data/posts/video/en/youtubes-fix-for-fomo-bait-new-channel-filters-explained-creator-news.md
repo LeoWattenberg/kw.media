@@ -2,8 +2,8 @@
 id: 3117
 slug: "youtubes-fix-for-fomo-bait-new-channel-filters-explained-creator-news"
 path: "/youtube-tips-en/youtubes-fix-for-fomo-bait-new-channel-filters-explained-creator-news/"
-title: "YouTube's Fix for \"FOMO-Bait\"? New Channel Filters Explained | Creator News"
-excerpt: "What's up, everyone? Welcome back to the YouTube Creator News!"
+title: "YouTube's New Channel Filters: A Fix for 'FOMO-Bait' | Creator News"
+excerpt: "Discover targeted content with YouTube's new category leaderboards & filter exclusive membership content."
 date: "2025-11-15T13:15:04"
 modified: "2025-11-15T13:15:04"
 locale: "en"

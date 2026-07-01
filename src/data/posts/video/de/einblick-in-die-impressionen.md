@@ -2,8 +2,8 @@
 id: 3329
 slug: "einblick-in-die-impressionen"
 path: "/youtube-tipps-de/einblick-in-die-impressionen/"
-title: "Einblick in die Impressionen"
-excerpt: "YouTube ABC: Du kannst die Impressionen im YouTube Studio finden, indem du das Video auswählst und zur Registerkarte \"Reichweite\" navigierst. Für weitere Details klicke auf den Graphen, um mehr Informationen zu erhalten. Die Kategorie \"Top-Quellen\" zeigt, wie..."
+title: "Einblick in die Impressionen auf YouTube"
+excerpt: "Erfahren Sie, wie Sie im YouTube Studio die Impressionen Ihrer Videos analysieren und verstehen können."
 date: "2024-07-23T14:00:05"
 modified: "2024-07-23T14:00:05"
 locale: "de"

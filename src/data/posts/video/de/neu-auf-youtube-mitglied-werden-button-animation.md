@@ -2,8 +2,8 @@
 id: 3169
 slug: "neu-auf-youtube-mitglied-werden-button-animation"
 path: "/youtube-tipps-de/neu-auf-youtube-mitglied-werden-button-animation/"
-title: "Neu auf YouTube: \"Mitglied Werden\"-Button Animation"
-excerpt: "Ein kleines Update für Creator mit Kanal Mitgliedschaften: Wenn ihr jetzt einen Call to Action macht und eure Zuschauer auffordert, Kanal Mitglied zu werden – zum Beispiel mit \"Werdet Kanal Mitglied\" oder auf..."
+title: "Neue YouTube-Funktion: Animierter „Mitglied werden“-Button"
+excerpt: "Ein kleines Update für Creator mit Kanal-Mitgliedschaften: Der Button leuchtet nun farbig auf, wenn du deine Zuschauer zum Beitritt aufforderst."
 date: "2024-08-17T12:30:41"
 modified: "2024-08-17T12:30:41"
 locale: "de"

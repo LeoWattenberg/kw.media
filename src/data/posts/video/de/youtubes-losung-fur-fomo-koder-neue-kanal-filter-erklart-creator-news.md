@@ -2,8 +2,8 @@
 id: 3392
 slug: "youtubes-losung-fur-fomo-koder-neue-kanal-filter-erklart-creator-news"
 path: "/youtube-tipps-de/youtubes-losung-fur-fomo-koder-neue-kanal-filter-erklart-creator-news/"
-title: "YouTubes Lösung für \"FOMO-Köder\"? Neue Kanal-Filter erklärt | Creator News"
-excerpt: "Hallo zusammen! Willkommen zurück zu den YouTube Creator News!"
+title: "YouTube-Updates: Neue Kanal-Filter und Hype-Funktionen | Creator News"
+excerpt: "Willkommen zurück zu den YouTube Creator News! Entdecke neue Filter für deinen Kanal und Updates zur Hype-Funktion."
 date: "2025-11-15T13:15:04"
 modified: "2025-11-15T13:15:04"
 locale: "de"

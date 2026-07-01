@@ -2,8 +2,8 @@
 id: 3084
 slug: "achtung-unterschreibt-bitte-die-neuen-youtube-partner-bedingungen"
 path: "/youtube-tipps-de/achtung-unterschreibt-bitte-die-neuen-youtube-partner-bedingungen/"
-title: "Achtung: Unterschreibt bitte die neuen YouTube Partner Bedingungen!"
-excerpt: "Für alle Creator die bereits Teil des YouTube partnerschaftsprogramms sind und keine Musik Creator sind ihr bekommt einen veränderten Basisvertrag welchen ihr bis zum 10 Juli 2023 unterschreiben müsst um weiterhin im..."
+title: "Achtung: Neue YouTube-Partnerbedingungen unterschreiben!"
+excerpt: "Alle YouTube-Creator, die nicht im Musikbereich tätig sind, müssen den aktualisierten Basisvertrag bis zum 10. Juli 2023 akzeptieren, um ihre Partnerschaft fortzusetzen."
 date: "2023-01-12T10:43:31"
 modified: "2023-01-12T10:43:31"
 locale: "de"

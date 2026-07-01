@@ -2,8 +2,8 @@
 id: 3137
 slug: "youtube-updates-new-av1-codec-support-voice-replies-expansion-and-side-by-side-ads-rollout"
 path: "/youtube-tips-en/youtube-updates-new-av1-codec-support-voice-replies-expansion-and-side-by-side-ads-rollout/"
-title: "YouTube Updates – New AV1 Codec Support, Voice Replies Expansion & Side-by-Side Ads Rollout!"
-excerpt: "YouTube Updates: This week, we begin with the AV1 codec, now available for select live streams. While YouTube specifies high traffic live streams, they haven't defined what constitutes \"high traffic.\" You can..."
+title: "YouTube Updates: AV1 Codec, Side-by-Side Ads, and Voice Replies Expansion"
+excerpt: "Discover the latest YouTube features: AV1 codec support for live streams, side-by-side ad eligibility requirements, and voice replies now on Android."
 date: "2025-05-31T12:15:06"
 modified: "2025-05-31T12:15:06"
 locale: "en"

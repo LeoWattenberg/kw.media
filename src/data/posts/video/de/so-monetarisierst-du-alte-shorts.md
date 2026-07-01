@@ -2,8 +2,8 @@
 id: 3085
 slug: "so-monetarisierst-du-alte-shorts"
 path: "/youtube-tipps-de/so-monetarisierst-du-alte-shorts/"
-title: "So monetarisierst du alte Shorts"
-excerpt: "Wenn ihr bereits Shorts erstellt habt denkt bitte auch daran die Monetarisierung dieser Inhalte zu aktivieren sonst könnt ihr natürlich keinen Umsatzanteil bekommen glücklicherweise kann dass das YouTube Bike editing..."
+title: "So monetarisierst du deine alten Shorts auf YouTube"
+excerpt: "Erfahre, wie du die Monetarisierung deiner bestehenden Shorts aktivierst, um Einnahmen zu generieren. Ein einfacher Trick mit dem YouTube-Editor im Studio."
 date: "2023-01-12T10:43:31"
 modified: "2023-01-12T10:43:31"
 locale: "de"

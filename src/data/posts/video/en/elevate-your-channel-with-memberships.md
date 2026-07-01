@@ -2,8 +2,8 @@
 id: 3055
 slug: "elevate-your-channel-with-memberships"
 path: "/youtube-tips-en/elevate-your-channel-with-memberships/"
-title: "Elevate your Channel with Memberships"
-excerpt: "YouTube membership is a crowdsourcing feature to connect yourself with your community and help you generate additional Revenue once creators have set a payment level and have added benefits such as customized emotes..."
+title: "Elevate Your YouTube Channel with Memberships"
+excerpt: "Discover how YouTube memberships can boost your connection with viewers & generate extra revenue."
 date: "2024-08-22T14:00:12"
 modified: "2024-08-22T14:00:12"
 locale: "en"

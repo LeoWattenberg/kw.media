@@ -2,8 +2,8 @@
 id: 3184
 slug: "neu-bei-youtube-analytics-impressionen-fur-neue-und-wiederkehrende-zuschauer"
 path: "/youtube-tipps-de/neu-bei-youtube-analytics-impressionen-fur-neue-und-wiederkehrende-zuschauer/"
-title: "NEU bei YouTube Analytics: Impressionen für Neue & Wiederkehrende Zuschauer"
-excerpt: "Moin! Wir starten mit einigen interessanten Updates rund um YouTube."
+title: "Neue YouTube Analytics: Impressionen für neue und wiederkehrende Zuschauer"
+excerpt: "Entdecke spannende Updates auf YouTube: Live Reactions-Analysen, verbesserte Super Chat-Funktionen und signifikante Reduzierung der Latenz beim Livestreaming."
 date: "2024-04-06T12:30:26"
 modified: "2024-04-06T12:30:26"
 locale: "de"

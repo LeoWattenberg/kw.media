@@ -2,8 +2,8 @@
 id: 3217
 slug: "thats-why-your-shorts-arent-getting-views"
 path: "/youtube-tips-en/thats-why-your-shorts-arent-getting-views/"
-title: "That's why your shorts aren't getting views!"
-excerpt: "Just a quick fun fact: Watermarks from third-party platforms and, of course, from free video editing software like Power Director or whatever are ranked negatively..."
+title: "Why Your YouTube Shorts Aren't Getting Views"
+excerpt: "Did you know watermarks from third-party platforms and free software can hurt your Shorts' ranking? Learn why & how to avoid it."
 date: "2023-01-12T10:43:32"
 modified: "2023-01-12T10:43:32"
 locale: "en"

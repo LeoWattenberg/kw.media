@@ -2,8 +2,8 @@
 id: 3189
 slug: "youtubes-ui-update-bringt-nutzer-und-creator-durcheinander"
 path: "/youtube-tipps-de/youtubes-ui-update-bringt-nutzer-und-creator-durcheinander/"
-title: "YouTube's UI-Update bringt Nutzer und Creator durcheinander!"
-excerpt: "Wir müssen über den Elefanten im Raum sprechen, denn YouTube hat ein Experiment aus dem Jahr 2022 wieder aufgegriffen: Dabei tauschen die Titelbeschreibung und Kommentare, die normalerweise unter dem Video stehen,..."
+title: "YouTube's UI-Update: Verwirrung bei Nutzern und Creatorn"
+excerpt: "YouTube testet neues Design: Titelbeschreibung und Kommentare wechseln mit empfohlenen Videos den Platz. Einige Nutzer irritiert, aber nur ein Test."
 date: "2024-02-24T13:30:12"
 modified: "2024-02-24T13:30:12"
 locale: "de"

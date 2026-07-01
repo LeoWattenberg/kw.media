@@ -2,8 +2,8 @@
 id: 3059
 slug: "kameras-und-konsolen-playstation-xbox-switch-in-obs-einbinden-mit-capture-cards"
 path: "/youtube-tipps-de/kameras-und-konsolen-playstation-xbox-switch-in-obs-einbinden-mit-capture-cards/"
-title: "Kameras & Konsolen (Playstation, Xbox, Switch) in OBS einbinden mit Capture Cards"
-excerpt: "Um mit obs Spielekonsolen oder DSLR facecams aufzunehmen benötigt ihr einen sogenannte capture Karte sobald diese mit der Konsole und eurem Rechner verbunden ist könnt ihr die Capture Card dann in obs als Quelle..."
+title: "Kameras & Konsolen (Playstation, Xbox, Switch) in OBS integrieren mit Capture Cards"
+excerpt: "Lerne, wie du mit OBS und einer Capture Card Spielekonsolen oder DSLR-Facecams aufnimmst. Verbinde die Karte mit Konsole und PC, füge sie dann in OBS als Quelle hinzu."
 date: "2023-03-23T16:30:05"
 modified: "2023-03-23T16:30:05"
 locale: "de"

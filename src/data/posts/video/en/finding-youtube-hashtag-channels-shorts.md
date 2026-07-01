@@ -3,7 +3,7 @@ id: 3282
 slug: "finding-youtube-hashtag-channels-shorts"
 path: "/youtube-tips-en/finding-youtube-hashtag-channels-shorts/"
 title: "Finding YouTube Hashtag Channels | #shorts"
-excerpt: "To search for a hashtag on YouTube, go to the search bar and enter the desired hashtag. Directly below the search bar, you will now see the hashtag channel where you can simply..."
+excerpt: "Discover how to search for and access YouTube hashtag channels directly from the search bar or video descriptions."
 date: "2021-09-09T13:00:06"
 modified: "2021-09-09T13:00:06"
 locale: "en"

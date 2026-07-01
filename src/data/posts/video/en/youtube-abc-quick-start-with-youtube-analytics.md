@@ -2,8 +2,8 @@
 id: 3064
 slug: "youtube-abc-quick-start-with-youtube-analytics"
 path: "/youtube-tips-en/youtube-abc-quick-start-with-youtube-analytics/"
-title: "YouTube ABC:: Quick Start with YouTube Analytics 📊"
-excerpt: "The YouTube ABC: YouTube analytics is a free tool provided by YouTube that makes it easy to measure the success of your channel and helps you optimize your strategy you can find it in the YouTube studio app or on..."
+title: "YouTube ABC: Quick Start with YouTube Analytics"
+excerpt: "Discover YouTube Analytics, a free tool to measure your channel's success. Track key metrics like impressions, views, CTR, and retention."
 date: "2024-06-13T10:09:08"
 modified: "2024-06-13T10:09:08"
 locale: "en"

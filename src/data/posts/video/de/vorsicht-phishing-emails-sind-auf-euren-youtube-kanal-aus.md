@@ -2,8 +2,8 @@
 id: 3050
 slug: "vorsicht-phishing-emails-sind-auf-euren-youtube-kanal-aus"
 path: "/youtube-tipps-de/vorsicht-phishing-emails-sind-auf-euren-youtube-kanal-aus/"
-title: "⚠ VORSICHT: Phishing Emails sind auf euren YouTube Kanal aus! ⚠"
-excerpt: "In letzter Zeit sehen wir wieder vermehrt Phishing-E-Mails. Das Herunterladen und Öffnen der darin enthaltenen PDFs kopiert dabei euren Browser, sodass eure YouTube-Kanäle ohne das Eingeben eines Passworts oder einer Zwei-Faktor-Authentifizierung einfach übernommen werden können..."
+title: "Achtung: Phishing-E-Mails zielen auf eure YouTube-Kanäle ab!"
+excerpt: "Phishing-E-Mails sind wieder im Umlauf und können euren YouTube-Kanal gefährden. Seid vorsichtig beim Öffnen von Anhängen."
 date: "2023-04-03T15:30:01"
 modified: "2023-04-03T15:30:01"
 locale: "de"

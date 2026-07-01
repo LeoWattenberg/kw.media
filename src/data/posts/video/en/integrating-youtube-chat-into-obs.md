@@ -2,8 +2,8 @@
 id: 3278
 slug: "integrating-youtube-chat-into-obs"
 path: "/youtube-tips-en/integrating-youtube-chat-into-obs/"
-title: "Integrating YouTube Chat into OBS"
-excerpt: "To integrate a YouTube Live Chat into your OBS, you first need to open the chat as a new window. You can then simply copy the link and introduce it as a browser source in your OBS using free tools like..."
+title: "Integrating YouTube Live Chat into OBS: A Simple Guide"
+excerpt: "Learn how to display YouTube Live Chat in OBS with free tools. Open chat in a new window, copy the link, and add it as a browser source."
 date: "2023-03-24T16:30:02"
 modified: "2023-03-24T16:30:02"
 locale: "en"

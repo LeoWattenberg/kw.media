@@ -2,8 +2,8 @@
 id: 3100
 slug: "we-took-your-biggest-complaints-directly-to-youtube-live-creator-news"
 path: "/youtube-tips-en/we-took-your-biggest-complaints-directly-to-youtube-live-creator-news/"
-title: "We took your biggest complaints directly to YouTube Live | Creator News"
-excerpt: "TikTok LIVE is bleeding viewers while Twitch survives Amazon's corporate cuts. Also, we're taking your biggest questions and complaints directly to the head of YouTube LIVE, and YouTube Shorts is officially turning..."
+title: "YouTube Live and Shorts Updates: Addressing Complaints and Introducing Image Carousels | Creator News"
+excerpt: "TikTok LIVE loses viewers while Twitch thrives. We discuss YouTube Live's challenges and new features, and introduce image carousels in Shorts."
 date: "2026-04-18T12:15:03"
 modified: "2026-04-18T12:15:03"
 locale: "en"

@@ -2,8 +2,8 @@
 id: 3091
 slug: "was-sind-youtube-handles-aliasse"
 path: "/youtube-tipps-de/was-sind-youtube-handles-aliasse/"
-title: "Was sind YouTube Handles/Aliasse?"
-excerpt: "YouTube hat viele Wege andere User zu eurem Channel weiterzuleiten bis jetzt gab es den Link mit eurer Channel ID einen Link mit eurer custom URL bzw Kanalnamen und neu dazu kommen jetzt seine bis 30 Alpha..."
+title: "Was sind YouTube-Handles (Aliase)?"
+excerpt: "YouTube bietet verschiedene Möglichkeiten, Nutzer zu deinem Kanal weiterzuleiten: Channel ID, Custom URL und nun bis zu 30 alphanumerische Zeichen."
 date: "2022-10-10T16:21:11"
 modified: "2022-10-10T16:21:11"
 locale: "de"

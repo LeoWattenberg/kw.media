@@ -2,15 +2,13 @@
 id: 3194
 slug: "take-off-create-your-youtube-channel-in-2023"
 path: "/youtube-tips-en/take-off-create-your-youtube-channel-in-2023/"
-title: "Take Off: Create Your YouTube Channel in 2023"
-excerpt: "Here's the translated text for KW Media:
-
-This is how you create a YouTube channel in 2023, choose the right account, and set up your appearance cleanly."
+title: "Take Off: Creating Your YouTube Channel in 2023"
+excerpt: "Learn how to set up a personal or brand YouTube channel in 2023. Simple steps to get your channel started, including naming and managing multiple accounts."
 date: "2023-08-01T11:54:13"
 modified: "2023-08-01T11:54:33"
 locale: "en"
-category: "blog"
 translationKey: "post:2314"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-kanal-erstellen-in-2023/"

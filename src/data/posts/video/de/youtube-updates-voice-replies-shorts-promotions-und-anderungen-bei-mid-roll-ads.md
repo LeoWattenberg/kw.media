@@ -2,8 +2,8 @@
 id: 3150
 slug: "youtube-updates-voice-replies-shorts-promotions-und-anderungen-bei-mid-roll-ads"
 path: "/youtube-tipps-de/youtube-updates-voice-replies-shorts-promotions-und-anderungen-bei-mid-roll-ads/"
-title: "YouTube Updates: Voice Replies, Shorts Promotions & Änderungen bei Mid-Roll Ads!"
-excerpt: "Willkommen zu den neuesten YouTube Updates! Heute sprechen wir über Sprachnachrichten in den Kommentaren, Shorts Promotions (Werbeanzeigen auf Shorts), eine neue Live Funktion und große Änderungen bei Midroll Ads,..."
+title: "YouTube-Updates: Sprachnachrichten, Shorts-Werbung & Änderungen bei Mid-Roll-Anzeigen"
+excerpt: "Erfahre mehr über neue YouTube-Features: Sprachkommentare, Ads in Shorts, Live-Pause & Änderungen bei Mid-Roll-Anzeigen ab Mai 2025."
 date: "2025-02-22T13:15:06"
 modified: "2025-02-22T13:15:06"
 locale: "de"

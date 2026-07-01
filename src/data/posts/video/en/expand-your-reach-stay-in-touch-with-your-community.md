@@ -2,8 +2,8 @@
 id: 3075
 slug: "expand-your-reach-stay-in-touch-with-your-community"
 path: "/youtube-tips-en/expand-your-reach-stay-in-touch-with-your-community/"
-title: "Expand your reach! Stay in touch with your community!"
-excerpt: "YouTube ABC: Community tab next to interactions and videos shorts and streams YouTube offers creators the ability to publish Community posts you can access the community posts on your YouTube channel by clicking on..."
+title: "Expand Your Reach: Utilizing YouTube's Community Tab"
+excerpt: "Discover how YouTube's Community tab helps creators engage with fans, share updates, and grow their channels."
 date: "2024-06-26T08:06:29"
 modified: "2024-06-26T08:06:29"
 locale: "en"

@@ -2,8 +2,8 @@
 id: 3048
 slug: "profil-und-szenensammlungen-in-obs"
 path: "/youtube-tipps-de/profil-und-szenensammlungen-in-obs/"
-title: "Profil und Szenensammlungen in OBS"
-excerpt: "Um schnell mit Voreinstellungen auf anderen Geräten zu streamen bietet obs Profil und szenensammlung an mit der profilsammlung könnt ihr dabei Streaming Einstellungen wie z.B Zitate übertragen 10 Sammlung hingegen..."
+title: "Profil- und Szenensammlungen in OBS: Streamen mit Voreinstellungen"
+excerpt: "OBS ermöglicht schnelles Streaming mit Voreinstellungen auf verschiedenen Geräten durch Profil- und Szenensammlungen."
 date: "2023-03-29T15:30:01"
 modified: "2023-03-29T15:30:01"
 locale: "de"

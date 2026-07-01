@@ -2,8 +2,8 @@
 id: 3052
 slug: "new-poll-stickers-for-shorts"
 path: "/youtube-tips-en/new-poll-stickers-for-shorts/"
-title: "NEW: Poll Stickers for Shorts"
-excerpt: "This new YouTube feature makes your shorts even more interactive last week YouTube rolled out the poll feature that lets your community vote on answers for whatever you are asking them this feature is similar to..."
+title: "NEW: Poll Stickers for YouTube Shorts"
+excerpt: "Discover how YouTube's new poll feature enhances Shorts interactivity, allowing your community to vote on two answers."
 date: "2024-11-04T09:54:45"
 modified: "2024-11-04T09:54:45"
 locale: "en"

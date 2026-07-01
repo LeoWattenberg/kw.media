@@ -2,8 +2,8 @@
 id: 3387
 slug: "youtube-updates-anderungen-bei-der-regel-zu-schimpfwortern-neben-an-neben-anzeigen-und-live-stream-community-bestenliste"
 path: "/youtube-tipps-de/youtube-updates-anderungen-bei-der-regel-zu-schimpfwortern-neben-an-neben-anzeigen-und-live-stream-community-bestenliste/"
-title: "YouTube-Updates: Änderungen bei der Regel zu Schimpfwörtern, Neben-an-Neben-Anzeigen & Live-Stream-Community-Bestenliste"
-excerpt: "Wir hatten die Gelegenheit, mit jemandem zu sprechen, der tatsächlich an den YouTube-Anzeigen neben dem Bild für Live-Streams arbeitet, und haben einige neue Informationen zu teilen. Zunächst einmal: Warum sind diese Anzeigen nur neben dem Bild und nicht im Vollbildformat?"
+title: "YouTube-Updates: Änderungen bei Schimpfwörtern, Seiten-an-Seiten-Anzeigen & Live-Stream-Community-Rangliste"
+excerpt: "Neue Infos zu Seiten-an-Seiten-Anzeigen, einem Community-Leaderboard für Live-Streams und Änderungen bei Schimpfwörtern."
 date: "2025-05-03T12:15:03"
 modified: "2025-05-03T12:15:03"
 locale: "de"

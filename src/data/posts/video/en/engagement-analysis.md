@@ -2,8 +2,8 @@
 id: 3077
 slug: "engagement-analysis"
 path: "/youtube-tips-en/engagement-analysis/"
-title: "Engagement analysis 📈"
-excerpt: "The YouTube ABC: engagement is part of video analytics it shows you the interactions of viewers with a specific video open YouTube Studio you will find an overview of your fuse impression click through rate and error..."
+title: "YouTube Engagement Analysis: Understanding Viewer Interactions"
+excerpt: "Discover YouTube's engagement metrics in YouTube Studio. Analyze views, impressions, click-through rates, and average view duration to understand viewer interactions."
 date: "2024-07-05T12:05:39"
 modified: "2024-07-05T12:05:39"
 locale: "en"

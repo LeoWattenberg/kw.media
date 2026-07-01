@@ -2,8 +2,8 @@
 id: 3078
 slug: "so-kommst-du-mit-youtube-shorts-ins-partner-programm"
 path: "/youtube-tipps-de/so-kommst-du-mit-youtube-shorts-ins-partner-programm/"
-title: "So kommst du mit YouTube Shorts ins Partner Programm"
-excerpt: "Keine Sorge falls ihr es mit euren Shorts nicht geschafft habt die nötige Wiedergabe Zeit fürs YouTube Partnerschaftsprogramm zu sammeln es gibt eine weitere Möglichkeit sich für das Partnerprogramm zu bewerben und..."
+title: "So kommst du mit YouTube Shorts ins Partnerprogramm"
+excerpt: "Keine Sorge, wenn du die YouTube-Partnerprogramm-Anforderungen nicht erfüllst. Alternative: 10 Mio. Shorts-Aufrufe in 90 Tagen."
 date: "2023-01-12T10:43:31"
 modified: "2023-01-12T10:43:31"
 locale: "de"

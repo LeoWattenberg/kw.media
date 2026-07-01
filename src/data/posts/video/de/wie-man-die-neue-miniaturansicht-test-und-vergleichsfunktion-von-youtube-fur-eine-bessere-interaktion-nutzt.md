@@ -2,8 +2,8 @@
 id: 3327
 slug: "wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt"
 path: "/youtube-tipps-de/wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt/"
-title: "Wie man die neue Miniaturansicht-Test- und Vergleichsfunktion von YouTube für eine bessere Interaktion nutzt"
-excerpt: "Erklärt die Funktion „Thumbnail-Test & Vergleich“ von YouTube und wie Creator diese nutzen können, um durch bessere Thumbnail-Entscheidungen das Engagement zu steigern."
+title: "Wie man die neue YouTube-Funktion 'Miniaturansicht Test & Vergleich' für mehr Interaktion einsetzt"
+excerpt: "Entdecke, wie Creator die neue A/B-Test-Funktion für Miniaturansichten nutzen können, um das Engagement zu steigern und das richtige Publikum anzusprechen."
 date: "2024-06-11T18:08:39"
 modified: "2024-06-11T18:08:39"
 locale: "de"

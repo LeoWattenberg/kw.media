@@ -2,8 +2,8 @@
 id: 3053
 slug: "szenen-und-quellen-in-obs-nutzen"
 path: "/youtube-tipps-de/szenen-und-quellen-in-obs-nutzen/"
-title: "Szenen und Quellen in OBS nutzen"
-excerpt: "Das kein Prinzip bitte obs besteht aus Szenen und Quellen dabei ist eine Szene aus mindestens einer Quelle aufgebaut und eine Szene ist sozusagen eine Quellensammlung die Quellen in der Szene werden dabei aufeinander..."
+title: "Szenen und Quellen in OBS effektiv nutzen"
+excerpt: "Erfahre, wie du Szenen und Quellen in OBS für deinen Stream oder deine Aufnahme organisierst und anpasst."
 date: "2023-03-27T17:00:10"
 modified: "2023-03-27T17:00:10"
 locale: "de"

@@ -2,8 +2,8 @@
 id: 3391
 slug: "youtube-abc-dashboard-mit-untertiteln"
 path: "/youtube-tipps-de/youtube-abc-dashboard-mit-untertiteln/"
-title: "YouTube-ABC-Dashboard mit Untertiteln"
-excerpt: "Das YouTube-ABC: Das Öffnen des YouTube Studio-Dashboards in der YouTube-Studio-App bringt dich direkt zum Dashboard. Es handelt sich um einen zentralen Hub, der es Creators ermöglicht, ihren Inhalt und die Kanalleistung zu verwalten. Das Dashboard bietet einen..."
+title: "Das YouTube-ABC: Das Dashboard mit Untertiteln"
+excerpt: "Entdecke das YouTube Studio-Dashboard: Deine zentrale Plattform zur Verwaltung von Inhalten und Kanalleistung. Hier findest du aktuelle Statistiken und Kommentare."
 date: "2024-06-27T08:11:21"
 modified: "2024-06-27T08:11:21"
 locale: "de"

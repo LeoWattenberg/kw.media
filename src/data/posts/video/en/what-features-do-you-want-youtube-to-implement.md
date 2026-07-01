@@ -2,8 +2,8 @@
 id: 3069
 slug: "what-features-do-you-want-youtube-to-implement"
 path: "/youtube-tips-en/what-features-do-you-want-youtube-to-implement/"
-title: "What features do You want YouTube to implement"
-excerpt: "What features would you like to see on YouTube we've been collecting your ideas and we'll be introducing them to YouTube however development resources are limited so we need you to rank them vote in the survey from 1..."
+title: "What Features Do You Want YouTube to Implement?"
+excerpt: "Share your ideas for new YouTube features and rank them in our survey to help improve the platform for creators."
 date: "2024-11-10T16:15:02"
 modified: "2024-11-10T16:15:02"
 locale: "en"

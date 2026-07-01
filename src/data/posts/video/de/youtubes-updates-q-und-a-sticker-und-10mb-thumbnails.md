@@ -2,8 +2,8 @@
 id: 3153
 slug: "youtubes-updates-q-und-a-sticker-und-10mb-thumbnails"
 path: "/youtube-tipps-de/youtubes-updates-q-und-a-sticker-und-10mb-thumbnails/"
-title: "YouTube's Updates: Q&A Sticker und 10MB Thumbnails!"
-excerpt: "Eine kurze Empfehlung, bevor wir mit den YouTube Updates für diese Woche beginnen: Wir hatten einen Creator Q&A Livestream hier auf dem Kanal mit einigen spannenden Ausblicken auf 2025 und was YouTube alles geplant..."
+title: "YouTube-Updates: Q&A-Sticker und 10MB Thumbnails!"
+excerpt: "Eine kurze Empfehlung vor den wöchentlichen YouTube-Updates: Ein Creator Q&A-Livestream mit Einblicken in 2025."
 date: "2025-01-25T13:15:00"
 modified: "2025-01-25T13:15:00"
 locale: "de"

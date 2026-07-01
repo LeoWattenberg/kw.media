@@ -2,8 +2,8 @@
 id: 3076
 slug: "editable-thumbnails-for-shorts"
 path: "/youtube-tips-en/editable-thumbnails-for-shorts/"
-title: "Editable thumbnails for shorts ✍"
-excerpt: "Up until recently you were only able to select thumbnails for shorts while uploading now you can also edit short thumbnails in your main YouTube app by navigating to your shorts click edit and select the pen icon..."
+title: "Editable Thumbnails for YouTube Shorts: A Quick Guide"
+excerpt: "Learn how to edit thumbnails for your YouTube Shorts directly from the app. Select a frame, add text, and customize your short's preview."
 date: "2024-11-06T16:15:03"
 modified: "2024-11-06T16:15:03"
 locale: "en"

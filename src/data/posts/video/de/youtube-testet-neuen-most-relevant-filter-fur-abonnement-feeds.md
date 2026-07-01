@@ -2,8 +2,8 @@
 id: 3182
 slug: "youtube-testet-neuen-most-relevant-filter-fur-abonnement-feeds"
 path: "/youtube-tipps-de/youtube-testet-neuen-most-relevant-filter-fur-abonnement-feeds/"
-title: "YouTube testet neuen \"Most Relevant\"-Filter für Abonnement-Feeds!"
-excerpt: "YouTube experimentiert wieder fleißig, und zwar nicht nur mit der Watchpage UI – auch der Abonnement Feed bekommt ein kleines Experiment: den sogenannten \"am relevantesten\" Filterchip. Dabei werden die Videos, die..."
+title: "YouTube testet neuen \"Am relevantesten\"-Filter für Abonnement-Feeds!"
+excerpt: "YouTube experimentiert mit einem neuen Filterchip, der die relevantesten Videos basierend auf dem Nutzerverhalten anzeigt. Ein nützliches Feature für Creator und Viewer."
 date: "2024-04-20T12:30:06"
 modified: "2024-04-20T12:30:06"
 locale: "de"

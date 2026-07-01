@@ -2,8 +2,8 @@
 id: 3112
 slug: "new-audio-settings-vpn-revenue-warning-youtube-creator-news"
 path: "/youtube-tips-en/new-audio-settings-vpn-revenue-warning-youtube-creator-news/"
-title: "New Audio Settings + VPN Revenue Warning | YouTube Creator News"
-excerpt: "The code break is here. YouTube Engineering is on vacation."
+title: "YouTube Creator News: New Features & Revenue Changes"
+excerpt: "Discover the latest YouTube updates affecting creators, from AI tools to community features and monetization changes."
 date: "2025-12-20T13:15:09"
 modified: "2025-12-20T13:15:09"
 locale: "en"

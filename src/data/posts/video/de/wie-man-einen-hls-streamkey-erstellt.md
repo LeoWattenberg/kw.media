@@ -2,8 +2,8 @@
 id: 3089
 slug: "wie-man-einen-hls-streamkey-erstellt"
 path: "/youtube-tipps-de/wie-man-einen-hls-streamkey-erstellt/"
-title: "Wie man einen HLS Streamkey Erstellt"
-excerpt: "Um in euren streams adr konnte zu zeigen müsst ihr euren stream über das hls protokoll senden damit YouTube dieses korrekt anfangen kann müsst ihr einen stream tiere erstellen der das hls protokoll unterstützt dafür..."
+title: "Wie man einen HLS-Stream-Schlüssel erstellt"
+excerpt: "Um HDR in deinen YouTube-Streams korrekt anzuzeigen, musst du das HLS-Protokoll nutzen. Erfahre, wie du einen Stream-Tier erstellst, der HLS unterstützt."
 date: "2022-09-13T18:42:14"
 modified: "2022-09-13T18:42:14"
 locale: "de"

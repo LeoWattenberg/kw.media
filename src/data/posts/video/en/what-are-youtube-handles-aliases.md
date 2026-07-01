@@ -2,8 +2,8 @@
 id: 3271
 slug: "what-are-youtube-handles-aliases"
 path: "/youtube-tips-en/what-are-youtube-handles-aliases/"
-title: "What are YouTube Handles/Aliases?"
-excerpt: "YouTube has many ways to redirect other users to your channel. So far, there was the link with your channel ID, a link with your custom URL or channel name, and now there are up to 30 alpha..."
+title: "Understanding YouTube Handles and Aliases"
+excerpt: "Discover how YouTube's handles and aliases work. Learn to redirect users easily with custom URLs, channel IDs, and new handle options."
 date: "2022-10-10T16:21:11"
 modified: "2022-10-10T16:21:11"
 locale: "en"

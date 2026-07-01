@@ -3,7 +3,7 @@ id: 3158
 slug: "youtube-autodubbing-enttauscht-und-youtube-fuhrt-jewels-fur-vertikale-livestreams-ein"
 path: "/youtube-tipps-de/youtube-autodubbing-enttauscht-und-youtube-fuhrt-jewels-fur-vertikale-livestreams-ein/"
 title: "YouTube AutoDubbing enttäuscht & YouTube führt Jewels für vertikale Livestreams ein!"
-excerpt: "MLA bzw. Auto Dubbing wird nach und nach ausgerollt."
+excerpt: "AutoDubbing (MLA) wird ausgerollt, aber enttäuscht durch Monotonie und schlechte Übersetzungen. Erfreulich: Lange Shorts werden bald korrekt angezeigt."
 date: "2024-11-16T13:15:01"
 modified: "2024-11-16T13:15:01"
 locale: "de"

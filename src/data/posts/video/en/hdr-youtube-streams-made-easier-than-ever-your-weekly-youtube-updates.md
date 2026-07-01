@@ -2,8 +2,8 @@
 id: 3221
 slug: "hdr-youtube-streams-made-easier-than-ever-your-weekly-youtube-updates"
 path: "/youtube-tips-en/hdr-youtube-streams-made-easier-than-ever-your-weekly-youtube-updates/"
-title: "HDR YouTube Streams Made Easier Than Ever! | Your Weekly YouTube Updates"
-excerpt: "There were already no issues in the past with YouTube Studio Desktop, and now there will also be a filter for the notification feed in the YouTube Studio Mobile App. This means that where you find your..."
+title: "YouTube HDR Streaming: Easier Than Ever | Weekly Updates"
+excerpt: "New YouTube Studio Mobile features include a notification feed filter & Clips Library. Plus, HDR streaming improvements with RTMP/S for better quality."
 date: "2024-03-16T13:30:01"
 modified: "2024-03-16T13:30:01"
 locale: "en"

@@ -2,8 +2,8 @@
 id: 3161
 slug: "lange-shorts-werden-nicht-richtig-im-youtube-studio-angezeigt-mitgliedschaften-updates-und-mehr"
 path: "/youtube-tipps-de/lange-shorts-werden-nicht-richtig-im-youtube-studio-angezeigt-mitgliedschaften-updates-und-mehr/"
-title: "Lange Shorts werden nicht richtig im YouTube Studio angezeigt | Mitgliedschaften Updates & mehr"
-excerpt: "Wir müssen noch einmal über die langen Shorts sprechen. Letztes Mal gab es viele Nachfragen, also hier noch einmal zum Mitschreiben: Nur weil ein Produkt lanciert wird, bedeutet das nicht, dass alle Creator sofort..."
+title: "Lange Shorts: Anzeigeprobleme im YouTube Studio & Mitgliedschaften Updates"
+excerpt: "Wir klären, warum lange Shorts noch nicht im YouTube Studio angezeigt werden und wann sich das ändert. Plus: Neuigkeiten zu Mitgliedschaften und Umfragen."
 date: "2024-10-19T12:15:02"
 modified: "2024-10-19T12:15:02"
 locale: "de"

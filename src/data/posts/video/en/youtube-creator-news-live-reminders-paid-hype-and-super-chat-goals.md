@@ -2,8 +2,8 @@
 id: 3279
 slug: "youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals"
 path: "/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/"
-title: "YouTube Creator News: Live Reminders, Paid Hype, and Super Chat Goals!"
-excerpt: "We briefly touched on the notification for upcoming live streams in the Shorts feed last week and were able to get confirmation from YouTube: It is indeed a..."
+title: "YouTube Creator Updates: Live Stream Reminders, Paid Hype, and Super Chat Goals"
+excerpt: "Learn about upcoming YouTube features, including live stream reminders in Shorts feed, paid Hype, and Super Chat Goals."
 date: "2024-10-12T12:15:01"
 modified: "2024-10-12T12:15:01"
 locale: "en"
@@ -29,7 +29,7 @@ Live redirects had a small issue in recent weeks: users were not being redirecte
 
 Now let's move on to paid Hypes. We've already complained that the Hype feature is actually useful and allows you to share three free Hypes per week for creators you want to support. In one of YouTube's blog posts, they mentioned the possibility of testing this feature as a paid Hype as well. This means viewers would pay to be able to distribute more than three Hypes per week. We have at least received confirmation that there will also be a 70/30 revenue share for creators with these paid Hypes. I think it's commendable that YouTube is not enriching themselves here but treating it as transaction revenue for creators. It is currently being tested in Brazil and Turkey. As soon as the feature becomes available in more countries, you will of course hear about it on this channel.
 
-Let's stay with the transaction revenues, as we have already discussed the Superchat Goals a few times, which have been postponed several times - what is known as a pushback. Another experimental phase with 20 to 30 percent of total users is currently underway. There should be another update from the YouTube team by the end of the month, and the launch is expected to be completed by the end of the year. Whether the schedule can be kept remains to be seen. But you know that here: you are always up to date.
+Let's stay with the transaction revenues, as we have already discussed the Super Chat Goals a few times, which have been postponed several times - what is known as a pushback. Another experimental phase with 20 to 30 percent of total users is currently underway. There should be another update from the YouTube team by the end of the month, and the launch is expected to be completed by the end of the year. Whether the schedule can be kept remains to be seen. But you know that here: you are always up to date.
 
 Now let's move from transaction revenues to YouTube Studio Mobile, as it now also has a horizontal mode, known as landscape mode in English. This is quite nice for viewing graphics. But first of all, I wonder: who really analyzes analytics in depth on their phone? I mean, it's nice that you can see the charts...
 

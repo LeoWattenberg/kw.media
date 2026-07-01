@@ -2,8 +2,8 @@
 id: 3190
 slug: "youtube-fuhrt-spannende-neuerungen-ein-clips-feed-update-und-mehr"
 path: "/youtube-tipps-de/youtube-fuhrt-spannende-neuerungen-ein-clips-feed-update-und-mehr/"
-title: "YouTube führt spannende Neuerungen ein: Clips Feed Update & Mehr!"
-excerpt: "Das Update für den Clips Feed ist wie geplant ausgerollt worden und zeigt jetzt die von euch erstellten Clips sowie solche, die andere Zuschauer aus eurem Content erstellt haben. Auswählbar sind diese über sogenannte..."
+title: "YouTube führt neue Funktionen ein: Clips Feed Update und mehr!"
+excerpt: "Das Clips Feed Update präsentiert eure Clips und solche, die aus eurem Content erstellt wurden. Entdeckt auch Collections und Fan Communities."
 date: "2024-02-17T12:30:17"
 modified: "2024-02-17T12:30:17"
 locale: "de"

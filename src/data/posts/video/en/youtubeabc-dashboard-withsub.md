@@ -2,8 +2,8 @@
 id: 3042
 slug: "youtubeabc-dashboard-withsub"
 path: "/youtube-tips-en/youtubeabc-dashboard-withsub/"
-title: "YouTubeABC Dashboard withSub"
-excerpt: "The YouTube ABC: dashboard opening the YouTube studio app transports you directly to the dashboard it's a central Hub designed for creators to manage their content and channel performance the dashboard provides an..."
+title: "YouTube ABC: Navigating the Dashboard"
+excerpt: "Explore YouTube Studio's central hub for creators. Manage content, track performance, and stay updated on YouTube's latest features."
 date: "2024-06-27T08:11:21"
 modified: "2024-06-27T08:11:21"
 locale: "en"

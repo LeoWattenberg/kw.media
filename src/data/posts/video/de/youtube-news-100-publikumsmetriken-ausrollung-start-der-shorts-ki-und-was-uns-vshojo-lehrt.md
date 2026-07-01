@@ -2,8 +2,8 @@
 id: 3372
 slug: "youtube-news-100-publikumsmetriken-ausrollung-start-der-shorts-ki-und-was-uns-vshojo-lehrt"
 path: "/youtube-tipps-de/youtube-news-100-publikumsmetriken-ausrollung-start-der-shorts-ki-und-was-uns-vshojo-lehrt/"
-title: "YouTube News: 100 % Publikumsmetriken-Ausrollung, Start der Shorts KI & Was uns VShojo lehrt"
-excerpt: "YouTube Shorts veröffentlicht ein KI-Update, mit dem du Fotos mithilfe von VO2 und später VO3 in Videos umwandeln kannst. Ich würde euch das Update gerne zeigen, aber leider ist es derzeit auf die USA, Kanada,... beschränkt."
+title: "YouTube News: Vollständige Einführung der Publikumsmetriken, Start der Shorts KI & Lehren aus VShojo"
+excerpt: "Entdecke das neue KI-Update von YouTube Shorts, das Fotos in Videos verwandelt. Derzeit ist es auf bestimmte Länder beschränkt."
 date: "2025-07-26T12:15:02"
 modified: "2025-07-26T12:15:02"
 locale: "de"

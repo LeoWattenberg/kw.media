@@ -2,8 +2,8 @@
 id: 3067
 slug: "trending-tags-are-hashtags-still-relevant"
 path: "/youtube-tips-en/trending-tags-are-hashtags-still-relevant/"
-title: "Trending Tags: Are hashtags still relevant?"
-excerpt: "YouTube ABC: hashtags as a content creator using hashtags in your video description can help categorize your content more precise this practice simplifies the process for your audience to discover your channel..."
+title: "Trending Tags: Are Hashtags Still Relevant on YouTube?"
+excerpt: "Discover how hashtags can help categorize your content & increase discovery. Tips include using 5 or fewer hashtags & monitoring their effectiveness."
 date: "2024-07-16T14:30:44"
 modified: "2024-07-16T14:30:44"
 locale: "en"

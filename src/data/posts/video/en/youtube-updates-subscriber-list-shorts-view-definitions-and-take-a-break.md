@@ -2,8 +2,8 @@
 id: 3290
 slug: "youtube-updates-subscriber-list-shorts-view-definitions-and-take-a-break"
 path: "/youtube-tips-en/youtube-updates-subscriber-list-shorts-view-definitions-and-take-a-break/"
-title: "YouTube Updates: Subscriber List, Shorts View Definitions & \"Take a Break\""
-excerpt: "As a Creator, if you want to see a list of your subscribers, until now this was only possible in YouTube Studio Desktop. From this week, there is a new feature, although not yet available to everyone: Creator..."
+title: "YouTube Creator Updates: Subscriber List, Shorts View Changes & Break Function"
+excerpt: "New KW Media tools: View YouTube subs in app, updated analytics, 'Take a Break' in live streams, improved Shorts view."
 date: "2025-03-29T13:15:04"
 modified: "2025-03-29T13:15:04"
 locale: "en"

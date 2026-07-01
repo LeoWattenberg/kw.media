@@ -7,8 +7,8 @@ excerpt: "Ein für Anfänger geeigneter Leitfaden zum Einrichten von YouTube Liv
 date: "2022-11-05T14:53:41"
 modified: "2023-03-17T12:57:27"
 locale: "de"
-category: "blog"
 translationKey: "post:2280"
+category: "blog"
 image: "https://lh6.googleusercontent.com/eWeMjTqNdIR4AOgH_aTWqYslVE3cj1h2iIxrAnWMUycTQgDXzGClDJ33m8xucehQ4q91mnw4q86QtQSGhiU3bbJZrIvUMlOFP-vZmb8FkcH7PJndZXYRrKxWKhxeL82GP9FvtvmwYkQB5NwoNL6uZlt5O-T0AdzpOJg7vL_eoHTWNtoaXBZkhD-SJFfuCA"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-youtube-live-streaming/"
@@ -63,7 +63,7 @@ Wenn du bereits zuvor gestreamt hast, siehst du einen blauen "Einstellungen wied
 Wenn du es noch nicht getan hast, lies unseren OBS-Leitfaden zum Einrichten von OBS.
 
 <figure><div>
-<blockquote><a href="/youtube-tips-en/getting-started-with-obs-a-beginners-guide/">Einstieg in OBS: Ein Leitfaden für Anfänger</a></blockquote><iframe title="„Einstieg in OBS: Ein Leitfaden für Anfänger“ — Koytek Wattenberg Media" src="https://kw.media/youtube-tips-en/getting-started-with-obs-a-beginners-guide/embed/#?secret=7AeJG5xHGV#?secret=JEx7cE9euL" width="600" height="338" frameborder="0"></iframe>
+<blockquote><a href="/youtube-tips-en/getting-started-with-OBS-a-beginners-guide/">Einstieg in OBS: Ein Leitfaden für Anfänger</a></blockquote><iframe title="„Einstieg in OBS: Ein Leitfaden für Anfänger“ — Koytek Wattenberg Media" src="https://kw.media/youtube-tips-en/getting-started-with-OBS-a-beginners-guide/embed/#?secret=7AeJG5xHGV#?secret=JEx7cE9euL" width="600" height="338" frameborder="0"></iframe>
 </div></figure>
 
 Nun kommen wir zum spannenden Teil: Wenn du Livestreams senden möchtest, musst du entweder dein YouTube-Konto mit OBS verbinden oder deinen Stream-Schlüssel finden. Da du in Zukunft ohnehin fortgeschrittenes Streaming betreiben möchtest, empfehle ich dir, etwas Zeit zu investieren und dich mit Stream-Schlüsseln vertraut zu machen, damit du später nicht wechseln musst. Du kannst deinen Stream-Schlüssel [im Live-Dashboard](https://studio.youtube.com/channel/UC/livestreaming/dashboard) auf der linken Seite finden und musst ihn in das **OBS-Einstellungsfeld „Stream“ → „Stream-Schlüssel** einfügen.

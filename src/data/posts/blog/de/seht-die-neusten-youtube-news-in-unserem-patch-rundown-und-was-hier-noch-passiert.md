@@ -7,12 +7,14 @@ excerpt: "Wo du den YouTube Patch Rundown findest, was die News-Serie bietet und
 date: "2021-06-07T14:10:19"
 modified: "2022-07-16T12:47:21"
 locale: "de"
-category: "blog"
 translationKey: "post:1389"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/seht-die-neusten-youtube-news-in-unserem-patch-rundown-und-was-hier-noch-passiert/"
 ---
+
+## Überblick
 
 Moin!
 

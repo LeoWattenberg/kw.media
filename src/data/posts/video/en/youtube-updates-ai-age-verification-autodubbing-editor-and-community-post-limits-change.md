@@ -2,8 +2,8 @@
 id: 3127
 slug: "youtube-updates-ai-age-verification-autodubbing-editor-and-community-post-limits-change"
 path: "/youtube-tips-en/youtube-updates-ai-age-verification-autodubbing-editor-and-community-post-limits-change/"
-title: "YouTube Updates: AI Age Verification, AutoDubbing Editor & Community Post Limits Change"
-excerpt: "Editing autodub videos is now available in YouTube Studio Editor. You can trim the beginning, middle, or end of your video if you wish, and it will regenerate the autodubbed audio track to match your adjustments,..."
+title: "YouTube Updates: AI Age Verification, AutoDubbing Editor Improvements, and Community Post Changes"
+excerpt: "Edit autodub videos with trimmed sections in YouTube Studio. Include 10 images in Community Posts. Learn about AI age verification impact on creators."
 date: "2025-08-16T12:15:03"
 modified: "2025-08-16T12:15:03"
 locale: "en"

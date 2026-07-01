@@ -7,14 +7,14 @@ excerpt: "Eine auf Creator fokussierte Rezension des AVerMedia NEXUS AX310 und S
 date: "2021-06-28T08:40:10"
 modified: "2023-03-17T12:57:29"
 locale: "de"
-category: "blog"
 translationKey: "post:1638"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/06/AM_NEXUS_BACK.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/avermedia-nexus-ax310-streamer-mic-330-review/"
 ---
 
-Wenn es darum geht, Streaming oder Content-Erstellung im Allgemeinen auf das nächste Level zu heben, ist eines der ersten Dinge, die man tun sollte, die Aufrüstung des Audioequipments. Für eine Orientierung, was für dich passen könnte, wirf einen Blick auf unseren [Audio-Guide zum Glück](/youtube-tips-de/der-audio-guide-zum-glück-oder-wie-man-seine-streams-und-videos-gut-klingen-lässt/).
+Wenn es darum geht, Streaming oder Content-Erstellung im Allgemeinen auf das nächste Level zu heben, ist eines der ersten Dinge, die man tun sollte, die Aufrüstung des Audioequipments. Für eine Orientierung, was für dich passen könnte, wirf einen Blick auf unseren [Audio-Guide zum Glück](/youtube-tipps-de/der-audio-guide-zum-glucklichsein-oder-wie-du-deine-streams-und-videos-gut-klingen-lasst/).
 
 In diesem Review/Guide sprechen wir über eine mögliche One-Stop-Shop-Lösung, die für dich interessant sein könnte. Zunächst muss ich jedoch offenlegen: AVerMedia hat mir ihr NEXUS-Interface und ihr dynamisches Mikrofon zur Rezension geschickt. Sie haben dies kostenlos getan, aber dieser Beitrag ist nicht gesponsert. Vor dem Test habe ich bereits bei mehreren Geschäftsveranstaltungen AVerMedia-Produkte als kompakte Geräte verwendet, die gute Bildqualität geliefert haben, daher sind meine Erwartungen an ihr Audioequipment ebenfalls hoch.
 
@@ -36,7 +36,7 @@ Sprechen wir zunächst über einige allgemeine Punkte. Das NEXUS AX310 ist mit s
 
 ### Audio-Interface
 
-Das NEXUS tut, was es soll. Sobald es mit dem PC verbunden ist, die Software installiert und einige Versuche unternommen wurden, um eine Verbindung herzustellen und das Firmware-Update durchzuführen, waren alle virtuellen Audioleitungen eingerichtet und funktionierten wie vorgesehen. Beachten Sie, dass es wichtig ist, sich eine Stunde oder zwei Zeit zu nehmen, um die Audioleitungseinstellungen zu planen. Es wird die Dinge einfacher machen, obwohl ich zugeben muss, dass es auch ohne das Lesen der Anleitung (wer macht das schon) sehr einfach zu verstehen war. Für das Beispielvideo habe ich das Systemgeräusch verwendet, um etwas Hintergrundmusik für das Streaming zu regeln, denke daran, nur [Musik zu verwenden, für die du die Lizenzen hast](/youtube-tips-de/der-fuck-copyright-guide-wie-man-dinge-in-seinen-videos-legal-verwendet-die-andere-gemacht-haben/), in meinem Fall Epidemic Sound, das MIC 330 war mit dem Interface verbunden und Discord auf der Chat-Leitung.
+Das NEXUS tut, was es soll. Sobald es mit dem PC verbunden ist, die Software installiert und einige Versuche unternommen wurden, um eine Verbindung herzustellen und das Firmware-Update durchzuführen, waren alle virtuellen Audioleitungen eingerichtet und funktionierten wie vorgesehen. Beachten Sie, dass es wichtig ist, sich eine Stunde oder zwei Zeit zu nehmen, um die Audioleitungseinstellungen zu planen. Es wird die Dinge einfacher machen, obwohl ich zugeben muss, dass es auch ohne das Lesen der Anleitung (wer macht das schon) sehr einfach zu verstehen war. Für das Beispielvideo habe ich das Systemgeräusch verwendet, um etwas Hintergrundmusik für das Streaming zu regeln, denke daran, nur [Musik zu verwenden, für die du die Lizenzen hast](/youtube-tipps-de/wie-du-musik-und-videos-legal-verwendest/), in meinem Fall Epidemic Sound, das MIC 330 war mit dem Interface verbunden und Discord auf der Chat-Leitung.
 
 Der gemasterte Output wurde direkt an eine meiner OBS-Mikrofonleitungen weitergeleitet, und die Möglichkeit, jede Leitung mit einem haptischen Radioknopf zu regeln, fühlte sich sehr gut an. Es gibt auch eine Spotify-Integration, aber ich würde Abstand davon halten, aufgrund möglicher Urheberrechtsprobleme, die damit einhergehen. Auch das Stummschalten bestimmter Kanäle mit einem Tastendruck macht es sehr praktisch, Musik und Mikrofon während Cutscenes in Spielaufnahmen zu stummschalten.
 
@@ -60,7 +60,7 @@ Dieser Teil der Rezension ist sowohl für die Verwendung des NEXUS in Ihrem Stre
 
 Lassen Sie mich erklären: Die vier Tasten rechts habe ich OBS, Steam, Adobe Photoshop und Adobe Premiere Pro zugewiesen, was das Starten meiner wichtigsten Programme für die Erstellung erleichtert. Auf dem Touchscreen selbst habe ich einige nützliche Hotkeys für diese Programme abgebildet. Leider unterstützt es keine ALT-Taste oder WINDOWS-Taste-Multi-Hotkeys, sodass das Öffnen des Windows-Screenshot-Tools mit WINDOWS + SHIFT + S oder das Exportieren in Photoshop mit ALT + SHIFT + STRG + W leider nicht möglich ist. Ich hoffe, dass diese Funktion später mit der Weiterentwicklung hinzugefügt wird.
 
-Zu den Systemfunktionen gehört auch ein Textmacro mit bis zu 500 Zeichen. Dies ist leider nur außerhalb Ihres Streams nützlich, um z. B. häufig gestellte Fragen in Ihrem Discord zu beantworten. Ich vermisse die Option in der YouTube- und Twitch-Integration wirklich, denn dies könnte eine sehr gute Möglichkeit sein, Erinnerungen in den Chat zu senden, z. B. ein Follow/Subscribe CTA oder Produktplatzierungstexte, und ja, diese sind tatsächlich etwas wert, mehr dazu [in unserem Leitfaden über Sponsoring und Markenkooperationen](/youtube-tipps-de/lasst-uns-über-geld-auf-youtube-und-sponsoring-für-youtube-kanäle-reden/).
+Zu den Systemfunktionen gehört auch ein Textmacro mit bis zu 500 Zeichen. Dies ist leider nur außerhalb Ihres Streams nützlich, um z. B. häufig gestellte Fragen in Ihrem Discord zu beantworten. Ich vermisse die Option in der YouTube- und Twitch-Integration wirklich, denn dies könnte eine sehr gute Möglichkeit sein, Erinnerungen in den Chat zu senden, z. B. ein Follow/Subscribe CTA oder Produktplatzierungstexte, und ja, diese sind tatsächlich etwas wert, mehr dazu [in unserem Leitfaden über Sponsoring und Markenkooperationen](/youtube-tipps-de/lass-uns-uber-geld-und-sponsorships-reden/).
 
 ## Fazit
 

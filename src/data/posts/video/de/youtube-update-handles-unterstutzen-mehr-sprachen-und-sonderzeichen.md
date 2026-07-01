@@ -2,8 +2,8 @@
 id: 3176
 slug: "youtube-update-handles-unterstutzen-mehr-sprachen-und-sonderzeichen"
 path: "/youtube-tipps-de/youtube-update-handles-unterstutzen-mehr-sprachen-und-sonderzeichen/"
-title: "YouTube Update: @ Handles Unterstützen Mehr Sprachen & Sonderzeichen!"
-excerpt: "@handles unterstützen jetzt Buchstaben und Ziffern in insgesamt 75 verschiedenen Sprachen. Allerdings gibt es ein paar Änderungen: Statt 30 Zeichen sind nun nur noch 20 oder 10 Zeichen für die Alphabete..."
+title: "YouTube-Update: @-Handles unterstützen mehr Sprachen und Sonderzeichen"
+excerpt: "Die neue YouTube-Aktualisierung ermöglicht @-Handles in 75 Sprachen mit neuen Sonderzeichen, aber mit reduzierter Zeichenanzahl für bestimmte Alphabete."
 date: "2024-06-29T12:30:32"
 modified: "2024-06-29T12:30:32"
 locale: "de"

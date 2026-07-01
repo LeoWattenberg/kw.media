@@ -2,8 +2,8 @@
 id: 3336
 slug: "bleib-mit-dem-dashboard-auf-dem-laufenden"
 path: "/youtube-tipps-de/bleib-mit-dem-dashboard-auf-dem-laufenden/"
-title: "Bleib mit dem Dashboard auf dem Laufenden 👀"
-excerpt: "Das YouTube-ABC: Das Öffnen des YouTube Studio-Dashboards in der YouTube-Studio-App bringt Sie direkt zum Dashboard. Es handelt sich um einen zentralen Hub, der es Creators ermöglicht, ihren Inhalt und die Kanalleistung zu verwalten. Das Dashboard bietet einen..."
+title: "Bleib mit dem YouTube-Dashboard auf dem Laufenden"
+excerpt: "Das YouTube Studio-Dashboard ist dein zentraler Ort zur Verwaltung von Videos und Kanalleistung. Sieh dir Statistiken und Kommentare an."
 date: "2024-07-01T09:53:45"
 modified: "2024-07-01T09:53:45"
 locale: "de"
