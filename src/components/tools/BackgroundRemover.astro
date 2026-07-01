@@ -716,7 +716,10 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			function removeCheckerboardAcrossImage(pixelsData, width, height, channels, colors, matchToleranceSq, model) {
 				for (let y = 0; y < height; y += 1) {
 					for (let x = 0; x < width; x += 1) {
-						if (isCheckerboardRemovablePixel(pixelsData, width, channels, colors, matchToleranceSq, model, x, y)) {
+						if (
+							isCheckerboardRemovablePixel(pixelsData, width, channels, colors, matchToleranceSq, model, x, y) &&
+							hasLocalCheckerboardEvidence(pixelsData, width, height, channels, colors, matchToleranceSq, model, x, y)
+						) {
 							const offset = ((y * width) + x) * channels.count;
 							pixelsData[offset + channels.alpha] = 0;
 						}
@@ -800,6 +803,82 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				}
 
 				return Boolean(model && isNearCheckerBoundary(x, y, model) && isCheckerBoundaryBlend(color, colors, matchToleranceSq));
+			}
+
+			function hasLocalCheckerboardEvidence(pixelsData, width, height, channels, colors, matchToleranceSq, model, x, y) {
+				if (!model) {
+					return true;
+				}
+
+				const currentLabel = expectedCheckerLabel(x, y, model);
+				const currentColumn = boundaryIndex(model.xBoundaries, x);
+				const currentRow = boundaryIndex(model.yBoundaries, y);
+				const neighbors = [
+					cellCenter(model.xBoundaries, currentColumn - 1, width, x, 'x', model),
+					cellCenter(model.xBoundaries, currentColumn + 1, width, x, 'x', model),
+					cellCenter(model.yBoundaries, currentRow - 1, height, y, 'y', model),
+					cellCenter(model.yBoundaries, currentRow + 1, height, y, 'y', model),
+				];
+
+				for (const neighbor of neighbors) {
+					if (!neighbor) {
+						continue;
+					}
+
+					const sampleX = neighbor.axis === 'x' ? neighbor.value : x;
+					const sampleY = neighbor.axis === 'y' ? neighbor.value : y;
+					const sampleLabel = checkerColorLabelAt(pixelsData, width, channels, colors, matchToleranceSq, sampleX, sampleY);
+
+					if (sampleLabel >= 0 && sampleLabel !== currentLabel && sampleLabel === expectedCheckerLabel(sampleX, sampleY, model)) {
+						return true;
+					}
+				}
+
+				return false;
+			}
+
+			function cellCenter(boundaries, index, limit, fallback, axis, model) {
+				if (index < 0 || index > boundaries.length) {
+					return null;
+				}
+
+				const start = index === 0 ? 0 : boundaries[index - 1];
+				const end = index === boundaries.length ? limit - 1 : boundaries[index];
+
+				if (!Number.isFinite(start) || !Number.isFinite(end) || end < start) {
+					return null;
+				}
+
+				const value = Math.round((start + end) / 2);
+				const clampedValue = Math.max(0, Math.min(limit - 1, value));
+
+				if (axis === 'x' && boundaryIndex(model.xBoundaries, clampedValue) !== index) {
+					return null;
+				}
+
+				if (axis === 'y' && boundaryIndex(model.yBoundaries, clampedValue) !== index) {
+					return null;
+				}
+
+				if (Math.abs(clampedValue - fallback) < 2) {
+					return null;
+				}
+
+				return {
+					axis,
+					value: clampedValue,
+				};
+			}
+
+			function checkerColorLabelAt(pixelsData, width, channels, colors, matchToleranceSq, x, y) {
+				const offset = ((y * width) + x) * channels.count;
+				const color = {
+					b: pixelsData[offset + channels.blue],
+					g: pixelsData[offset + channels.green],
+					r: pixelsData[offset + channels.red],
+				};
+
+				return matchCheckerColor(color, colors, matchToleranceSq);
 			}
 
 			function collectBorderSamples(pixelsData, width, height, channels) {
