@@ -28,6 +28,8 @@ Run commands from the project root:
 | `npm run translate:post -- src/data/posts/.../post.md` | Translate one or more posts into the other locale |
 | `npm run translate:all-missing` | Create missing translations for all posts |
 | `npm run astro -- --help` | Show Astro CLI help |
+| `npx @astrojs/upgrade` | Update Astro (fixes security issues but may break the site)|
+| `npm audit fix` | Fixes security updates without updating Astro|
 
 ## AI Cleanup And Translation
 
