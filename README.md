@@ -23,7 +23,7 @@ Run commands from the project root:
 | `npm run fix:posts -- --all-fixes --write` | Also apply local-AI title/excerpt metadata suggestions |
 | `npm run metadata:posts -- --weak --output=.cache/post-metadata-suggestions.json` | Generate local-AI metadata suggestions for weak posts |
 | `npm run excerpt:posts -- --weak --dry-run` | Preview local-AI excerpt repairs for weak posts |
-| `npm run links:posts -- --limit=20 --link-density=2` | Preview inline links from post bodies to related same-language posts |
+| `npm run links:posts -- --limit=20 --link-density=2` | Preview local-AI inline links from post bodies to related same-language posts |
 | `npm run links:posts -- --write` | Apply inline post links, then review the Markdown changes in git |
 | `npm run translate:post -- src/data/posts/.../post.md` | Translate one or more posts into the other locale |
 | `npm run translate:all-missing` | Create missing translations for all posts |
@@ -39,6 +39,7 @@ OLLAMA_CLEANUP_FAST_MODEL=aya-expanse:32b
 OLLAMA_CLEANUP_DEEP_MODEL=gemma4:31b
 OLLAMA_TRANSLATE_MODEL=aya-expanse:32b
 OLLAMA_METADATA_MODEL=aya-expanse:32b
+OLLAMA_INLINE_LINK_MODEL=aya-expanse:32b
 ```
 
 Cleanup model selection:
@@ -47,6 +48,7 @@ Cleanup model selection:
 - `blog` and `video-tutorial` use `OLLAMA_CLEANUP_DEEP_MODEL`.
 - Translation uses `OLLAMA_TRANSLATE_MODEL`.
 - Metadata suggestions and excerpt generation use `OLLAMA_METADATA_MODEL`, falling back to `OLLAMA_EXCERPT_MODEL` and then `OLLAMA_TRANSLATE_MODEL`.
+- Inline post linking uses `OLLAMA_INLINE_LINK_MODEL`, falling back to `OLLAMA_METADATA_MODEL`, `OLLAMA_TRANSLATE_MODEL`, and then `aya-expanse:32b`.
 
 Generated translation pairs are connected with `translationKey` frontmatter, and video translations can also be inferred from shared `youtubeId`.
 
@@ -54,4 +56,4 @@ Generated translation pairs are connected with `translationKey` frontmatter, and
 
 The post overview search is static and runs in the browser against already-rendered post cards. It does not call a search backend or AI service at runtime, so it is compatible with GitHub Pages.
 
-`links:posts` is deterministic. It uses `src/data/related-posts.json` when available, falls back to same-language posts, and only inserts Markdown links where a title or excerpt phrase naturally appears in unlinked body text. Use `--link-density=N` to cap new links per 1000 body words.
+`links:posts` uses local Ollama by default to choose meaningful exact anchor phrases from the current post body. It uses `src/data/related-posts.json` as candidate input when available, falls back to same-language posts, and validates that each anchor appears in unlinked body text before editing. Use `--link-density=N` to cap new links per 1000 body words, `--candidates=N` to control how many related posts are sent to Ollama, or `--no-ai` for the deterministic fallback.
