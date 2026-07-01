@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import BackgroundRemover from '../../components/tools/BackgroundRemover.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('background-remover', {
+	id: 'background-remover',
+	translations: {
+		de: {
+			id: 'background-remover-de',
+			path: '/de/tools/background-remover/',
+			title: 'Hintergrund entfernen',
+			description: 'Entferne einfarbige Bildhintergründe clientseitig mit ImageMagick WASM und lade PNG oder WebP mit Transparenz herunter.',
+		},
+		en: {
+			id: 'background-remover-en',
+			path: '/en/tools/background-remover/',
+			title: 'Background Remover',
+			description: 'Remove solid image backgrounds client-side with ImageMagick WASM and download transparent PNG or WebP files.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<BackgroundRemover locale={tool.locale} />
+</ToolPageShell>
