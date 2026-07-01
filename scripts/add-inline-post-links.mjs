@@ -17,10 +17,7 @@ const limit = Number(argumentValue('--limit') ?? 0);
 const candidateCount = Number(argumentValue('--candidates') ?? process.env.INLINE_POST_LINK_CANDIDATES ?? 8);
 const relatedPath = resolve(argumentValue('--related') ?? join(process.cwd(), 'src/data/related-posts.json'));
 const ollamaUrl = process.env.OLLAMA_URL ?? process.env.OLLAMA_TRANSLATE_URL ?? 'http://172.20.208.1:11434';
-const anchorModel = process.env.OLLAMA_INLINE_LINK_MODEL
-	?? process.env.OLLAMA_METADATA_MODEL
-	?? process.env.OLLAMA_TRANSLATE_MODEL
-	?? 'aya-expanse:32b';
+const anchorModel = process.env.OLLAMA_INLINE_LINK_MODEL ?? 'gemma4:31b';
 const timeoutMs = Number(process.env.OLLAMA_TIMEOUT_MS ?? 300000);
 const commonStopWords = new Set([
 	'a', 'an', 'and', 'as', 'at', 'by', 'for', 'from', 'how', 'in', 'into', 'is', 'it', 'new', 'of', 'on', 'or', 'the', 'this', 'to', 'was', 'what', 'with',
@@ -240,9 +237,11 @@ async function suggestAiLinks(post, candidates, linkLimit) {
 	const prompt = `Select meaningful inline links for this KW Media post.
 
 Return only JSON with this exact shape:
-[
-  { "anchor": "exact phrase from the current post body", "path": "/youtube-tipps-de/example/" }
-]
+{
+  "links": [
+    { "anchor": "exact phrase from the current post body", "path": "/youtube-tipps-de/example/" }
+  ]
+}
 
 Current post:
 path: ${post.frontmatter.path}
@@ -530,16 +529,28 @@ function parseAiLinkSuggestions(text) {
 }
 
 function collectAiLinkSuggestions(value) {
-	if (!Array.isArray(value)) {
-		return [];
+	if (Array.isArray(value)) {
+		return value
+			.map((item) => ({
+				anchor: typeof item?.anchor === 'string' ? cleanPhrase(item.anchor) : '',
+				path: typeof item?.path === 'string' ? item.path : '',
+			}))
+			.filter((item) => item.anchor && item.path);
 	}
 
-	return value
-		.map((item) => ({
-			anchor: typeof item?.anchor === 'string' ? cleanPhrase(item.anchor) : '',
-			path: typeof item?.path === 'string' ? item.path : '',
-		}))
-		.filter((item) => item.anchor && item.path);
+	if (value && typeof value === 'object') {
+		if (typeof value.anchor === 'string' && typeof value.path === 'string') {
+			return collectAiLinkSuggestions([value]);
+		}
+
+		if (Array.isArray(value.links)) {
+			return collectAiLinkSuggestions(value.links);
+		}
+
+		return Object.values(value).flatMap((item) => collectAiLinkSuggestions(item));
+	}
+
+	return [];
 }
 
 function uniqueAiLinks(links) {

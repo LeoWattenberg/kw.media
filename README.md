@@ -39,7 +39,7 @@ OLLAMA_CLEANUP_FAST_MODEL=aya-expanse:32b
 OLLAMA_CLEANUP_DEEP_MODEL=gemma4:31b
 OLLAMA_TRANSLATE_MODEL=aya-expanse:32b
 OLLAMA_METADATA_MODEL=aya-expanse:32b
-OLLAMA_INLINE_LINK_MODEL=aya-expanse:32b
+OLLAMA_INLINE_LINK_MODEL=gemma4:31b
 ```
 
 Cleanup model selection:
@@ -48,7 +48,7 @@ Cleanup model selection:
 - `blog` and `video-tutorial` use `OLLAMA_CLEANUP_DEEP_MODEL`.
 - Translation uses `OLLAMA_TRANSLATE_MODEL`.
 - Metadata suggestions and excerpt generation use `OLLAMA_METADATA_MODEL`, falling back to `OLLAMA_EXCERPT_MODEL` and then `OLLAMA_TRANSLATE_MODEL`.
-- Inline post linking uses `OLLAMA_INLINE_LINK_MODEL`, falling back to `OLLAMA_METADATA_MODEL`, `OLLAMA_TRANSLATE_MODEL`, and then `aya-expanse:32b`.
+- Inline post linking uses `OLLAMA_INLINE_LINK_MODEL`, defaulting to `gemma4:31b` for higher-quality anchor selection. Use `aya-expanse:32b` if speed matters more than precision.
 
 Generated translation pairs are connected with `translationKey` frontmatter, and video translations can also be inferred from shared `youtubeId`.
 
