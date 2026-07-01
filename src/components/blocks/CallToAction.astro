@@ -29,7 +29,7 @@ const { block } = Astro.props;
 <style>
 	.cta {
 		padding-block: clamp(48px, 8vw, 88px);
-		color: #fff;
+		color: var(--color-deep-contrast);
 		background: var(--color-deep);
 	}
 
@@ -50,7 +50,7 @@ const { block } = Astro.props;
 	p {
 		max-width: 52rem;
 		margin: 18px 0 0;
-		color: rgba(255, 255, 255, 0.78);
+		color: var(--color-deep-muted);
 	}
 
 	ul {
@@ -59,13 +59,13 @@ const { block } = Astro.props;
 		margin: 20px 0 0;
 		padding: 0;
 		list-style: none;
-		color: rgba(255, 255, 255, 0.82);
+		color: var(--color-deep-muted);
 	}
 
 	li::before {
 		content: '✓';
 		margin-right: 8px;
-		color: #fff;
+		color: var(--color-deep-contrast);
 	}
 
 	a {
@@ -74,8 +74,8 @@ const { block } = Astro.props;
 		justify-content: center;
 		min-height: 48px;
 		padding: 0 18px;
-		color: var(--color-deep);
-		background: #fff;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
 		border-radius: 6px;
 		font-weight: 900;
 		text-decoration: none;

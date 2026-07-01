@@ -16,6 +16,18 @@ const t = useTranslations(locale);
 const alternateLocale = locale === 'de' ? 'en' : 'de';
 const alternatePath = alternatePaths[alternateLocale] ?? routeFor('home', alternateLocale);
 const normalizedCurrentPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+const themeLabels = {
+	de: {
+		toggle: 'Farbschema wechseln',
+		light: 'Hell',
+		dark: 'Dunkel',
+	},
+	en: {
+		toggle: 'Switch color theme',
+		light: 'Light',
+		dark: 'Dark',
+	},
+}[locale];
 
 const pageOrder = [
 	'home',
@@ -63,7 +75,8 @@ const sidebarPages = sitePages
 
 <aside class="site-sidebar" aria-label="Site navigation">
 	<a class="brand" href={withBase(routeFor('home', locale))} aria-label={t('siteName')}>
-		<img src={withBase('/logo/logo-schwarz.svg')} alt="" width="230" height="91" />
+		<img class="logo-light" src={withBase('/logo/logo-schwarz.svg')} alt="" width="230" height="91" />
+		<img class="logo-dark" src={withBase('/logo/logo-weiß.svg')} alt="" width="230" height="91" />
 	</a>
 
 	<nav class="sidebar-nav" aria-label="Main navigation">
@@ -86,10 +99,93 @@ const sidebarPages = sitePages
 		}
 	</nav>
 
-	<a class="language-link" href={withBase(alternatePath)}>
-		{localeLabels[alternateLocale]}
-	</a>
+	<div class="sidebar-actions">
+		<button
+			class="theme-toggle"
+			type="button"
+			data-theme-toggle
+			data-theme-light-label={themeLabels.light}
+			data-theme-dark-label={themeLabels.dark}
+			aria-label={themeLabels.toggle}
+			aria-pressed="false"
+		>
+			<span class="theme-toggle-track" aria-hidden="true">
+				<span class="theme-toggle-thumb"></span>
+			</span>
+			<span data-theme-toggle-label>{themeLabels.light}</span>
+		</button>
+		<a class="language-link" href={withBase(alternatePath)}>
+			{localeLabels[alternateLocale]}
+		</a>
+	</div>
 </aside>
+
+<script>
+	(() => {
+		const storageKey = 'kwm_theme';
+		const validThemes = new Set(['light', 'dark']);
+		const toggles = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]'));
+
+		if (!toggles.length) {
+			return;
+		}
+
+		const storedTheme = () => {
+			try {
+				const theme = localStorage.getItem(storageKey);
+				return theme && validThemes.has(theme) ? theme : undefined;
+			} catch {
+				return undefined;
+			}
+		};
+
+		const systemTheme = () => (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+		const currentTheme = () => document.documentElement.dataset.theme || storedTheme() || systemTheme();
+
+		const updateToggleLabels = (theme) => {
+			toggles.forEach((toggle) => {
+				const isDark = theme === 'dark';
+				const label = toggle.querySelector<HTMLElement>('[data-theme-toggle-label]');
+				const labelText = isDark ? toggle.dataset.themeDarkLabel : toggle.dataset.themeLightLabel;
+
+				toggle.setAttribute('aria-pressed', String(isDark));
+				if (label && labelText) {
+					label.textContent = labelText;
+				}
+			});
+		};
+
+		const applyTheme = (theme, persist = true) => {
+			const nextTheme = validThemes.has(theme) ? theme : systemTheme();
+
+			document.documentElement.dataset.theme = nextTheme;
+			document.documentElement.style.colorScheme = nextTheme;
+			updateToggleLabels(nextTheme);
+
+			if (persist) {
+				try {
+					localStorage.setItem(storageKey, nextTheme);
+				} catch {
+					// Storage can be blocked; the visual state still changes for this page.
+				}
+			}
+		};
+
+		updateToggleLabels(currentTheme());
+
+		toggles.forEach((toggle) => {
+			toggle.addEventListener('click', () => {
+				applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+			});
+		});
+
+		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+			if (!storedTheme()) {
+				applyTheme(systemTheme(), false);
+			}
+		});
+	})();
+</script>
 
 <style>
 	.site-sidebar {
@@ -102,7 +198,7 @@ const sidebarPages = sitePages
 		height: 100vh;
 		padding: 28px 20px;
 		color: var(--color-ink);
-		background: #ffffff;
+		background: var(--color-surface-raised);
 		border-right: 1px solid var(--color-line);
 	}
 
@@ -120,6 +216,18 @@ const sidebarPages = sitePages
 		height: auto;
 	}
 
+	.logo-dark {
+		display: none;
+	}
+
+	:global(:root[data-theme='dark']) .logo-light {
+		display: none;
+	}
+
+	:global(:root[data-theme='dark']) .logo-dark {
+		display: block;
+	}
+
 	.sidebar-nav {
 		display: grid;
 		gap: 4px;
@@ -127,7 +235,8 @@ const sidebarPages = sitePages
 	}
 
 	.sidebar-link,
-	.language-link {
+	.language-link,
+	.theme-toggle {
 		text-decoration: none;
 	}
 
@@ -148,10 +257,61 @@ const sidebarPages = sitePages
 		background: var(--color-surface-alt);
 	}
 
-	.language-link {
+	.sidebar-actions {
 		margin-top: auto;
+		display: grid;
+		gap: 8px;
+	}
+
+	.theme-toggle {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		min-height: 42px;
+		width: 100%;
+		padding: 8px 12px;
+		color: var(--color-ink);
+		background: var(--color-control-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 6px;
+		font: inherit;
+		font-size: 0.92rem;
+		font-weight: 800;
+		cursor: pointer;
+	}
+
+	.theme-toggle:hover {
+		color: var(--color-accent-dark);
+		border-color: var(--color-accent);
+	}
+
+	.theme-toggle-track {
+		position: relative;
+		display: inline-flex;
+		width: 38px;
+		height: 22px;
+		padding: 3px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 999px;
+	}
+
+	.theme-toggle-thumb {
+		width: 14px;
+		height: 14px;
+		background: var(--color-accent);
+		border-radius: 50%;
+		transition: transform 160ms ease;
+	}
+
+	.theme-toggle[aria-pressed='true'] .theme-toggle-thumb {
+		transform: translateX(16px);
+	}
+
+	.language-link {
 		padding: 10px 12px;
-		color: var(--color-deep);
+		color: var(--color-ink);
 		font-size: 0.92rem;
 		font-weight: 800;
 	}
@@ -184,11 +344,28 @@ const sidebarPages = sitePages
 			white-space: nowrap;
 		}
 
-		.language-link {
+		.sidebar-actions {
 			position: absolute;
 			top: 16px;
 			right: 16px;
+			display: flex;
+			align-items: center;
+			gap: 8px;
 			margin-top: 0;
+		}
+
+		.theme-toggle {
+			min-height: 38px;
+			width: auto;
+			padding: 8px 10px;
+		}
+
+		.theme-toggle > span:last-child {
+			display: none;
+		}
+
+		.language-link {
+			padding: 9px 10px;
 		}
 	}
 </style>

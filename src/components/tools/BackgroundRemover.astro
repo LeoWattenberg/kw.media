@@ -126,6 +126,7 @@ const copyByLocale = {
 const copy = copyByLocale[locale];
 const copyJson = JSON.stringify(copy.client);
 const outputFormatsJson = JSON.stringify(outputFormats);
+const defaultFillColorHex = 'ffffff';
 ---
 
 <section class="tool-intro">
@@ -181,7 +182,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 					</div>
 					<label class="color-control" data-color-control hidden>
 						<span>{copy.backgroundColor}</span>
-						<input data-color type="color" value="#ffffff" />
+						<input data-color type="color" value={`#${defaultFillColorHex}`} />
 						<small>{copy.client.pickColor}</small>
 					</label>
 					<label class="range-control">
@@ -1277,7 +1278,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 	}
 
 	.background-remover-section {
-		background: #fff;
+		background: var(--color-surface-raised);
 	}
 
 	.background-remover,
@@ -1298,14 +1299,14 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 
 	.remover-panel {
 		padding: clamp(18px, 3vw, 28px);
-		background: #fff;
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
 	}
 
 	.remover-panel h2 {
 		margin: 0;
-		color: var(--color-deep);
+		color: var(--color-ink);
 		font-size: clamp(1.4rem, 3vw, 2rem);
 		line-height: 1.1;
 		letter-spacing: 0;
@@ -1319,13 +1320,13 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 		margin-top: 18px;
 		padding: 18px;
 		background: var(--color-surface-alt);
-		border: 1px dashed color-mix(in srgb, var(--color-accent) 58%, var(--color-line));
+		border: 1px dashed var(--color-accent-dashed-line);
 		border-radius: 8px;
 		cursor: pointer;
 	}
 
 	.file-picker:focus-within {
-		outline: 3px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+		outline: 3px solid var(--color-accent-focus);
 		outline-offset: 2px;
 	}
 
@@ -1346,7 +1347,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 	.file-picker strong {
 		align-self: end;
 		overflow-wrap: anywhere;
-		color: var(--color-deep);
+		color: var(--color-ink);
 		font-size: 1.05rem;
 	}
 
@@ -1385,8 +1386,8 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 		gap: 10px;
 		min-height: 46px;
 		padding: 10px 12px;
-		color: var(--color-deep);
-		background: #fff;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
 		font-weight: 850;
@@ -1395,17 +1396,17 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 
 	.mode-control label:has(input:checked) {
 		color: var(--color-accent-dark);
-		background: color-mix(in srgb, var(--color-accent) 9%, #fff);
-		border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-line));
+		background: var(--color-accent-soft);
+		border-color: var(--color-accent-line);
 	}
 
 	.mode-control label:has(input:focus-visible) {
-		outline: 3px solid color-mix(in srgb, var(--color-accent) 24%, transparent);
+		outline: 3px solid var(--color-accent-focus-soft);
 		outline-offset: 2px;
 	}
 
 	.corner-group label {
-		color: var(--color-deep);
+		color: var(--color-ink);
 		font-weight: 800;
 	}
 
@@ -1419,8 +1420,8 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 		width: 100%;
 		min-height: 48px;
 		padding: 0 14px;
-		color: var(--color-deep);
-		background: #fff;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
 		font: inherit;
@@ -1429,14 +1430,14 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 
 	.select-control select:focus-visible {
 		border-color: var(--color-accent);
-		outline: 3px solid color-mix(in srgb, var(--color-accent) 24%, transparent);
+		outline: 3px solid var(--color-accent-focus-soft);
 	}
 
 	.color-control input[type='color'] {
 		width: 100%;
 		height: 48px;
 		padding: 4px;
-		background: #fff;
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
 		cursor: pointer;
@@ -1475,14 +1476,14 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 	}
 
 	.button.primary {
-		color: #fff;
+		color: var(--color-accent-on);
 		background: var(--color-accent);
 		border: 1px solid var(--color-accent);
 	}
 
 	.button.secondary {
-		color: var(--color-deep);
-		background: #fff;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 	}
 
@@ -1490,22 +1491,22 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 		margin: 16px 0 0;
 		padding: 12px 14px;
 		color: var(--color-muted);
-		background: #f9f5f0;
+		background: var(--color-status-background);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
 		font-weight: 700;
 	}
 
 	.remover-status[data-state='success'] {
-		color: #225d2d;
-		background: #edf8ef;
-		border-color: #b7dec0;
+		color: var(--color-status-positive-text);
+		background: var(--color-status-positive-background);
+		border-color: var(--color-status-positive-border);
 	}
 
 	.remover-status[data-state='error'] {
-		color: #8a1f17;
-		background: #fff0ed;
-		border-color: #f1b8ad;
+		color: var(--color-status-negative-text);
+		background: var(--color-status-negative-background);
+		border-color: var(--color-status-negative-border);
 	}
 
 	.preview-card {
@@ -1526,11 +1527,11 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 		place-items: center;
 		padding: 12px;
 		background:
-			linear-gradient(45deg, #f3eee9 25%, transparent 25%),
-			linear-gradient(-45deg, #f3eee9 25%, transparent 25%),
-			linear-gradient(45deg, transparent 75%, #f3eee9 75%),
-			linear-gradient(-45deg, transparent 75%, #f3eee9 75%);
-		background-color: #fff;
+			linear-gradient(45deg, var(--color-checkerboard-square) 25%, var(--color-transparent) 25%),
+			linear-gradient(-45deg, var(--color-checkerboard-square) 25%, var(--color-transparent) 25%),
+			linear-gradient(45deg, var(--color-transparent) 75%, var(--color-checkerboard-square) 75%),
+			linear-gradient(-45deg, var(--color-transparent) 75%, var(--color-checkerboard-square) 75%);
+		background-color: var(--color-checkerboard-background);
 		background-position: 0 0, 0 10px, 10px -10px, -10px 0;
 		background-size: 20px 20px;
 		border: 1px solid var(--color-line);
@@ -1575,7 +1576,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 
 	.output-frame {
 		min-height: 360px;
-		background: #fff;
+		background: var(--color-surface-raised);
 	}
 
 	.result-meta {
@@ -1599,7 +1600,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 	.result-meta dd {
 		margin-top: 6px;
 		overflow-wrap: anywhere;
-		color: var(--color-deep);
+		color: var(--color-ink);
 		font-weight: 800;
 	}
 
