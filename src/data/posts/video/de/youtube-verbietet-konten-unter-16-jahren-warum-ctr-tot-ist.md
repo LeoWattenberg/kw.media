@@ -1,8 +1,8 @@
 ---
 id: 3361
-slug: "youtube-verbottet-konten-unter-16-jahren-warum-ctr-tot-ist"
-path: "/youtube-tipps-de/youtube-verbottet-konten-unter-16-jahren-warum-ctr-tot-ist/"
-title: "YouTube VERBOTTET Konten unter 16 Jahren! 🚫 + Warum CTR \"tot\" ist"
+slug: "youtube-verbietet-konten-unter-16-jahren-warum-ctr-tot-ist"
+path: "/youtube-tipps-de/youtube-verbietet-konten-unter-16-jahren-warum-ctr-tot-ist/"
+title: "YouTube verbietet Konten unter 16 Jahren! 🚫 + Warum CTR \"tot\" ist"
 excerpt: "Willkommen zurück auf dem Kanal! Heute tauchen wir ein in einige signifikante Veränderungen in der Welt des Content-Erstellens, die insbesondere unsere australischen Creator betreffen."
 date: "2025-12-06T13:15:09"
 modified: "2025-12-06T13:15:09"
