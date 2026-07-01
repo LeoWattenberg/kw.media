@@ -1,7 +1,7 @@
 ---
 import { getPostNavigation, getRelatedPosts, type Category, type SourcePost } from '../lib/source-content';
 import { withBase } from '../lib/url';
-import { getAuthorPath } from '../data/authors';
+import { getAuthorByName, getAuthorPath } from '../data/authors';
 import { routeFor } from '../i18n';
 import ContentHtml from './blocks/ContentHtml.astro';
 import YouTubeConsentEmbed from './YouTubeConsentEmbed.astro';
@@ -11,6 +11,7 @@ interface Props {
 }
 
 const { post } = Astro.props;
+const authorProfile = getAuthorByName(post.authorName);
 const authorPath = getAuthorPath(post.authorName, post.locale);
 const isShortVideo = post.video?.watchUrl.includes('/shorts/');
 const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
@@ -54,6 +55,21 @@ const navigationLabels = {
 		category: 'In the same category',
 		previous: 'Older post',
 		next: 'Newer post',
+	},
+}[post.locale];
+
+const authorLabels = {
+	de: {
+		eyebrow: 'Geschrieben von',
+		credentials: 'Qualifikationen',
+		profile: 'Profil ansehen',
+		contact: 'Kontakt aufnehmen',
+	},
+	en: {
+		eyebrow: 'Written by',
+		credentials: 'Credentials',
+		profile: 'View profile',
+		contact: 'Get in touch',
 	},
 }[post.locale];
 
@@ -109,6 +125,28 @@ function formatPostDate(navigationPost: SourcePost): string {
 		}
 	</header>
 	<ContentHtml html={post.contentHtml} locale={post.locale} />
+	{
+		authorProfile && (
+			<section class="author-block" aria-labelledby="author-block-heading">
+				<div class="container author-block-inner">
+					<img src={withBase(authorProfile.image)} alt={authorProfile.imageAlt} loading="lazy" />
+					<div>
+						<p class="eyebrow">{authorLabels.eyebrow}</p>
+						<h2 id="author-block-heading">{authorProfile.name}</h2>
+						<p class="author-role">{authorProfile.role}</p>
+						<p>{authorProfile.description[post.locale]}</p>
+						<ul class="author-credentials" aria-label={authorLabels.credentials}>
+							{authorProfile.credentials.map((credential) => <li>{credential}</li>)}
+						</ul>
+						<div class="author-actions">
+							{authorPath && <a href={withBase(authorPath)}>{authorLabels.profile}</a>}
+							<a href={`mailto:${authorProfile.email}`}>{authorLabels.contact}</a>
+						</div>
+					</div>
+				</div>
+			</section>
+		)
+	}
 	{
 		hasMorePosts && (
 			<aside class="more-posts" aria-labelledby="more-posts-heading">
@@ -250,10 +288,92 @@ function formatPostDate(navigationPost: SourcePost): string {
 		aspect-ratio: 9 / 16;
 	}
 
+	.author-block {
+		
+		background: #fff;
+	}
+
+	.author-block-inner {
+		display: grid;
+		grid-template-columns: 120px minmax(0, 1fr);
+		gap: 24px;
+		max-width: 860px;
+		padding: 24px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.author-block img {
+		width: 120px;
+		aspect-ratio: 1;
+		object-fit: cover;
+		border-radius: 8px;
+	}
+
+	.author-block h2 {
+		margin: 0;
+		font-size: clamp(1.6rem, 3vw, 2.35rem);
+		line-height: 1.08;
+		letter-spacing: 0;
+	}
+
+	.author-block p {
+		max-width: 62ch;
+		margin: 0;
+		color: var(--color-muted);
+		font-size: 1rem;
+	}
+
+	.author-block .eyebrow {
+		margin-bottom: 6px;
+	}
+
+	.author-block .author-role {
+		margin: 4px 0 10px;
+		color: var(--color-ink);
+		font-weight: 800;
+	}
+
+	.author-credentials {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin: 16px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.author-credentials li {
+		padding: 6px 10px;
+		background: #fff;
+		border: 1px solid var(--color-line);
+		border-radius: 999px;
+		color: var(--color-muted);
+		font-size: 0.82rem;
+		font-weight: 750;
+	}
+
+	.author-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 14px;
+		margin-top: 18px;
+	}
+
+	.author-actions a {
+		color: var(--color-accent-dark);
+		font-weight: 850;
+		text-decoration: none;
+	}
+
+	.author-actions a:hover {
+		text-decoration: underline;
+	}
+
 	.more-posts {
 		padding-block: clamp(42px, 7vw, 76px);
 		background: #fff;
-		border-top: 1px solid var(--color-line);
 	}
 
 	.more-posts-inner {
@@ -374,6 +494,14 @@ function formatPostDate(navigationPost: SourcePost): string {
 	}
 
 	@media (max-width: 760px) {
+		.author-block-inner {
+			grid-template-columns: 1fr;
+		}
+
+		.author-block img {
+			width: 96px;
+		}
+
 		.post-navigation-grid {
 			grid-template-columns: 1fr;
 		}
