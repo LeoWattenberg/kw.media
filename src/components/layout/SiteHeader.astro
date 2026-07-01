@@ -68,15 +68,15 @@ const alternatePath = alternatePaths[alternateLocale] ?? routeFor('home', altern
 		height: auto;
 	}
 
-	.logo-dark {
+	.brand .logo-dark {
 		display: none;
 	}
 
-	:global(:root[data-theme='dark']) .logo-light {
+	:global(:root[data-theme='dark']) .brand .logo-light {
 		display: none;
 	}
 
-	:global(:root[data-theme='dark']) .logo-dark {
+	:global(:root[data-theme='dark']) .brand .logo-dark {
 		display: block;
 	}
 
