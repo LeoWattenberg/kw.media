@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-In this video, we'll show you how to customize the visual elements of your YouTube channel: your profile picture, channel banner, and video watermark. These elements help viewers recognize and perceive your channel as more professional.
+In this video, we'll show you how to customize the visual elements of your YouTube channel: your profile picture, [channel banner](/youtube-tips-en/youtube-channel-banner-template-updated-2024/), and video watermark. These elements help viewers recognize and perceive your channel as more professional.
 
 Your profile picture should be easily recognizable even when small. Use a clear logo or a distinct facial image, making sure no important details are cut off at the edges. The channel banner is larger and can display additional information such as upload themes, streaming schedules, or your brand identity.
 

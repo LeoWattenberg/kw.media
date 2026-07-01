@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Wenn ihr bereits Shorts erstellt habt denkt bitte auch daran die Monetarisierung dieser Inhalte zu aktivieren sonst könnt ihr natürlich keinen Umsatzanteil bekommen glücklicherweise kann dass das YouTube Bike editing Tool im YouTube Studio für euch übernehmen ihr wählt einfach alle Shorts aus und sagt monetarisieren und Abfahrt
+Wenn ihr bereits Shorts erstellt habt denkt bitte auch daran die [Monetarisierung dieser Inhalte](/youtube-tipps-de/wann-kommt-die-shorts-monetarisierung/) zu aktivieren sonst könnt ihr natürlich keinen Umsatzanteil bekommen glücklicherweise kann dass das YouTube Bike editing Tool im YouTube Studio für euch übernehmen ihr wählt einfach alle Shorts aus und sagt monetarisieren und Abfahrt

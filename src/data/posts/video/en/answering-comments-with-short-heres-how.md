@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-From now on, you can respond to comments on your own videos using a short video reply. To do this, simply go to the comment menu and you'll find the new button for creating a short.
+From now on, you can respond to comments on your own videos using a [short video reply](/youtube-tips-en/different-ways-to-create-shorts-shorts/). To do this, simply go to the comment menu and you'll find the new button for creating a short.

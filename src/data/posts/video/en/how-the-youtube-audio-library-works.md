@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-If you want to use music in your videos but don't want to deal with licenses, YouTube offers the Audio Library in YouTube Studio. There, you can download over 1,000 different music tracks and use them in your YouTube videos, even if you monetize them. You can also use the songs outside of YouTube in videos, but always only as an accompaniment to your other content.
+If you want to use music in your videos but don't want to deal with licenses, YouTube offers the [Audio Library in YouTube Studio](/youtube-tips-en/new-developments-in-creator-music/). There, you can download over 1,000 different music tracks and use them in your YouTube videos, even if you monetize them. You can also use the songs outside of YouTube in videos, but always only as an accompaniment to your other content.

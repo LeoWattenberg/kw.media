@@ -7,8 +7,8 @@ excerpt: "So erstellst du 2023 einen YouTube-Kanal, wählst das richtige Konto u
 date: "2023-08-01T11:54:13"
 modified: "2023-08-01T11:54:33"
 locale: "de"
-category: "blog"
 translationKey: "post:2314"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-kanal-erstellen-in-2023/"
@@ -24,7 +24,7 @@ Ein **persönlicher** YouTube Kanal eignet sich für **Solo Creator**, die nicht
 
 ## Persönlichen YouTube Kanal erstellen:
 
-Um einen persönlichen YouTube Kanal zu erstellen Klicke oben Rechts auf dein Profilbild und Kanal erstellen. Gebe nun deinen Kanal-Namen und dein Alias (sprich deine Benutzerdefinierte Kanal-URL ein)  Beachte das der Alias ein Unikat sein und den YouTube Richtlinien für Aliasse entsprechen muss. Mehr Informationen zu Aliassen findest du unter: [https://support.google.com/youtube/answer/11585688](https://support.google.com/youtube/answer/11585688)  YouTube braucht nun einen Moment damit der Kanal auch dargestellt wird. Währenddessen können aber bereits Bearbeitungen bzw Änderungen unter [https://studio.youtube.com/](https://studio.youtube.com/) vorgenommen werden.
+Um einen persönlichen YouTube Kanal zu erstellen Klicke oben Rechts auf dein Profilbild und [Kanal erstellen](/youtube-tipps-de/starte-durch-deinen-youtube-kanal-erstellen-in-2024-personliche-und-firmen-kanale/). Gebe nun deinen Kanal-Namen und dein Alias (sprich deine Benutzerdefinierte Kanal-URL ein)  Beachte das der Alias ein Unikat sein und den YouTube Richtlinien für Aliasse entsprechen muss. Mehr Informationen zu Aliassen findest du unter: [https://support.google.com/youtube/answer/11585688](https://support.google.com/youtube/answer/11585688)  YouTube braucht nun einen Moment damit der Kanal auch dargestellt wird. Währenddessen können aber bereits Bearbeitungen bzw Änderungen unter [https://studio.youtube.com/](https://studio.youtube.com/) vorgenommen werden.
 
 ## Firmen YouTube Kanal / Brandkonto erstellen:
 

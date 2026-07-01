@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Guter Content allein reicht nicht aus. Wenn du keine View-Bots verwendest und alle anderen schon, bist du im Nachteil. Das ist leider kein Zitat aus einem zwielichtigen Forum, sondern eine direkte Aussage des CEOs von Night Media, der Agentur hinter MrBeast oder Kaisen. Willkommen zu den Creator News, die alles abdecken, was du diese Woche als Creator wissen musst. Beginnen wir mit YouTube's neuestem Highlight-Feature, Ask Studio, das weiter ausgerollt wird.
+Guter Content allein reicht nicht aus. Wenn du keine View-Bots verwendest und alle anderen schon, bist du im Nachteil. Das ist leider kein Zitat aus einem zwielichtigen Forum, sondern eine direkte Aussage des CEOs von Night Media, der Agentur hinter MrBeast oder Kaisen. Willkommen zu den Creator News, die alles abdecken, was du diese Woche als Creator wissen musst. Beginnen wir mit YouTube's neuestem Highlight-Feature, [Ask Studio](/youtube-tipps-de/youtube-news-second-chance-pilot-ask-studio-deep-dive-und-communities-auf-dem-desktop/), das weiter ausgerollt wird.
 
 Dies ist ein auf Gemini basierender KI-Assistent, der direkt in deine YouTube-Analytik integriert ist und entwickelt wurde, um Fragen zu deinem Kanal zu beantworten. Bevor du deinen Analysten aber feuern lässt, falls du einen hast, machen wir schnell einen Realitätscheck. Derzeit halluziniert dieses Tool bei jedem zweiten Prompt Metriken, und du musst die ausgegebenen Zahlen doppelt oder dreifach überprüfen, was den ganzen Zweck eines automatisierten Assistenten direkt zunichte macht. Außerdem wäre es nicht YouTube, wenn es beim Start keine Bugs gäbe.
 

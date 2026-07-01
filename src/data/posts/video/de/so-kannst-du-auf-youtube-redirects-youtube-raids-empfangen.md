@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Um Live Redirects in euren Livestreams empfangen zu können, müsst ihr zuerst einstellen, wer euch Live Redirects senden darf. Dafür geht ihr im YouTube-Studio in den Einstellungen auf „Community“ und scrollt nach unten. Hier könnt ihr entweder spezifische Kanäle eintragen oder allen Creators erlauben, zu euch weiterzuleiten.
+Um [Live Redirects](/youtube-tipps-de/live-redirect-von-einem-stream-zum-nachsten/) in euren Livestreams empfangen zu können, müsst ihr zuerst einstellen, wer euch Live Redirects senden darf. Dafür geht ihr im YouTube-Studio in den Einstellungen auf „Community“ und scrollt nach unten. Hier könnt ihr entweder spezifische Kanäle eintragen oder allen Creators erlauben, zu euch weiterzuleiten.

@@ -21,9 +21,9 @@ video:
 
 ## Transkript
 
-Wir müssen über die Aktualisierung der YouTube-Richtlinie zur KI-Monetarisierung sprechen, die eigentlich keine Aktualisierung ist, da sie seit 2019 unverändert in Kraft ist. Die Richtlinie bleibt also gleich, nur die Erkennungsalgorithmen werden sich ändern und ab dem 15. Juli mehr massenhaft produzierten Inhalt und KI-generierten "Schund" identifizieren können.
+Wir müssen über die Aktualisierung der YouTube-Richtlinie zur [KI-Monetarisierung](/youtube-tipps-de/erstellt-youtube-ki-klonen-von-creatorn-youtube-creator-news/) sprechen, die eigentlich keine Aktualisierung ist, da sie seit 2019 unverändert in Kraft ist. Die Richtlinie bleibt also gleich, nur die Erkennungsalgorithmen werden sich ändern und ab dem 15. Juli mehr massenhaft produzierten Inhalt und KI-generierten "Schund" identifizieren können.
 
-Zusammenfassung: Ja, Sie können immer noch KI verwenden und monetarisieren, solange es sich nicht um minderwertigen, massenhaft produzierten Inhalt wie Reddit-Geschichten, Fake News oder ähnliche Arten von Shorts handelt. Sie können solche Videos hochladen, aber Sie können nicht am YouTube Partner Programm teilnehmen. Wenn Sie KI kreativ einsetzen, ist eine Monetarisierung weiterhin möglich.
+Zusammenfassung: Ja, Sie können immer noch KI verwenden und monetarisieren, solange es sich nicht um minderwertigen, massenhaft produzierten Inhalt wie Reddit-Geschichten, Fake News oder ähnliche Arten von Shorts handelt. Sie können solche Videos hochladen, aber Sie können nicht am [YouTube Partner Programm](/youtube-tipps-de/wiedernutzung-von-inhalt-monetarisierung-deaktiviert-was-nun/) teilnehmen. Wenn Sie KI kreativ einsetzen, ist eine Monetarisierung weiterhin möglich.
 
 **Lassen Sie sich nicht von YouTube-Automatisierungs-Masterclasses oder -Anleitungen täuschen, die gegen eine hohe Gebühr Zugang zu Tools versprechen, die einen garantierten Einstieg ins Partnerprogramm ermöglichen.** Der einzige Profiteur dieser Betrügereien ist der Automatisierungsanbieter. Bitte meiden Sie solche Angebote.
 

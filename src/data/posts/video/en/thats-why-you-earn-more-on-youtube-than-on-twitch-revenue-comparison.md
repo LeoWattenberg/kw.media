@@ -23,7 +23,7 @@ video:
 
 How much money actually reaches you as a Creator when a user makes a digital transaction? That's exactly what this video is about. We compare YouTube and Twitch and look at how much remains after value-added tax (VAT), app store fees, platform cuts, and income tax.
 
-On YouTube, there are essentially two types of digital transactions: super features like Super Chat, Super Stickers, and Super Thanks, as well as paid channel memberships. The billing follows the same principle in both cases, so we can consider them together.
+On YouTube, there are essentially two types of digital transactions: super features like [Super Chat, Super Stickers, and Super Thanks](/youtube-tips-en/new-feature-alert-superthanks/), as well as paid channel memberships. The billing follows the same principle in both cases, so we can consider them together.
 
 On Twitch, we need to distinguish between subscriptions and Bits. Subscriptions have different platform cuts depending on the platform and subscription tier. Bits work differently: Creators receive a fixed amount per Bit, while the purchase price for users can vary depending on the package and device.
 
@@ -39,4 +39,4 @@ The most important difference is: For long-term memberships and regular support,
 
 For Creators, this means: Pay attention to where your community is active. A mobile-first community can be less efficient for digital transactions because app store fees take a large share. Desktop users are usually best for such payments, and on YouTube, Android is also relatively strong.
 
-Conclusion: If you want to build long-term memberships, YouTube is often financially more attractive. When considering one-time payments, the comparison depends more on the product, platform, and device. Take a close look at the numbers before finalizing your monetization strategy.
+Conclusion: If you want to build long-term memberships, YouTube is often financially more attractive. When considering one-time payments, the comparison depends more on the product, platform, and device. Take a close look at the numbers before finalizing your [monetization strategy](/youtube-tips-en/7-ways-creators-make-money-beyond-youtube-ads/).

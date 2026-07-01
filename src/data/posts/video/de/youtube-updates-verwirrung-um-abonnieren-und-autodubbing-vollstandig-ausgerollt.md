@@ -25,7 +25,7 @@ Wir müssen über das Experiment von YouTube mit "Abonnieren Plus" sprechen. Fü
 
 Falls Sie Feedback zu dieser Änderung haben, teilen Sie es bitte in den Kommentaren unten oder auf dem Kanal Creator Insider mit. Auf beide Arten wird YouTube Ihr Feedback sehen, und hoffentlich können wir sie überzeugen, die Buttons wieder zu trennen und dieses Experiment zu beenden.
 
-Positiv ist, dass die automatische Untertitelung, die eigentlich bis Ende April ausgerollt werden sollte, nun für 100% der Creator im YouTube Partner Programm (YPP) verfügbar ist. Das bedeutet, es wird vorerst keine weitere Welle von Freischaltungen geben. Wenn Sie also noch nicht Teil des YPP sind, haben Sie keinen Zugriff auf die automatische Untertitelung.
+Positiv ist, dass die [automatische Untertitelung](/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/), die eigentlich bis Ende April ausgerollt werden sollte, nun für 100% der Creator im YouTube Partner Programm (YPP) verfügbar ist. Das bedeutet, es wird vorerst keine weitere Welle von Freischaltungen geben. Wenn Sie also noch nicht Teil des YPP sind, haben Sie keinen Zugriff auf die automatische Untertitelung.
 
 Ein kurzer Überblick: Diese Funktion arbeitet auf zwei Arten. Erstens, wenn Sie ein Video auf Englisch hochladen, übersetzt es automatisch den Titel und die Beschreibung ins Französische, Deutsche, Hindi, Indonesische, Italienische, Japanische, Portugiesische und Spanische, was eine Englisch-zu-anderen-Sprachen-Konvertierung bietet. Zweitens, wenn Sie ein Video in einer dieser acht Sprachen hochladen, generiert es automatisch eine englische Übersetzung für Titel, Beschreibung und eine englische automatische Untertitelungsspur.
 
@@ -33,4 +33,4 @@ Allerdings wird das Hochladen auf Deutsch beispielsweise keine Übersetzungen in
 
 Leider haben wir noch keine Aktualisierung vom Team erhalten, daher gibt es keine Informationen darüber, wann diese Funktion für alle verfügbar sein wird. Bis dahin betrachten wir sie als geschlossene Beta-Funktion, und wir werden Sie informieren, sobald wir weitere Details haben.
 
-Das war's für diese Woche. Vielen Dank, dass Sie dabei waren. Abonnieren Sie für mehr YouTube-News, und bis nächste Woche! Auf Wiedersehen!
+Das war's für [diese Woche](/youtube-tipps-de/youtube-aktualisiert-automatische-synchronisation-mit-intonation-create-app-auf-ios-fur-1/). Vielen Dank, dass Sie dabei waren. Abonnieren Sie für mehr YouTube-News, und bis nächste Woche! Auf Wiedersehen!

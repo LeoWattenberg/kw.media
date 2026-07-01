@@ -23,17 +23,17 @@ video:
 
 YouTube's Forced Guest Mode: Impact on Creators in Australia and Beyond
 
-Welcome back to the channel! Today, we're diving into some significant changes in the world of content creation, particularly affecting our Australian creators. We'll also explore some new tools and updates from YouTube. Let's get started!
+[Welcome back](/youtube-tips-en/youtube-news-new-ypp-suspensions-for-clickbait-misleading-metadata/) to the channel! Today, we're diving into some significant changes in the world of content creation, particularly affecting our Australian creators. We'll also explore some new tools and updates from YouTube. Let's get started!
 
 A New Era of Tech Regulation
 
-We're seeing a major shift in tech regulation with Australia's Social Media Minimum Age Act coming into effect on December 10th, 2025. This federal law mandates that YouTube automatically signs out users under the age of 16. It's not just a minor adjustment; it has far-reaching implications for creators.
+We're seeing a major shift in tech regulation with [Australia's Social Media Minimum Age Act](/youtube-tips-en/governments-are-banning-your-audience-creator-news/) coming into effect on December 10th, 2025. This federal law mandates that YouTube automatically signs out users under the age of 16. It's not just a minor adjustment; it has far-reaching implications for creators.
 
 Forced Logout and Its Consequences
 
 YouTube's solution is a forced logout for underage users. If the platform detects a user under 16, they'll be booted out. While they can still watch videos without logging in, interactions like likes, comments, and subscriptions are no longer possible. This could lead to a "dark traffic" problem for creators, where views appear as anonymous, impacting engagement rates.
 
-False flags can be resolved by verifying age with government ID or a credit card. However, this legislation seems to overlook technical realities, potentially harming creator-audience relationships.
+False flags can be resolved by [verifying age with government ID or a credit card](/youtube-tips-en/youtube-updates-ai-age-verification-autodubbing-editor-and-community-post-limits-change/). However, this legislation seems to overlook technical realities, potentially harming creator-audience relationships.
 
 Title and Thumbnail A/B Testing: A New Tool for All Creators
 

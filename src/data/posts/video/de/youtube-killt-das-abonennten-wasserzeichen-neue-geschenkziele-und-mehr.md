@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Was geht Leute und herzlich willkommen zurück zu den YouTube-News. Diese Woche schafft YouTube endlich eine Funktion ab, die wahrscheinlich niemand mehr benutzt. Wir bekommen neue Tools für vertikale Live-Streams, die die meisten von uns nicht nutzen können, und ein bisschen Aufräumen in YouTube Studio. Los geht's.
+Was geht Leute und herzlich willkommen zurück zu den YouTube-News. Diese Woche schafft YouTube endlich eine Funktion ab, die wahrscheinlich niemand mehr benutzt. Wir bekommen neue Tools für [vertikale Live-Streams](/youtube-tipps-de/youtube-live-stream-updates-hype-erweiterung-und-ki-inspirationswerkzeuge-fur-eu-creator/), die die meisten von uns nicht nutzen können, und ein bisschen Aufräumen in YouTube Studio. Los geht's.
 
 Fangen wir mit der größten Neuigkeit an: YouTube stellt das Abonnieren-Button-Wasserzeichen offiziell ein. Ihr wisst schon, das kleine Icon in der unteren rechten Ecke eurer Videos, das ihr in eurem Kanalbranding einrichten konntet? Ja, das verschwindet jetzt.
 

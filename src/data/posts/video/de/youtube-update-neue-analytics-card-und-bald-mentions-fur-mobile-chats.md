@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Mit den YouTube-Updates starten wir diese Woche bei den Analytics, denn es gibt eine neue Analytics-Karte im Bereich "Zuschauer". Dort werden die Gerätetypen angezeigt, die es auch schon vorher im erweiterten Modus gab, nun aber als übersichtliche Karte. Sie bietet eine prozentuale Übersicht darüber, auf welchen Gerätetypen eure Zuschauer aktiv sind. Das kann hilfreich sein, um beispielsweise On-Screen-Elemente größenverhältnismäßig anzupassen und zu sehen, für welches Gerät ihr eigentlich produziert. Schaut ihr eher auf einem Smartphone oder auf dem TV?
+Mit den YouTube-Updates starten wir diese Woche bei den Analytics, denn es gibt eine neue [Analytics-Karte](/youtube-tipps-de/youtube-analytics-top-verdienst-content-nach-format-als-orientierung-fur-creator/) im Bereich "Zuschauer". Dort werden die Gerätetypen angezeigt, die es auch schon vorher im erweiterten Modus gab, nun aber als übersichtliche Karte. Sie bietet eine prozentuale Übersicht darüber, auf welchen Gerätetypen eure Zuschauer aktiv sind. Das kann hilfreich sein, um beispielsweise On-Screen-Elemente größenverhältnismäßig anzupassen und zu sehen, für welches Gerät ihr eigentlich produziert. Schaut ihr eher auf einem Smartphone oder auf dem TV?
 
 Schreibt doch gerne in die Kommentare, in welchem Genre ihr unterwegs seid, und im Gaming-Bereich auch, welches Spiel ihr spielt und wie eure prozentuale Verteilung der Gerätetypen aussieht. Vielleicht können wir ja voneinander lernen und einen Durchschnitt erkennen. Ich finde das sehr interessant!
 

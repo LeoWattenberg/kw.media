@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-This week's YouTube updates: We need to talk about autodubbing. First, channels are getting notifications that their old videos will receive autodubbed tracks. Quick recap: Autodubbing will translate the video's voices into different languages but in a robotic voice. The more advanced version of this feature would be multilingual audio, which we'll get to in a moment. Firstly, a big thank you to Renee, who also creates YouTube help content on his channel and kindly let me use one of his screenshots. Please check out his channel in the video description.
+This week's YouTube updates: We need to talk about autodubbing. First, channels are getting notifications that their old videos will receive [autodubbed tracks](/youtube-tips-en/i-was-wrong-about-autodubbing-first-week-youtube-data-set-april-2025/). Quick recap: Autodubbing will translate the video's voices into different languages but in a robotic voice. The more advanced version of this feature would be [multilingual audio](/youtube-tips-en/youtube-updates-ai-age-verification-autodubbing-editor-and-community-post-limits-change/), which we'll get to in a moment. Firstly, a big thank you to Renee, who also creates YouTube help content on his channel and kindly let me use one of his screenshots. Please check out his channel in the video description.
 
 It's a positive step that more content will be translated into various languages, especially English. This could be beneficial for older tutorials that don't need re-recording but should probably be updated anyway due to their outdated nature.
 

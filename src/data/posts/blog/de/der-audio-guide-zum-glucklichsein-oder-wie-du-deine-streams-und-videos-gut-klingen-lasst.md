@@ -7,8 +7,8 @@ excerpt: "Ein praktischer Audioführer für Creator, der Mikrofone, Pegel, Gerä
 date: "2021-06-11T17:14:02"
 modified: "2023-03-17T12:57:30"
 locale: "de"
-category: "blog"
 translationKey: "post:1434"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/06/audioguide-FINAL.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/"
@@ -18,7 +18,7 @@ sourceUrl: "https://kw.media/youtube-tips-en/the-audio-guide-to-happiness-or-how
 
 Es mag zunächst kontraintuitiv erscheinen, aber der wichtigste Aspekt, den man bei der Erstellung eines Videos beachten sollte, ist das Audio. Viele Zuschauer schauen Inhalte auf ihrem Mobilgerät, und auf Smartphones ist eine Auflösung von 480p oft scharf genug, besonders wenn man unterwegs ist und mobiles Datenvolumen nutzt.
 
-Dieser Leitfaden richtet sich hauptsächlich an Anfänger und beantwortet Fragen wie: "Welches Mikrofon brauche ich als Game-Streamer?", "Wo positioniere ich mein Mikrofon?", "Wie sollte meine Aufnahmeeinrichtung aussehen?" und beschreibt eine der vielen möglichen Filterketten, die man in OBS einrichten kann. Das bedeutet jedoch nicht, dass er nicht dennoch detailliert ist, mit über 2000 Wörtern.
+Dieser Leitfaden richtet sich hauptsächlich an Anfänger und beantwortet Fragen wie: "Welches Mikrofon brauche ich als Game-Streamer?", "Wo positioniere ich mein Mikrofon?", "Wie sollte meine Aufnahmeeinrichtung aussehen?" und beschreibt eine der vielen möglichen [Filterketten, die man in OBS einrichten kann](/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/). Das bedeutet jedoch nicht, dass er nicht dennoch detailliert ist, mit über 2000 Wörtern.
 
 ## Allgemeines
 
@@ -36,7 +36,7 @@ Kommen wir nun tatsächlich zu Mikrofonen.
 
 Zunächst die kurze Zusammenfassung: **Jedes Mikrofon zwischen 50 und 300 USD** wird wahrscheinlich für dich funktionieren. Das gilt sogar für Profis; das Shure SM58 ist seit den 60er Jahren der Industriestandard für Gesangsdarbietungen und kostet etwa 100 Euro. Das bedeutet nicht, dass ihr alle das SM58 kaufen solltet, da es sich um ein XLR-Mikrofon handelt, das zusätzliches Hardware erfordert (obwohl ich euch nicht verurteilen werde, wenn ihr es dennoch tut).
 
-**XLR-Mikrofone** sind insgesamt etwas kompliziert. Während man theoretisch ein XLR-Mikrofon an einen durchschnittlichen 3,5-mm-Klinkenanschluss anpassen kann, benötigt man in der Praxis wahrscheinlich einen Vorverstärker, um sie zu verwenden, und im Fall eines Kondensatormikrofons mit XLR-Anschluss einen Vorverstärker, der Phantomstrom liefern kann. Diese Dinge sind nicht unmöglich zu verstehen und bieten eine große Flexibilität, sobald man mehrere Geräte in die Kette einbindet. Aber wenn du nur ein Gamer bist, der ein gutes Mikrofon sucht, bringen XLR-Mikrofone unnötige Komplexität mit sich, während man all das in einem praktischen Paket als USB-Mikrofon bekommt.
+**XLR-Mikrofone** sind insgesamt etwas kompliziert. Während man theoretisch ein XLR-Mikrofon an einen durchschnittlichen 3,5-mm-Klinkenanschluss anpassen kann, benötigt man in der Praxis wahrscheinlich einen Vorverstärker, um sie zu verwenden, und im Fall eines Kondensatormikrofons mit XLR-Anschluss einen Vorverstärker, der Phantomstrom liefern kann. Diese Dinge sind nicht unmöglich zu verstehen und bieten eine große Flexibilität, sobald man mehrere Geräte in die Kette einbindet. Aber wenn du nur ein Gamer bist, der ein gutes Mikrofon sucht, bringen XLR-Mikrofone unnötige Komplexität mit sich, während man all das in einem praktischen Paket als [USB-Mikrofon](/youtube-tipps-de/avermedia-nexus-ax310-und-streamer-mic-330-testbericht/) bekommt.
 
 Bei **USB-Mikrofonen** gibt es heutzutage von jeder Gaming-Firma und noch dazu welche, die meisten im Preisbereich von 100 bis 150 Euro, die als "für Gamer", "für Streamer" oder "Studio-Mikrofon" vermarktet werden. Sie verfügen über verschiedene Funktionen, von denen viele eher nutzlos sind, wie z. B. schaltbare Richtcharakteristiken.
 

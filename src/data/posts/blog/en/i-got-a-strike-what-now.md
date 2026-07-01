@@ -17,7 +17,7 @@ If you just received your fist strike on YouTube, your first course of action sh
 
 ## Is it a community guideline or a copyright strike?
 
-YouTube has two strike systems. The community guideline strike system counts your violations against YouTube’s community guidelines, as determined by YouTube themselves. The copyright strike system is an implementation of DMCA (US copyright law), so YouTube only is the messager in this situation.
+YouTube has two strike systems. The [community guideline strike system](/youtube-tips-en/follow-the-guidelines-watch-your-channel-shine/) counts your violations against YouTube’s community guidelines, as determined by YouTube themselves. The [copyright strike system](/youtube-tips-en/the-fuck-copyright-guide-how-to-legally-use-things-in-your-videos-that-other-people-made/) is an implementation of DMCA (US copyright law), so YouTube only is the messager in this situation.
 
 ## What to do if you get a Community Guideline Strike
 

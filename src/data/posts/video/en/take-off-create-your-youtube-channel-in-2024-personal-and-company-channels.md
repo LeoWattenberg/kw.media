@@ -25,6 +25,6 @@ In this video, we'll cover how to create a YouTube channel in 2024 and the key d
 
 A personal channel is directly linked to your Google account, making it easy and quick to set up. A brand channel offers more flexibility as it can be managed collaboratively and allows for easier role and permission management later on.
 
-If you're creating the channel for a company, project, or team, a brand channel is typically the better choice. For purely personal use, a personal channel often suffices. Additionally, decide early on what the channel name will be, which profile picture to use, and what basic information should go in the channel description.
+If you're creating the channel for a company, project, or team, a brand channel is typically the better choice. For purely personal use, a personal channel often suffices. Additionally, decide early on what the channel name will be, which [profile picture](/youtube-tips-en/your-youtube-channel-guide-to-customizing-profile-picture-banner-and-watermark/) to use, and what basic information should go in the channel description.
 
 After creating the channel, review the most important settings: channel name, handle, description, branding, links, and permissions. This will provide a clean foundation for publishing your first videos.

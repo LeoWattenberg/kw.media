@@ -25,4 +25,4 @@ Zählen YouTube-Live-Wiedergabestunden zu den Anforderungen für das YouTube-Par
 
 Wichtig ist, dass der Livestream öffentlich ist und nach dem Stream als öffentliches Video beziehungsweise Archiv verfügbar bleibt. Private, nicht gelistete oder gelöschte Inhalte zählen nicht auf die gleiche Weise. Auch Shorts-Wiedergaben werden für diese Kennzahl separat behandelt.
 
-Wenn ihr Livestreams für den Weg ins Partnerprogramm nutzen wollt, achtet also darauf, dass die Streams öffentlich bleiben und echten Mehrwert für Zuschauerinnen und Zuschauer bieten. Dann können sie beim Aufbau der benötigten Wiedergabestunden helfen.
+Wenn ihr Livestreams für den Weg [ins Partnerprogramm](/youtube-tipps-de/so-kommst-du-mit-youtube-shorts-ins-partner-programm/) nutzen wollt, achtet also darauf, dass die Streams öffentlich bleiben und echten Mehrwert für Zuschauerinnen und Zuschauer bieten. Dann können sie beim Aufbau der benötigten Wiedergabestunden helfen.

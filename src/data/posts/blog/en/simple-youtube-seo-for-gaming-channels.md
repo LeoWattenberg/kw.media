@@ -7,8 +7,8 @@ excerpt: "A practical YouTube SEO guide for gaming channels, covering keywords, 
 date: "2021-06-06T21:27:50"
 modified: "2022-07-16T12:47:21"
 locale: "en"
-category: "blog"
 translationKey: "post:1366"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/simple-youtube-seo-for-gaming-channels/"
@@ -18,7 +18,7 @@ The central question that leads to this guide is: ***“How do I get more views?
 
 Search Engine Optimization (SEO) is some kind of black magic that, when used correctly, makes your videos appear in the search results. It’s easy to learn but hard to master and requires constant research, adaptation and having a calendar on your mind. More on that later!
 
-By the way: A video that ranks high does very little for you if nobody clicks on it. So make sure you’ve got a good thumbnail for your video! We already have a [guide on making good thumbnails](https://www.reddit.com/r/youtubegaming/comments/i5cs8p/how_to_not_fuck_up_your_thumbnails/), so this won’t be discussed further here.
+By the way: A video that ranks high does very little for you if nobody clicks on it. So make sure you’ve got a [good thumbnail for your video](/youtube-tips-en/how-to-get-clicks-on-thumbnails-the-aida-model/)! We already have a [guide on making good thumbnails](https://www.reddit.com/r/youtubegaming/comments/i5cs8p/how_to_not_fuck_up_your_thumbnails/), so this won’t be discussed further here.
 
 For small channels, having good SEO vs not having it is probably roughly equivalent to doing self-promotion on subreddits after uploading a video. In other words, you can probably expect about 10-20 views from it in the first week for a similar effort. However: Unlike self-promotion, the effects of which will completely drown within a few days, the effects of good SEO generally last for months and years.
 
@@ -26,7 +26,7 @@ So [stop wasting time on self-promotion](https://www.reddit.com/r/youtubegaming/
 
 ## Keywords
 
-Keywords are used by the YouTube Search engine as well as the Google Search engine to surface content. They generally are placed in your video metadata (title, description, tags); YouTube has a hard time making them out if they appear only in the video itself and in the thumbnail.
+Keywords are used by the [YouTube Search](/youtube-tips-en/stop-using-background-music-biggest-youtube-search-update-in-years-youtube-creator-news/) engine as well as the Google Search engine to surface content. They generally are placed in your video metadata (title, description, tags); YouTube has a hard time making them out if they appear only in the video itself and in the thumbnail.
 
 Let’s say you tag your video about a `cat` with the keyword **cat**. When someone searches for `cat` later they will find your video because the keywords match. When someone searches for `dog` the video won’t show up because the keywords didn’t match.
 

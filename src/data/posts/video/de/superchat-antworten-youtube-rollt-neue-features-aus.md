@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Super Chat-Antworten, auch als Super Chat-Threads bezeichnet, befinden sich seit letztem Mittwoch in einer experimentellen Phase. Es ist ein sehr aggressives Experiment, bei dem 50 % der Superchats dieses Feature bereits freigeschaltet haben. Ob es letztendlich zum Rollout kommt, werden wir natürlich noch sehen. Man kann darauf klicken, und es erscheint ein kleiner Antwort-Button. Dann öffnet sich praktisch ein zweites Chatfenster, im Mobilbereich ist es ein Wisch-Ding, das man wieder schließen kann.
+[Super Chat](/youtube-tipps-de/youtube-hype-livestream-und-superchat-updates/)-Antworten, auch als [Super Chat](/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/)-Threads bezeichnet, befinden sich seit letztem Mittwoch in einer experimentellen Phase. Es ist ein sehr aggressives Experiment, bei dem 50 % der Superchats dieses Feature bereits freigeschaltet haben. Ob es letztendlich zum Rollout kommt, werden wir natürlich noch sehen. Man kann darauf klicken, und es erscheint ein kleiner Antwort-Button. Dann öffnet sich praktisch ein zweites Chatfenster, im Mobilbereich ist es ein Wisch-Ding, das man wieder schließen kann.
 
 Es ist eine sehr interessante Funktion, da man auch kostenlos darauf antworten kann, um weiteren Kontext für den Super Chat zu geben. Das bedeutet, dass jemand, der vielleicht eine Frage mit einem Super Chat gestellt hat, diese noch einmal konkretisieren oder darauf antworten kann. Auch andere User, die antworten möchten, können dies in der Super Chat-Antwort tun. Ich finde das sehr interessant. Wie seht ihr das? Nutzt ihr Superchats häufig? Und falls ja, würdet ihr euch über Antwortmöglichkeiten freuen? Lasst es mich gerne in den Kommentaren wissen!
 

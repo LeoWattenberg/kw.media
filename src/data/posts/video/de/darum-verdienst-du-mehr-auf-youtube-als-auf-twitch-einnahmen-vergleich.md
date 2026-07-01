@@ -23,7 +23,7 @@ video:
 
 Wie viel Geld kommt bei euch als Creator eigentlich an, wenn ein Nutzer eine digitale Transaktion tätigt? Genau darum geht es in diesem Video. Wir vergleichen YouTube und Twitch und schauen uns an, wie viel nach Mehrwertsteuer, App-Store-Gebühren, Plattformanteil und Einkommensteuer übrig bleibt.
 
-Auf YouTube gibt es im Wesentlichen zwei Arten digitaler Transaktionen: Super-Funktionen wie Super Chat, Super Sticker und Super Thanks sowie bezahlte Kanalmitgliedschaften. Die Abrechnung folgt dabei grundsätzlich demselben Prinzip, deshalb können wir sie gemeinsam betrachten.
+Auf YouTube gibt es im Wesentlichen zwei Arten digitaler Transaktionen: Super-Funktionen wie Super Chat, Super Sticker und Super Thanks sowie [bezahlte Kanalmitgliedschaften](/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/). Die Abrechnung folgt dabei grundsätzlich demselben Prinzip, deshalb können wir sie gemeinsam betrachten.
 
 Bei Twitch müssen wir zwischen Abonnements und Bits unterscheiden. Abonnements haben je nach Plattform und Abo-Stufe unterschiedliche Beteiligungen. Bits funktionieren anders: Creator erhalten pro Bit einen festen Betrag, während der Einkaufspreis für Nutzer je nach Paket und Gerät variieren kann.
 

@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-We're starting today with an open-source escape route from the Adobe subscription trap. YouTube is testing an AI that fast-forwards viewers through your videos, destroying your pacing. And we'll look at the theoretical exploits to bypass YouTube's new courses attachment limits. Here are the creative views of the week. Let's go!
+We're starting today with an open-source escape route from the Adobe subscription trap. YouTube is testing an AI that fast-forwards viewers through your videos, destroying your pacing. And we'll look at the theoretical exploits to bypass [YouTube's new](/youtube-tips-en/youtubes-new-ask-studio-ai-is-lying-to-you-twitch-drama/) courses attachment limits. Here are the creative views of the week. Let's go!
 
 A couple of weeks ago, we briefly talked about Adobe's new Project Moonlight AI co-worker. As always, I advised you not to get locked into their expensive subscription ecosystem. There were questions, like from Manini, who asked for good alternatives to Adobe Photoshop. Photopea is a free web-based Photoshop alternative, but it's not open-source. Generally, open source is the better long-term option.
 

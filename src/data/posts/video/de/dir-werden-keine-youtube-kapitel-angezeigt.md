@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Wenn euch keine YouTube-Kapitel angezeigt werden, gibt es mehrere mögliche Gründe. Prüft zuerst, ob eure Kapitel in der Videobeschreibung korrekt formatiert sind. Das erste Kapitel muss bei 0:00 beginnen, und danach braucht ihr weitere Zeitstempel mit passenden Titeln.
+Wenn euch keine [YouTube-Kapitel](/youtube-tipps-de/youtube-video-kapitel-sind-awesome-und-das-ist-der-grund-shorts/) angezeigt werden, gibt es mehrere mögliche Gründe. Prüft zuerst, ob eure Kapitel in der Videobeschreibung korrekt formatiert sind. Das erste Kapitel muss bei 0:00 beginnen, und danach braucht ihr weitere Zeitstempel mit passenden Titeln.
 
 Außerdem muss das Video lang genug sein und die Kapitel dürfen nicht gegen YouTube-Richtlinien verstoßen. Manchmal blendet YouTube Kapitel auch aus, wenn die Zeitstempel zu dicht beieinander liegen oder die Beschreibung nicht eindeutig erkannt wird.
 

@@ -7,8 +7,8 @@ excerpt: "A practical audio guide for creators covering microphones, levels, noi
 date: "2021-06-11T17:14:02"
 modified: "2023-03-17T12:57:30"
 locale: "en"
-category: "blog"
 translationKey: "post:1434"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/06/audioguide-FINAL.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/"
@@ -16,7 +16,7 @@ sourceUrl: "https://kw.media/youtube-tips-en/the-audio-guide-to-happiness-or-how
 
 Audio is the most important part to get right of a video. This may be counterintuitive at first – it ought to be the actual visual part (ie, the video), right? – but: A lot of viewers watch your content on mobile, and on mobile phones, 480p often is clear enough, especially if you are on mobile data.
 
-This guide is mostly a beginner’s guide, so it just goes over “what mic do I even need as a game streamer?”, “where do I place my mic?”, “what should my recording set-up look like” and just one of the many possible filter chains you can set up in OBS. Which doesn’t mean that it’s not somewhat in-depth at 2000+ words long.General
+This guide is mostly a beginner’s guide, so it just goes over “what mic do I even need as a game streamer?”, “where do I place my mic?”, “what should my recording set-up look like” and just one of the many possible [filter chains you can set up in OBS](/youtube-tips-en/getting-started-with-obs-a-beginners-guide/). Which doesn’t mean that it’s not somewhat in-depth at 2000+ words long.General
 
 Before we get started with the deep techy part, let’s start with something fairly obvious: Garbage-in, garbage-out applies to audio. Buying an expensive mic may make the audio sound better, but it won’t make you any funnier, fix your pronunciation, make you talk more or make you less rambly. In order to get better at those things, you’ll need to practice. This practice automatically happens just by making videos, but I’d highly recommend actively looking to improve these areas, as that’ll make the learning (and thus, improvement) go much faster.
 
@@ -34,7 +34,7 @@ To get the TL;DR first: **Any mic between 50 and 300 USD** ***probably*** **is g
 
 **XLR mics** as a whole are a bit of a minefield. While in theory, you can adapt an XLR mic to your average 3.5mm jack, in practice, you’ll probably need a preamp to use them, and in the case of a condenser XLR mic, you’ll need a preamp that can deliver phantom power.These things aren’t impossible to figure out and do offer a lot of flexibility once you add multiple devices to your chain, but if you are a sole gamer just looking for a good mic, they add a lot of unnecessary complexity when you can have all of that in one convenient package as a USB mic.
 
-As for **USB mics**, every gaming company and their dog makes one these days, most of them somewhere in the 100-150 bucks price range, marketed “for gamers”, “for streamer” and/or “studio mic”. They all come with varying degrees of features, most of them being somewhat useless, such as switchable polar patterns.
+As for **[USB mics](/youtube-tips-en/avermedia-nexus-ax310-streamer-mic-330-review/)**, every gaming company and their dog makes one these days, most of them somewhere in the 100-150 bucks price range, marketed “for gamers”, “for streamer” and/or “studio mic”. They all come with varying degrees of features, most of them being somewhat useless, such as switchable polar patterns.
 
 A **polar pattern** is from what angles the mic picks up noise from, and while it can be nice to be able to pick up sound both from the front and the back of the mic if you’re interviewing someone across the desk, you’ll realistically probably have a wall or your screens behind your mic anyway, so you really only need a good cardioid pattern and won’t benefit too much from being able to switch around.
 

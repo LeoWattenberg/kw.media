@@ -21,6 +21,6 @@ video:
 
 ## Transcript
 
-Are YouTube collaborations actually worth it? Or are other creators just my competitors? Viewing other creators in your genre as competitors is the fastest way to kill your channel. YouTube is not a zero-sum game. Viewers can easily subscribe to both of you. Collaborations are literally the most powerful growth hack on the platform, but only if you match on a professional level. It's not about playing games together. It's about cross-pollinating two established audiences with a shared concept. Treat your genre like a network, not a battlefield.
+Are [YouTube collaborations](/youtube-tips-en/how-to-use-youtubes-new-collabs-feature-in-30s/) actually worth it? Or are other creators just my competitors? Viewing other creators in your genre as competitors is the fastest way to kill your channel. YouTube is not a zero-sum game. Viewers can easily subscribe to both of you. Collaborations are literally the most powerful growth hack on the platform, but only if you match on a professional level. It's not about playing games together. It's about cross-pollinating two established audiences with a shared concept. Treat your genre like a network, not a battlefield.
 
 Because the moment you isolate yourself, you have to seriously ask,

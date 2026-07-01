@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-If you want to link to another YouTuber as part of a collaboration in your video title or description, you can use the YouTube @-mention tags. Simply type @ followed by the name of the YouTube channel you want to link to. Users can click on the @-mention to go directly to the target channel.
+If you want to link to another YouTuber as part of a collaboration in your video title or description, you can use the [YouTube @-mention tags](/youtube-tips-en/what-are-youtube-handles-aliases/). Simply type @ followed by the name of the YouTube channel you want to link to. Users can click on the @-mention to go directly to the target channel.

@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-To integrate a YouTube Live chat into your OBS, you first need to open the chat as a new window. You can then simply copy the link and paste it in as a browser source in your OBS. With free tools like Chat V2, you can then create your own CSS to customize the chat to your liking. Remember to change the video ID next time, otherwise, of course, the new chat won't be displayed.
+To [integrate a YouTube Live chat into your OBS](/youtube-tips-en/connecting-obs-to-twitch-and-youtube/), you first need to open the chat as a new window. You can then simply copy the link and paste it in as a browser source in your OBS. With free tools like Chat V2, you can then create your own CSS to customize the chat to your liking. Remember to change the video ID next time, otherwise, of course, the new chat won't be displayed.

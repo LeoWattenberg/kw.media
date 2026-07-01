@@ -19,7 +19,7 @@ Wenn du gerade deinen ersten Strike auf YouTube bekommen hast, solltest du dich 
 
 ## **Ist es ein Community Guideline oder ein Copyright Strike?**
 
-YouTube hat zwei unterschiedliche Strike-Systeme. Das Community-Guideline-Strike-System zählt deine Verstöße gegen Richtlinien, die YouTube selbst festgelegt hat. Das Copyright-Strike-System ist eine Umsetzung des DMCA (US-Copyright-Gesetz), somit ist YouTube nur der Vermittler in der Situation.
+YouTube hat zwei unterschiedliche Strike-Systeme. Das [Community-Guideline-Strike-System](/youtube-tipps-de/folge-den-richtlinien-und-lass-deinen-kanal-strahlen/) zählt deine Verstöße gegen Richtlinien, die YouTube selbst festgelegt hat. Das [Copyright-Strike-System](/youtube-tipps-de/wie-du-musik-und-videos-legal-verwendest/) ist eine Umsetzung des DMCA (US-Copyright-Gesetz), somit ist YouTube nur der Vermittler in der Situation.
 
 ## **Was mache ich wenn ich einen Community Guideline Strike bekomme?**
 

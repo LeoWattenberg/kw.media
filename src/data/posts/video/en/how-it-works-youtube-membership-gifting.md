@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-The new Membership Gifting beta allows you to gift memberships to other randomly selected people in the chat as a member of a channel. To do this, click on the "Supers" button in the live chat, followed by "Membership Gifting". You can then choose how many memberships you want to gift. All you need to do is confirm your payment method, and YouTube will distribute the memberships to the most active subscribers in the live chat.
+The new [Membership Gifting](/youtube-tips-en/how-do-refunds-work-when-gifting-youtube-memberships/) beta allows you to gift memberships to other randomly selected people in the chat as a member of a channel. To do this, click on the "Supers" button in the live chat, followed by "Membership Gifting". You can then choose how many memberships you want to gift. All you need to do is confirm your payment method, and YouTube will distribute the memberships to the most active subscribers in the live chat.

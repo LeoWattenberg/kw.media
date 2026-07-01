@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-YouTube ABC: Um einen Live-Stream zu planen, drücke auf den Button "Stream planen". Im ersten Schritt definierst du die Details wie Titel und Beschreibung. Wenn dein Kanal mehrsprachig ist, stelle sicher, dass du die richtige Sprache einstellst. Abschließend setzt du die Sichtbarkeit und den Start des Streams fest. Wir organisieren monatlich einen Live-Stream, also abonniere unseren Kanal, damit du den nächsten Live-Stream im August nicht verpasst.
+YouTube ABC: Um einen [Live-Stream zu planen](/youtube-tipps-de/einstieg-in-das-live-streaming-auf-youtube/), drücke auf den Button "Stream planen". Im ersten Schritt definierst du die Details wie Titel und Beschreibung. Wenn dein Kanal mehrsprachig ist, stelle sicher, dass du die richtige Sprache einstellst. Abschließend setzt du die Sichtbarkeit und den Start des Streams fest. Wir organisieren monatlich einen Live-Stream, also abonniere unseren Kanal, damit du den nächsten Live-Stream im August nicht verpasst.

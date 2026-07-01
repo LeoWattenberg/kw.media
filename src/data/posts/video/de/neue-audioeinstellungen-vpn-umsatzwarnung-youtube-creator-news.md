@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Der Code-Break ist hier. YouTube Engineering ist im Urlaub. Lass uns über das letzte Creator News Update für 2025 sprechen. YouTube schließt das Jahr mit einer beeindruckenden Liste an Funktionen ab, die alles von deinem Bearbeitungsworkflow bis hin zu deinen Einnahmen beeinflussen. Es gibt neue KI-Tools für Mobilgeräte, eine globale Verschärfung der Maßnahmen gegen VPN-Ad-Zuschauer und eine enorme Erweiterung der Community-Funktionen. Los geht's.
+Der Code-Break ist hier. YouTube Engineering ist im Urlaub. Lass uns über das letzte Creator News Update für 2025 sprechen. YouTube schließt das Jahr mit einer beeindruckenden Liste an Funktionen ab, die alles von deinem Bearbeitungsworkflow bis hin zu deinen Einnahmen beeinflussen. Es gibt neue [KI-Tools für Mobilgeräte](/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/), eine globale Verschärfung der Maßnahmen gegen VPN-Ad-Zuschauer und eine enorme Erweiterung der Community-Funktionen. Los geht's.
 
 Zuerst eine große Verbesserung für mobile Creator. Die YouTube Creator App ist jetzt auf iOS verfügbar. Hier gibt es nicht viel zu sagen, außer: Viel Spaß damit!
 

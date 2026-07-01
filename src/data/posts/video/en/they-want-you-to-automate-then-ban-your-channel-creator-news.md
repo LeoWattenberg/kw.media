@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-Wait a second, I'm getting a serious déjà vu here. Am I just reading the exact same script as last week? YouTube has handed us another AI trap for creators, and Twitch is building an AI tool to micromanage your streams, while YouTube Premium is increasing its prices, directly impacting your channel's revenue. The platforms are basically rehashing their greatest hits. Let's cut to the chase and get straight to the creator news, starting with your finances.
+Wait a second, I'm getting a serious déjà vu here. Am I just reading the exact same script as last week? [YouTube has handed us another AI trap for creators](/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/), and [Twitch is building an AI tool to micromanage your streams](/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/), while YouTube Premium is increasing its prices, directly impacting your channel's revenue. The platforms are basically rehashing their greatest hits. Let's cut to the chase and get straight to the creator news, starting with your finances.
 
 YouTube is currently sending emails to German users announcing a significant price hike for YouTube Premium, effective July. While the standard and family plans are increasing by approximately 15-17%, the real impact is on Premium Light. The price is jumping from €5.99 to €7.99—a substantial 33% increase. Previously, Premium Light was priced very reasonably at €5.99. You might think, "It's just the viewer paying more; what does it matter to me?" As a creator, you should care.
 

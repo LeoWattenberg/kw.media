@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Um als Creator im YouTube-Partnerprogramm die neuen Super Thanks empfangen zu können, müsst ihr sie zuerst einschalten. Dafür geht ihr in eurem Studio unter „Monetarisierung“ auf den neuen Tab „Supers“. Dort habt ihr die Option, die einzelnen Supers zu aktivieren oder zu deaktivieren.
+Um als Creator im YouTube-Partnerprogramm die neuen [Super Thanks](/youtube-tipps-de/jetzt-neu-superthanks/) empfangen zu können, müsst ihr sie zuerst einschalten. Dafür geht ihr in eurem Studio unter „Monetarisierung“ auf den neuen Tab „Supers“. Dort habt ihr die Option, die einzelnen Supers zu aktivieren oder zu deaktivieren.

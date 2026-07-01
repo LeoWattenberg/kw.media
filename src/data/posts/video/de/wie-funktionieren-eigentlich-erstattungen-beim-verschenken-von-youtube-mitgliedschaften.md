@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Falls YouTube während eines Streams keine anderen aktiven Zuschauer findet, an die es die verschenkten Mitgliedschaften verteilen kann, bekommt der schenkende User nach ein bis zwei Tagen eine volle Erstattung. Sollte auch nur eine Mitgliedschaft erfolgreich verschenkt worden sein, bekommt der Creator sofort den gesamten Gewinn abzüglich YouTube-Anteil und Mehrwertsteuer. Alle Mitgliedschaften werden dann an aktive Chat-User sowie Offline-Abonnenten vergeben.
+Falls YouTube während eines Streams keine anderen aktiven Zuschauer findet, an die es die [verschenkten Mitgliedschaften](/youtube-tipps-de/so-funktioniert-youtube-membership-gifting/) verteilen kann, bekommt der schenkende User nach ein bis zwei Tagen eine volle Erstattung. Sollte auch nur eine Mitgliedschaft erfolgreich verschenkt worden sein, bekommt der Creator sofort den gesamten Gewinn abzüglich YouTube-Anteil und Mehrwertsteuer. Alle Mitgliedschaften werden dann an aktive Chat-User sowie Offline-Abonnenten vergeben.

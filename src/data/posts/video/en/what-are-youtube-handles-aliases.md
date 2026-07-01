@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-YouTube has multiple ways to redirect users to your channel. So far, there was the link with your channel ID, a link with your custom URL or channel name, and now you can also use up to 30 alphanumeric characters including hyphens, underscores, and periods. If you already have a custom URL, it will automatically generate a handle. If you want to create a handle or change an existing one, you can do so at YouTube.com/handle.
+YouTube has multiple ways to redirect users to your channel. So far, there was the link with your channel ID, a link with your custom URL or channel name, and now you can also use up to 30 alphanumeric characters including hyphens, underscores, and periods. If you already have a custom URL, it will automatically generate a handle. If you want to [create a handle or change an existing one](/youtube-tips-en/how-to-change-youtube-handle-desktop/), you can do so at YouTube.com/handle.

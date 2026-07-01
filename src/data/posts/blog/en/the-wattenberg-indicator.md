@@ -7,8 +7,8 @@ excerpt: "A practical content model for understanding audience intent on YouTube
 date: "2022-01-08T10:31:12"
 modified: "2023-03-17T12:57:27"
 locale: "en"
-category: "blog"
 translationKey: "post:1875"
+category: "blog"
 image: "https://leowattenberg.files.wordpress.com/2020/10/3d-see-nts-1.png?w=300"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-wattenberg-indicator/"
@@ -16,7 +16,7 @@ sourceUrl: "https://kw.media/youtube-tips-en/the-wattenberg-indicator/"
 
 Moin.
 
-The Hero–Hub–Help model [which YouTube developed in 2014](https://think.storage.googleapis.com/docs/creator-playbook-for-brands_research-studies.pdf) has been a [helpful tool for video marketeers](https://www.thinkwithgoogle.com/features/youtube-playbook/topic/programming-channel-strategy/) to help them understand what they can do on YouTube. Namely:
+The [Hero–Hub–Help model](/youtube-tips-en/the-eee-model-how-to-break-out-of-the-small-youtuber-niche/) [which YouTube developed in 2014](https://think.storage.googleapis.com/docs/creator-playbook-for-brands_research-studies.pdf) has been a [helpful tool for video marketeers](https://www.thinkwithgoogle.com/features/youtube-playbook/topic/programming-channel-strategy/) to help them understand what they can do on YouTube. Namely:
 
 - Hero content is big events, which you can advertise in a big way. It gets huge attention on the day it’s happening, and then quickly becomes uninteresting again, such as the E3 presentations.
 - Hub content is regularly scheduled content, to keep subscribers (and viewers you’ve reached through the other content) interested in your channel. This content gets watched by your subscribers in the first couple days after upload, and then basically never again.
@@ -62,7 +62,7 @@ SEE-NTS can be used to assess a channel’s current standing to make decisions f
 
 Most obviously, if the vast majority of views a channel has come from subscribers and all formats on the channel are made for subscribers, that channel may want to develop a format which is meant to appeal to non-subscribers and draw them in.
 
-If a creator feels like they’re grinding away in a hamster wheel, but can’t afford to take a day off because all their subscribers will lose interest, maybe Evergreen Subscriber content would be able to bridge these gaps in the future.
+If a creator feels like they’re [grinding away in a hamster wheel](/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/), but can’t afford to take a day off because all their subscribers will lose interest, maybe Evergreen Subscriber content would be able to bridge these gaps in the future.
 
 If a musician can only realistically make one big Event/Evergreen-type video a year and struggles to re-activate subscribers in-between uploads, them making Subscriber/Serial/Timely content in-between to fill the gaps and keep people engaged throughout the year may be useful.
 

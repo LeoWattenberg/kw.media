@@ -7,8 +7,8 @@ excerpt: "The EEE model explains how small YouTubers escape the growth trap and 
 date: "2021-06-11T16:51:11"
 modified: "2023-03-17T12:57:30"
 locale: "en"
-category: "blog"
 translationKey: "post:1419"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/"
@@ -20,7 +20,7 @@ This post is specifically aimed at YouTube beginners and aims to prevent you fro
 
 A common beginner mistake on YouTube is building a channel around a single idea. I deal with this almost weekly:
 
-> A young creator, usually between 13-16 years old, watches their favorite YouTubers daily (for example, Gronkh) and one boring day comes up with an idea: "I could also install OBS and make Let's Plays." And so they do. In no time, our newcomer not only figures out how to record, edit, and upload videos but is already optimizing individual aspects like SEO or thumbnail design. But once the novelty wears off, disillusionment sets in because no matter what they try, nothing seems to work. Keyword optimization, self-promotion, two videos a day, maybe even three or four—none of them get more than a handful of views. In fact, most new videos seem to perform worse than the old ones!
+> A young creator, usually between 13-16 years old, watches their favorite YouTubers daily (for example, Gronkh) and one boring day comes up with an idea: "I could also install OBS and make Let's Plays." And so they do. In no time, our newcomer not only figures out how to record, edit, and upload videos but is already optimizing individual aspects like SEO or thumbnail design. But once the novelty wears off, disillusionment sets in because no matter what they try, [nothing seems to work](/youtube-tips-en/why-your-youtube-channel-suddenly-died/). Keyword optimization, self-promotion, two videos a day, maybe even three or four—none of them get more than a handful of views. In fact, most new videos seem to perform worse than the old ones!
 
 **What happened?** To find the solution, you need to take a step back. What exactly are these videos? How are they relevant to target audiences? Who are your target audiences in the first place? And how do your videos stand out from the sea of videos on YouTube? If you're stuck here and don't know how to proceed, [you could hire us](/creator/), but before you spend money unnecessarily, I have a better idea: Try following the EEE model. (Or rather, the [EDE model](https://leo.wattenberg.dk/2020/11/03/the-ede-model-exploring-developing-established-creators/). The model is the same, just in English and German.)
 
@@ -34,7 +34,7 @@ This is the exploration phase of the EDE model.
 
 The time spent in the exploration phase is a period of great freedom and something larger channels lose: For example, *Kurzgesagt* can't just upload a vlog, and *Jungsfragen* can't suddenly play Minecraft on their channel. Basically, during this exploration, numbers should be irrelevant to you because you know why and for whom you're making these videos—for yourself. To grow. To learn. And maybe even to have fun.
 
-Over time, you'll likely find a style and increasingly produce a specific type of content: You're slowly finding your niche.
+Over time, you'll likely find a style and increasingly produce a specific type of content: You're slowly [finding your niche](/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/).
 
 ## Develop — The Second E in the EEE Model
 

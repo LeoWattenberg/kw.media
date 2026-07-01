@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Ab sofort könnt ihr mit eurem Smartphone auf Kommentare unter euren eigenen Videos mit einem short Antworten geht dabei einfach auf das antwortmenü dort findet ihr den neuen Button zum short erstellen
+Ab sofort könnt ihr mit eurem Smartphone auf Kommentare unter euren eigenen Videos mit einem short Antworten geht dabei einfach auf das antwortmenü dort findet ihr den neuen Button zum [short erstellen](/youtube-tipps-de/verschiedene-wege-shorts-zu-erstellen-shorts/)

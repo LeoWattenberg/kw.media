@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-YouTube Shopping stickers in Shorts are being upgraded. Instead of opening a palette underneath the Short, viewers will now be directed straight to the seller's website to purchase the tagged product. If they click on the sticker and there are multiple products tagged, a chevron will appear next to the sticker to open the list of tagged products. The sticker is generated from the first product in the list, but you can change the order to select the desired product as the sticker.
+[YouTube Shopping stickers in Shorts](/youtube-tips-en/expanded-shopping-options-on-youtube-whats-new-for-creators/) are being upgraded. Instead of opening a palette underneath the Short, viewers will now be directed straight to the seller's website to purchase the tagged product. If they click on the sticker and there are multiple products tagged, a chevron will appear next to the sticker to open the list of tagged products. The sticker is generated from the first product in the list, but you can change the order to select the desired product as the sticker.
 
 Please note that the YouTube Shopping Affiliate Program is only available if you have over 10,000 subscribers and are located in one of the following countries.
 

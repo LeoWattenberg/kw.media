@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-YouTube Live Redirects are essentially the same as Twitch Raids. If your channel has more than 1,000 subscribers, you'll have access to the new Live Redirect feature. It allows you to redirect viewers from one stream to another channel after your stream ends. To receive viewers, you need to set this up in YouTube Studio under the "Community" settings. There, you can specify who is allowed to redirect to your channel and whether channels you publicly subscribe to can do so automatically.
+YouTube Live Redirects are essentially the same as Twitch Raids. If your channel has more than 1,000 subscribers, you'll have access to the new [Live Redirect feature](/youtube-tips-en/how-to-receive-youtube-redirects-youtube-raids-on-your-channel/). It allows you to redirect viewers from one stream to another channel after your stream ends. To receive viewers, you need to set this up in YouTube Studio under the "Community" settings. There, you can specify who is allowed to redirect to your channel and whether channels you publicly subscribe to can do so automatically.

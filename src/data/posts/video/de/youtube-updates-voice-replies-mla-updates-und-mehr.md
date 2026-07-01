@@ -37,12 +37,12 @@ Was denkt ihr über dieses Thema? Schreibt eure Gedanken gerne in die Kommentare
 
 Bis zum nächsten Mal!
 
-YouTube-Updates dieser Woche
+[YouTube-Updates](/youtube-tipps-de/youtubes-updates-q-und-a-sticker-und-10mb-thumbnails/) dieser Woche
 
 Voice Replies
 Wir starten mit den Voice Replies für iOS in den USA für englischsprachige Videos. Die Anzahl der Creator, die Zugriff haben, hat sich vervierfacht, von 25 auf 100. Das ist eine verrückte Entwicklung! Bald werden auch Android-Nutzer hinzukommen. Wie bereits erwähnt, nur der Creator kann eine Sprachnachricht erstellen, um Missbrauch zu vermeiden. Ich bin persönlich kein großer Fan von Voice Replies, aber ihr könnt mir gerne eure Meinung dazu mitteilen.
 
-Multilinguales Audio
+[Multilinguales Audio](/youtube-tipps-de/youtube-updates-mla-verbesserte-marken-verbindungen-und-community-uberarbeitung-im-studio-mobile/)
 Der ursprüngliche Plan, das Feature bis Mitte Dezember einzuführen, wurde verworfen. Der aktuelle Plan sieht einen monatlichen Rollout vor, bis im April 100% Autodubbing erreicht sind. Es wird geprüft, ob das Fehlen der Möglichkeit, manuell erstellte Tonspuren hochzuladen, ein Fehler oder eine bewusste Entscheidung des Teams ist. Viele Creator sind derzeit von Autodubbing nicht begeistert. Wir bleiben dran und halten euch auf dem Laufenden.
 
 PIN-Verifizierung in Google AdSense

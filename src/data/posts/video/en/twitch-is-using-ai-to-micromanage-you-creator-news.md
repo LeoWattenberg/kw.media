@@ -23,7 +23,7 @@ video:
 
 YouTube wants to clone you, Twitch wants to micromanage your sponsorships with AI, and we need to talk about the mysterious "top fans" privacy setting floating around. Let's dive right into the creator news.
 
-The trend of Twitch trying to extract every last drop of value from creators continues, as Amazon Ads is introducing a feature called "campaign assist" at TwitchCon. This is an AI system that listens to your live sponsorship reads and prompts you in real-time to adjust your tone or ensure specific PR lines are included.
+The trend of [Twitch trying to extract every last drop of value from creators](/youtube-tips-en/youtube-kills-seo-and-twitchs-fake-monetization-creator-news/) continues, as Amazon Ads is introducing a feature called "campaign assist" at TwitchCon. This is an AI system that listens to your live sponsorship reads and prompts you in real-time to adjust your tone or ensure specific PR lines are included.
 
 Additionally, they are launching "chat sentiment analysis" to gauge your community's reaction to ad reads. While the industry standard for negotiated campaigns is $1 per CCV (Cost per View) per hour, both Twitch and Amazon Ads have been undercutting creators on sponsorships for quite some time. Whether you choose to accept their AI-driven micromanagement of sponsored streams and performance grading for a campaign that pays below fair rates is your decision.
 
@@ -41,7 +41,7 @@ On another AI-related note, YouTube is testing custom feeds in the US. Viewers c
 
 YouTube is guiding viewers into highly specific AI-curated bubbles, which will likely make broad organic discovery more challenging. Consequently, Shorts may become even more crucial for organic discovery in the future. Adjust your strategies accordingly.
 
-Regarding YouTube's AI advancements, Ask Studio has received an update, featuring a conversation history that lasts up to 28 days. Understandably, this might raise concerns about channel permissions, especially for those managing teams. Can freelance editors suddenly access confidential conversations between the channel owner and the AI regarding revenue or strategic shifts? We tested this for you since YouTube's documentation is, as always, scarce.
+Regarding YouTube's AI advancements, [Ask Studio](/youtube-tips-en/youtubes-new-ask-studio-ai-is-lying-to-you-twitch-drama/) has received an update, featuring a conversation history that lasts up to 28 days. Understandably, this might raise concerns about channel permissions, especially for those managing teams. Can freelance editors suddenly access confidential conversations between the channel owner and the AI regarding revenue or strategic shifts? We tested this for you since YouTube's documentation is, as always, scarce.
 
 The good news is, we can confirm that chat history is linked to the individual Google account logging in, not the channel entity itself. Therefore, when an admin or editor logs into the channel, they will see a blank slate in Ask Studio instead of the owner's conversation history. For once, YouTube has implemented a privacy feature effectively.
 

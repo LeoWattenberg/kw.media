@@ -7,14 +7,14 @@ excerpt: "A practical guide to mobile production for YouTube and livestreaming, 
 date: "2021-06-11T10:20:19"
 modified: "2022-07-16T12:47:06"
 locale: "en"
-category: "blog"
 translationKey: "post:1432"
+category: "blog"
 image: "https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-mobile-producion-for-everyone/"
 ---
 
-Today we’ll be talking about mobile production for YouTube and YouTube Live. This will be a broader approach to mobile production but we’ll go into more gaming-specific details further down the article, so bear with me.
+Today we’ll be talking about mobile production for YouTube and [YouTube Live](/youtube-tips-en/getting-started-with-youtube-live-streaming/). This will be a broader approach to mobile production but we’ll go into more [gaming-specific details](/youtube-tips-en/starting-a-gaming-channel-on-a-budget/) further down the article, so bear with me.
 
 [![r/youtubegaming - Mobile Production for Everyone](https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b)](https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b)
 
@@ -28,7 +28,7 @@ Usually, smartphones are your all-in-one device when it comes to rough mobile pr
 
 ## Audio:
 
-But as we all now – smartphone mics aren’t the best when it comes to quality and we established earlier that audio > video when it comes down to the importance of quality (refer to [this guide](https://www.reddit.com/r/youtubegaming/comments/hbdknw/starting_a_gaming_channel_on_a_budget/)). Your options to improve mobile audio on a small scale production are mostly limited to lavalier and shotgun mics. Of course, you can go fancy pants with a portable audio link (but they are a well above 500€ each, so let’s ditch those for the moment, as we all know creators are working on a budget 😉). Personally I found cheap solutions from well-known brands such as Røde or Sennheiser ranging from 50€-200€ for shotguns and lavaliers. Which isn’t too bad of an investment if you plan to stick to this hobby or are pushing your channel to a semi-professional or fulltime position. Also, keep in mind the shape of the environment/room while filming. Atmospheric sound is nice to set a scene, but you still want to differentiate a conversation from background noise. If you are keen on learning more about audio, let us know and we’ll put an audio guide onto our list.
+But as we all now – smartphone mics aren’t the best when it comes to quality and we established earlier that audio > video when it comes down to the importance of quality (refer to [this guide](https://www.reddit.com/r/youtubegaming/comments/hbdknw/starting_a_gaming_channel_on_a_budget/)). Your options to improve mobile audio on a small scale production are mostly limited to lavalier and shotgun mics. Of course, you can go fancy pants with a portable audio link (but they are a well above 500€ each, so let’s ditch those for the moment, as we all know creators are working on a budget 😉). Personally I found cheap solutions from well-known brands such as Røde or Sennheiser ranging from 50€-200€ for shotguns and lavaliers. Which isn’t too bad of an investment if you plan to stick to this hobby or are pushing your channel to a semi-professional or fulltime position. Also, keep in mind the shape of the environment/room while filming. Atmospheric sound is nice to set a scene, but you still want to differentiate a conversation from background noise. If you are keen on learning more about audio, let us know and we’ll put an [audio guide](/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/) onto our list.
 
 ## Battery:
 

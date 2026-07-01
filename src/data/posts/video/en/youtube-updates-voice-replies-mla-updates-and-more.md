@@ -39,10 +39,10 @@ Until next time!
 
 YouTube Updates This Week
 
-Voice Replies
-We're launching Voice Replies for iOS in the US for English-language videos. The number of creators with access has quadrupled from 25 to 100, which is crazy growth! Android users will be added soon. As mentioned before, only the creator can create a voice message to prevent abuse. Personally, I'm not a big fan of Voice Replies, but I'd love to hear your opinions on them.
+[Voice Replies](/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/)
+We're launching [Voice Replies](/youtube-tips-en/youtube-updates-new-av1-codec-support-voice-replies-expansion-and-side-by-side-ads-rollout/) for iOS in the US for English-language videos. The number of creators with access has quadrupled from 25 to 100, which is crazy growth! Android users will be added soon. As mentioned before, only the creator can create a voice message to prevent abuse. Personally, I'm not a big fan of Voice Replies, but I'd love to hear your opinions on them.
 
-Multilingual Audio
+[Multilingual Audio](/youtube-tips-en/youtube-updates-mla-improved-brand-connections-and-community-overhaul-in-studio-mobile/)
 The original plan to introduce this feature by mid-December has been abandoned. The current plan is to roll it out monthly until 100% autodubbing is achieved by April. It's being investigated whether the lack of an option to upload manually created audio tracks is a bug or a conscious decision by the team. Many creators are currently not enthusiastic about autodubbing. We'll keep you updated as we learn more.
 
 PIN Verification in Google AdSense

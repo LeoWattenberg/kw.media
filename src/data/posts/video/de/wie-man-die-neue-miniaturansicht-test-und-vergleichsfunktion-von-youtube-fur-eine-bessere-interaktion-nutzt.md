@@ -21,11 +21,11 @@ video:
 
 ## Transkript
 
-YouTube führt endlich A/B-Tests für Miniaturansichten ein, oder wie YouTube es nennt: Miniaturansicht Test & Vergleich. Ab dem 3. Juni erhalten etwa die Hälfte der Creator Zugriff, der Rest folgt in den kommenden Wochen. Die Funktion ermöglicht es Ihnen, bis zu drei Miniaturansichten für ein Video hochzuladen, damit YouTube testen kann, welche am besten bei Ihrem Publikum ankommt.
+YouTube führt endlich [A/B-Tests für Miniaturansichten](/youtube-tipps-de/was-ist-youtube-test-und-compare-bzw-thumbnail-a-b-testing/) ein, oder wie YouTube es nennt: Miniaturansicht Test & Vergleich. Ab dem 3. Juni erhalten etwa die Hälfte der Creator Zugriff, der Rest folgt in den kommenden Wochen. Die Funktion ermöglicht es Ihnen, bis zu drei Miniaturansichten für ein Video hochzuladen, damit YouTube testen kann, welche am besten bei Ihrem Publikum ankommt.
 
 Test & Vergleich ist dort verfügbar, wo Sie normalerweise eine Miniaturansicht auswählen: während des Uploads oder später in den Videodetails in YouTube Studio. YouTube zeigt die ausgewählten Miniaturansichten gleichmäßig über die Zuschauer verteilt an und wählt dann einen Gewinner basierend auf der Watchtime-Rate. Das ist wichtig, da YouTube Clickbait nicht belohnen möchte; die Miniaturansicht muss die richtigen Zuschauer anziehen und sie zufriedenstellen.
 
-Der Test kann einige Tage bis zu zwei Wochen dauern, insbesondere für kleinere Creator. Manchmal gibt es möglicherweise keinen klaren Gewinner. Wenn das der Fall ist, kann es bedeuten, dass die Miniaturansichten zu ähnlich waren, das Video nicht genügend Impressionen erhielt oder die Varianten ungefähr gleich abschnitten.
+Der Test kann einige Tage bis zu zwei Wochen dauern, insbesondere für kleinere Creator. Manchmal gibt es möglicherweise [keinen klaren Gewinner](/youtube-tipps-de/die-geheime-formel-fur-a-b-tests-auf-youtube/). Wenn das der Fall ist, kann es bedeuten, dass die Miniaturansichten zu ähnlich waren, das Video nicht genügend Impressionen erhielt oder die Varianten ungefähr gleich abschnitten.
 
 Für bessere Ergebnisse stellen Sie sicher, dass die Miniaturansichten sinnvoll unterschiedlich sind. Testen Sie verschiedene Layouts, Hintergründe, Textüberlagerungen, Gesichter, Farben oder Rahmen. Sobald der Test abgeschlossen ist, zeigt YouTube einen Bericht an. Wenn eine Miniaturansicht klar gewinnt, kann sie automatisch zur aktiven Miniaturansicht werden. Wenn es keinen klaren Gewinner gibt, bleibt die erste Miniaturansicht aktiv, aber Sie können jederzeit manuell eine auswählen.
 

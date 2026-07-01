@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Um einen YouTube-Live-Chat in euer OBS einzubinden, müsst ihr zunächst den Chat als neues Fenster öffnen. Den Link könnt ihr dann einfach kopieren und als Browserquelle in euer OBS einfügen. Mit kostenlosen Tools wie Chat V2 könnt ihr dann eigenes CSS erstellen, um den Chat nach euren Wünschen zu gestalten. Denkt daran, beim nächsten Mal die Video-ID zu ändern, sonst wird natürlich nicht der neue Chat angezeigt.
+Um einen YouTube-Live-Chat in euer [OBS einzubinden](/youtube-tipps-de/obs-mit-twitch-und-youtube-verbinden/), müsst ihr zunächst den Chat als neues Fenster öffnen. Den Link könnt ihr dann einfach kopieren und als Browserquelle in euer OBS einfügen. Mit kostenlosen Tools wie Chat V2 könnt ihr dann eigenes CSS erstellen, um den Chat nach euren Wünschen zu gestalten. Denkt daran, beim nächsten Mal die Video-ID zu ändern, sonst wird natürlich nicht der neue Chat angezeigt.

@@ -7,8 +7,8 @@ excerpt: "Ein praktischer YouTube SEO-Leitfaden für Gaming-Kanäle, der Keyword
 date: "2021-06-06T21:27:50"
 modified: "2022-07-16T12:47:21"
 locale: "de"
-category: "blog"
 translationKey: "post:1366"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/simple-youtube-seo-for-gaming-channels/"
@@ -18,9 +18,9 @@ Die zentrale Frage, die zu diesem Leitfaden führt, ist: ***„Wie bekomme ich m
 
 Suchmaschinenoptimierung (SEO) ist eine Art schwarze Magie, die, wenn sie korrekt angewendet wird, dazu führt, dass Ihre Videos in den Suchergebnissen erscheinen. Es ist einfach zu lernen, aber schwer zu meistern und erfordert ständige Forschung, Anpassung und ein ständiges Im-Auge-Behalten Ihres Kalenders. Mehr dazu später!
 
-Übrigens: Ein Video, das hoch im Ranking steht, nützt Ihnen nur wenig, wenn niemand darauf klickt. Stellen Sie also sicher, dass Sie für Ihr Video ein gutes Vorschaubild (Thumbnail) haben! Wir haben bereits einen [Leitfaden zur Erstellung guter Thumbnails](https://www.reddit.com/r/youtubegaming/comments/i5cs8p/how_to_not_fuck_up_your_thumbnails/), daher wird dies hier nicht weiter diskutiert.
+Übrigens: Ein Video, das hoch im Ranking steht, nützt Ihnen nur wenig, wenn niemand darauf klickt. Stellen Sie also sicher, dass Sie für Ihr Video ein gutes [Vorschaubild (Thumbnail)](/youtube-tipps-de/wie-man-seine-miniaturansichten-auf-youtube-nicht-vermasselt-ein-tutorial/) haben! Wir haben bereits einen [Leitfaden zur Erstellung guter Thumbnails](https://www.reddit.com/r/youtubegaming/comments/i5cs8p/how_to_not_fuck_up_your_thumbnails/), daher wird dies hier nicht weiter diskutiert.
 
-Für kleine Kanäle ist die Verfügbarkeit einer guten SEO im Vergleich zu keiner SEO wahrscheinlich etwa so effektiv wie die Eigenwerbung in Subreddits nach dem Hochladen eines Videos. Mit anderen Worten, Sie können in der ersten Woche wahrscheinlich etwa 10-20 Aufrufe erwarten, bei ähnlichem Aufwand. Allerdings: Im Gegensatz zur Eigenwerbung, deren Effekte innerhalb weniger Tage vollständig verschwinden, halten die Effekte einer guten SEO im Allgemeinen mehrere Monate und Jahre an.
+Für kleine Kanäle ist die Verfügbarkeit einer guten SEO im Vergleich zu keiner SEO wahrscheinlich etwa so effektiv wie die Eigenwerbung in Subreddits nach dem Hochladen eines Videos. Mit anderen Worten, Sie können in der ersten Woche wahrscheinlich etwa [10-20 Aufrufe](/youtube-tipps-de/feststecken-unter-100-aufrufen-verbessere-deine-auffindbarkeit-in-30-sekunden/) erwarten, bei ähnlichem Aufwand. Allerdings: Im Gegensatz zur Eigenwerbung, deren Effekte innerhalb weniger Tage vollständig verschwinden, halten die Effekte einer guten SEO im Allgemeinen mehrere Monate und Jahre an.
 
 Also [hören Sie auf, Zeit mit Eigenwerbung zu verschwenden](https://www.reddit.com/r/youtubegaming/comments/kf9w8o/on_selfpromotion_why_we_dont_allow_videos_to_be/), nutzen Sie diese Zeit stattdessen für eine bessere SEO!
 

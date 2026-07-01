@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-To connect your YouTube channel with Discord, first click on Settings and then on Connections. Here you select YouTube. Next, you need to log in with your real Google account and authorize the app. Discord now knows, for example, if you are a channel member on a channel, and will automatically assign you roles accordingly.
+To [connect your YouTube channel](/youtube-tips-en/connecting-obs-to-twitch-and-youtube/) with Discord, first click on Settings and then on Connections. Here you select YouTube. Next, you need to log in with your real Google account and authorize the app. Discord now knows, for example, if you are a channel member on a channel, and will automatically assign you roles accordingly.

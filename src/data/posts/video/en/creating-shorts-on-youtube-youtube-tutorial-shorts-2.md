@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-To create your own Short, click on the plus symbol in the YouTube app, select "Create Short," record your Short or use an existing clip, add music or text, enter a title, and you're done. For more creator info about YouTube and YouTube Shorts, subscribe to the kw.media channel.
+To create your own Short, click on the plus symbol in the YouTube app, select "[Create Short](/youtube-tips-en/different-ways-to-create-shorts-shorts/)," record your Short or use an existing clip, add music or text, enter a title, and you're done. For more creator info about YouTube and YouTube Shorts, subscribe to the kw.media channel.

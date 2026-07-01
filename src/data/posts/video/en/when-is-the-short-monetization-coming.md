@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-From the first of February 2023, Creators in the YouTube Partner Program will be able to monetize YouTube Shorts using the YouTube Short A/B testing share model. It is likely that every five to ten Shorts will be included.
+From the first of February 2023, Creators in the [YouTube Partner Program](/youtube-tips-en/how-to-get-into-the-partner-program-with-youtube-shorts/) will be able to monetize YouTube Shorts using the YouTube Short A/B testing share model. It is likely that every five to ten Shorts will be included.

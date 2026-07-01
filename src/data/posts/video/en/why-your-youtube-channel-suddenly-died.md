@@ -21,6 +21,6 @@ video:
 
 ## Transcript
 
-Why did my YouTube channel suddenly stop growing after 6 months? Because you hit your ceiling. It feels like the algorithm just turned off overnight, but what actually happened is that YouTube successfully found your initial audience, and then you stopped adapting. You kept making the exact same content expecting different results. And YouTube isn't punishing you here. It just ran out of new people who want that specific form of video. If you want the graph to go up again, you have to significantly update your packaging and retention.
+Why did my YouTube channel suddenly stop growing after 6 months? Because you [hit your ceiling](/youtube-tips-en/the-eee-model-how-to-break-out-of-the-small-youtuber-niche/). It feels like the algorithm just turned off overnight, but what actually happened is that YouTube successfully found your initial audience, and then you stopped adapting. You kept making the exact same content expecting different results. And YouTube isn't punishing you here. It just ran out of new people who want that specific form of video. If you want the graph to go up again, you have to significantly update your packaging and retention.
 
 And until you fix that core issue, you will always be stuck on the same plateau.

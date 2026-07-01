@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-Since many users are currently losing access to their accounts again, we're going to talk about YouTube channel permissions today. It's never a good idea to simply share your email address and password to give other people rights on a channel. For such purposes, YouTube has a built-in permission system. To access this, go to YouTube Studio, click on "Settings," and then navigate to the "Permissions" tab. Here, you can add additional accounts by email or change and remove user permissions and roles.
+Since many users are currently losing access to their accounts again, we're going to talk about YouTube channel permissions today. It's never a good idea to simply [share your email address and password](/youtube-tips-en/password-protected-documents-clear-scam-warning/) to give other people rights on a channel. For such purposes, YouTube has a built-in permission system. To access this, go to YouTube Studio, click on "Settings," and then navigate to the "Permissions" tab. Here, you can add additional accounts by email or change and remove user permissions and roles.

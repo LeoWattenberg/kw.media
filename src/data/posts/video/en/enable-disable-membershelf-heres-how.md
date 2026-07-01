@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-If you have more than eight members, the new Member Shelf will automatically appear on your channel page. It displays the profile pictures of eight randomly selected members. To disable the shelf, go to YouTube Studio and navigate to the "Customize" section. Here, you can remove or add back the Member Shelf as a channel section. Alternatively, you can go to the "Monetization" section and turn off the feature under "Memberships."
+If you have more than eight members, the new Member Shelf will automatically appear on your channel page. It displays the profile pictures of eight randomly selected members. To disable the shelf, go to [YouTube Studio](/youtube-tips-en/how-to-activate-super-thanks/) and navigate to the "Customize" section. Here, you can remove or add back the Member Shelf as a channel section. Alternatively, you can go to the "Monetization" section and turn off the feature under "Memberships."

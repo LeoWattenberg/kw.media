@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-In letzter Zeit sehen wir wieder vermehrt Phishing-E-Mails. Das Herunterladen und Öffnen der darin enthaltenen PDFs kopiert dabei euren Browser, sodass eure YouTube-Kanäle ohne das Eingeben eines Passworts oder einer Zwei-Faktor-Authentifizierung einfach übernommen werden können. Achtet deshalb bitte immer auf die Vertrauenswürdigkeit des Absenders und öffnet niemals irgendwelche Anhänge aus unsicheren Quellen. Solltet ihr dennoch mal Fragen haben, meldet euch bei team@kw.media oder auf Discord im YouTube-Gaming-Kanal.
+In letzter Zeit sehen wir wieder vermehrt [Phishing-E-Mails](/youtube-tipps-de/passwortgeschutzte-dokumente-eindeutige-scam-warnung/). Das Herunterladen und Öffnen der darin enthaltenen PDFs kopiert dabei euren Browser, sodass eure YouTube-Kanäle ohne das Eingeben eines Passworts oder einer Zwei-Faktor-Authentifizierung einfach übernommen werden können. Achtet deshalb bitte immer auf die Vertrauenswürdigkeit des Absenders und öffnet niemals irgendwelche Anhänge aus unsicheren Quellen. Solltet ihr dennoch mal Fragen haben, meldet euch bei team@kw.media oder auf Discord im YouTube-Gaming-Kanal.

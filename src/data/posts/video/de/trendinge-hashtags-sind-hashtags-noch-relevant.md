@@ -21,6 +21,6 @@ video:
 
 ## Transkript
 
-YouTube ABC: Hashtags. Als Content-Creator kannst du durch die Verwendung von Hashtags in deiner Videobeschreibung deinen Inhalt genauer kategorisieren. Dies erleichtert es deinem Publikum, deinen Kanal zu entdecken. Die sorgfältige Auswahl von Hashtags ist entscheidend, um dein Zielpublikum anzusprechen; ansonsten könnte dein Inhalt als Spam wahrgenommen werden. Hier sind einige Tipps: Verwende nicht mehr als fünf Hashtags, überprüfe regelmäßig die Wirksamkeit der gewählten Hashtags und passe sie bei Bedarf an. Verwende allgemeine und spezifische Begriffe, um mehr Suchanfragen abzudecken. Aber wie sieht die Realität aus?
+YouTube ABC: Hashtags. Als Content-Creator kannst du durch die [Verwendung von Hashtags](/youtube-tipps-de/youtube-hashtag-kanale-finden-shorts/) in deiner Videobeschreibung deinen Inhalt genauer kategorisieren. Dies erleichtert es deinem Publikum, deinen Kanal zu entdecken. Die sorgfältige Auswahl von Hashtags ist entscheidend, um dein Zielpublikum anzusprechen; ansonsten könnte dein Inhalt als Spam wahrgenommen werden. Hier sind einige Tipps: Verwende nicht mehr als fünf Hashtags, überprüfe regelmäßig die Wirksamkeit der gewählten Hashtags und passe sie bei Bedarf an. Verwende allgemeine und spezifische Begriffe, um mehr Suchanfragen abzudecken. Aber wie sieht die Realität aus?
 
 Suchen Zuschauer tatsächlich nach Hashtags? Wir haben eine Umfrage gestartet, die zeigt, dass die meisten Menschen nicht nach Hashtags suchen. Wie ist es bei dir? Nimm an unserer Umfrage teil und vergiss nicht, dich zu abonnieren.

@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-Editing autodub videos is now available in YouTube Studio Editor. You can trim the beginning, middle, or end of your video if you wish, and it will regenerate the autodubbed audio track to match your adjustments, ensuring no overlap. For manually dubbed videos, this feature will launch later this year, and you'll need to upload a new audio track for editing.
+Editing [autodub videos](/youtube-tips-en/youtube-updates-auto-dubbing-with-intonation-create-app-on-ios-for-1/) is now available in YouTube Studio Editor. You can trim the beginning, middle, or end of your video if you wish, and it will regenerate the [autodubbed audio track](/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/) to match your adjustments, ensuring no overlap. For manually dubbed videos, this feature will launch later this year, and you'll need to upload a new audio track for editing.
 
 To clarify, we don't yet know when manually dubbed tracks will be accessible to all creators. As a reminder, autodubbing is available to everyone in the YouTube Partner Program. Feel free to explore it and ask any questions you may have in the comments below.
 

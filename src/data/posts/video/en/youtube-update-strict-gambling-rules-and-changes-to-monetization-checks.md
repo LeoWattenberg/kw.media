@@ -27,7 +27,7 @@ I think this is a good change. It's stricter than before, and there will likely 
 
 Next, we have a short Help Center article on YouTube Shopping, or "Shopping for Creators." This includes setting up the shop in the YouTube dashboard and, for the US, the affiliate program connected to Google Shopping. Since this is not available in Germany, you don't have to read that part. I'll let you know as soon as it becomes available here as well.
 
-Lastly, there's a small update on the Monetization Check. This is only relevant for YouTube partners with over 1000 subscribers who have reached the required 4000 watch hours or 10 million Shorts views. When you upload a video, the upload process checks for copyright and ad suitability. Previously, this review was typically completed within a few minutes, especially if you had a good history.
+Lastly, there's a small update on the [Monetization Check](/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/). This is only relevant for YouTube partners with over 1000 subscribers who have reached the required 4000 watch hours or 10 million Shorts views. When you upload a video, the upload process checks for copyright and ad suitability. Previously, this review was typically completed within a few minutes, especially if you had a good history.
 
 However, YouTube now recommends uploading content at least 24 hours, ideally 72 hours before publication if you're fluctuating between the yellow and green symbol. The reason is that the additional review, which is done both machine-based and by humans, takes time, and the queue can get longer. This way, they can better plan capacity and ensure your content is thoroughly reviewed.
 

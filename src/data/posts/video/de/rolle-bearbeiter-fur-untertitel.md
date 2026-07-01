@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Im letzten YouTube-Update gab es Änderungen für das Erstellen von Untertiteln. Die neue Rolle „Bearbeiter für Untertitel“ gibt Nutzern die Berechtigung, Untertitel zu euren Videos zu erstellen oder zu verändern. Dafür braucht ihr nur die E-Mail-Adresse der Person, die ihr hinzufügen wollt.
+Im letzten YouTube-Update gab es Änderungen für das [Erstellen von Untertiteln](/youtube-tipps-de/youtube-updates-neue-untertitel-fur-shorts-und-erweiterung-der-hype-funktion/). Die neue Rolle „Bearbeiter für Untertitel“ gibt Nutzern die Berechtigung, Untertitel zu euren Videos zu erstellen oder zu verändern. Dafür braucht ihr nur die E-Mail-Adresse der Person, die ihr hinzufügen wollt.

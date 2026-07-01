@@ -21,6 +21,6 @@ video:
 
 ## Transcript
 
-YouTube membership is a crowdsourcing feature to connect yourself with your community and help you generate additional Revenue once creators have set a payment level and have added benefits such as customized emotes or exclusive live streams viewers can subscribe to a monthly recurring membership if viewers select a higher level they receive more advantes and all the benefits of the lower level in addition besides a monthly subscription there is the option for a gift membership however this only lasts for one month and ends automatically it should be
+YouTube membership is a crowdsourcing feature to connect yourself with your community and help you generate additional Revenue once creators have set a payment level and have added benefits such as customized emotes or exclusive live streams viewers can subscribe to a monthly recurring membership if viewers select a higher level they receive more advantes and all the benefits of the lower level in addition besides a monthly subscription there is the option for a [gift membership](/youtube-tips-en/how-it-works-youtube-membership-gifting/) however this only lasts for one month and ends automatically it should be
 
 noted that membership prices may vary from region to region check out our membership on our Channel And subscribe to stay updated

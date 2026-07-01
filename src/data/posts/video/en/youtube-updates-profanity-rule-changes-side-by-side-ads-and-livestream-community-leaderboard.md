@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-We had the opportunity to talk to someone who is actually working on the YouTube side-by-side ads for live streams, and we have some new information to share. Firstly, why are they only side-by-side and not full-screen? Well, there are a few technical limitations at play here.
+We had the opportunity to talk to someone who is actually working on the YouTube [side-by-side ads](/youtube-tips-en/youtube-updates-new-av1-codec-support-voice-replies-expansion-and-side-by-side-ads-rollout/) for live streams, and we have some new information to share. Firstly, why are they only side-by-side and not full-screen? Well, there are a few technical limitations at play here.
 
 The main reason is that YouTube wants to reuse the 16:9 ads already provided by advertisers, which run before videos or as mid-rolls. They want to integrate these into live streams as mid-rolls but in a side-by-side format. This would require advertisers to create entirely new ads with a different format just for live streams, which they were not willing to do.
 

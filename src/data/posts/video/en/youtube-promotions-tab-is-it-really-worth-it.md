@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-In this video, we'll discuss the YouTube Promotions tab and whether this feature is actually worth it. With promotions, you can advertise videos directly through YouTube. YouTube creates a campaign in the background to bring viewers to your video.
+In this video, we'll discuss the YouTube Promotions tab and whether this feature is actually worth it. With promotions, you can advertise videos directly through YouTube. YouTube creates a campaign in the background to [bring viewers to your video](/youtube-tips-en/how-to-use-social-media-to-grow-your-youtube-channel/).
 
 Important note: Promotion does not replace good content. If your thumbnail, title, or video aren't effective, paid reach won't automatically solve the problem. While it may drive additional views, viewers still need to engage with the video and channel.
 

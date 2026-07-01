@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-What's up, everyone? Welcome back to the YouTube Creator News. Another week brings another set of updates, some rolling out faster than others—let's just say, at the typical "YouTube pace." This time around, YouTube is piloting a second-chance program for select terminated creators. We also got an in-depth look at the new Ask Studio AI feature. Communities are now accessible on desktop, and likeness detection is gradually being released. Let's dive right in!
+What's up, everyone? Welcome back to the YouTube Creator News. Another week brings another set of updates, some rolling out faster than others—let's just say, at the typical "YouTube pace." This time around, YouTube is piloting a second-chance program for select terminated creators. We also got an in-depth look at the new [Ask Studio AI feature](/youtube-tips-en/youtubes-new-ask-studio-ai-is-lying-to-you-twitch-drama/). [Communities are now accessible on desktop](/youtube-tips-en/youtube-faq-multi-aspect-streams-fan-communities-on-desktop-and-veo-3-ai/), and likeness detection is gradually being released. Let's dive right in!
 
 First off, let's tackle the major news. YouTube has initiated a pilot program, offering a small group of previously terminated creators the chance to return to the platform by creating a fresh, new channel from scratch. Now, before you get too excited, if you've been terminated and are watching this, it's important to note that you won't be getting your old channel back. This pilot program provides a pathway for eligible creators who have stayed off the platform for one year to rejoin, but it's a completely new beginning.
 
@@ -29,7 +29,7 @@ So, who is eligible? Only a very select few creators. Those terminated for copyr
 
 My take on this: it's a significant shift from YouTube's previous stance of permanent termination. It's a nuanced approach, offering a second chance to those who generally deserve it, but the bar is set high.
 
-Next up, we finally got a proper preview of Ask Studio, the new AI tool in the YouTube Studio dashboard. YouTube describes it as your "AI creative companion." It's designed to provide insights based on your channel data. You can ask it to summarize comments, analyze video performance, or brainstorm content ideas. The key difference from the Inspiration tab is the conversational interface, similar to what you'd find on platforms like Gemini or ChatGPT.
+Next up, we finally got a proper preview of Ask Studio, the new AI tool in the [YouTube Studio](/youtube-tips-en/youtube-updates-youtube-studio-app-youtube-app-comments-community-posts/) dashboard. YouTube describes it as your "AI creative companion." It's designed to provide insights based on your channel data. You can ask it to summarize comments, analyze video performance, or brainstorm content ideas. The key difference from the Inspiration tab is the conversational interface, similar to what you'd find on platforms like Gemini or ChatGPT.
 
 Here are some important details about this feature: it only uses data from your own channel; you can't access other channels' data. Additionally, it's tied to user permissions—if you're a limited viewer, it won't be able to provide certain information, like revenue data. Prompting is crucial; be specific and provide context. The chat history is temporary and disappears when you refresh the page. Currently, it's rolling out in English in the US, with international expansion planned for the near future.
 

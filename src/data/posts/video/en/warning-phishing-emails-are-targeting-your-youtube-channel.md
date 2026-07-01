@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-Lately, we've been seeing an increase in phishing emails again. Downloading and opening the PDFs contained within them clones your browser, allowing your YouTube channels to be easily taken over without needing a password or two-factor authentication. Please always be mindful of the sender's credibility and never open any attachments from untrusted sources. If you have any questions, feel free to reach out to team@kw.media or on Discord in the YouTube Gaming channel.
+Lately, we've been seeing an increase in [phishing emails](/youtube-tips-en/password-protected-documents-clear-scam-warning/) again. Downloading and opening the PDFs contained within them clones your browser, allowing your YouTube channels to be easily taken over without needing a password or two-factor authentication. Please always be mindful of the sender's credibility and never open any attachments from untrusted sources. If you have any questions, feel free to reach out to team@kw.media or on Discord in the YouTube Gaming channel.

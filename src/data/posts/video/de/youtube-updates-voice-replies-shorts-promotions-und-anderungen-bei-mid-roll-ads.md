@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Willkommen zu den neuesten YouTube-Updates! Heute sprechen wir über Sprachnachrichten in den Kommentaren, Shorts-Promotions (Werbeanzeigen auf Shorts), eine neue Live-Funktion und große Änderungen bei Midroll-Ads, die ab Mai 2025 in Kraft treten.
+Willkommen zu den [neuesten YouTube-Updates](/youtube-tipps-de/youtube-updates-kommentervorschauen-in-shorts-duo-premium-plane-und-anderungen-bei-musiklizenzen/)! Heute sprechen wir über Sprachnachrichten in den Kommentaren, Shorts-Promotions (Werbeanzeigen auf Shorts), eine neue Live-Funktion und große Änderungen bei [Midroll-Ads](/youtube-tipps-de/youtube-updates-fehler-bei-mid-roll-anzeigen-und-kommende-bearbeitungseinschrankungen/), die ab Mai 2025 in Kraft treten.
 
 **Sprachnachrichten in den Kommentaren:**
 Aktuell ist diese Funktion nur auf iOS und ausschließlich in den USA verfügbar. Antworten können maximal 30 Sekunden lang sein – das ist eine neue Information. Android-Nutzer sollen im ersten Quartal 2025 Zugang erhalten (das endet am 31.03.). Ihr könnt euch also ausrechnen, was demnächst passieren wird. Allerdings bleibt die Funktion vorerst nur in den USA verfügbar. Mit einem VPN kann man aber auch digital einen Ausflug machen.

@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-This new YouTube feature makes your Shorts even more interactive. Last week, YouTube rolled out the poll feature that lets your community vote on answers for whatever you are asking them. This feature is similar to polls already found in the Community tab, except that Shorts polls are limited to only two different options to pick from. Do you think that this is enough, or would you like to see more options?
+This new YouTube feature makes your Shorts even more interactive. Last week, YouTube rolled out the poll feature that lets your community vote on answers for whatever you are asking them. This feature is similar to polls already found in the [Community tab](/youtube-tips-en/image-polls-how-the-new-community-tab-feature-works/), except that Shorts polls are limited to only two different options to pick from. Do you think that this is enough, or would you like to see more options?

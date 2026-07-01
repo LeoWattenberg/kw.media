@@ -27,7 +27,7 @@ Willkommen zurück auf dem Kanal! Heute tauchen wir in einige bedeutende Veränd
 
 Eine neue Ära der Technikregulierung
 
-Wir erleben eine große Verschiebung in der Technikregulierung mit dem Inkrafttreten des australischen Gesetzes über das Mindestalter für soziale Medien am 10. Dezember 2025. Dieses Bundesgesetz schreibt vor, dass YouTube Benutzer unter 16 Jahren automatisch abmeldet. Es handelt sich nicht nur um eine geringfügige Anpassung; es hat weitreichende Auswirkungen auf Creator.
+Wir erleben eine große Verschiebung in der Technikregulierung mit dem Inkrafttreten des [australischen Gesetzes über das Mindestalter für soziale Medien](/youtube-tipps-de/regierungen-verbieten-dein-publikum-creator-news/) am 10. Dezember 2025. Dieses Bundesgesetz schreibt vor, dass YouTube Benutzer unter 16 Jahren automatisch abmeldet. Es handelt sich nicht nur um eine geringfügige Anpassung; es hat weitreichende Auswirkungen auf Creator.
 
 Erzwungene Abmeldung und ihre Folgen
 

@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-What's up everyone, and welcome back to the YouTube News! Let's dive right into the most important update: YouTube is scaling up enforcement of its existing policy against misleading metadata. Creators with a pattern of using clickbait titles and thumbnails that mislead users may now face suspension from the YouTube Partner Program. While this isn't a new policy, we've seen YouTube ramping up enforcement dramatically over the past few weeks, so this was expected.
+What's up everyone, and [welcome back](/youtube-tips-en/youtube-bans-accounts-under-16-why-ctr-is-dead/) to the YouTube News! Let's dive right into the most important update: YouTube is scaling up enforcement of its existing policy against misleading metadata. Creators with a pattern of using clickbait titles and thumbnails that mislead users may now face suspension from the YouTube Partner Program. While this isn't a new policy, we've seen YouTube ramping up enforcement dramatically over the past few weeks, so this was expected.
 
 If suspended for misleading metadata, you get a 21-day appeal window to fight the decision or wait 90 days to reapply to the YouTube Partner Program. Please be honest in your titles and thumbnails, and avoid tag stuffing tactics (also known as keyword blocks) in your descriptions, as those can get you banned from the platform, not just kicked out of the Partner Program. What do you think about this new enforcement? Let me know in the comments below.
 

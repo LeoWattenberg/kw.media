@@ -25,7 +25,7 @@ Der YouTube Shorts-Feed bekommt jetzt die Möglichkeit, Sounds bzw. Musik abzusp
 
 Jetzt soll diese Chrome Extension es einfacher machen, Produkte zu finden, wenn man gerade browsert und denkt: "Oh, dieses Produkt ist für das Affiliate-Programm geeignet." Es ist schon blöd, dass es wieder mal nur in den USA funktioniert und das Affiliate-Programm nicht weiter ausgerollt wird. Aber wir müssen damit arbeiten und uns bis dahin an Konkurrenzprodukten bedienen, solange YouTube noch nichts Derartiges anbietet.
 
-Eine sehr interessante Geschichte, über die wir bereits im Mai gesprochen haben, sind Super Chat-Antworten. Das bedeutet, in einem Super Chat kann ich draufklicken und es gibt eine Reihe von Antworten, die zu 100% ausgerollt werden. Das ist schon seit ein paar Tagen, also dem 1. August, aktiv. Deshalb, falls ihr Superchats seht, könnt ihr natürlich jetzt auch reinklicken und euch die Antworten anschauen oder selbst welche schreiben. Lasst mich gerne wissen, was ihr davon haltet. Ich finde das eine super Sache.
+Eine sehr interessante Geschichte, über die wir bereits im Mai gesprochen haben, sind [Super Chat-Antworten](/youtube-tipps-de/superchat-antworten-youtube-rollt-neue-features-aus/). Das bedeutet, in einem Super Chat kann ich draufklicken und es gibt eine Reihe von Antworten, die zu 100% ausgerollt werden. Das ist schon seit ein paar Tagen, also dem 1. August, aktiv. Deshalb, falls ihr Superchats seht, könnt ihr natürlich jetzt auch reinklicken und euch die Antworten anschauen oder selbst welche schreiben. Lasst mich gerne wissen, was ihr davon haltet. Ich finde das eine super Sache.
 
 Und da bleiben wir direkt bei Livestreams, denn es gibt neue Informationen zu den AI-Livestream-Zusammenfassungen. Wir haben auch schon darüber gesprochen: KI wird Livestreams zusammenfassen. Es werden genug Daten gesammelt, und da war unklar, wie viel Daten jetzt eigentlich gesammelt werden müssen, damit eine KI-Zusammenfassung erstellt werden kann. Und wir haben jetzt tatsächlich einen konkreten Wert genannt bekommen. Das hat mich sehr überrascht, aber es scheint Transparenz zu sein. Wir beschweren uns nicht. KI-Zusammenfassungen für Livestreams werden nur funktionieren, wenn es in den letzten 2 Minuten über 30 sich nicht wiederholende englische Nachrichten gab. Und sie werden nicht in der EU funktionieren wegen Beschränkungen, KI-Beschränkungen. Na ja, mal sehen, wann das vielleicht mal in der EU der Fall sein wird. Aber falls ihr z.
 
@@ -39,7 +39,7 @@ Livestreams sind heute richtig im Kommen. Bisher wurden Livestreams auf YouTube 
 
 Ich habe als Feature-Request vorgeschlagen, während dieser Midrolls automatische Untertitel standardmäßig zu aktivieren, da dies besonders bei Talkrunden oder ähnlichem nützlich sein könnte. Lasst mich wissen, was ihr davon haltet!
 
-YouTube Hype
+[YouTube Hype](/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/)
 
 Ein weiteres Experiment läuft derzeit in der Türkei, Taiwan und Brasilien: YouTube Hype. Ursprünglich als Bezahlfunktion gedacht, um Videos in die Trends zu bringen, wurde diese Idee schnell verworfen. Jetzt wissen wir mehr: Hype ist eine neue Interaktionsmöglichkeit für Zuschauer.
 

@@ -7,14 +7,14 @@ excerpt: "Laden Sie eine YouTube-Kanal-Banner-Vorlage mit Sicherheitsbereichen u
 date: "2023-08-02T18:49:02"
 modified: "2024-07-01T10:48:42"
 locale: "de"
-category: "blog"
 translationKey: "post:2325"
+category: "blog"
 image: "/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-channel-banner-template-updated-2024/"
 ---
 
-Diese Vorlage hilft dir dabei, ein Kanal-Banner in den richtigen Abmessungen zu erstellen, damit es auf jedem Gerät gut aussieht.
+Diese Vorlage hilft dir dabei, ein [Kanal-Banner](/youtube-tipps-de/dein-youtube-kanal-anleitung-zur-anpassung-von-profilbild-banner-und-wasserzeichen/) in den richtigen Abmessungen zu erstellen, damit es auf jedem Gerät gut aussieht.
 
 ![youtube channel banner vorlage](/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png)
 

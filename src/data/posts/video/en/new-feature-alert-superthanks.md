@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-Super Thanks are now available to all Creators in the YouTube Partner Program. If you want to send a Super Thank, click on the "Thanks" button below a video. There, you can choose from predefined amounts and include a comment. As always with YouTube transaction revenue, you'll receive 70% after tax as a Creator.
+[Super Thanks](/youtube-tips-en/how-to-activate-super-thanks/) are now available to all Creators in the YouTube Partner Program. If you want to send a Super Thank, click on the "Thanks" button below a video. There, you can choose from predefined amounts and include a comment. As always with YouTube transaction revenue, you'll receive 70% after tax as a Creator.

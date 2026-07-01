@@ -14,7 +14,7 @@ authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/avermedia-streamer-cap4k-bu113-oder-elgato-camlink4k/"
 ---
 
-AVerMedia hat eine neue [Capture Card](/youtube-tipps-de/kameras-und-konsolen-playstation-xbox-switch-in-obs-einbinden-mit-capture-cards/) auf den Markt gebracht und mir ein Exemplar geschickt um mir das Teil mal genauer anzuschauen und eine Meinung dazu abzugeben. Ich habe mich selbstredend bemüht möglichst objektiv an den Vergleich zu gehen.
+[AVerMedia](/youtube-tipps-de/avermedia-nexus-ax310-und-streamer-mic-330-testbericht/) hat eine neue [Capture Card](/youtube-tipps-de/kameras-und-konsolen-playstation-xbox-switch-in-obs-einbinden-mit-capture-cards/) auf den Markt gebracht und mir ein Exemplar geschickt um mir das Teil mal genauer anzuschauen und eine Meinung dazu abzugeben. Ich habe mich selbstredend bemüht möglichst objektiv an den Vergleich zu gehen.
 
 Das [AVerMedia Streamer Cap4K (BU113)](https://www.avermedia.com/de/product-detail/bu113?utm_source=PR&utm_medium=post&utm_campaign=BU113_NPI) ist gedacht, um DSLR Kameras für die Aufnahme bzw. das Streamen mit einem PC und dem darauflaufenden Aufnahmeprogramm zu verbinden. Das könnte z.B. OBS oder das AVerMedia eigene RECentral. Wir haben hier also ein direktes Konkurrenzprodukt zum Camlink4k von Elgato. Unsere zentrale Frage heute lautet also:  Kann AVerMedia die Marktdominanz von Elgato überwinden & mit günstigeren Produkten überzeugen?
 

@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Um selbst einen Short zu produzieren, klicke in einer YouTube-App auf das Plus-Symbol, klick auf Kurzvideo erstellen, nimm deinen Short auf oder verwende einen bereits bestehenden Clip, füge Musik oder Text ein, gib einen Titel ein und fertig. Für mehr Creator-Infos rund um YouTube und YouTube Shorts abonniere den kw.media-Kanal.
+Um selbst einen Short zu produzieren, klicke in einer YouTube-App auf das Plus-Symbol, klick auf [Kurzvideo erstellen](/youtube-tipps-de/verschiedene-wege-shorts-zu-erstellen-shorts/), nimm deinen Short auf oder verwende einen bereits bestehenden Clip, füge Musik oder Text ein, gib einen Titel ein und fertig. Für mehr Creator-Infos rund um YouTube und YouTube Shorts abonniere den kw.media-Kanal.

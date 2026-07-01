@@ -21,6 +21,6 @@ video:
 
 ## Transcript
 
-Is it okay if I really don't care about making money from YouTube? Yes, absolutely. Having a career and treating YouTube strictly as a creative outlet is one of the healthiest mindsets you can have to avoid burnout. But, here's the catch. Do not actively sabotage your future options just because you don't care today. Don't use copyrighted content. Don't ignore community guidelines.
+Is it okay if I really don't care about making money from YouTube? Yes, absolutely. Having a career and treating YouTube strictly as a creative outlet is one of the healthiest mindsets you can have to [avoid burnout](/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/). But, here's the catch. Do not actively sabotage your future options just because you don't care today. Don't use copyrighted content. Don't ignore community guidelines.
 
 Build your channel on a clean professional foundation because if one of your videos blows up in a year or two and suddenly opens doors you've never expected, you want the infrastructure ready to go so you never find yourself regretting the day you said

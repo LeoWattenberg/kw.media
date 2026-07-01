@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-YouTube is introducing a new level in the Partner Program that gives Creators early access to fan funding features. This includes things like Channel Memberships, Super Chat, Super Stickers, or Super Thanks, depending on which features are available in your market.
+YouTube is introducing a new level in the Partner Program that gives Creators early access to fan funding features. This includes things like [Channel Memberships](/youtube-tips-en/elevate-your-channel-with-memberships/), Super Chat, Super Stickers, or Super Thanks, depending on which features are available in your market.
 
 The important point is: this level is not the same as full monetization through ads. It's designed to allow Creators to be supported directly by their community earlier. Additional requirements still apply for ad revenue.
 

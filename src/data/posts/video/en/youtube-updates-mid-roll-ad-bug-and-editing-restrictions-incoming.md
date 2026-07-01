@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-YouTube updates weekly, fresh off the press. Let's start with the automated midroll ads update for videos with at least 8 minutes runtime, which is set to launch on May 12th. While the automated ad slots display when an ad break is considered interruptive, they didn't initiate an ad auction. This led to a revenue drop for some creators.
+YouTube updates weekly, fresh off the press. Let's start with the [automated midroll ads update](/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/) for videos with at least 8 minutes runtime, which is set to launch on May 12th. While the automated ad slots display when an ad break is considered interruptive, they didn't initiate an ad auction. This led to a [revenue drop](/youtube-tips-en/youtube-updates-youtube-bug-wipes-ad-revenue-collab-feed-rollout/) for some creators.
 
 The current best practice is to run the automated ad slots to identify the optimal placement, then manually insert an ad break into the suggested slot by YouTube. If you have further questions on this topic, feel free to leave a comment below and keep your most-watched videos updated. Moving on to the next subject: In the coming month, YouTube will discontinue the "revert to original" feature in the YouTube video editor.
 

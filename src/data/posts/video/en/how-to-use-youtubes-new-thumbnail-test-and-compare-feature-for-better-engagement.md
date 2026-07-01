@@ -21,11 +21,11 @@ video:
 
 ## Transcript
 
-YouTube is finally rolling out thumbnail A/B testing, or as YouTube calls it, Thumbnail Test & Compare. Starting June 3rd, about half of creators received access, with the rest following over the next weeks. The feature lets you upload up to three thumbnails for a video so YouTube can test which one works best with your audience.
+YouTube is finally rolling out [thumbnail A/B testing](/youtube-tips-en/what-is-youtube-test-and-compare-or-thumbnail-a-b-testing/), or as YouTube calls it, Thumbnail Test & Compare. Starting June 3rd, about half of creators received access, with the rest following over the next weeks. The feature lets you upload up to three thumbnails for a video so YouTube can test which one works best with your audience.
 
 Test & Compare is available wherever you normally choose a thumbnail: during upload or later in the video details in YouTube Studio. YouTube shows the selected thumbnails evenly across viewers and then chooses a winner based on watch time share. That matters because YouTube does not want to reward clickbait; the thumbnail needs to attract the right viewers and keep them satisfied.
 
-The test can take a few days or up to two weeks, especially for smaller creators. Sometimes there may be no clear winner. If that happens, it can mean the thumbnails were too similar, the video did not receive enough impressions, or the variants performed roughly the same.
+The test can take a few days or up to two weeks, especially for smaller creators. Sometimes there may be [no clear winner](/youtube-tips-en/the-secret-formula-of-a-b-tests-on-youtube/). If that happens, it can mean the thumbnails were too similar, the video did not receive enough impressions, or the variants performed roughly the same.
 
 For better results, make sure the thumbnails are meaningfully different. Test different layouts, backgrounds, text overlays, faces, colors, or framing. Once the test is complete, YouTube shows a report. If one thumbnail clearly wins, it can automatically become the active thumbnail. If there is no clear winner, the first thumbnail remains active, but you can always choose a thumbnail manually.
 

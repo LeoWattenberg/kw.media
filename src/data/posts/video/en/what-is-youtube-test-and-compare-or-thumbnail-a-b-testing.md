@@ -21,11 +21,11 @@ video:
 
 ## Transcript
 
-Finally, YouTube has rolled out thumbnail A/B testing, or "Thumbnail Test & Compare." In early June, around 50% of creators had access to the feature, with the rest expected to gain access in the following weeks. With Test & Compare, you can upload up to three thumbnails for a video and let YouTube determine which one performs best with your target audience.
+Finally, YouTube has rolled out [thumbnail A/B testing](/youtube-tips-en/a-b-testing-on-youtube-everything-you-need-to-know-for-the-summer-launch/), or "Thumbnail Test & Compare." In early June, around 50% of creators had access to the feature, with the rest expected to gain access in the following weeks. With Test & Compare, you can upload up to three thumbnails for a video and let YouTube determine which one performs best with your target audience.
 
 YouTube distributes the thumbnails evenly to viewers and then analyzes which thumbnail generates the highest watch time. It's not just about the click-through rate. A thumbnail that gets lots of clicks but sets the wrong expectations might perform worse than a thumbnail with slightly fewer clicks but significantly better viewer engagement.
 
-You'll find this feature where you usually select thumbnails: during upload or later in the video details in YouTube Studio. Once a test is running, YouTube collects data. Depending on channel size and impressions, this can take a few days, or up to two weeks for smaller channels. Sometimes there's no clear winner.
+You'll find this feature where you usually select thumbnails: during upload or later in the video details in [YouTube Studio](/youtube-tips-en/how-to-use-youtubes-new-thumbnail-test-and-compare-feature-for-better-engagement/). Once a test is running, YouTube collects data. Depending on channel size and impressions, this can take a few days, or up to two weeks for smaller channels. Sometimes there's no clear winner.
 
 For the tests to be meaningful, the thumbnails should differ significantly. Test different layouts, backgrounds, text, or image ideas. If the variations are too similar or the video receives too few impressions, YouTube may not be able to statistically determine a clear winner.
 

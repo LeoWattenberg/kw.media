@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Als nächstes großes Thema steht Creator Music im Raum. Das ist eine wachsende Menge an Musikstücken, die ihr in eure Videos einbauen könnt und dann sogar noch weiter monetarisieren könnt, solange ihr natürlich die Lizenzgebühren beim Upload bezahlt.
+Als nächstes großes Thema steht [Creator Music](/youtube-tipps-de/so-funktioniert-die-youtube-audio-mediathek/) im Raum. Das ist eine wachsende Menge an Musikstücken, die ihr in eure Videos einbauen könnt und dann sogar noch weiter monetarisieren könnt, solange ihr natürlich die Lizenzgebühren beim Upload bezahlt.

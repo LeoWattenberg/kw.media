@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-In the latest YouTube update, there have been changes to creating captions. The new "Caption Editor" role gives users permission to create or edit captions for your videos. All you need is the email address of the person you want to add.
+In the latest YouTube update, there have been changes to creating captions. The new "[Caption Editor](/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/)" role gives users permission to create or edit captions for your videos. All you need is the email address of the person you want to add.

@@ -21,7 +21,7 @@ Also, wie machst du guten Content? Naja, alles fängt mit einer Idee an.
 
 ## Eine gute Idee
 
-Ideen sind schwer zu finden, gute Ideen noch schwerer. Gute Ideen zu bekommen besteht aus zwei Teilen: Erst muss man Ideen für ein Video bekommen, dann pickt man sich die Guten raus.
+Ideen sind schwer zu finden, gute Ideen noch schwerer. Gute Ideen zu bekommen besteht aus zwei Teilen: Erst muss man [Ideen für ein Video](/youtube-tipps-de/warum-grinden-schlecht-fur-dich-ist/) bekommen, dann pickt man sich die Guten raus.
 
 Um Ideen zu bekommen, kannst du so gut wie jede “getting creative” Strategie benutzen. Über besagte Strategien werde ich hier nicht zu sehr ins Detail gehen (“Wie werde ich kreativ” googlen sollte dir reichlich Tutorials bringen), aber es gibt eine die ich gerne verwende: Gelangweilt sein.  Um genau zu sein, eine bestimmte Art von gelangweilt sein, in der ich keine Unterhaltungsmedien konsumiere (Social Media, Videos,…), sondern mit mir und meiner Umgebung alleine bin. Gerade deshalb neige ich dazu direkt vor dem Schlafen gehen sehr kreativ zu sein, oder in diesen wundervollen Momenten, wenn ich vor meinem Wecker aufwache und einfach warte, dass er anfängt zu klingeln.
 

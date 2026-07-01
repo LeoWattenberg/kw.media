@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-If YouTube doesn't find any other active viewers to gift memberships to during a stream, the gifting user will receive a full refund within one to two days. If even a single membership is successfully gifted, the Creator immediately receives the entire revenue minus the YouTube cut and VAT. All memberships will then be awarded to active chat users and offline subscribers.
+If YouTube doesn't find any other active viewers to [gift memberships](/youtube-tips-en/how-it-works-youtube-membership-gifting/) to during a stream, the gifting user will receive a full refund within one to two days. If even a single membership is successfully gifted, the Creator immediately receives the entire revenue minus the YouTube cut and VAT. All memberships will then be awarded to active chat users and offline subscribers.

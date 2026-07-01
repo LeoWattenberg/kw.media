@@ -23,9 +23,9 @@ video:
 
 Let's talk about YouTube updates, specifically the memberships button on iOS. For some viewers, it was already visible, while others didn't see it. The change is that it will be visible to all iOS users until the end of September. This is due to some Apple payment infrastructure issues; YouTube and Apple had disagreements, resulting in inconsistent availability across markets.
 
-From now until September, every iOS user will see the memberships join button. This could lead to more people purchasing memberships. However, if a viewer buys a membership through Apple's payment system, Apple takes a 30% cut, reducing your revenue share. To maximize revenue, encourage iOS viewers to pay via credit card or PayPal directly on a laptop or Mac, avoiding Apple's fee.
+From now until September, every iOS user will see the [memberships join button](/youtube-tips-en/free-channel-memberships-for-youtube-premium-users-the-big-experiment-in-april-2024/). This could lead to more people purchasing memberships. However, if a viewer buys a membership through Apple's payment system, Apple takes a 30% cut, reducing your revenue share. To maximize revenue, encourage iOS viewers to pay via credit card or PayPal directly on a laptop or Mac, avoiding Apple's fee.
 
-Another update concerns views and engaged metrics in YouTube Analytics, but this only affects those using their videos as ads. The old view metric has been replaced with the new engaged view metric for advertising views. This change impacts a very small fraction of creators.
+Another update concerns views and engaged metrics in [YouTube Analytics](/youtube-tips-en/casual-vs-regular-viewers-new-youtube-analytics-will-tell-you-more/), but this only affects those using their videos as ads. The old view metric has been replaced with the new engaged view metric for advertising views. This change impacts a very small fraction of creators.
 
 Additionally, side-by-side ads will start rolling out on mobile devices next week. If you've seen these ads, please share your thoughts. As a YouTube Premium member, I don't see ads, but I believe this format allows viewers to still watch the stream alongside the ad, albeit muted.
 

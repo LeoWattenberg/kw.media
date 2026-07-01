@@ -21,6 +21,6 @@ video:
 
 ## Transcript
 
-Here's how to use the new YouTube Collabs feature in under 60 seconds. In YouTube Studio, go to your video details, scroll all the way down, click show more. In the new collaboration section, search for the creator's channel you want to collab with. Decide if they get analytics access, then click create link. Copy that link and send it to your collab partner. They have to click it to accept it. Don't forget to hit save. Why the complicated link? To prevent spam.
+Here's how to use the new [YouTube Collabs feature](/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/) in under 60 seconds. In YouTube Studio, go to your video details, scroll all the way down, click show more. In the new collaboration section, search for the creator's channel you want to collab with. Decide if they get analytics access, then click create link. Copy that link and send it to your collab partner. They have to click it to accept it. Don't forget to hit save. Why the complicated link? To prevent spam.
 
 This way, big creators aren't flooded with notifications in their YouTube Studio. And that's it. A powerful new tool for discoverability.

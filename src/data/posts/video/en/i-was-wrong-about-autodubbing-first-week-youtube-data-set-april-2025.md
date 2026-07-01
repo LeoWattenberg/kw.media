@@ -29,7 +29,7 @@ For now, we'll concentrate on long-form videos (7-20 minutes) as we have the mos
 
 This indicates that autodubbing is more than a checkbox feature; it's driving genuine international engagement, which I find quite surprising. If you're a YouTube creator considering autodubbing, I encourage you to give it a try. It requires no extra work from you. Test it out for a few months to see how it performs. Since YouTube is still rolling it out and actively promoting it, you might notice an increase in impressions and views.
 
-Initially, I believed autodubbing was of very low quality and wouldn't offer any benefits; I was eagerly awaiting the launch of multil-language audio, which allows you to upload your own voice track in a second language—something programs handle excellently. But the data suggests that autodubbing is already providing a significant improvement.
+Initially, I believed autodubbing was of very low quality and wouldn't offer any benefits; I was eagerly awaiting the launch of [multil-language audio](/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/), which allows you to upload your own voice track in a second language—something programs handle excellently. But the data suggests that autodubbing is already providing a significant improvement.
 
 Please remember, this is a small dataset, and we're still gathering more information. We're also seeking creators willing to share anonymous performance data as part of the KW Media portfolio. If you're interested, consider booking a KW Media YouTube consultation. This will provide personalized insights for your channel and help us expand our dataset.
 

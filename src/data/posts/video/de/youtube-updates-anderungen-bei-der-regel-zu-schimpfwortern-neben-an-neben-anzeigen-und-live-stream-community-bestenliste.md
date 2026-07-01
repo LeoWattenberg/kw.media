@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Wir hatten die Gelegenheit, mit jemandem zu sprechen, der tatsächlich an den YouTube-Seiten-an-Seiten-Anzeigen für Live-Streams arbeitet, und wir haben einige neue Informationen zu teilen. Erstens, warum sind sie nur Seiten-an-Seiten und nicht Vollbild? Nun, hier kommen einige technische Einschränkungen ins Spiel.
+Wir hatten die Gelegenheit, mit jemandem zu sprechen, der tatsächlich an den YouTube-[Seiten-an-Seiten-Anzeigen](/youtube-tipps-de/youtube-updates-neue-av1-codec-unterstutzung-erweiterung-der-sprachantworten-und-einfuhrung-von-neben-einem-anderen-anzeigen/) für Live-Streams arbeitet, und wir haben einige neue Informationen zu teilen. Erstens, warum sind sie nur Seiten-an-Seiten und nicht Vollbild? Nun, hier kommen einige technische Einschränkungen ins Spiel.
 
 Der Hauptgrund ist, dass YouTube die bereits von Werbetreibenden bereitgestellten 16:9-Anzeigen wiederverwenden möchte, die vor Videos oder als Mid-Rolls geschaltet werden. Sie möchten diese in Live-Streams als Mid-Rolls integrieren, aber in einem Seiten-an-Seiten-Format. Dies würde voraussetzen, dass Werbetreibende völlig neue Anzeigen mit einem anderen Format nur für Live-Streams erstellen müssten, wozu sie nicht bereit waren.
 
@@ -35,4 +35,4 @@ Leider gibt es derzeit keine Pläne, Daten mit dem Leaderboard über eine API au
 
 Ende Mai wird YouTube auch Änderungen hinsichtlich Schimpfwörtern und gelben Monetarisierungs-Icons vornehmen. Bisher mussten die ersten sieben Sekunden eines Videos frei von starken Schimpfwörtern sein, um ein gelbes Icon zu vermeiden. Diese Regel wird entfernt, da YouTube mit Werbetreibenden konsultiert hat, die mit Fluchen einverstanden sind. Denken Sie jedoch daran, dass Sie sich weiterhin an die Community-Richtlinien gegen Hassrede und Cybermobbing halten müssen. Also, übertreiben Sie es nicht, und wenn Sie starke Schimpfwörter vermeiden können, ist es ratsam, dies zu tun.
 
-Das war's für heute. Wenn Sie weitere Fragen zu den besprochenen Themen haben, hinterlassen Sie gerne einen Kommentar. Ansonsten sehen wir uns nächste Woche mit weiteren YouTube-Updates. Auf Wiedersehen!
+Das war's für heute. Wenn Sie weitere Fragen zu den besprochenen Themen haben, hinterlassen Sie gerne einen Kommentar. Ansonsten sehen wir uns nächste Woche mit weiteren [YouTube-Updates](/youtube-tipps-de/youtube-updates-ios-beitrittstaste-multi-format-live-streams-und-analysereparatur/). Auf Wiedersehen!

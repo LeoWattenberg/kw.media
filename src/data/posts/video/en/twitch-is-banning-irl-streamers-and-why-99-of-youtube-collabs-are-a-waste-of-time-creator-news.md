@@ -27,7 +27,7 @@ First up, Twitch is reinventing IRL streaming with new rules—or what should be
 
 Twitch also announced disconnect protection for their mobile app: if your connection drops, they'll keep the stream alive for 90 seconds to prevent VOD fragmentation. Welcome to 2016, Twitch—YouTube has had this feature with scheduled streams for ages.
 
-Now, let's talk about a strategic shift across platforms. YouTube's report confirms what we already knew: the era of solo creators working alone is fading. The new meta is shared universes, where top creators build interconnected storylines across channels and platforms, like the Marvel Cinematic Universe but for creators. This isn't limited to gaming; think of a fitness YouTuber trying a cooking creator's recipe or vice versa, each uploading their perspective.
+Now, let's [talk about](/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/) a strategic shift across platforms. YouTube's report confirms what we already knew: the era of solo creators working alone is fading. The new meta is shared universes, where top creators build interconnected storylines across channels and platforms, like the Marvel Cinematic Universe but for creators. This isn't limited to gaming; think of a fitness YouTuber trying a cooking creator's recipe or vice versa, each uploading their perspective.
 
 This leads to video chains, where viewers jump between channels, benefiting both with increased session time. These shared universes are the future of content gamification, requiring significant planning and professional partners. Finding these partners can be tough; for example, on YouTube Gaming Discord, collab sections often feature vague posts with no clear scope or requirements, leading to frustration.
 

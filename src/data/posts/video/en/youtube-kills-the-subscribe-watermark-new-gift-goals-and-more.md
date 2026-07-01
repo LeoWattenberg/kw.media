@@ -21,15 +21,15 @@ video:
 
 ## Transcript
 
-What's up everyone and welcome back to the YouTube news. This week, YouTube is finally getting rid of a feature that probably no one uses anymore. We're getting new tools for vertical live streams that most of the world can't utilize, and some general housekeeping in YouTube Studio. Let's dive right in.
+What's up everyone and welcome back to the YouTube news. This week, YouTube is finally getting rid of a feature that probably no one uses anymore. We're getting new tools for [vertical live streams](/youtube-tips-en/youtube-livestream-updates-hype-expansion-and-ai-inspiration-tools-for-eu-creators/) that most of the world can't utilize, and some general housekeeping in YouTube Studio. Let's dive right in.
 
 Alright, let's start with the biggest news: YouTube is officially deprecating the subscribe button watermark. You know, the little icon in the bottom right corner of your videos that you could set up in your channel branding? Yep, that's going away.
 
 YouTube's reasoning is pretty solid here. They say that on mobile, where most people are watching, the watermark is either covered by other UI elements or just too small to be effective. The data shows that very few people were actually clicking on it. What are the alternatives? Well, the ones you should've been using all along: a clear call to action in your video (like "Please subscribe if you want to know more about YouTube"), your end screens, and a pinned comment, of course.
 
-My take on this? Honestly, it's a good move. A legacy feature that wasn't doing its job anymore but still had to be maintained, eating up development resources that could be used elsewhere.
+My take on this? Honestly, it's a good move. A legacy feature that wasn't doing its job anymore but still had to be maintained, eating up development resources that [could be](/youtube-tips-en/youtube-ends-clip-feature-and-why-this-is-actually-win-for-your-channel/) used elsewhere.
 
-Next up, an update for vertical live streaming. YouTube is introducing gift goals. This allows you to set a goal for the number of fan funding gifts or YouTube Jewels you want to receive during a live stream. Now, let's be very clear about what this *isn't*. Unfortunately, this has nothing to do with gifted memberships. It's purely for the little animated gifts that viewers can buy on vertical live streams.
+Next up, an update for [vertical live](/youtube-tips-en/youtubes-ui-update-confuses-users-and-creators/) streaming. YouTube is introducing gift goals. This allows you to set a goal for the number of fan funding gifts or YouTube Jewels you want to receive during a live stream. Now, let's be very clear about what this *isn't*. Unfortunately, this has nothing to do with gifted memberships. It's purely for the little animated gifts that viewers can buy on vertical live streams.
 
 YouTube also announced that a new gift design collection is coming this fall, mainly themed around pumpkins. Also, this entire feature, including the gifts themselves, is only available in the US. There's no timeline for an international expansion yet. So, for the vast majority of us, this is just another feature we can look at but not actually use.
 

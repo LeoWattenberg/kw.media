@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-We need to talk about YouTube's Subscribe Plus experiment. For some users, YouTube has combined the subscribe button and the join button for memberships into a single button called "Subscribe Plus." YouTube claims that users were confused by the dual buttons and the interface was cluttered, hence the decision to merge them. However, I find it even more confusing to have one button represent both a paid and unpaid feature in the same context.
+[We need to talk about](/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/) YouTube's Subscribe Plus experiment. For some users, YouTube has combined the subscribe button and the join button for memberships into a single button called "Subscribe Plus." YouTube claims that users were confused by the dual buttons and the interface was cluttered, hence the decision to merge them. However, I find it even more confusing to have one button represent both a paid and unpaid feature in the same context.
 
 If you have feedback on this change, please share it in the comments below or head over to the Creator Insider channel and leave your thoughts there. Either way, YouTube will see your feedback, and hopefully, we can convince them to separate the buttons and halt this experiment.
 

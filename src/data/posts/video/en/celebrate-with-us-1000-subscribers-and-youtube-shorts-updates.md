@@ -23,7 +23,7 @@ video:
 
 We need to talk about YouTube Shorts: starting on October 15th, they will support a duration of up to 3 minutes. Of course, you can still upload shorter shorts as well, no problem there. Vertical videos published before October 15th will continue to be treated as long-form videos. New videos with square or vertical resolution and a duration of less than 180 seconds will become shorts. Initially, uploads are limited to desktop since the shorts creation tools like the Shorts Editor or the Remix button under videos will only be updated early next year.
 
-Long shorts need a better name and won't initially appear in the shorts feed but can show up in the home feed or "Up Next." It's important that you don't think you're suddenly creating long shorts and everything will be great. They'll be somewhat limited at first until the data is processed.
+[Long shorts](/youtube-tips-en/long-shorts-are-not-displayed-correctly-in-youtube-studio-memberships-updates-and-more/) need a better name and won't initially appear in the shorts feed but can show up in the home feed or "Up Next." It's important that you don't think you're suddenly creating long shorts and everything will be great. They'll be somewhat limited at first until the data is processed.
 
 Long shorts are part of the shorts monetization program. If you're in the YouTube Partner Program and earn revenue from shorts, you can also make ad revenue from long shorts. Heads up: monetization is based on views, so it might be beneficial to split a 3-minute video into three 1-minute videos linked together to get more views and thus more earnings.
 

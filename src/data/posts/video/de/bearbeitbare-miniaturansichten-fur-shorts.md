@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Bis vor kurzem konntest du nur Miniaturansichten für Shorts während des Uploads auswählen. Jetzt kannst du auch in deiner Haupt-YouTube-App Miniaturansichten für Shorts bearbeiten, indem du zu deinen Shorts navigierst, auf "Bearbeiten" klickst und das Bleistift-Symbol auswählst. Durchsuche den Short, um einen Frame zu finden, den du verwenden möchtest, füge dann Text in der passenden Größe, Schriftart und Farbe hinzu. Vergiss nicht, deine Änderungen zu speichern. Abonniere für weitere YouTube-Updates!
+Bis vor kurzem konntest du nur [Miniaturansichten für Shorts](/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/) während des Uploads auswählen. Jetzt kannst du auch in deiner Haupt-YouTube-App Miniaturansichten für Shorts bearbeiten, indem du zu deinen Shorts navigierst, auf "Bearbeiten" klickst und das Bleistift-Symbol auswählst. Durchsuche den Short, um einen Frame zu finden, den du verwenden möchtest, füge dann Text in der passenden Größe, Schriftart und Farbe hinzu. Vergiss nicht, deine Änderungen zu speichern. Abonniere für weitere YouTube-Updates!

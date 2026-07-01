@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-If you've already created Shorts, please remember to activate monetization for this content, otherwise you won't be able to get a revenue share. Fortunately, the YouTube Biking editing tool in YouTube Studio can do this for you; you simply select all your Shorts and choose to monetize them, and that's it!
+If you've already created Shorts, please remember to [activate monetization](/youtube-tips-en/when-is-the-short-monetization-coming/) for this content, otherwise you won't be able to get a revenue share. Fortunately, the YouTube Biking editing tool in YouTube Studio can do this for you; you simply select all your Shorts and choose to monetize them, and that's it!

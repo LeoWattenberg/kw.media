@@ -16,7 +16,7 @@ sourceUrl: "https://kw.media/youtube-tipps-de/youtube-kanal-erstellen-in-2023/"
 
 ## Should I Create a Personal YouTube Channel or a Brand Account?
 
-A **personal** YouTube channel is suitable for **solo creators** who do not plan to transfer their channel to others. **Companies**, on the other hand, are better off with a **brand account** as multiple Google accounts can manage a YouTube brand account simultaneously.
+A **personal** YouTube channel is suitable for **solo creators** who do not plan to transfer their channel to others. **Companies**, on the other hand, are better off with a **[brand account](/youtube-tips-en/boost-your-channel-with-effective-branding/)** as multiple Google accounts can manage a YouTube brand account simultaneously.
 
 <figure><div>
 <div class="nv-iframe-embed"><iframe title="Take Off: Creating Your YouTube Channel in 2023 (Personal & Business Channels)" width="1200" height="675" src="https://www.youtube.com/embed/mKOsyRGYNyc?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
@@ -24,7 +24,7 @@ A **personal** YouTube channel is suitable for **solo creators** who do not plan
 
 ## Creating a Personal YouTube Channel:
 
-To create a personal YouTube channel, click on your profile picture in the top right corner and select "Create Channel." Enter your channel name and alias (custom channel URL). Note that the alias must be unique and comply with YouTube's guidelines for aliases. For more information on aliases, visit: [https://support.google.com/youtube/answer/11585688](https://support.google.com/youtube/answer/11585688) YouTube will take a moment to display the channel. However, edits and changes can already be made at [https://studio.youtube.com/](https://studio.youtube.com/) during this time.
+To create a personal YouTube channel, click on your [profile picture](/youtube-tips-en/your-youtube-channel-guide-to-customizing-profile-picture-banner-and-watermark/) in the top right corner and select "Create Channel." Enter your channel name and alias (custom channel URL). Note that the alias must be unique and comply with YouTube's guidelines for aliases. For more information on aliases, visit: [https://support.google.com/youtube/answer/11585688](https://support.google.com/youtube/answer/11585688) YouTube will take a moment to display the channel. However, edits and changes can already be made at [https://studio.youtube.com/](https://studio.youtube.com/) during this time.
 
 ## Creating a Company YouTube Channel / Brand Account:
 

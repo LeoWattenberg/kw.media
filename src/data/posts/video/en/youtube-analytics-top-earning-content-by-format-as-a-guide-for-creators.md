@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-There's a new analytics card: "Top-Earning Content" under "Format". Here, it breaks down the highest-earning content by formats like videos, shorts, and live streams. I'm sure I've seen this feature before, but now it's being shown to everyone in the Revenue tab of your YouTube Analytics. There's a new card called "Content Performance" that lists the top-earning content in shorts, videos, and live streams. This can be especially useful for creators with mixed content to see what's most lucrative and adjust their strategy accordingly.
+There's a new [analytics card](/youtube-tips-en/youtube-update-new-analytics-card-and-soon-mentions-for-mobile-chats/): "Top-Earning Content" under "Format". Here, it breaks down the highest-earning content by formats like videos, shorts, and live streams. I'm sure I've seen this feature before, but now it's being shown to everyone in the Revenue tab of your [YouTube Analytics](/youtube-tips-en/youtube-abc-quick-start-with-youtube-analytics/). There's a new card called "Content Performance" that lists the top-earning content in shorts, videos, and live streams. This can be especially useful for creators with mixed content to see what's most lucrative and adjust their strategy accordingly.
 
 This feature will also be available in the YouTube Mobile Studio app. Additionally, the YouTube Create app is being launched in more countries; Germany was already available. I've linked the list of new launch countries in the video description. There was also an update with an audio cleanup tool for the Create app, which I haven't tried yet. I'd love to read about your experiences with it in the comments.
 

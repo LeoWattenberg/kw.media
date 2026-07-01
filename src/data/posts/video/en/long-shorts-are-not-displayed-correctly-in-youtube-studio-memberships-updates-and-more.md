@@ -21,13 +21,13 @@ video:
 
 ## Transcript
 
-We need to talk about long Shorts again. Last time we discussed this, there were a lot of follow-up questions, so here's a recap: Just because a feature is launched, doesn't mean all Creators have immediate access. It's a process that can take weeks or even months. YouTube's current timeline looks like this:
+We need to talk about [long Shorts](/youtube-tips-en/celebrate-with-us-1000-subscribers-and-youtube-shorts-updates/) again. Last time we discussed this, there were a lot of follow-up questions, so here's a recap: Just because a feature is launched, doesn't mean all Creators have immediate access. It's a process that can take weeks or even months. YouTube's current timeline looks like this:
 
 Over the past week, the technical switch was made on the server side, so newly uploaded vertical and square videos under 3 minutes are now classified as Shorts. That part has been working well. However, long Shorts can still appear as videos in YouTube Studio because the Studio is programmed differently from the underlying technology. Long Shorts aren't yet appearing in the Shorts feed—that will change by the end of next week. Then we'll start seeing the first Shorts in the feed, but not all of them and not immediately with high reach.
 
-The next step in the timeline is late November. That's when long Shorts should also appear on the Shorts shelf, in the subscriber feed, and on channel pages in the Shorts tab. That's also when YouTube Studio will switch over. Until then, the 3-minute Shorts may already be technically classified as Shorts, but they'll still appear as videos in the Studio. I know that's confusing, but try not to worry. Nothing bad will happen if you've done everything right.
+The next step in the timeline is late November. That's when long Shorts should also appear on the Shorts shelf, in the subscriber feed, and on channel pages in the Shorts tab. That's also when YouTube Studio will switch over. Until then, the [3-minute Shorts](/youtube-tips-en/update-for-youtube-streamers-scheduled-streams-now-linked-in-all-shorts/) may already be technically classified as Shorts, but they'll still appear as videos in the Studio. I know that's confusing, but try not to worry. Nothing bad will happen if you've done everything right.
 
-The Shorts creation tool in the YouTube app will be adjusted in Q1 2025 so you can create 3-minute Shorts. Please remember that Q1 spans several months and this timeline could still change.
+The Shorts creation tool in the YouTube app will be adjusted in Q1 2025 so you can create [3-minute Shorts](/youtube-tips-en/youtube-updates-playable-multitasking-and-3-minute-shorts/). Please remember that Q1 spans several months and this timeline could still change.
 
 The information I'm sharing with you today is the latest as of October 18th. Launches can unexpectedly change, so don't panic if you don't have immediate access after the launch. I'll keep you updated in the next episode of Patch Notes.
 

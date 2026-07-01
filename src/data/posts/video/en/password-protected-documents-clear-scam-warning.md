@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-This week there are no YouTube updates, but I want to warn you about a current scam that is quite sophisticated and might deceive the untrained eye. It involves private videos being uploaded to channels that look official, which are then shared with other people, mainly Creators. In these videos, you see a fake YouTube CEO asking you to download an encrypted document to view the latest updates on YouTube monetization.
+This week there are no YouTube updates, but I want to warn you about a [current scam](/youtube-tips-en/warning-phishing-emails-are-targeting-your-youtube-channel/) that is quite sophisticated and might deceive the untrained eye. It involves private videos being uploaded to channels that look official, which are then shared with other people, mainly Creators. In these videos, you see a fake YouTube CEO asking you to download an encrypted document to view the latest updates on YouTube monetization.
 
 Of course, you shouldn't do this! These updates are publicly available and are released by official YouTube channels like Creator Insider, PE channels such as mine or my PE colleague's on Twitter, in the forum, and in YouTube blog posts. They will never be sent to your email address as an encrypted email or document referring to a private video. Got it? Great! Please don't open such links, whether they come via email or appear in the description of a private video.
 

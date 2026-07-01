@@ -26,7 +26,7 @@ Frohes neues Jahr! Während die meisten Ingenieurteams von YouTube noch im Urlau
 - Die Erweiterung der individuellen Kanalrichtlinien ist nun für alle Creator mit Zugang zu fortgeschrittenen Funktionen vollständig live. Wenn Sie noch keine Chat-Regeln eingerichtet haben, tun Sie es jetzt.
 - YouTube aktualisiert die Darstellung von Familiengroups auf TV-Geräten. Cool für Zuschauer, irrelevant für uns Creator.
 
-Kommen wir nun zum Elefanten im Raum: die YouTube-Suchüberarbeitung. Neil Mohan, CEO von YouTube, hat eine kurze Notiz zu diesem Thema in den Threads hinterlassen, also dachte ich mir, ich schaue mal genauer hin.
+Kommen wir nun zum Elefanten im Raum: die [YouTube-Suchüberarbeitung](/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/). Neil Mohan, CEO von YouTube, hat eine kurze Notiz zu diesem Thema in den Threads hinterlassen, also dachte ich mir, ich schaue mal genauer hin.
 
 Die erste Änderung ist die Formataufteilung. Sie können endlich die Suchergebnisse filtern, um nur Shorts oder nur langformatige Inhalte anzuzeigen. Das beendet vorerst das Chaos des gemischten Feeds. Allerdings müssen Sie dies für jede Suche einzeln einstellen, und es ist keine Kontoeinstellung.
 
@@ -36,7 +36,7 @@ Drittens wird das "Sortieren nach"-Menü nun als "Priorisieren" bezeichnet. Inte
 
 Was bedeutet das also für Sie als Creator im Jahr 2026? Es ändert sich nicht allzu viel. Die Zufriedenheit des Zuschauers ist immer noch der Schlüssel, und Sie müssen Ihr Thumbnail-Versprechen einhalten, um eine gute Platzierung zu erreichen. Eigentlich ziemlich einfach.
 
-Und da wir gerade von Retention und Zuschauerzufriedenheit sprechen, reden wir über die Audio-Strategie. Ich habe eine tolle Frage von Game Masters gesehen: "Ist Hintergrundmusik im gesamten Video noch aktuell?" Nun, so kann man es sagen: Die Ära des drauflosklatschenden, 10-minütigen Lo-Fi-Beats auf Endlosschleife ist längst vorbei. Audio und insbesondere Musik lenken die Emotionen des Zuschauers. Deshalb sollten Sie die Emotion definieren, die der Zuschauer zu jedem Zeitpunkt in Ihrem Video empfühlen soll. Was ist gerade die Geschichte? Brauche ich Spannung? Brauche ich Erleichterung? Brauche ich Aufregung? Und entscheiden Sie sich nicht für ein Genre. Gehen Sie nach Stimmungen.
+Und da wir gerade von Retention und Zuschauerzufriedenheit sprechen, reden wir über die [Audio-Strategie](/youtube-tipps-de/neue-audioeinstellungen-vpn-umsatzwarnung-youtube-creator-news/). Ich habe eine tolle Frage von Game Masters gesehen: "Ist Hintergrundmusik im gesamten Video noch aktuell?" Nun, so kann man es sagen: Die Ära des drauflosklatschenden, 10-minütigen Lo-Fi-Beats auf Endlosschleife ist längst vorbei. Audio und insbesondere Musik lenken die Emotionen des Zuschauers. Deshalb sollten Sie die Emotion definieren, die der Zuschauer zu jedem Zeitpunkt in Ihrem Video empfühlen soll. Was ist gerade die Geschichte? Brauche ich Spannung? Brauche ich Erleichterung? Brauche ich Aufregung? Und entscheiden Sie sich nicht für ein Genre. Gehen Sie nach Stimmungen.
 
 Hier sind einige Beispielkombinationen, um Ihnen den Einstieg zu erleichtern:
 - Wenn Sie eine Gaming-Herausforderung produzieren, wollen Sie das Gefühl von Spannung vermitteln, dunkle Ambient-Musik, um das Risiko des Verlierens zu betonen, und dann zu einem epischen Orchester für den Sieg wechseln.

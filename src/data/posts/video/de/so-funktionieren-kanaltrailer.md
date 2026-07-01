@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-YouTube bietet euch an, Videos für nicht abonnierte User und wiederkehrende Abonnenten auf eurer Kanalseite hervorzuheben. Um diese Videos auszuwählen, geht ihr in eurem Studio in den Tab „Anpassen“. Von dort aus könnt ihr für beide Kategorien ein Video auswählen.
+YouTube bietet euch an, Videos für nicht abonnierte User und wiederkehrende Abonnenten auf eurer Kanalseite hervorzuheben. Um diese Videos auszuwählen, geht ihr in [eurem Studio](/youtube-tipps-de/dein-youtube-kanal-anleitung-zur-anpassung-von-profilbild-banner-und-wasserzeichen/) in den Tab „Anpassen“. Von dort aus könnt ihr für beide Kategorien ein Video auswählen.
