@@ -179,12 +179,12 @@ function parsePathArray(text) {
 		}
 	}
 
-	return [...trimmed.matchAll(/\/(?:youtube-[^"\s]+|audacity\/[^"\s]+)\/(?=["\s,}\]])/g)].map((match) => match[0]);
+	return [...trimmed.matchAll(/\/(?:(?:en\/)?audacity\/[^"\s]+|youtube-[^"\s]+)\/(?=["\s,}\]])/g)].map((match) => match[0]);
 }
 
 function collectPathStrings(value) {
 	if (typeof value === 'string') {
-		return value.startsWith('/youtube-') || value.startsWith('/audacity/') ? [value] : [];
+		return value.startsWith('/youtube-') || value.startsWith('/audacity/') || value.startsWith('/en/audacity/') ? [value] : [];
 	}
 
 	if (Array.isArray(value)) {

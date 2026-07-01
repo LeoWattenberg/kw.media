@@ -16,7 +16,7 @@
 		},
 		"en": {
 			"id": "audacity-en",
-			"path": "/audacity/",
+			"path": "/en/audacity/",
 			"title": "Audacity Tutorials",
 			"description": "Audacity tutorials and updates by Leo Wattenberg.",
 			"blocks": [

@@ -1,7 +1,7 @@
 ---
 id: 3400
 slug: "installing-ffmpeg-for-audacity-fast-tutorial"
-path: "/audacity/installing-ffmpeg-for-audacity-fast-tutorial/"
+path: "/en/audacity/installing-ffmpeg-for-audacity-fast-tutorial/"
 title: "Installing FFmpeg for Audacity [FAST Tutorial]"
 excerpt: "FFmpeg is a library that is necessary to open, import, and export various kinds of media files. It is not included with Audacity by default."
 date: "2023-08-30T14:53:36"

@@ -198,7 +198,7 @@ function postDirectoryKind(frontmatter) {
 
 function routePathForPost(frontmatter, targetLocale, slug) {
 	if (frontmatter.category === 'audacity') {
-		return `/audacity/${slug}/`;
+		return targetLocale === 'en' ? `/en/audacity/${slug}/` : `/audacity/${slug}/`;
 	}
 
 	return `${routePrefixes[targetLocale]}/${slug}/`;

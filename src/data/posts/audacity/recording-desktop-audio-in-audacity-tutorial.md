@@ -1,7 +1,7 @@
 ---
 id: 3401
 slug: "recording-desktop-audio-in-audacity-tutorial"
-path: "/audacity/recording-desktop-audio-in-audacity-tutorial/"
+path: "/en/audacity/recording-desktop-audio-in-audacity-tutorial/"
 title: "Recording desktop audio in Audacity [Tutorial]"
 excerpt: "To record desktop audio in Audacity, go to Audio Setup Host and set the host to Windows WASAPI. In the case of Mac or Linux, it's a lot more complicated, and I will not be covering it in this tutorial."
 date: "2023-09-02T21:41:18"

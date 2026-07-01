@@ -44,7 +44,7 @@ export const routes = {
 	},
 	audacity: {
 		de: '/de/audacity/',
-		en: '/audacity/',
+		en: '/en/audacity/',
 	},
 	imprintService: {
 		de: '/impressumsservice/',

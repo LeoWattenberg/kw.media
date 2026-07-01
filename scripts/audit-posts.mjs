@@ -92,7 +92,9 @@ function auditPost(post, allPosts) {
 	}
 
 	const expectedPathPrefixes = frontmatter.category === 'audacity'
-		? ['/audacity/']
+		? frontmatter.locale === 'en'
+			? ['/en/audacity/']
+			: ['/audacity/']
 		: frontmatter.locale === 'de'
 			? ['/youtube-tipps-de/']
 			: ['/youtube-tips-en/', '/blog/'];

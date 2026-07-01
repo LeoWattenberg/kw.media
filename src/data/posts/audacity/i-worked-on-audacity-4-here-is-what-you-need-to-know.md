@@ -1,7 +1,7 @@
 ---
 id: 3402
 slug: "i-worked-on-audacity-4-here-is-what-you-need-to-know"
-path: "/audacity/i-worked-on-audacity-4-here-is-what-you-need-to-know/"
+path: "/en/audacity/i-worked-on-audacity-4-here-is-what-you-need-to-know/"
 title: "I worked on Audacity 4, here is what you need to know"
 excerpt: "Hello and welcome to this Audacity 4 tour. My name is Leo Wattenberg, and I was a designer on Audacity 4."
 date: "2026-06-05T09:05:19"
