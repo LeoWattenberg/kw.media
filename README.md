@@ -23,6 +23,8 @@ Run commands from the project root:
 | `npm run fix:posts -- --all-fixes --write` | Also apply local-AI title/excerpt metadata suggestions |
 | `npm run metadata:posts -- --weak --output=.cache/post-metadata-suggestions.json` | Generate local-AI metadata suggestions for weak posts |
 | `npm run excerpt:posts -- --weak --dry-run` | Preview local-AI excerpt repairs for weak posts |
+| `npm run links:posts -- --limit=20` | Preview inline links from post bodies to related same-language posts |
+| `npm run links:posts -- --write` | Apply inline post links, then review the Markdown changes in git |
 | `npm run translate:post -- src/data/posts/.../post.md` | Translate one or more posts into the other locale |
 | `npm run translate:all-missing` | Create missing translations for all posts |
 | `npm run astro -- --help` | Show Astro CLI help |
@@ -51,3 +53,5 @@ Generated translation pairs are connected with `translationKey` frontmatter, and
 `fix:posts` defaults to dry-run mode. Add `--write` to edit files, then review the result in git. Use `--deterministic`, `--excerpts`, `--metadata`, or `--translations` to run individual repair lanes.
 
 The post overview search is static and runs in the browser against already-rendered post cards. It does not call a search backend or AI service at runtime, so it is compatible with GitHub Pages.
+
+`links:posts` is deterministic. It uses `src/data/related-posts.json` when available, falls back to same-language posts, and only inserts Markdown links where a title, excerpt, or heading phrase naturally appears in unlinked body text.
