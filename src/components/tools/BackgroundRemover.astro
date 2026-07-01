@@ -16,7 +16,7 @@ const copyByLocale = {
 	de: {
 		eyebrow: 'Bild-Tool',
 		title: 'Hintergrund entfernen',
-		intro: 'Entferne einfarbige oder nahezu einfarbige Bildhintergründe direkt im Browser mit ImageMagick WASM.',
+		intro: 'Entferne einfarbige, nahezu einfarbige oder gefälschte Schachbrett-Hintergründe direkt im Browser mit ImageMagick WASM.',
 		privacy: 'Deine Datei wird nicht hochgeladen. Die Transparenz wird clientseitig erzeugt.',
 		fileTitle: 'Quelldatei',
 		chooseFile: 'Bilddatei wählen',
@@ -25,6 +25,7 @@ const copyByLocale = {
 		mode: 'Modus',
 		modeEdges: 'Hintergrund an den Rändern',
 		modeColor: 'Farbe im ganzen Bild',
+		modeCheckerboard: 'Fake-PNG-Schachbrett',
 		corners: 'Ecken prüfen',
 		topLeft: 'Oben links',
 		topRight: 'Oben rechts',
@@ -62,13 +63,13 @@ const copyByLocale = {
 			singleFrame: '1 Frame',
 			multipleFrames: '{count} Frames',
 			unknownError: 'Unbekannter Fehler',
-			waiting: 'Wähle ein Bild. Der Ränder-Modus entfernt zusammenhängende, einfarbige Hintergründe am zuverlässigsten.',
+			waiting: 'Wähle ein Bild. Der Schachbrett-Modus entfernt gefälschte Transparenz-Hintergründe mit zwei Kachelfarben.',
 		},
 	},
 	en: {
 		eyebrow: 'Image tool',
 		title: 'Background Remover',
-		intro: 'Remove solid or near-solid image backgrounds directly in your browser with ImageMagick WASM.',
+		intro: 'Remove solid, near-solid, or fake checkerboard image backgrounds directly in your browser with ImageMagick WASM.',
 		privacy: 'Your file is not uploaded. Transparency is created client-side.',
 		fileTitle: 'Source file',
 		chooseFile: 'Choose image file',
@@ -77,6 +78,7 @@ const copyByLocale = {
 		mode: 'Mode',
 		modeEdges: 'Background at edges',
 		modeColor: 'Color across image',
+		modeCheckerboard: 'Fake PNG checkerboard',
 		corners: 'Check corners',
 		topLeft: 'Top left',
 		topRight: 'Top right',
@@ -114,7 +116,7 @@ const copyByLocale = {
 			singleFrame: '1 frame',
 			multipleFrames: '{count} frames',
 			unknownError: 'Unknown error',
-			waiting: 'Choose an image. Edge mode works best for connected, solid-color backgrounds.',
+			waiting: 'Choose an image. Checkerboard mode removes fake transparency backgrounds with two tile colors.',
 		},
 	},
 } satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
@@ -165,6 +167,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 						<span>{copy.mode}</span>
 						<select data-mode>
 							<option value="edges" selected>{copy.modeEdges}</option>
+							<option value="checkerboard">{copy.modeCheckerboard}</option>
 							<option value="color">{copy.modeColor}</option>
 						</select>
 					</label>
@@ -426,7 +429,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			}
 
 			function removeWithMagick(magick, inputBytes, settings) {
-				const { AlphaAction, ImageMagick, MagickColor, Percentage } = magick;
+				const { AlphaAction, ImageMagick, MagickColor, Percentage, PixelChannel, Quantum } = magick;
 				let metadata = {
 					width: 0,
 					height: 0,
@@ -453,6 +456,11 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 								const point = cornerToPoint(corner, image.width, image.height);
 								image.floodFill(0, point.x, point.y);
 							}
+						} else if (settings.mode === 'checkerboard') {
+							removeCheckerboardBackground(image, settings, {
+								PixelChannel,
+								Quantum,
+							});
 						} else {
 							image.transparent(new MagickColor(settings.color));
 						}
@@ -539,7 +547,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			function updateModeView() {
 				const isColorMode = modeSelect.value === 'color';
 				colorControl.hidden = !isColorMode;
-				cornerGroup.hidden = isColorMode;
+				cornerGroup.hidden = modeSelect.value !== 'edges';
 			}
 
 			function updateQualityControl() {
@@ -631,6 +639,294 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 					x: corner.endsWith('right') ? maxX : 0,
 					y: corner.startsWith('bottom') ? maxY : 0,
 				};
+			}
+
+			function removeCheckerboardBackground(image, settings, magickApi) {
+				const { PixelChannel, Quantum } = magickApi;
+				const width = image.width;
+				const height = image.height;
+				const quantumMax = Quantum && Number.isFinite(Quantum.max) ? Quantum.max : 255;
+				const channelTolerance = Math.round((settings.fuzz / 100) * quantumMax);
+				const matchToleranceSq = channelTolerance * channelTolerance * 3;
+
+				image.getPixels((pixels) => {
+					const redIndex = pixels.getChannelIndex(PixelChannel.Red);
+					const greenIndex = pixels.getChannelIndex(PixelChannel.Green);
+					const blueIndex = pixels.getChannelIndex(PixelChannel.Blue);
+					const alphaIndex = pixels.getChannelIndex(PixelChannel.Alpha);
+					const channelCount = image.channelCount;
+
+					if (
+						redIndex < 0 || greenIndex < 0 || blueIndex < 0 ||
+						alphaIndex < 0 || channelCount <= Math.max(redIndex, greenIndex, blueIndex, alphaIndex)
+					) {
+						return;
+					}
+
+					const pixelsData = pixels.getArea(0, 0, width, height);
+					const channels = {
+						alpha: alphaIndex,
+						blue: blueIndex,
+						count: channelCount,
+						green: greenIndex,
+						red: redIndex,
+					};
+					const borderSamples = collectBorderSamples(pixelsData, width, height, channels);
+					const colors = detectCheckerColors(borderSamples);
+
+					if (!colors.length) {
+						return;
+					}
+
+					const tileSize = colors.length > 1
+						? estimateCheckerTileSize(pixelsData, width, height, channels, colors, matchToleranceSq)
+						: 0;
+					const model = tileSize
+						? fitCheckerGrid(borderSamples, colors, tileSize, matchToleranceSq)
+						: null;
+
+					for (let y = 0; y < height; y += 1) {
+						for (let x = 0; x < width; x += 1) {
+							const offset = ((y * width) + x) * channelCount;
+							const label = matchCheckerColor(
+								{
+									b: pixelsData[offset + blueIndex],
+									g: pixelsData[offset + greenIndex],
+									r: pixelsData[offset + redIndex],
+								},
+								colors,
+								matchToleranceSq,
+							);
+
+							if (label < 0) {
+								continue;
+							}
+
+							if (!model || label === expectedCheckerLabel(x, y, model)) {
+								pixelsData[offset + alphaIndex] = 0;
+							}
+						}
+					}
+
+					pixels.setArea(0, 0, width, height, pixelsData);
+				});
+			}
+
+			function collectBorderSamples(pixelsData, width, height, channels) {
+				const samples = [];
+				const edgeLength = (width * 2) + (height * 2);
+				const step = Math.max(1, Math.floor(edgeLength / 6000));
+
+				for (let x = 0; x < width; x += step) {
+					samples.push(readPixelSample(pixelsData, width, channels, x, 0));
+
+					if (height > 1) {
+						samples.push(readPixelSample(pixelsData, width, channels, x, height - 1));
+					}
+				}
+
+				for (let y = 0; y < height; y += step) {
+					samples.push(readPixelSample(pixelsData, width, channels, 0, y));
+
+					if (width > 1) {
+						samples.push(readPixelSample(pixelsData, width, channels, width - 1, y));
+					}
+				}
+
+				return samples;
+			}
+
+			function readPixelSample(pixelsData, width, channels, x, y) {
+				const offset = ((y * width) + x) * channels.count;
+
+				return {
+					b: pixelsData[offset + channels.blue],
+					g: pixelsData[offset + channels.green],
+					r: pixelsData[offset + channels.red],
+					x,
+					y,
+				};
+			}
+
+			function detectCheckerColors(samples) {
+				const buckets = new Map();
+				const bucketSize = 12;
+
+				for (const sample of samples) {
+					const key = [
+						Math.round(sample.r / bucketSize),
+						Math.round(sample.g / bucketSize),
+						Math.round(sample.b / bucketSize),
+					].join(',');
+					const bucket = buckets.get(key) || {
+						b: 0,
+						count: 0,
+						g: 0,
+						r: 0,
+					};
+
+					bucket.b += sample.b;
+					bucket.count += 1;
+					bucket.g += sample.g;
+					bucket.r += sample.r;
+					buckets.set(key, bucket);
+				}
+
+				const dominant = Array.from(buckets.values())
+					.map((bucket) => ({
+						b: Math.round(bucket.b / bucket.count),
+						count: bucket.count,
+						g: Math.round(bucket.g / bucket.count),
+						r: Math.round(bucket.r / bucket.count),
+					}))
+					.sort((a, b) => b.count - a.count);
+				const colors = [];
+
+				for (const color of dominant) {
+					if (colors.every((existing) => colorDistanceSq(color, existing) >= 12 * 12 * 3)) {
+						colors.push(color);
+					}
+
+					if (colors.length === 2) {
+						break;
+					}
+				}
+
+				return colors;
+			}
+
+			function estimateCheckerTileSize(pixelsData, width, height, channels, colors, matchToleranceSq) {
+				const runs = [];
+
+				addCheckerRuns(runs, readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'top'));
+				addCheckerRuns(runs, readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'bottom'));
+				addCheckerRuns(runs, readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'left'));
+				addCheckerRuns(runs, readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, 'right'));
+
+				if (!runs.length) {
+					return 0;
+				}
+
+				runs.sort((a, b) => a - b);
+				return Math.max(2, Math.min(64, Math.round(runs[Math.floor(runs.length / 2)])));
+			}
+
+			function readEdgeLabels(pixelsData, width, height, channels, colors, matchToleranceSq, edge) {
+				const labels = [];
+				const length = edge === 'top' || edge === 'bottom' ? width : height;
+
+				for (let index = 0; index < length; index += 1) {
+					const x = edge === 'right' ? width - 1 : edge === 'left' ? 0 : index;
+					const y = edge === 'bottom' ? height - 1 : edge === 'top' ? 0 : index;
+					const sample = readPixelSample(pixelsData, width, channels, x, y);
+
+					labels.push(matchCheckerColor(sample, colors, matchToleranceSq));
+				}
+
+				return labels;
+			}
+
+			function addCheckerRuns(runs, labels) {
+				let currentLabel = -1;
+				let currentLength = 0;
+
+				for (const label of labels) {
+					if (label === currentLabel) {
+						currentLength += 1;
+						continue;
+					}
+
+					if (currentLabel >= 0 && currentLength >= 2 && currentLength <= 96) {
+						runs.push(currentLength);
+					}
+
+					currentLabel = label;
+					currentLength = 1;
+				}
+
+				if (currentLabel >= 0 && currentLength >= 2 && currentLength <= 96) {
+					runs.push(currentLength);
+				}
+			}
+
+			function fitCheckerGrid(samples, colors, tileSize, matchToleranceSq) {
+				let best = null;
+				const maxSamples = 3000;
+				const labeledSamples = samples
+					.map((sample) => ({
+						label: matchCheckerColor(sample, colors, matchToleranceSq),
+						x: sample.x,
+						y: sample.y,
+					}))
+					.filter((sample) => sample.label >= 0)
+					.filter((_sample, index, all) => index % Math.max(1, Math.floor(all.length / maxSamples)) === 0);
+
+				if (labeledSamples.length < 16) {
+					return null;
+				}
+
+				for (let offsetX = 0; offsetX < tileSize; offsetX += 1) {
+					for (let offsetY = 0; offsetY < tileSize; offsetY += 1) {
+						for (let parity = 0; parity < 2; parity += 1) {
+							let matches = 0;
+
+							for (const sample of labeledSamples) {
+								if (sample.label === expectedCheckerLabel(sample.x, sample.y, {
+									offsetX,
+									offsetY,
+									parity,
+									tileSize,
+								})) {
+									matches += 1;
+								}
+							}
+
+							if (!best || matches > best.matches) {
+								best = {
+									confidence: matches / labeledSamples.length,
+									matches,
+									offsetX,
+									offsetY,
+									parity,
+									tileSize,
+								};
+							}
+						}
+					}
+				}
+
+				return best && best.confidence >= 0.62 ? best : null;
+			}
+
+			function expectedCheckerLabel(x, y, model) {
+				const column = Math.floor((x + model.offsetX) / model.tileSize);
+				const row = Math.floor((y + model.offsetY) / model.tileSize);
+
+				return ((column + row + model.parity) % 2 + 2) % 2;
+			}
+
+			function matchCheckerColor(color, colors, matchToleranceSq) {
+				let bestIndex = -1;
+				let bestDistance = Number.POSITIVE_INFINITY;
+
+				for (let index = 0; index < colors.length; index += 1) {
+					const distance = colorDistanceSq(color, colors[index]);
+
+					if (distance < bestDistance) {
+						bestDistance = distance;
+						bestIndex = index;
+					}
+				}
+
+				return bestDistance <= matchToleranceSq ? bestIndex : -1;
+			}
+
+			function colorDistanceSq(first, second) {
+				const red = first.r - second.r;
+				const green = first.g - second.g;
+				const blue = first.b - second.b;
+
+				return (red * red) + (green * green) + (blue * blue);
 			}
 
 			function fileExtension(name) {
