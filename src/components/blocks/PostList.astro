@@ -11,9 +11,11 @@ interface Props {
 }
 
 const { block, locale } = Astro.props;
+const includedCategories = block.categories ? new Set<Category>(block.categories) : undefined;
 const posts = getAllPosts()
 	.filter((post) => post.locale === locale)
 	.filter((post) => (block.authorName ? post.authorName === block.authorName : true))
+	.filter((post) => (includedCategories ? includedCategories.has(post.category) : true))
 	.slice(0, block.limit);
 
 const categoryLabels: Record<Locale, Record<Category, string>> = {
@@ -22,12 +24,14 @@ const categoryLabels: Record<Locale, Record<Category, string>> = {
 		'short-tutorial': 'Kurztutorials',
 		'video-tutorial': 'Video-Tutorials',
 		'news-video': 'News-Videos',
+		audacity: 'Audacity',
 	},
 	en: {
 		blog: 'Blog',
 		'short-tutorial': 'Short tutorials',
 		'video-tutorial': 'Video tutorials',
 		'news-video': 'News videos',
+		audacity: 'Audacity',
 	},
 };
 
@@ -35,7 +39,8 @@ const allLabel = locale === 'de' ? 'Alle' : 'All';
 const emptyLabel = locale === 'de' ? 'Keine Beiträge in dieser Kategorie.' : 'No posts in this category.';
 const searchLabel = locale === 'de' ? 'Beiträge durchsuchen' : 'Search posts';
 const searchPlaceholder = locale === 'de' ? 'Nach YouTube, OBS, Shorts ... suchen' : 'Search YouTube, OBS, Shorts ...';
-const categoryOrder: Category[] = ['blog', 'short-tutorial', 'video-tutorial', 'news-video'];
+const allCategories: Category[] = ['blog', 'short-tutorial', 'video-tutorial', 'news-video', 'audacity'];
+const categoryOrder = block.categories ?? allCategories;
 const postCounts = Object.fromEntries(categoryOrder.map((category) => [category, posts.filter((post) => post.category === category).length])) as Record<
 	Category,
 	number

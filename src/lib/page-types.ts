@@ -1,4 +1,5 @@
 import type { Locale } from '../i18n';
+import type { Category } from './source-content';
 
 export type PageBlock =
 	| HeroBlock
@@ -127,6 +128,7 @@ export interface PostListBlock {
 	type: 'posts';
 	title: string;
 	authorName?: string;
+	categories?: Category[];
 	limit?: number;
 	moreHref?: string;
 	moreLabel?: string;
