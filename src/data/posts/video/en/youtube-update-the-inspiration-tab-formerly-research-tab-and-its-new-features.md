@@ -2,8 +2,8 @@
 id: 3286
 slug: "youtube-update-the-inspiration-tab-formerly-research-tab-and-its-new-features"
 path: "/youtube-tips-en/youtube-update-the-inspiration-tab-formerly-research-tab-and-its-new-features/"
-title: "YouTube Update: The Inspiration Tab (formerly: Research Tab) & Its New Features"
-excerpt: "YouTube Updates this week: Let's kick off with YouTube Analytics. Previously, there was the \"Research\" tab, which has now been renamed to the so-called \"Inspiration\" tab and brings with it two new features – or rather..."
+title: "YouTube Update: Exploring the New 'Inspiration' Tab and Its Features"
+excerpt: "Discover YouTube's renamed 'Inspiration' tab in Analytics, offering new features like 'Ideas & Outlines' and 'Breakout Videos' to spark content creation."
 date: "2024-06-08T00:00:00"
 modified: "2024-06-08T00:00:00"
 locale: "en"

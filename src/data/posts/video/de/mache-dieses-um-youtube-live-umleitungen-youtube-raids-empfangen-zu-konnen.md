@@ -2,8 +2,8 @@
 id: 3310
 slug: "mache-dieses-um-youtube-live-umleitungen-youtube-raids-empfangen-zu-konnen"
 path: "/youtube-tipps-de/mache-dieses-um-youtube-live-umleitungen-youtube-raids-empfangen-zu-konnen/"
-title: "Mache DIESES, um YouTube Live Umleitungen / YouTube Raids empfangen zu können"
-excerpt: "Jeder YouTube-Creator kann YouTube-Live-Weiterleitungen erhalten. Um sie für deinen Stream zu aktivieren, musst du anderen Creatorn erlauben, auf dich weiterzuleiten. Die Einstellungen hierfür findest du im YouTube Studio unter Einstellungen/Community..."
+title: "So aktivierst du YouTube Live-Umleitungen (Raids) für deinen Stream"
+excerpt: "Erfahre, wie du in wenigen Schritten YouTube Live-Weiterleitungen einrichtest und andere Creator zu deinem Stream umleiten können."
 date: "2023-04-04T15:30:04"
 modified: "2023-04-04T15:30:04"
 locale: "de"

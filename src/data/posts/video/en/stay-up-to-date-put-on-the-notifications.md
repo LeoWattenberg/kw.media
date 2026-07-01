@@ -2,8 +2,8 @@
 id: 3063
 slug: "stay-up-to-date-put-on-the-notifications"
 path: "/youtube-tips-en/stay-up-to-date-put-on-the-notifications/"
-title: "Stay up to date! Put on the notifications 🔔"
-excerpt: "YouTube ABC: after subscribing viewers can activate notifications to be informed about new content the overview of a video in YouTube Studio shows you how many viewers of all of them watch it on this way the reach tab..."
+title: "Stay Up to Date: Enable YouTube Notifications"
+excerpt: "Learn how viewers can stay informed about new content after subscribing. Discover YouTube Studio's reach tab for key metrics."
 date: "2024-08-31T15:58:14"
 modified: "2024-08-31T15:58:14"
 locale: "en"

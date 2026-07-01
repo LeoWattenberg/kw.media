@@ -2,8 +2,8 @@
 id: 3294
 slug: "youtube-updates-mla-improved-brand-connections-and-community-overhaul-in-studio-mobile"
 path: "/youtube-tips-en/youtube-updates-mla-improved-brand-connections-and-community-overhaul-in-studio-mobile/"
-title: "YouTube Updates: MLA, Improved Brand Connections & Community Overhaul in Studio Mobile!"
-excerpt: "Multilingual audio, or autodubbing, is entering the final stages."
+title: "YouTube Updates: Multilingual Audio, Community Overhaul in Studio Mobile & Brand Video Links"
+excerpt: "Multilingual audio (MLA) is rolling out, and YouTube Studio mobile gets a community overhaul. Learn about new features and potential changes to gifted memberships."
 date: "2024-11-09T13:15:00"
 modified: "2024-11-09T13:15:00"
 locale: "en"

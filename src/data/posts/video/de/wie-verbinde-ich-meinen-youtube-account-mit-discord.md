@@ -2,8 +2,8 @@
 id: 3073
 slug: "wie-verbinde-ich-meinen-youtube-account-mit-discord"
 path: "/youtube-tipps-de/wie-verbinde-ich-meinen-youtube-account-mit-discord/"
-title: "Wie verbinde ich meinen YouTube Account mit Discord?"
-excerpt: "Um deinen YouTube-Kanal mit discord zu verbinden klicke zunächst auf Einstellungen und dann Verbindungen hier wählst du YouTube aus als nächstes musst du dich mit deinem richtigen Google-Konto anmelden und die App..."
+title: "Wie verbinde ich meinen YouTube-Kanal mit Discord?"
+excerpt: "Verbinde deinen YouTube-Kanal mit Discord, indem du die Einstellungen aufrufst, Verbindungen auswählst und dich mit deinem Google-Konto anmeldest."
 date: "2023-06-05T07:00:15"
 modified: "2023-06-05T07:00:15"
 locale: "de"

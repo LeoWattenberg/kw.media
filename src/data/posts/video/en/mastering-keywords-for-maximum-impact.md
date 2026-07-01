@@ -2,8 +2,8 @@
 id: 3074
 slug: "mastering-keywords-for-maximum-impact"
 path: "/youtube-tips-en/mastering-keywords-for-maximum-impact/"
-title: "Mastering keywords for maximum impact 🔝"
-excerpt: "YouTube ads can be displayed higher up in search. In some cases it's possible to bid on keywords. The price is defined by the bidding strategy and can increase the click-through rate on your ads and drive more potential viewers to your..."
+title: "Mastering Keywords for Maximum Impact on YouTube Ads"
+excerpt: "Discover how to bid on keywords to boost your YouTube ad's visibility, click-through rate, and attract more viewers."
 date: "2024-08-07T14:00:41"
 modified: "2024-08-07T14:00:41"
 locale: "en"

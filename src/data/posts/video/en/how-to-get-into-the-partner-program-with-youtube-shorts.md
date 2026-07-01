@@ -3,7 +3,7 @@ id: 3258
 slug: "how-to-get-into-the-partner-program-with-youtube-shorts"
 path: "/youtube-tips-en/how-to-get-into-the-partner-program-with-youtube-shorts/"
 title: "How to Get into the Partner Program with YouTube Shorts"
-excerpt: "Don't worry if you haven't managed to accumulate the necessary watch time for the YouTube Partnership Program with your shorts – there's another way to apply for the partner program and..."
+excerpt: "Reach the YouTube Partnership Program through Shorts views. Learn how 10 million views in 90 days can qualify you."
 date: "2023-01-12T10:43:31"
 modified: "2023-01-12T10:43:31"
 locale: "en"

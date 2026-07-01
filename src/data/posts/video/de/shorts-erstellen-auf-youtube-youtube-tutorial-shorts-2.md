@@ -2,8 +2,8 @@
 id: 3090
 slug: "shorts-erstellen-auf-youtube-youtube-tutorial-shorts-2"
 path: "/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts-2/"
-title: "Shorts erstellen auf YouTube | YouTube Tutorial | #shorts"
-excerpt: "Um selbst einen Short zu produzieren, klicke in einer YouTube-App auf das Plus-Symbol, klick auf Kurzvideo erstellen, nimm deinen Short auf oder verwende einen bereits bestehenden Clip, füge Musik oder Text ein, ..."
+title: "YouTube Shorts erstellen: Einfache Anleitung für Creator"
+excerpt: "Erfahre, wie du deinen eigenen YouTube Short erstellst: Von der Aufnahme bis zum Hinzufügen von Musik und Titeln."
 date: "2021-07-12T16:19:11"
 modified: "2021-07-12T16:19:11"
 locale: "de"

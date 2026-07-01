@@ -2,8 +2,8 @@
 id: 3351
 slug: "wir-haben-ihre-grossten-beschwerden-direkt-an-youtube-live-weitergeleitet-creator-news"
 path: "/youtube-tipps-de/wir-haben-ihre-grossten-beschwerden-direkt-an-youtube-live-weitergeleitet-creator-news/"
-title: "Wir haben Ihre größten Beschwerden direkt an YouTube Live weitergeleitet | Creator News"
-excerpt: "TikTok LIVE verliert Zuschauer, während Twitch die Unternehmenskürzungen von Amazon überlebt. Außerdem richten wir eure größten Fragen und Beschwerden direkt an den Leiter von YouTube LIVE, und YouTube Shorts entwickelt sich offiziell weiter..."
+title: "Deine Beschwerden an YouTube LIVE: Wir fragen nach Verbesserungen | Creator News"
+excerpt: "TikTok LIVE verliert Zuschauer, Twitch bleibt stark. Fragen und Probleme gehen direkt an YouTube LIVE-Leiterin. Neue Shorts-Funktionen im Fokus."
 date: "2026-04-18T12:15:03"
 modified: "2026-04-18T12:15:03"
 locale: "de"

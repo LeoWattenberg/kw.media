@@ -2,8 +2,8 @@
 id: 3357
 slug: "verliere-ich-die-youtube-monetarisierung-wenn-ich-eine-pause-einlege"
 path: "/youtube-tipps-de/verliere-ich-die-youtube-monetarisierung-wenn-ich-eine-pause-einlege/"
-title: "Verliere ich die YouTube-Monetarisierung, wenn ich eine Pause einlege?"
-excerpt: "Verliere ich meine YouTube-Monetarisierung, wenn meine Zuschauerzeit unter 4.000 Stunden fällt? Technisch gesehen behält sich YouTube das Recht vor, Sie aus dem Partnerprogramm zu entfernen, wenn Sie 6 Monate lang vollständig inaktiv sind und unter..."
+title: "Verliere ich die YouTube-Monetarisierung bei einer Pause?"
+excerpt: "Können Sie Ihr YouTube-Partnerprogramm behalten, auch wenn Ihre Zuschauerstunden unter 4.000 fallen? Hier ist die Antwort."
 date: "2026-06-21T05:00:08"
 modified: "2026-06-21T05:00:08"
 locale: "de"

@@ -2,8 +2,8 @@
 id: 3181
 slug: "a-b-testing-auf-youtube-alles-was-du-fur-den-launch-im-sommer-wissen-musst"
 path: "/youtube-tipps-de/a-b-testing-auf-youtube-alles-was-du-fur-den-launch-im-sommer-wissen-musst/"
-title: "A/B Testing auf YouTube: Alles, was du für den Launch im Sommer wissen musst"
-excerpt: "Thumbnail A/B Testing, oder auch Test und Compare, wie YouTube es genannt hat, wird als Feature Ende 2024 (Q2/Q3), also im Sommer, ausgerollt werden. Ihr wisst, dieser Kanal ist tatsächlich in der Testgruppe für..."
+title: "A/B-Testing auf YouTube: Vorbereitung auf den Sommer-Launch"
+excerpt: "Erfahre alles über das kommende A/B-Testing-Feature für Thumbnails auf YouTube, das im Sommer 2024 (Q2/Q3) erscheint."
 date: "2024-04-27T12:30:17"
 modified: "2024-04-27T12:30:17"
 locale: "de"

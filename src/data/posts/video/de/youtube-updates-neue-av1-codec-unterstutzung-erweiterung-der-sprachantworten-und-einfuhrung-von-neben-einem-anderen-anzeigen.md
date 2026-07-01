@@ -2,8 +2,8 @@
 id: 3385
 slug: "youtube-updates-neue-av1-codec-unterstutzung-erweiterung-der-sprachantworten-und-einfuhrung-von-neben-einem-anderen-anzeigen"
 path: "/youtube-tipps-de/youtube-updates-neue-av1-codec-unterstutzung-erweiterung-der-sprachantworten-und-einfuhrung-von-neben-einem-anderen-anzeigen/"
-title: "YouTube-Updates – Neue AV1-Codec-Unterstützung, Erweiterung der Sprachantworten & Einführung von Neben-einem-Anderen-Anzeigen!"
-excerpt: "YouTube-Updates: Diese Woche beginnen wir mit dem AV1-Codec, der nun für ausgewählte Live-Streams verfügbar ist. Während YouTube von Live-Streams mit hohem Datenverkehr spricht, haben sie nicht definiert, was als „hoher Datenverkehr“ gilt. Sie können..."
+title: "YouTube-Updates: AV1-Codec, erweiterte Sprachantworten und Neben-an-Neben-Anzeigen"
+excerpt: "Entdecken Sie die neuesten YouTube-Verbesserungen: AV1-Codec für Live-Streams, längere Sprachantworten auf Android und neue Werbeformate."
 date: "2025-05-31T12:15:06"
 modified: "2025-05-31T12:15:06"
 locale: "de"

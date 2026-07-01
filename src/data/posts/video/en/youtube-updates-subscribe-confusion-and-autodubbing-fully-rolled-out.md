@@ -2,8 +2,8 @@
 id: 3144
 slug: "youtube-updates-subscribe-confusion-and-autodubbing-fully-rolled-out"
 path: "/youtube-tips-en/youtube-updates-subscribe-confusion-and-autodubbing-fully-rolled-out/"
-title: "YouTube Updates: Subscribe+ Confusion & AutoDubbing Fully Rolled Out!"
-excerpt: "We need to talk about YouTube's Subscribe Plus experiment. For some users, YouTube has combined the subscribe button and the join button for memberships into a single button called \"Subscribe Plus.\" YouTube claims..."
+title: "YouTube Updates: Subscribe Plus & Autodubbing - What Creators Need to Know"
+excerpt: "YouTube's new 'Subscribe Plus' button combines subscriptions and memberships, but is it confusing? Also, autodubbing is now available to all YPP creators."
 date: "2025-04-12T12:15:01"
 modified: "2025-04-12T12:15:01"
 locale: "en"

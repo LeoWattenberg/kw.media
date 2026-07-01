@@ -2,8 +2,8 @@
 id: 3262
 slug: "super-chat-replies-youtube-rolling-out-new-features"
 path: "/youtube-tips-en/super-chat-replies-youtube-rolling-out-new-features/"
-title: "Super Chat Replies - YouTube Rolling Out New Features"
-excerpt: "Superchat replies, also known as Superchat threads, have been in an experimental phase since last Wednesday. It's a very aggressive experiment, with 50% of Superchats receiving this feature..."
+title: "YouTube Introduces Super Chat Replies and Enhances Monetization Tools"
+excerpt: "YouTube introduces Super Chat replies for creator-viewer interaction and new monetization tools: timestamped AFG violations & upcoming A/B testing."
 date: "2024-05-18T12:30:27"
 modified: "2024-05-18T12:30:27"
 locale: "en"

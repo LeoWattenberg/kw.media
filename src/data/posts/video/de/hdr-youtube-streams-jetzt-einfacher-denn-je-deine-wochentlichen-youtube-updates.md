@@ -2,8 +2,8 @@
 id: 3186
 slug: "hdr-youtube-streams-jetzt-einfacher-denn-je-deine-wochentlichen-youtube-updates"
 path: "/youtube-tipps-de/hdr-youtube-streams-jetzt-einfacher-denn-je-deine-wochentlichen-youtube-updates/"
-title: "HDR YouTube Streams jetzt einfacher denn je! | Deine wöchentlichen YouTube Updates"
-excerpt: "Es gab bereits in der Vergangenheit im YouTube Studio Desktop keine Issues, jetzt wird es aber auch in der YouTube Studio Mobile App einen Filter für den Benachrichtigungsfeed geben. Das bedeutet, da wo auch eure..."
+title: "HDR-Streams auf YouTube: Einfacher denn je! | Wöchentliche YouTube-Updates"
+excerpt: "Der neue Filter in der YouTube Studio App sorgt für relevante Benachrichtigungen. Jetzt auch mit mobiler Clips-Bibliothek."
 date: "2024-03-16T13:30:01"
 modified: "2024-03-16T13:30:01"
 locale: "de"

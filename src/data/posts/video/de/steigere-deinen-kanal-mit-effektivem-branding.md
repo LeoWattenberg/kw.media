@@ -3,7 +3,7 @@ id: 3307
 slug: "steigere-deinen-kanal-mit-effektivem-branding"
 path: "/youtube-tipps-de/steigere-deinen-kanal-mit-effektivem-branding/"
 title: "Steigere deinen Kanal mit effektivem Branding! 🎨"
-excerpt: "Als Creator möchte man in Erinnerung bleiben, und eine Markenbildung kann dabei helfen. Sobald du herausgefunden hast, welcher Art von Creator du sein möchtest, überlegst du dir, womit Menschen dich in Verbindung bringen könnten oder sollten. Dazu gehört auch ein Kanal..."
+excerpt: "Als Creator in Erinnerung bleiben: Mit Markenbildung und einem einheitlichen Auftritt."
 date: "2024-06-14T10:24:16"
 modified: "2024-06-14T10:24:16"
 locale: "de"

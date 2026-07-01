@@ -2,8 +2,8 @@
 id: 3236
 slug: "new-on-youtube-join-member-button-animation"
 path: "/youtube-tips-en/new-on-youtube-join-member-button-animation/"
-title: "New on YouTube: \"Join Member\"-Button Animation"
-excerpt: "A small update for Creators with Channel Memberships: When you now make a call to action and ask your viewers to become channel members - for example with \"Become a channel member\" or similar..."
+title: "New on YouTube: Animated 'Join Member' Button"
+excerpt: "A new feature for Creators with Channel Memberships: the 'Become a Member' button now animates when you ask viewers to join."
 date: "2024-08-17T12:30:41"
 modified: "2024-08-17T12:30:41"
 locale: "en"

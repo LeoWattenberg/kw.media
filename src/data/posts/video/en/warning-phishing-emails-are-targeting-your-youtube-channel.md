@@ -2,8 +2,8 @@
 id: 3267
 slug: "warning-phishing-emails-are-targeting-your-youtube-channel"
 path: "/youtube-tips-en/warning-phishing-emails-are-targeting-your-youtube-channel/"
-title: "⚠ WARNING: Phishing Emails are targeting your YouTube channel! ⚠"
-excerpt: "Lately, we've been seeing an increase in phishing emails. Downloading and opening the included PDFs clones your browser, allowing your YouTube channels to be easily taken over without entering a password or two-factor authentication..."
+title: "Beware: Phishing Emails Targeting YouTube Channels"
+excerpt: "Phishing emails are on the rise, tricking users into downloading PDFs that clone browsers and compromising YouTube channels."
 date: "2023-04-03T15:30:01"
 modified: "2023-04-03T15:30:01"
 locale: "en"

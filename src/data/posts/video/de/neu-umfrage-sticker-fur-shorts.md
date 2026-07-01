@@ -2,8 +2,8 @@
 id: 3332
 slug: "neu-umfrage-sticker-fur-shorts"
 path: "/youtube-tipps-de/neu-umfrage-sticker-fur-shorts/"
-title: "NEU: Umfrage-Sticker für Shorts"
-excerpt: "Diese neue YouTube-Funktion macht deine Shorts noch interaktiver. Letzte Woche hat YouTube die Umfragefunktion eingeführt, mit der deine Community über Antworten auf deine Fragen abstimmen kann. Diese Funktion ähnelt..."
+title: "Neue Funktion: Umfrage-Sticker für YouTube Shorts"
+excerpt: "Erhöhe die Interaktion mit deinen Zuschauern! YouTube hat einen neuen Umfrage-Sticker für Shorts eingeführt, der deine Community einbezieht."
 date: "2024-11-04T09:54:45"
 modified: "2024-11-04T09:54:45"
 locale: "de"

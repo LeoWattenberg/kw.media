@@ -2,8 +2,8 @@
 id: 3056
 slug: "so-kannst-du-auf-youtube-redirects-youtube-raids-empfangen"
 path: "/youtube-tipps-de/so-kannst-du-auf-youtube-redirects-youtube-raids-empfangen/"
-title: "So kannst DU auf YouTube Redirects / YouTube Raids empfangen"
-excerpt: "Um live wieder rechts in euren Livestreams empfangen zu können müsst ihr zuerst einstellen wer euch live Redirect senden darf dafür geht ihr im YouTube-studio in den Einstellungen auf Community und scrollt nach unten..."
+title: "So kannst du Live-Redirects auf YouTube empfangen"
+excerpt: "Ermögliche es anderen Creatoren, dich während deines Livestreams anzurufen. Einstellungen im YouTube Studio: Community-Sektion."
 date: "2023-04-04T15:30:06"
 modified: "2023-04-04T15:30:06"
 locale: "de"

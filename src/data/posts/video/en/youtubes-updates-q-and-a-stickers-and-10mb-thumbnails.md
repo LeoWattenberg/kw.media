@@ -2,8 +2,8 @@
 id: 3303
 slug: "youtubes-updates-q-and-a-stickers-and-10mb-thumbnails"
 path: "/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/"
-title: "YouTube's Updates: Q&A Stickers and 10MB Thumbnails!"
-excerpt: "A quick recommendation before we dive into this week's YouTube updates: We had a Creator Q&A livestream here on the channel with some exciting insights into 2025 and what YouTube has planned..."
+title: "YouTube's New Features: Q&A Stickers, Larger Thumbnails, and More!"
+excerpt: "Discover the latest YouTube updates, including Q&A Stickers for mobile livestreams, 10MB thumbnails, and the upcoming launch of YouTube Courses."
 date: "2025-01-25T13:15:00"
 modified: "2025-01-25T13:15:00"
 locale: "en"

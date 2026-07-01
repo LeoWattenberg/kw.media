@@ -2,8 +2,8 @@
 id: 3314
 slug: "analyse-der-beteiligung"
 path: "/youtube-tipps-de/analyse-der-beteiligung/"
-title: "Analyse der Beteiligung 📈"
-excerpt: "Das YouTube-ABC: Engagement ist ein Teil der Videoanalyse und zeigt die Interaktionen der Zuschauer mit einem bestimmten Video. Öffne YouTube Studio, dort findest du eine Übersicht über deine Fusionsimpressionen, Klickraten und Fehler..."
+title: "Das YouTube-ABC: Analyse der Zuschauerbeteiligung"
+excerpt: "Entdecke die Interaktionen deiner Zuschauer mit deinen Videos. Lerne, wie du in YouTube Studio auf die Videoanalyse zugreifst und die Engagement-Daten interpretierst."
 date: "2024-07-05T12:05:39"
 modified: "2024-07-05T12:05:39"
 locale: "de"

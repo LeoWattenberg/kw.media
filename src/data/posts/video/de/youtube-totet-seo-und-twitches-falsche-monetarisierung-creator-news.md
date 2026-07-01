@@ -2,8 +2,8 @@
 id: 3369
 slug: "youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news"
 path: "/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/"
-title: "YouTube tötet SEO & Twitches falsche Monetarisierung | Creator News"
-excerpt: "YouTube ist dabei, deinen Suchverkehr zu ersticken, und Gemini Omni will dein Gesicht standardmäßig in eine Deepfake-Vorlage verwandeln. Und Twitch hat gerade einen neuen Weg gefunden, kleine Streamer unter ihre neue..."
+title: "YouTube erstickt SEO & Twitches irreführende Monetarisierung | Creator News"
+excerpt: "YouTube blockiert deinen Suchverkehr und Gemini Omni verwandelt dein Gesicht in eine Deepfake-Vorlage. Twitch nutzt kleine Streamer aus."
 date: "2026-05-23T12:15:01"
 modified: "2026-05-23T12:15:01"
 locale: "de"

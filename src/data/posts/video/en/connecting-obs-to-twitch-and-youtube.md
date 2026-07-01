@@ -2,8 +2,8 @@
 id: 3241
 slug: "connecting-obs-to-twitch-and-youtube"
 path: "/youtube-tips-en/connecting-obs-to-twitch-and-youtube/"
-title: "Connecting OBS to Twitch and YouTube"
-excerpt: "YouTube and Twitch both offer to directly connect your account to OBS. To link your accounts with OBS, go to the OBS settings, select 'Stream', choose your desired platform, and click 'Connect Account'. This will open..."
+title: "Connecting OBS to Twitch and YouTube: A Quick Guide"
+excerpt: "Learn how to link your Twitch or YouTube account to OBS for seamless streaming."
 date: "2023-03-26T15:30:20"
 modified: "2023-03-26T15:30:20"
 locale: "en"

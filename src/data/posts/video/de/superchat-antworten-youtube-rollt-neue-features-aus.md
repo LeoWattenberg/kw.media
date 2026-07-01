@@ -2,8 +2,8 @@
 id: 3180
 slug: "superchat-antworten-youtube-rollt-neue-features-aus"
 path: "/youtube-tipps-de/superchat-antworten-youtube-rollt-neue-features-aus/"
-title: "Superchat-Antworten - YouTube rollt neue Features aus"
-excerpt: "Superchat Antworten, auch als Superchat Threads bezeichnet, befinden sich seit letztem Mittwoch in einer experimentellen Phase. Es ist ein sehr aggressives Experiment, bei dem 50 % der Superchats dieses Feature..."
+title: "Neue YouTube-Funktionen: Super Chat Antworten und AFG-Verstöße"
+excerpt: "Super Chat Antworten befinden sich im Experimentierstadium. Jetzt mit Antwortmöglichkeit für Creator und User. Auch AFG-Verstöße werden transparenter angezeigt."
 date: "2024-05-18T12:30:27"
 modified: "2024-05-18T12:30:27"
 locale: "de"
@@ -21,9 +21,9 @@ video:
 
 ## Transkript
 
-Superchat-Antworten, auch als Superchat-Threads bezeichnet, befinden sich seit letztem Mittwoch in einer experimentellen Phase. Es ist ein sehr aggressives Experiment, bei dem 50 % der Superchats dieses Feature bereits freigeschaltet haben. Ob es letztendlich zum Rollout kommt, werden wir natürlich noch sehen. Man kann darauf klicken, und es erscheint ein kleiner Antwort-Button. Dann öffnet sich praktisch ein zweites Chatfenster, im Mobilbereich ist es ein Wisch-Ding, das man wieder schließen kann.
+Super Chat-Antworten, auch als Super Chat-Threads bezeichnet, befinden sich seit letztem Mittwoch in einer experimentellen Phase. Es ist ein sehr aggressives Experiment, bei dem 50 % der Superchats dieses Feature bereits freigeschaltet haben. Ob es letztendlich zum Rollout kommt, werden wir natürlich noch sehen. Man kann darauf klicken, und es erscheint ein kleiner Antwort-Button. Dann öffnet sich praktisch ein zweites Chatfenster, im Mobilbereich ist es ein Wisch-Ding, das man wieder schließen kann.
 
-Es ist eine sehr interessante Funktion, da man auch kostenlos darauf antworten kann, um weiteren Kontext für den Superchat zu geben. Das bedeutet, dass jemand, der vielleicht eine Frage mit einem Superchat gestellt hat, diese noch einmal konkretisieren oder darauf antworten kann. Auch andere User, die antworten möchten, können dies in der Superchat-Antwort tun. Ich finde das sehr interessant. Wie seht ihr das? Nutzt ihr Superchats häufig? Und falls ja, würdet ihr euch über Antwortmöglichkeiten freuen? Lasst es mich gerne in den Kommentaren wissen!
+Es ist eine sehr interessante Funktion, da man auch kostenlos darauf antworten kann, um weiteren Kontext für den Super Chat zu geben. Das bedeutet, dass jemand, der vielleicht eine Frage mit einem Super Chat gestellt hat, diese noch einmal konkretisieren oder darauf antworten kann. Auch andere User, die antworten möchten, können dies in der Super Chat-Antwort tun. Ich finde das sehr interessant. Wie seht ihr das? Nutzt ihr Superchats häufig? Und falls ja, würdet ihr euch über Antwortmöglichkeiten freuen? Lasst es mich gerne in den Kommentaren wissen!
 
 Weiter geht es mit der Monetarisierung und einem Thema namens AFG-Verstöße (Advertiser Friendly Guidelines). Sobald euer Video limitierte Werbeeignung hat, wird das gelbe Symbol angezeigt. Die Neuerung ist, dass nun Timestamps angezeigt werden, an welchen Stellen im Video eine Verletzung der Richtlinien vorliegt. Das ist prinzipiell eine gute Sache in Bezug auf Transparenz. Aber es gibt einige Einschränkungen: Wenn mehrere verschiedene Verstöße vorliegen, wird nur ein Beispiel genannt, nicht jede Instanz desselben Verstoßes. Wenn ich beispielsweise Schimpfwörter im Video und im Titel verwende, wird nur ein Verstoß angezeigt, und man muss selbst nach den anderen suchen.
 

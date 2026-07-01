@@ -2,8 +2,8 @@
 id: 3288
 slug: "youtube-update-new-analytics-card-and-soon-mentions-for-mobile-chats"
 path: "/youtube-tips-en/youtube-update-new-analytics-card-and-soon-mentions-for-mobile-chats/"
-title: "YouTube Update: New Analytics Card & Soon @Mentions for Mobile Chats!"
-excerpt: "With the YouTube updates, we're starting this week with Analytics, as there is a new Analytics card in the \"Audience\" section. It displays the device types that were previously also shown in advanced mode..."
+title: "YouTube Update: New Analytics Card & Upcoming Mobile Chat Improvements"
+excerpt: "Discover the latest YouTube updates, including a new Analytics card in the Audience section and upcoming auto-completions for mobile chats by Q1 2025."
 date: "2025-02-08T13:15:03"
 modified: "2025-02-08T13:15:03"
 locale: "en"

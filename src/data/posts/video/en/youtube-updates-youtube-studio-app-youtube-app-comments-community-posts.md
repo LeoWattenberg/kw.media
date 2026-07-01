@@ -2,15 +2,8 @@
 id: 3298
 slug: "youtube-updates-youtube-studio-app-youtube-app-comments-community-posts"
 path: "/youtube-tips-en/youtube-updates-youtube-studio-app-youtube-app-comments-community-posts/"
-title: "YouTube Updates: YouTube Studio App | YouTube App Comments | Community Posts"
-excerpt: "Last November, we briefly touched on the new view in the YouTube Studio app regarding past and upcoming payments. At the time, the system was only available to Creators earning in US Dollars who had opted into the new payment system.
-
-Now, we're expanding this feature to all Creators worldwide, regardless of their currency or payment method. This means you'll have a clear overview of your payment history and upcoming payments all in one place.
-
-With this update, you can easily track:
-- Past payments with details on the amount, date, and status.
-- Upcoming payments, including estimated amounts and dates.
-- Any adjustments or holds on your payments."
+title: "YouTube Updates: New Payment View in Studio App, Mobile Live Streaming, & Community Post Changes"
+excerpt: "Learn about the new payment view in YouTube Studio, upcoming mobile live streaming, and relaxed requirements for Community Posts."
 date: "2024-06-01T12:30:19"
 modified: "2024-06-01T12:30:19"
 locale: "en"

@@ -2,8 +2,8 @@
 id: 3371
 slug: "youtube-live-stream-updates-hype-erweiterung-und-ki-inspirationswerkzeuge-fur-eu-creator"
 path: "/youtube-tipps-de/youtube-live-stream-updates-hype-erweiterung-und-ki-inspirationswerkzeuge-fur-eu-creator/"
-title: "YouTube Live-Stream-Updates, Hype-Erweiterung & KI-Inspirationswerkzeuge für EU-Creator!"
-excerpt: "Geschenke in vertikalen Live-Streams, die mit YouTube's digitaler Währung, Jewels, gekauft werden, erhalten ein kleines Upgrade. Es ist nun möglich, Geschenke zu kombinieren, indem man dasselbe Geschenk mehrmals kauft, und der Kombozähler wird..."
+title: "YouTube-Updates: Geschenke-Kombis, Hype-Erweiterung & KI-Inspiration für EU-Creator"
+excerpt: "YouTube-Updates: Vertikale Live-Geschenke kombinieren, Hype für mehr Kanäle & KI-Tools im Inspiration Tab. Zeige deine Unterstützung!"
 date: "2025-04-19T12:15:10"
 modified: "2025-04-19T12:15:10"
 locale: "de"

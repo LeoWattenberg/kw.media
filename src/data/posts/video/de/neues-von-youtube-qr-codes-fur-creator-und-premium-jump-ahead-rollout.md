@@ -2,8 +2,8 @@
 id: 3177
 slug: "neues-von-youtube-qr-codes-fur-creator-und-premium-jump-ahead-rollout"
 path: "/youtube-tipps-de/neues-von-youtube-qr-codes-fur-creator-und-premium-jump-ahead-rollout/"
-title: "Neues von YouTube: QR-Codes für Creator & Premium Jump Ahead Rollout"
-excerpt: "Das Teilen von Kanälen soll einfacher werden. Deshalb läuft gerade ein Experiment bei den Creators und auch bei den Nutzern: Beim Teilen eines YouTube Kanals auf dem Smartphone gibt es nun die Option, sich einen QR..."
+title: "YouTube-Updates: QR-Codes für Creator und erfolgreicher Rollout von Premium Jump Ahead"
+excerpt: "Ein neues Experiment erleichtert das Teilen von Kanälen mit QR-Codes. Außerdem: Das Premium Jump Ahead-Feature wird nach positivem Test in den USA ausgerollt."
 date: "2024-06-15T12:30:35"
 modified: "2024-06-15T12:30:35"
 locale: "de"

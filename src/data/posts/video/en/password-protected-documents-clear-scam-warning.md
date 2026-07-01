@@ -2,8 +2,8 @@
 id: 3242
 slug: "password-protected-documents-clear-scam-warning"
 path: "/youtube-tips-en/password-protected-documents-clear-scam-warning/"
-title: "Password-protected documents? Clear scam warning!"
-excerpt: "This week there are no YouTube updates, but instead, I want to warn you about a current scam that is quite sophisticated and might deceive the untrained eye. It involves channels,..."
+title: "Beware: Sophisticated Scam Targeting Creators with Fake CEO Videos"
+excerpt: "A new scam involves private videos featuring a fake YouTube CEO sharing encrypted documents about monetization updates."
 date: "2025-03-15T13:15:02"
 modified: "2025-03-15T13:15:02"
 locale: "en"

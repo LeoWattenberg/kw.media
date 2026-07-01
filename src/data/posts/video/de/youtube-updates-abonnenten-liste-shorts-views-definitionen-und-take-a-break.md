@@ -2,8 +2,8 @@
 id: 3146
 slug: "youtube-updates-abonnenten-liste-shorts-views-definitionen-und-take-a-break"
 path: "/youtube-tipps-de/youtube-updates-abonnenten-liste-shorts-views-definitionen-und-take-a-break/"
-title: "YouTube Updates: Abonnenten-Liste, Shorts Views Definitionen & \"Take a Break\""
-excerpt: "Wenn ihr als Creator eine Liste eurer Abonnenten sehen wollt, war dies bisher nur im YouTube Studio Desktop möglich. Seit dieser Woche gibt es eine neue Funktion, die jedoch noch nicht für alle verfügbar ist: Creator..."
+title: "YouTube-Updates: Abonnentenliste, Shorts-Ansichten und „Pause machen“"
+excerpt: "Neue Funktion für Creator: Abonnenten nun in YouTube-App sichtbar. Anpassungen bei Shorts-Aufrufen & vollständige \"Pause machen\"-Funktion in Live-Streams."
 date: "2025-03-29T13:15:04"
 modified: "2025-03-29T13:15:04"
 locale: "de"

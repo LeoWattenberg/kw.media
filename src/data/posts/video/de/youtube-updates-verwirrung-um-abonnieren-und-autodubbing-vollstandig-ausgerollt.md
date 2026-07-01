@@ -2,8 +2,8 @@
 id: 3389
 slug: "youtube-updates-verwirrung-um-abonnieren-und-autodubbing-vollstandig-ausgerollt"
 path: "/youtube-tipps-de/youtube-updates-verwirrung-um-abonnieren-und-autodubbing-vollstandig-ausgerollt/"
-title: "YouTube-Updates: Verwirrung um Abonnieren+ & AutoDubbing vollständig ausgerollt!"
-excerpt: "Wir müssen über das Experiment „YouTube's Subscribe Plus“ sprechen. Für einige Nutzer hat YouTube den Abonnieren-Button und den Beitreten-Button für Mitgliedschaften zu einem einzigen Button namens „Abonnieren Plus“ zusammengefasst. YouTube behauptet..."
+title: "YouTube-Updates: Verwirrung um „Abonnieren Plus“ & Automatische Untertitelung vollständig ausgerollt"
+excerpt: "YouTube führt \"Abonnieren Plus\" ein: Ein neuer Button kombiniert \"Abonnieren\" und \"Beitreten\". Diskussion über Verwirrung & automatische Untertitel für YPP-Mitglieder."
 date: "2025-04-12T12:15:01"
 modified: "2025-04-12T12:15:01"
 locale: "de"

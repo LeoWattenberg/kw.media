@@ -2,8 +2,8 @@
 id: 3349
 slug: "twitch-nutzt-ki-um-dich-zu-mikromanagen-creator-news"
 path: "/youtube-tipps-de/twitch-nutzt-ki-um-dich-zu-mikromanagen-creator-news/"
-title: "Twitch nutzt KI, um dich zu mikromanagen. | Creator News"
-excerpt: "YouTube möchte dich klonen, Twitch will mit KI deine Sponsoring-Aktivitäten mikroverwalten, und wir müssen über die mysteriöse „Top-Fans“-Datenschutzeinstellung sprechen, die gerade kursiert. Tauchen wir direkt in die Creator-News ein."
+title: "Twitch nutzt KI, um Creator zu mikromanagen | Creator News"
+excerpt: "YouTube-Klonen, KI-gesteuertes Mikromanagement von Twitch-Sponsoring und die mysteriöse 'Top Fans'-Einstellung – tauchen wir ein in die neuesten Creator-News."
 date: "2026-05-30T12:15:08"
 modified: "2026-05-30T12:15:08"
 locale: "de"

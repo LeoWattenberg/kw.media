@@ -3,7 +3,7 @@ id: 3356
 slug: "warum-youtube-dir-im-shorts-feed-qr-codes-anzeigt-creator-news"
 path: "/youtube-tipps-de/warum-youtube-dir-im-shorts-feed-qr-codes-anzeigt-creator-news/"
 title: "Warum YouTube dir im Shorts Feed QR-Codes anzeigt | Creator News"
-excerpt: "YouTube begräbt Brand Connect für eine KI-gesteuerte Werbemaschine, Twitch löscht seinen TikTok-Klon, Adobe möchte Ihren Editor durch einen KI-Kollegen ersetzen und warum zeigt YouTube Ihnen in Ihrem Desktop-Shorts-Feed QR-Codes an..."
+excerpt: "YouTube setzt auf KI für Werbung, Twitch entfernt TikTok-Funktion, Adobe präsentiert KI-Editor und warum erscheinen QR-Codes im Desktop-Shorts-Feed?"
 date: "2026-03-28T13:15:09"
 modified: "2026-03-28T13:15:09"
 locale: "de"

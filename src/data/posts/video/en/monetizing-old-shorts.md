@@ -2,8 +2,8 @@
 id: 3259
 slug: "monetizing-old-shorts"
 path: "/youtube-tips-en/monetizing-old-shorts/"
-title: "Monetizing Old Shorts"
-excerpt: "If you've already created Shorts, please remember to activate monetization for this content, otherwise you won't be able to receive any revenue share. Fortunately, the YouTube bike editing..."
+title: "Monetizing Your Old YouTube Shorts"
+excerpt: "Learn how to activate monetization for your existing Shorts to start earning revenue share."
 date: "2023-01-12T10:43:31"
 modified: "2023-01-12T10:43:31"
 locale: "en"

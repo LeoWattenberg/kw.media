@@ -2,8 +2,8 @@
 id: 3143
 slug: "youtube-livestream-updates-hype-expansion-and-ai-inspiration-tools-for-eu-creators"
 path: "/youtube-tips-en/youtube-livestream-updates-hype-expansion-and-ai-inspiration-tools-for-eu-creators/"
-title: "YouTube Livestream Updates, Hype Expansion & AI Inspiration Tools for EU Creators!"
-excerpt: "Gifts on vertical live streams purchased with YouTube's digital currency, Jewels, are getting a small upgrade. It is now possible to combo gifts by purchasing the same gift multiple times, and the combo counter will..."
+title: "YouTube Livestream Updates: New Gift Combos & AI Tools for EU Creators"
+excerpt: "YouTube enhances vertical live stream gifts with combo options and expands AI-powered inspiration tools to EU, UK, and Switzerland."
 date: "2025-04-19T12:15:10"
 modified: "2025-04-19T12:15:10"
 locale: "en"

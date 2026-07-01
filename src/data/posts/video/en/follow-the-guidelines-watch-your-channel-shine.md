@@ -2,8 +2,8 @@
 id: 3062
 slug: "follow-the-guidelines-watch-your-channel-shine"
 path: "/youtube-tips-en/follow-the-guidelines-watch-your-channel-shine/"
-title: "Follow the guidelines, watch your channel shine ✨"
-excerpt: "YouTube ABC: YouTube guidelines are standardized rules that promote respectful interactions within the community compliance with the guidelines pretends conflicts and improves the quality of your content the platform..."
+title: "Follow the Guidelines, Watch Your Channel Thrive"
+excerpt: "Discover YouTube's standardized rules for respectful interactions and content quality improvement."
 date: "2024-07-11T14:00:19"
 modified: "2024-07-11T14:00:19"
 locale: "en"

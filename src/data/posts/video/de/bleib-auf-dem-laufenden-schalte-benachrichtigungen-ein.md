@@ -2,8 +2,8 @@
 id: 3337
 slug: "bleib-auf-dem-laufenden-schalte-benachrichtigungen-ein"
 path: "/youtube-tipps-de/bleib-auf-dem-laufenden-schalte-benachrichtigungen-ein/"
-title: "Bleib auf dem Laufenden! Schalte Benachrichtigungen ein 🔔"
-excerpt: "YouTube ABC: Nach dem Abonnieren können Zuschauer Benachrichtigungen aktivieren, um über neue Inhalte informiert zu werden. Die Übersicht eines Videos in YouTube Studio zeigt dir, wie viele Zuschauer es auf diese Weise sehen. So funktioniert der Reichweiten-Tab..."
+title: "Bleib informiert: Benachrichtigungen auf YouTube einrichten"
+excerpt: "Erfahre, wie Zuschauer deines Kanals Benachrichtigungen aktivieren können, um über neue Videos informiert zu werden und wie du diese Daten in YouTube Studio findest."
 date: "2024-08-31T15:58:14"
 modified: "2024-08-31T15:58:14"
 locale: "de"

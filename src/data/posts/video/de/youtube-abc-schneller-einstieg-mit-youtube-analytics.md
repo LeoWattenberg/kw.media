@@ -2,8 +2,8 @@
 id: 3358
 slug: "youtube-abc-schneller-einstieg-mit-youtube-analytics"
 path: "/youtube-tipps-de/youtube-abc-schneller-einstieg-mit-youtube-analytics/"
-title: "YouTube ABC :: Schneller Einstieg mit YouTube Analytics 📊"
-excerpt: "Das YouTube-ABC: YouTube Analytics ist ein kostenloses Tool, das von YouTube bereitgestellt wird und es einfach macht, den Erfolg deines Kanals zu messen und dir hilft, deine Strategie zu optimieren. Du kannst es in der YouTube Studio-App oder auf..."
+title: "YouTube ABC: Schneller Start mit YouTube Analytics"
+excerpt: "Erkunde YouTube Analytics (kostenlos) in der YouTube Studio App. Lerne Schlüsselmetriken kennen, um Kanal-Erfolg zu messen und Strategien zu optimieren."
 date: "2024-06-13T10:09:08"
 modified: "2024-06-13T10:09:08"
 locale: "de"

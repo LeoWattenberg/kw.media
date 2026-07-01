@@ -2,8 +2,8 @@
 id: 3274
 slug: "how-do-i-connect-my-youtube-account-to-discord"
 path: "/youtube-tips-en/how-do-i-connect-my-youtube-account-to-discord/"
-title: "How do I connect my YouTube account to Discord?"
-excerpt: "To connect your YouTube channel with Discord, first click on Settings and then Connections. Here you select YouTube. Next, you need to sign in with your real Google account and authorize the app..."
+title: "How to Connect Your YouTube Account to Discord"
+excerpt: "Learn how to link your YouTube channel with Discord by following simple steps: access Settings, choose Connections, select YouTube, and sign in with your Google account."
 date: "2023-06-05T07:00:15"
 modified: "2023-06-05T07:00:15"
 locale: "en"

@@ -2,8 +2,8 @@
 id: 3381
 slug: "youtube-updates-kommentervorschauen-in-shorts-duo-premium-plane-und-anderungen-bei-musiklizenzen"
 path: "/youtube-tipps-de/youtube-updates-kommentervorschauen-in-shorts-duo-premium-plane-und-anderungen-bei-musiklizenzen/"
-title: "YouTube-Updates: Kommentervorschauen in Shorts, Duo-Premium-Pläne & Änderungen bei Musiklizenzen!"
-excerpt: "YouTube-Updates: Diese Woche gab es am 27. März ein Update. YouTube Shorts erhält eine Aktualisierung mit einem kleinen Rechteck am unteren Ende der Shorts, das Kommentare anzeigt oder andeutet – ein „Kommentar-Teaser“, wenn man so will."
+title: "YouTube-Updates: Kommentervorschauen bei Shorts, Duo-Premium-Pläne und Musiklizenzänderungen"
+excerpt: "Entdecke die neuesten YouTube-Updates vom 27. März: Kommentarvorschauen in Shorts, ein neues Premium-Angebot für Zweipersonenhaushalte und Änderungen bei Musiklizenzen."
 date: "2025-04-05T12:15:07"
 modified: "2025-04-05T12:15:07"
 locale: "de"

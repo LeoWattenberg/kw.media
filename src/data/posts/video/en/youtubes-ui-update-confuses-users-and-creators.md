@@ -2,8 +2,8 @@
 id: 3302
 slug: "youtubes-ui-update-confuses-users-and-creators"
 path: "/youtube-tips-en/youtubes-ui-update-confuses-users-and-creators/"
-title: "YouTube's UI Update Confuses Users and Creators!"
-excerpt: "We need to talk about the elephant in the room because YouTube has revived an experiment from 2022: they're swapping the title description and comments that usually appear below the video,..."
+title: "YouTube's UI Update: Confusion and Changes for Users and Creators"
+excerpt: "YouTube's new UI puts recommended videos before titles, descriptions, and comments, confusing users. Key changes hit live streams, Vertical Live, and Shorts."
 date: "2024-02-24T13:30:12"
 modified: "2024-02-24T13:30:12"
 locale: "en"

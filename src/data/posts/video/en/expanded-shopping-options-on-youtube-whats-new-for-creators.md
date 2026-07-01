@@ -2,8 +2,8 @@
 id: 3219
 slug: "expanded-shopping-options-on-youtube-whats-new-for-creators"
 path: "/youtube-tips-en/expanded-shopping-options-on-youtube-whats-new-for-creators/"
-title: "Expanded Shopping Options on YouTube: What's New for Creators?"
-excerpt: "YouTube Shopping is getting some updates: so-called Shopping Collections, meaning a compilation of products from your own linked store or other stores. These will be presented in the so-called Shopping..."
+title: "Expanded Shopping Options on YouTube: New Features for Creators"
+excerpt: "Discover YouTube's updated shopping features: Shopping Collections, Affiliate Hub, and new platform integrations."
 date: "2024-04-13T12:30:13"
 modified: "2024-04-13T12:30:13"
 locale: "en"

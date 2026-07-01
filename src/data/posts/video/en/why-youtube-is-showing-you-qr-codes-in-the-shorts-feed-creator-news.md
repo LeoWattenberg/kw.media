@@ -2,8 +2,8 @@
 id: 3103
 slug: "why-youtube-is-showing-you-qr-codes-in-the-shorts-feed-creator-news"
 path: "/youtube-tips-en/why-youtube-is-showing-you-qr-codes-in-the-shorts-feed-creator-news/"
-title: "Why YouTube is showing you QR Codes in the Shorts Feed | Creator News"
-excerpt: "YouTube buries Brand Connect for an AI driven ad machine, Twitch deletes its TikTok clone, Adobe wants to replace your editor with an AI co worker, and why is YouTube showing you QR codes in your desktop Shorts feed..."
+title: "YouTube's New AI-Driven Ads, Twitch Drops TikTok Clone & QR Codes in Shorts Feed"
+excerpt: "YouTube's AI ad machine replaces Brand Connect, Twitch dumps its TikTok copycat, Adobe's AI editor assistant, and mysterious QR codes in YouTube Shorts desktop feed."
 date: "2026-03-28T13:15:09"
 modified: "2026-03-28T13:15:09"
 locale: "en"

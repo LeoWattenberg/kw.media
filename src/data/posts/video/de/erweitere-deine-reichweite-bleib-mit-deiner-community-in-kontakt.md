@@ -2,8 +2,8 @@
 id: 3315
 slug: "erweitere-deine-reichweite-bleib-mit-deiner-community-in-kontakt"
 path: "/youtube-tipps-de/erweitere-deine-reichweite-bleib-mit-deiner-community-in-kontakt/"
-title: "Erweitere deine Reichweite! Bleib mit deiner Community in Kontakt!"
-excerpt: "YouTube ABC: Community-Reiter neben Interaktionen und Video-Shorts und Streams. YouTube bietet Creators die Möglichkeit, Community-Beiträge zu veröffentlichen. Du kannst auf die Community-Beiträge deines YouTube-Kanals zugreifen, indem du auf..."
+title: "Erweitere deine Reichweite: Nutze den Community-Reiter auf YouTube"
+excerpt: "Entdecke die Kraft des Community-Reiters auf YouTube: Veröffentliche Beiträge, interagiere mit Fans und fördere das Wachstum deines Kanals."
 date: "2024-06-26T08:06:29"
 modified: "2024-06-26T08:06:29"
 locale: "de"

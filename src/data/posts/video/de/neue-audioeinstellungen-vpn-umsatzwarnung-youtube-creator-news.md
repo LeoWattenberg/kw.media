@@ -2,8 +2,8 @@
 id: 3331
 slug: "neue-audioeinstellungen-vpn-umsatzwarnung-youtube-creator-news"
 path: "/youtube-tipps-de/neue-audioeinstellungen-vpn-umsatzwarnung-youtube-creator-news/"
-title: "Neue Audioeinstellungen + VPN-Umsatzwarnung | YouTube Creator News"
-excerpt: "Der Code-Break ist hier. YouTube Engineering ist im Urlaub."
+title: "Neue Audio-Einstellungen und VPN-Monetarisierungswarnung | YouTube Creator News 2025"
+excerpt: "Entdecke die neuesten YouTube-Funktionen: KI-Tools, Community-Verbesserungen und Änderungen bei der Monetarisierung. Ein umfassendes Update für Creator."
 date: "2025-12-20T13:15:09"
 modified: "2025-12-20T13:15:09"
 locale: "de"

@@ -2,8 +2,8 @@
 id: 3345
 slug: "a-b-testing-auf-youtube-und-playlist-abstimmung"
 path: "/youtube-tipps-de/a-b-testing-auf-youtube-und-playlist-abstimmung/"
-title: "A/B-Testing auf YouTube & Playlist-Abstimmung"
-excerpt: "YouTube-Updates: Diese Woche starten wir mit einer neuen Playlistenfunktion namens \"Playlist Voting\". Sie ist standardmäßig deaktiviert und kann von Creators nur in der YouTube-Haupt-App (nicht auf dem Desktop oder in YouTube Studio) aktiviert werden."
+title: "YouTube-Updates: Playlist-Abstimmung und A/B-Testing für Titel"
+excerpt: "Neue Funktionen auf YouTube: Aktivieren Sie das 'Playlist Voting' in der App und testen Sie verschiedene Titel und Miniaturansichten, um Ihre Reichweite zu optimieren."
 date: "2025-05-17T12:15:06"
 modified: "2025-05-17T12:15:06"
 locale: "de"

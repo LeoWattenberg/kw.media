@@ -2,8 +2,8 @@
 id: 3300
 slug: "youtubes-end-of-year-updates-jewels-superchat-goals-and-more"
 path: "/youtube-tips-en/youtubes-end-of-year-updates-jewels-superchat-goals-and-more/"
-title: "YouTube's End-of-Year Updates: Jewels, SuperChat Goals and more!"
-excerpt: "There are updates regarding YouTube Shorts: They are now being rolled out in the US in the first week. Unfortunately, we still don't have exact data on the bundle prices, but we now know the conversion rate..."
+title: "YouTube's End-of-Year Updates: Jewels, Super Chat Goals, and More"
+excerpt: "Discover YouTube's new features: Jewel pricing, Super Chat Goals for all creators, paid Hype, Dreamscreen AI backgrounds, and the Year in Review gaming recap."
 date: "2024-11-23T13:15:01"
 modified: "2024-11-23T13:15:01"
 locale: "en"

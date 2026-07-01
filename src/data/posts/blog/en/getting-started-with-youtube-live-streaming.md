@@ -7,8 +7,8 @@ excerpt: "A beginner-friendly walkthrough for setting up YouTube Live streams, c
 date: "2022-11-05T14:53:41"
 modified: "2023-03-17T12:57:27"
 locale: "en"
-category: "blog"
 translationKey: "post:2280"
+category: "blog"
 image: "https://lh6.googleusercontent.com/eWeMjTqNdIR4AOgH_aTWqYslVE3cj1h2iIxrAnWMUycTQgDXzGClDJ33m8xucehQ4q91mnw4q86QtQSGhiU3bbJZrIvUMlOFP-vZmb8FkcH7PJndZXYRrKxWKhxeL82GP9FvtvmwYkQB5NwoNL6uZlt5O-T0AdzpOJg7vL_eoHTWNtoaXBZkhD-SJFfuCA"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-youtube-live-streaming/"
@@ -63,7 +63,7 @@ If you have already streamed before you will see a blue “Reuse Settings” but
 If you haven’t yet, read our OBS guide on setting up OBS.
 
 <figure><div>
-<blockquote><a href="/youtube-tips-en/getting-started-with-obs-a-beginners-guide/">Getting started with OBS: A beginner’s guide</a></blockquote><iframe title="“Getting started with OBS: A beginner’s guide” — Koytek Wattenberg Media" src="https://kw.media/youtube-tips-en/getting-started-with-obs-a-beginners-guide/embed/#?secret=7AeJG5xHGV#?secret=JEx7cE9euL" width="600" height="338" frameborder="0"></iframe>
+<blockquote><a href="/youtube-tips-en/getting-started-with-OBS-a-beginners-guide/">Getting started with OBS: A beginner’s guide</a></blockquote><iframe title="“Getting started with OBS: A beginner’s guide” — Koytek Wattenberg Media" src="https://kw.media/youtube-tips-en/getting-started-with-OBS-a-beginners-guide/embed/#?secret=7AeJG5xHGV#?secret=JEx7cE9euL" width="600" height="338" frameborder="0"></iframe>
 </div></figure>
 
 Now let’s get to the exciting part: If you want to livestream, you either need to connect your YouTube Account to OBS or you need to find your stream key. Since you want to go and do advanced streaming anyway in the future I recommend you invest a little bit of time and get familiar with stream keys, then you don’t have to switch in the future.  You can find your stream key [in the Live Dashboard](https://studio.youtube.com/channel/UC/livestreaming/dashboard) on the left side, and you need to paste it into **OBS’ settings → Stream → stream key** field.
@@ -72,7 +72,7 @@ We recommend to use the RTMP/RTMPS streaming protocol – this should be the set
 
 <figure><img src="https://lh6.googleusercontent.com/qHx0KRCwAldoDP2CzuYcXseT6xIVMVodYdL7zYvIB8WOOMMI6UydQUHxNDwHwmValWnox3eIAE3Qpd1kYhSAZHXtE7NwHm-diuV-n2mSR7k5bfe8Ev22NEcprQdF3T2iZ9NS_KYtLSzRndiYeGwd6JIYDD1XOwIA4h4WfSablU-SnaqMdTrEvf262_EcMQ" alt></figure>
 
-*Select the Youtube RTMP/RTMPS Service and click on “use Stream Key”*
+*Select the YouTube RTMP/RTMPS Service and click on “use Stream Key”*
 
 <figure><img src="https://lh3.googleusercontent.com/F7ElrA_PDSLMUR4GRXHUWouklKTuGIAYuR5dKh1mLV8BTBQv4BK1ZfUCGkTYekspt-uF50Q9evUCZzzaiwUu3VCkkhapQDrUl3dqI6N-LUZ14B0-prFA69tDqye55ZAALbLjiXZ4yZz12gFAYDk_GDo376S3e-8Lz6zI8EafJsc0G7syKf4kLraI06-I4A" alt></figure>
 

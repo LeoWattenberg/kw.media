@@ -2,8 +2,8 @@
 id: 1839
 slug: "lass-uns-uber-geld-und-sponsorships-reden"
 path: "/youtube-tipps-de/lass-uns-uber-geld-und-sponsorships-reden/"
-title: "LASS UNS ÜBER GELD & SPONSORSHIPS REDEN"
-excerpt: "Ein Leitfaden für Creator zu Sponsorships, fairen Preisen, Verhandlung, Leistungspaketen und dem Wert kleiner Communities."
+title: "Lass uns über Geld und Sponsorships reden: Ein Leitfaden für Creator"
+excerpt: "Ein Ratgeber zu fairen Preisen, Verhandlungstaktiken und dem Wert deiner Community. Lerne, wie du deinen Marktwert berechnest und dich nicht unter Wert verkaufst."
 date: "2021-10-15T08:52:38"
 modified: "2023-03-17T12:57:28"
 locale: "de"
@@ -35,7 +35,7 @@ Auch wenn du glaubst, du hast noch keinen Wert, da dein Kanal noch sehr klein is
 - Gesponsorte Videos ~ 50-70€
 - Shoutouts ~ 80€
 - Produktplatzierung ~ 40€
-- Stories / Shorts (Instagram / Youtube / Snapchat / TikTok) ~ 15-25 €
+- Stories / Shorts (Instagram / YouTube / Snapchat / TikTok) ~ 15-25 €
 - Twitter Post / Thread ~10€
 
 Denk daran, dass das natürlich keine Festpreise sind und du mit guten Verhandlungen bessere Deals erzielen kannst. Du kannst dich auch an eine Agentur wenden, die die Verhandlungen für dich führt, wenn du dich damit unwohl fühlst oder diese Zeit lieber damit verbringen möchtest guten Content zu erstellen.

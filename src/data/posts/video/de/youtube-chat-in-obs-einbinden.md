@@ -2,8 +2,8 @@
 id: 3054
 slug: "youtube-chat-in-obs-einbinden"
 path: "/youtube-tipps-de/youtube-chat-in-obs-einbinden/"
-title: "YouTube Chat in OBS einbinden"
-excerpt: "Um einen YouTube Live Chat in eurem obs einzubinden müsst ihr zunächst den Chat als neues Fenster öffnen den Link könnt ihr dann einfach kopieren und als browserquelle in eurem obs einführen mit kostenlosen Tools wie..."
+title: "YouTube-Chat in OBS integrieren"
+excerpt: "Erfahren Sie, wie Sie den YouTube Live-Chat in OBS einbinden: Öffnen Sie den Chat im neuen Fenster, kopieren Sie den Link und fügen Sie ihn als Browserquelle in OBS ein."
 date: "2023-03-24T16:30:02"
 modified: "2023-03-24T16:30:02"
 locale: "de"

@@ -2,8 +2,8 @@
 id: 3368
 slug: "youtube-hat-den-dislike-button-wieder-einmal-abgeschafft-creator-news"
 path: "/youtube-tipps-de/youtube-hat-den-dislike-button-wieder-einmal-abgeschafft-creator-news/"
-title: "YouTube hat den Dislike-Button (wieder einmal) abgeschafft | Creator News"
-excerpt: "Twitch führt stillschweigend Vorrollwerbung von bis zu 90 Sekunden ein und eliminiert damit effektiv Ihre oberste Entdeckungsstufe auf der Plattform. Darüber hinaus hat YouTube den Dislike-Button bei Shorts entfernt, und wir klären auf..."
+title: "YouTube schafft den Dislike-Button bei Shorts ab | Creator News"
+excerpt: "Twitch führt längere Werbung ein, YouTube entfernt Dislike-Button bei Shorts und informiert über EU-Rückerstattungen. Neuigkeiten für Creator."
 date: "2026-06-27T12:15:16"
 modified: "2026-06-27T12:15:16"
 locale: "de"

@@ -2,8 +2,8 @@
 id: 3116
 slug: "youtube-ad-warning-are-you-losing-revenue-dms-return"
 path: "/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/"
-title: "YouTube Ad Warning: Are You Losing Revenue? 💸 + DMs Return!"
-excerpt: "What's up, everyone? Welcome back to the YouTube Creator News."
+title: "YouTube Creator News: Ad Warnings, Comment Control & Returning DMs"
+excerpt: "Learn about YouTube's new 'Who Can Comment' settings, ad changes, and the pilot test for in-app messaging (DMs)."
 date: "2025-11-22T13:15:03"
 modified: "2025-11-22T13:15:03"
 locale: "en"

@@ -2,8 +2,8 @@
 id: 3185
 slug: "youtubes-neuestes-experiment-jump-ahead-was-creator-wissen-mussen"
 path: "/youtube-tipps-de/youtubes-neuestes-experiment-jump-ahead-was-creator-wissen-mussen/"
-title: "YouTube's neuestes Experiment - Jump Ahead: Was Creator wissen müssen"
-excerpt: "Es gibt neue YouTube Updates, und derzeit läuft ein sogenanntes \"Jump ahead\" Experiment für eine sehr kleine Gruppe von YouTube Premium Nutzern in den USA. Dabei soll beim Doppelklicken auf einem Smartphone das Video..."
+title: "YouTube's neuestes Experiment: Jump Ahead – Was Creator wissen sollten"
+excerpt: "YouTube aktualisiert: \"Jump ahead\" für Premium-Nutzer in den USA, verbesserte Shorts-Remix-Funktion & Änderungen bei Kapiteln. Auswirkungen auf Creator."
 date: "2024-03-23T13:30:33"
 modified: "2024-03-23T13:30:33"
 locale: "de"

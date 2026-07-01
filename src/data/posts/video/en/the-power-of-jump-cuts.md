@@ -2,8 +2,8 @@
 id: 3070
 slug: "the-power-of-jump-cuts"
 path: "/youtube-tips-en/the-power-of-jump-cuts/"
-title: "The power of Jump cuts 💪"
-excerpt: "YouTube ABC: jump cuts are a popular method of cutting out unnecessary process in videos to prevent viewers from getting bored content creators often use these in their videos they are used to delete filler words or..."
+title: "The Power of Jump Cuts in Video Editing"
+excerpt: "Discover how jump cuts enhance video engagement by removing filler, improving pace, and boosting viewer retention on YouTube."
 date: "2024-07-31T14:00:38"
 modified: "2024-07-31T14:00:38"
 locale: "en"

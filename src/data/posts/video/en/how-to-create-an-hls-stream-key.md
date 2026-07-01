@@ -2,8 +2,8 @@
 id: 3273
 slug: "how-to-create-an-hls-stream-key"
 path: "/youtube-tips-en/how-to-create-an-hls-stream-key/"
-title: "How to Create an HLS Stream Key"
-excerpt: "To be able to display ads in your streams, you need to broadcast your stream using the HLS protocol. For YouTube to be able to correctly process this, you need to create a streaming tier that supports the HLS protocol. For this..."
+title: "How to Create an HLS Stream Key for HDR Streams on YouTube"
+excerpt: "Learn how to set up an HLS stream key to display HDR content correctly on YouTube, involving a simple process in the Live Control Room."
 date: "2022-09-13T18:42:14"
 modified: "2022-09-13T18:42:14"
 locale: "en"

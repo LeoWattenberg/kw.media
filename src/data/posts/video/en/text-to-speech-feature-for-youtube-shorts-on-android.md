@@ -2,8 +2,8 @@
 id: 3264
 slug: "text-to-speech-feature-for-youtube-shorts-on-android"
 path: "/youtube-tips-en/text-to-speech-feature-for-youtube-shorts-on-android/"
-title: "Text-to-Speech Feature for YouTube Shorts on Android!"
-excerpt: "YouTube is currently experimenting with a text-to-speech function for the Shorts editor in the YouTube app on Android. This means that iOS users will have to wait for now, while Android users will soon be able to..."
+title: "Text-to-Speech Feature for YouTube Shorts on Android"
+excerpt: "YouTube's new text-to-speech function lets Android users add voiceovers to Shorts. iOS users, unfortunately, will have to wait."
 date: "2024-07-20T15:15:03"
 modified: "2024-07-20T15:15:03"
 locale: "en"

@@ -2,8 +2,8 @@
 id: 3174
 slug: "langere-shorts-und-add-yours-sticker-youtubes-neueste-experimente"
 path: "/youtube-tipps-de/langere-shorts-und-add-yours-sticker-youtubes-neueste-experimente/"
-title: "Längere Shorts & \"Add Yours\"-Sticker: YouTube's neueste Experimente"
-excerpt: "YouTube experimentiert gerade mit einem sogenannten \"Add Yours\" Sticker, also \"füge deinen Teil der Geschichte hinzu\". Das bedeutet, als Creator kann ich einen sogenannten Call to Action setzen, eine Aufforderung an..."
+title: "Längere Shorts & \"Add Yours\"-Sticker: Neue YouTube-Experimente"
+excerpt: "YouTube führt 'Add Yours'-Sticker für Shorts ein, ermutigt zu Antworten. Debatte über längere Shorts und Änderungen bei Kanal-Info-Boxen."
 date: "2024-07-13T12:30:22"
 modified: "2024-07-13T12:30:22"
 locale: "de"

@@ -2,8 +2,8 @@
 id: 3179
 slug: "youtube-updates-youtube-studio-app-youtube-app-kommentare-community-posts"
 path: "/youtube-tipps-de/youtube-updates-youtube-studio-app-youtube-app-kommentare-community-posts/"
-title: "YouTube Updates: YouTube Studio App | YouTube App Kommentare | Community Posts"
-excerpt: "Letzten November hatten wir bereits kurz über die neue Ansicht in der YouTube Studio App bezüglich vergangener und anstehender Zahlungen gesprochen. Damals war das System nur für Creator verfügbar, die in US Dollar..."
+title: "YouTube-Updates: Neue Zahlungsansicht in der YouTube Studio App | Kommentare & Community Posts"
+excerpt: "Die neue YouTube Studio App bietet eine aktualisierte Zahlungsansicht, Belohnungskampagnen, Ads für mobile Live-Streams und flexiblere Regeln für Community-Beiträge."
 date: "2024-06-01T12:30:19"
 modified: "2024-06-01T12:30:19"
 locale: "de"

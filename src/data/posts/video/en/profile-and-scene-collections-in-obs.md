@@ -2,8 +2,8 @@
 id: 3243
 slug: "profile-and-scene-collections-in-obs"
 path: "/youtube-tips-en/profile-and-scene-collections-in-obs/"
-title: "Profile and Scene Collections in OBS"
-excerpt: "To quickly stream with presets on other devices, OBS offers profile and scene collections. With the profile collection, you can transfer streaming settings such as quotes. The scene collection, on the other hand..."
+title: "Profile and Scene Collections in OBS: Stream Presets Made Easy"
+excerpt: "OBS lets you save streaming presets with Profile & Scene Collections. Transfer settings like bitrates and scenes between devices for seamless streaming."
 date: "2023-03-29T15:30:01"
 modified: "2023-03-29T15:30:01"
 locale: "en"

@@ -2,8 +2,8 @@
 id: 3359
 slug: "youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck"
 path: "/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/"
-title: "YouTube-Werbewarnung: Verlieren Sie Einnahmen? 💸 + DMs sind zurück!"
-excerpt: "Hallo zusammen! Willkommen zurück zur YouTube Creator News."
+title: "YouTube-Updates: Neue Kommentar-Einstellungen, Werbeänderungen & Rückkehr der DMs"
+excerpt: "Entdecken Sie neue YouTube-Funktionen: Kommentarverwaltung, Werbeeinnahmen-Check und wiederhergestellte Direktnachrichten."
 date: "2025-11-22T13:15:03"
 modified: "2025-11-22T13:15:03"
 locale: "de"

@@ -2,8 +2,8 @@
 id: 3051
 slug: "stay-on-top-of-things-with-the-dashboard"
 path: "/youtube-tips-en/stay-on-top-of-things-with-the-dashboard/"
-title: "Stay on top of things with the dashboard 👀"
-excerpt: "The YouTube ABC: dashboard opening the YouTube studio app transports you directly to the dashboard it's a central Hub designed for creators to manage their content and channel performance the dashboard provides an..."
+title: "Stay on Top of Your Channel: YouTube Dashboard Overview"
+excerpt: "Discover your YouTube Studio dashboard, a creator's hub for managing content & tracking performance."
 date: "2024-07-01T09:53:45"
 modified: "2024-07-01T09:53:45"
 locale: "en"

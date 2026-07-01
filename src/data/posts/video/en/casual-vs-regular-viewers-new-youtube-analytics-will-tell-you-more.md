@@ -2,8 +2,8 @@
 id: 3133
 slug: "casual-vs-regular-viewers-new-youtube-analytics-will-tell-you-more"
 path: "/youtube-tips-en/casual-vs-regular-viewers-new-youtube-analytics-will-tell-you-more/"
-title: "“Casual” vs. “Regular” Viewers? NEW YouTube Analytics will tell you more!"
-excerpt: "Let's talk about the YouTube updates. Audience segments are now available in YouTube Analytics, splitting new and returning viewers into more granular categories: New Viewers, Casual Viewers (those who occasionally..."
+title: "YouTube Analytics: Understanding 'Casual' vs. 'Regular' Viewers"
+excerpt: "Discover new insights with YouTube's updated analytics. Now, viewers are categorized into New, Casual (1-5 months engagement), and Regular (6+ months) segments."
 date: "2025-07-05T12:15:11"
 modified: "2025-07-05T12:15:11"
 locale: "en"

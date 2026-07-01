@@ -2,8 +2,8 @@
 id: 3352
 slug: "welche-funktionen-mochtest-du-dass-youtube-einfuhrt"
 path: "/youtube-tipps-de/welche-funktionen-mochtest-du-dass-youtube-einfuhrt/"
-title: "Welche Funktionen möchtest du, dass YouTube einführt?"
-excerpt: "Welche Funktionen möchten Sie auf YouTube sehen? Wir haben Ihre Ideen gesammelt und werden sie bei YouTube einbringen. Da die Entwicklungsressourcen jedoch begrenzt sind, bitten wir Sie, diese zu priorisieren. Stimmen Sie in der Umfrage ab (von 1...):"
+title: "Welche Funktionen möchtest du auf YouTube sehen?"
+excerpt: "Teile deine Ideen für neue YouTube-Funktionen und hilf mit, die Plattform zu verbessern. Priorisiere die Vorschläge in unserer Umfrage."
 date: "2024-11-10T16:15:02"
 modified: "2024-11-10T16:15:02"
 locale: "de"

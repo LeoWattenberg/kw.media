@@ -2,8 +2,8 @@
 id: 3287
 slug: "youtube-update-handles-now-support-more-languages-and-special-characters"
 path: "/youtube-tips-en/youtube-update-handles-now-support-more-languages-and-special-characters/"
-title: "YouTube Update: @ Handles Now Support More Languages & Special Characters!"
-excerpt: "@handles now support letters and digits in a total of 75 different languages. However, there are some changes: Instead of 30 characters, only 20 or 10 characters are now available for the alphabets..."
+title: "YouTube Update: Expanded Language Support for @ Handles and New Special Characters"
+excerpt: "YouTube now supports letters and digits in 75 languages for @handles, with some character length changes. New special characters also allowed."
 date: "2024-06-29T12:30:32"
 modified: "2024-06-29T12:30:32"
 locale: "en"

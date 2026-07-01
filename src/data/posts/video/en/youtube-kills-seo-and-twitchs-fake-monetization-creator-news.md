@@ -2,8 +2,8 @@
 id: 3097
 slug: "youtube-kills-seo-and-twitchs-fake-monetization-creator-news"
 path: "/youtube-tips-en/youtube-kills-seo-and-twitchs-fake-monetization-creator-news/"
-title: "YouTube Kills SEO & Twitch’s Fake Monetization | Creator News"
-excerpt: "YouTube ist dabei, deinen Suchverkehr zu killen, und Gemini Omni will dein Gesicht standardmäßig in eine Deep Fake Vorlage verwandeln. Und Twitch hat gerade einen neuen Weg gefunden, kleine Streamer zu ihrer neuen..."
+title: "YouTube Chokes SEO & Twitch's Misleading Monetization | Creator News"
+excerpt: "YouTube blocks your search traffic and Gemini Omni turns your face into a deepfake template. Twitch exploits small streamers."
 date: "2026-05-23T12:15:01"
 modified: "2026-05-23T12:15:01"
 locale: "en"
@@ -21,28 +21,28 @@ video:
 
 ## Transcript
 
-YouTube ist dabei, deinen Suchverkehr zu killen, und Gemini Omni will dein Gesicht standardmäßig in eine Deep-Fake-Vorlage verwandeln. Und Twitch hat gerade einen neuen Weg gefunden, kleine Streamer zu ihrer neuen Geldquelle zu machen. Ich mache seit über einem Jahrzehnt YouTube und Online-Medien, und im Moment scheinen die Plattformen nicht wirklich deine Freunde zu sein. Lass uns den Scheiß beiseite lassen und direkt in die Creator News einsteigen.
+YouTube is killing your search traffic, and Gemini Omni wants to turn your face into a deepfake template by default. And Twitch has just found a new way to squeeze small streamers as their new cash cow. I've been doing YouTube and online media for over a decade, and right now, the platforms don't seem to be your friends. Let's cut the crap and dive straight into the Creator News.
 
-Seit Jahren ist YouTube die zweitgrößte Suchmaschine der Welt, und im Moment wird sie immer mehr zu einer KI-Antwortmaschine, genau wie Google Search in den letzten Jahren. Wenn ein Zuschauer nach etwas auf YouTube sucht, synthetisiert die neue Funktion "Frage YouTube" eine Antwort und gibt sie ihm direkt als Text. Bei einfachen Abfragen bedeutet das, dass es keinen Klick auf dein Miniaturbild gibt, keine Ansicht und natürlich auch keine Einnahmen.
+For years, YouTube has been the second-largest search engine in the world, and it's increasingly becoming an AI response machine, much like Google Search has in recent years. When a viewer searches for something on YouTube, the new "Ask YouTube" feature synthesizes an answer and gives it to them directly as text. For simple queries, that means no click on your thumbnail, no view, and of course, no revenue.
 
-Die KI extrahiert einfach deine harte Arbeit und serviert sie kostenlos in der Suche. Aber hier kommt der Haken: Die KI verlinkt direkt zu einem Zeitstempel innerhalb des Videos als Primärquelle. Wenn du die Restansichten bekommen möchtest – also diejenigen, die nicht durch das Lesen eines kleinen Auszugs zufriedengestellt sind –, musst du deine Metadaten aktualisieren und deine Kapitel wirklich präzise gestalten.
+The AI is simply extracting your hard work and serving it up for free in search. But here's the catch: The AI links directly to a timestamp within the video as the primary source. If you want those residual views—the ones who aren't satisfied with reading a little snippet—you're going to have to update your metadata and really nail your chapters.
 
-Du musst den Wert in den ersten Sekunden jedes Kapitels vorladen, denn das ist es, was Gemini oder die YouTube-KI im Wesentlichen liest. Du musst die KI dazu zwingen, dich als Quelle zu zitieren. Und wenn dein informierender Inhalt das nicht tut, wird er unsichtbar werden.
+You need to pre-load the value in the first few seconds of each chapter because that's essentially what Gemini or the YouTube AI reads. You need to force the AI to cite you as the source. And if your informative content doesn't do that, it's going to become invisible.
 
-Wenn wir schon von KI sprechen, die tun und lassen kann, was sie will: YouTube rollt derzeit Gemini Omni als seine erste Funktion für die Inhaltsneuverwendung ein. Und nun ja, die PR sagt, es geht darum, Kreativität zu fördern, ich nenne es jedoch einen Albtraum.
+Speaking of AI that can do and undo as it pleases: YouTube is currently rolling out Gemini Omni as its first content repurposing feature. And yeah, the PR says it's about fostering creativity, but I call it a nightmare.
 
-Die Funktion ist opt-out, was bedeutet, dass jeder standardmäßig dein Gesicht und deine Stimme in seine eigenen Shorts remixen kann. Wenn dir dein Image und deine Marke am Herzen liegen, musst du diese Funktion manuell für jeden Upload deaktivieren. Es gibt derzeit keine Einstellung, um dies als Standard für alle Uploads zu deaktivieren, und Produkt-Experten wie ich haben das vor der Veröffentlichung an mehreren Stellen angesprochen. YouTube hat nicht zugehört. Es ist die gleiche Geschichte wie bei der automatischen Untertitelung und so vielen anderen fragwürdigen Änderungen zuvor.
+The feature is opt-out, meaning everyone can remix your face and voice into their own Shorts by default. If your image and brand matter to you, you'll have to manually disable this feature for every upload. There's currently no setting to disable it as a default for all uploads, and product experts like myself raised this before launch in multiple places. YouTube didn't listen. It's the same story as with automatic captions and so many other questionable changes before.
 
-Plattformen werden immer einfache Inhalte über deine Rechte stellen, und du solltest sie nicht als kostenlose Trainingsdaten verwenden lassen. Stelle sicher, dass du es deaktivierst, auch wenn es einen zusätzlichen Schritt beim Hochladen erfordert.
+Platforms will always prioritize easy content over your rights, and you shouldn't let them use your data as free training material. Make sure you opt-out, even if it requires an extra step during upload.
 
-Nun zu Twitch und dem finanziellen Druck von Daddy Jeff. Erneut versuchen sie, den letzten Cent auszupressen, indem sie Monetarisierungsfunktionen für alle einführen, also Monetarisierungsmöglichkeiten für Nicht-Partner. Auf dem Papier mag das für kleine Streamer richtig erscheinen, oder? Falsch.
+Now onto Twitch and Daddy Jeff's financial pressure. Again, they're trying to squeeze every last penny by introducing monetization features for all, meaning monetization opportunities for non-partners. On paper, this might seem right for small streamers, right? Wrong.
 
-Leider können kleine Streamer das Geld nicht auszahlen lassen. Es geht in ein ausgebenkönnendes Guthaben, das du in Abonnements oder Bits auf einem anderen Kanal umwandeln kannst, was bedeutet, dass das Geld im Twitch-Ökosystem bleibt. Sie nehmen das Geld der Zuschauer, behalten die Zinsen, binden es in ihrem System fest und geben dir digitales Monopolgeld zum Spielen. Es ist wieder einmal ein verzweifelter Versuch, ihren Cashflow zu schützen, also lass sie dich nicht glauben machen, dass dies zur Unterstützung von Creators dient.
+Unfortunately, small streamers can't cash out their earnings. It goes into a spendable balance that you can convert into subscriptions or Bits on another channel, meaning the money stays within the Twitch ecosystem. They take the viewers' money, keep the interest, lock it into their system, and give you digital monopoly money to play with. It's yet another desperate attempt to protect their cash flow, so don't let them fool you into thinking this is about supporting creators.
 
-Und das führt uns zu TikTok. Dort wird gerade im Vereinigten Königreich ein werbefreies Abonnement für 4 Pfund getestet. Feed-Anzeigen sterben aus. Erwarte, dass alle Plattformen beginnen, deine Zuschauer direkt zur Kasse zu bitten, mit YouTube Premium und seiner 70/30-Aufteilung als einer der creator-freundlichsten Optionen da draußen.
+And that brings us to TikTok. They're currently testing an ad-free subscription for £4 in the UK. Feed ads are on their way out. Expect all platforms to start taking your viewers straight to the checkout, with YouTube Premium and its 70/30 split being one of the most creator-friendly options out there.
 
-Wir wollen nicht mit einer Beschwerde enden, also hier ein letztes Update, bei dem ich nichts zu meckern habe: YouTube-Shorts-Karussellbeiträge unterstützen nun die Audiobibliothek und Dream Track. Es ist ein netzes kleines Werkzeug, um deine Community-Beiträge in den Shorts-Feed einzubinden und sie etwas interessanter zu gestalten. Achte jedoch auf regionale Urheberrechtsprobleme, wenn du außerhalb der USA bist.
+We don't want to end on a complaint, so here's one last update where I have nothing to gripe about: YouTube Shorts carousel posts now support the Audio Library and Dream Track. It's a nice little tool to engage your community posts in the Shorts feed and make them a bit more interesting. Just be mindful of regional copyright issues if you're outside the US.
 
-Ich bin schon lange in diesem Geschäft und Plattformen werden immer ihre Margen vor dir als Creator schützen. Und ich bin es leid, Creators ausbrennen zu sehen. Deshalb habe ich es bereits angedeutet, aber hier nochmal als Erinnerung: Wir bauen derzeit eine Plattform für Zeitmanagement und professionelles Collab-Matching für Creators auf.
+I've been in this business a long time, and platforms will always protect their margins over you as a creator. And I'm tired of seeing creators burn out. That's why I've already hinted at this, but here it is again as a reminder: We're building a platform for time management and professional collab matching for creators.
 
-Wenn du daran interessiert bist, fülle bitte die Umfrage aus, die ich in den Kommentaren verlinkt habe. Übernimm die Kontrolle über deinen Kanal. Ich bin Martin und bringe dir die relevanten Creator News. Abonniere bitte, damit ich dich nächste Woche mit weiteren Updates begrüßen kann.
+If you're interested, please fill out the survey I've linked in the comments. Take control of your channel. I'm Martin, bringing you the relevant Creator News. Please subscribe so I can welcome you back next week with more updates.

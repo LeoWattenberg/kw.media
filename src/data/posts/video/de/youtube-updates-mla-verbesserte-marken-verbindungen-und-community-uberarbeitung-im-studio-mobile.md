@@ -2,8 +2,8 @@
 id: 3159
 slug: "youtube-updates-mla-verbesserte-marken-verbindungen-und-community-uberarbeitung-im-studio-mobile"
 path: "/youtube-tipps-de/youtube-updates-mla-verbesserte-marken-verbindungen-und-community-uberarbeitung-im-studio-mobile/"
-title: "YouTube Updates: MLA, Verbesserte Marken Verbindungen & Community Überarbeitung im Studio Mobile!"
-excerpt: "Multilanguage Audio bzw. Autodubbing geht in die heiße Phase."
+title: "YouTube Updates: Multisprachiges Audio, verbesserte Markenverbindungen & Community-Überarbeitung im Studio Mobile!"
+excerpt: "Multisprachiges Audio (MLA) nähert sich der Einführung. Bis Ende des Jahres soll ein 100%-Rollout erfolgen."
 date: "2024-11-09T13:15:00"
 modified: "2024-11-09T13:15:00"
 locale: "de"

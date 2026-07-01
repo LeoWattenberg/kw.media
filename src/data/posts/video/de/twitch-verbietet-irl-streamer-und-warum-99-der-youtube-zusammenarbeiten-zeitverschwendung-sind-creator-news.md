@@ -2,8 +2,8 @@
 id: 3348
 slug: "twitch-verbietet-irl-streamer-und-warum-99-der-youtube-zusammenarbeiten-zeitverschwendung-sind-creator-news"
 path: "/youtube-tipps-de/twitch-verbietet-irl-streamer-und-warum-99-der-youtube-zusammenarbeiten-zeitverschwendung-sind-creator-news/"
-title: "Twitch verbietet IRL-Streamer & warum 99% der YouTube-Zusammenarbeiten Zeitverschwendung sind | Creator News"
-excerpt: "Hallo zusammen und herzlich willkommen zu den Creator-News. Normalerweise wären wir etwas professioneller unterwegs, vor einer grünen Wand sitzend, aber heute ist mein Geburtstag und es waren zwei anstrengende Wochen."
+title: "Twitch verbietet IRL-Streaming: Neue Regeln und warum YouTube-Zusammenarbeiten überdacht werden sollten | Creator News"
+excerpt: "Entspanntes Update zu Twitchs neuen IRL-Regeln und der Zukunft von Creator-Zusammenarbeiten. Wie ein Matchmaking-System helfen könnte."
 date: "2026-05-09T12:15:06"
 modified: "2026-05-09T12:15:06"
 locale: "de"

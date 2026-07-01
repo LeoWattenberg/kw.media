@@ -2,8 +2,8 @@
 id: 3092
 slug: "youtube-just-killed-the-dislike-button-again-creator-news"
 path: "/youtube-tips-en/youtube-just-killed-the-dislike-button-again-creator-news/"
-title: "YouTube Just Killed the Dislike Button (Again) | Creator News"
-excerpt: "Twitch is quietly introducing up to 90 second pre roll ads, effectively eliminating your top of funnel discovery on the platform. Additionally, YouTube has removed the dislike button from Shorts, and we're dispelling..."
+title: "YouTube Removes Dislike Button from Shorts: Creator News Update"
+excerpt: "Twitch introduces longer pre-roll ads, YouTube hides dislike button on Shorts, and we clarify EU refund laws for digital goods."
 date: "2026-06-27T12:15:16"
 modified: "2026-06-27T12:15:16"
 locale: "en"

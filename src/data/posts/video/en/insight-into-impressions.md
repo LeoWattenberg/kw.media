@@ -2,8 +2,8 @@
 id: 3045
 slug: "insight-into-impressions"
 path: "/youtube-tips-en/insight-into-impressions/"
-title: "Insight into impressions"
-excerpt: "YouTube ABC: you can locate The Impressions in the YouTube Studio by selecting video and navigating to the reach tab for further details click on the graph to access more information the top sources category shows how..."
+title: "Understanding YouTube Impressions: A Guide"
+excerpt: "Discover where to find impressions data in YouTube Studio, how viewers interact with your videos, and the importance of click-through rates."
 date: "2024-07-23T14:00:05"
 modified: "2024-07-23T14:00:05"
 locale: "en"

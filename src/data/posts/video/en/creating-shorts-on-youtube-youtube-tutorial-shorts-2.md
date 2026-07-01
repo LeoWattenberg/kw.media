@@ -2,8 +2,8 @@
 id: 3247
 slug: "creating-shorts-on-youtube-youtube-tutorial-shorts-2"
 path: "/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts-2/"
-title: "Creating Shorts on YouTube | YouTube Tutorial | #shorts"
-excerpt: "To produce a short video yourself, click on the plus symbol in the YouTube app, select \"Create Short,\" record your short or use an existing clip, add music or text, ..."
+title: "Creating YouTube Shorts: A Quick Guide"
+excerpt: "Learn how to create engaging YouTube Shorts. Record or use existing clips, add music & text, then publish with a simple process."
 date: "2021-07-05T14:57:10"
 modified: "2021-07-05T14:57:10"
 locale: "en"

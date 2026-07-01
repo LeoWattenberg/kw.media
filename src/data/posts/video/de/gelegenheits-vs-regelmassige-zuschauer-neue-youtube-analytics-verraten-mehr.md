@@ -2,8 +2,8 @@
 id: 3308
 slug: "gelegenheits-vs-regelmassige-zuschauer-neue-youtube-analytics-verraten-mehr"
 path: "/youtube-tipps-de/gelegenheits-vs-regelmassige-zuschauer-neue-youtube-analytics-verraten-mehr/"
-title: "„Gelegenheits“- vs. „Regelmäßige“ Zuschauer? NEUE YouTube Analytics verraten mehr!"
-excerpt: "Sprechen wir über die YouTube-Updates. Zielgruppensegmente sind nun in YouTube Analytics verfügbar und unterteilen neue und wiederkehrende Zuschauer in detailliertere Kategorien: Neue Zuschauer, Gelegenheitszuschauer (diejenigen, die gelegentlich..."
+title: "„Gelegenheits“- vs. „Regelmäßige“ Zuschauer? Neue YouTube Analytics-Funktionen im Detail!"
+excerpt: "Entdecke die neuesten YouTube-Updates: Zielgruppensegmente in YouTube Analytics bieten detaillierte Einblicke in dein Publikum."
 date: "2025-07-05T12:15:11"
 modified: "2025-07-05T12:15:11"
 locale: "de"

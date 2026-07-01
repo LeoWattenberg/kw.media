@@ -2,8 +2,8 @@
 id: 3130
 slug: "youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us"
 path: "/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/"
-title: "YouTube News: 100% Audience Metrics Rollout, Shorts AI Launch & What VShojo Teaches Us"
-excerpt: "YouTube Shorts is releasing an AI update that lets you transform photos into videos with VO2 and later on with VO3. I'd love to show you the update, but unfortunately, it's currently region locked to the US, Canada,..."
+title: "YouTube News: New Shorts AI, 100% Audience Metrics & What VTuber Agencies Teach Us"
+excerpt: "YouTube Shorts' AI update transforms photos to videos; region-locked for now. Detailed audience metrics revealed, and insights from VShojo's success."
 date: "2025-07-26T12:15:02"
 modified: "2025-07-26T12:15:02"
 locale: "en"

@@ -2,8 +2,8 @@
 id: 3285
 slug: "youtube-is-testing-a-new-most-relevant-filter-for-subscription-feeds"
 path: "/youtube-tips-en/youtube-is-testing-a-new-most-relevant-filter-for-subscription-feeds/"
-title: "YouTube is testing a new \"Most Relevant\" filter for subscription feeds!"
-excerpt: "YouTube is experimenting again, and not just with the Watchpage UI - the Subscription Feed is also getting a little experiment: the so-called \"most relevant\" filter chip. This displays the videos that..."
+title: "YouTube Tests 'Most Relevant' Filter for Subscription Feeds"
+excerpt: "YouTube's new 'Most Relevant' filter sorts videos based on user interaction. This optional feature improves the viewer experience by personalizing subscription feeds."
 date: "2024-04-20T12:30:06"
 modified: "2024-04-20T12:30:06"
 locale: "en"

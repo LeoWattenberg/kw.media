@@ -2,8 +2,8 @@
 id: 3226
 slug: "ai-summaries-for-comments-and-why-you-dont-see-the-add-yours-sticker"
 path: "/youtube-tips-en/ai-summaries-for-comments-and-why-you-dont-see-the-add-yours-sticker/"
-title: "AI Summaries for Comments & Why You Don't See the \"Add Yours\" Sticker"
-excerpt: "The YouTube updates this week: We're kicking off with AI summaries for comments, a very interesting story in my opinion. It works okay in the English-speaking world and is now also being rolled out to the..."
+title: "YouTube Updates: AI Comment Summaries & Shorts Stickers"
+excerpt: "This week's YouTube news includes AI-generated comment summaries, premium price changes in India, and why you might not see the 'Add Yours' sticker in Shorts."
 date: "2024-09-14T12:30:21"
 modified: "2024-09-14T12:30:21"
 locale: "en"

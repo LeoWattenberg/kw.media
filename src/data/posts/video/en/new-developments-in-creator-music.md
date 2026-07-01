@@ -3,7 +3,7 @@ id: 3240
 slug: "new-developments-in-creator-music"
 path: "/youtube-tips-en/new-developments-in-creator-music/"
 title: "New Developments in Creator Music"
-excerpt: "The next big topic on the horizon is Creator music - that's a growing library of musical pieces you can integrate into your videos and even further monetize as long as you naturally adhere to the respective licensing terms."
+excerpt: "Discover a growing library of musical pieces for your videos with Creator Music. Monetize your content while respecting licensing terms."
 date: "2023-01-12T10:43:31"
 modified: "2023-01-12T10:43:31"
 locale: "en"

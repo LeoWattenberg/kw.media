@@ -2,8 +2,8 @@
 id: 3120
 slug: "youtube-news-second-chance-pilot-ask-studio-deep-dive-and-communities-on-desktop"
 path: "/youtube-tips-en/youtube-news-second-chance-pilot-ask-studio-deep-dive-and-communities-on-desktop/"
-title: "YouTube News | Second Chance Pilot, Ask Studio Deep Dive & Communities on Desktop"
-excerpt: "What's up, everyone? Welcome back to the YouTube Creator News."
+title: "YouTube Creator News: Second Chance Pilot, Ask Studio AI, and Desktop Communities"
+excerpt: "YouTube's latest: Reinstating terminated creators, introducing Ask Studio AI, and bringing full community features to desktop."
 date: "2025-10-25T12:15:08"
 modified: "2025-10-25T12:15:08"
 locale: "en"

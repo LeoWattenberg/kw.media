@@ -3,7 +3,7 @@ id: 3080
 slug: "obs-mit-twitch-und-youtube-verbinden"
 path: "/youtube-tipps-de/obs-mit-twitch-und-youtube-verbinden/"
 title: "OBS mit Twitch und YouTube verbinden"
-excerpt: "YouTube und Twitch bieten euch jeweils an euer Konto direkt mit obs zu verbinden um eure Konten mit obs zu verbinden wählt in den ubs-einstellungen und das Stream eure wunschplattform aus mit Konto verbinden öffnet..."
+excerpt: "Erfahrt, wie ihr eure Konten von Twitch und YouTube direkt mit OBS verbindet, um das Streaming zu vereinfachen."
 date: "2023-03-26T15:30:20"
 modified: "2023-03-26T15:30:20"
 locale: "de"
