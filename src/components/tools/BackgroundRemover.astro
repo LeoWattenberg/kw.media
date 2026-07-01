@@ -25,7 +25,8 @@ const copyByLocale = {
 		mode: 'Modus',
 		modeEdges: 'Hintergrund an den Rändern',
 		modeColor: 'Farbe im ganzen Bild',
-		modeCheckerboard: 'Fake-PNG-Schachbrett',
+		modeCheckerboardEdges: 'Fake-PNG-Schachbrett an den Rändern',
+		modeCheckerboardAll: 'Fake-PNG-Schachbrett im ganzen Bild',
 		corners: 'Ecken prüfen',
 		topLeft: 'Oben links',
 		topRight: 'Oben rechts',
@@ -63,7 +64,7 @@ const copyByLocale = {
 			singleFrame: '1 Frame',
 			multipleFrames: '{count} Frames',
 			unknownError: 'Unbekannter Fehler',
-			waiting: 'Wähle ein Bild. Der Schachbrett-Modus entfernt gefälschte Transparenz-Hintergründe mit zwei Kachelfarben.',
+			waiting: 'Wähle ein Bild. Der Schachbrett-Ränder-Modus entfernt gefälschte Transparenz-Hintergründe, ohne ähnliche Farben im Motiv zu lochen.',
 		},
 	},
 	en: {
@@ -78,7 +79,8 @@ const copyByLocale = {
 		mode: 'Mode',
 		modeEdges: 'Background at edges',
 		modeColor: 'Color across image',
-		modeCheckerboard: 'Fake PNG checkerboard',
+		modeCheckerboardEdges: 'Fake PNG checkerboard at edges',
+		modeCheckerboardAll: 'Fake PNG checkerboard across image',
 		corners: 'Check corners',
 		topLeft: 'Top left',
 		topRight: 'Top right',
@@ -116,7 +118,7 @@ const copyByLocale = {
 			singleFrame: '1 frame',
 			multipleFrames: '{count} frames',
 			unknownError: 'Unknown error',
-			waiting: 'Choose an image. Checkerboard mode removes fake transparency backgrounds with two tile colors.',
+			waiting: 'Choose an image. Checkerboard edge mode removes fake transparency backgrounds without punching holes into similar subject colors.',
 		},
 	},
 } satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
@@ -166,7 +168,8 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 					<fieldset class="mode-control">
 						<legend>{copy.mode}</legend>
 						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="edges" checked /> {copy.modeEdges}</label>
-						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="checkerboard" /> {copy.modeCheckerboard}</label>
+						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="checkerboard-edges" /> {copy.modeCheckerboardEdges}</label>
+						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="checkerboard-all" /> {copy.modeCheckerboardAll}</label>
 						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="color" /> {copy.modeColor}</label>
 					</fieldset>
 					<div class="corner-group" data-corner-group>
@@ -456,7 +459,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 								const point = cornerToPoint(corner, image.width, image.height);
 								image.floodFill(0, point.x, point.y);
 							}
-						} else if (settings.mode === 'checkerboard') {
+						} else if (settings.mode.startsWith('checkerboard-')) {
 							removeCheckerboardBackground(image, settings, {
 								PixelChannel,
 								Quantum,
@@ -700,32 +703,103 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 						? fitCheckerGrid(borderSamples, colors, pattern, matchToleranceSq)
 						: null;
 
-					for (let y = 0; y < height; y += 1) {
-						for (let x = 0; x < width; x += 1) {
-							const offset = ((y * width) + x) * channelCount;
-							const color = {
-								b: pixelsData[offset + blueIndex],
-								g: pixelsData[offset + greenIndex],
-								r: pixelsData[offset + redIndex],
-							};
-							const label = matchCheckerColor(color, colors, matchToleranceSq);
-
-							if (label < 0) {
-								if (model && isNearCheckerBoundary(x, y, model) && isCheckerBoundaryBlend(color, colors, matchToleranceSq)) {
-									pixelsData[offset + alphaIndex] = 0;
-								}
-
-								continue;
-							}
-
-							if (!model || label === expectedCheckerLabel(x, y, model)) {
-								pixelsData[offset + alphaIndex] = 0;
-							}
-						}
+					if (settings.mode === 'checkerboard-all') {
+						removeCheckerboardAcrossImage(pixelsData, width, height, channels, colors, matchToleranceSq, model);
+					} else {
+						removeCheckerboardFromEdges(pixelsData, width, height, channels, colors, matchToleranceSq, model);
 					}
 
 					pixels.setArea(0, 0, width, height, pixelsData);
 				});
+			}
+
+			function removeCheckerboardAcrossImage(pixelsData, width, height, channels, colors, matchToleranceSq, model) {
+				for (let y = 0; y < height; y += 1) {
+					for (let x = 0; x < width; x += 1) {
+						if (isCheckerboardRemovablePixel(pixelsData, width, channels, colors, matchToleranceSq, model, x, y)) {
+							const offset = ((y * width) + x) * channels.count;
+							pixelsData[offset + channels.alpha] = 0;
+						}
+					}
+				}
+			}
+
+			function removeCheckerboardFromEdges(pixelsData, width, height, channels, colors, matchToleranceSq, model) {
+				const visited = new Uint8Array(width * height);
+				const queue = [];
+				let cursor = 0;
+
+				for (let x = 0; x < width; x += 1) {
+					addCheckerSeed(queue, visited, pixelsData, width, channels, colors, matchToleranceSq, model, x, 0);
+
+					if (height > 1) {
+						addCheckerSeed(queue, visited, pixelsData, width, channels, colors, matchToleranceSq, model, x, height - 1);
+					}
+				}
+
+				for (let y = 0; y < height; y += 1) {
+					addCheckerSeed(queue, visited, pixelsData, width, channels, colors, matchToleranceSq, model, 0, y);
+
+					if (width > 1) {
+						addCheckerSeed(queue, visited, pixelsData, width, channels, colors, matchToleranceSq, model, width - 1, y);
+					}
+				}
+
+				while (cursor < queue.length) {
+					const position = queue[cursor];
+					cursor += 1;
+
+					const x = position % width;
+					const y = Math.floor(position / width);
+					const offset = position * channels.count;
+					pixelsData[offset + channels.alpha] = 0;
+
+					if (x > 0) {
+						addCheckerSeed(queue, visited, pixelsData, width, channels, colors, matchToleranceSq, model, x - 1, y);
+					}
+
+					if (x + 1 < width) {
+						addCheckerSeed(queue, visited, pixelsData, width, channels, colors, matchToleranceSq, model, x + 1, y);
+					}
+
+					if (y > 0) {
+						addCheckerSeed(queue, visited, pixelsData, width, channels, colors, matchToleranceSq, model, x, y - 1);
+					}
+
+					if (y + 1 < height) {
+						addCheckerSeed(queue, visited, pixelsData, width, channels, colors, matchToleranceSq, model, x, y + 1);
+					}
+				}
+			}
+
+			function addCheckerSeed(queue, visited, pixelsData, width, channels, colors, matchToleranceSq, model, x, y) {
+				const position = (y * width) + x;
+
+				if (visited[position]) {
+					return;
+				}
+
+				visited[position] = 1;
+
+				if (isCheckerboardRemovablePixel(pixelsData, width, channels, colors, matchToleranceSq, model, x, y)) {
+					queue.push(position);
+				}
+			}
+
+			function isCheckerboardRemovablePixel(pixelsData, width, channels, colors, matchToleranceSq, model, x, y) {
+				const offset = ((y * width) + x) * channels.count;
+				const color = {
+					b: pixelsData[offset + channels.blue],
+					g: pixelsData[offset + channels.green],
+					r: pixelsData[offset + channels.red],
+				};
+				const label = matchCheckerColor(color, colors, matchToleranceSq);
+
+				if (label >= 0) {
+					return !model || label === expectedCheckerLabel(x, y, model);
+				}
+
+				return Boolean(model && isNearCheckerBoundary(x, y, model) && isCheckerBoundaryBlend(color, colors, matchToleranceSq));
 			}
 
 			function collectBorderSamples(pixelsData, width, height, channels) {
