@@ -16,7 +16,9 @@ sourceUrl: "https://kw.media/youtube-tips-en/youtube-channel-banner-template-upd
 
 This template helps you create a channel banner in the right dimensions, so that it’ll look good on any device.
 
-<figure class="image-large resized"><img src="/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png" alt="youtube channel banner template" width="819" height="460"><figcaption><a href="/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png" target="_blank" rel="noreferrer noopener">Download Template</a> (full size)</figcaption></figure>
+![youtube channel banner template](/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png)
+
+*[Download Template](/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png) (full size)*
 
 ## Channel banner measurement basics
 

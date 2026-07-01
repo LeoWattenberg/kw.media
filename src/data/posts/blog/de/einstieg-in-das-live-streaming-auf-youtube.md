@@ -62,9 +62,7 @@ Wenn du bereits zuvor gestreamt hast, siehst du einen blauen "Einstellungen wied
 
 Wenn du es noch nicht getan hast, lies unseren OBS-Leitfaden zum Einrichten von OBS.
 
-<figure><div>
-<blockquote><a href="/youtube-tips-en/getting-started-with-OBS-a-beginners-guide/">Einstieg in OBS: Ein Leitfaden für Anfänger</a></blockquote><iframe title="„Einstieg in OBS: Ein Leitfaden für Anfänger“ — Koytek Wattenberg Media" src="https://kw.media/youtube-tips-en/getting-started-with-OBS-a-beginners-guide/embed/#?secret=7AeJG5xHGV#?secret=JEx7cE9euL" width="600" height="338" frameborder="0"></iframe>
-</div></figure>
+> [Einstieg in OBS: Ein Leitfaden für Anfänger](/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/)
 
 Nun kommen wir zum spannenden Teil: Wenn du Livestreams senden möchtest, musst du entweder dein YouTube-Konto mit OBS verbinden oder deinen Stream-Schlüssel finden. Da du in Zukunft ohnehin fortgeschrittenes Streaming betreiben möchtest, empfehle ich dir, etwas Zeit zu investieren und dich mit Stream-Schlüsseln vertraut zu machen, damit du später nicht wechseln musst. Du kannst deinen Stream-Schlüssel [im Live-Dashboard](https://studio.youtube.com/channel/UC/livestreaming/dashboard) auf der linken Seite finden und musst ihn in das **OBS-Einstellungsfeld „Stream“ → „Stream-Schlüssel** einfügen.
 

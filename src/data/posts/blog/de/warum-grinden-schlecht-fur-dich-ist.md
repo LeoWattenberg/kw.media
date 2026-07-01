@@ -7,14 +7,14 @@ excerpt: "Warum ständiges Produzieren Creators schaden kann und wie intelligent
 date: "2021-06-11T10:13:42"
 modified: "2022-07-16T12:47:06"
 locale: "de"
-category: "blog"
 translationKey: "post:1430"
+category: "blog"
 image: "/assets/wp-content/uploads/2021/06/WHY-GRINDING-IS-BAD-FOR-YOU.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/"
 ---
 
-Oft sehen wir kleine YouTuber:innen, besonders aus dem Gaming-Bereich, über „The Grind“ sprechen. Die Idee dahinter ist, dass es eine Phase am Anfang gibt, in der man einfach nur regelmäßig Videos erstellen muss. Nach einer unbestimmten Zeit wird YouTube dann deine Videos entdecken, sie allen empfehlen und du wirst berühmt.
+Oft sehen wir [kleine YouTuber](/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/):innen, besonders aus dem Gaming-Bereich, über „The Grind“ sprechen. Die Idee dahinter ist, dass es eine Phase am Anfang gibt, in der man einfach nur regelmäßig Videos erstellen muss. Nach einer unbestimmten Zeit wird YouTube dann deine Videos entdecken, sie allen empfehlen und du wirst berühmt.
 
 Im Kern hat diese Strategie einige Vorteile: Du musst Videos erstellen, um dich zu verbessern. Und ein Zeitplan zwingt dich dazu, ein Projekt als abgeschlossen zu betrachten und weiterzumachen, anstatt zu viel zu prokrastinieren. Aber es gibt auch einen großen Nachteil:
 

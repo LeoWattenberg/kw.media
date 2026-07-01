@@ -7,8 +7,8 @@ excerpt: "Erlernen Sie die Grundlagen von OBS für die Aufnahme und den Stream, 
 date: "2022-10-24T16:34:05"
 modified: "2025-01-30T10:48:05"
 locale: "de"
-category: "blog"
 translationKey: "post:2275"
+category: "blog"
 image: "https://lh5.googleusercontent.com/s9rkISe0KpvpU_IC2a_CnpznbTIxp41h7ojyWIroeD0bmY3xwCUpdTnh-uOgGAiGcIojmZmxcA4tsgoIZzOpCwiAw7Zmq7tmhAWxOSArIctQ2-DDZR4xYpiZjIG0vhOfCTzW-SflST-cOLeI2ps7te9j_8B8291CgAltZdglZJfo7XmXFSijFjVu_w"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-obs-a-beginners-guide/"
@@ -76,7 +76,7 @@ Unabhängig davon gibt es zwei Einstellungen, die wahrscheinlich nützlich für 
 
 ## Szenen und Quellen
 
-Jetzt haben wir also die verschiedenen Dinge eingerichtet, die zum Streamen und Aufnehmen benötigt werden, außer dem, was dich wahrscheinlich am meisten interessiert: ***Was ist eigentlich auf dem Video oder im Stream zu sehen?!*** Dafür benötigst du Szenen und Quellen.
+Jetzt haben wir also die verschiedenen Dinge eingerichtet, die zum Streamen und Aufnehmen benötigt werden, außer dem, was dich wahrscheinlich am meisten interessiert: ***Was ist eigentlich auf dem Video oder im Stream zu sehen?!*** Dafür benötigst du [Szenen und Quellen](/youtube-tipps-de/szenen-und-quellen-in-obs-nutzen/).
 
 Eine Quelle ist eine Beschreibung eines (Bild-)Eingangs. Eine Szene ist eine Sammlung von Quellen, die bereits geordnet sind, sodass du schnell zwischen ihnen wechseln kannst.
 

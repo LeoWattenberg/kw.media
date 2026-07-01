@@ -35,9 +35,9 @@ Once you have a list of ideas, simply pick the best one to make your next video 
 
 There are more factors to consider (such as: does the idea fit your audience?), but these make more sense in a later section. Especially if you’re just starting out, you don’t need to worry about them yet, and focus on exploring instead.
 
-<figure><div>
-<a href="https://leo.wattenberg.dk/2020/11/03/the-ede-model-exploring-developing-established-creators/">The EDE model: Exploring, Developing and Established Creators</a>
-</div><figcaption>More on exploration</figcaption></figure>
+[The EDE model: Exploring, Developing and Established Creators](https://leo.wattenberg.dk/2020/11/03/the-ede-model-exploring-developing-established-creators/)
+
+*More on exploration*
 
 ## Being self-critical
 

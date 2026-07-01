@@ -37,7 +37,9 @@ Wenn deine Miniaturansicht die Hauptarbeit erledigt hat, kann dein Titel einspri
 
 Um Interesse zu wecken:
 
-<figure class="align-right image-large resized"><img src="/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-15-37-25.png" alt width="255" height="214"><figcaption>Beispiel einer Miniaturansicht, die sowohl Aufmerksamkeit (helle Farbe) als auch Interesse (Titel widerspricht dem Offensichtlichen) erzeugt. <a href="https://www.youtube.com/watch?v=R3unPcJDbCc" target="_blank" rel="noreferrer noopener">Quelle der Miniaturansicht: Vsauce</a></figcaption></figure>
+![](/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-15-37-25.png)
+
+*Beispiel einer Miniaturansicht, die sowohl Aufmerksamkeit (helle Farbe) als auch Interesse (Titel widerspricht dem Offensichtlichen) erzeugt. [Quelle der Miniaturansicht: Vsauce](https://www.youtube.com/watch?v=R3unPcJDbCc)*
 
 - Biete eine Lösung für ein Problem an. Insbesondere wenn Menschen über die Suche kommen, mit einer Frage wie „Wie repariere ich XYZ“, würde ein Video mit dem Titel „Wie man XYZ repariert“ ihr wahrscheinlich sehr interessieren.
 - Verwende Klick-Köder. Du kannst Informationen im Titel und in der Miniaturansicht zurückhalten (einen Teil des Bildes zensieren, im Titel auf ein vages „dieses“ verweisen usw.). Das kann dir später allerdings zum Verhängnis werden.
@@ -51,7 +53,9 @@ Wir sind fast da. Aber noch nicht ganz.
 
 Jetzt wollen wir Tama dazu bringen, *selbst* das Video ansehen zu wollen. Dafür können wir ihr versprechen, dass unser Video es wert ist, angesehen zu werden. Dieses Versprechen wird normalerweise implizit und nicht explizit gegeben. Im obigen Beispiel „Das ist nicht gelb“ lautet das Versprechen „Es ergibt am Ende des Videos Sinn“ oder vielleicht „Du wirst etwas lernen“. Bei einem Reparaturtutorial lautet es „Du kannst deine Sache wieder zum Laufen bringen“.
 
-<figure class="align-right image-large resized"><img src="/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png" alt width="255" height="221"><figcaption>Ein seltenes Beispiel für ein explizites Versprechen. <a href="https://www.youtube.com/watch?v=2tdiKTSdE9Y" target="_blank" rel="noreferrer noopener">Quelle der Miniaturansicht: Tom Scott</a></figcaption></figure>
+![](/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png)
+
+*Ein seltenes Beispiel für ein explizites Versprechen. [Quelle der Miniaturansicht: Tom Scott](https://www.youtube.com/watch?v=2tdiKTSdE9Y)*
 
 Verlangen, noch mehr als Interesse, hängt nicht nur von deinem Kanal ab, sondern auch von jedem einzelnen Zuschauer, daher ist es selbst schwierig, Beispiele zu finden. Selbst wenn du bereits Interesse geweckt hast, gibt es viele Gründe, warum Tama dein Video vielleicht trotzdem nicht ansehen möchte:
 

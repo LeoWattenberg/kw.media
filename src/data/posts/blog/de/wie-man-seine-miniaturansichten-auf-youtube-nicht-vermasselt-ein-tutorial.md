@@ -7,8 +7,8 @@ excerpt: "Ein direkter Leitfaden für bessere YouTube-Miniaturansichten, der Tit
 date: "2021-06-08T21:59:29"
 modified: "2022-07-16T12:47:21"
 locale: "de"
-category: "blog"
 translationKey: "post:1400"
+category: "blog"
 image: "https://preview.redd.it/kyowv0gqyjf51.png?width=871&format=png&auto=webp&s=3dd0d8ac5dcc28d8239a720c6d0e94aded380d63"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/"
@@ -54,7 +54,7 @@ Dies bedeutet auch, dass du nicht allzu viel auf dem Bildschirm haben kannst, da
 
 ## Sättige es! Erhöhe den Kontrast!
 
-Vorschaubilder müssen nur Aufmerksamkeit erregen, daher müssen sie nicht die realistischsten oder ästhetisch ansprechendsten Bilder sein. Das bedeutet, dass du im Allgemeinen, egal welches Quellbild du hast, einfach die Sättigung auf das Maximum erhöhen und vielleicht auch etwas mehr Kontrast hinzufügen kannst, um ein auffälligeres Vorschaubild zu erhalten als das Original.
+Vorschaubilder müssen nur [Aufmerksamkeit erregen](/youtube-tipps-de/wie-man-klicks-auf-youtube-miniaturansichten-bekommt-das-aida-modell/), daher müssen sie nicht die realistischsten oder ästhetisch ansprechendsten Bilder sein. Das bedeutet, dass du im Allgemeinen, egal welches Quellbild du hast, einfach die Sättigung auf das Maximum erhöhen und vielleicht auch etwas mehr Kontrast hinzufügen kannst, um ein auffälligeres Vorschaubild zu erhalten als das Original.
 
 <figure class="image-large"><img src="https://preview.redd.it/vl9xe7ts8kf51.png?width=500&amp;format=png&amp;auto=webp&amp;s=e7744be55f87628c7ad957d97a7fa8412aa79824" alt><figcaption>Beispiel: Die Sättigung in GIMP auf das Maximum erhöht und den Kontrast etwas angehoben. Es ist nicht mehr originalgetreu und die Wolken sehen etwas seltsam aus, aber es ist deutlich auffälliger. Es folgt der Drittelregel.</figcaption></figure>
 

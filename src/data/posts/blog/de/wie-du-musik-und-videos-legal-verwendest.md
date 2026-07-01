@@ -88,9 +88,7 @@ All das sind keine final entschiedenen Punkte übrigens – du wirst wahrscheinl
 
 Ich habe über die Jahre diverse Portale und Webseiten zusammengesammelt, auf denen du diverse Ressourcen für deine Videos finden kannst:
 
-<div class="buttons is-content-justification-center">
-<div class="button button-primary"><a href="https://docs.google.com/spreadsheets/d/1dEbxtBlvwxj2ZwtcoNU05Cg4_pgpuBYAWbO_5twoA2A/edit#gid=0" target="_blank" rel="noreferrer noopener" class="button-link">»» Frei lizenzierte, kostenlose Musik, Soundeffekte, Photos und Videos</a></div>
-</div>
+[»» Frei lizenzierte, kostenlose Musik, Soundeffekte, Photos und Videos](https://docs.google.com/spreadsheets/d/1dEbxtBlvwxj2ZwtcoNU05Cg4_pgpuBYAWbO_5twoA2A/edit#gid=0)
 
 Die Ressourcen dort gehen von Musik über Soundeffekte, Bilder und Videos bis hin zu sehr nischigen Angeboten, wie zum Beispiel Archivbildern und -texten. Alle Ressourcen sind kostenlos. Und alle Ressourcen können überall (d.h. auch Außerhalb YouTube) verwendet werden.
 
