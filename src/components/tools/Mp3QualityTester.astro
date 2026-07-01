@@ -1103,7 +1103,7 @@ const copyJson = JSON.stringify(copy.client);
 	}
 
 	.mp3-tool-section {
-		background: #fff;
+		background: var(--color-surface-raised);
 	}
 
 	.mp3-tester {
@@ -1124,7 +1124,7 @@ const copyJson = JSON.stringify(copy.client);
 
 	.mp3-panel {
 		padding: clamp(18px, 3vw, 28px);
-		background: #fff;
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
 	}
@@ -1132,7 +1132,7 @@ const copyJson = JSON.stringify(copy.client);
 	.mp3-panel h2,
 	.answer-panel h3 {
 		margin: 0;
-		color: var(--color-deep);
+		color: var(--color-ink);
 		line-height: 1.1;
 		letter-spacing: 0;
 	}
@@ -1159,13 +1159,13 @@ const copyJson = JSON.stringify(copy.client);
 		min-height: 148px;
 		padding: 18px;
 		background: var(--color-surface-alt);
-		border: 1px dashed color-mix(in srgb, var(--color-accent) 58%, var(--color-line));
+		border: 1px dashed var(--color-accent-dashed-line);
 		border-radius: 8px;
 		cursor: pointer;
 	}
 
 	.file-picker:focus-within {
-		outline: 3px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+		outline: 3px solid var(--color-accent-focus);
 		outline-offset: 2px;
 	}
 
@@ -1180,7 +1180,7 @@ const copyJson = JSON.stringify(copy.client);
 	.file-picker strong {
 		align-self: end;
 		overflow-wrap: anywhere;
-		color: var(--color-deep);
+		color: var(--color-ink);
 		font-size: 1.05rem;
 	}
 
@@ -1200,22 +1200,22 @@ const copyJson = JSON.stringify(copy.client);
 		margin: 16px 0 0;
 		padding: 12px 14px;
 		color: var(--color-muted);
-		background: #f9f5f0;
+		background: var(--color-status-background);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
 		font-weight: 700;
 	}
 
 	.mp3-status[data-state='success'] {
-		color: #225d2d;
-		background: #edf8ef;
-		border-color: #b7dec0;
+		color: var(--color-status-positive-text);
+		background: var(--color-status-positive-background);
+		border-color: var(--color-status-positive-border);
 	}
 
 	.mp3-status[data-state='error'] {
-		color: #8a2317;
-		background: #fff0ed;
-		border-color: #efb6aa;
+		color: var(--color-status-negative-text);
+		background: var(--color-status-negative-background);
+		border-color: var(--color-status-negative-border);
 	}
 
 	.preset-grid {
@@ -1243,7 +1243,7 @@ const copyJson = JSON.stringify(copy.client);
 	}
 
 	.preset-option span {
-		color: var(--color-deep);
+		color: var(--color-ink);
 		text-transform: none;
 	}
 
@@ -1251,7 +1251,7 @@ const copyJson = JSON.stringify(copy.client);
 		display: grid;
 		gap: 10px;
 		margin-top: 18px;
-		color: var(--color-deep);
+		color: var(--color-ink);
 		font-weight: 800;
 	}
 
@@ -1298,14 +1298,14 @@ const copyJson = JSON.stringify(copy.client);
 	}
 
 	.button.primary {
-		color: #fff;
+		color: var(--color-accent-on);
 		background: var(--color-accent);
 		border: 1px solid var(--color-accent);
 	}
 
 	.button.secondary {
-		color: var(--color-deep);
-		background: #fff;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 	}
 
@@ -1347,8 +1347,8 @@ const copyJson = JSON.stringify(copy.client);
 		flex-direction: column;
 		gap: 4px;
 		min-height: 82px;
-		color: var(--color-deep);
-		background: #fff;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 	}
 
@@ -1394,13 +1394,13 @@ const copyJson = JSON.stringify(copy.client);
 	.answer-button {
 		flex: 1 1 180px;
 		min-height: 54px;
-		color: var(--color-deep);
+		color: var(--color-ink);
 		background: var(--color-surface-alt);
 		border: 1px solid var(--color-line);
 	}
 
 	.answer-button:hover {
-		color: #fff;
+		color: var(--color-accent-on);
 		background: var(--color-accent);
 		border-color: var(--color-accent);
 	}
@@ -1412,7 +1412,7 @@ const copyJson = JSON.stringify(copy.client);
 
 	.score {
 		margin: 0;
-		color: var(--color-deep);
+		color: var(--color-ink);
 		font-size: clamp(2rem, 5vw, 3.4rem);
 		font-weight: 900;
 		line-height: 1;
@@ -1438,22 +1438,22 @@ const copyJson = JSON.stringify(copy.client);
 		justify-content: space-between;
 		gap: 10px;
 		padding: 12px 14px;
-		background: #fff;
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 		border-left-width: 4px;
 		border-radius: 8px;
 	}
 
 	.result-list li.is-correct {
-		border-left-color: #2e7b35;
+		border-left-color: var(--color-positive-accent);
 	}
 
 	.result-list li.is-wrong {
-		border-left-color: #b83a24;
+		border-left-color: var(--color-negative-accent);
 	}
 
 	.result-list strong {
-		color: var(--color-deep);
+		color: var(--color-ink);
 	}
 
 	@media (max-width: 900px) {

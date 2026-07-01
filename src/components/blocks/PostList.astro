@@ -180,7 +180,7 @@ const searchId = `post-search-${locale}-${block.title.toLowerCase().replace(/[^a
 
 <style>
 	.posts {
-		background: #fff;
+		background: var(--color-surface-raised);
 	}
 
 	.section-head {
@@ -229,7 +229,7 @@ const searchId = `post-search-${locale}-${block.title.toLowerCase().replace(/[^a
 		width: 100%;
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
-		background: #fff;
+		background: var(--color-surface-raised);
 		color: var(--color-text);
 		font: inherit;
 		font-size: 1rem;
@@ -238,7 +238,7 @@ const searchId = `post-search-${locale}-${block.title.toLowerCase().replace(/[^a
 
 	.post-search input:focus {
 		border-color: var(--color-accent-dark);
-		outline: 2px solid color-mix(in srgb, var(--color-accent) 28%, transparent);
+		outline: 2px solid var(--color-accent-focus-subtle);
 		outline-offset: 2px;
 	}
 
@@ -248,7 +248,7 @@ const searchId = `post-search-${locale}-${block.title.toLowerCase().replace(/[^a
 		gap: 8px;
 		border: 1px solid var(--color-line);
 		border-radius: 999px;
-		background: #fff;
+		background: var(--color-surface-raised);
 		color: var(--color-text);
 		cursor: pointer;
 		font: inherit;
@@ -259,7 +259,7 @@ const searchId = `post-search-${locale}-${block.title.toLowerCase().replace(/[^a
 	.category-controls button.active {
 		border-color: var(--color-accent-dark);
 		background: var(--color-accent-dark);
-		color: #fff;
+		color: var(--color-deep-contrast);
 	}
 
 	.category-controls span {

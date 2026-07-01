@@ -394,7 +394,7 @@ const copyJson = JSON.stringify(copy.client);
 	}
 
 	.thumbnail-preview-section {
-		background: #fff;
+		background: var(--color-surface-raised);
 	}
 
 	.thumbnail-preview-tool {
@@ -408,7 +408,7 @@ const copyJson = JSON.stringify(copy.client);
 
 	.preview-panel {
 		padding: clamp(18px, 3vw, 28px);
-		background: #fff;
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
 	}
@@ -416,7 +416,7 @@ const copyJson = JSON.stringify(copy.client);
 	.preview-panel h2,
 	.preview-label h3 {
 		margin: 0;
-		color: var(--color-deep);
+		color: var(--color-ink);
 		line-height: 1.1;
 		letter-spacing: 0;
 	}
@@ -438,13 +438,13 @@ const copyJson = JSON.stringify(copy.client);
 		min-height: 148px;
 		padding: 18px;
 		background: var(--color-surface-alt);
-		border: 1px dashed color-mix(in srgb, var(--color-accent) 58%, var(--color-line));
+		border: 1px dashed var(--color-accent-dashed-line);
 		border-radius: 8px;
 		cursor: pointer;
 	}
 
 	.file-picker:focus-within {
-		outline: 3px solid color-mix(in srgb, var(--color-accent) 30%, transparent);
+		outline: 3px solid var(--color-accent-focus);
 		outline-offset: 2px;
 	}
 
@@ -460,7 +460,7 @@ const copyJson = JSON.stringify(copy.client);
 	.file-picker strong {
 		align-self: end;
 		overflow-wrap: anywhere;
-		color: var(--color-deep);
+		color: var(--color-ink);
 		font-size: 1.05rem;
 	}
 
@@ -495,8 +495,8 @@ const copyJson = JSON.stringify(copy.client);
 	.field-control textarea {
 		width: 100%;
 		padding: 12px 13px;
-		color: var(--color-deep);
-		background: #fff;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
 		font: inherit;
@@ -511,7 +511,7 @@ const copyJson = JSON.stringify(copy.client);
 	.field-control input:focus,
 	.field-control textarea:focus {
 		border-color: var(--color-accent);
-		outline: 3px solid color-mix(in srgb, var(--color-accent) 24%, transparent);
+		outline: 3px solid var(--color-accent-focus-soft);
 		outline-offset: 1px;
 	}
 
@@ -534,8 +534,8 @@ const copyJson = JSON.stringify(copy.client);
 	}
 
 	.button.secondary {
-		color: var(--color-deep);
-		background: #fff;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 	}
 
@@ -579,7 +579,7 @@ const copyJson = JSON.stringify(copy.client);
 
 	.yt-web-card {
 		width: min(100%, var(--web-card-width));
-		color: #0f0f0f;
+		color: var(--color-youtube-ink);
 		font-family: Roboto, Arial, sans-serif;
 	}
 
@@ -587,7 +587,7 @@ const copyJson = JSON.stringify(copy.client);
 		position: relative;
 		overflow: hidden;
 		aspect-ratio: 16 / 9;
-		background: #f1f1f1;
+		background: var(--color-youtube-surface-alt);
 		border-radius: 12px;
 	}
 
@@ -603,10 +603,10 @@ const copyJson = JSON.stringify(copy.client);
 		width: 100%;
 		height: 100%;
 		place-items: center;
-		color: #4a4038;
+		color: var(--color-youtube-placeholder-text);
 		background:
-			linear-gradient(135deg, rgba(255, 105, 0, 0.18), rgba(255, 246, 237, 0.92)),
-			repeating-linear-gradient(45deg, rgba(36, 25, 19, 0.08) 0 10px, transparent 10px 20px);
+			linear-gradient(135deg, var(--color-youtube-placeholder-accent), var(--color-youtube-placeholder-surface)),
+			repeating-linear-gradient(45deg, var(--color-youtube-placeholder-stripe) 0 10px, var(--color-transparent) 10px 20px);
 		font-weight: 900;
 	}
 
@@ -616,8 +616,8 @@ const copyJson = JSON.stringify(copy.client);
 		bottom: 6px;
 		min-width: 32px;
 		padding: 2px 5px;
-		color: #fff;
-		background: rgba(0, 0, 0, 0.84);
+		color: var(--color-deep-contrast);
+		background: var(--color-youtube-overlay);
 		border-radius: 4px;
 		font-size: 12px;
 		font-weight: 700;
@@ -637,7 +637,7 @@ const copyJson = JSON.stringify(copy.client);
 		width: 36px;
 		height: 36px;
 		place-items: center;
-		color: #fff;
+		color: var(--color-accent-on);
 		background: var(--color-accent-dark);
 		border-radius: 50%;
 		font-family: var(--font-body);
@@ -655,7 +655,7 @@ const copyJson = JSON.stringify(copy.client);
 		margin: 0;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: var(--title-lines, 2);
-		color: #0f0f0f;
+		color: var(--color-youtube-ink);
 		font-size: 16px;
 		font-weight: 500;
 		line-height: 22px;
@@ -665,7 +665,7 @@ const copyJson = JSON.stringify(copy.client);
 	.yt-copy p {
 		overflow: hidden;
 		margin: 2px 0 0;
-		color: #606060;
+		color: var(--color-youtube-muted);
 		font-size: 14px;
 		line-height: 20px;
 		text-overflow: ellipsis;
@@ -675,10 +675,10 @@ const copyJson = JSON.stringify(copy.client);
 	.phone-frame {
 		width: min(100%, calc(var(--app-card-width) + 20px));
 		padding: 10px;
-		background: #f4f4f4;
-		border: 1px solid #dadada;
+		background: var(--color-youtube-phone);
+		border: 1px solid var(--color-youtube-phone-border);
 		border-radius: 28px;
-		box-shadow: 0 14px 40px rgba(36, 25, 19, 0.08);
+		box-shadow: var(--shadow-youtube-phone);
 	}
 
 	.app-bar {
@@ -687,7 +687,7 @@ const copyJson = JSON.stringify(copy.client);
 		gap: 8px;
 		min-height: 42px;
 		padding: 0 8px 8px;
-		color: #0f0f0f;
+		color: var(--color-youtube-ink);
 		font-family: Roboto, Arial, sans-serif;
 		font-size: 18px;
 	}
@@ -696,7 +696,7 @@ const copyJson = JSON.stringify(copy.client);
 		display: inline-block;
 		width: 28px;
 		height: 20px;
-		background: #ff0000;
+		background: var(--color-youtube-red);
 		border-radius: 6px;
 		clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 	}
@@ -706,16 +706,16 @@ const copyJson = JSON.stringify(copy.client);
 		width: 0;
 		height: 0;
 		margin: 5px 0 0 11px;
-		border-top: 5px solid transparent;
-		border-bottom: 5px solid transparent;
-		border-left: 8px solid #fff;
+		border-top: 5px solid var(--color-transparent);
+		border-bottom: 5px solid var(--color-transparent);
+		border-left: 8px solid var(--color-youtube-play-icon);
 		content: '';
 	}
 
 	.yt-app-card {
 		width: min(100%, var(--app-card-width));
 		overflow: hidden;
-		background: #fff;
+		background: var(--color-youtube-surface);
 		border-radius: 18px;
 		font-family: Roboto, Arial, sans-serif;
 	}
@@ -754,9 +754,9 @@ const copyJson = JSON.stringify(copy.client);
 		left: 10px;
 		width: 4px;
 		height: 4px;
-		background: #606060;
+		background: var(--color-youtube-muted);
 		border-radius: 50%;
-		box-shadow: 0 6px 0 #606060, 0 12px 0 #606060;
+		box-shadow: 0 6px 0 var(--color-youtube-muted), 0 12px 0 var(--color-youtube-muted);
 		content: '';
 	}
 

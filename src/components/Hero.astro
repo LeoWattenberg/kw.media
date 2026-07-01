@@ -47,7 +47,7 @@ const heroStyle = heroImageUrl ? `--hero-image: url(${encodeURI(heroImageUrl)})`
 	}
 
 	.hero.has-image {
-		color: #fff;
+		color: var(--color-deep-contrast);
 		background-image: var(--hero-image);
 		background-position: center;
 		background-repeat: no-repeat;
@@ -66,10 +66,10 @@ const heroStyle = heroImageUrl ? `--hero-image: url(${encodeURI(heroImageUrl)})`
 	.hero.has-image .hero-copy {
 		width: fit-content;
 		padding: clamp(24px, 4vw, 44px);
-		background: color-mix(in srgb, var(--color-deep) 74%, transparent);
-		border: 1px solid rgba(255, 255, 255, 0.18);
+		background: var(--color-hero-panel);
+		border: 1px solid var(--color-deep-border);
 		border-radius: 36px;
-		box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+		box-shadow: var(--shadow-hero);
 		backdrop-filter: blur(10px);
 	}
 
@@ -82,7 +82,7 @@ const heroStyle = heroImageUrl ? `--hero-image: url(${encodeURI(heroImageUrl)})`
 	}
 
 	.hero.has-image .eyebrow {
-		color: #ffb36b;
+		color: var(--color-hero-eyebrow);
 	}
 
 	p:not(.eyebrow) {
@@ -93,7 +93,7 @@ const heroStyle = heroImageUrl ? `--hero-image: url(${encodeURI(heroImageUrl)})`
 	}
 
 	.hero.has-image p:not(.eyebrow) {
-		color: rgba(255, 255, 255, 0.84);
+		color: var(--color-deep-soft);
 	}
 
 	.actions {
@@ -108,7 +108,7 @@ const heroStyle = heroImageUrl ? `--hero-image: url(${encodeURI(heroImageUrl)})`
 		align-items: center;
 		min-height: 46px;
 		padding: 0 18px;
-		color: #fff;
+		color: var(--color-accent-on);
 		background: var(--color-accent);
 		border: 1px solid var(--color-accent);
 		border-radius: 6px;
@@ -117,8 +117,8 @@ const heroStyle = heroImageUrl ? `--hero-image: url(${encodeURI(heroImageUrl)})`
 	}
 
 	.button.secondary {
-		color: var(--color-deep);
-		background: #fff;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
 		border-color: var(--color-line);
 	}
 

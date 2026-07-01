@@ -62,6 +62,7 @@ const siteName = t('siteName');
 const fullTitle = title === siteName ? siteName : `${title} | ${siteName}`;
 const currentPath = Astro.url.pathname;
 const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? 'G-YTNCM94GGV';
+const themeStorageKey = 'kwm_theme';
 const rssHref = withBase(locale === 'de' ? '/de/rss.xml' : '/en/rss.xml');
 const rssUrl = Astro.site ? new URL(rssHref, Astro.site).toString() : rssHref;
 const rssTitle = locale === 'de' ? 'Koytek Wattenberg Media - YouTube Tipps' : 'Koytek Wattenberg Media - YouTube Tips';
@@ -283,6 +284,7 @@ const jsonLd = JSON.stringify({
 		<link rel="icon" type="image/png" sizes="192x192" href={withBase('/icon-192.png')} />
 		<link rel="apple-touch-icon" sizes="180x180" href={withBase('/apple-touch-icon.png')} />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="color-scheme" content="light dark" />
 		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="canonical" href={canonicalHref} />
@@ -310,6 +312,26 @@ const jsonLd = JSON.stringify({
 		{schemaType === 'BlogPosting' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
 		{schemaType === 'BlogPosting' && authorName && <meta property="article:author" content={authorName} />}
 		{priorityImagePreloadHref && <link rel="preload" as="image" href={priorityImagePreloadHref} fetchpriority="high" />}
+		<script define:vars={{ themeStorageKey }}>
+			(() => {
+				const validThemes = new Set(['light', 'dark']);
+
+				try {
+					const storedTheme = localStorage.getItem(themeStorageKey);
+					const theme = storedTheme && validThemes.has(storedTheme)
+						? storedTheme
+						: window.matchMedia('(prefers-color-scheme: dark)').matches
+							? 'dark'
+							: 'light';
+
+					document.documentElement.dataset.theme = theme;
+					document.documentElement.style.colorScheme = theme;
+				} catch {
+					document.documentElement.dataset.theme = 'light';
+					document.documentElement.style.colorScheme = 'light';
+				}
+			})();
+		</script>
 		<script type="application/ld+json" set:html={jsonLd} />
 		<title>{fullTitle}</title>
 	</head>
@@ -330,15 +352,129 @@ const jsonLd = JSON.stringify({
 <style is:global>
 	:root {
 		color-scheme: light;
+		--color-text: #241913;
 		--color-ink: #241913;
 		--color-muted: #6f6258;
 		--color-surface: #ffffff;
+		--color-surface-raised: #ffffff;
 		--color-surface-alt: #fff6ed;
+		--color-control-surface: #ffffff;
 		--color-line: #ead8c8;
+		--color-transparent: transparent;
 		--color-accent: #ff6900;
 		--color-accent-dark: #b84b00;
+		--color-accent-soft: #fff1e4;
+		--color-accent-on: #ffffff;
+		--color-accent-dashed-line: color-mix(in srgb, var(--color-accent) 58%, var(--color-line));
+		--color-accent-line: color-mix(in srgb, var(--color-accent) 55%, var(--color-line));
+		--color-accent-focus: color-mix(in srgb, var(--color-accent) 30%, var(--color-transparent));
+		--color-accent-focus-soft: color-mix(in srgb, var(--color-accent) 24%, var(--color-transparent));
+		--color-accent-focus-subtle: color-mix(in srgb, var(--color-accent) 28%, var(--color-transparent));
 		--color-deep: #1c1917;
+		--color-deep-contrast: #ffffff;
+		--color-deep-muted: rgba(255, 255, 255, 0.78);
+		--color-deep-soft: rgba(255, 255, 255, 0.86);
+		--color-deep-subtle: rgba(255, 255, 255, 0.06);
+		--color-deep-border: rgba(255, 255, 255, 0.18);
+		--color-deep-gradient-start: #241913;
+		--color-deep-gradient-end: #3a302a;
+		--color-header-background: rgba(255, 255, 255, 0.94);
+		--color-media-background: #000000;
+		--color-hero-panel: color-mix(in srgb, var(--color-deep) 74%, transparent);
+		--color-hero-eyebrow: #ffb36b;
+		--color-status-background: #f9f5f0;
+		--color-status-positive-text: #225d2d;
+		--color-status-positive-background: #edf8ef;
+		--color-status-positive-border: #b7dec0;
+		--color-status-negative-text: #8a2317;
+		--color-status-negative-background: #fff0ed;
+		--color-status-negative-border: #efb6aa;
+		--color-positive-accent: #2e7b35;
+		--color-negative-accent: #b83a24;
+		--color-checkerboard-square: #f3eee9;
+		--color-checkerboard-background: var(--color-surface-raised);
+		--color-youtube-ink: #0f0f0f;
+		--color-youtube-muted: #606060;
+		--color-youtube-surface: #ffffff;
+		--color-youtube-surface-alt: #f1f1f1;
+		--color-youtube-phone: #f4f4f4;
+		--color-youtube-phone-border: #dadada;
+		--color-youtube-red: #ff0000;
+		--color-youtube-play-icon: #ffffff;
+		--color-youtube-overlay: rgba(0, 0, 0, 0.84);
+		--color-youtube-placeholder-text: #4a4038;
+		--color-youtube-placeholder-accent: rgba(255, 105, 0, 0.18);
+		--color-youtube-placeholder-surface: rgba(255, 246, 237, 0.92);
+		--color-youtube-placeholder-stripe: rgba(36, 25, 19, 0.08);
+		--shadow-soft: 0 18px 60px rgba(36, 25, 19, 0.12);
+		--shadow-raised: 0 18px 60px rgba(36, 25, 19, 0.18);
+		--shadow-accent: 0 18px 50px rgba(255, 105, 0, 0.14);
+		--shadow-hero: 0 24px 64px rgba(0, 0, 0, 0.28);
+		--shadow-youtube-phone: 0 14px 40px rgba(36, 25, 19, 0.08);
 		--font-body: Ubuntu, Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	}
+
+	:root[data-theme='dark'] {
+		color-scheme: dark;
+		--color-text: #f8efe8;
+		--color-ink: #f8efe8;
+		--color-muted: #c3b3a8;
+		--color-surface: #14100d;
+		--color-surface-raised: #1b1511;
+		--color-surface-alt: #241b16;
+		--color-control-surface: #211813;
+		--color-line: #47362c;
+		--color-transparent: transparent;
+		--color-accent: #ff7a1a;
+		--color-accent-dark: #ffb36b;
+		--color-accent-soft: #3b2414;
+		--color-accent-on: #140d08;
+		--color-accent-dashed-line: color-mix(in srgb, var(--color-accent) 58%, var(--color-line));
+		--color-accent-line: color-mix(in srgb, var(--color-accent) 55%, var(--color-line));
+		--color-accent-focus: color-mix(in srgb, var(--color-accent) 30%, var(--color-transparent));
+		--color-accent-focus-soft: color-mix(in srgb, var(--color-accent) 24%, var(--color-transparent));
+		--color-accent-focus-subtle: color-mix(in srgb, var(--color-accent) 28%, var(--color-transparent));
+		--color-deep: #080604;
+		--color-deep-contrast: #ffffff;
+		--color-deep-muted: rgba(255, 255, 255, 0.78);
+		--color-deep-soft: rgba(255, 255, 255, 0.86);
+		--color-deep-subtle: rgba(255, 255, 255, 0.08);
+		--color-deep-border: rgba(255, 255, 255, 0.18);
+		--color-deep-gradient-start: #080604;
+		--color-deep-gradient-end: #241b16;
+		--color-header-background: rgba(20, 16, 13, 0.94);
+		--color-media-background: #000000;
+		--color-hero-panel: color-mix(in srgb, var(--color-deep) 78%, transparent);
+		--color-hero-eyebrow: #ffb36b;
+		--color-status-background: #241d18;
+		--color-status-positive-text: #93d99d;
+		--color-status-positive-background: #12351a;
+		--color-status-positive-border: #2e7b35;
+		--color-status-negative-text: #ffb0a4;
+		--color-status-negative-background: #421b16;
+		--color-status-negative-border: #b83a24;
+		--color-positive-accent: #93d99d;
+		--color-negative-accent: #ff8d78;
+		--color-checkerboard-square: #30251f;
+		--color-checkerboard-background: #14100d;
+		--color-youtube-ink: #f1f1f1;
+		--color-youtube-muted: #aaaaaa;
+		--color-youtube-surface: #0f0f0f;
+		--color-youtube-surface-alt: #222222;
+		--color-youtube-phone: #181818;
+		--color-youtube-phone-border: #333333;
+		--color-youtube-red: #ff0000;
+		--color-youtube-play-icon: #ffffff;
+		--color-youtube-overlay: rgba(0, 0, 0, 0.84);
+		--color-youtube-placeholder-text: #f4cdb8;
+		--color-youtube-placeholder-accent: rgba(255, 122, 26, 0.26);
+		--color-youtube-placeholder-surface: rgba(36, 27, 22, 0.92);
+		--color-youtube-placeholder-stripe: rgba(255, 255, 255, 0.08);
+		--shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.26);
+		--shadow-raised: 0 18px 60px rgba(0, 0, 0, 0.34);
+		--shadow-accent: 0 18px 50px rgba(255, 122, 26, 0.2);
+		--shadow-hero: 0 24px 64px rgba(0, 0, 0, 0.42);
+		--shadow-youtube-phone: 0 14px 40px rgba(0, 0, 0, 0.28);
 	}
 
 	* {
@@ -384,15 +520,15 @@ const jsonLd = JSON.stringify({
 		justify-items: center;
 		gap: 14px;
 		padding: 24px;
-		color: #fff;
-		background: linear-gradient(135deg, #241913 0%, #3a302a 100%);
+		color: var(--color-deep-contrast);
+		background: linear-gradient(135deg, var(--color-deep-gradient-start) 0%, var(--color-deep-gradient-end) 100%);
 		text-align: center;
 	}
 
 	.youtube-consent-placeholder p {
 		max-width: 48ch;
 		margin: 0;
-		color: rgba(255, 255, 255, 0.86);
+		color: var(--color-deep-soft);
 		font-size: 0.98rem;
 	}
 
@@ -402,7 +538,7 @@ const jsonLd = JSON.stringify({
 		justify-content: center;
 		min-height: 42px;
 		padding: 0 16px;
-		color: #fff;
+		color: var(--color-accent-on);
 		background: var(--color-accent);
 		border: 1px solid var(--color-accent);
 		border-radius: 6px;
