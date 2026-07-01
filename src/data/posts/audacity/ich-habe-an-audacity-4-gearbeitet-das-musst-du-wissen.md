@@ -21,15 +21,21 @@ video:
 
 ## Transkript
 
+### Einleitung
+
 Hallo und willkommen zu dieser Tour durch Audacity 4. Mein Name ist Leo Wattenberg, und ich war Designer bei Audacity 4. Heute mochte ich dir zeigen, woran wir in den letzten paar Jahren gearbeitet haben. Dafur verwende ich die Beta von Audacity 4. Wie du siehst, hat sie ein tatsachlich funktionierendes dunkles Theme. Sie hat auch ein funktionierendes helles Theme, das ziemlich schick aussieht. Auf dem nachsten Bildschirm fragen wir dich, welche Clip-Visualisierungen du verwenden mochtest.
 
 Wir haben eine neue und farbenfrohe Logik hinzugefugt, die jede Spur unterschiedlich einfarbt. Wenn du aber den Stil von Audacity 3 bevorzugst, steht dir auch dieser weiterhin zur Verfugung. Du wirst merken, dass das in diesem Video ein kleines wiederkehrendes Thema sein wird: Einer unserer Leitgedanken war, Audacity naturlich modern zu halten, aber zugleich vertraut fur alle, die viele, viele Jahre an Audacity 3 gewohnt waren. Deshalb gibt es auch verschiedene Optionen dafur, was du in deiner Werkzeugleiste haben mochtest.
 
 Darauf komme ich spater noch zuruck. Und naturlich ist audio.com wieder dabei, wie es schon in Audacity 3 der Fall war. Zu guter Letzt gibt es noch ein paar Informationen, die wir dir zu Updates und solchen Dingen anzeigen mussen. Hier siehst du auch, dass wir eine UUID verwenden, um zu messen, wie viele Menschen Audacity pro Tag nutzen. Das ist der gesamte Umfang der Telemetrie in Audacity. Sie sagt dem Team nur, wie viele Menschen Audacity taglich verwenden. Und damit sind wir bereits durch die Einrichtung.
 
+### Aufnahme und Spursteuerung
+
 Wir sind jetzt auf dem Willkommensbildschirm, genau wie in Audacity 3. Nachdem wir unser Wiedergabegerat und Aufnahmegerat eingerichtet haben, sind wir bereit. Ich kann jetzt einfach mit der Aufnahme beginnen. Und wie du siehst, nun ja, es ist ziemlich unspektakular: Es nimmt auf. Links siehst du eine kleine Anzeige. Das ist deine Eingangs- und Ausgangsanzeige fur die Spur, also der Pegelmesser der Spur, und sie zeigt dir jederzeit, wie laut du gerade aufnimmst.
 
 Die Entscheidung, diese Anzeige in die Spur zu setzen, wurde getroffen, weil wir irgendwann in Zukunft Mehrspuraufnahme hinzufugen mochten. Dann kannst du dein Mikrofon und zum Beispiel einen Zoom-Call gleichzeitig aufnehmen. Diese Funktion ist in dieser Audacity-4-Beta noch nicht enthalten, und sie wird auch beim Start von Audacity 4 noch nicht enthalten sein. Aber sie ist definitiv etwas, das das Team in Zukunft hinzufugen mochte. Sobald wir unsere Aufnahme gemacht haben, konnen wir mit der Bearbeitung beginnen.
+
+### Werkzeuge und Bearbeitung
 
 Wenn du mit der Arbeitsweise von Audacity 3 vertraut bist, erinnerst du dich vielleicht daran, dass es all diese verschiedenen Modi gab. Wenn du eine noch altere Version von Audacity verwendet hast, gab es sogar noch mehr dieser Werkzeugmodi. In Audacity 4 haben wir sie abgeschafft. Das heisst nicht, dass wir die Funktionen entfernt haben. Du kannst weiterhin problemlos zeichnen. Es ist nur kein eigener Modus mehr. Obwohl ich jetzt zeichnen kann, kann ich, sobald ich den Mauszeiger von dem wegbewege, was ich hier zeichne, weiterhin auswahlen. Schau dir das an.
 
@@ -57,6 +63,8 @@ Ich kann ihn also nach oben oder unten ziehen, um den Wert zu erhohen oder zu ve
 
 Ich kann also Dinge bearbeiten, wahrend ich am Effekt herumstelle, und er reagiert sofort. Wenn ich mit meinen Anderungen fertig bin, kann ich das Fenster einfach schliessen, und der Effekt arbeitet weiter. Jetzt ist es moglich, Effekte jederzeit zu andern, ohne erst eine ganze Menge ruckgangig machen und Stunden Arbeit verlieren zu mussen, nur um diese Anderung vorzunehmen. Wenn du einen Effekt fest anwenden mochtest, ist das naturlich weiterhin uber das Effect-Menu moglich, genau wie vorher.
 
+### Effekte und Werkzeuge
+
 Das Einzige, was dir hier vielleicht auffallt, ist, dass die Effekte etwas anders aussehen, aber sie funktionieren genauso. Bei der Rauschunterdruckung zum Beispiel haben wir nur etwas klarer gemacht, wie dieser Effekt funktioniert, fur Menschen, die ihn vielleicht noch nicht kennen. An dieser Stelle muss ich anerkennen, dass so etwas wie KI-Rauschunterdruckung existiert, und das ist etwas, das durchaus in Audacity landen konnte, vielleicht sogar in Audacity 4.0.
 
 Es ist nur so, dass KI-Rauschunterdruckung ganz anders funktioniert als die klassische Methode, die wir hier verwenden. KI-Rauschunterdruckung betrachtet Musik tendenziell als Rauschen, was korrekt ist, wenn du einen Zoom-Call verstandlicher machen willst, wahrend im Hintergrund Barmusik lauft. Wenn du Rauschunterdruckung aber tatsachlich auf musikalische Inhalte anwenden willst, ist das, nun ja, Mist. Was auch immer passiert: Dieser klassische Effekt bleibt definitiv erhalten. Wenn wir den Blick nach oben wandern lassen, siehst du, dass wir eine Werkzeugleiste haben, diesmal nur eine.
@@ -71,7 +79,11 @@ Im Moment sind all diese Funktionen, die du hier siehst, im Grunde auch in Audac
 
 Weil das hier die Beta ist, funktioniert das noch nicht ganz, aber du kannst sehen, dass sich die Position dieser Leisten, der Seitenleiste und solcher Dinge verandert, wenn ich zwischen ihnen wechsle. Ganz oben in Audacity 4, in den Menus, siehst du, dass das Transport-Menu einem Record-Menu gewichen ist. Der Grund ist, dass ich nicht glaube, dass irgendjemand jemals manuell zu Transport > Play und dann zu irgendeiner dieser Optionen geht. Man wurde stattdessen einfach diese Buttons verwenden.
 
-Deshalb hielten wir dieses Menu nicht fur notwendig. Record hat ein paar Funktionen, etwa Lead-in Recording, fruher Punch and Roll Recording genannt, die unterschieden werden mussen. In Zukunft wird es meiner Meinung nach neben diesem Record-Button ein kleines Dreieck geben, vielleicht ahnlich wie bei diesem hier, auf das du klicken kannst und das dann alle Optionen enthalt, die du hier brauchen konntest. Eine Sache in den Einstellungen mochte ich dir noch zeigen. Die Einstellungen sind an sich nicht besonders aufregend.
+Deshalb hielten wir dieses Menu nicht fur notwendig. Record hat ein paar Funktionen, etwa Lead-in Recording, fruher Punch and Roll Recording genannt, die unterschieden werden mussen. In Zukunft wird es meiner Meinung nach neben diesem Record-Button ein kleines Dreieck geben, vielleicht ahnlich wie bei diesem hier, auf das du klicken kannst und das dann alle Optionen enthalt, die du hier brauchen konntest. 
+
+### Einstellungen und Projekte
+
+Eine Sache in den Einstellungen mochte ich dir noch zeigen. Die Einstellungen sind an sich nicht besonders aufregend.
 
 Wir haben sie etwas umorganisiert, damit sie besser zu dem passen, was Audacity 4 tatsachlich macht. Und wenn du mit deinem Theme unzufrieden bist, kannst du hier wieder zum hellen Theme zuruckwechseln oder jede andere Anderung vornehmen, die du fur dich am besten findest. Was ich dir aber zeigen wollte: Einige dieser Einstellungen, und bis zum Launch hoffentlich die meisten, haben irgendeine Art Visualisierung oder visuelle Hilfe, wo es sinnvoll ist, damit du sehen kannst, worum es bei der Einstellung eigentlich geht.
 
@@ -82,3 +94,7 @@ Wenn ich dieses Projekt jetzt habe und ihm einen Namen gebe, den ich in hundert 
 Wenn du es dir dann im Home-Tab in der Projektansicht ansiehst, kannst du sehen, woran du zuletzt gearbeitet hast. Hoffentlich ist das Bild fur dich etwas leichter wiederzuerkennen, falls du nicht besonders gut darin bist, deine Dateien zu benennen. Und hier siehst du auch einen Learn-Tab. Bis Audacity 4 tatsachlich veroffentlicht wird, liegen dort hoffentlich eine ganze Menge Tutorials fur dich bereit. Und da ist es: Audacity 4 Beta 1.
 
 Ich hoffe, du hast Spass beim Testen. Und falls du dieses Video spater schaust, hoffe ich, dass du eine stabilere Version von Audacity geniesst als die, die ich hier verwende. Wenn dir dieses Video gefallt, gib ihm gern ein Like, und ich hoffe, wir sehen uns bald wieder.
+
+### Audacity 4 beta download
+
+Du kannst Audacity 4 auf https://www.audacityteam.org/next/ herunterladen.
