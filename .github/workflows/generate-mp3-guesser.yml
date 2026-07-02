@@ -1,0 +1,52 @@
+name: Generate daily MP3 Guesser
+
+on:
+  schedule:
+    - cron: '17 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mp3-guesser-daily
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    name: Generate game assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install audio tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Generate daily game
+        run: npm run game:mp3-guesser
+        env:
+          FREESOUND_API_TOKEN: ${{ secrets.FREESOUND_API_TOKEN }}
+          FREESOUND_OAUTH_TOKEN: ${{ secrets.FREESOUND_OAUTH_TOKEN }}
+
+      - name: Commit generated game
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/games/mp3guesser
+
+          if git diff --cached --quiet; then
+            echo "No MP3 Guesser changes to commit."
+          else
+            git commit -m "Update daily MP3 Guesser"
+            git push
+          fi
