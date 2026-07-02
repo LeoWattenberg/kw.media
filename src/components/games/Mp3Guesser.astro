@@ -1,0 +1,1017 @@
+---
+import type { Locale } from '../../i18n';
+import { withBase } from '../../lib/url';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Daily Game',
+		title: 'MP3 Guesser',
+		intro:
+			'Finde das unkomprimierte Original zwischen vier LAME-MP3-Versionen. Jeden Tag gibt es eine neue Audiodatei aus offenen Quellen.',
+		start: 'Heute spielen',
+		loading: 'Lade das heutige Spiel...',
+		errorTitle: 'Heute ist noch kein Spiel bereit',
+		error:
+			'Die Tagesdatei konnte nicht geladen werden. Sobald die GitHub Action erfolgreich gelaufen ist, erscheint hier automatisch die neue Runde.',
+		sourceTitle: 'Heutige Quelle',
+		sourceFallback: 'Unbekannte Quelle',
+		creditIntro: 'Original:',
+		creator: 'Urheber',
+		license: 'Lizenz',
+		provider: 'Quelle',
+		duration: 'Dauer',
+		level: 'Level',
+		score: 'Punkte',
+		roundPrompt: 'Welche der fünf Dateien ist das Original?',
+		playSample: 'Sample abspielen',
+		selected: 'Ausgewählt',
+		submit: 'Antwort einloggen',
+		next: 'Nächstes Level',
+		showResults: 'Ergebnis anzeigen',
+		playAgain: 'Nochmal spielen',
+		correct: 'Richtig. Das Original war Sample {letter}.',
+		wrong: 'Nicht ganz. Das Original war Sample {letter}.',
+		completeTitle: 'Dein Ergebnis',
+		completeBody:
+			'{score} von {total} erkannt. Eine perfekte Zufallsrunde liegt bei 1 zu 3125, weil jedes Level fünf Optionen hat.',
+		previousTitle: 'Du hast das heutige Spiel schon gespielt',
+		previousBody: 'Gespeichertes Ergebnis: {score} von {total}.',
+		originalBadge: 'Original',
+		encodedBadge: 'MP3',
+		linksTitle: 'Mehr Audiotests',
+		abxLink: 'ABX-Audiotester',
+		mp3Link: 'MP3-Qualitätstester',
+		abxDescription: 'Teste zwei lokale Audiodateien klassisch als ABX-Vergleich.',
+		mp3Description: 'Erzeuge MP3s aus deiner eigenen Datei direkt im Browser.',
+	},
+	en: {
+		eyebrow: 'Daily game',
+		title: 'MP3 Guesser',
+		intro:
+			'Find the uncompressed original among four LAME MP3 versions. Every day uses a new audio file from open sources.',
+		start: "Play today's game",
+		loading: "Loading today's game...",
+		errorTitle: "Today's game is not ready yet",
+		error:
+			'The daily file could not be loaded. Once the GitHub Action has generated a fresh round, it will appear here automatically.',
+		sourceTitle: "Today's source",
+		sourceFallback: 'Unknown source',
+		creditIntro: 'Original:',
+		creator: 'Creator',
+		license: 'License',
+		provider: 'Provider',
+		duration: 'Duration',
+		level: 'Level',
+		score: 'Score',
+		roundPrompt: 'Which of the five files is the original?',
+		playSample: 'Play sample',
+		selected: 'Selected',
+		submit: 'Lock in answer',
+		next: 'Next level',
+		showResults: 'Show results',
+		playAgain: 'Play again',
+		correct: 'Correct. The original was sample {letter}.',
+		wrong: 'Not quite. The original was sample {letter}.',
+		completeTitle: 'Your result',
+		completeBody:
+			'{score} out of {total} spotted. A perfect random run is 1 in 3125 because every level has five options.',
+		previousTitle: "You've already played today",
+		previousBody: 'Saved result: {score} out of {total}.',
+		originalBadge: 'Original',
+		encodedBadge: 'MP3',
+		linksTitle: 'More audio tests',
+		abxLink: 'ABX Audio Tester',
+		mp3Link: 'MP3 Quality Tester',
+		abxDescription: 'Run a classic ABX comparison with two local audio files.',
+		mp3Description: 'Generate MP3s from your own file directly in the browser.',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+const manifestUrl = withBase('/games/mp3guesser/daily.json');
+const basePath = withBase('/');
+const abxPath = locale === 'de' ? '/de/tools/abx-tester/' : '/en/tools/abx-tester/';
+const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/tools/mp3-quality-tester/';
+---
+
+<section class="mp3g-hero">
+	<div class="container mp3g-hero-inner">
+		<div>
+			<p class="eyebrow">{copy.eyebrow}</p>
+			<h1>{copy.title}</h1>
+			<p>{copy.intro}</p>
+		</div>
+		<div class="mp3g-stat" aria-hidden="true">
+			<span>5</span>
+			<strong>LAME VBR Levels</strong>
+		</div>
+	</div>
+</section>
+
+<section class="section mp3g-section">
+	<div class="container">
+		<div
+			class="mp3g-game"
+			data-mp3-guesser
+			data-copy={copyJson}
+			data-manifest-url={manifestUrl}
+			data-base-path={basePath}
+		>
+			<div class="mp3g-status" data-status>{copy.loading}</div>
+
+			<div class="mp3g-layout" data-game hidden>
+				<aside class="mp3g-sidebar">
+					<section class="mp3g-panel">
+						<h2>{copy.sourceTitle}</h2>
+						<p class="mp3g-credit">
+							<span>{copy.creditIntro}</span>
+							<a data-source-link href="#" rel="noopener noreferrer" target="_blank">{copy.sourceFallback}</a>
+						</p>
+						<dl class="mp3g-source-list">
+							<div>
+								<dt>{copy.provider}</dt>
+								<dd data-source-provider>-</dd>
+							</div>
+							<div>
+								<dt>{copy.creator}</dt>
+								<dd data-source-creator>-</dd>
+							</div>
+							<div>
+								<dt>{copy.license}</dt>
+								<dd><a data-source-license href="#" rel="noopener noreferrer" target="_blank">-</a></dd>
+							</div>
+							<div>
+								<dt>{copy.duration}</dt>
+								<dd data-source-duration>-</dd>
+							</div>
+						</dl>
+					</section>
+
+					<section class="mp3g-panel">
+						<div class="mp3g-progress-head">
+							<h2>{copy.level}</h2>
+							<p><span data-score>0</span>/<span data-total>5</span></p>
+						</div>
+						<ol class="mp3g-progress" data-progress></ol>
+					</section>
+				</aside>
+
+				<div class="mp3g-main">
+					<section class="mp3g-panel mp3g-round" data-round>
+						<div class="mp3g-round-head">
+							<div>
+								<p class="eyebrow" data-level-kicker>{copy.level}</p>
+								<h2 data-level-title>-</h2>
+							</div>
+							<p>{copy.roundPrompt}</p>
+						</div>
+
+						<audio class="mp3g-audio" data-audio controls preload="none"></audio>
+						<div class="mp3g-options" data-options></div>
+						<p class="mp3g-feedback" data-feedback hidden></p>
+
+						<div class="mp3g-actions">
+							<button class="mp3g-button mp3g-button-primary" type="button" data-submit disabled>
+								{copy.submit}
+							</button>
+							<button class="mp3g-button" type="button" data-next hidden>{copy.next}</button>
+						</div>
+					</section>
+
+					<section class="mp3g-panel mp3g-results" data-results hidden>
+						<h2 data-results-title>{copy.completeTitle}</h2>
+						<p data-results-body></p>
+						<button class="mp3g-button mp3g-button-primary" type="button" data-replay>{copy.playAgain}</button>
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section mp3g-links-section">
+	<div class="container">
+		<div class="mp3g-links-head">
+			<p class="eyebrow">{copy.linksTitle}</p>
+			<h2>{copy.linksTitle}</h2>
+		</div>
+		<div class="mp3g-link-grid">
+			<a class="mp3g-tool-link" href={withBase(abxPath)}>
+				<strong>{copy.abxLink}</strong>
+				<span>{copy.abxDescription}</span>
+			</a>
+			<a class="mp3g-tool-link" href={withBase(mp3TesterPath)}>
+				<strong>{copy.mp3Link}</strong>
+				<span>{copy.mp3Description}</span>
+			</a>
+		</div>
+	</div>
+</section>
+
+<script>
+	(() => {
+		const roots = document.querySelectorAll('[data-mp3-guesser]:not([data-mp3g-bound])');
+
+		roots.forEach((root) => {
+			root.dataset.mp3gBound = 'true';
+			initMp3Guesser(root);
+		});
+
+		function initMp3Guesser(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const manifestUrl = root.dataset.manifestUrl || '/games/mp3guesser/daily.json';
+			const basePath = root.dataset.basePath || '/';
+			const nodes = {
+				status: root.querySelector('[data-status]'),
+				game: root.querySelector('[data-game]'),
+				sourceLink: root.querySelector('[data-source-link]'),
+				sourceProvider: root.querySelector('[data-source-provider]'),
+				sourceCreator: root.querySelector('[data-source-creator]'),
+				sourceLicense: root.querySelector('[data-source-license]'),
+				sourceDuration: root.querySelector('[data-source-duration]'),
+				score: root.querySelector('[data-score]'),
+				total: root.querySelector('[data-total]'),
+				progress: root.querySelector('[data-progress]'),
+				levelKicker: root.querySelector('[data-level-kicker]'),
+				levelTitle: root.querySelector('[data-level-title]'),
+				audio: root.querySelector('[data-audio]'),
+				options: root.querySelector('[data-options]'),
+				feedback: root.querySelector('[data-feedback]'),
+				submit: root.querySelector('[data-submit]'),
+				next: root.querySelector('[data-next]'),
+				results: root.querySelector('[data-results]'),
+				resultsTitle: root.querySelector('[data-results-title]'),
+				resultsBody: root.querySelector('[data-results-body]'),
+				replay: root.querySelector('[data-replay]'),
+				round: root.querySelector('[data-round]'),
+			};
+			const letters = ['A', 'B', 'C', 'D', 'E'];
+			const state = {
+				manifest: null,
+				levelIndex: 0,
+				selectedIndex: -1,
+				answered: false,
+				answers: [],
+			};
+
+			nodes.submit?.addEventListener('click', submitAnswer);
+			nodes.next?.addEventListener('click', goNext);
+			nodes.replay?.addEventListener('click', () => {
+				state.levelIndex = 0;
+				state.selectedIndex = -1;
+				state.answered = false;
+				state.answers = [];
+				nodes.results.hidden = true;
+				nodes.round.hidden = false;
+				render();
+			});
+			nodes.audio?.addEventListener('pause', updatePlayingButtons);
+			nodes.audio?.addEventListener('ended', updatePlayingButtons);
+
+			loadManifest();
+
+			async function loadManifest() {
+				try {
+					const response = await fetch(manifestUrl, { cache: 'no-store' });
+
+					if (!response.ok) {
+						throw new Error(`Manifest returned ${response.status}`);
+					}
+
+					const manifest = await response.json();
+
+					if (!manifest || !Array.isArray(manifest.levels) || manifest.levels.length === 0) {
+						throw new Error('Manifest has no playable levels');
+					}
+
+					state.manifest = normalizeManifest(manifest);
+					showGame();
+					renderSource();
+					renderPreviousResult();
+					render();
+				} catch (error) {
+					console.error(error);
+					showError();
+				}
+			}
+
+			function normalizeManifest(manifest) {
+				return {
+					...manifest,
+					levels: manifest.levels.map((level) => ({
+						...level,
+						options: level.options.map((option) => ({
+							...option,
+							url: resolveAssetUrl(option.url),
+						})),
+					})),
+				};
+			}
+
+			function resolveAssetUrl(url) {
+				if (!url || /^(https?:|data:|blob:)/.test(url)) {
+					return url;
+				}
+
+				if (!url.startsWith('/')) {
+					return url;
+				}
+
+				const normalizedBase = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath;
+				return `${normalizedBase}${url}`;
+			}
+
+			function showGame() {
+				nodes.status.hidden = true;
+				nodes.game.hidden = false;
+			}
+
+			function showError() {
+				nodes.status.hidden = false;
+				nodes.status.dataset.state = 'error';
+				nodes.status.innerHTML = `<strong>${escapeHtml(copy.errorTitle)}</strong><span>${escapeHtml(copy.error)}</span>`;
+			}
+
+			function renderSource() {
+				const source = state.manifest.source || {};
+				const title = source.title || copy.sourceFallback;
+				const sourceUrl = source.sourceUrl || source.downloadUrl || '#';
+				const licenseUrl = source.licenseUrl || source.sourceUrl || '#';
+
+				nodes.sourceLink.textContent = title;
+				nodes.sourceLink.href = sourceUrl;
+				nodes.sourceProvider.textContent = source.provider || '-';
+				nodes.sourceCreator.textContent = source.creator || '-';
+				nodes.sourceLicense.textContent = source.license || '-';
+				nodes.sourceLicense.href = licenseUrl;
+				nodes.sourceDuration.textContent = formatDuration(state.manifest.duration || source.duration || 0);
+			}
+
+			function renderPreviousResult() {
+				const stored = readStoredResult();
+
+				if (!stored) {
+					return;
+				}
+
+				const total = state.manifest.levels.length;
+				nodes.round.hidden = true;
+				nodes.results.hidden = false;
+				nodes.resultsTitle.textContent = copy.previousTitle;
+				nodes.resultsBody.textContent = format(copy.previousBody, {
+					score: String(stored.score),
+					total: String(total),
+				});
+			}
+
+			function render() {
+				if (!state.manifest || nodes.round.hidden) {
+					renderProgress();
+					return;
+				}
+
+				const level = state.manifest.levels[state.levelIndex];
+				state.selectedIndex = -1;
+				state.answered = false;
+				stopAudio();
+				nodes.levelKicker.textContent = `${copy.level} ${state.levelIndex + 1}`;
+				nodes.levelTitle.textContent = level.label;
+				nodes.feedback.hidden = true;
+				nodes.feedback.textContent = '';
+				nodes.next.hidden = true;
+				nodes.submit.hidden = false;
+				nodes.submit.disabled = true;
+				nodes.submit.textContent = copy.submit;
+				nodes.options.innerHTML = '';
+				level.options.forEach((option, index) => {
+					const button = document.createElement('button');
+					button.type = 'button';
+					button.className = 'mp3g-option';
+					button.dataset.index = String(index);
+					button.innerHTML = `
+						<span class="mp3g-option-letter">${letters[index]}</span>
+						<span class="mp3g-option-text">${escapeHtml(copy.playSample)} ${letters[index]}</span>
+						<span class="mp3g-option-badge" data-badge></span>
+					`;
+					button.addEventListener('click', () => selectOption(index, option, button));
+					nodes.options.append(button);
+				});
+				renderProgress();
+			}
+
+			function renderProgress() {
+				if (!state.manifest) {
+					return;
+				}
+
+				nodes.score.textContent = String(state.answers.filter(Boolean).length);
+				nodes.total.textContent = String(state.manifest.levels.length);
+				nodes.progress.innerHTML = '';
+				state.manifest.levels.forEach((level, index) => {
+					const item = document.createElement('li');
+					const answer = state.answers[index];
+					item.dataset.state =
+						answer === undefined ? (index === state.levelIndex && !nodes.round.hidden ? 'current' : 'pending') : answer ? 'correct' : 'wrong';
+					item.textContent = level.label;
+					nodes.progress.append(item);
+				});
+			}
+
+			function selectOption(index, option, button) {
+				if (state.answered) {
+					playOption(option, button);
+					return;
+				}
+
+				state.selectedIndex = index;
+				nodes.submit.disabled = false;
+				root.querySelectorAll('.mp3g-option').forEach((optionButton) => {
+					optionButton.classList.toggle('is-selected', optionButton === button);
+				});
+				playOption(option, button);
+			}
+
+			async function playOption(option, button) {
+				if (!nodes.audio || !option.url) {
+					return;
+				}
+
+				const isSameOption = nodes.audio.dataset.optionId === option.id;
+
+				if (isSameOption && !nodes.audio.paused) {
+					nodes.audio.pause();
+					updatePlayingButtons();
+					return;
+				}
+
+				if (!isSameOption) {
+					nodes.audio.src = option.url;
+					nodes.audio.dataset.optionId = option.id;
+				}
+
+				try {
+					await nodes.audio.play();
+				} catch (error) {
+					console.warn(error);
+				}
+
+				updatePlayingButtons(button);
+			}
+
+			function updatePlayingButtons(activeButton) {
+				root.querySelectorAll('.mp3g-option').forEach((button) => {
+					const index = Number(button.dataset.index);
+					const level = state.manifest?.levels[state.levelIndex];
+					const option = level?.options[index];
+					const isPlaying = Boolean(
+						option && nodes.audio?.dataset.optionId === option.id && !nodes.audio.paused && !nodes.audio.ended,
+					);
+					button.classList.toggle('is-playing', activeButton ? button === activeButton && isPlaying : isPlaying);
+				});
+			}
+
+			function submitAnswer() {
+				const level = state.manifest.levels[state.levelIndex];
+				const correctIndex = level.options.findIndex((option) => option.kind === 'original');
+				const isCorrect = state.selectedIndex === correctIndex;
+				state.answered = true;
+				state.answers[state.levelIndex] = isCorrect;
+				nodes.feedback.hidden = false;
+				nodes.feedback.dataset.state = isCorrect ? 'correct' : 'wrong';
+				nodes.feedback.textContent = format(isCorrect ? copy.correct : copy.wrong, {
+					letter: letters[correctIndex] || '?',
+				});
+				nodes.submit.hidden = true;
+				nodes.next.hidden = false;
+				nodes.next.textContent =
+					state.levelIndex === state.manifest.levels.length - 1 ? copy.showResults : copy.next;
+				root.querySelectorAll('.mp3g-option').forEach((button) => {
+					const index = Number(button.dataset.index);
+					const option = level.options[index];
+					const badge = button.querySelector('[data-badge]');
+					button.classList.toggle('is-correct', option.kind === 'original');
+					button.classList.toggle('is-wrong', index === state.selectedIndex && option.kind !== 'original');
+					button.disabled = false;
+					badge.textContent = option.kind === 'original' ? copy.originalBadge : copy.encodedBadge;
+				});
+				renderProgress();
+			}
+
+			function goNext() {
+				if (state.levelIndex >= state.manifest.levels.length - 1) {
+					showResults();
+					return;
+				}
+
+				state.levelIndex += 1;
+				render();
+			}
+
+			function showResults() {
+				const total = state.manifest.levels.length;
+				const score = state.answers.filter(Boolean).length;
+				stopAudio();
+				nodes.round.hidden = true;
+				nodes.results.hidden = false;
+				nodes.resultsTitle.textContent = copy.completeTitle;
+				nodes.resultsBody.textContent = format(copy.completeBody, {
+					score: String(score),
+					total: String(total),
+				});
+				storeResult(score);
+				renderProgress();
+			}
+
+			function stopAudio() {
+				if (!nodes.audio) {
+					return;
+				}
+
+				nodes.audio.pause();
+				nodes.audio.removeAttribute('src');
+				nodes.audio.load();
+				nodes.audio.dataset.optionId = '';
+			}
+
+			function storageKey() {
+				return `kwm-mp3-guesser:${state.manifest?.date || 'unknown'}`;
+			}
+
+			function readStoredResult() {
+				try {
+					const value = localStorage.getItem(storageKey());
+					return value ? JSON.parse(value) : null;
+				} catch {
+					return null;
+				}
+			}
+
+			function storeResult(score) {
+				try {
+					localStorage.setItem(
+						storageKey(),
+						JSON.stringify({
+							score,
+							playedAt: new Date().toISOString(),
+						}),
+					);
+				} catch {
+					// localStorage is optional for the game.
+				}
+			}
+
+			function format(template, values) {
+				return Object.entries(values).reduce(
+					(result, [key, value]) => result.replaceAll(`{${key}}`, value),
+					template,
+				);
+			}
+
+			function formatDuration(value) {
+				const seconds = Math.max(0, Math.round(Number(value) || 0));
+				const minutes = Math.floor(seconds / 60);
+				const remainder = seconds % 60;
+
+				if (!minutes) {
+					return `${remainder}s`;
+				}
+
+				return `${minutes}:${String(remainder).padStart(2, '0')}`;
+			}
+
+			function escapeHtml(value) {
+				return String(value)
+					.replaceAll('&', '&amp;')
+					.replaceAll('<', '&lt;')
+					.replaceAll('>', '&gt;')
+					.replaceAll('"', '&quot;')
+					.replaceAll("'", '&#039;');
+			}
+		}
+	})();
+</script>
+
+<style>
+	.mp3g-hero {
+		padding-block: clamp(44px, 7vw, 84px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.mp3g-hero-inner {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(180px, 240px);
+		gap: 24px;
+		align-items: end;
+	}
+
+	.mp3g-hero h1 {
+		max-width: 820px;
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.4rem);
+		line-height: 0.98;
+		letter-spacing: 0;
+	}
+
+	.mp3g-hero p:not(.eyebrow) {
+		max-width: 720px;
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+		font-weight: 700;
+	}
+
+	.mp3g-stat {
+		display: grid;
+		gap: 4px;
+		padding: 20px;
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.mp3g-stat span {
+		color: var(--color-accent);
+		font-size: clamp(3rem, 8vw, 5rem);
+		font-weight: 900;
+		line-height: 0.9;
+	}
+
+	.mp3g-stat strong {
+		font-size: 0.95rem;
+	}
+
+	.mp3g-section {
+		background: var(--color-surface-raised);
+	}
+
+	.mp3g-status {
+		display: grid;
+		gap: 8px;
+		padding: 22px;
+		color: var(--color-muted);
+		background: var(--color-status-background);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 750;
+	}
+
+	.mp3g-status strong {
+		color: var(--color-ink);
+		font-size: 1.15rem;
+	}
+
+	.mp3g-status[data-state='error'] {
+		color: var(--color-status-negative-text);
+		background: var(--color-status-negative-background);
+		border-color: var(--color-status-negative-border);
+	}
+
+	.mp3g-layout {
+		display: grid;
+		grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+		gap: 18px;
+		align-items: start;
+	}
+
+	.mp3g-sidebar,
+	.mp3g-main {
+		display: grid;
+		gap: 18px;
+	}
+
+	.mp3g-panel {
+		padding: clamp(18px, 3vw, 28px);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.mp3g-panel h2 {
+		margin: 0;
+		font-size: clamp(1.3rem, 3vw, 2rem);
+		line-height: 1.1;
+		letter-spacing: 0;
+	}
+
+	.mp3g-credit {
+		display: grid;
+		gap: 5px;
+		margin: 16px 0 0;
+		color: var(--color-muted);
+		font-weight: 750;
+	}
+
+	.mp3g-credit a {
+		color: var(--color-ink);
+		font-weight: 850;
+		overflow-wrap: anywhere;
+	}
+
+	.mp3g-source-list {
+		display: grid;
+		gap: 12px;
+		margin: 20px 0 0;
+	}
+
+	.mp3g-source-list div {
+		display: grid;
+		gap: 3px;
+	}
+
+	.mp3g-source-list dt {
+		color: var(--color-muted);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.mp3g-source-list dd {
+		margin: 0;
+		font-weight: 800;
+		overflow-wrap: anywhere;
+	}
+
+	.mp3g-progress-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+	}
+
+	.mp3g-progress-head p {
+		margin: 0;
+		color: var(--color-accent-dark);
+		font-weight: 900;
+	}
+
+	.mp3g-progress {
+		display: grid;
+		gap: 8px;
+		margin: 18px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.mp3g-progress li {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		color: var(--color-muted);
+		font-size: 0.92rem;
+		font-weight: 800;
+	}
+
+	.mp3g-progress li::before {
+		content: '';
+		width: 10px;
+		height: 10px;
+		background: var(--color-line);
+		border-radius: 999px;
+	}
+
+	.mp3g-progress li[data-state='current'] {
+		color: var(--color-ink);
+	}
+
+	.mp3g-progress li[data-state='current']::before {
+		background: var(--color-accent);
+	}
+
+	.mp3g-progress li[data-state='correct']::before {
+		background: var(--color-positive-accent);
+	}
+
+	.mp3g-progress li[data-state='wrong']::before {
+		background: var(--color-negative-accent);
+	}
+
+	.mp3g-round-head {
+		display: grid;
+		gap: 14px;
+	}
+
+	.mp3g-round-head p:not(.eyebrow) {
+		margin: 0;
+		color: var(--color-muted);
+		font-weight: 750;
+	}
+
+	.mp3g-audio {
+		display: block;
+		width: 100%;
+		margin-top: 22px;
+	}
+
+	.mp3g-options {
+		display: grid;
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		gap: 10px;
+		margin-top: 22px;
+	}
+
+	.mp3g-option {
+		display: grid;
+		min-height: 124px;
+		align-content: center;
+		justify-items: center;
+		gap: 9px;
+		padding: 16px 10px;
+		color: var(--color-ink);
+		background: var(--color-control-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font: inherit;
+		font-weight: 850;
+		cursor: pointer;
+	}
+
+	.mp3g-option:hover,
+	.mp3g-option.is-selected {
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px var(--color-accent-focus-soft);
+	}
+
+	.mp3g-option.is-playing {
+		background: var(--color-accent-soft);
+	}
+
+	.mp3g-option.is-correct {
+		border-color: var(--color-status-positive-border);
+		background: var(--color-status-positive-background);
+		color: var(--color-status-positive-text);
+	}
+
+	.mp3g-option.is-wrong {
+		border-color: var(--color-status-negative-border);
+		background: var(--color-status-negative-background);
+		color: var(--color-status-negative-text);
+	}
+
+	.mp3g-option-letter {
+		display: grid;
+		width: 42px;
+		height: 42px;
+		place-items: center;
+		color: var(--color-accent-on);
+		background: var(--color-accent);
+		border-radius: 999px;
+		font-size: 1.35rem;
+		font-weight: 900;
+	}
+
+	.mp3g-option-text {
+		font-size: 0.9rem;
+		text-align: center;
+	}
+
+	.mp3g-option-badge {
+		min-height: 22px;
+		color: inherit;
+		font-size: 0.76rem;
+		text-transform: uppercase;
+	}
+
+	.mp3g-feedback {
+		margin: 20px 0 0;
+		padding: 14px 16px;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 850;
+	}
+
+	.mp3g-feedback[data-state='correct'] {
+		color: var(--color-status-positive-text);
+		background: var(--color-status-positive-background);
+		border-color: var(--color-status-positive-border);
+	}
+
+	.mp3g-feedback[data-state='wrong'] {
+		color: var(--color-status-negative-text);
+		background: var(--color-status-negative-background);
+		border-color: var(--color-status-negative-border);
+	}
+
+	.mp3g-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-top: 22px;
+	}
+
+	.mp3g-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 44px;
+		padding: 0 18px;
+		color: var(--color-ink);
+		background: var(--color-control-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 6px;
+		font: inherit;
+		font-weight: 850;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.mp3g-button-primary {
+		color: var(--color-accent-on);
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+	}
+
+	.mp3g-button:disabled {
+		opacity: 0.54;
+		cursor: not-allowed;
+	}
+
+	.mp3g-results p {
+		max-width: 62ch;
+		margin: 14px 0 22px;
+		color: var(--color-muted);
+		font-size: 1.05rem;
+		font-weight: 750;
+	}
+
+	.mp3g-links-section {
+		background: var(--color-surface-alt);
+		border-top: 1px solid var(--color-line);
+	}
+
+	.mp3g-links-head h2 {
+		margin: 0;
+		font-size: clamp(1.8rem, 4vw, 3.2rem);
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.mp3g-link-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 16px;
+		margin-top: 24px;
+	}
+
+	.mp3g-tool-link {
+		display: grid;
+		gap: 8px;
+		padding: clamp(18px, 3vw, 26px);
+		color: inherit;
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		text-decoration: none;
+	}
+
+	.mp3g-tool-link:hover {
+		border-color: var(--color-accent);
+	}
+
+	.mp3g-tool-link strong {
+		font-size: 1.2rem;
+	}
+
+	.mp3g-tool-link span {
+		color: var(--color-muted);
+		font-weight: 750;
+	}
+
+	@media (max-width: 980px) {
+		.mp3g-hero-inner,
+		.mp3g-layout {
+			grid-template-columns: 1fr;
+		}
+
+		.mp3g-stat {
+			max-width: 280px;
+		}
+
+		.mp3g-options {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 620px) {
+		.mp3g-options,
+		.mp3g-link-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.mp3g-option {
+			min-height: 88px;
+			grid-template-columns: auto minmax(0, 1fr) auto;
+			justify-items: start;
+			text-align: left;
+		}
+
+		.mp3g-option-text {
+			text-align: left;
+		}
+	}
+</style>

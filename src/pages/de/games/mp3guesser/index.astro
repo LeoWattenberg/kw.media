@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../../../components/layout/BaseLayout.astro';
+import Mp3Guesser from '../../../../components/games/Mp3Guesser.astro';
+
+const title = 'MP3 Guesser';
+const description =
+	'Das tägliche Hörspiel: Erkenne das unkomprimierte Original zwischen LAME-MP3-Dateien in V0, V2, V4, V6 und V8.';
+const alternatePaths = {
+	de: '/de/games/mp3guesser/',
+	en: '/en/games/mp3guesser/',
+};
+---
+
+<BaseLayout
+	locale="de"
+	title={title}
+	description={description}
+	canonicalPath="/de/games/mp3guesser/"
+	alternatePaths={alternatePaths}
+>
+	<Mp3Guesser locale="de" />
+</BaseLayout>

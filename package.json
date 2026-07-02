@@ -19,7 +19,8 @@
     "links:posts": "node scripts/add-inline-post-links.mjs",
     "related:posts": "node scripts/build-related-posts.mjs",
     "translate:post": "node scripts/translate-post.mjs",
-    "translate:all-missing": "node scripts/translate-all-missing-posts.mjs"
+    "translate:all-missing": "node scripts/translate-all-missing-posts.mjs",
+    "game:mp3-guesser": "node scripts/generate-mp3-guesser-game.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
