@@ -36,6 +36,9 @@ const copyByLocale = {
 		tolerance: 'Toleranz',
 		outputFormat: 'Ausgabeformat',
 		quality: 'Qualität',
+		previewBackground: 'Vorschau-Hintergrund',
+		previewPlain: 'Einfarbig',
+		previewChecker: 'Schachbrett',
 		remove: 'Hintergrund entfernen',
 		clear: 'Datei entfernen',
 		sourcePreview: 'Quelle',
@@ -90,6 +93,9 @@ const copyByLocale = {
 		tolerance: 'Tolerance',
 		outputFormat: 'Output format',
 		quality: 'Quality',
+		previewBackground: 'Preview background',
+		previewPlain: 'Plain',
+		previewChecker: 'Checker',
 		remove: 'Remove background',
 		clear: 'Clear file',
 		sourcePreview: 'Source',
@@ -205,6 +211,11 @@ const defaultFillColorHex = 'ffffff';
 						<span>{copy.quality}: <strong data-quality-label>90</strong></span>
 						<input data-quality type="range" min="1" max="100" step="1" value="90" />
 					</label>
+					<fieldset class="preview-background-control">
+						<legend>{copy.previewBackground}</legend>
+						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="plain" /> {copy.previewPlain}</label>
+						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="checker" checked /> {copy.previewChecker}</label>
+					</fieldset>
 					<div class="remover-actions">
 						<button class="button primary" data-remove type="button" disabled>{copy.remove}</button>
 						<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
@@ -268,6 +279,7 @@ const defaultFillColorHex = 'ffffff';
 			const qualityControl = root.querySelector('[data-quality-control]');
 			const qualityInput = root.querySelector('[data-quality]');
 			const qualityLabel = root.querySelector('[data-quality-label]');
+			const previewBackgroundInputs = Array.from(root.querySelectorAll('[data-preview-background]'));
 			const removeButton = root.querySelector('[data-remove]');
 			const clearButton = root.querySelector('[data-clear]');
 			const status = root.querySelector('[data-status]');
@@ -285,9 +297,9 @@ const defaultFillColorHex = 'ffffff';
 			if (
 				!fileInput || !fileName || !fileMeta || !modeInputs.length || !cornerGroup || !colorControl ||
 				!colorInput || !fuzzInput || !fuzzLabel || !formatSelect || !qualityControl || !qualityInput ||
-				!qualityLabel || !removeButton || !clearButton || !status || !sourcePreview || !sourceImage ||
-				!sourcePreviewNote || !sourceMeta || !result || !outputImage || !outputPreviewNote ||
-				!outputFormat || !outputMeta || !downloadLink
+				!qualityLabel || !previewBackgroundInputs.length || !removeButton || !clearButton || !status ||
+				!sourcePreview || !sourceImage || !sourcePreviewNote || !sourceMeta || !result || !outputImage ||
+				!outputPreviewNote || !outputFormat || !outputMeta || !downloadLink
 			) {
 				return;
 			}
@@ -306,6 +318,9 @@ const defaultFillColorHex = 'ffffff';
 			});
 			for (const input of modeInputs) {
 				input.addEventListener('change', updateModeView);
+			}
+			for (const input of previewBackgroundInputs) {
+				input.addEventListener('change', updatePreviewBackground);
 			}
 			formatSelect.addEventListener('change', updateQualityControl);
 			fuzzInput.addEventListener('input', () => {
@@ -338,6 +353,7 @@ const defaultFillColorHex = 'ffffff';
 
 			updateModeView();
 			updateQualityControl();
+			updatePreviewBackground();
 			updateReadyState();
 
 			function setSourceFile(file) {
@@ -561,6 +577,11 @@ const defaultFillColorHex = 'ffffff';
 				qualityLabel.textContent = qualityInput.value;
 			}
 
+			function updatePreviewBackground() {
+				const selected = previewBackgroundInputs.find((input) => input.checked);
+				root.dataset.previewBackground = selected ? selected.value : 'checker';
+			}
+
 			function getSelectedFormat() {
 				return outputFormats.find((formatOption) => formatOption.value === formatSelect.value) || outputFormats[0];
 			}
@@ -592,6 +613,10 @@ const defaultFillColorHex = 'ffffff';
 				fileInput.disabled = state.isWorking;
 
 				for (const input of modeInputs) {
+					input.disabled = state.isWorking;
+				}
+
+				for (const input of previewBackgroundInputs) {
 					input.disabled = state.isWorking;
 				}
 
@@ -1367,6 +1392,7 @@ const defaultFillColorHex = 'ffffff';
 
 	.select-control,
 	.mode-control,
+	.preview-background-control,
 	.range-control,
 	.color-control,
 	.corner-group {
@@ -1378,6 +1404,16 @@ const defaultFillColorHex = 'ffffff';
 	.mode-control {
 		padding: 0;
 		border: 0;
+	}
+
+	.preview-background-control {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		padding: 0;
+		border: 0;
+	}
+
+	.preview-background-control legend {
+		grid-column: 1 / -1;
 	}
 
 	.mode-control label {
@@ -1394,13 +1430,39 @@ const defaultFillColorHex = 'ffffff';
 		cursor: pointer;
 	}
 
+	.preview-background-control label {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		min-height: 42px;
+		padding: 8px 10px;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 850;
+		cursor: pointer;
+	}
+
 	.mode-control label:has(input:checked) {
 		color: var(--color-accent-dark);
 		background: var(--color-accent-soft);
 		border-color: var(--color-accent-line);
 	}
 
+	.preview-background-control label:has(input:checked) {
+		color: var(--color-accent-dark);
+		background: var(--color-accent-soft);
+		border-color: var(--color-accent-line);
+	}
+
 	.mode-control label:has(input:focus-visible) {
+		outline: 3px solid var(--color-accent-focus-soft);
+		outline-offset: 2px;
+	}
+
+	.preview-background-control label:has(input:focus-visible) {
 		outline: 3px solid var(--color-accent-focus-soft);
 		outline-offset: 2px;
 	}
@@ -1412,6 +1474,7 @@ const defaultFillColorHex = 'ffffff';
 
 	.corner-group input,
 	.mode-control input,
+	.preview-background-control input,
 	.range-control input {
 		accent-color: var(--color-accent);
 	}
@@ -1536,6 +1599,10 @@ const defaultFillColorHex = 'ffffff';
 		background-size: 20px 20px;
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
+	}
+
+	.background-remover[data-preview-background='plain'] .preview-frame {
+		background: var(--color-surface-raised);
 	}
 
 	.preview-frame img {
