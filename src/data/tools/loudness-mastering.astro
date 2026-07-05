@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import LoudnessMastering from '../../components/tools/LoudnessMastering.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('loudness-mastering', {
+	id: 'loudness-mastering',
+	translations: {
+		de: {
+			id: 'loudness-mastering-de',
+			path: '/de/tools/loudness-mastering/',
+			title: 'Loudness Mastering',
+			description: 'Mastere Audiodateien browserseitig auf etwa -14 LUFS bei gleichzeitigem Schutz vor zu hohen True Peaks.',
+		},
+		en: {
+			id: 'loudness-mastering-en',
+			path: '/en/tools/loudness-mastering/',
+			title: 'Loudness Mastering',
+			description: 'Master audio files in the browser toward about -14 LUFS while keeping True Peaks safely under control.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<LoudnessMastering locale={tool.locale} />
+</ToolPageShell>

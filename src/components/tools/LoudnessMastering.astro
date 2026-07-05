@@ -1,0 +1,527 @@
+---
+import type { Locale } from '../../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Audio-Tool',
+		title: 'Loudness Mastering',
+		intro: 'Glätte deine Audiodatei browserseitig auf etwa -14 LUFS und halte den True Peak unter -1 dBTP.',
+		privacy: 'Deine Datei bleibt lokal. Die Verarbeitung läuft vollständig im Browser über FFmpeg wasm.',
+		fileLabel: 'Audiodatei wählen',
+		chooseFile: 'Audiodatei auswählen',
+		fileHint: 'WAV, MP3, FLAC, OGG, M4A und mehr',
+		process: 'Mastering starten',
+		clear: 'Zurücksetzen',
+		download: 'Mastered-Datei herunterladen',
+		statusWaiting: 'Wähle eine Audiodatei aus, um mit dem Mastering zu beginnen.',
+		statusPreparing: 'Lade Datei bereit...',
+		statusProcessing: 'Mastering läuft…',
+		statusReady: 'Die Datei wurde erfolgreich gemastert.',
+		statusError: 'Mastering fehlgeschlagen: {message}',
+		statusFfmpegLoading: 'FFmpeg wasm wird geladen…',
+		statusFfmpegProgress: 'FFmpeg arbeitet… {progress}%',
+		statusFfmpegReady: 'FFmpeg wasm ist bereit.',
+		statusFfmpegTimeout: 'FFmpeg wasm hat nicht innerhalb von 90 Sekunden geladen.',
+		statusGeneric: 'Unbekannter Fehler',
+		targetsTitle: 'Zielwerte',
+		targetsText: 'Ziel: -14 LUFS integrierte Lautstärke, True Peak begrenzt auf -1 dBTP.',
+		outputTitle: 'Ergebnis',
+		outputHelp: 'Die Ausgabe wird als WAV-Datei heruntergeladen, damit sie direkt weiterverarbeitet werden kann.',
+		selectedFile: 'Ausgewählte Datei: {name}',
+		selectedMeta: '{size} · {type}',
+	},
+	en: {
+		eyebrow: 'Audio tool',
+		title: 'Loudness Mastering',
+		intro: 'Smooth your audio file in the browser toward about -14 LUFS while keeping the True Peak below -1 dBTP.',
+		privacy: 'Your file stays local. Processing runs entirely in the browser through FFmpeg wasm.',
+		fileLabel: 'Choose audio file',
+		chooseFile: 'Select audio file',
+		fileHint: 'WAV, MP3, FLAC, OGG, M4A and more',
+		process: 'Start mastering',
+		clear: 'Reset',
+		download: 'Download mastered file',
+		statusWaiting: 'Choose an audio file to start mastering.',
+		statusPreparing: 'Preparing file...',
+		statusProcessing: 'Mastering in progress…',
+		statusReady: 'The file was mastered successfully.',
+		statusError: 'Mastering failed: {message}',
+		statusFfmpegLoading: 'Loading FFmpeg wasm…',
+		statusFfmpegProgress: 'FFmpeg is working… {progress}%',
+		statusFfmpegReady: 'FFmpeg wasm is ready.',
+		statusFfmpegTimeout: 'FFmpeg wasm did not finish loading within 90 seconds.',
+		statusGeneric: 'Unknown error',
+		targetsTitle: 'Target values',
+		targetsText: 'Target: -14 LUFS integrated loudness, with True Peak capped at -1 dBTP.',
+		outputTitle: 'Result',
+		outputHelp: 'The output is downloaded as a WAV file so it can be used right away.',
+		selectedFile: 'Selected file: {name}',
+		selectedMeta: '{size} · {type}',
+	},
+} satisfies Record<Locale, Record<string, string>>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<section class="tool-intro">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{copy.title}</h1>
+		<p class="tool-lede">{copy.intro}</p>
+		<p class="tool-note">{copy.privacy}</p>
+	</div>
+</section>
+
+<section class="section loudness-tool-section">
+	<div class="container">
+		<div class="loudness-mastering" data-loudness-mastering data-copy={copyJson}>
+			<section class="loudness-panel">
+				<h2>{copy.fileLabel}</h2>
+				<label class="file-picker">
+					<span>{copy.chooseFile}</span>
+					<strong data-file-name>{copy.chooseFile}</strong>
+					<small data-file-meta>{copy.fileHint}</small>
+					<input data-file-input type="file" accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba" />
+				</label>
+				<div class="tool-actions">
+					<button class="button primary" data-process type="button" disabled>{copy.process}</button>
+					<button class="button secondary" data-clear type="button">{copy.clear}</button>
+				</div>
+			</section>
+
+			<section class="loudness-panel">
+				<h2>{copy.targetsTitle}</h2>
+				<p class="panel-copy">{copy.targetsText}</p>
+				<p class="panel-copy">{copy.outputHelp}</p>
+				<p class="status" data-status>{copy.statusWaiting}</p>
+			</section>
+
+			<section class="loudness-panel">
+				<h2>{copy.outputTitle}</h2>
+				<div class="result-card">
+					<p data-result-title>{copy.selectedFile.replace('{name}', copy.chooseFile)}</p>
+					<p data-result-meta>{copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}</p>
+					<a class="download-link" data-download hidden href="#">{copy.download}</a>
+				</div>
+			</section>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	(() => {
+		const roots = document.querySelectorAll('[data-loudness-mastering]:not([data-loudness-bound])');
+
+		for (const root of roots) {
+			root.dataset.loudnessBound = 'true';
+			initLoudnessMastering(root);
+		}
+
+		function initLoudnessMastering(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const fileInput = root.querySelector('[data-file-input]');
+			const fileName = root.querySelector('[data-file-name]');
+			const fileMeta = root.querySelector('[data-file-meta]');
+			const processButton = root.querySelector('[data-process]');
+			const clearButton = root.querySelector('[data-clear]');
+			const status = root.querySelector('[data-status]');
+			const resultTitle = root.querySelector('[data-result-title]');
+			const resultMeta = root.querySelector('[data-result-meta]');
+			const downloadLink = root.querySelector('[data-download]');
+
+			const state = {
+				ffmpeg: null,
+				ffmpegPromise: null,
+				ffmpegQueue: Promise.resolve(),
+				selectedFile: null,
+				downloadUrl: null,
+			};
+
+			fileInput.addEventListener('change', () => {
+				void selectFile(fileInput.files && fileInput.files[0]);
+			});
+			processButton.addEventListener('click', () => {
+				void processFile();
+			});
+			clearButton.addEventListener('click', resetTool);
+
+			function selectFile(file) {
+				state.selectedFile = file || null;
+				updateSelectionUi();
+				processButton.disabled = !state.selectedFile;
+
+				if (!file) {
+					setStatus(copy.statusWaiting, 'info');
+					return;
+				}
+
+				setStatus(copy.statusPreparing, 'info');
+			}
+
+			async function processFile() {
+				if (!state.selectedFile) {
+					return;
+				}
+
+				processButton.disabled = true;
+				setStatus(copy.statusProcessing, 'info');
+
+				try {
+					const output = await masterFile(state.selectedFile);
+					const outputName = buildOutputName(state.selectedFile.name);
+					const blob = new Blob([output], { type: 'audio/wav' });
+					const url = URL.createObjectURL(blob);
+
+					if (state.downloadUrl) {
+						URL.revokeObjectURL(state.downloadUrl);
+					}
+
+					state.downloadUrl = url;
+					downloadLink.href = url;
+					downloadLink.download = outputName;
+					downloadLink.hidden = false;
+					downloadLink.textContent = `${copy.download}`;
+					resultTitle.textContent = format(copy.selectedFile, { name: state.selectedFile.name });
+					resultMeta.textContent = format(copy.selectedMeta, { size: formatBytes(state.selectedFile.size), type: 'WAV' });
+					setStatus(copy.statusReady, 'success');
+				} catch (error) {
+					setStatus(format(copy.statusError, { message: messageFromError(error) }), 'error');
+					throw error;
+				} finally {
+					processButton.disabled = !state.selectedFile;
+				}
+			}
+
+			async function masterFile(file) {
+				return queueFfmpegTask(async () => {
+					const ffmpeg = await loadFfmpeg();
+					const inputName = `${Date.now()}-${Math.random().toString(16).slice(2)}${fileExtension(file.name)}`;
+					const outputName = `${inputName}-mastered.wav`;
+					const sourceBuffer = await file.arrayBuffer();
+
+					await ffmpeg.writeFile(inputName, new Uint8Array(sourceBuffer.slice(0)));
+					ffmpeg.on('progress', handleFfmpegProgress);
+
+					try {
+						const result = await ffmpeg.exec([
+							'-i', inputName,
+							'-vn',
+							'-af', 'loudnorm=I=-14:TP=-1:LRA=11',
+							'-c:a', 'pcm_s16le',
+							'-ar', '48000',
+							'-f', 'wav',
+							'-y', outputName,
+						]);
+
+						if (result !== 0) {
+							throw new Error(`FFmpeg exited with code ${result}`);
+						}
+
+						const output = await ffmpeg.readFile(outputName);
+						return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
+					} finally {
+						ffmpeg.off('progress', handleFfmpegProgress);
+						await ffmpeg.deleteFile(inputName).catch(() => {});
+						await ffmpeg.deleteFile(outputName).catch(() => {});
+					}
+				});
+			}
+
+			function queueFfmpegTask(task) {
+				const run = state.ffmpegQueue.then(task, task);
+				state.ffmpegQueue = run.catch(() => {});
+				return run;
+			}
+
+			function handleFfmpegProgress(event) {
+				const progress = Math.max(0, Math.min(100, Math.round((event.progress || 0) * 100)));
+				setStatus(format(copy.statusFfmpegProgress, { progress }), 'info');
+			}
+
+			async function loadFfmpeg() {
+				if (state.ffmpeg) {
+					return state.ffmpeg;
+				}
+
+				if (state.ffmpegPromise) {
+					return state.ffmpegPromise;
+				}
+
+				state.ffmpegPromise = (async () => {
+					setStatus(copy.statusFfmpegLoading, 'info');
+					const ffmpegVersion = '0.12.15';
+					const coreVersion = '0.12.9';
+					const ffmpegBase = `https://unpkg.com/@ffmpeg/ffmpeg@${ffmpegVersion}/dist/esm`;
+					const coreBase = `https://unpkg.com/@ffmpeg/core@${coreVersion}/dist/esm`;
+					const [{ FFmpeg }, classWorkerURL, coreURL, wasmURL] = await Promise.all([
+						import(/* @vite-ignore */ `${ffmpegBase}/index.js`),
+						createModuleWorkerUrl(`${ffmpegBase}/worker.js`),
+						toBlobUrl(`${coreBase}/ffmpeg-core.js`, 'text/javascript'),
+						toBlobUrl(`${coreBase}/ffmpeg-core.wasm`, 'application/wasm'),
+					]);
+
+					const ffmpeg = new FFmpeg();
+					await withTimeout(ffmpeg.load({ classWorkerURL, coreURL, wasmURL }), 90000, copy.statusFfmpegTimeout);
+					state.ffmpeg = ffmpeg;
+					setStatus(copy.statusFfmpegReady, 'success');
+					return ffmpeg;
+				})().catch((error) => {
+					state.ffmpegPromise = null;
+					throw error;
+				});
+
+				return state.ffmpegPromise;
+			}
+
+			function createModuleWorkerUrl(url) {
+				return URL.createObjectURL(new Blob([
+					`import ${JSON.stringify(url)};`,
+				], { type: 'text/javascript' }));
+			}
+
+			async function toBlobUrl(url, mimeType) {
+				const response = await fetch(url);
+				if (!response.ok) {
+					throw new Error(`${response.status} ${response.statusText}`);
+				}
+
+				const buffer = await response.arrayBuffer();
+				return URL.createObjectURL(new Blob([buffer], { type: mimeType }));
+			}
+
+			function withTimeout(promise, timeoutMs, message) {
+				let timeoutId = 0;
+				const timeout = new Promise((_resolve, reject) => {
+					timeoutId = window.setTimeout(() => {
+						reject(new Error(message));
+					}, timeoutMs);
+				});
+
+				return Promise.race([promise, timeout]).finally(() => {
+					window.clearTimeout(timeoutId);
+				});
+			}
+
+			function updateSelectionUi() {
+				if (!state.selectedFile) {
+					fileName.textContent = copy.chooseFile;
+					fileMeta.textContent = copy.fileHint;
+					resultTitle.textContent = copy.selectedFile.replace('{name}', copy.chooseFile);
+					resultMeta.textContent = copy.selectedMeta.replace('{size}', '—').replace('{type}', '—');
+					downloadLink.hidden = true;
+					return;
+				}
+
+				fileName.textContent = state.selectedFile.name;
+				fileMeta.textContent = format(copy.selectedMeta, {
+					size: formatBytes(state.selectedFile.size),
+					type: state.selectedFile.type || 'audio',
+				});
+				resultTitle.textContent = format(copy.selectedFile, { name: state.selectedFile.name });
+				resultMeta.textContent = copy.outputHelp;
+			}
+
+			function resetTool() {
+				if (state.downloadUrl) {
+					URL.revokeObjectURL(state.downloadUrl);
+					state.downloadUrl = null;
+				}
+				fileInput.value = '';
+				state.selectedFile = null;
+				processButton.disabled = true;
+				updateSelectionUi();
+				setStatus(copy.statusWaiting, 'info');
+				downloadLink.hidden = true;
+				downloadLink.removeAttribute('href');
+				downloadLink.removeAttribute('download');
+			}
+
+			function setStatus(message, type) {
+				status.textContent = message;
+				status.dataset.state = type;
+			}
+
+			function format(template, values) {
+				return String(template).replace(/\{(\w+)\}/g, (_match, key) => {
+					return values && key in values ? String(values[key]) : '';
+				});
+			}
+
+			function fileExtension(name) {
+				const match = name.toLowerCase().match(/\.[a-z0-9]+$/);
+				return match ? match[0] : '.audio';
+			}
+
+			function buildOutputName(name) {
+				const base = name.replace(/\.[^.]+$/, '');
+				return `${base}-mastered.wav`;
+			}
+
+			function formatBytes(bytes) {
+				if (!Number.isFinite(bytes) || bytes <= 0) {
+					return '0 B';
+				}
+
+				const units = ['B', 'KB', 'MB', 'GB'];
+				const power = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
+				const value = bytes / (1024 ** power);
+				return `${value.toFixed(value >= 10 || power === 0 ? 0 : 1)} ${units[power]}`;
+			}
+
+			function messageFromError(error) {
+				return error && typeof error === 'object' && 'message' in error
+					? String(error.message)
+					: copy.statusGeneric;
+			}
+		}
+	})();
+</script>
+
+<style>
+	.tool-intro {
+		padding-block: clamp(42px, 7vw, 82px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.tool-intro h1 {
+		max-width: 780px;
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.6rem);
+		line-height: 0.96;
+		letter-spacing: 0;
+	}
+
+	.tool-lede,
+	.tool-note {
+		max-width: 760px;
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+	}
+
+	.tool-note {
+		font-size: 0.98rem;
+		font-weight: 700;
+	}
+
+	.loudness-tool-section {
+		background: var(--color-surface-raised);
+	}
+
+	.loudness-mastering {
+		display: grid;
+		gap: 18px;
+	}
+
+	.loudness-panel {
+		padding: clamp(18px, 3vw, 28px);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.loudness-panel h2 {
+		margin: 0;
+		color: var(--color-ink);
+		line-height: 1.1;
+		letter-spacing: 0;
+		font-size: clamp(1.4rem, 3vw, 2rem);
+	}
+
+	.file-picker {
+		display: grid;
+		gap: 8px;
+		margin-top: 18px;
+		padding: 18px;
+		background: var(--color-surface-alt);
+		border: 1px dashed var(--color-accent-dashed-line);
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.file-picker:focus-within {
+		outline: 3px solid var(--color-accent-focus);
+		outline-offset: 2px;
+	}
+
+	.file-picker span {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.file-picker strong {
+		color: var(--color-ink);
+		font-size: 1.05rem;
+	}
+
+	.file-picker small {
+		color: var(--color-muted);
+	}
+
+	.file-picker input {
+		display: none;
+	}
+
+	.tool-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-top: 16px;
+	}
+
+	.panel-copy {
+		margin: 12px 0 0;
+		color: var(--color-muted);
+		font-weight: 700;
+	}
+
+	.status {
+		margin: 16px 0 0;
+		font-weight: 700;
+	}
+
+	.status[data-state='error'] {
+		color: var(--color-accent-dark);
+	}
+
+	.status[data-state='success'] {
+		color: var(--color-success);
+	}
+
+	.status[data-state='info'] {
+		color: var(--color-muted);
+	}
+
+	.result-card {
+		display: grid;
+		gap: 8px;
+		margin-top: 16px;
+		padding: 16px;
+		background: var(--color-surface-alt);
+		border-radius: 8px;
+	}
+
+	.result-card p {
+		margin: 0;
+	}
+
+	.download-link {
+		font-weight: 700;
+		color: var(--color-accent-dark);
+		text-decoration: none;
+	}
+
+	.download-link:hover {
+		text-decoration: underline;
+	}
+</style>
