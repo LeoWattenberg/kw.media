@@ -32,7 +32,7 @@ const copyByLocale = {
 		targetsTitle: 'Zielwerte',
 		targetsText: 'Ziel: -14 LUFS integrierte Lautstärke, True Peak begrenzt auf -1 dBTP.',
 		outputTitle: 'Ergebnis',
-		outputHelp: 'Die Ausgabe wird als WAV-Datei heruntergeladen, damit sie direkt weiterverarbeitet werden kann.',
+		outputHelp: 'Die Ausgabe wird in einem passenden Container heruntergeladen, damit sie direkt weiterverarbeitet werden kann.',
 		selectedFile: 'Ausgewählte Datei: {name}',
 		selectedMeta: '{size} · {type}',
 	},
@@ -60,7 +60,7 @@ const copyByLocale = {
 		targetsTitle: 'Target values',
 		targetsText: 'Target: -14 LUFS integrated loudness, with True Peak capped at -1 dBTP.',
 		outputTitle: 'Result',
-		outputHelp: 'The output is downloaded as a WAV file so it can be used right away.',
+		outputHelp: 'The output is downloaded in a matching container where possible so it can be used right away.',
 		selectedFile: 'Selected file: {name}',
 		selectedMeta: '{size} · {type}',
 	},
@@ -88,7 +88,7 @@ const copyJson = JSON.stringify(copy);
 					<span>{copy.chooseFile}</span>
 					<strong data-file-name>{copy.chooseFile}</strong>
 					<small data-file-meta>{copy.fileHint}</small>
-					<input data-file-input type="file" accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba" />
+					<input data-file-input type="file" accept="audio/*,video/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.webm,.mp4,.mkv,.mov,.avi" />
 				</label>
 				<div class="tool-actions">
 					<button class="button primary" data-process type="button" disabled>{copy.process}</button>
@@ -175,8 +175,8 @@ const copyJson = JSON.stringify(copy);
 
 				try {
 					const output = await masterFile(state.selectedFile);
-					const outputName = buildOutputName(state.selectedFile.name);
-					const blob = new Blob([output], { type: 'audio/wav' });
+					const outputInfo = buildOutputInfo(state.selectedFile.name);
+					const blob = new Blob([output], { type: outputInfo.mimeType });
 					const url = URL.createObjectURL(blob);
 
 					if (state.downloadUrl) {
@@ -185,11 +185,11 @@ const copyJson = JSON.stringify(copy);
 
 					state.downloadUrl = url;
 					downloadLink.href = url;
-					downloadLink.download = outputName;
+					downloadLink.download = outputInfo.fileName;
 					downloadLink.hidden = false;
 					downloadLink.textContent = `${copy.download}`;
 					resultTitle.textContent = format(copy.selectedFile, { name: state.selectedFile.name });
-					resultMeta.textContent = format(copy.selectedMeta, { size: formatBytes(state.selectedFile.size), type: 'WAV' });
+					resultMeta.textContent = format(copy.selectedMeta, { size: formatBytes(blob.size), type: outputInfo.displayName });
 					setStatus(copy.statusReady, 'success');
 				} catch (error) {
 					setStatus(format(copy.statusError, { message: messageFromError(error) }), 'error');
@@ -203,22 +203,15 @@ const copyJson = JSON.stringify(copy);
 				return queueFfmpegTask(async () => {
 					const ffmpeg = await loadFfmpeg();
 					const inputName = `${Date.now()}-${Math.random().toString(16).slice(2)}${fileExtension(file.name)}`;
-					const outputName = `${inputName}-mastered.wav`;
+					const outputInfo = buildOutputInfo(file.name);
+					const outputName = `${inputName}-mastered${outputInfo.extension}`;
 					const sourceBuffer = await file.arrayBuffer();
 
 					await ffmpeg.writeFile(inputName, new Uint8Array(sourceBuffer.slice(0)));
 					ffmpeg.on('progress', handleFfmpegProgress);
 
 					try {
-						const result = await ffmpeg.exec([
-							'-i', inputName,
-							'-vn',
-							'-af', 'loudnorm=I=-14:TP=-1:LRA=11',
-							'-c:a', 'pcm_s16le',
-							'-ar', '48000',
-							'-f', 'wav',
-							'-y', outputName,
-						]);
+						const result = await ffmpeg.exec(buildMasteringArgs(inputName, outputName, file));
 
 						if (result !== 0) {
 							throw new Error(`FFmpeg exited with code ${result}`);
@@ -359,9 +352,148 @@ const copyJson = JSON.stringify(copy);
 				return match ? match[0] : '.audio';
 			}
 
-			function buildOutputName(name) {
+			function buildOutputInfo(name) {
+				const isVideo = detectMediaKind(name) === 'video';
+				const extension = selectOutputExtension(name, isVideo);
+				const displayName = extensionToDisplayName(extension);
+				const mimeType = extensionToMimeType(extension);
 				const base = name.replace(/\.[^.]+$/, '');
-				return `${base}-mastered.wav`;
+				return {
+					fileName: `${base}-mastered${extension}`,
+					extension,
+					displayName,
+					mimeType,
+				};
+			}
+
+			function buildMasteringArgs(inputName, outputName, file) {
+				const isVideo = detectMediaKind(file.name) === 'video';
+				const audioCodec = selectAudioCodec(file.name, isVideo);
+				const audioArgs = selectAudioArgs(file.name, audioCodec);
+
+				if (isVideo) {
+					return [
+						'-i', inputName,
+						'-af', 'loudnorm=I=-14:TP=-1:LRA=11',
+						'-map', '0:v:0',
+						'-map', '0:a:0?',
+						'-c:v', 'copy',
+						'-c:a', audioCodec,
+						...audioArgs,
+						'-y', outputName,
+					];
+				}
+
+				return [
+					'-i', inputName,
+					'-vn',
+					'-af', 'loudnorm=I=-14:TP=-1:LRA=11',
+					'-c:a', audioCodec,
+					...audioArgs,
+					'-y', outputName,
+				];
+			}
+
+			function detectMediaKind(name) {
+				const lowerName = String(name || '').toLowerCase();
+				const videoExtensions = ['.mp4', '.m4v', '.mov', '.avi', '.mkv', '.webm', '.m2ts', '.ts', '.mts'];
+				return videoExtensions.some((extension) => lowerName.endsWith(extension)) ? 'video' : 'audio';
+			}
+
+			function selectOutputExtension(name, isVideo) {
+				const lowerName = String(name || '').toLowerCase();
+				if (lowerName.endsWith('.mp3')) {
+					return '.mp3';
+				}
+				if (lowerName.endsWith('.wav') || lowerName.endsWith('.wave')) {
+					return '.wav';
+				}
+				if (lowerName.endsWith('.flac')) {
+					return '.flac';
+				}
+				if (lowerName.endsWith('.ogg') || lowerName.endsWith('.oga')) {
+					return '.ogg';
+				}
+				if (lowerName.endsWith('.opus')) {
+					return '.opus';
+				}
+				if (lowerName.endsWith('.m4a') || lowerName.endsWith('.aac')) {
+					return '.m4a';
+				}
+				if (lowerName.endsWith('.mp4') || lowerName.endsWith('.m4v')) {
+					return '.mp4';
+				}
+				if (lowerName.endsWith('.mov')) {
+					return '.mov';
+				}
+				if (lowerName.endsWith('.avi')) {
+					return '.avi';
+				}
+				if (lowerName.endsWith('.mkv')) {
+					return '.mkv';
+				}
+				if (lowerName.endsWith('.webm')) {
+					return '.webm';
+				}
+				return isVideo ? '.mp4' : '.m4a';
+			}
+
+			function selectAudioCodec(name, isVideo) {
+				const lowerName = String(name || '').toLowerCase();
+				if (lowerName.endsWith('.wav') || lowerName.endsWith('.wave') || lowerName.endsWith('.flac')) {
+					return lowerName.endsWith('.flac') ? 'flac' : 'pcm_s16le';
+				}
+				if (lowerName.endsWith('.mp3')) {
+					return 'libmp3lame';
+				}
+				if (lowerName.endsWith('.ogg') || lowerName.endsWith('.oga') || lowerName.endsWith('.opus') || lowerName.endsWith('.webm')) {
+					return 'libopus';
+				}
+				if (lowerName.endsWith('.mp4') || lowerName.endsWith('.m4v') || lowerName.endsWith('.mov') || lowerName.endsWith('.m4a') || lowerName.endsWith('.aac')) {
+					return 'aac';
+				}
+				return isVideo ? 'aac' : 'aac';
+			}
+
+			function selectAudioArgs(name, codec) {
+				const lowerName = String(name || '').toLowerCase();
+				if (codec === 'pcm_s16le') {
+					return ['-ar', '48000'];
+				}
+				if (codec === 'flac') {
+					return ['-ar', '48000'];
+				}
+				if (codec === 'libopus') {
+					return ['-b:a', '192k', '-ar', '48000'];
+				}
+				if (codec === 'libmp3lame') {
+					return ['-b:a', '192k'];
+				}
+				if (codec === 'aac') {
+					return ['-b:a', '192k'];
+				}
+				return [];
+			}
+
+			function extensionToDisplayName(extension) {
+				return extension.replace(/^\./, '').toUpperCase();
+			}
+
+			function extensionToMimeType(extension) {
+				const map = {
+					'.wav': 'audio/wav',
+					'.mp3': 'audio/mpeg',
+					'.flac': 'audio/flac',
+					'.ogg': 'audio/ogg',
+					'.opus': 'audio/opus',
+					'.m4a': 'audio/mp4',
+					'.mp4': 'video/mp4',
+					'.mov': 'video/quicktime',
+					'.avi': 'video/x-msvideo',
+					'.mkv': 'video/x-matroska',
+					'.webm': 'video/webm',
+				};
+				return map[extension] || 'application/octet-stream';
 			}
 
 			function formatBytes(bytes) {
