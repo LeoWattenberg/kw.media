@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import VideoAudioConverter from '../../components/tools/VideoAudioConverter.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('video-audio-converter', {
+	id: 'video-audio-converter',
+	translations: {
+		de: {
+			id: 'video-audio-converter-de',
+			path: '/de/tools/video-audio-converter/',
+			title: 'Audio- und Video-Konverter',
+			description: 'Konvertiere lokale Audiodateien oder Videos browserseitig mit FFmpeg wasm in neue Formate.',
+		},
+		en: {
+			id: 'video-audio-converter-en',
+			path: '/en/tools/video-audio-converter/',
+			title: 'Audio and Video Converter',
+			description: 'Convert local audio files or videos in the browser with FFmpeg wasm into new formats.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<VideoAudioConverter locale={tool.locale} />
+</ToolPageShell>
