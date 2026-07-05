@@ -175,7 +175,7 @@ const copyJson = JSON.stringify(copy);
 
 				try {
 					const output = await masterFile(state.selectedFile);
-					const outputInfo = buildOutputInfo(state.selectedFile.name);
+					const outputInfo = buildOutputInfo(state.selectedFile);
 					const blob = new Blob([output], { type: outputInfo.mimeType });
 					const url = URL.createObjectURL(blob);
 
@@ -202,8 +202,8 @@ const copyJson = JSON.stringify(copy);
 			async function masterFile(file) {
 				return queueFfmpegTask(async () => {
 					const ffmpeg = await loadFfmpeg();
-					const inputName = `${Date.now()}-${Math.random().toString(16).slice(2)}${fileExtension(file.name)}`;
-					const outputInfo = buildOutputInfo(file.name);
+					const inputName = `${Date.now()}-${Math.random().toString(16).slice(2)}${inputExtension(file)}`;
+					const outputInfo = buildOutputInfo(file);
 					const outputName = `${inputName}-mastered${outputInfo.extension}`;
 					const sourceBuffer = await file.arrayBuffer();
 
@@ -347,29 +347,37 @@ const copyJson = JSON.stringify(copy);
 				});
 			}
 
-			function fileExtension(name) {
-				const match = name.toLowerCase().match(/\.[a-z0-9]+$/);
-				return match ? match[0] : '.audio';
+			function inputExtension(file) {
+				const type = String(file && file.type ? file.type : '').toLowerCase();
+				if (type.startsWith('video/')) {
+					return '.bin';
+				}
+				if (type.startsWith('audio/')) {
+					return '.bin';
+				}
+				return '.bin';
 			}
 
-			function buildOutputInfo(name) {
-				const isVideo = detectMediaKind(name) === 'video';
-				const extension = selectOutputExtension(name, isVideo);
-				const displayName = extensionToDisplayName(extension);
-				const mimeType = extensionToMimeType(extension);
-				const base = name.replace(/\.[^.]+$/, '');
+			function getBaseName(name) {
+				return String(name || '').replace(/\.[^.]+$/, '');
+			}
+
+			function buildOutputInfo(file) {
+				const kind = detectMediaKind(file);
+				const output = selectOutputProfile(file, kind);
+				const base = getBaseName(file.name);
 				return {
-					fileName: `${base}-mastered${extension}`,
-					extension,
-					displayName,
-					mimeType,
+					fileName: `${base}-mastered${output.extension}`,
+					extension: output.extension,
+					displayName: output.displayName,
+					mimeType: output.mimeType,
 				};
 			}
 
 			function buildMasteringArgs(inputName, outputName, file) {
-				const isVideo = detectMediaKind(file.name) === 'video';
-				const audioCodec = selectAudioCodec(file.name, isVideo);
-				const audioArgs = selectAudioArgs(file.name, audioCodec);
+				const isVideo = detectMediaKind(file) === 'video';
+				const audioCodec = selectAudioCodec(file, isVideo);
+				const audioArgs = selectAudioArgs(audioCodec);
 
 				if (isVideo) {
 					return [
@@ -394,69 +402,48 @@ const copyJson = JSON.stringify(copy);
 				];
 			}
 
-			function detectMediaKind(name) {
-				const lowerName = String(name || '').toLowerCase();
-				const videoExtensions = ['.mp4', '.m4v', '.mov', '.avi', '.mkv', '.webm', '.m2ts', '.ts', '.mts'];
-				return videoExtensions.some((extension) => lowerName.endsWith(extension)) ? 'video' : 'audio';
+			function detectMediaKind(file) {
+				const type = String(file && file.type ? file.type : '').toLowerCase();
+				return type.startsWith('video/') ? 'video' : 'audio';
 			}
 
-			function selectOutputExtension(name, isVideo) {
-				const lowerName = String(name || '').toLowerCase();
-				if (lowerName.endsWith('.mp3')) {
-					return '.mp3';
-				}
-				if (lowerName.endsWith('.wav') || lowerName.endsWith('.wave')) {
-					return '.wav';
-				}
-				if (lowerName.endsWith('.flac')) {
-					return '.flac';
-				}
-				if (lowerName.endsWith('.ogg') || lowerName.endsWith('.oga')) {
-					return '.ogg';
-				}
-				if (lowerName.endsWith('.opus')) {
-					return '.opus';
-				}
-				if (lowerName.endsWith('.m4a') || lowerName.endsWith('.aac')) {
-					return '.m4a';
-				}
-				if (lowerName.endsWith('.mp4') || lowerName.endsWith('.m4v')) {
-					return '.mp4';
-				}
-				if (lowerName.endsWith('.mov')) {
-					return '.mov';
-				}
-				if (lowerName.endsWith('.avi')) {
-					return '.avi';
-				}
-				if (lowerName.endsWith('.mkv')) {
-					return '.mkv';
-				}
-				if (lowerName.endsWith('.webm')) {
-					return '.webm';
-				}
-				return isVideo ? '.mp4' : '.m4a';
+			function selectOutputProfile(file, kind) {
+				const type = String(file && file.type ? file.type : '').toLowerCase();
+				const profiles = {
+					'audio/wav': { extension: '.wav', displayName: 'WAV', mimeType: 'audio/wav' },
+					'audio/mpeg': { extension: '.mp3', displayName: 'MP3', mimeType: 'audio/mpeg' },
+					'audio/flac': { extension: '.flac', displayName: 'FLAC', mimeType: 'audio/flac' },
+					'audio/ogg': { extension: '.ogg', displayName: 'OGG', mimeType: 'audio/ogg' },
+					'audio/opus': { extension: '.opus', displayName: 'OPUS', mimeType: 'audio/opus' },
+					'audio/mp4': { extension: '.m4a', displayName: 'M4A', mimeType: 'audio/mp4' },
+					'video/mp4': { extension: '.mp4', displayName: 'MP4', mimeType: 'video/mp4' },
+					'video/quicktime': { extension: '.mov', displayName: 'MOV', mimeType: 'video/quicktime' },
+					'video/x-msvideo': { extension: '.avi', displayName: 'AVI', mimeType: 'video/x-msvideo' },
+					'video/x-matroska': { extension: '.mkv', displayName: 'MKV', mimeType: 'video/x-matroska' },
+					'video/webm': { extension: '.webm', displayName: 'WEBM', mimeType: 'video/webm' },
+				};
+
+				return profiles[type] || (kind === 'video' ? { extension: '.mp4', displayName: 'MP4', mimeType: 'video/mp4' } : { extension: '.m4a', displayName: 'M4A', mimeType: 'audio/mp4' });
 			}
 
-			function selectAudioCodec(name, isVideo) {
-				const lowerName = String(name || '').toLowerCase();
-				if (lowerName.endsWith('.wav') || lowerName.endsWith('.wave') || lowerName.endsWith('.flac')) {
-					return lowerName.endsWith('.flac') ? 'flac' : 'pcm_s16le';
+			function selectAudioCodec(file, isVideo) {
+				const type = String(file && file.type ? file.type : '').toLowerCase();
+				if (type === 'audio/wav' || type === 'audio/x-wav') {
+					return 'pcm_s16le';
 				}
-				if (lowerName.endsWith('.mp3')) {
-					return 'libmp3lame';
+				if (type === 'audio/flac') {
+					return 'flac';
 				}
-				if (lowerName.endsWith('.ogg') || lowerName.endsWith('.oga') || lowerName.endsWith('.opus') || lowerName.endsWith('.webm')) {
+				if (type === 'audio/ogg' || type === 'audio/opus' || type === 'video/webm') {
 					return 'libopus';
 				}
-				if (lowerName.endsWith('.mp4') || lowerName.endsWith('.m4v') || lowerName.endsWith('.mov') || lowerName.endsWith('.m4a') || lowerName.endsWith('.aac')) {
-					return 'aac';
+				if (type === 'audio/mpeg' || type === 'audio/mp3') {
+					return 'libmp3lame';
 				}
 				return isVideo ? 'aac' : 'aac';
 			}
 
-			function selectAudioArgs(name, codec) {
-				const lowerName = String(name || '').toLowerCase();
+			function selectAudioArgs(codec) {
 				if (codec === 'pcm_s16le') {
 					return ['-ar', '48000'];
 				}
@@ -473,27 +460,6 @@ const copyJson = JSON.stringify(copy);
 					return ['-b:a', '192k'];
 				}
 				return [];
-			}
-
-			function extensionToDisplayName(extension) {
-				return extension.replace(/^\./, '').toUpperCase();
-			}
-
-			function extensionToMimeType(extension) {
-				const map = {
-					'.wav': 'audio/wav',
-					'.mp3': 'audio/mpeg',
-					'.flac': 'audio/flac',
-					'.ogg': 'audio/ogg',
-					'.opus': 'audio/opus',
-					'.m4a': 'audio/mp4',
-					'.mp4': 'video/mp4',
-					'.mov': 'video/quicktime',
-					'.avi': 'video/x-msvideo',
-					'.mkv': 'video/x-matroska',
-					'.webm': 'video/webm',
-				};
-				return map[extension] || 'application/octet-stream';
 			}
 
 			function formatBytes(bytes) {
