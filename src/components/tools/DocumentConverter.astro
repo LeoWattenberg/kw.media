@@ -1,0 +1,446 @@
+---
+import type { Locale } from '../../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const profileDefinitions = [
+	{ value: 'html', label: 'HTML', extension: '.html', mimeType: 'text/html; charset=utf-8', format: 'html' },
+	{ value: 'markdown', label: 'Markdown', extension: '.md', mimeType: 'text/markdown; charset=utf-8', format: 'markdown' },
+	{ value: 'plain', label: 'Plain text', extension: '.txt', mimeType: 'text/plain; charset=utf-8', format: 'plain' },
+	{ value: 'docx', label: 'DOCX', extension: '.docx', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', format: 'docx' },
+	{ value: 'odt', label: 'ODT', extension: '.odt', mimeType: 'application/vnd.oasis.opendocument.text', format: 'odt' },
+	{ value: 'epub', label: 'EPUB', extension: '.epub', mimeType: 'application/epub+zip', format: 'epub' },
+	{ value: 'latex', label: 'LaTeX', extension: '.tex', mimeType: 'text/x-tex; charset=utf-8', format: 'latex' },
+	{ value: 'rtf', label: 'RTF', extension: '.rtf', mimeType: 'text/rtf; charset=utf-8', format: 'rtf' },
+];
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Dokument-Tool',
+		title: 'Dokumenten-Konverter',
+		intro: 'Konvertiere Dokumente direkt im Browser mit Pandoc WASM. Die Verarbeitung bleibt vollständig lokal.',
+		privacy: 'Dein Dokument wird nicht hochgeladen. Die Konvertierung läuft clientseitig in deinem Browser.',
+		fileLabel: 'Datei wählen',
+		chooseFile: 'Datei auswählen',
+		fileHint: 'Markdown, HTML, TXT, DOCX, ODT oder EPUB werden unterstützt.',
+		profileLabel: 'Zielformat',
+		profilePlaceholder: 'Bitte Datei auswählen',
+		process: 'Konvertieren',
+		clear: 'Zurücksetzen',
+		download: 'Konvertierte Datei herunterladen',
+		statusWaiting: 'Wähle ein Dokument aus, um zu starten.',
+		statusPreparing: 'Datei wird vorbereitet…',
+		statusProcessing: 'Konvertierung läuft…',
+		statusReady: 'Das Dokument wurde erfolgreich konvertiert.',
+		statusError: 'Konvertierung fehlgeschlagen: {message}',
+		statusPandocLoading: 'Pandoc WASM wird geladen…',
+		statusPandocReady: 'Pandoc WASM ist bereit.',
+		statusPandocTimeout: 'Pandoc WASM hat nicht innerhalb von 90 Sekunden geladen.',
+		statusGeneric: 'Unbekannter Fehler',
+		selectedFile: 'Ausgewählte Datei: {name}',
+		selectedMeta: '{size} · {type}',
+		outputTitle: 'Ergebnis',
+		outputHelp: 'Die Ausgabe wird direkt heruntergeladen. Für PDF- oder andere externe Ausgabeformate sind zusätzliche Schritte nötig.',
+	},
+	en: {
+		eyebrow: 'Document tool',
+		title: 'Document Converter',
+		intro: 'Convert documents directly in your browser with Pandoc WASM. Everything stays local.',
+		privacy: 'Your document is not uploaded. Conversion runs client-side in your browser.',
+		fileLabel: 'Choose file',
+		chooseFile: 'Select a file',
+		fileHint: 'Markdown, HTML, TXT, DOCX, ODT and EPUB files are supported.',
+		profileLabel: 'Target format',
+		profilePlaceholder: 'Choose a file first',
+		process: 'Convert',
+		clear: 'Reset',
+		download: 'Download converted file',
+		statusWaiting: 'Choose a document to start.',
+		statusPreparing: 'Preparing file…',
+		statusProcessing: 'Conversion in progress…',
+		statusReady: 'The document was converted successfully.',
+		statusError: 'Conversion failed: {message}',
+		statusPandocLoading: 'Loading Pandoc WASM…',
+		statusPandocReady: 'Pandoc WASM is ready.',
+		statusPandocTimeout: 'Pandoc WASM did not finish loading within 90 seconds.',
+		statusGeneric: 'Unknown error',
+		selectedFile: 'Selected file: {name}',
+		selectedMeta: '{size} · {type}',
+		outputTitle: 'Result',
+		outputHelp: 'The output is downloaded right away. PDF and other external output formats require extra steps.',
+	},
+} satisfies Record<Locale, Record<string, string>>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy);
+const profilesJson = JSON.stringify(profileDefinitions);
+---
+
+<section class="tool-intro">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{copy.title}</h1>
+		<p class="tool-lede">{copy.intro}</p>
+		<p class="tool-note">{copy.privacy}</p>
+	</div>
+</section>
+
+<section class="section converter-section">
+	<div class="container">
+		<div class="converter-tool" data-document-converter data-copy={copyJson} data-profiles={profilesJson}>
+			<section class="converter-panel">
+				<h2>{copy.fileLabel}</h2>
+				<label class="file-picker">
+					<span>{copy.chooseFile}</span>
+					<strong data-file-name>{copy.chooseFile}</strong>
+					<small data-file-meta>{copy.fileHint}</small>
+					<input data-file-input type="file" accept=".md,.markdown,.txt,.html,.htm,.tex,.rst,.adoc,.docx,.odt,.rtf,.epub" />
+				</label>
+				<div class="tool-actions">
+					<button class="button primary" data-process type="button" disabled>{copy.process}</button>
+					<button class="button secondary" data-clear type="button">{copy.clear}</button>
+				</div>
+			</section>
+
+			<section class="converter-panel">
+				<h2>{copy.profileLabel}</h2>
+				<label class="select-control">
+					<span>{copy.profileLabel}</span>
+					<select data-profile-select disabled>
+						<option value="">{copy.profilePlaceholder}</option>
+					</select>
+				</label>
+				<p class="status" data-status>{copy.statusWaiting}</p>
+			</section>
+
+			<section class="converter-panel">
+				<h2>{copy.outputTitle}</h2>
+				<div class="result-card">
+					<p data-result-title>{copy.selectedFile.replace('{name}', copy.chooseFile)}</p>
+					<p data-result-meta>{copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}</p>
+					<a class="download-link" data-download hidden href="#">{copy.download}</a>
+				</div>
+				<p class="output-help">{copy.outputHelp}</p>
+			</section>
+		</div>
+	</div>
+</section>
+
+<style>
+	.converter-section {
+		background: var(--color-surface-raised);
+	}
+
+	.converter-tool {
+		display: grid;
+		gap: 16px;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	}
+
+	.converter-panel {
+		display: grid;
+		gap: 12px;
+		padding: 20px;
+		background: var(--color-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 12px;
+	}
+
+	.file-picker,
+	.select-control {
+		display: grid;
+		gap: 8px;
+	}
+
+	.file-picker input {
+		font: inherit;
+	}
+
+	.result-card {
+		display: grid;
+		gap: 4px;
+		padding: 14px;
+		background: var(--color-surface-alt);
+		border-radius: 10px;
+	}
+
+	.output-help {
+		margin: 0;
+		color: var(--color-muted);
+		font-size: 0.95rem;
+	}
+</style>
+
+<script is:inline>
+	(() => {
+		const roots = document.querySelectorAll('[data-document-converter]:not([data-document-converter-bound])');
+
+		for (const root of roots) {
+			root.dataset.documentConverterBound = 'true';
+			initDocumentConverter(root);
+		}
+
+		function initDocumentConverter(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const profileDefinitions = JSON.parse(root.dataset.profiles || '[]');
+			const fileInput = root.querySelector('[data-file-input]');
+			const fileName = root.querySelector('[data-file-name]');
+			const fileMeta = root.querySelector('[data-file-meta]');
+			const profileSelect = root.querySelector('[data-profile-select]');
+			const processButton = root.querySelector('[data-process]');
+			const clearButton = root.querySelector('[data-clear]');
+			const status = root.querySelector('[data-status]');
+			const resultTitle = root.querySelector('[data-result-title]');
+			const resultMeta = root.querySelector('[data-result-meta]');
+			const downloadLink = root.querySelector('[data-download]');
+
+			const state = {
+				pandoc: null,
+				pandocPromise: null,
+				pandocQueue: Promise.resolve(),
+				selectedFile: null,
+				downloadUrl: null,
+			};
+
+			fileInput.addEventListener('change', () => {
+				void selectFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
+			});
+			profileSelect.addEventListener('change', () => {
+				updateSelectionUi();
+			});
+			processButton.addEventListener('click', () => {
+				void convertFile();
+			});
+			clearButton.addEventListener('click', resetTool);
+
+			function selectFile(file) {
+				state.selectedFile = file || null;
+				populateProfileOptions();
+				updateSelectionUi();
+				processButton.disabled = !state.selectedFile || !profileSelect.value;
+
+				if (!file) {
+					setStatus(copy.statusWaiting, 'info');
+					return;
+				}
+
+				setStatus(copy.statusPreparing, 'info');
+			}
+
+			async function convertFile() {
+				if (!state.selectedFile || !profileSelect.value) {
+					return;
+				}
+
+				processButton.disabled = true;
+				setStatus(copy.statusProcessing, 'info');
+
+				try {
+					const outputProfile = getSelectedProfile();
+					const output = await convertFileWithPandoc(state.selectedFile, outputProfile);
+					const blob = output.blob;
+					const url = URL.createObjectURL(blob);
+
+					if (state.downloadUrl) {
+						URL.revokeObjectURL(state.downloadUrl);
+					}
+
+					state.downloadUrl = url;
+					downloadLink.href = url;
+					downloadLink.download = buildOutputName(state.selectedFile.name, outputProfile.extension);
+					downloadLink.hidden = false;
+					downloadLink.textContent = copy.download;
+					resultTitle.textContent = format(copy.selectedFile, { name: state.selectedFile.name });
+					resultMeta.textContent = format(copy.selectedMeta, {
+						size: formatBytes(blob.size),
+						type: outputProfile.label,
+					});
+					setStatus(copy.statusReady, 'success');
+				} catch (error) {
+					setStatus(format(copy.statusError, { message: messageFromError(error) }), 'error');
+					throw error;
+				} finally {
+					processButton.disabled = !state.selectedFile || !profileSelect.value;
+				}
+			}
+
+			async function convertFileWithPandoc(file, profile) {
+				return queuePandocTask(async () => {
+					const pandoc = await loadPandoc();
+					const inputFormat = detectInputFormat(file.name);
+					const outputName = `${Date.now()}-${Math.random().toString(16).slice(2)}${profile.extension}`;
+					const textInput = !isBinaryInput(file, inputFormat);
+					const stdin = textInput ? await file.text() : null;
+					const files = textInput ? {} : { [file.name]: file };
+
+					const result = await pandoc.convert({
+						from: inputFormat,
+						to: profile.format,
+						'output-file': outputName,
+					}, stdin, files);
+
+					if (typeof result.stdout === 'string' && result.stdout.length) {
+						return { blob: new Blob([result.stdout], { type: profile.mimeType }) };
+					}
+
+					const outputFile = result.files && result.files[outputName];
+					if (outputFile instanceof Blob) {
+						return { blob: outputFile };
+					}
+					if (outputFile instanceof Uint8Array) {
+						return { blob: new Blob([outputFile], { type: profile.mimeType }) };
+					}
+					if (typeof outputFile === 'string') {
+						return { blob: new Blob([outputFile], { type: profile.mimeType }) };
+					}
+
+					throw new Error(copy.statusGeneric);
+				});
+			}
+
+			function queuePandocTask(task) {
+				const run = state.pandocQueue.then(task, task);
+				state.pandocQueue = run.catch(() => {});
+				return run;
+			}
+
+			async function loadPandoc() {
+				if (state.pandoc) {
+					return state.pandoc;
+				}
+
+				if (state.pandocPromise) {
+					return state.pandocPromise;
+				}
+
+				state.pandocPromise = (async () => {
+					setStatus(copy.statusPandocLoading, 'info');
+					const module = await import(/* @vite-ignore */ 'https://cdn.jsdelivr.net/npm/pandoc-wasm@1.1.0/+esm');
+					state.pandoc = module;
+					setStatus(copy.statusPandocReady, 'success');
+					return module;
+				})().catch((error) => {
+					state.pandocPromise = null;
+					throw error;
+				});
+
+				return state.pandocPromise;
+			}
+
+			function populateProfileOptions() {
+				const options = profileDefinitions;
+				const previousValue = profileSelect.value;
+				profileSelect.innerHTML = '';
+				const placeholder = document.createElement('option');
+				placeholder.value = '';
+				placeholder.textContent = copy.profilePlaceholder;
+				profileSelect.appendChild(placeholder);
+
+				for (const profile of options) {
+					const option = document.createElement('option');
+					option.value = profile.value;
+					option.textContent = profile.label;
+					profileSelect.appendChild(option);
+				}
+
+				profileSelect.disabled = !state.selectedFile;
+				if (previousValue && options.some((profile) => profile.value === previousValue)) {
+					profileSelect.value = previousValue;
+				} else if (state.selectedFile) {
+					profileSelect.value = options[0] ? options[0].value : '';
+				}
+			}
+
+			function updateSelectionUi() {
+				const file = state.selectedFile;
+				if (file) {
+					fileName.textContent = file.name;
+					fileMeta.textContent = format(copy.selectedMeta, {
+						size: formatBytes(file.size),
+						type: file.type || copy.statusGeneric,
+					});
+				} else {
+					fileName.textContent = copy.chooseFile;
+					fileMeta.textContent = copy.fileHint;
+				}
+
+				processButton.disabled = !file || !profileSelect.value;
+			}
+
+			function resetTool() {
+				fileInput.value = '';
+				state.selectedFile = null;
+				state.downloadUrl = null;
+				profileSelect.innerHTML = '';
+				const placeholder = document.createElement('option');
+				placeholder.value = '';
+				placeholder.textContent = copy.profilePlaceholder;
+				profileSelect.appendChild(placeholder);
+				profileSelect.disabled = true;
+				resultTitle.textContent = copy.selectedFile.replace('{name}', copy.chooseFile);
+				resultMeta.textContent = copy.selectedMeta.replace('{size}', '—').replace('{type}', '—');
+				downloadLink.hidden = true;
+				downloadLink.removeAttribute('href');
+				downloadLink.removeAttribute('download');
+				setStatus(copy.statusWaiting, 'info');
+			}
+
+			function getSelectedProfile() {
+				return profileDefinitions.find((profile) => profile.value === profileSelect.value) || profileDefinitions[0];
+			}
+
+			function detectInputFormat(fileName) {
+				const lower = fileName.toLowerCase();
+				if (lower.endsWith('.md') || lower.endsWith('.markdown')) return 'markdown';
+				if (lower.endsWith('.html') || lower.endsWith('.htm')) return 'html';
+				if (lower.endsWith('.txt')) return 'markdown';
+				if (lower.endsWith('.tex')) return 'latex';
+				if (lower.endsWith('.rst')) return 'rst';
+				if (lower.endsWith('.adoc')) return 'asciidoc';
+				if (lower.endsWith('.docx')) return 'docx';
+				if (lower.endsWith('.odt')) return 'odt';
+				if (lower.endsWith('.rtf')) return 'rtf';
+				if (lower.endsWith('.epub')) return 'epub';
+				return 'markdown';
+			}
+
+			function isBinaryInput(file, inputFormat) {
+				return ['docx', 'odt', 'epub'].includes(inputFormat) || ['application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.oasis.opendocument.text', 'application/epub+zip'].includes(file.type);
+			}
+
+			function buildOutputName(sourceName, extension) {
+				const base = sourceName.replace(/\.[^.]+$/, '');
+				return `${base}${extension}`;
+			}
+
+			function setStatus(message, kind) {
+				status.textContent = message;
+				status.dataset.kind = kind;
+			}
+
+			function format(template, values) {
+				return template.replace(/\{(\w+)\}/g, (_match, key) => values[key] ?? '');
+			}
+
+			function formatBytes(bytes) {
+				if (!Number.isFinite(bytes) || bytes <= 0) return '0 B';
+				const units = ['B', 'KB', 'MB', 'GB'];
+				let size = bytes;
+				let unitIndex = 0;
+				while (size >= 1024 && unitIndex < units.length - 1) {
+					size /= 1024;
+					unitIndex += 1;
+				}
+				return `${size.toFixed(size >= 10 || unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
+			}
+
+			function messageFromError(error) {
+				return error && typeof error.message === 'string' ? error.message : String(error || copy.statusGeneric);
+			}
+		}
+	})();
+</script>
