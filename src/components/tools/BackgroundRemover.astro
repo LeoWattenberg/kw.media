@@ -3,9 +3,11 @@ import type { Locale } from '../../i18n';
 
 interface Props {
 	locale: Locale;
+	variant?: 'plain' | 'checkerboard';
 }
 
-const { locale } = Astro.props;
+const { locale, variant = 'plain' } = Astro.props;
+const isCheckerboardVariant = variant === 'checkerboard';
 
 const outputFormats = [
 	{ value: 'PNG', label: 'PNG', extension: 'png', mime: 'image/png', quality: false },
@@ -129,10 +131,59 @@ const copyByLocale = {
 	},
 } satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
 
-const copy = copyByLocale[locale];
+const variantCopy = isCheckerboardVariant ? {
+	de: {
+		title: 'Schachbrett-Hintergrund entfernen',
+		intro: 'Entferne gefälschte PNG-Schachbrett-Hintergründe direkt im Browser mit ImageMagick WASM.',
+		privacy: 'Deine Datei wird nicht hochgeladen. Die Transparenz wird clientseitig erzeugt.',
+		client: {
+			waiting: 'Wähle ein Bild. Der Schachbrett-Ränder-Modus entfernt gefälschte Transparenz-Hintergründe, ohne ähnliche Farben im Motiv zu lochen.',
+		},
+	},
+	en: {
+		title: 'Checkerboard Background Remover',
+		intro: 'Remove fake PNG checkerboard backgrounds directly in your browser with ImageMagick WASM.',
+		privacy: 'Your file is not uploaded. Transparency is created client-side.',
+		client: {
+			waiting: 'Choose an image. Checkerboard edge mode removes fake transparency backgrounds without punching holes into similar subject colors.',
+		},
+	},
+} : {
+	de: {
+		intro: 'Entferne einfarbige oder nahezu einfarbige Hintergründe direkt im Browser mit ImageMagick WASM.',
+		privacy: 'Deine Datei wird nicht hochgeladen. Die Transparenz wird clientseitig erzeugt.',
+		client: {
+			waiting: 'Wähle ein Bild. Der Farbmodus entfernt feste Hintergrundfarben, während der Kantenmodus an den Bildrändern arbeitet.',
+		},
+	},
+	en: {
+		intro: 'Remove solid or near-solid backgrounds directly in your browser with ImageMagick WASM.',
+		privacy: 'Your file is not uploaded. Transparency is created client-side.',
+		client: {
+			waiting: 'Choose an image. Color mode removes solid backgrounds, while edge mode targets background colors at the image borders.',
+		},
+	},
+};
+const copy = {
+	...copyByLocale[locale],
+	...(variantCopy ? variantCopy[locale] : {}),
+	client: {
+		...copyByLocale[locale].client,
+		...(variantCopy ? variantCopy[locale].client : {}),
+	},
+};
 const copyJson = JSON.stringify(copy.client);
 const outputFormatsJson = JSON.stringify(outputFormats);
 const defaultFillColorHex = 'ffffff';
+const modeOptions = isCheckerboardVariant
+	? [
+		{ value: 'checkerboard-edges', label: copy.modeCheckerboardEdges },
+		{ value: 'checkerboard-all', label: copy.modeCheckerboardAll },
+	]
+	: [
+		{ value: 'edges', label: copy.modeEdges },
+		{ value: 'color', label: copy.modeColor },
+	];
 ---
 
 <section class="tool-intro">
@@ -146,7 +197,7 @@ const defaultFillColorHex = 'ffffff';
 
 <section class="section background-remover-section">
 	<div class="container">
-		<div class="background-remover" data-background-remover data-copy={copyJson} data-formats={outputFormatsJson}>
+		<div class="background-remover" data-background-remover data-copy={copyJson} data-formats={outputFormatsJson} data-variant={variant}>
 			<div class="remover-grid">
 				<section class="remover-panel source-panel">
 					<h2>{copy.fileTitle}</h2>
@@ -174,10 +225,12 @@ const defaultFillColorHex = 'ffffff';
 					<h2>{copy.settingsTitle}</h2>
 					<fieldset class="mode-control">
 						<legend>{copy.mode}</legend>
-						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="edges" checked /> {copy.modeEdges}</label>
-						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="checkerboard-edges" /> {copy.modeCheckerboardEdges}</label>
-						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="checkerboard-all" /> {copy.modeCheckerboardAll}</label>
-						<label><input data-mode type="radio" name={`background-remover-mode-${locale}`} value="color" /> {copy.modeColor}</label>
+						{modeOptions.map((option, index) => (
+							<label>
+								<input data-mode type="radio" name={`background-remover-mode-${locale}`} value={option.value} checked={index === 0} />
+								{option.label}
+							</label>
+						))}
 					</fieldset>
 					<div class="corner-group" data-corner-group>
 						<span>{copy.corners}</span>
@@ -265,6 +318,8 @@ const defaultFillColorHex = 'ffffff';
 		function initBackgroundRemover(root) {
 			const copy = JSON.parse(root.dataset.copy || '{}');
 			const outputFormats = JSON.parse(root.dataset.formats || '[]');
+			const variant = root.dataset.variant || 'plain';
+			const isCheckerboardVariant = variant === 'checkerboard';
 			const fileInput = root.querySelector('[data-file]');
 			const fileName = root.querySelector('[data-file-name]');
 			const fileMeta = root.querySelector('[data-file-meta]');
@@ -567,8 +622,8 @@ const defaultFillColorHex = 'ffffff';
 			function updateModeView() {
 				const currentMode = getMode();
 				const isColorMode = currentMode === 'color';
-				colorControl.hidden = !isColorMode;
-				cornerGroup.hidden = currentMode !== 'edges';
+				colorControl.hidden = isCheckerboardVariant || !isColorMode;
+				cornerGroup.hidden = isCheckerboardVariant || currentMode !== 'edges';
 			}
 
 			function updateQualityControl() {
