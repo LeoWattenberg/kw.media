@@ -10,13 +10,13 @@ export const toolModule = defineToolModule('background-remover', {
 			id: 'background-remover-de',
 			path: '/de/tools/background-remover/',
 			title: 'Hintergrund entfernen',
-			description: 'Entferne einfarbige Bildhintergründe und gefälschte PNG-Schachbretter clientseitig mit ImageMagick WASM.',
+			description: 'Entferne einfarbige Bildhintergründe clientseitig mit ImageMagick WASM.',
 		},
 		en: {
 			id: 'background-remover-en',
 			path: '/en/tools/background-remover/',
 			title: 'Background Remover',
-			description: 'Remove solid backgrounds and fake PNG checkerboards client-side with ImageMagick WASM.',
+			description: 'Remove solid backgrounds client-side with ImageMagick WASM.',
 		},
 	},
 });
@@ -25,5 +25,5 @@ const { tool, alternatePaths } = Astro.props;
 ---
 
 <ToolPageShell tool={tool} alternatePaths={alternatePaths}>
-	<BackgroundRemover locale={tool.locale} />
+	<BackgroundRemover locale={tool.locale} variant="plain" />
 </ToolPageShell>

@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import BackgroundRemover from '../../components/tools/BackgroundRemover.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('background-remover-checkerboard', {
+	id: 'background-remover-checkerboard',
+	translations: {
+		de: {
+			id: 'background-remover-checkerboard-de',
+			path: '/de/tools/background-remover-checkerboard/',
+			title: 'Schachbrett-Hintergrund entfernen',
+			description: 'Entferne gefälschte PNG-Schachbrett-Hintergründe clientseitig mit ImageMagick WASM.',
+		},
+		en: {
+			id: 'background-remover-checkerboard-en',
+			path: '/en/tools/background-remover-checkerboard/',
+			title: 'Checkerboard Background Remover',
+			description: 'Remove fake PNG checkerboard backgrounds client-side with ImageMagick WASM.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<BackgroundRemover locale={tool.locale} variant="checkerboard" />
+</ToolPageShell>
