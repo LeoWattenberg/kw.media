@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import ConverterOverview from '../../../components/tools/converter/ConverterOverview.astro';
+import { defineToolModule } from '../../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('converter', {
+	id: 'converter',
+	translations: {
+		de: {
+			id: 'converter-de',
+			path: '/de/tools/converter/',
+			title: 'Konverter',
+			description: 'Uebersicht ueber clientseitige Konverter fuer Dokumente, Bilder, Audio und Video.',
+		},
+		en: {
+			id: 'converter-en',
+			path: '/en/tools/converter/',
+			title: 'Converters',
+			description: 'Overview of client-side converters for documents, images, audio, and video.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<ConverterOverview locale={tool.locale} />
+</ToolPageShell>

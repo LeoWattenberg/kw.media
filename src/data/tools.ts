@@ -8,7 +8,7 @@ interface ToolPageAstroModule {
 	toolModule: ToolPageModule;
 }
 
-const toolAstroModules = import.meta.glob<ToolPageAstroModule>('./tools/*.astro', {
+const toolAstroModules = import.meta.glob<ToolPageAstroModule>('./tools/**/*.astro', {
 	eager: true,
 });
 
