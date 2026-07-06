@@ -1,20 +1,20 @@
 ---
-import ToolPageShell from '../../components/ToolPageShell.astro';
-import DocumentConverter from '../../components/tools/DocumentConverter.astro';
-import { defineToolModule } from '../../lib/tool-page-module';
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import DocumentConverter from '../../../components/tools/converter/DocumentConverter.astro';
+import { defineToolModule } from '../../../lib/tool-page-module';
 
 export const toolModule = defineToolModule('document-converter', {
 	id: 'document-converter',
 	translations: {
 		de: {
 			id: 'document-converter-de',
-			path: '/de/tools/document-converter/',
+			path: '/de/tools/converter/document-converter/',
 			title: 'Dokumenten-Konverter',
 			description: 'Konvertiere Dokumente clientseitig mit Pandoc WASM in neue Formate.',
 		},
 		en: {
 			id: 'document-converter-en',
-			path: '/en/tools/document-converter/',
+			path: '/en/tools/converter/document-converter/',
 			title: 'Document Converter',
 			description: 'Convert documents in the browser with Pandoc WASM into new formats.',
 		},

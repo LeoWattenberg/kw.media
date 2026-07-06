@@ -1,34 +1,36 @@
 ---
-import type { Locale } from '../../i18n';
-import { toolPages } from '../../data/tools';
-import { withBase } from '../../lib/url';
+import type { Locale } from '../../../i18n';
+import { toolPages } from '../../../data/tools';
+import { withBase } from '../../../lib/url';
 
 interface Props {
 	locale: Locale;
 }
 
 const { locale } = Astro.props;
+
 const copy = {
 	de: {
-		eyebrow: 'Tools',
-		title: 'Creator-Tools',
-		intro: 'Kleine, clientseitige Werkzeuge für Content-, Audio- und Produktionsentscheidungen.',
-		open: 'Tool öffnen',
+		eyebrow: 'Konverter',
+		title: 'Konverter-Tools',
+		intro: 'Clientseitige Konverter fuer Bild-, Dokument-, Audio- und Videoformate direkt im Browser.',
+		open: 'Konverter oeffnen',
 	},
 	en: {
-		eyebrow: 'Tools',
-		title: 'Creator Tools',
-		intro: 'Small client-side tools for content, audio, and production decisions.',
-		open: 'Open tool',
+		eyebrow: 'Converters',
+		title: 'Converter Tools',
+		intro: 'Client-side converters for image, document, audio, and video formats right in the browser.',
+		open: 'Open converter',
 	},
 }[locale];
-const tools = toolPages
+
+const converters = toolPages
 	.filter((tool) => tool.locale === locale)
-	.filter((tool) => !tool.path.startsWith(`/${locale}/tools/converter/`) || tool.path === `/${locale}/tools/converter/`)
+	.filter((tool) => tool.path.startsWith(`/${locale}/tools/converter/`) && tool.path !== `/${locale}/tools/converter/`)
 	.sort((first, second) => first.title.localeCompare(second.title));
 ---
 
-<section class="tool-index-hero">
+<section class="converter-hero">
 	<div class="container">
 		<p class="eyebrow">{copy.eyebrow}</p>
 		<h1>{copy.title}</h1>
@@ -36,11 +38,11 @@ const tools = toolPages
 	</div>
 </section>
 
-<section class="section tool-index-section">
-	<div class="container tool-grid">
+<section class="section converter-index-section">
+	<div class="container converter-grid">
 		{
-			tools.map((tool) => (
-				<a class="tool-card" href={withBase(tool.path)}>
+			converters.map((tool) => (
+				<a class="converter-card" href={withBase(tool.path)}>
 					<span>{copy.open}</span>
 					<h2>{tool.title}</h2>
 					<p>{tool.description}</p>
@@ -51,13 +53,13 @@ const tools = toolPages
 </section>
 
 <style>
-	.tool-index-hero {
+	.converter-hero {
 		padding-block: clamp(42px, 7vw, 82px);
 		background: var(--color-surface-alt);
 		border-bottom: 1px solid var(--color-line);
 	}
 
-	.tool-index-hero h1 {
+	.converter-hero h1 {
 		max-width: 780px;
 		margin: 0;
 		font-size: clamp(2.6rem, 7vw, 5.6rem);
@@ -65,24 +67,24 @@ const tools = toolPages
 		letter-spacing: 0;
 	}
 
-	.tool-index-hero p:not(.eyebrow) {
+	.converter-hero p:not(.eyebrow) {
 		max-width: 720px;
 		margin: 18px 0 0;
 		color: var(--color-muted);
 		font-size: 1.08rem;
 	}
 
-	.tool-index-section {
+	.converter-index-section {
 		background: var(--color-surface-raised);
 	}
 
-	.tool-grid {
+	.converter-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 		gap: 16px;
 	}
 
-	.tool-card {
+	.converter-card {
 		display: grid;
 		gap: 12px;
 		padding: clamp(18px, 3vw, 28px);
@@ -93,19 +95,19 @@ const tools = toolPages
 		text-decoration: none;
 	}
 
-	.tool-card:hover {
+	.converter-card:hover {
 		background: var(--color-surface-alt);
 		border-color: var(--color-accent);
 	}
 
-	.tool-card span {
+	.converter-card span {
 		color: var(--color-accent-dark);
 		font-size: 0.78rem;
 		font-weight: 850;
 		text-transform: uppercase;
 	}
 
-	.tool-card h2 {
+	.converter-card h2 {
 		margin: 0;
 		color: var(--color-ink);
 		font-size: clamp(1.35rem, 3vw, 2rem);
@@ -113,7 +115,7 @@ const tools = toolPages
 		letter-spacing: 0;
 	}
 
-	.tool-card p {
+	.converter-card p {
 		margin: 0;
 		color: var(--color-muted);
 		font-weight: 700;
