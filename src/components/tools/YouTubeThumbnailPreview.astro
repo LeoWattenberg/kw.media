@@ -13,26 +13,31 @@ const copyByLocale = {
 		title: 'YouTube-Thumbnail-Vorschau',
 		intro: 'Teste, wie dein Thumbnail und Titel in typischen YouTube-Web- und App-Karten wirken, bevor du sie veröffentlichst.',
 		privacy: 'Dein Bild bleibt lokal im Browser. Die Vorschau ist eine Annäherung, weil YouTube Layouts je nach Gerät und Testgruppe ändern kann.',
-		contentTitle: 'Video-Metadaten',
+		contentTitle: 'Titel & Thumbnail',
 		previewTitle: 'Live-Vorschau',
 		thumbnailTitle: 'Thumbnail',
 		chooseFile: 'Thumbnail wählen',
 		fileHint: 'JPG, PNG, GIF, WebP oder AVIF, idealerweise 16:9',
 		clearImage: 'Bild entfernen',
 		titleLabel: 'Titel',
-		webWidthLabel: 'Web-Kartenbreite',
-		appWidthLabel: 'App-Gerätebreite',
 		titleCount: 'Zeichen',
-		webPreview: 'YouTube Webseite',
-		webContext: 'Startseite / Suchraster',
-		appPreview: 'YouTube App',
-		appContext: 'Mobile Startseite',
+		homePreview: 'Startseite',
+		homeContext: 'Desktop-Kachel im Feed',
+		notificationPreview: 'Benachrichtigungen',
+		notificationContext: 'Kleine Vorschau im Benachrichtigungsmenü',
+		mobilePreview: 'Mobiles Thumbnail',
+		mobileContext: 'Startseiten-Thumbnail in voller Gerätebreite.',
+		deviceToggleLabel: 'Gerätegröße',
+		relatedPreview: 'Ähnliche Videos',
+		relatedContext: 'Desktop-Seitenleiste neben dem Player',
+		desktopOnly: 'Nur Desktop',
+		notificationsHeading: 'Benachrichtigungen',
+		notificationTag: 'Neu',
 		defaultTitle: 'Das perfekte Thumbnail ist nicht laut. Es ist sofort lesbar.',
 		defaultChannel: 'KW Media',
 		defaultMetadata: '24.000 Aufrufe vor 2 Tagen',
 		defaultDuration: '12:34',
 		avatarLabel: 'Kanalavatar',
-		appHeader: 'YouTube',
 		client: {
 			chooseFile: 'Thumbnail wählen',
 			fileHint: 'JPG, PNG, GIF, WebP oder AVIF, idealerweise 16:9',
@@ -40,6 +45,7 @@ const copyByLocale = {
 			imageRemoved: 'Bild entfernt',
 			noTitle: 'Titel eingeben',
 			titleCount: '{count} Zeichen',
+			deviceSize: '{device} · {height} × {width} mm',
 		},
 	},
 	en: {
@@ -47,26 +53,31 @@ const copyByLocale = {
 		title: 'YouTube Thumbnail Preview',
 		intro: 'Test how your thumbnail and title read in typical YouTube web and app cards before you publish.',
 		privacy: 'Your image stays local in the browser. The preview is an approximation because YouTube can change layouts by device and experiment group.',
-		contentTitle: 'Video metadata',
+		contentTitle: 'Title & thumbnail',
 		previewTitle: 'Live preview',
 		thumbnailTitle: 'Thumbnail',
 		chooseFile: 'Choose thumbnail',
 		fileHint: 'JPG, PNG, GIF, WebP, or AVIF, ideally 16:9',
 		clearImage: 'Remove image',
 		titleLabel: 'Title',
-		webWidthLabel: 'Web card width',
-		appWidthLabel: 'App device width',
 		titleCount: 'Characters',
-		webPreview: 'YouTube Website',
-		webContext: 'Home / search grid',
-		appPreview: 'YouTube App',
-		appContext: 'Mobile home feed',
+		homePreview: 'Home feed',
+		homeContext: 'Desktop grid card',
+		notificationPreview: 'Notifications',
+		notificationContext: 'Small thumbnail inside the notifications menu',
+		mobilePreview: 'Mobile thumbnail',
+		mobileContext: 'Home feed thumbnail at full device width.',
+		deviceToggleLabel: 'Device size',
+		relatedPreview: 'Related videos',
+		relatedContext: 'Desktop sidebar beside the player',
+		desktopOnly: 'Desktop only',
+		notificationsHeading: 'Notifications',
+		notificationTag: 'New',
 		defaultTitle: 'The perfect thumbnail is not loud. It is instantly readable.',
 		defaultChannel: 'KW Media',
 		defaultMetadata: '24K views 2 days ago',
 		defaultDuration: '12:34',
 		avatarLabel: 'Channel avatar',
-		appHeader: 'YouTube',
 		client: {
 			chooseFile: 'Choose thumbnail',
 			fileHint: 'JPG, PNG, GIF, WebP, or AVIF, ideally 16:9',
@@ -74,6 +85,7 @@ const copyByLocale = {
 			imageRemoved: 'Image removed',
 			noTitle: 'Enter a title',
 			titleCount: '{count} characters',
+			deviceSize: '{device} · {height} × {width} mm',
 		},
 	},
 } satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
@@ -112,17 +124,6 @@ const copyJson = JSON.stringify(copy.client);
 					<textarea data-title-input rows="4" maxlength="140">{copy.defaultTitle}</textarea>
 					<small data-title-count>{copy.titleCount}</small>
 				</label>
-
-				<div class="range-grid">
-					<label class="range-control">
-						<span>{copy.webWidthLabel}: <strong data-web-width-label>360 px</strong></span>
-						<input data-web-width type="range" min="260" max="420" step="10" value="360" />
-					</label>
-					<label class="range-control">
-						<span>{copy.appWidthLabel}: <strong data-app-width-label>390 px</strong></span>
-						<input data-app-width type="range" min="320" max="430" step="10" value="390" />
-					</label>
-				</div>
 			</section>
 
 			<section class="preview-panel output-panel" aria-labelledby="thumbnail-preview-output">
@@ -133,22 +134,85 @@ const copyJson = JSON.stringify(copy.client);
 				</div>
 
 				<div class="preview-grid">
-					<article class="youtube-web-preview" aria-labelledby="web-preview-heading">
+					<article class="preview-card preview-card-home" aria-labelledby="home-preview-heading">
 						<div class="preview-label">
-							<h3 id="web-preview-heading">{copy.webPreview}</h3>
-							<p>{copy.webContext}</p>
+							<h3 id="home-preview-heading">{copy.homePreview}</h3>
+							<p>{copy.homeContext}</p>
 						</div>
-						<div class="yt-web-card">
-							<div class="yt-thumbnail">
-								<img data-preview-image alt="" hidden />
-								<div class="thumbnail-placeholder" data-thumbnail-placeholder>
-									<span>16:9</span>
+						<div class="yt-surface yt-home-surface">
+							<div class="yt-home-track">
+								<div class="yt-home-card">
+									<div class="yt-thumbnail yt-thumbnail-home">
+										<img data-preview-image alt="" hidden />
+										<div class="thumbnail-placeholder" data-thumbnail-placeholder>
+											<span>16:9</span>
+										</div>
+										<span class="duration-badge" data-duration-preview>{copy.defaultDuration}</span>
+									</div>
+									<div class="yt-home-meta">
+										<div class="channel-avatar" aria-label={copy.avatarLabel} data-avatar></div>
+										<div class="yt-copy yt-copy-home">
+											<h4 data-title-preview>{copy.defaultTitle}</h4>
+											<p data-channel-preview>{copy.defaultChannel}</p>
+											<p data-meta-preview>{copy.defaultMetadata}</p>
+										</div>
+										<span class="yt-more" aria-hidden="true"></span>
+									</div>
 								</div>
-								<span class="duration-badge" data-duration-preview>{copy.defaultDuration}</span>
 							</div>
-							<div class="yt-web-meta">
-								<div class="channel-avatar" aria-label={copy.avatarLabel} data-avatar></div>
-								<div class="yt-copy">
+						</div>
+					</article>
+
+					<article class="preview-card preview-card-notification" aria-labelledby="notification-preview-heading">
+						<div class="preview-label">
+							<h3 id="notification-preview-heading">{copy.notificationPreview}</h3>
+							<p>{copy.notificationContext}</p>
+						</div>
+						<div class="yt-surface yt-notification-surface">
+							<div class="yt-notification-header">
+								<strong>{copy.notificationsHeading}</strong>
+								<span class="yt-notification-dot" aria-hidden="true"></span>
+							</div>
+							<div class="yt-notification-item">
+								<div class="channel-avatar channel-avatar-small" aria-label={copy.avatarLabel} data-avatar></div>
+								<div class="yt-copy yt-copy-notification">
+									<h4 data-title-preview>{copy.defaultTitle}</h4>
+									<p>
+										<span class="yt-tag">{copy.notificationTag}</span>
+										<span data-channel-preview>{copy.defaultChannel}</span>
+										<span aria-hidden="true"> • </span>
+										<span data-meta-preview>{copy.defaultMetadata}</span>
+									</p>
+								</div>
+								<div class="yt-thumbnail yt-thumbnail-notification">
+									<img data-preview-image alt="" hidden />
+									<div class="thumbnail-placeholder" data-thumbnail-placeholder>
+										<span>16:9</span>
+									</div>
+									<span class="duration-badge" data-duration-preview>{copy.defaultDuration}</span>
+								</div>
+							</div>
+						</div>
+					</article>
+
+					<article class="preview-card preview-card-related" aria-labelledby="related-preview-heading">
+						<div class="preview-label">
+							<div class="preview-label-row">
+								<h3 id="related-preview-heading">{copy.relatedPreview}</h3>
+								<span class="device-pill">{copy.desktopOnly}</span>
+							</div>
+							<p>{copy.relatedContext}</p>
+						</div>
+						<div class="yt-surface yt-related-surface">
+							<div class="yt-related-item">
+								<div class="yt-thumbnail yt-thumbnail-related">
+									<img data-preview-image alt="" hidden />
+									<div class="thumbnail-placeholder" data-thumbnail-placeholder>
+										<span>16:9</span>
+									</div>
+									<span class="duration-badge" data-duration-preview>{copy.defaultDuration}</span>
+								</div>
+								<div class="yt-copy yt-copy-related">
 									<h4 data-title-preview>{copy.defaultTitle}</h4>
 									<p data-channel-preview>{copy.defaultChannel}</p>
 									<p data-meta-preview>{copy.defaultMetadata}</p>
@@ -157,37 +221,58 @@ const copyJson = JSON.stringify(copy.client);
 						</div>
 					</article>
 
-					<article class="youtube-app-preview" aria-labelledby="app-preview-heading">
+					<article class="preview-card preview-card-mobile" aria-labelledby="mobile-preview-heading">
 						<div class="preview-label">
-							<h3 id="app-preview-heading">{copy.appPreview}</h3>
-							<p>{copy.appContext}</p>
+							<div class="preview-label-stack">
+								<div>
+									<h3 id="mobile-preview-heading">{copy.mobilePreview}</h3>
+									<p>{copy.mobileContext}</p>
+								</div>
+								<div class="device-toggle" role="group" aria-label={copy.deviceToggleLabel}>
+									<button class="device-toggle-button" data-mobile-device-option="iphone-se" type="button">iPhone SE</button>
+									<button class="device-toggle-button is-active" data-mobile-device-option="iphone-17" type="button">iPhone 17</button>
+									<button class="device-toggle-button" data-mobile-device-option="galaxy-s26-ultra" type="button">Galaxy S26 Ultra</button>
+								</div>
+							</div>
 						</div>
-						<div class="phone-frame">
-							<div class="app-bar">
-								<span class="app-play-mark"></span>
-								<strong>{copy.appHeader}</strong>
-							</div>
-							<div class="yt-app-card">
-								<div class="yt-thumbnail">
-									<img data-preview-image alt="" hidden />
-									<div class="thumbnail-placeholder" data-thumbnail-placeholder>
-										<span>16:9</span>
+						<div class="mobile-stage">
+							<div class="mobile-device" data-mobile-device-frame data-mobile-device="iphone-17">
+								<div class="mobile-device-screen">
+									<div class="mobile-device-cutout" aria-hidden="true"></div>
+									<div class="mobile-status-bar" aria-hidden="true">
+										<span>9:41</span>
+										<span class="mobile-status-icons"></span>
 									</div>
-									<span class="duration-badge" data-duration-preview>{copy.defaultDuration}</span>
-								</div>
-								<div class="yt-app-meta">
-									<div class="channel-avatar" aria-label={copy.avatarLabel} data-avatar></div>
-									<div class="yt-copy">
-										<h4 data-title-preview>{copy.defaultTitle}</h4>
-										<p>
-											<span data-channel-preview>{copy.defaultChannel}</span>
-											<span aria-hidden="true"> - </span>
-											<span data-meta-preview>{copy.defaultMetadata}</span>
-										</p>
+									<div class="mobile-app-bar" aria-hidden="true">
+										<span class="mobile-app-logo"></span>
+										<strong>YouTube</strong>
+										<span class="mobile-app-actions"></span>
 									</div>
-									<span class="app-menu" aria-hidden="true"></span>
+									<div class="mobile-feed">
+										<div class="yt-thumbnail yt-thumbnail-mobile">
+											<img data-preview-image alt="" hidden />
+											<div class="thumbnail-placeholder" data-thumbnail-placeholder>
+												<span>16:9</span>
+											</div>
+											<span class="duration-badge" data-duration-preview>{copy.defaultDuration}</span>
+										</div>
+										<div class="yt-mobile-meta">
+											<div class="channel-avatar channel-avatar-mobile" aria-label={copy.avatarLabel} data-avatar></div>
+											<div class="yt-copy yt-copy-mobile">
+												<h4 data-title-preview>{copy.defaultTitle}</h4>
+												<p>
+													<span data-channel-preview>{copy.defaultChannel}</span>
+													<span aria-hidden="true"> • </span>
+													<span data-meta-preview>{copy.defaultMetadata}</span>
+												</p>
+											</div>
+											<span class="yt-more" aria-hidden="true"></span>
+										</div>
+									</div>
+									<span class="mobile-home-indicator" aria-hidden="true"></span>
 								</div>
 							</div>
+							<p class="mobile-device-caption" data-mobile-device-label>iPhone 17</p>
 						</div>
 					</article>
 				</div>
@@ -212,10 +297,6 @@ const copyJson = JSON.stringify(copy.client);
 			const fileMeta = root.querySelector('[data-file-meta]');
 			const clearImageButton = root.querySelector('[data-clear-image]');
 			const titleInput = root.querySelector('[data-title-input]');
-			const webWidthInput = root.querySelector('[data-web-width]');
-			const appWidthInput = root.querySelector('[data-app-width]');
-			const webWidthLabel = root.querySelector('[data-web-width-label]');
-			const appWidthLabel = root.querySelector('[data-app-width-label]');
 			const titleCount = root.querySelector('[data-title-count]');
 			const previewImages = [...root.querySelectorAll('[data-preview-image]')];
 			const placeholders = [...root.querySelectorAll('[data-thumbnail-placeholder]')];
@@ -224,9 +305,59 @@ const copyJson = JSON.stringify(copy.client);
 			const metaPreviews = [...root.querySelectorAll('[data-meta-preview]')];
 			const durationPreviews = [...root.querySelectorAll('[data-duration-preview]')];
 			const avatars = [...root.querySelectorAll('[data-avatar]')];
+			const mobileDeviceButtons = [...root.querySelectorAll('[data-mobile-device-option]')];
+			const mobileDeviceFrame = root.querySelector('[data-mobile-device-frame]');
+			const mobileDeviceLabel = root.querySelector('[data-mobile-device-label]');
 			const defaultChannel = root.querySelector('[data-channel-preview]')?.textContent?.trim() || 'KW Media';
 			const defaultMeta = root.querySelector('[data-meta-preview]')?.textContent?.trim() || '';
 			const defaultDuration = root.querySelector('[data-duration-preview]')?.textContent?.trim() || '';
+			const mobileDevices = {
+				'iphone-se': {
+					label: 'iPhone SE',
+					bodyWidth: 67.3,
+					bodyHeight: 138.4,
+					screenWidth: 58.51,
+					screenHeight: 104.06,
+					bodyRadius: 11.5,
+					screenRadius: 1.8,
+					statusTop: 2.5,
+					statusSide: 4.2,
+					cutoutWidth: 0,
+					cutoutHeight: 0,
+					cutoutTop: 0,
+					homeIndicatorWidth: 0,
+				},
+				'iphone-17': {
+					label: 'iPhone 17',
+					bodyWidth: 71.5,
+					bodyHeight: 149.6,
+					screenWidth: 66.87,
+					screenHeight: 145.38,
+					bodyRadius: 15,
+					screenRadius: 12.5,
+					statusTop: 4.3,
+					statusSide: 4.1,
+					cutoutWidth: 18,
+					cutoutHeight: 4.8,
+					cutoutTop: 2.8,
+					homeIndicatorWidth: 17,
+				},
+				'galaxy-s26-ultra': {
+					label: 'Galaxy S26 Ultra',
+					bodyWidth: 77.6,
+					bodyHeight: 162.8,
+					screenWidth: 73.44,
+					screenHeight: 159.13,
+					bodyRadius: 12.8,
+					screenRadius: 10.8,
+					statusTop: 3.2,
+					statusSide: 4.1,
+					cutoutWidth: 3.4,
+					cutoutHeight: 3.4,
+					cutoutTop: 2.9,
+					homeIndicatorWidth: 17,
+				},
+			};
 
 			let imageUrl = '';
 
@@ -238,10 +369,17 @@ const copyJson = JSON.stringify(copy.client);
 				setImage(null);
 			});
 
-			for (const input of [titleInput, webWidthInput, appWidthInput]) {
+			for (const button of mobileDeviceButtons) {
+				button.addEventListener('click', () => {
+					setMobileDevice(button.dataset.mobileDeviceOption || 'iphone-17');
+				});
+			}
+
+			for (const input of [titleInput]) {
 				input.addEventListener('input', updatePreview);
 			}
 
+			setMobileDevice('iphone-17');
 			updatePreview();
 
 			function setImage(file) {
@@ -285,13 +423,6 @@ const copyJson = JSON.stringify(copy.client);
 
 			function updatePreview() {
 				const title = titleInput.value.trim() || copy.noTitle;
-				const webWidth = Number(webWidthInput.value);
-				const appWidth = Number(appWidthInput.value);
-
-				root.style.setProperty('--web-card-width', `${webWidth}px`);
-				root.style.setProperty('--app-card-width', `${appWidth}px`);
-				webWidthLabel.textContent = `${webWidth} px`;
-				appWidthLabel.textContent = `${appWidth} px`;
 				titleCount.textContent = format(copy.titleCount, { count: titleInput.value.length });
 
 				for (const preview of titlePreviews) {
@@ -313,6 +444,35 @@ const copyJson = JSON.stringify(copy.client);
 
 				for (const avatar of avatars) {
 					avatar.textContent = avatarInitial(defaultChannel);
+				}
+			}
+
+			function setMobileDevice(deviceKey) {
+				const device = mobileDevices[deviceKey] || mobileDevices['iphone-17'];
+
+				mobileDeviceFrame.dataset.mobileDevice = deviceKey;
+				mobileDeviceFrame.style.setProperty('--device-body-width-mm', device.bodyWidth);
+				mobileDeviceFrame.style.setProperty('--device-body-height-mm', device.bodyHeight);
+				mobileDeviceFrame.style.setProperty('--device-screen-width-mm', device.screenWidth);
+				mobileDeviceFrame.style.setProperty('--device-screen-height-mm', device.screenHeight);
+				mobileDeviceFrame.style.setProperty('--device-body-radius-mm', device.bodyRadius);
+				mobileDeviceFrame.style.setProperty('--device-screen-radius-mm', device.screenRadius);
+				mobileDeviceFrame.style.setProperty('--device-status-top-mm', device.statusTop);
+				mobileDeviceFrame.style.setProperty('--device-status-side-mm', device.statusSide);
+				mobileDeviceFrame.style.setProperty('--device-cutout-width-mm', device.cutoutWidth);
+				mobileDeviceFrame.style.setProperty('--device-cutout-height-mm', device.cutoutHeight);
+				mobileDeviceFrame.style.setProperty('--device-cutout-top-mm', device.cutoutTop);
+				mobileDeviceFrame.style.setProperty('--device-home-indicator-width-mm', device.homeIndicatorWidth);
+				mobileDeviceLabel.textContent = format(copy.deviceSize, {
+					device: device.label,
+					height: device.bodyHeight.toFixed(1),
+					width: device.bodyWidth.toFixed(1),
+				});
+
+				for (const button of mobileDeviceButtons) {
+					const isActive = button.dataset.mobileDeviceOption === deviceKey;
+					button.classList.toggle('is-active', isActive);
+					button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
 				}
 			}
 
@@ -373,8 +533,6 @@ const copyJson = JSON.stringify(copy.client);
 	}
 
 	.thumbnail-preview-tool {
-		--web-card-width: 360px;
-		--app-card-width: 390px;
 		display: grid;
 		grid-template-columns: minmax(300px, 0.42fr) minmax(0, 1fr);
 		gap: 18px;
@@ -424,8 +582,7 @@ const copyJson = JSON.stringify(copy.client);
 	}
 
 	.file-picker span,
-	.field-control span,
-	.range-control span {
+	.field-control span {
 		color: var(--color-accent-dark);
 		font-size: 0.78rem;
 		font-weight: 850;
@@ -452,20 +609,12 @@ const copyJson = JSON.stringify(copy.client);
 		cursor: pointer;
 	}
 
-	.field-control,
-	.range-control {
+	.field-control {
 		display: grid;
 		gap: 8px;
 		margin-top: 18px;
 	}
 
-	.range-grid {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 12px;
-	}
-
-	.field-control input,
 	.field-control textarea {
 		width: 100%;
 		padding: 12px 13px;
@@ -482,16 +631,10 @@ const copyJson = JSON.stringify(copy.client);
 		resize: vertical;
 	}
 
-	.field-control input:focus,
 	.field-control textarea:focus {
 		border-color: var(--color-accent);
 		outline: 3px solid var(--color-accent-focus-soft);
 		outline-offset: 1px;
-	}
-
-	.range-control input {
-		width: 100%;
-		accent-color: var(--color-accent);
 	}
 
 	.button {
@@ -526,18 +669,37 @@ const copyJson = JSON.stringify(copy.client);
 
 	.preview-grid {
 		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 18px;
 		margin-top: 18px;
 		align-items: start;
 	}
 
-	.youtube-web-preview,
-	.youtube-app-preview {
+	.preview-card {
 		min-width: 0;
+	}
+
+	.preview-card-mobile,
+	.preview-card-related {
+		grid-column: 1 / -1;
 	}
 
 	.preview-label {
 		margin-bottom: 12px;
+	}
+
+	.preview-label-stack {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: start;
+		justify-content: space-between;
+		gap: 12px 18px;
+	}
+
+	.preview-label-row {
+		display: flex;
+		align-items: center;
+		gap: 10px;
 	}
 
 	.preview-label h3 {
@@ -551,10 +713,76 @@ const copyJson = JSON.stringify(copy.client);
 		font-weight: 700;
 	}
 
-	.yt-web-card {
-		width: min(100%, var(--web-card-width));
+	.device-toggle {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.device-toggle-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 36px;
+		padding: 0 12px;
+		color: var(--color-muted);
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 999px;
+		font: inherit;
+		font-size: 0.88rem;
+		font-weight: 800;
+		cursor: pointer;
+	}
+
+	.device-toggle-button:hover {
+		color: var(--color-accent-dark);
+		border-color: var(--color-accent);
+		background: var(--color-accent-soft);
+	}
+
+	.device-toggle-button.is-active {
+		color: var(--color-accent-on);
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+		box-shadow: 0 0 0 3px var(--color-accent-focus-soft);
+	}
+
+	.device-pill {
+		display: inline-flex;
+		align-items: center;
+		min-height: 24px;
+		padding: 0 10px;
+		color: var(--color-youtube-muted);
+		background: var(--color-youtube-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 999px;
+		font-size: 0.76rem;
+		font-weight: 800;
+	}
+
+	.yt-surface {
 		color: var(--color-youtube-ink);
+		background: var(--color-youtube-surface);
+		border: 1px solid var(--color-youtube-phone-border);
+		border-radius: 20px;
 		font-family: Roboto, Arial, sans-serif;
+	}
+
+	.yt-home-surface {
+		padding: 16px;
+		background:
+			linear-gradient(180deg, color-mix(in srgb, var(--color-youtube-surface-alt) 86%, white) 0%, var(--color-youtube-surface) 100%);
+	}
+
+	.yt-home-track {
+		display: flex;
+		align-items: flex-start;
+	}
+
+	.yt-home-card {
+		width: min(100%, 336px);
+		flex: 0 0 auto;
 	}
 
 	.yt-thumbnail {
@@ -599,11 +827,26 @@ const copyJson = JSON.stringify(copy.client);
 		text-align: center;
 	}
 
-	.yt-web-meta {
+	.yt-thumbnail-home {
+		width: 100%;
+	}
+
+	.yt-thumbnail-notification {
+		width: 86px;
+		border-radius: 10px;
+	}
+
+	.yt-thumbnail-related {
+		width: 168px;
+		border-radius: 10px;
+	}
+
+	.yt-home-meta {
 		display: grid;
-		grid-template-columns: 36px minmax(0, 1fr);
+		grid-template-columns: 36px minmax(0, 1fr) 20px;
 		gap: 12px;
 		margin-top: 12px;
+		align-items: start;
 	}
 
 	.channel-avatar {
@@ -646,86 +889,21 @@ const copyJson = JSON.stringify(copy.client);
 		white-space: nowrap;
 	}
 
-	.phone-frame {
-		width: min(100%, calc(var(--app-card-width) + 20px));
-		padding: 10px;
-		background: var(--color-youtube-phone);
-		border: 1px solid var(--color-youtube-phone-border);
-		border-radius: 28px;
-		box-shadow: var(--shadow-youtube-phone);
+	.yt-copy-home h4 {
+		font-size: 16px;
+		line-height: 22px;
 	}
 
-	.app-bar {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		min-height: 42px;
-		padding: 0 8px 8px;
-		color: var(--color-youtube-ink);
-		font-family: Roboto, Arial, sans-serif;
-		font-size: 18px;
-	}
-
-	.app-play-mark {
-		display: inline-block;
-		width: 28px;
-		height: 20px;
-		background: var(--color-youtube-red);
-		border-radius: 6px;
-		clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-	}
-
-	.app-play-mark::after {
-		display: block;
-		width: 0;
-		height: 0;
-		margin: 5px 0 0 11px;
-		border-top: 5px solid var(--color-transparent);
-		border-bottom: 5px solid var(--color-transparent);
-		border-left: 8px solid var(--color-youtube-play-icon);
-		content: '';
-	}
-
-	.yt-app-card {
-		width: min(100%, var(--app-card-width));
-		overflow: hidden;
-		background: var(--color-youtube-surface);
-		border-radius: 18px;
-		font-family: Roboto, Arial, sans-serif;
-	}
-
-	.yt-app-card .yt-thumbnail {
-		border-radius: 0;
-	}
-
-	.yt-app-meta {
-		display: grid;
-		grid-template-columns: 36px minmax(0, 1fr) 24px;
-		gap: 12px;
-		padding: 12px;
-	}
-
-	.yt-app-meta .yt-copy h4 {
-		font-size: 14px;
-		font-weight: 500;
-		line-height: 20px;
-	}
-
-	.yt-app-meta .yt-copy p {
-		font-size: 12px;
-		line-height: 18px;
-	}
-
-	.app-menu {
+	.yt-more {
 		position: relative;
-		width: 24px;
-		height: 24px;
+		width: 20px;
+		height: 20px;
 	}
 
-	.app-menu::before {
+	.yt-more::before {
 		position: absolute;
-		top: 5px;
-		left: 10px;
+		top: 3px;
+		left: 8px;
 		width: 4px;
 		height: 4px;
 		background: var(--color-youtube-muted);
@@ -734,25 +912,345 @@ const copyJson = JSON.stringify(copy.client);
 		content: '';
 	}
 
+	.yt-notification-surface {
+		padding: 10px 0 6px;
+		box-shadow: 0 18px 32px rgb(0 0 0 / 0.08);
+	}
+
+	.yt-notification-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 14px 10px;
+		border-bottom: 1px solid color-mix(in srgb, var(--color-youtube-muted) 18%, white);
+		font-size: 0.92rem;
+		font-weight: 700;
+	}
+
+	.yt-notification-dot {
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		background: var(--color-youtube-red);
+		border-radius: 50%;
+	}
+
+	.yt-notification-item {
+		display: grid;
+		grid-template-columns: 28px minmax(0, 1fr) 86px;
+		gap: 12px;
+		align-items: start;
+		padding: 14px;
+	}
+
+	.channel-avatar-small {
+		width: 28px;
+		height: 28px;
+		font-size: 0.74rem;
+	}
+
+	.yt-copy-notification {
+		padding-top: 1px;
+	}
+
+	.yt-copy-notification h4 {
+		-webkit-line-clamp: 2;
+		font-size: 14px;
+		line-height: 18px;
+	}
+
+	.yt-copy-notification p {
+		margin-top: 4px;
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.yt-tag {
+		display: inline-flex;
+		align-items: center;
+		margin-right: 4px;
+		color: var(--color-youtube-red);
+		font-weight: 700;
+	}
+
+	.yt-related-surface {
+		padding: 16px;
+	}
+
+	.mobile-stage {
+		display: grid;
+		justify-items: center;
+		gap: 14px;
+		padding: 8px 0 4px;
+	}
+
+	.mobile-device {
+		--device-body-width-mm: 71.5;
+		--device-body-height-mm: 149.6;
+		--device-screen-width-mm: 66.87;
+		--device-screen-height-mm: 145.38;
+		--device-body-radius-mm: 15;
+		--device-screen-radius-mm: 12.5;
+		--device-status-top-mm: 4.3;
+		--device-status-side-mm: 4.1;
+		--device-cutout-width-mm: 18;
+		--device-cutout-height-mm: 4.8;
+		--device-cutout-top-mm: 2.8;
+		--device-home-indicator-width-mm: 17;
+		position: relative;
+		width: calc(var(--device-body-width-mm) * 1mm);
+		height: calc(var(--device-body-height-mm) * 1mm);
+		padding: 1.2mm;
+		background: linear-gradient(145deg, #24252a, #0f1013 58%, #34363b);
+		border-radius: calc(var(--device-body-radius-mm) * 1mm);
+		box-shadow: 0 24px 44px rgb(0 0 0 / 0.18);
+	}
+
+	.mobile-device-screen {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		display: grid;
+		grid-template-rows: auto auto 1fr auto;
+		width: calc(var(--device-screen-width-mm) * 1mm);
+		height: calc(var(--device-screen-height-mm) * 1mm);
+		overflow: hidden;
+		background: var(--color-youtube-surface);
+		border-radius: calc(var(--device-screen-radius-mm) * 1mm);
+		transform: translate(-50%, -50%);
+	}
+
+	.mobile-device-cutout {
+		position: absolute;
+		top: calc(var(--device-cutout-top-mm) * 1mm);
+		left: 50%;
+		z-index: 3;
+		width: calc(var(--device-cutout-width-mm) * 1mm);
+		height: calc(var(--device-cutout-height-mm) * 1mm);
+		background: #000;
+		transform: translateX(-50%);
+	}
+
+	.mobile-device[data-mobile-device='iphone-se'] .mobile-device-cutout {
+		display: none;
+	}
+
+	.mobile-device[data-mobile-device='iphone-17'] .mobile-device-cutout {
+		border-radius: 999px;
+	}
+
+	.mobile-device[data-mobile-device='galaxy-s26-ultra'] .mobile-device-cutout {
+		border-radius: 50%;
+	}
+
+	.mobile-status-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding:
+			calc(var(--device-status-top-mm) * 1mm)
+			calc(var(--device-status-side-mm) * 1mm)
+			1.6mm;
+		color: var(--color-youtube-ink);
+		font-size: 11px;
+		font-weight: 700;
+	}
+
+	.mobile-status-icons {
+		position: relative;
+		width: 16px;
+		height: 7px;
+		border: 1.5px solid currentColor;
+		border-radius: 2px;
+	}
+
+	.mobile-status-icons::before,
+	.mobile-status-icons::after {
+		position: absolute;
+		top: 1px;
+		height: 3px;
+		background: currentColor;
+		content: '';
+	}
+
+	.mobile-status-icons::before {
+		right: -3px;
+		width: 2px;
+		border-radius: 0 1px 1px 0;
+	}
+
+	.mobile-status-icons::after {
+		right: 2px;
+		width: 8px;
+		border-radius: 1px;
+	}
+
+	.mobile-app-bar {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		min-height: 36px;
+		padding: 0 12px 8px;
+		color: var(--color-youtube-ink);
+		font-size: 15px;
+	}
+
+	.mobile-app-logo {
+		display: inline-block;
+		width: 22px;
+		height: 15px;
+		background: var(--color-youtube-red);
+		border-radius: 5px;
+	}
+
+	.mobile-app-logo::after {
+		display: block;
+		width: 0;
+		height: 0;
+		margin: 4px 0 0 9px;
+		border-top: 4px solid var(--color-transparent);
+		border-bottom: 4px solid var(--color-transparent);
+		border-left: 6px solid var(--color-youtube-play-icon);
+		content: '';
+	}
+
+	.mobile-app-actions {
+		position: relative;
+		flex: 1;
+		height: 14px;
+	}
+
+	.mobile-app-actions::before,
+	.mobile-app-actions::after {
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 14px;
+		height: 14px;
+		border: 1.5px solid var(--color-youtube-muted);
+		border-radius: 50%;
+		content: '';
+	}
+
+	.mobile-app-actions::after {
+		right: 22px;
+	}
+
+	.mobile-feed {
+		display: grid;
+		align-content: start;
+	}
+
+	.yt-thumbnail-mobile {
+		width: 100%;
+		border-radius: 0;
+	}
+
+	.yt-mobile-meta {
+		display: grid;
+		grid-template-columns: 32px minmax(0, 1fr) 20px;
+		gap: 10px;
+		padding: 10px 12px 16px;
+		align-items: start;
+	}
+
+	.channel-avatar-mobile {
+		width: 32px;
+		height: 32px;
+		font-size: 0.8rem;
+	}
+
+	.yt-copy-mobile h4 {
+		font-size: 14px;
+		line-height: 19px;
+	}
+
+	.yt-copy-mobile p {
+		font-size: 12px;
+		line-height: 16px;
+	}
+
+	.mobile-home-indicator {
+		align-self: end;
+		justify-self: center;
+		width: calc(var(--device-home-indicator-width-mm) * 1mm);
+		height: 1.2mm;
+		margin-bottom: 2.2mm;
+		background: color-mix(in srgb, var(--color-youtube-muted) 60%, white);
+		border-radius: 999px;
+	}
+
+	.mobile-device[data-mobile-device='iphone-se'] .mobile-home-indicator {
+		display: none;
+	}
+
+	.mobile-device-caption {
+		margin: 0;
+		color: var(--color-muted);
+		font-size: 0.9rem;
+		font-weight: 700;
+	}
+
+	.yt-related-item {
+		display: grid;
+		grid-template-columns: 168px minmax(0, 1fr);
+		gap: 12px;
+		align-items: start;
+	}
+
+	.yt-copy-related h4 {
+		-webkit-line-clamp: 2;
+		font-size: 14px;
+		line-height: 20px;
+	}
+
+	.yt-copy-related p {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
 	@media (max-width: 1120px) {
-		.thumbnail-preview-tool,
-		.preview-grid {
+		.thumbnail-preview-tool {
 			grid-template-columns: 1fr;
 		}
 	}
 
-	@media (max-width: 680px) {
-		.range-grid {
+	@media (max-width: 900px) {
+		.preview-grid {
 			grid-template-columns: 1fr;
 		}
 
+		.preview-card-mobile,
+		.preview-card-related {
+			grid-column: auto;
+		}
+	}
+
+	@media (max-width: 680px) {
 		.preview-panel {
 			padding: 16px;
 		}
 
-		.phone-frame {
-			padding: 8px;
-			border-radius: 22px;
+		.preview-label-stack {
+			flex-direction: column;
+		}
+
+		.yt-notification-item {
+			grid-template-columns: 28px minmax(0, 1fr);
+		}
+
+		.yt-thumbnail-notification {
+			grid-column: 2;
+			justify-self: start;
+			margin-top: 2px;
+		}
+
+		.yt-related-item {
+			grid-template-columns: 132px minmax(0, 1fr);
+		}
+
+		.yt-thumbnail-related {
+			width: 132px;
 		}
 	}
 </style>
