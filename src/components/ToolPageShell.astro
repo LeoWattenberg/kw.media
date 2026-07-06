@@ -1,7 +1,7 @@
 ---
 import type { Locale } from '../i18n';
 import type { ToolPage } from '../data/tools';
-import BaseLayout from './layout/BaseLayout.astro';
+import ToolsLayout from './layout/ToolsLayout.astro';
 
 interface Props {
 	tool: ToolPage;
@@ -11,12 +11,6 @@ interface Props {
 const { tool, alternatePaths } = Astro.props;
 ---
 
-<BaseLayout
-	locale={tool.locale}
-	title={tool.title}
-	description={tool.description}
-	canonicalPath={tool.path}
-	alternatePaths={alternatePaths}
->
+<ToolsLayout tool={tool} alternatePaths={alternatePaths}>
 	<slot />
-</BaseLayout>
+</ToolsLayout>

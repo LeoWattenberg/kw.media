@@ -1,0 +1,237 @@
+---
+import type { Locale } from '../../i18n';
+import type { ToolPage } from '../../data/tools';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+	tool: ToolPage;
+	alternatePaths: Partial<Record<Locale, string>>;
+}
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<BaseLayout
+	locale={tool.locale}
+	title={tool.title}
+	description={tool.description}
+	canonicalPath={tool.path}
+	alternatePaths={alternatePaths}
+>
+	<div class="tools-layout">
+		<slot />
+	</div>
+</BaseLayout>
+
+<style is:global>
+	.tools-layout .tool-intro {
+		padding-block: clamp(42px, 7vw, 82px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.tools-layout .tool-intro h1 {
+		max-width: 780px;
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.6rem);
+		line-height: 0.96;
+		letter-spacing: 0;
+	}
+
+	.tools-layout .tool-lede,
+	.tools-layout .tool-note {
+		max-width: 760px;
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+	}
+
+	.tools-layout .tool-note {
+		font-size: 0.98rem;
+		font-weight: 700;
+	}
+
+	.tools-layout .tool-workspace {
+		background: var(--color-surface-raised);
+	}
+
+	.tools-layout .tool-panel {
+		padding: clamp(18px, 3vw, 28px);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.tools-layout .tool-panel h2 {
+		margin: 0;
+		color: var(--color-ink);
+		font-size: clamp(1.4rem, 3vw, 2rem);
+		line-height: 1.1;
+		letter-spacing: 0;
+	}
+
+	.tools-layout .tool-file-picker {
+		position: relative;
+		display: grid;
+		gap: 8px;
+		padding: 18px;
+		background: var(--color-surface-alt);
+		border: 1px dashed var(--color-accent-dashed-line);
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.tools-layout .tool-file-picker:focus-within {
+		outline: 3px solid var(--color-accent-focus);
+		outline-offset: 2px;
+	}
+
+	.tools-layout .tool-file-picker span,
+	.tools-layout .tool-select-control span,
+	.tools-layout .tool-range-control span {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.tools-layout .tool-file-picker strong {
+		align-self: end;
+		overflow-wrap: anywhere;
+		color: var(--color-ink);
+		font-size: 1.05rem;
+	}
+
+	.tools-layout .tool-file-picker small {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.tools-layout .tool-file-picker input[type='file'] {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	.tools-layout .tool-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	.tools-layout .tool-select-control {
+		display: grid;
+		gap: 8px;
+		margin-top: 18px;
+	}
+
+	.tools-layout .tool-select-control select {
+		width: 100%;
+		min-height: 48px;
+		padding: 0 14px;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font: inherit;
+		font-weight: 800;
+	}
+
+	.tools-layout .tool-select-control select:focus-visible {
+		border-color: var(--color-accent);
+		outline: 3px solid var(--color-accent-focus-soft);
+	}
+
+	.tools-layout .tool-range-control {
+		display: grid;
+		gap: 10px;
+		margin-top: 18px;
+		color: var(--color-ink);
+		font-weight: 800;
+	}
+
+	.tools-layout .tool-range-control input {
+		width: 100%;
+		accent-color: var(--color-accent);
+	}
+
+	.tools-layout .button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 46px;
+		padding: 0 16px;
+		border-radius: 6px;
+		font: inherit;
+		font-weight: 850;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	.tools-layout .button:disabled {
+		opacity: 0.52;
+		cursor: not-allowed;
+	}
+
+	.tools-layout .button.primary {
+		color: var(--color-accent-on);
+		background: var(--color-accent);
+		border: 1px solid var(--color-accent);
+	}
+
+	.tools-layout .button.secondary {
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+	}
+
+	.tools-layout .tool-status {
+		margin: 16px 0 0;
+		padding: 12px 14px;
+		color: var(--color-muted);
+		background: var(--color-status-background);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 700;
+	}
+
+	.tools-layout .tool-status[data-state='success'] {
+		color: var(--color-status-positive-text);
+		background: var(--color-status-positive-background);
+		border-color: var(--color-status-positive-border);
+	}
+
+	.tools-layout .tool-status[data-state='error'] {
+		color: var(--color-status-negative-text);
+		background: var(--color-status-negative-background);
+		border-color: var(--color-status-negative-border);
+	}
+
+	.tools-layout .tool-result-card {
+		display: grid;
+		gap: 8px;
+		margin-top: 16px;
+		padding: 16px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.tools-layout .tool-result-card p {
+		margin: 0;
+	}
+
+	.tools-layout .tool-download-link {
+		justify-self: start;
+		margin-top: 2px;
+		color: var(--color-accent-dark);
+		font-weight: 850;
+		text-decoration: none;
+	}
+
+	.tools-layout .tool-download-link:hover {
+		text-decoration: underline;
+	}
+</style>

@@ -113,13 +113,13 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 	</div>
 </section>
 
-<section class="section image-converter-section">
+<section class="section image-converter-section tool-workspace">
 	<div class="container">
 		<div class="image-converter" data-image-converter data-copy={copyJson} data-formats={outputFormatsJson}>
 			<div class="converter-grid">
-				<section class="converter-panel source-panel">
+				<section class="converter-panel tool-panel source-panel">
 					<h2>{copy.fileTitle}</h2>
-					<label class="file-picker">
+					<label class="file-picker tool-file-picker">
 						<span>{copy.fileTitle}</span>
 						<strong data-file-name>{copy.chooseFile}</strong>
 						<small data-file-meta>{copy.fileHint}</small>
@@ -139,9 +139,9 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 					</div>
 				</section>
 
-				<section class="converter-panel settings-panel">
+				<section class="converter-panel tool-panel settings-panel">
 					<h2>{copy.settingsTitle}</h2>
-					<label class="select-control">
+					<label class="select-control tool-select-control">
 						<span>{copy.outputFormat}</span>
 						<select data-format>
 							{
@@ -153,7 +153,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 							}
 						</select>
 					</label>
-					<label class="range-control" data-quality-control hidden>
+					<label class="range-control tool-range-control" data-quality-control hidden>
 						<span>{copy.quality}: <strong data-quality-label>90</strong></span>
 						<input data-quality type="range" min="1" max="100" step="1" value="90" />
 					</label>
@@ -161,11 +161,11 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 						<button class="button primary" data-convert type="button" disabled>{copy.convert}</button>
 						<button class="button secondary" data-clear type="button">{copy.clear}</button>
 					</div>
-					<p class="converter-status" data-status role="status">{copy.client.waiting}</p>
+					<p class="converter-status tool-status" data-status role="status">{copy.client.waiting}</p>
 				</section>
 			</div>
 
-			<section class="converter-panel result-panel" data-result hidden>
+			<section class="converter-panel tool-panel result-panel" data-result hidden>
 				<div class="result-heading">
 					<div>
 						<p class="eyebrow">{copy.outputPreview}</p>
@@ -554,37 +554,6 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 </script>
 
 <style>
-	.tool-intro {
-		padding-block: clamp(42px, 7vw, 82px);
-		background: var(--color-surface-alt);
-		border-bottom: 1px solid var(--color-line);
-	}
-
-	.tool-intro h1 {
-		max-width: 780px;
-		margin: 0;
-		font-size: clamp(2.6rem, 7vw, 5.6rem);
-		line-height: 0.96;
-		letter-spacing: 0;
-	}
-
-	.tool-lede,
-	.tool-note {
-		max-width: 760px;
-		margin: 18px 0 0;
-		color: var(--color-muted);
-		font-size: 1.08rem;
-	}
-
-	.tool-note {
-		font-size: 0.98rem;
-		font-weight: 700;
-	}
-
-	.image-converter-section {
-		background: var(--color-surface-raised);
-	}
-
 	.image-converter,
 	.converter-grid,
 	.result-preview {
@@ -601,37 +570,9 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 		align-items: start;
 	}
 
-	.converter-panel {
-		padding: clamp(18px, 3vw, 28px);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-	}
-
-	.converter-panel h2 {
-		margin: 0;
-		color: var(--color-ink);
-		font-size: clamp(1.4rem, 3vw, 2rem);
-		line-height: 1.1;
-		letter-spacing: 0;
-	}
-
 	.file-picker {
-		position: relative;
-		display: grid;
-		gap: 8px;
 		min-height: 160px;
 		margin-top: 18px;
-		padding: 18px;
-		background: var(--color-surface-alt);
-		border: 1px dashed var(--color-accent-dashed-line);
-		border-radius: 8px;
-		cursor: pointer;
-	}
-
-	.file-picker:focus-within {
-		outline: 3px solid var(--color-accent-focus);
-		outline-offset: 2px;
 	}
 
 	.file-picker span,
@@ -645,53 +586,10 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 		text-transform: uppercase;
 	}
 
-	.file-picker strong {
-		align-self: end;
-		overflow-wrap: anywhere;
-		color: var(--color-ink);
-		font-size: 1.05rem;
-	}
-
 	.file-picker small,
 	.preview-card small {
 		color: var(--color-muted);
 		font-size: 0.88rem;
-	}
-
-	.file-picker input[type='file'] {
-		position: absolute;
-		inset: 0;
-		opacity: 0;
-		cursor: pointer;
-	}
-
-	.select-control,
-	.range-control {
-		display: grid;
-		gap: 8px;
-		margin-top: 18px;
-	}
-
-	.select-control select {
-		width: 100%;
-		min-height: 48px;
-		padding: 0 14px;
-		color: var(--color-ink);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-		font: inherit;
-		font-weight: 800;
-	}
-
-	.select-control select:focus-visible {
-		border-color: var(--color-accent);
-		outline: 3px solid var(--color-accent-focus-soft);
-	}
-
-	.range-control input {
-		width: 100%;
-		accent-color: var(--color-accent);
 	}
 
 	.converter-actions,
@@ -702,58 +600,6 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 		align-items: center;
 		justify-content: space-between;
 		margin-top: 20px;
-	}
-
-	.button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 46px;
-		padding: 0 16px;
-		border-radius: 6px;
-		font: inherit;
-		font-weight: 850;
-		text-decoration: none;
-		cursor: pointer;
-	}
-
-	.button:disabled {
-		opacity: 0.52;
-		cursor: not-allowed;
-	}
-
-	.button.primary {
-		color: var(--color-accent-on);
-		background: var(--color-accent);
-		border: 1px solid var(--color-accent);
-	}
-
-	.button.secondary {
-		color: var(--color-ink);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-	}
-
-	.converter-status {
-		margin: 16px 0 0;
-		padding: 12px 14px;
-		color: var(--color-muted);
-		background: var(--color-status-background);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-		font-weight: 700;
-	}
-
-	.converter-status[data-state='success'] {
-		color: var(--color-status-positive-text);
-		background: var(--color-status-positive-background);
-		border-color: var(--color-status-positive-border);
-	}
-
-	.converter-status[data-state='error'] {
-		color: var(--color-status-negative-text);
-		background: var(--color-status-negative-background);
-		border-color: var(--color-status-negative-border);
 	}
 
 	.preview-card {
