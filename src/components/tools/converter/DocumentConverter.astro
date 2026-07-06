@@ -89,12 +89,12 @@ const profilesJson = JSON.stringify(profileDefinitions);
 	</div>
 </section>
 
-<section class="section converter-section">
+<section class="section converter-section tool-workspace">
 	<div class="container">
 		<div class="converter-tool" data-document-converter data-copy={copyJson} data-profiles={profilesJson}>
-			<section class="converter-panel">
+			<section class="converter-panel tool-panel">
 				<h2>{copy.fileLabel}</h2>
-				<label class="file-picker">
+				<label class="file-picker tool-file-picker">
 					<span>{copy.chooseFile}</span>
 					<strong data-file-name>{copy.chooseFile}</strong>
 					<small data-file-meta>{copy.fileHint}</small>
@@ -106,23 +106,23 @@ const profilesJson = JSON.stringify(profileDefinitions);
 				</div>
 			</section>
 
-			<section class="converter-panel">
+			<section class="converter-panel tool-panel">
 				<h2>{copy.profileLabel}</h2>
-				<label class="select-control">
+				<label class="select-control tool-select-control">
 					<span>{copy.profileLabel}</span>
 					<select data-profile-select disabled>
 						<option value="">{copy.profilePlaceholder}</option>
 					</select>
 				</label>
-				<p class="status" data-status>{copy.statusWaiting}</p>
+				<p class="status tool-status" data-status>{copy.statusWaiting}</p>
 			</section>
 
-			<section class="converter-panel">
+			<section class="converter-panel tool-panel">
 				<h2>{copy.outputTitle}</h2>
-				<div class="result-card">
+				<div class="result-card tool-result-card">
 					<p data-result-title>{copy.selectedFile.replace('{name}', copy.chooseFile)}</p>
 					<p data-result-meta>{copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}</p>
-					<a class="download-link" data-download hidden href="#">{copy.download}</a>
+					<a class="download-link tool-download-link" data-download hidden href="#">{copy.download}</a>
 				</div>
 				<p class="output-help">{copy.outputHelp}</p>
 			</section>
@@ -131,10 +131,6 @@ const profilesJson = JSON.stringify(profileDefinitions);
 </section>
 
 <style>
-	.converter-section {
-		background: var(--color-surface-raised);
-	}
-
 	.converter-tool {
 		display: grid;
 		gap: 16px;
@@ -144,28 +140,11 @@ const profilesJson = JSON.stringify(profileDefinitions);
 	.converter-panel {
 		display: grid;
 		gap: 12px;
-		padding: 20px;
-		background: var(--color-surface);
-		border: 1px solid var(--color-line);
-		border-radius: 12px;
 	}
 
-	.file-picker,
-	.select-control {
-		display: grid;
-		gap: 8px;
-	}
-
-	.file-picker input {
-		font: inherit;
-	}
-
-	.result-card {
-		display: grid;
-		gap: 4px;
-		padding: 14px;
-		background: var(--color-surface-alt);
-		border-radius: 10px;
+	.file-picker {
+		margin-top: 18px;
+		min-height: 160px;
 	}
 
 	.output-help {

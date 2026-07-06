@@ -195,13 +195,13 @@ const modeOptions = isCheckerboardVariant
 	</div>
 </section>
 
-<section class="section background-remover-section">
+<section class="section background-remover-section tool-workspace">
 	<div class="container">
 		<div class="background-remover" data-background-remover data-copy={copyJson} data-formats={outputFormatsJson} data-variant={variant}>
 			<div class="remover-grid">
-				<section class="remover-panel source-panel">
+				<section class="remover-panel tool-panel source-panel">
 					<h2>{copy.fileTitle}</h2>
-					<label class="file-picker">
+					<label class="file-picker tool-file-picker">
 						<span>{copy.fileTitle}</span>
 						<strong data-file-name>{copy.chooseFile}</strong>
 						<small data-file-meta>{copy.fileHint}</small>
@@ -221,7 +221,7 @@ const modeOptions = isCheckerboardVariant
 					</div>
 				</section>
 
-				<section class="remover-panel settings-panel">
+				<section class="remover-panel tool-panel settings-panel">
 					<h2>{copy.settingsTitle}</h2>
 					<fieldset class="mode-control">
 						<legend>{copy.mode}</legend>
@@ -244,11 +244,11 @@ const modeOptions = isCheckerboardVariant
 						<input data-color type="color" value={`#${defaultFillColorHex}`} />
 						<small>{copy.client.pickColor}</small>
 					</label>
-					<label class="range-control">
+					<label class="range-control tool-range-control">
 						<span>{copy.tolerance}: <strong data-fuzz-label>8%</strong></span>
 						<input data-fuzz type="range" min="0" max="30" step="1" value="8" />
 					</label>
-					<label class="select-control">
+					<label class="select-control tool-select-control">
 						<span>{copy.outputFormat}</span>
 						<select data-format>
 							{
@@ -260,7 +260,7 @@ const modeOptions = isCheckerboardVariant
 							}
 						</select>
 					</label>
-					<label class="range-control" data-quality-control hidden>
+					<label class="range-control tool-range-control" data-quality-control hidden>
 						<span>{copy.quality}: <strong data-quality-label>90</strong></span>
 						<input data-quality type="range" min="1" max="100" step="1" value="90" />
 					</label>
@@ -273,11 +273,11 @@ const modeOptions = isCheckerboardVariant
 						<button class="button primary" data-remove type="button" disabled>{copy.remove}</button>
 						<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
 					</div>
-					<p class="remover-status" data-status role="status">{copy.client.waiting}</p>
+					<p class="remover-status tool-status" data-status role="status">{copy.client.waiting}</p>
 				</section>
 			</div>
 
-			<section class="remover-panel result-panel" data-result hidden>
+			<section class="remover-panel tool-panel result-panel" data-result hidden>
 				<div class="result-heading">
 					<div>
 						<p class="eyebrow">{copy.outputPreview}</p>
@@ -1330,37 +1330,6 @@ const modeOptions = isCheckerboardVariant
 </script>
 
 <style>
-	.tool-intro {
-		padding-block: clamp(42px, 7vw, 82px);
-		background: var(--color-surface-alt);
-		border-bottom: 1px solid var(--color-line);
-	}
-
-	.tool-intro h1 {
-		max-width: 780px;
-		margin: 0;
-		font-size: clamp(2.6rem, 7vw, 5.6rem);
-		line-height: 0.96;
-		letter-spacing: 0;
-	}
-
-	.tool-lede,
-	.tool-note {
-		max-width: 760px;
-		margin: 18px 0 0;
-		color: var(--color-muted);
-		font-size: 1.08rem;
-	}
-
-	.tool-note {
-		font-size: 0.98rem;
-		font-weight: 700;
-	}
-
-	.background-remover-section {
-		background: var(--color-surface-raised);
-	}
-
 	.background-remover,
 	.remover-grid,
 	.result-preview {
@@ -1377,37 +1346,9 @@ const modeOptions = isCheckerboardVariant
 		align-items: start;
 	}
 
-	.remover-panel {
-		padding: clamp(18px, 3vw, 28px);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-	}
-
-	.remover-panel h2 {
-		margin: 0;
-		color: var(--color-ink);
-		font-size: clamp(1.4rem, 3vw, 2rem);
-		line-height: 1.1;
-		letter-spacing: 0;
-	}
-
 	.file-picker {
-		position: relative;
-		display: grid;
-		gap: 8px;
 		min-height: 160px;
 		margin-top: 18px;
-		padding: 18px;
-		background: var(--color-surface-alt);
-		border: 1px dashed var(--color-accent-dashed-line);
-		border-radius: 8px;
-		cursor: pointer;
-	}
-
-	.file-picker:focus-within {
-		outline: 3px solid var(--color-accent-focus);
-		outline-offset: 2px;
 	}
 
 	.file-picker span,
@@ -1424,13 +1365,6 @@ const modeOptions = isCheckerboardVariant
 		text-transform: uppercase;
 	}
 
-	.file-picker strong {
-		align-self: end;
-		overflow-wrap: anywhere;
-		color: var(--color-ink);
-		font-size: 1.05rem;
-	}
-
 	.file-picker small,
 	.preview-card small,
 	.color-control small {
@@ -1438,17 +1372,8 @@ const modeOptions = isCheckerboardVariant
 		font-size: 0.88rem;
 	}
 
-	.file-picker input[type='file'] {
-		position: absolute;
-		inset: 0;
-		opacity: 0;
-		cursor: pointer;
-	}
-
-	.select-control,
 	.mode-control,
 	.preview-background-control,
-	.range-control,
 	.color-control,
 	.corner-group {
 		display: grid;
@@ -1534,23 +1459,6 @@ const modeOptions = isCheckerboardVariant
 		accent-color: var(--color-accent);
 	}
 
-	.select-control select {
-		width: 100%;
-		min-height: 48px;
-		padding: 0 14px;
-		color: var(--color-ink);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-		font: inherit;
-		font-weight: 800;
-	}
-
-	.select-control select:focus-visible {
-		border-color: var(--color-accent);
-		outline: 3px solid var(--color-accent-focus-soft);
-	}
-
 	.color-control input[type='color'] {
 		width: 100%;
 		height: 48px;
@@ -1561,10 +1469,6 @@ const modeOptions = isCheckerboardVariant
 		cursor: pointer;
 	}
 
-	.range-control input {
-		width: 100%;
-	}
-
 	.remover-actions,
 	.result-heading {
 		display: flex;
@@ -1573,58 +1477,6 @@ const modeOptions = isCheckerboardVariant
 		align-items: center;
 		justify-content: space-between;
 		margin-top: 20px;
-	}
-
-	.button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 46px;
-		padding: 0 16px;
-		border-radius: 6px;
-		font: inherit;
-		font-weight: 850;
-		text-decoration: none;
-		cursor: pointer;
-	}
-
-	.button:disabled {
-		opacity: 0.52;
-		cursor: not-allowed;
-	}
-
-	.button.primary {
-		color: var(--color-accent-on);
-		background: var(--color-accent);
-		border: 1px solid var(--color-accent);
-	}
-
-	.button.secondary {
-		color: var(--color-ink);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-	}
-
-	.remover-status {
-		margin: 16px 0 0;
-		padding: 12px 14px;
-		color: var(--color-muted);
-		background: var(--color-status-background);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-		font-weight: 700;
-	}
-
-	.remover-status[data-state='success'] {
-		color: var(--color-status-positive-text);
-		background: var(--color-status-positive-background);
-		border-color: var(--color-status-positive-border);
-	}
-
-	.remover-status[data-state='error'] {
-		color: var(--color-status-negative-text);
-		background: var(--color-status-negative-background);
-		border-color: var(--color-status-negative-border);
 	}
 
 	.preview-card {

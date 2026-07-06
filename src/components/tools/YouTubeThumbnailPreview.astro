@@ -103,14 +103,14 @@ const copyJson = JSON.stringify(copy.client);
 	</div>
 </section>
 
-<section class="section thumbnail-preview-section">
+<section class="section thumbnail-preview-section tool-workspace">
 	<div class="container">
 		<div class="thumbnail-preview-tool" data-thumbnail-preview data-copy={copyJson}>
-			<section class="preview-panel controls-panel" aria-labelledby="thumbnail-preview-controls">
+			<section class="preview-panel tool-panel controls-panel" aria-labelledby="thumbnail-preview-controls">
 				<h2 id="thumbnail-preview-controls">{copy.contentTitle}</h2>
 
 				<div class="file-grid">
-					<label class="file-picker">
+					<label class="file-picker tool-file-picker">
 						<span>{copy.thumbnailTitle}</span>
 						<strong data-file-name>{copy.chooseFile}</strong>
 						<small data-file-meta>{copy.fileHint}</small>
@@ -126,7 +126,7 @@ const copyJson = JSON.stringify(copy.client);
 				</label>
 			</section>
 
-			<section class="preview-panel output-panel" aria-labelledby="thumbnail-preview-output">
+			<section class="preview-panel tool-panel output-panel" aria-labelledby="thumbnail-preview-output">
 				<div class="panel-heading">
 					<div>
 						<h2 id="thumbnail-preview-output">{copy.previewTitle}</h2>
@@ -501,35 +501,8 @@ const copyJson = JSON.stringify(copy.client);
 </script>
 
 <style>
-	.tool-intro {
-		padding-block: clamp(42px, 7vw, 82px);
-		background: var(--color-surface-alt);
-		border-bottom: 1px solid var(--color-line);
-	}
-
 	.tool-intro h1 {
 		max-width: 820px;
-		margin: 0;
-		font-size: clamp(2.6rem, 7vw, 5.6rem);
-		line-height: 0.96;
-		letter-spacing: 0;
-	}
-
-	.tool-lede,
-	.tool-note {
-		max-width: 760px;
-		margin: 18px 0 0;
-		color: var(--color-muted);
-		font-size: 1.08rem;
-	}
-
-	.tool-note {
-		font-size: 0.98rem;
-		font-weight: 700;
-	}
-
-	.thumbnail-preview-section {
-		background: var(--color-surface-raised);
 	}
 
 	.thumbnail-preview-tool {
@@ -539,25 +512,6 @@ const copyJson = JSON.stringify(copy.client);
 		align-items: start;
 	}
 
-	.preview-panel {
-		padding: clamp(18px, 3vw, 28px);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-	}
-
-	.preview-panel h2,
-	.preview-label h3 {
-		margin: 0;
-		color: var(--color-ink);
-		line-height: 1.1;
-		letter-spacing: 0;
-	}
-
-	.preview-panel h2 {
-		font-size: clamp(1.4rem, 3vw, 2rem);
-	}
-
 	.file-grid {
 		display: grid;
 		gap: 12px;
@@ -565,23 +519,9 @@ const copyJson = JSON.stringify(copy.client);
 	}
 
 	.file-picker {
-		position: relative;
-		display: grid;
-		gap: 8px;
 		min-height: 148px;
-		padding: 18px;
-		background: var(--color-surface-alt);
-		border: 1px dashed var(--color-accent-dashed-line);
-		border-radius: 8px;
-		cursor: pointer;
 	}
 
-	.file-picker:focus-within {
-		outline: 3px solid var(--color-accent-focus);
-		outline-offset: 2px;
-	}
-
-	.file-picker span,
 	.field-control span {
 		color: var(--color-accent-dark);
 		font-size: 0.78rem;
@@ -589,24 +529,9 @@ const copyJson = JSON.stringify(copy.client);
 		text-transform: uppercase;
 	}
 
-	.file-picker strong {
-		align-self: end;
-		overflow-wrap: anywhere;
-		color: var(--color-ink);
-		font-size: 1.05rem;
-	}
-
-	.file-picker small,
 	.field-control small {
 		color: var(--color-muted);
 		font-size: 0.88rem;
-	}
-
-	.file-picker input[type='file'] {
-		position: absolute;
-		inset: 0;
-		opacity: 0;
-		cursor: pointer;
 	}
 
 	.field-control {
@@ -635,25 +560,6 @@ const copyJson = JSON.stringify(copy.client);
 		border-color: var(--color-accent);
 		outline: 3px solid var(--color-accent-focus-soft);
 		outline-offset: 1px;
-	}
-
-	.button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 44px;
-		padding: 0 16px;
-		border-radius: 6px;
-		font: inherit;
-		font-weight: 850;
-		text-decoration: none;
-		cursor: pointer;
-	}
-
-	.button.secondary {
-		color: var(--color-ink);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
 	}
 
 	.button.secondary:hover {
@@ -703,7 +609,11 @@ const copyJson = JSON.stringify(copy.client);
 	}
 
 	.preview-label h3 {
+		margin: 0;
+		color: var(--color-ink);
 		font-size: 1rem;
+		line-height: 1.1;
+		letter-spacing: 0;
 	}
 
 	.preview-label p {

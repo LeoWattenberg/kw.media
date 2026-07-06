@@ -79,12 +79,12 @@ const copyJson = JSON.stringify(copy);
 	</div>
 </section>
 
-<section class="section loudness-tool-section">
+<section class="section loudness-tool-section tool-workspace">
 	<div class="container">
 		<div class="loudness-mastering" data-loudness-mastering data-copy={copyJson}>
-			<section class="loudness-panel">
+			<section class="loudness-panel tool-panel">
 				<h2>{copy.fileLabel}</h2>
-				<label class="file-picker">
+				<label class="file-picker tool-file-picker">
 					<span>{copy.chooseFile}</span>
 					<strong data-file-name>{copy.chooseFile}</strong>
 					<small data-file-meta>{copy.fileHint}</small>
@@ -96,19 +96,19 @@ const copyJson = JSON.stringify(copy);
 				</div>
 			</section>
 
-			<section class="loudness-panel">
+			<section class="loudness-panel tool-panel">
 				<h2>{copy.targetsTitle}</h2>
 				<p class="panel-copy">{copy.targetsText}</p>
 				<p class="panel-copy">{copy.outputHelp}</p>
-				<p class="status" data-status>{copy.statusWaiting}</p>
+				<p class="status tool-status" data-status>{copy.statusWaiting}</p>
 			</section>
 
-			<section class="loudness-panel">
+			<section class="loudness-panel tool-panel">
 				<h2>{copy.outputTitle}</h2>
-				<div class="result-card">
+				<div class="result-card tool-result-card">
 					<p data-result-title>{copy.selectedFile.replace('{name}', copy.chooseFile)}</p>
 					<p data-result-meta>{copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}</p>
-					<a class="download-link" data-download hidden href="#">{copy.download}</a>
+					<a class="download-link tool-download-link" data-download hidden href="#">{copy.download}</a>
 				</div>
 			</section>
 		</div>
@@ -483,97 +483,17 @@ const copyJson = JSON.stringify(copy);
 </script>
 
 <style>
-	.tool-intro {
-		padding-block: clamp(42px, 7vw, 82px);
-		background: var(--color-surface-alt);
-		border-bottom: 1px solid var(--color-line);
-	}
-
-	.tool-intro h1 {
-		max-width: 780px;
-		margin: 0;
-		font-size: clamp(2.6rem, 7vw, 5.6rem);
-		line-height: 0.96;
-		letter-spacing: 0;
-	}
-
-	.tool-lede,
-	.tool-note {
-		max-width: 760px;
-		margin: 18px 0 0;
-		color: var(--color-muted);
-		font-size: 1.08rem;
-	}
-
-	.tool-note {
-		font-size: 0.98rem;
-		font-weight: 700;
-	}
-
-	.loudness-tool-section {
-		background: var(--color-surface-raised);
-	}
-
 	.loudness-mastering {
 		display: grid;
 		gap: 18px;
 	}
 
-	.loudness-panel {
-		padding: clamp(18px, 3vw, 28px);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-	}
-
-	.loudness-panel h2 {
-		margin: 0;
-		color: var(--color-ink);
-		line-height: 1.1;
-		letter-spacing: 0;
-		font-size: clamp(1.4rem, 3vw, 2rem);
-	}
-
 	.file-picker {
-		display: grid;
-		gap: 8px;
 		margin-top: 18px;
-		padding: 18px;
-		background: var(--color-surface-alt);
-		border: 1px dashed var(--color-accent-dashed-line);
-		border-radius: 8px;
-		cursor: pointer;
-	}
-
-	.file-picker:focus-within {
-		outline: 3px solid var(--color-accent-focus);
-		outline-offset: 2px;
-	}
-
-	.file-picker span {
-		color: var(--color-accent-dark);
-		font-size: 0.78rem;
-		font-weight: 850;
-		text-transform: uppercase;
-	}
-
-	.file-picker strong {
-		color: var(--color-ink);
-		font-size: 1.05rem;
-	}
-
-	.file-picker small {
-		color: var(--color-muted);
-	}
-
-	.file-picker input {
-		display: none;
+		min-height: 148px;
 	}
 
 	.tool-actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 10px;
 		margin-top: 16px;
 	}
 
@@ -583,43 +503,4 @@ const copyJson = JSON.stringify(copy);
 		font-weight: 700;
 	}
 
-	.status {
-		margin: 16px 0 0;
-		font-weight: 700;
-	}
-
-	.status[data-state='error'] {
-		color: var(--color-accent-dark);
-	}
-
-	.status[data-state='success'] {
-		color: var(--color-success);
-	}
-
-	.status[data-state='info'] {
-		color: var(--color-muted);
-	}
-
-	.result-card {
-		display: grid;
-		gap: 8px;
-		margin-top: 16px;
-		padding: 16px;
-		background: var(--color-surface-alt);
-		border-radius: 8px;
-	}
-
-	.result-card p {
-		margin: 0;
-	}
-
-	.download-link {
-		font-weight: 700;
-		color: var(--color-accent-dark);
-		text-decoration: none;
-	}
-
-	.download-link:hover {
-		text-decoration: underline;
-	}
 </style>

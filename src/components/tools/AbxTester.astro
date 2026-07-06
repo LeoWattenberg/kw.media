@@ -145,32 +145,32 @@ const copyJson = JSON.stringify(copy.client);
 	</div>
 </section>
 
-<section class="section abx-tool-section">
+<section class="section abx-tool-section tool-workspace">
 	<div class="container">
 		<div class="abx-tester" data-abx-tester data-copy={copyJson}>
 			<div class="abx-setup">
-				<section class="abx-panel">
+				<section class="abx-panel tool-panel">
 					<h2>{copy.filesTitle}</h2>
 					<div class="file-grid">
-						<label class="file-picker">
+						<label class="file-picker tool-file-picker">
 							<span>{copy.fileA}</span>
 							<strong data-file-a-name>{copy.chooseFile}</strong>
 							<small data-file-a-meta>{copy.fileHint}</small>
 							<input data-file-a type="file" accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba" />
 						</label>
-						<label class="file-picker">
+						<label class="file-picker tool-file-picker">
 							<span>{copy.fileB}</span>
 							<strong data-file-b-name>{copy.chooseFile}</strong>
 							<small data-file-b-meta>{copy.fileHint}</small>
 							<input data-file-b type="file" accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba" />
 						</label>
 					</div>
-					<p class="abx-status" data-status>{copy.client.waiting}</p>
+					<p class="abx-status tool-status" data-status>{copy.client.waiting}</p>
 				</section>
 
-				<section class="abx-panel">
+				<section class="abx-panel tool-panel">
 					<h2>{copy.settingsTitle}</h2>
-					<label class="range-control">
+					<label class="range-control tool-range-control">
 						<span>{copy.trials}: <strong data-trial-count-label>8</strong></span>
 						<input data-trial-count type="range" min="4" max="20" step="2" value="8" />
 					</label>
@@ -185,7 +185,7 @@ const copyJson = JSON.stringify(copy.client);
 				</section>
 			</div>
 
-			<section class="abx-panel abx-player" data-stage hidden>
+			<section class="abx-panel tool-panel abx-player" data-stage hidden>
 				<div class="player-heading">
 					<div>
 						<h2>{copy.playbackTitle}</h2>
@@ -229,7 +229,7 @@ const copyJson = JSON.stringify(copy.client);
 				</div>
 			</section>
 
-			<section class="abx-panel abx-results" data-results hidden>
+			<section class="abx-panel tool-panel abx-results" data-results hidden>
 				<h2>{copy.resultsTitle}</h2>
 				<p class="score" data-score></p>
 				<p class="result-note" data-result-note></p>
@@ -935,37 +935,6 @@ const copyJson = JSON.stringify(copy.client);
 </script>
 
 <style>
-	.tool-intro {
-		padding-block: clamp(42px, 7vw, 82px);
-		background: var(--color-surface-alt);
-		border-bottom: 1px solid var(--color-line);
-	}
-
-	.tool-intro h1 {
-		max-width: 780px;
-		margin: 0;
-		font-size: clamp(2.6rem, 7vw, 5.6rem);
-		line-height: 0.96;
-		letter-spacing: 0;
-	}
-
-	.tool-lede,
-	.tool-note {
-		max-width: 760px;
-		margin: 18px 0 0;
-		color: var(--color-muted);
-		font-size: 1.08rem;
-	}
-
-	.tool-note {
-		font-size: 0.98rem;
-		font-weight: 700;
-	}
-
-	.abx-tool-section {
-		background: var(--color-surface-raised);
-	}
-
 	.abx-tester {
 		display: grid;
 		gap: 18px;
@@ -982,23 +951,12 @@ const copyJson = JSON.stringify(copy.client);
 		align-items: start;
 	}
 
-	.abx-panel {
-		padding: clamp(18px, 3vw, 28px);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-	}
-
 	.abx-panel h2,
 	.answer-panel h3 {
 		margin: 0;
 		color: var(--color-ink);
 		line-height: 1.1;
 		letter-spacing: 0;
-	}
-
-	.abx-panel h2 {
-		font-size: clamp(1.4rem, 3vw, 2rem);
 	}
 
 	.file-grid {
@@ -1009,20 +967,7 @@ const copyJson = JSON.stringify(copy.client);
 	}
 
 	.file-picker {
-		position: relative;
-		display: grid;
-		gap: 8px;
 		min-height: 148px;
-		padding: 18px;
-		background: var(--color-surface-alt);
-		border: 1px dashed var(--color-accent-dashed-line);
-		border-radius: 8px;
-		cursor: pointer;
-	}
-
-	.file-picker:focus-within {
-		outline: 3px solid var(--color-accent-focus);
-		outline-offset: 2px;
 	}
 
 	.file-picker span {
@@ -1032,65 +977,13 @@ const copyJson = JSON.stringify(copy.client);
 		text-transform: uppercase;
 	}
 
-	.file-picker strong {
-		align-self: end;
-		overflow-wrap: anywhere;
-		color: var(--color-ink);
-		font-size: 1.05rem;
-	}
-
-	.file-picker small {
-		color: var(--color-muted);
-		font-size: 0.88rem;
-	}
-
-	.file-picker input {
-		position: absolute;
-		inset: 0;
-		opacity: 0;
-		cursor: pointer;
-	}
-
-	.abx-status {
-		margin: 16px 0 0;
-		padding: 12px 14px;
-		color: var(--color-muted);
-		background: var(--color-status-background);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-		font-weight: 700;
-	}
-
-	.abx-status[data-state='success'] {
-		color: var(--color-status-positive-text);
-		background: var(--color-status-positive-background);
-		border-color: var(--color-status-positive-border);
-	}
-
-	.abx-status[data-state='error'] {
-		color: var(--color-status-negative-text);
-		background: var(--color-status-negative-background);
-		border-color: var(--color-status-negative-border);
-	}
-
-	.range-control,
-	.toggle-control {
-		display: grid;
-		gap: 10px;
-		margin-top: 18px;
-		color: var(--color-ink);
-		font-weight: 800;
-	}
-
-	.range-control input {
-		width: 100%;
-		accent-color: var(--color-accent);
-	}
-
 	.toggle-control {
 		display: flex;
 		align-items: center;
 		gap: 10px;
+		margin-top: 18px;
+		color: var(--color-ink);
+		font-weight: 800;
 	}
 
 	.toggle-control input {
@@ -1108,7 +1001,6 @@ const copyJson = JSON.stringify(copy.client);
 		margin-top: 22px;
 	}
 
-	.button,
 	.slot-button,
 	.answer-button {
 		display: inline-flex;
@@ -1123,23 +1015,10 @@ const copyJson = JSON.stringify(copy.client);
 		cursor: pointer;
 	}
 
-	.button:disabled,
 	.slot-button:disabled,
 	.answer-button:disabled {
 		cursor: not-allowed;
 		opacity: 0.55;
-	}
-
-	.button.primary {
-		color: var(--color-accent-on);
-		background: var(--color-accent);
-		border: 1px solid var(--color-accent);
-	}
-
-	.button.secondary {
-		color: var(--color-ink);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
 	}
 
 	.abx-player {
