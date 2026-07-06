@@ -20,9 +20,6 @@ const copyByLocale = {
 		fileHint: 'JPG, PNG, GIF, WebP oder AVIF, idealerweise 16:9',
 		clearImage: 'Bild entfernen',
 		titleLabel: 'Titel',
-		channelLabel: 'Kanalname',
-		metadataLabel: 'Metadatenzeile',
-		durationLabel: 'Videolänge',
 		webWidthLabel: 'Web-Kartenbreite',
 		appWidthLabel: 'App-Gerätebreite',
 		titleCount: 'Zeichen',
@@ -57,9 +54,6 @@ const copyByLocale = {
 		fileHint: 'JPG, PNG, GIF, WebP, or AVIF, ideally 16:9',
 		clearImage: 'Remove image',
 		titleLabel: 'Title',
-		channelLabel: 'Channel name',
-		metadataLabel: 'Metadata line',
-		durationLabel: 'Video length',
 		webWidthLabel: 'Web card width',
 		appWidthLabel: 'App device width',
 		titleCount: 'Characters',
@@ -117,22 +111,6 @@ const copyJson = JSON.stringify(copy.client);
 					<span>{copy.titleLabel}</span>
 					<textarea data-title-input rows="4" maxlength="140">{copy.defaultTitle}</textarea>
 					<small data-title-count>{copy.titleCount}</small>
-				</label>
-
-				<div class="field-grid">
-					<label class="field-control">
-						<span>{copy.channelLabel}</span>
-						<input data-channel-input type="text" value={copy.defaultChannel} maxlength="80" />
-					</label>
-					<label class="field-control">
-						<span>{copy.durationLabel}</span>
-						<input data-duration-input type="text" value={copy.defaultDuration} maxlength="12" />
-					</label>
-				</div>
-
-				<label class="field-control">
-					<span>{copy.metadataLabel}</span>
-					<input data-meta-input type="text" value={copy.defaultMetadata} maxlength="90" />
 				</label>
 
 				<div class="range-grid">
@@ -234,9 +212,6 @@ const copyJson = JSON.stringify(copy.client);
 			const fileMeta = root.querySelector('[data-file-meta]');
 			const clearImageButton = root.querySelector('[data-clear-image]');
 			const titleInput = root.querySelector('[data-title-input]');
-			const channelInput = root.querySelector('[data-channel-input]');
-			const metaInput = root.querySelector('[data-meta-input]');
-			const durationInput = root.querySelector('[data-duration-input]');
 			const webWidthInput = root.querySelector('[data-web-width]');
 			const appWidthInput = root.querySelector('[data-app-width]');
 			const webWidthLabel = root.querySelector('[data-web-width-label]');
@@ -249,6 +224,9 @@ const copyJson = JSON.stringify(copy.client);
 			const metaPreviews = [...root.querySelectorAll('[data-meta-preview]')];
 			const durationPreviews = [...root.querySelectorAll('[data-duration-preview]')];
 			const avatars = [...root.querySelectorAll('[data-avatar]')];
+			const defaultChannel = root.querySelector('[data-channel-preview]')?.textContent?.trim() || 'KW Media';
+			const defaultMeta = root.querySelector('[data-meta-preview]')?.textContent?.trim() || '';
+			const defaultDuration = root.querySelector('[data-duration-preview]')?.textContent?.trim() || '';
 
 			let imageUrl = '';
 
@@ -260,7 +238,7 @@ const copyJson = JSON.stringify(copy.client);
 				setImage(null);
 			});
 
-			for (const input of [titleInput, channelInput, metaInput, durationInput, webWidthInput, appWidthInput]) {
+			for (const input of [titleInput, webWidthInput, appWidthInput]) {
 				input.addEventListener('input', updatePreview);
 			}
 
@@ -307,9 +285,6 @@ const copyJson = JSON.stringify(copy.client);
 
 			function updatePreview() {
 				const title = titleInput.value.trim() || copy.noTitle;
-				const channel = channelInput.value.trim();
-				const meta = metaInput.value.trim();
-				const duration = durationInput.value.trim();
 				const webWidth = Number(webWidthInput.value);
 				const appWidth = Number(appWidthInput.value);
 
@@ -324,20 +299,20 @@ const copyJson = JSON.stringify(copy.client);
 				}
 
 				for (const preview of channelPreviews) {
-					preview.textContent = channel;
+					preview.textContent = defaultChannel;
 				}
 
 				for (const preview of metaPreviews) {
-					preview.textContent = meta;
+					preview.textContent = defaultMeta;
 				}
 
 				for (const preview of durationPreviews) {
-					preview.textContent = duration;
-					preview.hidden = !duration;
+					preview.textContent = defaultDuration;
+					preview.hidden = !defaultDuration;
 				}
 
 				for (const avatar of avatars) {
-					avatar.textContent = avatarInitial(channel || title);
+					avatar.textContent = avatarInitial(defaultChannel);
 				}
 			}
 
@@ -484,7 +459,6 @@ const copyJson = JSON.stringify(copy.client);
 		margin-top: 18px;
 	}
 
-	.field-grid,
 	.range-grid {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -768,7 +742,6 @@ const copyJson = JSON.stringify(copy.client);
 	}
 
 	@media (max-width: 680px) {
-		.field-grid,
 		.range-grid {
 			grid-template-columns: 1fr;
 		}
