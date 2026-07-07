@@ -17,6 +17,20 @@ const isShortVideo = post.video?.watchUrl.includes('/shorts/');
 const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
 const postNavigation = getPostNavigation(post);
 const relatedPosts = getRelatedPosts(post);
+const isVideoPost = Boolean(post.video);
+const relatedVideos = isVideoPost ? relatedPosts.filter((relatedPost) => relatedPost.video) : [];
+const videoNavigation = {
+	previous: postNavigation.category.previous?.video
+		? postNavigation.category.previous
+		: postNavigation.chronological.previous?.video
+			? postNavigation.chronological.previous
+			: undefined,
+	next: postNavigation.category.next?.video
+		? postNavigation.category.next
+		: postNavigation.chronological.next?.video
+			? postNavigation.chronological.next
+			: undefined,
+};
 const postOverviewPath = post.category === 'audacity'
 	? routeFor('audacity', post.locale)
 	: routeFor('tips', post.locale);
@@ -47,6 +61,10 @@ const navigationLabels = {
 	de: {
 		heading: 'Weitere Beiträge',
 		related: 'Passende Beiträge',
+		videoHeading: 'Weitere Videos',
+		relatedVideos: 'Ähnliche Videos',
+		previousVideo: 'Vorheriges Video',
+		nextVideo: 'Nächstes Video',
 		chronological: 'Chronologisch',
 		category: 'In derselben Kategorie',
 		previous: 'Älterer Beitrag',
@@ -55,6 +73,10 @@ const navigationLabels = {
 	en: {
 		heading: 'More posts',
 		related: 'Related posts',
+		videoHeading: 'More videos',
+		relatedVideos: 'Related videos',
+		previousVideo: 'Previous video',
+		nextVideo: 'Next video',
 		chronological: 'Chronological',
 		category: 'In the same category',
 		previous: 'Older post',
@@ -93,7 +115,8 @@ const navigationSections = [
 ];
 const hasPostNavigation = navigationSections.some((section) => section.previous || section.next);
 const hasRelatedPosts = relatedPosts.length > 0;
-const hasMorePosts = hasRelatedPosts || hasPostNavigation;
+const hasVideoNavigation = Boolean(videoNavigation.previous || videoNavigation.next);
+const hasMorePosts = isVideoPost ? relatedVideos.length > 0 || hasVideoNavigation : hasRelatedPosts || hasPostNavigation;
 
 function formatPostDate(navigationPost: SourcePost): string {
 	return new Date(navigationPost.date).toLocaleDateString(navigationPost.locale === 'de' ? 'de-DE' : 'en-US', {
@@ -101,6 +124,10 @@ function formatPostDate(navigationPost: SourcePost): string {
 		month: 'long',
 		year: 'numeric',
 	});
+}
+
+function getPostThumbnail(navigationPost: SourcePost): string | undefined {
+	return navigationPost.video?.thumbnailUrl ?? navigationPost.image;
 }
 ---
 
@@ -153,10 +180,60 @@ function formatPostDate(navigationPost: SourcePost): string {
 	}
 	{
 		hasMorePosts && (
-			<aside class="more-posts" aria-labelledby="more-posts-heading">
+			<aside class:list={['more-posts', isVideoPost && 'more-posts--videos']} aria-labelledby="more-posts-heading">
 				<div class="container more-posts-inner">
-					<h2 id="more-posts-heading">{navigationLabels.heading}</h2>
-					<div class="more-posts-grid">
+					<h2 id="more-posts-heading">{isVideoPost ? navigationLabels.videoHeading : navigationLabels.heading}</h2>
+					{isVideoPost ? (
+						<div class="more-posts-grid video-more-grid">
+							{
+								relatedVideos.length > 0 && (
+									<section class="video-related" aria-labelledby="related-videos-heading">
+										<h3 id="related-videos-heading">{navigationLabels.relatedVideos}</h3>
+										<div class="video-card-grid">
+											{relatedVideos.map((relatedVideo) => (
+												<a class="video-card" href={withBase(relatedVideo.path)}>
+													{getPostThumbnail(relatedVideo) && (
+														<img src={withBase(getPostThumbnail(relatedVideo)!)} alt="" loading="lazy" />
+													)}
+													<span>{categoryLabels[post.locale][relatedVideo.category]}</span>
+													<strong>{relatedVideo.title}</strong>
+												</a>
+											))}
+										</div>
+									</section>
+								)
+							}
+							{
+								hasVideoNavigation && (
+									<nav class="video-navigation" aria-label={navigationLabels.videoHeading}>
+										<div class="video-navigation-grid">
+											{videoNavigation.previous && (
+												<a class="video-card video-nav-card" href={withBase(videoNavigation.previous.path)}>
+													{getPostThumbnail(videoNavigation.previous) && (
+														<img src={withBase(getPostThumbnail(videoNavigation.previous)!)} alt="" loading="lazy" />
+													)}
+													<span>{navigationLabels.previousVideo}</span>
+													<strong>{videoNavigation.previous.title}</strong>
+													<time datetime={videoNavigation.previous.date}>{formatPostDate(videoNavigation.previous)}</time>
+												</a>
+											)}
+											{videoNavigation.next && (
+												<a class="video-card video-nav-card" href={withBase(videoNavigation.next.path)}>
+													{getPostThumbnail(videoNavigation.next) && (
+														<img src={withBase(getPostThumbnail(videoNavigation.next)!)} alt="" loading="lazy" />
+													)}
+													<span>{navigationLabels.nextVideo}</span>
+													<strong>{videoNavigation.next.title}</strong>
+													<time datetime={videoNavigation.next.date}>{formatPostDate(videoNavigation.next)}</time>
+												</a>
+											)}
+										</div>
+									</nav>
+								)
+							}
+						</div>
+					) : (
+						<div class="more-posts-grid">
 						{
 							hasRelatedPosts && (
 								<section class="related-posts" aria-labelledby="related-posts-heading">
@@ -208,7 +285,8 @@ function formatPostDate(navigationPost: SourcePost): string {
 								</nav>
 							)
 						}
-					</div>
+						</div>
+					)}
 				</div>
 			</aside>
 		)
@@ -395,14 +473,100 @@ function formatPostDate(navigationPost: SourcePost): string {
 		gap: 28px;
 	}
 
+	.more-posts--videos .more-posts-inner {
+		max-width: 1120px;
+	}
+
+	.video-more-grid {
+		gap: 32px;
+	}
+
 	.related-posts h3,
-	.post-navigation-section h3 {
+	.post-navigation-section h3,
+	.video-related h3 {
 		margin: 0 0 12px;
 		color: var(--color-muted);
 		font-size: 0.86rem;
 		font-weight: 850;
 		letter-spacing: 0;
 		text-transform: uppercase;
+	}
+
+	.video-card-grid,
+	.video-navigation-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 16px;
+	}
+
+	.video-navigation-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.video-card {
+		display: grid;
+		grid-template-rows: auto auto 1fr;
+		gap: 8px;
+		min-width: 0;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.video-card img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		background: var(--color-media-background);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.video-card:hover img {
+		border-color: var(--color-accent-dark);
+	}
+
+	.video-card span {
+		color: var(--color-accent-dark);
+		font-size: 0.76rem;
+		font-weight: 850;
+		line-height: 1.2;
+		text-transform: uppercase;
+	}
+
+	.video-card strong {
+		display: -webkit-box;
+		overflow: hidden;
+		font-size: 1rem;
+		line-height: 1.28;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+	}
+
+	.video-card time {
+		color: var(--color-muted);
+		font-size: 0.86rem;
+		font-weight: 750;
+	}
+
+	.video-nav-card {
+		grid-template-columns: minmax(150px, 38%) minmax(0, 1fr);
+		grid-template-rows: auto auto auto;
+		align-items: start;
+		column-gap: 14px;
+		padding: 14px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.video-nav-card:hover {
+		border-color: var(--color-accent-dark);
+	}
+
+	.video-nav-card img {
+		grid-row: 1 / 4;
+		border: 0;
 	}
 
 	.related-posts-list {
@@ -507,6 +671,16 @@ function formatPostDate(navigationPost: SourcePost): string {
 
 		.post-navigation-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.video-card-grid,
+		.video-navigation-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.video-nav-card {
+			grid-template-columns: minmax(104px, 36%) minmax(0, 1fr);
+			padding: 12px;
 		}
 	}
 </style>
