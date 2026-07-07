@@ -12,8 +12,8 @@ Run commands from the project root:
 | `npm run dev` | Start the local dev server at `localhost:4321` |
 | `npm run build` | Build the production site to `./dist/` |
 | `npm run preview` | Preview the production build locally |
-| `npm run import:youtube` | Import new YouTube posts, clean transcripts, and create translations |
-| `IMPORT_AI=0 npm run import:youtube` | Import new YouTube posts without Ollama cleanup/translation |
+| `npm run import:youtube` | Import new YouTube posts, clean transcripts, create translations, refresh related posts, and add inline links |
+| `IMPORT_AI=0 npm run import:youtube` | Import new YouTube posts without Ollama cleanup, translation, related posts, or inline links |
 | `npm run cleanup:post -- src/data/posts/.../post.md` | Clean one or more existing posts |
 | `npm run cleanup:last-commit` | Clean markdown posts touched by the latest commit |
 | `npm run audit:posts` | Audit post metadata, language, links, and generated related-post data |
