@@ -22,11 +22,13 @@ const themeLabels = {
 		toggle: 'Farbschema wechseln',
 		light: 'Hell',
 		dark: 'Dunkel',
+		scrollHint: 'Wischen für mehr',
 	},
 	en: {
 		toggle: 'Switch color theme',
 		light: 'Light',
 		dark: 'Dark',
+		scrollHint: 'Swipe for more',
 	},
 }[locale];
 
@@ -103,6 +105,7 @@ const sidebarPages = sitePages
 			}
 		</div>
 	</nav>
+	<p class="sidebar-scroll-hint" aria-hidden="true">{themeLabels.scrollHint}</p>
 
 	<div class="sidebar-actions">
 		<button
@@ -137,7 +140,9 @@ const sidebarPages = sitePages
 <script>
 	(() => {
 		const storageKey = 'kwm_theme';
+		const sidebarCollapseStorageKey = 'kwm_sidebar_collapsed';
 		const validThemes = new Set(['light', 'dark']);
+		const desktopSidebarQuery = window.matchMedia('(min-width: 901px)');
 		const toggles = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]'));
 
 		if (!toggles.length) {
@@ -203,32 +208,43 @@ const sidebarPages = sitePages
 		if (collapseToggle) {
 			const sidebar = document.querySelector<HTMLElement>('.site-sidebar');
 			if (sidebar) {
-				const toggleCollapse = () => {
-					const isCollapsed = sidebar.classList.toggle('is-collapsed');
-					localStorage.setItem('kwm_sidebar_collapsed', String(isCollapsed));
-					collapseToggle.setAttribute('aria-expanded', String(!isCollapsed));
-					
-					// Update icon based on state
+				const setCollapseIcon = (isCollapsed) => {
 					const svg = collapseToggle.querySelector('svg');
 					if (svg) {
-						svg.innerHTML = isCollapsed 
-							? '<path d="m9 18-6-6 6-6"/>' 
+						svg.innerHTML = isCollapsed
+							? '<path d="m9 18-6-6 6-6"/>'
 							: '<path d="m15 18-6-6 6-6"/>';
 					}
 				};
 
-				// Initialize state from localStorage
-				const wasCollapsed = localStorage.getItem('kwm_sidebar_collapsed') === 'true';
-				if (wasCollapsed) {
-					sidebar.classList.add('is-collapsed');
-					collapseToggle.setAttribute('aria-expanded', 'false');
-					const svg = collapseToggle.querySelector('svg');
-					if (svg) svg.innerHTML = '<path d="m9 18-6-6 6-6"/>';
-				} else {
-					collapseToggle.setAttribute('aria-expanded', 'true');
-				}
+				const syncSidebarCollapseState = () => {
+					if (!desktopSidebarQuery.matches) {
+						sidebar.classList.remove('is-collapsed');
+						collapseToggle.setAttribute('aria-expanded', 'true');
+						setCollapseIcon(false);
+						return;
+					}
 
+					const wasCollapsed = localStorage.getItem(sidebarCollapseStorageKey) === 'true';
+					sidebar.classList.toggle('is-collapsed', wasCollapsed);
+					collapseToggle.setAttribute('aria-expanded', String(!wasCollapsed));
+					setCollapseIcon(wasCollapsed);
+				};
+
+				const toggleCollapse = () => {
+					if (!desktopSidebarQuery.matches) {
+						return;
+					}
+
+					const isCollapsed = sidebar.classList.toggle('is-collapsed');
+					localStorage.setItem(sidebarCollapseStorageKey, String(isCollapsed));
+					collapseToggle.setAttribute('aria-expanded', String(!isCollapsed));
+					setCollapseIcon(isCollapsed);
+				};
+
+				syncSidebarCollapseState();
 				collapseToggle.addEventListener('click', toggleCollapse);
+				desktopSidebarQuery.addEventListener('change', syncSidebarCollapseState);
 			}
 		}
 	})();
@@ -462,6 +478,10 @@ const sidebarPages = sitePages
 		color: var(--color-accent-dark);
 	}
 
+	.sidebar-scroll-hint {
+		display: none;
+	}
+
 	@media (max-width: 900px) {
 		.site-sidebar {
 			position: relative;
@@ -477,13 +497,37 @@ const sidebarPages = sitePages
 			gap: 8px;
 			margin-top: 16px;
 			overflow-x: auto;
-			padding-bottom: 4px;
+			padding: 0 44px 8px 0;
+			scrollbar-width: thin;
+			mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 42px), transparent 100%);
+			-webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 42px), transparent 100%);
+		}
+
+		.nav-links {
+			display: flex;
+			gap: 8px;
+			min-width: max-content;
 		}
 
 		.sidebar-link {
 			flex: 0 0 auto;
 			min-height: 38px;
 			white-space: nowrap;
+		}
+
+		.sidebar-scroll-hint {
+			display: block;
+			margin: 6px 0 0;
+			color: var(--color-muted);
+			font-size: 0.72rem;
+			font-weight: 800;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		.sidebar-scroll-hint::after {
+			content: '  →';
+			color: var(--color-accent-dark);
 		}
 
 		.sidebar-actions {
@@ -508,6 +552,10 @@ const sidebarPages = sitePages
 
 		.language-link {
 			padding: 9px 10px;
+		}
+
+		.sidebar-collapse-toggle {
+			display: none;
 		}
 	}
 </style>
