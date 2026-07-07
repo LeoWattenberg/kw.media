@@ -234,4 +234,145 @@ const { tool, alternatePaths } = Astro.props;
 	.tools-layout .tool-download-link:hover {
 		text-decoration: underline;
 	}
+
+	.tools-layout .background-remover,
+	.tools-layout .remover-grid {
+		display: grid;
+		gap: 18px;
+	}
+
+	.tools-layout .background-remover [hidden] {
+		display: none !important;
+	}
+
+	.tools-layout .remover-grid {
+		grid-template-columns: minmax(0, 1fr) minmax(300px, 0.44fr);
+		align-items: start;
+	}
+
+	.tools-layout .background-remover .file-picker {
+		min-height: 160px;
+		margin-top: 18px;
+	}
+
+	.tools-layout .background-remover .file-picker span,
+	.tools-layout .background-remover .select-control span,
+	.tools-layout .background-remover .range-control span,
+	.tools-layout .background-remover .preview-card p {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.tools-layout .background-remover .file-picker small,
+	.tools-layout .background-remover .preview-card small {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.tools-layout .background-remover .preview-background-control {
+		display: grid;
+		gap: 8px;
+		margin-top: 18px;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		padding: 0;
+		border: 0;
+	}
+
+	.tools-layout .background-remover .preview-background-control legend {
+		grid-column: 1 / -1;
+	}
+
+	.tools-layout .background-remover .preview-background-control label {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		min-height: 42px;
+		padding: 8px 10px;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 850;
+		cursor: pointer;
+	}
+
+	.tools-layout .background-remover .preview-background-control label:has(input:checked) {
+		color: var(--color-accent-dark);
+		background: var(--color-accent-soft);
+		border-color: var(--color-accent-line);
+	}
+
+	.tools-layout .background-remover .preview-background-control label:has(input:focus-visible) {
+		outline: 3px solid var(--color-accent-focus-soft);
+		outline-offset: 2px;
+	}
+
+	.tools-layout .background-remover .preview-background-control input,
+	.tools-layout .background-remover .range-control input {
+		accent-color: var(--color-accent);
+	}
+
+	.tools-layout .background-remover .remover-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		align-items: center;
+		justify-content: space-between;
+		margin-top: 20px;
+	}
+
+	.tools-layout .background-remover .preview-card {
+		display: grid;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	.tools-layout .background-remover .preview-card p {
+		margin: 0;
+	}
+
+	.tools-layout .background-remover .preview-frame {
+		display: grid;
+		overflow: hidden;
+		min-height: 260px;
+		place-items: center;
+		padding: 12px;
+		background:
+			linear-gradient(45deg, var(--color-checkerboard-square) 25%, var(--color-transparent) 25%),
+			linear-gradient(-45deg, var(--color-checkerboard-square) 25%, var(--color-transparent) 25%),
+			linear-gradient(45deg, var(--color-transparent) 75%, var(--color-checkerboard-square) 75%),
+			linear-gradient(-45deg, var(--color-transparent) 75%, var(--color-checkerboard-square) 75%);
+		background-color: var(--color-checkerboard-background);
+		background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+		background-size: 20px 20px;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.tools-layout .background-remover[data-preview-background='plain'] .preview-frame {
+		background: var(--color-surface-raised);
+	}
+
+	.tools-layout .background-remover .preview-frame img {
+		display: block;
+		max-width: 100%;
+		max-height: 420px;
+		object-fit: contain;
+	}
+
+	.tools-layout .background-remover .preview-frame span {
+		max-width: 42ch;
+		color: var(--color-muted);
+		font-weight: 700;
+		text-align: center;
+	}
+
+	@media (max-width: 880px) {
+		.tools-layout .remover-grid {
+			grid-template-columns: 1fr;
+		}
+	}
 </style>

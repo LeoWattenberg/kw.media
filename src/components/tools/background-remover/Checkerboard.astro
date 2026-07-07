@@ -1,13 +1,11 @@
 ---
-import type { Locale } from '../../i18n';
+import type { Locale } from '../../../i18n';
 
 interface Props {
 	locale: Locale;
-	variant?: 'plain' | 'checkerboard';
 }
 
-const { locale, variant = 'plain' } = Astro.props;
-const isCheckerboardVariant = variant === 'checkerboard';
+const { locale } = Astro.props;
 
 const outputFormats = [
 	{ value: 'PNG', label: 'PNG', extension: 'png', mime: 'image/png', quality: false },
@@ -17,8 +15,8 @@ const outputFormats = [
 const copyByLocale = {
 	de: {
 		eyebrow: 'Bild-Tool',
-		title: 'Hintergrund entfernen',
-		intro: 'Entferne einfarbige, nahezu einfarbige oder gefälschte Schachbrett-Hintergründe direkt im Browser mit ImageMagick WASM.',
+		title: 'Schachbrett-Hintergrund entfernen',
+		intro: 'Entferne gefälschte PNG-Schachbrett-Hintergründe direkt im Browser mit ImageMagick WASM.',
 		privacy: 'Deine Datei wird nicht hochgeladen. Die Transparenz wird clientseitig erzeugt.',
 		fileTitle: 'Quelldatei',
 		chooseFile: 'Bilddatei wählen',
@@ -27,7 +25,6 @@ const copyByLocale = {
 		mode: 'Modus',
 		modeCheckerboardEdges: 'Fake-PNG-Schachbrett an den Rändern',
 		modeCheckerboardAll: 'Fake-PNG-Schachbrett im ganzen Bild',
-		seedTitle: 'Hintergrund-Stelle',
 		tolerance: 'Toleranz',
 		outputFormat: 'Ausgabeformat',
 		quality: 'Qualität',
@@ -54,10 +51,7 @@ const copyByLocale = {
 			magickTimeout: 'ImageMagick WASM hat nicht innerhalb von 90 Sekunden geladen. Prüfe deine Verbindung und versuche es erneut.',
 			noFile: 'Wähle zuerst eine Bilddatei.',
 			noFrames: 'ImageMagick konnte kein Bild in dieser Datei finden.',
-			noSeed: 'Klicke zuerst auf das Bild, um die Hintergrund-Stelle zu wählen.',
 			previewUnavailable: 'Für dieses Format ist keine Browser-Vorschau verfügbar. Der Download ist trotzdem bereit.',
-			seedInstruction: 'Klicke auf das Bild, wo der Hintergrund ist. Er wird ab dieser Stelle sofort entfernt.',
-			seeded: 'Farbe {color} übernommen.',
 			sourcePreviewUnavailable: 'Die Browser-Vorschau kann dieses Quellformat nicht anzeigen. Die Entfernung kann trotzdem funktionieren.',
 			singleFrame: '1 Frame',
 			multipleFrames: '{count} Frames',
@@ -67,8 +61,8 @@ const copyByLocale = {
 	},
 	en: {
 		eyebrow: 'Image tool',
-		title: 'Background Remover',
-		intro: 'Remove solid, near-solid, or fake checkerboard image backgrounds directly in your browser with ImageMagick WASM.',
+		title: 'Checkerboard Background Remover',
+		intro: 'Remove fake PNG checkerboard backgrounds directly in your browser with ImageMagick WASM.',
 		privacy: 'Your file is not uploaded. Transparency is created client-side.',
 		fileTitle: 'Source file',
 		chooseFile: 'Choose image file',
@@ -77,7 +71,6 @@ const copyByLocale = {
 		mode: 'Mode',
 		modeCheckerboardEdges: 'Fake PNG checkerboard at edges',
 		modeCheckerboardAll: 'Fake PNG checkerboard across image',
-		seedTitle: 'Background spot',
 		tolerance: 'Tolerance',
 		outputFormat: 'Output format',
 		quality: 'Quality',
@@ -104,10 +97,7 @@ const copyByLocale = {
 			magickTimeout: 'ImageMagick WASM did not finish loading within 90 seconds. Check your connection and try again.',
 			noFile: 'Choose an image file first.',
 			noFrames: 'ImageMagick could not find an image in this file.',
-			noSeed: 'Click the image first to pick the background spot.',
 			previewUnavailable: 'This format cannot be previewed by the browser. The download is ready.',
-			seedInstruction: 'Click the image where the background is. It is removed from that spot right away.',
-			seeded: 'Picked {color}.',
 			sourcePreviewUnavailable: 'The browser cannot preview this source format. Removal may still work.',
 			singleFrame: '1 frame',
 			multipleFrames: '{count} frames',
@@ -117,55 +107,13 @@ const copyByLocale = {
 	},
 } satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
 
-const variantCopy = isCheckerboardVariant ? {
-	de: {
-		title: 'Schachbrett-Hintergrund entfernen',
-		intro: 'Entferne gefälschte PNG-Schachbrett-Hintergründe direkt im Browser mit ImageMagick WASM.',
-		privacy: 'Deine Datei wird nicht hochgeladen. Die Transparenz wird clientseitig erzeugt.',
-		client: {
-			waiting: 'Wähle ein Bild. Der Schachbrett-Ränder-Modus entfernt gefälschte Transparenz-Hintergründe, ohne ähnliche Farben im Motiv zu lochen.',
-		},
-	},
-	en: {
-		title: 'Checkerboard Background Remover',
-		intro: 'Remove fake PNG checkerboard backgrounds directly in your browser with ImageMagick WASM.',
-		privacy: 'Your file is not uploaded. Transparency is created client-side.',
-		client: {
-			waiting: 'Choose an image. Checkerboard edge mode removes fake transparency backgrounds without punching holes into similar subject colors.',
-		},
-	},
-} : {
-	de: {
-		intro: 'Entferne einfarbige oder nahezu einfarbige Hintergründe direkt im Browser mit ImageMagick WASM.',
-		privacy: 'Deine Datei wird nicht hochgeladen. Die Transparenz wird clientseitig erzeugt.',
-		client: {
-			waiting: 'Wähle ein Bild und klicke auf den Hintergrund, um ihn zu entfernen.',
-		},
-	},
-	en: {
-		intro: 'Remove solid or near-solid backgrounds directly in your browser with ImageMagick WASM.',
-		privacy: 'Your file is not uploaded. Transparency is created client-side.',
-		client: {
-			waiting: 'Choose an image, then click the background to remove it.',
-		},
-	},
-};
-const copy = {
-	...copyByLocale[locale],
-	...(variantCopy ? variantCopy[locale] : {}),
-	client: {
-		...copyByLocale[locale].client,
-		...(variantCopy ? variantCopy[locale].client : {}),
-	},
-};
+const copy = copyByLocale[locale];
 const copyJson = JSON.stringify(copy.client);
 const outputFormatsJson = JSON.stringify(outputFormats);
-const modeOptions = isCheckerboardVariant
-	? [
-		{ value: 'checkerboard-edges', label: copy.modeCheckerboardEdges },
-		{ value: 'checkerboard-all', label: copy.modeCheckerboardAll },
-	]
-	: [];
+const modeOptions = [
+	{ value: 'checkerboard-edges', label: copy.modeCheckerboardEdges },
+	{ value: 'checkerboard-all', label: copy.modeCheckerboardAll },
+];
 ---
 
 <section class="tool-intro">
@@ -179,7 +127,7 @@ const modeOptions = isCheckerboardVariant
 
 <section class="section background-remover-section tool-workspace">
 	<div class="container">
-		<div class="background-remover" data-background-remover data-copy={copyJson} data-formats={outputFormatsJson} data-variant={variant}>
+		<div class="background-remover" data-background-remover data-copy={copyJson} data-formats={outputFormatsJson} data-variant="checkerboard">
 			<div class="remover-grid">
 				<section class="remover-panel tool-panel source-panel">
 					<h2>{copy.fileTitle}</h2>
@@ -199,16 +147,12 @@ const modeOptions = isCheckerboardVariant
 							<img data-source-image alt="" />
 							<span data-source-preview-note hidden>{copy.client.sourcePreviewUnavailable}</span>
 						</div>
-					<small data-source-meta></small>
-					{!isCheckerboardVariant && (
-						<a class="button primary source-download" data-download href="#" download hidden>{copy.download}</a>
-					)}
-				</div>
+						<small data-source-meta></small>
+					</div>
 				</section>
 
 				<section class="remover-panel tool-panel settings-panel">
 					<h2>{copy.settingsTitle}</h2>
-				{isCheckerboardVariant ? (
 					<fieldset class="mode-control">
 						<legend>{copy.mode}</legend>
 						{modeOptions.map((option, index) => (
@@ -218,16 +162,6 @@ const modeOptions = isCheckerboardVariant
 							</label>
 						))}
 					</fieldset>
-				) : (
-					<div class="seed-control" data-seed-control>
-						<span>{copy.seedTitle}</span>
-						<p class="seed-instruction">{copy.client.seedInstruction}</p>
-						<div class="seed-display" data-seed-display hidden>
-							<span class="seed-swatch" data-seed-swatch></span>
-							<span class="seed-value" data-seed-value></span>
-						</div>
-					</div>
-				)}
 					<label class="range-control tool-range-control">
 						<span>{copy.tolerance}: <strong data-fuzz-label>8%</strong></span>
 						<input data-fuzz type="range" min="0" max="30" step="1" value="8" />
@@ -253,17 +187,14 @@ const modeOptions = isCheckerboardVariant
 						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="plain" /> {copy.previewPlain}</label>
 						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="checker" checked /> {copy.previewChecker}</label>
 					</fieldset>
-				<div class="remover-actions">
-					{isCheckerboardVariant && (
+					<div class="remover-actions">
 						<button class="button primary" data-remove type="button" disabled>{copy.remove}</button>
-					)}
-					<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
-				</div>
+						<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
+					</div>
 					<p class="remover-status tool-status" data-status role="status">{copy.client.waiting}</p>
 				</section>
 			</div>
 
-		{isCheckerboardVariant && (
 			<section class="remover-panel tool-panel result-panel" data-result hidden>
 				<div class="result-heading">
 					<div>
@@ -289,7 +220,6 @@ const modeOptions = isCheckerboardVariant
 					</dl>
 				</div>
 			</section>
-		)}
 		</div>
 	</div>
 </section>
@@ -306,15 +236,10 @@ const modeOptions = isCheckerboardVariant
 		function initBackgroundRemover(root) {
 			const copy = JSON.parse(root.dataset.copy || '{}');
 			const outputFormats = JSON.parse(root.dataset.formats || '[]');
-			const variant = root.dataset.variant || 'plain';
-			const isCheckerboardVariant = variant === 'checkerboard';
 			const fileInput = root.querySelector('[data-file]');
 			const fileName = root.querySelector('[data-file-name]');
 			const fileMeta = root.querySelector('[data-file-meta]');
 			const modeInputs = Array.from(root.querySelectorAll('[data-mode]'));
-			const seedDisplay = root.querySelector('[data-seed-display]');
-			const seedSwatch = root.querySelector('[data-seed-swatch]');
-			const seedValue = root.querySelector('[data-seed-value]');
 			const fuzzInput = root.querySelector('[data-fuzz]');
 			const fuzzLabel = root.querySelector('[data-fuzz-label]');
 			const formatSelect = root.querySelector('[data-format]');
@@ -337,23 +262,12 @@ const modeOptions = isCheckerboardVariant
 			const downloadLink = root.querySelector('[data-download]');
 
 			if (
-				!fileInput || !fileName || !fileMeta || !fuzzInput || !fuzzLabel || !formatSelect ||
-				!qualityControl || !qualityInput || !qualityLabel || !previewBackgroundInputs.length ||
-				!clearButton || !status || !sourcePreview || !sourceImage ||
-				!sourcePreviewNote || !sourceMeta || !downloadLink
+				!fileInput || !fileName || !fileMeta || !modeInputs.length || !fuzzInput || !fuzzLabel ||
+				!formatSelect || !qualityControl || !qualityInput || !qualityLabel ||
+				!previewBackgroundInputs.length || !removeButton || !clearButton || !status ||
+				!sourcePreview || !sourceImage || !sourcePreviewNote || !sourceMeta || !result ||
+				!outputImage || !outputPreviewNote || !outputFormat || !outputMeta || !downloadLink
 			) {
-				return;
-			}
-
-			if (
-				isCheckerboardVariant &&
-				(!modeInputs.length || !removeButton || !result || !outputImage ||
-					!outputPreviewNote || !outputFormat || !outputMeta)
-			) {
-				return;
-			}
-
-			if (!isCheckerboardVariant && (!seedDisplay || !seedSwatch || !seedValue)) {
 				return;
 			}
 
@@ -364,9 +278,6 @@ const modeOptions = isCheckerboardVariant
 				isWorking: false,
 				magick: null,
 				magickPromise: null,
-				seedPoint: null,
-				seedColor: null,
-				originalName: null,
 			};
 
 			fileInput.addEventListener('change', () => {
@@ -382,13 +293,10 @@ const modeOptions = isCheckerboardVariant
 			qualityInput.addEventListener('input', () => {
 				qualityLabel.textContent = qualityInput.value;
 			});
-			if (removeButton) {
-				removeButton.addEventListener('click', () => {
-					void removeBackground();
-				});
-			}
+			removeButton.addEventListener('click', () => {
+				void removeBackground();
+			});
 			clearButton.addEventListener('click', clearFile);
-			sourceImage.addEventListener('click', setSeedFromClick);
 			sourceImage.addEventListener('load', () => {
 				sourceImage.hidden = false;
 				sourcePreviewNote.hidden = true;
@@ -397,16 +305,14 @@ const modeOptions = isCheckerboardVariant
 				sourceImage.hidden = true;
 				sourcePreviewNote.hidden = false;
 			});
-			if (outputImage) {
-				outputImage.addEventListener('load', () => {
-					outputImage.hidden = false;
-					outputPreviewNote.hidden = true;
-				});
-				outputImage.addEventListener('error', () => {
-					outputImage.hidden = true;
-					outputPreviewNote.hidden = false;
-				});
-			}
+			outputImage.addEventListener('load', () => {
+				outputImage.hidden = false;
+				outputPreviewNote.hidden = true;
+			});
+			outputImage.addEventListener('error', () => {
+				outputImage.hidden = true;
+				outputPreviewNote.hidden = false;
+			});
 
 			updateQualityControl();
 			updatePreviewBackground();
@@ -415,9 +321,7 @@ const modeOptions = isCheckerboardVariant
 			function setSourceFile(file) {
 				revokeUrl('inputUrl');
 				resetOutput();
-				resetSeed();
 				state.file = file;
-				state.originalName = file ? file.name : null;
 
 				if (!file) {
 					fileName.textContent = copy.chooseFile || 'Choose image file';
@@ -455,14 +359,7 @@ const modeOptions = isCheckerboardVariant
 				}
 
 				const selectedFormat = getSelectedFormat();
-
-				if (!isCheckerboardVariant && !state.seedPoint) {
-					setStatus(copy.noSeed, 'error');
-					return;
-				}
-
-				const baseName = isCheckerboardVariant ? state.file.name : (state.originalName || state.file.name);
-				const outputName = createOutputName(baseName, selectedFormat.extension);
+				const outputName = createOutputName(state.file.name, selectedFormat.extension);
 
 				setWorking(true);
 				resetOutput();
@@ -475,45 +372,26 @@ const modeOptions = isCheckerboardVariant
 					const cutout = removeWithMagick(magick, inputBytes, {
 						format: selectedFormat,
 						fuzz: Number(fuzzInput.value),
-						mode: isCheckerboardVariant ? getMode() : null,
+						mode: getMode(),
 						quality: Number(qualityInput.value),
-						seedPoint: state.seedPoint,
 					});
 					const outputBlob = new Blob([cutout.bytes], { type: selectedFormat.mime });
 
-					if (isCheckerboardVariant) {
-						state.outputUrl = URL.createObjectURL(outputBlob);
-						outputImage.hidden = false;
-						outputPreviewNote.hidden = true;
-						outputImage.src = state.outputUrl;
-						outputFormat.textContent = selectedFormat.label;
-						outputMeta.textContent = format(copy.imageMeta, {
-							width: cutout.width || '?',
-							height: cutout.height || '?',
-							frames: formatFrames(cutout.frames),
-							size: formatBytes(outputBlob.size),
-						});
-						downloadLink.href = state.outputUrl;
-						downloadLink.download = outputName;
-						downloadLink.hidden = false;
-						result.hidden = false;
-					} else {
-						const nextUrl = URL.createObjectURL(outputBlob);
-						const nextFile = new File([outputBlob], outputName, { type: selectedFormat.mime });
-						revokeUrl('inputUrl');
-						state.file = nextFile;
-						state.inputUrl = nextUrl;
-						sourceImage.src = nextUrl;
-						sourceMeta.textContent = format(copy.imageMeta, {
-							width: cutout.width || '?',
-							height: cutout.height || '?',
-							frames: formatFrames(cutout.frames),
-							size: formatBytes(outputBlob.size),
-						});
-						downloadLink.href = nextUrl;
-						downloadLink.download = outputName;
-						downloadLink.hidden = false;
-					}
+					state.outputUrl = URL.createObjectURL(outputBlob);
+					outputImage.hidden = false;
+					outputPreviewNote.hidden = true;
+					outputImage.src = state.outputUrl;
+					outputFormat.textContent = selectedFormat.label;
+					outputMeta.textContent = format(copy.imageMeta, {
+						width: cutout.width || '?',
+						height: cutout.height || '?',
+						frames: formatFrames(cutout.frames),
+						size: formatBytes(outputBlob.size),
+					});
+					downloadLink.href = state.outputUrl;
+					downloadLink.download = outputName;
+					downloadLink.hidden = false;
+					result.hidden = false;
 					setStatus(format(copy.converted, { name: outputName }), 'success');
 				} catch (error) {
 					setStatus(messageFromError(error), 'error');
@@ -524,7 +402,7 @@ const modeOptions = isCheckerboardVariant
 			}
 
 			function removeWithMagick(magick, inputBytes, settings) {
-				const { AlphaAction, ImageMagick, MagickColor, Percentage, PixelChannel, Quantum } = magick;
+				const { AlphaAction, ImageMagick, Percentage, PixelChannel, Quantum } = magick;
 				let metadata = {
 					width: 0,
 					height: 0,
@@ -546,22 +424,10 @@ const modeOptions = isCheckerboardVariant
 						image.alpha(AlphaAction.Set);
 						image.colorFuzz = new Percentage(settings.fuzz);
 
-						if (isCheckerboardVariant) {
-							removeCheckerboardBackground(image, settings, {
-								PixelChannel,
-								Quantum,
-							});
-					} else if (settings.seedPoint) {
-						const maxX = Math.max(0, image.width - 1);
-						const maxY = Math.max(0, image.height - 1);
-						const seedX = Math.max(0, Math.min(maxX, Math.round(settings.seedPoint.x)));
-						const seedY = Math.max(0, Math.min(maxY, Math.round(settings.seedPoint.y)));
-						const seedColor = image.getPixels((pixels) => pixels.getColor(seedX, seedY));
-
-						if (seedColor) {
-							image.floodFill(new MagickColor(seedColor.r, seedColor.g, seedColor.b, 0), seedX, seedY);
-						}
-					}
+						removeCheckerboardBackground(image, settings, {
+							PixelChannel,
+							Quantum,
+						});
 
 						if (settings.format.quality) {
 							image.quality = settings.quality;
@@ -616,62 +482,6 @@ const modeOptions = isCheckerboardVariant
 				return state.magickPromise;
 			}
 
-			function setSeedFromClick(event) {
-				if (isCheckerboardVariant || state.isWorking) {
-					return;
-				}
-
-				if (!sourceImage.complete || !sourceImage.naturalWidth || sourceImage.hidden) {
-					return;
-				}
-
-				const rect = sourceImage.getBoundingClientRect();
-
-				if (!rect.width || !rect.height) {
-					return;
-				}
-
-				const x = Math.round(((event.clientX - rect.left) / rect.width) * (sourceImage.naturalWidth - 1));
-				const y = Math.round(((event.clientY - rect.top) / rect.height) * (sourceImage.naturalHeight - 1));
-				const canvas = document.createElement('canvas');
-				canvas.width = sourceImage.naturalWidth;
-				canvas.height = sourceImage.naturalHeight;
-				const context = canvas.getContext('2d', { willReadFrequently: true });
-
-				if (!context) {
-					return;
-				}
-
-				context.drawImage(sourceImage, 0, 0);
-				const [red, green, blue] = context.getImageData(x, y, 1, 1).data;
-				const color = rgbToHex(red, green, blue);
-
-				state.seedPoint = { x, y };
-				state.seedColor = color;
-				seedDisplay.hidden = false;
-				seedSwatch.style.backgroundColor = color;
-				seedValue.textContent = color;
-				setStatus(format(copy.seeded, { color }), 'success');
-				void removeBackground();
-			}
-
-			function resetSeed() {
-				state.seedPoint = null;
-				state.seedColor = null;
-
-				if (seedDisplay) {
-					seedDisplay.hidden = true;
-				}
-
-				if (seedSwatch) {
-					seedSwatch.style.backgroundColor = '';
-				}
-
-				if (seedValue) {
-					seedValue.textContent = '';
-				}
-			}
-
 			function updateQualityControl() {
 				const selectedFormat = getSelectedFormat();
 				qualityControl.hidden = !selectedFormat.quality;
@@ -693,9 +503,7 @@ const modeOptions = isCheckerboardVariant
 			}
 
 			function updateReadyState() {
-				if (removeButton) {
-					removeButton.disabled = state.isWorking || !state.file;
-				}
+				removeButton.disabled = state.isWorking || !state.file;
 				clearButton.disabled = state.isWorking || !state.file;
 				formatSelect.disabled = state.isWorking;
 				fuzzInput.disabled = state.isWorking;
@@ -718,41 +526,21 @@ const modeOptions = isCheckerboardVariant
 
 			function resetOutput() {
 				revokeUrl('outputUrl');
-
-				if (downloadLink) {
-					downloadLink.hidden = true;
-					downloadLink.removeAttribute('href');
-				}
-
-				if (result) {
-					result.hidden = true;
-				}
-
-				if (outputImage) {
-					outputImage.removeAttribute('src');
-					outputImage.hidden = false;
-				}
-
-				if (outputPreviewNote) {
-					outputPreviewNote.hidden = true;
-				}
-
-				if (outputFormat) {
-					outputFormat.textContent = '';
-				}
-
-				if (outputMeta) {
-					outputMeta.textContent = '';
-				}
+				result.hidden = true;
+				downloadLink.hidden = true;
+				downloadLink.removeAttribute('href');
+				outputImage.removeAttribute('src');
+				outputImage.hidden = false;
+				outputPreviewNote.hidden = true;
+				outputFormat.textContent = '';
+				outputMeta.textContent = '';
 			}
 
 			function clearFile() {
 				state.file = null;
-				state.originalName = null;
 				fileInput.value = '';
 				revokeUrl('inputUrl');
 				resetOutput();
-				resetSeed();
 				sourcePreview.hidden = true;
 				sourceImage.removeAttribute('src');
 				sourceImage.hidden = false;
@@ -1369,35 +1157,8 @@ const modeOptions = isCheckerboardVariant
 		}
 	})();
 </script>
-
 <style>
-	.background-remover,
-	.remover-grid,
-	.result-preview {
-		display: grid;
-		gap: 18px;
-	}
-
-	.background-remover [hidden] {
-		display: none !important;
-	}
-
-	.remover-grid {
-		grid-template-columns: minmax(0, 1fr) minmax(300px, 0.44fr);
-		align-items: start;
-	}
-
-	.file-picker {
-		min-height: 160px;
-		margin-top: 18px;
-	}
-
-	.file-picker span,
 	.mode-control > legend,
-	.select-control span,
-	.range-control span,
-	.seed-control > span,
-	.preview-card p,
 	.result-meta dt {
 		color: var(--color-accent-dark);
 		font-size: 0.78rem;
@@ -1405,34 +1166,12 @@ const modeOptions = isCheckerboardVariant
 		text-transform: uppercase;
 	}
 
-	.file-picker small,
-	.preview-card small,
-	.seed-instruction {
-		color: var(--color-muted);
-		font-size: 0.88rem;
-	}
-
-	.mode-control,
-	.preview-background-control,
-	.seed-control {
+	.mode-control {
 		display: grid;
 		gap: 8px;
 		margin-top: 18px;
-	}
-
-	.mode-control {
 		padding: 0;
 		border: 0;
-	}
-
-	.preview-background-control {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		padding: 0;
-		border: 0;
-	}
-
-	.preview-background-control legend {
-		grid-column: 1 / -1;
 	}
 
 	.mode-control label {
@@ -1449,28 +1188,7 @@ const modeOptions = isCheckerboardVariant
 		cursor: pointer;
 	}
 
-	.preview-background-control label {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 8px;
-		min-height: 42px;
-		padding: 8px 10px;
-		color: var(--color-ink);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-		font-weight: 850;
-		cursor: pointer;
-	}
-
 	.mode-control label:has(input:checked) {
-		color: var(--color-accent-dark);
-		background: var(--color-accent-soft);
-		border-color: var(--color-accent-line);
-	}
-
-	.preview-background-control label:has(input:checked) {
 		color: var(--color-accent-dark);
 		background: var(--color-accent-soft);
 		border-color: var(--color-accent-line);
@@ -1481,107 +1199,8 @@ const modeOptions = isCheckerboardVariant
 		outline-offset: 2px;
 	}
 
-	.preview-background-control label:has(input:focus-visible) {
-		outline: 3px solid var(--color-accent-focus-soft);
-		outline-offset: 2px;
-	}
-
-	.mode-control input,
-	.preview-background-control input,
-	.range-control input {
+	.mode-control input {
 		accent-color: var(--color-accent);
-	}
-
-	.seed-display {
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		min-height: 46px;
-		padding: 10px 12px;
-		color: var(--color-ink);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-		font-weight: 850;
-	}
-
-	.seed-swatch {
-		width: 28px;
-		height: 28px;
-		flex-shrink: 0;
-		background-color: #ffffff;
-		border: 1px solid var(--color-line);
-		border-radius: 6px;
-	}
-
-	.seed-value {
-		font-weight: 850;
-		letter-spacing: 0.02em;
-	}
-
-	.remover-actions,
-	.result-heading {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 10px;
-		align-items: center;
-		justify-content: space-between;
-		margin-top: 20px;
-	}
-
-	.preview-card {
-		display: grid;
-		gap: 10px;
-		margin-top: 18px;
-	}
-
-	.preview-card p,
-	.result-heading .eyebrow {
-		margin: 0;
-	}
-
-	.source-download {
-		justify-self: start;
-	}
-
-	.preview-frame {
-		display: grid;
-		overflow: hidden;
-		min-height: 260px;
-		place-items: center;
-		padding: 12px;
-		background:
-			linear-gradient(45deg, var(--color-checkerboard-square) 25%, var(--color-transparent) 25%),
-			linear-gradient(-45deg, var(--color-checkerboard-square) 25%, var(--color-transparent) 25%),
-			linear-gradient(45deg, var(--color-transparent) 75%, var(--color-checkerboard-square) 75%),
-			linear-gradient(-45deg, var(--color-transparent) 75%, var(--color-checkerboard-square) 75%);
-		background-color: var(--color-checkerboard-background);
-		background-position: 0 0, 0 10px, 10px -10px, -10px 0;
-		background-size: 20px 20px;
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-	}
-
-	.background-remover[data-preview-background='plain'] .preview-frame {
-		background: var(--color-surface-raised);
-	}
-
-	.preview-frame img {
-		display: block;
-		max-width: 100%;
-		max-height: 420px;
-		object-fit: contain;
-	}
-
-	.background-remover[data-variant='plain'] .source-frame img {
-		cursor: crosshair;
-	}
-
-	.preview-frame span {
-		max-width: 42ch;
-		color: var(--color-muted);
-		font-weight: 700;
-		text-align: center;
 	}
 
 	.result-panel {
@@ -1589,7 +1208,16 @@ const modeOptions = isCheckerboardVariant
 	}
 
 	.result-heading {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		align-items: center;
+		justify-content: space-between;
 		margin-top: 0;
+	}
+
+	.result-heading .eyebrow {
+		margin: 0;
 	}
 
 	.result-heading h2 {
@@ -1597,6 +1225,8 @@ const modeOptions = isCheckerboardVariant
 	}
 
 	.result-preview {
+		display: grid;
+		gap: 18px;
 		grid-template-columns: minmax(0, 1fr) minmax(240px, 0.35fr);
 		margin-top: 18px;
 		align-items: start;
@@ -1633,7 +1263,6 @@ const modeOptions = isCheckerboardVariant
 	}
 
 	@media (max-width: 880px) {
-		.remover-grid,
 		.result-preview {
 			grid-template-columns: 1fr;
 		}

@@ -1,0 +1,685 @@
+---
+import type { Locale } from '../../../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const outputFormats = [
+	{ value: 'PNG', label: 'PNG', extension: 'png', mime: 'image/png', quality: false },
+	{ value: 'WEBP', label: 'WebP', extension: 'webp', mime: 'image/webp', quality: true },
+];
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Bild-Tool',
+		title: 'Hintergrund entfernen',
+		intro: 'Entferne einfarbige oder nahezu einfarbige Hintergründe direkt im Browser mit ImageMagick WASM.',
+		privacy: 'Deine Datei wird nicht hochgeladen. Die Transparenz wird clientseitig erzeugt.',
+		fileTitle: 'Quelldatei',
+		chooseFile: 'Bilddatei wählen',
+		fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC und mehr',
+		settingsTitle: 'Entfernung',
+		seedTitle: 'Hintergrund-Stelle',
+		tolerance: 'Toleranz',
+		outputFormat: 'Ausgabeformat',
+		quality: 'Qualität',
+		previewBackground: 'Vorschau-Hintergrund',
+		previewPlain: 'Einfarbig',
+		previewChecker: 'Schachbrett',
+		clear: 'Datei entfernen',
+		sourcePreview: 'Quelle',
+		download: 'Bild herunterladen',
+		client: {
+			chooseFile: 'Bilddatei wählen',
+			cleared: 'Die Datei wurde entfernt.',
+			converted: '{name} wurde erzeugt.',
+			converting: 'Hintergrund wird entfernt...',
+			fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC und mehr',
+			fileMeta: '{size} | {type}',
+			fileReady: '{name} ist ausgewählt ({size}).',
+			imageMeta: '{width} x {height}px | {frames} | {size}',
+			loadingMagick: 'ImageMagick WASM wird geladen...',
+			magickReady: '{version} ist bereit.',
+			magickTimeout: 'ImageMagick WASM hat nicht innerhalb von 90 Sekunden geladen. Prüfe deine Verbindung und versuche es erneut.',
+			noFile: 'Wähle zuerst eine Bilddatei.',
+			noFrames: 'ImageMagick konnte kein Bild in dieser Datei finden.',
+			noSeed: 'Klicke zuerst auf das Bild, um die Hintergrund-Stelle zu wählen.',
+			previewUnavailable: 'Für dieses Format ist keine Browser-Vorschau verfügbar. Der Download ist trotzdem bereit.',
+			seedInstruction: 'Klicke auf das Bild, wo der Hintergrund ist. Er wird ab dieser Stelle sofort entfernt.',
+			seeded: 'Farbe {color} übernommen.',
+			sourcePreviewUnavailable: 'Die Browser-Vorschau kann dieses Quellformat nicht anzeigen. Die Entfernung kann trotzdem funktionieren.',
+			singleFrame: '1 Frame',
+			multipleFrames: '{count} Frames',
+			unknownError: 'Unbekannter Fehler',
+			waiting: 'Wähle ein Bild und klicke auf den Hintergrund, um ihn zu entfernen.',
+		},
+	},
+	en: {
+		eyebrow: 'Image tool',
+		title: 'Background Remover',
+		intro: 'Remove solid or near-solid backgrounds directly in your browser with ImageMagick WASM.',
+		privacy: 'Your file is not uploaded. Transparency is created client-side.',
+		fileTitle: 'Source file',
+		chooseFile: 'Choose image file',
+		fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC and more',
+		settingsTitle: 'Removal',
+		seedTitle: 'Background spot',
+		tolerance: 'Tolerance',
+		outputFormat: 'Output format',
+		quality: 'Quality',
+		previewBackground: 'Preview background',
+		previewPlain: 'Plain',
+		previewChecker: 'Checker',
+		clear: 'Clear file',
+		sourcePreview: 'Source',
+		download: 'Download image',
+		client: {
+			chooseFile: 'Choose image file',
+			cleared: 'The file has been cleared.',
+			converted: '{name} was created.',
+			converting: 'Removing background...',
+			fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC and more',
+			fileMeta: '{size} | {type}',
+			fileReady: '{name} is selected ({size}).',
+			imageMeta: '{width} x {height}px | {frames} | {size}',
+			loadingMagick: 'Loading ImageMagick WASM...',
+			magickReady: '{version} is ready.',
+			magickTimeout: 'ImageMagick WASM did not finish loading within 90 seconds. Check your connection and try again.',
+			noFile: 'Choose an image file first.',
+			noFrames: 'ImageMagick could not find an image in this file.',
+			noSeed: 'Click the image first to pick the background spot.',
+			previewUnavailable: 'This format cannot be previewed by the browser. The download is ready.',
+			seedInstruction: 'Click the image where the background is. It is removed from that spot right away.',
+			seeded: 'Picked {color}.',
+			sourcePreviewUnavailable: 'The browser cannot preview this source format. Removal may still work.',
+			singleFrame: '1 frame',
+			multipleFrames: '{count} frames',
+			unknownError: 'Unknown error',
+			waiting: 'Choose an image, then click the background to remove it.',
+		},
+	},
+} satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy.client);
+const outputFormatsJson = JSON.stringify(outputFormats);
+---
+
+<section class="tool-intro">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{copy.title}</h1>
+		<p class="tool-lede">{copy.intro}</p>
+		<p class="tool-note">{copy.privacy}</p>
+	</div>
+</section>
+
+<section class="section background-remover-section tool-workspace">
+	<div class="container">
+		<div class="background-remover" data-background-remover data-copy={copyJson} data-formats={outputFormatsJson} data-variant="plain">
+			<div class="remover-grid">
+				<section class="remover-panel tool-panel source-panel">
+					<h2>{copy.fileTitle}</h2>
+					<label class="file-picker tool-file-picker">
+						<span>{copy.fileTitle}</span>
+						<strong data-file-name>{copy.chooseFile}</strong>
+						<small data-file-meta>{copy.fileHint}</small>
+						<input
+							data-file
+							type="file"
+							accept="image/*,.avif,.bmp,.gif,.heic,.heif,.ico,.jpeg,.jpg,.png,.psd,.svg,.tif,.tiff,.webp"
+						/>
+					</label>
+					<div class="preview-card" data-source-preview hidden>
+						<p>{copy.sourcePreview}</p>
+						<div class="preview-frame source-frame">
+							<img data-source-image alt="" />
+							<span data-source-preview-note hidden>{copy.client.sourcePreviewUnavailable}</span>
+						</div>
+						<small data-source-meta></small>
+						<a class="button primary source-download" data-download href="#" download hidden>{copy.download}</a>
+					</div>
+				</section>
+
+				<section class="remover-panel tool-panel settings-panel">
+					<h2>{copy.settingsTitle}</h2>
+					<div class="seed-control" data-seed-control>
+						<span>{copy.seedTitle}</span>
+						<p class="seed-instruction">{copy.client.seedInstruction}</p>
+						<div class="seed-display" data-seed-display hidden>
+							<span class="seed-swatch" data-seed-swatch></span>
+							<span class="seed-value" data-seed-value></span>
+						</div>
+					</div>
+					<label class="range-control tool-range-control">
+						<span>{copy.tolerance}: <strong data-fuzz-label>8%</strong></span>
+						<input data-fuzz type="range" min="0" max="30" step="1" value="8" />
+					</label>
+					<label class="select-control tool-select-control">
+						<span>{copy.outputFormat}</span>
+						<select data-format>
+							{
+								outputFormats.map((format) => (
+									<option value={format.value} selected={format.value === 'PNG'}>
+										{format.label}
+									</option>
+								))
+							}
+						</select>
+					</label>
+					<label class="range-control tool-range-control" data-quality-control hidden>
+						<span>{copy.quality}: <strong data-quality-label>90</strong></span>
+						<input data-quality type="range" min="1" max="100" step="1" value="90" />
+					</label>
+					<fieldset class="preview-background-control">
+						<legend>{copy.previewBackground}</legend>
+						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="plain" /> {copy.previewPlain}</label>
+						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="checker" checked /> {copy.previewChecker}</label>
+					</fieldset>
+					<div class="remover-actions">
+						<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
+					</div>
+					<p class="remover-status tool-status" data-status role="status">{copy.client.waiting}</p>
+				</section>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	(() => {
+		const roots = document.querySelectorAll('[data-background-remover]:not([data-background-remover-bound])');
+
+		for (const root of roots) {
+			root.dataset.backgroundRemoverBound = 'true';
+			initBackgroundRemover(root);
+		}
+
+		function initBackgroundRemover(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const outputFormats = JSON.parse(root.dataset.formats || '[]');
+			const fileInput = root.querySelector('[data-file]');
+			const fileName = root.querySelector('[data-file-name]');
+			const fileMeta = root.querySelector('[data-file-meta]');
+			const fuzzInput = root.querySelector('[data-fuzz]');
+			const fuzzLabel = root.querySelector('[data-fuzz-label]');
+			const formatSelect = root.querySelector('[data-format]');
+			const qualityControl = root.querySelector('[data-quality-control]');
+			const qualityInput = root.querySelector('[data-quality]');
+			const qualityLabel = root.querySelector('[data-quality-label]');
+			const previewBackgroundInputs = Array.from(root.querySelectorAll('[data-preview-background]'));
+			const clearButton = root.querySelector('[data-clear]');
+			const status = root.querySelector('[data-status]');
+			const sourcePreview = root.querySelector('[data-source-preview]');
+			const sourceImage = root.querySelector('[data-source-image]');
+			const sourcePreviewNote = root.querySelector('[data-source-preview-note]');
+			const sourceMeta = root.querySelector('[data-source-meta]');
+			const seedDisplay = root.querySelector('[data-seed-display]');
+			const seedSwatch = root.querySelector('[data-seed-swatch]');
+			const seedValue = root.querySelector('[data-seed-value]');
+			const downloadLink = root.querySelector('[data-download]');
+
+			if (
+				!fileInput || !fileName || !fileMeta || !fuzzInput || !fuzzLabel || !formatSelect ||
+				!qualityControl || !qualityInput || !qualityLabel || !previewBackgroundInputs.length ||
+				!clearButton || !status || !sourcePreview || !sourceImage || !sourcePreviewNote ||
+				!sourceMeta || !seedDisplay || !seedSwatch || !seedValue || !downloadLink
+			) {
+				return;
+			}
+
+			const state = {
+				file: null,
+				inputUrl: null,
+				outputUrl: null,
+				isWorking: false,
+				magick: null,
+				magickPromise: null,
+				seedPoint: null,
+				seedColor: null,
+				originalName: null,
+			};
+
+			fileInput.addEventListener('change', () => {
+				setSourceFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
+			});
+			for (const input of previewBackgroundInputs) {
+				input.addEventListener('change', updatePreviewBackground);
+			}
+			formatSelect.addEventListener('change', updateQualityControl);
+			fuzzInput.addEventListener('input', () => {
+				fuzzLabel.textContent = `${fuzzInput.value}%`;
+			});
+			qualityInput.addEventListener('input', () => {
+				qualityLabel.textContent = qualityInput.value;
+			});
+			clearButton.addEventListener('click', clearFile);
+			sourceImage.addEventListener('click', setSeedFromClick);
+			sourceImage.addEventListener('load', () => {
+				sourceImage.hidden = false;
+				sourcePreviewNote.hidden = true;
+			});
+			sourceImage.addEventListener('error', () => {
+				sourceImage.hidden = true;
+				sourcePreviewNote.hidden = false;
+			});
+
+			updateQualityControl();
+			updatePreviewBackground();
+			updateReadyState();
+
+			function setSourceFile(file) {
+				revokeUrl('inputUrl');
+				resetOutput();
+				resetSeed();
+				state.file = file;
+				state.originalName = file ? file.name : null;
+
+				if (!file) {
+					fileName.textContent = copy.chooseFile || 'Choose image file';
+					fileMeta.textContent = copy.fileHint || '';
+					sourcePreview.hidden = true;
+					sourceImage.removeAttribute('src');
+					sourceMeta.textContent = '';
+					setStatus(copy.waiting, 'info');
+					updateReadyState();
+					return;
+				}
+
+				state.inputUrl = URL.createObjectURL(file);
+				fileName.textContent = file.name;
+				fileMeta.textContent = format(copy.fileMeta, {
+					size: formatBytes(file.size),
+					type: file.type || fileExtension(file.name).slice(1).toUpperCase(),
+				});
+				sourceImage.hidden = false;
+				sourcePreviewNote.hidden = true;
+				sourceImage.src = state.inputUrl;
+				sourcePreview.hidden = false;
+				sourceMeta.textContent = format(copy.fileReady, {
+					name: file.name,
+					size: formatBytes(file.size),
+				});
+				setStatus(sourceMeta.textContent, 'success');
+				updateReadyState();
+			}
+
+			async function removeBackground() {
+				if (!state.file) {
+					setStatus(copy.noFile, 'error');
+					return;
+				}
+
+				if (!state.seedPoint) {
+					setStatus(copy.noSeed, 'error');
+					return;
+				}
+
+				const selectedFormat = getSelectedFormat();
+				const baseName = state.originalName || state.file.name;
+				const outputName = createOutputName(baseName, selectedFormat.extension);
+
+				setWorking(true);
+				resetOutput();
+
+				try {
+					const magick = await loadMagick();
+					setStatus(copy.converting, 'info');
+
+					const inputBytes = new Uint8Array(await state.file.arrayBuffer());
+					const cutout = removeWithMagick(magick, inputBytes, {
+						format: selectedFormat,
+						fuzz: Number(fuzzInput.value),
+						quality: Number(qualityInput.value),
+						seedPoint: state.seedPoint,
+					});
+					const outputBlob = new Blob([cutout.bytes], { type: selectedFormat.mime });
+					const nextUrl = URL.createObjectURL(outputBlob);
+					const nextFile = new File([outputBlob], outputName, { type: selectedFormat.mime });
+
+					revokeUrl('inputUrl');
+					state.file = nextFile;
+					state.inputUrl = nextUrl;
+					sourceImage.src = nextUrl;
+					sourceMeta.textContent = format(copy.imageMeta, {
+						width: cutout.width || '?',
+						height: cutout.height || '?',
+						frames: formatFrames(cutout.frames),
+						size: formatBytes(outputBlob.size),
+					});
+					downloadLink.href = nextUrl;
+					downloadLink.download = outputName;
+					downloadLink.hidden = false;
+					setStatus(format(copy.converted, { name: outputName }), 'success');
+				} catch (error) {
+					setStatus(messageFromError(error), 'error');
+					resetOutput();
+				} finally {
+					setWorking(false);
+				}
+			}
+
+			function removeWithMagick(magick, inputBytes, settings) {
+				const { AlphaAction, ImageMagick, MagickColor, Percentage } = magick;
+				let metadata = {
+					width: 0,
+					height: 0,
+					frames: 0,
+				};
+
+				const bytes = ImageMagick.readCollection(inputBytes, (images) => {
+					if (!images.length) {
+						throw new Error(copy.noFrames);
+					}
+
+					metadata = {
+						width: images[0].width,
+						height: images[0].height,
+						frames: images.length,
+					};
+
+					const maxX = Math.max(0, images[0].width - 1);
+					const maxY = Math.max(0, images[0].height - 1);
+					const seedX = Math.max(0, Math.min(maxX, Math.round(settings.seedPoint.x)));
+					const seedY = Math.max(0, Math.min(maxY, Math.round(settings.seedPoint.y)));
+
+					for (const image of images) {
+						image.alpha(AlphaAction.Set);
+						image.colorFuzz = new Percentage(settings.fuzz);
+
+						const seedColor = image.getPixels((pixels) => pixels.getColor(seedX, seedY));
+
+						if (seedColor) {
+							image.floodFill(new MagickColor(seedColor.r, seedColor.g, seedColor.b, 0), seedX, seedY);
+						}
+
+						if (settings.format.quality) {
+							image.quality = settings.quality;
+						}
+					}
+
+					return images.write(settings.format.value, (data) => new Uint8Array(data));
+				});
+
+				return {
+					bytes,
+					...metadata,
+				};
+			}
+
+			async function loadMagick() {
+				if (state.magick) {
+					return state.magick;
+				}
+
+				if (state.magickPromise) {
+					return state.magickPromise;
+				}
+
+				state.magickPromise = (async () => {
+					setStatus(copy.loadingMagick, 'info');
+
+					const magickVersion = '0.0.41';
+					const moduleUrl = `https://cdn.jsdelivr.net/npm/@imagemagick/magick-wasm@${magickVersion}/+esm`;
+					const wasmUrl = `https://cdn.jsdelivr.net/npm/@imagemagick/magick-wasm@${magickVersion}/dist/magick.wasm`;
+					const magick = await import(/* @vite-ignore */ moduleUrl);
+
+					await withTimeout(
+						magick.initializeImageMagick(new URL(wasmUrl)),
+						90000,
+						copy.magickTimeout,
+					);
+
+					state.magick = magick;
+					setStatus(format(copy.magickReady, {
+						version: magick.Magick && magick.Magick.imageMagickVersion
+							? magick.Magick.imageMagickVersion
+							: 'ImageMagick WASM',
+					}), 'success');
+
+					return magick;
+				})().catch((error) => {
+					state.magickPromise = null;
+					throw error;
+				});
+
+				return state.magickPromise;
+			}
+
+			function setSeedFromClick(event) {
+				if (state.isWorking) {
+					return;
+				}
+
+				if (!sourceImage.complete || !sourceImage.naturalWidth || sourceImage.hidden) {
+					return;
+				}
+
+				const rect = sourceImage.getBoundingClientRect();
+
+				if (!rect.width || !rect.height) {
+					return;
+				}
+
+				const x = Math.round(((event.clientX - rect.left) / rect.width) * (sourceImage.naturalWidth - 1));
+				const y = Math.round(((event.clientY - rect.top) / rect.height) * (sourceImage.naturalHeight - 1));
+				const canvas = document.createElement('canvas');
+				canvas.width = sourceImage.naturalWidth;
+				canvas.height = sourceImage.naturalHeight;
+				const context = canvas.getContext('2d', { willReadFrequently: true });
+
+				if (!context) {
+					return;
+				}
+
+				context.drawImage(sourceImage, 0, 0);
+				const [red, green, blue] = context.getImageData(x, y, 1, 1).data;
+				const color = rgbToHex(red, green, blue);
+
+				state.seedPoint = { x, y };
+				state.seedColor = color;
+				seedDisplay.hidden = false;
+				seedSwatch.style.backgroundColor = color;
+				seedValue.textContent = color;
+				setStatus(format(copy.seeded, { color }), 'success');
+				void removeBackground();
+			}
+
+			function resetSeed() {
+				state.seedPoint = null;
+				state.seedColor = null;
+				seedDisplay.hidden = true;
+				seedSwatch.style.backgroundColor = '';
+				seedValue.textContent = '';
+			}
+
+			function updateQualityControl() {
+				const selectedFormat = getSelectedFormat();
+				qualityControl.hidden = !selectedFormat.quality;
+				qualityLabel.textContent = qualityInput.value;
+			}
+
+			function updatePreviewBackground() {
+				const selected = previewBackgroundInputs.find((input) => input.checked);
+				root.dataset.previewBackground = selected ? selected.value : 'checker';
+			}
+
+			function getSelectedFormat() {
+				return outputFormats.find((formatOption) => formatOption.value === formatSelect.value) || outputFormats[0];
+			}
+
+			function updateReadyState() {
+				clearButton.disabled = state.isWorking || !state.file;
+				formatSelect.disabled = state.isWorking;
+				fuzzInput.disabled = state.isWorking;
+				qualityInput.disabled = state.isWorking;
+				fileInput.disabled = state.isWorking;
+
+				for (const input of previewBackgroundInputs) {
+					input.disabled = state.isWorking;
+				}
+			}
+
+			function setWorking(isWorking) {
+				state.isWorking = isWorking;
+				updateReadyState();
+			}
+
+			function resetOutput() {
+				revokeUrl('outputUrl');
+				downloadLink.hidden = true;
+				downloadLink.removeAttribute('href');
+			}
+
+			function clearFile() {
+				state.file = null;
+				state.originalName = null;
+				fileInput.value = '';
+				revokeUrl('inputUrl');
+				resetOutput();
+				resetSeed();
+				sourcePreview.hidden = true;
+				sourceImage.removeAttribute('src');
+				sourceImage.hidden = false;
+				sourcePreviewNote.hidden = true;
+				sourceMeta.textContent = '';
+				fileName.textContent = copy.chooseFile || 'Choose image file';
+				fileMeta.textContent = copy.fileHint || '';
+				setStatus(copy.cleared, 'info');
+				updateReadyState();
+			}
+
+			function revokeUrl(key) {
+				if (state[key]) {
+					URL.revokeObjectURL(state[key]);
+					state[key] = null;
+				}
+			}
+
+			function setStatus(message, type) {
+				status.textContent = message;
+				status.dataset.state = type;
+			}
+
+			function createOutputName(name, extension) {
+				const baseName = name.replace(/\.[^.]+$/, '') || 'cutout-image';
+				return `${baseName}-no-bg.${extension}`;
+			}
+
+			function fileExtension(name) {
+				const match = name.toLowerCase().match(/\.[a-z0-9]+$/);
+				return match ? match[0] : '.image';
+			}
+
+			function format(template, values) {
+				return String(template).replace(/\{(\w+)\}/g, (_match, key) => {
+					return values && key in values ? String(values[key]) : '';
+				});
+			}
+
+			function formatBytes(bytes) {
+				if (!Number.isFinite(bytes) || bytes <= 0) {
+					return '0 B';
+				}
+
+				const units = ['B', 'KB', 'MB', 'GB'];
+				const power = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
+				const value = bytes / (1024 ** power);
+				return `${value.toFixed(value >= 10 || power === 0 ? 0 : 1)} ${units[power]}`;
+			}
+
+			function formatFrames(frames) {
+				if (!Number.isFinite(frames) || frames <= 1) {
+					return copy.singleFrame;
+				}
+
+				return format(copy.multipleFrames, { count: frames });
+			}
+
+			function messageFromError(error) {
+				if (typeof error === 'string') {
+					return error;
+				}
+
+				return error && typeof error === 'object' && 'message' in error
+					? String(error.message)
+					: copy.unknownError;
+			}
+
+			function rgbToHex(red, green, blue) {
+				return `#${[red, green, blue].map((channel) => {
+					return channel.toString(16).padStart(2, '0');
+				}).join('')}`;
+			}
+
+			function withTimeout(promise, timeoutMs, message) {
+				let timeoutId;
+				const timeout = new Promise((_resolve, reject) => {
+					timeoutId = window.setTimeout(() => reject(new Error(message)), timeoutMs);
+				});
+
+				return Promise.race([promise, timeout]).finally(() => {
+					window.clearTimeout(timeoutId);
+				});
+			}
+		}
+	})();
+</script>
+
+<style>
+	.seed-control > span {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.seed-control {
+		display: grid;
+		gap: 8px;
+		margin-top: 18px;
+	}
+
+	.seed-instruction {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.seed-display {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		min-height: 46px;
+		padding: 10px 12px;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 850;
+	}
+
+	.seed-swatch {
+		width: 28px;
+		height: 28px;
+		flex-shrink: 0;
+		background-color: #ffffff;
+		border: 1px solid var(--color-line);
+		border-radius: 6px;
+	}
+
+	.seed-value {
+		font-weight: 850;
+		letter-spacing: 0.02em;
+	}
+
+	.source-download {
+		justify-self: start;
+	}
+
+	.background-remover[data-variant='plain'] .source-frame img {
+		cursor: crosshair;
+	}
+</style>
