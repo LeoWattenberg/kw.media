@@ -431,6 +431,7 @@ const existingSlugs = extractExistingSlugs(posts);
 let nextId = extractMaxId(posts) + 1;
 const tempDir = mkdtempSync(join(tmpdir(), 'kwmedia-youtube-import-'));
 const created = [];
+const createdPostPaths = [];
 const translated = [];
 const skipped = [];
 const runAiPostProcessing = process.env.IMPORT_AI !== '0';
@@ -497,17 +498,27 @@ try {
 				const translation = await translatePostFile(outputPath);
 				if (!translation.skipped) {
 					createdTranslation = true;
+					createdPostPaths.push(translation.targetPath);
 					translated.push(`${metadata.title} (${entry.id}) -> ${translation.targetPath}`);
 				}
 			}
 
 			existingVideoIds.add(entry.id);
 			nextId += createdTranslation ? 2 : 1;
+			createdPostPaths.push(outputPath);
 			created.push(`${metadata.title} (${entry.id})`);
 		}
 	}
 } finally {
 	rmSync(tempDir, { recursive: true, force: true });
+}
+
+if (runAiPostProcessing && createdPostPaths.length) {
+	console.log('Generating related-post data for imported post(s)');
+	runNodeScript('build-related-posts.mjs');
+
+	console.log('Adding inline links to imported post(s)');
+	runNodeScript('add-inline-post-links.mjs', ['--write', ...createdPostPaths]);
 }
 
 if (created.length) {
@@ -531,4 +542,10 @@ if (skipped.length) {
 	for (const item of skipped) {
 		console.warn(`- ${item}`);
 	}
+}
+
+function runNodeScript(scriptName, args = []) {
+	execFileSync(process.execPath, [join(process.cwd(), 'scripts', scriptName), ...args], {
+		stdio: 'inherit',
+	});
 }
