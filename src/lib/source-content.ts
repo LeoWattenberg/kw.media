@@ -15,6 +15,7 @@ export interface SourcePost {
 	category: Category;
 	image?: string;
 	authorName: string;
+	tags?: string[];
 	sourceUrl: string;
 	postCta?: {
 		text: string;

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../../components/layout/BaseLayout.astro';
+import TagPage from '../../../components/TagPage.astro';
+import { getAllTags, getTagAlternatePaths, type TagPageData } from '../../../data/tags';
+import { locales, type Locale } from '../../../i18n';
+
+export function getStaticPaths() {
+	return locales.flatMap((locale) =>
+		getAllTags(locale).map((tag) => ({
+			params: { locale, slug: tag.slug },
+			props: { tag },
+		})),
+	);
+}
+
+interface Props {
+	tag: TagPageData;
+}
+
+const { tag } = Astro.props;
+const alternatePaths = getTagAlternatePaths(tag.locale, tag.slug);
+const description = tag.locale === 'de'
+	? `${tag.count} ${tag.count === 1 ? 'Beitrag' : 'Beiträge'} zum Thema ${tag.name} auf kw.media.`
+	: `${tag.count} ${tag.count === 1 ? 'post' : 'posts'} tagged ${tag.name} on kw.media.`;
+---
+
+<BaseLayout
+	locale={tag.locale}
+	title={tag.name}
+	description={description}
+	canonicalPath={tag.path}
+	alternatePaths={alternatePaths}
+>
+	<TagPage tag={tag} />
+</BaseLayout>

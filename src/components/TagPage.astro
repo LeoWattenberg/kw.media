@@ -1,0 +1,138 @@
+---
+import type { TagPageData } from '../data/tags';
+import { withBase } from '../lib/url';
+
+interface Props {
+	tag: TagPageData;
+}
+
+const { tag } = Astro.props;
+const copy = tag.locale === 'de'
+	? {
+		eyebrow: 'Thema',
+		intro: (count: number) => `${count} ${count === 1 ? 'Beitrag' : 'Beiträge'} zum Thema`,
+		empty: 'Noch keine Beiträge mit diesem Tag.',
+		dateLocale: 'de-DE' as const,
+	}
+	: {
+		eyebrow: 'Topic',
+		intro: (count: number) => `${count} ${count === 1 ? 'post' : 'posts'} tagged`,
+		empty: 'No posts with this tag yet.',
+		dateLocale: 'en-US' as const,
+	};
+---
+
+<section class="tag-hero">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{tag.name}</h1>
+		<p>{copy.intro(tag.count)} <strong>{tag.name}</strong></p>
+	</div>
+</section>
+
+<section class="section tag-section">
+	<div class="container">
+		{tag.posts.length ? (
+			<div class="tag-grid">
+				{tag.posts.map((post) => (
+					<article>
+						{post.image && <img src={withBase(post.image)} alt="" loading="lazy" />}
+						<div>
+							<time datetime={post.date}>{new Date(post.date).toLocaleDateString(copy.dateLocale)}</time>
+							<h2><a href={withBase(post.path)}>{post.title}</a></h2>
+							<p>{post.excerpt}</p>
+						</div>
+					</article>
+				))}
+			</div>
+		) : (
+			<p class="tag-empty">{copy.empty}</p>
+		)}
+	</div>
+</section>
+
+<style>
+	.tag-hero {
+		padding-block: clamp(42px, 7vw, 82px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.tag-hero h1 {
+		max-width: 780px;
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.6rem);
+		line-height: 0.96;
+		letter-spacing: 0;
+	}
+
+	.tag-hero p:not(.eyebrow) {
+		max-width: 720px;
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+	}
+
+	.tag-section {
+		background: var(--color-surface-raised);
+	}
+
+	.tag-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 16px;
+	}
+
+	article {
+		overflow: hidden;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	img {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		background: var(--color-line);
+	}
+
+	article > div {
+		padding: 20px;
+	}
+
+	time {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+		font-weight: 750;
+	}
+
+	h2 {
+		margin: 8px 0 10px;
+		font-size: 1.2rem;
+		line-height: 1.2;
+		letter-spacing: 0;
+	}
+
+	h2 a {
+		text-decoration: none;
+	}
+
+	h2 a:hover {
+		color: var(--color-accent-dark);
+	}
+
+	p {
+		margin: 0;
+		color: var(--color-muted);
+	}
+
+	.tag-empty {
+		padding: 32px;
+		border: 1px dashed var(--color-line);
+		border-radius: 8px;
+		text-align: center;
+		color: var(--color-muted);
+		font-weight: 700;
+	}
+</style>
