@@ -247,13 +247,7 @@ async function getWikimediaCommonsCandidates() {
 		...(await getCommonsCategoryFileTitles('Category:FLAC files', 1500)),
 		...(await getCommonsCategoryFileTitles('Category:WAV files', 1500)),
 	]);
-	const featuredTitles = new Set([
-		...(await getCommonsCategoryFileTitles('Category:Featured media', 1000)),
-		...(await getCommonsCategoryFileTitles('Category:Featured sounds', 1000)),
-		...(await getCommonsCategoryFileTitles('Category:Featured sounds on Wikimedia Commons', 1000)),
-		...(await getCommonsCategoryFileTitles('Category:Featured audio', 1000)),
-	]);
-	const titles = [...featuredTitles].filter((title) => formatTitles.has(title) && ACCEPTED_EXTENSIONS.has(path.extname(title).toLowerCase()));
+	const titles = [...formatTitles].filter((title) => ACCEPTED_EXTENSIONS.has(path.extname(title).toLowerCase()));
 	const shuffledTitles = shuffle(titles, hashString(`${GAME_DATE}:commons`)).slice(0, 80);
 	const candidates = [];
 
@@ -262,11 +256,10 @@ async function getWikimediaCommonsCandidates() {
 		url.searchParams.set('action', 'query');
 		url.searchParams.set('format', 'json');
 		url.searchParams.set('formatversion', '2');
-		url.searchParams.set('prop', 'imageinfo|categories');
+		url.searchParams.set('prop', 'imageinfo');
 		url.searchParams.set('titles', batch.join('|'));
 		url.searchParams.set('iiprop', 'url|mime|size|extmetadata');
 		url.searchParams.set('iiextmetadatafilter', 'Artist|Credit|LicenseShortName|LicenseUrl|ObjectName|ImageDescription');
-		url.searchParams.set('cllimit', 'max');
 
 		const data = await fetchJson(url);
 		const pages = data.query?.pages || [];
@@ -275,18 +268,6 @@ async function getWikimediaCommonsCandidates() {
 			const info = page.imageinfo?.[0];
 
 			if (!info?.url) {
-				continue;
-			}
-
-			const categories = (page.categories || []).map((category) => category.title.toLowerCase());
-			const hasFeaturedCategory = categories.some(
-				(category) =>
-					category.includes('featured media') ||
-					category.includes('featured sound') ||
-					category.includes('featured audio'),
-			);
-
-			if (!hasFeaturedCategory) {
 				continue;
 			}
 
