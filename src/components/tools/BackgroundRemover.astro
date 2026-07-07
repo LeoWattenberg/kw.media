@@ -25,16 +25,9 @@ const copyByLocale = {
 		fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC und mehr',
 		settingsTitle: 'Entfernung',
 		mode: 'Modus',
-		modeEdges: 'Hintergrund an den Rändern',
-		modeColor: 'Farbe im ganzen Bild',
 		modeCheckerboardEdges: 'Fake-PNG-Schachbrett an den Rändern',
 		modeCheckerboardAll: 'Fake-PNG-Schachbrett im ganzen Bild',
-		corners: 'Ecken prüfen',
-		topLeft: 'Oben links',
-		topRight: 'Oben rechts',
-		bottomLeft: 'Unten links',
-		bottomRight: 'Unten rechts',
-		backgroundColor: 'Hintergrundfarbe',
+		seedTitle: 'Hintergrund-Stelle',
 		tolerance: 'Toleranz',
 		outputFormat: 'Ausgabeformat',
 		quality: 'Qualität',
@@ -59,12 +52,12 @@ const copyByLocale = {
 			loadingMagick: 'ImageMagick WASM wird geladen...',
 			magickReady: '{version} ist bereit.',
 			magickTimeout: 'ImageMagick WASM hat nicht innerhalb von 90 Sekunden geladen. Prüfe deine Verbindung und versuche es erneut.',
-			noCorners: 'Wähle mindestens eine Ecke oder wechsle zum Farbmodus.',
 			noFile: 'Wähle zuerst eine Bilddatei.',
 			noFrames: 'ImageMagick konnte kein Bild in dieser Datei finden.',
-			pickColor: 'Klicke in die Vorschau, um eine Farbe zu übernehmen.',
+			noSeed: 'Klicke zuerst auf das Bild, um die Hintergrund-Stelle zu wählen.',
 			previewUnavailable: 'Für dieses Format ist keine Browser-Vorschau verfügbar. Der Download ist trotzdem bereit.',
-			sampledColor: 'Farbe {color} wurde übernommen.',
+			seedInstruction: 'Klicke auf das Bild, wo der Hintergrund ist. Die Farbe unter dem Cursor und diese Stelle werden zum Entfernungsziel.',
+			seeded: 'Farbe {color} übernommen. Die Entfernung startet an dieser Stelle.',
 			sourcePreviewUnavailable: 'Die Browser-Vorschau kann dieses Quellformat nicht anzeigen. Die Entfernung kann trotzdem funktionieren.',
 			singleFrame: '1 Frame',
 			multipleFrames: '{count} Frames',
@@ -82,16 +75,9 @@ const copyByLocale = {
 		fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC and more',
 		settingsTitle: 'Removal',
 		mode: 'Mode',
-		modeEdges: 'Background at edges',
-		modeColor: 'Color across image',
 		modeCheckerboardEdges: 'Fake PNG checkerboard at edges',
 		modeCheckerboardAll: 'Fake PNG checkerboard across image',
-		corners: 'Check corners',
-		topLeft: 'Top left',
-		topRight: 'Top right',
-		bottomLeft: 'Bottom left',
-		bottomRight: 'Bottom right',
-		backgroundColor: 'Background color',
+		seedTitle: 'Background spot',
 		tolerance: 'Tolerance',
 		outputFormat: 'Output format',
 		quality: 'Quality',
@@ -116,12 +102,12 @@ const copyByLocale = {
 			loadingMagick: 'Loading ImageMagick WASM...',
 			magickReady: '{version} is ready.',
 			magickTimeout: 'ImageMagick WASM did not finish loading within 90 seconds. Check your connection and try again.',
-			noCorners: 'Choose at least one corner or switch to color mode.',
 			noFile: 'Choose an image file first.',
 			noFrames: 'ImageMagick could not find an image in this file.',
-			pickColor: 'Click the preview to pick a color.',
+			noSeed: 'Click the image first to pick the background spot.',
 			previewUnavailable: 'This format cannot be previewed by the browser. The download is ready.',
-			sampledColor: 'Picked {color}.',
+			seedInstruction: 'Click the image where the background is. The color under the cursor and that spot become the removal target.',
+			seeded: 'Picked {color}. Removal will start from this spot.',
 			sourcePreviewUnavailable: 'The browser cannot preview this source format. Removal may still work.',
 			singleFrame: '1 frame',
 			multipleFrames: '{count} frames',
@@ -153,14 +139,14 @@ const variantCopy = isCheckerboardVariant ? {
 		intro: 'Entferne einfarbige oder nahezu einfarbige Hintergründe direkt im Browser mit ImageMagick WASM.',
 		privacy: 'Deine Datei wird nicht hochgeladen. Die Transparenz wird clientseitig erzeugt.',
 		client: {
-			waiting: 'Wähle ein Bild. Der Farbmodus entfernt feste Hintergrundfarben, während der Kantenmodus an den Bildrändern arbeitet.',
+			waiting: 'Wähle ein Bild und klicke auf den Hintergrund, um Farbe und Startpunkt festzulegen.',
 		},
 	},
 	en: {
 		intro: 'Remove solid or near-solid backgrounds directly in your browser with ImageMagick WASM.',
 		privacy: 'Your file is not uploaded. Transparency is created client-side.',
 		client: {
-			waiting: 'Choose an image. Color mode removes solid backgrounds, while edge mode targets background colors at the image borders.',
+			waiting: 'Choose an image, then click the background to set the color and starting point.',
 		},
 	},
 };
@@ -174,16 +160,12 @@ const copy = {
 };
 const copyJson = JSON.stringify(copy.client);
 const outputFormatsJson = JSON.stringify(outputFormats);
-const defaultFillColorHex = 'ffffff';
 const modeOptions = isCheckerboardVariant
 	? [
 		{ value: 'checkerboard-edges', label: copy.modeCheckerboardEdges },
 		{ value: 'checkerboard-all', label: copy.modeCheckerboardAll },
 	]
-	: [
-		{ value: 'edges', label: copy.modeEdges },
-		{ value: 'color', label: copy.modeColor },
-	];
+	: [];
 ---
 
 <section class="tool-intro">
@@ -223,6 +205,7 @@ const modeOptions = isCheckerboardVariant
 
 				<section class="remover-panel tool-panel settings-panel">
 					<h2>{copy.settingsTitle}</h2>
+				{isCheckerboardVariant ? (
 					<fieldset class="mode-control">
 						<legend>{copy.mode}</legend>
 						{modeOptions.map((option, index) => (
@@ -232,18 +215,16 @@ const modeOptions = isCheckerboardVariant
 							</label>
 						))}
 					</fieldset>
-					<div class="corner-group" data-corner-group>
-						<span>{copy.corners}</span>
-						<label><input data-corner type="checkbox" value="top-left" checked /> {copy.topLeft}</label>
-						<label><input data-corner type="checkbox" value="top-right" checked /> {copy.topRight}</label>
-						<label><input data-corner type="checkbox" value="bottom-left" checked /> {copy.bottomLeft}</label>
-						<label><input data-corner type="checkbox" value="bottom-right" checked /> {copy.bottomRight}</label>
+				) : (
+					<div class="seed-control" data-seed-control>
+						<span>{copy.seedTitle}</span>
+						<p class="seed-instruction">{copy.client.seedInstruction}</p>
+						<div class="seed-display" data-seed-display hidden>
+							<span class="seed-swatch" data-seed-swatch></span>
+							<span class="seed-value" data-seed-value></span>
+						</div>
 					</div>
-					<label class="color-control" data-color-control hidden>
-						<span>{copy.backgroundColor}</span>
-						<input data-color type="color" value={`#${defaultFillColorHex}`} />
-						<small>{copy.client.pickColor}</small>
-					</label>
+				)}
 					<label class="range-control tool-range-control">
 						<span>{copy.tolerance}: <strong data-fuzz-label>8%</strong></span>
 						<input data-fuzz type="range" min="0" max="30" step="1" value="8" />
@@ -324,10 +305,9 @@ const modeOptions = isCheckerboardVariant
 			const fileName = root.querySelector('[data-file-name]');
 			const fileMeta = root.querySelector('[data-file-meta]');
 			const modeInputs = Array.from(root.querySelectorAll('[data-mode]'));
-			const cornerGroup = root.querySelector('[data-corner-group]');
-			const cornerInputs = Array.from(root.querySelectorAll('[data-corner]'));
-			const colorControl = root.querySelector('[data-color-control]');
-			const colorInput = root.querySelector('[data-color]');
+			const seedDisplay = root.querySelector('[data-seed-display]');
+			const seedSwatch = root.querySelector('[data-seed-swatch]');
+			const seedValue = root.querySelector('[data-seed-value]');
 			const fuzzInput = root.querySelector('[data-fuzz]');
 			const fuzzLabel = root.querySelector('[data-fuzz-label]');
 			const formatSelect = root.querySelector('[data-format]');
@@ -350,12 +330,20 @@ const modeOptions = isCheckerboardVariant
 			const downloadLink = root.querySelector('[data-download]');
 
 			if (
-				!fileInput || !fileName || !fileMeta || !modeInputs.length || !cornerGroup || !colorControl ||
-				!colorInput || !fuzzInput || !fuzzLabel || !formatSelect || !qualityControl || !qualityInput ||
-				!qualityLabel || !previewBackgroundInputs.length || !removeButton || !clearButton || !status ||
-				!sourcePreview || !sourceImage || !sourcePreviewNote || !sourceMeta || !result || !outputImage ||
-				!outputPreviewNote || !outputFormat || !outputMeta || !downloadLink
+				!fileInput || !fileName || !fileMeta || !fuzzInput || !fuzzLabel || !formatSelect ||
+				!qualityControl || !qualityInput || !qualityLabel || !previewBackgroundInputs.length ||
+				!removeButton || !clearButton || !status || !sourcePreview || !sourceImage ||
+				!sourcePreviewNote || !sourceMeta || !result || !outputImage || !outputPreviewNote ||
+				!outputFormat || !outputMeta || !downloadLink
 			) {
+				return;
+			}
+
+			if (isCheckerboardVariant && !modeInputs.length) {
+				return;
+			}
+
+			if (!isCheckerboardVariant && (!seedDisplay || !seedSwatch || !seedValue)) {
 				return;
 			}
 
@@ -366,14 +354,13 @@ const modeOptions = isCheckerboardVariant
 				isWorking: false,
 				magick: null,
 				magickPromise: null,
+				seedPoint: null,
+				seedColor: null,
 			};
 
 			fileInput.addEventListener('change', () => {
 				setSourceFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
 			});
-			for (const input of modeInputs) {
-				input.addEventListener('change', updateModeView);
-			}
 			for (const input of previewBackgroundInputs) {
 				input.addEventListener('change', updatePreviewBackground);
 			}
@@ -388,7 +375,7 @@ const modeOptions = isCheckerboardVariant
 				void removeBackground();
 			});
 			clearButton.addEventListener('click', clearFile);
-			sourceImage.addEventListener('click', sampleColorFromPreview);
+			sourceImage.addEventListener('click', setSeedFromClick);
 			sourceImage.addEventListener('load', () => {
 				sourceImage.hidden = false;
 				sourcePreviewNote.hidden = true;
@@ -406,7 +393,6 @@ const modeOptions = isCheckerboardVariant
 				outputPreviewNote.hidden = false;
 			});
 
-			updateModeView();
 			updateQualityControl();
 			updatePreviewBackground();
 			updateReadyState();
@@ -414,6 +400,7 @@ const modeOptions = isCheckerboardVariant
 			function setSourceFile(file) {
 				revokeUrl('inputUrl');
 				resetOutput();
+				resetSeed();
 				state.file = file;
 
 				if (!file) {
@@ -452,10 +439,9 @@ const modeOptions = isCheckerboardVariant
 				}
 
 				const selectedFormat = getSelectedFormat();
-				const selectedCorners = getSelectedCorners();
 
-				if (getMode() === 'edges' && !selectedCorners.length) {
-					setStatus(copy.noCorners, 'error');
+				if (!isCheckerboardVariant && !state.seedPoint) {
+					setStatus(copy.noSeed, 'error');
 					return;
 				}
 
@@ -470,12 +456,11 @@ const modeOptions = isCheckerboardVariant
 
 					const inputBytes = new Uint8Array(await state.file.arrayBuffer());
 					const cutout = removeWithMagick(magick, inputBytes, {
-						color: colorInput.value,
-						corners: selectedCorners,
 						format: selectedFormat,
 						fuzz: Number(fuzzInput.value),
-						mode: getMode(),
+						mode: isCheckerboardVariant ? getMode() : null,
 						quality: Number(qualityInput.value),
+						seedPoint: state.seedPoint,
 					});
 					const outputBlob = new Blob([cutout.bytes], { type: selectedFormat.mime });
 
@@ -526,19 +511,22 @@ const modeOptions = isCheckerboardVariant
 						image.alpha(AlphaAction.Set);
 						image.colorFuzz = new Percentage(settings.fuzz);
 
-						if (settings.mode === 'edges') {
-							for (const corner of settings.corners) {
-								const point = cornerToPoint(corner, image.width, image.height);
-								image.floodFill(0, point.x, point.y);
-							}
-						} else if (settings.mode.startsWith('checkerboard-')) {
+						if (isCheckerboardVariant) {
 							removeCheckerboardBackground(image, settings, {
 								PixelChannel,
 								Quantum,
 							});
-						} else {
-							image.transparent(new MagickColor(settings.color));
+					} else if (settings.seedPoint) {
+						const maxX = Math.max(0, image.width - 1);
+						const maxY = Math.max(0, image.height - 1);
+						const seedX = Math.max(0, Math.min(maxX, Math.round(settings.seedPoint.x)));
+						const seedY = Math.max(0, Math.min(maxY, Math.round(settings.seedPoint.y)));
+						const seedColor = image.getPixels((pixels) => pixels.getColor(seedX, seedY));
+
+						if (seedColor) {
+							image.floodFill(new MagickColor(seedColor.r, seedColor.g, seedColor.b, 0), seedX, seedY);
 						}
+					}
 
 						if (settings.format.quality) {
 							image.quality = settings.quality;
@@ -593,12 +581,21 @@ const modeOptions = isCheckerboardVariant
 				return state.magickPromise;
 			}
 
-			function sampleColorFromPreview(event) {
+			function setSeedFromClick(event) {
+				if (isCheckerboardVariant || state.isWorking) {
+					return;
+				}
+
 				if (!sourceImage.complete || !sourceImage.naturalWidth || sourceImage.hidden) {
 					return;
 				}
 
 				const rect = sourceImage.getBoundingClientRect();
+
+				if (!rect.width || !rect.height) {
+					return;
+				}
+
 				const x = Math.round(((event.clientX - rect.left) / rect.width) * (sourceImage.naturalWidth - 1));
 				const y = Math.round(((event.clientY - rect.top) / rect.height) * (sourceImage.naturalHeight - 1));
 				const canvas = document.createElement('canvas');
@@ -613,17 +610,31 @@ const modeOptions = isCheckerboardVariant
 				context.drawImage(sourceImage, 0, 0);
 				const [red, green, blue] = context.getImageData(x, y, 1, 1).data;
 				const color = rgbToHex(red, green, blue);
-				colorInput.value = color;
-				setMode('color');
-				updateModeView();
-				setStatus(format(copy.sampledColor, { color }), 'success');
+
+				state.seedPoint = { x, y };
+				state.seedColor = color;
+				seedDisplay.hidden = false;
+				seedSwatch.style.backgroundColor = color;
+				seedValue.textContent = color;
+				updateReadyState();
+				setStatus(format(copy.seeded, { color }), 'success');
 			}
 
-			function updateModeView() {
-				const currentMode = getMode();
-				const isColorMode = currentMode === 'color';
-				colorControl.hidden = isCheckerboardVariant || !isColorMode;
-				cornerGroup.hidden = isCheckerboardVariant || currentMode !== 'edges';
+			function resetSeed() {
+				state.seedPoint = null;
+				state.seedColor = null;
+
+				if (seedDisplay) {
+					seedDisplay.hidden = true;
+				}
+
+				if (seedSwatch) {
+					seedSwatch.style.backgroundColor = '';
+				}
+
+				if (seedValue) {
+					seedValue.textContent = '';
+				}
 			}
 
 			function updateQualityControl() {
@@ -643,26 +654,14 @@ const modeOptions = isCheckerboardVariant
 
 			function getMode() {
 				const selected = modeInputs.find((input) => input.checked);
-				return selected ? selected.value : 'edges';
-			}
-
-			function setMode(mode) {
-				for (const input of modeInputs) {
-					input.checked = input.value === mode;
-				}
-			}
-
-			function getSelectedCorners() {
-				return cornerInputs
-					.filter((input) => input.checked)
-					.map((input) => input.value);
+				return selected ? selected.value : '';
 			}
 
 			function updateReadyState() {
-				removeButton.disabled = state.isWorking || !state.file;
+				const needsSeed = !isCheckerboardVariant;
+				removeButton.disabled = state.isWorking || !state.file || (needsSeed && !state.seedPoint);
 				clearButton.disabled = state.isWorking || !state.file;
 				formatSelect.disabled = state.isWorking;
-				colorInput.disabled = state.isWorking;
 				fuzzInput.disabled = state.isWorking;
 				qualityInput.disabled = state.isWorking;
 				fileInput.disabled = state.isWorking;
@@ -672,10 +671,6 @@ const modeOptions = isCheckerboardVariant
 				}
 
 				for (const input of previewBackgroundInputs) {
-					input.disabled = state.isWorking;
-				}
-
-				for (const input of cornerInputs) {
 					input.disabled = state.isWorking;
 				}
 			}
@@ -702,6 +697,7 @@ const modeOptions = isCheckerboardVariant
 				fileInput.value = '';
 				revokeUrl('inputUrl');
 				resetOutput();
+				resetSeed();
 				sourcePreview.hidden = true;
 				sourceImage.removeAttribute('src');
 				sourceImage.hidden = false;
@@ -728,16 +724,6 @@ const modeOptions = isCheckerboardVariant
 			function createOutputName(name, extension) {
 				const baseName = name.replace(/\.[^.]+$/, '') || 'cutout-image';
 				return `${baseName}-no-bg.${extension}`;
-			}
-
-			function cornerToPoint(corner, width, height) {
-				const maxX = Math.max(0, width - 1);
-				const maxY = Math.max(0, height - 1);
-
-				return {
-					x: corner.endsWith('right') ? maxX : 0,
-					y: corner.startsWith('bottom') ? maxY : 0,
-				};
 			}
 
 			function removeCheckerboardBackground(image, settings, magickApi) {
@@ -1355,8 +1341,7 @@ const modeOptions = isCheckerboardVariant
 	.mode-control > legend,
 	.select-control span,
 	.range-control span,
-	.color-control span,
-	.corner-group > span,
+	.seed-control > span,
 	.preview-card p,
 	.result-meta dt {
 		color: var(--color-accent-dark);
@@ -1367,15 +1352,14 @@ const modeOptions = isCheckerboardVariant
 
 	.file-picker small,
 	.preview-card small,
-	.color-control small {
+	.seed-instruction {
 		color: var(--color-muted);
 		font-size: 0.88rem;
 	}
 
 	.mode-control,
 	.preview-background-control,
-	.color-control,
-	.corner-group {
+	.seed-control {
 		display: grid;
 		gap: 8px;
 		margin-top: 18px;
@@ -1447,26 +1431,37 @@ const modeOptions = isCheckerboardVariant
 		outline-offset: 2px;
 	}
 
-	.corner-group label {
-		color: var(--color-ink);
-		font-weight: 800;
-	}
-
-	.corner-group input,
 	.mode-control input,
 	.preview-background-control input,
 	.range-control input {
 		accent-color: var(--color-accent);
 	}
 
-	.color-control input[type='color'] {
-		width: 100%;
-		height: 48px;
-		padding: 4px;
+	.seed-display {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		min-height: 46px;
+		padding: 10px 12px;
+		color: var(--color-ink);
 		background: var(--color-surface-raised);
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
-		cursor: pointer;
+		font-weight: 850;
+	}
+
+	.seed-swatch {
+		width: 28px;
+		height: 28px;
+		flex-shrink: 0;
+		background-color: #ffffff;
+		border: 1px solid var(--color-line);
+		border-radius: 6px;
+	}
+
+	.seed-value {
+		font-weight: 850;
+		letter-spacing: 0.02em;
 	}
 
 	.remover-actions,
@@ -1519,7 +1514,7 @@ const modeOptions = isCheckerboardVariant
 		object-fit: contain;
 	}
 
-	.source-frame img {
+	.background-remover[data-variant='plain'] .source-frame img {
 		cursor: crosshair;
 	}
 
