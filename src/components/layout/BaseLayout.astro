@@ -77,8 +77,23 @@ function absoluteUrl(href: string): string {
 	return Astro.site ? new URL(url, Astro.site).toString() : url;
 }
 
+function getStableVideoThumbnailUrl(thumbnailUrl: string, youtubeId: string): string {
+	if (/^https:\/\/i\.ytimg\.com\/vi\//.test(thumbnailUrl)) {
+		return `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
+	}
+
+	return thumbnailUrl;
+}
+
 const canonicalHref = absoluteUrl(canonicalPath);
 const socialImageHref = socialImage ? absoluteUrl(socialImage) : undefined;
+const videoEmbedHref = video ? absoluteUrl(video.embedUrl) : undefined;
+const videoThumbnailHrefs = video
+	? Array.from(new Set([
+			absoluteUrl(getStableVideoThumbnailUrl(video.thumbnailUrl, video.youtubeId)),
+			absoluteUrl(video.thumbnailUrl),
+		]))
+	: [];
 const authorHref = authorPath ? absoluteUrl(authorPath) : undefined;
 const authorId = authorHref ? `${authorHref}#person` : undefined;
 const effectiveAlternatePaths = {
@@ -221,13 +236,13 @@ const videoSchema =
 				'@type': 'VideoObject',
 				'@id': videoId,
 				mainEntityOfPage: { '@id': webPageId },
+				url: canonicalHref,
 				name: title,
 				description,
-				thumbnailUrl: [absoluteUrl(video.thumbnailUrl)],
+				thumbnailUrl: videoThumbnailHrefs,
 				uploadDate: publishedTime,
 				dateModified: modifiedTime ?? publishedTime,
-				embedUrl: video.embedUrl,
-				contentUrl: video.watchUrl,
+				embedUrl: videoEmbedHref,
 				creator: {
 					'@type': 'Person',
 					'@id': authorId,
@@ -302,6 +317,11 @@ const jsonLd = JSON.stringify({
 		{ogLocaleAlternates.map((alternateLocale) => <meta property="og:locale:alternate" content={alternateLocale} />)}
 		{socialImageHref && <meta property="og:image" content={socialImageHref} />}
 		{socialImageHref && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+		{schemaType === 'VideoObject' && videoEmbedHref && <meta property="og:video" content={videoEmbedHref} />}
+		{schemaType === 'VideoObject' && videoEmbedHref && <meta property="og:video:url" content={videoEmbedHref} />}
+		{schemaType === 'VideoObject' && videoEmbedHref && <meta property="og:video:secure_url" content={videoEmbedHref} />}
+		{schemaType === 'VideoObject' && videoEmbedHref && <meta property="og:video:type" content="text/html" />}
+		{schemaType === 'VideoObject' && videoEmbedHref && <link rel="video_src" href={videoEmbedHref} />}
 		<meta name="twitter:card" content={socialImageHref ? 'summary_large_image' : 'summary'} />
 		<meta name="twitter:site" content="@kwmediaUG" />
 		<meta name="twitter:title" content={fullTitle} />
