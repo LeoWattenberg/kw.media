@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, resolve, relative } from 'node:path';
 import {
 	allPostFiles,
@@ -40,6 +40,22 @@ const boilerplateAnchorPatterns = [
 	/^take care$/i,
 	/^bye-?bye$/i,
 ];
+const sidebarPageOrder = [
+	'home',
+	'creator',
+	'brands',
+	'courses',
+	'live',
+	'ads',
+	'website-design-management',
+	'vtuber',
+	'dubbing',
+	'tips',
+	'audacity',
+	'tools',
+	'imprint-service',
+	'legal',
+];
 
 if (help) {
 	console.log(`Usage:
@@ -51,7 +67,7 @@ Writes changes by default. Add --dry to preview proposed links.
 Options:
 - --dry            Preview proposed links without editing files.
 - --link-density=N Maximum new links per 1000 body words. Defaults to 2.
-- --candidates=N  Candidate posts to send to Ollama. Defaults to 8.
+- --candidates=N  Related post candidates to send to Ollama after sidebar pages. Defaults to 8.
 - --no-ai         Use deterministic phrase matching instead of Ollama anchor selection.
 - --limit=N       Process only the first N selected posts.
 - --related=...   Related-post JSON path. Defaults to src/data/related-posts.json.`);
@@ -68,6 +84,7 @@ if (!Number.isFinite(candidateCount) || candidateCount < 1) {
 
 const allPosts = readAllPosts();
 const postsByPath = new Map(allPosts.map((post) => [post.frontmatter.path, post]));
+const sidebarPages = readSidebarPages();
 const relatedPosts = readRelatedPosts(relatedPath);
 const selectedFiles = selectFiles();
 const selectedPosts = (limit > 0 ? selectedFiles.slice(0, limit) : selectedFiles).map((filePath) => readPostFile(filePath));
@@ -136,12 +153,111 @@ function readRelatedPosts(filePath) {
 	return JSON.parse(readFileSync(filePath, 'utf8'));
 }
 
+function readSidebarPages() {
+	const pagesDirectory = join(process.cwd(), 'src/data/pages');
+	const jsonPages = readdirSync(pagesDirectory)
+		.filter((fileName) => fileName.endsWith('.json'))
+		.flatMap((fileName) => {
+			const source = JSON.parse(readFileSync(join(pagesDirectory, fileName), 'utf8'));
+			return Object.entries(source.translations ?? {}).map(([locale, translation]) => pageCandidate(source.id, locale, translation));
+		});
+	const toolPages = [
+		pageCandidate('tools', 'de', {
+			id: 'tools-de',
+			path: '/de/tools/',
+			title: 'Tools',
+			description: 'Clientseitige Creator-Tools von Koytek Wattenberg Media.',
+			blocks: [],
+		}),
+		pageCandidate('tools', 'en', {
+			id: 'tools-en',
+			path: '/en/tools/',
+			title: 'Tools',
+			description: 'Client-side creator tools by Koytek Wattenberg Media.',
+			blocks: [],
+		}),
+	];
+
+	return [...jsonPages, ...toolPages]
+		.filter((page) => sidebarPageOrder.includes(pageGroup(page.pageId)))
+		.sort((first, second) => sidebarPageOrder.indexOf(pageGroup(first.pageId)) - sidebarPageOrder.indexOf(pageGroup(second.pageId)));
+}
+
+function pageCandidate(pageId, locale, translation) {
+	return {
+		pageId,
+		frontmatter: {
+			path: translation.path,
+			locale,
+			title: translation.title,
+			excerpt: pageExcerpt(translation),
+			category: 'site-page',
+		},
+		body: '',
+	};
+}
+
+function pageGroup(id) {
+	return id.replace(/-(de|en)$/, '');
+}
+
+function pageExcerpt(page) {
+	const parts = [
+		page.description,
+		...pageBlockText(page.blocks ?? []),
+	];
+
+	return parts
+		.filter(Boolean)
+		.join(' ')
+		.replace(/\s+/g, ' ')
+		.trim()
+		.slice(0, 600);
+}
+
+function pageBlockText(blocks) {
+	return blocks.flatMap((block) => {
+		switch (block.type) {
+			case 'hero':
+			case 'cta':
+				return [block.title, block.text];
+			case 'services':
+				return [block.eyebrow, block.title, block.intro, ...(block.items ?? []).flatMap((item) => [item.title, item.text])];
+			case 'credentials':
+				return block.items ?? [];
+			case 'stats':
+				return (block.items ?? []).flatMap((item) => [item.value, item.label]);
+			case 'text':
+				return [block.eyebrow, block.title, ...(block.body ?? []), ...(block.checks ?? [])];
+			case 'testimonials':
+				return [block.eyebrow, block.title, block.intro, ...(block.items ?? []).flatMap((item) => [item.quote, item.name, item.meta])];
+			case 'faq':
+				return [block.title, ...(block.items ?? []).flatMap((item) => [item.question, ...(item.answer ?? [])])];
+			case 'pricing':
+				return [block.eyebrow, block.title, block.note, ...(block.items ?? []).flatMap((item) => [item.name, item.summary, ...(item.features ?? [])])];
+			case 'person':
+				return [block.eyebrow, block.title, block.name, block.role, ...(block.credentials ?? []), ...(block.body ?? [])];
+			case 'posts':
+			case 'youtubePlaylist':
+				return [block.title, block.eyebrow];
+			case 'html':
+				return [String(block.html ?? '').replace(/<[^>]+>/g, ' ')];
+			default:
+				return [];
+		}
+	});
+}
+
 function candidatePostsFor(post) {
 	const relatedPaths = Array.isArray(relatedPosts[post.frontmatter.path])
 		? relatedPosts[post.frontmatter.path]
 		: [];
 	const seen = new Set([post.frontmatter.path]);
-	const candidates = [];
+	const candidates = sidebarPageCandidatesFor(post);
+
+	for (const candidate of candidates) {
+		seen.add(candidate.frontmatter.path);
+	}
 
 	for (const path of relatedPaths) {
 		const candidate = postsByPath.get(path);
@@ -173,7 +289,18 @@ function candidatePostsFor(post) {
 	return candidates;
 }
 
+function sidebarPageCandidatesFor(post) {
+	return sidebarPages
+		.filter((page) => page.frontmatter.locale === post.frontmatter.locale || page.frontmatter.path === '/impressum/')
+		.filter((page) => page.frontmatter.path !== post.frontmatter.path)
+		.filter((page) => compatibleLinkCategory(post, page));
+}
+
 function compatibleLinkCategory(post, candidate) {
+	if (candidate.frontmatter.category === 'site-page') {
+		return true;
+	}
+
 	return (post.frontmatter.category === 'audacity') === (candidate.frontmatter.category === 'audacity');
 }
 
@@ -183,9 +310,14 @@ async function linkPostBody(post, candidates) {
 	const wordCount = countBodyWords(body);
 	const linkLimit = linkLimitForWordCount(wordCount);
 	const links = [];
-	const availableCandidates = candidates
+	const availablePageCandidates = candidates
+		.filter((candidate) => candidate.frontmatter.category === 'site-page')
+		.filter((candidate) => !existingPaths.has(candidate.frontmatter.path));
+	const availablePostCandidates = candidates
+		.filter((candidate) => candidate.frontmatter.category !== 'site-page')
 		.filter((candidate) => !existingPaths.has(candidate.frontmatter.path))
 		.slice(0, candidateCount);
+	const availableCandidates = [...availablePageCandidates, ...availablePostCandidates];
 
 	if (useAi && availableCandidates.length) {
 		try {
@@ -264,7 +396,7 @@ category: ${post.frontmatter.category}
 Current post body excerpt:
 ${plainBodyForPrompt(post.body, 5200)}
 
-Candidate target posts:
+Candidate target pages and posts:
 ${candidates.map((candidate, index) => `${index + 1}. path: ${candidate.frontmatter.path}
 title: ${candidate.frontmatter.title}
 excerpt: ${candidate.frontmatter.excerpt}
@@ -300,7 +432,7 @@ Rules:
 
 function linkedPostPaths(body) {
 	return new Set(
-		[...body.matchAll(/\]\((\/youtube-[^)#\s]+\/)(?:#[^)]+)?\)/g)]
+		[...body.matchAll(/\]\((\/[^)#\s]+\/)(?:#[^)]+)?\)/g)]
 			.map((match) => match[1]),
 	);
 }
