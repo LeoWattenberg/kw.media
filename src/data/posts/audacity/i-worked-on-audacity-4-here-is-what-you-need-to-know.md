@@ -31,7 +31,7 @@ I'll get back to that later. And of course, audio.com is with us, as was the cas
 
 ### Recording and Track Controls
 
-We're now on the welcome screen, just like you would be in Audacity 3. And after we set up our playback device and recording device, we are ready. I can now just start recording. And as you can see—well, it's pretty unexciting—it records, all right. You see that we have a little bar here on the left. That is your input and output bar for the track, or meter for the track, and it tells you how loud you're recording at any given time.
+We're now on the welcome screen, just like you would be in Audacity 3. And after we set up our playback device and recording device, we are ready. I can now just [start recording](/en/audacity/recording-desktop-audio-in-audacity-tutorial/). And as you can see—well, it's pretty unexciting—it records, all right. You see that we have a little bar here on the left. That is your input and output bar for the track, or meter for the track, and it tells you how loud you're recording at any given time.
 
 The choice to put it into a track was made because we want to add multitrack recording at some point in the future, so you can record your microphone and something like a Zoom call at the same time. This functionality is not in this Audacity 4 beta and it will not be in Audacity 4 at launch, but this is definitely something that the team wants to add in the future. Anyway, once we have made our recording, we can now start editing.
 

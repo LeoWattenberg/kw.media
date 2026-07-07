@@ -33,7 +33,7 @@ Bitte teilen Sie Ihre Gedanken zu dieser Funktion! Nun gehen wir zur nächsten E
 
 Letztes Jahr führte [YouTube A/B-Tests](/youtube-tipps-de/die-geheime-formel-fur-a-b-tests-auf-youtube/) für Miniaturansichten ein. Viele Creator forderten eine ähnliche Funktion für Titel, und derzeit läuft ein Experiment (noch in einem sehr frühen Alpha-Stadium). Ich habe einige experimentelle Screenshots gesehen, aber der Creator bat mich, seinen Titel zu schwärzen, damit die Quelle anonym bleibt.
 
-Diese neue Funktion ermöglicht es Ihnen, bis zu drei Varianten eines Titels, drei Miniaturansichten (wie bei den bestehenden A/B-Tests für Miniaturansichten) oder eine Kombination aus drei Titeln und drei Miniaturansichten einzugeben. Dies wirft interessante Fragen zu automatischen Untertiteln und Übersetzungen für Titel und Beschreibungen auf. Da Titel auf etwa 100 Zeichen beschränkt sind, sollte die Übersetzung mehrerer Varianten nicht allzu schwierig sein.
+Diese neue Funktion ermöglicht es Ihnen, bis zu drei Varianten eines Titels, drei Miniaturansichten (wie bei den bestehenden [A/B-Tests für Miniaturansichten](/youtube-tipps-de/was-ist-youtube-test-und-compare-bzw-thumbnail-a-b-testing/)) oder eine Kombination aus drei Titeln und drei Miniaturansichten einzugeben. Dies wirft interessante Fragen zu automatischen Untertiteln und Übersetzungen für Titel und Beschreibungen auf. Da Titel auf etwa 100 Zeichen beschränkt sind, sollte die Übersetzung mehrerer Varianten nicht allzu schwierig sein.
 
 Ich bin gespannt, ob diese Funktion die Impressionen erhöht, verringert oder die Genauigkeit beeinflusst. Wir müssen abwarten und sehen, wie sie sich entwickelt.
 

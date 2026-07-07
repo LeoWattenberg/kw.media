@@ -42,6 +42,6 @@ This feels like a direct response to the feedback sparked by creators like Linus
 
 And that's it for this week. It's a short one.
 
-What do you think about the new filter chips? A useful addition for your channel? Are you actively using the Hype feature? Let me know your thoughts in the comments below and let's discuss!
+What do you think about the new filter chips? A useful addition for your channel? Are you actively using the [Hype feature](/youtube-tips-en/youtube-expands-free-hype-to-the-eu-10-year-member-badges/)? Let me know your thoughts in the comments below and let's discuss!
 
 Thanks for stopping by. Take care, and I'll see you next week with more creator updates.

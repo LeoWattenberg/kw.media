@@ -18,7 +18,7 @@ sourceUrl: "https://kw.media/youtube-tipps-de/seht-die-neusten-youtube-news-in-u
 
 Hey there!
 
-Martin produces the YouTube Patch Rundown (YTPR) every week. The YTPR includes the latest news about YouTube as a platform and everything else that's important. We strive to provide you with the most crucial information as quickly as possible.
+Martin produces the YouTube Patch Rundown (YTPR) every week. The YTPR includes the [latest news about YouTube](/youtube-tips-en/new-audio-settings-vpn-revenue-warning-youtube-creator-news/) as a platform and everything else that's important. We strive to provide you with the most crucial information as quickly as possible.
 
 Currently, you can subscribe to the YTPR in the following places:
 

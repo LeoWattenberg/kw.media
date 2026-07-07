@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-YouTube Shorts is releasing an AI update that lets you transform photos into videos with VO2 and later on with VO3. I'd love to show you the update, but unfortunately, it's currently region-locked to the US, Canada, Australia, and New Zealand. For those of you in these regions, you can access it via the big plus button in the YouTube main app.
+YouTube Shorts is releasing an [AI update](/youtube-tips-en/a-b-testing-and-edit-with-ai-are-here-made-on-youtube-follow-up/) that lets you transform photos into videos with VO2 and later on with VO3. I'd love to show you the update, but unfortunately, it's currently region-locked to the US, Canada, Australia, and New Zealand. For those of you in these regions, you can access it via the big plus button in the YouTube main app.
 
 To use it, go to create Shorts and hit the sparkle icon on the side to pull up the effects, including the AI effects. All content created with this feature is labeled as synthetic content and has a synth ID watermark embedded into the video, making it recognizable for other platforms as synthetically generated. This is essentially the opposite of the C2PA watermark, which ensures that the video hasn't been tampered with from the camera to uploading—no edits or manipulations. This is also very interesting and something we'll keep an eye on in the future. If you're able to try out these new features, let me know in the comments below! And don't forget to subscribe to this channel for weekly YouTube updates; we often provide them even faster than Creator Insider.
 

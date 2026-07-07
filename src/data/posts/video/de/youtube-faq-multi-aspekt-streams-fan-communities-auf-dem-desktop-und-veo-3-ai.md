@@ -29,7 +29,7 @@ Bevor wir beginnen, stellt sicher, dass ihr abonniert seid, damit ihr künftige 
 
 Die Antwort lautet sowohl ja als auch nein. Ihr könnt *nach* Ende eines Live-Streams kollaborieren und eure Beiträge zum Archiv hinzufügen. Allerdings können mehrere Creator nicht gleichzeitig einen aktiven Live-Stream kollaborativ gestalten – zumindest noch nicht. Ich vermute, das liegt an technischen Einschränkungen. Einen Kollaborateur zu einem VoD (Video on Demand) hinzuzufügen, ist eine einfache Metadatenänderung, während dies während eines Live-Streams komplexere Infrastruktur erfordern würde. Auch wenn YouTube möglicherweise daran arbeitet, erwartet diese Funktion nicht in naher Zukunft.
 
-**Wenn ihr ein Short mit der [V3 Text-to-Video-Funktion](/youtube-tipps-de/die-neue-schutzbestimmung-von-youtube-ist-da-veo-3-update/) oder anderen KI-Tools erstellt, müsst ihr es dann als KI-generierten Inhalt kennzeichnen?**
+**Wenn ihr ein Short mit der [V3 Text-to-Video-Funktion](/youtube-tipps-de/die-neue-schutzbestimmung-von-youtube-ist-da-veo-3-update/) oder anderen [KI-Tools](/youtube-tipps-de/youtube-news-100-publikumsmetriken-ausrollung-start-der-shorts-ki-und-was-uns-vshojo-lehrt/) erstellt, müsst ihr es dann als KI-generierten Inhalt kennzeichnen?**
 
 Kurze Antwort: Ja. Jeder mit V3 erstellte Inhalt erhält automatisch das Standard-KI-Kennzeichnungsetikett von YouTube, entsprechend ihrer bestehenden Richtlinie. Keine Überraschungen hier.
 

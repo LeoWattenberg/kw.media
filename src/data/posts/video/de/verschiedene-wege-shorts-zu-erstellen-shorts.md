@@ -21,4 +21,4 @@ video:
 
 ## Transkript
 
-Die YouTube-Shorts-Kamera kann man auf verschiedene Arten aufrufen. Zum einen gibt es das Plus in der Mitte der App, zum anderen kann man im Shorts-Feed oben rechts auf die Kamera klicken. Außerdem kann man das [Audio von anderen Creatorn samplen](/youtube-tipps-de/was-ist-eigentlich-short-sampling-shorts/) und daraus einen Short erstellen.
+Die [YouTube-Shorts-Kamera](/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts/) kann man auf verschiedene Arten aufrufen. Zum einen gibt es das Plus in der Mitte der App, zum anderen kann man im Shorts-Feed oben rechts auf die Kamera klicken. Außerdem kann man das [Audio von anderen Creatorn samplen](/youtube-tipps-de/was-ist-eigentlich-short-sampling-shorts/) und daraus einen Short erstellen.

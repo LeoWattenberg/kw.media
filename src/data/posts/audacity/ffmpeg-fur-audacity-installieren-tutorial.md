@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-FFmpeg ist eine Bibliothek, die notwendig ist, um verschiedene Arten von Mediendateien zu offnen, zu importieren und zu exportieren. Standardmassig ist sie nicht in Audacity enthalten. Um sie herunterzuladen, gehst du einfach auf diese Website. Dort werden dir drei Optionen angezeigt. Die erste ist 64-Bit-Windows, was fur die meisten Leute am nutzlichsten sein wird. macOS findest du ebenfalls hier, und 32-Bit ist auf modernen Systemen normalerweise nicht relevant.
+[FFmpeg ist eine Bibliothek](/audacity/ffmpeg-fur-audacity-installieren-schnelltutorial/), die notwendig ist, um verschiedene Arten von Mediendateien zu offnen, zu importieren und zu exportieren. Standardmassig ist sie nicht in Audacity enthalten. Um sie herunterzuladen, gehst du einfach auf diese Website. Dort werden dir drei Optionen angezeigt. Die erste ist 64-Bit-Windows, was fur die meisten Leute am nutzlichsten sein wird. macOS findest du ebenfalls hier, und 32-Bit ist auf modernen Systemen normalerweise nicht relevant.
 
 Um FFmpeg zu installieren, klickst du einfach auf den Link und offnest die gerade heruntergeladene Datei, also den Installer. Klicke hier auf "Yes", akzeptiere die Vereinbarung, speichere es im Standardpfad, klicke auf "Install", und schon bist du fertig. Wenn du jetzt zuruck zu Audacity gehst und auf den "Locate"-Button klickst, wird dir angezeigt: "Success! Audacity has automatically detected valid FFmpeg files." Wir mussen die Dateien also nicht noch einmal manuell suchen, klicken auf "No", und hier sehen wir die Version, die wir gerade installiert haben. Klicke auf "OK", und das war es im Grunde schon.
 

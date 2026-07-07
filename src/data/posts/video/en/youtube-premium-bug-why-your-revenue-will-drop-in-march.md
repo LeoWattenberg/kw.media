@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-If your YouTube revenue suddenly drops next month, don't panic. Twitch officially greenlights combined chat for multistreamers. Welcome to the creator news, covering everything you need to know this week as a creator. 
+If your [YouTube revenue](/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/) suddenly drops next month, don't panic. Twitch officially greenlights combined chat for multistreamers. Welcome to the creator news, covering everything you need to know this week as a creator. 
 
 Let's start with the money and a heads-up for your March and April analytics. YouTube is currently sending out emails to creators regarding a premium revenue overpayment correction. A bug in the system accidentally attributed a higher amount of YouTube Premium watch time to a subset of videos, resulting in creators getting overpaid.
 

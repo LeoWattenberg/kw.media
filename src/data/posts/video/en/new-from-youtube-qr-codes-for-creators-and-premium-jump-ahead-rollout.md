@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-Sharing channels is about to get easier. That's why there's currently an experiment running for Creators and users alike: when sharing a YouTube channel on your smartphone, you now have the option to display or download a QR code. This makes sense, of course, when you're meeting people you can hold your phone up to, or if you print the code on physical media like business cards, for example. Like this: this is my old business card from 2014, and it already has a QR code on it. So, this isn't new technology; we've just dug it up again because we wanted to try something new.
+Sharing channels is about to get easier. That's why there's currently an experiment running for Creators and users alike: when sharing a YouTube channel on your smartphone, you now have the option to display or download a [QR code](/youtube-tips-en/why-youtube-is-showing-you-qr-codes-in-the-shorts-feed-creator-news/). This makes sense, of course, when you're meeting people you can hold your phone up to, or if you print the code on physical media like business cards, for example. Like this: this is my old business card from 2014, and it already has a QR code on it. So, this isn't new technology; we've just dug it up again because we wanted to try something new.
 
 Just a quick aside in case you want to create your own QR code: if you don't have access to the experiment, simply go to QR Monkey or another free online provider. Add your logo and URL – maybe even a "Subscribe now" call-to-action – and voila, you've got a great QR code.
 

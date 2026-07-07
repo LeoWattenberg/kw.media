@@ -37,7 +37,7 @@ Zu diesem Thema gibt es aktuell eine Umfrage von "Creator Zeider", die ihr in de
 
 **[Größere Thumbnails](/youtube-tipps-de/youtube-updates-dezember-endspurt-mit-mla-und-superchat-goals/)**
 
-Wie bereits angesprochen, werden die Dateigrößen für Vorschaubilder erhöht – bis zu 10 MB. Dies ist bei Podcasts bereits der Fall, und laut Plan sollen Videos im Februar 2025 ebenfalls dieses Update erhalten, sodass ihr größere Thumbnails hochladen könnt.
+Wie bereits angesprochen, werden die Dateigrößen für Vorschaubilder erhöht – bis zu 10 MB. Dies ist bei Podcasts bereits der Fall, und laut Plan sollen Videos im Februar 2025 ebenfalls dieses Update erhalten, sodass ihr [größere Thumbnails](/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/) hochladen könnt.
 
 **YouTube-Kurse**
 

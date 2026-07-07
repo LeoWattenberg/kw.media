@@ -17,7 +17,7 @@ Du bist ein Creator und eine Firma möchte mit dir zusammen arbeiten?
 
 Fantastisch – Verkaufe dich nicht unter deinem Wert!
 
-Auch wenn du glaubst, du hast noch keinen Wert, da dein Kanal noch sehr klein ist, passiert im Hintergrund schon viel mehr als du glaubst. Genau genommen setzt sich dein Wert aus deinen Produktionskosten und deinem Marktwert zusammen.
+Auch wenn du glaubst, du hast noch keinen Wert, da dein Kanal noch sehr klein ist, passiert im Hintergrund schon viel mehr als du glaubst. Genau genommen setzt sich dein Wert aus deinen [Produktionskosten und deinem Marktwert](/youtube-tipps-de/so-findest-du-den-richtigen-preis-fur-ein-sponsorship/) zusammen.
 
 ## Produktionskosten
 

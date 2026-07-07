@@ -14,7 +14,7 @@ authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/starting-a-gaming-channel-on-a-budget/"
 ---
 
-So if you want to get started with YouTube, especially as a gaming channel you might not want to spend a fortune on equipment just to try it out. I mean it’s the same with every hobby. You don’t start archery and buy the best bow on the market, but you don’t start with the cheapest toy either.
+So if you want to get started with YouTube, especially as a [gaming channel](/youtube-tips-en/simple-youtube-seo-for-gaming-channels/) you might not want to spend a fortune on equipment just to try it out. I mean it’s the same with every hobby. You don’t start archery and buy the best bow on the market, but you don’t start with the cheapest toy either.
 
 In this guide, we will talk about some core factors of [getting started](/youtube-tips-en/getting-started-with-obs-a-beginners-guide/) with a YouTube channel producing gaming related content and how you might be able to reduce expenses for yourself.
 

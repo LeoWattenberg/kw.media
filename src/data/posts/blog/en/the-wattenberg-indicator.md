@@ -58,7 +58,7 @@ SEE-NTS also allows for other content to be categorized sensibly:
 
 ## Using SEE–NTS for Content Programming
 
-SEE-NTS can be used to assess a channel’s current standing to make decisions for future content programming.
+SEE-NTS can be used to assess a channel’s current standing to [make decisions for future content programming](/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/).
 
 Most obviously, if the vast majority of views a channel has come from subscribers and all formats on the channel are made for subscribers, that channel may want to develop a format which is meant to appeal to non-subscribers and draw them in.
 

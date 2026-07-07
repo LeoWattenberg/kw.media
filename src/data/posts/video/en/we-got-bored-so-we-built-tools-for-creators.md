@@ -23,7 +23,7 @@ video:
 
 The summer news drought is here, and instead of complaining about the lack of updates, we decided to create our own. We're launching a brand new suite of free privacy-focused creator tools to streamline your workflow, and we want you to tell us what to build next. My partner Leo has been hard at work building several free creator tools, and they are now officially live on our kw.media website.
 
-These tools are designed to tackle those small, annoying friction points in your daily work, like a YouTube thumbnail previewer, so you can see how your packaging looks on mobile and desktop before publishing. We've also released an audio ABX tester, an MP3 quality tester, an image format converter, and a fake alpha background remover—you know, those checkerboard patterns that pretend to be a PNG with transparency but aren't really.
+These tools are designed to tackle those small, annoying friction points in your daily work, like a [YouTube thumbnail previewer](/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/), so you can see how your packaging looks on mobile and desktop before publishing. We've also released an audio ABX tester, an MP3 quality tester, an image format converter, and a fake alpha background remover—you know, those checkerboard patterns that pretend to be a PNG with transparency but aren't really.
 
 Most free online tools require you to upload your files to their server, which can be time-consuming at best and, at worst, allows them to harvest your unreleased assets and images to secretly train their AI models. Fortunately, our tools work client-side. That means the processing happens locally, right inside your web browser. Your files never leave your computer; you don't upload them, and we don't save them.
 
