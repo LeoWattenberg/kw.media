@@ -17,6 +17,7 @@
     "fix:links": "node scripts/fix-post-issues.mjs --links",
     "metadata:posts": "node scripts/generate-post-metadata.mjs",
     "cta:posts": "node scripts/generate-post-ctas.mjs",
+    "tags:posts": "node scripts/generate-post-tags.mjs",
     "excerpt:posts": "node scripts/generate-excerpts.mjs",
     "links:posts": "node scripts/add-inline-post-links.mjs",
     "related:posts": "node scripts/build-related-posts.mjs",

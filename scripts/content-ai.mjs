@@ -4,6 +4,8 @@ import { basename, dirname, join } from 'node:path';
 
 export const postsDir = join(process.cwd(), 'src/data/posts');
 
+export const tagsRegistryPath = join(process.cwd(), 'src/data/tags.json');
+
 const postDirectories = {
 	blog: {
 		de: join(postsDir, 'blog/de'),
@@ -33,6 +35,7 @@ const ollamaUrl = process.env.OLLAMA_URL ?? process.env.OLLAMA_TRANSLATE_URL ?? 
 const translateModel = process.env.OLLAMA_TRANSLATE_MODEL ?? 'aya-expanse:32b';
 const metadataModel = process.env.OLLAMA_METADATA_MODEL ?? process.env.OLLAMA_EXCERPT_MODEL ?? translateModel;
 const postCtaModel = process.env.OLLAMA_POST_CTA_MODEL ?? metadataModel;
+const tagModel = process.env.OLLAMA_POST_TAG_MODEL ?? metadataModel;
 const timeoutMs = Number(process.env.OLLAMA_TIMEOUT_MS ?? 300000);
 const chunkSize = Number(process.env.OLLAMA_CHUNK_SIZE ?? 5200);
 
@@ -373,6 +376,335 @@ export async function repairTranslationPostFile(filePath, options = {}) {
 	};
 }
 
+export async function generatePostTagsFile(filePath, options = {}) {
+	const post = readPostFile(filePath);
+	const model = options.model ?? tagModel;
+	const vocabulary = options.vocabulary ?? buildTagVocabulary();
+	const locale = post.frontmatter.locale;
+	const suggestion = await suggestPostTags(post, vocabulary.localeTags(locale), model);
+	const resolved = resolveTags(suggestion, locale, vocabulary).slice(0, 10);
+	const tags = enforceTagBounds(resolved, locale);
+
+	if (!options.dryRun) {
+		writePostFile(filePath, { ...post.frontmatter, tags }, post.body);
+	}
+
+	return {
+		filePath,
+		path: post.frontmatter.path,
+		locale,
+		category: post.frontmatter.category,
+		model,
+		oldTags: Array.isArray(post.frontmatter.tags) ? post.frontmatter.tags : [],
+		tags,
+		changed: !sameTags(post.frontmatter.tags, tags),
+	};
+}
+
+export function buildTagVocabulary() {
+	const registry = readTagRegistry();
+	const bySlug = new Map();
+	const byLocale = new Map();
+
+	for (const { slug, name } of registry.tags) {
+		bySlug.set(slug, name);
+	}
+
+	for (const post of readAllPosts()) {
+		const tags = post.frontmatter.tags;
+		if (!Array.isArray(tags)) {
+			continue;
+		}
+
+		for (const tag of tags) {
+			registerTag(tag, post.frontmatter.locale);
+		}
+	}
+
+	function registerTag(name, locale) {
+		const slug = tagSlug(name);
+		if (!slug) {
+			return;
+		}
+
+		if (!bySlug.has(slug)) {
+			bySlug.set(slug, normalizeTag(name));
+		}
+
+		if (locale) {
+			if (!byLocale.has(locale)) {
+				byLocale.set(locale, new Set());
+			}
+			byLocale.get(locale).add(bySlug.get(slug));
+		}
+	}
+
+	return {
+		localeTags(locale) {
+			return [...(byLocale.get(locale) ?? [])].sort((a, b) => a.localeCompare(b));
+		},
+		canonicalNameForSlug(slug) {
+			return bySlug.get(slug);
+		},
+		hasSlug(slug) {
+			return bySlug.has(slug);
+		},
+		add(name, locale) {
+			registerTag(name, locale);
+		},
+	};
+}
+
+export function writeTagRegistry() {
+	const existing = readTagRegistry();
+	const canonical = new Map(existing.tags.map((tag) => [tag.slug, tag.name]));
+	const counts = new Map();
+
+	for (const post of readAllPosts()) {
+		const tags = post.frontmatter.tags;
+		if (!Array.isArray(tags)) {
+			continue;
+		}
+
+		for (const tag of tags) {
+			const slug = tagSlug(tag);
+			if (!slug) {
+				continue;
+			}
+
+			counts.set(slug, (counts.get(slug) ?? 0) + 1);
+			if (!canonical.has(slug)) {
+				canonical.set(slug, normalizeTag(tag));
+			}
+		}
+	}
+
+	const tags = [...canonical.entries()]
+		.map(([slug, name]) => ({ slug, name, count: counts.get(slug) ?? 0 }))
+		.sort((a, b) => b.count - a.count || a.slug.localeCompare(b.slug));
+
+	mkdirSync(dirname(tagsRegistryPath), { recursive: true });
+	writeFileSync(tagsRegistryPath, `${JSON.stringify({ tags }, null, '\t')}\n`);
+
+	return tags;
+}
+
+async function suggestPostTags(post, localeTags, model) {
+	const locale = post.frontmatter.locale;
+	const vocabularyBlock = localeTags.length
+		? `Existing tags already in use (reuse these whenever they fit well):\n${localeTags.map((tag) => `- ${tag}`).join('\n')}`
+		: 'No existing tags yet; you are creating the first tags for this locale.';
+	const prompt = `Choose discoverability tags for this kw.media post.
+
+Return only JSON with this exact shape:
+{
+  "tags": ["short tag", "another tag"]
+}
+
+Rules:
+- Return between 3 and 10 tags.
+- Use ${languageName(locale)}.
+- Strongly prefer reusing an existing tag from the list when it fits the post closely.
+- Only create a new tag when no existing tag is a good fit.
+- Each tag is 1 to 3 words, short, and concrete: a topic, tool, platform, technique, format, or audience.
+- Preserve platform and product names such as YouTube, YouTube Studio, Shorts, Twitch, OBS, Audacity, Super Chat.
+- Use natural Title Case for any new tag (for example "Audio Editing", "Live Streaming").
+- Do not use generic words on their own such as Video, Update, News, Guide, Channel, or Tutorial unless part of a specific phrase.
+- Do not return the post title, duplicates, quotes, markdown, or notes.
+
+Post:
+title: ${post.frontmatter.title}
+excerpt: ${post.frontmatter.excerpt}
+locale: ${locale}
+category: ${post.frontmatter.category}
+
+${vocabularyBlock}
+
+Content:
+${postPlainText(post, 5200)}`;
+
+	const suggestion = await ollamaGenerateJson(model, prompt);
+
+	return stringArrayField(suggestion?.tags)
+		.flatMap((tag) => tag.split(','))
+		.map((tag) => normalizeTag(tag))
+		.filter((tag) => tag.length >= 2);
+}
+
+function resolveTags(suggested, locale, vocabulary) {
+	const resolved = [];
+	const seenSlugs = new Set();
+
+	for (const tag of suggested) {
+		const clean = normalizeTag(tag);
+		if (!clean) {
+			continue;
+		}
+
+		const slug = tagSlug(clean);
+		if (!slug || seenSlugs.has(slug)) {
+			continue;
+		}
+
+		if (vocabulary.hasSlug(slug)) {
+			seenSlugs.add(slug);
+			resolved.push(vocabulary.canonicalNameForSlug(slug));
+			continue;
+		}
+
+		const localeTags = vocabulary.localeTags(locale);
+		const match = localeTags.find((existing) => tagsAreSimilar(clean, existing));
+		if (match) {
+			const matchSlug = tagSlug(match);
+			if (!seenSlugs.has(matchSlug)) {
+				seenSlugs.add(matchSlug);
+				resolved.push(vocabulary.canonicalNameForSlug(matchSlug) ?? match);
+			}
+			continue;
+		}
+
+		seenSlugs.add(slug);
+		resolved.push(clean);
+		vocabulary.add(clean, locale);
+	}
+
+	return resolved;
+}
+
+function enforceTagBounds(tags, locale) {
+	if (tags.length >= 3) {
+		return tags;
+	}
+
+	if (tags.length === 0) {
+		return [];
+	}
+
+	console.warn(`  only ${tags.length} tag(s) resolved for ${locale}; keeping them.`);
+	return tags;
+}
+
+function readTagRegistry() {
+	if (!existsSync(tagsRegistryPath)) {
+		return { tags: [] };
+	}
+
+	try {
+		const data = JSON.parse(readFileSync(tagsRegistryPath, 'utf8'));
+		const tags = Array.isArray(data?.tags) ? data.tags : [];
+		return {
+			tags: tags
+				.map((tag) => ({ slug: tagSlug(tag.name), name: normalizeTag(tag.name) }))
+				.filter((tag) => tag.slug && tag.name),
+		};
+	} catch (error) {
+		console.warn(`Could not read tag registry at ${tagsRegistryPath}: ${error.message}`);
+		return { tags: [] };
+	}
+}
+
+function normalizeTag(tag) {
+	return normalizeAiOutput(String(tag ?? ''))
+		.replace(/^["'“”\[]+\s*|\s*["'“”\]]+$/g, '')
+		.replace(/\s+/g, ' ')
+		.trim()
+		.slice(0, 40);
+}
+
+function tagSlug(tag) {
+	return String(tag ?? '')
+		.normalize('NFKD')
+		.replace(/[\u0300-\u036f]/g, '')
+		.replace(/ß/g, 'ss')
+		.toLowerCase()
+		.replace(/&/g, ' and ')
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-+|-+$/g, '')
+		.replace(/-{2,}/g, '-');
+}
+
+function tagsAreSimilar(a, b) {
+	const x = a.toLowerCase();
+	const y = b.toLowerCase();
+
+	if (x === y) {
+		return true;
+	}
+
+	if (pluralVariant(x, y)) {
+		return true;
+	}
+
+	if (x.length >= 4 && y.length >= 4 && (x.includes(y) || y.includes(x))) {
+		if (Math.min(x.length, y.length) / Math.max(x.length, y.length) >= 0.8) {
+			return true;
+		}
+	}
+
+	return similarityRatio(x, y) >= 0.86;
+}
+
+function pluralVariant(a, b) {
+	return a + 's' === b || b + 's' === a || a + 'es' === b || b + 'es' === a;
+}
+
+function similarityRatio(a, b) {
+	if (!a && !b) {
+		return 1;
+	}
+
+	if (!a || !b) {
+		return 0;
+	}
+
+	return 1 - levenshtein(a, b) / Math.max(a.length, b.length);
+}
+
+function levenshtein(a, b) {
+	const m = a.length;
+	const n = b.length;
+
+	if (!m) {
+		return n;
+	}
+
+	if (!n) {
+		return m;
+	}
+
+	let previous = new Array(n + 1);
+	const current = new Array(n + 1);
+
+	for (let j = 0; j <= n; j += 1) {
+		previous[j] = j;
+	}
+
+	for (let i = 1; i <= m; i += 1) {
+		current[0] = i;
+		for (let j = 1; j <= n; j += 1) {
+			const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+			current[j] = Math.min(previous[j] + 1, current[j - 1] + 1, previous[j - 1] + cost);
+		}
+		previous = [...current];
+	}
+
+	return previous[n];
+}
+
+function sameTags(a, b) {
+	const x = Array.isArray(a) ? a : [];
+	const y = Array.isArray(b) ? b : [];
+
+	if (x.length !== y.length) {
+		return false;
+	}
+
+	const sa = x.map((tag) => tagSlug(tag)).sort();
+	const sb = y.map((tag) => tagSlug(tag)).sort();
+
+	return sa.every((slug, index) => slug === sb[index]);
+}
+
 function parseFrontmatter(raw) {
 	const data = {};
 	let section;
@@ -416,7 +748,7 @@ function parseValue(value) {
 			.split(',')
 			.map((item) => item.trim())
 			.filter(Boolean)
-			.map((item) => Number(item));
+			.map(parseArrayItem);
 	}
 
 	if (/^\d+$/.test(value)) {
@@ -424,6 +756,18 @@ function parseValue(value) {
 	}
 
 	return value;
+}
+
+function parseArrayItem(item) {
+	if (/^".*"$/.test(item)) {
+		try {
+			return JSON.parse(item);
+		} catch {
+			return item.slice(1, -1);
+		}
+	}
+
+	return item;
 }
 
 function frontmatterString(data) {
@@ -445,6 +789,10 @@ function frontmatterString(data) {
 
 	if (data.category) {
 		lines.push(`category: ${quote(data.category)}`);
+	}
+
+	if (Array.isArray(data.tags) && data.tags.length) {
+		lines.push(`tags: [${data.tags.map((tag) => quote(String(tag))).join(', ')}]`);
 	}
 
 	if (data.image) {
