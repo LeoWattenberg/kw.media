@@ -28,9 +28,6 @@ const copyByLocale = {
 		tolerance: 'Toleranz',
 		outputFormat: 'Ausgabeformat',
 		quality: 'Qualität',
-		previewBackground: 'Vorschau-Hintergrund',
-		previewPlain: 'Einfarbig',
-		previewChecker: 'Schachbrett',
 		remove: 'Hintergrund entfernen',
 		clear: 'Datei entfernen',
 		sourcePreview: 'Quelle',
@@ -74,9 +71,6 @@ const copyByLocale = {
 		tolerance: 'Tolerance',
 		outputFormat: 'Output format',
 		quality: 'Quality',
-		previewBackground: 'Preview background',
-		previewPlain: 'Plain',
-		previewChecker: 'Checker',
 		remove: 'Remove background',
 		clear: 'Clear file',
 		sourcePreview: 'Source',
@@ -182,12 +176,7 @@ const modeOptions = [
 						<span>{copy.quality}: <strong data-quality-label>90</strong></span>
 						<input data-quality type="range" min="1" max="100" step="1" value="90" />
 					</label>
-					<fieldset class="preview-background-control">
-						<legend>{copy.previewBackground}</legend>
-						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="plain" /> {copy.previewPlain}</label>
-						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="checker" checked /> {copy.previewChecker}</label>
-					</fieldset>
-					<div class="remover-actions">
+				<div class="remover-actions">
 						<button class="button primary" data-remove type="button" disabled>{copy.remove}</button>
 						<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
 					</div>
@@ -246,7 +235,6 @@ const modeOptions = [
 			const qualityControl = root.querySelector('[data-quality-control]');
 			const qualityInput = root.querySelector('[data-quality]');
 			const qualityLabel = root.querySelector('[data-quality-label]');
-			const previewBackgroundInputs = Array.from(root.querySelectorAll('[data-preview-background]'));
 			const removeButton = root.querySelector('[data-remove]');
 			const clearButton = root.querySelector('[data-clear]');
 			const status = root.querySelector('[data-status]');
@@ -264,7 +252,7 @@ const modeOptions = [
 			if (
 				!fileInput || !fileName || !fileMeta || !modeInputs.length || !fuzzInput || !fuzzLabel ||
 				!formatSelect || !qualityControl || !qualityInput || !qualityLabel ||
-				!previewBackgroundInputs.length || !removeButton || !clearButton || !status ||
+				!removeButton || !clearButton || !status ||
 				!sourcePreview || !sourceImage || !sourcePreviewNote || !sourceMeta || !result ||
 				!outputImage || !outputPreviewNote || !outputFormat || !outputMeta || !downloadLink
 			) {
@@ -283,9 +271,6 @@ const modeOptions = [
 			fileInput.addEventListener('change', () => {
 				setSourceFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
 			});
-			for (const input of previewBackgroundInputs) {
-				input.addEventListener('change', updatePreviewBackground);
-			}
 			formatSelect.addEventListener('change', updateQualityControl);
 			fuzzInput.addEventListener('input', () => {
 				fuzzLabel.textContent = `${fuzzInput.value}%`;
@@ -315,7 +300,6 @@ const modeOptions = [
 			});
 
 			updateQualityControl();
-			updatePreviewBackground();
 			updateReadyState();
 
 			function setSourceFile(file) {
@@ -488,11 +472,6 @@ const modeOptions = [
 				qualityLabel.textContent = qualityInput.value;
 			}
 
-			function updatePreviewBackground() {
-				const selected = previewBackgroundInputs.find((input) => input.checked);
-				root.dataset.previewBackground = selected ? selected.value : 'checker';
-			}
-
 			function getSelectedFormat() {
 				return outputFormats.find((formatOption) => formatOption.value === formatSelect.value) || outputFormats[0];
 			}
@@ -511,10 +490,6 @@ const modeOptions = [
 				fileInput.disabled = state.isWorking;
 
 				for (const input of modeInputs) {
-					input.disabled = state.isWorking;
-				}
-
-				for (const input of previewBackgroundInputs) {
 					input.disabled = state.isWorking;
 				}
 			}
