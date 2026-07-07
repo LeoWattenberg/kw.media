@@ -2,6 +2,7 @@
 import ArticlePage from '../components/ArticlePage.astro';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import { getSitePageAlternatePaths, getSitePageComponent, sitePages } from '../data/pages';
+import { getGamePageAlternatePaths, getGamePageComponent, gamePages } from '../data/games';
 import { getToolPageAlternatePaths, getToolPageComponent, toolPages } from '../data/tools';
 import { getAllPosts, getPostAlternatePaths } from '../lib/source-content';
 
@@ -40,10 +41,21 @@ export function getStaticPaths() {
 		},
 	}));
 
-	return [...pagePaths, ...toolPaths, ...postPaths];
+	const gamePaths = gamePages.map((game) => ({
+		params: {
+			slug: game.path.replace(/^\/|\/$/g, ''),
+		},
+		props: {
+			kind: 'game',
+			game,
+			GameComponent: getGamePageComponent(game),
+		},
+	}));
+
+	return [...pagePaths, ...toolPaths, ...gamePaths, ...postPaths];
 }
 
-const { kind, page, post, tool, PageComponent, ToolComponent } = Astro.props;
+const { kind, page, post, tool, game, PageComponent, ToolComponent, GameComponent } = Astro.props;
 ---
 
 {
@@ -67,6 +79,8 @@ const { kind, page, post, tool, PageComponent, ToolComponent } = Astro.props;
 		</BaseLayout>
 	) : kind === 'tool' ? (
 		<ToolComponent tool={tool} alternatePaths={getToolPageAlternatePaths(tool)} />
+	) : kind === 'game' ? (
+		<GameComponent game={game} alternatePaths={getGamePageAlternatePaths(game)} />
 	) : (
 		<PageComponent page={page} alternatePaths={getSitePageAlternatePaths(page)} />
 	)
