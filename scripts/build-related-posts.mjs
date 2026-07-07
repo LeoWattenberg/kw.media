@@ -11,13 +11,13 @@ const candidateCount = Number(process.env.RELATED_POST_CANDIDATES ?? 10);
 const minScore = Number(process.env.RELATED_POST_MIN_SCORE ?? 0.45);
 const timeoutMs = Number(process.env.OLLAMA_TIMEOUT_MS ?? 300000);
 const shouldRerank = !process.argv.includes('--no-rerank') && process.env.RELATED_POST_RERANK !== '0';
-const dryRun = process.argv.includes('--dry-run');
+const dryRun = process.argv.includes('--dry') || process.argv.includes('--dry-run');
 const limit = Number(argumentValue('--limit') ?? process.env.RELATED_POST_LIMIT ?? 0);
 const outputPath = join(process.cwd(), 'src/data/related-posts.json');
 const cachePath = join(process.cwd(), '.cache', `related-post-embeddings-${slugify(embeddingModel)}.json`);
 
 if (limit > 0 && !dryRun) {
-	throw new Error('Use --limit only with --dry-run so the generated related-posts.json is not partial.');
+	throw new Error('Use --limit only with --dry so the generated related-posts.json is not partial.');
 }
 
 const posts = readAllPosts();

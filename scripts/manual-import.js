@@ -518,7 +518,7 @@ if (runAiPostProcessing && createdPostPaths.length) {
 	runNodeScript('build-related-posts.mjs');
 
 	console.log('Adding inline links to imported post(s)');
-	runNodeScript('add-inline-post-links.mjs', ['--write', ...createdPostPaths]);
+	runNodeScript('add-inline-post-links.mjs', createdPostPaths);
 }
 
 if (created.length) {

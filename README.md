@@ -18,13 +18,13 @@ Run commands from the project root:
 | `npm run cleanup:last-commit` | Clean markdown posts touched by the latest commit |
 | `npm run audit:posts` | Audit post metadata, language, links, and generated related-post data |
 | `npm run audit:posts -- --ai` | Add local Ollama metadata suggestions for flagged posts |
-| `npm run fix:posts -- --common` | Preview common fixes for flagged posts |
-| `npm run fix:posts -- --common --write` | Apply deterministic fixes, excerpt regeneration, and wrong-language retranslation |
-| `npm run fix:posts -- --all-fixes --write` | Also apply local-AI title/excerpt metadata suggestions |
+| `npm run fix:posts -- --common --dry` | Preview common fixes for flagged posts |
+| `npm run fix:posts -- --common` | Apply deterministic fixes, excerpt regeneration, and wrong-language retranslation |
+| `npm run fix:posts -- --all-fixes` | Also apply local-AI title/excerpt metadata suggestions |
 | `npm run metadata:posts -- --weak --output=.cache/post-metadata-suggestions.json` | Generate local-AI metadata suggestions for weak posts |
-| `npm run excerpt:posts -- --weak --dry-run` | Preview local-AI excerpt repairs for weak posts |
-| `npm run links:posts -- --limit=20 --link-density=2` | Preview local-AI inline links from post bodies to related same-language posts |
-| `npm run links:posts -- --write` | Apply inline post links, then review the Markdown changes in git |
+| `npm run excerpt:posts -- --weak --dry` | Preview local-AI excerpt repairs for weak posts |
+| `npm run links:posts -- --limit=20 --link-density=2 --dry` | Preview local-AI inline links from post bodies to related same-language posts |
+| `npm run links:posts -- src/data/posts/.../post.md` | Apply inline post links, then review the Markdown changes in git |
 | `npm run translate:post -- src/data/posts/.../post.md` | Translate one or more posts into the other locale |
 | `npm run translate:all-missing` | Create missing translations for all posts |
 | `npm run astro -- --help` | Show Astro CLI help |
@@ -54,7 +54,7 @@ Cleanup model selection:
 
 Generated translation pairs are connected with `translationKey` frontmatter, and video translations can also be inferred from shared `youtubeId`.
 
-`fix:posts` defaults to dry-run mode. Add `--write` to edit files, then review the result in git. Use `--deterministic`, `--excerpts`, `--metadata`, or `--translations` to run individual repair lanes.
+`fix:posts`, `excerpt:posts`, `links:posts`, and `related:posts` write changes by default. Add `--dry` to preview changes, then review written changes in git. Use `--deterministic`, `--excerpts`, `--metadata`, or `--translations` to run individual `fix:posts` repair lanes.
 
 The post overview search is static and runs in the browser against already-rendered post cards. It does not call a search backend or AI service at runtime, so it is compatible with GitHub Pages.
 

@@ -9,8 +9,7 @@ import {
 
 const args = process.argv.slice(2);
 const help = args.includes('--help') || args.includes('-h');
-const write = args.includes('--write');
-const dryRun = !write;
+const dryRun = args.includes('--dry') || args.includes('--dry-run');
 const useAi = !args.includes('--no-ai') && process.env.INLINE_POST_LINK_AI !== '0';
 const linkDensity = Number(argumentValue('--link-density') ?? process.env.INLINE_POST_LINK_DENSITY ?? 2);
 const limit = Number(argumentValue('--limit') ?? 0);
@@ -44,13 +43,13 @@ const boilerplateAnchorPatterns = [
 
 if (help) {
 	console.log(`Usage:
-node scripts/add-inline-post-links.mjs [--write] [--link-density=2] [--limit=20] [post.md ...]
+node scripts/add-inline-post-links.mjs [--dry] [--link-density=2] [--limit=20] [post.md ...]
 
 Creates inline Markdown links from post bodies to other same-locale posts.
-Defaults to dry-run mode. Add --write to edit files.
+Writes changes by default. Add --dry to preview proposed links.
 
 Options:
-- --write          Apply changes. Without it, only print proposed links.
+- --dry            Preview proposed links without editing files.
 - --link-density=N Maximum new links per 1000 body words. Defaults to 2.
 - --candidates=N  Candidate posts to send to Ollama. Defaults to 8.
 - --no-ai         Use deterministic phrase matching instead of Ollama anchor selection.

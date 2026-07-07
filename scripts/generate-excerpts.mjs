@@ -5,16 +5,16 @@ const args = process.argv.slice(2);
 const help = args.includes('--help') || args.includes('-h');
 const all = args.includes('--all');
 const weakOnly = args.includes('--weak') || args.includes('--only-weak');
-const dryRun = args.includes('--dry-run');
+const dryRun = args.includes('--dry') || args.includes('--dry-run');
 const model = argumentValue('--model');
 const filePaths = args.filter((argument) => !argument.startsWith('-'));
 
 if (help || (!all && !weakOnly && !filePaths.length)) {
 	console.log(`Usage:
-node scripts/generate-excerpts.mjs [--dry-run] [--all|--weak] [--model=name] [post.md ...]
+node scripts/generate-excerpts.mjs [--dry] [--all|--weak] [--model=name] [post.md ...]
 
-Uses local Ollama to generate validated frontmatter excerpts. Without --dry-run,
-the script updates only the excerpt field and preserves the post body.`);
+Uses local Ollama to generate validated frontmatter excerpts. Writes changes by
+default. Add --dry to preview generated excerpts without editing files.`);
 	process.exit(help ? 0 : 1);
 }
 

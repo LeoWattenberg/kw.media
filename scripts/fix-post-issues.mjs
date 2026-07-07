@@ -12,7 +12,7 @@ import {
 
 const args = process.argv.slice(2);
 const help = args.includes('--help') || args.includes('-h');
-const write = args.includes('--write');
+const dryRun = args.includes('--dry') || args.includes('--dry-run');
 const all = args.includes('--all');
 const weakOnly = args.includes('--weak') || args.includes('--only-weak') || (!all && !positionalArgs().length);
 const commonFixes = args.includes('--common') || args.includes('--all-fixes');
@@ -23,7 +23,6 @@ const metadata = args.includes('--metadata') || args.includes('--all-fixes');
 const translations = commonFixes || args.includes('--translations');
 const limit = Number(argumentValue('--limit') ?? 0);
 const model = argumentValue('--model');
-const dryRun = !write;
 const siteOrigin = 'https://kw.media';
 const manualInternalRouteFixes = new Map([
 	[
@@ -50,11 +49,11 @@ const manualInternalRouteFixes = new Map([
 
 if (help || (!deterministic && !routeFixes && !excerpts && !metadata && !translations)) {
 	console.log(`Usage:
-node scripts/fix-post-issues.mjs [--write] [--all|--weak] [--common|--all-fixes]
-node scripts/fix-post-issues.mjs [--write] [--deterministic] [--links] [--excerpts] [--metadata] [--translations] [post.md ...]
+node scripts/fix-post-issues.mjs [--dry] [--all|--weak] [--common|--all-fixes]
+node scripts/fix-post-issues.mjs [--dry] [--deterministic] [--links] [--excerpts] [--metadata] [--translations] [post.md ...]
 
 Default target selection is --weak when no post paths are provided.
-Without --write this runs in dry-run mode.
+Writes changes by default. Add --dry to preview proposed fixes.
 
 Fix modes:
 - --deterministic  Safe casing, known speech cleanup, known internal-link fixes, missing headings.
