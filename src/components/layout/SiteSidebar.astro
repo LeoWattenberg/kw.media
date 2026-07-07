@@ -15,6 +15,7 @@ const { locale, currentPath, alternatePaths = {} } = Astro.props;
 const t = useTranslations(locale);
 const alternateLocale = locale === 'de' ? 'en' : 'de';
 const alternatePath = alternatePaths[alternateLocale] ?? routeFor('home', alternateLocale);
+const collapsedLanguageLabel = alternateLocale === 'de' ? 'DEU' : 'ENG';
 const normalizedCurrentPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
 const themeLabels = {
 	de: {
@@ -77,26 +78,30 @@ const sidebarPages = sitePages
 	<a class="brand" href={withBase(routeFor('home', locale))} aria-label={t('siteName')}>
 		<img class="logo-light" src={withBase('/logo/logo-schwarz.svg')} alt="" width="230" height="91" />
 		<img class="logo-dark" src={withBase('/logo/logo-weiß.svg')} alt="" width="230" height="91" />
+		<img class="logo-light logo-small" src={withBase('/logo/logo-klein-schwarz.svg')} alt="" width="48" height="48" />
+		<img class="logo-dark logo-small" src={withBase('/logo/logo-klein-weiß.svg')} alt="" width="48" height="48" />
 	</a>
 
 	<nav class="sidebar-nav" aria-label="Main navigation">
-		{
-			sidebarPages.map((page) => {
-				const group = pageGroup(page.id);
-				const isCurrentPage = page.path === normalizedCurrentPath;
-				const isActive = isCurrentPage || (group === 'tools' && normalizedCurrentPath.startsWith(page.path));
+		<div class="nav-links">
+			{
+				sidebarPages.map((page) => {
+					const group = pageGroup(page.id);
+					const isCurrentPage = page.path === normalizedCurrentPath;
+					const isActive = isCurrentPage || (group === 'tools' && normalizedCurrentPath.startsWith(page.path));
 
-				return (
-					<a
-						class:list={['sidebar-link', { 'is-active': isActive }]}
-						href={withBase(page.path)}
-						aria-current={isCurrentPage ? 'page' : isActive ? 'location' : undefined}
-					>
-						<span>{t(labelKeys[group] ?? page.title)}</span>
-					</a>
-				);
-			})
-		}
+					return (
+						<a
+							class:list={['sidebar-link', { 'is-active': isActive }]}
+							href={withBase(page.path)}
+							aria-current={isCurrentPage ? 'page' : isActive ? 'location' : undefined}
+						>
+							<span>{t(labelKeys[group] ?? page.title)}</span>
+						</a>
+					);
+				})
+			}
+		</div>
 	</nav>
 
 	<div class="sidebar-actions">
@@ -115,8 +120,17 @@ const sidebarPages = sitePages
 			<span data-theme-toggle-label>{themeLabels.light}</span>
 		</button>
 		<a class="language-link" href={withBase(alternatePath)}>
-			{localeLabels[alternateLocale]}
+			<span class="lang-full">{localeLabels[alternateLocale]}</span>
+			<span class="lang-small">{collapsedLanguageLabel}</span>
 		</a>
+		<button 
+			class="sidebar-collapse-toggle" 
+			type="button" 
+			data-sidebar-collapse-toggle 
+			aria-label="Toggle sidebar width"
+		>
+			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+		</button>
 	</div>
 </aside>
 
@@ -184,6 +198,39 @@ const sidebarPages = sitePages
 				applyTheme(systemTheme(), false);
 			}
 		});
+
+		const collapseToggle = document.querySelector<HTMLButtonElement>('[data-sidebar-collapse-toggle]');
+		if (collapseToggle) {
+			const sidebar = document.querySelector<HTMLElement>('.site-sidebar');
+			if (sidebar) {
+				const toggleCollapse = () => {
+					const isCollapsed = sidebar.classList.toggle('is-collapsed');
+					localStorage.setItem('kwm_sidebar_collapsed', String(isCollapsed));
+					collapseToggle.setAttribute('aria-expanded', String(!isCollapsed));
+					
+					// Update icon based on state
+					const svg = collapseToggle.querySelector('svg');
+					if (svg) {
+						svg.innerHTML = isCollapsed 
+							? '<path d="m9 18-6-6 6-6"/>' 
+							: '<path d="m15 18-6-6 6-6"/>';
+					}
+				};
+
+				// Initialize state from localStorage
+				const wasCollapsed = localStorage.getItem('kwm_sidebar_collapsed') === 'true';
+				if (wasCollapsed) {
+					sidebar.classList.add('is-collapsed');
+					collapseToggle.setAttribute('aria-expanded', 'false');
+					const svg = collapseToggle.querySelector('svg');
+					if (svg) svg.innerHTML = '<path d="m9 18-6-6 6-6"/>';
+				} else {
+					collapseToggle.setAttribute('aria-expanded', 'true');
+				}
+
+				collapseToggle.addEventListener('click', toggleCollapse);
+			}
+		}
 	})();
 </script>
 
@@ -200,6 +247,12 @@ const sidebarPages = sitePages
 		color: var(--color-ink);
 		background: var(--color-surface-raised);
 		border-right: 1px solid var(--color-line);
+		transition: width 0.2s ease, padding 0.2s ease;
+	}
+
+	.site-sidebar.is-collapsed {
+		width: 80px;
+		padding: 28px 12px;
 	}
 
 	.brand {
@@ -211,21 +264,42 @@ const sidebarPages = sitePages
 	}
 
 	.brand img {
-		display: block;
+		display: none;
 		width: min(190px, 100%);
 		height: auto;
 	}
 
-	.brand .logo-dark {
-		display: none;
-	}
-
-	:global(:root[data-theme='dark']) .brand .logo-light {
-		display: none;
-	}
-
-	:global(:root[data-theme='dark']) .brand .logo-dark {
+	.site-sidebar:not(.is-collapsed) .brand .logo-light:not(.logo-small) {
 		display: block;
+		width: 230px;
+	}
+
+	:global(:root[data-theme='dark']) .site-sidebar:not(.is-collapsed) .brand .logo-light:not(.logo-small) {
+		display: none;
+	}
+
+	:global(:root[data-theme='dark']) .site-sidebar:not(.is-collapsed) .brand .logo-dark:not(.logo-small) {
+		display: block;
+	}
+
+	.site-sidebar.is-collapsed .brand .logo-light.logo-small {
+		display: block;
+		width: 48px;
+		margin: 0 auto;
+	}
+
+	:global(:root[data-theme='dark']) .site-sidebar.is-collapsed .brand .logo-light.logo-small {
+		display: none;
+	}
+
+	:global(:root[data-theme='dark']) .site-sidebar.is-collapsed .brand .logo-dark.logo-small {
+		display: block;
+		width: 48px;
+		margin: 0 auto;
+	}
+
+	.site-sidebar.is-collapsed .brand img:not(.logo-small) {
+		display: none;
 	}
 
 	.sidebar-nav {
@@ -257,6 +331,10 @@ const sidebarPages = sitePages
 		background: var(--color-surface-alt);
 	}
 
+	.site-sidebar.is-collapsed .nav-links {
+		display: none;
+	}
+
 	.sidebar-actions {
 		margin-top: auto;
 		display: grid;
@@ -282,6 +360,70 @@ const sidebarPages = sitePages
 	}
 
 	.theme-toggle:hover {
+		color: var(--color-accent-dark);
+		border-color: var(--color-accent);
+	}
+
+	.site-sidebar.is-collapsed .theme-toggle span[data-theme-toggle-label] {
+		display: none;
+	}
+
+	.site-sidebar.is-collapsed .theme-toggle {
+		justify-content: center;
+		padding: 8px 0;
+	}
+
+	.language-link {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 42px;
+		width: 100%;
+		padding: 8px 12px;
+		color: var(--color-muted);
+		background: var(--color-control-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 6px;
+		font: inherit;
+		font-size: 0.92rem;
+		font-weight: 800;
+		cursor: pointer;
+		text-decoration: none;
+	}
+
+	.language-link:hover {
+		color: var(--color-accent-dark);
+		border-color: var(--color-accent);
+	}
+
+	.site-sidebar.is-collapsed .lang-full {
+		display: none;
+	}
+
+	.site-sidebar.is-collapsed .lang-small {
+		display: block;
+	}
+
+	.lang-small {
+		display: none;
+	}
+
+	.sidebar-collapse-toggle {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 42px;
+		width: 100%;
+		padding: 8px 0;
+		color: var(--color-muted);
+		background: transparent;
+		border: 1px solid var(--color-line);
+		border-radius: 6px;
+		cursor: pointer;
+		transition: color 0.2s ease, border-color 0.2s ease;
+	}
+
+	.sidebar-collapse-toggle:hover {
 		color: var(--color-accent-dark);
 		border-color: var(--color-accent);
 	}
