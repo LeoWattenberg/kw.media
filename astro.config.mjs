@@ -1,4 +1,6 @@
 // @ts-check
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { defineConfig } from 'astro/config';
 
 import sitemap from '@astrojs/sitemap';
@@ -41,6 +43,65 @@ const redirects = {
 };
 
 const redirectSourceUrls = new Set(Object.keys(redirects).map((path) => new URL(path, site).toString()));
+const postLastmodByUrl = readPostLastmodByUrl();
+
+function readPostLastmodByUrl() {
+  const postsDir = join(process.cwd(), 'src/data/posts');
+  const entries = new Map();
+
+  for (const filePath of markdownFiles(postsDir)) {
+    const frontmatter = readFrontmatter(filePath);
+    if (!frontmatter.path) {
+      continue;
+    }
+
+    const lastmod = frontmatter.modified ?? frontmatter.date;
+    if (!lastmod) {
+      continue;
+    }
+
+    entries.set(new URL(frontmatter.path, site).toString(), new Date(lastmod).toISOString());
+  }
+
+  return entries;
+}
+
+function markdownFiles(directory) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const entryPath = join(directory, entry.name);
+
+    if (entry.isDirectory()) {
+      return markdownFiles(entryPath);
+    }
+
+    return entry.isFile() && entry.name.endsWith('.md') ? [entryPath] : [];
+  });
+}
+
+function readFrontmatter(filePath) {
+  const raw = readFileSync(filePath, 'utf8');
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  const frontmatter = {};
+
+  for (const line of (match?.[1] ?? '').split(/\r?\n/)) {
+    const fieldMatch = line.match(/^([A-Za-z0-9_]+):\s*(.*)$/);
+    if (!fieldMatch) {
+      continue;
+    }
+
+    frontmatter[fieldMatch[1]] = parseFrontmatterValue(fieldMatch[2]);
+  }
+
+  return frontmatter;
+}
+
+function parseFrontmatterValue(value) {
+  if (/^".*"$/.test(value)) {
+    return JSON.parse(value);
+  }
+
+  return value;
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -52,6 +113,10 @@ export default defineConfig({
   integrations: [sitemap({
     customSitemaps: [new URL('/video-sitemap.xml', site).toString()],
     filter: (page) => !redirectSourceUrls.has(page),
+    serialize: (item) => {
+      const lastmod = postLastmodByUrl.get(item.url);
+      return lastmod ? { ...item, lastmod } : item;
+    },
     namespaces: {
       news: false,
       xhtml: true,
