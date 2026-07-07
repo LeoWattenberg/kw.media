@@ -199,8 +199,11 @@ const modeOptions = isCheckerboardVariant
 							<img data-source-image alt="" />
 							<span data-source-preview-note hidden>{copy.client.sourcePreviewUnavailable}</span>
 						</div>
-						<small data-source-meta></small>
-					</div>
+					<small data-source-meta></small>
+					{!isCheckerboardVariant && (
+						<a class="button primary source-download" data-download href="#" download hidden>{copy.download}</a>
+					)}
+				</div>
 				</section>
 
 				<section class="remover-panel tool-panel settings-panel">
@@ -260,6 +263,7 @@ const modeOptions = isCheckerboardVariant
 				</section>
 			</div>
 
+		{isCheckerboardVariant && (
 			<section class="remover-panel tool-panel result-panel" data-result hidden>
 				<div class="result-heading">
 					<div>
@@ -285,6 +289,7 @@ const modeOptions = isCheckerboardVariant
 					</dl>
 				</div>
 			</section>
+		)}
 		</div>
 	</div>
 </section>
@@ -335,13 +340,16 @@ const modeOptions = isCheckerboardVariant
 				!fileInput || !fileName || !fileMeta || !fuzzInput || !fuzzLabel || !formatSelect ||
 				!qualityControl || !qualityInput || !qualityLabel || !previewBackgroundInputs.length ||
 				!clearButton || !status || !sourcePreview || !sourceImage ||
-				!sourcePreviewNote || !sourceMeta || !result || !outputImage || !outputPreviewNote ||
-				!outputFormat || !outputMeta || !downloadLink
+				!sourcePreviewNote || !sourceMeta || !downloadLink
 			) {
 				return;
 			}
 
-			if (isCheckerboardVariant && (!modeInputs.length || !removeButton)) {
+			if (
+				isCheckerboardVariant &&
+				(!modeInputs.length || !removeButton || !result || !outputImage ||
+					!outputPreviewNote || !outputFormat || !outputMeta)
+			) {
 				return;
 			}
 
@@ -358,6 +366,7 @@ const modeOptions = isCheckerboardVariant
 				magickPromise: null,
 				seedPoint: null,
 				seedColor: null,
+				originalName: null,
 			};
 
 			fileInput.addEventListener('change', () => {
@@ -388,14 +397,16 @@ const modeOptions = isCheckerboardVariant
 				sourceImage.hidden = true;
 				sourcePreviewNote.hidden = false;
 			});
-			outputImage.addEventListener('load', () => {
-				outputImage.hidden = false;
-				outputPreviewNote.hidden = true;
-			});
-			outputImage.addEventListener('error', () => {
-				outputImage.hidden = true;
-				outputPreviewNote.hidden = false;
-			});
+			if (outputImage) {
+				outputImage.addEventListener('load', () => {
+					outputImage.hidden = false;
+					outputPreviewNote.hidden = true;
+				});
+				outputImage.addEventListener('error', () => {
+					outputImage.hidden = true;
+					outputPreviewNote.hidden = false;
+				});
+			}
 
 			updateQualityControl();
 			updatePreviewBackground();
@@ -406,6 +417,7 @@ const modeOptions = isCheckerboardVariant
 				resetOutput();
 				resetSeed();
 				state.file = file;
+				state.originalName = file ? file.name : null;
 
 				if (!file) {
 					fileName.textContent = copy.chooseFile || 'Choose image file';
@@ -449,7 +461,8 @@ const modeOptions = isCheckerboardVariant
 					return;
 				}
 
-				const outputName = createOutputName(state.file.name, selectedFormat.extension);
+				const baseName = isCheckerboardVariant ? state.file.name : (state.originalName || state.file.name);
+				const outputName = createOutputName(baseName, selectedFormat.extension);
 
 				setWorking(true);
 				resetOutput();
@@ -468,21 +481,39 @@ const modeOptions = isCheckerboardVariant
 					});
 					const outputBlob = new Blob([cutout.bytes], { type: selectedFormat.mime });
 
-					state.outputUrl = URL.createObjectURL(outputBlob);
-					outputImage.hidden = false;
-					outputPreviewNote.hidden = true;
-					outputImage.src = state.outputUrl;
-					outputFormat.textContent = selectedFormat.label;
-					outputMeta.textContent = format(copy.imageMeta, {
-						width: cutout.width || '?',
-						height: cutout.height || '?',
-						frames: formatFrames(cutout.frames),
-						size: formatBytes(outputBlob.size),
-					});
-					downloadLink.href = state.outputUrl;
-					downloadLink.download = outputName;
-					downloadLink.hidden = false;
-					result.hidden = false;
+					if (isCheckerboardVariant) {
+						state.outputUrl = URL.createObjectURL(outputBlob);
+						outputImage.hidden = false;
+						outputPreviewNote.hidden = true;
+						outputImage.src = state.outputUrl;
+						outputFormat.textContent = selectedFormat.label;
+						outputMeta.textContent = format(copy.imageMeta, {
+							width: cutout.width || '?',
+							height: cutout.height || '?',
+							frames: formatFrames(cutout.frames),
+							size: formatBytes(outputBlob.size),
+						});
+						downloadLink.href = state.outputUrl;
+						downloadLink.download = outputName;
+						downloadLink.hidden = false;
+						result.hidden = false;
+					} else {
+						const nextUrl = URL.createObjectURL(outputBlob);
+						const nextFile = new File([outputBlob], outputName, { type: selectedFormat.mime });
+						revokeUrl('inputUrl');
+						state.file = nextFile;
+						state.inputUrl = nextUrl;
+						sourceImage.src = nextUrl;
+						sourceMeta.textContent = format(copy.imageMeta, {
+							width: cutout.width || '?',
+							height: cutout.height || '?',
+							frames: formatFrames(cutout.frames),
+							size: formatBytes(outputBlob.size),
+						});
+						downloadLink.href = nextUrl;
+						downloadLink.download = outputName;
+						downloadLink.hidden = false;
+					}
 					setStatus(format(copy.converted, { name: outputName }), 'success');
 				} catch (error) {
 					setStatus(messageFromError(error), 'error');
@@ -687,18 +718,37 @@ const modeOptions = isCheckerboardVariant
 
 			function resetOutput() {
 				revokeUrl('outputUrl');
-				result.hidden = true;
-				downloadLink.hidden = true;
-				downloadLink.removeAttribute('href');
-				outputImage.removeAttribute('src');
-				outputImage.hidden = false;
-				outputPreviewNote.hidden = true;
-				outputFormat.textContent = '';
-				outputMeta.textContent = '';
+
+				if (downloadLink) {
+					downloadLink.hidden = true;
+					downloadLink.removeAttribute('href');
+				}
+
+				if (result) {
+					result.hidden = true;
+				}
+
+				if (outputImage) {
+					outputImage.removeAttribute('src');
+					outputImage.hidden = false;
+				}
+
+				if (outputPreviewNote) {
+					outputPreviewNote.hidden = true;
+				}
+
+				if (outputFormat) {
+					outputFormat.textContent = '';
+				}
+
+				if (outputMeta) {
+					outputMeta.textContent = '';
+				}
 			}
 
 			function clearFile() {
 				state.file = null;
+				state.originalName = null;
 				fileInput.value = '';
 				revokeUrl('inputUrl');
 				resetOutput();
@@ -1488,6 +1538,10 @@ const modeOptions = isCheckerboardVariant
 	.preview-card p,
 	.result-heading .eyebrow {
 		margin: 0;
+	}
+
+	.source-download {
+		justify-self: start;
 	}
 
 	.preview-frame {
