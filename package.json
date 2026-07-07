@@ -11,6 +11,7 @@
     "cleanup:post": "node scripts/cleanup-post.mjs",
     "cleanup:last-commit": "node scripts/cleanup-last-commit-posts.mjs",
     "audit:posts": "node scripts/audit-posts.mjs",
+    "audit:inlinks": "node scripts/audit-inlinks.mjs",
     "check:links": "node scripts/check-content-links.mjs",
     "fix:posts": "node scripts/fix-post-issues.mjs",
     "fix:links": "node scripts/fix-post-issues.mjs --links",
