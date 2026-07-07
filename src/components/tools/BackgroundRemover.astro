@@ -56,8 +56,8 @@ const copyByLocale = {
 			noFrames: 'ImageMagick konnte kein Bild in dieser Datei finden.',
 			noSeed: 'Klicke zuerst auf das Bild, um die Hintergrund-Stelle zu wählen.',
 			previewUnavailable: 'Für dieses Format ist keine Browser-Vorschau verfügbar. Der Download ist trotzdem bereit.',
-			seedInstruction: 'Klicke auf das Bild, wo der Hintergrund ist. Die Farbe unter dem Cursor und diese Stelle werden zum Entfernungsziel.',
-			seeded: 'Farbe {color} übernommen. Die Entfernung startet an dieser Stelle.',
+			seedInstruction: 'Klicke auf das Bild, wo der Hintergrund ist. Er wird ab dieser Stelle sofort entfernt.',
+			seeded: 'Farbe {color} übernommen.',
 			sourcePreviewUnavailable: 'Die Browser-Vorschau kann dieses Quellformat nicht anzeigen. Die Entfernung kann trotzdem funktionieren.',
 			singleFrame: '1 Frame',
 			multipleFrames: '{count} Frames',
@@ -106,8 +106,8 @@ const copyByLocale = {
 			noFrames: 'ImageMagick could not find an image in this file.',
 			noSeed: 'Click the image first to pick the background spot.',
 			previewUnavailable: 'This format cannot be previewed by the browser. The download is ready.',
-			seedInstruction: 'Click the image where the background is. The color under the cursor and that spot become the removal target.',
-			seeded: 'Picked {color}. Removal will start from this spot.',
+			seedInstruction: 'Click the image where the background is. It is removed from that spot right away.',
+			seeded: 'Picked {color}.',
 			sourcePreviewUnavailable: 'The browser cannot preview this source format. Removal may still work.',
 			singleFrame: '1 frame',
 			multipleFrames: '{count} frames',
@@ -139,14 +139,14 @@ const variantCopy = isCheckerboardVariant ? {
 		intro: 'Entferne einfarbige oder nahezu einfarbige Hintergründe direkt im Browser mit ImageMagick WASM.',
 		privacy: 'Deine Datei wird nicht hochgeladen. Die Transparenz wird clientseitig erzeugt.',
 		client: {
-			waiting: 'Wähle ein Bild und klicke auf den Hintergrund, um Farbe und Startpunkt festzulegen.',
+			waiting: 'Wähle ein Bild und klicke auf den Hintergrund, um ihn zu entfernen.',
 		},
 	},
 	en: {
 		intro: 'Remove solid or near-solid backgrounds directly in your browser with ImageMagick WASM.',
 		privacy: 'Your file is not uploaded. Transparency is created client-side.',
 		client: {
-			waiting: 'Choose an image, then click the background to set the color and starting point.',
+			waiting: 'Choose an image, then click the background to remove it.',
 		},
 	},
 };
@@ -250,10 +250,12 @@ const modeOptions = isCheckerboardVariant
 						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="plain" /> {copy.previewPlain}</label>
 						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="checker" checked /> {copy.previewChecker}</label>
 					</fieldset>
-					<div class="remover-actions">
+				<div class="remover-actions">
+					{isCheckerboardVariant && (
 						<button class="button primary" data-remove type="button" disabled>{copy.remove}</button>
-						<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
-					</div>
+					)}
+					<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
+				</div>
 					<p class="remover-status tool-status" data-status role="status">{copy.client.waiting}</p>
 				</section>
 			</div>
@@ -332,14 +334,14 @@ const modeOptions = isCheckerboardVariant
 			if (
 				!fileInput || !fileName || !fileMeta || !fuzzInput || !fuzzLabel || !formatSelect ||
 				!qualityControl || !qualityInput || !qualityLabel || !previewBackgroundInputs.length ||
-				!removeButton || !clearButton || !status || !sourcePreview || !sourceImage ||
+				!clearButton || !status || !sourcePreview || !sourceImage ||
 				!sourcePreviewNote || !sourceMeta || !result || !outputImage || !outputPreviewNote ||
 				!outputFormat || !outputMeta || !downloadLink
 			) {
 				return;
 			}
 
-			if (isCheckerboardVariant && !modeInputs.length) {
+			if (isCheckerboardVariant && (!modeInputs.length || !removeButton)) {
 				return;
 			}
 
@@ -371,9 +373,11 @@ const modeOptions = isCheckerboardVariant
 			qualityInput.addEventListener('input', () => {
 				qualityLabel.textContent = qualityInput.value;
 			});
-			removeButton.addEventListener('click', () => {
-				void removeBackground();
-			});
+			if (removeButton) {
+				removeButton.addEventListener('click', () => {
+					void removeBackground();
+				});
+			}
 			clearButton.addEventListener('click', clearFile);
 			sourceImage.addEventListener('click', setSeedFromClick);
 			sourceImage.addEventListener('load', () => {
@@ -616,8 +620,8 @@ const modeOptions = isCheckerboardVariant
 				seedDisplay.hidden = false;
 				seedSwatch.style.backgroundColor = color;
 				seedValue.textContent = color;
-				updateReadyState();
 				setStatus(format(copy.seeded, { color }), 'success');
+				void removeBackground();
 			}
 
 			function resetSeed() {
@@ -658,8 +662,9 @@ const modeOptions = isCheckerboardVariant
 			}
 
 			function updateReadyState() {
-				const needsSeed = !isCheckerboardVariant;
-				removeButton.disabled = state.isWorking || !state.file || (needsSeed && !state.seedPoint);
+				if (removeButton) {
+					removeButton.disabled = state.isWorking || !state.file;
+				}
 				clearButton.disabled = state.isWorking || !state.file;
 				formatSelect.disabled = state.isWorking;
 				fuzzInput.disabled = state.isWorking;
