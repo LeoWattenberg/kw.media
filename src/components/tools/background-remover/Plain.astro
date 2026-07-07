@@ -26,9 +26,6 @@ const copyByLocale = {
 		tolerance: 'Toleranz',
 		outputFormat: 'Ausgabeformat',
 		quality: 'Qualität',
-		previewBackground: 'Vorschau-Hintergrund',
-		previewPlain: 'Einfarbig',
-		previewChecker: 'Schachbrett',
 		clear: 'Datei entfernen',
 		sourcePreview: 'Quelle',
 		download: 'Bild herunterladen',
@@ -70,9 +67,6 @@ const copyByLocale = {
 		tolerance: 'Tolerance',
 		outputFormat: 'Output format',
 		quality: 'Quality',
-		previewBackground: 'Preview background',
-		previewPlain: 'Plain',
-		previewChecker: 'Checker',
 		clear: 'Clear file',
 		sourcePreview: 'Source',
 		download: 'Download image',
@@ -174,12 +168,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 						<span>{copy.quality}: <strong data-quality-label>90</strong></span>
 						<input data-quality type="range" min="1" max="100" step="1" value="90" />
 					</label>
-					<fieldset class="preview-background-control">
-						<legend>{copy.previewBackground}</legend>
-						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="plain" /> {copy.previewPlain}</label>
-						<label><input data-preview-background type="radio" name={`background-remover-preview-${locale}`} value="checker" checked /> {copy.previewChecker}</label>
-					</fieldset>
-					<div class="remover-actions">
+				<div class="remover-actions">
 						<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
 					</div>
 					<p class="remover-status tool-status" data-status role="status">{copy.client.waiting}</p>
@@ -210,7 +199,6 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			const qualityControl = root.querySelector('[data-quality-control]');
 			const qualityInput = root.querySelector('[data-quality]');
 			const qualityLabel = root.querySelector('[data-quality-label]');
-			const previewBackgroundInputs = Array.from(root.querySelectorAll('[data-preview-background]'));
 			const clearButton = root.querySelector('[data-clear]');
 			const status = root.querySelector('[data-status]');
 			const sourcePreview = root.querySelector('[data-source-preview]');
@@ -224,7 +212,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 
 			if (
 				!fileInput || !fileName || !fileMeta || !fuzzInput || !fuzzLabel || !formatSelect ||
-				!qualityControl || !qualityInput || !qualityLabel || !previewBackgroundInputs.length ||
+				!qualityControl || !qualityInput || !qualityLabel ||
 				!clearButton || !status || !sourcePreview || !sourceImage || !sourcePreviewNote ||
 				!sourceMeta || !seedDisplay || !seedSwatch || !seedValue || !downloadLink
 			) {
@@ -246,9 +234,6 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			fileInput.addEventListener('change', () => {
 				setSourceFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
 			});
-			for (const input of previewBackgroundInputs) {
-				input.addEventListener('change', updatePreviewBackground);
-			}
 			formatSelect.addEventListener('change', updateQualityControl);
 			fuzzInput.addEventListener('input', () => {
 				fuzzLabel.textContent = `${fuzzInput.value}%`;
@@ -268,7 +253,6 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			});
 
 			updateQualityControl();
-			updatePreviewBackground();
 			updateReadyState();
 
 			function setSourceFile(file) {
@@ -502,11 +486,6 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				qualityLabel.textContent = qualityInput.value;
 			}
 
-			function updatePreviewBackground() {
-				const selected = previewBackgroundInputs.find((input) => input.checked);
-				root.dataset.previewBackground = selected ? selected.value : 'checker';
-			}
-
 			function getSelectedFormat() {
 				return outputFormats.find((formatOption) => formatOption.value === formatSelect.value) || outputFormats[0];
 			}
@@ -517,10 +496,6 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				fuzzInput.disabled = state.isWorking;
 				qualityInput.disabled = state.isWorking;
 				fileInput.disabled = state.isWorking;
-
-				for (const input of previewBackgroundInputs) {
-					input.disabled = state.isWorking;
-				}
 			}
 
 			function setWorking(isWorking) {

@@ -271,46 +271,6 @@ const { tool, alternatePaths } = Astro.props;
 		font-size: 0.88rem;
 	}
 
-	.tools-layout .background-remover .preview-background-control {
-		display: grid;
-		gap: 8px;
-		margin-top: 18px;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		padding: 0;
-		border: 0;
-	}
-
-	.tools-layout .background-remover .preview-background-control legend {
-		grid-column: 1 / -1;
-	}
-
-	.tools-layout .background-remover .preview-background-control label {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 8px;
-		min-height: 42px;
-		padding: 8px 10px;
-		color: var(--color-ink);
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-		font-weight: 850;
-		cursor: pointer;
-	}
-
-	.tools-layout .background-remover .preview-background-control label:has(input:checked) {
-		color: var(--color-accent-dark);
-		background: var(--color-accent-soft);
-		border-color: var(--color-accent-line);
-	}
-
-	.tools-layout .background-remover .preview-background-control label:has(input:focus-visible) {
-		outline: 3px solid var(--color-accent-focus-soft);
-		outline-offset: 2px;
-	}
-
-	.tools-layout .background-remover .preview-background-control input,
 	.tools-layout .background-remover .range-control input {
 		accent-color: var(--color-accent);
 	}
@@ -340,20 +300,17 @@ const { tool, alternatePaths } = Astro.props;
 		min-height: 260px;
 		place-items: center;
 		padding: 12px;
-		background:
-			linear-gradient(45deg, var(--color-checkerboard-square) 25%, var(--color-transparent) 25%),
-			linear-gradient(-45deg, var(--color-checkerboard-square) 25%, var(--color-transparent) 25%),
-			linear-gradient(45deg, var(--color-transparent) 75%, var(--color-checkerboard-square) 75%),
-			linear-gradient(-45deg, var(--color-transparent) 75%, var(--color-checkerboard-square) 75%);
 		background-color: var(--color-checkerboard-background);
-		background-position: 0 0, 0 10px, 10px -10px, -10px 0;
-		background-size: 20px 20px;
+		background-image:
+			linear-gradient(30deg, var(--color-checkerboard-square) 12%, var(--color-transparent) 12.5%, var(--color-transparent) 87%, var(--color-checkerboard-square) 87.5%, var(--color-checkerboard-square)),
+			linear-gradient(150deg, var(--color-checkerboard-square) 12%, var(--color-transparent) 12.5%, var(--color-transparent) 87%, var(--color-checkerboard-square) 87.5%, var(--color-checkerboard-square)),
+			linear-gradient(30deg, var(--color-checkerboard-square) 12%, var(--color-transparent) 12.5%, var(--color-transparent) 87%, var(--color-checkerboard-square) 87.5%, var(--color-checkerboard-square)),
+			linear-gradient(150deg, var(--color-checkerboard-square) 12%, var(--color-transparent) 12.5%, var(--color-transparent) 87%, var(--color-checkerboard-square) 87.5%, var(--color-checkerboard-square)),
+			linear-gradient(60deg, var(--color-checkerboard-square) 25%, var(--color-transparent) 25.5%, var(--color-transparent) 75%, var(--color-checkerboard-square) 75.5%, var(--color-checkerboard-square));
+		background-size: 80px 140px;
+		background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0;
 		border: 1px solid var(--color-line);
 		border-radius: 8px;
-	}
-
-	.tools-layout .background-remover[data-preview-background='plain'] .preview-frame {
-		background: var(--color-surface-raised);
 	}
 
 	.tools-layout .background-remover .preview-frame img {
