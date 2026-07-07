@@ -33,10 +33,10 @@ While YouTube and TikTok are trying to monetize live viewers with interactive el
 
 Shifting gears to the desktop vs. mobile debate, why is YouTube displaying giant QR codes next to Shorts in the desktop browser? Credit to Babel from our community for spotting this and sharing a screenshot. Scanning these codes opens your YouTube app on your smartphone, launches the Shorts camera, and loads the video track into remix mode.
 
-The goal seems to be converting passive desktop traffic into active mobile user-generated content. Our data across the KW Media portfolio shows that approximately 20% of short views are now happening on connected TVs and desktop browsers. However, all creation tools like remix, collab, or green screen remain exclusive to the mobile app. Share in the comments if you see value in this feature as a creator or expect your viewers to engage with it.
+The goal seems to be converting passive desktop traffic into active mobile user-generated content. Our data across the kw.media portfolio shows that approximately 20% of short views are now happening on connected TVs and desktop browsers. However, all creation tools like remix, collab, or green screen remain exclusive to the mobile app. Share in the comments if you see value in this feature as a creator or expect your viewers to engage with it.
 
 Now, let's discuss an update for producers and editors. Adobe introduced Project Moonlight this week, an AI co-worker integrated into Premiere Pro and Photoshop. Firefly AI learns your editing style, allowing you to use text commands instead of navigating menus for tasks like rough cuts or color grading. While the technology is intriguing, I caution against subscribing to Adobe's ecosystem solely for AI features.
 
-For image editing, excellent open-source alternatives like Photopea exist. And for video editing, DaVinci Resolve is our top recommendation at KW Media. Resolve provides powerful tools without requiring an AI assistant or a monthly subscription fee.
+For image editing, excellent open-source alternatives like Photopea exist. And for video editing, DaVinci Resolve is our top recommendation at kw.media. Resolve provides powerful tools without requiring an AI assistant or a monthly subscription fee.
 
 That wraps up this week's news. I want to hear your thoughts on YouTube's strategy of directing desktop traffic to mobile Shorts via QR codes. Smart move or annoying? Share your opinions in the comments below. I'm Martin, bringing you relevant creator news, and I'll see you next week.

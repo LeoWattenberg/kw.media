@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-The summer news drought is here, and instead of complaining about the lack of updates, we decided to create our own. We're launching a brand new suite of free privacy-focused creator tools to streamline your workflow, and we want you to tell us what to build next. My partner Leo has been hard at work building several free creator tools, and they are now officially live on our KW Media website.
+The summer news drought is here, and instead of complaining about the lack of updates, we decided to create our own. We're launching a brand new suite of free privacy-focused creator tools to streamline your workflow, and we want you to tell us what to build next. My partner Leo has been hard at work building several free creator tools, and they are now officially live on our kw.media website.
 
 These tools are designed to tackle those small, annoying friction points in your daily work, like a YouTube thumbnail previewer, so you can see how your packaging looks on mobile and desktop before publishing. We've also released an audio ABX tester, an MP3 quality tester, an image format converter, and a fake alpha background remover—you know, those checkerboard patterns that pretend to be a PNG with transparency but aren't really.
 

@@ -136,7 +136,7 @@ function auditExcerpt(post, issues) {
 		addIssue(issues, post, 'warn', 'excerpt-quality', `Excerpt looks weak (${excerpt.length} characters).`);
 	}
 
-	if (/\n|^\s*["“]|translated text|return only|for KW Media|as an ai|```/i.test(excerpt)) {
+	if (/\n|^\s*["“]|translated text|return only|for kw.media|as an ai|```/i.test(excerpt)) {
 		addIssue(issues, post, 'error', 'excerpt-quality', 'Excerpt contains a quote, newline, prompt leak, or AI note.');
 	}
 

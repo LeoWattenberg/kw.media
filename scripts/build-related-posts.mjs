@@ -107,7 +107,7 @@ title: ${candidate.post.frontmatter.title}
 excerpt: ${candidate.post.frontmatter.excerpt}
 category: ${candidate.post.frontmatter.category}`
 	)).join('\n\n');
-	const prompt = `Select the ${relatedCount} most relevant KW Media posts for internal related-post links.
+	const prompt = `Select the ${relatedCount} most relevant kw.media posts for internal related-post links.
 
 Current post:
 path: ${post.frontmatter.path}

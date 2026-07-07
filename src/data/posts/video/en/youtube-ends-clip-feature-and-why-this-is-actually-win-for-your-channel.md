@@ -45,7 +45,7 @@ Finally, YouTube has updated its support pages, detailing changes to how subscri
 
 YouTube's Push Notifications: A Dying Feature?
 
-If a subscriber has enabled the bell icon but consistently ignores or dismisses your push notifications without engaging, YouTube may reduce these alerts to enhance user experience. While this might seem concerning for content reach, there's no need to panic. Here at KW Media, we analyzed notification data from three diverse channels in our portfolio this week, and the results are quite consistent.
+If a subscriber has enabled the bell icon but consistently ignores or dismisses your push notifications without engaging, YouTube may reduce these alerts to enhance user experience. While this might seem concerning for content reach, there's no need to panic. Here at kw.media, we analyzed notification data from three diverse channels in our portfolio this week, and the results are quite consistent.
 
 - **Channel A**: 55,000 subscribers, 5,000 push notifications sent, resulting in 55 views out of 10,000 total video views.
 - **Channel B**: 36,000 subscribers, 2,000 notifications, leading to 69 views from 18,000 total views.

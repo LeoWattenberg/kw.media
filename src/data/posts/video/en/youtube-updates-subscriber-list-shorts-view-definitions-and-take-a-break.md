@@ -3,7 +3,7 @@ id: 3290
 slug: "youtube-updates-subscriber-list-shorts-view-definitions-and-take-a-break"
 path: "/youtube-tips-en/youtube-updates-subscriber-list-shorts-view-definitions-and-take-a-break/"
 title: "YouTube Creator Updates: Subscriber List, Shorts View Changes & Break Function"
-excerpt: "New KW Media tools: View YouTube subs in app, updated analytics, 'Take a Break' in live streams, improved Shorts view."
+excerpt: "New kw.media tools: View YouTube subs in app, updated analytics, 'Take a Break' in live streams, improved Shorts view."
 date: "2025-03-29T13:15:04"
 modified: "2025-03-29T13:15:04"
 locale: "en"

@@ -474,7 +474,7 @@ async function translateMarkdown(markdown, frontmatter, targetLocale) {
 }
 
 async function translatePlainText(text, sourceLocale, targetLocale, label) {
-	const prompt = `Translate this ${label} from ${languageName(sourceLocale)} to ${languageName(targetLocale)} for KW Media.
+	const prompt = `Translate this ${label} from ${languageName(sourceLocale)} to ${languageName(targetLocale)} for kw.media.
 
 Rules:
 - Return only the translated text.
@@ -491,7 +491,7 @@ ${text}`;
 async function generateExcerptForPost(post, model) {
 	const locale = post.frontmatter.locale;
 	const maxLength = post.frontmatter.category === 'short-tutorial' ? 150 : 170;
-	const prompt = `Write a concise metadata excerpt for this KW Media post.
+	const prompt = `Write a concise metadata excerpt for this kw.media post.
 
 Rules:
 - Return only the excerpt text.
@@ -518,7 +518,7 @@ ${postPlainText(post, 3600)}`;
 }
 
 async function suggestPostMetadata(post, model) {
-	const prompt = `Create metadata suggestions for this KW Media post.
+	const prompt = `Create metadata suggestions for this kw.media post.
 
 Return only JSON with this exact shape:
 {
@@ -559,7 +559,7 @@ function cleanupPrompt(markdown, frontmatter, index, total) {
 	const contentKind = frontmatter.category === 'blog' ? 'article' : 'transcript';
 	const chunkNote = total > 1 ? `\nThis is chunk ${index} of ${total}; clean only this chunk.` : '';
 
-	return `Clean up this ${language} ${contentKind} markdown for publication on KW Media.${chunkNote}
+	return `Clean up this ${language} ${contentKind} markdown for publication on kw.media.${chunkNote}
 
 Rules:
 - Keep the original language.
@@ -579,7 +579,7 @@ function translateMarkdownPrompt(markdown, frontmatter, targetLocale, index, tot
 	const sourceLocale = frontmatter.locale;
 	const chunkNote = total > 1 ? `\nThis is chunk ${index} of ${total}; translate only this chunk.` : '';
 
-	return `Translate this markdown from ${languageName(sourceLocale)} to ${languageName(targetLocale)} for KW Media.${chunkNote}
+	return `Translate this markdown from ${languageName(sourceLocale)} to ${languageName(targetLocale)} for kw.media.${chunkNote}
 
 Rules:
 - Return only the translated markdown.
@@ -587,7 +587,7 @@ Rules:
 - Preserve product/platform names such as YouTube, YouTube Studio, YouTube Live, Shorts, Twitch, OBS, Audacity, Community Posts, Fan Communities, Creator Support, Super Chat, and A/B testing.
 - Preserve creator names, company names, and acronyms.
 - Use creator-industry wording. In German, keep "Creator" as "Creator"; do not translate it as "Schöpfer" or "Kreativkraft".
-- Keep the tone natural for a KW Media ${frontmatter.category === 'blog' ? 'article' : 'video transcript'}.
+- Keep the tone natural for a kw.media ${frontmatter.category === 'blog' ? 'article' : 'video transcript'}.
 - Do not summarize, add facts, or add translator notes.
 
 Markdown:
@@ -766,7 +766,7 @@ async function ensureValidExcerpt(excerpt, { locale, maxLength, model, attempts 
 
 async function shortenExcerpt(excerpt, { locale, maxLength, model }) {
 	const targetLength = Math.max(45, maxLength - 15);
-	const prompt = `Shorten this ${languageName(locale)} metadata excerpt for KW Media.
+	const prompt = `Shorten this ${languageName(locale)} metadata excerpt for kw.media.
 
 Rules:
 - Return only the shortened excerpt text.
@@ -831,7 +831,7 @@ function validateGeneratedExcerpt(excerpt, locale, maxLength) {
 		throw new Error(`Generated excerpt is too long (${excerpt.length}/${maxLength}): ${excerpt}`);
 	}
 
-	if (/\n|```|^\s*["“]|["”]\s*$|translated text|return only|for KW Media|as an ai/i.test(excerpt)) {
+	if (/\n|```|^\s*["“]|["”]\s*$|translated text|return only|for kw.media|as an ai/i.test(excerpt)) {
 		throw new Error(`Generated excerpt contains notes, quotes, or prompt leakage: ${excerpt}`);
 	}
 

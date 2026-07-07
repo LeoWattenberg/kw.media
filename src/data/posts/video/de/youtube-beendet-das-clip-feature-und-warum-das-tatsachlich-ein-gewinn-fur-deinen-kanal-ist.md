@@ -45,7 +45,7 @@ Abschließend hat YouTube seine Support-Seiten aktualisiert und Details zu Ände
 
 YouTube's Push-Benachrichtigungen: Eine sterbende Funktion?
 
-Wenn ein Abonnent das Glöckchen-Symbol aktiviert hat, aber deine Push-Benachrichtigungen konsequent ignoriert oder abweist, ohne sich zu engagieren, kann YouTube diese Warnungen reduzieren, um das Nutzererlebnis zu verbessern. Während dies zunächst besorgniserregend für die Inhaltsreichweite erscheinen mag, besteht kein Grund zur Panik. Hier bei KW Media haben wir in dieser Woche Benachrichtigungsdaten von drei verschiedenen Kanälen in unserem Portfolio analysiert und die Ergebnisse sind recht konsistent.
+Wenn ein Abonnent das Glöckchen-Symbol aktiviert hat, aber deine Push-Benachrichtigungen konsequent ignoriert oder abweist, ohne sich zu engagieren, kann YouTube diese Warnungen reduzieren, um das Nutzererlebnis zu verbessern. Während dies zunächst besorgniserregend für die Inhaltsreichweite erscheinen mag, besteht kein Grund zur Panik. Hier bei kw.media haben wir in dieser Woche Benachrichtigungsdaten von drei verschiedenen Kanälen in unserem Portfolio analysiert und die Ergebnisse sind recht konsistent.
 
 - **Kanal A**: 55.000 Abonnenten, 5.000 Push-Benachrichtigungen gesendet, was zu 55 Aufrufen von insgesamt 10.000 Videoaufrufen führte.
 - **Kanal B**: 36.000 Abonnenten, 2.000 Benachrichtigungen, was zu 69 Aufrufen von insgesamt 18.000 Aufrufen führte.

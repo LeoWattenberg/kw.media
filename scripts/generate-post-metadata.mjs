@@ -58,7 +58,7 @@ function isWeakMetadata(post) {
 		|| excerpt.length < 70
 		|| excerpt.length > 220
 		|| excerpt.endsWith('...')
-		|| /\n|^\s*["“]|translated text|return only|for KW Media|as an ai|```/i.test(excerpt)
+		|| /\n|^\s*["“]|translated text|return only|for kw.media|as an ai|```/i.test(excerpt)
 		|| (post.frontmatter.locale === 'en' && likelyGermanText(excerpt))
 		|| (post.frontmatter.locale === 'de' && likelyEnglishText(excerpt));
 }
