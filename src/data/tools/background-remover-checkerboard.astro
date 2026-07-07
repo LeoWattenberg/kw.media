@@ -1,6 +1,6 @@
 ---
 import ToolPageShell from '../../components/ToolPageShell.astro';
-import BackgroundRemover from '../../components/tools/BackgroundRemover.astro';
+import BackgroundRemover from '../../components/tools/background-remover/Checkerboard.astro';
 import { defineToolModule } from '../../lib/tool-page-module';
 
 export const toolModule = defineToolModule('background-remover-checkerboard', {
@@ -25,5 +25,5 @@ const { tool, alternatePaths } = Astro.props;
 ---
 
 <ToolPageShell tool={tool} alternatePaths={alternatePaths}>
-	<BackgroundRemover locale={tool.locale} variant="checkerboard" />
+	<BackgroundRemover locale={tool.locale} />
 </ToolPageShell>
