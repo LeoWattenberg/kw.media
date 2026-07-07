@@ -16,6 +16,11 @@ export interface SourcePost {
 	image?: string;
 	authorName: string;
 	sourceUrl: string;
+	postCta?: {
+		text: string;
+		pagePath: string;
+		pageTitle: string;
+	};
 	video?: {
 		youtubeId: string;
 		embedUrl: string;

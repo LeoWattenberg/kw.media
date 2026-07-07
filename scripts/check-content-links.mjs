@@ -92,6 +92,10 @@ function referencesFromPost(post) {
 		references.push(reference(post.filePath, lineNumber(raw, String(post.frontmatter.video.embedUrl)), 'embed', post.frontmatter.video.embedUrl, 'video embedUrl', post.frontmatter.path));
 	}
 
+	if (post.frontmatter.postCta?.pagePath) {
+		references.push(reference(post.filePath, lineNumber(raw, String(post.frontmatter.postCta.pagePath)), 'link', post.frontmatter.postCta.pagePath, 'postCta pagePath', post.frontmatter.path));
+	}
+
 	for (const match of raw.matchAll(/!\[[^\]]*]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g)) {
 		references.push(reference(post.filePath, lineNumberAt(raw, match.index), 'image', match[1], 'markdown image', post.frontmatter.path));
 	}
@@ -169,6 +173,13 @@ function collectKnownRoutes(allPosts) {
 		}
 	}
 
+	for (const filePath of allDataAstroFiles()) {
+		const source = readFileSync(filePath, 'utf8');
+		for (const match of source.matchAll(/\bpath:\s*['"]([^'"]+)['"]/g)) {
+			routes.add(normalizeRoute(match[1]));
+		}
+	}
+
 	return routes;
 }
 
@@ -176,6 +187,17 @@ function allPageJsonFiles(directory = join(process.cwd(), 'src/data/pages')) {
 	return readdirSync(directory, { withFileTypes: true })
 		.filter((entry) => entry.isFile() && entry.name.endsWith('.json'))
 		.map((entry) => join(directory, entry.name));
+}
+
+function allDataAstroFiles(directory = join(process.cwd(), 'src/data')) {
+	return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+		const entryPath = join(directory, entry.name);
+		if (entry.isDirectory()) {
+			return allDataAstroFiles(entryPath);
+		}
+
+		return entry.isFile() && entry.name.endsWith('.astro') ? [entryPath] : [];
+	});
 }
 
 function checkLocalReference(referenceItem, routes) {

@@ -22,6 +22,7 @@ Run commands from the project root:
 | `npm run fix:posts -- --common` | Apply deterministic fixes, excerpt regeneration, and wrong-language retranslation |
 | `npm run fix:posts -- --all-fixes` | Also apply local-AI title/excerpt metadata suggestions |
 | `npm run metadata:posts -- --weak --output=.cache/post-metadata-suggestions.json` | Generate local-AI metadata suggestions for weak posts |
+| `npm run cta:posts -- --missing --dry` | Preview local-AI post CTAs with relevant site-page links |
 | `npm run excerpt:posts -- --weak --dry` | Preview local-AI excerpt repairs for weak posts |
 | `npm run links:posts -- --limit=20 --link-density=2 --dry` | Preview local-AI inline links from post bodies to related same-language posts |
 | `npm run links:posts -- src/data/posts/.../post.md` | Apply inline post links, then review the Markdown changes in git |
@@ -41,6 +42,7 @@ OLLAMA_CLEANUP_FAST_MODEL=aya-expanse:32b
 OLLAMA_CLEANUP_DEEP_MODEL=gemma4:31b
 OLLAMA_TRANSLATE_MODEL=aya-expanse:32b
 OLLAMA_METADATA_MODEL=aya-expanse:32b
+OLLAMA_POST_CTA_MODEL=aya-expanse:32b
 OLLAMA_INLINE_LINK_MODEL=gemma4:31b
 ```
 
@@ -50,11 +52,12 @@ Cleanup model selection:
 - `blog` and `video-tutorial` use `OLLAMA_CLEANUP_DEEP_MODEL`.
 - Translation uses `OLLAMA_TRANSLATE_MODEL`.
 - Metadata suggestions and excerpt generation use `OLLAMA_METADATA_MODEL`, falling back to `OLLAMA_EXCERPT_MODEL` and then `OLLAMA_TRANSLATE_MODEL`.
+- Post CTA generation uses `OLLAMA_POST_CTA_MODEL`, falling back to `OLLAMA_METADATA_MODEL`.
 - Inline post linking uses `OLLAMA_INLINE_LINK_MODEL`, defaulting to `gemma4:31b` for higher-quality anchor selection. Use `aya-expanse:32b` if speed matters more than precision.
 
 Generated translation pairs are connected with `translationKey` frontmatter, and video translations can also be inferred from shared `youtubeId`.
 
-`fix:posts`, `excerpt:posts`, `links:posts`, and `related:posts` write changes by default. Add `--dry` to preview changes, then review written changes in git. Use `--deterministic`, `--excerpts`, `--metadata`, or `--translations` to run individual `fix:posts` repair lanes.
+`fix:posts`, `excerpt:posts`, `cta:posts`, `links:posts`, and `related:posts` write changes by default. Add `--dry` to preview changes, then review written changes in git. Use `--deterministic`, `--excerpts`, `--metadata`, or `--translations` to run individual `fix:posts` repair lanes.
 
 The post overview search is static and runs in the browser against already-rendered post cards. It does not call a search backend or AI service at runtime, so it is compatible with GitHub Pages.
 
