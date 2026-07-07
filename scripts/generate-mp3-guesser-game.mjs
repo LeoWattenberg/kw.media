@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { spawn } from 'node:child_process';
 import { createWriteStream } from 'node:fs';
-import { cp, mkdir, readdir, rm, stat, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,12 +9,14 @@ import { fileURLToPath } from 'node:url';
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, '..');
 const OUTPUT_ROOT = path.join(REPO_ROOT, 'public', 'games', 'mp3guesser');
+const HISTORY_PATH = path.join(OUTPUT_ROOT, 'history.json');
 const GAME_DATE = process.env.MP3_GUESSER_DATE || new Date().toISOString().slice(0, 10);
 const WORK_ROOT = path.join(tmpdir(), `kwm-mp3-guesser-${GAME_DATE}-${process.pid}`);
 const MIN_DURATION_SECONDS = Number(process.env.MP3_GUESSER_MIN_SECONDS || 5);
 const MAX_DURATION_SECONDS = Number(process.env.MP3_GUESSER_MAX_SECONDS || 30);
 const MAX_SOURCE_BYTES = Number(process.env.MP3_GUESSER_MAX_SOURCE_BYTES || 250 * 1024 * 1024);
-const KEEP_DAYS = Number(process.env.MP3_GUESSER_KEEP_DAYS || 14);
+const KEEP_DAYS = Number(process.env.MP3_GUESSER_KEEP_DAYS || 1);
+const HISTORY_DAYS = Number(process.env.MP3_GUESSER_HISTORY_DAYS || 180);
 const USER_AGENT = process.env.MP3_GUESSER_USER_AGENT || 'kw.media MP3 Guesser generator/1.0 (https://kw.media)';
 const FREESOUND_API_TOKEN = process.env.FREESOUND_API_TOKEN || '';
 const FREESOUND_OAUTH_TOKEN = process.env.FREESOUND_OAUTH_TOKEN || '';
@@ -67,6 +69,8 @@ async function main() {
 			['Internet Archive', getInternetArchiveCandidates],
 		];
 		const attempts = [];
+		let sourceHistory = pruneSourceHistory(await loadSourceHistory());
+		const usedSourceUrls = new Set(sourceHistory.map((entry) => normalizeHistoryUrl(entry.url)).filter(Boolean));
 
 		for (const [providerName, factory] of providerFactories) {
 			console.log(`Collecting candidates from ${providerName}...`);
@@ -80,12 +84,16 @@ async function main() {
 				continue;
 			}
 
-			console.log(`${providerName}: ${candidates.length} candidate(s)`);
+			const candidateCount = candidates.length;
+			candidates = candidates.filter((candidate) => !usedSourceUrls.has(candidateHistoryKey(candidate)));
+			const skippedCount = candidateCount - candidates.length;
+			console.log(`${providerName}: ${candidates.length} candidate(s)${skippedCount ? `, skipped ${skippedCount} recently used` : ''}`);
 
 			for (const candidate of candidates) {
 				try {
 					const manifest = await buildGameFromCandidate(candidate);
 					await publishGame(manifest);
+					sourceHistory = await updateSourceHistory(sourceHistory, manifest);
 					await cleanupOldGames();
 					console.log(`Generated MP3 Guesser for ${GAME_DATE} from ${candidate.provider}: ${candidate.title}`);
 					return;
@@ -232,13 +240,79 @@ async function cleanupOldGames() {
 		.map((entry) => entry.name)
 		.sort()
 		.reverse();
-	const keep = new Set(datedDirectories.slice(0, KEEP_DAYS));
+	const keep =
+		KEEP_DAYS === 1 ? new Set([GAME_DATE]) : new Set([...datedDirectories.slice(0, KEEP_DAYS), GAME_DATE]);
 
 	for (const directory of datedDirectories) {
 		if (!keep.has(directory)) {
 			await rm(path.join(OUTPUT_ROOT, directory), { recursive: true, force: true });
 		}
 	}
+}
+
+async function loadSourceHistory() {
+	try {
+		const data = JSON.parse(await readFile(HISTORY_PATH, 'utf8'));
+		return Array.isArray(data) ? data : [];
+	} catch (error) {
+		if (error.code === 'ENOENT') {
+			return [];
+		}
+
+		throw error;
+	}
+}
+
+async function updateSourceHistory(history, manifest) {
+	const entry = sourceHistoryEntry(manifest);
+
+	if (!entry) {
+		return history;
+	}
+
+	const entryUrl = normalizeHistoryUrl(entry.url);
+	const nextHistory = pruneSourceHistory(history)
+		.filter((historyEntry) => normalizeHistoryUrl(historyEntry.url) !== entryUrl)
+		.concat(entry);
+
+	await writeFile(HISTORY_PATH, `${JSON.stringify(nextHistory, null, 2)}\n`);
+	return nextHistory;
+}
+
+function pruneSourceHistory(history) {
+	const entries = Array.isArray(history) ? history : [];
+
+	if (!Number.isFinite(HISTORY_DAYS) || HISTORY_DAYS <= 0) {
+		return entries;
+	}
+
+	const cutoff = Date.parse(`${GAME_DATE}T00:00:00.000Z`) - HISTORY_DAYS * 24 * 60 * 60 * 1000;
+
+	return entries.filter((entry) => {
+		const timestamp = Date.parse(`${entry.date}T00:00:00.000Z`);
+		return Number.isFinite(timestamp) && timestamp >= cutoff;
+	});
+}
+
+function sourceHistoryEntry(manifest) {
+	const source = manifest.source || {};
+	const url = source.sourceUrl || source.downloadUrl;
+
+	if (!url) {
+		return null;
+	}
+
+	return {
+		date: manifest.date || GAME_DATE,
+		provider: source.provider || '',
+		title: source.title || '',
+		url,
+		downloadUrl: source.downloadUrl || '',
+	};
+}
+
+function candidateHistoryKey(candidate) {
+	return normalizeHistoryUrl(candidate.sourceUrl || candidate.publicDownloadUrl || candidate.downloadUrl);
 }
 
 async function getWikimediaCommonsCandidates() {
@@ -633,6 +707,24 @@ function getCandidateExtension(candidate) {
 		return extension;
 	} catch {
 		return '';
+	}
+}
+
+function normalizeHistoryUrl(url) {
+	const value = String(url || '').trim();
+
+	if (!value) {
+		return '';
+	}
+
+	try {
+		const parsedUrl = new URL(value);
+		parsedUrl.hash = '';
+		parsedUrl.hostname = parsedUrl.hostname.toLowerCase();
+		parsedUrl.pathname = parsedUrl.pathname.replace(/\/+$/, '');
+		return parsedUrl.toString();
+	} catch {
+		return value.replace(/\/+$/, '');
 	}
 }
 
