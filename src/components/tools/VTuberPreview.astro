@@ -20,7 +20,7 @@ const copyByLocale = {
 		stop: 'Stoppen',
 		reset: 'Neutral',
 		showCamera: 'Kamera anzeigen',
-		motionLabel: 'Bewegung',
+		motionLabel: 'Gesichtsaktivität',
 		xLabel: 'Links/Rechts',
 		yLabel: 'Hoch/Runter',
 		sensitivityLabel: 'Empfindlichkeit',
@@ -31,12 +31,15 @@ const copyByLocale = {
 			cameraIdle: 'Kamera aus',
 			cameraStarting: 'Kamerazugriff wird angefragt...',
 			cameraStopped: 'Kamera gestoppt.',
+			loadingTracker: 'Face-Landmark-Tracking wird geladen...',
 			loadingScene: '3D-Szene wird geladen...',
 			noCamera: 'Dieser Browser stellt keine Webcam-API bereit.',
+			noFace: 'Kein Gesicht erkannt.',
 			notSecure: 'Webcam-Zugriff braucht HTTPS oder localhost.',
 			permissionError: 'Kamerazugriff wurde blockiert oder es wurde keine Kamera gefunden.',
 			ready: '3D-Szene bereit.',
 			renderError: 'Die 3D-Szene konnte nicht gestartet werden: {message}',
+			trackerError: 'Das Face-Landmark-Tracking konnte nicht gestartet werden: {message}',
 			reset: 'Avatar neutralisiert.',
 			sceneMissing: 'Die 3D-Szene ist noch nicht bereit.',
 			trackingLive: 'Tracking live.',
@@ -61,7 +64,7 @@ const copyByLocale = {
 		stop: 'Stop',
 		reset: 'Neutral',
 		showCamera: 'Show camera',
-		motionLabel: 'Movement',
+		motionLabel: 'Face activity',
 		xLabel: 'Left/right',
 		yLabel: 'Up/down',
 		sensitivityLabel: 'Sensitivity',
@@ -72,12 +75,15 @@ const copyByLocale = {
 			cameraIdle: 'Camera off',
 			cameraStarting: 'Requesting camera access...',
 			cameraStopped: 'Camera stopped.',
+			loadingTracker: 'Loading face landmark tracker...',
 			loadingScene: 'Loading 3D scene...',
 			noCamera: 'This browser does not expose a webcam API.',
+			noFace: 'No face detected.',
 			notSecure: 'Webcam access needs HTTPS or localhost.',
 			permissionError: 'Camera access was blocked or no camera was found.',
 			ready: '3D scene ready.',
 			renderError: 'The 3D scene could not start: {message}',
+			trackerError: 'The face landmark tracker could not start: {message}',
 			reset: 'Avatar reset.',
 			sceneMissing: 'The 3D scene is not ready yet.',
 			trackingLive: 'Tracking live.',
@@ -124,7 +130,7 @@ const copyJson = JSON.stringify(copy.client);
 					<h2 id="vtuber-camera-heading">{copy.cameraTitle}</h2>
 					<div class="camera-frame" data-camera-frame>
 						<video data-camera-video playsinline muted hidden></video>
-						<canvas data-analysis-canvas width="96" height="72" hidden></canvas>
+						<canvas data-tracking-overlay hidden></canvas>
 						<div class="camera-placeholder" data-camera-placeholder>{copy.client.cameraIdle}</div>
 					</div>
 					<div class="tool-actions">
@@ -191,7 +197,7 @@ const copyJson = JSON.stringify(copy.client);
 			const renderBadge = root.querySelector('[data-render-badge]');
 			const sceneLabel = root.querySelector('[data-scene-label]');
 			const video = root.querySelector('[data-camera-video]');
-			const analysisCanvas = root.querySelector('[data-analysis-canvas]');
+			const trackingOverlay = root.querySelector('[data-tracking-overlay]');
 			const cameraPlaceholder = root.querySelector('[data-camera-placeholder]');
 			const status = root.querySelector('[data-status]');
 			const startButton = root.querySelector('[data-start-camera]');
@@ -209,13 +215,27 @@ const copyJson = JSON.stringify(copy.client);
 			const xValue = root.querySelector('[data-x-value]');
 			const yValue = root.querySelector('[data-y-value]');
 			const expressionValue = root.querySelector('[data-expression-value]');
-			const analysisContext = analysisCanvas.getContext('2d', { willReadFrequently: true });
-			const tracking = { x: 0, y: 0, energy: 0 };
-			const target = { x: 0, y: 0, energy: 0 };
+			const overlayContext = trackingOverlay.getContext('2d');
+			const tracking = { x: 0, y: 0, roll: 0, energy: 0 };
+			const target = { x: 0, y: 0, roll: 0, energy: 0 };
 			const threeUrl = 'https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js';
+			const visionUrl = 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18/+esm';
+			const visionWasmUrl = 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18/wasm';
+			const faceModelUrl = 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task';
+			const driverLandmarkIndexes = {
+				forehead: 10,
+				leftEye: 33,
+				rightEye: 263,
+				nose: 1,
+				mouthLeft: 61,
+				mouthRight: 291,
+				mouthTop: 13,
+				mouthBottom: 14,
+				chin: 152,
+			};
 
 			let stream = null;
-			let previousFrame = null;
+			let faceLandmarker = null;
 			let processFrameId = 0;
 			let renderFrameId = 0;
 			let renderer = null;
@@ -224,8 +244,11 @@ const copyJson = JSON.stringify(copy.client);
 			let model = null;
 			let resizeObserver = null;
 			let sceneReady = false;
+			let trackerReady = false;
+			let lastVideoTime = -1;
 
 			const scenePromise = initScene();
+			const trackerPromise = initFaceTracker();
 
 			startButton.addEventListener('click', startCamera);
 			stopButton.addEventListener('click', () => stopCamera());
@@ -237,6 +260,7 @@ const copyJson = JSON.stringify(copy.client);
 			sensitivityInput.addEventListener('input', updateRangeLabels);
 			smoothingInput.addEventListener('input', updateRangeLabels);
 			window.addEventListener('pagehide', cleanup);
+			window.addEventListener('resize', resizeTrackingOverlay);
 
 			updateRangeLabels();
 			updateReadout();
@@ -284,6 +308,39 @@ const copyJson = JSON.stringify(copy.client);
 				}
 			}
 
+			async function initFaceTracker() {
+				setStatus(copy.loadingTracker);
+
+				try {
+					const { FaceLandmarker, FilesetResolver } = await import(/* @vite-ignore */ visionUrl);
+					const vision = await FilesetResolver.forVisionTasks(visionWasmUrl);
+					faceLandmarker = await createFaceLandmarker(FaceLandmarker, vision, 'GPU').catch(() =>
+						createFaceLandmarker(FaceLandmarker, vision, 'CPU'),
+					);
+					trackerReady = true;
+					setStatus(sceneReady ? copy.ready : copy.loadingScene, sceneReady ? 'success' : '');
+				} catch (error) {
+					const message = error instanceof Error ? error.message : copy.unknownError;
+					setStatus(format(copy.trackerError, { message }), 'error');
+				}
+			}
+
+			function createFaceLandmarker(FaceLandmarker, vision, delegate) {
+				return FaceLandmarker.createFromOptions(vision, {
+					baseOptions: {
+						modelAssetPath: faceModelUrl,
+						delegate,
+					},
+					runningMode: 'VIDEO',
+					numFaces: 1,
+					minFaceDetectionConfidence: 0.5,
+					minFacePresenceConfidence: 0.5,
+					minTrackingConfidence: 0.5,
+					outputFaceBlendshapes: true,
+					outputFacialTransformationMatrixes: true,
+				});
+			}
+
 			async function startCamera() {
 				if (!navigator.mediaDevices?.getUserMedia) {
 					setStatus(copy.noCamera, 'error');
@@ -298,9 +355,9 @@ const copyJson = JSON.stringify(copy.client);
 				startButton.disabled = true;
 
 				try {
-					await scenePromise;
+					await Promise.all([scenePromise, trackerPromise]);
 
-					if (!sceneReady) {
+					if (!sceneReady || !trackerReady) {
 						setStatus(copy.sceneMissing, 'error');
 						startButton.disabled = false;
 						return;
@@ -317,7 +374,8 @@ const copyJson = JSON.stringify(copy.client);
 					});
 					video.srcObject = stream;
 					await video.play();
-					previousFrame = null;
+					lastVideoTime = -1;
+					resizeTrackingOverlay();
 					stopButton.disabled = false;
 					syncCameraVisibility();
 					setStatus(copy.trackingLive, 'success');
@@ -345,8 +403,9 @@ const copyJson = JSON.stringify(copy.client);
 				stream = null;
 				video.pause();
 				video.srcObject = null;
-				previousFrame = null;
+				lastVideoTime = -1;
 				resetMotion();
+				clearTrackingOverlay();
 				startButton.disabled = false;
 				stopButton.disabled = true;
 				syncCameraVisibility();
@@ -368,14 +427,21 @@ const copyJson = JSON.stringify(copy.client);
 					resizeObserver.disconnect();
 					resizeObserver = null;
 				}
+
+				window.removeEventListener('resize', resizeTrackingOverlay);
 			}
 
 			function syncCameraVisibility() {
 				const isActive = Boolean(stream);
 				const showCamera = Boolean(showCameraInput.checked);
 				video.hidden = !isActive || !showCamera;
+				trackingOverlay.hidden = !isActive || !showCamera;
 				cameraPlaceholder.hidden = isActive && showCamera;
 				cameraPlaceholder.textContent = isActive && !showCamera ? copy.cameraHidden : copy.cameraIdle;
+
+				if (isActive && showCamera) {
+					resizeTrackingOverlay();
+				}
 			}
 
 			function processLoop() {
@@ -388,49 +454,56 @@ const copyJson = JSON.stringify(copy.client);
 					return;
 				}
 
-				const width = analysisCanvas.width;
-				const height = analysisCanvas.height;
-				analysisContext.drawImage(video, 0, 0, width, height);
-				const pixels = analysisContext.getImageData(0, 0, width, height).data;
-				const frame = previousFrame || new Uint8ClampedArray(width * height);
-				const sensitivity = Number(sensitivityInput.value) / 65;
-				const threshold = Math.max(8, 32 - sensitivity * 10);
-				let weightTotal = 0;
-				let weightedX = 0;
-				let weightedY = 0;
-
-				for (let pixelIndex = 0, dataIndex = 0; dataIndex < pixels.length; pixelIndex += 1, dataIndex += 4) {
-					const gray = pixels[dataIndex] * 0.2126 + pixels[dataIndex + 1] * 0.7152 + pixels[dataIndex + 2] * 0.0722;
-					const diff = Math.abs(gray - frame[pixelIndex]);
-					frame[pixelIndex] = gray;
-
-					if (previousFrame && diff > threshold) {
-						const x = pixelIndex % width;
-						const y = Math.floor(pixelIndex / width);
-						const weight = diff - threshold;
-						weightTotal += weight;
-						weightedX += x * weight;
-						weightedY += y * weight;
-					}
+				if (!faceLandmarker || video.currentTime === lastVideoTime) {
+					return;
 				}
 
-				previousFrame = frame;
+				lastVideoTime = video.currentTime;
+				const results = faceLandmarker.detectForVideo(video, performance.now());
+				const landmarks = results.faceLandmarks && results.faceLandmarks[0];
 
-				if (weightTotal > 0) {
-					const centroidX = weightedX / weightTotal / (width - 1);
-					const centroidY = weightedY / weightTotal / (height - 1);
-					const energy = clamp(weightTotal / (width * height * 18) * sensitivity, 0, 1);
-					target.x = clamp((0.5 - centroidX) * 2 * sensitivity, -1, 1);
-					target.y = clamp((0.5 - centroidY) * 2 * sensitivity, -1, 1);
-					target.energy = energy;
+				if (landmarks) {
+					applyFaceLandmarks(landmarks, results.faceBlendshapes && results.faceBlendshapes[0]);
+					drawTrackingOverlay(landmarks);
 				} else {
 					target.x *= 0.88;
 					target.y *= 0.88;
+					target.roll *= 0.88;
 					target.energy *= 0.82;
+					clearTrackingOverlay();
 				}
 
 				updateTracking();
 				updateReadout();
+			}
+
+			function applyFaceLandmarks(landmarks, blendshapes) {
+				const sensitivity = Number(sensitivityInput.value) / 65;
+				const forehead = landmarks[driverLandmarkIndexes.forehead];
+				const leftEye = landmarks[driverLandmarkIndexes.leftEye];
+				const rightEye = landmarks[driverLandmarkIndexes.rightEye];
+				const nose = landmarks[driverLandmarkIndexes.nose];
+				const mouthLeft = landmarks[driverLandmarkIndexes.mouthLeft];
+				const mouthRight = landmarks[driverLandmarkIndexes.mouthRight];
+				const mouthTop = landmarks[driverLandmarkIndexes.mouthTop];
+				const mouthBottom = landmarks[driverLandmarkIndexes.mouthBottom];
+				const chin = landmarks[driverLandmarkIndexes.chin];
+				const faceHeight = Math.max(0.001, distance(forehead, chin));
+				const mouthWidth = Math.max(0.001, distance(mouthLeft, mouthRight));
+				const mouthOpen = clamp(distance(mouthTop, mouthBottom) / mouthWidth * 4.2, 0, 1);
+				const centerX = (forehead.x + nose.x + chin.x) / 3;
+				const centerY = (forehead.y + nose.y + chin.y) / 3;
+				const eyeRoll = Math.atan2(rightEye.y - leftEye.y, rightEye.x - leftEye.x);
+				const blendshapeScores = getBlendshapeScores(blendshapes);
+				const jawOpen = blendshapeScores.jawOpen ?? 0;
+				const smile = Math.max(blendshapeScores.mouthSmileLeft ?? 0, blendshapeScores.mouthSmileRight ?? 0);
+				const brow = blendshapeScores.browInnerUp ?? 0;
+				const expression = clamp(Math.max(mouthOpen, jawOpen, smile * 0.9, brow * 0.7), 0, 1);
+
+				target.x = clamp((0.5 - centerX) * 2.4 * sensitivity, -1, 1);
+				target.y = clamp((0.5 - centerY) * 2.1 * sensitivity, -1, 1);
+				target.roll = clamp(-eyeRoll * 2.8, -1, 1);
+				target.energy = expression;
 			}
 
 			function updateTracking() {
@@ -438,15 +511,18 @@ const copyJson = JSON.stringify(copy.client);
 				const follow = clamp(1 - smoothing, 0.1, 0.9);
 				tracking.x += (target.x - tracking.x) * follow;
 				tracking.y += (target.y - tracking.y) * follow;
+				tracking.roll += (target.roll - tracking.roll) * follow;
 				tracking.energy += (target.energy - tracking.energy) * follow;
 			}
 
 			function resetMotion() {
 				target.x = 0;
 				target.y = 0;
+				target.roll = 0;
 				target.energy = 0;
 				tracking.x = 0;
 				tracking.y = 0;
+				tracking.roll = 0;
 				tracking.energy = 0;
 				updateReadout();
 			}
@@ -495,7 +571,7 @@ const copyJson = JSON.stringify(copy.client);
 				model.torso.rotation.x = tracking.y * 0.05;
 				model.head.rotation.y = tracking.x * 0.8;
 				model.head.rotation.x = -tracking.y * 0.48;
-				model.head.rotation.z = -tracking.x * 0.16;
+				model.head.rotation.z = tracking.roll * 0.36 - tracking.x * 0.1;
 				model.leftArm.rotation.z = 0.34 + tracking.energy * 0.82 - tracking.x * 0.22;
 				model.rightArm.rotation.z = -0.34 - tracking.energy * 0.82 - tracking.x * 0.22;
 				model.leftArm.rotation.x = -0.08 - tracking.y * 0.22;
@@ -506,6 +582,59 @@ const copyJson = JSON.stringify(copy.client);
 				camera.position.x = tracking.x * 0.22;
 				camera.position.y = 0.35 + tracking.y * 0.08;
 				camera.lookAt(0, 0.05, 0);
+			}
+
+			function drawTrackingOverlay(landmarks) {
+				resizeTrackingOverlay();
+				const width = trackingOverlay.clientWidth;
+				const height = trackingOverlay.clientHeight;
+				const driverIndexes = Object.values(driverLandmarkIndexes);
+
+				overlayContext.clearRect(0, 0, width, height);
+				overlayContext.lineWidth = 1.5;
+
+				for (const point of landmarks) {
+					drawPoint(point, width, height, 1.6, 'rgba(255, 255, 255, 0.34)');
+				}
+
+				overlayContext.strokeStyle = 'rgba(255, 122, 26, 0.86)';
+				overlayContext.beginPath();
+				for (const index of driverIndexes) {
+					const point = landmarks[index];
+					const x = (1 - point.x) * width;
+					const y = point.y * height;
+					overlayContext.moveTo(x + 7, y);
+					overlayContext.arc(x, y, 7, 0, Math.PI * 2);
+				}
+				overlayContext.stroke();
+
+				for (const index of driverIndexes) {
+					drawPoint(landmarks[index], width, height, 4.2, 'rgba(255, 122, 26, 0.98)');
+				}
+			}
+
+			function clearTrackingOverlay() {
+				overlayContext.clearRect(0, 0, trackingOverlay.clientWidth, trackingOverlay.clientHeight);
+			}
+
+			function resizeTrackingOverlay() {
+				const rect = trackingOverlay.getBoundingClientRect();
+				const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+				const width = Math.max(1, Math.round(rect.width * pixelRatio));
+				const height = Math.max(1, Math.round(rect.height * pixelRatio));
+
+				if (trackingOverlay.width !== width || trackingOverlay.height !== height) {
+					trackingOverlay.width = width;
+					trackingOverlay.height = height;
+					overlayContext.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+				}
+			}
+
+			function drawPoint(point, width, height, radius, fillStyle) {
+				overlayContext.fillStyle = fillStyle;
+				overlayContext.beginPath();
+				overlayContext.arc((1 - point.x) * width, point.y * height, radius, 0, Math.PI * 2);
+				overlayContext.fill();
 			}
 
 			function resizeRenderer() {
@@ -538,6 +667,14 @@ const copyJson = JSON.stringify(copy.client);
 
 			function clamp(value, min, max) {
 				return Math.min(max, Math.max(min, value));
+			}
+
+			function distance(first, second) {
+				return Math.hypot(first.x - second.x, first.y - second.y);
+			}
+
+			function getBlendshapeScores(blendshapes) {
+				return Object.fromEntries((blendshapes?.categories || []).map((category) => [category.categoryName, category.score]));
 			}
 
 			function createAvatarModel(THREE) {
@@ -664,6 +801,8 @@ const copyJson = JSON.stringify(copy.client);
 <style>
 	.vtuber-preview-section {
 		background: var(--color-surface-raised);
+		isolation: isolate;
+		overflow-x: clip;
 	}
 
 	.vtuber-preview {
@@ -671,9 +810,11 @@ const copyJson = JSON.stringify(copy.client);
 		grid-template-columns: minmax(0, 1fr) minmax(290px, 360px);
 		gap: clamp(18px, 3vw, 28px);
 		align-items: start;
+		min-width: 0;
 	}
 
 	.vtuber-stage {
+		container-type: inline-size;
 		display: grid;
 		gap: 14px;
 		min-width: 0;
@@ -703,8 +844,12 @@ const copyJson = JSON.stringify(copy.client);
 
 	.vtuber-canvas-frame {
 		position: relative;
+		z-index: 0;
+		contain: layout paint;
 		overflow: hidden;
-		min-height: clamp(420px, 62vw, 720px);
+		width: 100%;
+		height: clamp(420px, 62cqw, 680px);
+		max-width: 100%;
 		aspect-ratio: 16 / 10;
 		background:
 			radial-gradient(circle at 50% 18%, rgba(255, 122, 26, 0.22), transparent 28%),
@@ -757,6 +902,14 @@ const copyJson = JSON.stringify(copy.client);
 		height: 100%;
 		object-fit: cover;
 		transform: scaleX(-1);
+	}
+
+	.camera-frame canvas {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
 	}
 
 	.camera-placeholder {
@@ -844,7 +997,7 @@ const copyJson = JSON.stringify(copy.client);
 		}
 
 		.vtuber-canvas-frame {
-			min-height: 360px;
+			height: clamp(360px, 118cqw, 560px);
 			aspect-ratio: 4 / 5;
 		}
 
