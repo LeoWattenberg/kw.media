@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import VTuberPreview from '../../components/tools/VTuberPreview.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('vtuber-preview', {
+	id: 'vtuber-preview',
+	translations: {
+		de: {
+			id: 'vtuber-preview-de',
+			path: '/de/tools/vtuber-preview/',
+			title: 'VTuber-Vorschau',
+			description: 'Teste webcam-basiertes Motion-Tracking auf einem einfachen 3D-Avatar direkt im Browser.',
+		},
+		en: {
+			id: 'vtuber-preview-en',
+			path: '/en/tools/vtuber-preview/',
+			title: 'VTuber Preview',
+			description: 'Test webcam-based motion tracking on a simple 3D avatar directly in the browser.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<VTuberPreview locale={tool.locale} />
+</ToolPageShell>
