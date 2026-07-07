@@ -45,7 +45,7 @@ We suggested including channel memberships in live goals and requested auto-comp
 
 I'm collecting your feedback, and we'll send it directly to the engineering team as a follow-up batch.
 
-Moving on to a significant workflow update from YouTube. If you've followed KW Media for a while, you might remember our video from November 2025, where we discussed a small experiment rolling out to just 5% of creators: image posts in the Shorts feed. Well, as predicted, it's going global. As of April 14th, YouTube is officially introducing image carousels directly into the Shorts feed.
+Moving on to a significant workflow update from YouTube. If you've followed kw.media for a while, you might remember our video from November 2025, where we discussed a small experiment rolling out to just 5% of creators: image posts in the Shorts feed. Well, as predicted, it's going global. As of April 14th, YouTube is officially introducing image carousels directly into the Shorts feed.
 
 Since the November test, there have been updates. You can now use up to 10 images in a carousel. However, you can now also add text overlays and royalty-free music from the audio library or Dream Track (if available in your country). This could be an incredible low-effort, high-reward engagement strategy. Think about it: you no longer need to film and color grade a video to hit the Shorts algorithm.
 

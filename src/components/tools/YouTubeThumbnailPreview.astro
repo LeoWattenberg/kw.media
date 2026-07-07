@@ -34,7 +34,7 @@ const copyByLocale = {
 		notificationsHeading: 'Benachrichtigungen',
 		notificationTag: 'Neu',
 		defaultTitle: 'Das perfekte Thumbnail ist nicht laut. Es ist sofort lesbar.',
-		defaultChannel: 'KW Media',
+		defaultChannel: 'kw.media',
 		defaultMetadata: '24.000 Aufrufe vor 2 Tagen',
 		defaultDuration: '12:34',
 		avatarLabel: 'Kanalavatar',
@@ -74,7 +74,7 @@ const copyByLocale = {
 		notificationsHeading: 'Notifications',
 		notificationTag: 'New',
 		defaultTitle: 'The perfect thumbnail is not loud. It is instantly readable.',
-		defaultChannel: 'KW Media',
+		defaultChannel: 'kw.media',
 		defaultMetadata: '24K views 2 days ago',
 		defaultDuration: '12:34',
 		avatarLabel: 'Channel avatar',
@@ -308,7 +308,7 @@ const copyJson = JSON.stringify(copy.client);
 			const mobileDeviceButtons = [...root.querySelectorAll('[data-mobile-device-option]')];
 			const mobileDeviceFrame = root.querySelector('[data-mobile-device-frame]');
 			const mobileDeviceLabel = root.querySelector('[data-mobile-device-label]');
-			const defaultChannel = root.querySelector('[data-channel-preview]')?.textContent?.trim() || 'KW Media';
+			const defaultChannel = root.querySelector('[data-channel-preview]')?.textContent?.trim() || 'kw.media';
 			const defaultMeta = root.querySelector('[data-meta-preview]')?.textContent?.trim() || '';
 			const defaultDuration = root.querySelector('[data-duration-preview]')?.textContent?.trim() || '';
 			const mobileDevices = {

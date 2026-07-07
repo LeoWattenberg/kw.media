@@ -31,7 +31,7 @@ Einige von euch haben gefragt, was mit dem "[Add your Sticker](/youtube-tipps-de
 
 Zu guter Letzt: Wir sammeln wieder Fragen für unseren Q&A-Stream nächste Woche am Donnerstag. Da wir vorab ein Meeting mit YouTube haben, [könnt ihr](/youtube-tipps-de/a-b-testen-und-bearbeiten-mit-ki-ist-da-erstellt-auf-youtube-follow-up/) uns eure Fragen schicken, damit wir sie klären und dann am Donnerstag besprechen. Also, fleißig kommentieren!
 
-KW Media - Creator-News
+kw.media - Creator-News
 
 Wir schreiben dann, wisst ihr Bescheid, und wir hoffen, dass wir nächste Woche Donnerstag bereits Antworten für euch haben. Ich denke, ich sage mal: Nächste Woche, aber das ist der 19., 19.09. Bis dahin ist sicherlich auch schon vieles aufgesetzt, zu dem Zeitpunkt, wo ihr dieses Video seht. Ihr könnt dann einfach eine Erinnerung erstellen und bekommt eine Benachrichtigung, wenn wir live gehen.
 

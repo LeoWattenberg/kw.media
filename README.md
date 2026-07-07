@@ -1,6 +1,6 @@
-# KW Media
+# kw.media
 
-Astro site for KW Media pages and post content.
+Astro site for kw.media pages and post content.
 
 ## Commands
 

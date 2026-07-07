@@ -3,7 +3,7 @@ id: 3125
 slug: "youtube-updates-new-shorts-captions-and-hype-feature-expansion"
 path: "/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/"
 title: "YouTube Updates: NEW Shorts Captions & Hype Feature Expansion!"
-excerpt: "We've got some new YouTube updates to share. But before we dive in, we still have three open slots for one on one in depth channel consultations here at KW Media."
+excerpt: "We've got some new YouTube updates to share. But before we dive in, we still have three open slots for one on one in depth channel consultations here at kw.media."
 date: "2025-08-30T12:15:16"
 modified: "2025-08-30T12:15:16"
 locale: "en"
@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-We've got some new YouTube updates to share. But before we dive in, we still have three open slots for one-on-one in-depth channel consultations here at KW Media. If you're interested, send us an email at team@kwmedia. Looking forward to hearing from you! Now, let's get into the YouTube news.
+We've got some new YouTube updates to share. But before we dive in, we still have three open slots for one-on-one in-depth channel consultations here at kw.media. If you're interested, send us an email at team@kwmedia. Looking forward to hearing from you! Now, let's get into the YouTube news.
 
 First up, a big win for Shorts creators: YouTube is finally rolling out the native caption tool to all creators. It will be integrated into the Shorts editor in the main YouTube app. There will be a new button to autogenerate captions, and you can edit the text, change styles, sizes, and more. This is a fantastic accessibility feature if you're creating content directly in the YouTube editor within the app.
 

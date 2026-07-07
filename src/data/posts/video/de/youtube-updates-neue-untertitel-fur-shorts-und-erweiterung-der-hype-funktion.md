@@ -3,7 +3,7 @@ id: 3386
 slug: "youtube-updates-neue-untertitel-fur-shorts-und-erweiterung-der-hype-funktion"
 path: "/youtube-tipps-de/youtube-updates-neue-untertitel-fur-shorts-und-erweiterung-der-hype-funktion/"
 title: "YouTube-Updates: NEUE Untertitel für Shorts & Erweiterung der Hype-Funktion!"
-excerpt: "Wir haben einige neue YouTube-Updates zu teilen. Aber bevor wir uns daran machen, haben wir bei KW Media noch drei freie Plätze für individuelle, tiefgehende Kanalberatungen."
+excerpt: "Wir haben einige neue YouTube-Updates zu teilen. Aber bevor wir uns daran machen, haben wir bei kw.media noch drei freie Plätze für individuelle, tiefgehende Kanalberatungen."
 date: "2025-08-30T12:15:16"
 modified: "2025-08-30T12:15:16"
 locale: "de"
@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Wir haben einige neue YouTube-Updates zu teilen. Aber bevor wir loslegen, haben wir bei KW Media noch drei freie Plätze für individuelle, tiefgehende Kanalberatungen. Wenn du interessiert bist, schick uns eine E-Mail an team@kwmedia. Wir freuen uns auf deine Nachricht! Nun aber zu den YouTube-News.
+Wir haben einige neue YouTube-Updates zu teilen. Aber bevor wir loslegen, haben wir bei kw.media noch drei freie Plätze für individuelle, tiefgehende Kanalberatungen. Wenn du interessiert bist, schick uns eine E-Mail an team@kwmedia. Wir freuen uns auf deine Nachricht! Nun aber zu den YouTube-News.
 
 Zuerst eine große Errungenschaft für Shorts-Creator: YouTube rollt endlich das native Untertitel-Tool für alle Creator aus. Es wird in den Shorts-Editor in der Haupt-YouTube-App integriert. Es gibt einen neuen Button, um Untertitel automatisch zu generieren, und du kannst den Text bearbeiten, Stile und Größen ändern und noch vieles mehr. Dies ist eine fantastische Barrierefreiheitsfunktion, wenn du Inhalte direkt im YouTube-Editor innerhalb der App erstellst.
 

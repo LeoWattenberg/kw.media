@@ -247,7 +247,7 @@ async function linkPostBody(post, candidates) {
 
 async function suggestAiLinks(post, candidates, linkLimit) {
 	const validPaths = new Set(candidates.map((candidate) => candidate.frontmatter.path));
-	const prompt = `Select meaningful inline links for this KW Media post.
+	const prompt = `Select meaningful inline links for this kw.media post.
 
 Return only JSON with this exact shape:
 {

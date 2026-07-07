@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Die Sommer-Nachrichtenflaute ist da, und anstatt uns über den Mangel an Updates zu beschweren, haben wir beschlossen, selbst welche zu schaffen. Wir starten eine brandneue Suite kostenloser, datenschutzorientierter Creator-Tools, um Ihren Workflow zu vereinfachen, und wir möchten, dass Sie uns sagen, was wir als Nächstes entwickeln sollen. Mein Partner Leo hat hart daran gearbeitet, mehrere kostenlose Creator-Tools zu erstellen, und diese sind nun offiziell auf unserer KW Media-Website verfügbar.
+Die Sommer-Nachrichtenflaute ist da, und anstatt uns über den Mangel an Updates zu beschweren, haben wir beschlossen, selbst welche zu schaffen. Wir starten eine brandneue Suite kostenloser, datenschutzorientierter Creator-Tools, um Ihren Workflow zu vereinfachen, und wir möchten, dass Sie uns sagen, was wir als Nächstes entwickeln sollen. Mein Partner Leo hat hart daran gearbeitet, mehrere kostenlose Creator-Tools zu erstellen, und diese sind nun offiziell auf unserer kw.media-Website verfügbar.
 
 Diese Tools sind darauf ausgelegt, die kleinen, lästigen Reibungspunkte in Ihrer täglichen Arbeit anzugehen, wie z. B. einen YouTube-Miniaturansicht-Vorschauer, damit Sie sehen können, wie Ihre Verpackung auf Mobilgeräten und Desktops aussieht, bevor Sie sie veröffentlichen. Wir haben auch einen Audio-ABX-Tester, einen MP3-Qualitätstester, einen Bildformatkonverter und einen Fake-Alpha-Hintergrundentferner veröffentlicht – Sie wissen schon, diese Schachbrettmuster, die vorgeben, PNGs mit Transparenz zu sein, es aber nicht wirklich sind.
 
