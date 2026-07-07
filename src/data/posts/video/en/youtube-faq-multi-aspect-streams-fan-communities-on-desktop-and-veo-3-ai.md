@@ -29,7 +29,7 @@ Before we begin, make sure you're subscribed so you don't miss future YouTube up
 
 The answer is both yes and no. You can collaborate *after* a live stream has ended, adding your input to the archive. However, multiple creators cannot collaborate on an active live stream—at least not yet. My guess is this is due to technical limitations. Adding a collaborator to a VOD (video-on-demand) is a simple metadata change, whereas doing so during a live stream would require more complex infrastructure. While YouTube might be working on it, don't expect this feature anytime soon.
 
-**If you create a short using the [V3 text-to-video feature](/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/) or any other AI tools, do you need to disclose it as AI-generated content?**
+**If you create a short using the [V3 text-to-video feature](/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/) or any other AI tools, do you need to disclose it as [AI-generated content](/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/)?**
 
 Short answer: Yes. Any content created with V3 will automatically receive YouTube's standard AI disclosure label, in line with their existing policy. No surprises here.
 

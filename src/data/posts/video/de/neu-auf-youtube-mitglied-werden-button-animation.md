@@ -23,4 +23,4 @@ video:
 
 Ein kleines Update für Creator mit [Kanal-Mitgliedschaften](/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/): Wenn ihr jetzt einen Call-to-Action macht und eure Zuschauer auffordert, Kanal-Mitglied zu werden – zum Beispiel mit "Werdet Kanal-Mitglied" oder auf Englisch "Join my channel, become a Channel Member" –, dann wird der "Mitglied werden"-Button unter einem Video farbig animiert aufleuchten. Ich finde, das ist eine nette Geschichte. Das gab es schon mit "Abonniere meinen Kanal", und das ist jetzt einfach eine neue Funktion, die aufgrund der Spracherkennung hinzugefügt wurde. Eine wirklich nette Geschichte.
 
-Mehr gibt's diese Woche leider gar nicht, also sehen wir uns nächste Woche wieder. Bis dahin, macht's gut und bis bald!
+Mehr gibt's [diese Woche](/youtube-tipps-de/mitgliedschafts-bonusprogramm-thumbnail-updates-und-ki-dubbing-in-sicht/) leider gar nicht, also sehen wir uns nächste Woche wieder. Bis dahin, macht's gut und bis bald!

@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-YouTube experimentiert wieder fleißig, und zwar nicht nur mit der Watchpage-UI – auch der Abonnement-Feed bekommt ein kleines Experiment: den sogenannten "am relevantesten"-Filterchip. Dabei werden die Videos, die laut YouTube am relevantesten sind, basierend auf den zuletzt angesehenen Videos, geschriebenen Kommentaren usw., ganz oben angezeigt. Praktisch erstellt YouTube so ein kleines Nutzerprofil.
+YouTube experimentiert wieder fleißig, und zwar nicht nur mit der Watchpage-UI – auch der [Abonnement-Feed](/youtube-tipps-de/youtube-fuhrt-spannende-neuerungen-ein-clips-feed-update-und-mehr/) bekommt ein kleines Experiment: den sogenannten "am relevantesten"-Filterchip. Dabei werden die Videos, die laut YouTube am relevantesten sind, basierend auf den zuletzt angesehenen Videos, geschriebenen Kommentaren usw., ganz oben angezeigt. Praktisch erstellt YouTube so ein kleines Nutzerprofil.
 
 Es handelt sich um ein Opt-in, das heißt, der Nutzer muss sich aktiv entscheiden, diesen Filterchip zu nutzen. Ansonsten bleibt alles wie gehabt – ich finde das zunächst einmal eine sehr gute Sache. Da es um den Abonnement-Feed geht, wird sichergestellt, dass das Experiment sowohl für Creator als auch für Viewer ein Erfolg wird und genau beobachtet wird. Ich halte das für gute Testbedingungen, um so etwas auszuprobieren. Schaut doch mal selbst, ob ihr das schon habt, und teilt mir eure Bedenken als Creator mit, falls vorhanden.
 

@@ -14,7 +14,7 @@ authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-channel-banner-template-updated-2024/"
 ---
 
-This template helps you create a channel banner in the right dimensions, so that it’ll look good on any device.
+This template helps you [create a channel banner](/youtube-tips-en/take-off-create-your-youtube-channel-in-2024-personal-and-company-channels/) in the right dimensions, so that it’ll look good on any device.
 
 ![youtube channel banner template](/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png)
 

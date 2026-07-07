@@ -21,7 +21,7 @@ video:
 
 ## Transkript
 
-Das Update für den Clips-Feed ist wie geplant ausgerollt worden und zeigt jetzt die von euch erstellten Clips sowie solche, die andere Zuschauer aus eurem Content erstellt haben. Auswählbar sind diese über sogenannte Chips, kleine ovale Buttons. Den Clips-Feed erreicht ihr entweder über das Scheren-Symbol auf der Hauptseite oder unter YouTube.com/feed/clips – den Link findet ihr auch in der Infobeschreibung.
+Das Update für den [Clips-Feed](/youtube-tipps-de/youtube-updates-youtube-fehler-loscht-werbeeinnahmen-einfuhrung-der-kollaborations-feed-funktion/) ist wie geplant ausgerollt worden und zeigt jetzt die von euch erstellten Clips sowie solche, die andere Zuschauer aus eurem Content erstellt haben. Auswählbar sind diese über sogenannte Chips, kleine ovale Buttons. Den Clips-Feed erreicht ihr entweder über das Scheren-Symbol auf der Hauptseite oder unter YouTube.com/feed/clips – den Link findet ihr auch in der Infobeschreibung.
 
 Seit Donnerstag läuft ein Experiment, bei dem der Abonnements-Bereich mit sogenannten Collections umgestaltet werden kann. Das ist ebenfalls eine Funktion, die ihr euch gewünscht hattet, und tatsächlich hat YouTube bereits daran gearbeitet, allerdings nicht ganz so, wie wir es im Q&A-Stream besprochen haben. Es gibt bereits ein solches Experiment, und wie es aussieht, zeige ich euch gerne, sobald ich es selbst in freier Wildbahn gesehen habe. Ich weiß nur, dass es existiert, aber nicht, wie es aussieht.
 

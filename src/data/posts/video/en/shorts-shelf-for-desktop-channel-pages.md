@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-The Shorts shelf for mobile has been around for a while. Most recently, there are also Shorts shelves for desktop. To add one to your channel page, go to the "Customize" tab in your YouTube Studio. There, click on "Add section," select "Shorts," and drag the section to the desired position.
+The Shorts shelf for mobile has been around for a while. Most recently, there are also [Shorts shelves](/youtube-tips-en/coming-soon-to-youtube-custom-thumbs-for-shorts-and-superchat-goals/) for desktop. To add one to your channel page, go to the "Customize" tab in your YouTube Studio. There, click on "Add section," select "Shorts," and drag the section to the desired position.

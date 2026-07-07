@@ -21,4 +21,4 @@ video:
 
 ## Transcript
 
-To be able to receive [Live Redirects](/youtube-tips-en/do-this-to-be-able-to-recieve-youtube-live-redirects-youtube-raids/) in your livestreams, you first need to set up who can send you Live Redirects. To do this, go to the "Community" section in YouTube Studio settings and scroll down. Here, you can either enter specific channels or allow all Creators to redirect to you.
+To be able to receive [Live Redirects](/youtube-tips-en/do-this-to-be-able-to-recieve-youtube-live-redirects-youtube-raids/) in your livestreams, you first need to set up who can send you [Live Redirects](/youtube-tips-en/live-redirect-from-one-stream-to-the-next/). To do this, go to the "Community" section in YouTube Studio settings and scroll down. Here, you can either enter specific channels or allow all Creators to redirect to you.

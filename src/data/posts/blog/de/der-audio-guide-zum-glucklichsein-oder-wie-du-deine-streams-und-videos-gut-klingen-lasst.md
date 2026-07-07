@@ -18,7 +18,7 @@ sourceUrl: "https://kw.media/youtube-tips-en/the-audio-guide-to-happiness-or-how
 
 Es mag zunächst kontraintuitiv erscheinen, aber der wichtigste Aspekt, den man bei der Erstellung eines Videos beachten sollte, ist das Audio. Viele Zuschauer schauen Inhalte auf ihrem Mobilgerät, und auf Smartphones ist eine Auflösung von 480p oft scharf genug, besonders wenn man unterwegs ist und mobiles Datenvolumen nutzt.
 
-Dieser Leitfaden richtet sich hauptsächlich an Anfänger und beantwortet Fragen wie: "Welches Mikrofon brauche ich als Game-Streamer?", "Wo positioniere ich mein Mikrofon?", "Wie sollte meine Aufnahmeeinrichtung aussehen?" und beschreibt eine der vielen möglichen [Filterketten, die man in OBS einrichten kann](/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/). Das bedeutet jedoch nicht, dass er nicht dennoch detailliert ist, mit über 2000 Wörtern.
+Dieser Leitfaden richtet sich hauptsächlich an Anfänger und beantwortet Fragen wie: "[Welches Mikrofon brauche ich als Game-Streamer?](/youtube-tipps-de/einen-gaming-kanal-mit-kleinem-budget-starten/)", "Wo positioniere ich mein Mikrofon?", "Wie sollte meine Aufnahmeeinrichtung aussehen?" und beschreibt eine der vielen möglichen [Filterketten, die man in OBS einrichten kann](/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/). Das bedeutet jedoch nicht, dass er nicht dennoch detailliert ist, mit über 2000 Wörtern.
 
 ## Allgemeines
 

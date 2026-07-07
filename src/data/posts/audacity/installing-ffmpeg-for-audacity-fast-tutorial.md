@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-FFmpeg is a library that is necessary to open, import, and export various kinds of media files. It is not included with Audacity by default. To download it, simply go to this website, and you are presented with three options. The first one is 64-bit Windows, which will be the most useful for most people. macOS is also found here, and 32-bit is usually not relevant on modern systems.
+[FFmpeg](/en/audacity/installing-ffmpeg-for-audacity-tutorial/) is a library that is necessary to open, import, and export various kinds of media files. It is not included with Audacity by default. To download it, simply go to this website, and you are presented with three options. The first one is 64-bit Windows, which will be the most useful for most people. macOS is also found here, and 32-bit is usually not relevant on modern systems.
 
 To install it, simply click on the link and open the file you just downloaded, which is the installer. In here, click "Yes," accept the agreement, save it to the default path, click "Install," and you are done. 
 

@@ -35,7 +35,7 @@ Onto some better news: YouTube is rolling out a feature creators have requested 
 
 YouTube states definitively no—your organic and paid performances are separate processes; one does not impact the other. They note that your aggregated numbers might show lower retention or CTR, which is normal for a cold ad audience. This new tool provides the data to prove this.
 
-A quick clarification: The new filter doesn't apply to all metrics. I've seen claims it affects comments or subscribers, but that's not true. Crucial data like impressions, click-through rate (CTR), unique viewers, subscribers, and comments are missing from the paid filter. What you can see is views, watch time, average view duration, likes, dislikes, and shares. It's a decent tool for those using Google Ads or YouTube promotions, even if not as comprehensive as some hoped.
+A quick clarification: The new filter doesn't apply to all metrics. I've seen claims it affects comments or subscribers, but that's not true. Crucial data like impressions, click-through rate (CTR), unique viewers, subscribers, and comments are missing from the paid filter. What you can see is views, watch time, average view duration, likes, dislikes, and shares. It's a decent tool for those using [Google Ads](/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/) or YouTube promotions, even if not as comprehensive as some hoped.
 
 It provides much-needed clarity and debunks the myth that running ads will kill your channel's organic growth. No amount of money spent on Google Ads will improve your channel's organic reach if the content isn't good. Better invest that money in lighting, a new microphone, or a decent editing program.
 

@@ -25,7 +25,7 @@ FFmpeg is a library that is necessary to open, import, and export various kinds 
 
 To install it, simply click on the link and open the file you just downloaded, which is the installer. In here, click "Yes," accept the agreement, save it to the default path, click "Install," and you are done. Now, if you go back to Audacity and click the "Locate" button, it will tell you: "Success! Audacity has automatically detected valid FFmpeg files." We do not need to locate them manually again, so we click "No." And here we have the version that we just installed; click "OK," and that's pretty much it.
 
-Now, if you have been using Audacity for a very long time and have a very old version of Audacity that is 32-bit, in that case, you will need to use the 32-bit version of FFmpeg or update Audacity. To check what version of Audacity you're running, go to Help > About Audacity > Build Information. If it says "64-bit" in here, you have the 64-bit version; if it says nothing, you have the 32-bit version.
+Now, if you have been using Audacity for a very long time and have a very old version of Audacity that is 32-bit, in that case, you will need to use the 32-bit version of FFmpeg or [update Audacity](/en/audacity/i-worked-on-audacity-4-here-is-what-you-need-to-know/). To check what version of Audacity you're running, go to Help > About Audacity > Build Information. If it says "64-bit" in here, you have the 64-bit version; if it says nothing, you have the 32-bit version.
 
 If you are on Linux, you will see that this site does not feature a Linux download. Instead, you can get your Linux version of FFmpeg straight from your repository—instructions are on the site—or just use your package manager.
 

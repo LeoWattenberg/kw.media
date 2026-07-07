@@ -29,7 +29,7 @@ Let's switch to the main app, namely the Subscriptions Feed. There will soon be 
 
 Speaking of the Q&A stream four weeks ago—it's already been four weeks, we need new topics! Please write them in the comments so we can prepare for a Q&A stream.
 
-Otherwise, I have a few more updates and answers from last time. Well, since we're talking about streams, we have to continue with OBS (Open Broadcaster Software), our well-known and beloved open-source encoder that we use to stream live content to YouTube and other platforms. And we also know that YouTube supports HDR (High Dynamic Range), high contrast ratios, which is great if you want to provide an immersive, cinematic experience.
+Otherwise, I have a few more updates and answers from last time. Well, since we're talking about streams, we have to continue with OBS (Open Broadcaster Software), our well-known and beloved open-source encoder that we use to [stream live content to YouTube](/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/) and other platforms. And we also know that YouTube supports HDR (High Dynamic Range), high contrast ratios, which is great if you want to provide an immersive, cinematic experience.
 
 In the past, there was a so-called HLS protocol through which HDR content had to be sent. This has now been switched to the standard RTMP or RTMPS protocol. And I think this is a useful change because the HLS protocol sometimes had hiccups and dropouts. RTMPS is overall simply the more advanced encoding and ingestion system, in my opinion. You're welcome to disagree and share your reasons in the comments, then we can discuss it.
 

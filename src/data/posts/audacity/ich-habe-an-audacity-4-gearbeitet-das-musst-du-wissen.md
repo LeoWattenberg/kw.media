@@ -31,7 +31,7 @@ Darauf komme ich spater noch zuruck. Und naturlich ist audio.com wieder dabei, w
 
 ### Aufnahme und Spursteuerung
 
-Wir sind jetzt auf dem Willkommensbildschirm, genau wie in Audacity 3. Nachdem wir unser Wiedergabegerat und Aufnahmegerat eingerichtet haben, sind wir bereit. Ich kann jetzt einfach mit der Aufnahme beginnen. Und wie du siehst, nun ja, es ist ziemlich unspektakular: Es nimmt auf. Links siehst du eine kleine Anzeige. Das ist deine Eingangs- und Ausgangsanzeige fur die Spur, also der Pegelmesser der Spur, und sie zeigt dir jederzeit, wie laut du gerade aufnimmst.
+Wir sind jetzt auf dem Willkommensbildschirm, genau wie in Audacity 3. Nachdem wir unser Wiedergabegerat und Aufnahmegerat eingerichtet haben, sind wir bereit. Ich kann jetzt einfach mit der [Aufnahme beginnen](/audacity/desktop-audio-in-audacity-aufnehmen-tutorial/). Und wie du siehst, nun ja, es ist ziemlich unspektakular: Es nimmt auf. Links siehst du eine kleine Anzeige. Das ist deine Eingangs- und Ausgangsanzeige fur die Spur, also der Pegelmesser der Spur, und sie zeigt dir jederzeit, wie laut du gerade aufnimmst.
 
 Die Entscheidung, diese Anzeige in die Spur zu setzen, wurde getroffen, weil wir irgendwann in Zukunft Mehrspuraufnahme hinzufugen mochten. Dann kannst du dein Mikrofon und zum Beispiel einen Zoom-Call gleichzeitig aufnehmen. Diese Funktion ist in dieser Audacity-4-Beta noch nicht enthalten, und sie wird auch beim Start von Audacity 4 noch nicht enthalten sein. Aber sie ist definitiv etwas, das das Team in Zukunft hinzufugen mochte. Sobald wir unsere Aufnahme gemacht haben, konnen wir mit der Bearbeitung beginnen.
 

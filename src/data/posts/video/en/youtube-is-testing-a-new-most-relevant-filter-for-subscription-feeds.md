@@ -25,7 +25,7 @@ YouTube is experimenting again, not just with the Watchpage UI—the [subscripti
 
 It's an opt-in feature, meaning users must actively choose to use this filter chip. Otherwise, everything stays as it was—I initially think this is a very good thing. Since it concerns the subscription feed, it ensures that the experiment will be a success for both Creators and viewers and will be closely monitored. I consider these good test conditions to try something like this out. Check if you already have it and share your concerns as a Creator with me if you have any.
 
-Next up is a launch: Member-only Shorts can now also be uploaded via the Shorts upload flow on mobile devices. Previously, this was only possible on desktop. Do you already use exclusive Shorts for members? Feel free to share your experiences and ideas with me. I sometimes feel torn about this because a Short is quite short, and you want to offer something more substantial for members.
+Next up is a launch: Member-only Shorts can now also be uploaded via the Shorts upload flow on mobile devices. Previously, this was only possible on desktop. Do you already use [exclusive Shorts for members](/youtube-tips-en/youtubes-fix-for-fomo-bait-new-channel-filters-explained-creator-news/)? Feel free to share your experiences and ideas with me. I sometimes feel torn about this because a Short is quite short, and you want to offer something more substantial for members.
 
 Additionally, we delved deep into YouTube memberships this week. We investigated how it can be that a Creator receives €500 in memberships but only €4 in the payout (more on this in another video). I broke it down and showed how to protect yourself from such issues.
 

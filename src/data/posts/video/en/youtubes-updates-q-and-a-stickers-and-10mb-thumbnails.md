@@ -37,7 +37,7 @@ On this topic, there's currently a survey by "Creator Zeider" that you can find 
 
 **[Larger Thumbnails](/youtube-tips-en/youtube-updates-end-of-year-sprint-with-mla-and-superchat-goals/)**
 
-As mentioned, the file sizes for thumbnails will be increased—up to 10 MB. This is already the case for podcasts, and according to the plan, videos will also receive this update in February 2025, allowing you to upload larger thumbnails.
+As mentioned, the file sizes for thumbnails will be increased—up to 10 MB. This is already the case for podcasts, and according to the plan, videos will also receive this update in February 2025, allowing you to upload [larger thumbnails](/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/).
 
 **YouTube Courses**
 

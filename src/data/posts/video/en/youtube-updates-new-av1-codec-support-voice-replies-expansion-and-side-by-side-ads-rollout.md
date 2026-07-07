@@ -29,7 +29,7 @@ You can send AV1 data, but it's uncertain when viewers will receive it. To check
 
 Staying with live streams, the [side-by-side ads](/youtube-tips-en/youtube-updates-profanity-rule-changes-side-by-side-ads-and-livestream-community-leaderboard/) rollout is now at 100%. We also have new details about this feature. Your stream must be set to normal latency (most use shorter latency) and captions must be disabled (no auto or manual captions). The ad automator should be configured to let YouTube decide ad placement.
 
-With these settings, your stream becomes eligible for side-by-side ads, allowing viewers to continue watching while an ad plays alongside. If you wish to try this, adjust your settings accordingly. For more on side-by-side ads, see the description below.
+With these settings, your stream becomes eligible for [side-by-side ads](/youtube-tips-en/youtube-updates-mid-roll-ad-bug-and-editing-restrictions-incoming/), allowing viewers to continue watching while an ad plays alongside. If you wish to try this, adjust your settings accordingly. For more on side-by-side ads, see the description below.
 
 Next up: [voice replies](/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/). They are now expanding to Android creators after a 6-month beta on iOS. However, they can only be recorded and posted via the main YouTube app—not ideal for most users, especially creators replying to fans. It's odd that they aren't available in YouTube Studio (mobile or desktop), given similar functionality in apps like Discord and WhatsApp.
 

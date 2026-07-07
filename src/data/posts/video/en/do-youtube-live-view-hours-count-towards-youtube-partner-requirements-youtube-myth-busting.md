@@ -21,7 +21,7 @@ video:
 
 ## Transcript
 
-Do YouTube Live view hours count towards the requirements for the YouTube Partner Program? In short: Yes, public live streams can count towards the public view hours requirement if they meet the general criteria.
+Do YouTube Live view hours count towards the requirements for the [YouTube Partner Program](/youtube-tips-en/everything-important-about-the-new-youtube-fan-funding-partner-level/)? In short: Yes, public live streams can count towards the public view hours requirement if they meet the general criteria.
 
 It's important that the live stream is public and remains available as a public video or archive after the stream. Private, unlisted, or deleted content doesn't count in the same way. [Shorts views](/youtube-tips-en/how-to-get-into-the-partner-program-with-youtube-shorts/) are also tracked separately for this metric.
 
