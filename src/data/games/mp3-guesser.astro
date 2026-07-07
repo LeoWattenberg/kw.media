@@ -1,0 +1,29 @@
+---
+import GamesLayout from '../../components/layout/GamesLayout.astro';
+import Mp3Guesser from '../../components/games/Mp3Guesser.astro';
+import { defineGameModule } from '../../lib/game-page-module';
+
+export const gameModule = defineGameModule('mp3-guesser', {
+	id: 'mp3-guesser',
+	translations: {
+		de: {
+			id: 'mp3-guesser-de',
+			path: '/de/games/mp3-guesser/',
+			title: 'MP3 Guesser',
+			description: 'Tägliches Hörspiel: Finde das unkomprimierte Original zwischen vier LAME-MP3-Versionen.',
+		},
+		en: {
+			id: 'mp3-guesser-en',
+			path: '/en/games/mp3-guesser/',
+			title: 'MP3 Guesser',
+			description: 'Daily listening game: find the uncompressed original among four LAME MP3 versions.',
+		},
+	},
+});
+
+const { game, alternatePaths } = Astro.props;
+---
+
+<GamesLayout game={game} alternatePaths={alternatePaths}>
+	<Mp3Guesser locale={game.locale} />
+</GamesLayout>

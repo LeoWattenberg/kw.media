@@ -1,0 +1,120 @@
+---
+import type { Locale } from '../../i18n';
+import { gamePages } from '../../data/games';
+import { withBase } from '../../lib/url';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Spiele',
+		title: 'Spiele',
+		intro: 'Kleine, clientseitige Hörspiele und Rätsel rund um Audio und Produktion.',
+		open: 'Spiel öffnen',
+	},
+	en: {
+		eyebrow: 'Games',
+		title: 'Games',
+		intro: 'Small client-side listening games and puzzles around audio and production.',
+		open: 'Open game',
+	},
+}[locale];
+const games = gamePages
+	.filter((game) => game.locale === locale)
+	.sort((first, second) => first.title.localeCompare(second.title));
+---
+
+<section class="game-index-hero">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{copy.title}</h1>
+		<p>{copy.intro}</p>
+	</div>
+</section>
+
+<section class="section game-index-section">
+	<div class="container game-grid">
+		{
+			games.map((game) => (
+				<a class="game-card" href={withBase(game.path)}>
+					<span>{copy.open}</span>
+					<h2>{game.title}</h2>
+					<p>{game.description}</p>
+				</a>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.game-index-hero {
+		padding-block: clamp(42px, 7vw, 82px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.game-index-hero h1 {
+		max-width: 780px;
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.6rem);
+		line-height: 0.96;
+		letter-spacing: 0;
+	}
+
+	.game-index-hero p:not(.eyebrow) {
+		max-width: 720px;
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+	}
+
+	.game-index-section {
+		background: var(--color-surface-raised);
+	}
+
+	.game-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 16px;
+	}
+
+	.game-card {
+		display: grid;
+		gap: 12px;
+		padding: clamp(18px, 3vw, 28px);
+		color: inherit;
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		text-decoration: none;
+	}
+
+	.game-card:hover {
+		background: var(--color-surface-alt);
+		border-color: var(--color-accent);
+	}
+
+	.game-card span {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.game-card h2 {
+		margin: 0;
+		color: var(--color-ink);
+		font-size: clamp(1.35rem, 3vw, 2rem);
+		line-height: 1.1;
+		letter-spacing: 0;
+	}
+
+	.game-card p {
+		margin: 0;
+		color: var(--color-muted);
+		font-weight: 700;
+	}
+</style>

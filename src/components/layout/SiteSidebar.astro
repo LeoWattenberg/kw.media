@@ -45,6 +45,7 @@ const pageOrder = [
 	'tips',
 	'audacity',
 	'tools',
+	'games',
 	'imprint-service',
 	'legal',
 ];
@@ -63,6 +64,7 @@ const labelKeys: Record<string, string> = {
 	tips: 'nav.tips',
 	audacity: 'nav.audacity',
 	tools: 'nav.tools',
+	games: 'nav.games',
 	legal: 'nav.legal',
 };
 
@@ -90,7 +92,7 @@ const sidebarPages = sitePages
 				sidebarPages.map((page) => {
 					const group = pageGroup(page.id);
 					const isCurrentPage = page.path === normalizedCurrentPath;
-					const isActive = isCurrentPage || (group === 'tools' && normalizedCurrentPath.startsWith(page.path));
+					const isActive = isCurrentPage || ((group === 'tools' || group === 'games') && normalizedCurrentPath.startsWith(page.path));
 
 					return (
 						<a

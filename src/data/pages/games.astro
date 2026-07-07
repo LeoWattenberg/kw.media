@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import GamesIndex from '../../components/games/GamesIndex.astro';
+import { definePageModule } from '../../lib/site-page-module';
+
+export const pageModule = definePageModule('games', {
+	id: 'games',
+	translations: {
+		de: {
+			id: 'games-de',
+			path: '/de/games/',
+			title: 'Spiele',
+			description: 'Clientseitige Hörspiele und Rätsel von Koytek Wattenberg Media.',
+			blocks: [],
+		},
+		en: {
+			id: 'games-en',
+			path: '/en/games/',
+			title: 'Games',
+			description: 'Client-side listening games and puzzles by Koytek Wattenberg Media.',
+			blocks: [],
+		},
+	},
+});
+
+const { page, alternatePaths } = Astro.props;
+---
+
+<BaseLayout
+	locale={page.locale}
+	title={page.title}
+	description={page.description}
+	canonicalPath={page.path}
+	alternatePaths={alternatePaths}
+>
+	<GamesIndex locale={page.locale} />
+</BaseLayout>

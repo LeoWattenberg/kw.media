@@ -1,0 +1,24 @@
+---
+import type { Locale } from '../../i18n';
+import type { GamePage } from '../../data/games';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+	game: GamePage;
+	alternatePaths: Partial<Record<Locale, string>>;
+}
+
+const { game, alternatePaths } = Astro.props;
+---
+
+<BaseLayout
+	locale={game.locale}
+	title={game.title}
+	description={game.description}
+	canonicalPath={game.path}
+	alternatePaths={alternatePaths}
+>
+	<div class="games-layout">
+		<slot />
+	</div>
+</BaseLayout>
