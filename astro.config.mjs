@@ -5,46 +5,58 @@ import sitemap from '@astrojs/sitemap';
 
 const site = process.env.ASTRO_SITE ?? 'https://kw.media';
 const base = process.env.ASTRO_BASE ?? '/';
+const redirects = {
+  '/de/': '/',
+
+  '/ads/': '/en/ads/',
+  '/b2b/': '/de/b2b/',
+  '/creator/': '/de/creator/',
+  '/imprint-service/': '/en/imprint-service/',
+  '/live/': '/de/live/',
+  '/vtuber/': '/en/vtuber/',
+  '/webdesign/': '/de/webdesign-management/',
+  '/website-design-management/': '/en/website-design-management/',
+  '/werbung/': '/de/werbung/',
+
+  '/new/ads/': '/en/ads/',
+  '/new/creator/': '/en/creator/',
+  '/new/': '/en/',
+
+  '/blog/': '/en/youtube-tips/',
+  '/category/': '/en/youtube-tips/',
+  '/category/blog/': '/en/youtube-tips/',
+  '/category/uncategorized/': '/en/youtube-tips/',
+  '/category/uncategorized-de/': '/de/youtube-tipps/',
+  '/category/youtube-tips-de/': '/de/youtube-tipps/',
+  '/category/youtube-tips-en/': '/en/youtube-tips/',
+  '/category/youtube-tipps-de/': '/de/youtube-tipps/',
+  '/youtube-tips-en/': '/en/youtube-tips/',
+  '/youtube-tipps-de/': '/de/youtube-tipps/',
+
+  '/author/koytekconsulting/': '/en/creator/',
+  '/author/leo/': '/en/vtuber/',
+  '/author/': '/en/creator/',
+  '/creatorguides/': '/en/youtube-tips/',
+  '/youtube/': 'https://www.youtube.com/channel/UCGu6U-UNczXKxShRiJj6kXQ',
+};
+
+const redirectSourceUrls = new Set(Object.keys(redirects).map((path) => new URL(path, site).toString()));
 
 // https://astro.build/config
 export default defineConfig({
   site,
   base,
 
-  redirects: {
-      '/de/': '/',
+  redirects,
 
-      '/ads/': '/en/ads/',
-      '/b2b/': '/de/b2b/',
-      '/creator/': '/de/creator/',
-      '/imprint-service/': '/en/imprint-service/',
-      '/live/': '/de/live/',
-      '/vtuber/': '/en/vtuber/',
-      '/webdesign/': '/de/webdesign-management/',
-      '/website-design-management/': '/en/website-design-management/',
-      '/werbung/': '/de/werbung/',
-
-      '/new/ads/': '/en/ads/',
-      '/new/creator/': '/en/creator/',
-      '/new/': '/en/',
-
-      '/blog/': '/en/youtube-tips/',
-      '/category/': '/en/youtube-tips/',
-      '/category/blog/': '/en/youtube-tips/',
-      '/category/uncategorized/': '/en/youtube-tips/',
-      '/category/uncategorized-de/': '/de/youtube-tipps/',
-      '/category/youtube-tips-de/': '/de/youtube-tipps/',
-      '/category/youtube-tips-en/': '/en/youtube-tips/',
-      '/category/youtube-tipps-de/': '/de/youtube-tipps/',
-      '/youtube-tips-en/': '/en/youtube-tips/',
-      '/youtube-tipps-de/': '/de/youtube-tipps/',
-
-      '/author/koytekconsulting/': '/en/creator/',
-      '/author/leo/': '/en/vtuber/',
-      '/author/': '/en/creator/',
-      '/creatorguides/': '/en/youtube-tips/',
-      '/youtube/': 'https://www.youtube.com/channel/UCGu6U-UNczXKxShRiJj6kXQ',
-	},
-
-  integrations: [sitemap()],
+  integrations: [sitemap({
+    customSitemaps: [new URL('/video-sitemap.xml', site).toString()],
+    filter: (page) => !redirectSourceUrls.has(page),
+    namespaces: {
+      news: false,
+      xhtml: true,
+      image: false,
+      video: false,
+    },
+  })],
 });
