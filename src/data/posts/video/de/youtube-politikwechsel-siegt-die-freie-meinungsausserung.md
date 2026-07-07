@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/kTWDA2-4MKI"
   watchUrl: "https://www.youtube.com/watch?v=kTWDA2-4MKI"
   thumbnailUrl: "https://i.ytimg.com/vi/kTWDA2-4MKI/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die neuen YouTube-Richtlinien zur Monetarisierung? Entdecke auf der {page}, wie wir dir helfen können, deine Inhalte optimal zu monetarisieren und dein volles Potenzial auszuschöpfen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

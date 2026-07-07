@@ -12,6 +12,10 @@ category: "blog"
 image: "https://lh5.googleusercontent.com/s9rkISe0KpvpU_IC2a_CnpznbTIxp41h7ojyWIroeD0bmY3xwCUpdTnh-uOgGAiGcIojmZmxcA4tsgoIZzOpCwiAw7Zmq7tmhAWxOSArIctQ2-DDZR4xYpiZjIG0vhOfCTzW-SflST-cOLeI2ps7te9j_8B8291CgAltZdglZJfo7XmXFSijFjVu_w"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-obs-a-beginners-guide/"
+postCta:
+  text: "Unsicher bei Einstieg in OBS: Ein Leitfaden für Anfänger? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 *OBS ist ein fantastisches Tool für Creator, wenn du live streamen, Videos aufnehmen oder sogar beides gleichzeitig machen möchtest. Dieser Leitfaden konzentriert sich auf Tipps für Anfänger, während ein späterer Leitfaden fortgeschrittenere Ratschläge zur Verwendung von OBS und dem YouTube Live Dashboard geben wird.*

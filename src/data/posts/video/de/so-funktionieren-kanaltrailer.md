@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/s05L2eJ4j7g"
   watchUrl: "https://www.youtube.com/shorts/s05L2eJ4j7g"
   thumbnailUrl: "https://i.ytimg.com/vi/s05L2eJ4j7g/maxresdefault.jpg"
+postCta:
+  text: "Du bist dir unsicher, wie du Kanaltrailer und hervorgehobene Videos auswählst? Auf unserer {page} findest du weitere Hilfestellungen und Beratung für deinen YouTube-Kanal, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

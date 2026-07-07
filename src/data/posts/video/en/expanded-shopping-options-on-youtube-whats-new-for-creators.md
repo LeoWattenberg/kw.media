@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/FZw6pXiSETg"
   watchUrl: "https://www.youtube.com/watch?v=FZw6pXiSETg"
   thumbnailUrl: "https://i.ytimg.com/vi/FZw6pXiSETg/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new YouTube shopping features? Our {page} offers expert support and guidance on navigating these updates, from Shopping Collections to the Affiliate Hub."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

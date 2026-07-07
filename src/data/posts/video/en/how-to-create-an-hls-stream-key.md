@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/RSeROQWVAPk"
   watchUrl: "https://www.youtube.com/shorts/RSeROQWVAPk"
   thumbnailUrl: "https://i.ytimg.com/vi/RSeROQWVAPk/maxresdefault.jpg"
+postCta:
+  text: "Confused about streaming HDR on YouTube? Creating an HLS stream key is a simple process. Head over to {page} for more detailed guidance and expert support."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-best-7-methods-of-secondary-stream-usage/"
+postCta:
+  text: "Confused about how to get more from your live streams? For more tips on YouTube strategies, visit our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 Streams on their own are very fleeting: You’re live, you get some viewers, and once the stream ends it’s done. No more view – and even if a VOD is available, it typically gets nowhere near as many views as any other kind of video. It is hovever possible to rescue the content and give it a second life:

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/HNKwk_tm1Vo"
   watchUrl: "https://www.youtube.com/watch?v=HNKwk_tm1Vo"
   thumbnailUrl: "https://i.ytimg.com/vi/HNKwk_tm1Vo/maxresdefault.jpg"
+postCta:
+  text: "Confused about AI comment summaries or Shorts stickers? Our {page} offers more insights into these YouTube updates. Get informed and stay ahead, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

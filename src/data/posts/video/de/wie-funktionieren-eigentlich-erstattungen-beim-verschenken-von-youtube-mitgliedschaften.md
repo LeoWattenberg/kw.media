@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/dnT2t4c94kw"
   watchUrl: "https://www.youtube.com/shorts/dnT2t4c94kw"
   thumbnailUrl: "https://i.ytimg.com/vi/dnT2t4c94kw/maxresdefault.jpg"
+postCta:
+  text: "Unsicher, wie Erstattungen beim Verschenken von YouTube-Mitgliedschaften funktionieren? Auf unserer {page} findest du detaillierte Informationen und Unterstützung für deinen Kanal, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

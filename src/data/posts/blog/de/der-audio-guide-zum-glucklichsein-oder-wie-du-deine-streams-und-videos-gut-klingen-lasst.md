@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/06/audioguide-FINAL.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/"
+postCta:
+  text: "Du bist dir unsicher, wie du deine Streams und Videos audio-technisch aufpeppen kannst? Für umfassende Unterstützung und Beratung rund um deinen YouTube-Kanal besuche {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 # Audio: Das A und O eines Videos

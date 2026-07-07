@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/qmAgK0OzzlU"
   watchUrl: "https://www.youtube.com/shorts/qmAgK0OzzlU"
   thumbnailUrl: "https://i.ytimg.com/vi/qmAgK0OzzlU/maxresdefault.jpg"
+postCta:
+  text: "Confused about Why your YouTube Shorts views don't convert to longform? We can help. Check {page} for more info, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/FUEDT9dEIxQ"
   watchUrl: "https://www.youtube.com/watch?v=FUEDT9dEIxQ"
   thumbnailUrl: "https://i.ytimg.com/vi/FUEDT9dEIxQ/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube Hype? Our data-driven breakdown explains how it works and its benefits for smaller creators. For more insights, check out our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

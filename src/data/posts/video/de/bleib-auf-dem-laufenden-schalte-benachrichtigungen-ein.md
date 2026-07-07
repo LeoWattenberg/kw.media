@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Q_Wf69Pynwo"
   watchUrl: "https://www.youtube.com/shorts/Q_Wf69Pynwo"
   thumbnailUrl: "https://i.ytimg.com/vi/Q_Wf69Pynwo/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt, wie Zuschauer Benachrichtigungen für deinen Kanal aktivieren können? Schau dir unsere Tipps und Tricks auf {page} an, um mehr über diese Funktion zu erfahren, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

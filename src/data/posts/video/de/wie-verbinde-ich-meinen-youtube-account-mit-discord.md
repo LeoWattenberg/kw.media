@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/iN-yGbTd3z4"
   watchUrl: "https://www.youtube.com/shorts/iN-yGbTd3z4"
   thumbnailUrl: "https://i.ytimg.com/vi/iN-yGbTd3z4/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest deinen YouTube-Kanal mit Discord verbinden, weißt aber nicht wie? Auf unserer {page} findest du weitere Anleitungen und Unterstützung für Creator, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

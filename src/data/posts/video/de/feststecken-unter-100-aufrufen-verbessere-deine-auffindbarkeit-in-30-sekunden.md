@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/-WgXyaoL1LI"
   watchUrl: "https://www.youtube.com/shorts/-WgXyaoL1LI"
   thumbnailUrl: "https://i.ytimg.com/vi/-WgXyaoL1LI/maxresdefault.jpg"
+postCta:
+  text: "Du steckst noch unter 100 Aufrufen fest? Mit unseren fünf einfachen Schritten kannst du deine Auffindbarkeit verbessern. Wenn du weitere Hilfe benötigst, schau dir unsere {page} an oder kontaktiere uns direkt."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

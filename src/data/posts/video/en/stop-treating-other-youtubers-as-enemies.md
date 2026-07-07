@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/5Wev7kFqnZg"
   watchUrl: "https://www.youtube.com/shorts/5Wev7kFqnZg"
   thumbnailUrl: "https://i.ytimg.com/vi/5Wev7kFqnZg/maxresdefault.jpg"
+postCta:
+  text: "Unsure about YouTube collaborations? media can help you leverage collaborations and other growth strategies, visit {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

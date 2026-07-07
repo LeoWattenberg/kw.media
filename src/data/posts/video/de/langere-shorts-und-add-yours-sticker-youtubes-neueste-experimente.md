@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/K7OVwIz48o8"
   watchUrl: "https://www.youtube.com/watch?v=K7OVwIz48o8"
   thumbnailUrl: "https://i.ytimg.com/vi/K7OVwIz48o8/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Längere Shorts & \"Add Yours\"-Sticker: Neue YouTube-Experimente? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

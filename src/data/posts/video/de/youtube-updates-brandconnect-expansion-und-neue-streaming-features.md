@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/yOHQeHV2iYk"
   watchUrl: "https://www.youtube.com/watch?v=yOHQeHV2iYk"
   thumbnailUrl: "https://i.ytimg.com/vi/yOHQeHV2iYk/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube Updates: BrandConnect Expansion & neue Streaming-Features!? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

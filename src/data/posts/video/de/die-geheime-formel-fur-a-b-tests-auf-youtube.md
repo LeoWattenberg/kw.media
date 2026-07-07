@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/ouFl0bkCWx4"
   watchUrl: "https://www.youtube.com/watch?v=ouFl0bkCWx4"
   thumbnailUrl: "https://i.ytimg.com/vi/ouFl0bkCWx4/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Die geheime Formel für A/B-Tests auf YouTube? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

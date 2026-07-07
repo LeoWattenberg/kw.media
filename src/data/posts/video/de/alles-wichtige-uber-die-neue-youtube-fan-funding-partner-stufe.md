@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/qzmGBdpLlDQ"
   watchUrl: "https://www.youtube.com/watch?v=qzmGBdpLlDQ"
   thumbnailUrl: "https://i.ytimg.com/vi/qzmGBdpLlDQ/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei ALLES Wichtige über die neue YouTube \"Fan Funding\" Partner Stufe? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

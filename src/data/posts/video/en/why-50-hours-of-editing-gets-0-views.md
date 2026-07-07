@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/ym_qnPaIiCk"
   watchUrl: "https://www.youtube.com/shorts/ym_qnPaIiCk"
   thumbnailUrl: "https://i.ytimg.com/vi/ym_qnPaIiCk/maxresdefault.jpg"
+postCta:
+  text: "Confused about why your meticulously edited videos aren't gaining traction? Check out our {page} for expert advice on improving your channel's performance without burning out."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

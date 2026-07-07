@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/mnMu7iY7i7E"
   watchUrl: "https://www.youtube.com/watch?v=mnMu7iY7i7E"
   thumbnailUrl: "https://i.ytimg.com/vi/mnMu7iY7i7E/maxresdefault.jpg"
+postCta:
+  text: "Confused about reused content and YouTube monetization? Don't worry, we've got you covered. Check out our {page} for expert advice on how to navigate this issue and get your channel back on track."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

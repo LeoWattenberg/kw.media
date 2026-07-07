@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/EBJz7RhXxOA"
   watchUrl: "https://www.youtube.com/watch?v=EBJz7RhXxOA"
   thumbnailUrl: "https://i.ytimg.com/vi/EBJz7RhXxOA/maxresdefault.jpg"
+postCta:
+  text: "Confused about these YouTube changes? From the new payment view in YouTube Studio to upcoming mobile live streaming, our {page} can help. Get expert support and practical advice on all things YouTube."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

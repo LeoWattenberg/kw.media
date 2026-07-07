@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/TjSGf5YjMtI"
   watchUrl: "https://www.youtube.com/watch?v=TjSGf5YjMtI"
   thumbnailUrl: "https://i.ytimg.com/vi/TjSGf5YjMtI/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube Promotions Tab: Lohnt sich das wirklich?? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

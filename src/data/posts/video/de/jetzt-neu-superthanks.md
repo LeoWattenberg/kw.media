@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/OYppjzpPs8U"
   watchUrl: "https://www.youtube.com/shorts/OYppjzpPs8U"
   thumbnailUrl: "https://i.ytimg.com/vi/OYppjzpPs8U/maxresdefault.jpg"
+postCta:
+  text: "Wenn du mehr über diese neue Funktion erfahren möchtest, schau dir {page} an, um detaillierte Informationen zu erhalten und lerne, wie du diese Einnahmequelle optimal nutzt, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

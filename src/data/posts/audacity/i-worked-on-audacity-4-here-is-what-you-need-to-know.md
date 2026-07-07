@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/5nJuWdclGkw"
   watchUrl: "https://www.youtube.com/watch?v=5nJuWdclGkw"
   thumbnailUrl: "https://i.ytimg.com/vi/5nJuWdclGkw/maxresdefault.jpg"
+postCta:
+  text: "Confused about Audacity 4's new features? Our {page} offers in-depth tutorials to help you navigate the updates and make the most of this powerful audio software, or contact our expert below."
+  pagePath: "/en/audacity/"
+  pageTitle: "Audacity Tutorials"
 ---
 
 ## Transcript

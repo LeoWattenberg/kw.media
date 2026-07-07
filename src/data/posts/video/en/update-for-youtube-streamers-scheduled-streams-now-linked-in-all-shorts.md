@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/1xInnsGnSxM"
   watchUrl: "https://www.youtube.com/watch?v=1xInnsGnSxM"
   thumbnailUrl: "https://i.ytimg.com/vi/1xInnsGnSxM/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new 3-minute Shorts and their impact on streaming? Check out our {page} for more insights and tips on how to utilize these changes effectively, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

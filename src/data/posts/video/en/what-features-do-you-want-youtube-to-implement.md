@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/dweBFb3ts3k"
   watchUrl: "https://www.youtube.com/shorts/dweBFb3ts3k"
   thumbnailUrl: "https://i.ytimg.com/vi/dweBFb3ts3k/maxresdefault.jpg"
+postCta:
+  text: "Not sure what features YouTube should implement next? Our {page} can help you understand the platform better and get your voice heard. Share your ideas and rank them in our survey to shape the future of YouTube for creators, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

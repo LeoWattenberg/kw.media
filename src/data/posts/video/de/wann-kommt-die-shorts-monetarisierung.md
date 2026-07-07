@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/5DBif93dBc4"
   watchUrl: "https://www.youtube.com/shorts/5DBif93dBc4"
   thumbnailUrl: "https://i.ytimg.com/vi/5DBif93dBc4/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die Monetarisierung von YouTube Shorts? Bei kw.media findest du Unterstützung und Beratung für deinen Kanal. Besuche unsere {page} Seite, um mehr zu erfahren oder kontaktiere unsere Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

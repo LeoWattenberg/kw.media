@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/blog/the-creator-co-op-why-the-future-of-vtubing-should-belong-to-the-talent/"
+postCta:
+  text: "Confused about the future of VTubing? Learn more about how {page} can help you build a healthier, more autonomous future as a virtual entertainer, or contact our expert below."
+  pagePath: "/en/vtuber/"
+  pageTitle: "VTubers"
 ---
 
 > Moin. Leo here, I’ve broken my arm and are unable to write cool blogposts at the moment. So here is a rant, transcribed with DaVinci Resolve Studio and ran through MartinGPT (aka I bossed him around to structure this for me). Unfortunatly some of my witty style has been lost in the process.

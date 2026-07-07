@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/KPkL5wj7NzI"
   watchUrl: "https://www.youtube.com/shorts/KPkL5wj7NzI"
   thumbnailUrl: "https://i.ytimg.com/vi/KPkL5wj7NzI/maxresdefault.jpg"
+postCta:
+  text: "Du bist dir unsicher, wie du YouTube Live-Umleitungen (Raids) einrichtest? Auf unserer {page} findest du weitere Informationen und Unterstützung für deinen YouTube-Kanal, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

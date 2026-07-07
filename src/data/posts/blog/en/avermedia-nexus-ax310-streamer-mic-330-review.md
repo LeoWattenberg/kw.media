@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/06/AM_NEXUS_BACK.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/avermedia-nexus-ax310-streamer-mic-330-review/"
+postCta:
+  text: "For more guidance on creator services, including YouTube support and monetization strategies, visit {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 When talking about taking streaming or content creation in general to the next level upgrading audio equipment is one of the first things to do. For reference on what might be a good fit for you, have a look at our [audio guide to happiness](/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/).

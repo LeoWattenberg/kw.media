@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/qQOhV-QmOU4"
   watchUrl: "https://www.youtube.com/watch?v=qQOhV-QmOU4"
   thumbnailUrl: "https://i.ytimg.com/vi/qQOhV-QmOU4/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new A/B testing feature for video files? Don't let it triple your editing time. Learn more about how to navigate these changes and protect your time as a solo Creator on our {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

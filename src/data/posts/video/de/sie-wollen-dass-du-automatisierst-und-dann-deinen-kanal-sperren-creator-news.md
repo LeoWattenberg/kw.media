@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/TRS0NIOahBM"
   watchUrl: "https://www.youtube.com/watch?v=TRS0NIOahBM"
   thumbnailUrl: "https://i.ytimg.com/vi/TRS0NIOahBM/maxresdefault.jpg"
+postCta:
+  text: "Verwirrende Updates von YouTube und Twitch? Bei kw.media finden Sie Unterstützung und Beratung für Creator. Erfahren Sie mehr über {page} und wie wir Ihnen helfen können, Ihre Strategie anzupassen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/JXe3Pop5N3U"
   watchUrl: "https://www.youtube.com/shorts/JXe3Pop5N3U"
   thumbnailUrl: "https://i.ytimg.com/vi/JXe3Pop5N3U/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest andere YouTube-Kanäle in deinen Titeln oder Beschreibungen verlinken? Erfahre mehr über diese nützliche Funktion auf unserer {page} und verbessere deine Videos mit cleveren Verlinkungen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

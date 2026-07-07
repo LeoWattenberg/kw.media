@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/jkTohCOCLdg"
   watchUrl: "https://www.youtube.com/watch?v=jkTohCOCLdg"
   thumbnailUrl: "https://i.ytimg.com/vi/jkTohCOCLdg/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube-Updates: Fehler bei Mid-Roll-Anzeigen & kommende? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

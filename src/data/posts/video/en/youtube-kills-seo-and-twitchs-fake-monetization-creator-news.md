@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/DSZHozupVlk"
   watchUrl: "https://www.youtube.com/watch?v=DSZHozupVlk"
   thumbnailUrl: "https://i.ytimg.com/vi/DSZHozupVlk/maxresdefault.jpg"
+postCta:
+  text: "Confused about recent platform changes? From YouTube's SEO challenges to Twitch's monetization tactics, understanding these updates is crucial. Visit our {page} for expert insights and guidance on navigating these shifts."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

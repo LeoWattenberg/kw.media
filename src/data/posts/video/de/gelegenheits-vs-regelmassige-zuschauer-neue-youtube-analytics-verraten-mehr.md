@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/gw2bfa-N8b8"
   watchUrl: "https://www.youtube.com/watch?v=gw2bfa-N8b8"
   thumbnailUrl: "https://i.ytimg.com/vi/gw2bfa-N8b8/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei „Gelegenheits“- vs. „Regelmäßige“ Zuschauer? Neue YouTube? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

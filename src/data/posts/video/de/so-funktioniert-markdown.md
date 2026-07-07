@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/39fXwnCNd3I"
   watchUrl: "https://www.youtube.com/shorts/39fXwnCNd3I"
   thumbnailUrl: "https://i.ytimg.com/vi/39fXwnCNd3I/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest mehr über die Markdown-Funktion auf YouTube erfahren? In unserem {page} findest du weitere Tipps und Tricks, um deine Videobeschreibungen zu optimieren, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

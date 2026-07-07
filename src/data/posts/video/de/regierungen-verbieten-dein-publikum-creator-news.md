@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/U4ZQqoBy7nU"
   watchUrl: "https://www.youtube.com/watch?v=U4ZQqoBy7nU"
   thumbnailUrl: "https://i.ytimg.com/vi/U4ZQqoBy7nU/maxresdefault.jpg"
+postCta:
+  text: "Für mehr Informationen und individuelle Beratung zu Kanalstrategien und Monetarisierung besuche {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

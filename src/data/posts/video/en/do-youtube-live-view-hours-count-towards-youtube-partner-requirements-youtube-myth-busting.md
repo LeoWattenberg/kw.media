@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/aIFl-V2c47o"
   watchUrl: "https://www.youtube.com/watch?v=aIFl-V2c47o"
   thumbnailUrl: "https://i.ytimg.com/vi/aIFl-V2c47o/maxresdefault.jpg"
+postCta:
+  text: "Not sure how YouTube Live view hours impact Partner Program eligibility? {page} offers expert insights on meeting YouTube's requirements, including how public live streams can contribute to the necessary view hours."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

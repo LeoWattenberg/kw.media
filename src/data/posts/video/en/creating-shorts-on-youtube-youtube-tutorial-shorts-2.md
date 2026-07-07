@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/M_hmS22uI-8"
   watchUrl: "https://www.youtube.com/shorts/M_hmS22uI-8"
   thumbnailUrl: "https://i.ytimg.com/vi/M_hmS22uI-8/maxresdefault.jpg"
+postCta:
+  text: "Creating engaging YouTube Shorts is easy! Simply record or use existing clips, add music & text, then publish. For more detailed tips and tricks about YouTube Shorts, check out our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

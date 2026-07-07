@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/06/WHY-GRINDING-IS-BAD-FOR-YOU.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/"
+postCta:
+  text: "Du bist verwirrt, warum ständiges Produzieren Creators schaden kann? Entdecke auf unserer {page} Seite, wie intelligente Planung und gesündere Arbeitsweisen nachhaltiges Wachstum deines Kanals fördern können, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Oft sehen wir [kleine YouTuber](/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/):innen, besonders aus dem Gaming-Bereich, über „The Grind“ sprechen. Die Idee dahinter ist, dass es eine Phase am Anfang gibt, in der man einfach nur regelmäßig Videos erstellen muss. Nach einer unbestimmten Zeit wird YouTube dann deine Videos entdecken, sie allen empfehlen und du wirst berühmt.

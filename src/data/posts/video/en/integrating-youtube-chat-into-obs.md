@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/E5BmjrCT1LE"
   watchUrl: "https://www.youtube.com/shorts/E5BmjrCT1LE"
   thumbnailUrl: "https://i.ytimg.com/vi/E5BmjrCT1LE/maxresdefault.jpg"
+postCta:
+  text: "Confused about integrating YouTube Live Chat into OBS? Our {page} offers free tools and step-by-step guidance to help you display chat seamlessly in your broadcasts, or contact our expert below."
+  pagePath: "/en/tools/"
+  pageTitle: "Tools"
 ---
 
 ## Transcript

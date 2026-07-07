@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/U4ZQqoBy7nU"
   watchUrl: "https://www.youtube.com/watch?v=U4ZQqoBy7nU"
   thumbnailUrl: "https://i.ytimg.com/vi/U4ZQqoBy7nU/maxresdefault.jpg"
+postCta:
+  text: "Confused about how government bans might affect your YouTube audience? Don't panic. Explore our {page} for expert insights on navigating these changes and keeping your channel thriving."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

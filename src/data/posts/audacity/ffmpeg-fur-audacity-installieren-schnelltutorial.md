@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/OSmA6MtFYZ8"
   watchUrl: "https://www.youtube.com/watch?v=OSmA6MtFYZ8"
   thumbnailUrl: "https://i.ytimg.com/vi/OSmA6MtFYZ8/maxresdefault.jpg"
+postCta:
+  text: "Du bist dir unsicher, wie du FFmpeg für Audacity installierst? Auf unserer {page} findest du weitere Tutorials und Hilfestellungen rund um Audacity. Dort kannst du dich ausführlich informieren und deine Fragen klären, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/audacity/"
+  pageTitle: "Audacity Tutorials"
 ---
 
 ## Transkript

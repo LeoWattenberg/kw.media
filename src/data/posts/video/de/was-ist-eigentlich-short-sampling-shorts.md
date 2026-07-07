@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/FlH6HGVR82A"
   watchUrl: "https://www.youtube.com/shorts/FlH6HGVR82A"
   thumbnailUrl: "https://i.ytimg.com/vi/FlH6HGVR82A/maxresdefault.jpg"
+postCta:
+  text: "Du bist unsicher, wie du mit Short Sampling umgehen sollst? Auf unserer {page} findest du weitere Informationen und Unterstützung zu allen Fragen rund um deinen YouTube-Kanal, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

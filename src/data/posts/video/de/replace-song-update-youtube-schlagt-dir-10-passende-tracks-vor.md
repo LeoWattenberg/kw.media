@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/87bdAsXU_kI"
   watchUrl: "https://www.youtube.com/watch?v=87bdAsXU_kI"
   thumbnailUrl: "https://i.ytimg.com/vi/87bdAsXU_kI/maxresdefault.jpg"
+postCta:
+  text: "Bist du unsicher, wie du mit Urheberrechtsansprüchen umgehen sollst? Auf unserer {page} findest du Unterstützung und Beratung für Creator. Wir helfen dir, deinen Kanal zu optimieren und solche Probleme zu vermeiden, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/8xWKE5cgjbU"
   watchUrl: "https://www.youtube.com/shorts/8xWKE5cgjbU"
   thumbnailUrl: "https://i.ytimg.com/vi/8xWKE5cgjbU/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest Musik in deinen Videos verwenden, ohne dich mit Lizenzen auseinandersetzen zu müssen? Entdecke mehr auf unserer {page} und lass dich von unseren Experten beraten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

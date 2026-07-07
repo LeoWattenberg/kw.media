@@ -12,6 +12,10 @@ category: "blog"
 image: "https://preview.redd.it/kyowv0gqyjf51.png?width=871&format=png&auto=webp&s=3dd0d8ac5dcc28d8239a720c6d0e94aded380d63"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/"
+postCta:
+  text: "Unsicher bei Wie man seine Miniaturansichten auf YouTube nicht vermasselt – ein? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Moin.

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/e77-Rus2x4g"
   watchUrl: "https://www.youtube.com/watch?v=e77-Rus2x4g"
   thumbnailUrl: "https://i.ytimg.com/vi/e77-Rus2x4g/maxresdefault.jpg"
+postCta:
+  text: "Du bist unsicher, wie Autodubbing deinen Kanal beeinflussen könnte? Auf unserer {page} findest du weitere Tipps und Tricks rund um YouTube, die dir helfen können, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

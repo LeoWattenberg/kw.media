@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-get-clicks-on-thumbnails-the-aida-model/"
+postCta:
+  text: "Unsicher bei Wie man Klicks auf YouTube-Miniaturansichten bekommt: Das AIDA-Modell? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Das Erstellen von Miniaturansichten kann schwierig und frustrierend sein. Selbst wenn du die technischen Fähigkeiten hast, um sie ansprechend zu gestalten, funktionieren sie vielleicht trotzdem nicht und erzielen katastrophale Klickraten. Aber warum ist das so? Genau darum geht es in diesem YouTube-Miniaturansicht-Tutorial. Es ist etwas theoretisch, aber du solltest ein grundlegendes Verständnis für das „Warum“ bekommen.

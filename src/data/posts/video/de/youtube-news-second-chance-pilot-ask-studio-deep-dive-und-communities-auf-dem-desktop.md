@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/vmze-TsKCYQ"
   watchUrl: "https://www.youtube.com/watch?v=vmze-TsKCYQ"
   thumbnailUrl: "https://i.ytimg.com/vi/vmze-TsKCYQ/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube Creator News: Zweitchance-Pilotprogramm, Ask Studio Deep Dive &? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/VTYh7opEoNY"
   watchUrl: "https://www.youtube.com/watch?v=VTYh7opEoNY"
   thumbnailUrl: "https://i.ytimg.com/vi/VTYh7opEoNY/maxresdefault.jpg"
+postCta:
+  text: "Confused about these platform changes? Our team at {page} offers expert support, analytics, and monetization strategies to help you navigate these updates. Reach out for personalized guidance."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

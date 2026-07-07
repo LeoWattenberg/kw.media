@@ -12,6 +12,10 @@ category: "blog"
 image: "https://lh6.googleusercontent.com/eWeMjTqNdIR4AOgH_aTWqYslVE3cj1h2iIxrAnWMUycTQgDXzGClDJ33m8xucehQ4q91mnw4q86QtQSGhiU3bbJZrIvUMlOFP-vZmb8FkcH7PJndZXYRrKxWKhxeL82GP9FvtvmwYkQB5NwoNL6uZlt5O-T0AdzpOJg7vL_eoHTWNtoaXBZkhD-SJFfuCA"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-youtube-live-streaming/"
+postCta:
+  text: "Du möchtest mehr über Live-Streaming erfahren? Auf unserer {page} findest du weitere Tipps und Tricks, um deinen YouTube-Kanal zu optimieren und professionell durchzustarten, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Du möchtest mit dem [YouTube-Streaming](/youtube-tipps-de/wie-man-live-streams-beherrscht/) beginnen – super! YouTube funktioniert in seinem Kern wie die meisten Live-Streaming-Plattformen, aber lasst uns gemeinsam die wichtigsten Punkte durchgehen.

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/c_wnvd3Ru0A"
   watchUrl: "https://www.youtube.com/shorts/c_wnvd3Ru0A"
   thumbnailUrl: "https://i.ytimg.com/vi/c_wnvd3Ru0A/maxresdefault.jpg"
+postCta:
+  text: "Confused about how to make money beyond YouTube ads? We've outlined seven ways creators are earning right now. Want to learn more about these strategies and which might fit your style best? Check out {page} for expert insights and support."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

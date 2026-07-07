@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/67GI43uGC4s"
   watchUrl: "https://www.youtube.com/shorts/67GI43uGC4s"
   thumbnailUrl: "https://i.ytimg.com/vi/67GI43uGC4s/maxresdefault.jpg"
+postCta:
+  text: "Du bist dir nicht sicher, wie du deinen neuen YouTube @-Namen einrichtest? Auf unserer {page} findest du weitere Tipps und Tricks rund um YouTube und kannst dich jederzeit von unseren Experten beraten lassen."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

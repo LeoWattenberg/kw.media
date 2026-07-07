@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/37D_qt7XH7c"
   watchUrl: "https://www.youtube.com/watch?v=37D_qt7XH7c"
   thumbnailUrl: "https://i.ytimg.com/vi/37D_qt7XH7c/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Die „neuen“ AI-Monetarisierungsregeln von YouTube: Ein Update ohne? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -7,11 +7,15 @@ excerpt: "Ein praktisches Inhaltsmodell zur Erfassung der Absichten des Publikum
 date: "2022-01-08T10:31:12"
 modified: "2023-03-17T12:57:27"
 locale: "de"
-category: "blog"
 translationKey: "post:1875"
+category: "blog"
 image: "https://leowattenberg.files.wordpress.com/2020/10/3d-see-nts-1.png?w=300"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-wattenberg-indicator/"
+postCta:
+  text: "Du bist verwirrt über das neue SEE NTS Modell und wie es deine YouTube-Strategie beeinflussen könnte? Bei kw.media finden {page} du Expertenwissen und Beratung, um deinen Kanal auf das nächste Level zu heben, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Moin.

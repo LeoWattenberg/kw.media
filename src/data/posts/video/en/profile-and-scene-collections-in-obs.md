@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/5jWzRRKKR2k"
   watchUrl: "https://www.youtube.com/shorts/5jWzRRKKR2k"
   thumbnailUrl: "https://i.ytimg.com/vi/5jWzRRKKR2k/maxresdefault.jpg"
+postCta:
+  text: "Confused about streaming presets in OBS? Our {page} offers tools and tutorials to help you transfer settings and scenes between devices effortlessly, or contact our expert below."
+  pagePath: "/en/tools/"
+  pageTitle: "Tools"
 ---
 
 ## Transcript

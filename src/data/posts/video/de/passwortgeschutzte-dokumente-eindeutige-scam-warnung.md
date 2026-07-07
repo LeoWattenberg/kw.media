@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/I26HIlgDa64"
   watchUrl: "https://www.youtube.com/watch?v=I26HIlgDa64"
   thumbnailUrl: "https://i.ytimg.com/vi/I26HIlgDa64/maxresdefault.jpg"
+postCta:
+  text: "Bist du unsicher, wie du dich vor solchen Scams schützen kannst? Auf unserer {page} findest du weitere Tipps und Tricks rund um YouTube-Sicherheit und vieles mehr. Dort helfen wir dir gerne weiter, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

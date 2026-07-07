@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/glHG5LA9-4E"
   watchUrl: "https://www.youtube.com/watch?v=glHG5LA9-4E"
   thumbnailUrl: "https://i.ytimg.com/vi/glHG5LA9-4E/maxresdefault.jpg"
+postCta:
+  text: "Bist du verwirrt von den neuesten YouTube-Entwicklungen? Entdecke auf {page}, wie wir dich bei Geschenkekombis, Hype-Funktionen und KI-Inspiration unterstützen können, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

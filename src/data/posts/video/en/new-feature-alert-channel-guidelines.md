@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/SI8OKrwxSu8"
   watchUrl: "https://www.youtube.com/shorts/SI8OKrwxSu8"
   thumbnailUrl: "https://i.ytimg.com/vi/SI8OKrwxSu8/maxresdefault.jpg"
+postCta:
+  text: "Not sure how to explain chat and comment rules to new viewers? With YouTube's new Channel Guidelines feature, you can set clear expectations quickly. Learn more about this and other creator services on our {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/TRS0NIOahBM"
   watchUrl: "https://www.youtube.com/watch?v=TRS0NIOahBM"
   thumbnailUrl: "https://i.ytimg.com/vi/TRS0NIOahBM/maxresdefault.jpg"
+postCta:
+  text: "Confused about the recent platform changes? From YouTube's price hikes to Twitch's new AI tools, it's a lot to process. {page} offers expert support and analytics to help you navigate these updates and keep your channel thriving."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

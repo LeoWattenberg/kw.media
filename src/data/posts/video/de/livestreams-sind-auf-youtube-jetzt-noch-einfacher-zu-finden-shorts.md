@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/nmWIRLz-2LA"
   watchUrl: "https://www.youtube.com/shorts/nmWIRLz-2LA"
   thumbnailUrl: "https://i.ytimg.com/vi/nmWIRLz-2LA/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt, wie du Livestreams auf YouTube findest? Mehr dazu erfährst du auf unserer {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/nhfBKX1ZYWc"
   watchUrl: "https://www.youtube.com/shorts/nhfBKX1ZYWc"
   thumbnailUrl: "https://i.ytimg.com/vi/nhfBKX1ZYWc/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube engagement metrics? {page} offers comprehensive support, including analytics interpretation. Learn how views, impressions, click-through rates, and average view duration can enhance your content strategy, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

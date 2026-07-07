@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/mKOsyRGYNyc"
   watchUrl: "https://www.youtube.com/watch?v=mKOsyRGYNyc"
   thumbnailUrl: "https://i.ytimg.com/vi/mKOsyRGYNyc/maxresdefault.jpg"
+postCta:
+  text: "Not sure where to start with your YouTube channel? Our {page} offers comprehensive support, from analytics and monetization to consulting. We'll help you navigate the platform and take your channel to the next level, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

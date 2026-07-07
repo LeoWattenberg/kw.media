@@ -11,6 +11,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-10-21-50-36.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/sei-ein-youtuber-kein-newtuber-mach-guten-content/"
+postCta:
+  text: "Du fragst dich, wie du deinen YouTube-Kanal verbessern kannst? Von der Idee bis zur Umsetzung - auf unserer {page} findest du wertvolle Tipps und Unterstützung für deine kreative Reise, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Moin! Einen YouTube Kanal zu betreiben ist harte Arbeit. Es gibt eine Menge Dinge die man bedenken muss, diese reichen von Thumbnails (Vorschaubildern) und SEO (Suchmaschinenoptimierung) bis hin zur Monetarisierung und Branding. Und auch wenn all diese Dinge an sich wichtig sind, ist es einfach das Wichtigste zu vergessen: Guten Content machen.

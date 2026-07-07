@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/s5_yhiar6UU"
   watchUrl: "https://www.youtube.com/shorts/s5_yhiar6UU"
   thumbnailUrl: "https://i.ytimg.com/vi/s5_yhiar6UU/maxresdefault.jpg"
+postCta:
+  text: "Confused about linking OBS to your streaming platforms? Our {page} offers comprehensive support for YouTube and Twitch integration, ensuring seamless streaming, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/39fXwnCNd3I"
   watchUrl: "https://www.youtube.com/shorts/39fXwnCNd3I"
   thumbnailUrl: "https://i.ytimg.com/vi/39fXwnCNd3I/maxresdefault.jpg"
+postCta:
+  text: "Still unsure how to format text in your YouTube descriptions? Learn how to use Markdown to make text italic, bold, or strikethrough. Find more helpful tips on our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

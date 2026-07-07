@@ -12,6 +12,10 @@ category: "blog"
 image: "https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-mobile-producion-for-everyone/"
+postCta:
+  text: "Unsicher bei Mobile Produktion für alle? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Heute sprechen wir über mobile Produktion für YouTube und [YouTube Live](/youtube-tipps-de/einstieg-in-das-live-streaming-auf-youtube/). Dies ist ein allgemeinerer Ansatz für die mobile Produktion, später im Artikel gehen wir jedoch auf spezifischere Gaming-Details ein, also bleibt dran.

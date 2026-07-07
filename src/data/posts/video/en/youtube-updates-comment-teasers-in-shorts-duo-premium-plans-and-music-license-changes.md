@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/mwI9bSG6_dw"
   watchUrl: "https://www.youtube.com/watch?v=mwI9bSG6_dw"
   thumbnailUrl: "https://i.ytimg.com/vi/mwI9bSG6_dw/maxresdefault.jpg"
+postCta:
+  text: "Confused about the recent YouTube changes? From comment teasers in Shorts to music license revocations, we've got you covered. Learn more about how these updates might affect your channel and explore our {page} for expert advice and support."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

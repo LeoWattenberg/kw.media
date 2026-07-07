@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/D8AioV3AM6Y"
   watchUrl: "https://www.youtube.com/watch?v=D8AioV3AM6Y"
   thumbnailUrl: "https://i.ytimg.com/vi/D8AioV3AM6Y/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube testet neuen \"Am relevantesten\"-Filter für Abonnement-Feeds!? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

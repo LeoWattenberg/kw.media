@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/MxTHgbSwjWE"
   watchUrl: "https://www.youtube.com/shorts/MxTHgbSwjWE"
   thumbnailUrl: "https://i.ytimg.com/vi/MxTHgbSwjWE/maxresdefault.jpg"
+postCta:
+  text: "Confused about integrating consoles like Playstation, Xbox, or Switch into OBS? For more insights on creator tools, check out {page}, or contact our expert below."
+  pagePath: "/en/tools/"
+  pageTitle: "Tools"
 ---
 
 ## Transcript

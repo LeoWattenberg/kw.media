@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/MESXE9-pLDc"
   watchUrl: "https://www.youtube.com/shorts/MESXE9-pLDc"
   thumbnailUrl: "https://i.ytimg.com/vi/MESXE9-pLDc/maxresdefault.jpg"
+postCta:
+  text: "Still unsure about creating end cards? Our {page} offers valuable tips and tricks to enhance your YouTube videos with engaging end screens, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

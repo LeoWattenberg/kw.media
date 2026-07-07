@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/3sIpLIwsQEo"
   watchUrl: "https://www.youtube.com/shorts/3sIpLIwsQEo"
   thumbnailUrl: "https://i.ytimg.com/vi/3sIpLIwsQEo/maxresdefault.jpg"
+postCta:
+  text: "Confused about Understanding YouTube Impressions: A Guide? We can help. Check {page} for more info, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/3BrtN4P1Qnc"
   watchUrl: "https://www.youtube.com/watch?v=3BrtN4P1Qnc"
   thumbnailUrl: "https://i.ytimg.com/vi/3BrtN4P1Qnc/maxresdefault.jpg"
+postCta:
+  text: "Für mehr Informationen und Unterstützung bei der Interpretation deiner Kanalzahlen besuche unsere {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

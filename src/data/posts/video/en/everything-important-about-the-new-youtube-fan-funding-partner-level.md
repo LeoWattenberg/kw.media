@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/qzmGBdpLlDQ"
   watchUrl: "https://www.youtube.com/watch?v=qzmGBdpLlDQ"
   thumbnailUrl: "https://i.ytimg.com/vi/qzmGBdpLlDQ/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new YouTube fan funding tier? The {page} team can help you understand earlier access to features like Channel Memberships and Super Chat. Get in touch for personalized support."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

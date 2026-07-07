@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/gs5hdwEO9gs"
   watchUrl: "https://www.youtube.com/shorts/gs5hdwEO9gs"
   thumbnailUrl: "https://i.ytimg.com/vi/gs5hdwEO9gs/maxresdefault.jpg"
+postCta:
+  text: "For more tips on effective video editing techniques, explore our {page} to elevate your content creation game, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

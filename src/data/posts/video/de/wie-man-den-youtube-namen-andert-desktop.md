@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/hqePaFc8fCA"
   watchUrl: "https://www.youtube.com/shorts/hqePaFc8fCA"
   thumbnailUrl: "https://i.ytimg.com/vi/hqePaFc8fCA/maxresdefault.jpg"
+postCta:
+  text: "Verwirrende Namen im Live Chat? kw.media hilft! Besuche unsere {page} für persönliche Beratung und Support rund um deinen YouTube-Kanal, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

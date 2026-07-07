@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/GSv_RD1b7b8"
   watchUrl: "https://www.youtube.com/watch?v=GSv_RD1b7b8"
   thumbnailUrl: "https://i.ytimg.com/vi/GSv_RD1b7b8/maxresdefault.jpg"
+postCta:
+  text: "Hast du nach unserem YouTube FAQ-Video noch Fragen zu Multi-Aspekt-Streams, Fan-Communities oder Veo 3 AI? Bei kw.media findest du weitere Informationen und Unterstützung für deinen Kanal. Schau auf unserer {page} vorbei oder kontaktiere uns direkt."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

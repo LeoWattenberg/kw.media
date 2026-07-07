@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/k67uRZ1mEw4"
   watchUrl: "https://www.youtube.com/watch?v=k67uRZ1mEw4"
   thumbnailUrl: "https://i.ytimg.com/vi/k67uRZ1mEw4/maxresdefault.jpg"
+postCta:
+  text: "Confused about how to optimize your content strategy? The new 'Top Earning Content' analytics card breaks down revenue by format. Check out our {page} for more insights and expert advice on maximizing your YouTube earnings."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/2gVOJsKlUbo"
   watchUrl: "https://www.youtube.com/shorts/2gVOJsKlUbo"
   thumbnailUrl: "https://i.ytimg.com/vi/2gVOJsKlUbo/maxresdefault.jpg"
+postCta:
+  text: "Confused about whether a face cam is essential for growth? For personalized guidance on channel growth, explore our {page} services, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

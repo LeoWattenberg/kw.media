@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Rl2fol2fqhg"
   watchUrl: "https://www.youtube.com/watch?v=Rl2fol2fqhg"
   thumbnailUrl: "https://i.ytimg.com/vi/Rl2fol2fqhg/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube Updates: Google Lens Integration & Weitere neue Funktionen!? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

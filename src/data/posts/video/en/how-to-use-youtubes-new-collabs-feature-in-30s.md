@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/SazJMCMxsQo"
   watchUrl: "https://www.youtube.com/shorts/SazJMCMxsQo"
   thumbnailUrl: "https://i.ytimg.com/vi/SazJMCMxsQo/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new YouTube Collabs feature? Our {page} offers comprehensive support and consulting to help you navigate this exciting update, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

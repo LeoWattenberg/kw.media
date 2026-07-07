@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/"
+postCta:
+  text: "Confused about escaping the small YouTuber niche? The EEE model can help. Explore diverse content options, define your target audience, and optimize your channel. For expert guidance and support, check out our {page} services."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 Hey there.

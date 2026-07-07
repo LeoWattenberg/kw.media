@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/_KvD9yQ9YUo"
   watchUrl: "https://www.youtube.com/shorts/_KvD9yQ9YUo"
   thumbnailUrl: "https://i.ytimg.com/vi/_KvD9yQ9YUo/maxresdefault.jpg"
+postCta:
+  text: "Bist du unsicher, wie du den neuen strengen Modus für Kommentarfilter auf YouTube einrichtest? Auf unserer {page} findest du weitere Tipps und Tricks rund um deinen Kanal, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/1dTIcDQb0pY"
   watchUrl: "https://www.youtube.com/watch?v=1dTIcDQb0pY"
   thumbnailUrl: "https://i.ytimg.com/vi/1dTIcDQb0pY/maxresdefault.jpg"
+postCta:
+  text: "Confused about digital revenue on YouTube and Twitch? Our {page} offers expert insights into channel analytics, monetization strategies, and more. Learn how to maximize your earnings."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

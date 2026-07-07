@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/t-36QlpRlEc"
   watchUrl: "https://www.youtube.com/watch?v=t-36QlpRlEc"
   thumbnailUrl: "https://i.ytimg.com/vi/t-36QlpRlEc/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube HYPE, Livestream & SuperChat Updates? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

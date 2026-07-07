@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/CVIdTBgfJ4g"
   watchUrl: "https://www.youtube.com/shorts/CVIdTBgfJ4g"
   thumbnailUrl: "https://i.ytimg.com/vi/CVIdTBgfJ4g/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Szenen und Quellen in OBS effektiv nutzen? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

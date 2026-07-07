@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/06/audioguide-FINAL.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/"
+postCta:
+  text: "Confused about audio setup for your streams and videos? We've got you covered. Check out our {page} for expert tips on microphones, levels, and more to make your content sound great."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 Audio is the most important part to get right of a video. This may be counterintuitive at first – it ought to be the actual visual part (ie, the video), right? – but: A lot of viewers watch your content on mobile, and on mobile phones, 480p often is clear enough, especially if you are on mobile data.

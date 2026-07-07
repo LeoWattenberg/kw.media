@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/j6Ki4mps6nA"
   watchUrl: "https://www.youtube.com/watch?v=j6Ki4mps6nA"
   thumbnailUrl: "https://i.ytimg.com/vi/j6Ki4mps6nA/maxresdefault.jpg"
+postCta:
+  text: "Bist du verwirrt von den neuesten YouTube-Updates? Besuche unsere {page}, um mehr über die neuen Funktionen wie die Abonnentenliste, Shorts-Ansichten und die „Pause machen“-Funktion in Live-Streams zu erfahren, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

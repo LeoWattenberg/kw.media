@@ -11,6 +11,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/i-got-a-strike-what-now/"
+postCta:
+  text: "For comprehensive support and guidance on handling strikes and other YouTube-related issues, explore our {page} to find expert consulting and practical solutions."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 If you just received your fist strike on YouTube, your first course of action should be to calm down. Do not delete any videos. You are in an uncomfortable situation, yes. But you aren’t lost, and there is plenty of time to fix the situation. Now, let’s understand the situation:

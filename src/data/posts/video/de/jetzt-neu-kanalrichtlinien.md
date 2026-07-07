@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/SI8OKrwxSu8"
   watchUrl: "https://www.youtube.com/shorts/SI8OKrwxSu8"
   thumbnailUrl: "https://i.ytimg.com/vi/SI8OKrwxSu8/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest deine Chat- und Kommentarregeln klar kommunizieren? Schau dir auf unserer {page} an, wie du diese Funktion einrichtest und deinen Zuschauern einen reibungslosen Start auf deinem Kanal bietest, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

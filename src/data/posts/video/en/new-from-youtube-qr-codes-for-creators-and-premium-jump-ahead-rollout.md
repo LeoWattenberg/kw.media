@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/hsmHl_LDtxg"
   watchUrl: "https://www.youtube.com/watch?v=hsmHl_LDtxg"
   thumbnailUrl: "https://i.ytimg.com/vi/hsmHl_LDtxg/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new QR code feature or Premium Jump Ahead? We can help. Visit our {page} for more insights and expert advice on navigating these changes."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

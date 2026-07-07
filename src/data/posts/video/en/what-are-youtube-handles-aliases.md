@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/jQdcFKeY1xA"
   watchUrl: "https://www.youtube.com/shorts/jQdcFKeY1xA"
   thumbnailUrl: "https://i.ytimg.com/vi/jQdcFKeY1xA/maxresdefault.jpg"
+postCta:
+  text: "YouTube offers various ways to redirect users to your channel. If you're confused about handles, aliases, or custom URLs, visit our {page} for more information and expert guidance."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/4vqgeulXPO8"
   watchUrl: "https://www.youtube.com/watch?v=4vqgeulXPO8"
   thumbnailUrl: "https://i.ytimg.com/vi/4vqgeulXPO8/maxresdefault.jpg"
+postCta:
+  text: "Bist du unsicher, wie sich die neuen YouTube-Richtlinien für Glücksspiel auswirken? Auf unserer {page} findest du Unterstützung und Beratung zu allen Fragen rund um deinen Kanal, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

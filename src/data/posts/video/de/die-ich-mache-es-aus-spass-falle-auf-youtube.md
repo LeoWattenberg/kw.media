@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/JIJbmewxJVk"
   watchUrl: "https://www.youtube.com/shorts/JIJbmewxJVk"
   thumbnailUrl: "https://i.ytimg.com/vi/JIJbmewxJVk/maxresdefault.jpg"
+postCta:
+  text: "Du fragst dich, ob es in Ordnung ist, kein Interesse an der Monetarisierung deines YouTube-Kanals zu haben? Erfahre mehr auf unserer {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

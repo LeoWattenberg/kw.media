@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/VB0-XfW6lms"
   watchUrl: "https://www.youtube.com/watch?v=VB0-XfW6lms"
   thumbnailUrl: "https://i.ytimg.com/vi/VB0-XfW6lms/maxresdefault.jpg"
+postCta:
+  text: "Need more help with Audacity? Our {page} offers detailed tutorials and updates to enhance your audio editing skills. Learn more and get expert advice."
+  pagePath: "/en/audacity/"
+  pageTitle: "Audacity Tutorials"
 ---
 
 ## Transcript

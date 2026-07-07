@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/iVVTODHIeP4"
   watchUrl: "https://www.youtube.com/shorts/iVVTODHIeP4"
   thumbnailUrl: "https://i.ytimg.com/vi/iVVTODHIeP4/maxresdefault.jpg"
+postCta:
+  text: "Bist du unsicher, wie du die KI-Super-Auflösung auf YouTube deaktivieren kannst? Auf unserer {page} findest du eine detaillierte Anleitung und weitere hilfreiche Tipps für deinen Kanal, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/jnVTl0DWVWs"
   watchUrl: "https://www.youtube.com/watch?v=jnVTl0DWVWs"
   thumbnailUrl: "https://i.ytimg.com/vi/jnVTl0DWVWs/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new YouTube hype feature or 10-year membership badges? Our {page} can help you understand these changes and how they might affect your channel. Get in touch with our experts for personalized support."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

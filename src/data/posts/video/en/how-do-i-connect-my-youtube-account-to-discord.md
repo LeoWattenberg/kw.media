@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/iN-yGbTd3z4"
   watchUrl: "https://www.youtube.com/shorts/iN-yGbTd3z4"
   thumbnailUrl: "https://i.ytimg.com/vi/iN-yGbTd3z4/maxresdefault.jpg"
+postCta:
+  text: "Connecting your YouTube account to Discord can seem confusing at first. For a step-by-step guide, visit our {page} to learn how easy it is, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

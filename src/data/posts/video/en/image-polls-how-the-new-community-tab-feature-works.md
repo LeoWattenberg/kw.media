@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/eFpsYo_qJbM"
   watchUrl: "https://www.youtube.com/shorts/eFpsYo_qJbM"
   thumbnailUrl: "https://i.ytimg.com/vi/eFpsYo_qJbM/maxresdefault.jpg"
+postCta:
+  text: "Confused about using image polls in the YouTube Community tab? Our {page} offers helpful tips and tricks to master this new feature, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/nmWIRLz-2LA"
   watchUrl: "https://www.youtube.com/shorts/nmWIRLz-2LA"
   thumbnailUrl: "https://i.ytimg.com/vi/nmWIRLz-2LA/maxresdefault.jpg"
+postCta:
+  text: "Confused about finding live streams on YouTube? Our {page} offers tips to help you discover ongoing broadcasts easily, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

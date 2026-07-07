@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/e77-Rus2x4g"
   watchUrl: "https://www.youtube.com/watch?v=e77-Rus2x4g"
   thumbnailUrl: "https://i.ytimg.com/vi/e77-Rus2x4g/maxresdefault.jpg"
+postCta:
+  text: "Curious about autodubbing's impact? Our initial data analysis reveals surprising engagement increases. Learn more about this feature and its potential on our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

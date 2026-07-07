@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/UtI-KzQha-M"
   watchUrl: "https://www.youtube.com/watch?v=UtI-KzQha-M"
   thumbnailUrl: "https://i.ytimg.com/vi/UtI-KzQha-M/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube's UI-Update: Verwirrung bei Nutzern und Creatorn? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

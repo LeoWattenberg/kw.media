@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/rhGWPkzn91o"
   watchUrl: "https://www.youtube.com/watch?v=rhGWPkzn91o"
   thumbnailUrl: "https://i.ytimg.com/vi/rhGWPkzn91o/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's latest AI developments? From AI clones to analytics, we've got you covered. Learn more about how these changes affect your channel and business on our {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

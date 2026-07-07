@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/gw2bfa-N8b8"
   watchUrl: "https://www.youtube.com/watch?v=gw2bfa-N8b8"
   thumbnailUrl: "https://i.ytimg.com/vi/gw2bfa-N8b8/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new YouTube viewer segments? Learn how to interpret 'Casual' and 'Regular' viewers in YouTube Analytics. For detailed insights and expert guidance, visit {page}."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

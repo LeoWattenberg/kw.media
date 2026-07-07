@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/87bdAsXU_kI"
   watchUrl: "https://www.youtube.com/watch?v=87bdAsXU_kI"
   thumbnailUrl: "https://i.ytimg.com/vi/87bdAsXU_kI/maxresdefault.jpg"
+postCta:
+  text: "Not sure how to handle copyright claims on your YouTube videos? Our {page} offers expert support and guidance on managing such issues effectively."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

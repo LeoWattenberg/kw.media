@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/CPUIzFT6wmM"
   watchUrl: "https://www.youtube.com/shorts/CPUIzFT6wmM"
   thumbnailUrl: "https://i.ytimg.com/vi/CPUIzFT6wmM/maxresdefault.jpg"
+postCta:
+  text: "Das Membershelf erscheint automatisch ab acht Mitgliedern. Um es zu deaktivieren, gehe im YouTube Studio unter „Anpassen“ oder in den Monetarisierungsbereich. Mehr dazu findest du auf unserer {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

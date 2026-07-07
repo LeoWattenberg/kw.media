@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/VB0-XfW6lms"
   watchUrl: "https://www.youtube.com/watch?v=VB0-XfW6lms"
   thumbnailUrl: "https://i.ytimg.com/vi/VB0-XfW6lms/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest mehr über Audioaufnahmen mit Audacity erfahren? Auf unserer {page} findest du weitere Tutorials und Tipps, um deine Audioqualität zu verbessern, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/audacity/"
+  pageTitle: "Audacity Tutorials"
 ---
 
 ## Transkript

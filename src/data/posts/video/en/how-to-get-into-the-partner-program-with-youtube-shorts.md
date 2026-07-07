@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/oyX_dfP3Wv8"
   watchUrl: "https://www.youtube.com/shorts/oyX_dfP3Wv8"
   thumbnailUrl: "https://i.ytimg.com/vi/oyX_dfP3Wv8/maxresdefault.jpg"
+postCta:
+  text: "Not sure how to hit the YouTube Partnership Program with your Shorts? Don't worry, {page} has got you covered. Learn how 10 million views in 90 days can qualify you and get expert support for your channel."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

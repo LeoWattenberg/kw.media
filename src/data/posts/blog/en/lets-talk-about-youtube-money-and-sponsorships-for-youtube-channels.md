@@ -11,6 +11,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/lets-talk-about-youtube-money-and-sponsorships-for-youtube-channels/"
+postCta:
+  text: "Confused about sponsorship deals? Don't undersell yourself! Discover how production costs and market value impact your pricing. For more insights and expert support, visit our {page}."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 You are a creator and a company wants to work with you. Great! Don’t undersell yourself.

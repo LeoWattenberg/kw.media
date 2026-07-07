@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/J7MHBNgxp5w"
   watchUrl: "https://www.youtube.com/watch?v=J7MHBNgxp5w"
   thumbnailUrl: "https://i.ytimg.com/vi/J7MHBNgxp5w/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die neuen Entwicklungen bei langen Shorts und Mitgliedschaften auf YouTube? Besuche unsere {page}, um mehr über die neuesten Updates zu erfahren und deinen Kanal optimal zu nutzen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

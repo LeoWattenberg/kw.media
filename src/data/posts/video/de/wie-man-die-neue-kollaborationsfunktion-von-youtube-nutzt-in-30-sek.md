@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/SazJMCMxsQo"
   watchUrl: "https://www.youtube.com/shorts/SazJMCMxsQo"
   thumbnailUrl: "https://i.ytimg.com/vi/SazJMCMxsQo/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Wie man die NEUE Kollaborationsfunktion von YouTube nutzt? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

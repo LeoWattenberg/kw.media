@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/1prNYRTvh8Y"
   watchUrl: "https://www.youtube.com/shorts/1prNYRTvh8Y"
   thumbnailUrl: "https://i.ytimg.com/vi/1prNYRTvh8Y/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Das YouTube-ABC: Das Dashboard mit Untertiteln? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

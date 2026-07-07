@@ -11,6 +11,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/lass-uns-uber-geld-und-sponsorships-reden/"
+postCta:
+  text: "Unsicher bei Lass uns über Geld und Sponsorships reden: Ein Leitfaden für Creator? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Du bist ein Creator und eine Firma möchte mit dir zusammen arbeiten?

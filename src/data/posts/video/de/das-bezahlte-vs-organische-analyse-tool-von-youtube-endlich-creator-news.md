@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/vbJb0uVty9o"
   watchUrl: "https://www.youtube.com/watch?v=vbJb0uVty9o"
   thumbnailUrl: "https://i.ytimg.com/vi/vbJb0uVty9o/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die neuen YouTube-Richtlinien und die Auswirkungen auf deinen Kanal? Entdecke unsere {page} und lerne, wie du deine Zahlen interpretierst und das Maximum aus deinem Kanal herausholst, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

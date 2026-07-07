@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/4i-aEErmV08"
   watchUrl: "https://www.youtube.com/shorts/4i-aEErmV08"
   thumbnailUrl: "https://i.ytimg.com/vi/4i-aEErmV08/maxresdefault.jpg"
+postCta:
+  text: "Confused about how to get your videos featured on YouTube's homepage? Our Creator Services can help. Learn more about boosting your visibility and audience reach on {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

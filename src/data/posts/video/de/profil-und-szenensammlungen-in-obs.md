@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/5jWzRRKKR2k"
   watchUrl: "https://www.youtube.com/shorts/5jWzRRKKR2k"
   thumbnailUrl: "https://i.ytimg.com/vi/5jWzRRKKR2k/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest dein Streaming auf verschiedenen Geräten optimieren? Für mehr Informationen zu diesem Thema und weiteren Creator-Tipps, schau auf unserer {page} vorbei, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

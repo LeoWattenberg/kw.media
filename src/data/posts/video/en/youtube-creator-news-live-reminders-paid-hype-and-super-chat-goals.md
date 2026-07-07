@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/EA7skAF4qLA"
   watchUrl: "https://www.youtube.com/watch?v=EA7skAF4qLA"
   thumbnailUrl: "https://i.ytimg.com/vi/EA7skAF4qLA/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new features like live stream reminders or paid Hype? Our {page} offers expert support and consulting to help you navigate these updates. Get in touch for personalized guidance."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

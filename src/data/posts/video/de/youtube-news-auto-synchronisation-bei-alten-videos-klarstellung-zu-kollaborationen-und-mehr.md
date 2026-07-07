@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/J8RN6vLmLh4"
   watchUrl: "https://www.youtube.com/watch?v=J8RN6vLmLh4"
   thumbnailUrl: "https://i.ytimg.com/vi/J8RN6vLmLh4/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube News: Auto-Synchronisation bei alten Videos, Klarstellung zu? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/bJbym4s4auQ"
   watchUrl: "https://www.youtube.com/watch?v=bJbym4s4auQ"
   thumbnailUrl: "https://i.ytimg.com/vi/bJbym4s4auQ/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube Updates: Voice Replies, MLA-Updates & mehr!? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

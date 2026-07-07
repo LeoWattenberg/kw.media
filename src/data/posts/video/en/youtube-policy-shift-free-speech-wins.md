@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/kTWDA2-4MKI"
   watchUrl: "https://www.youtube.com/watch?v=kTWDA2-4MKI"
   thumbnailUrl: "https://i.ytimg.com/vi/kTWDA2-4MKI/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new monetization policies? {page} offers expert support and guidance to help you navigate these changes and optimize your channel's potential."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

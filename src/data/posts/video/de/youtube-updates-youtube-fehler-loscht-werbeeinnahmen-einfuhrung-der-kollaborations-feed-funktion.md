@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/JhqpnMVoupA"
   watchUrl: "https://www.youtube.com/watch?v=JhqpnMVoupA"
   thumbnailUrl: "https://i.ytimg.com/vi/JhqpnMVoupA/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube-Updates: YouTube-Fehler löscht Werbeeinnahmen + Einführung der? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

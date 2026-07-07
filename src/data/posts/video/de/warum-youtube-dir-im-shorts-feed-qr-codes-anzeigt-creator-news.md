@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/XuyGt9x2FYc"
   watchUrl: "https://www.youtube.com/watch?v=XuyGt9x2FYc"
   thumbnailUrl: "https://i.ytimg.com/vi/XuyGt9x2FYc/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die QR-Codes im YouTube Shorts Feed? Auf unserer {page} findest du mehr Informationen zu dieser neuen Funktion und wie sie dich als Creator betreffen könnte, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

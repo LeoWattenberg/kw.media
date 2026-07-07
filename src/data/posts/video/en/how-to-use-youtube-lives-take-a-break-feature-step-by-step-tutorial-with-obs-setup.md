@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/bYTAbOg_qzE"
   watchUrl: "https://www.youtube.com/watch?v=bYTAbOg_qzE"
   thumbnailUrl: "https://i.ytimg.com/vi/bYTAbOg_qzE/maxresdefault.jpg"
+postCta:
+  text: "Need a quick break during your livestream? Learn how to use YouTube Live’s 'Take a Break' feature seamlessly with our step-by-step guide. Find more useful YouTube tips on {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

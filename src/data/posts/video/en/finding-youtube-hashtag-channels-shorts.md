@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/CtyhveAZNRo"
   watchUrl: "https://www.youtube.com/shorts/CtyhveAZNRo"
   thumbnailUrl: "https://i.ytimg.com/vi/CtyhveAZNRo/maxresdefault.jpg"
+postCta:
+  text: "Confused about finding hashtag channels on YouTube? Our {page} offers more tips and tricks to help you navigate the platform like a pro, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

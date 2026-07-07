@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/K5t4DGO_J2I"
   watchUrl: "https://www.youtube.com/watch?v=K5t4DGO_J2I"
   thumbnailUrl: "https://i.ytimg.com/vi/K5t4DGO_J2I/maxresdefault.jpg"
+postCta:
+  text: "Confused about the recent YouTube Live and Shorts changes? Our expert team can help. Learn more about navigating these updates on our {page}."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

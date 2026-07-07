@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/WTD5Zfk4pIY"
   watchUrl: "https://www.youtube.com/watch?v=WTD5Zfk4pIY"
   thumbnailUrl: "https://i.ytimg.com/vi/WTD5Zfk4pIY/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's latest changes? From Playables Multitasking to 3-minute Shorts, stay informed with our concise breakdown. For more insights and tips, check out our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

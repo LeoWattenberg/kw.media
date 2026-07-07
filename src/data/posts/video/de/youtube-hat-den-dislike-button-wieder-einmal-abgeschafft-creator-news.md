@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/PtwJQOyhdwU"
   watchUrl: "https://www.youtube.com/watch?v=PtwJQOyhdwU"
   thumbnailUrl: "https://i.ytimg.com/vi/PtwJQOyhdwU/maxresdefault.jpg"
+postCta:
+  text: "Verwirrende Nachrichten über YouTube-Updates? Wir bei kw.media helfen dir gerne weiter. Besuche unsere {page}, um mehr über unsere Creator-Support-Dienste zu erfahren und deinen Kanal auf das nächste Level zu bringen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

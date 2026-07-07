@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/1TRWw2aQu2w"
   watchUrl: "https://www.youtube.com/watch?v=1TRWw2aQu2w"
   thumbnailUrl: "https://i.ytimg.com/vi/1TRWw2aQu2w/maxresdefault.jpg"
+postCta:
+  text: "Wenn du mehr über die Live-Streaming-Richtlinien, den verbesserten Analytic Modus oder die Inspiration Registerkarte erfahren möchtest, besuche unsere {page} für detaillierte Informationen und Unterstützung, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

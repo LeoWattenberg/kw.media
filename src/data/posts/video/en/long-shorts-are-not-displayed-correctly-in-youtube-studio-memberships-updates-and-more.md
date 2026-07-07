@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/J7MHBNgxp5w"
   watchUrl: "https://www.youtube.com/watch?v=J7MHBNgxp5w"
   thumbnailUrl: "https://i.ytimg.com/vi/J7MHBNgxp5w/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube Shorts Updates: Long Shorts Display Issues & Memberships? We can help. Check {page} for more info, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

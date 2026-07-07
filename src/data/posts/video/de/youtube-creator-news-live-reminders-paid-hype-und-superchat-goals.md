@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/EA7skAF4qLA"
   watchUrl: "https://www.youtube.com/watch?v=EA7skAF4qLA"
   thumbnailUrl: "https://i.ytimg.com/vi/EA7skAF4qLA/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube Creator News: Live-Erinnerungen, bezahlte Hypes und Super Chat? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

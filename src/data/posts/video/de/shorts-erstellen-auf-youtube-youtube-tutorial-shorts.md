@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/M_hmS22uI-8"
   watchUrl: "https://www.youtube.com/shorts/M_hmS22uI-8"
   thumbnailUrl: "https://i.ytimg.com/vi/M_hmS22uI-8/maxresdefault.jpg"
+postCta:
+  text: "Du bist dir nicht sicher, wie du einen YouTube Short erstellst? Auf unserer {page} findest du weitere Tipps und Tricks rund um YouTube und YouTube Shorts. Dort helfen wir dir, das Maximum aus deinem Kanal herauszuholen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

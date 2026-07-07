@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/gw-LkDbK_R8"
   watchUrl: "https://www.youtube.com/watch?v=gw-LkDbK_R8"
   thumbnailUrl: "https://i.ytimg.com/vi/gw-LkDbK_R8/maxresdefault.jpg"
+postCta:
+  text: "Confused about these new YouTube updates? From Live Reactions analytics to impression segmentation, it's a lot to take in. Check out our {page} for expert insights and guidance on making the most of these changes."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

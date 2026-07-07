@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/s05L2eJ4j7g"
   watchUrl: "https://www.youtube.com/shorts/s05L2eJ4j7g"
   thumbnailUrl: "https://i.ytimg.com/vi/s05L2eJ4j7g/maxresdefault.jpg"
+postCta:
+  text: "Not sure how to showcase your best videos? On the 'Customize' tab in YouTube Studio, you can select highlighted videos for new and returning viewers. Need more help? Check out our {page} for expert advice on channel analytics, monetization, and more."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

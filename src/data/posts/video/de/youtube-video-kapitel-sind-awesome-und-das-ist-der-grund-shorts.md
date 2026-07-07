@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/RfSTdOXEqhs"
   watchUrl: "https://www.youtube.com/shorts/RfSTdOXEqhs"
   thumbnailUrl: "https://i.ytimg.com/vi/RfSTdOXEqhs/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest schnell zu einem bestimmten Teil eines YouTube-Videos springen? Mehr Tipps zur Nutzung von YouTube-Kapiteln findest du auf unserer {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/WTD5Zfk4pIY"
   watchUrl: "https://www.youtube.com/watch?v=WTD5Zfk4pIY"
   thumbnailUrl: "https://i.ytimg.com/vi/WTD5Zfk4pIY/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube Updates: Playables Multitasking und 3-Minuten Shorts!? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

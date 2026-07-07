@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/E8hipk1TNNc"
   watchUrl: "https://www.youtube.com/watch?v=E8hipk1TNNc"
   thumbnailUrl: "https://i.ytimg.com/vi/E8hipk1TNNc/maxresdefault.jpg"
+postCta:
+  text: "Confused about these new YouTube features? From custom Shorts thumbnails to SuperChat Goals, we've got you covered. Check out our {page} for more insights and expert advice on navigating these changes."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

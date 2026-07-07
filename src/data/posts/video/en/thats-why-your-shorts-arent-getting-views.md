@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/O6H6KRNoFsQ"
   watchUrl: "https://www.youtube.com/shorts/O6H6KRNoFsQ"
   thumbnailUrl: "https://i.ytimg.com/vi/O6H6KRNoFsQ/maxresdefault.jpg"
+postCta:
+  text: "Confused about why your YouTube Shorts aren't gaining traction? Third-party watermarks could be hurting your ranking. Learn more about optimizing your content on {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

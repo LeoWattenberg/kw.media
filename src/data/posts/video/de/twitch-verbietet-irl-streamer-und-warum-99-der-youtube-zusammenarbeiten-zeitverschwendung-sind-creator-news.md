@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/tQ4Qxdz5diI"
   watchUrl: "https://www.youtube.com/watch?v=tQ4Qxdz5diI"
   thumbnailUrl: "https://i.ytimg.com/vi/tQ4Qxdz5diI/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Twitch verbietet IRL-Streaming: Neue Regeln und warum? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

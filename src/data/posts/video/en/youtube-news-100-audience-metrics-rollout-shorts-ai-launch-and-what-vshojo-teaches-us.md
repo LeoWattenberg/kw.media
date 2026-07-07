@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/BR7qbvP5ceY"
   watchUrl: "https://www.youtube.com/watch?v=BR7qbvP5ceY"
   thumbnailUrl: "https://i.ytimg.com/vi/BR7qbvP5ceY/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new YouTube Shorts AI or detailed audience metrics? Our {page} offers expert support and insights to help you navigate these updates. Get in touch for personalized guidance."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

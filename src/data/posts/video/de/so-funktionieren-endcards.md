@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/MESXE9-pLDc"
   watchUrl: "https://www.youtube.com/shorts/MESXE9-pLDc"
   thumbnailUrl: "https://i.ytimg.com/vi/MESXE9-pLDc/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei So funktionieren: Endcards? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

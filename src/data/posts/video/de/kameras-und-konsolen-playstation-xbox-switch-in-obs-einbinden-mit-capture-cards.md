@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/MxTHgbSwjWE"
   watchUrl: "https://www.youtube.com/shorts/MxTHgbSwjWE"
   thumbnailUrl: "https://i.ytimg.com/vi/MxTHgbSwjWE/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest deine Konsole oder DSLR-Kamera in OBS einbinden? Auf unserer {page} findest du weitere Tipps und Tricks rund um die Integration von Capture Cards und anderen Creator-Tools, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

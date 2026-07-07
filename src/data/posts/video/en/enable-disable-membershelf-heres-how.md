@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/CPUIzFT6wmM"
   watchUrl: "https://www.youtube.com/shorts/CPUIzFT6wmM"
   thumbnailUrl: "https://i.ytimg.com/vi/CPUIzFT6wmM/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new Membershelf? You can easily disable it in YouTube Studio. Visit our {page} for more tips and tricks to optimize your channel, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

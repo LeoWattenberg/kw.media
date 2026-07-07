@@ -12,6 +12,10 @@ category: "blog"
 image: "https://leowattenberg.files.wordpress.com/2020/10/3d-see-nts-1.png?w=300"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-wattenberg-indicator/"
+postCta:
+  text: "Understanding audience intent can be tricky. The old Hero-Hub-Help framework has its limits. Our SEE NTS model offers a fresh perspective. Confused? Check out our {page} for more insights and expert consulting."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 Moin.

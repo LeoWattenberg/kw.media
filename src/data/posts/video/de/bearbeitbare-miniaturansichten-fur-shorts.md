@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/ncaW0WL9X9E"
   watchUrl: "https://www.youtube.com/shorts/ncaW0WL9X9E"
   thumbnailUrl: "https://i.ytimg.com/vi/ncaW0WL9X9E/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt, wie du deine YouTube Shorts optimieren kannst? Auf unserer {page} findest du weitere Tipps und Tricks, um deine Videos professionell zu gestalten. Oder kontaktiere unsere Experten für individuelle Beratung."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

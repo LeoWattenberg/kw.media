@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/RfSTdOXEqhs"
   watchUrl: "https://www.youtube.com/shorts/RfSTdOXEqhs"
   thumbnailUrl: "https://i.ytimg.com/vi/RfSTdOXEqhs/maxresdefault.jpg"
+postCta:
+  text: "Confused about navigating YouTube videos with chapters? Our {page} offers tips to efficiently jump between sections on desktop and mobile, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

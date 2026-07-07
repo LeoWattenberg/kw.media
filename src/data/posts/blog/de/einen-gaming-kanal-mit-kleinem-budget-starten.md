@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/06/Starting-Gaming-Channel-on-a-Budget.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/starting-a-gaming-channel-on-a-budget/"
+postCta:
+  text: "Unsicher bei Einen Gaming-Kanal mit kleinem Budget starten? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Wenn du also mit YouTube anfangen möchtest, insbesondere als Gaming-Channel, dann willst du vielleicht nicht gleich ein Vermögen für Equipment ausgeben, nur um es mal auszuprobieren. Ich meine, das ist bei jedem Hobby das Gleiche. Du fängst nicht mit dem Bogenschießen an und kaufst dir den besten Bogen auf dem Markt, aber auch nicht mit dem billigsten Spielzeug.

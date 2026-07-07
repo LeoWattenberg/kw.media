@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/b5xKbnpC8P4"
   watchUrl: "https://www.youtube.com/shorts/b5xKbnpC8P4"
   thumbnailUrl: "https://i.ytimg.com/vi/b5xKbnpC8P4/maxresdefault.jpg"
+postCta:
+  text: "Du fragst dich, ob Hashtags auf YouTube noch wichtig sind? Schau dir unsere Tipps auf der {page} an oder nimm an unserer Umfrage teil, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

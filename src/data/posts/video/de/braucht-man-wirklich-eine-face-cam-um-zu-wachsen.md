@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/2gVOJsKlUbo"
   watchUrl: "https://www.youtube.com/shorts/2gVOJsKlUbo"
   thumbnailUrl: "https://i.ytimg.com/vi/2gVOJsKlUbo/maxresdefault.jpg"
+postCta:
+  text: "Unsicher, ob du eine Gesichtskamera brauchst, um deinen Kanal wachsen zu lassen? Bei kw.media finden {page} du Expertenwissen und Unterstützung, um deine individuelle Strategie zu entwickeln, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

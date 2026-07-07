@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Xtu2XYmDfy4"
   watchUrl: "https://www.youtube.com/shorts/Xtu2XYmDfy4"
   thumbnailUrl: "https://i.ytimg.com/vi/Xtu2XYmDfy4/maxresdefault.jpg"
+postCta:
+  text: "For detailed insights and support, explore our {page} services, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

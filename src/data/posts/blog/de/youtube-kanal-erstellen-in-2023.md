@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-kanal-erstellen-in-2023/"
+postCta:
+  text: "Unsicher bei Starte Durch: Deinen YouTube Kanal erstellen in 2023? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Soll ich einen Persönlichen YouTube Kanal oder ein Brandkonto erstellen?

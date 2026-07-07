@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/pGAgrTShuHc"
   watchUrl: "https://www.youtube.com/watch?v=pGAgrTShuHc"
   thumbnailUrl: "https://i.ytimg.com/vi/pGAgrTShuHc/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt von den neuesten YouTube-Updates? Auf unserer {page} findest du weitere Informationen und Tipps, um deinen Kanal optimal zu nutzen. Dort beantworten wir auch gerne deine Fragen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

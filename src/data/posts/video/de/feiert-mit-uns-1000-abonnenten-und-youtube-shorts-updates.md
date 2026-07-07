@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/RaauubMlzic"
   watchUrl: "https://www.youtube.com/watch?v=RaauubMlzic"
   thumbnailUrl: "https://i.ytimg.com/vi/RaauubMlzic/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die neuen YouTube Shorts-Entwicklungen? Bei kw.media findest du Unterstützung und Beratung für deinen Kanal. Schau dir {page} an, um mehr zu erfahren oder kontaktiere uns direkt."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

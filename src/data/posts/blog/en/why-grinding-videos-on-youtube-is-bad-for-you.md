@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/06/WHY-GRINDING-IS-BAD-FOR-YOU.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/"
+postCta:
+  text: "Confused about sustainable growth? Don't just grind out videos. Explore different formats, find your unique style, then focus on development. Check {page} for expert consulting and support."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 We often see small YouTubers, especially of the gaming variety, talk about “The Grind”. With the idea being that there is a period in the beginning of having a channel where you just need to make videos consistently. And after an undetermined amount of time, YouTube will pick up your videos, recommend them to everyone, and then you’ll become famous.

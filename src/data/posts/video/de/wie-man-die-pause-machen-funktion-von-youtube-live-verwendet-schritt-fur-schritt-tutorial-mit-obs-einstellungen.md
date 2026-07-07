@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/bYTAbOg_qzE"
   watchUrl: "https://www.youtube.com/watch?v=bYTAbOg_qzE"
   thumbnailUrl: "https://i.ytimg.com/vi/bYTAbOg_qzE/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest deinen Livestream unterbrechen, ohne ihn zu beenden? Für weitere Tipps und Tricks rund um deinen YouTube-Kanal besuche unsere {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

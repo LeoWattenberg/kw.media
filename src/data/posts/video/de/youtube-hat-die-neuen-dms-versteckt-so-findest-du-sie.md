@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Q5OFnSBrn3U"
   watchUrl: "https://www.youtube.com/shorts/Q5OFnSBrn3U"
   thumbnailUrl: "https://i.ytimg.com/vi/Q5OFnSBrn3U/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die neuen YouTube-DMs? Auf unserer {page} findest du weitere Infos und Unterstützung rund um YouTube-Funktionen. Dort helfen wir dir, das Maximum aus deinem Kanal herauszuholen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

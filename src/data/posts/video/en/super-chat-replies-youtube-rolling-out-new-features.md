@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/nTyBDl2lbMg"
   watchUrl: "https://www.youtube.com/watch?v=nTyBDl2lbMg"
   thumbnailUrl: "https://i.ytimg.com/vi/nTyBDl2lbMg/maxresdefault.jpg"
+postCta:
+  text: "Confused about these new YouTube features? From Super Chat replies to AFG violations, our {page} offers expert insights and support. Get the details and stay ahead of the curve."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

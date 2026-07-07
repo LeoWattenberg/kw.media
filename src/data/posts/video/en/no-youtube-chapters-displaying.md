@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/raKkureDLlA"
   watchUrl: "https://www.youtube.com/watch?v=raKkureDLlA"
   thumbnailUrl: "https://i.ytimg.com/vi/raKkureDLlA/maxresdefault.jpg"
+postCta:
+  text: "Confused about why your YouTube chapters aren't showing up? Check out our {page} for tips on formatting, timing, and more to get them visible, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

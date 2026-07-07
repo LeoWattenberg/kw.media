@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/2JIHi4MVn9w"
   watchUrl: "https://www.youtube.com/shorts/2JIHi4MVn9w"
   thumbnailUrl: "https://i.ytimg.com/vi/2JIHi4MVn9w/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Warum dein YouTube-Kanal plötzlich gestorben ist? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

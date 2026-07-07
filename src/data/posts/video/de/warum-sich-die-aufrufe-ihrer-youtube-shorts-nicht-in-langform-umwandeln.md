@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/qmAgK0OzzlU"
   watchUrl: "https://www.youtube.com/shorts/qmAgK0OzzlU"
   thumbnailUrl: "https://i.ytimg.com/vi/qmAgK0OzzlU/maxresdefault.jpg"
+postCta:
+  text: "Besuchen Sie {page}, um mehr über unsere Creator-Support-Dienste zu erfahren und Ihr volles Potenzial auszuschöpfen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

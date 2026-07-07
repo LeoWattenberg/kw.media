@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/BpTFWaLGDR4"
   watchUrl: "https://www.youtube.com/shorts/BpTFWaLGDR4"
   thumbnailUrl: "https://i.ytimg.com/vi/BpTFWaLGDR4/maxresdefault.jpg"
+postCta:
+  text: "Not sure how to monetize your existing YouTube Shorts? Our {page} offers expert guidance on maximizing your revenue opportunities. Get started today!"
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

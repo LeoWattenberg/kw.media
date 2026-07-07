@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/10/camlink_cap4k_vergleich.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/avermedia-streamer-cap4k-bu113-oder-elgato-camlink4k/"
+postCta:
+  text: "Confused about which capture card to choose? Our in-depth comparison can help. Learn more about the {page} services we offer to find the best solution for your streaming needs, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 [AVerMedia](/youtube-tips-en/avermedia-nexus-ax310-streamer-mic-330-review/) has released a new [capture card](/youtube-tips-en/integrating-cameras-and-consoles-playstation-xbox-switch-into-obs-with-capture-cards/), and they sent me a sample to take a closer look at and share my thoughts. I made sure to approach the comparison as objectively as possible.

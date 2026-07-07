@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/OcihdaM-hro"
   watchUrl: "https://www.youtube.com/shorts/OcihdaM-hro"
   thumbnailUrl: "https://i.ytimg.com/vi/OcihdaM-hro/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Wie man Live-Streams auf YouTube meistert? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript
