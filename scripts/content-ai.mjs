@@ -32,6 +32,7 @@ const cleanupModels = {
 const ollamaUrl = process.env.OLLAMA_URL ?? process.env.OLLAMA_TRANSLATE_URL ?? 'http://172.20.208.1:11434';
 const translateModel = process.env.OLLAMA_TRANSLATE_MODEL ?? 'aya-expanse:32b';
 const metadataModel = process.env.OLLAMA_METADATA_MODEL ?? process.env.OLLAMA_EXCERPT_MODEL ?? translateModel;
+const postCtaModel = process.env.OLLAMA_POST_CTA_MODEL ?? metadataModel;
 const timeoutMs = Number(process.env.OLLAMA_TIMEOUT_MS ?? 300000);
 const chunkSize = Number(process.env.OLLAMA_CHUNK_SIZE ?? 5200);
 
@@ -163,8 +164,10 @@ export async function translatePostFile(filePath, options = {}) {
 	const targetFilePath = join(postDirectories[targetKind][targetLocale], `${translatedSlug}.md`);
 	const nextId = maxPostId(allPosts) + 1;
 
+	const sourceFrontmatterForTranslation = { ...source.frontmatter };
+	delete sourceFrontmatterForTranslation.postCta;
 	const targetFrontmatter = {
-		...source.frontmatter,
+		...sourceFrontmatterForTranslation,
 		id: nextId,
 		slug: translatedSlug,
 		path: targetPath,
@@ -271,6 +274,28 @@ export async function suggestPostMetadataFile(filePath, options = {}) {
 			excerpt: post.frontmatter.excerpt,
 		},
 		suggestion,
+	};
+}
+
+export async function generatePostCtaFile(filePath, options = {}) {
+	const post = readPostFile(filePath);
+	const model = options.model ?? postCtaModel;
+	const pageCandidates = options.pageCandidates ?? readPostCtaPageCandidates(post.frontmatter.locale);
+	const postCta = await generatePostCta(post, pageCandidates, model);
+
+	if (!options.dryRun) {
+		writePostFile(filePath, { ...post.frontmatter, postCta }, post.body);
+	}
+
+	return {
+		filePath,
+		path: post.frontmatter.path,
+		locale: post.frontmatter.locale,
+		category: post.frontmatter.category,
+		model,
+		oldPostCta: post.frontmatter.postCta,
+		postCta,
+		changed: JSON.stringify(post.frontmatter.postCta ?? null) !== JSON.stringify(postCta),
 	};
 }
 
@@ -441,6 +466,15 @@ function frontmatterString(data) {
 		);
 	}
 
+	if (data.postCta) {
+		lines.push(
+			'postCta:',
+			`  text: ${quote(data.postCta.text)}`,
+			`  pagePath: ${quote(data.postCta.pagePath)}`,
+			`  pageTitle: ${quote(data.postCta.pageTitle)}`,
+		);
+	}
+
 	lines.push('---');
 	return lines.join('\n');
 }
@@ -552,6 +586,303 @@ ${postPlainText(post, 5200)}`;
 	const suggestion = await ollamaGenerateJson(model, prompt);
 
 	return normalizeMetadataSuggestion(suggestion, post, model);
+}
+
+async function generatePostCta(post, pageCandidates, model) {
+	if (!pageCandidates.length) {
+		throw new Error(`No CTA page candidates found for ${post.frontmatter.locale}`);
+	}
+
+	const candidateList = pageCandidates
+		.map((candidate, index) => `${index + 1}. path: ${candidate.path}
+title: ${candidate.title}
+description: ${candidate.description}`)
+		.join('\n\n');
+	const prompt = `Create an understated end-of-post CTA paragraph for this kw.media post.
+
+Return only JSON with this exact shape:
+{
+  "subject": "short post subject",
+  "pagePath": "one candidate path",
+  "text": "single paragraph with exactly one {page} placeholder"
+}
+
+Rules:
+- Use ${languageName(post.frontmatter.locale)}.
+- Select exactly one pagePath from the candidate pages.
+- The text must read like a normal article paragraph, not an ad block.
+- The text must include exactly one {page} placeholder where the relevant page link belongs.
+- The text should follow this meaning: confused about the post subject, kw.media can help, check {page} for more info, or contact the expert below.
+- Keep the whole text between 95 and 230 characters.
+- Do not use Markdown, HTML, labels, quotes, bullets, emojis, or external facts.
+- Preserve platform and product names such as YouTube, YouTube Studio, Shorts, Twitch, OBS, Audacity, Super Chat, and A/B testing.
+- In German, keep "Creator" as "Creator" and use natural "du" wording.
+
+Post:
+title: ${post.frontmatter.title}
+excerpt: ${post.frontmatter.excerpt}
+locale: ${post.frontmatter.locale}
+category: ${post.frontmatter.category}
+
+Candidate pages:
+${candidateList}
+
+Content:
+${postPlainText(post, 4200)}`;
+	const suggestion = await ollamaGenerateJson(model, prompt);
+
+	return normalizePostCtaSuggestion(suggestion, post, pageCandidates);
+}
+
+function normalizePostCtaSuggestion(value, post, pageCandidates) {
+	if (!value || typeof value !== 'object' || Array.isArray(value)) {
+		throw new Error(`CTA suggestion for ${post.frontmatter.path} is not a JSON object`);
+	}
+
+	const selectedPath = stringField(value.pagePath, '');
+	const selectedPage = pageCandidates.find((candidate) => candidate.path === selectedPath);
+	if (!selectedPage) {
+		throw new Error(`CTA suggestion for ${post.frontmatter.path} selected unknown pagePath: ${selectedPath}`);
+	}
+
+	const rawText = stringField(value.text, '');
+	const text = normalizePostCtaText(rawText, post);
+
+	return {
+		text,
+		pagePath: selectedPage.path,
+		pageTitle: selectedPage.title,
+	};
+}
+
+function normalizePostCtaText(text, post) {
+	const locale = post.frontmatter.locale;
+	let output = normalizeAiOutput(text)
+		.replace(/\{(?:page|link|seite|relevant page|relevante seite)\}/gi, '{page}')
+		.replace(/\[(?:page|link|seite|relevant page|relevante seite)\]/gi, '{page}')
+		.replace(/<[^>]+>/g, '')
+		.replace(/\s+/g, ' ')
+		.trim();
+
+	let placeholderCount = countMatches(output, /\{page\}/g);
+	if (placeholderCount === 0) {
+		output = locale === 'de'
+			? `${output} Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten.`
+			: `${output} Check {page} for more info, or contact our expert below.`;
+		placeholderCount = 1;
+	}
+
+	if (placeholderCount > 1) {
+		let seenPlaceholder = false;
+		output = output.replace(/\{page\}/g, () => {
+			if (seenPlaceholder) {
+				return locale === 'de' ? 'dieser Seite' : 'this page';
+			}
+
+			seenPlaceholder = true;
+			return '{page}';
+		});
+	}
+
+	if (!postCtaHasContactCue(output, locale)) {
+		output = `${output.replace(/[.!?]+$/, '')}${locale === 'de' ? ', oder kontaktiere unten unseren Experten.' : ', or contact our expert below.'}`;
+	}
+
+	if (output.length > 260) {
+		output = compactPostCtaText(output, post);
+	}
+
+	if (postCtaLooksWrongLanguage(output, locale)) {
+		output = fallbackPostCtaText(post);
+	}
+
+	validatePostCtaText(output, locale);
+	return output;
+}
+
+function compactPostCtaText(text, post) {
+	const locale = post.frontmatter.locale;
+	const subject = shortPostCtaSubject(post);
+	const sentences = text.match(/[^.!?]+[.!?]?/g)?.map((sentence) => sentence.trim()).filter(Boolean) ?? [];
+	const linkedSentence = sentences.find((sentence) => sentence.includes('{page}'));
+	const questionSentence = sentences.find((sentence) => /\?$/.test(sentence) && !sentence.includes('{page}'));
+	const sentenceCandidate = [questionSentence, linkedSentence]
+		.filter(Boolean)
+		.join(' ')
+		.trim();
+
+	if (
+		sentenceCandidate
+		&& sentenceCandidate.length >= 70
+		&& sentenceCandidate.length <= 260
+		&& postCtaHasContactCue(sentenceCandidate, locale)
+	) {
+		return sentenceCandidate;
+	}
+
+	return fallbackPostCtaText(post);
+}
+
+function fallbackPostCtaText(post) {
+	const locale = post.frontmatter.locale;
+	const subject = shortPostCtaSubject(post);
+
+	return locale === 'de'
+		? `Unsicher bei ${subject}? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten.`
+		: `Confused about ${subject}? We can help. Check {page} for more info, or contact our expert below.`;
+}
+
+function postCtaHasContactCue(text, locale) {
+	return locale === 'de'
+		? /\b(kontaktier|kontaktiere|kontakt|experte|experten|ansprechpartner)\b/i.test(text)
+		: /\b(contact|get in touch|expert|specialist)\b/i.test(text);
+}
+
+function postCtaLooksWrongLanguage(text, locale) {
+	const textWithoutPlaceholder = text.replace('{page}', '');
+	return locale === 'de' ? likelyEnglishText(textWithoutPlaceholder) : likelyGermanText(textWithoutPlaceholder);
+}
+
+function shortPostCtaSubject(post) {
+	const title = String(post.frontmatter.title ?? '').replace(/\s+/g, ' ').trim();
+	const withoutBrackets = title.replace(/\s*[\[(].*?[\])]\s*/g, ' ').replace(/\s+/g, ' ').trim();
+	const subject = withoutBrackets || post.frontmatter.category || (post.frontmatter.locale === 'de' ? 'diesem Thema' : 'this topic');
+	const maxLength = 72;
+
+	if (subject.length <= maxLength) {
+		return subject;
+	}
+
+	const truncated = subject.slice(0, maxLength).replace(/\s+\S*$/, '').replace(/[,:;.!?]+$/, '').trim();
+	return truncated || subject.slice(0, maxLength).trim();
+}
+
+function validatePostCtaText(text, locale) {
+	const placeholderCount = countMatches(text, /\{page\}/g);
+	if (placeholderCount !== 1) {
+		throw new Error(`Generated CTA must contain exactly one {page} placeholder: ${text}`);
+	}
+
+	if (text.length < 70 || text.length > 260) {
+		throw new Error(`Generated CTA has invalid length (${text.length}): ${text}`);
+	}
+
+	if (/\n|```|^\s*["“]|["”]\s*$|return only|for kw.media|as an ai|<[^>]+>|\[[^\]]+]\([^)]+\)/i.test(text)) {
+		throw new Error(`Generated CTA contains notes, quotes, markdown, HTML, or prompt leakage: ${text}`);
+	}
+
+	if (locale === 'en' && likelyGermanText(text.replace('{page}', ''))) {
+		throw new Error(`Generated English CTA looks German: ${text}`);
+	}
+
+	if (locale === 'de' && likelyEnglishText(text.replace('{page}', ''))) {
+		throw new Error(`Generated German CTA looks English: ${text}`);
+	}
+}
+
+function readPostCtaPageCandidates(locale) {
+	const pageDirectory = join(process.cwd(), 'src/data/pages');
+	const preferredPages = [
+		'creator',
+		'brands',
+		'courses',
+		'live',
+		'ads',
+		'website-design-management',
+		'vtuber',
+		'dubbing',
+		'tips',
+		'audacity',
+		'tools',
+	];
+	const preferredPageSet = new Set(preferredPages);
+	const candidates = readdirSync(pageDirectory)
+		.filter((fileName) => fileName.endsWith('.json'))
+		.flatMap((fileName) => {
+			const source = JSON.parse(readFileSync(join(pageDirectory, fileName), 'utf8'));
+			if (!preferredPageSet.has(source.id)) {
+				return [];
+			}
+
+			const translation = source.translations?.[locale];
+			if (!translation?.path || !translation?.title) {
+				return [];
+			}
+
+			return [{
+				id: source.id,
+				path: translation.path,
+				title: translation.title,
+				description: pageDescription(translation),
+			}];
+		});
+
+	if (locale === 'de') {
+		candidates.push({
+			id: 'tools',
+			path: '/de/tools/',
+			title: 'Tools',
+			description: 'Clientseitige Creator-Tools von Koytek Wattenberg Media.',
+		});
+	} else {
+		candidates.push({
+			id: 'tools',
+			path: '/en/tools/',
+			title: 'Tools',
+			description: 'Client-side creator tools by Koytek Wattenberg Media.',
+		});
+	}
+
+	return candidates
+		.filter((candidate, index, all) => all.findIndex((item) => item.path === candidate.path) === index)
+		.sort((first, second) => preferredPages.indexOf(first.id) - preferredPages.indexOf(second.id));
+}
+
+function pageDescription(page) {
+	const parts = [
+		page.description,
+		...pageBlockText(page.blocks ?? []),
+	];
+
+	return parts
+		.filter(Boolean)
+		.join(' ')
+		.replace(/\s+/g, ' ')
+		.trim()
+		.slice(0, 700);
+}
+
+function pageBlockText(blocks) {
+	return blocks.flatMap((block) => {
+		switch (block.type) {
+			case 'hero':
+			case 'cta':
+				return [block.title, block.text];
+			case 'services':
+				return [block.eyebrow, block.title, block.intro, ...(block.items ?? []).flatMap((item) => [item.title, item.text])];
+			case 'credentials':
+				return block.items ?? [];
+			case 'stats':
+				return (block.items ?? []).flatMap((item) => [item.value, item.label]);
+			case 'text':
+				return [block.eyebrow, block.title, ...(block.body ?? []), ...(block.checks ?? [])];
+			case 'testimonials':
+				return [block.eyebrow, block.title, block.intro, ...(block.items ?? []).flatMap((item) => [item.quote, item.name, item.meta])];
+			case 'faq':
+				return [block.title, ...(block.items ?? []).flatMap((item) => [item.question, ...(item.answer ?? [])])];
+			case 'pricing':
+				return [block.eyebrow, block.title, block.note, ...(block.items ?? []).flatMap((item) => [item.name, item.summary, ...(item.features ?? [])])];
+			case 'person':
+				return [block.eyebrow, block.title, block.name, block.role, ...(block.credentials ?? []), ...(block.body ?? [])];
+			case 'posts':
+			case 'youtubePlaylist':
+				return [block.title, block.eyebrow];
+			case 'html':
+				return [String(block.html ?? '').replace(/<[^>]+>/g, ' ')];
+			default:
+				return [];
+		}
+	});
 }
 
 function cleanupPrompt(markdown, frontmatter, index, total) {

@@ -519,6 +519,9 @@ if (runAiPostProcessing && createdPostPaths.length) {
 
 	console.log('Adding inline links to imported post(s)');
 	runNodeScript('add-inline-post-links.mjs', createdPostPaths);
+
+	console.log('Generating post CTAs for imported post(s)');
+	runNodeScript('generate-post-ctas.mjs', createdPostPaths);
 }
 
 if (created.length) {

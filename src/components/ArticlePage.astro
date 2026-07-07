@@ -15,6 +15,7 @@ const authorProfile = getAuthorByName(post.authorName);
 const authorPath = getAuthorPath(post.authorName, post.locale);
 const isShortVideo = post.video?.watchUrl.includes('/shorts/');
 const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
+const articleContentHtml = post.postCta ? `${post.contentHtml}\n${postCtaHtml(post.postCta)}` : post.contentHtml;
 const postNavigation = getPostNavigation(post);
 const relatedPosts = getRelatedPosts(post);
 const isVideoPost = Boolean(post.video);
@@ -129,6 +130,27 @@ function formatPostDate(navigationPost: SourcePost): string {
 function getPostThumbnail(navigationPost: SourcePost): string | undefined {
 	return navigationPost.video?.thumbnailUrl ?? navigationPost.image;
 }
+
+function postCtaHtml(postCta: NonNullable<SourcePost['postCta']>): string {
+	const [beforeLink, ...afterParts] = postCta.text.split('{page}');
+	const afterLink = afterParts.join('{page}');
+	const pageLink = `<a href="${escapeAttribute(postCta.pagePath)}">${escapeHtml(postCta.pageTitle)}</a>`;
+
+	return `<p>${escapeHtml(beforeLink)}${pageLink}${escapeHtml(afterLink)}</p>`;
+}
+
+function escapeHtml(value: string): string {
+	return value
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#39;');
+}
+
+function escapeAttribute(value: string): string {
+	return escapeHtml(value).replace(/`/g, '&#96;');
+}
 ---
 
 <article>
@@ -155,7 +177,7 @@ function getPostThumbnail(navigationPost: SourcePost): string | undefined {
 			)
 		}
 	</header>
-	<ContentHtml html={post.contentHtml} locale={post.locale} />
+	<ContentHtml html={articleContentHtml} locale={post.locale} />
 	{
 		authorProfile && (
 			<section class="author-block" aria-labelledby="author-block-heading">
