@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/mY9wBvDgnfQ"
   watchUrl: "https://www.youtube.com/watch?v=mY9wBvDgnfQ"
   thumbnailUrl: "https://i.ytimg.com/vi/mY9wBvDgnfQ/maxresdefault.jpg"
+postCta:
+  text: "Confused about installing FFmpeg for Audacity? Our tools page provides simple, step-by-step guidance. Learn how to seamlessly integrate FFmpeg with Audacity, making media file management a breeze. Check out {page} for more info, or contact our expert below."
+  pagePath: "/en/tools/"
+  pageTitle: "Tools"
 ---
 
 ## Transcript

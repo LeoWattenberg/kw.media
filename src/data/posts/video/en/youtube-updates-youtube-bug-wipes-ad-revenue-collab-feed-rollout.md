@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/JhqpnMVoupA"
   watchUrl: "https://www.youtube.com/watch?v=JhqpnMVoupA"
   thumbnailUrl: "https://i.ytimg.com/vi/JhqpnMVoupA/maxresdefault.jpg"
+postCta:
+  text: "Confused about recent YouTube changes? From ad revenue bugs to new collaboration features, we've got you covered. Check out our {page} for more insights and expert advice on navigating these updates."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

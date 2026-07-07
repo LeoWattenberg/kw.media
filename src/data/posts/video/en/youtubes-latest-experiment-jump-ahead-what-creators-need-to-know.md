@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/obiGGGDe-Uw"
   watchUrl: "https://www.youtube.com/watch?v=obiGGGDe-Uw"
   thumbnailUrl: "https://i.ytimg.com/vi/obiGGGDe-Uw/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's latest changes? From the 'Jump Ahead' experiment to advanced Shorts features, keeping up can be tough. For more insights and tips on navigating these updates, check out our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

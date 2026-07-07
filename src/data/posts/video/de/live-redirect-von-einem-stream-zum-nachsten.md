@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/eUxLizKDC6M"
   watchUrl: "https://www.youtube.com/shorts/eUxLizKDC6M"
   thumbnailUrl: "https://i.ytimg.com/vi/eUxLizKDC6M/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest mehr über Live Redirects auf YouTube erfahren? Auf unserer {page} findest du weitere Tipps und Tricks rund um deinen Kanal, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

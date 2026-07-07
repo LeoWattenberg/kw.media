@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/EUX5WpvVvB8"
   watchUrl: "https://www.youtube.com/watch?v=EUX5WpvVvB8"
   thumbnailUrl: "https://i.ytimg.com/vi/EUX5WpvVvB8/maxresdefault.jpg"
+postCta:
+  text: "Curious about the future of YouTube subtitling? Check out our {page} to learn more about our premium services and how we can help you maintain viewer engagement with high-quality voiceovers and subtitling, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

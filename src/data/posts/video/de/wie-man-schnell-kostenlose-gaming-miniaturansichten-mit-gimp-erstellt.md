@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/gdibcpbh45g"
   watchUrl: "https://www.youtube.com/watch?v=gdibcpbh45g"
   thumbnailUrl: "https://i.ytimg.com/vi/gdibcpbh45g/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest deine Gaming-Videos auf YouTube optimal präsentieren? Wenn du weitere Tipps und Unterstützung benötigst, schaue auf unserer {page} vorbei, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/DSZHozupVlk"
   watchUrl: "https://www.youtube.com/watch?v=DSZHozupVlk"
   thumbnailUrl: "https://i.ytimg.com/vi/DSZHozupVlk/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube erstickt SEO & Twitches irreführende Monetarisierung | Creator? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

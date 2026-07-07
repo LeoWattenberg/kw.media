@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/OcihdaM-hro"
   watchUrl: "https://www.youtube.com/shorts/OcihdaM-hro"
   thumbnailUrl: "https://i.ytimg.com/vi/OcihdaM-hro/maxresdefault.jpg"
+postCta:
+  text: "Confused about live streaming? Our {page} offers expert support and consulting to help bring your channel to the next level. From planning to execution, we've got you covered."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

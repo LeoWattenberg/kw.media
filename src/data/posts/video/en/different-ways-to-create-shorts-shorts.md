@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Tan75JmMd18"
   watchUrl: "https://www.youtube.com/shorts/Tan75JmMd18"
   thumbnailUrl: "https://i.ytimg.com/vi/Tan75JmMd18/maxresdefault.jpg"
+postCta:
+  text: "Confused about creating YouTube Shorts? We've got you covered. Learn various methods, from using the Shorts camera to sampling audio, in our {page} for more insightful tips and tricks, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

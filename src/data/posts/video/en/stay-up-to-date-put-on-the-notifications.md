@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Q_Wf69Pynwo"
   watchUrl: "https://www.youtube.com/shorts/Q_Wf69Pynwo"
   thumbnailUrl: "https://i.ytimg.com/vi/Q_Wf69Pynwo/maxresdefault.jpg"
+postCta:
+  text: "Confused about how viewers stay informed after subscribing? Learn how to enable notifications and explore key metrics in YouTube Studio's reach tab. For more YouTube tips, check out {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

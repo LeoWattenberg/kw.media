@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/96EhAUHWTRY"
   watchUrl: "https://www.youtube.com/watch?v=96EhAUHWTRY"
   thumbnailUrl: "https://i.ytimg.com/vi/96EhAUHWTRY/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new 'Inspiration' tab in YouTube Analytics? {page} offers expert support to help you understand these features and optimize your content strategy."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

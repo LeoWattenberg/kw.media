@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/LmvblX4XfXo"
   watchUrl: "https://www.youtube.com/shorts/LmvblX4XfXo"
   thumbnailUrl: "https://i.ytimg.com/vi/LmvblX4XfXo/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über Creator Music und wie du lizenzierte Songs in deinen YouTube-Videos nutzen kannst? Schau dir {page} an, um mehr zu erfahren, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/6KcwfJbEdDk"
   watchUrl: "https://www.youtube.com/shorts/6KcwfJbEdDk"
   thumbnailUrl: "https://i.ytimg.com/vi/6KcwfJbEdDk/maxresdefault.jpg"
+postCta:
+  text: "Du bist dir unsicher, wie du YouTube-Kanalberechtigungen richtig verwaltest? Auf unserer {page} findest du weitere Tipps und Unterstützung für deinen Kanal, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

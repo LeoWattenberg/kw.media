@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/b5xKbnpC8P4"
   watchUrl: "https://www.youtube.com/shorts/b5xKbnpC8P4"
   thumbnailUrl: "https://i.ytimg.com/vi/b5xKbnpC8P4/maxresdefault.jpg"
+postCta:
+  text: "Confused about using hashtags on YouTube? Our {page} offers tips on how to effectively categorize your content and increase discovery, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

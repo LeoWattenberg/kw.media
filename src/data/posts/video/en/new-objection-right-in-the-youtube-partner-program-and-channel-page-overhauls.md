@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/KAWEPkrS2eI"
   watchUrl: "https://www.youtube.com/watch?v=KAWEPkrS2eI"
   thumbnailUrl: "https://i.ytimg.com/vi/KAWEPkrS2eI/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new YouTube Partner Program appeal process or channel page changes? {page} offers expert support and guidance to help you navigate these updates."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

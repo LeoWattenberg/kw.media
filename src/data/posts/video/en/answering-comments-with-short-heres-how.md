@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/hJLZbzvabYE"
   watchUrl: "https://www.youtube.com/shorts/hJLZbzvabYE"
   thumbnailUrl: "https://i.ytimg.com/vi/hJLZbzvabYE/maxresdefault.jpg"
+postCta:
+  text: "Not sure how to answer comments effectively? Our {page} offers comprehensive support, including tips on utilizing YouTube's new short video reply feature, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

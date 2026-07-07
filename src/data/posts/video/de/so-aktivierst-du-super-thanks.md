@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/iKf9XHFUSos"
   watchUrl: "https://www.youtube.com/shorts/iKf9XHFUSos"
   thumbnailUrl: "https://i.ytimg.com/vi/iKf9XHFUSos/maxresdefault.jpg"
+postCta:
+  text: "Bist du unsicher, wie du Super Thanks auf YouTube aktivierst? Kein Problem! Auf unserer {page} findest du weitere hilfreiche Tipps und Tricks rund um die Monetarisierung deines Kanals, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

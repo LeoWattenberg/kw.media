@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/hOXK7RMR4Qk"
   watchUrl: "https://www.youtube.com/shorts/hOXK7RMR4Qk"
   thumbnailUrl: "https://i.ytimg.com/vi/hOXK7RMR4Qk/maxresdefault.jpg"
+postCta:
+  text: "Not sure where to find your YouTube purchase history? It's easy! Click your profile picture, then 'Purchases and Memberships'. For more tips and support on navigating YouTube's features, visit our {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

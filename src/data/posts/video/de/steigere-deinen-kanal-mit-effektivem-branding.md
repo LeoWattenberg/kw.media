@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/xIG7D8RdP2I"
   watchUrl: "https://www.youtube.com/shorts/xIG7D8RdP2I"
   thumbnailUrl: "https://i.ytimg.com/vi/xIG7D8RdP2I/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Steigere deinen Kanal mit effektivem Branding! 🎨? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

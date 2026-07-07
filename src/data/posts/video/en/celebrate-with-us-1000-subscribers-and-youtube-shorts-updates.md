@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/RaauubMlzic"
   watchUrl: "https://www.youtube.com/watch?v=RaauubMlzic"
   thumbnailUrl: "https://i.ytimg.com/vi/RaauubMlzic/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new YouTube Shorts changes? We break down the details in this post. For more tips and tricks, explore our {page} to stay ahead of the curve, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

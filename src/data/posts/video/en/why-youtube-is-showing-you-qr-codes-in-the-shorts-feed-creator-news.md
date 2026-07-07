@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/XuyGt9x2FYc"
   watchUrl: "https://www.youtube.com/watch?v=XuyGt9x2FYc"
   thumbnailUrl: "https://i.ytimg.com/vi/XuyGt9x2FYc/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new AI ads or Twitch's QR code experiment? Our {page} offers expert insights to navigate these changes and keep your channel thriving."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

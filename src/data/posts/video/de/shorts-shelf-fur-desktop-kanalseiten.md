@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/nTHIqtc2GyY"
   watchUrl: "https://www.youtube.com/shorts/nTHIqtc2GyY"
   thumbnailUrl: "https://i.ytimg.com/vi/nTHIqtc2GyY/maxresdefault.jpg"
+postCta:
+  text: "Du bist dir nicht sicher, wie du das Shorts-Shelf auf deiner Desktop-Kanalseite einrichtest? Bei kw.media findest du weitere {page} und Unterstützung für alle deine YouTube-Fragen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

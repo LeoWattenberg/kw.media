@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/raKkureDLlA"
   watchUrl: "https://www.youtube.com/watch?v=raKkureDLlA"
   thumbnailUrl: "https://i.ytimg.com/vi/raKkureDLlA/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Dir werden keine YouTube Kapitel angezeigt?? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

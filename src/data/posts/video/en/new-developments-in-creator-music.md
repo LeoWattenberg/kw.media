@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/LmvblX4XfXo"
   watchUrl: "https://www.youtube.com/shorts/LmvblX4XfXo"
   thumbnailUrl: "https://i.ytimg.com/vi/LmvblX4XfXo/maxresdefault.jpg"
+postCta:
+  text: "Confused about licensing music for your videos? kw.media's Creator Services offer support with music licensing and monetization strategies. Learn more about how to use Creator Music effectively on {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

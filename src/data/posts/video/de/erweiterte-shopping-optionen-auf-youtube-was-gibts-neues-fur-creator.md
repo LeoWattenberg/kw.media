@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/FZw6pXiSETg"
   watchUrl: "https://www.youtube.com/watch?v=FZw6pXiSETg"
   thumbnailUrl: "https://i.ytimg.com/vi/FZw6pXiSETg/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die neuen Shopping-Funktionen auf YouTube? Bei kw.media findest du Unterstützung und Beratung für deinen Kanal. Entdecke mehr unter {page} und lerne, wie du diese Updates optimal nutzt, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

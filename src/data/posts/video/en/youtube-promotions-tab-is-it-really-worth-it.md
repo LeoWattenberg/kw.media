@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/TjSGf5YjMtI"
   watchUrl: "https://www.youtube.com/watch?v=TjSGf5YjMtI"
   thumbnailUrl: "https://i.ytimg.com/vi/TjSGf5YjMtI/maxresdefault.jpg"
+postCta:
+  text: "Not sure if YouTube Promotions are right for you? {page} offers expert support to help you navigate paid promotion and other strategies to grow your channel effectively."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

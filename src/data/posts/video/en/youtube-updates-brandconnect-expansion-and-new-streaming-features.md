@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/yOHQeHV2iYk"
   watchUrl: "https://www.youtube.com/watch?v=yOHQeHV2iYk"
   thumbnailUrl: "https://i.ytimg.com/vi/yOHQeHV2iYk/maxresdefault.jpg"
+postCta:
+  text: "Confused about the latest YouTube changes? From editable thumbnails to 'lively' previews, we break down the updates. For more insights and tips, check out our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

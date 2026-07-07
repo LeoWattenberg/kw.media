@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/mKOsyRGYNyc"
   watchUrl: "https://www.youtube.com/watch?v=mKOsyRGYNyc"
   thumbnailUrl: "https://i.ytimg.com/vi/mKOsyRGYNyc/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest einen YouTube-Kanal starten? Wenn du für ein Unternehmen oder Projekt planst, findest du auf unserer {page} weitere Tipps und Unterstützung für deinen perfekten Start, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

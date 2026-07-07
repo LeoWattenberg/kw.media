@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/WwNMa1XUVsg"
   watchUrl: "https://www.youtube.com/watch?v=WwNMa1XUVsg"
   thumbnailUrl: "https://i.ytimg.com/vi/WwNMa1XUVsg/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei A/B-Testing auf YouTube: Vorbereitung auf den Sommer-Launch? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

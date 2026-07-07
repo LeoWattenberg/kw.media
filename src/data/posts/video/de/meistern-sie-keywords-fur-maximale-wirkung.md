@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/j1kZ_CuZOG8"
   watchUrl: "https://www.youtube.com/shorts/j1kZ_CuZOG8"
   thumbnailUrl: "https://i.ytimg.com/vi/j1kZ_CuZOG8/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest deine YouTube-Anzeigen optimieren? Auf unserer {page} findest du weitere Tipps und Tricks, wie du mit Keyword-Bieten mehr Zuschauer erreichst, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

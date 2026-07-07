@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/RSeROQWVAPk"
   watchUrl: "https://www.youtube.com/shorts/RSeROQWVAPk"
   thumbnailUrl: "https://i.ytimg.com/vi/RSeROQWVAPk/maxresdefault.jpg"
+postCta:
+  text: "Um HDR in deinen YouTube-Streams korrekt anzuzeigen, musst du das HLS-Protokoll nutzen. Erfahre mehr darüber, wie du einen Stream-Tier erstellst, der HLS unterstützt, auf unserer {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/D8AioV3AM6Y"
   watchUrl: "https://www.youtube.com/watch?v=D8AioV3AM6Y"
   thumbnailUrl: "https://i.ytimg.com/vi/D8AioV3AM6Y/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's 'Most Relevant' filter? This new feature personalizes your subscription feed based on your activity. If you're a Creator with concerns, head over to {page} for expert advice and support."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

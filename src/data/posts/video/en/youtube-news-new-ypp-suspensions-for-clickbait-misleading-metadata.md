@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/pjUSbdGlmvs"
   watchUrl: "https://www.youtube.com/watch?v=pjUSbdGlmvs"
   thumbnailUrl: "https://i.ytimg.com/vi/pjUSbdGlmvs/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new policy on clickbait titles and thumbnails? Our {page} offers expert support and guidance to help you navigate these changes. Stay informed and protect your channel."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

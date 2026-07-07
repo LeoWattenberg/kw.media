@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/AvwEC8I-7Vk"
   watchUrl: "https://www.youtube.com/watch?v=AvwEC8I-7Vk"
   thumbnailUrl: "https://i.ytimg.com/vi/AvwEC8I-7Vk/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new features like Jewels and Super Chat Goals? Our {page} can help. Get expert insights on these updates and more."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

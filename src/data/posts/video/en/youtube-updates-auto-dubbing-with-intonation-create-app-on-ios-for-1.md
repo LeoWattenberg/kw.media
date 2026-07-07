@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/EY8-P89G3Js"
   watchUrl: "https://www.youtube.com/watch?v=EY8-P89G3Js"
   thumbnailUrl: "https://i.ytimg.com/vi/EY8-P89G3Js/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's latest updates? From autodubbing improvements to the Create app on iOS, we break down what's new. For more insights and tips, check out our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

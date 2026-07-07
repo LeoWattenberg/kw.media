@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/KOx5J92udsw"
   watchUrl: "https://www.youtube.com/watch?v=KOx5J92udsw"
   thumbnailUrl: "https://i.ytimg.com/vi/KOx5J92udsw/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest deinen YouTube-Kanal professioneller gestalten? In diesem Beitrag erfährst du, wie du Profilbild, Kanalbanner und Wasserzeichen anpasst. Für weitere Tipps und individuelle Beratung besuche unsere {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

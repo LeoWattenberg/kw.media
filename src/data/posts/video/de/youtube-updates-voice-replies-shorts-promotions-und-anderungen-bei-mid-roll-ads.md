@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/KHAFS_SR8IQ"
   watchUrl: "https://www.youtube.com/watch?v=KHAFS_SR8IQ"
   thumbnailUrl: "https://i.ytimg.com/vi/KHAFS_SR8IQ/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube-Updates: Sprachnachrichten, Shorts-Werbung & Änderungen bei? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

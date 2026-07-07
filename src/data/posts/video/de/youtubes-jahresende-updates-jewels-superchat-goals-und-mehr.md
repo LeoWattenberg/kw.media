@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/AvwEC8I-7Vk"
   watchUrl: "https://www.youtube.com/watch?v=AvwEC8I-7Vk"
   thumbnailUrl: "https://i.ytimg.com/vi/AvwEC8I-7Vk/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube-Updates zum Jahresende: Jewels, Super Chat Goals und mehr!? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

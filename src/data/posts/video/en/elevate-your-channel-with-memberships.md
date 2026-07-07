@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/EWyU591a1JM"
   watchUrl: "https://www.youtube.com/shorts/EWyU591a1JM"
   thumbnailUrl: "https://i.ytimg.com/vi/EWyU591a1JM/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube memberships? Our {page} offers expert support and consulting to help you boost engagement and revenue. Learn more about channel analytics, monetization strategies, and individual support."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

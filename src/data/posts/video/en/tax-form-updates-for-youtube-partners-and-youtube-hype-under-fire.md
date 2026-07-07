@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/SERd4-20rtI"
   watchUrl: "https://www.youtube.com/watch?v=SERd4-20rtI"
   thumbnailUrl: "https://i.ytimg.com/vi/SERd4-20rtI/maxresdefault.jpg"
+postCta:
+  text: "Confused about tax forms for YouTube partners or the new 'Hype' feature? Our {page} offers expert support, analytics, and monetization advice. We can help navigate these changes."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/tQ4Qxdz5diI"
   watchUrl: "https://www.youtube.com/watch?v=tQ4Qxdz5diI"
   thumbnailUrl: "https://i.ytimg.com/vi/tQ4Qxdz5diI/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new Twitch IRL streaming rules or how to find quality collaborations? kw.media offers expert support and resources to help navigate these changes. Visit {page} for more insights and guidance on growing your creator career."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

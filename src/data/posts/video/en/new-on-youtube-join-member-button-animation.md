@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/oYttE8RpUqQ"
   watchUrl: "https://www.youtube.com/watch?v=oYttE8RpUqQ"
   thumbnailUrl: "https://i.ytimg.com/vi/oYttE8RpUqQ/maxresdefault.jpg"
+postCta:
+  text: "Confused about this new YouTube feature? The animated 'Become a Member' button can boost your channel's engagement. Learn more about optimizing your membership benefits and other creator services on our {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

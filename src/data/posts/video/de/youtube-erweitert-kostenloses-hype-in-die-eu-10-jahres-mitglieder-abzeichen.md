@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/jnVTl0DWVWs"
   watchUrl: "https://www.youtube.com/watch?v=jnVTl0DWVWs"
   thumbnailUrl: "https://i.ytimg.com/vi/jnVTl0DWVWs/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube erweitert kostenloses Hype in die EU +? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

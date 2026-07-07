@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/xIG7D8RdP2I"
   watchUrl: "https://www.youtube.com/shorts/xIG7D8RdP2I"
   thumbnailUrl: "https://i.ytimg.com/vi/xIG7D8RdP2I/maxresdefault.jpg"
+postCta:
+  text: "Branding is key to making your channel stand out. From banners to profile pictures, consistent elements create a memorable identity. Confused about branding? Visit our {page} for expert support and guidance."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

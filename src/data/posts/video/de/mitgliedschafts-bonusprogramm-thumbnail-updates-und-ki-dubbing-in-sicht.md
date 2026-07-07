@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/XDdgidkQSUc"
   watchUrl: "https://www.youtube.com/watch?v=XDdgidkQSUc"
   thumbnailUrl: "https://i.ytimg.com/vi/XDdgidkQSUc/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die neuen YouTube-Funktionen wie das Memberships Bonusprogramm oder AI Dubbing? Schau dir unsere {page} an, um mehr zu erfahren und dein YouTube-Erlebnis zu verbessern, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

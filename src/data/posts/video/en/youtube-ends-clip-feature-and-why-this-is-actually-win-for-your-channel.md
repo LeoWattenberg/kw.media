@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/DetnFFjfqKA"
   watchUrl: "https://www.youtube.com/watch?v=DetnFFjfqKA"
   thumbnailUrl: "https://i.ytimg.com/vi/DetnFFjfqKA/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's decision to end the Clips feature? Our {page} explains why this change could benefit your channel in the long run. Get expert insights and stay ahead of the curve."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

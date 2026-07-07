@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/JXe3Pop5N3U"
   watchUrl: "https://www.youtube.com/shorts/JXe3Pop5N3U"
   thumbnailUrl: "https://i.ytimg.com/vi/JXe3Pop5N3U/maxresdefault.jpg"
+postCta:
+  text: "Curious about how to directly link other YouTube channels in your titles or descriptions? Learn more about using @-mentions on our {page} for a simple guide, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/1gcduEf8HXE"
   watchUrl: "https://www.youtube.com/watch?v=1gcduEf8HXE"
   thumbnailUrl: "https://i.ytimg.com/vi/1gcduEf8HXE/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new YouTube Studio Mobile changes? Our {page} offers expert support, analytics, and consulting to help you navigate these updates and optimize your channel."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

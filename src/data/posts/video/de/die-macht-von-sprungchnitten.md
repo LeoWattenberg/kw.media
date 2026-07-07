@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/gs5hdwEO9gs"
   watchUrl: "https://www.youtube.com/shorts/gs5hdwEO9gs"
   thumbnailUrl: "https://i.ytimg.com/vi/gs5hdwEO9gs/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die Verwendung von Sprungbildern in deinen Videos? Auf unserer {page} findest du weitere Tipps und Tricks, wie du diese Technik effektiv einsetzen kannst, um deine Videos zu optimieren, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

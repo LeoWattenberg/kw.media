@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/JhAvOlIInDk"
   watchUrl: "https://www.youtube.com/watch?v=JhAvOlIInDk"
   thumbnailUrl: "https://i.ytimg.com/vi/JhAvOlIInDk/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Twitch nutzt KI, um Creator zu mikromanagen | Creator News? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/JIJbmewxJVk"
   watchUrl: "https://www.youtube.com/shorts/JIJbmewxJVk"
   thumbnailUrl: "https://i.ytimg.com/vi/JIJbmewxJVk/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube monetization? For expert guidance on maximizing your channel's future value, explore our {page} services."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

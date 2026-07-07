@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/YSv_5uNMHds"
   watchUrl: "https://www.youtube.com/watch?v=YSv_5uNMHds"
   thumbnailUrl: "https://i.ytimg.com/vi/YSv_5uNMHds/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new text-to-speech feature for Shorts? Learn more about how to use it effectively on our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/s5_yhiar6UU"
   watchUrl: "https://www.youtube.com/shorts/s5_yhiar6UU"
   thumbnailUrl: "https://i.ytimg.com/vi/s5_yhiar6UU/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei OBS mit Twitch und YouTube verbinden? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

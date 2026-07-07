@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/dnT2t4c94kw"
   watchUrl: "https://www.youtube.com/shorts/dnT2t4c94kw"
   thumbnailUrl: "https://i.ytimg.com/vi/dnT2t4c94kw/maxresdefault.jpg"
+postCta:
+  text: "Confused about how refunds work when gifting YouTube memberships? For more creator support and monetization tips, visit {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

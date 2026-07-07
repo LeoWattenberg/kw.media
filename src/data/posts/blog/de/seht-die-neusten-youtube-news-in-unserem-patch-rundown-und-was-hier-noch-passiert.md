@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/seht-die-neusten-youtube-news-in-unserem-patch-rundown-und-was-hier-noch-passiert/"
+postCta:
+  text: "Du bist neugierig auf die neuesten YouTube-Entwicklungen? In unserem Patch Rundown findest du alle wichtigen Infos. Für weitere Einblicke und individuelle Beratung besuche unsere {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Überblick

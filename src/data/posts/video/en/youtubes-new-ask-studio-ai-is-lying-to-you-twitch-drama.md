@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/s01Iqj9HmdI"
   watchUrl: "https://www.youtube.com/watch?v=s01Iqj9HmdI"
   thumbnailUrl: "https://i.ytimg.com/vi/s01Iqj9HmdI/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's Ask Studio AI? Don't rely on average suggestions. For expert consulting on content strategy and analytics, {page} offers tailored support to elevate your channel."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

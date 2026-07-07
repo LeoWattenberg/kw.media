@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/9SP8lXBW-wk"
   watchUrl: "https://www.youtube.com/watch?v=9SP8lXBW-wk"
   thumbnailUrl: "https://i.ytimg.com/vi/9SP8lXBW-wk/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new side-by-side ads or the upcoming community leaderboard? {page} offers expert support and insights to help you navigate these changes. Get in touch if you need guidance."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

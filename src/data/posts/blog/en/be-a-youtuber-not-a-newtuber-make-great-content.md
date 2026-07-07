@@ -11,6 +11,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-10-21-50-36.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/"
+postCta:
+  text: "For more tips on content creation and other YouTube services, check out our {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 Moin. Running a YouTube channel is hard. There’s a lot of things to consider, ranging from thumbnails and SEO to get found better, to monetization and branding. And while each of these things are important in their own right, it’s easy to lose track of what really matters: Making great content.

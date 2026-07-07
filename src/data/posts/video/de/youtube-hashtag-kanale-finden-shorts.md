@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/CtyhveAZNRo"
   watchUrl: "https://www.youtube.com/shorts/CtyhveAZNRo"
   thumbnailUrl: "https://i.ytimg.com/vi/CtyhveAZNRo/maxresdefault.jpg"
+postCta:
+  text: "Du bist dir unsicher, wie man bei YouTube nach Hashtags sucht? Auf unserer {page} findest du weitere Tipps und Tricks rund um YouTube, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

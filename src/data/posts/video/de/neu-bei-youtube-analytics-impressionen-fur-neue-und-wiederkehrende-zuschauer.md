@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/gw-LkDbK_R8"
   watchUrl: "https://www.youtube.com/watch?v=gw-LkDbK_R8"
   thumbnailUrl: "https://i.ytimg.com/vi/gw-LkDbK_R8/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Neue YouTube Analytics: Impressionen für neue und wiederkehrende? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

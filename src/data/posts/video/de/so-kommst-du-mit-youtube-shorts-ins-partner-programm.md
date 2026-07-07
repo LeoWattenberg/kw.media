@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/oyX_dfP3Wv8"
   watchUrl: "https://www.youtube.com/shorts/oyX_dfP3Wv8"
   thumbnailUrl: "https://i.ytimg.com/vi/oyX_dfP3Wv8/maxresdefault.jpg"
+postCta:
+  text: "Falls du die Anforderungen für das YouTube-Partnerprogramm nicht erfüllst, gibt es eine Alternative: 10 Millionen Shorts-Aufrufe in 90 Tagen. Mehr dazu findest du auf unserer {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

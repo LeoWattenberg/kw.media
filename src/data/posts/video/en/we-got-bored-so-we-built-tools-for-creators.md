@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/YOyDmdKFKYg"
   watchUrl: "https://www.youtube.com/watch?v=YOyDmdKFKYg"
   thumbnailUrl: "https://i.ytimg.com/vi/YOyDmdKFKYg/maxresdefault.jpg"
+postCta:
+  text: "Check the {page} page for various tools!"
+  pagePath: "/en/tools/"
+  pageTitle: "Tools"
 ---
 
 ## Transcript

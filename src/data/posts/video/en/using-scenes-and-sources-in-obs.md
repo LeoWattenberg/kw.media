@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/CVIdTBgfJ4g"
   watchUrl: "https://www.youtube.com/shorts/CVIdTBgfJ4g"
   thumbnailUrl: "https://i.ytimg.com/vi/CVIdTBgfJ4g/maxresdefault.jpg"
+postCta:
+  text: "Need help understanding OBS scenes and sources? Our {page} offers practical tools and support for creators like you, or contact our expert below."
+  pagePath: "/en/tools/"
+  pageTitle: "Tools"
 ---
 
 ## Transcript

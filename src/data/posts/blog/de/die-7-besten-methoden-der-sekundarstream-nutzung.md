@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-best-7-methods-of-secondary-stream-usage/"
+postCta:
+  text: "Du bist dir nicht sicher, wie du deine Live-Streams optimal nutzen kannst? Entdecke auf unserer {page} Seite weitere Tipps und Tricks, um deinen Content zu maximieren und deinen YouTube-Kanal voranzubringen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Streams sind von Natur aus sehr vergänglich: Du bist live, bekommst ein paar Zuschauer und sobald der Stream endet, ist es vorbei. Keine weiteren Aufrufe – und selbst wenn eine VOD verfügbar ist, erreicht sie in der Regel bei weitem nicht so viele Aufrufe wie andere Arten von Videos. Es ist jedoch möglich, den Inhalt zu retten und ihm ein zweites Leben einzuhauchen:

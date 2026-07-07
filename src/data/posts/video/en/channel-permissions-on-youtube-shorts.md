@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/6KcwfJbEdDk"
   watchUrl: "https://www.youtube.com/shorts/6KcwfJbEdDk"
   thumbnailUrl: "https://i.ytimg.com/vi/6KcwfJbEdDk/maxresdefault.jpg"
+postCta:
+  text: "Confused about channel permissions? Sharing passwords is a no-go. Instead, utilize YouTube Studio's built-in permission system. Head to {page} for more tips and tricks on managing your channel securely, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

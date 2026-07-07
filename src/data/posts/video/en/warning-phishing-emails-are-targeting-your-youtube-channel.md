@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/8ADk4DxW_EA"
   watchUrl: "https://www.youtube.com/shorts/8ADk4DxW_EA"
   thumbnailUrl: "https://i.ytimg.com/vi/8ADk4DxW_EA/maxresdefault.jpg"
+postCta:
+  text: "For more tips on keeping your channel safe, visit our {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

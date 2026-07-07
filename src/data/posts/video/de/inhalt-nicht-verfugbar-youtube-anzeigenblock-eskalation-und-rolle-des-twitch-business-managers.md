@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/VTYh7opEoNY"
   watchUrl: "https://www.youtube.com/watch?v=VTYh7opEoNY"
   thumbnailUrl: "https://i.ytimg.com/vi/VTYh7opEoNY/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube-Ad-Blocker-Eskalation und Twitch Business Manager: Wichtige? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

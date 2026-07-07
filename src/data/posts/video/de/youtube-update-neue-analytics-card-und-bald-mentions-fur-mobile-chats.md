@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/W_IFK4IqfHo"
   watchUrl: "https://www.youtube.com/watch?v=W_IFK4IqfHo"
   thumbnailUrl: "https://i.ytimg.com/vi/W_IFK4IqfHo/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube-Update: Neue Analytics-Karte & bald @Mentions für mobile Chats!? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

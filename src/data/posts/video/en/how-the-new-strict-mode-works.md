@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/_KvD9yQ9YUo"
   watchUrl: "https://www.youtube.com/shorts/_KvD9yQ9YUo"
   thumbnailUrl: "https://i.ytimg.com/vi/_KvD9yQ9YUo/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new Strict Mode for comment filtering? Find out more about how it works and where to test it in the {page} section, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

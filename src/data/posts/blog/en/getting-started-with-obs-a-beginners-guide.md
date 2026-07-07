@@ -12,6 +12,10 @@ category: "blog"
 image: "https://lh5.googleusercontent.com/s9rkISe0KpvpU_IC2a_CnpznbTIxp41h7ojyWIroeD0bmY3xwCUpdTnh-uOgGAiGcIojmZmxcA4tsgoIZzOpCwiAw7Zmq7tmhAWxOSArIctQ2-DDZR4xYpiZjIG0vhOfCTzW-SflST-cOLeI2ps7te9j_8B8291CgAltZdglZJfo7XmXFSijFjVu_w"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-obs-a-beginners-guide/"
+postCta:
+  text: "OBS is a powerful tool for creators, but it can be confusing for beginners. If you're new to OBS, check out our {page} for more tips and tricks to get the most out of this streaming software, or contact our expert below."
+  pagePath: "/en/tools/"
+  pageTitle: "Tools"
 ---
 
 *OBS is an amazing tool for creators, if you want to live stream; record your videos or even do both at the same time. This guide will focus on beginner advice, and a later guide will tackle more advanced advice regarding the use of OBS and the [YouTube Live Dashboard](/youtube-tips-en/connecting-obs-to-twitch-and-youtube/).*

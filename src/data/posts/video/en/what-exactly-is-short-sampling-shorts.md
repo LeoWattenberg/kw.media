@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/FlH6HGVR82A"
   watchUrl: "https://www.youtube.com/shorts/FlH6HGVR82A"
   thumbnailUrl: "https://i.ytimg.com/vi/FlH6HGVR82A/maxresdefault.jpg"
+postCta:
+  text: "Confused about short sampling? Our {page} offers detailed tips to help you manage this setting effectively, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

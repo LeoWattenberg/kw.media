@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/5vBlAeXG_uE"
   watchUrl: "https://www.youtube.com/shorts/5vBlAeXG_uE"
   thumbnailUrl: "https://i.ytimg.com/vi/5vBlAeXG_uE/maxresdefault.jpg"
+postCta:
+  text: "Bist du unsicher, was die neuen YouTube-Partnerbedingungen betreffen? Auf unserer {page} findest du Unterstützung und Beratung, um deine Partnerschaft fortzusetzen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

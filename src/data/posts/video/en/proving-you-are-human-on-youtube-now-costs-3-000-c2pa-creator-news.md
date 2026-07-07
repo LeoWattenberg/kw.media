@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/j2al3ouHxz4"
   watchUrl: "https://www.youtube.com/watch?v=j2al3ouHxz4"
   thumbnailUrl: "https://i.ytimg.com/vi/j2al3ouHxz4/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new C2PA certification and its impact on creators? If proving your authenticity as a creator is important to you, check out our {page} for expert support and guidance on navigating these changes without breaking the bank."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

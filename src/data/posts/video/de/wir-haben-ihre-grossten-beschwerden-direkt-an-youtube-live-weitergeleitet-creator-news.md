@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/K5t4DGO_J2I"
   watchUrl: "https://www.youtube.com/watch?v=K5t4DGO_J2I"
   thumbnailUrl: "https://i.ytimg.com/vi/K5t4DGO_J2I/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Deine Beschwerden an YouTube LIVE: Wir fragen nach Verbesserungen |? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

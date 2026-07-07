@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/8ADk4DxW_EA"
   watchUrl: "https://www.youtube.com/shorts/8ADk4DxW_EA"
   thumbnailUrl: "https://i.ytimg.com/vi/8ADk4DxW_EA/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Achtung: Phishing-E-Mails zielen auf eure YouTube-Kanäle ab!? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

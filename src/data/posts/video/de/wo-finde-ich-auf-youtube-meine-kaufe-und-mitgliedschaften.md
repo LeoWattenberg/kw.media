@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/hOXK7RMR4Qk"
   watchUrl: "https://www.youtube.com/shorts/hOXK7RMR4Qk"
   thumbnailUrl: "https://i.ytimg.com/vi/hOXK7RMR4Qk/maxresdefault.jpg"
+postCta:
+  text: "Wenn du deine YouTube-Käufe und -Mitgliedschaften nicht findest, kann dir kw.media helfen. Besuche unsere {page} für mehr Informationen oder kontaktiere unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

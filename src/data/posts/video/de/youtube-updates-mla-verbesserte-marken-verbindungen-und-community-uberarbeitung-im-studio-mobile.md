@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/6AeC2WO3t_A"
   watchUrl: "https://www.youtube.com/watch?v=6AeC2WO3t_A"
   thumbnailUrl: "https://i.ytimg.com/vi/6AeC2WO3t_A/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt von den neuesten YouTube-Entwicklungen? Bei kw.media findest du Unterstützung und Beratung für deinen Kanal. Entdecke auf der {page} mehr über unsere Angebote und lass dich von unseren Experten zum Next Level bringen."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

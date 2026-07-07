@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/jkTohCOCLdg"
   watchUrl: "https://www.youtube.com/watch?v=jkTohCOCLdg"
   thumbnailUrl: "https://i.ytimg.com/vi/jkTohCOCLdg/maxresdefault.jpg"
+postCta:
+  text: "Confused about the latest YouTube changes? Automated mid-roll ads and editing restrictions can be tricky. Visit our {page} for expert advice and support to navigate these updates."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

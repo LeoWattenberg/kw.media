@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Rl2fol2fqhg"
   watchUrl: "https://www.youtube.com/watch?v=Rl2fol2fqhg"
   thumbnailUrl: "https://i.ytimg.com/vi/Rl2fol2fqhg/maxresdefault.jpg"
+postCta:
+  text: "Confused about the latest YouTube changes? Our {page} breaks down new features like Google Lens integration and AI summaries for live chats. Get informed and stay ahead of the curve, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

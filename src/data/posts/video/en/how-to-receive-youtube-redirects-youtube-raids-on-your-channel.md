@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Hy3CFCjHYog"
   watchUrl: "https://www.youtube.com/shorts/Hy3CFCjHYog"
   thumbnailUrl: "https://i.ytimg.com/vi/Hy3CFCjHYog/maxresdefault.jpg"
+postCta:
+  text: "Confused about setting up Live Redirects on YouTube? Our {page} offers expert support and guidance to help you configure these settings seamlessly."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

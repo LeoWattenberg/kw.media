@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/SERd4-20rtI"
   watchUrl: "https://www.youtube.com/watch?v=SERd4-20rtI"
   thumbnailUrl: "https://i.ytimg.com/vi/SERd4-20rtI/maxresdefault.jpg"
+postCta:
+  text: "Wenn du Unterstützung bei der Navigation durch diese Prozesse benötigst, besuche unsere {page}, wo wir dir helfen können, das Maximum aus deinem Kanal herauszuholen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

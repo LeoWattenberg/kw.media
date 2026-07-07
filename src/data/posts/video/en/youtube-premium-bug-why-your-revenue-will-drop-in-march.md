@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/3BrtN4P1Qnc"
   watchUrl: "https://www.youtube.com/watch?v=3BrtN4P1Qnc"
   thumbnailUrl: "https://i.ytimg.com/vi/3BrtN4P1Qnc/maxresdefault.jpg"
+postCta:
+  text: "Confused about the recent YouTube Premium bug and its impact on your revenue? Don't worry, we've got you covered. Visit {page} for expert insights and guidance on navigating these changes, as well as other creator-related updates."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/hqePaFc8fCA"
   watchUrl: "https://www.youtube.com/shorts/hqePaFc8fCA"
   thumbnailUrl: "https://i.ytimg.com/vi/hqePaFc8fCA/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new YouTube chat handle format? Don't want to look like a bot? Visit our {page} for expert tips on customizing your display name and making it human-friendly again."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

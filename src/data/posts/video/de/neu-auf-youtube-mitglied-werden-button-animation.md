@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/oYttE8RpUqQ"
   watchUrl: "https://www.youtube.com/watch?v=oYttE8RpUqQ"
   thumbnailUrl: "https://i.ytimg.com/vi/oYttE8RpUqQ/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest mehr aus deinem YouTube-Kanal herausholen? Wenn du verwirrt bist, wie du diese neue Funktion nutzten kannst, schau dir unsere {page} an. Wir bieten Support und Beratung für Creator wie dich, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

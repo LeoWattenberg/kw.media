@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/E8hipk1TNNc"
   watchUrl: "https://www.youtube.com/watch?v=E8hipk1TNNc"
   thumbnailUrl: "https://i.ytimg.com/vi/E8hipk1TNNc/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Bald auf YouTube: Anpassbare Thumbnails für Shorts & SuperChat Goals!? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

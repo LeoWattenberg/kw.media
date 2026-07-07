@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/RHJcqSPlG_s"
   watchUrl: "https://www.youtube.com/watch?v=RHJcqSPlG_s"
   thumbnailUrl: "https://i.ytimg.com/vi/RHJcqSPlG_s/maxresdefault.jpg"
+postCta:
+  text: "Verwirrende YouTube-Updates? Wir helfen dir, die neuesten Funktionen wie AV1-Codec, Neben-an-Neben-Anzeigen und Sprachantworten zu verstehen. Besuche unsere {page} für mehr Informationen und individuelle Beratung, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/gdibcpbh45g"
   watchUrl: "https://www.youtube.com/watch?v=gdibcpbh45g"
   thumbnailUrl: "https://i.ytimg.com/vi/gdibcpbh45g/maxresdefault.jpg"
+postCta:
+  text: "Confused about designing thumbnails? Our {page} offers expert services to help bring your gaming channel to the next level, from channel analytics to better monetization strategies."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

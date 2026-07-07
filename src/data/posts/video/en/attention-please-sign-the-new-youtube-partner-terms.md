@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/5vBlAeXG_uE"
   watchUrl: "https://www.youtube.com/shorts/5vBlAeXG_uE"
   thumbnailUrl: "https://i.ytimg.com/vi/5vBlAeXG_uE/maxresdefault.jpg"
+postCta:
+  text: "Not sure about the new YouTube Partner Terms? Our Creator Services team can help you understand the changes and guide you through the signing process. Visit {page} for more information or get in touch with our experts."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

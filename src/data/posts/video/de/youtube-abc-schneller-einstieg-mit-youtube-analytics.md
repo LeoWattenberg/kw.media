@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/R5ReoaOEaG0"
   watchUrl: "https://www.youtube.com/shorts/R5ReoaOEaG0"
   thumbnailUrl: "https://i.ytimg.com/vi/R5ReoaOEaG0/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die vielen Zahlen und Metriken in YouTube Analytics? Auf unserer {page} findest du Unterstützung und Beratung, um deinen Kanal zu optimieren und das Maximum herauszuholen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

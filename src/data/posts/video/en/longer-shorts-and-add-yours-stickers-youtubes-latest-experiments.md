@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/K7OVwIz48o8"
   watchUrl: "https://www.youtube.com/watch?v=K7OVwIz48o8"
   thumbnailUrl: "https://i.ytimg.com/vi/K7OVwIz48o8/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new 'Add Yours' sticker for Shorts? For more insights and support on navigating these changes, explore our {page} to stay ahead of the curve, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

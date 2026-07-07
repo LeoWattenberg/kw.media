@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Tan75JmMd18"
   watchUrl: "https://www.youtube.com/shorts/Tan75JmMd18"
   thumbnailUrl: "https://i.ytimg.com/vi/Tan75JmMd18/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die verschiedenen Methoden, YouTube Shorts zu erstellen? Kein Problem! Auf unserer {page} findest du detaillierte Beratung und Support, um deine kreativen Ideen umzusetzen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

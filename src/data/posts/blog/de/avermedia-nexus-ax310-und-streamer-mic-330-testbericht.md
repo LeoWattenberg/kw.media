@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/06/AM_NEXUS_BACK.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/avermedia-nexus-ax310-streamer-mic-330-review/"
+postCta:
+  text: "Du bist unsicher, ob sich die Investition in das AVerMedia NEXUS AX310 und Streamer MIC 330 lohnt? Schau dir unsere {page} an, um mehr zu erfahren, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Wenn es darum geht, Streaming oder Content-Erstellung im Allgemeinen auf das nächste Level zu heben, ist eines der ersten Dinge, die man tun sollte, die Aufrüstung des Audioequipments. Für eine Orientierung, was für dich passen könnte, wirf einen Blick auf unseren [Audio-Guide zum Glück](/youtube-tipps-de/der-audio-guide-zum-glucklichsein-oder-wie-du-deine-streams-und-videos-gut-klingen-lasst/).

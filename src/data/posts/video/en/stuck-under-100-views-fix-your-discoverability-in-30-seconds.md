@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/-WgXyaoL1LI"
   watchUrl: "https://www.youtube.com/shorts/-WgXyaoL1LI"
   thumbnailUrl: "https://i.ytimg.com/vi/-WgXyaoL1LI/maxresdefault.jpg"
+postCta:
+  text: "If you're still stuck under 100 views, improving discoverability might be the key. Our {page} offers various services to help bring your channel to the next level, including analytics and monetization strategies, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

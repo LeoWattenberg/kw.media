@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/2JIHi4MVn9w"
   watchUrl: "https://www.youtube.com/shorts/2JIHi4MVn9w"
   thumbnailUrl: "https://i.ytimg.com/vi/2JIHi4MVn9w/maxresdefault.jpg"
+postCta:
+  text: "Confused why your channel stopped growing? You've hit a ceiling. To break through and reach new viewers, explore our {page} for expert consulting, analytics, and monetization strategies."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

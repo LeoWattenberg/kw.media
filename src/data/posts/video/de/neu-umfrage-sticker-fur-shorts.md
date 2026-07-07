@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/BIzqRnp_0cQ"
   watchUrl: "https://www.youtube.com/shorts/BIzqRnp_0cQ"
   thumbnailUrl: "https://i.ytimg.com/vi/BIzqRnp_0cQ/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest deine Zuschauer stärker einbinden? Wenn du mehr über diese und andere Möglichkeiten erfahren möchtest, besuche unsere {page} für weitere Tipps und Tricks, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/nMgllfy0VUc"
   watchUrl: "https://www.youtube.com/shorts/nMgllfy0VUc"
   thumbnailUrl: "https://i.ytimg.com/vi/nMgllfy0VUc/maxresdefault.jpg"
+postCta:
+  text: "Confused about how to gift YouTube memberships? Our {page} explains the process, from selecting recipients to payment methods. Get in touch for expert guidance."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

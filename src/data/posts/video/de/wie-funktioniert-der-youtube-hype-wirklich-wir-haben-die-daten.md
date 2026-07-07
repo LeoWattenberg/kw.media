@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/FUEDT9dEIxQ"
   watchUrl: "https://www.youtube.com/watch?v=FUEDT9dEIxQ"
   thumbnailUrl: "https://i.ytimg.com/vi/FUEDT9dEIxQ/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Wie funktioniert der YouTube-Hype WIRKLICH?? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

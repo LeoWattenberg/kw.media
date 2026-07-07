@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/KHAFS_SR8IQ"
   watchUrl: "https://www.youtube.com/watch?v=KHAFS_SR8IQ"
   thumbnailUrl: "https://i.ytimg.com/vi/KHAFS_SR8IQ/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's latest changes? From voice replies to Shorts ads and mid-roll adjustments, stay informed with our {page} for creators. Get expert insights and navigate these updates effectively."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

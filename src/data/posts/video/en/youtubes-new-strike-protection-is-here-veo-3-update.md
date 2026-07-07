@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/sFADjkaHI2s"
   watchUrl: "https://www.youtube.com/watch?v=sFADjkaHI2s"
   thumbnailUrl: "https://i.ytimg.com/vi/sFADjkaHI2s/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new strike protection or Veo 3 update? Stay ahead of the curve with our comprehensive guides. Check out our {page} for more insights and expert advice on navigating these changes."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Ca2UQvh5p5Q"
   watchUrl: "https://www.youtube.com/watch?v=Ca2UQvh5p5Q"
   thumbnailUrl: "https://i.ytimg.com/vi/Ca2UQvh5p5Q/maxresdefault.jpg"
+postCta:
+  text: "Wenn du mehr über die Optimierung deines Kanals erfahren möchtest, besuche unsere {page} für individuelle Beratung und Support, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

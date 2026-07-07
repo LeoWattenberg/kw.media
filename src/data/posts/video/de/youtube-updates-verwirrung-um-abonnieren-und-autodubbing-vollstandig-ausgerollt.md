@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/7dB5B_EKnYE"
   watchUrl: "https://www.youtube.com/watch?v=7dB5B_EKnYE"
   thumbnailUrl: "https://i.ytimg.com/vi/7dB5B_EKnYE/maxresdefault.jpg"
+postCta:
+  text: "Bist du auch verwirrt von YouTube's neuem „Abonnieren Plus“-Button? Schau auf unserer {page} vorbei, um dich über die neuesten Entwicklungen zu informieren oder kontaktiere unsere Experten für individuelle Beratung."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

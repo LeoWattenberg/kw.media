@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/5nJuWdclGkw"
   watchUrl: "https://www.youtube.com/watch?v=5nJuWdclGkw"
   thumbnailUrl: "https://i.ytimg.com/vi/5nJuWdclGkw/maxresdefault.jpg"
+postCta:
+  text: "Du bist neugierig auf die Neuerungen in Audacity 4? Leo Wattenberg, Designer von Audacity 4, führt dich durch die wichtigsten Änderungen. Für mehr Informationen und Tutorials besuche unsere {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/audacity/"
+  pageTitle: "Audacity Tutorials"
 ---
 
 ## Transkript

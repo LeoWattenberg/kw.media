@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Xtu2XYmDfy4"
   watchUrl: "https://www.youtube.com/shorts/Xtu2XYmDfy4"
   thumbnailUrl: "https://i.ytimg.com/vi/Xtu2XYmDfy4/maxresdefault.jpg"
+postCta:
+  text: "Bist du unsicher wegen der YouTube-Monetarisierung während einer Pause? Bei kw.media findest du Antworten und Unterstützung. Schau dir unsere {page} an, um mehr über unsere Angebote für Creator zu erfahren, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

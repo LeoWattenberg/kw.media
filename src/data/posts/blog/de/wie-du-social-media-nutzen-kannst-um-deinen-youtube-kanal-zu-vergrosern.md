@@ -11,6 +11,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/10/HOW-TO-USE-SOCIAL-MEDIA-TO-GROW-YOUR-YOUTUBE-CHANNEL.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/wie-du-social-media-nutzen-kannst-um-deinen-youtube-kanal-zu-vergrosern/"
+postCta:
+  text: "Du möchtest deinen YouTube-Kanal mit Social Media voranbringen, weißt aber nicht wo anfangen? Auf unserer {page} findest du professionelle Beratung und Unterstützung, um deine Ziele zu erreichen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Moin.

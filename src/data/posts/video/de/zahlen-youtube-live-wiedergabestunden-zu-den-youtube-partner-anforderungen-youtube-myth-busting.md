@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/aIFl-V2c47o"
   watchUrl: "https://www.youtube.com/watch?v=aIFl-V2c47o"
   thumbnailUrl: "https://i.ytimg.com/vi/aIFl-V2c47o/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Zählen YouTube Live Wiedergabestunden zu den YouTube Partner? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

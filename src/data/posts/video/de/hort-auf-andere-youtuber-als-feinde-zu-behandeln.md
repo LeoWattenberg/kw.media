@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/5Wev7kFqnZg"
   watchUrl: "https://www.youtube.com/shorts/5Wev7kFqnZg"
   thumbnailUrl: "https://i.ytimg.com/vi/5Wev7kFqnZg/maxresdefault.jpg"
+postCta:
+  text: "Du bist dir unsicher, ob Zusammenarbeiten auf YouTube sinnvoll sind? Schau dir unsere {page} an und lass dich inspirieren, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

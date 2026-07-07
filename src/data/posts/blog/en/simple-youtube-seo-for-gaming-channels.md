@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/simple-youtube-seo-for-gaming-channels/"
+postCta:
+  text: "Confused about YouTube SEO for your gaming channel? For comprehensive support and guidance, explore our {page} to take your channel to the next level, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 The central question that leads to this guide is: ***“How do I get more views?”*** The short and simple answer: Optimize your videos for search engines.

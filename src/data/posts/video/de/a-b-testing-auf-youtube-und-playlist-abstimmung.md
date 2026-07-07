@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/bXbIz9BKeUc"
   watchUrl: "https://www.youtube.com/watch?v=bXbIz9BKeUc"
   thumbnailUrl: "https://i.ytimg.com/vi/bXbIz9BKeUc/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die neuen YouTube-Funktionen wie Playlist Voting und A/B-Testing für Titel? Auf unserer {page} findest du weitere Infos und Unterstützung von Experten, um das Beste aus deinem Kanal herauszuholen."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

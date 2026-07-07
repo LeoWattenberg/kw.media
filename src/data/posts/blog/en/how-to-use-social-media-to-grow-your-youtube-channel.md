@@ -11,6 +11,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-use-social-media-to-grow-your-youtube-channel/"
+postCta:
+  text: "Confused about using social media for your YouTube channel? We've got you covered. Check out our {page} for expert tips and services to help you reach new viewers and grow your brand."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Overview

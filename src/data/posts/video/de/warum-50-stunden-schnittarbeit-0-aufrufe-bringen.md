@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/ym_qnPaIiCk"
   watchUrl: "https://www.youtube.com/shorts/ym_qnPaIiCk"
   thumbnailUrl: "https://i.ytimg.com/vi/ym_qnPaIiCk/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Warum 50 Stunden Schnittarbeit 0 Aufrufe bringen? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/youtube-tipps/"
+  pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
 ## Transkript

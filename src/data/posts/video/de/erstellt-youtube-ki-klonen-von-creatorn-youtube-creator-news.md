@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/rhGWPkzn91o"
   watchUrl: "https://www.youtube.com/watch?v=rhGWPkzn91o"
   thumbnailUrl: "https://i.ytimg.com/vi/rhGWPkzn91o/maxresdefault.jpg"
+postCta:
+  text: "{page} bietet dir die Unterstützung, die du brauchst, um auf dem Laufenden zu bleiben, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

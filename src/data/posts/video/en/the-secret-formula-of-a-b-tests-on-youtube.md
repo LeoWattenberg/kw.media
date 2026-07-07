@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/ouFl0bkCWx4"
   watchUrl: "https://www.youtube.com/watch?v=ouFl0bkCWx4"
   thumbnailUrl: "https://i.ytimg.com/vi/ouFl0bkCWx4/maxresdefault.jpg"
+postCta:
+  text: "Confused about A/B testing on YouTube? Our experts break down the statistical formula behind it. Learn how to optimize your thumbnails for better results. For more insights, visit our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

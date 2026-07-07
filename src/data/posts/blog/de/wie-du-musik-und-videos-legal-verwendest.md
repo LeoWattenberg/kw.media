@@ -11,6 +11,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/wie-du-musik-und-videos-legal-verwendest/"
+postCta:
+  text: "Du bist unsicher, wie du Musik und Videos legal nutzen kannst? Unser Guide klärt auf! Mehr Tipps und Unterstützung zum Thema Urheberrecht findest du auf unserer {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 In diesem Tutorial/Ratgeber für YouTuber geht es um das Ding, was die einfache Aktion des Copy-pastens sehr, sehr schwer macht: Urheberrecht, auch bekannt als Copyright. Ich nenne es das “scheiß Urheberrecht”-Tutorial, weil sich in den letzten Jahren unendlich viel Frustration diesbezüglich angestaut hat.

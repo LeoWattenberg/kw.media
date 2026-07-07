@@ -11,6 +11,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-strike-was-nun/"
+postCta:
+  text: "Hast du trotz aller Vorsicht einen YouTube-Strike erhalten? Erfahre mehr auf unserer {page} und lass uns gemeinsam deinen Kanal voranbringen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## **ICH HAB EINEN STRIKE BEKOMMEN. UND WAS JETZT?**

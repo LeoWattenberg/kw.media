@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/rhThVpigPqY"
   watchUrl: "https://www.youtube.com/watch?v=rhThVpigPqY"
   thumbnailUrl: "https://i.ytimg.com/vi/rhThVpigPqY/maxresdefault.jpg"
+postCta:
+  text: "Confused about the recent YouTube changes? From thumbnail size increases to Super Chat Goals, we've got you covered. Stay informed with our {page} for more insights and tips, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

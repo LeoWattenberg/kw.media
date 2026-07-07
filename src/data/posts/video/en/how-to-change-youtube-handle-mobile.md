@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/67GI43uGC4s"
   watchUrl: "https://www.youtube.com/shorts/67GI43uGC4s"
   thumbnailUrl: "https://i.ytimg.com/vi/67GI43uGC4s/maxresdefault.jpg"
+postCta:
+  text: "Confused about the new YouTube @ handles? Learn how to change yours with our quick guide. For more YouTube tips and tricks, check out our {page}, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

@@ -11,6 +11,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-fuck-copyright-guide-how-to-legally-use-things-in-your-videos-that-other-people-made/"
+postCta:
+  text: "For expert guidance and support with YouTube-related issues, visit our {page} page."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 This guide is about the thing that makes copy-pasting stuff from the internet difficult, known as copyright. I called this guide the “fuck copyright” guide because of the immense frustrations that build up trying to deal with it.

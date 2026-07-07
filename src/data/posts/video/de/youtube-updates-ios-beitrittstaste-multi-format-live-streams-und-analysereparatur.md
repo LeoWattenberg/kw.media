@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/ge8wm6W-EF0"
   watchUrl: "https://www.youtube.com/watch?v=ge8wm6W-EF0"
   thumbnailUrl: "https://i.ytimg.com/vi/ge8wm6W-EF0/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube-Updates: iOS-Beitrittstaste, Multi-Format-Live-Streams &? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

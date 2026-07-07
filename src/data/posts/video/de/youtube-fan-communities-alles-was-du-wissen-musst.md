@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/5nw4Hz0d2mk"
   watchUrl: "https://www.youtube.com/watch?v=5nw4Hz0d2mk"
   thumbnailUrl: "https://i.ytimg.com/vi/5nw4Hz0d2mk/maxresdefault.jpg"
+postCta:
+  text: "Du bist verwirrt über die neuen Fan Communities auf YouTube? Kein Problem! Bei kw.media findest du umfassende Unterstützung und Beratung für deinen Kanal. Besuche {page} und erhalte mehr Informationen oder kontaktiere unsere Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

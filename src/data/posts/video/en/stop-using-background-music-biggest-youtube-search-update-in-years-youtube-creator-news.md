@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/L0009GyER00"
   watchUrl: "https://www.youtube.com/watch?v=L0009GyER00"
   thumbnailUrl: "https://i.ytimg.com/vi/L0009GyER00/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's search overhaul and audio strategy? Our {page} offers in-depth insights to help you navigate these changes and optimize your content for viewer satisfaction, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

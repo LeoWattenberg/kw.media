@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/k67uRZ1mEw4"
   watchUrl: "https://www.youtube.com/watch?v=k67uRZ1mEw4"
   thumbnailUrl: "https://i.ytimg.com/vi/k67uRZ1mEw4/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube Analytics: Top-Verdienst-Content nach Format als Orientierung? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

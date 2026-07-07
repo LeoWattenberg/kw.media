@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/A95WfCKuuYo"
   watchUrl: "https://www.youtube.com/shorts/A95WfCKuuYo"
   thumbnailUrl: "https://i.ytimg.com/vi/A95WfCKuuYo/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei der Preisfindung für deine Sponsorships? Berücksichtige Produktionskosten, Reichweite und Steuern, um realistische Preise zu setzen. Mehr Tipps und Unterstützung findest du auf unserer {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

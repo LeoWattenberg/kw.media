@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/1prNYRTvh8Y"
   watchUrl: "https://www.youtube.com/shorts/1prNYRTvh8Y"
   thumbnailUrl: "https://i.ytimg.com/vi/1prNYRTvh8Y/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's dashboard? Our {page} offers tips and tricks to help you manage your content and track performance effectively, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

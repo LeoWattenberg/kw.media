@@ -12,6 +12,10 @@ category: "blog"
 image: "https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-mobile-producion-for-everyone/"
+postCta:
+  text: "Need more help with mobile production? Check out our {page} for in-depth YouTube tips and tricks to elevate your content, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 Today we’ll be talking about mobile production for YouTube and [YouTube Live](/youtube-tips-en/getting-started-with-youtube-live-streaming/). This will be a broader approach to mobile production but we’ll go into more [gaming-specific details](/youtube-tips-en/starting-a-gaming-channel-on-a-budget/) further down the article, so bear with me.

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/nTHIqtc2GyY"
   watchUrl: "https://www.youtube.com/shorts/nTHIqtc2GyY"
   thumbnailUrl: "https://i.ytimg.com/vi/nTHIqtc2GyY/maxresdefault.jpg"
+postCta:
+  text: "Not sure how to add the Shorts shelf to your desktop channel page? Our {page} offers comprehensive support and guidance for all your YouTube needs, including this simple step-by-step process, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/BR7qbvP5ceY"
   watchUrl: "https://www.youtube.com/watch?v=BR7qbvP5ceY"
   thumbnailUrl: "https://i.ytimg.com/vi/BR7qbvP5ceY/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube News: Vollständige Einführung der Publikumsmetriken, Start der? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

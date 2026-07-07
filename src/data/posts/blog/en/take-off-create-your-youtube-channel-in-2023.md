@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-kanal-erstellen-in-2023/"
+postCta:
+  text: "Setting up your YouTube channel can be a breeze, but if you're feeling lost, we've got you covered. Check out our {page} for expert tips and support on everything from channel analytics to monetization strategies."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Should I Create a Personal YouTube Channel or a Brand Account?

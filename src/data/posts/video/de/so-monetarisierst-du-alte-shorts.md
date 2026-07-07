@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/BpTFWaLGDR4"
   watchUrl: "https://www.youtube.com/shorts/BpTFWaLGDR4"
   thumbnailUrl: "https://i.ytimg.com/vi/BpTFWaLGDR4/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest deine bestehenden Shorts auf YouTube monetarisieren, weißt aber nicht wie? Für weitere Tipps und individuelle Beratung besuche unsere {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

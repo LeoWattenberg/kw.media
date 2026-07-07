@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/1xInnsGnSxM"
   watchUrl: "https://www.youtube.com/watch?v=1xInnsGnSxM"
   thumbnailUrl: "https://i.ytimg.com/vi/1xInnsGnSxM/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Update für YouTube Streamer: Geplante Streams jetzt in ALLEN Shorts? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

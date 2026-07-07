@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/iVVTODHIeP4"
   watchUrl: "https://www.youtube.com/shorts/iVVTODHIeP4"
   thumbnailUrl: "https://i.ytimg.com/vi/iVVTODHIeP4/maxresdefault.jpg"
+postCta:
+  text: "Confused about disabling AI Super Resolution on YouTube? Our {page} offers detailed guides and tips to help you navigate YouTube's settings effortlessly, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

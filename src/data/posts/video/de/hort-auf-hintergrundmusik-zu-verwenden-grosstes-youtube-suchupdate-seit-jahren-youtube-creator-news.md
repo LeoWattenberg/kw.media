@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/L0009GyER00"
   watchUrl: "https://www.youtube.com/watch?v=L0009GyER00"
   thumbnailUrl: "https://i.ytimg.com/vi/L0009GyER00/maxresdefault.jpg"
+postCta:
+  text: "Die YouTube-Suche wurde kürzlich aktualisiert und du bist dir nicht sicher, wie du deine Strategie anpassen sollst? Auf unserer {page} findest du Unterstützung und Beratung, um deinen Kanal optimal zu positionieren, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

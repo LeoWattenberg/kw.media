@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/KAWEPkrS2eI"
   watchUrl: "https://www.youtube.com/watch?v=KAWEPkrS2eI"
   thumbnailUrl: "https://i.ytimg.com/vi/KAWEPkrS2eI/maxresdefault.jpg"
+postCta:
+  text: "Wenn du Fragen zum neuen Einspruchsrecht im YouTube Partnerprogramm hast, schau dir unsere {page} an. Dort findest du weitere Informationen und Unterstützung für deinen Kanal, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

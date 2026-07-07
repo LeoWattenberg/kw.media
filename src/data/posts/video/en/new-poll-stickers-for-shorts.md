@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/BIzqRnp_0cQ"
   watchUrl: "https://www.youtube.com/shorts/BIzqRnp_0cQ"
   thumbnailUrl: "https://i.ytimg.com/vi/BIzqRnp_0cQ/maxresdefault.jpg"
+postCta:
+  text: "Confused about how to use YouTube's new Shorts poll feature? Our {page} offers tips and tricks to enhance your interactivity, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

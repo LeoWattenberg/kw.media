@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/DetnFFjfqKA"
   watchUrl: "https://www.youtube.com/watch?v=DetnFFjfqKA"
   thumbnailUrl: "https://i.ytimg.com/vi/DetnFFjfqKA/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTube beendet das Clip-Feature: Ein Gewinn für deinen Kanal?? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

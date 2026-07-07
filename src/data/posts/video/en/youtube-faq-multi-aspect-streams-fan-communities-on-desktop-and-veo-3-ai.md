@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/GSv_RD1b7b8"
   watchUrl: "https://www.youtube.com/watch?v=GSv_RD1b7b8"
   thumbnailUrl: "https://i.ytimg.com/vi/GSv_RD1b7b8/maxresdefault.jpg"
+postCta:
+  text: "We've tackled some specific YouTube queries in this post. If you're craving more insights, visit our {page} for additional tips and tricks to enhance your channel, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

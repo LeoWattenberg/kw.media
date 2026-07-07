@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/J8RN6vLmLh4"
   watchUrl: "https://www.youtube.com/watch?v=J8RN6vLmLh4"
   thumbnailUrl: "https://i.ytimg.com/vi/J8RN6vLmLh4/maxresdefault.jpg"
+postCta:
+  text: "Confused about autodubbing and YouTube's latest features? Our {page} offers in-depth explanations and tips to keep you informed. Stay tuned for more insights, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

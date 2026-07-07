@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/8xWKE5cgjbU"
   watchUrl: "https://www.youtube.com/shorts/8xWKE5cgjbU"
   thumbnailUrl: "https://i.ytimg.com/vi/8xWKE5cgjbU/maxresdefault.jpg"
+postCta:
+  text: "Confused about using music in your videos? The {page} offers comprehensive support for Creators, including a guide to the YouTube Audio Library. Find out how to access and use over 1,000 royalty-free tracks for your content, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

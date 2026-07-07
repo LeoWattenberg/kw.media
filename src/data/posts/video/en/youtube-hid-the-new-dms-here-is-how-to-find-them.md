@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/Q5OFnSBrn3U"
   watchUrl: "https://www.youtube.com/shorts/Q5OFnSBrn3U"
   thumbnailUrl: "https://i.ytimg.com/vi/Q5OFnSBrn3U/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new mobile DMs? They're hidden in your notifications. For more tips and tricks on navigating this feature, check out our {page} to stay informed, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

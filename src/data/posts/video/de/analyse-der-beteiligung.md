@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/nhfBKX1ZYWc"
   watchUrl: "https://www.youtube.com/shorts/nhfBKX1ZYWc"
   thumbnailUrl: "https://i.ytimg.com/vi/nhfBKX1ZYWc/maxresdefault.jpg"
+postCta:
+  text: "Du bist dir nicht sicher, wie du die Zuschauerbeteiligung auf YouTube interpretieren sollst? Auf unserer {page} findest du weitere hilfreiche Tipps und Tricks zur Analyse deiner Videos, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

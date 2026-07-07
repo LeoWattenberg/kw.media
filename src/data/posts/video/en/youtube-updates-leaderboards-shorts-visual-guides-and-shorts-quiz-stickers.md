@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/pGAgrTShuHc"
   watchUrl: "https://www.youtube.com/watch?v=pGAgrTShuHc"
   thumbnailUrl: "https://i.ytimg.com/vi/pGAgrTShuHc/maxresdefault.jpg"
+postCta:
+  text: "Confused about the latest YouTube changes? Get clarity with our {page} for creators. We break down updates like AI inspiration tabs, live stream leaderboards, and new Shorts features, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 ## Transcript

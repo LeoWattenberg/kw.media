@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/8nnJUcL5qtU"
   watchUrl: "https://www.youtube.com/shorts/8nnJUcL5qtU"
   thumbnailUrl: "https://i.ytimg.com/vi/8nnJUcL5qtU/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Bleib mit dem YouTube-Dashboard auf dem Laufenden? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

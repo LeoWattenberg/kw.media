@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/j1kZ_CuZOG8"
   watchUrl: "https://www.youtube.com/shorts/j1kZ_CuZOG8"
   thumbnailUrl: "https://i.ytimg.com/vi/j1kZ_CuZOG8/maxresdefault.jpg"
+postCta:
+  text: "Confused about keyword bidding for YouTube ads? {page} offers expert services to boost your ad's visibility and click-through rate. We can help you reach new viewers effectively."
+  pagePath: "/en/ads/"
+  pageTitle: "Ads"
 ---
 
 ## Transcript

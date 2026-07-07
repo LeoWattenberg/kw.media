@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/R5ReoaOEaG0"
   watchUrl: "https://www.youtube.com/shorts/R5ReoaOEaG0"
   thumbnailUrl: "https://i.ytimg.com/vi/R5ReoaOEaG0/maxresdefault.jpg"
+postCta:
+  text: "If you're new to YouTube Analytics, it can be a bit overwhelming. Our {page} offers comprehensive support and consulting to help you understand your channel's performance and improve your content strategy, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

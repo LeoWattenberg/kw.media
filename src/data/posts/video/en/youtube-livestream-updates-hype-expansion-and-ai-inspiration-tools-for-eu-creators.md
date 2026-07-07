@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/glHG5LA9-4E"
   watchUrl: "https://www.youtube.com/watch?v=glHG5LA9-4E"
   thumbnailUrl: "https://i.ytimg.com/vi/glHG5LA9-4E/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's latest updates? From vertical stream gifts to AI inspiration tools, we've got you covered. Learn more about how these changes affect your channel and how to make the most of them on our {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

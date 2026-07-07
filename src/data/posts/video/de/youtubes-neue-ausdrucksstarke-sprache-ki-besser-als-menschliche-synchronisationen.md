@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/EUX5WpvVvB8"
   watchUrl: "https://www.youtube.com/watch?v=EUX5WpvVvB8"
   thumbnailUrl: "https://i.ytimg.com/vi/EUX5WpvVvB8/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei YouTubes neue „Ausdrucksstarke Sprache“-KI: Besser als menschliche? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/video-synchronisation/"
+  pageTitle: "Video-Synchronisation und Dubbing"
 ---
 
 ## Transkript

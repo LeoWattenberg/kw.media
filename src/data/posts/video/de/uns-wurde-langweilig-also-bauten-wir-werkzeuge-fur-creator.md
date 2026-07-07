@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/YOyDmdKFKYg"
   watchUrl: "https://www.youtube.com/watch?v=YOyDmdKFKYg"
   thumbnailUrl: "https://i.ytimg.com/vi/YOyDmdKFKYg/maxresdefault.jpg"
+postCta:
+  text: "Du suchst nach Lösungen für deinen Creator-Workflow? Unsere neuen, datenschutzorientierten Tools können helfen! Entdecke sie auf {page} und teile deine Wünsche für zukünftige Entwicklungen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

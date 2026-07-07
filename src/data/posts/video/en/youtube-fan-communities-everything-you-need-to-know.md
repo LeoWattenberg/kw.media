@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/5nw4Hz0d2mk"
   watchUrl: "https://www.youtube.com/watch?v=5nw4Hz0d2mk"
   thumbnailUrl: "https://i.ytimg.com/vi/5nw4Hz0d2mk/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new Fan Communities? Our {page} offers comprehensive support, analytics, and consulting to help you navigate this feature and optimize your channel, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

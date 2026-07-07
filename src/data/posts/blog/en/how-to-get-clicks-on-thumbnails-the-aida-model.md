@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-get-clicks-on-thumbnails-the-aida-model/"
+postCta:
+  text: "Still unsure about creating effective YouTube thumbnails? Check out our {page} for more tips and tricks to improve your click-through rates, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 Making thumbnails can be difficult and frustrating. Even if you have the technical skills to make them pretty, they still might not work out and get abysmal click-through rates. So why is that? Well, that’s what this YouTube thumbnail tutorial is about. It’s a bit theoretical, but you should get a fundamental understanding on the “why”.

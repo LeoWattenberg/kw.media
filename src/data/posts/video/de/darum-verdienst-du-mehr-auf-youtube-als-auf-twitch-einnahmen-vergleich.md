@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/1dTIcDQb0pY"
   watchUrl: "https://www.youtube.com/watch?v=1dTIcDQb0pY"
   thumbnailUrl: "https://i.ytimg.com/vi/1dTIcDQb0pY/maxresdefault.jpg"
+postCta:
+  text: "Du möchtest mehr über deine Einnahmemöglichkeiten als Creator erfahren? Auf unserer {page} findest du weitere Informationen und Unterstützung, um das Maximum aus deinem Kanal herauszuholen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

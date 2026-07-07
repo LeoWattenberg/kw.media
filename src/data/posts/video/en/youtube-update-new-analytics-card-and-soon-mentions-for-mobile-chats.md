@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/W_IFK4IqfHo"
   watchUrl: "https://www.youtube.com/watch?v=W_IFK4IqfHo"
   thumbnailUrl: "https://i.ytimg.com/vi/W_IFK4IqfHo/maxresdefault.jpg"
+postCta:
+  text: "Confused about these YouTube changes? Our {page} team can help decipher the new Analytics card and upcoming mobile chat features. Get in touch for expert advice on optimizing your channel."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/simple-youtube-seo-for-gaming-channels/"
+postCta:
+  text: "Unsicher bei Einfache YouTube SEO für Gaming-Kanäle? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Die zentrale Frage, die zu diesem Leitfaden führt, ist: ***„Wie bekomme ich mehr Aufrufe?“*** Die kurze und einfache Antwort lautet: Optimieren Sie Ihre Videos für Suchmaschinen.

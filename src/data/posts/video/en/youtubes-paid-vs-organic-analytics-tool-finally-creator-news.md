@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/vbJb0uVty9o"
   watchUrl: "https://www.youtube.com/watch?v=vbJb0uVty9o"
   thumbnailUrl: "https://i.ytimg.com/vi/vbJb0uVty9o/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's new paid vs. organic analytics? Our {page} offers expert insights to help you understand these changes and optimize your channel's performance."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

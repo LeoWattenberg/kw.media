@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/XKiJKhwk7vE"
   watchUrl: "https://www.youtube.com/watch?v=XKiJKhwk7vE"
   thumbnailUrl: "https://i.ytimg.com/vi/XKiJKhwk7vE/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's view inflation and new features? We can help. Learn more about how kw.media supports creators with {page} for expert advice and services."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/MNWt6hzVztI"
   watchUrl: "https://www.youtube.com/watch?v=MNWt6hzVztI"
   thumbnailUrl: "https://i.ytimg.com/vi/MNWt6hzVztI/maxresdefault.jpg"
+postCta:
+  text: "Confused about YouTube's latest changes? From comment control to ad adjustments and the return of DMs, we've got you covered. Learn more about how these updates affect your channel and how to adapt your strategy on our {page}, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

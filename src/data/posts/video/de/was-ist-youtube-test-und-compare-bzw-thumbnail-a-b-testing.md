@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/7K_1NHsygk0"
   watchUrl: "https://www.youtube.com/watch?v=7K_1NHsygk0"
   thumbnailUrl: "https://i.ytimg.com/vi/7K_1NHsygk0/maxresdefault.jpg"
+postCta:
+  text: "Du bist dir unsicher, welches Thumbnail für dein Video am besten funktioniert? Mehr dazu und wie du die Funktion nutzt, erfährst du auf unserer {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

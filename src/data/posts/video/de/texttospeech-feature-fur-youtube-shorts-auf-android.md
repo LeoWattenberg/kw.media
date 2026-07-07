@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/YSv_5uNMHds"
   watchUrl: "https://www.youtube.com/watch?v=YSv_5uNMHds"
   thumbnailUrl: "https://i.ytimg.com/vi/YSv_5uNMHds/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Text-zu-Sprache-Funktion für YouTube Shorts auf Android!? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

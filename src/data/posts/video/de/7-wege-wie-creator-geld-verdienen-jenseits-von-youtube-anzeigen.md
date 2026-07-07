@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/c_wnvd3Ru0A"
   watchUrl: "https://www.youtube.com/shorts/c_wnvd3Ru0A"
   thumbnailUrl: "https://i.ytimg.com/vi/c_wnvd3Ru0A/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei 7 Wege, wie Creator Geld verdienen? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/4i-aEErmV08"
   watchUrl: "https://www.youtube.com/shorts/4i-aEErmV08"
   thumbnailUrl: "https://i.ytimg.com/vi/4i-aEErmV08/maxresdefault.jpg"
+postCta:
+  text: "Unsicher bei Erreichen Sie mit Highlight-Inhalten auf YouTube den Gipfel? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

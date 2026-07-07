@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/eFpsYo_qJbM"
   watchUrl: "https://www.youtube.com/shorts/eFpsYo_qJbM"
   thumbnailUrl: "https://i.ytimg.com/vi/eFpsYo_qJbM/maxresdefault.jpg"
+postCta:
+  text: "Bist du unsicher, wie du Bildumfragen im Community Tab einsetzen kannst? Auf unserer {page} findest du weitere Tipps und Tricks rund um YouTube-Funktionen, oder kontaktiere unten unseren Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 ## Transkript

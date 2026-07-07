@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/WWV1rfDxlcE"
   watchUrl: "https://www.youtube.com/watch?v=WWV1rfDxlcE"
   thumbnailUrl: "https://i.ytimg.com/vi/WWV1rfDxlcE/maxresdefault.jpg"
+postCta:
+  text: "Confused about the recent YouTube announcements? Our {page} can help you navigate these new features and optimize your channel. Check it out for more info on A/B testing, AI editing, and other YouTube updates, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

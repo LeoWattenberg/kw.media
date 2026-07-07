@@ -17,6 +17,10 @@ video:
   embedUrl: "https://www.youtube.com/embed/mZgmJ4ch5Mo"
   watchUrl: "https://www.youtube.com/shorts/mZgmJ4ch5Mo"
   thumbnailUrl: "https://i.ytimg.com/vi/mZgmJ4ch5Mo/maxresdefault.jpg"
+postCta:
+  text: "Confused about how to engage fans and grow your channel? The Community tab on YouTube is a great tool for creators. Check out our {page} for more tips and tricks on utilizing this feature effectively, or contact our expert below."
+  pagePath: "/en/creator/"
+  pageTitle: "Creator Services"
 ---
 
 ## Transcript

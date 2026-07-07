@@ -12,6 +12,10 @@ category: "blog"
 image: "https://preview.redd.it/kyowv0gqyjf51.png?width=871&format=png&auto=webp&s=3dd0d8ac5dcc28d8239a720c6d0e94aded380d63"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/"
+postCta:
+  text: "Confused about creating thumbnails that grab attention? Check out our {page} for practical tips on making eye-catching visuals that don't repeat your title, use default art, or rely on numbers alone, or contact our expert below."
+  pagePath: "/en/youtube-tips/"
+  pageTitle: "YouTube Tips & Tricks in English"
 ---
 
 Moin.

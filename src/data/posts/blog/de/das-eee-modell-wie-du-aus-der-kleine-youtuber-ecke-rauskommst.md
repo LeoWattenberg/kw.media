@@ -12,6 +12,10 @@ category: "blog"
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/"
+postCta:
+  text: "Du fragst dich, wie du deinen YouTube-Kanal langfristig erfolgreich machen kannst? Wenn du mehr darüber erfahren möchtest, schau auf unserer {page} vorbei oder kontaktiere unsere Experten."
+  pagePath: "/de/creator/"
+  pageTitle: "Creator Support und Beratung"
 ---
 
 Moin.
