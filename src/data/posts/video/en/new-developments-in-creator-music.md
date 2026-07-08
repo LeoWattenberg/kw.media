@@ -9,6 +9,7 @@ modified: "2023-01-12T10:43:31"
 locale: "en"
 translationKey: "video:LmvblX4XfXo"
 category: "short-tutorial"
+tags: ["Creator Resources", "Music Licensing", "Content Monetization", "YouTube Audio Library", "Licensing", "Monetization Strategies", "Video Production", "Audio Production", "Creative Process"]
 image: "https://i.ytimg.com/vi/LmvblX4XfXo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/LmvblX4XfXo"

@@ -9,6 +9,7 @@ modified: "2024-06-15T12:30:35"
 locale: "de"
 translationKey: "video:hsmHl_LDtxg"
 category: "news-video"
+tags: ["Creator QR Codes", "YouTube Updates", "Premium Jump Ahead", "Mobile Funktionen", "Kanal-Teilen", "QR-Codes", "Benutzererfahrung", "Inhaltsstrategie", "Viewer-Interaktion"]
 image: "https://i.ytimg.com/vi/hsmHl_LDtxg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=hsmHl_LDtxg"

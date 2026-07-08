@@ -9,6 +9,7 @@ modified: "2023-08-30T14:53:36"
 locale: "en"
 translationKey: "video:mY9wBvDgnfQ"
 category: "audacity"
+tags: ["Audacity 3", "FFmpeg", "Installation Guide", "Media File Compatibility", "Windows Software", "Audio Editing", "Software Update"]
 image: "https://i.ytimg.com/vi/mY9wBvDgnfQ/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=mY9wBvDgnfQ"

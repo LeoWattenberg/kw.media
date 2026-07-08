@@ -9,6 +9,7 @@ modified: "2025-04-06T13:03:01"
 locale: "de"
 translationKey: "video:bYTAbOg_qzE"
 category: "video-tutorial"
+tags: ["Live-Streaming", "YouTube Studio", "OBS-Einstellungen", "Pausefunktion", "Livestream-Optimierung", "Zuschauer-Interaktion", "Stream-Management", "Video-Produktion", "Creator-Tools"]
 image: "https://i.ytimg.com/vi/bYTAbOg_qzE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=bYTAbOg_qzE"

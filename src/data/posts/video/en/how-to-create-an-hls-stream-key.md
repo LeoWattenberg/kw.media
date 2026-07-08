@@ -9,6 +9,7 @@ modified: "2022-09-13T18:42:14"
 locale: "en"
 translationKey: "video:RSeROQWVAPk"
 category: "short-tutorial"
+tags: ["YouTube Live Streaming", "HDR Streams", "HLS Stream Key", "Stream Settings", "Streaming Protocols", "Live Control Room", "Content Creation", "Video Production", "YouTube Features"]
 image: "https://i.ytimg.com/vi/RSeROQWVAPk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/RSeROQWVAPk"

@@ -9,6 +9,7 @@ modified: "2025-11-15T13:15:04"
 locale: "de"
 translationKey: "video:N4NERKAfs5k"
 category: "news-video"
+tags: ["YouTube Updates", "Kanal-Filter", "Hype-Funktion", "Mitgliedschafts-Inhalte", "Community-Tab", "Entdeckungsfunktionen", "Mobile Funktionen", "Desktop-Vs-Mobil", "Creator-Feedback"]
 image: "https://i.ytimg.com/vi/N4NERKAfs5k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=N4NERKAfs5k"

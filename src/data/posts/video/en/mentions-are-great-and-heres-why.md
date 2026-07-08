@@ -9,6 +9,7 @@ modified: "2022-04-05T11:00:16"
 locale: "en"
 translationKey: "video:JXe3Pop5N3U"
 category: "short-tutorial"
+tags: ["YouTube Features", "YouTube Channel Management", "Video Linking", "Collaboration Strategies", "Platform Enhancements"]
 image: "https://i.ytimg.com/vi/JXe3Pop5N3U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/JXe3Pop5N3U"

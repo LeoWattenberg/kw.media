@@ -9,6 +9,7 @@ modified: "2025-05-26T08:03:47"
 locale: "de"
 translationKey: "video:-WgXyaoL1LI"
 category: "short-tutorial"
+tags: ["SEO für YouTube", "Titeloptimierung", "Miniaturansichten erstellen", "Video-Strukturierung", "Kanalmanagement", "Inhaltsplanung", "Zuschauerbindung", "YouTube-Strategie", "Auffindbarkeit verbessern"]
 image: "https://i.ytimg.com/vi/-WgXyaoL1LI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/-WgXyaoL1LI"

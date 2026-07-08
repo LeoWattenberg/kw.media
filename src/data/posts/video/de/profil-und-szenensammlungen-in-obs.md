@@ -9,6 +9,7 @@ modified: "2023-03-29T15:30:01"
 locale: "de"
 translationKey: "video:5jWzRRKKR2k"
 category: "short-tutorial"
+tags: ["OBS-Einstieg", "Streaming-Tipps", "Profil-Management", "Szenen-Organisation", "Voreinstellungen fürs Streaming", "Mehrere Geräte", "Export/Import", "Streaming-Optimierung"]
 image: "https://i.ytimg.com/vi/5jWzRRKKR2k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5jWzRRKKR2k"

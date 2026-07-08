@@ -9,6 +9,7 @@ modified: "2022-07-12T18:09:00"
 locale: "de"
 translationKey: "video:s05L2eJ4j7g"
 category: "short-tutorial"
+tags: ["YouTube Kanalmanagement", "Kanalanpassung", "Auffindbarkeit verbessern", "Zuschauerbindung", "Zielgruppenansprache", "Interaktion mit Zuschauern", "Kanaloptimierung", "YouTube Studio", "Kurzvideo-Erstellung"]
 image: "https://i.ytimg.com/vi/s05L2eJ4j7g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/s05L2eJ4j7g"

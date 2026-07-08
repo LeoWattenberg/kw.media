@@ -9,6 +9,7 @@ modified: "2023-03-13T16:30:14"
 locale: "en"
 translationKey: "video:raKkureDLlA"
 category: "video-tutorial"
+tags: ["YouTube Chapter Requirements", "Video Description Formatting", "YouTube Guidelines", "Timestamps in Description", "Chapter Visibility", "YouTube Video Optimization"]
 image: "https://i.ytimg.com/vi/raKkureDLlA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=raKkureDLlA"

@@ -9,6 +9,7 @@ modified: "2026-04-11T12:15:07"
 locale: "de"
 translationKey: "video:S_Qwsk7CKB0"
 category: "news-video"
+tags: ["YouTube-KI", "Video-Rhythmus", "Analytics-Veränderungen", "Abonnement-Alternativen", "Open-Source-Tools", "Bildbearbeitung", "Photoshop-Alternativen", "GIMP-Plugins", "YouTube-Premium-Funktionen", "Wiedergabegeschwindigkeit"]
 image: "https://i.ytimg.com/vi/S_Qwsk7CKB0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=S_Qwsk7CKB0"

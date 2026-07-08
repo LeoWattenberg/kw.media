@@ -9,6 +9,7 @@ modified: "2025-07-19T12:15:05"
 locale: "en"
 translationKey: "video:jnVTl0DWVWs"
 category: "news-video"
+tags: ["YouTube Platform Updates", "YouTube Shorts Features", "Hype Button Expansion", "EU AI Act", "Monetization Policies", "Membership Badges", "Long-Term Support Recognition", "Community-Engagement", "YouTube Creator Tools"]
 image: "https://i.ytimg.com/vi/jnVTl0DWVWs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=jnVTl0DWVWs"

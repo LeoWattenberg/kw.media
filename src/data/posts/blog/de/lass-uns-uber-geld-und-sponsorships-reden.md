@@ -8,6 +8,7 @@ date: "2021-10-15T08:52:38"
 modified: "2023-03-17T12:57:28"
 locale: "de"
 category: "blog"
+tags: ["Monetarisierung", "Sponsorships", "Preisgestaltung für Creator", "Produktionskosten", "Marktwert", "CPM-Werte", "Kooperationsmodelle", "Agenturmodelle", "Steuern und Abrechnung"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/lass-uns-uber-geld-und-sponsorships-reden/"

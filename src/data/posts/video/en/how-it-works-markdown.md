@@ -9,6 +9,7 @@ modified: "2022-07-26T15:00:02"
 locale: "en"
 translationKey: "video:39fXwnCNd3I"
 category: "short-tutorial"
+tags: ["YouTube Description Formatting", "Markdown Basics", "Text Styling", "Italic Text", "Bold Text", "Strikethrough Text", "Video Description Tips", "YouTube Features"]
 image: "https://i.ytimg.com/vi/39fXwnCNd3I/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/39fXwnCNd3I"

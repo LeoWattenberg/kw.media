@@ -9,6 +9,7 @@ modified: "2024-09-14T12:30:21"
 locale: "de"
 translationKey: "video:HNKwk_tm1Vo"
 category: "news-video"
+tags: ["KI-Zusammenfassungen", "YouTube Updates", "Kommentare", "Premium-Mitgliedschaften", "Indien", "Add Yours-Sticker", "YouTube Shorts", "Q&A Stream", "Creator-Informationen"]
 image: "https://i.ytimg.com/vi/HNKwk_tm1Vo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=HNKwk_tm1Vo"

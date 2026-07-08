@@ -9,6 +9,7 @@ modified: "2023-04-04T15:30:06"
 locale: "en"
 translationKey: "video:Hy3CFCjHYog"
 category: "short-tutorial"
+tags: ["YouTube Live Streaming", "Stream Settings", "Platform Settings", "Community-Engagement", "Creator-Tools", "Live Redirects", "YouTube Studio", "Channel Management"]
 image: "https://i.ytimg.com/vi/Hy3CFCjHYog/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Hy3CFCjHYog"

@@ -9,6 +9,7 @@ modified: "2025-11-01T13:15:08"
 locale: "de"
 translationKey: "video:pjUSbdGlmvs"
 category: "news-video"
+tags: ["YouTube-Richtlinien", "Clickbait-Prävention", "Metadaten-Durchsetzung", "YouTube-Partnerprogramm", "Miniaturansichten-Upload", "AI Upscaling", "Video-Auflösung", "Creator-Einstellungen"]
 image: "https://i.ytimg.com/vi/pjUSbdGlmvs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=pjUSbdGlmvs"

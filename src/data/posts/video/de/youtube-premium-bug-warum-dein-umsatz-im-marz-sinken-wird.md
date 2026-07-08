@@ -9,6 +9,7 @@ modified: "2026-02-28T13:15:00"
 locale: "de"
 translationKey: "video:3BrtN4P1Qnc"
 category: "news-video"
+tags: ["YouTube Premium", "Einnahmenkorrektur", "Multistreaming", "Twitch-Integration", "Chat-Kombination", "Social Stream Ninja", "Streamerbot", "Vertikale Live-Chat-Übersetzungen", "Benutzeroberflächen-Änderungen"]
 image: "https://i.ytimg.com/vi/3BrtN4P1Qnc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=3BrtN4P1Qnc"

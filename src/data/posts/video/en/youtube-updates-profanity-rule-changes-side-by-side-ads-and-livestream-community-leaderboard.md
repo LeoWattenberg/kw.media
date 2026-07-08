@@ -9,6 +9,7 @@ modified: "2025-05-03T12:15:03"
 locale: "en"
 translationKey: "video:9SP8lXBW-wk"
 category: "news-video"
+tags: ["YouTube Platform Updates", "Live Stream Ads", "Ad Placement", "Community Leaderboards", "Profanity Policy Changes", "Monetization Policies", "YouTube Premium Features", "Audience Engagement Metrics"]
 image: "https://i.ytimg.com/vi/9SP8lXBW-wk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=9SP8lXBW-wk"

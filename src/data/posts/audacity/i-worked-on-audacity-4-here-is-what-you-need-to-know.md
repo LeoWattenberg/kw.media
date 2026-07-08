@@ -9,6 +9,7 @@ modified: "2026-06-05T09:05:19"
 locale: "en"
 translationKey: "video:5nJuWdclGkw"
 category: "audacity"
+tags: ["Audacity 4", "Audio Editing", "Software Update", "Dark Theme", "Light Theme", "Clip Visualization", "Multitrack Recording", "Editing Tools", "Non-Destructive Editing"]
 image: "https://i.ytimg.com/vi/5nJuWdclGkw/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=5nJuWdclGkw"

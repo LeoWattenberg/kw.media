@@ -9,6 +9,7 @@ modified: "2025-01-25T13:15:00"
 locale: "de"
 translationKey: "video:5P1Bw-qOnJM"
 category: "news-video"
+tags: ["YouTube Updates", "Creator Q&A Live Streams", "Q&A Sticker", "Shorts-Funktionen", "YouTube Studio Verbesserungen", "Thumbnail-Optimierung", "YouTube-Kurse", "Monetarisierungsstrategien", "Plattform-Neuerungen"]
 image: "https://i.ytimg.com/vi/5P1Bw-qOnJM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=5P1Bw-qOnJM"

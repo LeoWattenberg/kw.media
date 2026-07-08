@@ -9,6 +9,7 @@ modified: "2022-07-16T12:47:21"
 locale: "en"
 translationKey: "post:1400"
 category: "blog"
+tags: ["YouTube-Thumbnails", "Video-Marketing", "Visual Design", "Content Presentation", "Click-Through Rate Optimization", "Thumbnail Best Practices", "Video Promotion Strategies", "Creator Resources", "Channel Growth", "Viewer Engagement"]
 image: "https://preview.redd.it/kyowv0gqyjf51.png?width=871&format=png&auto=webp&s=3dd0d8ac5dcc28d8239a720c6d0e94aded380d63"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/"

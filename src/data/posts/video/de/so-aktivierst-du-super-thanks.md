@@ -9,6 +9,7 @@ modified: "2022-05-03T11:00:30"
 locale: "de"
 translationKey: "video:iKf9XHFUSos"
 category: "short-tutorial"
+tags: ["Super Thanks", "YouTube Studio", "Monetarisierung", "Creator-Einnahmen", "Neue Funktionen auf YouTube"]
 image: "https://i.ytimg.com/vi/iKf9XHFUSos/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iKf9XHFUSos"

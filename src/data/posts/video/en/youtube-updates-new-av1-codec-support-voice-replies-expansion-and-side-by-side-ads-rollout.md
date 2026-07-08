@@ -9,6 +9,7 @@ modified: "2025-05-31T12:15:06"
 locale: "en"
 translationKey: "video:RHJcqSPlG_s"
 category: "news-video"
+tags: ["YouTube Platform Updates", "AV1 Codec Support", "Live Stream Ads", "Side by Side Ads", "Voice Replies Android", "Google Lens Shorts", "Codec Technology", "Advertising Strategies", "Mobile Features", "Creator-Tools"]
 image: "https://i.ytimg.com/vi/RHJcqSPlG_s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=RHJcqSPlG_s"

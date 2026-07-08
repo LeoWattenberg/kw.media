@@ -9,6 +9,7 @@ modified: "2023-08-01T10:57:06"
 locale: "de"
 translationKey: "video:mKOsyRGYNyc"
 category: "video-tutorial"
+tags: ["YouTube-Kanal erstellen", "Persönlicher Kanal", "Brand Kanal", "Firmenkanal", "Google Konto", "Kanalverwaltung", "Rollen und Berechtigungen", "Kanaldesign", "Grundlegende Einstellungen", "Video-Veröffentlichung"]
 image: "https://i.ytimg.com/vi/mKOsyRGYNyc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=mKOsyRGYNyc"

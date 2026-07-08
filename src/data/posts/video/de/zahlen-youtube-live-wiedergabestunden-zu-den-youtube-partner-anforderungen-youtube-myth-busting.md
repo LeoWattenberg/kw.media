@@ -9,6 +9,7 @@ modified: "2024-01-20T12:30:00"
 locale: "de"
 translationKey: "video:aIFl-V2c47o"
 category: "video-tutorial"
+tags: ["YouTube Live", "YouTube-Partnerprogramm", "Wiedergabestunden", "Live-Streaming-Monetarisierung", "Öffentliche Streams", "Archivierung von Livestreams", "YouTube-Richtlinien"]
 image: "https://i.ytimg.com/vi/aIFl-V2c47o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=aIFl-V2c47o"

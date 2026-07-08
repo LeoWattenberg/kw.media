@@ -9,6 +9,7 @@ modified: "2026-02-07T13:15:04"
 locale: "de"
 translationKey: "video:EUX5WpvVvB8"
 category: "news-video"
+tags: ["KI-Funktionen", "Automatische Untertitelung", "YouTube Updates", "Spracherkennung", "Sprachsynthese", "Untertitel-Qualität", "Zuschauerbindung", "Content-Monetarisierung", "Premium-Inhalte", "Automatisierung vs. Manuelle Produktion"]
 image: "https://i.ytimg.com/vi/EUX5WpvVvB8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EUX5WpvVvB8"

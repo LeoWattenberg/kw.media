@@ -9,6 +9,7 @@ modified: "2022-10-10T16:21:11"
 locale: "de"
 translationKey: "video:jQdcFKeY1xA"
 category: "short-tutorial"
+tags: ["YouTube-Handles", "Benutzerdefinierte URL", "Kanalverwaltung", "YouTube Studio", "Kanaloptimierung"]
 image: "https://i.ytimg.com/vi/jQdcFKeY1xA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/jQdcFKeY1xA"

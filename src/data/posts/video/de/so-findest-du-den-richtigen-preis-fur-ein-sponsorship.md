@@ -9,6 +9,7 @@ modified: "2022-04-14T22:00:53"
 locale: "de"
 translationKey: "video:A95WfCKuuYo"
 category: "short-tutorial"
+tags: ["Sponsorships", "Preisgestaltung für Creator", "Produktionskosten", "Reichweitenanalyse", "Steuern und Abrechnung"]
 image: "https://i.ytimg.com/vi/A95WfCKuuYo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/A95WfCKuuYo"

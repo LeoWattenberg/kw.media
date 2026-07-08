@@ -9,6 +9,7 @@ modified: "2024-03-09T13:30:34"
 locale: "de"
 translationKey: "video:u_wzOQranLY"
 category: "news-video"
+tags: ["YouTube Updates", "Mobile Funktionen", "Live-Streaming-Verbesserungen", "Shorts-Optimierung", "Mitgliedschaften und Abonnements", "Super Chat-Funktionen", "Gaming-Integration", "YouTube Premium"]
 image: "https://i.ytimg.com/vi/u_wzOQranLY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=u_wzOQranLY"

@@ -9,6 +9,7 @@ modified: "2025-07-25T20:54:41"
 locale: "en"
 translationKey: "post:2389"
 category: "blog"
+tags: ["VTubing", "Creator-Owned Cooperation", "Agency Models", "Content Creator Autonomy", "Cooperative Business Model", "SCE (Societas Cooperativa Europaea)", "Platform Dynamics", "Talent Management", "Legal Structures", "Creative Industry Trends"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/blog/the-creator-co-op-why-the-future-of-vtubing-should-belong-to-the-talent/"

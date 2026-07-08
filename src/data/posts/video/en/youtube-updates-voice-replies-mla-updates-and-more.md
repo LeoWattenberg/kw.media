@@ -9,6 +9,7 @@ modified: "2025-01-18T13:15:03"
 locale: "en"
 translationKey: "video:bJbym4s4auQ"
 category: "news-video"
+tags: ["YouTube Updates", "Voice Replies", "Multilingual Audio", "Fan Communities", "Sustainability", "Creator Responsibilities", "Environmental Awareness", "Platform Enhancements", "Google AdSense Verification", "Moderation Tools"]
 image: "https://i.ytimg.com/vi/bJbym4s4auQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=bJbym4s4auQ"

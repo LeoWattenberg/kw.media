@@ -9,6 +9,7 @@ modified: "2024-06-29T12:30:32"
 locale: "de"
 translationKey: "video:cZ3k13Ca0n8"
 category: "news-video"
+tags: ["YouTube Updates", "Sprachunterstützung", "Sonderzeichen", "A/B-Testen für Thumbnails", "Premium-Funktionen", "Android-Geräte", "Creator-Tools"]
 image: "https://i.ytimg.com/vi/cZ3k13Ca0n8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=cZ3k13Ca0n8"

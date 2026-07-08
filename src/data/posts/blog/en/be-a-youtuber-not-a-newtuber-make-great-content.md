@@ -8,6 +8,7 @@ date: "2021-07-06T19:44:35"
 modified: "2023-03-17T12:57:29"
 locale: "en"
 category: "blog"
+tags: ["Content Creation", "YouTube Strategy", "Video Ideas", "Creative Process", "Viewer Engagement", "YouTube Analytics", "Video Execution", "Channel Growth", "Monetization Strategies"]
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-10-21-50-36.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/"

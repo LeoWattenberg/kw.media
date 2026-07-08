@@ -9,6 +9,7 @@ modified: "2022-06-21T15:00:05"
 locale: "de"
 translationKey: "video:8xWKE5cgjbU"
 category: "short-tutorial"
+tags: ["YouTube Audio-Mediathek", "Musik für Videos", "Lizenzfreie Musik", "YouTube Studio", "Audio-Tools", "Monetarisierung", "Inhaltserstellung", "Kreativitätstechniken"]
 image: "https://i.ytimg.com/vi/8xWKE5cgjbU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8xWKE5cgjbU"

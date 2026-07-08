@@ -9,6 +9,7 @@ modified: "2024-07-01T10:48:42"
 locale: "de"
 translationKey: "post:2325"
 category: "blog"
+tags: ["YouTube-Kanaldesign", "Banner-Vorlage", "Visuelle Markenidentität", "Grafikdesign", "Abmessungen und Sicherheitsbereiche", "Desktop- und Mobiloptimierung", "TV-App-Kompatibilität", "YouTube-Richtlinien", "Branding-Strategien"]
 image: "/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-channel-banner-template-updated-2024/"

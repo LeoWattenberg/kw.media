@@ -9,6 +9,7 @@ modified: "2026-06-18T05:00:02"
 locale: "en"
 translationKey: "video:qmAgK0OzzlU"
 category: "short-tutorial"
+tags: ["YouTube Shorts", "Longform Videos", "Audience Targeting", "Content Strategy", "Video Promotion", "Creator Mental Health", "Burnout Prevention", "Content Customization"]
 image: "https://i.ytimg.com/vi/qmAgK0OzzlU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/qmAgK0OzzlU"

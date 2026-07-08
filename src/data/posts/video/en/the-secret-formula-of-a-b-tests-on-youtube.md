@@ -9,6 +9,7 @@ modified: "2026-06-19T15:58:15"
 locale: "en"
 translationKey: "video:ouFl0bkCWx4"
 category: "video-tutorial"
+tags: ["A/B Testing", "YouTube A/B Testing", "Thumbnail Optimization", "Statistical Confidence", "Sample Size", "Click-Through Rate", "View Duration", "Viewer Behavior", "Test Strategies"]
 image: "https://i.ytimg.com/vi/ouFl0bkCWx4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=ouFl0bkCWx4"

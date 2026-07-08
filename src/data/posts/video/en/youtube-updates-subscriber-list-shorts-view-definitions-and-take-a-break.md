@@ -9,6 +9,7 @@ modified: "2025-03-29T13:15:04"
 locale: "en"
 translationKey: "video:j6Ki4mps6nA"
 category: "news-video"
+tags: ["YouTube Creator Tools", "YouTube Platform Updates", "Subscriber List", "Shorts View Changes", "Break Feature", "Analytics Updates", "Push Notifications Experiment"]
 image: "https://i.ytimg.com/vi/j6Ki4mps6nA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=j6Ki4mps6nA"

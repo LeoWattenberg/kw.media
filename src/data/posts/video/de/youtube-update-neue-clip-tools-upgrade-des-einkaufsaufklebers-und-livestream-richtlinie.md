@@ -9,6 +9,7 @@ modified: "2025-06-21T12:15:02"
 locale: "de"
 translationKey: "video:EwZklcCUoO8"
 category: "news-video"
+tags: ["YouTube Updates", "Shopping-Sticker", "Shorts", "Multisprachige Audios", "Autodubbing", "Thumbnails", "Clips aus Transkripten", "Live-Streaming-Richtlinien", "Jugendschutz"]
 image: "https://i.ytimg.com/vi/EwZklcCUoO8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EwZklcCUoO8"

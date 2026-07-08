@@ -9,6 +9,7 @@ modified: "2025-08-16T12:15:03"
 locale: "de"
 translationKey: "video:JvwkzUSuNFM"
 category: "news-video"
+tags: ["YouTube Updates", "KI-Altersverifizierung", "Autodubbing-Editor", "Community-Beitragslimits", "Bildlimite", "YouTube Promote", "Audio-Bearbeitung", "Kurzvideo-Erstellung", "Inhaltsstrategie", "Plattform-Neuerungen"]
 image: "https://i.ytimg.com/vi/JvwkzUSuNFM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JvwkzUSuNFM"

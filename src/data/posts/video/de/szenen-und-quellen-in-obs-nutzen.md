@@ -9,6 +9,7 @@ modified: "2023-03-27T17:00:10"
 locale: "de"
 translationKey: "video:CVIdTBgfJ4g"
 category: "short-tutorial"
+tags: ["OBS Integration", "Szenen-Organisation", "Quellen-Management", "Live-Streaming-Tutorial", "Video-Produktion", "Streaming-Optimierung", "Audioquellen", "Filter und Effekte", "Backup-Strategien"]
 image: "https://i.ytimg.com/vi/CVIdTBgfJ4g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CVIdTBgfJ4g"

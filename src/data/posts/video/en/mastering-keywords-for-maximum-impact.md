@@ -9,6 +9,7 @@ modified: "2024-08-07T14:00:41"
 locale: "en"
 translationKey: "video:j1kZ_CuZOG8"
 category: "short-tutorial"
+tags: ["Keyword Bidding", "YouTube Ads", "Click-Through Rate Optimization", "Google Ads Keyword Planner", "Search Discoverability", "Audience Targeting", "Ad Strategy", "Google Trends", "Channel Promotion"]
 image: "https://i.ytimg.com/vi/j1kZ_CuZOG8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/j1kZ_CuZOG8"

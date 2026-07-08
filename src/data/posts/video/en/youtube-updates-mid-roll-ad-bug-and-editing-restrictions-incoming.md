@@ -9,6 +9,7 @@ modified: "2025-05-10T12:15:05"
 locale: "en"
 translationKey: "video:jkTohCOCLdg"
 category: "news-video"
+tags: ["YouTube Updates", "Ad Placement", "Mid-Roll Ads", "Video Editing Restrictions", "YouTube Studio Features", "Creator-Tools", "Ad Revenue Impact", "Google Takeout", "Data Management"]
 image: "https://i.ytimg.com/vi/jkTohCOCLdg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=jkTohCOCLdg"

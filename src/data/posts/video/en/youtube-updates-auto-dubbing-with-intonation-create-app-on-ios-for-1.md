@@ -9,6 +9,7 @@ modified: "2025-09-06T12:15:07"
 locale: "en"
 translationKey: "video:EY8-P89G3Js"
 category: "news-video"
+tags: ["YouTube Updates", "AI Dubbing", "Intonation Experiment", "English-Spanish Translation", "English-Portuguese Translation", "Multilingual Content", "YouTube Create App", "iOS Rollout", "Canadian Users", "Creator Subsidy Program"]
 image: "https://i.ytimg.com/vi/EY8-P89G3Js/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EY8-P89G3Js"

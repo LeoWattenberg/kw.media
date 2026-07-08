@@ -9,6 +9,7 @@ modified: "2026-01-17T13:15:13"
 locale: "en"
 translationKey: "video:kTWDA2-4MKI"
 category: "news-video"
+tags: ["YouTube Policy Changes", "Monetization Policies", "Advertiser-Friendly Guidelines", "Sensitive Topics", "Content Moderation", "Free Speech", "AI Updates", "Text-to-Video Prompts", "Ingredients to Video", "Ad Targeting"]
 image: "https://i.ytimg.com/vi/kTWDA2-4MKI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=kTWDA2-4MKI"

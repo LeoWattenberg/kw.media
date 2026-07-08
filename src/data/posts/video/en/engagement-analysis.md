@@ -9,6 +9,7 @@ modified: "2024-07-05T12:05:39"
 locale: "en"
 translationKey: "video:nhfBKX1ZYWc"
 category: "short-tutorial"
+tags: ["YouTube Analytics", "Viewer Interactions", "Engagement Metrics", "Video Performance", "Click-Through Rate", "View Duration", "Audience Retention", "YouTube Studio", "Short Tutorial"]
 image: "https://i.ytimg.com/vi/nhfBKX1ZYWc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nhfBKX1ZYWc"

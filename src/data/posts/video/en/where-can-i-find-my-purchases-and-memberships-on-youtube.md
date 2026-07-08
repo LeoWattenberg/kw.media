@@ -9,6 +9,7 @@ modified: "2022-06-14T12:30:10"
 locale: "en"
 translationKey: "video:hOXK7RMR4Qk"
 category: "short-tutorial"
+tags: ["YouTube Account Management", "YouTube Purchases", "YouTube Memberships", "Premium Editions", "Refunds", "Account Overview", "Payment History"]
 image: "https://i.ytimg.com/vi/hOXK7RMR4Qk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hOXK7RMR4Qk"

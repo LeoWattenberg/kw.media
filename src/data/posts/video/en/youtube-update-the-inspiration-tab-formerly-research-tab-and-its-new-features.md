@@ -9,6 +9,7 @@ modified: "2024-06-08T00:00:00"
 locale: "en"
 translationKey: "video:96EhAUHWTRY"
 category: "news-video"
+tags: ["YouTube Analytics", "Inspiration-Tab", "Content Creation Ideas", "AI Content Generation", "Breakout Videos", "Content Gap Analysis", "Video Recommendations", "Creator-Tools", "Platform Updates"]
 image: "https://i.ytimg.com/vi/96EhAUHWTRY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=96EhAUHWTRY"

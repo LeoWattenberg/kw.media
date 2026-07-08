@@ -9,6 +9,7 @@ modified: "2025-11-22T13:15:03"
 locale: "de"
 translationKey: "video:MNWt6hzVztI"
 category: "news-video"
+tags: ["YouTube-Funktionen", "Kommentarverwaltung", "Werbeeinnahmen", "Direktnachrichten", "Community-Kontrolle", "Werbeplatzierung", "Abonnenten-Interaktion", "Plattform-Updates"]
 image: "https://i.ytimg.com/vi/MNWt6hzVztI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=MNWt6hzVztI"

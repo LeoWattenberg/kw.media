@@ -9,6 +9,7 @@ modified: "2023-03-17T12:57:27"
 locale: "de"
 translationKey: "post:2280"
 category: "blog"
+tags: ["YouTube-Streaming", "Live-Streaming-Einstieg", "Stream-Erstellung", "OBS Integration", "Stream-Schlüssel", "RTMP/RTMPS", "Chat-Einstellungen", "Monetarisierung", "Livestream-Optimierung"]
 image: "https://lh6.googleusercontent.com/eWeMjTqNdIR4AOgH_aTWqYslVE3cj1h2iIxrAnWMUycTQgDXzGClDJ33m8xucehQ4q91mnw4q86QtQSGhiU3bbJZrIvUMlOFP-vZmb8FkcH7PJndZXYRrKxWKhxeL82GP9FvtvmwYkQB5NwoNL6uZlt5O-T0AdzpOJg7vL_eoHTWNtoaXBZkhD-SJFfuCA"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-youtube-live-streaming/"

@@ -9,6 +9,7 @@ modified: "2024-07-13T12:30:22"
 locale: "en"
 translationKey: "video:K7OVwIz48o8"
 category: "news-video"
+tags: ["YouTube Shorts", "User-Generated Content", "Add Yours-Sticker", "Longer Shorts", "Platform Updates", "Creator-Tools", "Community-Engagement", "Video Promotion", "Vertical Videos"]
 image: "https://i.ytimg.com/vi/K7OVwIz48o8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=K7OVwIz48o8"

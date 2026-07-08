@@ -9,6 +9,7 @@ modified: "2024-11-06T16:15:03"
 locale: "de"
 translationKey: "video:ncaW0WL9X9E"
 category: "short-tutorial"
+tags: ["Shorts Thumbnails bearbeiten", "YouTube App-Updates", "Miniaturansichten erstellen", "Videobearbeitung", "YouTube-Tipps", "Mobile Produktion", "Neue Funktionen", "YouTube Updates"]
 image: "https://i.ytimg.com/vi/ncaW0WL9X9E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ncaW0WL9X9E"

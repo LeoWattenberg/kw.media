@@ -9,6 +9,7 @@ modified: "2025-03-15T13:15:02"
 locale: "de"
 translationKey: "video:I26HIlgDa64"
 category: "news-video"
+tags: ["YouTube-Sicherheit", "Betrug auf YouTube", "Gefälschte Videos", "Passwortgeschützte Dokumente", "Scam-Warnung", "Creator-Vorsicht", "YouTube-Richtlinienverstöße", "Impersonation", "Plattform-Sicherheit"]
 image: "https://i.ytimg.com/vi/I26HIlgDa64/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=I26HIlgDa64"

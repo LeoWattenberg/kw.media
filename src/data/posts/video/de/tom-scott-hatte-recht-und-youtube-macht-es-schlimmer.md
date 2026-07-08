@@ -9,6 +9,7 @@ modified: "2026-06-06T12:15:07"
 locale: "de"
 translationKey: "video:qQOhV-QmOU4"
 category: "news-video"
+tags: ["YouTube Updates", "Creator-Burnout", "A/B-Testen für Videos", "Google Search Profile", "Twitch-Verbesserungen", "2K-Streaming", "Dual Format Streaming", "Währungsumrechnungsgebühren", "Tom Scott", "Content-Planung"]
 image: "https://i.ytimg.com/vi/qQOhV-QmOU4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=qQOhV-QmOU4"

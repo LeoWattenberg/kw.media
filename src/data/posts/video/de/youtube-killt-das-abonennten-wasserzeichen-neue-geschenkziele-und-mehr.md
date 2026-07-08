@@ -9,6 +9,7 @@ modified: "2025-10-04T12:15:04"
 locale: "de"
 translationKey: "video:PLZG4pTLp14"
 category: "news-video"
+tags: ["YouTube Updates", "Abonnement-Funktionen", "Livestreaming-Funktionen", "Fan Funding", "YouTube Studio", "Benutzeroberflächen-Anpassungen", "Creator-Kontrolle", "Mobile Optimierung"]
 image: "https://i.ytimg.com/vi/PLZG4pTLp14/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=PLZG4pTLp14"

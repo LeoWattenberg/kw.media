@@ -9,6 +9,7 @@ modified: "2023-01-12T10:43:31"
 locale: "de"
 translationKey: "video:oyX_dfP3Wv8"
 category: "short-tutorial"
+tags: ["YouTube Shorts", "Partnerprogramm", "Aufruf-Anforderungen", "Monetarisierung", "Kurzvideo-Strategien"]
 image: "https://i.ytimg.com/vi/oyX_dfP3Wv8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/oyX_dfP3Wv8"

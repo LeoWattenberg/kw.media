@@ -9,6 +9,7 @@ modified: "2026-06-27T12:15:16"
 locale: "de"
 translationKey: "video:PtwJQOyhdwU"
 category: "news-video"
+tags: ["YouTube Updates", "Twitch-Anzeigen", "Dislike-Button", "Rückerstattungen", "Organische Entdeckung", "Monetarisierung", "Creator-Reaktionen", "Mitgliedschaftspreise", "Transparenz-Dashboard"]
 image: "https://i.ytimg.com/vi/PtwJQOyhdwU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=PtwJQOyhdwU"

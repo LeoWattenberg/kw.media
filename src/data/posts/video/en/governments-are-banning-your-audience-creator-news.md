@@ -9,6 +9,7 @@ modified: "2026-06-20T12:15:08"
 locale: "en"
 translationKey: "video:U4ZQqoBy7nU"
 category: "news-video"
+tags: ["Platform Policies", "Legal Issues", "Age Restrictions", "YouTube Community", "Twitch-Updates", "Monetization Strategies", "Live Streaming Features", "Channel Management", "Creator Resources", "Audience Targeting"]
 image: "https://i.ytimg.com/vi/U4ZQqoBy7nU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=U4ZQqoBy7nU"

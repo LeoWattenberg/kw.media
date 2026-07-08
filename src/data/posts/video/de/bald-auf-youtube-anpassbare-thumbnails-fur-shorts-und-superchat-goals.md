@@ -9,6 +9,7 @@ modified: "2024-08-10T12:30:10"
 locale: "de"
 translationKey: "video:E8hipk1TNNc"
 category: "news-video"
+tags: ["YouTube Updates", "Shorts Thumbnails", "Super Chat Goals", "Creator QR Codes", "Video-Marketing", "Visuelle Gestaltung", "Miniaturansichten erstellen", "Interaktionen", "Community-Engagement", "Neue Funktionen"]
 image: "https://i.ytimg.com/vi/E8hipk1TNNc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=E8hipk1TNNc"

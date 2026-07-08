@@ -9,6 +9,7 @@ modified: "2026-07-04T12:15:03"
 locale: "en"
 translationKey: "video:YOyDmdKFKYg"
 category: "news-video"
+tags: ["Creator-Tools", "Free Software", "Privacy Focused", "Workflow Optimization", "YouTube Thumbnail Previewer", "Audio A/B Testing", "MP3 Quality Tester", "Image Format Converter", "Fake Alpha Background Remover", "Client-Side Processing"]
 image: "https://i.ytimg.com/vi/YOyDmdKFKYg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=YOyDmdKFKYg"

@@ -9,6 +9,7 @@ modified: "2025-06-17T09:28:44"
 locale: "de"
 translationKey: "video:c_wnvd3Ru0A"
 category: "short-tutorial"
+tags: ["Monetarisierung", "Creator-Einnahmen", "Plattform-Einnahmen", "YouTube-Mitgliedschaften", "Super Chat", "Exklusive Inhalte", "Digitale Produkte", "Print on Demand", "Merch", "Affiliate-Marketing"]
 image: "https://i.ytimg.com/vi/c_wnvd3Ru0A/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/c_wnvd3Ru0A"

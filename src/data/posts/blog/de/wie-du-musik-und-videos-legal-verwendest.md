@@ -8,6 +8,7 @@ date: "2021-06-19T01:14:19"
 modified: "2023-03-17T12:57:30"
 locale: "de"
 category: "blog"
+tags: ["Urheberrecht", "Copyright", "YouTube-Leitfaden", "Rechtliche Grundlagen", "Inhaltserstellung", "Lizenzierung", "Kreativität und Geschäft", "Tipps und Tricks", "Video-Marketing"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/wie-du-musik-und-videos-legal-verwendest/"

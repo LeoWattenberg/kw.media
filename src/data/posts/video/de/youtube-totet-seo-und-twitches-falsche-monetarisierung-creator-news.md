@@ -9,6 +9,7 @@ modified: "2026-05-23T12:15:01"
 locale: "de"
 translationKey: "video:DSZHozupVlk"
 category: "news-video"
+tags: ["YouTube-Suchreform", "Gemini Omni", "Deepfakes", "Twitch-Monetarisierung", "Kleine Streamer", "Plattform-Einnahmen", "TikTok-Abonnement", "Werbefreie Fenster", "Audio-Bibliothek", "Shorts Feed"]
 image: "https://i.ytimg.com/vi/DSZHozupVlk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=DSZHozupVlk"

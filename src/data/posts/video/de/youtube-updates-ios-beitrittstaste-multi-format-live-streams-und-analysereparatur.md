@@ -9,6 +9,7 @@ modified: "2025-08-23T12:15:05"
 locale: "de"
 translationKey: "video:ge8wm6W-EF0"
 category: "news-video"
+tags: ["YouTube Updates", "Mitgliedschaften", "Zahlungsinfrastruktur", "Apple-Gebühren", "Umsatzmaximierung", "YouTube Analytics-Änderungen", "Engagierte Ansichten-Metrik", "Mobile Side-by-Side-Anzeigen", "Multi-Format-Live-Streaming", "Vertikales Streaming"]
 image: "https://i.ytimg.com/vi/ge8wm6W-EF0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=ge8wm6W-EF0"

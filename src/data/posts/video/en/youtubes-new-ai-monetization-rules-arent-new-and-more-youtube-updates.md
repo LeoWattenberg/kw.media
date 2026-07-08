@@ -9,6 +9,7 @@ modified: "2025-07-12T12:15:00"
 locale: "en"
 translationKey: "video:37D_qt7XH7c"
 category: "news-video"
+tags: ["YouTube Monetization", "AI Policy", "Content Quality", "Mass Produced Content", "YouTube Partner Program", "Automation Scams", "Creator Strategy", "Trending Page Removal", "Exploration Pages", "Handle Rollout"]
 image: "https://i.ytimg.com/vi/37D_qt7XH7c/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=37D_qt7XH7c"

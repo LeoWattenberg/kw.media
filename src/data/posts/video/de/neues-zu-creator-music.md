@@ -9,6 +9,7 @@ modified: "2023-01-12T10:43:31"
 locale: "de"
 translationKey: "video:LmvblX4XfXo"
 category: "short-tutorial"
+tags: ["Hintergrundmusik", "Musik für Videos", "Lizenzierung", "Monetarisierung", "YouTube-Tools", "Creator-Ressourcen", "Audio-Strategie", "Inhaltserstellung", "Plattform-Neuerungen"]
 image: "https://i.ytimg.com/vi/LmvblX4XfXo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/LmvblX4XfXo"

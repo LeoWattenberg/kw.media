@@ -9,6 +9,7 @@ modified: "2026-03-14T13:15:14"
 locale: "en"
 translationKey: "video:j2al3ouHxz4"
 category: "news-video"
+tags: ["YouTube Scams", "Deepfakes", "AI Detection", "C2PA Certification", "Content Authenticity", "Creator Security", "Legal Requirements", "EU AI Act", "YouTube Features", "Platform Updates"]
 image: "https://i.ytimg.com/vi/j2al3ouHxz4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=j2al3ouHxz4"

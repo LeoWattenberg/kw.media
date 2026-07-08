@@ -8,6 +8,7 @@ date: "2021-10-19T19:37:17"
 modified: "2023-03-17T12:57:28"
 locale: "en"
 category: "blog"
+tags: ["YouTube Strikes", "Copyright Law", "DMCA Takedowns", "Appealing Strikes", "Content Moderation", "Video Removal", "Channel Management", "Legal Issues", "Intellectual Property"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/i-got-a-strike-what-now/"

@@ -9,6 +9,7 @@ modified: "2026-06-19T15:58:15"
 locale: "de"
 translationKey: "video:ouFl0bkCWx4"
 category: "video-tutorial"
+tags: ["A/B-Testen", "YouTube-Strategie", "Miniaturansichten", "Statistische Analyse", "Klickrate (CTR)", "Betrachtungszeit", "Algorithmen auf YouTube", "Testmethodik", "Dateninterpretation"]
 image: "https://i.ytimg.com/vi/ouFl0bkCWx4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=ouFl0bkCWx4"

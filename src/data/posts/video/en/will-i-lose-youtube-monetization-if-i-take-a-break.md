@@ -9,6 +9,7 @@ modified: "2026-06-21T05:00:08"
 locale: "en"
 translationKey: "video:Xtu2XYmDfy4"
 category: "short-tutorial"
+tags: ["YouTube Monetization", "Monetization Policies", "Creator Mental Health", "Burnout Prevention", "Watch Time Analysis", "Content Strategy", "Platform Policies", "Creator Well-being", "Metrics and Performance"]
 image: "https://i.ytimg.com/vi/Xtu2XYmDfy4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Xtu2XYmDfy4"

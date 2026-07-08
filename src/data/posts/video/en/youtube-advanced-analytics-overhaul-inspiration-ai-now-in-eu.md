@@ -9,6 +9,7 @@ modified: "2025-06-28T12:15:00"
 locale: "en"
 translationKey: "video:1TRWw2aQu2w"
 category: "news-video"
+tags: ["YouTube Platform Updates", "Live Streaming Policies", "Advanced Analytics", "AI Tools", "Autodubbing", "Inspiration AI", "YouTube Features", "Content Creation Ideas", "YouTube Community Engagement"]
 image: "https://i.ytimg.com/vi/1TRWw2aQu2w/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1TRWw2aQu2w"

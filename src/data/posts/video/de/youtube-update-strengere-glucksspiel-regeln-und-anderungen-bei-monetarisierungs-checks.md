@@ -9,6 +9,7 @@ modified: "2025-03-08T13:15:00"
 locale: "de"
 translationKey: "video:4vqgeulXPO8"
 category: "news-video"
+tags: ["Glücksspielrichtlinien", "YouTube-Richtlinien", "Monetarisierungs-Check", "Shopping for Creators", "Urheberrechtsprüfung", "Warteschlange für Überprüfungen"]
 image: "https://i.ytimg.com/vi/4vqgeulXPO8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=4vqgeulXPO8"

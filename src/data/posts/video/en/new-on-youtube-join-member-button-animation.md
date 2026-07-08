@@ -9,6 +9,7 @@ modified: "2024-08-17T12:30:41"
 locale: "en"
 translationKey: "video:oYttE8RpUqQ"
 category: "news-video"
+tags: ["YouTube Platform Updates", "Channel Memberships", "User Interaction", "Visual Design", "Call to Action", "Animation in Chat"]
 image: "https://i.ytimg.com/vi/oYttE8RpUqQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=oYttE8RpUqQ"

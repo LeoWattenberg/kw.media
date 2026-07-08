@@ -9,6 +9,7 @@ modified: "2025-07-26T12:15:02"
 locale: "en"
 translationKey: "video:BR7qbvP5ceY"
 category: "news-video"
+tags: ["YouTube Shorts", "AI Content Generation", "Audience Metrics", "VTuber Agencies", "Cooperative Business Model", "Content Creator Autonomy", "Platform Updates", "Analytics", "Community Interaction"]
 image: "https://i.ytimg.com/vi/BR7qbvP5ceY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=BR7qbvP5ceY"

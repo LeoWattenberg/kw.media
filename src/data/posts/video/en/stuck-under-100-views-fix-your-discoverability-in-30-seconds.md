@@ -9,6 +9,7 @@ modified: "2025-05-26T08:03:47"
 locale: "en"
 translationKey: "video:-WgXyaoL1LI"
 category: "short-tutorial"
+tags: ["Content Discoverability", "Video Optimization", "YouTube Channel Growth", "Thumbnail Design", "Video Engagement", "Consistency Strategies", "Session Time Improvement", "Playlist Management", "End Screens"]
 image: "https://i.ytimg.com/vi/-WgXyaoL1LI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/-WgXyaoL1LI"

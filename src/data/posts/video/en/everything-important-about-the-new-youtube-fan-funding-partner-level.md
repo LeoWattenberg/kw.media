@@ -9,6 +9,7 @@ modified: "2023-06-13T14:47:09"
 locale: "en"
 translationKey: "video:qzmGBdpLlDQ"
 category: "video-tutorial"
+tags: ["YouTube Partner Program", "Fan Funding", "Channel Memberships", "Super Chat", "Monetization Options", "Community Support", "Revenue Generation", "Platform Updates", "Creator Resources"]
 image: "https://i.ytimg.com/vi/qzmGBdpLlDQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=qzmGBdpLlDQ"

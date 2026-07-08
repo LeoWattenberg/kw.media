@@ -9,6 +9,7 @@ modified: "2022-04-19T20:23:36"
 locale: "en"
 translationKey: "video:SI8OKrwxSu8"
 category: "short-tutorial"
+tags: ["Channel Management", "Community Settings", "YouTube Platform Updates", "Chat Interaction", "Comment Replies", "Viewer Engagement", "Channel Guidelines", "Community Features"]
 image: "https://i.ytimg.com/vi/SI8OKrwxSu8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/SI8OKrwxSu8"

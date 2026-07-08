@@ -9,6 +9,7 @@ modified: "2024-11-16T13:15:01"
 locale: "de"
 translationKey: "video:Ca2UQvh5p5Q"
 category: "news-video"
+tags: ["Autodubbing-Update", "Sprachübersetzung", "YouTube Shorts", "Livestreaming-Funktionen", "Monetarisierung", "Microtransaktionen", "YouTube Juwelen", "Vertikale Videos"]
 image: "https://i.ytimg.com/vi/Ca2UQvh5p5Q/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=Ca2UQvh5p5Q"

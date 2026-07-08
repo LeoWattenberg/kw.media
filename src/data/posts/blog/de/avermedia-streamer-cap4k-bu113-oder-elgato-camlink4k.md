@@ -9,6 +9,7 @@ modified: "2023-03-17T12:57:27"
 locale: "de"
 translationKey: "post:1847"
 category: "blog"
+tags: ["AVerMedia Streamer Cap4k", "Elgato Camlink4k", "Kamera-Setup", "Streaming-Ausrüstung", "Videoaufnahme", "Preis-Leistungs-Verhältnis", "Produktvergleich", "Capture Card"]
 image: "/assets/wp-content/uploads/2021/10/camlink_cap4k_vergleich.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/avermedia-streamer-cap4k-bu113-oder-elgato-camlink4k/"

@@ -9,6 +9,7 @@ modified: "2025-06-07T12:15:07"
 locale: "de"
 translationKey: "video:tvpXlghvKzo"
 category: "news-video"
+tags: ["YouTube Updates", "Miniaturansichten", "Sensible Suchanfragen", "Unscharfe Darstellung", "Suchergebnisse", "Benutzererfahrung", "Kontextabhängig"]
 image: "https://i.ytimg.com/vi/tvpXlghvKzo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=tvpXlghvKzo"

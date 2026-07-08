@@ -9,6 +9,7 @@ modified: "2025-12-05T11:34:07"
 locale: "de"
 translationKey: "video:67GI43uGC4s"
 category: "short-tutorial"
+tags: ["YouTube-Handles", "Mobile App-Updates", "Live-Chat", "Benutzernamen-Änderung", "YouTube-Funktionen", "Kurzvideo-Strategien"]
 image: "https://i.ytimg.com/vi/67GI43uGC4s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/67GI43uGC4s"

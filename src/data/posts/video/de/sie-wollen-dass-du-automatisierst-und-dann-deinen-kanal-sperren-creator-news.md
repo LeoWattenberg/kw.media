@@ -9,6 +9,7 @@ modified: "2026-06-13T12:15:04"
 locale: "de"
 translationKey: "video:TRS0NIOahBM"
 category: "news-video"
+tags: ["YouTube Updates", "Twitch-Updates", "KI-Tools", "Automatisierung", "Monetarisierung", "Einnahmen", "Plattform-Optimierung", "Creator-Strategien", "Streaming-Tipps", "Community-Interaktion"]
 image: "https://i.ytimg.com/vi/TRS0NIOahBM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=TRS0NIOahBM"

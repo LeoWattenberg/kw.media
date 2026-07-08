@@ -9,6 +9,7 @@ modified: "2024-07-31T14:00:38"
 locale: "de"
 translationKey: "video:gs5hdwEO9gs"
 category: "short-tutorial"
+tags: ["Sprungbilder", "Video-Bearbeitungstechniken", "YouTube-Engagement", "Zuschauerbindung", "Video-Optimierung", "Content-Erstellung", "Creator-Strategien", "Video-Rhythmus", "Bearbeitungstipps"]
 image: "https://i.ytimg.com/vi/gs5hdwEO9gs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/gs5hdwEO9gs"

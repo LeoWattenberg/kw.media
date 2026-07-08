@@ -9,6 +9,7 @@ modified: "2023-01-12T10:43:31"
 locale: "de"
 translationKey: "video:5DBif93dBc4"
 category: "short-tutorial"
+tags: ["Shorts-Monetarisierung", "YouTube-Partnerprogramm", "Shorts-Strategien", "Einnahmen generieren", "Creator-Einnahmen", "YouTube Updates", "Plattform-Neuerungen", "Monetarisierungsmodelle"]
 image: "https://i.ytimg.com/vi/5DBif93dBc4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5DBif93dBc4"

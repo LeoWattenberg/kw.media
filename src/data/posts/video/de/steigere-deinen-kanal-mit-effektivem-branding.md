@@ -9,6 +9,7 @@ modified: "2024-06-14T10:24:16"
 locale: "de"
 translationKey: "video:xIG7D8RdP2I"
 category: "short-tutorial"
+tags: ["Branding-Strategien", "Kanalmanagement", "YouTube Studio", "Kanaldesign", "Profilbild optimieren", "Miniaturansichten", "Visuelle Markenidentität", "Wiederverwendbare Assets", "Farben und Schriftarten"]
 image: "https://i.ytimg.com/vi/xIG7D8RdP2I/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/xIG7D8RdP2I"

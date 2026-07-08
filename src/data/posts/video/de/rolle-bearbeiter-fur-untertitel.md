@@ -9,6 +9,7 @@ modified: "2022-04-11T22:00:24"
 locale: "de"
 translationKey: "video:ejYerCk6F_k"
 category: "short-tutorial"
+tags: ["YouTube-Untertitel", "Rollenverwaltung", "Videobearbeitung", "Zusammenarbeit auf YouTube", "Neue Funktionen auf YouTube", "YouTube Updates", "Inhaltserstellung", "Zugriffsrechte", "E-Mail-Integration"]
 image: "https://i.ytimg.com/vi/ejYerCk6F_k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ejYerCk6F_k"

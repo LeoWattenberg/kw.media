@@ -9,6 +9,7 @@ modified: "2026-01-17T13:15:13"
 locale: "de"
 translationKey: "video:kTWDA2-4MKI"
 category: "news-video"
+tags: ["YouTube-Monetarisierung", "Inhaltsrichtlinien", "Werbefreundliche Themen", "Sensiblere Inhalte", "Reproduktive Rechte", "KI-Update", "Text-zu-Video-Funktion", "Zielgerichtete Werbung", "Interessengruppen-Zielsetzung"]
 image: "https://i.ytimg.com/vi/kTWDA2-4MKI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=kTWDA2-4MKI"

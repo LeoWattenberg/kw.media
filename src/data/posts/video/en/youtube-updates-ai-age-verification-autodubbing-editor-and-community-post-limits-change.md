@@ -9,6 +9,7 @@ modified: "2025-08-16T12:15:03"
 locale: "en"
 translationKey: "video:JvwkzUSuNFM"
 category: "news-video"
+tags: ["YouTube Studio Updates", "Autodubbing", "Community Posts Enhancements", "AI Age Verification", "US Rollout", "Creator Revenue Impact", "Vertical Live Streaming", "Content Moderation", "Audience Demographics", "YouTube Analytics"]
 image: "https://i.ytimg.com/vi/JvwkzUSuNFM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JvwkzUSuNFM"

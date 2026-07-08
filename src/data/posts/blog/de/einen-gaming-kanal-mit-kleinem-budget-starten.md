@@ -9,6 +9,7 @@ modified: "2022-07-16T12:47:21"
 locale: "de"
 translationKey: "post:1425"
 category: "blog"
+tags: ["Gaming-Kanal", "Budget-Ausrüstung", "YouTube-Start", "Videoaufnahme-Tools", "Videobearbeitung", "Thumbnails", "Overlays", "PC-Konfiguration", "Capture Card", "Audio-Qualität"]
 image: "/assets/wp-content/uploads/2021/06/Starting-Gaming-Channel-on-a-Budget.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/starting-a-gaming-channel-on-a-budget/"

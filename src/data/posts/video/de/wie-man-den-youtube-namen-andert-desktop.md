@@ -9,6 +9,7 @@ modified: "2025-12-05T11:33:19"
 locale: "de"
 translationKey: "video:hqePaFc8fCA"
 category: "short-tutorial"
+tags: ["Benutzernamen-Änderung", "YouTube Studio", "Live-Chat", "Kurzvideo-Tools", "Desktop-Optimierung", "Plattform-Updates", "Kurze Tutorials"]
 image: "https://i.ytimg.com/vi/hqePaFc8fCA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hqePaFc8fCA"

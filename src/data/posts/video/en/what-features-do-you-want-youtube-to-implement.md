@@ -9,6 +9,7 @@ modified: "2024-11-10T16:15:02"
 locale: "en"
 translationKey: "video:dweBFb3ts3k"
 category: "short-tutorial"
+tags: ["YouTube Feature Requests", "Creator-Feedback", "Platform Improvements", "Surveys for Creators", "Community-Engagement", "YouTube Studio Updates", "Content Optimization", "Monetization Ideas", "Audience Interaction"]
 image: "https://i.ytimg.com/vi/dweBFb3ts3k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/dweBFb3ts3k"

@@ -9,6 +9,7 @@ modified: "2025-04-12T12:15:01"
 locale: "de"
 translationKey: "video:7dB5B_EKnYE"
 category: "news-video"
+tags: ["YouTube Updates", "Abonnieren Plus", "Automatische Untertitelung", "Mitgliedschaften", "Benutzeroberfläche", "Feedback", "YPP", "Mehrsprachige Inhalte", "Übersetzung", "Untertitel"]
 image: "https://i.ytimg.com/vi/7dB5B_EKnYE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=7dB5B_EKnYE"

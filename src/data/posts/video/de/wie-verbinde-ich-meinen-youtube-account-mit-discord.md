@@ -9,6 +9,7 @@ modified: "2023-06-05T07:00:15"
 locale: "de"
 translationKey: "video:iN-yGbTd3z4"
 category: "short-tutorial"
+tags: ["Discord-Integration", "YouTube-Einstellungen", "Verbindungen", "Google Konto", "Rollenzuweisung", "Kanalmitgliedschaften"]
 image: "https://i.ytimg.com/vi/iN-yGbTd3z4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iN-yGbTd3z4"

@@ -9,6 +9,7 @@ modified: "2024-08-31T15:58:14"
 locale: "en"
 translationKey: "video:Q_Wf69Pynwo"
 category: "short-tutorial"
+tags: ["YouTube Notifications", "Viewer Engagement", "YouTube Studio Dashboard", "Content Discoverability", "Personalized Content", "Watch History", "Subscriber Retention", "Platform Features", "User Interaction"]
 image: "https://i.ytimg.com/vi/Q_Wf69Pynwo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Q_Wf69Pynwo"

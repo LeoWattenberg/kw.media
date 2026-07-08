@@ -9,6 +9,7 @@ modified: "2024-03-23T13:30:33"
 locale: "de"
 translationKey: "video:obiGGGDe-Uw"
 category: "news-video"
+tags: ["YouTube Updates", "Jump Ahead Experiment", "Premium-Funktionen", "Audience Retention", "Werbeeinblendungen", "Sponsor Content", "Shorts Remix Funktion", "Kapitel auf YouTube", "Erweiterte Funktionen"]
 image: "https://i.ytimg.com/vi/obiGGGDe-Uw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=obiGGGDe-Uw"

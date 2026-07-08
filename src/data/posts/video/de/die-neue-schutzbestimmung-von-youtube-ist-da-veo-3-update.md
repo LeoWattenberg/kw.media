@@ -9,6 +9,7 @@ modified: "2025-11-29T13:15:13"
 locale: "de"
 translationKey: "video:sFADjkaHI2s"
 category: "news-video"
+tags: ["YouTube Updates", "Community-Richtlinien", "Vorabprüfung", "Shorts-Verbesserungen", "KI-Integration", "Kommentar-Antworten", "Kanalmanagement", "Zuschauer-Interaktion", "Algorithmus-Anpassung"]
 image: "https://i.ytimg.com/vi/sFADjkaHI2s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=sFADjkaHI2s"

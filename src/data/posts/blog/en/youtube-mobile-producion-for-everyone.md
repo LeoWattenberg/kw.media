@@ -9,6 +9,7 @@ modified: "2022-07-16T12:47:06"
 locale: "en"
 translationKey: "post:1432"
 category: "blog"
+tags: ["Mobile Production", "YouTube Live Streaming", "Content Creation", "Audio Quality", "Microphone Recommendations", "Lighting Solutions", "Power Banks", "Screen Recording", "Gameplay Capture"]
 image: "https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-mobile-producion-for-everyone/"

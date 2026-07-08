@@ -9,6 +9,7 @@ modified: "2026-05-09T12:15:06"
 locale: "de"
 translationKey: "video:tQ4Qxdz5diI"
 category: "news-video"
+tags: ["Twitch-Regeln", "IRL-Streaming", "Creator-Zusammenarbeit", "Matchmaking-System", "Plattform-Updates", "Inhaltsstrategie", "Community-Engagement", "Gaming-Creator", "Video-Ketten", "Geteilte Universen"]
 image: "https://i.ytimg.com/vi/tQ4Qxdz5diI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=tQ4Qxdz5diI"

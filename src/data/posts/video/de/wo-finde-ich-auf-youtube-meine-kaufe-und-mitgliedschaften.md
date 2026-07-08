@@ -9,6 +9,7 @@ modified: "2022-06-14T12:30:10"
 locale: "de"
 translationKey: "video:hOXK7RMR4Qk"
 category: "short-tutorial"
+tags: ["YouTube-Mitgliedschaften", "YouTube-Käufe", "YouTube Premium", "Rückerstattungen", "Kontoübersicht", "Einkäufe verwalten"]
 image: "https://i.ytimg.com/vi/hOXK7RMR4Qk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hOXK7RMR4Qk"

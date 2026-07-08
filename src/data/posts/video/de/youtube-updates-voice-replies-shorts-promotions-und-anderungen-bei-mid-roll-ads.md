@@ -9,6 +9,7 @@ modified: "2025-02-22T13:15:06"
 locale: "de"
 translationKey: "video:KHAFS_SR8IQ"
 category: "news-video"
+tags: ["YouTube Updates", "Sprachnachrichten", "Shorts-Werbung", "Midroll-Anzeigen", "Livestreaming-Funktionen", "Werbeanzeigen-Strategien", "Monetarisierung", "Plattform-Neuerungen", "YouTube-Richtlinien"]
 image: "https://i.ytimg.com/vi/KHAFS_SR8IQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=KHAFS_SR8IQ"

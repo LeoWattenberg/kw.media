@@ -9,6 +9,7 @@ modified: "2026-05-30T12:15:08"
 locale: "en"
 translationKey: "video:JhAvOlIInDk"
 category: "news-video"
+tags: ["Twitch AI", "AI Tools", "Sponsorships", "YouTube AI Avatars", "Gemini Omni", "AI Content Generation", "AI-Curated Feeds", "Ask Studio Updates", "Top Fans Privacy Setting"]
 image: "https://i.ytimg.com/vi/JhAvOlIInDk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JhAvOlIInDk"

@@ -9,6 +9,7 @@ modified: "2023-04-19T17:01:57"
 locale: "en"
 translationKey: "video:hJLZbzvabYE"
 category: "short-tutorial"
+tags: ["YouTube Shorts", "Comment Replies", "Short Tutorial", "Video Responses", "Platform Updates", "YouTube Features", "Content Creator Tools", "Audience Engagement", "Creator Resources"]
 image: "https://i.ytimg.com/vi/hJLZbzvabYE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hJLZbzvabYE"

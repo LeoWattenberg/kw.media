@@ -9,6 +9,7 @@ modified: "2026-01-10T11:21:05"
 locale: "en"
 translationKey: "video:L0009GyER00"
 category: "news-video"
+tags: ["YouTube Search Update", "Search Discoverability", "Audio Strategy", "Music Licensing", "Viewer Engagement", "Content Optimization", "Platform Announcements", "YouTube Features", "Video Promotion", "Creator Resources"]
 image: "https://i.ytimg.com/vi/L0009GyER00/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=L0009GyER00"

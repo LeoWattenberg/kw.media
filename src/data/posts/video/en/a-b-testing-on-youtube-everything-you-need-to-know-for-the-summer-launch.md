@@ -9,6 +9,7 @@ modified: "2024-04-27T12:30:17"
 locale: "en"
 translationKey: "video:WwNMa1XUVsg"
 category: "news-video"
+tags: ["YouTube Updates", "A/B Testing", "Thumbnail Optimization", "Super Chat", "Monetization Policies", "Content Creator Tools", "Live Streaming Features", "Platform Enhancements"]
 image: "https://i.ytimg.com/vi/WwNMa1XUVsg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=WwNMa1XUVsg"

@@ -9,6 +9,7 @@ modified: "2024-06-01T12:30:19"
 locale: "de"
 translationKey: "video:EBJz7RhXxOA"
 category: "news-video"
+tags: ["YouTube Studio App", "Zahlungsansicht", "Belohnungskampagnen", "Mobile Live-Streams", "Community-Beiträge", "Kommentare", "Monetarisierung", "Neue Funktionen", "YouTube Updates"]
 image: "https://i.ytimg.com/vi/EBJz7RhXxOA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EBJz7RhXxOA"

@@ -9,6 +9,7 @@ modified: "2025-12-12T11:27:18"
 locale: "de"
 translationKey: "video:rhGWPkzn91o"
 category: "news-video"
+tags: ["YouTube KI-Funktionen", "KI-Klonen", "Community-Interaktion", "Streaming-Updates", "E-Commerce auf YouTube", "Automatisierte Kanalprüfung", "Cube Check", "YouTube-Tools", "Plattform-Neuerungen", "Creator-Monetarisierung"]
 image: "https://i.ytimg.com/vi/rhGWPkzn91o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=rhGWPkzn91o"

@@ -9,6 +9,7 @@ modified: "2022-05-17T10:00:18"
 locale: "de"
 translationKey: "video:eFpsYo_qJbM"
 category: "short-tutorial"
+tags: ["Community-Tab", "Bildumfragen", "Android-Funktionen", "Umfragen erstellen", "Video-Verlinkung", "Interaktion mit Zuschauern", "Mobile YouTube-Features"]
 image: "https://i.ytimg.com/vi/eFpsYo_qJbM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/eFpsYo_qJbM"

@@ -9,6 +9,7 @@ modified: "2025-06-28T12:15:00"
 locale: "de"
 translationKey: "video:1TRWw2aQu2w"
 category: "news-video"
+tags: ["YouTube Updates", "Live-Streaming-Richtlinien", "Jugendschutz auf YouTube", "Erweiterte YouTube-Analyse", "Autodubbing", "Inspiration-Tab", "KI-basierte Videoideen"]
 image: "https://i.ytimg.com/vi/1TRWw2aQu2w/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1TRWw2aQu2w"

@@ -9,6 +9,7 @@ modified: "2025-03-08T13:15:00"
 locale: "en"
 translationKey: "video:4vqgeulXPO8"
 category: "news-video"
+tags: ["YouTube Policy Changes", "Gambling Restrictions", "Age Restrictions", "Monetization Check Updates", "Shopping for Creators", "Content Monetization", "Community Guidelines", "Copyright Management", "Ad Suitability Review"]
 image: "https://i.ytimg.com/vi/4vqgeulXPO8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=4vqgeulXPO8"

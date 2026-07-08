@@ -9,6 +9,7 @@ modified: "2024-07-06T12:30:15"
 locale: "en"
 translationKey: "video:Rl2fol2fqhg"
 category: "news-video"
+tags: ["YouTube Updates", "Google Lens Integration", "Android Features", "iOS Experiment", "AI Summaries", "Live Chat Analysis", "Content Policy Training", "YouTube Shopping", "Copyright Management", "Erase Song Feature"]
 image: "https://i.ytimg.com/vi/Rl2fol2fqhg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=Rl2fol2fqhg"

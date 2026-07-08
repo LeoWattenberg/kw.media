@@ -9,6 +9,7 @@ modified: "2025-12-20T13:15:09"
 locale: "en"
 translationKey: "video:N301RW3y69E"
 category: "news-video"
+tags: ["YouTube Platform Updates", "AI Editing", "Mobile Creation", "Community Features", "Monetization Changes", "Voice Replies", "Channel Guidelines", "Super Chat Goals", "VPN Ad Viewers", "Language Preferences"]
 image: "https://i.ytimg.com/vi/N301RW3y69E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=N301RW3y69E"

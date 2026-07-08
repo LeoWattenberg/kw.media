@@ -9,6 +9,7 @@ modified: "2022-05-24T15:00:14"
 locale: "en"
 translationKey: "video:CPUIzFT6wmM"
 category: "short-tutorial"
+tags: ["YouTube Channel Management", "YouTube Features Access", "Member Shelf", "YouTube Studio", "Monetization Options", "YouTube Memberships", "Channel Customization", "Platform Updates"]
 image: "https://i.ytimg.com/vi/CPUIzFT6wmM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CPUIzFT6wmM"

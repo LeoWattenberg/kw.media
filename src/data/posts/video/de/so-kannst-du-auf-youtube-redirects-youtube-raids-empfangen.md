@@ -9,6 +9,7 @@ modified: "2023-04-04T15:30:06"
 locale: "de"
 translationKey: "video:Hy3CFCjHYog"
 category: "short-tutorial"
+tags: ["Live-Streaming", "YouTube Studio", "Community-Einstellungen", "Creator-Interaktion", "Livestream-Optimierung", "Umleitungen aktivieren", "YouTube-Funktionen", "Zuschauer Engagement"]
 image: "https://i.ytimg.com/vi/Hy3CFCjHYog/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Hy3CFCjHYog"

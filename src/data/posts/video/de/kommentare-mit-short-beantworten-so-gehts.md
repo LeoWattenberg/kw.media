@@ -9,6 +9,7 @@ modified: "2023-04-19T17:01:57"
 locale: "de"
 translationKey: "video:hJLZbzvabYE"
 category: "short-tutorial"
+tags: ["Kommentar-Antworten", "Shorts", "Mobile YouTube-Features", "Interaktion mit Zuschauern", "YouTube Updates", "Smartphone-Aufnahme", "Video-Verlinkung", "Zuschauer-Interaktion", "Content-Erstellung"]
 image: "https://i.ytimg.com/vi/hJLZbzvabYE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hJLZbzvabYE"

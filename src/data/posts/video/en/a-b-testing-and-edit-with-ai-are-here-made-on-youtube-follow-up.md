@@ -9,6 +9,7 @@ modified: "2025-09-19T12:15:04"
 locale: "en"
 translationKey: "video:WWV1rfDxlcE"
 category: "news-video"
+tags: ["YouTube Updates", "A/B Testing", "Thumbnail Optimization", "AI Editing", "YouTube Shorts", "Voiceover Tools", "Creator-Tools", "Feature Rollout", "Platform Announcements"]
 image: "https://i.ytimg.com/vi/WWV1rfDxlcE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=WWV1rfDxlcE"

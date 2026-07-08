@@ -9,6 +9,7 @@ modified: "2025-05-17T12:15:06"
 locale: "de"
 translationKey: "video:bXbIz9BKeUc"
 category: "news-video"
+tags: ["YouTube Updates", "Playlist Voting", "A/B-Testen für Titel", "Titeloptimierung", "Community-Interaktion", "Neue Funktionen", "YouTube Studio", "Creator-Tools", "Video-Marketing"]
 image: "https://i.ytimg.com/vi/bXbIz9BKeUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=bXbIz9BKeUc"

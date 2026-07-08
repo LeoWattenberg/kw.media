@@ -9,6 +9,7 @@ modified: "2022-04-27T08:29:36"
 locale: "en"
 translationKey: "video:OYppjzpPs8U"
 category: "short-tutorial"
+tags: ["YouTube Monetization", "Super Chat Enhancements", "Creator Revenue", "Platform Updates", "YouTube Partner Program", "Viewer Interactions", "Transaction Revenue"]
 image: "https://i.ytimg.com/vi/OYppjzpPs8U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OYppjzpPs8U"

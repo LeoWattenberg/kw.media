@@ -9,6 +9,7 @@ modified: "2021-07-12T16:19:11"
 locale: "en"
 translationKey: "video:Ym4aBQ-W2BM"
 category: "short-tutorial"
+tags: ["YouTube Shorts", "Short Tutorial", "Mobile Production", "Video Creation", "Content Creator Tools", "YouTube Features", "Beginner's Guide"]
 image: "https://i.ytimg.com/vi/Ym4aBQ-W2BM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Ym4aBQ-W2BM"

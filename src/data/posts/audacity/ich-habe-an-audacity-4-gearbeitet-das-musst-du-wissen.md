@@ -9,6 +9,7 @@ modified: "2026-06-05T09:05:19"
 locale: "de"
 translationKey: "video:5nJuWdclGkw"
 category: "audacity"
+tags: ["Audacity 4", "Audio-Bearbeitung", "Neue Funktionen", "Dunkles Theme", "Clip-Visualisierungen", "Mehrspuraufnahme", "Bearbeitungsmodi", "Split-Werkzeug", "Ripple-Bearbeitung"]
 image: "https://i.ytimg.com/vi/5nJuWdclGkw/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=5nJuWdclGkw"

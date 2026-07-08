@@ -9,6 +9,7 @@ modified: "2025-02-08T13:15:03"
 locale: "de"
 translationKey: "video:W_IFK4IqfHo"
 category: "news-video"
+tags: ["YouTube Updates", "Analytics-Karte", "Zuschaueranalyse", "Geräteverteilung", "Mobile Chats", "Autovervollständigung", "Live-Streaming-Verbesserungen", "YouTube Studio"]
 image: "https://i.ytimg.com/vi/W_IFK4IqfHo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=W_IFK4IqfHo"

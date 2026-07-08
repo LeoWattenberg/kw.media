@@ -9,6 +9,7 @@ modified: "2025-09-27T12:15:04"
 locale: "en"
 translationKey: "video:GSv_RD1b7b8"
 category: "news-video"
+tags: ["YouTube Platform Updates", "Live Streaming Features", "AI Content Generation", "Community Features", "Desktop Features", "YouTube Studio", "Fan Communities", "Multi-Aspect Streams", "AI Disclosure", "Viewer Experience"]
 image: "https://i.ytimg.com/vi/GSv_RD1b7b8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=GSv_RD1b7b8"

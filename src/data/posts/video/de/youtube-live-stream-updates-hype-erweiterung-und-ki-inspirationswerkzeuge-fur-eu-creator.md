@@ -9,6 +9,7 @@ modified: "2025-04-19T12:15:10"
 locale: "de"
 translationKey: "video:glHG5LA9-4E"
 category: "news-video"
+tags: ["YouTube Updates", "Geschenkfunktionen", "Vertikale Live-Streams", "YouTube-Hype", "KI-Tools", "Inspiration-Tab", "EU-Einführung", "Abonnenten-Engagement", "Monetarisierung"]
 image: "https://i.ytimg.com/vi/glHG5LA9-4E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=glHG5LA9-4E"

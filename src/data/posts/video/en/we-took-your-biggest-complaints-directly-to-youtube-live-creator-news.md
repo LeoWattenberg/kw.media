@@ -9,6 +9,7 @@ modified: "2026-04-18T12:15:03"
 locale: "en"
 translationKey: "video:K5t4DGO_J2I"
 category: "news-video"
+tags: ["YouTube Live", "Twitch", "TikTok Live", "Image Carousels", "Shorts-Updates", "Streaming Platforms", "Creator Economy", "Platform Enhancements", "Monetization Tools", "Vertical Videos"]
 image: "https://i.ytimg.com/vi/K5t4DGO_J2I/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=K5t4DGO_J2I"

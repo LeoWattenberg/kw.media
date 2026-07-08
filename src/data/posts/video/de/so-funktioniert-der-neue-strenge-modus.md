@@ -9,6 +9,7 @@ modified: "2022-07-05T16:30:05"
 locale: "de"
 translationKey: "video:_KvD9yQ9YUo"
 category: "short-tutorial"
+tags: ["Kommentarfilter", "Spam-Erkennung", "YouTube Studio", "Community-Einstellungen", "Strenger Modus", "Automatische Filterung", "Kommentare verwalten"]
 image: "https://i.ytimg.com/vi/_KvD9yQ9YUo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/_KvD9yQ9YUo"

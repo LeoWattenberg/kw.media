@@ -9,6 +9,7 @@ modified: "2025-05-10T12:15:05"
 locale: "de"
 translationKey: "video:jkTohCOCLdg"
 category: "news-video"
+tags: ["YouTube Updates", "Midroll-Anzeigen", "Einnahmenverlust", "Automatisierte Werbeplätze", "Kurzvideo-Bearbeitung", "YouTube Studio", "Google Takeout", "Datenverkehr", "Creator-Tools", "Monetarisierung"]
 image: "https://i.ytimg.com/vi/jkTohCOCLdg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=jkTohCOCLdg"

@@ -9,6 +9,7 @@ modified: "2022-03-07T23:00:24"
 locale: "en"
 translationKey: "video:FlH6HGVR82A"
 category: "short-tutorial"
+tags: ["YouTube Shorts", "Shorts Sampling", "Creator Options", "Video Permissions", "YouTube Studio Settings", "Content Usage", "Sampling Management"]
 image: "https://i.ytimg.com/vi/FlH6HGVR82A/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/FlH6HGVR82A"

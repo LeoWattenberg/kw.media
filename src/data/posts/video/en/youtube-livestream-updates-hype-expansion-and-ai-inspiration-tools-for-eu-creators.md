@@ -9,6 +9,7 @@ modified: "2025-04-19T12:15:10"
 locale: "en"
 translationKey: "video:glHG5LA9-4E"
 category: "news-video"
+tags: ["YouTube Live Streaming", "Vertical Live Streaming", "Gift Combos", "AI Tools", "Inspiration-Tab", "EU Creators", "UK Creators", "Switzerland Creators", "YouTube Jewels", "YouTube-Hype"]
 image: "https://i.ytimg.com/vi/glHG5LA9-4E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=glHG5LA9-4E"

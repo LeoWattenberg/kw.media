@@ -9,6 +9,7 @@ modified: "2022-07-16T12:47:21"
 locale: "de"
 translationKey: "post:1389"
 category: "blog"
+tags: ["YouTube News", "Plattform-Updates", "Creator-Informationen", "YouTube-Kanal", "Discord-Integration", "Social Media-Feeds", "Ratgeber", "Tipps und Tricks"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/seht-die-neusten-youtube-news-in-unserem-patch-rundown-und-was-hier-noch-passiert/"

@@ -9,6 +9,7 @@ modified: "2025-11-08T13:15:19"
 locale: "de"
 translationKey: "video:vbJb0uVty9o"
 category: "news-video"
+tags: ["YouTube-Richtlinien", "Gaming-Kanal-Einschränkungen", "Glücksspiel und Gewalt", "Organische vs. bezahlte Analyse", "YouTube Analytics-Update", "Community-Richtlinien-Durchsetzung", "Altersbeschränkungen für Inhalte", "Metriken-Filterung", "Werbung und organisches Wachstum"]
 image: "https://i.ytimg.com/vi/vbJb0uVty9o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=vbJb0uVty9o"

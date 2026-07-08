@@ -9,6 +9,7 @@ modified: "2024-07-16T14:30:44"
 locale: "en"
 translationKey: "video:b5xKbnpC8P4"
 category: "short-tutorial"
+tags: ["YouTube-Hashtags", "Content Discoverability", "Video Optimization", "Audience Targeting", "Search Engine Optimization", "YouTube Tips", "Short Tutorial", "Channel Growth Strategies"]
 image: "https://i.ytimg.com/vi/b5xKbnpC8P4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/b5xKbnpC8P4"

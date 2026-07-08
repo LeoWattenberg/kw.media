@@ -9,6 +9,7 @@ modified: "2025-04-05T12:15:07"
 locale: "en"
 translationKey: "video:mwI9bSG6_dw"
 category: "news-video"
+tags: ["YouTube Shorts Updates", "Comment Teasers", "YouTube Premium Plans", "Music Licensing Changes", "Vixen Music", "Warner Music Group", "Inspiration Tab Features", "Brainstorming Tools", "Quick Saves", "AI-Assisted Content Generation"]
 image: "https://i.ytimg.com/vi/mwI9bSG6_dw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=mwI9bSG6_dw"

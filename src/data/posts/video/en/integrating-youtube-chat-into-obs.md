@@ -9,6 +9,7 @@ modified: "2023-03-24T16:30:02"
 locale: "en"
 translationKey: "video:E5BmjrCT1LE"
 category: "short-tutorial"
+tags: ["YouTube Live Streaming", "OBS", "Live Chat Features", "Free Tools", "Stream Setup", "Streaming Software", "Browser Source", "Customisation", "CSS Editing"]
 image: "https://i.ytimg.com/vi/E5BmjrCT1LE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/E5BmjrCT1LE"

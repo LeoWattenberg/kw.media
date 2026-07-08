@@ -9,6 +9,7 @@ modified: "2023-04-03T15:30:01"
 locale: "en"
 translationKey: "video:8ADk4DxW_EA"
 category: "short-tutorial"
+tags: ["Phishing Attempts", "YouTube Channel Management", "Account Security", "Scam Awareness", "Email Safety", "Cyber Security"]
 image: "https://i.ytimg.com/vi/8ADk4DxW_EA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8ADk4DxW_EA"

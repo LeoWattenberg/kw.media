@@ -9,6 +9,7 @@ modified: "2024-06-14T10:24:16"
 locale: "en"
 translationKey: "video:xIG7D8RdP2I"
 category: "short-tutorial"
+tags: ["YouTube Channel Design", "Visual Branding", "Branding Elements", "Channel Aesthetics", "Profile Pictures", "Banner Templates", "Thumbnail Optimization", "Corporate Identity", "YouTube Studio"]
 image: "https://i.ytimg.com/vi/xIG7D8RdP2I/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/xIG7D8RdP2I"

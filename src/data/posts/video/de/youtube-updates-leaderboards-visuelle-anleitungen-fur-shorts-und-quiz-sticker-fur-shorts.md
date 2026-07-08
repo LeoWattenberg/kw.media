@@ -9,6 +9,7 @@ modified: "2025-05-24T12:15:13"
 locale: "de"
 translationKey: "video:pGAgrTShuHc"
 category: "news-video"
+tags: ["YouTube Updates", "AI Inspiration-Registerkarte", "Community-Bestenlisten", "Live-Streams", "Shorts-Erstellungstool", "Visuelle Anleitungen", "Umfrage-Sticker", "Quiz-Funktion", "Creator Q&A Live Streams"]
 image: "https://i.ytimg.com/vi/pGAgrTShuHc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=pGAgrTShuHc"

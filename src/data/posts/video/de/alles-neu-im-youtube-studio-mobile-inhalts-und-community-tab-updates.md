@@ -9,6 +9,7 @@ modified: "2024-11-02T13:15:00"
 locale: "de"
 translationKey: "video:1gcduEf8HXE"
 category: "news-video"
+tags: ["YouTube Studio", "Mobile App-Updates", "Inhaltsverwaltung", "Community-Tab", "Kommentare", "Zuschauerbindung", "KI-Integration", "Super Chat Goals", "Kanalmanagement"]
 image: "https://i.ytimg.com/vi/1gcduEf8HXE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1gcduEf8HXE"

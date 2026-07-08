@@ -9,6 +9,7 @@ modified: "2022-06-07T21:44:12"
 locale: "de"
 translationKey: "video:dnT2t4c94kw"
 category: "short-tutorial"
+tags: ["YouTube-Mitgliedschaften", "Geschenkfunktionen", "Einnahmen für Creator", "Erstattungen", "Live-Streaming", "Monetarisierung", "Zuschauer-Interaktion"]
 image: "https://i.ytimg.com/vi/dnT2t4c94kw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/dnT2t4c94kw"

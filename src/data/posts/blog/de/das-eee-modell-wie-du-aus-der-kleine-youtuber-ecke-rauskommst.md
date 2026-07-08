@@ -9,6 +9,7 @@ modified: "2023-03-17T12:57:30"
 locale: "de"
 translationKey: "post:1419"
 category: "blog"
+tags: ["YouTube-Wachstum", "Inhaltsplanung", "Nischenfindung", "Zielgruppenanalyse", "Erkundungsphase", "Entwicklungsphase", "Kanaloptimierung", "YouTube-Tipps", "Creator-Ressourcen"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/"

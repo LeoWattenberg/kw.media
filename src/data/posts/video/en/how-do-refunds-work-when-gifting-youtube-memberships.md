@@ -9,6 +9,7 @@ modified: "2022-06-07T21:44:12"
 locale: "en"
 translationKey: "video:dnT2t4c94kw"
 category: "short-tutorial"
+tags: ["YouTube Memberships", "Gift Memberships", "Revenue Generation", "Platform Policies", "Monetization Features", "Creator Resources", "Audience Engagement", "Live Streaming Features", "YouTube Community Engagement", "Payment Terms"]
 image: "https://i.ytimg.com/vi/dnT2t4c94kw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/dnT2t4c94kw"

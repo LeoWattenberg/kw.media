@@ -9,6 +9,7 @@ modified: "2023-03-23T16:30:05"
 locale: "de"
 translationKey: "video:MxTHgbSwjWE"
 category: "short-tutorial"
+tags: ["Capture Card", "OBS Integration", "Gaming-Kanal", "Kameratechnik", "Videoaufnahme-Tools", "Streaming-Ausrüstung", "DSLR-Kamera", "Facecam", "Konsolen-Streaming"]
 image: "https://i.ytimg.com/vi/MxTHgbSwjWE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/MxTHgbSwjWE"

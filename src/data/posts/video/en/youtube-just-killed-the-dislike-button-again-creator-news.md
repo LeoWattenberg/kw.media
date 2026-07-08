@@ -9,6 +9,7 @@ modified: "2026-06-27T12:15:16"
 locale: "en"
 translationKey: "video:PtwJQOyhdwU"
 category: "news-video"
+tags: ["Twitch Pre-roll Ads", "YouTube Shorts Updates", "Ad Length Changes", "Creator Monetization", "Platform Policies", "Community Sentiment", "EU Refund Laws", "Digital Goods", "Membership Pricing", "YouTube Studio Changes"]
 image: "https://i.ytimg.com/vi/PtwJQOyhdwU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=PtwJQOyhdwU"

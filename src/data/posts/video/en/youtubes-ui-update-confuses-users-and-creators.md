@@ -9,6 +9,7 @@ modified: "2024-02-24T13:30:12"
 locale: "en"
 translationKey: "video:UtI-KzQha-M"
 category: "news-video"
+tags: ["YouTube UI Update", "Interface Changes", "Recommended Videos", "Live-Streaming", "Vertical Live Streaming", "YouTube Shorts", "Community-Engagement", "Platform Policies", "Monetization Strategies", "Creator Resources"]
 image: "https://i.ytimg.com/vi/UtI-KzQha-M/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=UtI-KzQha-M"

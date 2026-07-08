@@ -9,6 +9,7 @@ modified: "2023-04-03T15:30:01"
 locale: "de"
 translationKey: "video:8ADk4DxW_EA"
 category: "short-tutorial"
+tags: ["Sicherheit auf YouTube", "Phishing-E-Mails", "Kanal-Sicherheit", "Passwort-Sicherheit", "Zwei-Faktor-Authentifizierung", "Cyber-Bedrohungen", "Datenschutz", "E-Mail-Sicherheit"]
 image: "https://i.ytimg.com/vi/8ADk4DxW_EA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8ADk4DxW_EA"

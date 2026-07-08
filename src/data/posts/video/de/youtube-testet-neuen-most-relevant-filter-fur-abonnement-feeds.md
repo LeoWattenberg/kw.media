@@ -9,6 +9,7 @@ modified: "2024-04-20T12:30:06"
 locale: "de"
 translationKey: "video:D8AioV3AM6Y"
 category: "news-video"
+tags: ["YouTube Updates", "Abonnement-Funktionen", "Relevanz-Filter", "Nutzerverhalten", "Creator-Strategien", "Viewer Engagement", "Shorts-Funktionen", "Mitgliedschaften", "Einnahmen für Creator"]
 image: "https://i.ytimg.com/vi/D8AioV3AM6Y/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=D8AioV3AM6Y"

@@ -9,6 +9,7 @@ modified: "2025-01-11T13:15:04"
 locale: "de"
 translationKey: "video:WTD5Zfk4pIY"
 category: "news-video"
+tags: ["YouTube Updates", "Playables Multitasking", "YouTube Shorts", "Video Highlights Tool", "3 Minuten Shorts", "Neue Funktionen", "Mobile Funktionen", "Desktop-Funktionen", "Creator-Tools", "Kurzvideo-Erstellung"]
 image: "https://i.ytimg.com/vi/WTD5Zfk4pIY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=WTD5Zfk4pIY"

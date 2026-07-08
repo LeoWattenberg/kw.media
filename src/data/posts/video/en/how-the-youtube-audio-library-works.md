@@ -9,6 +9,7 @@ modified: "2022-06-21T15:00:05"
 locale: "en"
 translationKey: "video:8xWKE5cgjbU"
 category: "short-tutorial"
+tags: ["YouTube Audio Library", "Music Licensing", "YouTube Studio", "Content Creator Tools", "Audio Production", "Monetization Options", "Legal Issues", "Creative Process"]
 image: "https://i.ytimg.com/vi/8xWKE5cgjbU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8xWKE5cgjbU"

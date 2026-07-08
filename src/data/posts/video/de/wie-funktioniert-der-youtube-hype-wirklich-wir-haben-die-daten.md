@@ -9,6 +9,7 @@ modified: "2025-09-04T22:26:41"
 locale: "de"
 translationKey: "video:FUEDT9dEIxQ"
 category: "video-tutorial"
+tags: ["YouTube-Hype", "Community-Interaktion", "Aufstrebende Creator", "Sichtbarkeit erhöhen", "Zuschauer Engagement", "YouTube-Funktionen", "Monetarisierungsstrategien", "Bezahlter Hype", "Kanalwachstum", "YouTube-Strategie"]
 image: "https://i.ytimg.com/vi/FUEDT9dEIxQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=FUEDT9dEIxQ"

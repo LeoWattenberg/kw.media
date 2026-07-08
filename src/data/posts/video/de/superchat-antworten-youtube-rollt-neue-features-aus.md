@@ -9,6 +9,7 @@ modified: "2024-05-18T12:30:27"
 locale: "de"
 translationKey: "video:nTyBDl2lbMg"
 category: "news-video"
+tags: ["Super Chat Antworten", "AFG-Verstöße", "YouTube-Funktionen", "Transparenz", "Monetarisierung", "A/B-Testen", "Thumbnails", "Richtlinienverstöße", "Video-Moderation"]
 image: "https://i.ytimg.com/vi/nTyBDl2lbMg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=nTyBDl2lbMg"

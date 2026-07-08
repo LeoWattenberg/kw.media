@@ -9,6 +9,7 @@ modified: "2024-10-19T12:15:02"
 locale: "de"
 translationKey: "video:J7MHBNgxp5w"
 category: "news-video"
+tags: ["YouTube Studio", "Shorts-Updates", "Mitgliedschaften", "Umfragen", "Video-Klassifizierung", "Abonnement-Funktionen", "Creator-Tools", "App-Verbesserungen", "Rechtliche Aspekte", "Community-Interaktion"]
 image: "https://i.ytimg.com/vi/J7MHBNgxp5w/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=J7MHBNgxp5w"

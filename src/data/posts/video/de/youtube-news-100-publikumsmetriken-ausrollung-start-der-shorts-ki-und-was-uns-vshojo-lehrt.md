@@ -9,6 +9,7 @@ modified: "2025-07-26T12:15:02"
 locale: "de"
 translationKey: "video:BR7qbvP5ceY"
 category: "news-video"
+tags: ["YouTube Shorts KI", "KI-Update", "Fotos zu Videos", "Publikumsmetriken", "Neue Zuschauer", "Gelegenheitszuschauer", "Regelmäßige Zuschauer", "VTuber Agenturen", "Genossenschaften für Creator", "YouTube Analytics"]
 image: "https://i.ytimg.com/vi/BR7qbvP5ceY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=BR7qbvP5ceY"

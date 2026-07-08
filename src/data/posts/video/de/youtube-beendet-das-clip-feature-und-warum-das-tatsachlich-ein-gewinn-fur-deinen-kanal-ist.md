@@ -9,6 +9,7 @@ modified: "2026-04-25T13:15:03"
 locale: "de"
 translationKey: "video:DetnFFjfqKA"
 category: "news-video"
+tags: ["YouTube Updates", "Clips-Funktion", "Live-Streaming-Monetarisierung", "Werbefreie Fenster", "KI-Tools", "Inhaltsstrategie", "Zuschauerbindung", "Werbeeinnahmen", "Audio-Qualität", "Abonnenten-Benachrichtigungen"]
 image: "https://i.ytimg.com/vi/DetnFFjfqKA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=DetnFFjfqKA"

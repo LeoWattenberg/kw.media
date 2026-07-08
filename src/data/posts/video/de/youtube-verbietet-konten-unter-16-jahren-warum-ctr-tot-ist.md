@@ -9,6 +9,7 @@ modified: "2025-12-06T13:15:09"
 locale: "de"
 translationKey: "video:nYCqLniFimk"
 category: "news-video"
+tags: ["Altersbeschränkungen für Inhalte", "YouTube-Richtlinien", "A/B-Testen für Titel und Miniaturansicht", "Engagement-Strategien", "Watch Time Optimierung", "YouTube 2025 Rückblick", "Live-Streaming-Updates", "Chat-Einstellungen", "Australische Gesetzgebung für soziale Me"]
 image: "https://i.ytimg.com/vi/nYCqLniFimk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=nYCqLniFimk"

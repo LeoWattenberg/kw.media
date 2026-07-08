@@ -9,6 +9,7 @@ modified: "2024-11-02T13:15:00"
 locale: "en"
 translationKey: "video:1gcduEf8HXE"
 category: "news-video"
+tags: ["YouTube Studio Mobile", "Content Tab Updates", "Community-Tab", "AI Comment Suggestions", "Super Chat Goals", "Mobile Optimization", "Platform Updates", "Creator-Tools", "Audience Engagement", "Monetization Features"]
 image: "https://i.ytimg.com/vi/1gcduEf8HXE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1gcduEf8HXE"
