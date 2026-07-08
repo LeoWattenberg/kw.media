@@ -5,6 +5,7 @@ import { getAuthorByName, getAuthorPath } from '../data/authors';
 import { routeFor } from '../i18n';
 import ContentHtml from './blocks/ContentHtml.astro';
 import YouTubeConsentEmbed from './YouTubeConsentEmbed.astro';
+import { getTagPath, tagSlug } from '../data/tags';
 
 interface Props {
 	post: SourcePost;
@@ -13,6 +14,9 @@ interface Props {
 const { post } = Astro.props;
 const authorProfile = getAuthorByName(post.authorName);
 const authorPath = getAuthorPath(post.authorName, post.locale);
+const tags = Array.isArray(post.tags)
+	? post.tags.map((name) => ({ name, path: getTagPath(post.locale, tagSlug(name)) }))
+	: [];
 const isShortVideo = post.video?.watchUrl.includes('/shorts/');
 const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
 const articleContentHtml = post.postCta ? `${post.contentHtml}\n${postCtaHtml(post.postCta)}` : post.contentHtml;
@@ -165,6 +169,13 @@ function escapeAttribute(value: string): string {
 						<span class="eyebrow">{post.authorName}</span>
 					)
 				}
+				{tags.length > 0 && (
+					<div class="article-tags">
+						{tags.map((tag) => (
+							<a class="eyebrow article-tag" href={withBase(tag.path)}>{tag.name}</a>
+						))}
+					</div>
+				)}
 			</div>
 			<h1>{post.title}</h1>
 			{post.excerpt && <p>{post.excerpt}</p>}
@@ -341,6 +352,22 @@ function escapeAttribute(value: string): string {
 
 	.article-meta a:hover {
 		text-decoration: underline;
+	}
+
+	.article-tags {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		gap: 14px;
+		flex: 1 1 auto;
+		min-width: 0;
+		overflow-x: auto;
+		scrollbar-width: thin;
+	}
+
+	.article-tags > * {
+		flex: 0 0 auto;
+		white-space: nowrap;
 	}
 
 	h1 {
