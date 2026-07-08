@@ -9,6 +9,7 @@ modified: "2026-03-12T21:26:27"
 locale: "en"
 translationKey: "video:Q5OFnSBrn3U"
 category: "short-tutorial"
+tags: ["YouTube Mobile App", "Direct Messages (DMs)", "Notifications", "European Rollout", "Age Restrictions", "Mobile-Only Features", "Messaging Tutorial", "Invite Links", "Third-Party Platforms", "Community Interaction"]
 image: "https://i.ytimg.com/vi/Q5OFnSBrn3U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Q5OFnSBrn3U"

@@ -9,6 +9,7 @@ modified: "2025-06-17T09:28:44"
 locale: "en"
 translationKey: "video:c_wnvd3Ru0A"
 category: "short-tutorial"
+tags: ["Monetization Strategies", "Creator Resources", "YouTube Partner Program", "Patreon", "Digital Products", "Merchandise", "Affiliate-Marketing", "Sponsorships", "Coaching Services", "Community Support"]
 image: "https://i.ytimg.com/vi/c_wnvd3Ru0A/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/c_wnvd3Ru0A"

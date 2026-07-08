@@ -9,6 +9,7 @@ modified: "2024-07-13T12:30:22"
 locale: "de"
 translationKey: "video:K7OVwIz48o8"
 category: "news-video"
+tags: ["Add Yours-Sticker", "YouTube-Funktionen", "Shorts-Updates", "Interaktion mit Zuschauern", "Community-Engagement", "Video-Format", "Kanalmanagement", "Plattform-Neuerungen", "YouTube-Strategie"]
 image: "https://i.ytimg.com/vi/K7OVwIz48o8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=K7OVwIz48o8"

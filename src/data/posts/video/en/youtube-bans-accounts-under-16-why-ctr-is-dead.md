@@ -9,6 +9,7 @@ modified: "2025-12-06T13:15:09"
 locale: "en"
 translationKey: "video:nYCqLniFimk"
 category: "news-video"
+tags: ["YouTube Policy Changes", "Age Restrictions", "Australian Creators", "Click-Through Rate (CTR)", "Watch Time Optimization", "Title and Thumbnail A/B Testing", "YouTube Analytics", "Live-Streaming-Updates", "Creator Engagement", "Content Strategy"]
 image: "https://i.ytimg.com/vi/nYCqLniFimk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=nYCqLniFimk"

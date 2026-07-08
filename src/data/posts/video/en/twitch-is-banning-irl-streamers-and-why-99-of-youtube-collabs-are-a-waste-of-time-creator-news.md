@@ -9,6 +9,7 @@ modified: "2026-05-09T12:15:06"
 locale: "en"
 translationKey: "video:tQ4Qxdz5diI"
 category: "news-video"
+tags: ["Twitch Policies", "IRL-Streaming", "Twitch Features", "Creator Collaboration", "Shared Universes", "Content Gamification", "YouTube Trends", "Platform Updates", "Creator Economy"]
 image: "https://i.ytimg.com/vi/tQ4Qxdz5diI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=tQ4Qxdz5diI"

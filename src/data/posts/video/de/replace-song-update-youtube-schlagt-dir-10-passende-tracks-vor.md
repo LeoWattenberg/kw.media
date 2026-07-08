@@ -9,6 +9,7 @@ modified: "2025-03-01T13:15:00"
 locale: "de"
 translationKey: "video:87bdAsXU_kI"
 category: "news-video"
+tags: ["YouTube Studio", "Urheberrecht", "Copyright", "Musik ersetzen", "KI-Integration", "Audio-Bibliothek", "Video-Optimierung", "Creator-Tipps", "YouTube Updates"]
 image: "https://i.ytimg.com/vi/87bdAsXU_kI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=87bdAsXU_kI"

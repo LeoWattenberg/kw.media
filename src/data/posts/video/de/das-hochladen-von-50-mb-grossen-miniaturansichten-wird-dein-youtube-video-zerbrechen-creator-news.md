@@ -9,6 +9,7 @@ modified: "2026-03-21T13:15:02"
 locale: "de"
 translationKey: "video:IICk-BdIuXQ"
 category: "news-video"
+tags: ["YouTube Updates", "Miniaturansichten", "Miniaturansichten erstellen", "Dateigrößenbeschränkung", "Twitch-Funktionen", "Auto Clips", "Monetarisierung", "Super Chat", "Abonnements"]
 image: "https://i.ytimg.com/vi/IICk-BdIuXQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=IICk-BdIuXQ"

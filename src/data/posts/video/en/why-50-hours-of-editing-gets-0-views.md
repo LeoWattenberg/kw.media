@@ -9,6 +9,7 @@ modified: "2026-06-15T07:44:54"
 locale: "en"
 translationKey: "video:ym_qnPaIiCk"
 category: "short-tutorial"
+tags: ["YouTube Channel Growth", "Content Strategy", "Video Editing", "Audience Engagement", "Algorithm Optimization", "Burnout Prevention", "Concept Development", "VODs (Video on Demand)", "Viral Content", "Creator Mental Health"]
 image: "https://i.ytimg.com/vi/ym_qnPaIiCk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ym_qnPaIiCk"

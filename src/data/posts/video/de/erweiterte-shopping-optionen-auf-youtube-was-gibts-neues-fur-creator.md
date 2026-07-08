@@ -9,6 +9,7 @@ modified: "2024-04-13T12:30:13"
 locale: "de"
 translationKey: "video:FZw6pXiSETg"
 category: "news-video"
+tags: ["E-Commerce auf YouTube", "Shopping Collections", "Affiliate Hub", "Plattformintegrationen", "Creator-Monetarisierung", "Produktverlinkung", "Online-Shops", "Shopify Integration", "Spreadshirt/Spreadshop", "Spring"]
 image: "https://i.ytimg.com/vi/FZw6pXiSETg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=FZw6pXiSETg"

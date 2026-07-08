@@ -9,6 +9,7 @@ modified: "2024-02-24T13:30:12"
 locale: "de"
 translationKey: "video:UtI-KzQha-M"
 category: "news-video"
+tags: ["YouTube Updates", "Benutzeroberflächen-Änderungen", "Design-Test", "Livestream-Optimierung", "Vertikale Live-Streams", "YouTube-Partnerprogramm", "Monetarisierung", "Richtlinien und Anforderungen", "Community-Interaktion"]
 image: "https://i.ytimg.com/vi/UtI-KzQha-M/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=UtI-KzQha-M"

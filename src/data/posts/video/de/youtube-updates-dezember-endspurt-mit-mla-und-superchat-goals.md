@@ -9,6 +9,7 @@ modified: "2024-12-07T13:15:10"
 locale: "de"
 translationKey: "video:rhThVpigPqY"
 category: "news-video"
+tags: ["YouTube Updates", "Thumbnails", "Datengrenze", "Super Chat Goals", "Live-Streaming", "Side by Side Ads", "Web-Anbindung", "Mehrsprachiges Audio", "KI-Übersetzung"]
 image: "https://i.ytimg.com/vi/rhThVpigPqY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=rhThVpigPqY"

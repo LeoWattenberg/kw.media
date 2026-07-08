@@ -1,0 +1,8569 @@
+{
+	"tags": [
+		{
+			"slug": "youtube-updates",
+			"name": "YouTube Updates",
+			"count": 91
+		},
+		{
+			"slug": "youtube-studio",
+			"name": "YouTube Studio",
+			"count": 59
+		},
+		{
+			"slug": "youtube-platform-updates",
+			"name": "YouTube Platform Updates",
+			"count": 35
+		},
+		{
+			"slug": "platform-updates",
+			"name": "Platform Updates",
+			"count": 34
+		},
+		{
+			"slug": "youtube-shorts",
+			"name": "YouTube Shorts",
+			"count": 34
+		},
+		{
+			"slug": "creator-tools",
+			"name": "Creator-Tools",
+			"count": 33
+		},
+		{
+			"slug": "monetarisierung",
+			"name": "Monetarisierung",
+			"count": 31
+		},
+		{
+			"slug": "youtube-funktionen",
+			"name": "YouTube-Funktionen",
+			"count": 27
+		},
+		{
+			"slug": "monetization-strategies",
+			"name": "Monetization Strategies",
+			"count": 24
+		},
+		{
+			"slug": "community-engagement",
+			"name": "Community-Engagement",
+			"count": 23
+		},
+		{
+			"slug": "creator-resources",
+			"name": "Creator Resources",
+			"count": 22
+		},
+		{
+			"slug": "kanalmanagement",
+			"name": "Kanalmanagement",
+			"count": 21
+		},
+		{
+			"slug": "short-tutorial",
+			"name": "Short Tutorial",
+			"count": 20
+		},
+		{
+			"slug": "youtube-analytics",
+			"name": "YouTube Analytics",
+			"count": 19
+		},
+		{
+			"slug": "youtube-features",
+			"name": "YouTube Features",
+			"count": 19
+		},
+		{
+			"slug": "audience-engagement",
+			"name": "Audience Engagement",
+			"count": 18
+		},
+		{
+			"slug": "channel-management",
+			"name": "Channel Management",
+			"count": 18
+		},
+		{
+			"slug": "viewer-engagement",
+			"name": "Viewer Engagement",
+			"count": 18
+		},
+		{
+			"slug": "zuschauerbindung",
+			"name": "Zuschauerbindung",
+			"count": 18
+		},
+		{
+			"slug": "video-marketing",
+			"name": "Video-Marketing",
+			"count": 17
+		},
+		{
+			"slug": "youtube-richtlinien",
+			"name": "YouTube-Richtlinien",
+			"count": 17
+		},
+		{
+			"slug": "live-streaming",
+			"name": "Live-Streaming",
+			"count": 16
+		},
+		{
+			"slug": "youtube-strategie",
+			"name": "YouTube-Strategie",
+			"count": 16
+		},
+		{
+			"slug": "inhaltsstrategie",
+			"name": "Inhaltsstrategie",
+			"count": 15
+		},
+		{
+			"slug": "community-interaktion",
+			"name": "Community-Interaktion",
+			"count": 14
+		},
+		{
+			"slug": "content-creator-tools",
+			"name": "Content Creator Tools",
+			"count": 14
+		},
+		{
+			"slug": "youtube-partner-program",
+			"name": "YouTube Partner Program",
+			"count": 14
+		},
+		{
+			"slug": "content-creation",
+			"name": "Content Creation",
+			"count": 13
+		},
+		{
+			"slug": "zuschauer-interaktion",
+			"name": "Zuschauer-Interaktion",
+			"count": 13
+		},
+		{
+			"slug": "live-streaming-features",
+			"name": "Live Streaming Features",
+			"count": 12
+		},
+		{
+			"slug": "mobile-optimization",
+			"name": "Mobile Optimization",
+			"count": 12
+		},
+		{
+			"slug": "platform-policies",
+			"name": "Platform Policies",
+			"count": 12
+		},
+		{
+			"slug": "youtube-live-streaming",
+			"name": "YouTube Live Streaming",
+			"count": 12
+		},
+		{
+			"slug": "ai-tools",
+			"name": "AI Tools",
+			"count": 11
+		},
+		{
+			"slug": "plattform-neuerungen",
+			"name": "Plattform-Neuerungen",
+			"count": 11
+		},
+		{
+			"slug": "plattform-updates",
+			"name": "Plattform-Updates",
+			"count": 11
+		},
+		{
+			"slug": "super-chat-goals",
+			"name": "Super Chat Goals",
+			"count": 11
+		},
+		{
+			"slug": "content-strategy",
+			"name": "Content Strategy",
+			"count": 10
+		},
+		{
+			"slug": "neue-funktionen",
+			"name": "Neue Funktionen",
+			"count": 10
+		},
+		{
+			"slug": "obs",
+			"name": "OBS",
+			"count": 10
+		},
+		{
+			"slug": "platform-enhancements",
+			"name": "Platform Enhancements",
+			"count": 10
+		},
+		{
+			"slug": "video-optimierung",
+			"name": "Video-Optimierung",
+			"count": 10
+		},
+		{
+			"slug": "zielgruppenansprache",
+			"name": "Zielgruppenansprache",
+			"count": 10
+		},
+		{
+			"slug": "zuschaueranalyse",
+			"name": "Zuschaueranalyse",
+			"count": 10
+		},
+		{
+			"slug": "channel-growth",
+			"name": "Channel Growth",
+			"count": 9
+		},
+		{
+			"slug": "content-moderation",
+			"name": "Content Moderation",
+			"count": 9
+		},
+		{
+			"slug": "content-monetization",
+			"name": "Content Monetization",
+			"count": 9
+		},
+		{
+			"slug": "monetization-features",
+			"name": "Monetization Features",
+			"count": 9
+		},
+		{
+			"slug": "video-optimization",
+			"name": "Video Optimization",
+			"count": 9
+		},
+		{
+			"slug": "creator-einnahmen",
+			"name": "Creator-Einnahmen",
+			"count": 8
+		},
+		{
+			"slug": "creator-monetization",
+			"name": "Creator Monetization",
+			"count": 8
+		},
+		{
+			"slug": "creator-strategien",
+			"name": "Creator-Strategien",
+			"count": 8
+		},
+		{
+			"slug": "creator-tipps",
+			"name": "Creator-Tipps",
+			"count": 8
+		},
+		{
+			"slug": "fan-communities",
+			"name": "Fan Communities",
+			"count": 8
+		},
+		{
+			"slug": "interaktion-mit-zuschauern",
+			"name": "Interaktion mit Zuschauern",
+			"count": 8
+		},
+		{
+			"slug": "kanaloptimierung",
+			"name": "Kanaloptimierung",
+			"count": 8
+		},
+		{
+			"slug": "neue-funktionen-auf-youtube",
+			"name": "Neue Funktionen auf YouTube",
+			"count": 8
+		},
+		{
+			"slug": "user-interaction",
+			"name": "User Interaction",
+			"count": 8
+		},
+		{
+			"slug": "video-promotion",
+			"name": "Video Promotion",
+			"count": 8
+		},
+		{
+			"slug": "visual-branding",
+			"name": "Visual Branding",
+			"count": 8
+		},
+		{
+			"slug": "youtube-channel-management",
+			"name": "YouTube Channel Management",
+			"count": 8
+		},
+		{
+			"slug": "age-restrictions",
+			"name": "Age Restrictions",
+			"count": 7
+		},
+		{
+			"slug": "autodubbing",
+			"name": "Autodubbing",
+			"count": 7
+		},
+		{
+			"slug": "beginner-s-guide",
+			"name": "Beginner's Guide",
+			"count": 7
+		},
+		{
+			"slug": "community-features",
+			"name": "Community Features",
+			"count": 7
+		},
+		{
+			"slug": "community-richtlinien",
+			"name": "Community-Richtlinien",
+			"count": 7
+		},
+		{
+			"slug": "inhaltserstellung",
+			"name": "Inhaltserstellung",
+			"count": 7
+		},
+		{
+			"slug": "ki-integration",
+			"name": "KI-Integration",
+			"count": 7
+		},
+		{
+			"slug": "kurze-tutorials",
+			"name": "Kurze Tutorials",
+			"count": 7
+		},
+		{
+			"slug": "legal-issues",
+			"name": "Legal Issues",
+			"count": 7
+		},
+		{
+			"slug": "miniaturansichten",
+			"name": "Miniaturansichten",
+			"count": 7
+		},
+		{
+			"slug": "mobile-funktionen",
+			"name": "Mobile Funktionen",
+			"count": 7
+		},
+		{
+			"slug": "monetarisierungsstrategien",
+			"name": "Monetarisierungsstrategien",
+			"count": 7
+		},
+		{
+			"slug": "monetization-policies",
+			"name": "Monetization Policies",
+			"count": 7
+		},
+		{
+			"slug": "obs-integration",
+			"name": "OBS Integration",
+			"count": 7
+		},
+		{
+			"slug": "platform-announcements",
+			"name": "Platform Announcements",
+			"count": 7
+		},
+		{
+			"slug": "streaming-equipment",
+			"name": "Streaming Equipment",
+			"count": 7
+		},
+		{
+			"slug": "super-chat",
+			"name": "Super Chat",
+			"count": 7
+		},
+		{
+			"slug": "thumbnail-optimization",
+			"name": "Thumbnail Optimization",
+			"count": 7
+		},
+		{
+			"slug": "video-production",
+			"name": "Video Production",
+			"count": 7
+		},
+		{
+			"slug": "youtube-channel-growth",
+			"name": "YouTube Channel Growth",
+			"count": 7
+		},
+		{
+			"slug": "youtube-community",
+			"name": "YouTube Community",
+			"count": 7
+		},
+		{
+			"slug": "youtube-community-engagement",
+			"name": "YouTube Community Engagement",
+			"count": 7
+		},
+		{
+			"slug": "youtube-monetization",
+			"name": "YouTube Monetization",
+			"count": 7
+		},
+		{
+			"slug": "youtube-partnerprogramm",
+			"name": "YouTube-Partnerprogramm",
+			"count": 7
+		},
+		{
+			"slug": "youtube-premium",
+			"name": "YouTube Premium",
+			"count": 7
+		},
+		{
+			"slug": "youtube-studio-updates",
+			"name": "YouTube Studio Updates",
+			"count": 7
+		},
+		{
+			"slug": "zuschauer-engagement",
+			"name": "Zuschauer Engagement",
+			"count": 7
+		},
+		{
+			"slug": "audience-targeting",
+			"name": "Audience Targeting",
+			"count": 6
+		},
+		{
+			"slug": "channel-customization",
+			"name": "Channel Customization",
+			"count": 6
+		},
+		{
+			"slug": "channel-growth-strategies",
+			"name": "Channel Growth Strategies",
+			"count": 6
+		},
+		{
+			"slug": "content-promotion",
+			"name": "Content Promotion",
+			"count": 6
+		},
+		{
+			"slug": "inspiration-tab",
+			"name": "Inspiration-Tab",
+			"count": 6
+		},
+		{
+			"slug": "miniaturansichten-erstellen",
+			"name": "Miniaturansichten erstellen",
+			"count": 6
+		},
+		{
+			"slug": "mobile-produktion",
+			"name": "Mobile Produktion",
+			"count": 6
+		},
+		{
+			"slug": "monetization-options",
+			"name": "Monetization Options",
+			"count": 6
+		},
+		{
+			"slug": "neuerungen-auf-youtube",
+			"name": "Neuerungen auf YouTube",
+			"count": 6
+		},
+		{
+			"slug": "shorts-updates",
+			"name": "Shorts-Updates",
+			"count": 6
+		},
+		{
+			"slug": "sponsorships",
+			"name": "Sponsorships",
+			"count": 6
+		},
+		{
+			"slug": "thumbnails",
+			"name": "Thumbnails",
+			"count": 6
+		},
+		{
+			"slug": "user-experience",
+			"name": "User Experience",
+			"count": 6
+		},
+		{
+			"slug": "vertical-live-streaming",
+			"name": "Vertical Live Streaming",
+			"count": 6
+		},
+		{
+			"slug": "youtube-features-access",
+			"name": "YouTube Features Access",
+			"count": 6
+		},
+		{
+			"slug": "youtube-hype",
+			"name": "YouTube-Hype",
+			"count": 6
+		},
+		{
+			"slug": "youtube-memberships",
+			"name": "YouTube Memberships",
+			"count": 6
+		},
+		{
+			"slug": "youtube-mitgliedschaften",
+			"name": "YouTube-Mitgliedschaften",
+			"count": 6
+		},
+		{
+			"slug": "youtube-mobile-app",
+			"name": "YouTube Mobile App",
+			"count": 6
+		},
+		{
+			"slug": "youtube-policy-changes",
+			"name": "YouTube Policy Changes",
+			"count": 6
+		},
+		{
+			"slug": "youtube-shorts-features",
+			"name": "YouTube Shorts Features",
+			"count": 6
+		},
+		{
+			"slug": "youtube-streaming",
+			"name": "YouTube-Streaming",
+			"count": 6
+		},
+		{
+			"slug": "youtube-studio-mobile",
+			"name": "YouTube Studio Mobile",
+			"count": 6
+		},
+		{
+			"slug": "a-b-testing",
+			"name": "A/B Testing",
+			"count": 5
+		},
+		{
+			"slug": "abonnenten-engagement",
+			"name": "Abonnenten-Engagement",
+			"count": 5
+		},
+		{
+			"slug": "ai-content-generation",
+			"name": "AI Content Generation",
+			"count": 5
+		},
+		{
+			"slug": "click-through-rate",
+			"name": "Click-Through Rate",
+			"count": 5
+		},
+		{
+			"slug": "community-settings",
+			"name": "Community Settings",
+			"count": 5
+		},
+		{
+			"slug": "community-tab",
+			"name": "Community-Tab",
+			"count": 5
+		},
+		{
+			"slug": "content-customization",
+			"name": "Content Customization",
+			"count": 5
+		},
+		{
+			"slug": "content-discoverability",
+			"name": "Content Discoverability",
+			"count": 5
+		},
+		{
+			"slug": "content-optimization",
+			"name": "Content Optimization",
+			"count": 5
+		},
+		{
+			"slug": "creative-process",
+			"name": "Creative Process",
+			"count": 5
+		},
+		{
+			"slug": "creator-monetarisierung",
+			"name": "Creator-Monetarisierung",
+			"count": 5
+		},
+		{
+			"slug": "desktop-features",
+			"name": "Desktop Features",
+			"count": 5
+		},
+		{
+			"slug": "gaming-channels",
+			"name": "Gaming Channels",
+			"count": 5
+		},
+		{
+			"slug": "kanalwachstum",
+			"name": "Kanalwachstum",
+			"count": 5
+		},
+		{
+			"slug": "ki-tools",
+			"name": "KI-Tools",
+			"count": 5
+		},
+		{
+			"slug": "kurzvideo-erstellung",
+			"name": "Kurzvideo-Erstellung",
+			"count": 5
+		},
+		{
+			"slug": "kurzvideo-strategien",
+			"name": "Kurzvideo-Strategien",
+			"count": 5
+		},
+		{
+			"slug": "live-streaming-verbesserungen",
+			"name": "Live-Streaming-Verbesserungen",
+			"count": 5
+		},
+		{
+			"slug": "livestream-optimierung",
+			"name": "Livestream-Optimierung",
+			"count": 5
+		},
+		{
+			"slug": "mobile-app-updates",
+			"name": "Mobile App-Updates",
+			"count": 5
+		},
+		{
+			"slug": "multilingual-audio",
+			"name": "Multilingual Audio",
+			"count": 5
+		},
+		{
+			"slug": "plattform-einnahmen",
+			"name": "Plattform-Einnahmen",
+			"count": 5
+		},
+		{
+			"slug": "shorts",
+			"name": "Shorts",
+			"count": 5
+		},
+		{
+			"slug": "shorts-strategien",
+			"name": "Shorts-Strategien",
+			"count": 5
+		},
+		{
+			"slug": "stream-settings",
+			"name": "Stream Settings",
+			"count": 5
+		},
+		{
+			"slug": "streaming-community",
+			"name": "Streaming Community",
+			"count": 5
+		},
+		{
+			"slug": "streaming-software",
+			"name": "Streaming Software",
+			"count": 5
+		},
+		{
+			"slug": "streaming-tipps",
+			"name": "Streaming-Tipps",
+			"count": 5
+		},
+		{
+			"slug": "titeloptimierung",
+			"name": "Titeloptimierung",
+			"count": 5
+		},
+		{
+			"slug": "twitch-updates",
+			"name": "Twitch-Updates",
+			"count": 5
+		},
+		{
+			"slug": "viewer-interactions",
+			"name": "Viewer Interactions",
+			"count": 5
+		},
+		{
+			"slug": "voice-replies",
+			"name": "Voice Replies",
+			"count": 5
+		},
+		{
+			"slug": "youtube-monetarisierung",
+			"name": "YouTube-Monetarisierung",
+			"count": 5
+		},
+		{
+			"slug": "youtube-thumbnails",
+			"name": "YouTube-Thumbnails",
+			"count": 5
+		},
+		{
+			"slug": "youtube-tipps",
+			"name": "YouTube-Tipps",
+			"count": 5
+		},
+		{
+			"slug": "youtube-wachstum",
+			"name": "YouTube-Wachstum",
+			"count": 5
+		},
+		{
+			"slug": "a-b-testen",
+			"name": "A/B-Testen",
+			"count": 4
+		},
+		{
+			"slug": "a-b-testing-test-and-compare",
+			"name": "A/B Testing (Test and Compare)",
+			"count": 4
+		},
+		{
+			"slug": "ad-revenue-impact",
+			"name": "Ad Revenue Impact",
+			"count": 4
+		},
+		{
+			"slug": "ad-strategy",
+			"name": "Ad Strategy",
+			"count": 4
+		},
+		{
+			"slug": "add-yours-sticker",
+			"name": "Add Yours-Sticker",
+			"count": 4
+		},
+		{
+			"slug": "affiliate-marketing",
+			"name": "Affiliate-Marketing",
+			"count": 4
+		},
+		{
+			"slug": "android-features",
+			"name": "Android Features",
+			"count": 4
+		},
+		{
+			"slug": "android-funktionen",
+			"name": "Android-Funktionen",
+			"count": 4
+		},
+		{
+			"slug": "audacity-4",
+			"name": "Audacity 4",
+			"count": 4
+		},
+		{
+			"slug": "audio-production",
+			"name": "Audio Production",
+			"count": 4
+		},
+		{
+			"slug": "audio-qualitat",
+			"name": "Audio-Qualität",
+			"count": 4
+		},
+		{
+			"slug": "audio-tools",
+			"name": "Audio-Tools",
+			"count": 4
+		},
+		{
+			"slug": "benachrichtigungen",
+			"name": "Benachrichtigungen",
+			"count": 4
+		},
+		{
+			"slug": "channel-memberships",
+			"name": "Channel Memberships",
+			"count": 4
+		},
+		{
+			"slug": "chat-einstellungen",
+			"name": "Chat-Einstellungen",
+			"count": 4
+		},
+		{
+			"slug": "collaboration-strategies",
+			"name": "Collaboration Strategies",
+			"count": 4
+		},
+		{
+			"slug": "content-erstellung",
+			"name": "Content-Erstellung",
+			"count": 4
+		},
+		{
+			"slug": "content-repurposing",
+			"name": "Content Repurposing",
+			"count": 4
+		},
+		{
+			"slug": "content-strategie",
+			"name": "Content-Strategie",
+			"count": 4
+		},
+		{
+			"slug": "copyright-management",
+			"name": "Copyright Management",
+			"count": 4
+		},
+		{
+			"slug": "creator-feedback",
+			"name": "Creator-Feedback",
+			"count": 4
+		},
+		{
+			"slug": "creator-responsibilities",
+			"name": "Creator Responsibilities",
+			"count": 4
+		},
+		{
+			"slug": "creator-ressourcen",
+			"name": "Creator-Ressourcen",
+			"count": 4
+		},
+		{
+			"slug": "creator-revenue",
+			"name": "Creator Revenue",
+			"count": 4
+		},
+		{
+			"slug": "deepfakes",
+			"name": "Deepfakes",
+			"count": 4
+		},
+		{
+			"slug": "desktop-optimierung",
+			"name": "Desktop-Optimierung",
+			"count": 4
+		},
+		{
+			"slug": "entdeckungsseiten",
+			"name": "Entdeckungsseiten",
+			"count": 4
+		},
+		{
+			"slug": "gift-memberships",
+			"name": "Gift Memberships",
+			"count": 4
+		},
+		{
+			"slug": "inhaltsmoderation",
+			"name": "Inhaltsmoderation",
+			"count": 4
+		},
+		{
+			"slug": "inhaltsplanung",
+			"name": "Inhaltsplanung",
+			"count": 4
+		},
+		{
+			"slug": "kommentare",
+			"name": "Kommentare",
+			"count": 4
+		},
+		{
+			"slug": "kommentare-verwalten",
+			"name": "Kommentare verwalten",
+			"count": 4
+		},
+		{
+			"slug": "kurzvideo-bearbeitung",
+			"name": "Kurzvideo-Bearbeitung",
+			"count": 4
+		},
+		{
+			"slug": "live-chat",
+			"name": "Live-Chat",
+			"count": 4
+		},
+		{
+			"slug": "live-chat-interaction",
+			"name": "Live Chat Interaction",
+			"count": 4
+		},
+		{
+			"slug": "live-stream-ads",
+			"name": "Live Stream Ads",
+			"count": 4
+		},
+		{
+			"slug": "live-streaming-monetarisierung",
+			"name": "Live-Streaming-Monetarisierung",
+			"count": 4
+		},
+		{
+			"slug": "livestreaming-funktionen",
+			"name": "Livestreaming-Funktionen",
+			"count": 4
+		},
+		{
+			"slug": "mitgliedschaften",
+			"name": "Mitgliedschaften",
+			"count": 4
+		},
+		{
+			"slug": "mobile-production",
+			"name": "Mobile Production",
+			"count": 4
+		},
+		{
+			"slug": "multilingual-content",
+			"name": "Multilingual Content",
+			"count": 4
+		},
+		{
+			"slug": "music-licensing",
+			"name": "Music Licensing",
+			"count": 4
+		},
+		{
+			"slug": "musik-fur-videos",
+			"name": "Musik für Videos",
+			"count": 4
+		},
+		{
+			"slug": "plattform-optimierung",
+			"name": "Plattform-Optimierung",
+			"count": 4
+		},
+		{
+			"slug": "revenue-generation",
+			"name": "Revenue Generation",
+			"count": 4
+		},
+		{
+			"slug": "shorts-funktionen",
+			"name": "Shorts-Funktionen",
+			"count": 4
+		},
+		{
+			"slug": "sichtbarkeit-erhohen",
+			"name": "Sichtbarkeit erhöhen",
+			"count": 4
+		},
+		{
+			"slug": "sprachubersetzung",
+			"name": "Sprachübersetzung",
+			"count": 4
+		},
+		{
+			"slug": "stream-setup",
+			"name": "Stream Setup",
+			"count": 4
+		},
+		{
+			"slug": "streaming-ausrustung",
+			"name": "Streaming-Ausrüstung",
+			"count": 4
+		},
+		{
+			"slug": "super-chat-enhancements",
+			"name": "Super Chat Enhancements",
+			"count": 4
+		},
+		{
+			"slug": "thumbnail-customization",
+			"name": "Thumbnail Customization",
+			"count": 4
+		},
+		{
+			"slug": "thumbnail-design",
+			"name": "Thumbnail Design",
+			"count": 4
+		},
+		{
+			"slug": "twitch-funktionen",
+			"name": "Twitch-Funktionen",
+			"count": 4
+		},
+		{
+			"slug": "urheberrecht",
+			"name": "Urheberrecht",
+			"count": 4
+		},
+		{
+			"slug": "video-editing",
+			"name": "Video Editing",
+			"count": 4
+		},
+		{
+			"slug": "videobearbeitung",
+			"name": "Videobearbeitung",
+			"count": 4
+		},
+		{
+			"slug": "visual-design",
+			"name": "Visual Design",
+			"count": 4
+		},
+		{
+			"slug": "visuelle-gestaltung",
+			"name": "Visuelle Gestaltung",
+			"count": 4
+		},
+		{
+			"slug": "youtube-live",
+			"name": "YouTube Live",
+			"count": 4
+		},
+		{
+			"slug": "youtube-studio-navigation",
+			"name": "YouTube Studio Navigation",
+			"count": 4
+		},
+		{
+			"slug": "abonnement-funktionen",
+			"name": "Abonnement-Funktionen",
+			"count": 3
+		},
+		{
+			"slug": "abonnements",
+			"name": "Abonnements",
+			"count": 3
+		},
+		{
+			"slug": "ai-editing",
+			"name": "AI Editing",
+			"count": 3
+		},
+		{
+			"slug": "algorithmen-auf-youtube",
+			"name": "Algorithmen auf YouTube",
+			"count": 3
+		},
+		{
+			"slug": "algorithmus-anpassung",
+			"name": "Algorithmus-Anpassung",
+			"count": 3
+		},
+		{
+			"slug": "altersbeschrankungen-fur-inhalte",
+			"name": "Altersbeschränkungen für Inhalte",
+			"count": 3
+		},
+		{
+			"slug": "analytics",
+			"name": "Analytics",
+			"count": 3
+		},
+		{
+			"slug": "audacity-tutorial",
+			"name": "Audacity Tutorial",
+			"count": 3
+		},
+		{
+			"slug": "audience-building",
+			"name": "Audience Building",
+			"count": 3
+		},
+		{
+			"slug": "audience-reach",
+			"name": "Audience Reach",
+			"count": 3
+		},
+		{
+			"slug": "audience-retention",
+			"name": "Audience Retention",
+			"count": 3
+		},
+		{
+			"slug": "audio-editing",
+			"name": "Audio Editing",
+			"count": 3
+		},
+		{
+			"slug": "audio-quality",
+			"name": "Audio Quality",
+			"count": 3
+		},
+		{
+			"slug": "audio-setup",
+			"name": "Audio Setup",
+			"count": 3
+		},
+		{
+			"slug": "auffindbarkeit-verbessern",
+			"name": "Auffindbarkeit verbessern",
+			"count": 3
+		},
+		{
+			"slug": "aufrufe-steigern",
+			"name": "Aufrufe steigern",
+			"count": 3
+		},
+		{
+			"slug": "automatische-untertitelung",
+			"name": "Automatische Untertitelung",
+			"count": 3
+		},
+		{
+			"slug": "benutzererfahrung",
+			"name": "Benutzererfahrung",
+			"count": 3
+		},
+		{
+			"slug": "benutzernamen-anderung",
+			"name": "Benutzernamen-Änderung",
+			"count": 3
+		},
+		{
+			"slug": "branding-strategien",
+			"name": "Branding-Strategien",
+			"count": 3
+		},
+		{
+			"slug": "burnout-prevention",
+			"name": "Burnout Prevention",
+			"count": 3
+		},
+		{
+			"slug": "capture-card",
+			"name": "Capture Card",
+			"count": 3
+		},
+		{
+			"slug": "capture-cards",
+			"name": "Capture Cards",
+			"count": 3
+		},
+		{
+			"slug": "channel-aesthetics",
+			"name": "Channel Aesthetics",
+			"count": 3
+		},
+		{
+			"slug": "chat-interaction",
+			"name": "Chat Interaction",
+			"count": 3
+		},
+		{
+			"slug": "click-through-rate-optimization",
+			"name": "Click-Through Rate Optimization",
+			"count": 3
+		},
+		{
+			"slug": "community-guidelines",
+			"name": "Community Guidelines",
+			"count": 3
+		},
+		{
+			"slug": "community-interaction",
+			"name": "Community Interaction",
+			"count": 3
+		},
+		{
+			"slug": "community-support",
+			"name": "Community Support",
+			"count": 3
+		},
+		{
+			"slug": "content-creator-autonomy",
+			"name": "Content Creator Autonomy",
+			"count": 3
+		},
+		{
+			"slug": "content-promotion-strategies",
+			"name": "Content Promotion Strategies",
+			"count": 3
+		},
+		{
+			"slug": "creator-agreements",
+			"name": "Creator Agreements",
+			"count": 3
+		},
+		{
+			"slug": "creator-autonomie",
+			"name": "Creator-Autonomie",
+			"count": 3
+		},
+		{
+			"slug": "creator-mental-health",
+			"name": "Creator Mental Health",
+			"count": 3
+		},
+		{
+			"slug": "data-analysis",
+			"name": "Data Analysis",
+			"count": 3
+		},
+		{
+			"slug": "desktop-funktionen",
+			"name": "Desktop-Funktionen",
+			"count": 3
+		},
+		{
+			"slug": "discord-integration",
+			"name": "Discord-Integration",
+			"count": 3
+		},
+		{
+			"slug": "engagement-steigerung",
+			"name": "Engagement-Steigerung",
+			"count": 3
+		},
+		{
+			"slug": "exklusive-inhalte",
+			"name": "Exklusive Inhalte",
+			"count": 3
+		},
+		{
+			"slug": "facecam",
+			"name": "Facecam",
+			"count": 3
+		},
+		{
+			"slug": "fan-funding",
+			"name": "Fan Funding",
+			"count": 3
+		},
+		{
+			"slug": "free-tools",
+			"name": "Free Tools",
+			"count": 3
+		},
+		{
+			"slug": "gaming-kanal",
+			"name": "Gaming-Kanal",
+			"count": 3
+		},
+		{
+			"slug": "gemini-omni",
+			"name": "Gemini Omni",
+			"count": 3
+		},
+		{
+			"slug": "geschenkfunktionen",
+			"name": "Geschenkfunktionen",
+			"count": 3
+		},
+		{
+			"slug": "handle-customization",
+			"name": "Handle Customization",
+			"count": 3
+		},
+		{
+			"slug": "hdr-streaming",
+			"name": "HDR-Streaming",
+			"count": 3
+		},
+		{
+			"slug": "import-export",
+			"name": "Import/Export",
+			"count": 3
+		},
+		{
+			"slug": "interaktionen",
+			"name": "Interaktionen",
+			"count": 3
+		},
+		{
+			"slug": "kanalmitgliedschaften",
+			"name": "Kanalmitgliedschaften",
+			"count": 3
+		},
+		{
+			"slug": "ki-funktionen",
+			"name": "KI-Funktionen",
+			"count": 3
+		},
+		{
+			"slug": "ki-zusammenfassungen",
+			"name": "KI-Zusammenfassungen",
+			"count": 3
+		},
+		{
+			"slug": "kreativitat-und-geschaft",
+			"name": "Kreativität und Geschäft",
+			"count": 3
+		},
+		{
+			"slug": "kreativitatstechniken",
+			"name": "Kreativitätstechniken",
+			"count": 3
+		},
+		{
+			"slug": "kurztutorial",
+			"name": "Kurztutorial",
+			"count": 3
+		},
+		{
+			"slug": "legal-requirements",
+			"name": "Legal Requirements",
+			"count": 3
+		},
+		{
+			"slug": "licensing",
+			"name": "Licensing",
+			"count": 3
+		},
+		{
+			"slug": "live-streaming-richtlinien",
+			"name": "Live-Streaming-Richtlinien",
+			"count": 3
+		},
+		{
+			"slug": "live-streaming-tutorial",
+			"name": "Live-Streaming-Tutorial",
+			"count": 3
+		},
+		{
+			"slug": "long-shorts",
+			"name": "Long Shorts",
+			"count": 3
+		},
+		{
+			"slug": "mehrsprachige-inhalte",
+			"name": "Mehrsprachige Inhalte",
+			"count": 3
+		},
+		{
+			"slug": "mehrsprachiges-audio",
+			"name": "Mehrsprachiges Audio",
+			"count": 3
+		},
+		{
+			"slug": "microphone-recommendations",
+			"name": "Microphone Recommendations",
+			"count": 3
+		},
+		{
+			"slug": "mobile-features",
+			"name": "Mobile Features",
+			"count": 3
+		},
+		{
+			"slug": "moderation-tools",
+			"name": "Moderation Tools",
+			"count": 3
+		},
+		{
+			"slug": "monetarisierung-auf-youtube",
+			"name": "Monetarisierung auf YouTube",
+			"count": 3
+		},
+		{
+			"slug": "monetization-changes",
+			"name": "Monetization Changes",
+			"count": 3
+		},
+		{
+			"slug": "monetization-tools",
+			"name": "Monetization Tools",
+			"count": 3
+		},
+		{
+			"slug": "online-collaboration",
+			"name": "Online Collaboration",
+			"count": 3
+		},
+		{
+			"slug": "platform-dynamics",
+			"name": "Platform Dynamics",
+			"count": 3
+		},
+		{
+			"slug": "platform-features",
+			"name": "Platform Features",
+			"count": 3
+		},
+		{
+			"slug": "platform-navigation",
+			"name": "Platform Navigation",
+			"count": 3
+		},
+		{
+			"slug": "rechtliche-grundlagen",
+			"name": "Rechtliche Grundlagen",
+			"count": 3
+		},
+		{
+			"slug": "reichweitenanalyse",
+			"name": "Reichweitenanalyse",
+			"count": 3
+		},
+		{
+			"slug": "revenue-optimization",
+			"name": "Revenue Optimization",
+			"count": 3
+		},
+		{
+			"slug": "seo-fur-youtube",
+			"name": "SEO für YouTube",
+			"count": 3
+		},
+		{
+			"slug": "shorts-feed",
+			"name": "Shorts Feed",
+			"count": 3
+		},
+		{
+			"slug": "side-by-side-ads",
+			"name": "Side by Side Ads",
+			"count": 3
+		},
+		{
+			"slug": "software-update",
+			"name": "Software Update",
+			"count": 3
+		},
+		{
+			"slug": "sprachantworten",
+			"name": "Sprachantworten",
+			"count": 3
+		},
+		{
+			"slug": "spracherkennung",
+			"name": "Spracherkennung",
+			"count": 3
+		},
+		{
+			"slug": "stream-einstellungen",
+			"name": "Stream-Einstellungen",
+			"count": 3
+		},
+		{
+			"slug": "subscriber-retention",
+			"name": "Subscriber Retention",
+			"count": 3
+		},
+		{
+			"slug": "super-thanks",
+			"name": "Super Thanks",
+			"count": 3
+		},
+		{
+			"slug": "taxes",
+			"name": "Taxes",
+			"count": 3
+		},
+		{
+			"slug": "tipps-und-tricks",
+			"name": "Tipps und Tricks",
+			"count": 3
+		},
+		{
+			"slug": "umfragen",
+			"name": "Umfragen",
+			"count": 3
+		},
+		{
+			"slug": "video-capture",
+			"name": "Video Capture",
+			"count": 3
+		},
+		{
+			"slug": "video-format",
+			"name": "Video-Format",
+			"count": 3
+		},
+		{
+			"slug": "video-ideas",
+			"name": "Video Ideas",
+			"count": 3
+		},
+		{
+			"slug": "video-produktion",
+			"name": "Video-Produktion",
+			"count": 3
+		},
+		{
+			"slug": "video-promotion-strategies",
+			"name": "Video Promotion Strategies",
+			"count": 3
+		},
+		{
+			"slug": "video-statistiken",
+			"name": "Video-Statistiken",
+			"count": 3
+		},
+		{
+			"slug": "video-verlinkung",
+			"name": "Video-Verlinkung",
+			"count": 3
+		},
+		{
+			"slug": "videoerstellung",
+			"name": "Videoerstellung",
+			"count": 3
+		},
+		{
+			"slug": "view-duration",
+			"name": "View Duration",
+			"count": 3
+		},
+		{
+			"slug": "viewer-retention",
+			"name": "Viewer Retention",
+			"count": 3
+		},
+		{
+			"slug": "visuelle-markenidentitat",
+			"name": "Visuelle Markenidentität",
+			"count": 3
+		},
+		{
+			"slug": "voiceover-technology",
+			"name": "Voiceover Technology",
+			"count": 3
+		},
+		{
+			"slug": "werbeeinnahmen",
+			"name": "Werbeeinnahmen",
+			"count": 3
+		},
+		{
+			"slug": "youtube-ads",
+			"name": "YouTube Ads",
+			"count": 3
+		},
+		{
+			"slug": "youtube-audio-library",
+			"name": "YouTube Audio Library",
+			"count": 3
+		},
+		{
+			"slug": "youtube-kanalwachstum",
+			"name": "YouTube-Kanalwachstum",
+			"count": 3
+		},
+		{
+			"slug": "youtube-leitfaden",
+			"name": "YouTube-Leitfaden",
+			"count": 3
+		},
+		{
+			"slug": "youtube-seo",
+			"name": "YouTube SEO",
+			"count": 3
+		},
+		{
+			"slug": "youtube-shorts-updates",
+			"name": "YouTube Shorts Updates",
+			"count": 3
+		},
+		{
+			"slug": "youtube-strategy",
+			"name": "YouTube Strategy",
+			"count": 3
+		},
+		{
+			"slug": "youtube-studio-anpassungen",
+			"name": "YouTube Studio Anpassungen",
+			"count": 3
+		},
+		{
+			"slug": "youtube-studio-app",
+			"name": "YouTube Studio App",
+			"count": 3
+		},
+		{
+			"slug": "youtube-studio-changes",
+			"name": "YouTube Studio Changes",
+			"count": 3
+		},
+		{
+			"slug": "youtube-studio-dashboard",
+			"name": "YouTube Studio Dashboard",
+			"count": 3
+		},
+		{
+			"slug": "youtube-tips",
+			"name": "YouTube Tips",
+			"count": 3
+		},
+		{
+			"slug": "youtube-tools",
+			"name": "YouTube-Tools",
+			"count": 3
+		},
+		{
+			"slug": "zielgruppenanalyse",
+			"name": "Zielgruppenanalyse",
+			"count": 3
+		},
+		{
+			"slug": "zusammenarbeit-auf-youtube",
+			"name": "Zusammenarbeit auf YouTube",
+			"count": 3
+		},
+		{
+			"slug": "a-b-testen-fur-thumbnails",
+			"name": "A/B-Testen für Thumbnails",
+			"count": 2
+		},
+		{
+			"slug": "abonnements-und-mitgliedschaften",
+			"name": "Abonnements und Mitgliedschaften",
+			"count": 2
+		},
+		{
+			"slug": "abonnenten-interaktion",
+			"name": "Abonnenten-Interaktion",
+			"count": 2
+		},
+		{
+			"slug": "account-connection",
+			"name": "Account Connection",
+			"count": 2
+		},
+		{
+			"slug": "account-security",
+			"name": "Account Security",
+			"count": 2
+		},
+		{
+			"slug": "ad-placement",
+			"name": "Ad Placement",
+			"count": 2
+		},
+		{
+			"slug": "advanced-analytics",
+			"name": "Advanced Analytics",
+			"count": 2
+		},
+		{
+			"slug": "affiliate-hub",
+			"name": "Affiliate Hub",
+			"count": 2
+		},
+		{
+			"slug": "agenturmodelle",
+			"name": "Agenturmodelle",
+			"count": 2
+		},
+		{
+			"slug": "ai-comment-suggestions",
+			"name": "AI Comment Suggestions",
+			"count": 2
+		},
+		{
+			"slug": "ai-curated-feeds",
+			"name": "AI-Curated Feeds",
+			"count": 2
+		},
+		{
+			"slug": "ai-driven-features",
+			"name": "AI-Driven Features",
+			"count": 2
+		},
+		{
+			"slug": "ai-dubbing",
+			"name": "AI Dubbing",
+			"count": 2
+		},
+		{
+			"slug": "ai-suggestions",
+			"name": "AI Suggestions",
+			"count": 2
+		},
+		{
+			"slug": "ai-translation",
+			"name": "AI Translation",
+			"count": 2
+		},
+		{
+			"slug": "ai-updates",
+			"name": "AI Updates",
+			"count": 2
+		},
+		{
+			"slug": "ai-upscaling",
+			"name": "AI Upscaling",
+			"count": 2
+		},
+		{
+			"slug": "algorithm-optimization",
+			"name": "Algorithm Optimization",
+			"count": 2
+		},
+		{
+			"slug": "analytics-updates",
+			"name": "Analytics Updates",
+			"count": 2
+		},
+		{
+			"slug": "analytics-verbesserungen",
+			"name": "Analytics-Verbesserungen",
+			"count": 2
+		},
+		{
+			"slug": "animation-in-chat",
+			"name": "Animation in Chat",
+			"count": 2
+		},
+		{
+			"slug": "app-verbesserungen",
+			"name": "App-Verbesserungen",
+			"count": 2
+		},
+		{
+			"slug": "appealing-strikes",
+			"name": "Appealing Strikes",
+			"count": 2
+		},
+		{
+			"slug": "ask-studio",
+			"name": "Ask Studio",
+			"count": 2
+		},
+		{
+			"slug": "ask-studio-ai",
+			"name": "Ask Studio AI",
+			"count": 2
+		},
+		{
+			"slug": "audience-retention-analysis",
+			"name": "Audience Retention Analysis",
+			"count": 2
+		},
+		{
+			"slug": "audio-ausrustung",
+			"name": "Audio-Ausrüstung",
+			"count": 2
+		},
+		{
+			"slug": "audio-bearbeitung",
+			"name": "Audio-Bearbeitung",
+			"count": 2
+		},
+		{
+			"slug": "audio-bibliothek",
+			"name": "Audio-Bibliothek",
+			"count": 2
+		},
+		{
+			"slug": "audio-sampling",
+			"name": "Audio-Sampling",
+			"count": 2
+		},
+		{
+			"slug": "audio-settings",
+			"name": "Audio Settings",
+			"count": 2
+		},
+		{
+			"slug": "audio-strategie",
+			"name": "Audio-Strategie",
+			"count": 2
+		},
+		{
+			"slug": "aufmerksamkeitsgewinnung",
+			"name": "Aufmerksamkeitsgewinnung",
+			"count": 2
+		},
+		{
+			"slug": "autodubbing-update",
+			"name": "Autodubbing-Update",
+			"count": 2
+		},
+		{
+			"slug": "backup-and-transfer",
+			"name": "Backup and Transfer",
+			"count": 2
+		},
+		{
+			"slug": "banner-templates",
+			"name": "Banner Templates",
+			"count": 2
+		},
+		{
+			"slug": "benutzerdefinierte-url",
+			"name": "Benutzerdefinierte URL",
+			"count": 2
+		},
+		{
+			"slug": "benutzeroberflachen-anderungen",
+			"name": "Benutzeroberflächen-Änderungen",
+			"count": 2
+		},
+		{
+			"slug": "bezahlte-promotion",
+			"name": "Bezahlte Promotion",
+			"count": 2
+		},
+		{
+			"slug": "bezahlter-hype",
+			"name": "Bezahlter Hype",
+			"count": 2
+		},
+		{
+			"slug": "bildbearbeitung",
+			"name": "Bildbearbeitung",
+			"count": 2
+		},
+		{
+			"slug": "brandconnect-expansion",
+			"name": "BrandConnect Expansion",
+			"count": 2
+		},
+		{
+			"slug": "branding-elements",
+			"name": "Branding Elements",
+			"count": 2
+		},
+		{
+			"slug": "break-feature",
+			"name": "Break Feature",
+			"count": 2
+		},
+		{
+			"slug": "breakout-videos",
+			"name": "Breakout Videos",
+			"count": 2
+		},
+		{
+			"slug": "call-to-action",
+			"name": "Call to Action",
+			"count": 2
+		},
+		{
+			"slug": "channel-guidelines",
+			"name": "Channel Guidelines",
+			"count": 2
+		},
+		{
+			"slug": "channel-navigation",
+			"name": "Channel Navigation",
+			"count": 2
+		},
+		{
+			"slug": "chat-funktionen",
+			"name": "Chat-Funktionen",
+			"count": 2
+		},
+		{
+			"slug": "clickbait-pravention",
+			"name": "Clickbait-Prävention",
+			"count": 2
+		},
+		{
+			"slug": "comment-filtering",
+			"name": "Comment Filtering",
+			"count": 2
+		},
+		{
+			"slug": "comment-replies",
+			"name": "Comment Replies",
+			"count": 2
+		},
+		{
+			"slug": "community-aufbau",
+			"name": "Community-Aufbau",
+			"count": 2
+		},
+		{
+			"slug": "community-beitrage",
+			"name": "Community-Beiträge",
+			"count": 2
+		},
+		{
+			"slug": "community-einstellungen",
+			"name": "Community-Einstellungen",
+			"count": 2
+		},
+		{
+			"slug": "community-leaderboards",
+			"name": "Community Leaderboards",
+			"count": 2
+		},
+		{
+			"slug": "community-posts-enhancements",
+			"name": "Community Posts Enhancements",
+			"count": 2
+		},
+		{
+			"slug": "community-spotlight",
+			"name": "Community-Spotlight",
+			"count": 2
+		},
+		{
+			"slug": "community-verbesserungen",
+			"name": "Community-Verbesserungen",
+			"count": 2
+		},
+		{
+			"slug": "content-creation-ideas",
+			"name": "Content Creation Ideas",
+			"count": 2
+		},
+		{
+			"slug": "content-localization",
+			"name": "Content Localization",
+			"count": 2
+		},
+		{
+			"slug": "content-modellierung",
+			"name": "Content-Modellierung",
+			"count": 2
+		},
+		{
+			"slug": "content-performance",
+			"name": "Content Performance",
+			"count": 2
+		},
+		{
+			"slug": "content-presentation",
+			"name": "Content Presentation",
+			"count": 2
+		},
+		{
+			"slug": "content-quality",
+			"name": "Content Quality",
+			"count": 2
+		},
+		{
+			"slug": "cooperative-business-model",
+			"name": "Cooperative Business Model",
+			"count": 2
+		},
+		{
+			"slug": "copyright",
+			"name": "Copyright",
+			"count": 2
+		},
+		{
+			"slug": "copyright-law",
+			"name": "Copyright Law",
+			"count": 2
+		},
+		{
+			"slug": "copyrighted-content",
+			"name": "Copyrighted Content",
+			"count": 2
+		},
+		{
+			"slug": "creative-industry-trends",
+			"name": "Creative Industry Trends",
+			"count": 2
+		},
+		{
+			"slug": "creator-burnout",
+			"name": "Creator-Burnout",
+			"count": 2
+		},
+		{
+			"slug": "creator-economy",
+			"name": "Creator Economy",
+			"count": 2
+		},
+		{
+			"slug": "creator-engagement",
+			"name": "Creator Engagement",
+			"count": 2
+		},
+		{
+			"slug": "creator-informationen",
+			"name": "Creator-Informationen",
+			"count": 2
+		},
+		{
+			"slug": "creator-interaktion",
+			"name": "Creator-Interaktion",
+			"count": 2
+		},
+		{
+			"slug": "creator-kooperation",
+			"name": "Creator-Kooperation",
+			"count": 2
+		},
+		{
+			"slug": "creator-q-and-a-live-streams",
+			"name": "Creator Q&A Live Streams",
+			"count": 2
+		},
+		{
+			"slug": "creator-qr-codes",
+			"name": "Creator QR Codes",
+			"count": 2
+		},
+		{
+			"slug": "creator-richtlinien",
+			"name": "Creator-Richtlinien",
+			"count": 2
+		},
+		{
+			"slug": "creator-security",
+			"name": "Creator Security",
+			"count": 2
+		},
+		{
+			"slug": "creator-support",
+			"name": "Creator-Support",
+			"count": 2
+		},
+		{
+			"slug": "creator-verantwortung",
+			"name": "Creator-Verantwortung",
+			"count": 2
+		},
+		{
+			"slug": "creator-zusammenarbeit",
+			"name": "Creator-Zusammenarbeit",
+			"count": 2
+		},
+		{
+			"slug": "custom-urls",
+			"name": "Custom URLs",
+			"count": 2
+		},
+		{
+			"slug": "dashboard-ubersicht",
+			"name": "Dashboard-Übersicht",
+			"count": 2
+		},
+		{
+			"slug": "datenanalyse-auf-youtube",
+			"name": "Datenanalyse auf YouTube",
+			"count": 2
+		},
+		{
+			"slug": "dateninterpretation",
+			"name": "Dateninterpretation",
+			"count": 2
+		},
+		{
+			"slug": "datenschutz",
+			"name": "Datenschutz",
+			"count": 2
+		},
+		{
+			"slug": "digitale-transaktionen",
+			"name": "Digitale Transaktionen",
+			"count": 2
+		},
+		{
+			"slug": "discoverability",
+			"name": "Discoverability",
+			"count": 2
+		},
+		{
+			"slug": "discoverability-tools",
+			"name": "Discoverability Tools",
+			"count": 2
+		},
+		{
+			"slug": "dual-format-streaming",
+			"name": "Dual Format Streaming",
+			"count": 2
+		},
+		{
+			"slug": "e-commerce-auf-youtube",
+			"name": "E-Commerce auf YouTube",
+			"count": 2
+		},
+		{
+			"slug": "einnahmen-fur-creator",
+			"name": "Einnahmen für Creator",
+			"count": 2
+		},
+		{
+			"slug": "einnahmen-generieren",
+			"name": "Einnahmen generieren",
+			"count": 2
+		},
+		{
+			"slug": "einnahmenverlust",
+			"name": "Einnahmenverlust",
+			"count": 2
+		},
+		{
+			"slug": "einnahmequellen",
+			"name": "Einnahmequellen",
+			"count": 2
+		},
+		{
+			"slug": "einspruchsmoglichkeit",
+			"name": "Einspruchsmöglichkeit",
+			"count": 2
+		},
+		{
+			"slug": "engagement-daten",
+			"name": "Engagement-Daten",
+			"count": 2
+		},
+		{
+			"slug": "engagement-metrics",
+			"name": "Engagement Metrics",
+			"count": 2
+		},
+		{
+			"slug": "engagement-strategien",
+			"name": "Engagement-Strategien",
+			"count": 2
+		},
+		{
+			"slug": "entwicklungsphase",
+			"name": "Entwicklungsphase",
+			"count": 2
+		},
+		{
+			"slug": "erkundungsphase",
+			"name": "Erkundungsphase",
+			"count": 2
+		},
+		{
+			"slug": "eu-ai-act",
+			"name": "EU AI Act",
+			"count": 2
+		},
+		{
+			"slug": "exploration-phase",
+			"name": "Exploration Phase",
+			"count": 2
+		},
+		{
+			"slug": "feature-rollout",
+			"name": "Feature Rollout",
+			"count": 2
+		},
+		{
+			"slug": "ffmpeg",
+			"name": "FFmpeg",
+			"count": 2
+		},
+		{
+			"slug": "ffmpeg-installation",
+			"name": "FFmpeg Installation",
+			"count": 2
+		},
+		{
+			"slug": "free-software",
+			"name": "Free Software",
+			"count": 2
+		},
+		{
+			"slug": "gameplay-capture",
+			"name": "Gameplay Capture",
+			"count": 2
+		},
+		{
+			"slug": "gelegenheitszuschauer",
+			"name": "Gelegenheitszuschauer",
+			"count": 2
+		},
+		{
+			"slug": "google-account-login",
+			"name": "Google Account Login",
+			"count": 2
+		},
+		{
+			"slug": "google-konto",
+			"name": "Google Konto",
+			"count": 2
+		},
+		{
+			"slug": "google-lens",
+			"name": "Google Lens",
+			"count": 2
+		},
+		{
+			"slug": "google-lens-integration",
+			"name": "Google Lens Integration",
+			"count": 2
+		},
+		{
+			"slug": "google-takeout",
+			"name": "Google Takeout",
+			"count": 2
+		},
+		{
+			"slug": "hero-videos",
+			"name": "Hero Videos",
+			"count": 2
+		},
+		{
+			"slug": "highlights",
+			"name": "Highlights",
+			"count": 2
+		},
+		{
+			"slug": "hintergrundmusik",
+			"name": "Hintergrundmusik",
+			"count": 2
+		},
+		{
+			"slug": "hype-funktion",
+			"name": "Hype-Funktion",
+			"count": 2
+		},
+		{
+			"slug": "ideenfindung",
+			"name": "Ideenfindung",
+			"count": 2
+		},
+		{
+			"slug": "impressionen",
+			"name": "Impressionen",
+			"count": 2
+		},
+		{
+			"slug": "impressions-data",
+			"name": "Impressions Data",
+			"count": 2
+		},
+		{
+			"slug": "inhaltsrichtlinien",
+			"name": "Inhaltsrichtlinien",
+			"count": 2
+		},
+		{
+			"slug": "inhaltsverwaltung",
+			"name": "Inhaltsverwaltung",
+			"count": 2
+		},
+		{
+			"slug": "installation-guide",
+			"name": "Installation Guide",
+			"count": 2
+		},
+		{
+			"slug": "intellectual-property",
+			"name": "Intellectual Property",
+			"count": 2
+		},
+		{
+			"slug": "interactive-content",
+			"name": "Interactive Content",
+			"count": 2
+		},
+		{
+			"slug": "interface-changes",
+			"name": "Interface Changes",
+			"count": 2
+		},
+		{
+			"slug": "irl-streaming",
+			"name": "IRL-Streaming",
+			"count": 2
+		},
+		{
+			"slug": "jump-ahead-experiment",
+			"name": "Jump Ahead Experiment",
+			"count": 2
+		},
+		{
+			"slug": "kameratechnik",
+			"name": "Kameratechnik",
+			"count": 2
+		},
+		{
+			"slug": "kanalanpassung",
+			"name": "Kanalanpassung",
+			"count": 2
+		},
+		{
+			"slug": "kanaldesign",
+			"name": "Kanaldesign",
+			"count": 2
+		},
+		{
+			"slug": "kanalseiten-uberarbeitung",
+			"name": "Kanalseiten-Überarbeitung",
+			"count": 2
+		},
+		{
+			"slug": "kanalverwaltung",
+			"name": "Kanalverwaltung",
+			"count": 2
+		},
+		{
+			"slug": "ki-bearbeitung",
+			"name": "KI-Bearbeitung",
+			"count": 2
+		},
+		{
+			"slug": "ki-update",
+			"name": "KI-Update",
+			"count": 2
+		},
+		{
+			"slug": "klickrate-ctr",
+			"name": "Klickrate (CTR)",
+			"count": 2
+		},
+		{
+			"slug": "klickrate-optimieren",
+			"name": "Klickrate optimieren",
+			"count": 2
+		},
+		{
+			"slug": "klickrate-verbesserung",
+			"name": "Klickrate Verbesserung",
+			"count": 2
+		},
+		{
+			"slug": "kollaborationsfunktion",
+			"name": "Kollaborationsfunktion",
+			"count": 2
+		},
+		{
+			"slug": "kommentar-antworten",
+			"name": "Kommentar-Antworten",
+			"count": 2
+		},
+		{
+			"slug": "kontozugriff",
+			"name": "Kontozugriff",
+			"count": 2
+		},
+		{
+			"slug": "kurzvideo-tools",
+			"name": "Kurzvideo-Tools",
+			"count": 2
+		},
+		{
+			"slug": "latency-settings",
+			"name": "Latency Settings",
+			"count": 2
+		},
+		{
+			"slug": "live-chat-features",
+			"name": "Live Chat Features",
+			"count": 2
+		},
+		{
+			"slug": "live-control-room",
+			"name": "Live Control Room",
+			"count": 2
+		},
+		{
+			"slug": "live-reactions",
+			"name": "Live Reactions",
+			"count": 2
+		},
+		{
+			"slug": "live-redirects",
+			"name": "Live Redirects",
+			"count": 2
+		},
+		{
+			"slug": "live-streaming-policies",
+			"name": "Live Streaming Policies",
+			"count": 2
+		},
+		{
+			"slug": "live-streaming-updates",
+			"name": "Live-Streaming-Updates",
+			"count": 2
+		},
+		{
+			"slug": "lizenzierung",
+			"name": "Lizenzierung",
+			"count": 2
+		},
+		{
+			"slug": "market-value",
+			"name": "Market Value",
+			"count": 2
+		},
+		{
+			"slug": "media-file-compatibility",
+			"name": "Media File Compatibility",
+			"count": 2
+		},
+		{
+			"slug": "mediendateien",
+			"name": "Mediendateien",
+			"count": 2
+		},
+		{
+			"slug": "memberships",
+			"name": "Memberships",
+			"count": 2
+		},
+		{
+			"slug": "metrics-and-performance",
+			"name": "Metrics and Performance",
+			"count": 2
+		},
+		{
+			"slug": "metriken-filterung",
+			"name": "Metriken-Filterung",
+			"count": 2
+		},
+		{
+			"slug": "midroll-anzeigen",
+			"name": "Midroll-Anzeigen",
+			"count": 2
+		},
+		{
+			"slug": "mitgliedschaften-und-abonnements",
+			"name": "Mitgliedschaften und Abonnements",
+			"count": 2
+		},
+		{
+			"slug": "mobile-creation",
+			"name": "Mobile Creation",
+			"count": 2
+		},
+		{
+			"slug": "mobile-optimierung",
+			"name": "Mobile Optimierung",
+			"count": 2
+		},
+		{
+			"slug": "mobile-youtube-features",
+			"name": "Mobile YouTube-Features",
+			"count": 2
+		},
+		{
+			"slug": "moderationswerkzeuge",
+			"name": "Moderationswerkzeuge",
+			"count": 2
+		},
+		{
+			"slug": "monetarisierung-fur-creator",
+			"name": "Monetarisierung für Creator",
+			"count": 2
+		},
+		{
+			"slug": "multi-account-management",
+			"name": "Multi-Account Management",
+			"count": 2
+		},
+		{
+			"slug": "multi-aspect-streams",
+			"name": "Multi-Aspect Streams",
+			"count": 2
+		},
+		{
+			"slug": "non-destructive-editing",
+			"name": "Non-Destructive Editing",
+			"count": 2
+		},
+		{
+			"slug": "obs-einstellungen",
+			"name": "OBS-Einstellungen",
+			"count": 2
+		},
+		{
+			"slug": "obs-einstieg",
+			"name": "OBS-Einstieg",
+			"count": 2
+		},
+		{
+			"slug": "organische-entdeckung",
+			"name": "Organische Entdeckung",
+			"count": 2
+		},
+		{
+			"slug": "overdub",
+			"name": "Overdub",
+			"count": 2
+		},
+		{
+			"slug": "paid-hype",
+			"name": "Paid Hype",
+			"count": 2
+		},
+		{
+			"slug": "partnerprogramm",
+			"name": "Partnerprogramm",
+			"count": 2
+		},
+		{
+			"slug": "passwort-sicherheit",
+			"name": "Passwort-Sicherheit",
+			"count": 2
+		},
+		{
+			"slug": "pausefunktion",
+			"name": "Pausefunktion",
+			"count": 2
+		},
+		{
+			"slug": "payment-terms",
+			"name": "Payment Terms",
+			"count": 2
+		},
+		{
+			"slug": "personal-vs-brand-accounts",
+			"name": "Personal vs Brand Accounts",
+			"count": 2
+		},
+		{
+			"slug": "personlicher-kanal",
+			"name": "Persönlicher Kanal",
+			"count": 2
+		},
+		{
+			"slug": "phishing-attempts",
+			"name": "Phishing Attempts",
+			"count": 2
+		},
+		{
+			"slug": "platform-improvements",
+			"name": "Platform Improvements",
+			"count": 2
+		},
+		{
+			"slug": "platform-integrations",
+			"name": "Platform Integrations",
+			"count": 2
+		},
+		{
+			"slug": "platform-rules",
+			"name": "Platform Rules",
+			"count": 2
+		},
+		{
+			"slug": "platform-settings",
+			"name": "Platform Settings",
+			"count": 2
+		},
+		{
+			"slug": "plattform-sicherheit",
+			"name": "Plattform-Sicherheit",
+			"count": 2
+		},
+		{
+			"slug": "plattformintegrationen",
+			"name": "Plattformintegrationen",
+			"count": 2
+		},
+		{
+			"slug": "plattformvergleich",
+			"name": "Plattformvergleich",
+			"count": 2
+		},
+		{
+			"slug": "playlist-management",
+			"name": "Playlist Management",
+			"count": 2
+		},
+		{
+			"slug": "playlist-voting",
+			"name": "Playlist Voting",
+			"count": 2
+		},
+		{
+			"slug": "preisgestaltung-fur-creator",
+			"name": "Preisgestaltung für Creator",
+			"count": 2
+		},
+		{
+			"slug": "premium-funktionen",
+			"name": "Premium-Funktionen",
+			"count": 2
+		},
+		{
+			"slug": "pricing-negotiation",
+			"name": "Pricing Negotiation",
+			"count": 2
+		},
+		{
+			"slug": "production-costs",
+			"name": "Production Costs",
+			"count": 2
+		},
+		{
+			"slug": "produktionskosten",
+			"name": "Produktionskosten",
+			"count": 2
+		},
+		{
+			"slug": "profanity-policy-changes",
+			"name": "Profanity Policy Changes",
+			"count": 2
+		},
+		{
+			"slug": "profilbild-optimieren",
+			"name": "Profilbild optimieren",
+			"count": 2
+		},
+		{
+			"slug": "publikumskreis-erweitern",
+			"name": "Publikumskreis erweitern",
+			"count": 2
+		},
+		{
+			"slug": "q-and-a-stream",
+			"name": "Q&A Stream",
+			"count": 2
+		},
+		{
+			"slug": "qr-codes",
+			"name": "QR-Codes",
+			"count": 2
+		},
+		{
+			"slug": "regelmassige-zuschauer",
+			"name": "Regelmäßige Zuschauer",
+			"count": 2
+		},
+		{
+			"slug": "richtlinien-und-anforderungen",
+			"name": "Richtlinien und Anforderungen",
+			"count": 2
+		},
+		{
+			"slug": "rtmp-rtmps",
+			"name": "RTMP/RTMPS",
+			"count": 2
+		},
+		{
+			"slug": "ruckerstattungen",
+			"name": "Rückerstattungen",
+			"count": 2
+		},
+		{
+			"slug": "scam-awareness",
+			"name": "Scam Awareness",
+			"count": 2
+		},
+		{
+			"slug": "sce-societas-cooperativa-europaea",
+			"name": "SCE (Societas Cooperativa Europaea)",
+			"count": 2
+		},
+		{
+			"slug": "scene-management",
+			"name": "Scene Management",
+			"count": 2
+		},
+		{
+			"slug": "schimpfworter-richtlinien",
+			"name": "Schimpfwörter-Richtlinien",
+			"count": 2
+		},
+		{
+			"slug": "search-discoverability",
+			"name": "Search Discoverability",
+			"count": 2
+		},
+		{
+			"slug": "search-engine-optimization",
+			"name": "Search Engine Optimization",
+			"count": 2
+		},
+		{
+			"slug": "search-features",
+			"name": "Search Features",
+			"count": 2
+		},
+		{
+			"slug": "sensitive-topics",
+			"name": "Sensitive Topics",
+			"count": 2
+		},
+		{
+			"slug": "shopify-integration",
+			"name": "Shopify Integration",
+			"count": 2
+		},
+		{
+			"slug": "shopping-collections",
+			"name": "Shopping Collections",
+			"count": 2
+		},
+		{
+			"slug": "shopping-for-creators",
+			"name": "Shopping for Creators",
+			"count": 2
+		},
+		{
+			"slug": "shorts-camera",
+			"name": "Shorts Camera",
+			"count": 2
+		},
+		{
+			"slug": "shorts-editing",
+			"name": "Shorts Editing",
+			"count": 2
+		},
+		{
+			"slug": "shorts-features",
+			"name": "Shorts Features",
+			"count": 2
+		},
+		{
+			"slug": "shorts-monetarisierung",
+			"name": "Shorts-Monetarisierung",
+			"count": 2
+		},
+		{
+			"slug": "shorts-optimierung",
+			"name": "Shorts-Optimierung",
+			"count": 2
+		},
+		{
+			"slug": "sicherheit-auf-youtube",
+			"name": "Sicherheit auf YouTube",
+			"count": 2
+		},
+		{
+			"slug": "smartphone-aufnahme",
+			"name": "Smartphone-Aufnahme",
+			"count": 2
+		},
+		{
+			"slug": "spam-filtering",
+			"name": "Spam Filtering",
+			"count": 2
+		},
+		{
+			"slug": "sprachsynthese",
+			"name": "Sprachsynthese",
+			"count": 2
+		},
+		{
+			"slug": "sprachunterstutzung",
+			"name": "Sprachunterstützung",
+			"count": 2
+		},
+		{
+			"slug": "spreadshirt-spreadshop",
+			"name": "Spreadshirt/Spreadshop",
+			"count": 2
+		},
+		{
+			"slug": "steuern-und-abrechnung",
+			"name": "Steuern und Abrechnung",
+			"count": 2
+		},
+		{
+			"slug": "strategieoptimierung",
+			"name": "Strategieoptimierung",
+			"count": 2
+		},
+		{
+			"slug": "stream-clips",
+			"name": "Stream-Clips",
+			"count": 2
+		},
+		{
+			"slug": "stream-optimization",
+			"name": "Stream Optimization",
+			"count": 2
+		},
+		{
+			"slug": "stream-planung",
+			"name": "Stream-Planung",
+			"count": 2
+		},
+		{
+			"slug": "stream-scheduling",
+			"name": "Stream Scheduling",
+			"count": 2
+		},
+		{
+			"slug": "stream-schlussel",
+			"name": "Stream-Schlüssel",
+			"count": 2
+		},
+		{
+			"slug": "streamer-mic-330",
+			"name": "Streamer MIC 330",
+			"count": 2
+		},
+		{
+			"slug": "streaming-features",
+			"name": "Streaming Features",
+			"count": 2
+		},
+		{
+			"slug": "streaming-innovations",
+			"name": "Streaming Innovations",
+			"count": 2
+		},
+		{
+			"slug": "streaming-optimierung",
+			"name": "Streaming-Optimierung",
+			"count": 2
+		},
+		{
+			"slug": "streaming-protocols",
+			"name": "Streaming Protocols",
+			"count": 2
+		},
+		{
+			"slug": "suchmaschinenoptimierung",
+			"name": "Suchmaschinenoptimierung",
+			"count": 2
+		},
+		{
+			"slug": "suchmaschinenoptimierung-seo-fur-youtu",
+			"name": "Suchmaschinenoptimierung (SEO) für YouTu",
+			"count": 2
+		},
+		{
+			"slug": "suchoptimierung",
+			"name": "Suchoptimierung",
+			"count": 2
+		},
+		{
+			"slug": "super-chat-antworten",
+			"name": "Super Chat Antworten",
+			"count": 2
+		},
+		{
+			"slug": "super-chat-funktionen",
+			"name": "Super Chat-Funktionen",
+			"count": 2
+		},
+		{
+			"slug": "super-chat-replies",
+			"name": "Super Chat Replies",
+			"count": 2
+		},
+		{
+			"slug": "super-chat-ziele",
+			"name": "Super Chat Ziele",
+			"count": 2
+		},
+		{
+			"slug": "super-resolution",
+			"name": "Super Resolution",
+			"count": 2
+		},
+		{
+			"slug": "szenen-organisation",
+			"name": "Szenen-Organisation",
+			"count": 2
+		},
+		{
+			"slug": "thumbnail-optimierung",
+			"name": "Thumbnail-Optimierung",
+			"count": 2
+		},
+		{
+			"slug": "thumbnail-updates",
+			"name": "Thumbnail-Updates",
+			"count": 2
+		},
+		{
+			"slug": "tiktok-live",
+			"name": "TikTok Live",
+			"count": 2
+		},
+		{
+			"slug": "twitch",
+			"name": "Twitch",
+			"count": 2
+		},
+		{
+			"slug": "twitch-ai",
+			"name": "Twitch AI",
+			"count": 2
+		},
+		{
+			"slug": "twitch-drama",
+			"name": "Twitch-Drama",
+			"count": 2
+		},
+		{
+			"slug": "twitch-features",
+			"name": "Twitch Features",
+			"count": 2
+		},
+		{
+			"slug": "twitch-integration",
+			"name": "Twitch-Integration",
+			"count": 2
+		},
+		{
+			"slug": "twitch-monetization",
+			"name": "Twitch Monetization",
+			"count": 2
+		},
+		{
+			"slug": "twitch-policies",
+			"name": "Twitch Policies",
+			"count": 2
+		},
+		{
+			"slug": "umleitungen-aktivieren",
+			"name": "Umleitungen aktivieren",
+			"count": 2
+		},
+		{
+			"slug": "urheberrechtsverletzungen",
+			"name": "Urheberrechtsverletzungen",
+			"count": 2
+		},
+		{
+			"slug": "vertical-videos",
+			"name": "Vertical Videos",
+			"count": 2
+		},
+		{
+			"slug": "vertikale-live-streams",
+			"name": "Vertikale Live-Streams",
+			"count": 2
+		},
+		{
+			"slug": "video-customization",
+			"name": "Video Customization",
+			"count": 2
+		},
+		{
+			"slug": "video-duration",
+			"name": "Video Duration",
+			"count": 2
+		},
+		{
+			"slug": "video-engagement",
+			"name": "Video Engagement",
+			"count": 2
+		},
+		{
+			"slug": "video-highlights-tool",
+			"name": "Video Highlights Tool",
+			"count": 2
+		},
+		{
+			"slug": "video-linking",
+			"name": "Video Linking",
+			"count": 2
+		},
+		{
+			"slug": "video-moderation",
+			"name": "Video-Moderation",
+			"count": 2
+		},
+		{
+			"slug": "video-navigation",
+			"name": "Video-Navigation",
+			"count": 2
+		},
+		{
+			"slug": "video-organisation",
+			"name": "Video-Organisation",
+			"count": 2
+		},
+		{
+			"slug": "video-qualitat",
+			"name": "Video-Qualität",
+			"count": 2
+		},
+		{
+			"slug": "video-recording-software",
+			"name": "Video Recording Software",
+			"count": 2
+		},
+		{
+			"slug": "video-rhythmus",
+			"name": "Video-Rhythmus",
+			"count": 2
+		},
+		{
+			"slug": "video-statistics",
+			"name": "Video Statistics",
+			"count": 2
+		},
+		{
+			"slug": "video-strukturierung",
+			"name": "Video-Strukturierung",
+			"count": 2
+		},
+		{
+			"slug": "video-veroffentlichung",
+			"name": "Video-Veröffentlichung",
+			"count": 2
+		},
+		{
+			"slug": "videoaufnahme-tools",
+			"name": "Videoaufnahme-Tools",
+			"count": 2
+		},
+		{
+			"slug": "videobeschreibung",
+			"name": "Videobeschreibung",
+			"count": 2
+		},
+		{
+			"slug": "view-botting",
+			"name": "View Botting",
+			"count": 2
+		},
+		{
+			"slug": "view-hours-requirements",
+			"name": "View Hours Requirements",
+			"count": 2
+		},
+		{
+			"slug": "viewer-experience",
+			"name": "Viewer Experience",
+			"count": 2
+		},
+		{
+			"slug": "viewer-segmentation",
+			"name": "Viewer Segmentation",
+			"count": 2
+		},
+		{
+			"slug": "virale-inhalte",
+			"name": "Virale Inhalte",
+			"count": 2
+		},
+		{
+			"slug": "vtubing",
+			"name": "VTubing",
+			"count": 2
+		},
+		{
+			"slug": "wasserzeichen-fur-videos",
+			"name": "Wasserzeichen für Videos",
+			"count": 2
+		},
+		{
+			"slug": "watch-time-analysis",
+			"name": "Watch Time Analysis",
+			"count": 2
+		},
+		{
+			"slug": "werbefreie-fenster",
+			"name": "Werbefreie Fenster",
+			"count": 2
+		},
+		{
+			"slug": "werbung-auf-youtube",
+			"name": "Werbung auf YouTube",
+			"count": 2
+		},
+		{
+			"slug": "windows-installation",
+			"name": "Windows-Installation",
+			"count": 2
+		},
+		{
+			"slug": "windows-software",
+			"name": "Windows Software",
+			"count": 2
+		},
+		{
+			"slug": "windows-wasapi",
+			"name": "Windows WASAPI",
+			"count": 2
+		},
+		{
+			"slug": "xlr-microphones",
+			"name": "XLR Microphones",
+			"count": 2
+		},
+		{
+			"slug": "youtube-ai",
+			"name": "YouTube AI",
+			"count": 2
+		},
+		{
+			"slug": "youtube-ai-avatars",
+			"name": "YouTube AI Avatars",
+			"count": 2
+		},
+		{
+			"slug": "youtube-channel-creation",
+			"name": "YouTube Channel Creation",
+			"count": 2
+		},
+		{
+			"slug": "youtube-channel-design",
+			"name": "YouTube Channel Design",
+			"count": 2
+		},
+		{
+			"slug": "youtube-channel-updates",
+			"name": "YouTube Channel Updates",
+			"count": 2
+		},
+		{
+			"slug": "youtube-courses",
+			"name": "YouTube Courses",
+			"count": 2
+		},
+		{
+			"slug": "youtube-create-app",
+			"name": "YouTube Create App",
+			"count": 2
+		},
+		{
+			"slug": "youtube-create-app-ios",
+			"name": "YouTube Create App iOS",
+			"count": 2
+		},
+		{
+			"slug": "youtube-creator-tools",
+			"name": "YouTube Creator Tools",
+			"count": 2
+		},
+		{
+			"slug": "youtube-direktnachrichten",
+			"name": "YouTube Direktnachrichten",
+			"count": 2
+		},
+		{
+			"slug": "youtube-einstellungen",
+			"name": "YouTube-Einstellungen",
+			"count": 2
+		},
+		{
+			"slug": "youtube-guidelines",
+			"name": "YouTube Guidelines",
+			"count": 2
+		},
+		{
+			"slug": "youtube-handles",
+			"name": "YouTube-Handles",
+			"count": 2
+		},
+		{
+			"slug": "youtube-hashtags",
+			"name": "YouTube-Hashtags",
+			"count": 2
+		},
+		{
+			"slug": "youtube-jewels",
+			"name": "YouTube Jewels",
+			"count": 2
+		},
+		{
+			"slug": "youtube-kanal-erstellen",
+			"name": "YouTube-Kanal erstellen",
+			"count": 2
+		},
+		{
+			"slug": "youtube-kanaldesign",
+			"name": "YouTube-Kanaldesign",
+			"count": 2
+		},
+		{
+			"slug": "youtube-kanalverwaltung",
+			"name": "YouTube-Kanalverwaltung",
+			"count": 2
+		},
+		{
+			"slug": "youtube-kapitel",
+			"name": "YouTube-Kapitel",
+			"count": 2
+		},
+		{
+			"slug": "youtube-ki-funktionen",
+			"name": "YouTube KI-Funktionen",
+			"count": 2
+		},
+		{
+			"slug": "youtube-news",
+			"name": "YouTube News",
+			"count": 2
+		},
+		{
+			"slug": "youtube-richtlinienverstosse",
+			"name": "YouTube-Richtlinienverstöße",
+			"count": 2
+		},
+		{
+			"slug": "youtube-scams",
+			"name": "YouTube Scams",
+			"count": 2
+		},
+		{
+			"slug": "youtube-shopping",
+			"name": "YouTube Shopping",
+			"count": 2
+		},
+		{
+			"slug": "youtube-sicherheit",
+			"name": "YouTube-Sicherheit",
+			"count": 2
+		},
+		{
+			"slug": "youtube-studio-settings",
+			"name": "YouTube Studio Settings",
+			"count": 2
+		},
+		{
+			"slug": "youtube-suchreform",
+			"name": "YouTube-Suchreform",
+			"count": 2
+		},
+		{
+			"slug": "youtube-video-optimization",
+			"name": "YouTube Video Optimization",
+			"count": 2
+		},
+		{
+			"slug": "10-jahres-jubilaum",
+			"name": "10-Jahres-Jubiläum",
+			"count": 1
+		},
+		{
+			"slug": "2k-streaming",
+			"name": "2K-Streaming",
+			"count": 1
+		},
+		{
+			"slug": "3-minute-shorts",
+			"name": "3-Minute Shorts",
+			"count": 1
+		},
+		{
+			"slug": "3-minuten-shorts",
+			"name": "3 Minuten Shorts",
+			"count": 1
+		},
+		{
+			"slug": "a-b-testen-fur-miniaturansichten",
+			"name": "A/B-Testen für Miniaturansichten",
+			"count": 1
+		},
+		{
+			"slug": "a-b-testen-fur-titel",
+			"name": "A/B-Testen für Titel",
+			"count": 1
+		},
+		{
+			"slug": "a-b-testen-fur-titel-und-miniaturansicht",
+			"name": "A/B-Testen für Titel und Miniaturansicht",
+			"count": 1
+		},
+		{
+			"slug": "a-b-testen-fur-videos",
+			"name": "A/B-Testen für Videos",
+			"count": 1
+		},
+		{
+			"slug": "abmessungen-und-sicherheitsbereiche",
+			"name": "Abmessungen und Sicherheitsbereiche",
+			"count": 1
+		},
+		{
+			"slug": "abonnement-alternativen",
+			"name": "Abonnement-Alternativen",
+			"count": 1
+		},
+		{
+			"slug": "abonnement-strategien",
+			"name": "Abonnement-Strategien",
+			"count": 1
+		},
+		{
+			"slug": "abonnenten-benachrichtigungen",
+			"name": "Abonnenten-Benachrichtigungen",
+			"count": 1
+		},
+		{
+			"slug": "abonnenten-gewinnen",
+			"name": "Abonnenten gewinnen",
+			"count": 1
+		},
+		{
+			"slug": "abonnentenliste",
+			"name": "Abonnentenliste",
+			"count": 1
+		},
+		{
+			"slug": "abonnieren-plus",
+			"name": "Abonnieren Plus",
+			"count": 1
+		},
+		{
+			"slug": "accessibility-features",
+			"name": "Accessibility Features",
+			"count": 1
+		},
+		{
+			"slug": "account-overview",
+			"name": "Account Overview",
+			"count": 1
+		},
+		{
+			"slug": "account-verification",
+			"name": "Account Verification",
+			"count": 1
+		},
+		{
+			"slug": "ad-blocker",
+			"name": "Ad-Blocker",
+			"count": 1
+		},
+		{
+			"slug": "ad-blocking-controls",
+			"name": "Ad Blocking Controls",
+			"count": 1
+		},
+		{
+			"slug": "ad-blocking-settings",
+			"name": "Ad Blocking Settings",
+			"count": 1
+		},
+		{
+			"slug": "ad-free-subscriptions",
+			"name": "Ad-Free Subscriptions",
+			"count": 1
+		},
+		{
+			"slug": "ad-free-windows",
+			"name": "Ad-Free Windows",
+			"count": 1
+		},
+		{
+			"slug": "ad-length-changes",
+			"name": "Ad Length Changes",
+			"count": 1
+		},
+		{
+			"slug": "ad-placement-optimization",
+			"name": "Ad Placement Optimization",
+			"count": 1
+		},
+		{
+			"slug": "ad-skipping",
+			"name": "Ad Skipping",
+			"count": 1
+		},
+		{
+			"slug": "ad-suitability-review",
+			"name": "Ad Suitability Review",
+			"count": 1
+		},
+		{
+			"slug": "ad-targeting",
+			"name": "Ad Targeting",
+			"count": 1
+		},
+		{
+			"slug": "adobe-ai-editor",
+			"name": "Adobe AI Editor",
+			"count": 1
+		},
+		{
+			"slug": "adobe-tools",
+			"name": "Adobe-Tools",
+			"count": 1
+		},
+		{
+			"slug": "advertiser-friendly-guidelines",
+			"name": "Advertiser-Friendly Guidelines",
+			"count": 1
+		},
+		{
+			"slug": "advertising-strategies",
+			"name": "Advertising Strategies",
+			"count": 1
+		},
+		{
+			"slug": "afg-verstosse",
+			"name": "AFG-Verstöße",
+			"count": 1
+		},
+		{
+			"slug": "afg-violations",
+			"name": "AFG Violations",
+			"count": 1
+		},
+		{
+			"slug": "agency-models",
+			"name": "Agency Models",
+			"count": 1
+		},
+		{
+			"slug": "ahnlichkeitserkennung",
+			"name": "Ähnlichkeitserkennung",
+			"count": 1
+		},
+		{
+			"slug": "ai-age-verification",
+			"name": "AI Age Verification",
+			"count": 1
+		},
+		{
+			"slug": "ai-assisted-content-generation",
+			"name": "AI-Assisted Content Generation",
+			"count": 1
+		},
+		{
+			"slug": "ai-clipping-tools",
+			"name": "AI Clipping Tools",
+			"count": 1
+		},
+		{
+			"slug": "ai-comment-summaries",
+			"name": "AI Comment Summaries",
+			"count": 1
+		},
+		{
+			"slug": "ai-detection",
+			"name": "AI Detection",
+			"count": 1
+		},
+		{
+			"slug": "ai-disclosure",
+			"name": "AI Disclosure",
+			"count": 1
+		},
+		{
+			"slug": "ai-driven-advertising",
+			"name": "AI-Driven Advertising",
+			"count": 1
+		},
+		{
+			"slug": "ai-driven-content",
+			"name": "AI-Driven Content",
+			"count": 1
+		},
+		{
+			"slug": "ai-generated-summaries",
+			"name": "AI-Generated Summaries",
+			"count": 1
+		},
+		{
+			"slug": "ai-inspiration-registerkarte",
+			"name": "AI Inspiration-Registerkarte",
+			"count": 1
+		},
+		{
+			"slug": "ai-inspiration-tab",
+			"name": "AI Inspiration Tab",
+			"count": 1
+		},
+		{
+			"slug": "ai-live-stream-summaries",
+			"name": "AI Live Stream Summaries",
+			"count": 1
+		},
+		{
+			"slug": "ai-policy",
+			"name": "AI Policy",
+			"count": 1
+		},
+		{
+			"slug": "ai-summaries",
+			"name": "AI Summaries",
+			"count": 1
+		},
+		{
+			"slug": "aida-model",
+			"name": "AIDA Model",
+			"count": 1
+		},
+		{
+			"slug": "akku-management",
+			"name": "Akku-Management",
+			"count": 1
+		},
+		{
+			"slug": "algorithmusanderungen",
+			"name": "Algorithmusänderungen",
+			"count": 1
+		},
+		{
+			"slug": "altersfreigabe",
+			"name": "Altersfreigabe",
+			"count": 1
+		},
+		{
+			"slug": "analytics-changes",
+			"name": "Analytics Changes",
+			"count": 1
+		},
+		{
+			"slug": "analytics-karte",
+			"name": "Analytics-Karte",
+			"count": 1
+		},
+		{
+			"slug": "analytics-veranderungen",
+			"name": "Analytics-Veränderungen",
+			"count": 1
+		},
+		{
+			"slug": "android-gerate",
+			"name": "Android-Geräte",
+			"count": 1
+		},
+		{
+			"slug": "anniversary-badges",
+			"name": "Anniversary Badges",
+			"count": 1
+		},
+		{
+			"slug": "ansassigkeitsbescheinigung",
+			"name": "Ansässigkeitsbescheinigung",
+			"count": 1
+		},
+		{
+			"slug": "anzeigen-strategien",
+			"name": "Anzeigen-Strategien",
+			"count": 1
+		},
+		{
+			"slug": "app-funktionen",
+			"name": "App-Funktionen",
+			"count": 1
+		},
+		{
+			"slug": "appealing-exclusions",
+			"name": "Appealing Exclusions",
+			"count": 1
+		},
+		{
+			"slug": "apple-gebuhren",
+			"name": "Apple-Gebühren",
+			"count": 1
+		},
+		{
+			"slug": "apple-payment-issues",
+			"name": "Apple Payment Issues",
+			"count": 1
+		},
+		{
+			"slug": "archivierung-von-livestreams",
+			"name": "Archivierung von Livestreams",
+			"count": 1
+		},
+		{
+			"slug": "ask-studio-updates",
+			"name": "Ask Studio Updates",
+			"count": 1
+		},
+		{
+			"slug": "audacity-3",
+			"name": "Audacity 3",
+			"count": 1
+		},
+		{
+			"slug": "audience-demographics",
+			"name": "Audience Demographics",
+			"count": 1
+		},
+		{
+			"slug": "audience-engagement-metrics",
+			"name": "Audience Engagement Metrics",
+			"count": 1
+		},
+		{
+			"slug": "audience-insights",
+			"name": "Audience Insights",
+			"count": 1
+		},
+		{
+			"slug": "audience-interaction",
+			"name": "Audience Interaction",
+			"count": 1
+		},
+		{
+			"slug": "audience-metrics",
+			"name": "Audience Metrics",
+			"count": 1
+		},
+		{
+			"slug": "audio-a-b-testing",
+			"name": "Audio A/B Testing",
+			"count": 1
+		},
+		{
+			"slug": "audio-abx-test",
+			"name": "Audio-ABX-Test",
+			"count": 1
+		},
+		{
+			"slug": "audio-enhancement",
+			"name": "Audio Enhancement",
+			"count": 1
+		},
+		{
+			"slug": "audio-interface-review",
+			"name": "Audio Interface Review",
+			"count": 1
+		},
+		{
+			"slug": "audio-strategy",
+			"name": "Audio Strategy",
+			"count": 1
+		},
+		{
+			"slug": "audio-tutorial",
+			"name": "Audio-Tutorial",
+			"count": 1
+		},
+		{
+			"slug": "audio-workflows",
+			"name": "Audio-Workflows",
+			"count": 1
+		},
+		{
+			"slug": "audioaufnahme",
+			"name": "Audioaufnahme",
+			"count": 1
+		},
+		{
+			"slug": "audiokontrolle",
+			"name": "Audiokontrolle",
+			"count": 1
+		},
+		{
+			"slug": "audioquellen",
+			"name": "Audioquellen",
+			"count": 1
+		},
+		{
+			"slug": "auflosung-und-bitrate",
+			"name": "Auflösung und Bitrate",
+			"count": 1
+		},
+		{
+			"slug": "aufnahmegerate",
+			"name": "Aufnahmegeräte",
+			"count": 1
+		},
+		{
+			"slug": "aufnahmemodi",
+			"name": "Aufnahmemodi",
+			"count": 1
+		},
+		{
+			"slug": "aufruf-anforderungen",
+			"name": "Aufruf-Anforderungen",
+			"count": 1
+		},
+		{
+			"slug": "aufrufe-definitionen",
+			"name": "Aufrufe-Definitionen",
+			"count": 1
+		},
+		{
+			"slug": "aufstrebende-creator",
+			"name": "Aufstrebende Creator",
+			"count": 1
+		},
+		{
+			"slug": "australian-creators",
+			"name": "Australian Creators",
+			"count": 1
+		},
+		{
+			"slug": "australische-gesetzgebung-fur-soziale-me",
+			"name": "Australische Gesetzgebung für soziale Me",
+			"count": 1
+		},
+		{
+			"slug": "authentizitat-auf-youtube",
+			"name": "Authentizität auf YouTube",
+			"count": 1
+		},
+		{
+			"slug": "auto-clips",
+			"name": "Auto Clips",
+			"count": 1
+		},
+		{
+			"slug": "auto-completions",
+			"name": "Auto Completions",
+			"count": 1
+		},
+		{
+			"slug": "auto-dubbing",
+			"name": "Auto Dubbing",
+			"count": 1
+		},
+		{
+			"slug": "autodubbing-editor",
+			"name": "Autodubbing-Editor",
+			"count": 1
+		},
+		{
+			"slug": "autodubbing-release",
+			"name": "Autodubbing Release",
+			"count": 1
+		},
+		{
+			"slug": "automated-flagging",
+			"name": "Automated Flagging",
+			"count": 1
+		},
+		{
+			"slug": "automated-translation",
+			"name": "Automated Translation",
+			"count": 1
+		},
+		{
+			"slug": "automatic-captions",
+			"name": "Automatic Captions",
+			"count": 1
+		},
+		{
+			"slug": "automation-risks",
+			"name": "Automation Risks",
+			"count": 1
+		},
+		{
+			"slug": "automation-scams",
+			"name": "Automation Scams",
+			"count": 1
+		},
+		{
+			"slug": "automatische-filterung",
+			"name": "Automatische Filterung",
+			"count": 1
+		},
+		{
+			"slug": "automatisierte-kanalprufung",
+			"name": "Automatisierte Kanalprüfung",
+			"count": 1
+		},
+		{
+			"slug": "automatisierte-sprachaufnahmen",
+			"name": "Automatisierte Sprachaufnahmen",
+			"count": 1
+		},
+		{
+			"slug": "automatisierte-werbeplatze",
+			"name": "Automatisierte Werbeplätze",
+			"count": 1
+		},
+		{
+			"slug": "automatisierung",
+			"name": "Automatisierung",
+			"count": 1
+		},
+		{
+			"slug": "automatisierung-vs-manuelle-produktion",
+			"name": "Automatisierung vs. Manuelle Produktion",
+			"count": 1
+		},
+		{
+			"slug": "autovervollstandigung",
+			"name": "Autovervollständigung",
+			"count": 1
+		},
+		{
+			"slug": "av1-codec",
+			"name": "AV1-Codec",
+			"count": 1
+		},
+		{
+			"slug": "av1-codec-support",
+			"name": "AV1 Codec Support",
+			"count": 1
+		},
+		{
+			"slug": "avermedia-nexus",
+			"name": "AVerMedia NEXUS",
+			"count": 1
+		},
+		{
+			"slug": "avermedia-nexus-ax310",
+			"name": "AVerMedia NEXUS AX310",
+			"count": 1
+		},
+		{
+			"slug": "avermedia-streamer-cap-4k",
+			"name": "AVerMedia Streamer Cap 4K",
+			"count": 1
+		},
+		{
+			"slug": "avermedia-streamer-cap4k",
+			"name": "AVerMedia Streamer Cap4k",
+			"count": 1
+		},
+		{
+			"slug": "backup-strategien",
+			"name": "Backup-Strategien",
+			"count": 1
+		},
+		{
+			"slug": "banner-vorlage",
+			"name": "Banner-Vorlage",
+			"count": 1
+		},
+		{
+			"slug": "bearbeitungsmodi",
+			"name": "Bearbeitungsmodi",
+			"count": 1
+		},
+		{
+			"slug": "bearbeitungstipps",
+			"name": "Bearbeitungstipps",
+			"count": 1
+		},
+		{
+			"slug": "beleuchtung",
+			"name": "Beleuchtung",
+			"count": 1
+		},
+		{
+			"slug": "belohnungskampagnen",
+			"name": "Belohnungskampagnen",
+			"count": 1
+		},
+		{
+			"slug": "benutzerfreundlichkeit",
+			"name": "Benutzerfreundlichkeit",
+			"count": 1
+		},
+		{
+			"slug": "benutzeroberflache",
+			"name": "Benutzeroberfläche",
+			"count": 1
+		},
+		{
+			"slug": "benutzeroberflachen-anpassungen",
+			"name": "Benutzeroberflächen-Anpassungen",
+			"count": 1
+		},
+		{
+			"slug": "berechtigungen-verwalten",
+			"name": "Berechtigungen verwalten",
+			"count": 1
+		},
+		{
+			"slug": "beschreibung-optimierung",
+			"name": "Beschreibung Optimierung",
+			"count": 1
+		},
+		{
+			"slug": "beta-features",
+			"name": "Beta Features",
+			"count": 1
+		},
+		{
+			"slug": "beta-funktionen",
+			"name": "Beta-Funktionen",
+			"count": 1
+		},
+		{
+			"slug": "betrachtungszeit",
+			"name": "Betrachtungszeit",
+			"count": 1
+		},
+		{
+			"slug": "betrug-auf-youtube",
+			"name": "Betrug auf YouTube",
+			"count": 1
+		},
+		{
+			"slug": "bildersuche",
+			"name": "Bildersuche",
+			"count": 1
+		},
+		{
+			"slug": "bildformatkonverter",
+			"name": "Bildformatkonverter",
+			"count": 1
+		},
+		{
+			"slug": "bildkarussells",
+			"name": "Bildkarussells",
+			"count": 1
+		},
+		{
+			"slug": "bildlimite",
+			"name": "Bildlimite",
+			"count": 1
+		},
+		{
+			"slug": "bildstabilisierung",
+			"name": "Bildstabilisierung",
+			"count": 1
+		},
+		{
+			"slug": "bildumfragen",
+			"name": "Bildumfragen",
+			"count": 1
+		},
+		{
+			"slug": "bitrate-settings",
+			"name": "Bitrate Settings",
+			"count": 1
+		},
+		{
+			"slug": "bits",
+			"name": "Bits",
+			"count": 1
+		},
+		{
+			"slug": "bold-text",
+			"name": "Bold Text",
+			"count": 1
+		},
+		{
+			"slug": "bonus-program",
+			"name": "Bonus Program",
+			"count": 1
+		},
+		{
+			"slug": "bonusprogramm",
+			"name": "Bonusprogramm",
+			"count": 1
+		},
+		{
+			"slug": "brainstorming-tools",
+			"name": "Brainstorming Tools",
+			"count": 1
+		},
+		{
+			"slug": "brand-channel-setup",
+			"name": "Brand Channel Setup",
+			"count": 1
+		},
+		{
+			"slug": "brand-kanal",
+			"name": "Brand Kanal",
+			"count": 1
+		},
+		{
+			"slug": "brand-video-links",
+			"name": "Brand Video Links",
+			"count": 1
+		},
+		{
+			"slug": "brandkonto",
+			"name": "Brandkonto",
+			"count": 1
+		},
+		{
+			"slug": "browser-source",
+			"name": "Browser Source",
+			"count": 1
+		},
+		{
+			"slug": "browserquelle",
+			"name": "Browserquelle",
+			"count": 1
+		},
+		{
+			"slug": "budget-ausrustung",
+			"name": "Budget-Ausrüstung",
+			"count": 1
+		},
+		{
+			"slug": "budget-equipment",
+			"name": "Budget Equipment",
+			"count": 1
+		},
+		{
+			"slug": "business-manager",
+			"name": "Business Manager",
+			"count": 1
+		},
+		{
+			"slug": "c2pa-certification",
+			"name": "C2PA Certification",
+			"count": 1
+		},
+		{
+			"slug": "c2pa-zertifizierung",
+			"name": "C2PA-Zertifizierung",
+			"count": 1
+		},
+		{
+			"slug": "camera-setups",
+			"name": "Camera Setups",
+			"count": 1
+		},
+		{
+			"slug": "canadian-users",
+			"name": "Canadian Users",
+			"count": 1
+		},
+		{
+			"slug": "capacity-planning",
+			"name": "Capacity Planning",
+			"count": 1
+		},
+		{
+			"slug": "caption-editor-role",
+			"name": "Caption Editor Role",
+			"count": 1
+		},
+		{
+			"slug": "casual-viewers",
+			"name": "Casual Viewers",
+			"count": 1
+		},
+		{
+			"slug": "category-leaderboards",
+			"name": "Category Leaderboards",
+			"count": 1
+		},
+		{
+			"slug": "channel-banner-design",
+			"name": "Channel Banner Design",
+			"count": 1
+		},
+		{
+			"slug": "channel-branding",
+			"name": "Channel Branding",
+			"count": 1
+		},
+		{
+			"slug": "channel-membership-pricing-changes",
+			"name": "Channel Membership Pricing Changes",
+			"count": 1
+		},
+		{
+			"slug": "channel-moderation",
+			"name": "Channel Moderation",
+			"count": 1
+		},
+		{
+			"slug": "channel-page-updates",
+			"name": "Channel Page Updates",
+			"count": 1
+		},
+		{
+			"slug": "channel-performance",
+			"name": "Channel Performance",
+			"count": 1
+		},
+		{
+			"slug": "channel-promotion",
+			"name": "Channel Promotion",
+			"count": 1
+		},
+		{
+			"slug": "channel-updates",
+			"name": "Channel Updates",
+			"count": 1
+		},
+		{
+			"slug": "chapter-visibility",
+			"name": "Chapter Visibility",
+			"count": 1
+		},
+		{
+			"slug": "chapters-as-advanced-feature",
+			"name": "Chapters as Advanced Feature",
+			"count": 1
+		},
+		{
+			"slug": "chat-integration",
+			"name": "Chat-Integration",
+			"count": 1
+		},
+		{
+			"slug": "chat-kombination",
+			"name": "Chat-Kombination",
+			"count": 1
+		},
+		{
+			"slug": "chrome-extension",
+			"name": "Chrome Extension",
+			"count": 1
+		},
+		{
+			"slug": "click-through-rate-ctr",
+			"name": "Click-Through Rate (CTR)",
+			"count": 1
+		},
+		{
+			"slug": "clickbait-titles",
+			"name": "Clickbait Titles",
+			"count": 1
+		},
+		{
+			"slug": "client-side-processing",
+			"name": "Client-Side Processing",
+			"count": 1
+		},
+		{
+			"slug": "clientseitige-verarbeitung",
+			"name": "Clientseitige Verarbeitung",
+			"count": 1
+		},
+		{
+			"slug": "clip-compilations",
+			"name": "Clip Compilations",
+			"count": 1
+		},
+		{
+			"slug": "clip-visualisierungen",
+			"name": "Clip-Visualisierungen",
+			"count": 1
+		},
+		{
+			"slug": "clip-visualization",
+			"name": "Clip Visualization",
+			"count": 1
+		},
+		{
+			"slug": "clips-aus-transkripten",
+			"name": "Clips aus Transkripten",
+			"count": 1
+		},
+		{
+			"slug": "clips-bibliothek",
+			"name": "Clips Bibliothek",
+			"count": 1
+		},
+		{
+			"slug": "clips-feature-removal",
+			"name": "Clips Feature Removal",
+			"count": 1
+		},
+		{
+			"slug": "clips-feed",
+			"name": "Clips Feed",
+			"count": 1
+		},
+		{
+			"slug": "clips-feed-update",
+			"name": "Clips Feed Update",
+			"count": 1
+		},
+		{
+			"slug": "clips-from-transcripts",
+			"name": "Clips from Transcripts",
+			"count": 1
+		},
+		{
+			"slug": "clips-funktion",
+			"name": "Clips-Funktion",
+			"count": 1
+		},
+		{
+			"slug": "clips-library",
+			"name": "Clips Library",
+			"count": 1
+		},
+		{
+			"slug": "co-op-struktur",
+			"name": "Co-op Struktur",
+			"count": 1
+		},
+		{
+			"slug": "coaching-services",
+			"name": "Coaching Services",
+			"count": 1
+		},
+		{
+			"slug": "codec-technology",
+			"name": "Codec Technology",
+			"count": 1
+		},
+		{
+			"slug": "collab-feed-rollout",
+			"name": "Collab Feed Rollout",
+			"count": 1
+		},
+		{
+			"slug": "collaboration-tools",
+			"name": "Collaboration Tools",
+			"count": 1
+		},
+		{
+			"slug": "collaborative-management",
+			"name": "Collaborative Management",
+			"count": 1
+		},
+		{
+			"slug": "collapse-feature",
+			"name": "Collapse Feature",
+			"count": 1
+		},
+		{
+			"slug": "collections-in-subscriptions",
+			"name": "Collections in Subscriptions",
+			"count": 1
+		},
+		{
+			"slug": "combined-chat",
+			"name": "Combined Chat",
+			"count": 1
+		},
+		{
+			"slug": "comment-teasers",
+			"name": "Comment Teasers",
+			"count": 1
+		},
+		{
+			"slug": "community-beitragslimits",
+			"name": "Community-Beitragslimits",
+			"count": 1
+		},
+		{
+			"slug": "community-belohnungen",
+			"name": "Community-Belohnungen",
+			"count": 1
+		},
+		{
+			"slug": "community-bestenlisten",
+			"name": "Community-Bestenlisten",
+			"count": 1
+		},
+		{
+			"slug": "community-guidelines-check",
+			"name": "Community Guidelines Check",
+			"count": 1
+		},
+		{
+			"slug": "community-interaction-automation",
+			"name": "Community Interaction Automation",
+			"count": 1
+		},
+		{
+			"slug": "community-kontrolle",
+			"name": "Community-Kontrolle",
+			"count": 1
+		},
+		{
+			"slug": "community-leaderboard",
+			"name": "Community-Leaderboard",
+			"count": 1
+		},
+		{
+			"slug": "community-posts",
+			"name": "Community Posts",
+			"count": 1
+		},
+		{
+			"slug": "community-richtlinien-durchsetzung",
+			"name": "Community-Richtlinien-Durchsetzung",
+			"count": 1
+		},
+		{
+			"slug": "community-sentiment",
+			"name": "Community Sentiment",
+			"count": 1
+		},
+		{
+			"slug": "community-tab-expansion",
+			"name": "Community Tab Expansion",
+			"count": 1
+		},
+		{
+			"slug": "community-tab-updates",
+			"name": "Community Tab Updates",
+			"count": 1
+		},
+		{
+			"slug": "community-unterstutzung",
+			"name": "Community-Unterstützung",
+			"count": 1
+		},
+		{
+			"slug": "competitor-analysis",
+			"name": "Competitor Analysis",
+			"count": 1
+		},
+		{
+			"slug": "concept-development",
+			"name": "Concept Development",
+			"count": 1
+		},
+		{
+			"slug": "consistency-strategies",
+			"name": "Consistency Strategies",
+			"count": 1
+		},
+		{
+			"slug": "console-integration",
+			"name": "Console Integration",
+			"count": 1
+		},
+		{
+			"slug": "content-authenticity",
+			"name": "Content Authenticity",
+			"count": 1
+		},
+		{
+			"slug": "content-creator-rights",
+			"name": "Content Creator Rights",
+			"count": 1
+		},
+		{
+			"slug": "content-delivery",
+			"name": "Content Delivery",
+			"count": 1
+		},
+		{
+			"slug": "content-discovery",
+			"name": "Content Discovery",
+			"count": 1
+		},
+		{
+			"slug": "content-gamification",
+			"name": "Content Gamification",
+			"count": 1
+		},
+		{
+			"slug": "content-gap",
+			"name": "Content Gap",
+			"count": 1
+		},
+		{
+			"slug": "content-gap-analysis",
+			"name": "Content Gap Analysis",
+			"count": 1
+		},
+		{
+			"slug": "content-management",
+			"name": "Content Management",
+			"count": 1
+		},
+		{
+			"slug": "content-model",
+			"name": "Content Model",
+			"count": 1
+		},
+		{
+			"slug": "content-monetarisierung",
+			"name": "Content-Monetarisierung",
+			"count": 1
+		},
+		{
+			"slug": "content-monetization-strategies",
+			"name": "Content Monetization Strategies",
+			"count": 1
+		},
+		{
+			"slug": "content-pacing",
+			"name": "Content Pacing",
+			"count": 1
+		},
+		{
+			"slug": "content-planning",
+			"name": "Content Planning",
+			"count": 1
+		},
+		{
+			"slug": "content-planung",
+			"name": "Content-Planung",
+			"count": 1
+		},
+		{
+			"slug": "content-policy-training",
+			"name": "Content Policy Training",
+			"count": 1
+		},
+		{
+			"slug": "content-quality-improvement",
+			"name": "Content Quality Improvement",
+			"count": 1
+		},
+		{
+			"slug": "content-sharing",
+			"name": "Content Sharing",
+			"count": 1
+		},
+		{
+			"slug": "content-tab-updates",
+			"name": "Content Tab Updates",
+			"count": 1
+		},
+		{
+			"slug": "content-transformation",
+			"name": "Content Transformation",
+			"count": 1
+		},
+		{
+			"slug": "content-usage",
+			"name": "Content Usage",
+			"count": 1
+		},
+		{
+			"slug": "content-valuation",
+			"name": "Content Valuation",
+			"count": 1
+		},
+		{
+			"slug": "content-verbreitung",
+			"name": "Content-Verbreitung",
+			"count": 1
+		},
+		{
+			"slug": "contract-update",
+			"name": "Contract Update",
+			"count": 1
+		},
+		{
+			"slug": "corporate-identity",
+			"name": "Corporate Identity",
+			"count": 1
+		},
+		{
+			"slug": "cpm-rates",
+			"name": "CPM Rates",
+			"count": 1
+		},
+		{
+			"slug": "cpm-werte",
+			"name": "CPM-Werte",
+			"count": 1
+		},
+		{
+			"slug": "creative-control",
+			"name": "Creative Control",
+			"count": 1
+		},
+		{
+			"slug": "creator-collaboration",
+			"name": "Creator Collaboration",
+			"count": 1
+		},
+		{
+			"slug": "creator-einstellungen",
+			"name": "Creator-Einstellungen",
+			"count": 1
+		},
+		{
+			"slug": "creator-forderprogramm-indien",
+			"name": "Creator-Förderprogramm Indien",
+			"count": 1
+		},
+		{
+			"slug": "creator-goals",
+			"name": "Creator Goals",
+			"count": 1
+		},
+		{
+			"slug": "creator-kontrolle",
+			"name": "Creator-Kontrolle",
+			"count": 1
+		},
+		{
+			"slug": "creator-musik",
+			"name": "Creator-Musik",
+			"count": 1
+		},
+		{
+			"slug": "creator-options",
+			"name": "Creator Options",
+			"count": 1
+		},
+		{
+			"slug": "creator-owned-cooperation",
+			"name": "Creator-Owned Cooperation",
+			"count": 1
+		},
+		{
+			"slug": "creator-q-and-a",
+			"name": "Creator Q&A",
+			"count": 1
+		},
+		{
+			"slug": "creator-reaktionen",
+			"name": "Creator-Reaktionen",
+			"count": 1
+		},
+		{
+			"slug": "creator-reinstatement",
+			"name": "Creator Reinstatement",
+			"count": 1
+		},
+		{
+			"slug": "creator-revenue-impact",
+			"name": "Creator Revenue Impact",
+			"count": 1
+		},
+		{
+			"slug": "creator-rewards",
+			"name": "Creator Rewards",
+			"count": 1
+		},
+		{
+			"slug": "creator-rights",
+			"name": "Creator Rights",
+			"count": 1
+		},
+		{
+			"slug": "creator-strategy",
+			"name": "Creator Strategy",
+			"count": 1
+		},
+		{
+			"slug": "creator-subsidy-program",
+			"name": "Creator Subsidy Program",
+			"count": 1
+		},
+		{
+			"slug": "creator-vorsicht",
+			"name": "Creator-Vorsicht",
+			"count": 1
+		},
+		{
+			"slug": "creator-well-being",
+			"name": "Creator Well-being",
+			"count": 1
+		},
+		{
+			"slug": "creator-zweite-chance",
+			"name": "Creator-Zweite-Chance",
+			"count": 1
+		},
+		{
+			"slug": "css-anpassung",
+			"name": "CSS-Anpassung",
+			"count": 1
+		},
+		{
+			"slug": "css-editing",
+			"name": "CSS Editing",
+			"count": 1
+		},
+		{
+			"slug": "cube-check",
+			"name": "Cube Check",
+			"count": 1
+		},
+		{
+			"slug": "custom-rules",
+			"name": "Custom Rules",
+			"count": 1
+		},
+		{
+			"slug": "customisation",
+			"name": "Customisation",
+			"count": 1
+		},
+		{
+			"slug": "customization-tools",
+			"name": "Customization Tools",
+			"count": 1
+		},
+		{
+			"slug": "customize-tab",
+			"name": "Customize Tab",
+			"count": 1
+		},
+		{
+			"slug": "cyber-bedrohungen",
+			"name": "Cyber-Bedrohungen",
+			"count": 1
+		},
+		{
+			"slug": "cyber-security",
+			"name": "Cyber Security",
+			"count": 1
+		},
+		{
+			"slug": "dark-theme",
+			"name": "Dark Theme",
+			"count": 1
+		},
+		{
+			"slug": "data-management",
+			"name": "Data Management",
+			"count": 1
+		},
+		{
+			"slug": "data-stories",
+			"name": "Data Stories",
+			"count": 1
+		},
+		{
+			"slug": "dateiformate",
+			"name": "Dateiformate",
+			"count": 1
+		},
+		{
+			"slug": "dateigrossenbeschrankung",
+			"name": "Dateigrößenbeschränkung",
+			"count": 1
+		},
+		{
+			"slug": "datengrenze",
+			"name": "Datengrenze",
+			"count": 1
+		},
+		{
+			"slug": "datenverkehr",
+			"name": "Datenverkehr",
+			"count": 1
+		},
+		{
+			"slug": "demonetization",
+			"name": "Demonetization",
+			"count": 1
+		},
+		{
+			"slug": "design-guidelines",
+			"name": "Design Guidelines",
+			"count": 1
+		},
+		{
+			"slug": "design-test",
+			"name": "Design-Test",
+			"count": 1
+		},
+		{
+			"slug": "design-tipps",
+			"name": "Design-Tipps",
+			"count": 1
+		},
+		{
+			"slug": "desktop-audio",
+			"name": "Desktop-Audio",
+			"count": 1
+		},
+		{
+			"slug": "desktop-audio-recording",
+			"name": "Desktop Audio Recording",
+			"count": 1
+		},
+		{
+			"slug": "desktop-enhancements",
+			"name": "Desktop Enhancements",
+			"count": 1
+		},
+		{
+			"slug": "desktop-und-mobiloptimierung",
+			"name": "Desktop- und Mobiloptimierung",
+			"count": 1
+		},
+		{
+			"slug": "desktop-version-upcoming",
+			"name": "Desktop Version Upcoming",
+			"count": 1
+		},
+		{
+			"slug": "desktop-vs-mobil",
+			"name": "Desktop-Vs-Mobil",
+			"count": 1
+		},
+		{
+			"slug": "desktop-vs-mobile-experience",
+			"name": "Desktop vs Mobile Experience",
+			"count": 1
+		},
+		{
+			"slug": "development-phase",
+			"name": "Development Phase",
+			"count": 1
+		},
+		{
+			"slug": "device-type-distribution",
+			"name": "Device Type Distribution",
+			"count": 1
+		},
+		{
+			"slug": "digital-goods",
+			"name": "Digital Goods",
+			"count": 1
+		},
+		{
+			"slug": "digital-products",
+			"name": "Digital Products",
+			"count": 1
+		},
+		{
+			"slug": "digital-transactions",
+			"name": "Digital Transactions",
+			"count": 1
+		},
+		{
+			"slug": "digitale-produkte",
+			"name": "Digitale Produkte",
+			"count": 1
+		},
+		{
+			"slug": "direct-messages-dms",
+			"name": "Direct Messages (DMs)",
+			"count": 1
+		},
+		{
+			"slug": "direktnachrichten",
+			"name": "Direktnachrichten",
+			"count": 1
+		},
+		{
+			"slug": "discord-settings",
+			"name": "Discord Settings",
+			"count": 1
+		},
+		{
+			"slug": "dislike-button",
+			"name": "Dislike-Button",
+			"count": 1
+		},
+		{
+			"slug": "display-name-change",
+			"name": "Display Name Change",
+			"count": 1
+		},
+		{
+			"slug": "dmca-takedowns",
+			"name": "DMCA Takedowns",
+			"count": 1
+		},
+		{
+			"slug": "doppelbesteuerungsabkommen",
+			"name": "Doppelbesteuerungsabkommen",
+			"count": 1
+		},
+		{
+			"slug": "dreamscreen-ai",
+			"name": "Dreamscreen AI",
+			"count": 1
+		},
+		{
+			"slug": "dslr-kamera",
+			"name": "DSLR-Kamera",
+			"count": 1
+		},
+		{
+			"slug": "dunkles-theme",
+			"name": "Dunkles Theme",
+			"count": 1
+		},
+		{
+			"slug": "durchgestrichener-text",
+			"name": "Durchgestrichener Text",
+			"count": 1
+		},
+		{
+			"slug": "e-commerce-integration",
+			"name": "E-commerce Integration",
+			"count": 1
+		},
+		{
+			"slug": "e-mail-integration",
+			"name": "E-Mail-Integration",
+			"count": 1
+		},
+		{
+			"slug": "e-mail-sicherheit",
+			"name": "E-Mail-Sicherheit",
+			"count": 1
+		},
+		{
+			"slug": "edited-vods",
+			"name": "Edited VODs",
+			"count": 1
+		},
+		{
+			"slug": "editing-techniques",
+			"name": "Editing Techniques",
+			"count": 1
+		},
+		{
+			"slug": "editing-tools",
+			"name": "Editing Tools",
+			"count": 1
+		},
+		{
+			"slug": "editoren-software",
+			"name": "Editoren-Software",
+			"count": 1
+		},
+		{
+			"slug": "educational-content",
+			"name": "Educational Content",
+			"count": 1
+		},
+		{
+			"slug": "effekt-maker",
+			"name": "Effekt-Maker",
+			"count": 1
+		},
+		{
+			"slug": "einfache-effekte",
+			"name": "Einfache Effekte",
+			"count": 1
+		},
+		{
+			"slug": "einkaufe-verwalten",
+			"name": "Einkäufe verwalten",
+			"count": 1
+		},
+		{
+			"slug": "einladungslinks",
+			"name": "Einladungslinks",
+			"count": 1
+		},
+		{
+			"slug": "einnahmen",
+			"name": "Einnahmen",
+			"count": 1
+		},
+		{
+			"slug": "einnahmenanalyse",
+			"name": "Einnahmenanalyse",
+			"count": 1
+		},
+		{
+			"slug": "einnahmenkorrektur",
+			"name": "Einnahmenkorrektur",
+			"count": 1
+		},
+		{
+			"slug": "einnahmenoptimierung",
+			"name": "Einnahmenoptimierung",
+			"count": 1
+		},
+		{
+			"slug": "einnahmenvergleich",
+			"name": "Einnahmenvergleich",
+			"count": 1
+		},
+		{
+			"slug": "einspruch",
+			"name": "Einspruch",
+			"count": 1
+		},
+		{
+			"slug": "einstellungen",
+			"name": "Einstellungen",
+			"count": 1
+		},
+		{
+			"slug": "element-design",
+			"name": "Element Design",
+			"count": 1
+		},
+		{
+			"slug": "elemente-und-vorlagen",
+			"name": "Elemente und Vorlagen",
+			"count": 1
+		},
+		{
+			"slug": "elgato-cam-link-4k",
+			"name": "Elgato Cam Link 4K",
+			"count": 1
+		},
+		{
+			"slug": "elgato-camlink4k",
+			"name": "Elgato Camlink4k",
+			"count": 1
+		},
+		{
+			"slug": "email-safety",
+			"name": "Email Safety",
+			"count": 1
+		},
+		{
+			"slug": "emerging-creators",
+			"name": "Emerging Creators",
+			"count": 1
+		},
+		{
+			"slug": "emotionale-gestaltung-von-videos",
+			"name": "Emotionale Gestaltung von Videos",
+			"count": 1
+		},
+		{
+			"slug": "encrypted-documents",
+			"name": "Encrypted Documents",
+			"count": 1
+		},
+		{
+			"slug": "end-screen-templates",
+			"name": "End Screen Templates",
+			"count": 1
+		},
+		{
+			"slug": "end-screens",
+			"name": "End Screens",
+			"count": 1
+		},
+		{
+			"slug": "engaged-views-metric",
+			"name": "Engaged Views Metric",
+			"count": 1
+		},
+		{
+			"slug": "engagement-verbesserung",
+			"name": "Engagement-Verbesserung",
+			"count": 1
+		},
+		{
+			"slug": "engagierte-ansichten-metrik",
+			"name": "Engagierte Ansichten-Metrik",
+			"count": 1
+		},
+		{
+			"slug": "english-portuguese-translation",
+			"name": "English-Portuguese Translation",
+			"count": 1
+		},
+		{
+			"slug": "english-spanish-translation",
+			"name": "English-Spanish Translation",
+			"count": 1
+		},
+		{
+			"slug": "entdeckungsfunktionen",
+			"name": "Entdeckungsfunktionen",
+			"count": 1
+		},
+		{
+			"slug": "environmental-awareness",
+			"name": "Environmental Awareness",
+			"count": 1
+		},
+		{
+			"slug": "erase-song-feature",
+			"name": "Erase Song Feature",
+			"count": 1
+		},
+		{
+			"slug": "erfolgsfaktoren-auf-youtube",
+			"name": "Erfolgsfaktoren auf YouTube",
+			"count": 1
+		},
+		{
+			"slug": "erstattungen",
+			"name": "Erstattungen",
+			"count": 1
+		},
+		{
+			"slug": "erweiterte-funktionen",
+			"name": "Erweiterte Funktionen",
+			"count": 1
+		},
+		{
+			"slug": "erweiterte-youtube-analyse",
+			"name": "Erweiterte YouTube-Analyse",
+			"count": 1
+		},
+		{
+			"slug": "established-channel",
+			"name": "Established Channel",
+			"count": 1
+		},
+		{
+			"slug": "etablierte-kanale",
+			"name": "Etablierte Kanäle",
+			"count": 1
+		},
+		{
+			"slug": "eu-creators",
+			"name": "EU Creators",
+			"count": 1
+		},
+		{
+			"slug": "eu-einfuhrung",
+			"name": "EU-Einführung",
+			"count": 1
+		},
+		{
+			"slug": "eu-erweiterung",
+			"name": "EU-Erweiterung",
+			"count": 1
+		},
+		{
+			"slug": "eu-ki-verordnung",
+			"name": "EU KI-Verordnung",
+			"count": 1
+		},
+		{
+			"slug": "eu-refund-laws",
+			"name": "EU Refund Laws",
+			"count": 1
+		},
+		{
+			"slug": "europaische-einfuhrung",
+			"name": "Europäische Einführung",
+			"count": 1
+		},
+		{
+			"slug": "european-rollout",
+			"name": "European Rollout",
+			"count": 1
+		},
+		{
+			"slug": "event-based-content",
+			"name": "Event-Based Content",
+			"count": 1
+		},
+		{
+			"slug": "event-marketing",
+			"name": "Event-Marketing",
+			"count": 1
+		},
+		{
+			"slug": "evergreen-content",
+			"name": "Evergreen Content",
+			"count": 1
+		},
+		{
+			"slug": "evergreen-inhalte",
+			"name": "Evergreen-Inhalte",
+			"count": 1
+		},
+		{
+			"slug": "exclusive-content",
+			"name": "Exclusive Content",
+			"count": 1
+		},
+		{
+			"slug": "experimentelle-funktionen",
+			"name": "Experimentelle Funktionen",
+			"count": 1
+		},
+		{
+			"slug": "exploration-pages",
+			"name": "Exploration Pages",
+			"count": 1
+		},
+		{
+			"slug": "export-import",
+			"name": "Export/Import",
+			"count": 1
+		},
+		{
+			"slug": "expressive-speech",
+			"name": "Expressive Speech",
+			"count": 1
+		},
+		{
+			"slug": "fair-use",
+			"name": "Fair Use",
+			"count": 1
+		},
+		{
+			"slug": "fake-alpha-background-remover",
+			"name": "Fake Alpha Background Remover",
+			"count": 1
+		},
+		{
+			"slug": "fake-ceo-videos",
+			"name": "Fake CEO Videos",
+			"count": 1
+		},
+		{
+			"slug": "fake-engagement",
+			"name": "Fake Engagement",
+			"count": 1
+		},
+		{
+			"slug": "fan-communities-auf-desktop",
+			"name": "Fan-Communities auf Desktop",
+			"count": 1
+		},
+		{
+			"slug": "fan-communities-enhancements",
+			"name": "Fan Communities Enhancements",
+			"count": 1
+		},
+		{
+			"slug": "farben-und-schriftarten",
+			"name": "Farben und Schriftarten",
+			"count": 1
+		},
+		{
+			"slug": "feedback",
+			"name": "Feedback",
+			"count": 1
+		},
+		{
+			"slug": "fehlermeldungen",
+			"name": "Fehlermeldungen",
+			"count": 1
+		},
+		{
+			"slug": "fetttext",
+			"name": "Fetttext",
+			"count": 1
+		},
+		{
+			"slug": "file-size-limits",
+			"name": "File Size Limits",
+			"count": 1
+		},
+		{
+			"slug": "filter-und-effekte",
+			"name": "Filter und Effekte",
+			"count": 1
+		},
+		{
+			"slug": "firmenkanal",
+			"name": "Firmenkanal",
+			"count": 1
+		},
+		{
+			"slug": "format-based-insights",
+			"name": "Format-Based Insights",
+			"count": 1
+		},
+		{
+			"slug": "format-vergleich",
+			"name": "Format-Vergleich",
+			"count": 1
+		},
+		{
+			"slug": "forth-wall",
+			"name": "Forth Wall",
+			"count": 1
+		},
+		{
+			"slug": "fotos-zu-videos",
+			"name": "Fotos zu Videos",
+			"count": 1
+		},
+		{
+			"slug": "free-speech",
+			"name": "Free Speech",
+			"count": 1
+		},
+		{
+			"slug": "freelancer-dienstleistungen",
+			"name": "Freelancer-Dienstleistungen",
+			"count": 1
+		},
+		{
+			"slug": "frequenzgang",
+			"name": "Frequenzgang",
+			"count": 1
+		},
+		{
+			"slug": "full-vods",
+			"name": "Full VODs",
+			"count": 1
+		},
+		{
+			"slug": "gambling-and-violence-enforcement",
+			"name": "Gambling and Violence Enforcement",
+			"count": 1
+		},
+		{
+			"slug": "gambling-restrictions",
+			"name": "Gambling Restrictions",
+			"count": 1
+		},
+		{
+			"slug": "gaming-channel-restrictions",
+			"name": "Gaming Channel Restrictions",
+			"count": 1
+		},
+		{
+			"slug": "gaming-creator",
+			"name": "Gaming-Creator",
+			"count": 1
+		},
+		{
+			"slug": "gaming-integration",
+			"name": "Gaming-Integration",
+			"count": 1
+		},
+		{
+			"slug": "gaming-kanal-einschrankungen",
+			"name": "Gaming-Kanal-Einschränkungen",
+			"count": 1
+		},
+		{
+			"slug": "gaming-kanal-optimierung",
+			"name": "Gaming-Kanal Optimierung",
+			"count": 1
+		},
+		{
+			"slug": "gaming-miniaturansichten",
+			"name": "Gaming-Miniaturansichten",
+			"count": 1
+		},
+		{
+			"slug": "gaming-recap",
+			"name": "Gaming Recap",
+			"count": 1
+		},
+		{
+			"slug": "gaming-ruckblick",
+			"name": "Gaming-Rückblick",
+			"count": 1
+		},
+		{
+			"slug": "gebuhrenstruktur",
+			"name": "Gebührenstruktur",
+			"count": 1
+		},
+		{
+			"slug": "gefalschte-videos",
+			"name": "Gefälschte Videos",
+			"count": 1
+		},
+		{
+			"slug": "gemeinsame-zielgruppenansprache",
+			"name": "Gemeinsame Zielgruppenansprache",
+			"count": 1
+		},
+		{
+			"slug": "generative-video",
+			"name": "Generative Video",
+			"count": 1
+		},
+		{
+			"slug": "genossenschaften-fur-creator",
+			"name": "Genossenschaften für Creator",
+			"count": 1
+		},
+		{
+			"slug": "genossenschaftsmodell",
+			"name": "Genossenschaftsmodell",
+			"count": 1
+		},
+		{
+			"slug": "gerateverteilung",
+			"name": "Geräteverteilung",
+			"count": 1
+		},
+		{
+			"slug": "gesichtskamera",
+			"name": "Gesichtskamera",
+			"count": 1
+		},
+		{
+			"slug": "geteilte-universen",
+			"name": "Geteilte Universen",
+			"count": 1
+		},
+		{
+			"slug": "gift-combos",
+			"name": "Gift Combos",
+			"count": 1
+		},
+		{
+			"slug": "gift-goals",
+			"name": "Gift Goals",
+			"count": 1
+		},
+		{
+			"slug": "gift-subscription-feature",
+			"name": "Gift Subscription Feature",
+			"count": 1
+		},
+		{
+			"slug": "gimp",
+			"name": "GIMP",
+			"count": 1
+		},
+		{
+			"slug": "gimp-plugins",
+			"name": "GIMP-Plugins",
+			"count": 1
+		},
+		{
+			"slug": "gimp-tutorial",
+			"name": "GIMP Tutorial",
+			"count": 1
+		},
+		{
+			"slug": "glucksspiel-und-gewalt",
+			"name": "Glücksspiel und Gewalt",
+			"count": 1
+		},
+		{
+			"slug": "glucksspielrichtlinien",
+			"name": "Glücksspielrichtlinien",
+			"count": 1
+		},
+		{
+			"slug": "goal-setting",
+			"name": "Goal Setting",
+			"count": 1
+		},
+		{
+			"slug": "google-ads-keyword-planner",
+			"name": "Google Ads Keyword Planner",
+			"count": 1
+		},
+		{
+			"slug": "google-ads-schlusselwortplaner",
+			"name": "Google Ads Schlüsselwortplaner",
+			"count": 1
+		},
+		{
+			"slug": "google-adsense-verification",
+			"name": "Google AdSense Verification",
+			"count": 1
+		},
+		{
+			"slug": "google-deepmind-vu3",
+			"name": "Google DeepMind VU3",
+			"count": 1
+		},
+		{
+			"slug": "google-lens-shorts",
+			"name": "Google Lens Shorts",
+			"count": 1
+		},
+		{
+			"slug": "google-search-profile",
+			"name": "Google Search Profile",
+			"count": 1
+		},
+		{
+			"slug": "google-trends",
+			"name": "Google Trends",
+			"count": 1
+		},
+		{
+			"slug": "grafikdesign",
+			"name": "Grafikdesign",
+			"count": 1
+		},
+		{
+			"slug": "graphic-design",
+			"name": "Graphic Design",
+			"count": 1
+		},
+		{
+			"slug": "green-screen-effects",
+			"name": "Green Screen Effects",
+			"count": 1
+		},
+		{
+			"slug": "growth-hacking",
+			"name": "Growth Hacking",
+			"count": 1
+		},
+		{
+			"slug": "grundlegende-einstellungen",
+			"name": "Grundlegende Einstellungen",
+			"count": 1
+		},
+		{
+			"slug": "handle-rollout",
+			"name": "Handle Rollout",
+			"count": 1
+		},
+		{
+			"slug": "handybildschirm-optimierung",
+			"name": "Handybildschirm-Optimierung",
+			"count": 1
+		},
+		{
+			"slug": "hashtag-channels",
+			"name": "Hashtag Channels",
+			"count": 1
+		},
+		{
+			"slug": "hashtags-auf-youtube",
+			"name": "Hashtags auf YouTube",
+			"count": 1
+		},
+		{
+			"slug": "hdr-streams",
+			"name": "HDR Streams",
+			"count": 1
+		},
+		{
+			"slug": "highlight-videos",
+			"name": "Highlight Videos",
+			"count": 1
+		},
+		{
+			"slug": "hintergrundentfernung",
+			"name": "Hintergrundentfernung",
+			"count": 1
+		},
+		{
+			"slug": "hls-protokoll",
+			"name": "HLS-Protokoll",
+			"count": 1
+		},
+		{
+			"slug": "hls-stream-key",
+			"name": "HLS Stream Key",
+			"count": 1
+		},
+		{
+			"slug": "hochformat-uploads",
+			"name": "Hochformat-Uploads",
+			"count": 1
+		},
+		{
+			"slug": "hype-button-expansion",
+			"name": "Hype Button Expansion",
+			"count": 1
+		},
+		{
+			"slug": "hype-feature",
+			"name": "Hype Feature",
+			"count": 1
+		},
+		{
+			"slug": "hype-feature-expansion",
+			"name": "Hype Feature Expansion",
+			"count": 1
+		},
+		{
+			"slug": "hype-funktion-erweiterung",
+			"name": "Hype-Funktion Erweiterung",
+			"count": 1
+		},
+		{
+			"slug": "image-carousels",
+			"name": "Image Carousels",
+			"count": 1
+		},
+		{
+			"slug": "image-format-converter",
+			"name": "Image Format Converter",
+			"count": 1
+		},
+		{
+			"slug": "image-polls",
+			"name": "Image Polls",
+			"count": 1
+		},
+		{
+			"slug": "image-posts-in-shorts-feed",
+			"name": "Image Posts in Shorts Feed",
+			"count": 1
+		},
+		{
+			"slug": "impersonation",
+			"name": "Impersonation",
+			"count": 1
+		},
+		{
+			"slug": "indien",
+			"name": "Indien",
+			"count": 1
+		},
+		{
+			"slug": "ingredients-to-video",
+			"name": "Ingredients to Video",
+			"count": 1
+		},
+		{
+			"slug": "inhaltsanpassung",
+			"name": "Inhaltsanpassung",
+			"count": 1
+		},
+		{
+			"slug": "inhaltsleistung",
+			"name": "Inhaltsleistung",
+			"count": 1
+		},
+		{
+			"slug": "inhaltsmonetarisierung",
+			"name": "Inhaltsmonetarisierung",
+			"count": 1
+		},
+		{
+			"slug": "inhaltsnutzung",
+			"name": "Inhaltsnutzung",
+			"count": 1
+		},
+		{
+			"slug": "inhaltsprufung",
+			"name": "Inhaltsprüfung",
+			"count": 1
+		},
+		{
+			"slug": "inhaltsqualitat",
+			"name": "Inhaltsqualität",
+			"count": 1
+		},
+		{
+			"slug": "inhaltsverbreitung",
+			"name": "Inhaltsverbreitung",
+			"count": 1
+		},
+		{
+			"slug": "inhaltsverwaltung-auf-youtube",
+			"name": "Inhaltsverwaltung auf YouTube",
+			"count": 1
+		},
+		{
+			"slug": "inhaltsvorschlage",
+			"name": "Inhaltsvorschläge",
+			"count": 1
+		},
+		{
+			"slug": "inklusivitat-auf-youtube",
+			"name": "Inklusivität auf YouTube",
+			"count": 1
+		},
+		{
+			"slug": "inspiration-ai",
+			"name": "Inspiration AI",
+			"count": 1
+		},
+		{
+			"slug": "inspiration-tab-features",
+			"name": "Inspiration Tab Features",
+			"count": 1
+		},
+		{
+			"slug": "interesse-wecken",
+			"name": "Interesse wecken",
+			"count": 1
+		},
+		{
+			"slug": "interessengruppen-zielsetzung",
+			"name": "Interessengruppen-Zielsetzung",
+			"count": 1
+		},
+		{
+			"slug": "international-engagement",
+			"name": "International Engagement",
+			"count": 1
+		},
+		{
+			"slug": "internationale-reichweite",
+			"name": "Internationale Reichweite",
+			"count": 1
+		},
+		{
+			"slug": "internet-geschwindigkeitstest",
+			"name": "Internet-Geschwindigkeitstest",
+			"count": 1
+		},
+		{
+			"slug": "intonation",
+			"name": "Intonation",
+			"count": 1
+		},
+		{
+			"slug": "intonation-experiment",
+			"name": "Intonation Experiment",
+			"count": 1
+		},
+		{
+			"slug": "investitionen-in-ausrustung",
+			"name": "Investitionen in Ausrüstung",
+			"count": 1
+		},
+		{
+			"slug": "invite-links",
+			"name": "Invite Links",
+			"count": 1
+		},
+		{
+			"slug": "invoice-management",
+			"name": "Invoice Management",
+			"count": 1
+		},
+		{
+			"slug": "ios-experiment",
+			"name": "iOS Experiment",
+			"count": 1
+		},
+		{
+			"slug": "ios-features",
+			"name": "iOS Features",
+			"count": 1
+		},
+		{
+			"slug": "ios-rollout",
+			"name": "iOS Rollout",
+			"count": 1
+		},
+		{
+			"slug": "italic-text",
+			"name": "Italic Text",
+			"count": 1
+		},
+		{
+			"slug": "jewel-pricing",
+			"name": "Jewel Pricing",
+			"count": 1
+		},
+		{
+			"slug": "jugendschutz",
+			"name": "Jugendschutz",
+			"count": 1
+		},
+		{
+			"slug": "jugendschutz-auf-youtube",
+			"name": "Jugendschutz auf YouTube",
+			"count": 1
+		},
+		{
+			"slug": "july-2023-deadline",
+			"name": "July 2023 Deadline",
+			"count": 1
+		},
+		{
+			"slug": "jump-cuts",
+			"name": "Jump Cuts",
+			"count": 1
+		},
+		{
+			"slug": "juwelen-youtube",
+			"name": "Juwelen (YouTube)",
+			"count": 1
+		},
+		{
+			"slug": "kamera-setup",
+			"name": "Kamera-Setup",
+			"count": 1
+		},
+		{
+			"slug": "kanal-erfolg",
+			"name": "Kanal-Erfolg",
+			"count": 1
+		},
+		{
+			"slug": "kanal-filter",
+			"name": "Kanal-Filter",
+			"count": 1
+		},
+		{
+			"slug": "kanal-sicherheit",
+			"name": "Kanal-Sicherheit",
+			"count": 1
+		},
+		{
+			"slug": "kanal-teilen",
+			"name": "Kanal-Teilen",
+			"count": 1
+		},
+		{
+			"slug": "kanalbanner-erstellen",
+			"name": "Kanalbanner erstellen",
+			"count": 1
+		},
+		{
+			"slug": "kanalrichtlinien",
+			"name": "Kanalrichtlinien",
+			"count": 1
+		},
+		{
+			"slug": "kanalverknupfung",
+			"name": "Kanalverknüpfung",
+			"count": 1
+		},
+		{
+			"slug": "kapitel-auf-youtube",
+			"name": "Kapitel auf YouTube",
+			"count": 1
+		},
+		{
+			"slug": "kennzahlen-und-stress",
+			"name": "Kennzahlen und Stress",
+			"count": 1
+		},
+		{
+			"slug": "keyword-bidding",
+			"name": "Keyword Bidding",
+			"count": 1
+		},
+		{
+			"slug": "keywords",
+			"name": "Keywords",
+			"count": 1
+		},
+		{
+			"slug": "ki-altersverifizierung",
+			"name": "KI-Altersverifizierung",
+			"count": 1
+		},
+		{
+			"slug": "ki-avatare",
+			"name": "KI-Avatare",
+			"count": 1
+		},
+		{
+			"slug": "ki-basierte-videoideen",
+			"name": "KI-basierte Videoideen",
+			"count": 1
+		},
+		{
+			"slug": "ki-betrug",
+			"name": "KI-Betrug",
+			"count": 1
+		},
+		{
+			"slug": "ki-dubbing",
+			"name": "KI-Dubbing",
+			"count": 1
+		},
+		{
+			"slug": "ki-generierte-inhalte",
+			"name": "KI-generierte Inhalte",
+			"count": 1
+		},
+		{
+			"slug": "ki-generierte-videozusammenfassungen",
+			"name": "KI-generierte Videozusammenfassungen",
+			"count": 1
+		},
+		{
+			"slug": "ki-klonen",
+			"name": "KI-Klonen",
+			"count": 1
+		},
+		{
+			"slug": "ki-ubersetzung",
+			"name": "KI-Übersetzung",
+			"count": 1
+		},
+		{
+			"slug": "kleine-streamer",
+			"name": "Kleine Streamer",
+			"count": 1
+		},
+		{
+			"slug": "kommentare-filtern",
+			"name": "Kommentare filtern",
+			"count": 1
+		},
+		{
+			"slug": "kommentare-und-beitrage",
+			"name": "Kommentare und Beiträge",
+			"count": 1
+		},
+		{
+			"slug": "kommentarfilter",
+			"name": "Kommentarfilter",
+			"count": 1
+		},
+		{
+			"slug": "kommentarverwaltung",
+			"name": "Kommentarverwaltung",
+			"count": 1
+		},
+		{
+			"slug": "kompilationen",
+			"name": "Kompilationen",
+			"count": 1
+		},
+		{
+			"slug": "konkurrenzdenken-vermeiden",
+			"name": "Konkurrenzdenken vermeiden",
+			"count": 1
+		},
+		{
+			"slug": "konsolen-streaming",
+			"name": "Konsolen-Streaming",
+			"count": 1
+		},
+		{
+			"slug": "kontextabhangig",
+			"name": "Kontextabhängig",
+			"count": 1
+		},
+		{
+			"slug": "kontoubersicht",
+			"name": "Kontoübersicht",
+			"count": 1
+		},
+		{
+			"slug": "kontoverwaltung",
+			"name": "Kontoverwaltung",
+			"count": 1
+		},
+		{
+			"slug": "kooperationsmodelle",
+			"name": "Kooperationsmodelle",
+			"count": 1
+		},
+		{
+			"slug": "kostenlose-funktionen",
+			"name": "Kostenlose Funktionen",
+			"count": 1
+		},
+		{
+			"slug": "kostenlose-software",
+			"name": "Kostenlose Software",
+			"count": 1
+		},
+		{
+			"slug": "kreative-techniken",
+			"name": "Kreative Techniken",
+			"count": 1
+		},
+		{
+			"slug": "kursivschrift",
+			"name": "Kursivschrift",
+			"count": 1
+		},
+		{
+			"slug": "langform-videos",
+			"name": "Langform-Videos",
+			"count": 1
+		},
+		{
+			"slug": "language-preferences",
+			"name": "Language Preferences",
+			"count": 1
+		},
+		{
+			"slug": "larger-thumbnails",
+			"name": "Larger Thumbnails",
+			"count": 1
+		},
+		{
+			"slug": "laufzeitverlangerung",
+			"name": "Laufzeitverlängerung",
+			"count": 1
+		},
+		{
+			"slug": "legal-structures",
+			"name": "Legal Structures",
+			"count": 1
+		},
+		{
+			"slug": "leidenschaft-furs-kreieren",
+			"name": "Leidenschaft fürs Kreieren",
+			"count": 1
+		},
+		{
+			"slug": "light-theme",
+			"name": "Light Theme",
+			"count": 1
+		},
+		{
+			"slug": "lighting-solutions",
+			"name": "Lighting Solutions",
+			"count": 1
+		},
+		{
+			"slug": "likeness-detection",
+			"name": "Likeness Detection",
+			"count": 1
+		},
+		{
+			"slug": "linux-anleitung",
+			"name": "Linux-Anleitung",
+			"count": 1
+		},
+		{
+			"slug": "live-chat-analysis",
+			"name": "Live Chat Analysis",
+			"count": 1
+		},
+		{
+			"slug": "live-chat-interaktionen",
+			"name": "Live-Chat-Interaktionen",
+			"count": 1
+		},
+		{
+			"slug": "live-erinnerungen",
+			"name": "Live-Erinnerungen",
+			"count": 1
+		},
+		{
+			"slug": "live-stream-archiving",
+			"name": "Live Stream Archiving",
+			"count": 1
+		},
+		{
+			"slug": "live-stream-enhancements",
+			"name": "Live Stream Enhancements",
+			"count": 1
+		},
+		{
+			"slug": "live-stream-experiments",
+			"name": "Live Stream Experiments",
+			"count": 1
+		},
+		{
+			"slug": "live-stream-frequency",
+			"name": "Live Stream Frequency",
+			"count": 1
+		},
+		{
+			"slug": "live-stream-leaderboards",
+			"name": "Live Stream Leaderboards",
+			"count": 1
+		},
+		{
+			"slug": "live-stream-reminders",
+			"name": "Live Stream Reminders",
+			"count": 1
+		},
+		{
+			"slug": "live-streaming-einstieg",
+			"name": "Live-Streaming-Einstieg",
+			"count": 1
+		},
+		{
+			"slug": "live-streaming-strategies",
+			"name": "Live Streaming Strategies",
+			"count": 1
+		},
+		{
+			"slug": "live-streams",
+			"name": "Live-Streams",
+			"count": 1
+		},
+		{
+			"slug": "lively-thumbnails",
+			"name": "Lively Thumbnails",
+			"count": 1
+		},
+		{
+			"slug": "livestream-indikator",
+			"name": "Livestream-Indikator",
+			"count": 1
+		},
+		{
+			"slug": "livestream-management",
+			"name": "Livestream Management",
+			"count": 1
+		},
+		{
+			"slug": "livestream-werbung",
+			"name": "Livestream-Werbung",
+			"count": 1
+		},
+		{
+			"slug": "lizenzfreie-musik",
+			"name": "Lizenzfreie Musik",
+			"count": 1
+		},
+		{
+			"slug": "long-term-support-recognition",
+			"name": "Long-Term Support Recognition",
+			"count": 1
+		},
+		{
+			"slug": "longer-shorts",
+			"name": "Longer Shorts",
+			"count": 1
+		},
+		{
+			"slug": "longform-videos",
+			"name": "Longform Videos",
+			"count": 1
+		},
+		{
+			"slug": "loopback-devices",
+			"name": "Loopback Devices",
+			"count": 1
+		},
+		{
+			"slug": "manuelle-konfiguration",
+			"name": "Manuelle Konfiguration",
+			"count": 1
+		},
+		{
+			"slug": "markdown-auf-youtube",
+			"name": "Markdown auf YouTube",
+			"count": 1
+		},
+		{
+			"slug": "markdown-basics",
+			"name": "Markdown Basics",
+			"count": 1
+		},
+		{
+			"slug": "marketing-psychology",
+			"name": "Marketing Psychology",
+			"count": 1
+		},
+		{
+			"slug": "marktwert",
+			"name": "Marktwert",
+			"count": 1
+		},
+		{
+			"slug": "mass-produced-content",
+			"name": "Mass Produced Content",
+			"count": 1
+		},
+		{
+			"slug": "matchmaking-system",
+			"name": "Matchmaking-System",
+			"count": 1
+		},
+		{
+			"slug": "mehrere-gerate",
+			"name": "Mehrere Geräte",
+			"count": 1
+		},
+		{
+			"slug": "mehrspuraufnahme",
+			"name": "Mehrspuraufnahme",
+			"count": 1
+		},
+		{
+			"slug": "member-roles",
+			"name": "Member Roles",
+			"count": 1
+		},
+		{
+			"slug": "member-shelf",
+			"name": "Member Shelf",
+			"count": 1
+		},
+		{
+			"slug": "membership-badges",
+			"name": "Membership Badges",
+			"count": 1
+		},
+		{
+			"slug": "membership-pricing",
+			"name": "Membership Pricing",
+			"count": 1
+		},
+		{
+			"slug": "memberships-button",
+			"name": "Memberships Button",
+			"count": 1
+		},
+		{
+			"slug": "mentale-gesundheit",
+			"name": "Mentale Gesundheit",
+			"count": 1
+		},
+		{
+			"slug": "mentions-tags",
+			"name": "Mentions-Tags",
+			"count": 1
+		},
+		{
+			"slug": "merch",
+			"name": "Merch",
+			"count": 1
+		},
+		{
+			"slug": "merchandise",
+			"name": "Merchandise",
+			"count": 1
+		},
+		{
+			"slug": "messaging-tutorial",
+			"name": "Messaging Tutorial",
+			"count": 1
+		},
+		{
+			"slug": "metadaten-durchsetzung",
+			"name": "Metadaten-Durchsetzung",
+			"count": 1
+		},
+		{
+			"slug": "metriken",
+			"name": "Metriken",
+			"count": 1
+		},
+		{
+			"slug": "microphone-review",
+			"name": "Microphone Review",
+			"count": 1
+		},
+		{
+			"slug": "microtransaktionen",
+			"name": "Microtransaktionen",
+			"count": 1
+		},
+		{
+			"slug": "mid-roll-ad-changes",
+			"name": "Mid-Roll Ad Changes",
+			"count": 1
+		},
+		{
+			"slug": "mid-roll-ads",
+			"name": "Mid-Roll Ads",
+			"count": 1
+		},
+		{
+			"slug": "mikrofon-auswahl",
+			"name": "Mikrofon-Auswahl",
+			"count": 1
+		},
+		{
+			"slug": "miniaturansichten-upload",
+			"name": "Miniaturansichten-Upload",
+			"count": 1
+		},
+		{
+			"slug": "misleading-metadata",
+			"name": "Misleading Metadata",
+			"count": 1
+		},
+		{
+			"slug": "mitgliederfunktionen",
+			"name": "Mitgliederfunktionen",
+			"count": 1
+		},
+		{
+			"slug": "mitgliedschafts-abzeichen",
+			"name": "Mitgliedschafts-Abzeichen",
+			"count": 1
+		},
+		{
+			"slug": "mitgliedschafts-inhalte",
+			"name": "Mitgliedschafts-Inhalte",
+			"count": 1
+		},
+		{
+			"slug": "mitgliedschaftspreise",
+			"name": "Mitgliedschaftspreise",
+			"count": 1
+		},
+		{
+			"slug": "mobile-ads",
+			"name": "Mobile Ads",
+			"count": 1
+		},
+		{
+			"slug": "mobile-app-navigation",
+			"name": "Mobile App Navigation",
+			"count": 1
+		},
+		{
+			"slug": "mobile-chat-improvements",
+			"name": "Mobile Chat Improvements",
+			"count": 1
+		},
+		{
+			"slug": "mobile-chats",
+			"name": "Mobile Chats",
+			"count": 1
+		},
+		{
+			"slug": "mobile-content-creation",
+			"name": "Mobile Content Creation",
+			"count": 1
+		},
+		{
+			"slug": "mobile-creator",
+			"name": "Mobile Creator",
+			"count": 1
+		},
+		{
+			"slug": "mobile-first-rollout",
+			"name": "Mobile First Rollout",
+			"count": 1
+		},
+		{
+			"slug": "mobile-interaktion",
+			"name": "Mobile-Interaktion",
+			"count": 1
+		},
+		{
+			"slug": "mobile-live-streaming",
+			"name": "Mobile Live Streaming",
+			"count": 1
+		},
+		{
+			"slug": "mobile-live-streams",
+			"name": "Mobile Live-Streams",
+			"count": 1
+		},
+		{
+			"slug": "mobile-livestreams",
+			"name": "Mobile Livestreams",
+			"count": 1
+		},
+		{
+			"slug": "mobile-only-features",
+			"name": "Mobile-Only Features",
+			"count": 1
+		},
+		{
+			"slug": "mobile-side-by-side-anzeigen",
+			"name": "Mobile Side-by-Side-Anzeigen",
+			"count": 1
+		},
+		{
+			"slug": "mobile-studio-app",
+			"name": "Mobile Studio App",
+			"count": 1
+		},
+		{
+			"slug": "mobile-vs-desktop-payments",
+			"name": "Mobile vs Desktop Payments",
+			"count": 1
+		},
+		{
+			"slug": "moderation-auf-youtube",
+			"name": "Moderation auf YouTube",
+			"count": 1
+		},
+		{
+			"slug": "moderation-considerations",
+			"name": "Moderation Considerations",
+			"count": 1
+		},
+		{
+			"slug": "monetarisierungs-check",
+			"name": "Monetarisierungs-Check",
+			"count": 1
+		},
+		{
+			"slug": "monetarisierungsmodelle",
+			"name": "Monetarisierungsmodelle",
+			"count": 1
+		},
+		{
+			"slug": "monetarisierungsrichtlinien",
+			"name": "Monetarisierungsrichtlinien",
+			"count": 1
+		},
+		{
+			"slug": "monetarisierungstipps",
+			"name": "Monetarisierungstipps",
+			"count": 1
+		},
+		{
+			"slug": "monetization-check-updates",
+			"name": "Monetization Check Updates",
+			"count": 1
+		},
+		{
+			"slug": "monetization-concerns",
+			"name": "Monetization Concerns",
+			"count": 1
+		},
+		{
+			"slug": "monetization-ideas",
+			"name": "Monetization Ideas",
+			"count": 1
+		},
+		{
+			"slug": "monetization-updates",
+			"name": "Monetization Updates",
+			"count": 1
+		},
+		{
+			"slug": "most-relevant-comments",
+			"name": "Most Relevant Comments",
+			"count": 1
+		},
+		{
+			"slug": "mp3-qualitatstest",
+			"name": "MP3-Qualitätstest",
+			"count": 1
+		},
+		{
+			"slug": "mp3-quality-tester",
+			"name": "MP3 Quality Tester",
+			"count": 1
+		},
+		{
+			"slug": "multi-aspekt-streaming",
+			"name": "Multi-Aspekt-Streaming",
+			"count": 1
+		},
+		{
+			"slug": "multi-format-live-streaming",
+			"name": "Multi-Format-Live-Streaming",
+			"count": 1
+		},
+		{
+			"slug": "multi-language-audio",
+			"name": "Multi-Language Audio",
+			"count": 1
+		},
+		{
+			"slug": "multilinguales-audio",
+			"name": "Multilinguales Audio",
+			"count": 1
+		},
+		{
+			"slug": "multisprachige-audios",
+			"name": "Multisprachige Audios",
+			"count": 1
+		},
+		{
+			"slug": "multistreaming",
+			"name": "Multistreaming",
+			"count": 1
+		},
+		{
+			"slug": "multitrack-recording",
+			"name": "Multitrack Recording",
+			"count": 1
+		},
+		{
+			"slug": "music-library",
+			"name": "Music Library",
+			"count": 1
+		},
+		{
+			"slug": "music-licensing-changes",
+			"name": "Music Licensing Changes",
+			"count": 1
+		},
+		{
+			"slug": "music-replacement",
+			"name": "Music Replacement",
+			"count": 1
+		},
+		{
+			"slug": "musik-ersetzen",
+			"name": "Musik ersetzen",
+			"count": 1
+		},
+		{
+			"slug": "musik-integration",
+			"name": "Musik-Integration",
+			"count": 1
+		},
+		{
+			"slug": "musiklizenzen",
+			"name": "Musiklizenzen",
+			"count": 1
+		},
+		{
+			"slug": "nachhaltigkeit",
+			"name": "Nachhaltigkeit",
+			"count": 1
+		},
+		{
+			"slug": "navigation-optimieren",
+			"name": "Navigation optimieren",
+			"count": 1
+		},
+		{
+			"slug": "neben-an-neben-anzeigen",
+			"name": "Neben-an-Neben-Anzeigen",
+			"count": 1
+		},
+		{
+			"slug": "nettoanteil-fur-creator",
+			"name": "Nettoanteil für Creator",
+			"count": 1
+		},
+		{
+			"slug": "neue-zuschauer",
+			"name": "Neue Zuschauer",
+			"count": 1
+		},
+		{
+			"slug": "new-viewer-acquisition",
+			"name": "New Viewer Acquisition",
+			"count": 1
+		},
+		{
+			"slug": "niche-finding",
+			"name": "Niche Finding",
+			"count": 1
+		},
+		{
+			"slug": "nischenfindung",
+			"name": "Nischenfindung",
+			"count": 1
+		},
+		{
+			"slug": "non-subscribed-users",
+			"name": "Non-Subscribed Users",
+			"count": 1
+		},
+		{
+			"slug": "notification-feed-filter",
+			"name": "Notification Feed Filter",
+			"count": 1
+		},
+		{
+			"slug": "notifications",
+			"name": "Notifications",
+			"count": 1
+		},
+		{
+			"slug": "nutzerrollen",
+			"name": "Nutzerrollen",
+			"count": 1
+		},
+		{
+			"slug": "nutzerverhalten",
+			"name": "Nutzerverhalten",
+			"count": 1
+		},
+		{
+			"slug": "offentliche-streams",
+			"name": "Öffentliche Streams",
+			"count": 1
+		},
+		{
+			"slug": "official-youtube-channels",
+			"name": "Official YouTube Channels",
+			"count": 1
+		},
+		{
+			"slug": "online-shops",
+			"name": "Online-Shops",
+			"count": 1
+		},
+		{
+			"slug": "online-store-linking",
+			"name": "Online Store Linking",
+			"count": 1
+		},
+		{
+			"slug": "open-source-tools",
+			"name": "Open-Source-Tools",
+			"count": 1
+		},
+		{
+			"slug": "opt-in-features",
+			"name": "Opt-In Features",
+			"count": 1
+		},
+		{
+			"slug": "opt-out-features",
+			"name": "Opt-Out Features",
+			"count": 1
+		},
+		{
+			"slug": "optimization-tips",
+			"name": "Optimization Tips",
+			"count": 1
+		},
+		{
+			"slug": "organische-metriken",
+			"name": "Organische Metriken",
+			"count": 1
+		},
+		{
+			"slug": "organische-vs-bezahlte-analyse",
+			"name": "Organische vs. bezahlte Analyse",
+			"count": 1
+		},
+		{
+			"slug": "original-value",
+			"name": "Original Value",
+			"count": 1
+		},
+		{
+			"slug": "originalitat",
+			"name": "Originalität",
+			"count": 1
+		},
+		{
+			"slug": "overlays",
+			"name": "Overlays",
+			"count": 1
+		},
+		{
+			"slug": "pace-in-videos",
+			"name": "Pace in Videos",
+			"count": 1
+		},
+		{
+			"slug": "paid-reach",
+			"name": "Paid Reach",
+			"count": 1
+		},
+		{
+			"slug": "paid-vs-organic-metrics",
+			"name": "Paid vs Organic Metrics",
+			"count": 1
+		},
+		{
+			"slug": "passwortgeschutzte-dokumente",
+			"name": "Passwortgeschützte Dokumente",
+			"count": 1
+		},
+		{
+			"slug": "patreon",
+			"name": "Patreon",
+			"count": 1
+		},
+		{
+			"slug": "pause-und-inaktivitat",
+			"name": "Pause und Inaktivität",
+			"count": 1
+		},
+		{
+			"slug": "payment-history",
+			"name": "Payment History",
+			"count": 1
+		},
+		{
+			"slug": "payment-methods",
+			"name": "Payment Methods",
+			"count": 1
+		},
+		{
+			"slug": "payment-view",
+			"name": "Payment View",
+			"count": 1
+		},
+		{
+			"slug": "pc-build",
+			"name": "PC Build",
+			"count": 1
+		},
+		{
+			"slug": "pc-konfiguration",
+			"name": "PC-Konfiguration",
+			"count": 1
+		},
+		{
+			"slug": "permission-settings",
+			"name": "Permission Settings",
+			"count": 1
+		},
+		{
+			"slug": "personal-channel-setup",
+			"name": "Personal Channel Setup",
+			"count": 1
+		},
+		{
+			"slug": "personalisierte-inhalte",
+			"name": "Personalisierte Inhalte",
+			"count": 1
+		},
+		{
+			"slug": "personality-driven-content",
+			"name": "Personality-Driven Content",
+			"count": 1
+		},
+		{
+			"slug": "personalized-content",
+			"name": "Personalized Content",
+			"count": 1
+		},
+		{
+			"slug": "personlichkeitsdarstellung",
+			"name": "Persönlichkeitsdarstellung",
+			"count": 1
+		},
+		{
+			"slug": "phishing-e-mails",
+			"name": "Phishing-E-Mails",
+			"count": 1
+		},
+		{
+			"slug": "photoshop-alternativen",
+			"name": "Photoshop-Alternativen",
+			"count": 1
+		},
+		{
+			"slug": "physical-comedy",
+			"name": "Physical Comedy",
+			"count": 1
+		},
+		{
+			"slug": "platform-control",
+			"name": "Platform Control",
+			"count": 1
+		},
+		{
+			"slug": "platform-fees",
+			"name": "Platform Fees",
+			"count": 1
+		},
+		{
+			"slug": "platform-priorities",
+			"name": "Platform Priorities",
+			"count": 1
+		},
+		{
+			"slug": "plattform-regulierung",
+			"name": "Plattform-Regulierung",
+			"count": 1
+		},
+		{
+			"slug": "plattformregeln",
+			"name": "Plattformregeln",
+			"count": 1
+		},
+		{
+			"slug": "playable-multitasking",
+			"name": "Playable Multitasking",
+			"count": 1
+		},
+		{
+			"slug": "playables-multitasking",
+			"name": "Playables Multitasking",
+			"count": 1
+		},
+		{
+			"slug": "poll-creation",
+			"name": "Poll Creation",
+			"count": 1
+		},
+		{
+			"slug": "power-banks",
+			"name": "Power Banks",
+			"count": 1
+		},
+		{
+			"slug": "pre-publish-checks",
+			"name": "Pre-Publish Checks",
+			"count": 1
+		},
+		{
+			"slug": "preis-leistungs-verhaltnis",
+			"name": "Preis-Leistungs-Verhältnis",
+			"count": 1
+		},
+		{
+			"slug": "premium-angebote",
+			"name": "Premium-Angebote",
+			"count": 1
+		},
+		{
+			"slug": "premium-editions",
+			"name": "Premium Editions",
+			"count": 1
+		},
+		{
+			"slug": "premium-inhalte",
+			"name": "Premium-Inhalte",
+			"count": 1
+		},
+		{
+			"slug": "premium-jump-ahead",
+			"name": "Premium Jump Ahead",
+			"count": 1
+		},
+		{
+			"slug": "premium-membership-pricing",
+			"name": "Premium Membership Pricing",
+			"count": 1
+		},
+		{
+			"slug": "premium-mitgliedschaften",
+			"name": "Premium-Mitgliedschaften",
+			"count": 1
+		},
+		{
+			"slug": "presets",
+			"name": "Presets",
+			"count": 1
+		},
+		{
+			"slug": "price-comparison",
+			"name": "Price Comparison",
+			"count": 1
+		},
+		{
+			"slug": "price-increases",
+			"name": "Price Increases",
+			"count": 1
+		},
+		{
+			"slug": "print-on-demand",
+			"name": "Print on Demand",
+			"count": 1
+		},
+		{
+			"slug": "privacy-focused",
+			"name": "Privacy Focused",
+			"count": 1
+		},
+		{
+			"slug": "private-video-sharing",
+			"name": "Private Video Sharing",
+			"count": 1
+		},
+		{
+			"slug": "produktionswerkzeuge",
+			"name": "Produktionswerkzeuge",
+			"count": 1
+		},
+		{
+			"slug": "produktplatzierung",
+			"name": "Produktplatzierung",
+			"count": 1
+		},
+		{
+			"slug": "produktvergleich",
+			"name": "Produktvergleich",
+			"count": 1
+		},
+		{
+			"slug": "produktverlinkung",
+			"name": "Produktverlinkung",
+			"count": 1
+		},
+		{
+			"slug": "professional-appearance",
+			"name": "Professional Appearance",
+			"count": 1
+		},
+		{
+			"slug": "profil-management",
+			"name": "Profil-Management",
+			"count": 1
+		},
+		{
+			"slug": "profile-picture-optimization",
+			"name": "Profile Picture Optimization",
+			"count": 1
+		},
+		{
+			"slug": "profile-pictures",
+			"name": "Profile Pictures",
+			"count": 1
+		},
+		{
+			"slug": "project-moonlight",
+			"name": "Project Moonlight",
+			"count": 1
+		},
+		{
+			"slug": "pronoun-customization",
+			"name": "Pronoun Customization",
+			"count": 1
+		},
+		{
+			"slug": "public-hype-sharing",
+			"name": "Public Hype Sharing",
+			"count": 1
+		},
+		{
+			"slug": "public-streams",
+			"name": "Public Streams",
+			"count": 1
+		},
+		{
+			"slug": "publikumsmetriken",
+			"name": "Publikumsmetriken",
+			"count": 1
+		},
+		{
+			"slug": "push-notifications-experiment",
+			"name": "Push Notifications Experiment",
+			"count": 1
+		},
+		{
+			"slug": "push-notifications-impact",
+			"name": "Push Notifications Impact",
+			"count": 1
+		},
+		{
+			"slug": "q-and-a-livestream",
+			"name": "Q&A Livestream",
+			"count": 1
+		},
+		{
+			"slug": "q-and-a-sticker",
+			"name": "Q&A Sticker",
+			"count": 1
+		},
+		{
+			"slug": "q-and-a-stickers",
+			"name": "Q&A Stickers",
+			"count": 1
+		},
+		{
+			"slug": "qr-codes-in-shorts",
+			"name": "QR Codes in Shorts",
+			"count": 1
+		},
+		{
+			"slug": "quellen-management",
+			"name": "Quellen-Management",
+			"count": 1
+		},
+		{
+			"slug": "quick-saves",
+			"name": "Quick Saves",
+			"count": 1
+		},
+		{
+			"slug": "quiz-funktion",
+			"name": "Quiz-Funktion",
+			"count": 1
+		},
+		{
+			"slug": "quiz-stickers",
+			"name": "Quiz Stickers",
+			"count": 1
+		},
+		{
+			"slug": "ranking-factors",
+			"name": "Ranking Factors",
+			"count": 1
+		},
+		{
+			"slug": "ranking-faktoren",
+			"name": "Ranking-Faktoren",
+			"count": 1
+		},
+		{
+			"slug": "ratgeber",
+			"name": "Ratgeber",
+			"count": 1
+		},
+		{
+			"slug": "recentral",
+			"name": "RECentral",
+			"count": 1
+		},
+		{
+			"slug": "rechtliche-aspekte",
+			"name": "Rechtliche Aspekte",
+			"count": 1
+		},
+		{
+			"slug": "rechtliche-fragen-zu-deepfakes",
+			"name": "Rechtliche Fragen zu Deepfakes",
+			"count": 1
+		},
+		{
+			"slug": "recommended-videos",
+			"name": "Recommended Videos",
+			"count": 1
+		},
+		{
+			"slug": "recurring-subscriptions",
+			"name": "Recurring Subscriptions",
+			"count": 1
+		},
+		{
+			"slug": "reddit-discord-facebook-promotion",
+			"name": "Reddit/Discord/Facebook Promotion",
+			"count": 1
+		},
+		{
+			"slug": "refunds",
+			"name": "Refunds",
+			"count": 1
+		},
+		{
+			"slug": "regierungsvorgaben",
+			"name": "Regierungsvorgaben",
+			"count": 1
+		},
+		{
+			"slug": "regional-pricing",
+			"name": "Regional Pricing",
+			"count": 1
+		},
+		{
+			"slug": "regular-uploads",
+			"name": "Regular Uploads",
+			"count": 1
+		},
+		{
+			"slug": "regular-viewers",
+			"name": "Regular Viewers",
+			"count": 1
+		},
+		{
+			"slug": "relevanz-filter",
+			"name": "Relevanz-Filter",
+			"count": 1
+		},
+		{
+			"slug": "reproduktive-rechte",
+			"name": "Reproduktive Rechte",
+			"count": 1
+		},
+		{
+			"slug": "returning-subscribers",
+			"name": "Returning Subscribers",
+			"count": 1
+		},
+		{
+			"slug": "reused-content",
+			"name": "Reused Content",
+			"count": 1
+		},
+		{
+			"slug": "revenue-sharing",
+			"name": "Revenue Sharing",
+			"count": 1
+		},
+		{
+			"slug": "richtcharakteristiken",
+			"name": "Richtcharakteristiken",
+			"count": 1
+		},
+		{
+			"slug": "richtlinienverstosse",
+			"name": "Richtlinienverstöße",
+			"count": 1
+		},
+		{
+			"slug": "ripple-bearbeitung",
+			"name": "Ripple-Bearbeitung",
+			"count": 1
+		},
+		{
+			"slug": "rollen-und-berechtigungen",
+			"name": "Rollen und Berechtigungen",
+			"count": 1
+		},
+		{
+			"slug": "rollenverwaltung",
+			"name": "Rollenverwaltung",
+			"count": 1
+		},
+		{
+			"slug": "rollenzuweisung",
+			"name": "Rollenzuweisung",
+			"count": 1
+		},
+		{
+			"slug": "rtmp-rtmps-protocols",
+			"name": "RTMP/RTMPS Protocols",
+			"count": 1
+		},
+		{
+			"slug": "rtmp-s-protocols",
+			"name": "RTMP/S Protocols",
+			"count": 1
+		},
+		{
+			"slug": "sample-rate-matching",
+			"name": "Sample Rate Matching",
+			"count": 1
+		},
+		{
+			"slug": "sample-size",
+			"name": "Sample Size",
+			"count": 1
+		},
+		{
+			"slug": "sampling-einstellungen",
+			"name": "Sampling-Einstellungen",
+			"count": 1
+		},
+		{
+			"slug": "sampling-management",
+			"name": "Sampling Management",
+			"count": 1
+		},
+		{
+			"slug": "sanktionen",
+			"name": "Sanktionen",
+			"count": 1
+		},
+		{
+			"slug": "scam-warnung",
+			"name": "Scam-Warnung",
+			"count": 1
+		},
+		{
+			"slug": "schlusselwort-strategie",
+			"name": "Schlüsselwort-Strategie",
+			"count": 1
+		},
+		{
+			"slug": "schlusselworter-strategie",
+			"name": "Schlüsselwörter Strategie",
+			"count": 1
+		},
+		{
+			"slug": "screen-recording",
+			"name": "Screen Recording",
+			"count": 1
+		},
+		{
+			"slug": "screenshot-bearbeitung",
+			"name": "Screenshot-Bearbeitung",
+			"count": 1
+		},
+		{
+			"slug": "sehzeit",
+			"name": "Sehzeit",
+			"count": 1
+		},
+		{
+			"slug": "seiten-an-seiten-anzeigen",
+			"name": "Seiten-an-Seiten-Anzeigen",
+			"count": 1
+		},
+		{
+			"slug": "sekundarstream-nutzung",
+			"name": "Sekundärstream-Nutzung",
+			"count": 1
+		},
+		{
+			"slug": "sensible-suchanfragen",
+			"name": "Sensible Suchanfragen",
+			"count": 1
+		},
+		{
+			"slug": "sensiblere-inhalte",
+			"name": "Sensiblere Inhalte",
+			"count": 1
+		},
+		{
+			"slug": "serial-content",
+			"name": "Serial Content",
+			"count": 1
+		},
+		{
+			"slug": "session-time-improvement",
+			"name": "Session Time Improvement",
+			"count": 1
+		},
+		{
+			"slug": "shared-universes",
+			"name": "Shared Universes",
+			"count": 1
+		},
+		{
+			"slug": "shopping-sticker",
+			"name": "Shopping-Sticker",
+			"count": 1
+		},
+		{
+			"slug": "shopping-stickers",
+			"name": "Shopping Stickers",
+			"count": 1
+		},
+		{
+			"slug": "shorts-ads",
+			"name": "Shorts Ads",
+			"count": 1
+		},
+		{
+			"slug": "shorts-ansichten",
+			"name": "Shorts-Ansichten",
+			"count": 1
+		},
+		{
+			"slug": "shorts-bearbeitung",
+			"name": "Shorts-Bearbeitung",
+			"count": 1
+		},
+		{
+			"slug": "shorts-captions",
+			"name": "Shorts Captions",
+			"count": 1
+		},
+		{
+			"slug": "shorts-creation-tools",
+			"name": "Shorts Creation Tools",
+			"count": 1
+		},
+		{
+			"slug": "shorts-erstellung",
+			"name": "Shorts-Erstellung",
+			"count": 1
+		},
+		{
+			"slug": "shorts-erstellungstool",
+			"name": "Shorts-Erstellungstool",
+			"count": 1
+		},
+		{
+			"slug": "shorts-kommentare",
+			"name": "Shorts-Kommentare",
+			"count": 1
+		},
+		{
+			"slug": "shorts-remix-funktion",
+			"name": "Shorts Remix Funktion",
+			"count": 1
+		},
+		{
+			"slug": "shorts-remix-improvements",
+			"name": "Shorts Remix Improvements",
+			"count": 1
+		},
+		{
+			"slug": "shorts-sampling",
+			"name": "Shorts Sampling",
+			"count": 1
+		},
+		{
+			"slug": "shorts-shelf",
+			"name": "Shorts Shelf",
+			"count": 1
+		},
+		{
+			"slug": "shorts-thumbnails",
+			"name": "Shorts Thumbnails",
+			"count": 1
+		},
+		{
+			"slug": "shorts-thumbnails-bearbeiten",
+			"name": "Shorts Thumbnails bearbeiten",
+			"count": 1
+		},
+		{
+			"slug": "shorts-verbesserungen",
+			"name": "Shorts-Verbesserungen",
+			"count": 1
+		},
+		{
+			"slug": "shorts-view-changes",
+			"name": "Shorts View Changes",
+			"count": 1
+		},
+		{
+			"slug": "shorts-views",
+			"name": "Shorts Views",
+			"count": 1
+		},
+		{
+			"slug": "shorts-visual-guides",
+			"name": "Shorts Visual Guides",
+			"count": 1
+		},
+		{
+			"slug": "shorts-werbung",
+			"name": "Shorts-Werbung",
+			"count": 1
+		},
+		{
+			"slug": "small-streamer-challenges",
+			"name": "Small Streamer Challenges",
+			"count": 1
+		},
+		{
+			"slug": "social-media-feeds",
+			"name": "Social Media-Feeds",
+			"count": 1
+		},
+		{
+			"slug": "social-media-linking",
+			"name": "Social Media Linking",
+			"count": 1
+		},
+		{
+			"slug": "social-media-marketing",
+			"name": "Social Media Marketing",
+			"count": 1
+		},
+		{
+			"slug": "social-media-strategien",
+			"name": "Social Media Strategien",
+			"count": 1
+		},
+		{
+			"slug": "social-media-tools",
+			"name": "Social Media Tools",
+			"count": 1
+		},
+		{
+			"slug": "social-media-verbote",
+			"name": "Social Media Verbote",
+			"count": 1
+		},
+		{
+			"slug": "social-stream-ninja",
+			"name": "Social Stream Ninja",
+			"count": 1
+		},
+		{
+			"slug": "sommer-launch-2024",
+			"name": "Sommer-Launch 2024",
+			"count": 1
+		},
+		{
+			"slug": "sonderzeichen",
+			"name": "Sonderzeichen",
+			"count": 1
+		},
+		{
+			"slug": "sound-treatment",
+			"name": "Sound Treatment",
+			"count": 1
+		},
+		{
+			"slug": "source-types",
+			"name": "Source Types",
+			"count": 1
+		},
+		{
+			"slug": "soziale-interaktion",
+			"name": "Soziale Interaktion",
+			"count": 1
+		},
+		{
+			"slug": "spam-erkennung",
+			"name": "Spam-Erkennung",
+			"count": 1
+		},
+		{
+			"slug": "split-werkzeug",
+			"name": "Split-Werkzeug",
+			"count": 1
+		},
+		{
+			"slug": "sponsor-content",
+			"name": "Sponsor Content",
+			"count": 1
+		},
+		{
+			"slug": "sponsored-posts",
+			"name": "Sponsored Posts",
+			"count": 1
+		},
+		{
+			"slug": "sprachnachrichten",
+			"name": "Sprachnachrichten",
+			"count": 1
+		},
+		{
+			"slug": "spring",
+			"name": "Spring",
+			"count": 1
+		},
+		{
+			"slug": "spring-platform",
+			"name": "Spring Platform",
+			"count": 1
+		},
+		{
+			"slug": "sprungbilder",
+			"name": "Sprungbilder",
+			"count": 1
+		},
+		{
+			"slug": "statistical-confidence",
+			"name": "Statistical Confidence",
+			"count": 1
+		},
+		{
+			"slug": "statistische-analyse",
+			"name": "Statistische Analyse",
+			"count": 1
+		},
+		{
+			"slug": "stereo-aufnahme",
+			"name": "Stereo-Aufnahme",
+			"count": 1
+		},
+		{
+			"slug": "stereo-recording",
+			"name": "Stereo Recording",
+			"count": 1
+		},
+		{
+			"slug": "steuerformulare",
+			"name": "Steuerformulare",
+			"count": 1
+		},
+		{
+			"slug": "sticker-updates",
+			"name": "Sticker Updates",
+			"count": 1
+		},
+		{
+			"slug": "stickers",
+			"name": "Stickers",
+			"count": 1
+		},
+		{
+			"slug": "stickers-in-shorts",
+			"name": "Stickers in Shorts",
+			"count": 1
+		},
+		{
+			"slug": "stream-across-formats",
+			"name": "Stream Across Formats",
+			"count": 1
+		},
+		{
+			"slug": "stream-erstellung",
+			"name": "Stream-Erstellung",
+			"count": 1
+		},
+		{
+			"slug": "stream-highlights",
+			"name": "Stream Highlights",
+			"count": 1
+		},
+		{
+			"slug": "stream-key-management",
+			"name": "Stream Key Management",
+			"count": 1
+		},
+		{
+			"slug": "stream-management",
+			"name": "Stream-Management",
+			"count": 1
+		},
+		{
+			"slug": "streamerbot",
+			"name": "Streamerbot",
+			"count": 1
+		},
+		{
+			"slug": "streaming-mikrofon",
+			"name": "Streaming-Mikrofon",
+			"count": 1
+		},
+		{
+			"slug": "streaming-platforms",
+			"name": "Streaming Platforms",
+			"count": 1
+		},
+		{
+			"slug": "streaming-plattformen",
+			"name": "Streaming-Plattformen",
+			"count": 1
+		},
+		{
+			"slug": "streaming-quality",
+			"name": "Streaming Quality",
+			"count": 1
+		},
+		{
+			"slug": "streaming-technik",
+			"name": "Streaming-Technik",
+			"count": 1
+		},
+		{
+			"slug": "streaming-updates",
+			"name": "Streaming-Updates",
+			"count": 1
+		},
+		{
+			"slug": "strenger-modus",
+			"name": "Strenger Modus",
+			"count": 1
+		},
+		{
+			"slug": "strict-mode",
+			"name": "Strict Mode",
+			"count": 1
+		},
+		{
+			"slug": "strikes",
+			"name": "Strikes",
+			"count": 1
+		},
+		{
+			"slug": "strikethrough-text",
+			"name": "Strikethrough Text",
+			"count": 1
+		},
+		{
+			"slug": "subscribe-plus-experiment",
+			"name": "Subscribe Plus Experiment",
+			"count": 1
+		},
+		{
+			"slug": "subscribe-watermark-removal",
+			"name": "Subscribe Watermark Removal",
+			"count": 1
+		},
+		{
+			"slug": "subscriber-interaction",
+			"name": "Subscriber Interaction",
+			"count": 1
+		},
+		{
+			"slug": "subscriber-list",
+			"name": "Subscriber List",
+			"count": 1
+		},
+		{
+			"slug": "subscription-feed-changes",
+			"name": "Subscription Feed Changes",
+			"count": 1
+		},
+		{
+			"slug": "subscription-models",
+			"name": "Subscription Models",
+			"count": 1
+		},
+		{
+			"slug": "subtitle-editing",
+			"name": "Subtitle Editing",
+			"count": 1
+		},
+		{
+			"slug": "subtitling",
+			"name": "Subtitling",
+			"count": 1
+		},
+		{
+			"slug": "suchergebnisse",
+			"name": "Suchergebnisse",
+			"count": 1
+		},
+		{
+			"slug": "suchvolumen",
+			"name": "Suchvolumen",
+			"count": 1
+		},
+		{
+			"slug": "super-chat-und-bits",
+			"name": "Super Chat und Bits",
+			"count": 1
+		},
+		{
+			"slug": "surveys-for-creators",
+			"name": "Surveys for Creators",
+			"count": 1
+		},
+		{
+			"slug": "sustainability",
+			"name": "Sustainability",
+			"count": 1
+		},
+		{
+			"slug": "switzerland-creators",
+			"name": "Switzerland Creators",
+			"count": 1
+		},
+		{
+			"slug": "talent-management",
+			"name": "Talent Management",
+			"count": 1
+		},
+		{
+			"slug": "talente-rechte",
+			"name": "Talente-Rechte",
+			"count": 1
+		},
+		{
+			"slug": "talentmanagement",
+			"name": "Talentmanagement",
+			"count": 1
+		},
+		{
+			"slug": "telefonnummer-bestatigung",
+			"name": "Telefonnummer Bestätigung",
+			"count": 1
+		},
+		{
+			"slug": "test-strategies",
+			"name": "Test Strategies",
+			"count": 1
+		},
+		{
+			"slug": "testmethodik",
+			"name": "Testmethodik",
+			"count": 1
+		},
+		{
+			"slug": "text-styling",
+			"name": "Text Styling",
+			"count": 1
+		},
+		{
+			"slug": "text-to-speech",
+			"name": "Text-to-Speech",
+			"count": 1
+		},
+		{
+			"slug": "text-to-video-prompts",
+			"name": "Text-to-Video Prompts",
+			"count": 1
+		},
+		{
+			"slug": "text-zu-sprache",
+			"name": "Text-zu-Sprache",
+			"count": 1
+		},
+		{
+			"slug": "text-zu-video-funktion",
+			"name": "Text-zu-Video-Funktion",
+			"count": 1
+		},
+		{
+			"slug": "textformatierung",
+			"name": "Textformatierung",
+			"count": 1
+		},
+		{
+			"slug": "third-party-platforms",
+			"name": "Third-Party Platforms",
+			"count": 1
+		},
+		{
+			"slug": "thumbnail-bearbeitung",
+			"name": "Thumbnail-Bearbeitung",
+			"count": 1
+		},
+		{
+			"slug": "thumbnail-best-practices",
+			"name": "Thumbnail Best Practices",
+			"count": 1
+		},
+		{
+			"slug": "thumbnail-experiments",
+			"name": "Thumbnail Experiments",
+			"count": 1
+		},
+		{
+			"slug": "thumbnail-upload-size-increase",
+			"name": "Thumbnail Upload Size Increase",
+			"count": 1
+		},
+		{
+			"slug": "tiktok-abonnement",
+			"name": "TikTok-Abonnement",
+			"count": 1
+		},
+		{
+			"slug": "tiktok-clone-removal",
+			"name": "TikTok Clone Removal",
+			"count": 1
+		},
+		{
+			"slug": "timestamps-in-description",
+			"name": "Timestamps in Description",
+			"count": 1
+		},
+		{
+			"slug": "titel-und-thumbnail-optimierung",
+			"name": "Titel- und Thumbnail-Optimierung",
+			"count": 1
+		},
+		{
+			"slug": "title-and-thumbnail-a-b-testing",
+			"name": "Title and Thumbnail A/B Testing",
+			"count": 1
+		},
+		{
+			"slug": "tom-scott",
+			"name": "Tom Scott",
+			"count": 1
+		},
+		{
+			"slug": "top-earning-content",
+			"name": "Top Earning Content",
+			"count": 1
+		},
+		{
+			"slug": "top-fans-privacy-setting",
+			"name": "Top Fans Privacy Setting",
+			"count": 1
+		},
+		{
+			"slug": "total-reach-metrics",
+			"name": "Total Reach Metrics",
+			"count": 1
+		},
+		{
+			"slug": "transaction-revenue",
+			"name": "Transaction Revenue",
+			"count": 1
+		},
+		{
+			"slug": "transaktions-einnahmen",
+			"name": "Transaktions-Einnahmen",
+			"count": 1
+		},
+		{
+			"slug": "transcoding",
+			"name": "Transcoding",
+			"count": 1
+		},
+		{
+			"slug": "translation-tools",
+			"name": "Translation Tools",
+			"count": 1
+		},
+		{
+			"slug": "transparency-features",
+			"name": "Transparency Features",
+			"count": 1
+		},
+		{
+			"slug": "transparenz",
+			"name": "Transparenz",
+			"count": 1
+		},
+		{
+			"slug": "transparenz-dashboard",
+			"name": "Transparenz-Dashboard",
+			"count": 1
+		},
+		{
+			"slug": "trending-page-removal",
+			"name": "Trending Page Removal",
+			"count": 1
+		},
+		{
+			"slug": "tutorials",
+			"name": "Tutorials",
+			"count": 1
+		},
+		{
+			"slug": "tv-app-kompatibilitat",
+			"name": "TV-App-Kompatibilität",
+			"count": 1
+		},
+		{
+			"slug": "twitch-anzeigen",
+			"name": "Twitch-Anzeigen",
+			"count": 1
+		},
+		{
+			"slug": "twitch-auto-clips",
+			"name": "Twitch Auto Clips",
+			"count": 1
+		},
+		{
+			"slug": "twitch-business-manager",
+			"name": "Twitch Business Manager",
+			"count": 1
+		},
+		{
+			"slug": "twitch-monetarisierung",
+			"name": "Twitch-Monetarisierung",
+			"count": 1
+		},
+		{
+			"slug": "twitch-multistreaming",
+			"name": "Twitch Multistreaming",
+			"count": 1
+		},
+		{
+			"slug": "twitch-pre-roll-ads",
+			"name": "Twitch Pre-roll Ads",
+			"count": 1
+		},
+		{
+			"slug": "twitch-raids",
+			"name": "Twitch Raids",
+			"count": 1
+		},
+		{
+			"slug": "twitch-regeln",
+			"name": "Twitch-Regeln",
+			"count": 1
+		},
+		{
+			"slug": "twitch-turbo-gift-button",
+			"name": "Twitch Turbo Gift Button",
+			"count": 1
+		},
+		{
+			"slug": "twitch-verbesserungen",
+			"name": "Twitch-Verbesserungen",
+			"count": 1
+		},
+		{
+			"slug": "two-way-communication",
+			"name": "Two-Way Communication",
+			"count": 1
+		},
+		{
+			"slug": "ubersetzung",
+			"name": "Übersetzung",
+			"count": 1
+		},
+		{
+			"slug": "uk-creators",
+			"name": "UK Creators",
+			"count": 1
+		},
+		{
+			"slug": "umfrage-sticker",
+			"name": "Umfrage-Sticker",
+			"count": 1
+		},
+		{
+			"slug": "umfragen-erstellen",
+			"name": "Umfragen erstellen",
+			"count": 1
+		},
+		{
+			"slug": "umgebungsdesign",
+			"name": "Umgebungsdesign",
+			"count": 1
+		},
+		{
+			"slug": "umsatzmaximierung",
+			"name": "Umsatzmaximierung",
+			"count": 1
+		},
+		{
+			"slug": "umweltschutz",
+			"name": "Umweltschutz",
+			"count": 1
+		},
+		{
+			"slug": "unscharfe-darstellung",
+			"name": "Unscharfe Darstellung",
+			"count": 1
+		},
+		{
+			"slug": "untertitel",
+			"name": "Untertitel",
+			"count": 1
+		},
+		{
+			"slug": "untertitel-fur-shorts",
+			"name": "Untertitel für Shorts",
+			"count": 1
+		},
+		{
+			"slug": "untertitel-qualitat",
+			"name": "Untertitel-Qualität",
+			"count": 1
+		},
+		{
+			"slug": "upscaling",
+			"name": "Upscaling",
+			"count": 1
+		},
+		{
+			"slug": "urheberrechtsprufung",
+			"name": "Urheberrechtsprüfung",
+			"count": 1
+		},
+		{
+			"slug": "us-rollout",
+			"name": "US Rollout",
+			"count": 1
+		},
+		{
+			"slug": "usb-audio-interfaces",
+			"name": "USB Audio Interfaces",
+			"count": 1
+		},
+		{
+			"slug": "usb-microphones",
+			"name": "USB Microphones",
+			"count": 1
+		},
+		{
+			"slug": "user-generated-content",
+			"name": "User-Generated Content",
+			"count": 1
+		},
+		{
+			"slug": "ux-design",
+			"name": "UX-Design",
+			"count": 1
+		},
+		{
+			"slug": "veo-3-ai",
+			"name": "Veo 3 AI",
+			"count": 1
+		},
+		{
+			"slug": "verbindungen",
+			"name": "Verbindungen",
+			"count": 1
+		},
+		{
+			"slug": "verifizierung",
+			"name": "Verifizierung",
+			"count": 1
+		},
+		{
+			"slug": "vertical-uploads",
+			"name": "Vertical Uploads",
+			"count": 1
+		},
+		{
+			"slug": "vertikale-live-chat-ubersetzungen",
+			"name": "Vertikale Live-Chat-Übersetzungen",
+			"count": 1
+		},
+		{
+			"slug": "vertikale-videos",
+			"name": "Vertikale Videos",
+			"count": 1
+		},
+		{
+			"slug": "vertikales-streaming",
+			"name": "Vertikales Streaming",
+			"count": 1
+		},
+		{
+			"slug": "vertragsaktualisierung",
+			"name": "Vertragsaktualisierung",
+			"count": 1
+		},
+		{
+			"slug": "video-accessibility",
+			"name": "Video Accessibility",
+			"count": 1
+		},
+		{
+			"slug": "video-auflosung",
+			"name": "Video-Auflösung",
+			"count": 1
+		},
+		{
+			"slug": "video-bearbeitungstechniken",
+			"name": "Video-Bearbeitungstechniken",
+			"count": 1
+		},
+		{
+			"slug": "video-berechtigungen",
+			"name": "Video-Berechtigungen",
+			"count": 1
+		},
+		{
+			"slug": "video-creation",
+			"name": "Video Creation",
+			"count": 1
+		},
+		{
+			"slug": "video-description-formatting",
+			"name": "Video Description Formatting",
+			"count": 1
+		},
+		{
+			"slug": "video-description-tips",
+			"name": "Video Description Tips",
+			"count": 1
+		},
+		{
+			"slug": "video-discovery",
+			"name": "Video Discovery",
+			"count": 1
+		},
+		{
+			"slug": "video-editing-restrictions",
+			"name": "Video Editing Restrictions",
+			"count": 1
+		},
+		{
+			"slug": "video-editing-tools",
+			"name": "Video Editing Tools",
+			"count": 1
+		},
+		{
+			"slug": "video-execution",
+			"name": "Video Execution",
+			"count": 1
+		},
+		{
+			"slug": "video-guidelines",
+			"name": "Video Guidelines",
+			"count": 1
+		},
+		{
+			"slug": "video-inspiration",
+			"name": "Video-Inspiration",
+			"count": 1
+		},
+		{
+			"slug": "video-kategorisierung",
+			"name": "Video-Kategorisierung",
+			"count": 1
+		},
+		{
+			"slug": "video-ketten",
+			"name": "Video-Ketten",
+			"count": 1
+		},
+		{
+			"slug": "video-klassifizierung",
+			"name": "Video-Klassifizierung",
+			"count": 1
+		},
+		{
+			"slug": "video-monetarisierung",
+			"name": "Video-Monetarisierung",
+			"count": 1
+		},
+		{
+			"slug": "video-performance",
+			"name": "Video Performance",
+			"count": 1
+		},
+		{
+			"slug": "video-performance-metrics",
+			"name": "Video Performance Metrics",
+			"count": 1
+		},
+		{
+			"slug": "video-permissions",
+			"name": "Video Permissions",
+			"count": 1
+		},
+		{
+			"slug": "video-recommendations",
+			"name": "Video Recommendations",
+			"count": 1
+		},
+		{
+			"slug": "video-removal",
+			"name": "Video Removal",
+			"count": 1
+		},
+		{
+			"slug": "video-responses",
+			"name": "Video Responses",
+			"count": 1
+		},
+		{
+			"slug": "video-sammlung",
+			"name": "Video-Sammlung",
+			"count": 1
+		},
+		{
+			"slug": "video-sharing",
+			"name": "Video Sharing",
+			"count": 1
+		},
+		{
+			"slug": "video-templates",
+			"name": "Video Templates",
+			"count": 1
+		},
+		{
+			"slug": "video-titel",
+			"name": "Video Titel",
+			"count": 1
+		},
+		{
+			"slug": "video-watermarking",
+			"name": "Video Watermarking",
+			"count": 1
+		},
+		{
+			"slug": "videoanalyse",
+			"name": "Videoanalyse",
+			"count": 1
+		},
+		{
+			"slug": "videoaufnahme",
+			"name": "Videoaufnahme",
+			"count": 1
+		},
+		{
+			"slug": "videoaufnahme-einstellungen",
+			"name": "Videoaufnahme-Einstellungen",
+			"count": 1
+		},
+		{
+			"slug": "view-count-inflation",
+			"name": "View Count Inflation",
+			"count": 1
+		},
+		{
+			"slug": "viewer-behavior",
+			"name": "Viewer Behavior",
+			"count": 1
+		},
+		{
+			"slug": "viewer-engagement-strategies",
+			"name": "Viewer Engagement Strategies",
+			"count": 1
+		},
+		{
+			"slug": "viewer-interaktion",
+			"name": "Viewer-Interaktion",
+			"count": 1
+		},
+		{
+			"slug": "viral-content",
+			"name": "Viral Content",
+			"count": 1
+		},
+		{
+			"slug": "visibility-settings",
+			"name": "Visibility Settings",
+			"count": 1
+		},
+		{
+			"slug": "visual-attention",
+			"name": "Visual Attention",
+			"count": 1
+		},
+		{
+			"slug": "visuelle-anleitungen",
+			"name": "Visuelle Anleitungen",
+			"count": 1
+		},
+		{
+			"slug": "visuelle-effekte",
+			"name": "Visuelle Effekte",
+			"count": 1
+		},
+		{
+			"slug": "visuelle-prasenz",
+			"name": "Visuelle Präsenz",
+			"count": 1
+		},
+		{
+			"slug": "vixen-music",
+			"name": "Vixen Music",
+			"count": 1
+		},
+		{
+			"slug": "vods-bearbeiten",
+			"name": "VODs bearbeiten",
+			"count": 1
+		},
+		{
+			"slug": "vods-video-on-demand",
+			"name": "VODs (Video on Demand)",
+			"count": 1
+		},
+		{
+			"slug": "voice-boost",
+			"name": "Voice Boost",
+			"count": 1
+		},
+		{
+			"slug": "voice-replies-android",
+			"name": "Voice Replies Android",
+			"count": 1
+		},
+		{
+			"slug": "voiceover-tools",
+			"name": "Voiceover Tools",
+			"count": 1
+		},
+		{
+			"slug": "vorabprufung",
+			"name": "Vorabprüfung",
+			"count": 1
+		},
+		{
+			"slug": "voreinstellungen-furs-streaming",
+			"name": "Voreinstellungen fürs Streaming",
+			"count": 1
+		},
+		{
+			"slug": "vorlagen",
+			"name": "Vorlagen",
+			"count": 1
+		},
+		{
+			"slug": "vpn-ad-viewers",
+			"name": "VPN Ad Viewers",
+			"count": 1
+		},
+		{
+			"slug": "vtuber-agencies",
+			"name": "VTuber Agencies",
+			"count": 1
+		},
+		{
+			"slug": "vtuber-agenturen",
+			"name": "VTuber Agenturen",
+			"count": 1
+		},
+		{
+			"slug": "wahrungsumrechnungsgebuhren",
+			"name": "Währungsumrechnungsgebühren",
+			"count": 1
+		},
+		{
+			"slug": "warner-music-group",
+			"name": "Warner Music Group",
+			"count": 1
+		},
+		{
+			"slug": "warteschlange-fur-uberprufungen",
+			"name": "Warteschlange für Überprüfungen",
+			"count": 1
+		},
+		{
+			"slug": "watch-history",
+			"name": "Watch History",
+			"count": 1
+		},
+		{
+			"slug": "watch-time-optimierung",
+			"name": "Watch Time Optimierung",
+			"count": 1
+		},
+		{
+			"slug": "watch-time-optimization",
+			"name": "Watch Time Optimization",
+			"count": 1
+		},
+		{
+			"slug": "watchtime-rate",
+			"name": "Watchtime Rate",
+			"count": 1
+		},
+		{
+			"slug": "watermarks",
+			"name": "Watermarks",
+			"count": 1
+		},
+		{
+			"slug": "web-anbindung",
+			"name": "Web-Anbindung",
+			"count": 1
+		},
+		{
+			"slug": "web-integration",
+			"name": "Web Integration",
+			"count": 1
+		},
+		{
+			"slug": "werbeanzeigen",
+			"name": "Werbeanzeigen",
+			"count": 1
+		},
+		{
+			"slug": "werbeanzeigen-strategien",
+			"name": "Werbeanzeigen-Strategien",
+			"count": 1
+		},
+		{
+			"slug": "werbeeinblendungen",
+			"name": "Werbeeinblendungen",
+			"count": 1
+		},
+		{
+			"slug": "werbefehler",
+			"name": "Werbefehler",
+			"count": 1
+		},
+		{
+			"slug": "werbeformate",
+			"name": "Werbeformate",
+			"count": 1
+		},
+		{
+			"slug": "werbefreundliche-themen",
+			"name": "Werbefreundliche Themen",
+			"count": 1
+		},
+		{
+			"slug": "werbeplatze",
+			"name": "Werbeplätze",
+			"count": 1
+		},
+		{
+			"slug": "werbeplatzierung",
+			"name": "Werbeplatzierung",
+			"count": 1
+		},
+		{
+			"slug": "werbung-und-organisches-wachstum",
+			"name": "Werbung und organisches Wachstum",
+			"count": 1
+		},
+		{
+			"slug": "wiedergabegeschwindigkeit",
+			"name": "Wiedergabegeschwindigkeit",
+			"count": 1
+		},
+		{
+			"slug": "wiedergabestunden",
+			"name": "Wiedergabestunden",
+			"count": 1
+		},
+		{
+			"slug": "wiedergabezeit",
+			"name": "Wiedergabezeit",
+			"count": 1
+		},
+		{
+			"slug": "wiederverwendbare-assets",
+			"name": "Wiederverwendbare Assets",
+			"count": 1
+		},
+		{
+			"slug": "wiederverwendeter-inhalt",
+			"name": "Wiederverwendeter Inhalt",
+			"count": 1
+		},
+		{
+			"slug": "workflow-optimierung",
+			"name": "Workflow-Optimierung",
+			"count": 1
+		},
+		{
+			"slug": "workflow-optimization",
+			"name": "Workflow Optimization",
+			"count": 1
+		},
+		{
+			"slug": "xlr-interface",
+			"name": "XLR-Interface",
+			"count": 1
+		},
+		{
+			"slug": "xlr-vs-usb",
+			"name": "XLR vs. USB",
+			"count": 1
+		},
+		{
+			"slug": "youtube",
+			"name": "YouTube",
+			"count": 1
+		},
+		{
+			"slug": "youtube-2025-ruckblick",
+			"name": "YouTube 2025 Rückblick",
+			"count": 1
+		},
+		{
+			"slug": "youtube-a-b-testing",
+			"name": "YouTube A/B Testing",
+			"count": 1
+		},
+		{
+			"slug": "youtube-account-management",
+			"name": "YouTube Account Management",
+			"count": 1
+		},
+		{
+			"slug": "youtube-ad-blockers",
+			"name": "YouTube Ad Blockers",
+			"count": 1
+		},
+		{
+			"slug": "youtube-analytics-anderungen",
+			"name": "YouTube Analytics-Änderungen",
+			"count": 1
+		},
+		{
+			"slug": "youtube-analytics-update",
+			"name": "YouTube Analytics-Update",
+			"count": 1
+		},
+		{
+			"slug": "youtube-app-updates",
+			"name": "YouTube App-Updates",
+			"count": 1
+		},
+		{
+			"slug": "youtube-audio-mediathek",
+			"name": "YouTube Audio-Mediathek",
+			"count": 1
+		},
+		{
+			"slug": "youtube-autodubbing",
+			"name": "YouTube Autodubbing",
+			"count": 1
+		},
+		{
+			"slug": "youtube-benachrichtigungen",
+			"name": "YouTube-Benachrichtigungen",
+			"count": 1
+		},
+		{
+			"slug": "youtube-channel-customization",
+			"name": "YouTube Channel Customization",
+			"count": 1
+		},
+		{
+			"slug": "youtube-chapter-requirements",
+			"name": "YouTube Chapter Requirements",
+			"count": 1
+		},
+		{
+			"slug": "youtube-chapters",
+			"name": "YouTube Chapters",
+			"count": 1
+		},
+		{
+			"slug": "youtube-community-features",
+			"name": "YouTube Community Features",
+			"count": 1
+		},
+		{
+			"slug": "youtube-creator-app",
+			"name": "YouTube Creator App",
+			"count": 1
+		},
+		{
+			"slug": "youtube-datenanalyse",
+			"name": "YouTube-Datenanalyse",
+			"count": 1
+		},
+		{
+			"slug": "youtube-description-formatting",
+			"name": "YouTube Description Formatting",
+			"count": 1
+		},
+		{
+			"slug": "youtube-editor",
+			"name": "YouTube Editor",
+			"count": 1
+		},
+		{
+			"slug": "youtube-end-cards",
+			"name": "YouTube End Cards",
+			"count": 1
+		},
+		{
+			"slug": "youtube-endkarten",
+			"name": "YouTube-Endkarten",
+			"count": 1
+		},
+		{
+			"slug": "youtube-engagement",
+			"name": "YouTube-Engagement",
+			"count": 1
+		},
+		{
+			"slug": "youtube-faq",
+			"name": "YouTube FAQ",
+			"count": 1
+		},
+		{
+			"slug": "youtube-feature-requests",
+			"name": "YouTube Feature Requests",
+			"count": 1
+		},
+		{
+			"slug": "youtube-integration",
+			"name": "YouTube Integration",
+			"count": 1
+		},
+		{
+			"slug": "youtube-juwelen",
+			"name": "YouTube Juwelen",
+			"count": 1
+		},
+		{
+			"slug": "youtube-kanal",
+			"name": "YouTube-Kanal",
+			"count": 1
+		},
+		{
+			"slug": "youtube-kanalmanagement",
+			"name": "YouTube Kanalmanagement",
+			"count": 1
+		},
+		{
+			"slug": "youtube-kaufe",
+			"name": "YouTube-Käufe",
+			"count": 1
+		},
+		{
+			"slug": "youtube-ki",
+			"name": "YouTube-KI",
+			"count": 1
+		},
+		{
+			"slug": "youtube-kollaboration",
+			"name": "YouTube-Kollaboration",
+			"count": 1
+		},
+		{
+			"slug": "youtube-kurse",
+			"name": "YouTube-Kurse",
+			"count": 1
+		},
+		{
+			"slug": "youtube-live-experimente",
+			"name": "YouTube Live-Experimente",
+			"count": 1
+		},
+		{
+			"slug": "youtube-live-experiments",
+			"name": "YouTube Live Experiments",
+			"count": 1
+		},
+		{
+			"slug": "youtube-marketing",
+			"name": "YouTube-Marketing",
+			"count": 1
+		},
+		{
+			"slug": "youtube-miniaturansichten",
+			"name": "YouTube-Miniaturansichten",
+			"count": 1
+		},
+		{
+			"slug": "youtube-mobile-update",
+			"name": "YouTube Mobile Update",
+			"count": 1
+		},
+		{
+			"slug": "youtube-notifications",
+			"name": "YouTube Notifications",
+			"count": 1
+		},
+		{
+			"slug": "youtube-partner",
+			"name": "YouTube-Partner",
+			"count": 1
+		},
+		{
+			"slug": "youtube-partner-program-suspensions",
+			"name": "YouTube Partner Program Suspensions",
+			"count": 1
+		},
+		{
+			"slug": "youtube-policies",
+			"name": "YouTube Policies",
+			"count": 1
+		},
+		{
+			"slug": "youtube-premium-bug",
+			"name": "YouTube Premium Bug",
+			"count": 1
+		},
+		{
+			"slug": "youtube-premium-features",
+			"name": "YouTube Premium Features",
+			"count": 1
+		},
+		{
+			"slug": "youtube-premium-funktionen",
+			"name": "YouTube-Premium-Funktionen",
+			"count": 1
+		},
+		{
+			"slug": "youtube-premium-plans",
+			"name": "YouTube Premium Plans",
+			"count": 1
+		},
+		{
+			"slug": "youtube-promote",
+			"name": "YouTube Promote",
+			"count": 1
+		},
+		{
+			"slug": "youtube-purchases",
+			"name": "YouTube Purchases",
+			"count": 1
+		},
+		{
+			"slug": "youtube-search-update",
+			"name": "YouTube Search Update",
+			"count": 1
+		},
+		{
+			"slug": "youtube-shopping-updates",
+			"name": "YouTube Shopping Updates",
+			"count": 1
+		},
+		{
+			"slug": "youtube-shorts-kamera",
+			"name": "YouTube Shorts Kamera",
+			"count": 1
+		},
+		{
+			"slug": "youtube-shorts-ki",
+			"name": "YouTube Shorts KI",
+			"count": 1
+		},
+		{
+			"slug": "youtube-shorts-remix-views",
+			"name": "YouTube Shorts Remix Views",
+			"count": 1
+		},
+		{
+			"slug": "youtube-start",
+			"name": "YouTube-Start",
+			"count": 1
+		},
+		{
+			"slug": "youtube-startseite",
+			"name": "YouTube-Startseite",
+			"count": 1
+		},
+		{
+			"slug": "youtube-stations",
+			"name": "YouTube Stations",
+			"count": 1
+		},
+		{
+			"slug": "youtube-streaming-leitfaden",
+			"name": "YouTube-Streaming-Leitfaden",
+			"count": 1
+		},
+		{
+			"slug": "youtube-strikes",
+			"name": "YouTube Strikes",
+			"count": 1
+		},
+		{
+			"slug": "youtube-studio-features",
+			"name": "YouTube Studio Features",
+			"count": 1
+		},
+		{
+			"slug": "youtube-studio-improvements",
+			"name": "YouTube Studio Improvements",
+			"count": 1
+		},
+		{
+			"slug": "youtube-studio-verbesserungen",
+			"name": "YouTube Studio Verbesserungen",
+			"count": 1
+		},
+		{
+			"slug": "youtube-test-and-compare",
+			"name": "YouTube Test & Compare",
+			"count": 1
+		},
+		{
+			"slug": "youtube-thumbnail-previewer",
+			"name": "YouTube Thumbnail Previewer",
+			"count": 1
+		},
+		{
+			"slug": "youtube-transaktionen",
+			"name": "YouTube-Transaktionen",
+			"count": 1
+		},
+		{
+			"slug": "youtube-trends",
+			"name": "YouTube Trends",
+			"count": 1
+		},
+		{
+			"slug": "youtube-ui-update",
+			"name": "YouTube UI Update",
+			"count": 1
+		},
+		{
+			"slug": "youtube-untertitel",
+			"name": "YouTube-Untertitel",
+			"count": 1
+		},
+		{
+			"slug": "youtube-vs-twitch",
+			"name": "YouTube vs. Twitch",
+			"count": 1
+		},
+		{
+			"slug": "youtube-werbung",
+			"name": "YouTube-Werbung",
+			"count": 1
+		},
+		{
+			"slug": "ypp",
+			"name": "YPP",
+			"count": 1
+		},
+		{
+			"slug": "ypp-features",
+			"name": "YPP Features",
+			"count": 1
+		},
+		{
+			"slug": "zahlungsansicht",
+			"name": "Zahlungsansicht",
+			"count": 1
+		},
+		{
+			"slug": "zahlungsinfrastruktur",
+			"name": "Zahlungsinfrastruktur",
+			"count": 1
+		},
+		{
+			"slug": "zeitstempel",
+			"name": "Zeitstempel",
+			"count": 1
+		},
+		{
+			"slug": "zielgerichtete-werbung",
+			"name": "Zielgerichtete Werbung",
+			"count": 1
+		},
+		{
+			"slug": "zugriffsrechte",
+			"name": "Zugriffsrechte",
+			"count": 1
+		},
+		{
+			"slug": "zugriffsrechte-verwalten",
+			"name": "Zugriffsrechte verwalten",
+			"count": 1
+		},
+		{
+			"slug": "zukunftsmoglichkeiten",
+			"name": "Zukunftsmöglichkeiten",
+			"count": 1
+		},
+		{
+			"slug": "zusammenklapp-funktion",
+			"name": "Zusammenklapp-Funktion",
+			"count": 1
+		},
+		{
+			"slug": "zuschauer-erfahrung",
+			"name": "Zuschauer-Erfahrung",
+			"count": 1
+		},
+		{
+			"slug": "zuschauerstunden",
+			"name": "Zuschauerstunden",
+			"count": 1
+		},
+		{
+			"slug": "zuschauerzufriedenheit",
+			"name": "Zuschauerzufriedenheit",
+			"count": 1
+		},
+		{
+			"slug": "zwei-faktor-authentifizierung",
+			"name": "Zwei-Faktor-Authentifizierung",
+			"count": 1
+		}
+	]
+}

@@ -9,6 +9,7 @@ modified: "2024-08-24T12:30:32"
 locale: "de"
 translationKey: "video:XDdgidkQSUc"
 category: "news-video"
+tags: ["YouTube-Mitgliedschaften", "Bonusprogramm", "YouTube Studio", "Shorts-Bearbeitung", "Thumbnail-Updates", "KI-Dubbing", "Mehrsprachige Inhalte", "Creator-Einnahmen", "Plattform-Neuerungen", "Video-Optimierung"]
 image: "https://i.ytimg.com/vi/XDdgidkQSUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=XDdgidkQSUc"

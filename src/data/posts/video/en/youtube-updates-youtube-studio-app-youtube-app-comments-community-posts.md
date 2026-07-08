@@ -9,6 +9,7 @@ modified: "2024-06-01T12:30:19"
 locale: "en"
 translationKey: "video:EBJz7RhXxOA"
 category: "news-video"
+tags: ["YouTube Studio Updates", "Mobile Live Streaming", "Community Posts Enhancements", "Payment View", "Creator Rewards", "YouTube Partner Program"]
 image: "https://i.ytimg.com/vi/EBJz7RhXxOA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EBJz7RhXxOA"

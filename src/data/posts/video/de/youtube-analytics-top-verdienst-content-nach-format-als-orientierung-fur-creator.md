@@ -9,6 +9,7 @@ modified: "2024-03-02T13:30:30"
 locale: "de"
 translationKey: "video:k67uRZ1mEw4"
 category: "news-video"
+tags: ["YouTube Analytics", "Einnahmenanalyse", "Inhaltsleistung", "Format-Vergleich", "Video-Monetarisierung", "Live-Streaming-Monetarisierung", "Shorts-Monetarisierung", "Creator-Strategien", "Dateninterpretation"]
 image: "https://i.ytimg.com/vi/k67uRZ1mEw4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=k67uRZ1mEw4"

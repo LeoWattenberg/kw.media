@@ -9,6 +9,7 @@ modified: "2024-07-01T09:53:45"
 locale: "en"
 translationKey: "video:8nnJUcL5qtU"
 category: "short-tutorial"
+tags: ["YouTube Studio Dashboard", "Channel Management", "Content Performance", "Video Statistics", "Creator-Tools", "Platform Navigation", "Audience Engagement", "Content Strategy", "YouTube Updates", "Short Tutorial"]
 image: "https://i.ytimg.com/vi/8nnJUcL5qtU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8nnJUcL5qtU"

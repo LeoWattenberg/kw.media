@@ -8,6 +8,7 @@ date: "2021-09-08T19:00:59"
 modified: "2023-03-17T12:57:28"
 locale: "de"
 category: "blog"
+tags: ["Content-Strategie", "YouTube-Leitfaden", "Videoerstellung", "Kreativitätstechniken", "Ideenfindung", "Zuschauerbindung", "YouTube Analytics", "Suchmaschinenoptimierung", "Thumbnails", "Video-Marketing"]
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-10-21-50-36.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/sei-ein-youtuber-kein-newtuber-mach-guten-content/"

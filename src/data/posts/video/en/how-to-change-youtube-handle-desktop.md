@@ -9,6 +9,7 @@ modified: "2025-12-05T11:33:19"
 locale: "en"
 translationKey: "video:hqePaFc8fCA"
 category: "short-tutorial"
+tags: ["YouTube Platform Updates", "Live Chat Interaction", "Channel Customization", "Desktop Features", "Short Tutorial"]
 image: "https://i.ytimg.com/vi/hqePaFc8fCA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hqePaFc8fCA"

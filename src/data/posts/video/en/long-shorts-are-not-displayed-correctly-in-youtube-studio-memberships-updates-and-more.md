@@ -9,6 +9,7 @@ modified: "2024-10-19T12:15:02"
 locale: "en"
 translationKey: "video:J7MHBNgxp5w"
 category: "news-video"
+tags: ["YouTube Shorts", "Platform Updates", "Long Shorts", "YouTube Studio", "Feature Rollout", "Legal Issues", "Copyrighted Content", "Memberships", "Anniversary Badges"]
 image: "https://i.ytimg.com/vi/J7MHBNgxp5w/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=J7MHBNgxp5w"

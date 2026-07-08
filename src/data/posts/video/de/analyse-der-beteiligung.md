@@ -9,6 +9,7 @@ modified: "2024-07-05T12:05:39"
 locale: "de"
 translationKey: "video:nhfBKX1ZYWc"
 category: "short-tutorial"
+tags: ["YouTube Studio", "Videoanalyse", "Zuschauerbindung", "Engagement-Daten", "Sehzeit", "Interaktionen", "Kanalmanagement", "Zuschaueranalyse", "YouTube-Tipps"]
 image: "https://i.ytimg.com/vi/nhfBKX1ZYWc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nhfBKX1ZYWc"

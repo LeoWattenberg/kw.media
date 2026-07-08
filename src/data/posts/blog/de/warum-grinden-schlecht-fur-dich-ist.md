@@ -9,6 +9,7 @@ modified: "2022-07-16T12:47:06"
 locale: "de"
 translationKey: "post:1430"
 category: "blog"
+tags: ["Inhaltsstrategie", "YouTube-Wachstum", "Creator-Autonomie", "Ideenfindung", "Content-Modellierung", "Erkundungsphase", "Entwicklungsphase", "Etablierte Kanäle", "Videoerstellung", "Kreativitätstechniken"]
 image: "/assets/wp-content/uploads/2021/06/WHY-GRINDING-IS-BAD-FOR-YOU.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/"

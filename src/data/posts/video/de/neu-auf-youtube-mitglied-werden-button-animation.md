@@ -9,6 +9,7 @@ modified: "2024-08-17T12:30:41"
 locale: "de"
 translationKey: "video:oYttE8RpUqQ"
 category: "news-video"
+tags: ["YouTube-Funktionen", "Kanalmitgliedschaften", "Benachrichtigungen", "Zuschauer-Interaktion", "Call to Action", "Spracherkennung", "Visuelle Effekte"]
 image: "https://i.ytimg.com/vi/oYttE8RpUqQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=oYttE8RpUqQ"

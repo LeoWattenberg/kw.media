@@ -9,6 +9,7 @@ modified: "2025-05-17T12:15:06"
 locale: "en"
 translationKey: "video:bXbIz9BKeUc"
 category: "news-video"
+tags: ["YouTube Updates", "Playlist Voting", "A/B Testing (Test and Compare)", "Content Customization", "Audience Engagement", "Community Features", "YouTube Mobile App", "YouTube Channel Updates", "YouTube Platform Updates"]
 image: "https://i.ytimg.com/vi/bXbIz9BKeUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=bXbIz9BKeUc"

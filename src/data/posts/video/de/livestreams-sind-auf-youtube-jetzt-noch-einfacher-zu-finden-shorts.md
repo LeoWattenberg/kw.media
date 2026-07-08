@@ -9,6 +9,7 @@ modified: "2022-03-21T23:00:29"
 locale: "de"
 translationKey: "video:nmWIRLz-2LA"
 category: "short-tutorial"
+tags: ["Live-Streaming", "YouTube Mobile Update", "Livestream-Indikator", "Zuschauer-Interaktion", "Entdeckungsseiten", "YouTube-Funktionen", "Mobile Funktionen", "Plattform-Updates"]
 image: "https://i.ytimg.com/vi/nmWIRLz-2LA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nmWIRLz-2LA"

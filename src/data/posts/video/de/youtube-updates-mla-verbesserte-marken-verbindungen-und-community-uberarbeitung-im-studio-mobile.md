@@ -9,6 +9,7 @@ modified: "2024-11-09T13:15:00"
 locale: "de"
 translationKey: "video:6AeC2WO3t_A"
 category: "news-video"
+tags: ["Mehrsprachiges Audio", "Autodubbing", "YouTube Studio Mobile", "Community-Spotlight", "Creator-Monetarisierung", "Bezahlte Promotion", "Produktplatzierung", "Organische Metriken", "Sprachunterstützung", "Plattform-Updates"]
 image: "https://i.ytimg.com/vi/6AeC2WO3t_A/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=6AeC2WO3t_A"

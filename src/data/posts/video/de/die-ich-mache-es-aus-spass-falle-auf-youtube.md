@@ -9,6 +9,7 @@ modified: "2026-06-17T05:00:13"
 locale: "de"
 translationKey: "video:JIJbmewxJVk"
 category: "short-tutorial"
+tags: ["YouTube-Strategie", "Monetarisierung", "Community-Richtlinien", "Urheberrecht", "Kanalmanagement", "Kreativität und Geschäft", "Zukunftsmöglichkeiten", "Virale Inhalte"]
 image: "https://i.ytimg.com/vi/JIJbmewxJVk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/JIJbmewxJVk"

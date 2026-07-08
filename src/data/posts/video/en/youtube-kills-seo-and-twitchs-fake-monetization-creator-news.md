@@ -9,6 +9,7 @@ modified: "2026-05-23T12:15:01"
 locale: "en"
 translationKey: "video:DSZHozupVlk"
 category: "news-video"
+tags: ["YouTube SEO", "AI-Driven Content", "Gemini Omni", "Deepfakes", "Twitch Monetization", "Small Streamer Challenges", "Content Repurposing", "Platform Priorities", "Creator Rights", "Ad-Free Subscriptions"]
 image: "https://i.ytimg.com/vi/DSZHozupVlk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=DSZHozupVlk"

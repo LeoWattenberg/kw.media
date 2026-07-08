@@ -9,6 +9,7 @@ modified: "2023-01-12T10:43:32"
 locale: "de"
 translationKey: "video:O6H6KRNoFsQ"
 category: "short-tutorial"
+tags: ["Wasserzeichen für Videos", "Videobearbeitung", "Ranking-Faktoren", "Investitionen in Ausrüstung", "YouTube-Strategie", "Shorts", "Video-Marketing", "Plattform-Optimierung", "Creator-Ressourcen", "Tipps und Tricks"]
 image: "https://i.ytimg.com/vi/O6H6KRNoFsQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/O6H6KRNoFsQ"

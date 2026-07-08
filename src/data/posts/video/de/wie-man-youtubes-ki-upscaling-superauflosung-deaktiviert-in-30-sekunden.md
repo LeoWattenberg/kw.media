@@ -9,6 +9,7 @@ modified: "2025-10-31T10:13:19"
 locale: "de"
 translationKey: "video:iVVTODHIeP4"
 category: "short-tutorial"
+tags: ["YouTube Studio", "KI-Funktionen", "Video-Qualität", "Einstellungen", "Kurztutorial"]
 image: "https://i.ytimg.com/vi/iVVTODHIeP4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iVVTODHIeP4"

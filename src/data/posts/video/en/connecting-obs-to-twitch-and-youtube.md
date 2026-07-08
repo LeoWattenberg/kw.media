@@ -9,6 +9,7 @@ modified: "2023-03-26T15:30:20"
 locale: "en"
 translationKey: "video:s5_yhiar6UU"
 category: "short-tutorial"
+tags: ["OBS", "Twitch-Integration", "YouTube Live Streaming", "Stream Settings", "Account Connection", "Streaming Software", "Live Streaming Features", "Platform Enhancements"]
 image: "https://i.ytimg.com/vi/s5_yhiar6UU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/s5_yhiar6UU"

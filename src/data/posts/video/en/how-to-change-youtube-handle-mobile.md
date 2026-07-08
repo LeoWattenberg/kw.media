@@ -9,6 +9,7 @@ modified: "2025-12-05T11:34:07"
 locale: "en"
 translationKey: "video:67GI43uGC4s"
 category: "short-tutorial"
+tags: ["YouTube Mobile App", "Live Chat Features", "Display Name Change", "Handle Customization", "Chat Interaction", "Mobile Optimization", "Platform Updates", "User Experience", "Short Tutorial"]
 image: "https://i.ytimg.com/vi/67GI43uGC4s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/67GI43uGC4s"

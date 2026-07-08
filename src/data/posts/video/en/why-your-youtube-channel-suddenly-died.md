@@ -9,6 +9,7 @@ modified: "2026-06-19T05:00:10"
 locale: "en"
 translationKey: "video:2JIHi4MVn9w"
 category: "short-tutorial"
+tags: ["YouTube Channel Growth", "Content Strategy", "Audience Reach", "Algorithm Optimization", "Content Repurposing", "Creator Monetization", "Monetization Strategies", "Video Optimization", "Viewer Retention"]
 image: "https://i.ytimg.com/vi/2JIHi4MVn9w/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/2JIHi4MVn9w"

@@ -9,6 +9,7 @@ modified: "2025-05-31T12:15:06"
 locale: "de"
 translationKey: "video:RHJcqSPlG_s"
 category: "news-video"
+tags: ["YouTube Updates", "AV1-Codec", "Live-Streaming", "Neben-an-Neben-Anzeigen", "Sprachantworten", "Android-Funktionen", "Werbeformate", "Google Lens", "Shorts-Funktionen"]
 image: "https://i.ytimg.com/vi/RHJcqSPlG_s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=RHJcqSPlG_s"

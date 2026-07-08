@@ -9,6 +9,7 @@ modified: "2024-07-16T14:30:44"
 locale: "de"
 translationKey: "video:b5xKbnpC8P4"
 category: "short-tutorial"
+tags: ["Hashtags auf YouTube", "Video-Kategorisierung", "Zielgruppenansprache", "Suchoptimierung", "Inhaltsstrategie", "YouTube-Tipps", "Kurzvideo-Strategien", "SEO für YouTube", "Publikumskreis erweitern"]
 image: "https://i.ytimg.com/vi/b5xKbnpC8P4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/b5xKbnpC8P4"

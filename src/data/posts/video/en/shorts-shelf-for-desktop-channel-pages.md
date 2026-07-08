@@ -9,6 +9,7 @@ modified: "2022-03-01T05:00:16"
 locale: "en"
 translationKey: "video:nTHIqtc2GyY"
 category: "short-tutorial"
+tags: ["YouTube Channel Updates", "YouTube Studio Navigation", "Desktop Features", "Shorts Shelf", "Channel Customization", "Platform Enhancements"]
 image: "https://i.ytimg.com/vi/nTHIqtc2GyY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nTHIqtc2GyY"

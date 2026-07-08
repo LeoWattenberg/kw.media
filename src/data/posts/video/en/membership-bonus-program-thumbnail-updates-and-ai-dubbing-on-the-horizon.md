@@ -9,6 +9,7 @@ modified: "2024-08-24T12:30:32"
 locale: "en"
 translationKey: "video:XDdgidkQSUc"
 category: "news-video"
+tags: ["YouTube Platform Updates", "Channel Memberships", "Bonus Program", "Shorts Editing", "Thumbnail-Updates", "AI Dubbing", "Multilingual Content", "YouTube Studio Navigation", "Content Creator Tools", "Video Promotion"]
 image: "https://i.ytimg.com/vi/XDdgidkQSUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=XDdgidkQSUc"

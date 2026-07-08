@@ -9,6 +9,7 @@ modified: "2025-08-02T12:15:03"
 locale: "de"
 translationKey: "video:JhqpnMVoupA"
 category: "news-video"
+tags: ["YouTube Updates", "Werbefehler", "Einnahmenverlust", "Kollaborationsfunktion", "YouTube Studio App", "Fan Communities", "Schimpfwörter-Richtlinien", "Monetarisierung auf YouTube"]
 image: "https://i.ytimg.com/vi/JhqpnMVoupA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JhqpnMVoupA"

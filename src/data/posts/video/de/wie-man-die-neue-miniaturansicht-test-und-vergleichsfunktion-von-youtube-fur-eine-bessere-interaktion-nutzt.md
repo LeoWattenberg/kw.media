@@ -9,6 +9,7 @@ modified: "2024-06-11T18:08:39"
 locale: "de"
 translationKey: "video:R7uZYO3UbB0"
 category: "video-tutorial"
+tags: ["A/B-Testen für Miniaturansichten", "YouTube Studio", "Miniaturansichten erstellen", "Engagement-Steigerung", "Zuschaueranalyse", "Video-Optimierung", "YouTube-Funktionen", "Clickbait-Prävention", "Watchtime Rate"]
 image: "https://i.ytimg.com/vi/R7uZYO3UbB0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=R7uZYO3UbB0"

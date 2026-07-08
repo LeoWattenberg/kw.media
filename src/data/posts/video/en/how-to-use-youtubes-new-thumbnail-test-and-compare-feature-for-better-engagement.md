@@ -9,6 +9,7 @@ modified: "2024-06-11T18:08:39"
 locale: "en"
 translationKey: "video:R7uZYO3UbB0"
 category: "video-tutorial"
+tags: ["YouTube Features", "A/B Testing", "Thumbnail Optimization", "Viewer Engagement", "Content Creator Tools", "Platform Updates", "YouTube Studio", "Video Promotion Strategies", "Visual Design"]
 image: "https://i.ytimg.com/vi/R7uZYO3UbB0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=R7uZYO3UbB0"

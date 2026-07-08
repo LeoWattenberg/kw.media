@@ -9,6 +9,7 @@ modified: "2024-09-14T12:30:21"
 locale: "en"
 translationKey: "video:HNKwk_tm1Vo"
 category: "news-video"
+tags: ["YouTube Platform Updates", "AI Comment Summaries", "YouTube Shorts Features", "Premium Membership Pricing", "Stickers in Shorts", "Q&A Livestream", "Creator Resources", "Platform Announcements", "Monetization Policies", "YouTube Community"]
 image: "https://i.ytimg.com/vi/HNKwk_tm1Vo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=HNKwk_tm1Vo"

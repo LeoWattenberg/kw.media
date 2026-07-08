@@ -9,6 +9,7 @@ modified: "2024-07-23T14:00:05"
 locale: "en"
 translationKey: "video:3sIpLIwsQEo"
 category: "short-tutorial"
+tags: ["YouTube Analytics", "Impressions Data", "Click-Through Rate", "Viewer Interactions", "YouTube Studio Navigation", "Video Performance Metrics", "Channel Growth Strategies", "YouTube Features", "Data Analysis"]
 image: "https://i.ytimg.com/vi/3sIpLIwsQEo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/3sIpLIwsQEo"

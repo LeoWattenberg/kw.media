@@ -8,6 +8,7 @@ date: "2021-06-21T03:18:06"
 modified: "2023-03-17T12:57:29"
 locale: "en"
 category: "blog"
+tags: ["Social Media Marketing", "YouTube Channel Growth", "Content Promotion Strategies", "Community-Engagement", "Reddit/Discord/Facebook Promotion", "Audience Targeting", "Content Repurposing", "Video Sharing", "Online Collaboration"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-use-social-media-to-grow-your-youtube-channel/"

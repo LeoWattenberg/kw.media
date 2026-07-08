@@ -9,6 +9,7 @@ modified: "2024-07-11T14:00:19"
 locale: "en"
 translationKey: "video:OiALToW1vk8"
 category: "short-tutorial"
+tags: ["YouTube Guidelines", "Content Quality Improvement", "Community-Engagement", "Monetization Policies", "Platform Rules", "Creator Responsibilities", "Video-Moderation", "Spam Filtering", "Age Restrictions", "Monetization Strategies"]
 image: "https://i.ytimg.com/vi/OiALToW1vk8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OiALToW1vk8"

@@ -9,6 +9,7 @@ modified: "2025-10-31T10:13:19"
 locale: "en"
 translationKey: "video:iVVTODHIeP4"
 category: "short-tutorial"
+tags: ["YouTube Studio", "AI Editing", "Video Customization", "Platform Settings", "Upscaling", "Super Resolution", "Short Tutorial"]
 image: "https://i.ytimg.com/vi/iVVTODHIeP4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iVVTODHIeP4"

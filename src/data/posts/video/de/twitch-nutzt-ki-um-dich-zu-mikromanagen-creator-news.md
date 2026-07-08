@@ -9,6 +9,7 @@ modified: "2026-05-30T12:15:08"
 locale: "de"
 translationKey: "video:JhAvOlIInDk"
 category: "news-video"
+tags: ["Twitch-Updates", "KI-Integration", "Sponsorships", "Creator-Monetarisierung", "YouTube KI-Funktionen", "KI-Avatare", "Inhaltsmoderation", "Organische Entdeckung", "Shorts-Strategien"]
 image: "https://i.ytimg.com/vi/JhAvOlIInDk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JhAvOlIInDk"

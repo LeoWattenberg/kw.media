@@ -9,6 +9,7 @@ modified: "2024-01-20T12:30:00"
 locale: "en"
 translationKey: "video:aIFl-V2c47o"
 category: "video-tutorial"
+tags: ["YouTube Live Streaming", "YouTube Partner Program", "View Hours Requirements", "Public Streams", "Content Monetization", "Platform Policies", "Live Stream Archiving"]
 image: "https://i.ytimg.com/vi/aIFl-V2c47o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=aIFl-V2c47o"

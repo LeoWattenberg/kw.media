@@ -9,6 +9,7 @@ modified: "2022-05-31T15:00:24"
 locale: "de"
 translationKey: "video:nMgllfy0VUc"
 category: "short-tutorial"
+tags: ["YouTube-Mitgliedschaften", "Live-Chat-Interaktionen", "Zuschauer Engagement", "Geschenkfunktionen", "Beta-Funktionen", "Abonnement-Strategien", "Community-Belohnungen"]
 image: "https://i.ytimg.com/vi/nMgllfy0VUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nMgllfy0VUc"

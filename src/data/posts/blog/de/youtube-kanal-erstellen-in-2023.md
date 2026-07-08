@@ -9,6 +9,7 @@ modified: "2023-08-01T11:54:33"
 locale: "de"
 translationKey: "post:2314"
 category: "blog"
+tags: ["YouTube-Kanal erstellen", "YouTube Studio", "Persönlicher Kanal", "Brandkonto", "Kanaloptimierung", "YouTube-Richtlinien", "Benutzerdefinierte URL", "Telefonnummer Bestätigung", "Kontoverwaltung"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-kanal-erstellen-in-2023/"

@@ -9,6 +9,7 @@ modified: "2022-06-13T15:00:20"
 locale: "de"
 translationKey: "video:1dTIcDQb0pY"
 category: "video-tutorial"
+tags: ["Einnahmenvergleich", "YouTube vs. Twitch", "Digitale Transaktionen", "Super Chat und Bits", "Abonnements und Mitgliedschaften", "Gebührenstruktur", "Nettoanteil für Creator", "Plattformvergleich", "Monetarisierungsstrategien"]
 image: "https://i.ytimg.com/vi/1dTIcDQb0pY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1dTIcDQb0pY"

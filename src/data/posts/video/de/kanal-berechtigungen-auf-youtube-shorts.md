@@ -9,6 +9,7 @@ modified: "2022-03-29T16:13:33"
 locale: "de"
 translationKey: "video:6KcwfJbEdDk"
 category: "short-tutorial"
+tags: ["YouTube-Kanalverwaltung", "Berechtigungen verwalten", "YouTube Studio", "Sicherheit auf YouTube", "Kontozugriff", "Nutzerrollen", "Passwort-Sicherheit"]
 image: "https://i.ytimg.com/vi/6KcwfJbEdDk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/6KcwfJbEdDk"

@@ -9,6 +9,7 @@ modified: "2024-07-27T12:30:40"
 locale: "de"
 translationKey: "video:t-36QlpRlEc"
 category: "news-video"
+tags: ["YouTube Updates", "Shorts-Funktionen", "Musik-Integration", "Affiliate-Marketing", "Super Chat Antworten", "KI-Zusammenfassungen", "Livestream-Werbung", "YouTube-Hype", "Add Yours-Sticker"]
 image: "https://i.ytimg.com/vi/t-36QlpRlEc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=t-36QlpRlEc"

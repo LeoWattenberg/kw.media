@@ -9,6 +9,7 @@ modified: "2025-09-27T12:15:04"
 locale: "de"
 translationKey: "video:GSv_RD1b7b8"
 category: "news-video"
+tags: ["YouTube FAQ", "Kollaborationsfunktion", "KI-generierte Inhalte", "Multi-Aspekt-Streaming", "Fan-Communities auf Desktop", "Veo 3 AI", "Livestreaming-Funktionen", "Inhaltsmoderation", "Community-Interaktion", "YouTube Updates"]
 image: "https://i.ytimg.com/vi/GSv_RD1b7b8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=GSv_RD1b7b8"

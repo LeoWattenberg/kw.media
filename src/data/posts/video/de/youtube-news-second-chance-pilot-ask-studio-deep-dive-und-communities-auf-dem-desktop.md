@@ -9,6 +9,7 @@ modified: "2025-10-25T12:15:08"
 locale: "de"
 translationKey: "video:vmze-TsKCYQ"
 category: "news-video"
+tags: ["YouTube Updates", "KI-Funktionen", "Community-Verbesserungen", "Desktop-Funktionen", "Creator-Zweite-Chance", "Ask Studio", "Ähnlichkeitserkennung", "YouTube-Sicherheit"]
 image: "https://i.ytimg.com/vi/vmze-TsKCYQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=vmze-TsKCYQ"

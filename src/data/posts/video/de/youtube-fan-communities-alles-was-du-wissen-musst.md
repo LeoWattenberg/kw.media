@@ -9,6 +9,7 @@ modified: "2025-02-01T13:15:00"
 locale: "de"
 translationKey: "video:5nw4Hz0d2mk"
 category: "news-video"
+tags: ["Fan Communities", "YouTube-Funktionen", "Mobile App-Updates", "Desktop-Optimierung", "Community-Interaktion", "Kommentare und Beiträge", "Moderationswerkzeuge", "Abonnenten-Engagement", "YouTube Studio Anpassungen", "Inklusivität auf YouTube"]
 image: "https://i.ytimg.com/vi/5nw4Hz0d2mk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=5nw4Hz0d2mk"

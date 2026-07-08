@@ -9,6 +9,7 @@ modified: "2026-03-21T13:15:02"
 locale: "en"
 translationKey: "video:IICk-BdIuXQ"
 category: "news-video"
+tags: ["YouTube-Thumbnails", "Twitch Auto Clips", "Monetization Features", "Multi-Language Audio", "File Size Limits", "Optimization Tips", "Discoverability Tools", "Gift Subscription Feature"]
 image: "https://i.ytimg.com/vi/IICk-BdIuXQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=IICk-BdIuXQ"

@@ -9,6 +9,7 @@ modified: "2024-11-06T16:15:03"
 locale: "en"
 translationKey: "video:ncaW0WL9X9E"
 category: "short-tutorial"
+tags: ["YouTube Shorts", "Thumbnail Customization", "Mobile Optimization", "Short Tutorial", "YouTube Features Access", "Visual Branding", "Content Promotion Strategies", "Video Optimization"]
 image: "https://i.ytimg.com/vi/ncaW0WL9X9E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ncaW0WL9X9E"

@@ -9,6 +9,7 @@ modified: "2024-08-14T14:00:21"
 locale: "de"
 translationKey: "video:OcihdaM-hro"
 category: "short-tutorial"
+tags: ["Live-Streaming", "YouTube-Streaming", "Stream-Planung", "Mehrsprachige Inhalte", "Kanalmanagement", "Zuschauer-Interaktion", "Sichtbarkeit erhöhen"]
 image: "https://i.ytimg.com/vi/OcihdaM-hro/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OcihdaM-hro"

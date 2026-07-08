@@ -9,6 +9,7 @@ modified: "2025-12-20T13:15:09"
 locale: "de"
 translationKey: "video:N301RW3y69E"
 category: "news-video"
+tags: ["YouTube-Funktionen", "KI-Tools", "Community-Verbesserungen", "Monetarisierung", "Mobile Creator", "YouTube Creator App", "KI-Bearbeitung", "Sprachantworten", "Kanalrichtlinien", "Super Chat Ziele"]
 image: "https://i.ytimg.com/vi/N301RW3y69E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=N301RW3y69E"

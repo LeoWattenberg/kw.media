@@ -9,6 +9,7 @@ modified: "2026-03-28T13:15:09"
 locale: "en"
 translationKey: "video:XuyGt9x2FYc"
 category: "news-video"
+tags: ["YouTube Ads", "AI-Driven Advertising", "Twitch-Updates", "TikTok Clone Removal", "Adobe AI Editor", "Project Moonlight", "YouTube Shorts Features", "QR Codes in Shorts", "Mobile Content Creation", "Desktop vs Mobile Experience"]
 image: "https://i.ytimg.com/vi/XuyGt9x2FYc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=XuyGt9x2FYc"

@@ -9,6 +9,7 @@ modified: "2024-06-15T12:30:35"
 locale: "en"
 translationKey: "video:hsmHl_LDtxg"
 category: "news-video"
+tags: ["YouTube Features", "Mobile Optimization", "QR-Codes", "Audience Engagement", "Platform Updates", "YouTube Premium", "User Experience", "Content Sharing"]
 image: "https://i.ytimg.com/vi/hsmHl_LDtxg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=hsmHl_LDtxg"

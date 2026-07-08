@@ -8,6 +8,7 @@ date: "2021-11-03T13:24:40"
 modified: "2023-03-17T12:57:27"
 locale: "de"
 category: "blog"
+tags: ["YouTube-Richtlinien", "Urheberrechtsverletzungen", "Strikes", "Einspruch", "Kanalmanagement", "Rechtliche Grundlagen", "Video-Veröffentlichung", "Inhaltsprüfung", "Community-Richtlinien"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-strike-was-nun/"

@@ -9,6 +9,7 @@ modified: "2024-03-16T13:30:01"
 locale: "de"
 translationKey: "video:0g-IDgMvpRs"
 category: "news-video"
+tags: ["YouTube Studio", "Mobile App-Updates", "Benachrichtigungen", "Clips Bibliothek", "Abonnements", "Exklusive Inhalte", "HDR-Streaming", "RTMP/RTMPS", "Transcoding", "Q&A Stream"]
 image: "https://i.ytimg.com/vi/0g-IDgMvpRs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=0g-IDgMvpRs"

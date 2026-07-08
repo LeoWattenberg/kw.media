@@ -9,6 +9,7 @@ modified: "2023-01-12T10:43:31"
 locale: "de"
 translationKey: "video:5vBlAeXG_uE"
 category: "short-tutorial"
+tags: ["YouTube-Partnerprogramm", "Vertragsaktualisierung", "Creator-Richtlinien", "YouTube Updates", "Rechtliche Grundlagen", "YouTube-Strategie", "Kanalmanagement", "Plattform-Einnahmen", "Monetarisierung"]
 image: "https://i.ytimg.com/vi/5vBlAeXG_uE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5vBlAeXG_uE"

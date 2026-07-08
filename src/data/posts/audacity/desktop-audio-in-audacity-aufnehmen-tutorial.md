@@ -9,6 +9,7 @@ modified: "2023-09-02T21:41:18"
 locale: "de"
 translationKey: "video:VB0-XfW6lms"
 category: "audacity"
+tags: ["Audioaufnahme", "Desktop-Audio", "Audacity Tutorial", "Windows WASAPI", "Aufnahmegeräte", "Stereo-Aufnahme", "Overdub", "Audiokontrolle", "Fehlermeldungen"]
 image: "https://i.ytimg.com/vi/VB0-XfW6lms/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=VB0-XfW6lms"

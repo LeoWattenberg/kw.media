@@ -9,6 +9,7 @@ modified: "2023-09-02T21:41:18"
 locale: "en"
 translationKey: "video:VB0-XfW6lms"
 category: "audacity"
+tags: ["Audacity 3", "Audio Setup", "Windows WASAPI", "Desktop Audio Recording", "Loopback Devices", "Stereo Recording", "Overdub", "Audio Settings", "Sample Rate Matching"]
 image: "https://i.ytimg.com/vi/VB0-XfW6lms/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=VB0-XfW6lms"

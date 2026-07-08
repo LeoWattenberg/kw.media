@@ -9,6 +9,7 @@ modified: "2026-06-16T05:00:14"
 locale: "en"
 translationKey: "video:2gVOJsKlUbo"
 category: "short-tutorial"
+tags: ["Channel Growth", "Facecam", "Streaming Equipment", "Audience Engagement", "Visual Branding", "Content Creation", "Personality-Driven Content", "Physical Comedy", "Streaming Community"]
 image: "https://i.ytimg.com/vi/2gVOJsKlUbo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/2gVOJsKlUbo"

@@ -9,6 +9,7 @@ modified: "2025-11-29T13:15:13"
 locale: "en"
 translationKey: "video:sFADjkaHI2s"
 category: "news-video"
+tags: ["YouTube Policy Changes", "Community Guidelines Check", "Pre-Publish Checks", "Automated Flagging", "YouTube Shorts Updates", "Generative Video", "Google DeepMind VU3", "Image Posts in Shorts Feed", "Multi-Aspect Streams", "Stream Across Formats"]
 image: "https://i.ytimg.com/vi/sFADjkaHI2s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=sFADjkaHI2s"

@@ -9,6 +9,7 @@ modified: "2022-06-28T16:00:12"
 locale: "en"
 translationKey: "video:MESXE9-pLDc"
 category: "short-tutorial"
+tags: ["YouTube End Cards", "End Screen Templates", "Video Customization", "YouTube Editor", "Element Design", "Video Duration", "Playlist Management", "Content Promotion"]
 image: "https://i.ytimg.com/vi/MESXE9-pLDc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/MESXE9-pLDc"

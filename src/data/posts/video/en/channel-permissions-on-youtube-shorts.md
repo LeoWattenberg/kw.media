@@ -9,6 +9,7 @@ modified: "2022-03-29T16:13:33"
 locale: "en"
 translationKey: "video:6KcwfJbEdDk"
 category: "short-tutorial"
+tags: ["YouTube Channel Management", "Account Security", "Permission Settings", "YouTube Studio", "Multi-Account Management", "Platform Policies", "Content Creator Tools"]
 image: "https://i.ytimg.com/vi/6KcwfJbEdDk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/6KcwfJbEdDk"

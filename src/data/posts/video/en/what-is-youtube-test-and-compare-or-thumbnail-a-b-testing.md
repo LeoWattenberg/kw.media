@@ -9,6 +9,7 @@ modified: "2024-06-11T18:08:41"
 locale: "en"
 translationKey: "video:7K_1NHsygk0"
 category: "video-tutorial"
+tags: ["YouTube Test & Compare", "A/B Testing", "Thumbnail Optimization", "Video Engagement", "YouTube Studio", "Creator-Tools", "Watch Time Analysis", "Click-Through Rate", "Visual Design"]
 image: "https://i.ytimg.com/vi/7K_1NHsygk0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=7K_1NHsygk0"

@@ -9,6 +9,7 @@ modified: "2025-10-25T12:15:08"
 locale: "en"
 translationKey: "video:vmze-TsKCYQ"
 category: "news-video"
+tags: ["YouTube Platform Updates", "Creator Reinstatement", "Ask Studio AI", "Community Features", "Likeness Detection", "Desktop Enhancements", "AI Tools", "Content Moderation", "Channel Management"]
 image: "https://i.ytimg.com/vi/vmze-TsKCYQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=vmze-TsKCYQ"

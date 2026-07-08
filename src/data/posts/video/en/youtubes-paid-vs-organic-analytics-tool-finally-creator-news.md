@@ -9,6 +9,7 @@ modified: "2025-11-08T13:15:19"
 locale: "en"
 translationKey: "video:vbJb0uVty9o"
 category: "news-video"
+tags: ["YouTube Policy Changes", "Gaming Channel Restrictions", "Gambling and Violence Enforcement", "Age Restrictions", "Demonetization", "Advanced Analytics", "Paid vs Organic Metrics", "Audience Retention Analysis", "Google Lens Integration", "Content Monetization Strategies"]
 image: "https://i.ytimg.com/vi/vbJb0uVty9o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=vbJb0uVty9o"

@@ -9,6 +9,7 @@ modified: "2024-05-18T12:30:27"
 locale: "en"
 translationKey: "video:nTyBDl2lbMg"
 category: "news-video"
+tags: ["Super Chat Replies", "Monetization Tools", "AFG Violations", "A/B Testing (Test and Compare)", "YouTube Platform Updates", "Creator Monetization", "Video Guidelines", "Transparency Features", "Audience Engagement", "YouTube Community"]
 image: "https://i.ytimg.com/vi/nTyBDl2lbMg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=nTyBDl2lbMg"

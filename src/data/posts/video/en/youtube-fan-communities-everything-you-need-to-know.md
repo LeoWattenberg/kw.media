@@ -9,6 +9,7 @@ modified: "2025-02-01T13:15:00"
 locale: "en"
 translationKey: "video:5nw4Hz0d2mk"
 category: "news-video"
+tags: ["YouTube Community Features", "Fan Communities", "Mobile First Rollout", "Desktop Version Upcoming", "Community-Engagement", "Subscriber Interaction", "Two-Way Communication", "Community Tab Updates", "Moderation Tools", "Pronoun Customization"]
 image: "https://i.ytimg.com/vi/5nw4Hz0d2mk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=5nw4Hz0d2mk"

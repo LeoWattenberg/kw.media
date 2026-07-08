@@ -9,6 +9,7 @@ modified: "2024-08-03T13:04:32"
 locale: "de"
 translationKey: "video:KAWEPkrS2eI"
 category: "news-video"
+tags: ["YouTube-Partnerprogramm", "Einspruchsmöglichkeit", "Kanalseiten-Überarbeitung", "Navigation optimieren", "Inhaltsverwaltung", "Plattform-Updates", "YouTube-Richtlinien", "Kanalmanagement", "Benutzererfahrung"]
 image: "https://i.ytimg.com/vi/KAWEPkrS2eI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=KAWEPkrS2eI"

@@ -9,6 +9,7 @@ modified: "2023-08-03T23:24:39"
 locale: "de"
 translationKey: "video:KOx5J92udsw"
 category: "video-tutorial"
+tags: ["YouTube-Kanaldesign", "Profilbild optimieren", "Kanalbanner erstellen", "Wasserzeichen für Videos", "Visuelle Markenidentität", "YouTube Studio Anpassungen", "Branding-Strategien", "Zuschauerbindung", "Kanaloptimierung"]
 image: "https://i.ytimg.com/vi/KOx5J92udsw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=KOx5J92udsw"

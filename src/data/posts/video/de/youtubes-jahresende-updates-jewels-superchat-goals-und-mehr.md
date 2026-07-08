@@ -9,6 +9,7 @@ modified: "2024-11-23T13:15:01"
 locale: "de"
 translationKey: "video:AvwEC8I-7Vk"
 category: "news-video"
+tags: ["YouTube-Funktionen", "Juwelen (YouTube)", "Super Chat Goals", "Monetarisierung", "KI-Integration", "Shorts-Updates", "Gaming-Rückblick", "Plattform-Neuerungen", "Creator-Einnahmen"]
 image: "https://i.ytimg.com/vi/AvwEC8I-7Vk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=AvwEC8I-7Vk"

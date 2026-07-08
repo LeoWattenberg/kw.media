@@ -9,6 +9,7 @@ modified: "2024-11-23T13:15:01"
 locale: "en"
 translationKey: "video:AvwEC8I-7Vk"
 category: "news-video"
+tags: ["YouTube Updates", "Jewel Pricing", "Super Chat Goals", "Paid Hype", "Dreamscreen AI", "Gaming Recap", "AI Tools", "Monetization Features", "Creator Engagement", "Platform Announcements"]
 image: "https://i.ytimg.com/vi/AvwEC8I-7Vk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=AvwEC8I-7Vk"

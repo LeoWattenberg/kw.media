@@ -9,6 +9,7 @@ modified: "2022-05-10T10:00:31"
 locale: "en"
 translationKey: "video:eUxLizKDC6M"
 category: "short-tutorial"
+tags: ["Live Redirects", "YouTube Features", "Channel Management", "Viewer Engagement", "Twitch Raids", "Community Settings", "YouTube Studio Navigation", "Streaming Community"]
 image: "https://i.ytimg.com/vi/eUxLizKDC6M/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/eUxLizKDC6M"

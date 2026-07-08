@@ -9,6 +9,7 @@ modified: "2024-11-04T09:54:45"
 locale: "de"
 translationKey: "video:BIzqRnp_0cQ"
 category: "short-tutorial"
+tags: ["Umfragen", "YouTube Shorts", "Interaktion mit Zuschauern", "Community-Engagement", "Neue Funktionen auf YouTube", "Shorts-Updates", "Zuschaueranalyse"]
 image: "https://i.ytimg.com/vi/BIzqRnp_0cQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/BIzqRnp_0cQ"

@@ -9,6 +9,7 @@ modified: "2026-06-22T05:00:14"
 locale: "en"
 translationKey: "video:5Wev7kFqnZg"
 category: "short-tutorial"
+tags: ["Collaboration Strategies", "YouTube Channel Growth", "Audience Reach", "Content Promotion", "Creator Agreements", "Online Collaboration", "Platform Dynamics", "Competitor Analysis", "Growth Hacking"]
 image: "https://i.ytimg.com/vi/5Wev7kFqnZg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5Wev7kFqnZg"

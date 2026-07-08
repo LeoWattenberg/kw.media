@@ -9,6 +9,7 @@ modified: "2026-03-28T13:15:09"
 locale: "de"
 translationKey: "video:XuyGt9x2FYc"
 category: "news-video"
+tags: ["YouTube Updates", "KI-Integration", "Werbung auf YouTube", "Twitch-Funktionen", "Adobe-Tools", "Shorts-Strategien", "Desktop-Optimierung", "Mobile-Interaktion", "Creator-Monetarisierung", "Editoren-Software"]
 image: "https://i.ytimg.com/vi/XuyGt9x2FYc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=XuyGt9x2FYc"

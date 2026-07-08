@@ -9,6 +9,7 @@ modified: "2021-07-05T14:57:10"
 locale: "de"
 translationKey: "video:M_hmS22uI-8"
 category: "short-tutorial"
+tags: ["YouTube Shorts", "Kurzvideo-Erstellung", "Mobile Produktion", "Kurzvideo-Bearbeitung", "Creator-Tipps", "YouTube-Funktionen", "Kurze Tutorials"]
 image: "https://i.ytimg.com/vi/M_hmS22uI-8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/M_hmS22uI-8"

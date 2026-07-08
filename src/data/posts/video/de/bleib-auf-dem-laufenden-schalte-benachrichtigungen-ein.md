@@ -9,6 +9,7 @@ modified: "2024-08-31T15:58:14"
 locale: "de"
 translationKey: "video:Q_Wf69Pynwo"
 category: "short-tutorial"
+tags: ["YouTube-Benachrichtigungen", "Zuschauer Engagement", "YouTube Studio", "Reichweitenanalyse", "Personalisierte Inhalte", "Abonnenten-Interaktion", "Inhaltsverbreitung", "YouTube-Strategie", "Zielgruppenansprache"]
 image: "https://i.ytimg.com/vi/Q_Wf69Pynwo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Q_Wf69Pynwo"

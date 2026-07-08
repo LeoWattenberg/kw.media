@@ -9,6 +9,7 @@ modified: "2022-06-13T15:00:20"
 locale: "en"
 translationKey: "video:1dTIcDQb0pY"
 category: "video-tutorial"
+tags: ["Creator Revenue", "YouTube Monetization", "Twitch Monetization", "Digital Transactions", "Platform Fees", "Taxes", "Subscription Models", "Super Chat", "Bits", "Mobile vs Desktop Payments"]
 image: "https://i.ytimg.com/vi/1dTIcDQb0pY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1dTIcDQb0pY"

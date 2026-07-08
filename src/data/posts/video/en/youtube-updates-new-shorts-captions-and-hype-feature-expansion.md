@@ -9,6 +9,7 @@ modified: "2025-08-30T12:15:16"
 locale: "en"
 translationKey: "video:pgpp8FB-Jwg"
 category: "news-video"
+tags: ["YouTube Updates", "Shorts Captions", "Hype Feature Expansion", "Accessibility Features", "YouTube Create App", "Video Templates", "Content Creator Tools", "Community Posts", "Content Discovery", "AI-Generated Summaries"]
 image: "https://i.ytimg.com/vi/pgpp8FB-Jwg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=pgpp8FB-Jwg"

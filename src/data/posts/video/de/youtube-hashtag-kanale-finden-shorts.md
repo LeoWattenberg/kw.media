@@ -9,6 +9,7 @@ modified: "2021-09-09T13:00:06"
 locale: "de"
 translationKey: "video:CtyhveAZNRo"
 category: "short-tutorial"
+tags: ["YouTube-Hashtags", "Entdeckungsseiten", "Suchoptimierung", "YouTube-Strategie", "Kurzvideo-Strategien", "Kurztutorial", "YouTube-Funktionen", "YouTube-Kanalwachstum", "Engagement-Steigerung", "Zuschaueranalyse"]
 image: "https://i.ytimg.com/vi/CtyhveAZNRo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CtyhveAZNRo"

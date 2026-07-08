@@ -9,6 +9,7 @@ modified: "2025-04-26T12:15:05"
 locale: "en"
 translationKey: "video:e77-Rus2x4g"
 category: "news-video"
+tags: ["YouTube Autodubbing", "Data Analysis", "International Engagement", "View Duration", "Audience Retention", "YouTube Features", "Content Localization", "Voiceover Technology", "Automated Translation"]
 image: "https://i.ytimg.com/vi/e77-Rus2x4g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=e77-Rus2x4g"

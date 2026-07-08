@@ -9,6 +9,7 @@ modified: "2022-05-03T11:00:30"
 locale: "en"
 translationKey: "video:iKf9XHFUSos"
 category: "short-tutorial"
+tags: ["YouTube Monetization", "Super Thanks", "Creator-Tools", "Platform Updates", "YouTube Partner Program", "Monetization Features", "Short Tutorial", "Audio Settings"]
 image: "https://i.ytimg.com/vi/iKf9XHFUSos/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iKf9XHFUSos"

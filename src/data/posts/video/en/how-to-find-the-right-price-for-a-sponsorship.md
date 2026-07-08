@@ -9,6 +9,7 @@ modified: "2022-04-14T22:00:53"
 locale: "en"
 translationKey: "video:A95WfCKuuYo"
 category: "short-tutorial"
+tags: ["Content Monetization", "Creator Agreements", "Pricing Negotiation", "Production Costs", "Market Value", "Legal Requirements", "Taxes", "Collaboration Strategies"]
 image: "https://i.ytimg.com/vi/A95WfCKuuYo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/A95WfCKuuYo"

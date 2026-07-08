@@ -9,6 +9,7 @@ modified: "2022-05-10T10:00:31"
 locale: "de"
 translationKey: "video:eUxLizKDC6M"
 category: "short-tutorial"
+tags: ["Live-Streaming", "YouTube Studio", "Kanalmanagement", "Zuschauerbindung", "Community-Interaktion", "Neue Funktionen", "YouTube Updates", "Plattform-Optimierung"]
 image: "https://i.ytimg.com/vi/eUxLizKDC6M/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/eUxLizKDC6M"

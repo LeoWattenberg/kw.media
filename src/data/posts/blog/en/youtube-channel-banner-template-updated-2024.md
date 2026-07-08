@@ -9,6 +9,7 @@ modified: "2024-07-01T10:48:42"
 locale: "en"
 translationKey: "post:2325"
 category: "blog"
+tags: ["YouTube Channel Design", "Banner Templates", "Visual Branding", "Channel Aesthetics", "Design Guidelines", "YouTube Tips", "Content Presentation", "Creator Resources", "Channel Management"]
 image: "/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-channel-banner-template-updated-2024/"

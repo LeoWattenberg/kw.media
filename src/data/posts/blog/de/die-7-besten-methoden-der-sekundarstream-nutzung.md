@@ -9,6 +9,7 @@ modified: "2023-03-17T12:57:27"
 locale: "de"
 translationKey: "post:2205"
 category: "blog"
+tags: ["Sekundärstream-Nutzung", "Live-Streaming", "Stream-Clips", "Shorts", "Highlights", "VODs bearbeiten", "Kompilationen", "Hero Videos", "Inhaltsstrategie", "YouTube-Monetarisierung"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-best-7-methods-of-secondary-stream-usage/"

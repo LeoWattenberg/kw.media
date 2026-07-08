@@ -9,6 +9,7 @@ modified: "2024-09-21T11:25:21"
 locale: "de"
 translationKey: "video:SERd4-20rtI"
 category: "news-video"
+tags: ["YouTube Updates", "Steuerformulare", "Community-Richtlinien", "Hype-Funktion", "Monetarisierung", "YouTube-Partner", "Doppelbesteuerungsabkommen", "Ansässigkeitsbescheinigung", "Inhaltsmoderation"]
 image: "https://i.ytimg.com/vi/SERd4-20rtI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=SERd4-20rtI"

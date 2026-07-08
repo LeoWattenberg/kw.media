@@ -9,6 +9,7 @@ modified: "2024-07-01T09:53:45"
 locale: "de"
 translationKey: "video:8nnJUcL5qtU"
 category: "short-tutorial"
+tags: ["YouTube Studio", "Dashboard-Übersicht", "Kanalmanagement", "Video-Statistiken", "Kommentare verwalten", "Inhaltsstrategie", "Creator-Tools", "YouTube Updates", "Kanaloptimierung"]
 image: "https://i.ytimg.com/vi/8nnJUcL5qtU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8nnJUcL5qtU"

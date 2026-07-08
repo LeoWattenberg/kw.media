@@ -9,6 +9,7 @@ modified: "2024-06-26T08:06:29"
 locale: "de"
 translationKey: "video:mZgmJ4ch5Mo"
 category: "short-tutorial"
+tags: ["Community-Interaktion", "YouTube-Kanalwachstum", "Community-Beiträge", "YouTube-Funktionen", "Abonnenten-Engagement", "Interaktion mit Zuschauern", "Kanalmanagement", "Content-Strategie", "YouTube-Tipps"]
 image: "https://i.ytimg.com/vi/mZgmJ4ch5Mo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/mZgmJ4ch5Mo"

@@ -9,6 +9,7 @@ modified: "2021-09-09T13:00:06"
 locale: "en"
 translationKey: "video:CtyhveAZNRo"
 category: "short-tutorial"
+tags: ["YouTube Shorts", "Hashtag Channels", "Search Features", "Video Discovery", "Platform Navigation", "Short Tutorial", "Viewer Engagement", "Content Promotion Strategies"]
 image: "https://i.ytimg.com/vi/CtyhveAZNRo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CtyhveAZNRo"

@@ -9,6 +9,7 @@ modified: "2024-08-10T12:30:10"
 locale: "en"
 translationKey: "video:E8hipk1TNNc"
 category: "news-video"
+tags: ["YouTube Platform Updates", "YouTube Shorts Features", "Thumbnail Customization", "Super Chat Enhancements", "Creator-Tools", "Mobile Optimization", "Desktop Features", "Animation in Chat", "Goal Setting", "YouTube Community Engagement"]
 image: "https://i.ytimg.com/vi/E8hipk1TNNc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=E8hipk1TNNc"

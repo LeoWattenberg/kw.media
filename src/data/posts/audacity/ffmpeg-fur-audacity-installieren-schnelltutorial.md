@@ -9,6 +9,7 @@ modified: "2023-08-30T14:53:36"
 locale: "de"
 translationKey: "video:OSmA6MtFYZ8"
 category: "audacity"
+tags: ["Audacity Tutorial", "FFmpeg Installation", "Mediendateien", "Import/Export", "Windows-Installation", "Audio-Tools"]
 image: "https://i.ytimg.com/vi/OSmA6MtFYZ8/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=OSmA6MtFYZ8"

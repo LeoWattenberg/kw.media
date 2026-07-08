@@ -9,6 +9,7 @@ modified: "2023-08-01T11:54:33"
 locale: "en"
 translationKey: "post:2314"
 category: "blog"
+tags: ["YouTube Channel Creation", "Personal vs Brand Accounts", "Channel Management", "YouTube Studio", "Account Verification", "Custom URLs", "Multi-Account Management"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-kanal-erstellen-in-2023/"

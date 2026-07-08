@@ -9,6 +9,7 @@ modified: "2024-04-13T12:30:13"
 locale: "en"
 translationKey: "video:FZw6pXiSETg"
 category: "news-video"
+tags: ["YouTube Shopping Updates", "Shopping Collections", "Affiliate Hub", "Monetization Features", "Platform Integrations", "Shopify Integration", "Spreadshirt/Spreadshop", "Spring Platform", "Forth Wall", "Online Store Linking"]
 image: "https://i.ytimg.com/vi/FZw6pXiSETg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=FZw6pXiSETg"

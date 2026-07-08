@@ -9,6 +9,7 @@ modified: "2026-02-14T13:15:03"
 locale: "de"
 translationKey: "video:VTYh7opEoNY"
 category: "news-video"
+tags: ["YouTube Updates", "Twitch-Funktionen", "Ad-Blocker", "Einnahmenoptimierung", "Creator-Support", "Plattform-Sicherheit", "Business Manager", "Talentmanagement"]
 image: "https://i.ytimg.com/vi/VTYh7opEoNY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=VTYh7opEoNY"

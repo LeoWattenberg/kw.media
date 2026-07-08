@@ -9,6 +9,7 @@ modified: "2024-04-06T12:30:26"
 locale: "en"
 translationKey: "video:gw-LkDbK_R8"
 category: "news-video"
+tags: ["YouTube Analytics", "Impressions Data", "Viewer Segmentation", "Live Reactions", "Super Chat Enhancements", "Latency Settings", "Platform Updates", "Streaming Features", "Engagement Metrics"]
 image: "https://i.ytimg.com/vi/gw-LkDbK_R8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gw-LkDbK_R8"

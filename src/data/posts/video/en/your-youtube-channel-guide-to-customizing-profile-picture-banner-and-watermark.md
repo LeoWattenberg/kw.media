@@ -9,6 +9,7 @@ modified: "2023-08-03T23:24:39"
 locale: "en"
 translationKey: "video:KOx5J92udsw"
 category: "video-tutorial"
+tags: ["YouTube Channel Customization", "Profile Picture Optimization", "Channel Banner Design", "Video Watermarking", "Visual Branding", "YouTube Studio Settings", "Channel Aesthetics", "Professional Appearance"]
 image: "https://i.ytimg.com/vi/KOx5J92udsw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=KOx5J92udsw"

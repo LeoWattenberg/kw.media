@@ -9,6 +9,7 @@ modified: "2022-03-14T23:00:17"
 locale: "de"
 translationKey: "video:RfSTdOXEqhs"
 category: "short-tutorial"
+tags: ["YouTube-Kapitel", "Desktop-Funktionen", "App-Funktionen", "Video-Navigation", "Zuschauer-Erfahrung", "Kurzvideo-Strategien", "Interaktion mit Zuschauern", "Mobile Optimierung", "Benutzerfreundlichkeit"]
 image: "https://i.ytimg.com/vi/RfSTdOXEqhs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/RfSTdOXEqhs"

@@ -9,6 +9,7 @@ modified: "2026-03-07T13:15:14"
 locale: "de"
 translationKey: "video:s01Iqj9HmdI"
 category: "news-video"
+tags: ["YouTube Updates", "KI-Tools", "Ask Studio", "Twitch-Drama", "View Botting", "Monetarisierung", "Plattformvergleich", "Creator-Strategien"]
 image: "https://i.ytimg.com/vi/s01Iqj9HmdI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=s01Iqj9HmdI"

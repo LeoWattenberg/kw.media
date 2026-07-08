@@ -9,6 +9,7 @@ modified: "2026-01-10T11:21:05"
 locale: "de"
 translationKey: "video:L0009GyER00"
 category: "news-video"
+tags: ["YouTube-Suchreform", "Suchmaschinenoptimierung (SEO) für YouTu", "Zuschauerzufriedenheit", "Audio-Strategie", "Hintergrundmusik", "Emotionale Gestaltung von Videos", "Musik für Videos", "Video-Optimierung", "Neuerungen auf YouTube", "Creator-Tipps"]
 image: "https://i.ytimg.com/vi/L0009GyER00/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=L0009GyER00"

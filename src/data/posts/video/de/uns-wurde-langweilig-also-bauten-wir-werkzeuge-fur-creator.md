@@ -9,6 +9,7 @@ modified: "2026-07-04T12:15:03"
 locale: "de"
 translationKey: "video:YOyDmdKFKYg"
 category: "news-video"
+tags: ["Creator-Tools", "Datenschutz", "Workflow-Optimierung", "YouTube-Miniaturansichten", "Audio-ABX-Test", "MP3-Qualitätstest", "Bildformatkonverter", "Hintergrundentfernung", "Clientseitige Verarbeitung"]
 image: "https://i.ytimg.com/vi/YOyDmdKFKYg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=YOyDmdKFKYg"

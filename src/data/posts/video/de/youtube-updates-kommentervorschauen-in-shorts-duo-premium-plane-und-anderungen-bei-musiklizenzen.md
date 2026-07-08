@@ -9,6 +9,7 @@ modified: "2025-04-05T12:15:07"
 locale: "de"
 translationKey: "video:mwI9bSG6_dw"
 category: "news-video"
+tags: ["YouTube Updates", "Shorts-Kommentare", "Premium-Angebote", "Musiklizenzen", "Creator-Musik", "Inspiration-Tab", "Inhaltserstellung", "Engagement-Verbesserung"]
 image: "https://i.ytimg.com/vi/mwI9bSG6_dw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=mwI9bSG6_dw"

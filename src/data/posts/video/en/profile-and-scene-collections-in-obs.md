@@ -9,6 +9,7 @@ modified: "2023-03-29T15:30:01"
 locale: "en"
 translationKey: "video:5jWzRRKKR2k"
 category: "short-tutorial"
+tags: ["OBS", "Streaming Software", "Stream Settings", "Presets", "Scene Management", "Bitrate Settings", "Backup and Transfer", "Stream Optimization"]
 image: "https://i.ytimg.com/vi/5jWzRRKKR2k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5jWzRRKKR2k"

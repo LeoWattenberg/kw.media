@@ -9,6 +9,7 @@ modified: "2024-09-28T17:06:56"
 locale: "de"
 translationKey: "video:RaauubMlzic"
 category: "news-video"
+tags: ["YouTube Shorts", "Video-Format", "Neuerungen auf YouTube", "Laufzeitverlängerung", "Werbeeinnahmen", "Urheberrecht", "Content-Strategie", "Abonnenten-Engagement", "YouTube-Wachstum"]
 image: "https://i.ytimg.com/vi/RaauubMlzic/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=RaauubMlzic"

@@ -9,6 +9,7 @@ modified: "2022-03-21T23:00:29"
 locale: "en"
 translationKey: "video:nmWIRLz-2LA"
 category: "short-tutorial"
+tags: ["YouTube Mobile App", "Live Streaming Features", "Platform Updates", "Discoverability", "User Interaction", "Viewer Engagement", "Short Tutorial"]
 image: "https://i.ytimg.com/vi/nmWIRLz-2LA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nmWIRLz-2LA"

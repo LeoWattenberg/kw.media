@@ -9,6 +9,7 @@ modified: "2025-12-12T11:27:18"
 locale: "en"
 translationKey: "video:rhGWPkzn91o"
 category: "news-video"
+tags: ["YouTube AI Avatars", "AI Tools", "AI Content Generation", "AI Suggestions", "Platform Updates", "Community Interaction", "Streaming Features", "Analytics", "E-commerce Integration", "Creator-Tools"]
 image: "https://i.ytimg.com/vi/rhGWPkzn91o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=rhGWPkzn91o"

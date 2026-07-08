@@ -9,6 +9,7 @@ modified: "2022-04-27T08:29:36"
 locale: "de"
 translationKey: "video:OYppjzpPs8U"
 category: "short-tutorial"
+tags: ["Super Thanks", "YouTube-Monetarisierung", "Creator-Einnahmen", "YouTube-Transaktionen", "Zuschauer-Interaktion", "YouTube-Funktionen", "Neuerungen auf YouTube", "Plattform-Einnahmen", "Digitale Transaktionen"]
 image: "https://i.ytimg.com/vi/OYppjzpPs8U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OYppjzpPs8U"

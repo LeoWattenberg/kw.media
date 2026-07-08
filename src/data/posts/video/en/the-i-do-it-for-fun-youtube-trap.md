@@ -9,6 +9,7 @@ modified: "2026-06-17T05:00:13"
 locale: "en"
 translationKey: "video:JIJbmewxJVk"
 category: "short-tutorial"
+tags: ["YouTube Channel Management", "Content Monetization", "Creator Responsibilities", "Community Guidelines", "Copyright Management", "Channel Growth Strategies", "Creative Process", "Monetization Options", "Platform Policies"]
 image: "https://i.ytimg.com/vi/JIJbmewxJVk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/JIJbmewxJVk"

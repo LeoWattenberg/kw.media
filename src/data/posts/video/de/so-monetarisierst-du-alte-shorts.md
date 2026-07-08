@@ -9,6 +9,7 @@ modified: "2023-01-12T10:43:31"
 locale: "de"
 translationKey: "video:BpTFWaLGDR4"
 category: "short-tutorial"
+tags: ["Monetarisierung", "YouTube Shorts", "YouTube Studio", "Einnahmen generieren", "Inhaltsmonetarisierung", "Kurze Tutorials", "Video-Optimierung", "Plattform-Einnahmen"]
 image: "https://i.ytimg.com/vi/BpTFWaLGDR4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/BpTFWaLGDR4"

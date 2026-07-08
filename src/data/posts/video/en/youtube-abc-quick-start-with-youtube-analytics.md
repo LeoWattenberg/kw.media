@@ -9,6 +9,7 @@ modified: "2024-06-13T10:09:08"
 locale: "en"
 translationKey: "video:R5ReoaOEaG0"
 category: "short-tutorial"
+tags: ["YouTube Analytics", "Metrics and Performance", "Channel Growth Strategies", "Beginner's Guide", "YouTube Studio", "Audience Engagement", "Video Optimization", "Content Strategy", "Discoverability Tools"]
 image: "https://i.ytimg.com/vi/R5ReoaOEaG0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/R5ReoaOEaG0"

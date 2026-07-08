@@ -9,6 +9,7 @@ modified: "2026-01-10T10:31:11"
 locale: "de"
 translationKey: "video:xS8QSY5GC68"
 category: "short-tutorial"
+tags: ["YouTube-Richtlinien", "Community-Richtlinien", "YouTube Studio", "Kanalmanagement", "Zuschauer-Interaktion", "Chat-Einstellungen", "Neuerungen auf YouTube"]
 image: "https://i.ytimg.com/vi/xS8QSY5GC68/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/xS8QSY5GC68"

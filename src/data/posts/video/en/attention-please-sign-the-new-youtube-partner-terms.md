@@ -9,6 +9,7 @@ modified: "2023-01-12T10:43:31"
 locale: "en"
 translationKey: "video:5vBlAeXG_uE"
 category: "short-tutorial"
+tags: ["YouTube Partner Program", "Contract Update", "Platform Policies", "Creator Agreements", "Legal Requirements", "YouTube Features Access", "Content Creator Rights", "July 2023 Deadline"]
 image: "https://i.ytimg.com/vi/5vBlAeXG_uE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5vBlAeXG_uE"

@@ -9,6 +9,7 @@ modified: "2023-01-12T10:43:31"
 locale: "en"
 translationKey: "video:oyX_dfP3Wv8"
 category: "short-tutorial"
+tags: ["YouTube Partner Program", "Shorts Views", "Monetization Strategies", "Content Promotion", "Channel Growth", "Platform Updates", "YouTube Shorts Features", "Audience Engagement", "View Hours Requirements"]
 image: "https://i.ytimg.com/vi/oyX_dfP3Wv8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/oyX_dfP3Wv8"

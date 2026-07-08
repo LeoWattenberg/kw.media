@@ -9,6 +9,7 @@ modified: "2024-06-13T10:09:08"
 locale: "de"
 translationKey: "video:R5ReoaOEaG0"
 category: "short-tutorial"
+tags: ["YouTube Analytics", "Kanal-Erfolg", "Metriken", "Strategieoptimierung", "YouTube Studio App", "Kurze Tutorials", "Datenanalyse auf YouTube", "Engagement-Daten", "Zuschaueranalyse"]
 image: "https://i.ytimg.com/vi/R5ReoaOEaG0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/R5ReoaOEaG0"

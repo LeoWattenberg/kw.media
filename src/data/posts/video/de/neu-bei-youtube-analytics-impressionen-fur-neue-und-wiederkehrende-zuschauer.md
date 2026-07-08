@@ -9,6 +9,7 @@ modified: "2024-04-06T12:30:26"
 locale: "de"
 translationKey: "video:gw-LkDbK_R8"
 category: "news-video"
+tags: ["YouTube Analytics", "Live Reactions", "Super Chat-Funktionen", "Live-Streaming-Verbesserungen", "Zuschaueranalyse", "Impressionen", "Neue Funktionen auf YouTube"]
 image: "https://i.ytimg.com/vi/gw-LkDbK_R8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gw-LkDbK_R8"

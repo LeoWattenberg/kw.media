@@ -9,6 +9,7 @@ modified: "2024-05-11T10:08:15"
 locale: "en"
 translationKey: "video:TjSGf5YjMtI"
 category: "video-tutorial"
+tags: ["YouTube Ads", "Video Promotion", "Paid Reach", "Audience Targeting", "Ad Strategy", "Channel Growth Strategies", "Content Promotion", "Monetization Tools", "YouTube Platform Updates", "Creator Monetization"]
 image: "https://i.ytimg.com/vi/TjSGf5YjMtI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=TjSGf5YjMtI"

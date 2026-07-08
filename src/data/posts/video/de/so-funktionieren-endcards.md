@@ -9,6 +9,7 @@ modified: "2022-06-28T16:00:12"
 locale: "de"
 translationKey: "video:MESXE9-pLDc"
 category: "short-tutorial"
+tags: ["YouTube-Endkarten", "Kurzvideo-Bearbeitung", "YouTube Studio", "Elemente und Vorlagen", "Import/Export", "Kanalmanagement", "Zuschauer-Interaktion", "Video-Optimierung", "YouTube-Funktionen"]
 image: "https://i.ytimg.com/vi/MESXE9-pLDc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/MESXE9-pLDc"

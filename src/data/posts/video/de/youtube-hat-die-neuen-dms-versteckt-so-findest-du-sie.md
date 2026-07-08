@@ -9,6 +9,7 @@ modified: "2026-03-12T21:26:27"
 locale: "de"
 translationKey: "video:Q5OFnSBrn3U"
 category: "short-tutorial"
+tags: ["YouTube Direktnachrichten", "Mobile Funktionen", "Benachrichtigungen", "Chat-Funktionen", "Einladungslinks", "Europäische Einführung", "UX-Design", "Soziale Interaktion", "Neue Funktionen auf YouTube"]
 image: "https://i.ytimg.com/vi/Q5OFnSBrn3U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Q5OFnSBrn3U"

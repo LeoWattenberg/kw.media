@@ -9,6 +9,7 @@ modified: "2025-08-23T12:15:05"
 locale: "en"
 translationKey: "video:ge8wm6W-EF0"
 category: "news-video"
+tags: ["YouTube Updates", "iOS Features", "Memberships Button", "Apple Payment Issues", "Revenue Optimization", "Analytics Changes", "Engaged Views Metric", "Mobile Ads", "Side by Side Ads", "Streaming Innovations"]
 image: "https://i.ytimg.com/vi/ge8wm6W-EF0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=ge8wm6W-EF0"

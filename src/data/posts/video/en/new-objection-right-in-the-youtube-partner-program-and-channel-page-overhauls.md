@@ -9,6 +9,7 @@ modified: "2024-08-03T13:04:32"
 locale: "en"
 translationKey: "video:KAWEPkrS2eI"
 category: "news-video"
+tags: ["YouTube Partner Program", "Channel Page Updates", "Appealing Exclusions", "Channel Navigation", "Branding Elements", "Content Customization", "Platform Announcements", "Legal Issues", "Creator Resources"]
 image: "https://i.ytimg.com/vi/KAWEPkrS2eI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=KAWEPkrS2eI"

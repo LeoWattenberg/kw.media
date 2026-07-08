@@ -9,6 +9,7 @@ modified: "2023-03-27T17:00:10"
 locale: "en"
 translationKey: "video:CVIdTBgfJ4g"
 category: "short-tutorial"
+tags: ["OBS", "Scene Management", "Source Types", "Stream Setup", "Video Production", "Streaming Software", "Customization Tools", "Green Screen Effects", "Backup and Transfer"]
 image: "https://i.ytimg.com/vi/CVIdTBgfJ4g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CVIdTBgfJ4g"

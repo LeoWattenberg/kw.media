@@ -9,6 +9,7 @@ modified: "2025-08-02T12:15:03"
 locale: "en"
 translationKey: "video:JhqpnMVoupA"
 category: "news-video"
+tags: ["YouTube Updates", "Ad Revenue Impact", "Collab Feed Rollout", "YouTube Studio Changes", "Profanity Policy Changes", "Fan Communities Enhancements"]
 image: "https://i.ytimg.com/vi/JhqpnMVoupA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JhqpnMVoupA"

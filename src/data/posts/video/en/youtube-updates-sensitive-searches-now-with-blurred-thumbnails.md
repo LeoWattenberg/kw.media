@@ -9,6 +9,7 @@ modified: "2025-06-07T12:15:07"
 locale: "en"
 translationKey: "video:tvpXlghvKzo"
 category: "news-video"
+tags: ["YouTube Platform Updates", "Sensitive Topics", "Thumbnail Customization", "Search Features", "User Experience", "Content Moderation", "AI Tools", "AI Updates"]
 image: "https://i.ytimg.com/vi/tvpXlghvKzo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=tvpXlghvKzo"

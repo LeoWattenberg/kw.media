@@ -9,6 +9,7 @@ modified: "2025-07-19T12:15:05"
 locale: "de"
 translationKey: "video:jnVTl0DWVWs"
 category: "news-video"
+tags: ["YouTube-Hype", "Kostenlose Funktionen", "EU-Erweiterung", "Mitgliedschafts-Abzeichen", "10-Jahres-Jubiläum", "Community-Engagement", "YouTube Updates", "Neuerungen auf YouTube"]
 image: "https://i.ytimg.com/vi/jnVTl0DWVWs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=jnVTl0DWVWs"

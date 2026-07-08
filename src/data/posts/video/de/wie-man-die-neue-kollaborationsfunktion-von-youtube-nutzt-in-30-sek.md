@@ -9,6 +9,7 @@ modified: "2025-09-26T10:15:57"
 locale: "de"
 translationKey: "video:SazJMCMxsQo"
 category: "short-tutorial"
+tags: ["YouTube-Kollaboration", "YouTube Studio", "Kurztutorial", "Creator-Zusammenarbeit", "Plattform-Updates", "Auffindbarkeit verbessern", "Video-Organisation", "Zugriffsrechte verwalten"]
 image: "https://i.ytimg.com/vi/SazJMCMxsQo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/SazJMCMxsQo"

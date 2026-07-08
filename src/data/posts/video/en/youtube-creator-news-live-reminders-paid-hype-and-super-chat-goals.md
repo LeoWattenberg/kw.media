@@ -9,6 +9,7 @@ modified: "2024-10-12T12:15:01"
 locale: "en"
 translationKey: "video:EA7skAF4qLA"
 category: "news-video"
+tags: ["YouTube Live Streaming", "Shorts Features", "Live Stream Reminders", "Paid Hype", "Super Chat Goals", "YouTube Studio Mobile", "Platform Updates", "Monetization Strategies", "Community-Engagement", "User Experience"]
 image: "https://i.ytimg.com/vi/EA7skAF4qLA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EA7skAF4qLA"

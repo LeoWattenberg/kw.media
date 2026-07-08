@@ -9,6 +9,7 @@ modified: "2025-05-03T12:15:03"
 locale: "de"
 translationKey: "video:9SP8lXBW-wk"
 category: "news-video"
+tags: ["YouTube Updates", "Seiten-an-Seiten-Anzeigen", "Live-Streaming", "Community-Leaderboard", "Schimpfwörter-Richtlinien", "Monetarisierung", "Werbeanzeigen", "Interaktionen", "Chat-Funktionen"]
 image: "https://i.ytimg.com/vi/9SP8lXBW-wk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=9SP8lXBW-wk"

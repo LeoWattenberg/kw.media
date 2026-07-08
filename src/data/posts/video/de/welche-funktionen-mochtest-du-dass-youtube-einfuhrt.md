@@ -9,6 +9,7 @@ modified: "2024-11-10T16:15:02"
 locale: "de"
 translationKey: "video:dweBFb3ts3k"
 category: "short-tutorial"
+tags: ["YouTube-Funktionen", "Community-Interaktion", "Umfragen", "Creator-Strategien", "Plattform-Optimierung", "Neue Funktionen auf YouTube", "Zuschauer Engagement", "Interaktion mit Zuschauern", "YouTube Updates"]
 image: "https://i.ytimg.com/vi/dweBFb3ts3k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/dweBFb3ts3k"

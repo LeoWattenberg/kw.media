@@ -9,6 +9,7 @@ modified: "2024-08-14T14:00:21"
 locale: "en"
 translationKey: "video:OcihdaM-hro"
 category: "short-tutorial"
+tags: ["YouTube Live Streaming", "Stream Scheduling", "Channel Management", "Content Planning", "Visibility Settings", "Multilingual Content", "Live Stream Frequency"]
 image: "https://i.ytimg.com/vi/OcihdaM-hro/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OcihdaM-hro"

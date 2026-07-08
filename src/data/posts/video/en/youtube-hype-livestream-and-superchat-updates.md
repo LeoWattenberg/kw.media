@@ -9,6 +9,7 @@ modified: "2024-07-27T12:30:40"
 locale: "en"
 translationKey: "video:t-36QlpRlEc"
 category: "news-video"
+tags: ["YouTube Shorts", "Music Library", "Chrome Extension", "Affiliate-Marketing", "Super Chat Replies", "AI Live Stream Summaries", "Live Stream Ads", "YouTube-Hype", "Stickers"]
 image: "https://i.ytimg.com/vi/t-36QlpRlEc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=t-36QlpRlEc"

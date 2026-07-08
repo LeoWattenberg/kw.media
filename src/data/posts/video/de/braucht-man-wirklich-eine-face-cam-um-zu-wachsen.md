@@ -9,6 +9,7 @@ modified: "2026-06-16T05:00:14"
 locale: "de"
 translationKey: "video:2gVOJsKlUbo"
 category: "short-tutorial"
+tags: ["Gesichtskamera", "Kanalwachstum", "Streaming-Ausrüstung", "Visuelle Präsenz", "Persönlichkeitsdarstellung", "Streaming-Tipps", "YouTube-Strategie", "Zuschauerbindung", "Inhaltserstellung"]
 image: "https://i.ytimg.com/vi/2gVOJsKlUbo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/2gVOJsKlUbo"

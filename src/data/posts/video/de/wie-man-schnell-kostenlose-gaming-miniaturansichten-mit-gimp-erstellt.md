@@ -9,6 +9,7 @@ modified: "2025-08-28T15:53:55"
 locale: "de"
 translationKey: "video:gdibcpbh45g"
 category: "video-tutorial"
+tags: ["Gaming-Miniaturansichten", "GIMP Tutorial", "Bildbearbeitung", "Design-Tipps", "YouTube-Thumbnails", "Kostenlose Software", "Visuelle Gestaltung", "Einfache Effekte", "Screenshot-Bearbeitung", "Handybildschirm-Optimierung"]
 image: "https://i.ytimg.com/vi/gdibcpbh45g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gdibcpbh45g"

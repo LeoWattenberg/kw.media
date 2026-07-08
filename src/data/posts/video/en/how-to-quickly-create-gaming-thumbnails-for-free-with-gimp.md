@@ -9,6 +9,7 @@ modified: "2025-08-28T15:53:55"
 locale: "en"
 translationKey: "video:gdibcpbh45g"
 category: "video-tutorial"
+tags: ["Thumbnail Design", "GIMP", "Free Tools", "Gaming Channels", "Visual Branding", "Video Promotion", "YouTube-Thumbnails", "Graphic Design", "Non-Destructive Editing"]
 image: "https://i.ytimg.com/vi/gdibcpbh45g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gdibcpbh45g"

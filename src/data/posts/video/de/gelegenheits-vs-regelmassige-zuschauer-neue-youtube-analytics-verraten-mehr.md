@@ -9,6 +9,7 @@ modified: "2025-07-05T12:15:11"
 locale: "de"
 translationKey: "video:gw2bfa-N8b8"
 category: "news-video"
+tags: ["YouTube Analytics", "Zuschaueranalyse", "Zielgruppenansprache", "Gelegenheitszuschauer", "Regelmäßige Zuschauer", "Kommentare filtern", "YouTube Studio", "Plattform-Updates"]
 image: "https://i.ytimg.com/vi/gw2bfa-N8b8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gw2bfa-N8b8"

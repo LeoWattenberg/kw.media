@@ -9,6 +9,7 @@ modified: "2026-06-13T12:15:04"
 locale: "en"
 translationKey: "video:TRS0NIOahBM"
 category: "news-video"
+tags: ["Platform Policies", "YouTube Premium", "AI Tools", "Creator Revenue", "Price Increases", "Twitch AI", "Stream Optimization", "Creator Responsibilities", "Automation Risks", "Platform Control"]
 image: "https://i.ytimg.com/vi/TRS0NIOahBM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=TRS0NIOahBM"

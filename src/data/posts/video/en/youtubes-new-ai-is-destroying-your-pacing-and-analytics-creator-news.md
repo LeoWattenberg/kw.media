@@ -9,6 +9,7 @@ modified: "2026-04-11T12:15:07"
 locale: "en"
 translationKey: "video:S_Qwsk7CKB0"
 category: "news-video"
+tags: ["YouTube AI", "AI-Driven Features", "Analytics Updates", "Content Pacing", "Creative Control", "Platform Announcements", "YouTube Premium", "Mobile Features", "Educational Content", "YouTube Courses"]
 image: "https://i.ytimg.com/vi/S_Qwsk7CKB0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=S_Qwsk7CKB0"

@@ -9,6 +9,7 @@ modified: "2025-04-12T12:15:01"
 locale: "en"
 translationKey: "video:7dB5B_EKnYE"
 category: "news-video"
+tags: ["YouTube Platform Updates", "Subscribe Plus Experiment", "Autodubbing Release", "YPP Features", "Interface Changes", "User Experience", "Creator-Feedback", "Translation Tools"]
 image: "https://i.ytimg.com/vi/7dB5B_EKnYE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=7dB5B_EKnYE"

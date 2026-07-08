@@ -9,6 +9,7 @@ modified: "2026-06-22T05:00:14"
 locale: "de"
 translationKey: "video:5Wev7kFqnZg"
 category: "short-tutorial"
+tags: ["Zusammenarbeit auf YouTube", "Creator-Kooperation", "Kanalwachstum", "Zuschauerbindung", "Community-Aufbau", "Konkurrenzdenken vermeiden", "Gemeinsame Zielgruppenansprache"]
 image: "https://i.ytimg.com/vi/5Wev7kFqnZg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5Wev7kFqnZg"

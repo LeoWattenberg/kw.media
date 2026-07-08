@@ -9,6 +9,7 @@ modified: "2023-03-17T12:57:29"
 locale: "en"
 translationKey: "post:1676"
 category: "blog"
+tags: ["YouTube Strategy", "Channel Growth", "Viewer Engagement", "Content Creation", "Thumbnail Design", "AIDA Model", "Marketing Psychology", "Video Promotion", "Click-Through Rate", "Visual Attention"]
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-get-clicks-on-thumbnails-the-aida-model/"

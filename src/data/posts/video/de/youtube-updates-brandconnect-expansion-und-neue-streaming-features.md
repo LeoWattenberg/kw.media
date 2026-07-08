@@ -9,6 +9,7 @@ modified: "2024-09-07T12:30:54"
 locale: "de"
 translationKey: "video:yOHQeHV2iYk"
 category: "news-video"
+tags: ["YouTube Updates", "Thumbnail-Bearbeitung", "Lively Thumbnails", "BrandConnect Expansion", "Mobile Funktionen", "Ad Blocking Settings", "Super Chat Goals", "Live-Streaming-Verbesserungen"]
 image: "https://i.ytimg.com/vi/yOHQeHV2iYk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=yOHQeHV2iYk"

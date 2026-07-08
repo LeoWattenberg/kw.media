@@ -9,6 +9,7 @@ modified: "2024-07-23T14:00:05"
 locale: "de"
 translationKey: "video:3sIpLIwsQEo"
 category: "short-tutorial"
+tags: ["YouTube Analytics", "YouTube Studio", "Impressionen", "Reichweitenanalyse", "Video-Statistiken", "Zuschaueranalyse", "Metriken-Filterung", "Klickrate (CTR)", "Entdeckungsseiten"]
 image: "https://i.ytimg.com/vi/3sIpLIwsQEo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/3sIpLIwsQEo"

@@ -9,6 +9,7 @@ modified: "2024-07-20T15:15:03"
 locale: "en"
 translationKey: "video:YSv_5uNMHds"
 category: "news-video"
+tags: ["YouTube Shorts", "Android Features", "Text-to-Speech", "Voiceover Technology", "Mobile Creation", "Content Creator Tools", "YouTube Platform Updates", "Shorts Editing"]
 image: "https://i.ytimg.com/vi/YSv_5uNMHds/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=YSv_5uNMHds"

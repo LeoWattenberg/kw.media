@@ -9,6 +9,7 @@ modified: "2025-07-05T12:15:11"
 locale: "en"
 translationKey: "video:gw2bfa-N8b8"
 category: "news-video"
+tags: ["YouTube Analytics", "Viewer Segmentation", "Casual Viewers", "Regular Viewers", "Platform Updates", "YouTube Studio", "Comment Filtering", "Most Relevant Comments", "Creator-Tools"]
 image: "https://i.ytimg.com/vi/gw2bfa-N8b8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gw2bfa-N8b8"

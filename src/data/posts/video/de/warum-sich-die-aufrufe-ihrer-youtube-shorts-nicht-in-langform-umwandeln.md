@@ -9,6 +9,7 @@ modified: "2026-06-18T05:00:02"
 locale: "de"
 translationKey: "video:qmAgK0OzzlU"
 category: "short-tutorial"
+tags: ["Shorts-Strategien", "Langform-Videos", "Aufrufe steigern", "Video-Marketing", "Titeloptimierung", "Miniaturansichten", "Zielgruppenansprache", "Inhaltsstrategie", "YouTube-Wachstum"]
 image: "https://i.ytimg.com/vi/qmAgK0OzzlU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/qmAgK0OzzlU"

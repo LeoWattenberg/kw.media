@@ -9,6 +9,7 @@ modified: "2025-08-30T12:15:16"
 locale: "de"
 translationKey: "video:pgpp8FB-Jwg"
 category: "news-video"
+tags: ["YouTube Updates", "Untertitel für Shorts", "Hype-Funktion Erweiterung", "YouTube Create App iOS", "Vorlagen", "Effekt-Maker", "KI-generierte Videozusammenfassungen"]
 image: "https://i.ytimg.com/vi/pgpp8FB-Jwg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=pgpp8FB-Jwg"

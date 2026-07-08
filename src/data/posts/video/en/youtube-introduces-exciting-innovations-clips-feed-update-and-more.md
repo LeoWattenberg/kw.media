@@ -9,6 +9,7 @@ modified: "2024-02-17T12:30:17"
 locale: "en"
 translationKey: "video:K7CyD1EvaeE"
 category: "news-video"
+tags: ["YouTube Platform Updates", "Clips Feed Update", "Collections in Subscriptions", "Fan Communities", "Community Tab Expansion", "YouTube Features", "User Interaction", "Creator-Tools", "Audience Engagement", "Moderation Considerations"]
 image: "https://i.ytimg.com/vi/K7CyD1EvaeE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=K7CyD1EvaeE"
