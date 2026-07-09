@@ -6,7 +6,6 @@ export function GET(context: APIContext) {
 		'User-agent: *',
 		'Allow: /',
 		`Sitemap: ${new URL('/sitemap-index.xml', site).toString()}`,
-		`Sitemap: ${new URL('/video-sitemap.xml', site).toString()}`,
 		'',
 	].join('\n');
 
