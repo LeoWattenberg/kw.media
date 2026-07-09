@@ -64,16 +64,15 @@ const { kind, page, post, tool, game, PageComponent, ToolComponent, GameComponen
 			locale={post.locale}
 			title={post.title}
 			description={post.excerpt}
-			preloadImage={post.video ? undefined : post.image}
+			preloadImage={post.image}
 			canonicalPath={post.path}
 			alternatePaths={getPostAlternatePaths(post)}
 			image={post.image}
 			imageAlt={post.title}
-			schemaType={post.video ? 'VideoObject' : 'BlogPosting'}
+			schemaType="BlogPosting"
 			publishedTime={post.date}
 			modifiedTime={post.modified}
 			authorName={post.authorName}
-			video={post.video}
 		>
 			<ArticlePage post={post} />
 		</BaseLayout>

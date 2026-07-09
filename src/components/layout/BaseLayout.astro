@@ -9,7 +9,7 @@ import { getAuthorPath } from '../../data/authors';
 import { localizeMediaUrl } from '../../lib/media';
 import { withBase } from '../../lib/url';
 
-type SchemaType = 'WebPage' | 'BlogPosting' | 'VideoObject' | 'ProfilePage';
+type SchemaType = 'WebPage' | 'BlogPosting' | 'ProfilePage';
 type AlternatePaths = Partial<Record<Locale, string>>;
 
 interface FaqItem {
@@ -31,12 +31,6 @@ interface Props {
 	modifiedTime?: string;
 	authorName?: string;
 	profileAuthor?: AuthorProfile;
-	video?: {
-		youtubeId: string;
-		embedUrl: string;
-		watchUrl: string;
-		thumbnailUrl: string;
-	};
 	faqItems?: FaqItem[];
 }
 
@@ -54,7 +48,6 @@ const {
 	modifiedTime,
 	authorName,
 	profileAuthor,
-	video,
 	faqItems = [],
 } = Astro.props;
 const t = useTranslations(locale);
@@ -77,23 +70,8 @@ function absoluteUrl(href: string): string {
 	return Astro.site ? new URL(url, Astro.site).toString() : url;
 }
 
-function getStableVideoThumbnailUrl(thumbnailUrl: string, youtubeId: string): string {
-	if (/^https:\/\/i\.ytimg\.com\/vi\//.test(thumbnailUrl)) {
-		return `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`;
-	}
-
-	return thumbnailUrl;
-}
-
 const canonicalHref = absoluteUrl(canonicalPath);
 const socialImageHref = socialImage ? absoluteUrl(socialImage) : undefined;
-const videoEmbedHref = video ? absoluteUrl(video.embedUrl) : undefined;
-const videoThumbnailHrefs = video
-	? Array.from(new Set([
-			absoluteUrl(getStableVideoThumbnailUrl(video.thumbnailUrl, video.youtubeId)),
-			absoluteUrl(video.thumbnailUrl),
-		]))
-	: [];
 const authorHref = authorPath ? absoluteUrl(authorPath) : undefined;
 const authorId = authorHref ? `${authorHref}#person` : undefined;
 const effectiveAlternatePaths = {
@@ -125,7 +103,6 @@ const websiteId = `${siteUrl}#website`;
 const webPageId = `${canonicalHref}#webpage`;
 const breadcrumbId = `${canonicalHref}#breadcrumb`;
 const articleId = `${canonicalHref}#article`;
-const videoId = `${canonicalHref}#video`;
 const profilePersonId = `${canonicalHref}#person`;
 const homePath = locale === 'en' ? '/en/' : '/';
 const isHomePage = canonicalPath === '/' || canonicalPath === '/en/';
@@ -186,11 +163,9 @@ const webPageSchema = {
 	mainEntity:
 		schemaType === 'BlogPosting'
 			? { '@id': articleId }
-			: schemaType === 'VideoObject' && video
-				? { '@id': videoId }
-				: schemaType === 'ProfilePage' && profileAuthor
-					? { '@id': profilePersonId }
-					: undefined,
+			: schemaType === 'ProfilePage' && profileAuthor
+				? { '@id': profilePersonId }
+				: undefined,
 	inLanguage: schemaLanguageByLocale[locale],
 };
 const profilePersonSchema =
@@ -230,33 +205,6 @@ const articleSchema =
 				inLanguage: schemaLanguageByLocale[locale],
 			}
 		: undefined;
-const videoSchema =
-	schemaType === 'VideoObject' && video
-		? {
-				'@type': 'VideoObject',
-				'@id': videoId,
-				mainEntityOfPage: { '@id': webPageId },
-				url: canonicalHref,
-				name: title,
-				description,
-				thumbnailUrl: videoThumbnailHrefs,
-				uploadDate: publishedTime,
-				dateModified: modifiedTime ?? publishedTime,
-				embedUrl: videoEmbedHref,
-				creator: {
-					'@type': 'Person',
-					'@id': authorId,
-					name: authorName ?? siteName,
-					url: authorHref,
-				},
-				publisher: { '@id': organizationId },
-				potentialAction: {
-					'@type': 'WatchAction',
-					target: canonicalHref,
-				},
-				inLanguage: schemaLanguageByLocale[locale],
-			}
-		: undefined;
 const breadcrumbSchema = {
 	'@type': 'BreadcrumbList',
 	'@id': breadcrumbId,
@@ -284,7 +232,6 @@ const jsonLd = JSON.stringify({
 		webPageSchema,
 		profilePersonSchema,
 		articleSchema,
-		videoSchema,
 		breadcrumbSchema,
 		faqSchema,
 	].filter(Boolean),
@@ -310,18 +257,13 @@ const jsonLd = JSON.stringify({
 		<meta property="og:description" content={description} />
 		<meta
 			property="og:type"
-			content={schemaType === 'BlogPosting' ? 'article' : schemaType === 'VideoObject' ? 'video.other' : 'website'}
+			content={schemaType === 'BlogPosting' ? 'article' : 'website'}
 		/>
 		<meta property="og:url" content={canonicalHref} />
 		<meta property="og:locale" content={ogLocaleByLocale[locale]} />
 		{ogLocaleAlternates.map((alternateLocale) => <meta property="og:locale:alternate" content={alternateLocale} />)}
 		{socialImageHref && <meta property="og:image" content={socialImageHref} />}
 		{socialImageHref && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
-		{schemaType === 'VideoObject' && videoEmbedHref && <meta property="og:video" content={videoEmbedHref} />}
-		{schemaType === 'VideoObject' && videoEmbedHref && <meta property="og:video:url" content={videoEmbedHref} />}
-		{schemaType === 'VideoObject' && videoEmbedHref && <meta property="og:video:secure_url" content={videoEmbedHref} />}
-		{schemaType === 'VideoObject' && videoEmbedHref && <meta property="og:video:type" content="text/html" />}
-		{schemaType === 'VideoObject' && videoEmbedHref && <link rel="video_src" href={videoEmbedHref} />}
 		<meta name="twitter:card" content={socialImageHref ? 'summary_large_image' : 'summary'} />
 		<meta name="twitter:site" content="@kwmediaUG" />
 		<meta name="twitter:title" content={fullTitle} />

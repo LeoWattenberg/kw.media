@@ -111,7 +111,6 @@ export default defineConfig({
   redirects,
 
   integrations: [sitemap({
-    customSitemaps: [new URL('/video-sitemap.xml', site).toString()],
     filter: (page) => !redirectSourceUrls.has(page),
     serialize: (item) => {
       const lastmod = postLastmodByUrl.get(item.url);
