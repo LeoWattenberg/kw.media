@@ -228,6 +228,8 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 </section>
 
 <script>
+	import { AudioTransport, formatAudioTime } from '../../lib/audio-transport';
+
 	(() => {
 		const roots = document.querySelectorAll('[data-mp3-guesser]:not([data-mp3g-bound])');
 
@@ -269,22 +271,20 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 				round: root.querySelector('[data-round]'),
 			};
 		const letters = ['A', 'B', 'C', 'D', 'E'];
-		const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+		const transport = new AudioTransport({
+			onTick: () => {
+				updateTransportUi();
+				updateOptionUi();
+			},
+		});
 		const state = {
 			manifest: null,
 			levelIndex: 0,
 			selectedIndex: -1,
 			answered: false,
 			answers: [],
-			audioContext: null,
 			buffers: new Map(),
-			source: null,
-			isPlaying: false,
-			position: 0,
-			startedAt: 0,
-			duration: 0,
 			activeOptionId: null,
-			raf: 0,
 			decodeVersion: 0,
 		};
 
@@ -301,7 +301,7 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 		});
 		nodes.playToggle?.addEventListener('click', togglePlayback);
 		nodes.seek?.addEventListener('input', () => {
-			seekTo((Number(nodes.seek.value) / 1000) * state.duration);
+			transport.seek((Number(nodes.seek.value) / 1000) * transport.duration);
 		});
 
 			loadManifest();
@@ -476,38 +476,27 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 				}
 
 				const buffer = state.buffers.get(option.id);
-				const context = getAudioContext();
-				if (!buffer || !context) {
+				if (!buffer) {
 					return;
 				}
 
-				void context.resume();
-
-				if (state.activeOptionId === option.id && state.isPlaying) {
-					pausePlayback();
+				if (transport.activeBuffer === buffer && transport.isPlaying) {
+					transport.pause();
 					return;
 				}
-
-				const nextPosition = state.isPlaying ? getCurrentPosition() : state.position;
-				stopSource();
 
 				state.activeOptionId = option.id;
-				state.position = nextPosition >= state.duration ? 0 : Math.max(0, nextPosition);
-
-				startSource(buffer);
+				transport.play(buffer);
 			}
 
 			function togglePlayback() {
-				if (state.isPlaying) {
-					pausePlayback();
+				if (transport.isPlaying) {
+					transport.pause();
 					return;
 				}
 
-				if (state.activeOptionId) {
-					const buffer = state.buffers.get(state.activeOptionId);
-					if (buffer) {
-						startSource(buffer);
-					}
+				if (transport.activeBuffer) {
+					transport.resume();
 					return;
 				}
 
@@ -518,97 +507,17 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 				}
 			}
 
-			function startSource(buffer) {
-				const context = getAudioContext();
-				if (!context || !buffer) {
-					return;
-				}
-
-				stopSource();
-
-				const source = context.createBufferSource();
-				source.buffer = buffer;
-				source.connect(context.destination);
-				source.onended = () => {
-					if (state.source !== source) {
-						return;
-					}
-
-					state.source = null;
-					state.position = state.duration;
-					state.isPlaying = false;
-					stopAnimation();
-					updateTransportUi();
-					updateOptionUi();
-				};
-
-				const remaining = Math.max(0.01, state.duration - state.position);
-				source.start(0, state.position, remaining);
-				state.source = source;
-				state.startedAt = context.currentTime;
-				state.isPlaying = true;
-				startAnimation();
-				updateTransportUi();
-				updateOptionUi();
-			}
-
-			function pausePlayback() {
-				if (state.isPlaying) {
-					state.position = getCurrentPosition();
-				}
-
-				state.isPlaying = false;
-				stopSource();
-				stopAnimation();
-				updateTransportUi();
-				updateOptionUi();
-			}
-
 			function stopPlayback() {
-				state.position = 0;
-				state.isPlaying = false;
-				stopSource();
-				stopAnimation();
-				updateTransportUi();
-				updateOptionUi();
-			}
-
-			function stopSource() {
-				if (!state.source) {
-					return;
-				}
-
-				state.source.onended = null;
-				try {
-					state.source.stop();
-				} catch {
-					// The source may already have ended.
-				}
-				state.source.disconnect();
-				state.source = null;
-			}
-
-			function seekTo(position) {
-				state.position = Math.max(0, Math.min(state.duration, position));
-
-				if (state.isPlaying && state.activeOptionId) {
-					const buffer = state.buffers.get(state.activeOptionId);
-					if (buffer) {
-						startSource(buffer);
-						return;
-					}
-				}
-
-				updateTransportUi();
+				transport.stop();
 			}
 
 			async function decodeLevel(level) {
 				state.decodeVersion += 1;
 				const version = state.decodeVersion;
 				state.buffers = new Map();
-				state.duration = 0;
 				state.activeOptionId = null;
-				state.position = 0;
+				transport.stop();
+				transport.duration = 0;
 				setTransportBusy(true);
 
 				const results = await Promise.all(
@@ -626,7 +535,7 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 				}
 
 				const durations = [...state.buffers.values()].map((buffer) => buffer.duration);
-				state.duration = durations.length ? Math.min(...durations) : 0;
+				transport.duration = durations.length ? Math.min(...durations) : 0;
 
 				setTransportBusy(false);
 				updateTransportUi();
@@ -639,8 +548,7 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 						throw new Error(`HTTP ${response.status}`);
 					}
 					const arrayBuffer = await response.arrayBuffer();
-					const context = getAudioContext();
-					return context ? await context.decodeAudioData(arrayBuffer) : null;
+					return await transport.decode(arrayBuffer);
 				} catch (error) {
 					console.warn(`Could not decode sample ${option.id}:`, error);
 					return null;
@@ -649,7 +557,7 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 
 			function setTransportBusy(busy) {
 				if (nodes.playToggle) {
-					nodes.playToggle.disabled = busy || state.duration === 0;
+					nodes.playToggle.disabled = busy || transport.duration === 0;
 					nodes.playToggle.textContent = busy ? copy.preparing : copy.play;
 				}
 				if (nodes.seek) {
@@ -657,55 +565,20 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 				}
 			}
 
-			function getAudioContext() {
-				if (!state.audioContext && AudioContextConstructor) {
-					state.audioContext = new AudioContextConstructor();
-				}
-
-				return state.audioContext;
-			}
-
-			function getCurrentPosition() {
-				if (!state.isPlaying || !state.audioContext) {
-					return state.position;
-				}
-
-				const elapsed = state.audioContext.currentTime - state.startedAt;
-				return Math.min(state.duration, state.position + elapsed);
-			}
-
-			function startAnimation() {
-				stopAnimation();
-
-				const tick = () => {
-					updateTransportUi();
-					state.raf = window.requestAnimationFrame(tick);
-				};
-
-				state.raf = window.requestAnimationFrame(tick);
-			}
-
-			function stopAnimation() {
-				if (state.raf) {
-					window.cancelAnimationFrame(state.raf);
-					state.raf = 0;
-				}
-			}
-
 			function updateTransportUi() {
-				const position = getCurrentPosition();
+				const position = transport.getPosition();
 				if (nodes.currentTime) {
-					nodes.currentTime.textContent = formatTime(position);
+					nodes.currentTime.textContent = formatAudioTime(position);
 				}
 				if (nodes.durationTime) {
-					nodes.durationTime.textContent = formatTime(state.duration);
+					nodes.durationTime.textContent = formatAudioTime(transport.duration);
 				}
 				if (nodes.seek && !nodes.seek.disabled) {
-					nodes.seek.max = String(Math.round(state.duration * 1000));
+					nodes.seek.max = String(Math.round(transport.duration * 1000));
 					nodes.seek.value = String(Math.round(position * 1000));
 				}
 				if (nodes.playToggle && !nodes.playToggle.disabled) {
-					nodes.playToggle.textContent = state.isPlaying ? copy.pause : copy.play;
+					nodes.playToggle.textContent = transport.isPlaying ? copy.pause : copy.play;
 				}
 			}
 
@@ -714,7 +587,7 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 					const index = Number(button.dataset.index);
 					const level = state.manifest?.levels[state.levelIndex];
 					const option = level?.options[index];
-					const isPlaying = Boolean(option && state.activeOptionId === option.id && state.isPlaying);
+					const isPlaying = Boolean(option && state.activeOptionId === option.id && transport.isPlaying);
 					button.classList.toggle('is-playing', isPlaying);
 				});
 			}
@@ -815,16 +688,6 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 				}
 
 				return `${minutes}:${String(remainder).padStart(2, '0')}`;
-			}
-
-			function formatTime(seconds) {
-				if (!Number.isFinite(seconds) || seconds <= 0) {
-					return '0:00';
-				}
-
-				const minutes = Math.floor(seconds / 60);
-				const wholeSeconds = Math.floor(seconds % 60);
-				return `${minutes}:${String(wholeSeconds).padStart(2, '0')}`;
 			}
 
 			function escapeHtml(value) {
