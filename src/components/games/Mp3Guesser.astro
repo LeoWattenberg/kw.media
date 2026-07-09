@@ -299,10 +299,10 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 			nodes.round.hidden = false;
 			render();
 		});
-		nodes.playToggle?.addEventListener('click', togglePlayback);
-		nodes.seek?.addEventListener('input', () => {
-			transport.seek((Number(nodes.seek.value) / 1000) * transport.duration);
-		});
+			nodes.playToggle?.addEventListener('click', togglePlayback);
+			nodes.seek?.addEventListener('input', () => {
+				transport.seek(Number(nodes.seek.value) / 1000);
+			});
 
 			loadManifest();
 
