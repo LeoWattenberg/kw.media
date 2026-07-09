@@ -14,6 +14,7 @@ Run commands from the project root:
 | `npm run preview` | Preview the production build locally |
 | `npm run import:youtube` | Import new YouTube posts, clean transcripts, create translations, refresh related posts, and add inline links |
 | `IMPORT_AI=0 npm run import:youtube` | Import new YouTube posts without Ollama cleanup, translation, related posts, or inline links |
+| `npm run import:missing-sources -- --dry` | Preview source-link imports for current video posts that do not have `sources` frontmatter |
 | `npm run cleanup:post -- src/data/posts/.../post.md` | Clean one or more existing posts |
 | `npm run cleanup:last-commit` | Clean markdown posts touched by the latest commit |
 | `npm run audit:posts` | Audit post metadata, language, links, and generated related-post data |
@@ -58,7 +59,7 @@ Cleanup model selection:
 - Post tagging uses `OLLAMA_POST_TAG_MODEL`, falling back to `OLLAMA_METADATA_MODEL`.
 - Inline post linking uses `OLLAMA_INLINE_LINK_MODEL`, defaulting to `gemma4:31b` for higher-quality anchor selection. Use `aya-expanse:32b` if speed matters more than precision.
 
-Generated translation pairs are connected with `translationKey` frontmatter, and video translations can also be inferred from shared `youtubeId`.
+Generated translation pairs are connected with `translationKey` frontmatter, and video translations can also be inferred from shared `youtubeId`. The YouTube importer extracts external links from each video description into `sources` frontmatter; use `npm run import:missing-sources` to backfill existing video posts.
 
 `fix:posts`, `excerpt:posts`, `cta:posts`, `links:posts`, and `related:posts` write changes by default. Add `--dry` to preview changes, then review written changes in git. Use `--deterministic`, `--excerpts`, `--metadata`, or `--translations` to run individual `fix:posts` repair lanes.
 

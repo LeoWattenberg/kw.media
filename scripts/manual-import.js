@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, join } from 'node:path';
-import { cleanupPostFile, translatePostFile } from './content-ai.mjs';
+import { cleanupPostFile, extractSourceLinksFromDescription, translatePostFile } from './content-ai.mjs';
 
 const playlists = [
 	{
@@ -371,9 +371,19 @@ function frontmatterString(data) {
 		`  embedUrl: ${quote(data.video.embedUrl)}`,
 		`  watchUrl: ${quote(data.video.watchUrl)}`,
 		`  thumbnailUrl: ${quote(data.video.thumbnailUrl)}`,
-		'---',
 	);
 
+	if (Array.isArray(data.sources) && data.sources.length) {
+		lines.push('sources:');
+		for (const source of data.sources) {
+			lines.push(
+				`  - title: ${quote(source.title)}`,
+				`    url: ${quote(source.url)}`,
+			);
+		}
+	}
+
+	lines.push('---');
 	return lines.join('\n');
 }
 
@@ -481,6 +491,10 @@ try {
 					watchUrl: currentWatchUrl,
 					thumbnailUrl,
 				},
+				sources: extractSourceLinksFromDescription(metadata.description, {
+					sourceUrl: currentWatchUrl,
+					videoId: entry.id,
+				}),
 			};
 
 			const fileContent = `${frontmatterString(post)}\n\n${markdownBody(locale, transcriptParagraphs(cleanedTranscript))}\n`;

@@ -17,6 +17,10 @@ export interface SourcePost {
 	authorName: string;
 	tags?: string[];
 	sourceUrl: string;
+	sources?: Array<{
+		title: string;
+		url: string;
+	}>;
 	postCta?: {
 		text: string;
 		pagePath: string;

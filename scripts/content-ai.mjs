@@ -302,6 +302,64 @@ export async function generatePostCtaFile(filePath, options = {}) {
 	};
 }
 
+export function importSourcesFromDescriptionFile(filePath, description, options = {}) {
+	const post = readPostFile(filePath);
+	const sources = extractSourceLinksFromDescription(description, {
+		sourceUrl: post.frontmatter.sourceUrl,
+		videoId: post.frontmatter.video?.youtubeId,
+	});
+	const changed = sources.length > 0 && JSON.stringify(post.frontmatter.sources ?? []) !== JSON.stringify(sources);
+
+	if (!options.dryRun && changed) {
+		writePostFile(filePath, { ...post.frontmatter, sources }, post.body);
+	}
+
+	return {
+		filePath,
+		path: post.frontmatter.path,
+		locale: post.frontmatter.locale,
+		category: post.frontmatter.category,
+		oldSources: Array.isArray(post.frontmatter.sources) ? post.frontmatter.sources : [],
+		sources,
+		changed,
+	};
+}
+
+export function extractSourceLinksFromDescription(description, options = {}) {
+	const text = String(description ?? '').replace(/\r\n/g, '\n');
+	const lines = text.split('\n');
+	const sources = [];
+	const seen = new Set();
+
+	for (let index = 0; index < lines.length; index += 1) {
+		const line = lines[index];
+		if (isSupportOrCommunityLine(line)) {
+			continue;
+		}
+
+		const urls = extractUrls(line);
+
+		for (const url of urls) {
+			if (!isSourceUrl(url, options)) {
+				continue;
+			}
+
+			const key = sourceUrlKey(url);
+			if (seen.has(key)) {
+				continue;
+			}
+
+			seen.add(key);
+			sources.push({
+				title: sourceTitle(url, line, lines[index - 1]),
+				url,
+			});
+		}
+	}
+
+	return sources.slice(0, 20);
+}
+
 export async function applyPostMetadataFile(filePath, options = {}) {
 	const post = readPostFile(filePath);
 	const model = options.model ?? metadataModel;
@@ -708,14 +766,33 @@ function sameTags(a, b) {
 function parseFrontmatter(raw) {
 	const data = {};
 	let section;
+	let currentArrayItem;
 
 	for (const line of raw.split(/\r?\n/)) {
 		if (!line.trim()) {
 			continue;
 		}
 
+		const arrayItemMatch = line.match(/^  - ([A-Za-z0-9_]+):\s*(.*)$/);
+		if (arrayItemMatch && section) {
+			if (!Array.isArray(data[section])) {
+				data[section] = [];
+			}
+			currentArrayItem = {};
+			currentArrayItem[arrayItemMatch[1]] = parseValue(arrayItemMatch[2]);
+			data[section].push(currentArrayItem);
+			continue;
+		}
+
+		const arrayNestedMatch = line.match(/^    ([A-Za-z0-9_]+):\s*(.*)$/);
+		if (arrayNestedMatch && currentArrayItem) {
+			currentArrayItem[arrayNestedMatch[1]] = parseValue(arrayNestedMatch[2]);
+			continue;
+		}
+
 		const nestedMatch = line.match(/^  ([A-Za-z0-9_]+):\s*(.*)$/);
 		if (nestedMatch && section) {
+			currentArrayItem = undefined;
 			data[section][nestedMatch[1]] = parseValue(nestedMatch[2]);
 			continue;
 		}
@@ -724,12 +801,14 @@ function parseFrontmatter(raw) {
 		if (sectionMatch) {
 			section = sectionMatch[1];
 			data[section] = {};
+			currentArrayItem = undefined;
 			continue;
 		}
 
 		const match = line.match(/^([A-Za-z0-9_]+):\s*(.*)$/);
 		if (match) {
 			section = undefined;
+			currentArrayItem = undefined;
 			data[match[1]] = parseValue(match[2]);
 		}
 	}
@@ -814,6 +893,16 @@ function frontmatterString(data) {
 		);
 	}
 
+	if (Array.isArray(data.sources) && data.sources.length) {
+		lines.push('sources:');
+		for (const source of normalizeSources(data.sources)) {
+			lines.push(
+				`  - title: ${quote(source.title)}`,
+				`    url: ${quote(source.url)}`,
+			);
+		}
+	}
+
 	if (data.postCta) {
 		lines.push(
 			'postCta:',
@@ -829,6 +918,151 @@ function frontmatterString(data) {
 
 function quote(value) {
 	return `"${String(value ?? '').replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+}
+
+function normalizeSources(sources) {
+	const normalized = [];
+	const seen = new Set();
+
+	for (const source of sources) {
+		const url = cleanUrl(source?.url);
+		if (!url || seen.has(sourceUrlKey(url))) {
+			continue;
+		}
+
+		seen.add(sourceUrlKey(url));
+		normalized.push({
+			title: normalizeSourceTitle(source?.title, url),
+			url,
+		});
+	}
+
+	return normalized;
+}
+
+function extractUrls(text) {
+	return [...String(text ?? '').matchAll(/https?:\/\/[^\s<>"'()[\]{}]+/gi)]
+		.map((match) => cleanUrl(match[0]))
+		.filter(Boolean);
+}
+
+function cleanUrl(value) {
+	const withoutTrailingPunctuation = String(value ?? '')
+		.trim()
+		.replace(/[.,;:!?]+$/g, '');
+
+	try {
+		const url = new URL(withoutTrailingPunctuation);
+		if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+			return '';
+		}
+
+		return url.toString();
+	} catch {
+		return '';
+	}
+}
+
+function isSourceUrl(url, options = {}) {
+	const parsed = new URL(url);
+	const host = parsed.hostname.replace(/^www\./, '').toLowerCase();
+	const path = parsed.pathname.replace(/\/+$/, '');
+	const videoId = String(options.videoId ?? '');
+	const sourceUrl = cleanUrl(options.sourceUrl);
+
+	if (sourceUrl && sourceUrlKey(url) === sourceUrlKey(sourceUrl)) {
+		return false;
+	}
+
+	if (videoId && ((path === '/watch' && parsed.searchParams.get('v') === videoId) || path === `/shorts/${videoId}`)) {
+		return false;
+	}
+
+	if (host === 'youtu.be' && path === `/${videoId}`) {
+		return false;
+	}
+
+	const blockedHosts = new Set([
+		'kw.media',
+		'koytek-wattenberg.media',
+		'instagram.com',
+		'tiktok.com',
+		'threads.net',
+		'twitter.com',
+		'x.com',
+		'facebook.com',
+		'linkedin.com',
+		'discord.gg',
+		'discord.com',
+		'patreon.com',
+		'paypal.me',
+		'ko-fi.com',
+		'bsky.app',
+	]);
+
+	if (blockedHosts.has(host)) {
+		return false;
+	}
+
+	if (host === 'youtube.com' && (/^\/(?:@|channel\/|c\/|user\/|playlist\b)/.test(parsed.pathname) || parsed.searchParams.has('sub_confirmation'))) {
+		return false;
+	}
+
+	return true;
+}
+
+function isSupportOrCommunityLine(line) {
+	const text = String(line ?? '').toLowerCase();
+	return /\b(ask|post|send|drop)\b.{0,40}\b(questions?|feedback|comments?)\b/.test(text)
+		|| /\b(questions?|feedback|comments?)\b.{0,40}\b(forum|discord|community|comments?)\b/.test(text)
+		|| /\b(join|follow|subscribe|contact|support)\b.{0,50}\b(discord|forum|community|newsletter|socials?|channel)\b/.test(text)
+		|| /\bdiscord\.gg\b|\bdiscord\.com\b/.test(text);
+}
+
+function sourceUrlKey(url) {
+	const parsed = new URL(url);
+	parsed.hash = '';
+	parsed.hostname = parsed.hostname.replace(/^www\./, '').toLowerCase();
+	if (parsed.pathname !== '/') {
+		parsed.pathname = parsed.pathname.replace(/\/+$/, '');
+	}
+
+	return parsed.toString();
+}
+
+function sourceTitle(url, line, previousLine) {
+	const urlsRemoved = String(line ?? '')
+		.replace(/https?:\/\/[^\s<>"'()[\]{}]+/gi, ' ')
+		.replace(/^[\s\-*:|]+|[\s\-*:|]+$/g, '')
+		.replace(/\s+/g, ' ')
+		.trim();
+	const previous = String(previousLine ?? '')
+		.replace(/^[\s\-*:|]+|[\s\-*:|]+$/g, '')
+		.replace(/\s+/g, ' ')
+		.trim();
+	const contextualTitle = [urlsRemoved, previous].find((candidate) => (
+		candidate
+		&& candidate.length <= 90
+		&& !/^sources?|quellen?|links?$/i.test(candidate)
+		&& !/https?:\/\//i.test(candidate)
+	));
+
+	return normalizeSourceTitle(contextualTitle, url);
+}
+
+function normalizeSourceTitle(title, url) {
+	const cleanTitle = String(title ?? '')
+		.replace(/^source\s*:?\s*/i, '')
+		.replace(/^quelle\s*:?\s*/i, '')
+		.replace(/\s+/g, ' ')
+		.trim();
+
+	if (cleanTitle) {
+		return cleanTitle.slice(0, 100);
+	}
+
+	const parsed = new URL(url);
+	return parsed.hostname.replace(/^www\./, '');
 }
 
 async function cleanupMarkdown(markdown, frontmatter, model) {
