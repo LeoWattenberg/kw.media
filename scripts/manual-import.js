@@ -2,7 +2,12 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, join } from 'node:path';
-import { cleanupPostFile, extractSourceLinksFromDescription, translatePostFile } from './content-ai.mjs';
+import {
+	cleanupPostFile,
+	expandTranscriptPostFile,
+	extractSourceLinksFromDescription,
+	translatePostFile,
+} from './content-ai.mjs';
 
 const playlists = [
 	{
@@ -528,6 +533,12 @@ try {
 }
 
 if (runAiPostProcessing && createdPostPaths.length) {
+	console.log('Expanding imported transcript post(s)');
+	for (const postPath of createdPostPaths) {
+		console.log(`Expanding ${postPath}`);
+		await expandTranscriptPostFile(postPath);
+	}
+
 	console.log('Generating related-post data for imported post(s)');
 	runNodeScript('build-related-posts.mjs');
 

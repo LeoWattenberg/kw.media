@@ -2,8 +2,10 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, resolve, relative } from 'node:path';
 import {
 	allPostFiles,
+	composeArticleWithTranscript,
 	readAllPosts,
 	readPostFile,
+	splitPostBodyParts,
 	writePostFile,
 } from './content-ai.mjs';
 
@@ -305,9 +307,11 @@ function compatibleLinkCategory(post, candidate) {
 }
 
 async function linkPostBody(post, candidates) {
-	let body = post.body;
-	const existingPaths = linkedPostPaths(body);
-	const wordCount = countBodyWords(body);
+	const parts = splitPostBodyParts(post.body);
+	const shouldLinkStructuredArticle = Boolean(parts.article && parts.transcript);
+	let linkableBody = shouldLinkStructuredArticle ? parts.article : post.body;
+	const existingPaths = linkedPostPaths(post.body);
+	const wordCount = countBodyWords(linkableBody);
 	const linkLimit = linkLimitForWordCount(wordCount);
 	const links = [];
 	const availablePageCandidates = candidates
@@ -321,7 +325,8 @@ async function linkPostBody(post, candidates) {
 
 	if (useAi && availableCandidates.length) {
 		try {
-			for (const suggestion of await suggestAiLinks(post, availableCandidates, linkLimit)) {
+			const linkablePost = { ...post, body: linkableBody };
+			for (const suggestion of await suggestAiLinks(linkablePost, availableCandidates, linkLimit)) {
 				if (links.length >= linkLimit) {
 					break;
 				}
@@ -334,12 +339,12 @@ async function linkPostBody(post, candidates) {
 					continue;
 				}
 
-				const linked = insertFirstMarkdownLink(body, suggestion.anchor, suggestion.path);
-				if (linked === body) {
+				const linked = insertFirstMarkdownLink(linkableBody, suggestion.anchor, suggestion.path);
+				if (linked === linkableBody) {
 					continue;
 				}
 
-				body = linked;
+				linkableBody = linked;
 				existingPaths.add(suggestion.path);
 				links.push({ anchor: suggestion.anchor, path: suggestion.path, source: 'ai' });
 			}
@@ -358,20 +363,24 @@ async function linkPostBody(post, candidates) {
 			continue;
 		}
 
-		const anchor = findAnchor(body, candidate, post.frontmatter.locale);
+		const anchor = findAnchor(linkableBody, candidate, post.frontmatter.locale);
 		if (!anchor) {
 			continue;
 		}
 
-		const linked = insertFirstMarkdownLink(body, anchor, targetPath);
-		if (linked === body) {
+		const linked = insertFirstMarkdownLink(linkableBody, anchor, targetPath);
+		if (linked === linkableBody) {
 			continue;
 		}
 
-		body = linked;
+		linkableBody = linked;
 		existingPaths.add(targetPath);
 		links.push({ anchor, path: targetPath, source: 'deterministic' });
 	}
+
+	const body = shouldLinkStructuredArticle
+		? composeArticleWithTranscript(linkableBody, parts.transcript)
+		: linkableBody;
 
 	return { body, links, linkLimit, wordCount };
 }
@@ -604,11 +613,16 @@ function findMatchOutsideProtectedRanges(body, phrase) {
 
 function markdownProtectedRanges(body) {
 	return [
+		...separatorMarkerRanges(body),
 		...regexRanges(body, /```[\s\S]*?```/g),
 		...regexRanges(body, /`[^`\n]+`/g),
 		...regexRanges(body, /!?\[[^\]]*]\([^)]+\)/g),
 		...regexRanges(body, /<[^>\n]+>/g),
 	];
+}
+
+function separatorMarkerRanges(body) {
+	return regexRanges(body, /<!--\s*kwm:(?:article|transcript):(?:start|end)\s*-->/g);
 }
 
 function regexRanges(text, regex) {
