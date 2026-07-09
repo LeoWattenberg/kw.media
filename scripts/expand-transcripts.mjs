@@ -59,7 +59,7 @@ for (const [index, filePath] of selectedFiles.entries()) {
 			...(targetWords > 0 ? { targetWords } : {}),
 		});
 		results.push(result);
-		console.log(`  ${result.oldWords} -> ${result.newWords} words with ${result.model}`);
+		console.log(`  article: ${result.articleWords} words; transcript: ${result.transcriptWords} words; stored total: ${result.newWords} words with ${result.model}`);
 
 		if (dryRun) {
 			console.log(indentPreview(result.body, previewChars));

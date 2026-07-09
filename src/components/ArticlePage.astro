@@ -20,8 +20,13 @@ const tags = Array.isArray(post.tags)
 const isShortVideo = post.video?.watchUrl.includes('/shorts/');
 const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
 const postSources = normalizePostSources(post.sources);
+const structuredContent = splitStructuredContentHtml(post.contentHtml);
+const originalTranscript = structuredContent.transcriptHtml
+	? originalTranscriptHtml(structuredContent.transcriptHtml, post.locale)
+	: '';
 const articleContentHtml = [
-	post.contentHtml,
+	structuredContent.articleHtml ?? post.contentHtml,
+	originalTranscript,
 	postSources.length ? postSourcesHtml(postSources, post.locale) : '',
 	post.postCta ? postCtaHtml(post.postCta) : '',
 ].filter(Boolean).join('\n');
@@ -163,6 +168,39 @@ function postSourcesHtml(sources: Array<{ title: string; url: string }>, locale:
 		.join('');
 
 	return `<section class="post-sources" aria-labelledby="post-sources-heading"><h2 id="post-sources-heading">${heading}</h2><ul>${links}</ul></section>`;
+}
+
+function originalTranscriptHtml(transcriptHtml: string, locale: SourcePost['locale']): string {
+	const heading = locale === 'de' ? 'Originaltranskript' : 'Original transcript';
+
+	return [
+		'<section class="original-transcript" data-kwm-part="original-transcript" data-nosnippet>',
+		'<details>',
+		`<summary>${escapeHtml(heading)}</summary>`,
+		'<div class="original-transcript-body">',
+		transcriptHtml,
+		'</div>',
+		'</details>',
+		'</section>',
+	].join('\n');
+}
+
+function splitStructuredContentHtml(html: string): { articleHtml?: string; transcriptHtml?: string } {
+	return {
+		articleHtml: extractMarkedHtmlPart(html, '<!-- kwm:article:start -->', '<!-- kwm:article:end -->'),
+		transcriptHtml: extractMarkedHtmlPart(html, '<!-- kwm:transcript:start -->', '<!-- kwm:transcript:end -->'),
+	};
+}
+
+function extractMarkedHtmlPart(html: string, startMarker: string, endMarker: string): string | undefined {
+	const start = html.indexOf(startMarker);
+	const end = html.indexOf(endMarker);
+
+	if (start < 0 || end < 0 || end <= start) {
+		return undefined;
+	}
+
+	return html.slice(start + startMarker.length, end).trim();
 }
 
 function escapeHtml(value: string): string {
