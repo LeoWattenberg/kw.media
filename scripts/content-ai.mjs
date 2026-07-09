@@ -36,6 +36,7 @@ const translateModel = process.env.OLLAMA_TRANSLATE_MODEL ?? 'aya-expanse:32b';
 const metadataModel = process.env.OLLAMA_METADATA_MODEL ?? process.env.OLLAMA_EXCERPT_MODEL ?? translateModel;
 const postCtaModel = process.env.OLLAMA_POST_CTA_MODEL ?? metadataModel;
 const tagModel = process.env.OLLAMA_POST_TAG_MODEL ?? metadataModel;
+const transcriptExpansionModel = process.env.OLLAMA_TRANSCRIPT_EXPAND_MODEL ?? process.env.OLLAMA_EXPAND_MODEL ?? cleanupModels.deep;
 const timeoutMs = Number(process.env.OLLAMA_TIMEOUT_MS ?? 300000);
 const chunkSize = Number(process.env.OLLAMA_CHUNK_SIZE ?? 5200);
 
@@ -114,6 +115,27 @@ export async function cleanupPostFile(filePath, options = {}) {
 		filePath,
 		model,
 		category: post.frontmatter.category,
+	};
+}
+
+export async function expandTranscriptPostFile(filePath, options = {}) {
+	const post = readPostFile(filePath);
+	const model = options.model ?? transcriptExpansionModel;
+	const expandedBody = await expandTranscriptMarkdown(post, model, options);
+	const oldWords = markdownWordCount(post.body);
+	const newWords = markdownWordCount(expandedBody);
+
+	if (!options.dryRun) {
+		writePostFile(filePath, post.frontmatter, expandedBody);
+	}
+
+	return {
+		filePath,
+		model,
+		oldWords,
+		newWords,
+		changed: post.body.trim() !== expandedBody.trim(),
+		body: expandedBody,
 	};
 }
 
@@ -511,6 +533,23 @@ export function buildTagVocabulary() {
 			registerTag(name, locale);
 		},
 	};
+}
+
+export function isTranscriptExpansionCandidate(post, options = {}) {
+	if (!isTranscriptLikePost(post)) {
+		return false;
+	}
+
+	const minWords = Number(options.minWords ?? 900);
+	const words = markdownWordCount(post.body);
+	const headingCount = countMatches(post.body, /^##\s+/gm);
+	const startsAsTranscript = /^\s*##\s+(transkript|transcript)\b/im.test(post.body);
+
+	return words < minWords || headingCount <= 2 || startsAsTranscript;
+}
+
+export function markdownWordCount(markdown) {
+	return plainTextFromMarkdown(markdown).split(/\s+/).filter(Boolean).length;
 }
 
 export function writeTagRegistry() {
@@ -1077,6 +1116,16 @@ async function cleanupMarkdown(markdown, frontmatter, model) {
 	return results.join('\n\n').trim();
 }
 
+async function expandTranscriptMarkdown(post, model, options = {}) {
+	const targetWords = Number(options.targetWords ?? transcriptExpansionTargetWords(post));
+	const prompt = transcriptExpansionPrompt(post, targetWords);
+	const expanded = normalizeAiOutput(await ollamaGenerate(model, prompt));
+
+	validateExpandedTranscript(expanded, post, { targetWords });
+
+	return expanded;
+}
+
 async function translateMarkdown(markdown, frontmatter, targetLocale) {
 	const chunks = chunkMarkdown(markdown);
 	const results = [];
@@ -1488,6 +1537,62 @@ Markdown:
 ${markdown}`;
 }
 
+function transcriptExpansionPrompt(post, targetWords) {
+	const locale = post.frontmatter.locale;
+	const sourceList = transcriptSourceList(post);
+	const temporalRule = post.frontmatter.category === 'news-video'
+		? '- This is creator-news content. Treat dated rollout/status details as true for the publication date, not necessarily current today.'
+		: '- If the transcript contains dated rollout/status details, phrase them as tied to the original publication context instead of timeless facts.';
+
+	return `Turn this transcript-style Markdown into a fuller editorial article body for kw.media.
+
+Return only Markdown for the article body. Do not include frontmatter or an H1.
+
+Post context:
+title: ${post.frontmatter.title}
+excerpt: ${post.frontmatter.excerpt}
+date: ${post.frontmatter.date}
+locale: ${locale}
+category: ${post.frontmatter.category}
+tags: ${Array.isArray(post.frontmatter.tags) ? post.frontmatter.tags.join(', ') : ''}
+
+Allowed source material:
+${sourceList}
+
+Rules:
+- Use ${languageName(locale)}.
+- Keep the article grounded in the transcript and allowed source material only.
+- Do not invent dates, statistics, feature availability, policy details, named sources, quotes, or examples that are not clearly supported.
+${temporalRule}
+- Expand by adding useful context, definitions, consequences, caveats, practical steps, and reader-oriented explanations that are directly implied by the transcript.
+- Preserve the existing Markdown links and their targets when the linked topic remains relevant.
+- Do not add new links, new external sources, videos, images, embeds, tables, or footnotes.
+- Do not keep a separate raw "Transkript" or "Transcript" section; this output replaces the transcript with a readable article.
+- Start with a level-2 heading. Use level-2 and level-3 headings to make the article scannable.
+- For German, keep "Creator" as "Creator" and use natural "du" wording when addressing the reader.
+- Preserve product/platform names such as YouTube, YouTube Studio, YouTube Live, Shorts, Twitch, OBS, Audacity, Community Posts, Fan Communities, Creator Support, Super Chat, and A/B testing.
+- Aim for roughly ${targetWords} words, but do not pad or repeat yourself.
+- Return only the finished Markdown, no notes.
+
+Transcript Markdown:
+${post.body}`;
+}
+
+function transcriptSourceList(post) {
+	const sources = [
+		post.frontmatter.sourceUrl ? { title: 'Original video', url: post.frontmatter.sourceUrl } : undefined,
+		...(Array.isArray(post.frontmatter.sources) ? post.frontmatter.sources : []),
+	].filter(Boolean);
+
+	if (!sources.length) {
+		return '- No external sources are listed. Use only the transcript text.';
+	}
+
+	return sources
+		.map((source) => `- ${source.title}: ${source.url}`)
+		.join('\n');
+}
+
 function translateMarkdownPrompt(markdown, frontmatter, targetLocale, index, total) {
 	const sourceLocale = frontmatter.locale;
 	const chunkNote = total > 1 ? `\nThis is chunk ${index} of ${total}; translate only this chunk.` : '';
@@ -1757,8 +1862,88 @@ function validateGeneratedExcerpt(excerpt, locale, maxLength) {
 	}
 }
 
+function validateExpandedTranscript(markdown, post, { targetWords }) {
+	const output = normalizeAiOutput(markdown);
+	const words = markdownWordCount(output);
+	const originalWords = markdownWordCount(post.body);
+	const minimumWords = Math.max(
+		180,
+		Math.round(originalWords * 0.85),
+		originalWords < targetWords ? Math.round(Math.min(targetWords * 0.65, originalWords + 180)) : 0,
+	);
+
+	if (!output || output.length < 200) {
+		throw new Error(`Expanded transcript is too short for ${post.frontmatter.path}`);
+	}
+
+	if (words < minimumWords) {
+		throw new Error(`Expanded transcript is too short (${words}/${minimumWords} words) for ${post.frontmatter.path}`);
+	}
+
+	if (/^---\s*$/m.test(output) || /^#\s+/m.test(output)) {
+		throw new Error(`Expanded transcript contains frontmatter or an H1 for ${post.frontmatter.path}`);
+	}
+
+	if (!/^##\s+\S+/m.test(output)) {
+		throw new Error(`Expanded transcript has no level-2 heading for ${post.frontmatter.path}`);
+	}
+
+	if (/```|as an ai|als ki|return only|allowed source material|transcript markdown|finished markdown/i.test(output)) {
+		throw new Error(`Expanded transcript contains prompt leakage for ${post.frontmatter.path}`);
+	}
+
+	if (post.frontmatter.locale === 'en' && likelyGermanText(output)) {
+		throw new Error(`Expanded English transcript looks German for ${post.frontmatter.path}`);
+	}
+
+	if (post.frontmatter.locale === 'de' && likelyEnglishText(output)) {
+		throw new Error(`Expanded German transcript looks English for ${post.frontmatter.path}`);
+	}
+
+	const allowedTargets = new Set([
+		...markdownLinkTargets(post.body),
+		post.frontmatter.sourceUrl,
+		...(Array.isArray(post.frontmatter.sources) ? post.frontmatter.sources.map((source) => source.url) : []),
+	].filter(Boolean));
+	const newTargets = markdownLinkTargets(output).filter((target) => !allowedTargets.has(target));
+
+	if (newTargets.length) {
+		throw new Error(`Expanded transcript added new link targets for ${post.frontmatter.path}: ${newTargets.join(', ')}`);
+	}
+}
+
+function isTranscriptLikePost(post) {
+	return Boolean(post.frontmatter.video)
+		|| ['video-tutorial', 'news-video', 'short-tutorial'].includes(post.frontmatter.category)
+		|| /^\s*##\s+(transkript|transcript)\b/im.test(post.body);
+}
+
+function transcriptExpansionTargetWords(post) {
+	const words = markdownWordCount(post.body);
+
+	if (post.frontmatter.category === 'short-tutorial') {
+		return Math.min(750, Math.max(450, Math.round(words * 2.2)));
+	}
+
+	if (post.frontmatter.category === 'news-video') {
+		return Math.min(1400, Math.max(850, Math.round(words * 1.7)));
+	}
+
+	return Math.min(1300, Math.max(800, Math.round(words * 1.8)));
+}
+
+function markdownLinkTargets(markdown) {
+	return [...String(markdown ?? '').matchAll(/!?\[[^\]]*]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g)]
+		.map((match) => match[1])
+		.filter(Boolean);
+}
+
 function postPlainText(post, maxLength = 4000) {
-	const text = post.body
+	return plainTextFromMarkdown(post.body).slice(0, maxLength);
+}
+
+function plainTextFromMarkdown(markdown) {
+	return String(markdown ?? '')
 		.replace(/```[\s\S]*?```/g, ' ')
 		.replace(/^#+\s+.*$/gm, ' ')
 		.replace(/<[^>]+>/g, ' ')
@@ -1767,8 +1952,6 @@ function postPlainText(post, maxLength = 4000) {
 		.replace(/[`*_>#-]/g, ' ')
 		.replace(/\s+/g, ' ')
 		.trim();
-
-	return text.slice(0, maxLength);
 }
 
 function likelyGermanText(text) {
