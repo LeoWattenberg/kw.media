@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/mwI9bSG6_dw"
   watchUrl: "https://www.youtube.com/watch?v=mwI9bSG6_dw"
   thumbnailUrl: "https://i.ytimg.com/vi/mwI9bSG6_dw/maxresdefault.jpg"
+sources:
+  - title: "🔗"
+    url: "https://www.youtube.com/premium/twoperson"
 postCta:
   text: "Unsicher bei YouTube-Updates: Kommentervorschauen bei Shorts, Duo-Premium-Pläne und? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

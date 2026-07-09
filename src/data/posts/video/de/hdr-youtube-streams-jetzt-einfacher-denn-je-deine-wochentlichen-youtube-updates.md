@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/0g-IDgMvpRs"
   watchUrl: "https://www.youtube.com/watch?v=0g-IDgMvpRs"
   thumbnailUrl: "https://i.ytimg.com/vi/0g-IDgMvpRs/maxresdefault.jpg"
+sources:
+  - title: "Original"
+    url: "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
 postCta:
   text: "Du bist verwirrt über HDR-Streams auf YouTube? Bei kw.media findest du Unterstützung und Beratung für deinen Kanal. Besuche {page}, um mehr über unsere Angebote zu erfahren und dein YouTube-Erlebnis zu verbessern, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

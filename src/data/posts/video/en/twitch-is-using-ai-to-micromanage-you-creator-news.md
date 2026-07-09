@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/JhAvOlIInDk"
   watchUrl: "https://www.youtube.com/watch?v=JhAvOlIInDk"
   thumbnailUrl: "https://i.ytimg.com/vi/JhAvOlIInDk/maxresdefault.jpg"
+sources:
+  - title: "OmniVoice (Local Audio AI)"
+    url: "https://github.com/k2-fsa/OmniVoice"
+  - title: "gsplat (Apache 2.0 Gaussian Splatting)"
+    url: "https://github.com/nerfstudio-project/gsplat"
 postCta:
   text: "Confused about AI's role in your sponsorships and content creation? {page} offers expert support and guidance on navigating these changes, ensuring you get fair compensation."
   pagePath: "/en/creator/"

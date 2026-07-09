@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/jQdcFKeY1xA"
   watchUrl: "https://www.youtube.com/shorts/jQdcFKeY1xA"
   thumbnailUrl: "https://i.ytimg.com/vi/jQdcFKeY1xA/maxresdefault.jpg"
+sources:
+  - title: "Hier wählst du deinen Handle/Alias"
+    url: "https://www.youtube.com/handle"
+  - title: "Mehr Infos zu Handles/Aliassen auf"
+    url: "https://support.google.com/youtube/answer/11585688?hl=de&p=handles_info&rd=1"
 postCta:
   text: "Du bist dir unsicher, wie du die neuen YouTube-Handles optimal nutzt? Auf unserer {page} findest du weitere Tipps und Tricks rund um YouTube und deinen Kanal. Dort helfen wir dir gerne weiter, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

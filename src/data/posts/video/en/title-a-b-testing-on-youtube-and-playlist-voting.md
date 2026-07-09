@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/bXbIz9BKeUc"
   watchUrl: "https://www.youtube.com/watch?v=bXbIz9BKeUc"
   thumbnailUrl: "https://i.ytimg.com/vi/bXbIz9BKeUc/maxresdefault.jpg"
+sources:
+  - title: "🔗 More info on playlist collaboration & voting"
+    url: "https://support.google.com/youtube/answer/6109639"
 postCta:
   text: "Confused about these new YouTube features? Our {page} team can help. We offer expert consulting to maximize your channel's potential."
   pagePath: "/en/creator/"

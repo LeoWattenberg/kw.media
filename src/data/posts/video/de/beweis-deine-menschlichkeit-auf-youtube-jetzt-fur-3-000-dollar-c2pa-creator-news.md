@@ -18,6 +18,13 @@ video:
   embedUrl: "https://www.youtube.com/embed/j2al3ouHxz4"
   watchUrl: "https://www.youtube.com/watch?v=j2al3ouHxz4"
   thumbnailUrl: "https://i.ytimg.com/vi/j2al3ouHxz4/maxresdefault.jpg"
+sources:
+  - title: "Our original YouTube Stations Video (July 2023)"
+    url: "https://youtu.be/soHWV-Onjhk"
+  - title: "How to use EU DMs (YouTube Short)"
+    url: "https://youtube.com/shorts/Q5OFnSBrn3U"
+  - title: "Coffeezilla's Deepfake Investigation"
+    url: "https://www.youtube.com/watch?v=srr0rRgF2Fw"
 postCta:
   text: "Wenn du dich nach dem Lesen dieses Artikels unsicher fühlst, schau dir unsere {page} an, wo wir dir helfen können, deinen YouTube-Kanal zu sichern und deine Inhalte zu optimieren, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

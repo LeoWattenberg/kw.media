@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/5P1Bw-qOnJM"
   watchUrl: "https://www.youtube.com/watch?v=5P1Bw-qOnJM"
   thumbnailUrl: "https://i.ytimg.com/vi/5P1Bw-qOnJM/maxresdefault.jpg"
+sources:
+  - title: "Umfrageformular für das Dashboard"
+    url: "https://forms.gle/AUWvGBzdXXH95qnL9"
 postCta:
   text: "Confused about the latest YouTube updates? From Q&A stickers to larger thumbnails, we've got you covered. Check out our {page} for more insights and expert advice on navigating these changes."
   pagePath: "/en/creator/"

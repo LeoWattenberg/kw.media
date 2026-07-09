@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/pgpp8FB-Jwg"
   watchUrl: "https://www.youtube.com/watch?v=pgpp8FB-Jwg"
   thumbnailUrl: "https://i.ytimg.com/vi/pgpp8FB-Jwg/maxresdefault.jpg"
+sources:
+  - title: "More Infos on the Effect Maker"
+    url: "https://effects.youtube.com/"
+  - title: "Effect Maker Availability"
+    url: "https://support.google.com/youtube/answer/16306496"
 postCta:
   text: "Du bist dir nicht sicher, wie du diese neuen YouTube-Funktionen am besten nutzt? Schau dir unsere {page} an und entdecke, wie wir dich bei deinem YouTube-Auftritt unterstützen können, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/K7CyD1EvaeE"
   watchUrl: "https://www.youtube.com/watch?v=K7CyD1EvaeE"
   thumbnailUrl: "https://i.ytimg.com/vi/K7CyD1EvaeE/maxresdefault.jpg"
+sources:
+  - title: "youtube.com"
+    url: "https://www.youtube.com/feed/clips"
 postCta:
   text: "Confused about YouTube's latest updates? From Clips Feed to Fan Communities, we've got you covered. Learn more about these new features and how they might impact your channel on our {page}, or contact our expert below."
   pagePath: "/en/creator/"

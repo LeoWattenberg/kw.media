@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/OSmA6MtFYZ8"
   watchUrl: "https://www.youtube.com/watch?v=OSmA6MtFYZ8"
   thumbnailUrl: "https://i.ytimg.com/vi/OSmA6MtFYZ8/maxresdefault.jpg"
+sources:
+  - title: "Full version with additional steps"
+    url: "https://www.youtube.com/watch?v=mY9wBvDgnfQ"
+  - title: "Official guide"
+    url: "https://support.audacityteam.org/basics/installing-ffmpeg"
 postCta:
   text: "Confused about installing FFmpeg for Audacity? Our tools page provides simple solutions for media file handling. Check out {page} for more info or reach out for expert assistance."
   pagePath: "/en/tools/"

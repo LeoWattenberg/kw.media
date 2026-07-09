@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/S_Qwsk7CKB0"
   watchUrl: "https://www.youtube.com/watch?v=S_Qwsk7CKB0"
   thumbnailUrl: "https://i.ytimg.com/vi/S_Qwsk7CKB0/maxresdefault.jpg"
+sources:
+  - title: "GitHub Repository for PhotoGIMP"
+    url: "https://github.com/Diolinux/PhotoGIMP"
+  - title: "Official YouTube Help (Course Files)"
+    url: "https://support.google.com/youtube/answer/15128409"
 postCta:
   text: "Verwirrende Nachrichten über YouTube's neue KI? Bei kw.media helfen wir dir, den Überblick zu behalten. Entdecke auf unserer {page} Seite weitere Tipps und Tricks für Creator, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

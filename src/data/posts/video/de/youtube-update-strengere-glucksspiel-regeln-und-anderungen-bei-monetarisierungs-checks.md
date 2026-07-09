@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/4vqgeulXPO8"
   watchUrl: "https://www.youtube.com/watch?v=4vqgeulXPO8"
   thumbnailUrl: "https://i.ytimg.com/vi/4vqgeulXPO8/maxresdefault.jpg"
+sources:
+  - title: "0:00 - Neue strengere Regeln für Glücksspiel-Inhalte 🚨"
+    url: "https://support.google.com/youtube/answer/9910779"
+  - title: "1:15 - Neue Shopping-Tipps für YouTube Creator 🛍️"
+    url: "https://support.google.com/youtube/topic/15814000"
 postCta:
   text: "Bist du unsicher, wie sich die neuen YouTube-Richtlinien für Glücksspiel auswirken? Auf unserer {page} findest du Unterstützung und Beratung zu allen Fragen rund um deinen Kanal, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

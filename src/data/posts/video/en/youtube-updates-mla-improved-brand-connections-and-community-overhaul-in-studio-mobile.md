@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/6AeC2WO3t_A"
   watchUrl: "https://www.youtube.com/watch?v=6AeC2WO3t_A"
   thumbnailUrl: "https://i.ytimg.com/vi/6AeC2WO3t_A/maxresdefault.jpg"
+sources:
+  - title: "Mehr Infos zum Creator Initiated Content Linking"
+    url: "https://support.google.com/youtube/answer/3063482"
 postCta:
   text: "Confused about YouTube's latest changes? From multilingual audio to community overhauls in Studio Mobile, learn more about these updates and their potential impact. For in-depth insights, check out our {page}, or contact our expert below."
   pagePath: "/en/youtube-tips/"

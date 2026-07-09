@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/1TRWw2aQu2w"
   watchUrl: "https://www.youtube.com/watch?v=1TRWw2aQu2w"
   thumbnailUrl: "https://i.ytimg.com/vi/1TRWw2aQu2w/maxresdefault.jpg"
+sources:
+  - title: "Full policy & helpful guide for young creators"
+    url: "https://support.google.com/youtube/answer/2853834?hl=en"
 postCta:
   text: "Wenn du mehr über die Live-Streaming-Richtlinien, den verbesserten Analytic Modus oder die Inspiration Registerkarte erfahren möchtest, besuche unsere {page} für detaillierte Informationen und Unterstützung, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

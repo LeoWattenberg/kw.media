@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/1TRWw2aQu2w"
   watchUrl: "https://www.youtube.com/watch?v=1TRWw2aQu2w"
   thumbnailUrl: "https://i.ytimg.com/vi/1TRWw2aQu2w/maxresdefault.jpg"
+sources:
+  - title: "Full policy & helpful guide for young creators"
+    url: "https://support.google.com/youtube/answer/2853834?hl=en"
 postCta:
   text: "Confused about the latest YouTube changes? Our {page} offers in-depth explanations and tips to help you navigate these updates effectively. Stay informed, or contact our expert below."
   pagePath: "/en/youtube-tips/"

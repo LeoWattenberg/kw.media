@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/JhAvOlIInDk"
   watchUrl: "https://www.youtube.com/watch?v=JhAvOlIInDk"
   thumbnailUrl: "https://i.ytimg.com/vi/JhAvOlIInDk/maxresdefault.jpg"
+sources:
+  - title: "OmniVoice (Local Audio AI)"
+    url: "https://github.com/k2-fsa/OmniVoice"
+  - title: "gsplat (Apache 2.0 Gaussian Splatting)"
+    url: "https://github.com/nerfstudio-project/gsplat"
 postCta:
   text: "Unsicher bei Twitch nutzt KI, um Creator zu mikromanagen | Creator News? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

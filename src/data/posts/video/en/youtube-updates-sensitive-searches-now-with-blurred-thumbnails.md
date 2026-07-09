@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/tvpXlghvKzo"
   watchUrl: "https://www.youtube.com/watch?v=tvpXlghvKzo"
   thumbnailUrl: "https://i.ytimg.com/vi/tvpXlghvKzo/maxresdefault.jpg"
+sources:
+  - title: "YouTube explains the details of this new feature here"
+    url: "https://support.google.com/youtube/answer/16090438"
 postCta:
   text: "Confused about YouTube's new thumbnail policy for sensitive searches? Learn more about this subtle change on our {page} and understand how it might affect your channel, or contact our expert below."
   pagePath: "/en/youtube-tips/"

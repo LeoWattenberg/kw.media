@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/K7CyD1EvaeE"
   watchUrl: "https://www.youtube.com/watch?v=K7CyD1EvaeE"
   thumbnailUrl: "https://i.ytimg.com/vi/K7CyD1EvaeE/maxresdefault.jpg"
+sources:
+  - title: "youtube.com"
+    url: "https://www.youtube.com/feed/clips"
 postCta:
   text: "Du bist verwirrt über die neuen YouTube-Funktionen? Bei kw.media findest du {page} und Unterstützung für deinen Kanal. Entdecke, wie du das Clips Feed Update und weitere Neuerungen optimal nutzen kannst, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

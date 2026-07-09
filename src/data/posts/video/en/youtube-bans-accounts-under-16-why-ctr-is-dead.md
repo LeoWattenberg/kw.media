@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/nYCqLniFimk"
   watchUrl: "https://www.youtube.com/watch?v=nYCqLniFimk"
   thumbnailUrl: "https://i.ytimg.com/vi/nYCqLniFimk/maxresdefault.jpg"
+sources:
+  - title: "• YouTube Recap"
+    url: "https://www.youtube.com/recap"
+  - title: "• Creator News Playlist"
+    url: "https://www.youtube.com/watch?v=sFADjkaHI2s&list=PLpM9DoCHlaQHakLX_dlP6h8X1M5Ec4z4o"
 postCta:
   text: "Confused about YouTube's new rules and tools? For comprehensive support and guidance on navigating these updates, explore our {page} to ensure your channel thrives, or contact our expert below."
   pagePath: "/en/creator/"

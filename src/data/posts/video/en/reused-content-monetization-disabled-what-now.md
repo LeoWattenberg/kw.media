@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/mnMu7iY7i7E"
   watchUrl: "https://www.youtube.com/watch?v=mnMu7iY7i7E"
   thumbnailUrl: "https://i.ytimg.com/vi/mnMu7iY7i7E/maxresdefault.jpg"
+sources:
+  - title: "More Information about Reused Content"
+    url: "https://support.google.com/youtube/answer/1311392?zippy=%2Cfollow-our-program-policies"
 postCta:
   text: "Confused about reused content and YouTube monetization? Don't worry, we've got you covered. Check out our {page} for expert advice on how to navigate this issue and get your channel back on track."
   pagePath: "/en/creator/"

@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/cZ3k13Ca0n8"
   watchUrl: "https://www.youtube.com/watch?v=cZ3k13Ca0n8"
   thumbnailUrl: "https://i.ytimg.com/vi/cZ3k13Ca0n8/maxresdefault.jpg"
+sources:
+  - title: "Mehr Infos zu den @ Handles"
+    url: "https://support.google.com/youtube/answer/11585688"
 postCta:
   text: "Confused about the new YouTube language support? We can help. Learn more about expanded @handle languages and special characters on our {page}, or contact our expert below."
   pagePath: "/en/creator/"

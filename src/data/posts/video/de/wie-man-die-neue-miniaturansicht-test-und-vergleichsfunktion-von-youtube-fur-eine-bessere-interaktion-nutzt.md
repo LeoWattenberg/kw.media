@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/R7uZYO3UbB0"
   watchUrl: "https://www.youtube.com/watch?v=R7uZYO3UbB0"
   thumbnailUrl: "https://i.ytimg.com/vi/R7uZYO3UbB0/maxresdefault.jpg"
+sources:
+  - title: "Get access to YouTube Advanced Features"
+    url: "https://support.google.com/youtube/answer/9891124"
 postCta:
   text: "Du bist dir unsicher, wie du diese neue Funktion optimal nutzen kannst? Auf unserer {page} findest du weitere Tipps und Tricks rund um YouTube und wir bieten dir gerne unsere Expertise an, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

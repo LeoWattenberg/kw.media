@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/EUX5WpvVvB8"
   watchUrl: "https://www.youtube.com/watch?v=EUX5WpvVvB8"
   thumbnailUrl: "https://i.ytimg.com/vi/EUX5WpvVvB8/maxresdefault.jpg"
+sources:
+  - title: "YouTube Blog on Expressive Speech"
+    url: "https://blog.youtube/news-and-events/youtube-auto-dubbing-expressive-speech/"
+  - title: "@creatorinsider Interview"
+    url: "https://www.youtube.com/watch?v=90HF5s0qlm0"
 postCta:
   text: "Unsicher bei YouTubes neue „Ausdrucksstarke Sprache“-KI: Besser als menschliche? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
   pagePath: "/de/video-synchronisation/"

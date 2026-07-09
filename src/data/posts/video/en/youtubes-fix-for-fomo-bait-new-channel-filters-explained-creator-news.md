@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/N4NERKAfs5k"
   watchUrl: "https://www.youtube.com/watch?v=N4NERKAfs5k"
   thumbnailUrl: "https://i.ytimg.com/vi/N4NERKAfs5k/maxresdefault.jpg"
+sources:
+  - title: "forms.gle"
+    url: "https://forms.gle/SxGtJhEVBphp4oYN8"
 postCta:
   text: "Confused about YouTube's new updates? Our {page} offers expert support and guidance on navigating these changes, ensuring your channel stays ahead of the curve."
   pagePath: "/en/creator/"

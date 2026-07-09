@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/7K_1NHsygk0"
   watchUrl: "https://www.youtube.com/watch?v=7K_1NHsygk0"
   thumbnailUrl: "https://i.ytimg.com/vi/7K_1NHsygk0/maxresdefault.jpg"
+sources:
+  - title: "So bekommt ihr Zugang zu den erweiterten Funktionen"
+    url: "https://support.google.com/youtube/answer/9891124"
 postCta:
   text: "Confused about YouTube's Thumbnail Test & Compare? Our {page} offers expert insights on this new feature, helping you optimize your video thumbnails for better engagement."
   pagePath: "/en/creator/"

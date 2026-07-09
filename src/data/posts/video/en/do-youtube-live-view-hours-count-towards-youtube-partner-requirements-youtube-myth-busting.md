@@ -18,6 +18,13 @@ video:
   embedUrl: "https://www.youtube.com/embed/aIFl-V2c47o"
   watchUrl: "https://www.youtube.com/watch?v=aIFl-V2c47o"
   thumbnailUrl: "https://i.ytimg.com/vi/aIFl-V2c47o/maxresdefault.jpg"
+sources:
+  - title: "support.google.com"
+    url: "https://support.google.com/youtube/answer/72851?hl=en#zippy=%2Cwhat-do-valid-public-watch-hours-and-valid-public-shorts-views-mean"
+  - title: "YouTube Partner Program Voraussetzungen"
+    url: "https://support.google.com/youtube/answer/72851"
+  - title: "YouTube Partner Program Richtlinien"
+    url: "https://support.google.com/youtube/answer/1311392"
 postCta:
   text: "Not sure how YouTube Live view hours impact Partner Program eligibility? {page} offers expert insights on meeting YouTube's requirements, including how public live streams can contribute to the necessary view hours."
   pagePath: "/en/creator/"

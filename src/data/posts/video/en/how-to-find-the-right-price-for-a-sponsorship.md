@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/A95WfCKuuYo"
   watchUrl: "https://www.youtube.com/shorts/A95WfCKuuYo"
   thumbnailUrl: "https://i.ytimg.com/vi/A95WfCKuuYo/maxresdefault.jpg"
+sources:
+  - title: "Englische Variante"
+    url: "https://www.reddit.com/r/youtubegaming/comments/h7hkzo/lets_talk_about_money_sponsorships/"
 postCta:
   text: "Not sure how to price your sponsorship deals? It's crucial to consider production costs, audience reach, and tax implications. Check out our {page} for more guidance on fair rates and successful collaborations, or contact our expert below."
   pagePath: "/en/creator/"

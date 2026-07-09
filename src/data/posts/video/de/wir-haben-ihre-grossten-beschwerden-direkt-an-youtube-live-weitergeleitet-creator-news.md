@@ -18,6 +18,15 @@ video:
   embedUrl: "https://www.youtube.com/embed/K5t4DGO_J2I"
   watchUrl: "https://www.youtube.com/watch?v=K5t4DGO_J2I"
   thumbnailUrl: "https://i.ytimg.com/vi/K5t4DGO_J2I/maxresdefault.jpg"
+sources:
+  - title: "Streams Charts Data (Q1 2026)"
+    url: "https://streamscharts.com/news/q1-2026-global-livestreaming-landscape"
+  - title: "Official YouTube Live Updates"
+    url: "https://blog.youtube/news-and-events/live-streaming-updates-monetization-tools/"
+  - title: "amazon.com"
+    url: "https://www.amazon.com/gp/help/customer/display.html?nodeId=TY9Z4zZ7vgVwLA0b7C"
+  - title: "YouTube Monetization Policies (Reused Content)"
+    url: "https://support.google.com/youtube/answer/1311392"
 postCta:
   text: "Unsicher bei Deine Beschwerden an YouTube LIVE: Wir fragen nach Verbesserungen |? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"
