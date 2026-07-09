@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/mKOsyRGYNyc"
   watchUrl: "https://www.youtube.com/watch?v=mKOsyRGYNyc"
   thumbnailUrl: "https://i.ytimg.com/vi/mKOsyRGYNyc/maxresdefault.jpg"
+sources:
+  - title: "Mehr Informationen zu Aliassen"
+    url: "https://support.google.com/youtube/answer/11585688"
+  - title: "Am Einfachsten erstellt man einen Firmen YouTube Kanal über den YouTube Channel Switcher"
+    url: "https://youtube.com/channel_switcher"
 postCta:
   text: "Du möchtest einen YouTube-Kanal starten? Wenn du für ein Unternehmen oder Projekt planst, findest du auf unserer {page} weitere Tipps und Unterstützung für deinen perfekten Start, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

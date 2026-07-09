@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/0g-IDgMvpRs"
   watchUrl: "https://www.youtube.com/watch?v=0g-IDgMvpRs"
   thumbnailUrl: "https://i.ytimg.com/vi/0g-IDgMvpRs/maxresdefault.jpg"
+sources:
+  - title: "Original"
+    url: "https://www.youtube.com/watch?v=aqz-KE-bpKQ"
 postCta:
   text: "Confused about YouTube Studio Mobile's new features or HDR streaming? Our {page} offers expert support and guidance to help you navigate these updates and more."
   pagePath: "/en/creator/"

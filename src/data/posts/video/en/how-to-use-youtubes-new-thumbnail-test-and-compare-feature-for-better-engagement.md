@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/R7uZYO3UbB0"
   watchUrl: "https://www.youtube.com/watch?v=R7uZYO3UbB0"
   thumbnailUrl: "https://i.ytimg.com/vi/R7uZYO3UbB0/maxresdefault.jpg"
+sources:
+  - title: "Get access to YouTube Advanced Features"
+    url: "https://support.google.com/youtube/answer/9891124"
 postCta:
   text: "Confused about How to Use YouTube's New Thumbnail Test & Compare Feature for Better? We can help. Check {page} for more info, or contact our expert below."
   pagePath: "/en/youtube-tips/"

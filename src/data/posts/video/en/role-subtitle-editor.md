@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/ejYerCk6F_k"
   watchUrl: "https://www.youtube.com/shorts/ejYerCk6F_k"
   thumbnailUrl: "https://i.ytimg.com/vi/ejYerCk6F_k/maxresdefault.jpg"
+sources:
+  - title: "So funktionieren Kanalrollen"
+    url: "https://youtube.com/shorts/6KcwfJbEdDk"
 postCta:
   text: "Confused about YouTube's new Caption Editor role? Need to add someone to your channel for captioning? Our Creator Services page has all the info you need to manage your team and improve video accessibility. Check it out: {page}, or contact our expert below."
   pagePath: "/en/creator/"

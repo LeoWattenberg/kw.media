@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/cZ3k13Ca0n8"
   watchUrl: "https://www.youtube.com/watch?v=cZ3k13Ca0n8"
   thumbnailUrl: "https://i.ytimg.com/vi/cZ3k13Ca0n8/maxresdefault.jpg"
+sources:
+  - title: "Mehr Infos zu den @ Handles"
+    url: "https://support.google.com/youtube/answer/11585688"
 postCta:
   text: "Du bist verwirrt über die neuen YouTube-Funktionen? Kein Problem! Auf unserer {page} findest du weitere Infos und Unterstützung, um deinen Kanal optimal zu nutzen, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

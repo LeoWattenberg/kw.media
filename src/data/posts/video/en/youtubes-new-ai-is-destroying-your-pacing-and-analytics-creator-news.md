@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/S_Qwsk7CKB0"
   watchUrl: "https://www.youtube.com/watch?v=S_Qwsk7CKB0"
   thumbnailUrl: "https://i.ytimg.com/vi/S_Qwsk7CKB0/maxresdefault.jpg"
+sources:
+  - title: "GitHub Repository for PhotoGIMP"
+    url: "https://github.com/Diolinux/PhotoGIMP"
+  - title: "Official YouTube Help (Course Files)"
+    url: "https://support.google.com/youtube/answer/15128409"
 postCta:
   text: "Confused about YouTube's new AI features and how they impact your content? Our {page} offers expert insights on navigating these changes, ensuring your channel stays optimized."
   pagePath: "/en/creator/"

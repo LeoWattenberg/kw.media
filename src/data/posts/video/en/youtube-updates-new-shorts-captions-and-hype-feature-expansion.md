@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/pgpp8FB-Jwg"
   watchUrl: "https://www.youtube.com/watch?v=pgpp8FB-Jwg"
   thumbnailUrl: "https://i.ytimg.com/vi/pgpp8FB-Jwg/maxresdefault.jpg"
+sources:
+  - title: "More Infos on the Effect Maker"
+    url: "https://effects.youtube.com/"
+  - title: "Effect Maker Availability"
+    url: "https://support.google.com/youtube/answer/16306496"
 postCta:
   text: "Confused about these YouTube updates? Our {page} offers in-depth consulting to help you navigate new features like Shorts captions and the expanded Hype tool. Get expert advice on how to utilize these changes for your channel's growth."
   pagePath: "/en/creator/"

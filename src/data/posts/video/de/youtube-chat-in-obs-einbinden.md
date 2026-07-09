@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/E5BmjrCT1LE"
   watchUrl: "https://www.youtube.com/shorts/E5BmjrCT1LE"
   thumbnailUrl: "https://i.ytimg.com/vi/E5BmjrCT1LE/maxresdefault.jpg"
+sources:
+  - title: "Mit Tools wie Chatv2 ( ) kann man dazu noch das Aussehen des Chats beliebig anpassen."
+    url: "https://chatv2.septapus.com/"
 postCta:
   text: "Du möchtest mehr aus deinem YouTube-Kanal herausholen? Wenn du Fragen zur Integration des Live-Chats in OBS hast, bietet kw.media umfassende Unterstützung und Beratung. Besuche unsere {page} für weitere Tipps und Tricks oder kontaktiere unsere Experten."
   pagePath: "/de/creator/"

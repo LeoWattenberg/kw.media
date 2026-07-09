@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/IICk-BdIuXQ"
   watchUrl: "https://www.youtube.com/watch?v=IICk-BdIuXQ"
   thumbnailUrl: "https://i.ytimg.com/vi/IICk-BdIuXQ/maxresdefault.jpg"
+sources:
+  - title: "YouTube Help Center on Purchase Limits"
+    url: "https://support.google.com/youtube/answer/7325206"
 postCta:
   text: "Du bist verwirrt über die neuen YouTube-Funktionen? kw.media bietet Support und Beratung für Creator. Besuche {page}, um mehr über unsere Dienstleistungen zu erfahren und deinen Kanal auf das nächste Level zu heben, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

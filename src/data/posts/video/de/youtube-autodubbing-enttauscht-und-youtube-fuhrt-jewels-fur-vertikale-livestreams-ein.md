@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/Ca2UQvh5p5Q"
   watchUrl: "https://www.youtube.com/watch?v=Ca2UQvh5p5Q"
   thumbnailUrl: "https://i.ytimg.com/vi/Ca2UQvh5p5Q/maxresdefault.jpg"
+sources:
+  - title: "Danke @M1Molter für das Beispiel! Falls ihr selbst mal reinhören möchtet"
+    url: "https://www.youtube.com/watch?v=DqiNSqCjRd4"
+  - title: "Mehr Infos zu Jewels"
+    url: "https://support.google.com/youtube/thread/307754858"
 postCta:
   text: "Wenn du mehr über die Optimierung deines Kanals erfahren möchtest, besuche unsere {page} für individuelle Beratung und Support, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

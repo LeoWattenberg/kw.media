@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/DetnFFjfqKA"
   watchUrl: "https://www.youtube.com/watch?v=DetnFFjfqKA"
   thumbnailUrl: "https://i.ytimg.com/vi/DetnFFjfqKA/maxresdefault.jpg"
+sources:
+  - title: "YouTube Support (Clips update)"
+    url: "https://support.google.com/youtube/thread/425735532"
+  - title: "Neal Mohan on Voiceboost"
+    url: "https://www.threads.com/@neal_mohan/post/DXfcLbvkVoj"
 postCta:
   text: "Unsicher bei YouTube beendet das Clip-Feature: Ein Gewinn für deinen Kanal?? Wir helfen dir weiter: Mehr Infos findest du auf {page}, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

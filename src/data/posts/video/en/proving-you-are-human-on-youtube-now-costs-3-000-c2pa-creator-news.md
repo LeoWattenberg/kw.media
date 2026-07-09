@@ -18,6 +18,13 @@ video:
   embedUrl: "https://www.youtube.com/embed/j2al3ouHxz4"
   watchUrl: "https://www.youtube.com/watch?v=j2al3ouHxz4"
   thumbnailUrl: "https://i.ytimg.com/vi/j2al3ouHxz4/maxresdefault.jpg"
+sources:
+  - title: "Our original YouTube Stations Video (July 2023)"
+    url: "https://youtu.be/soHWV-Onjhk"
+  - title: "How to use EU DMs (YouTube Short)"
+    url: "https://youtube.com/shorts/Q5OFnSBrn3U"
+  - title: "Coffeezilla's Deepfake Investigation"
+    url: "https://www.youtube.com/watch?v=srr0rRgF2Fw"
 postCta:
   text: "Confused about the new C2PA certification and its impact on creators? If proving your authenticity as a creator is important to you, check out our {page} for expert support and guidance on navigating these changes without breaking the bank."
   pagePath: "/en/creator/"

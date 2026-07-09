@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/tvpXlghvKzo"
   watchUrl: "https://www.youtube.com/watch?v=tvpXlghvKzo"
   thumbnailUrl: "https://i.ytimg.com/vi/tvpXlghvKzo/maxresdefault.jpg"
+sources:
+  - title: "YouTube explains the details of this new feature here"
+    url: "https://support.google.com/youtube/answer/16090438"
 postCta:
   text: "Du bist verwirrt über die neuesten YouTube-Änderungen? Auf unserer {page} findest du weitere Informationen und Unterstützung zu diesem Update und vielen anderen Themen rund um deinen YouTube-Kanal, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

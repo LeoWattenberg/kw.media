@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/ejYerCk6F_k"
   watchUrl: "https://www.youtube.com/shorts/ejYerCk6F_k"
   thumbnailUrl: "https://i.ytimg.com/vi/ejYerCk6F_k/maxresdefault.jpg"
+sources:
+  - title: "So funktionieren Kanalrollen"
+    url: "https://youtube.com/shorts/6KcwfJbEdDk"
 postCta:
   text: "Bist du unsicher, wie du mit den neuen YouTube-Funktionen umgehen sollst? Auf unserer {page} findest du weitere Informationen und Unterstützung zu diesem Thema, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

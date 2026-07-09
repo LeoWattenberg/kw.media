@@ -18,6 +18,13 @@ video:
   embedUrl: "https://www.youtube.com/embed/J7MHBNgxp5w"
   watchUrl: "https://www.youtube.com/watch?v=J7MHBNgxp5w"
   thumbnailUrl: "https://i.ytimg.com/vi/J7MHBNgxp5w/maxresdefault.jpg"
+sources:
+  - title: "mehr Infos im FAQ"
+    url: "https://support.google.com/youtube/community-guide/302729680"
+  - title: "Zur Deutschen Umfrage"
+    url: "https://forms.gle/2zvQQThYkLa5FtDS7"
+  - title: "Zur Englischen Umfrage (inkl YouTube Gaming Feedback)"
+    url: "https://forms.gle/n2PUG8auVRS6yQuo9"
 postCta:
   text: "Du bist verwirrt über die neuen Entwicklungen bei langen Shorts und Mitgliedschaften auf YouTube? Besuche unsere {page}, um mehr über die neuesten Updates zu erfahren und deinen Kanal optimal zu nutzen, oder kontaktiere unten unseren Experten."
   pagePath: "/de/creator/"

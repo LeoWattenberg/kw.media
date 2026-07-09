@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/WwNMa1XUVsg"
   watchUrl: "https://www.youtube.com/watch?v=WwNMa1XUVsg"
   thumbnailUrl: "https://i.ytimg.com/vi/WwNMa1XUVsg/maxresdefault.jpg"
+sources:
+  - title: "0:31 Update vulgärer Sprache und Beleidigungen (AFG)"
+    url: "https://support.google.com/youtube/answer/6162278"
 postCta:
   text: "Confused about YouTube's upcoming changes? From Thumbnail A/B Testing to Super Chat updates, our {page} can help you stay informed and make the most of these new features, or contact our expert below."
   pagePath: "/en/youtube-tips/"

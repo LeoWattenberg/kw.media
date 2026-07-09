@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/CtyhveAZNRo"
   watchUrl: "https://www.youtube.com/shorts/CtyhveAZNRo"
   thumbnailUrl: "https://i.ytimg.com/vi/CtyhveAZNRo/maxresdefault.jpg"
+sources:
+  - title: "youtube.com"
+    url: "https://youtube.com/hashtag/youtubepatchrundown"
+  - title: "Mehr Informationen zu YouTube Hashtagkanälen gibt es hier"
+    url: "https://support.google.com/youtube/answer/6390658?hl=de"
 postCta:
   text: "Confused about finding hashtag channels on YouTube? Our {page} offers more tips and tricks to help you navigate the platform like a pro, or contact our expert below."
   pagePath: "/en/youtube-tips/"

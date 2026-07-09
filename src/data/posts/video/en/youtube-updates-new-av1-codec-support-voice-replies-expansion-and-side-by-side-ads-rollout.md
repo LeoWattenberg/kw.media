@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/RHJcqSPlG_s"
   watchUrl: "https://www.youtube.com/watch?v=RHJcqSPlG_s"
   thumbnailUrl: "https://i.ytimg.com/vi/RHJcqSPlG_s/maxresdefault.jpg"
+sources:
+  - title: "More Info on Side-by-side ads"
+    url: "https://support.google.com/youtube/answer/7385599?hl=en#sidebyside"
 postCta:
   text: "Confused about the new YouTube updates? From AV1 codec support to side-by-side ads and voice replies on Android, it can be hard to keep up. Visit our {page} for expert insights and guidance on implementing these features effectively."
   pagePath: "/en/creator/"

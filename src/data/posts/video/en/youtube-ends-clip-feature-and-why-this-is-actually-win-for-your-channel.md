@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/DetnFFjfqKA"
   watchUrl: "https://www.youtube.com/watch?v=DetnFFjfqKA"
   thumbnailUrl: "https://i.ytimg.com/vi/DetnFFjfqKA/maxresdefault.jpg"
+sources:
+  - title: "YouTube Support (Clips update)"
+    url: "https://support.google.com/youtube/thread/425735532"
+  - title: "Neal Mohan on Voiceboost"
+    url: "https://www.threads.com/@neal_mohan/post/DXfcLbvkVoj"
 postCta:
   text: "Confused about YouTube's decision to end the Clips feature? Our {page} explains why this change could benefit your channel in the long run. Get expert insights and stay ahead of the curve."
   pagePath: "/en/creator/"

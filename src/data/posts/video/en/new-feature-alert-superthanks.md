@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/OYppjzpPs8U"
   watchUrl: "https://www.youtube.com/shorts/OYppjzpPs8U"
   thumbnailUrl: "https://i.ytimg.com/vi/OYppjzpPs8U/maxresdefault.jpg"
+sources:
+  - title: "Super Thanks aktivieren"
+    url: "https://studio.youtube.com/channel/UC/monetization/supers"
 postCta:
   text: "Confused about Super Thanks on YouTube? Learn how viewers can show appreciation and how you can earn revenue from these transactions. For more details, visit our {page}, or contact our expert below."
   pagePath: "/en/creator/"

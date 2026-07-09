@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/Ca2UQvh5p5Q"
   watchUrl: "https://www.youtube.com/watch?v=Ca2UQvh5p5Q"
   thumbnailUrl: "https://i.ytimg.com/vi/Ca2UQvh5p5Q/maxresdefault.jpg"
+sources:
+  - title: "Danke @M1Molter für das Beispiel! Falls ihr selbst mal reinhören möchtet"
+    url: "https://www.youtube.com/watch?v=DqiNSqCjRd4"
+  - title: "Mehr Infos zu Jewels"
+    url: "https://support.google.com/youtube/thread/307754858"
 postCta:
   text: "Confused about YouTube's new features? We break down AutoDubbing issues and upcoming changes for vertical live streams. For more insights, check out our {page}, or contact our expert below."
   pagePath: "/en/youtube-tips/"

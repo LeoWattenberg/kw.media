@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/37D_qt7XH7c"
   watchUrl: "https://www.youtube.com/watch?v=37D_qt7XH7c"
   thumbnailUrl: "https://i.ytimg.com/vi/37D_qt7XH7c/maxresdefault.jpg"
+sources:
+  - title: "studio.youtube.com"
+    url: "https://studio.youtube.com/channel/UC/editing/profile"
 postCta:
   text: "Confused about YouTube's AI monetization rules? The policy isn't new, but algorithm updates are coming. If you're unsure how this affects your channel, {page} offers expert support and consulting to help you navigate these changes and grow your presence."
   pagePath: "/en/creator/"

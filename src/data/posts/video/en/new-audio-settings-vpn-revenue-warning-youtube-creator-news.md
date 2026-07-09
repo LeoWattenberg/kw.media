@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/N301RW3y69E"
   watchUrl: "https://www.youtube.com/watch?v=N301RW3y69E"
   thumbnailUrl: "https://i.ytimg.com/vi/N301RW3y69E/maxresdefault.jpg"
+sources:
+  - title: "Set up you preffered Languages"
+    url: "https://youtube.com/account_playback"
+  - title: "More Info"
+    url: "https://support.google.com/youtube/answer/13339776"
 postCta:
   text: "Confused about the latest YouTube updates? From AI tools to monetization changes, {page} can help. Get expert support and analytics to navigate these new features."
   pagePath: "/en/creator/"

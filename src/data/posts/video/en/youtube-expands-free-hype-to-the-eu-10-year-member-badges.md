@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/jnVTl0DWVWs"
   watchUrl: "https://www.youtube.com/watch?v=jnVTl0DWVWs"
   thumbnailUrl: "https://i.ytimg.com/vi/jnVTl0DWVWs/maxresdefault.jpg"
+sources:
+  - title: "More Info"
+    url: "https://support.google.com/youtube/answer/15509925#zippy=%2Celigibility-for-channels-and-individual-videos%2Cavailability"
 postCta:
   text: "Confused about the new YouTube hype feature or 10-year membership badges? Our {page} can help you understand these changes and how they might affect your channel. Get in touch with our experts for personalized support."
   pagePath: "/en/creator/"

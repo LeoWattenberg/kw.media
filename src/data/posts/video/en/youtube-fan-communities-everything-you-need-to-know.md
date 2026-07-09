@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/5nw4Hz0d2mk"
   watchUrl: "https://www.youtube.com/watch?v=5nw4Hz0d2mk"
   thumbnailUrl: "https://i.ytimg.com/vi/5nw4Hz0d2mk/maxresdefault.jpg"
+sources:
+  - title: "📌 Mehr Infos zu den Moderations-Optionen für Fan Communities"
+    url: "https://support.google.com/youtube/answer/15739725"
 postCta:
   text: "Confused about YouTube's new Fan Communities? Our {page} offers comprehensive support, analytics, and consulting to help you navigate this feature and optimize your channel, or contact our expert below."
   pagePath: "/en/creator/"

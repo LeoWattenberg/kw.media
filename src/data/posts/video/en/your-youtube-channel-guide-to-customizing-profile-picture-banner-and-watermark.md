@@ -18,6 +18,9 @@ video:
   embedUrl: "https://www.youtube.com/embed/KOx5J92udsw"
   watchUrl: "https://www.youtube.com/watch?v=KOx5J92udsw"
   thumbnailUrl: "https://i.ytimg.com/vi/KOx5J92udsw/maxresdefault.jpg"
+sources:
+  - title: "Hier gelangt ihr direkt zum \"Anpassen\"-Reiter des YouTube Studios"
+    url: "https://studio.youtube.com/channel/UC/editing/images"
 postCta:
   text: "Need help with customizing your YouTube channel? Our {page} offers expert support for all your creator needs, from channel analytics to monetization strategies."
   pagePath: "/en/creator/"

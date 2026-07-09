@@ -18,6 +18,11 @@ video:
   embedUrl: "https://www.youtube.com/embed/JhqpnMVoupA"
   watchUrl: "https://www.youtube.com/watch?v=JhqpnMVoupA"
   thumbnailUrl: "https://i.ytimg.com/vi/JhqpnMVoupA/maxresdefault.jpg"
+sources:
+  - title: "support.google.com"
+    url: "https://support.google.com/youtube/thread/361892304"
+  - title: "studio.youtube.com"
+    url: "https://studio.youtube.com/channel/UC/editing/hometab"
 postCta:
   text: "Confused about recent YouTube changes? From ad revenue bugs to new collaboration features, we've got you covered. Check out our {page} for more insights and expert advice on navigating these updates."
   pagePath: "/en/creator/"
