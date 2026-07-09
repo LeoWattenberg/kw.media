@@ -8,6 +8,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "import:youtube": "node scripts/manual-import.js",
+    "import:missing-sources": "node scripts/import-missing-sources.mjs",
     "cleanup:post": "node scripts/cleanup-post.mjs",
     "cleanup:last-commit": "node scripts/cleanup-last-commit-posts.mjs",
     "audit:posts": "node scripts/audit-posts.mjs",

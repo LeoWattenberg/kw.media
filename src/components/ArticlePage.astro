@@ -19,7 +19,12 @@ const tags = Array.isArray(post.tags)
 	: [];
 const isShortVideo = post.video?.watchUrl.includes('/shorts/');
 const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
-const articleContentHtml = post.postCta ? `${post.contentHtml}\n${postCtaHtml(post.postCta)}` : post.contentHtml;
+const postSources = normalizePostSources(post.sources);
+const articleContentHtml = [
+	post.contentHtml,
+	postSources.length ? postSourcesHtml(postSources, post.locale) : '',
+	post.postCta ? postCtaHtml(post.postCta) : '',
+].filter(Boolean).join('\n');
 const postNavigation = getPostNavigation(post);
 const relatedPosts = getRelatedPosts(post);
 const isVideoPost = Boolean(post.video);
@@ -141,6 +146,23 @@ function postCtaHtml(postCta: NonNullable<SourcePost['postCta']>): string {
 	const pageLink = `<a href="${escapeAttribute(postCta.pagePath)}">${escapeHtml(postCta.pageTitle)}</a>`;
 
 	return `<p>${escapeHtml(beforeLink)}${pageLink}${escapeHtml(afterLink)}</p>`;
+}
+
+function normalizePostSources(sources: SourcePost['sources']): Array<{ title: string; url: string }> {
+	if (!Array.isArray(sources)) {
+		return [];
+	}
+
+	return sources.filter((source) => source?.title && /^https?:\/\//.test(source.url));
+}
+
+function postSourcesHtml(sources: Array<{ title: string; url: string }>, locale: SourcePost['locale']): string {
+	const heading = locale === 'de' ? 'Quellen' : 'Sources';
+	const links = sources
+		.map((source) => `<li><a href="${escapeAttribute(source.url)}" rel="nofollow noopener noreferrer">${escapeHtml(source.title)}</a></li>`)
+		.join('');
+
+	return `<section class="post-sources" aria-labelledby="post-sources-heading"><h2 id="post-sources-heading">${heading}</h2><ul>${links}</ul></section>`;
 }
 
 function escapeHtml(value: string): string {
