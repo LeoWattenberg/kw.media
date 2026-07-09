@@ -6,6 +6,13 @@ export const postsDir = join(process.cwd(), 'src/data/posts');
 
 export const tagsRegistryPath = join(process.cwd(), 'src/data/tags.json');
 
+export const contentPartMarkers = {
+	articleStart: '<!-- kwm:article:start -->',
+	articleEnd: '<!-- kwm:article:end -->',
+	transcriptStart: '<!-- kwm:transcript:start -->',
+	transcriptEnd: '<!-- kwm:transcript:end -->',
+};
+
 const postDirectories = {
 	blog: {
 		de: join(postsDir, 'blog/de'),
@@ -121,9 +128,15 @@ export async function cleanupPostFile(filePath, options = {}) {
 export async function expandTranscriptPostFile(filePath, options = {}) {
 	const post = readPostFile(filePath);
 	const model = options.model ?? transcriptExpansionModel;
-	const expandedBody = await expandTranscriptMarkdown(post, model, options);
+	const existingParts = splitPostBodyParts(post.body);
+	const transcriptBody = existingParts.transcript ?? post.body;
+	const transcriptPost = { ...post, body: transcriptBody };
+	const expandedArticle = await expandTranscriptMarkdown(transcriptPost, model, options);
+	const expandedBody = composeArticleWithTranscript(expandedArticle, transcriptBody);
 	const oldWords = markdownWordCount(post.body);
 	const newWords = markdownWordCount(expandedBody);
+	const articleWords = markdownWordCount(expandedArticle);
+	const transcriptWords = markdownWordCount(transcriptBody);
 
 	if (!options.dryRun) {
 		writePostFile(filePath, post.frontmatter, expandedBody);
@@ -134,6 +147,8 @@ export async function expandTranscriptPostFile(filePath, options = {}) {
 		model,
 		oldWords,
 		newWords,
+		articleWords,
+		transcriptWords,
 		changed: post.body.trim() !== expandedBody.trim(),
 		body: expandedBody,
 	};
@@ -540,16 +555,41 @@ export function isTranscriptExpansionCandidate(post, options = {}) {
 		return false;
 	}
 
+	const parts = splitPostBodyParts(post.body);
+	const bodyForQuality = parts.article ?? post.body;
 	const minWords = Number(options.minWords ?? 900);
-	const words = markdownWordCount(post.body);
-	const headingCount = countMatches(post.body, /^##\s+/gm);
-	const startsAsTranscript = /^\s*##\s+(transkript|transcript)\b/im.test(post.body);
+	const words = markdownWordCount(bodyForQuality);
+	const headingCount = countMatches(bodyForQuality, /^##\s+/gm);
+	const startsAsTranscript = /^\s*##\s+(transkript|transcript)\b/im.test(bodyForQuality);
 
 	return words < minWords || headingCount <= 2 || startsAsTranscript;
 }
 
 export function markdownWordCount(markdown) {
 	return plainTextFromMarkdown(markdown).split(/\s+/).filter(Boolean).length;
+}
+
+export function splitPostBodyParts(body) {
+	const article = extractMarkedPart(body, contentPartMarkers.articleStart, contentPartMarkers.articleEnd);
+	const transcript = extractMarkedPart(body, contentPartMarkers.transcriptStart, contentPartMarkers.transcriptEnd);
+
+	return {
+		article,
+		transcript,
+		hasStructuredParts: Boolean(article || transcript),
+	};
+}
+
+export function composeArticleWithTranscript(article, transcript) {
+	return [
+		contentPartMarkers.articleStart,
+		article.trim(),
+		contentPartMarkers.articleEnd,
+		'',
+		contentPartMarkers.transcriptStart,
+		transcript.trim(),
+		contentPartMarkers.transcriptEnd,
+	].join('\n');
 }
 
 export function writeTagRegistry() {
@@ -1119,7 +1159,7 @@ async function cleanupMarkdown(markdown, frontmatter, model) {
 async function expandTranscriptMarkdown(post, model, options = {}) {
 	const targetWords = Number(options.targetWords ?? transcriptExpansionTargetWords(post));
 	const prompt = transcriptExpansionPrompt(post, targetWords);
-	const expanded = normalizeAiOutput(await ollamaGenerate(model, prompt));
+	const expanded = removeDisallowedMarkdownLinks(normalizeAiOutput(await ollamaGenerate(model, prompt)), post);
 
 	validateExpandedTranscript(expanded, post, { targetWords });
 
@@ -1900,11 +1940,7 @@ function validateExpandedTranscript(markdown, post, { targetWords }) {
 		throw new Error(`Expanded German transcript looks English for ${post.frontmatter.path}`);
 	}
 
-	const allowedTargets = new Set([
-		...markdownLinkTargets(post.body),
-		post.frontmatter.sourceUrl,
-		...(Array.isArray(post.frontmatter.sources) ? post.frontmatter.sources.map((source) => source.url) : []),
-	].filter(Boolean));
+	const allowedTargets = allowedMarkdownLinkTargets(post);
 	const newTargets = markdownLinkTargets(output).filter((target) => !allowedTargets.has(target));
 
 	if (newTargets.length) {
@@ -1936,6 +1972,38 @@ function markdownLinkTargets(markdown) {
 	return [...String(markdown ?? '').matchAll(/!?\[[^\]]*]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g)]
 		.map((match) => match[1])
 		.filter(Boolean);
+}
+
+function allowedMarkdownLinkTargets(post) {
+	return new Set([
+		...markdownLinkTargets(post.body),
+		post.frontmatter.sourceUrl,
+		...(Array.isArray(post.frontmatter.sources) ? post.frontmatter.sources.map((source) => source.url) : []),
+	].filter(Boolean));
+}
+
+function removeDisallowedMarkdownLinks(markdown, post) {
+	const allowedTargets = allowedMarkdownLinkTargets(post);
+
+	return String(markdown ?? '').replace(/(!?)\[([^\]]+)]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g, (match, imagePrefix, label, target) => {
+		if (allowedTargets.has(target)) {
+			return match;
+		}
+
+		return imagePrefix ? label : label;
+	});
+}
+
+function extractMarkedPart(markdown, startMarker, endMarker) {
+	const source = String(markdown ?? '');
+	const start = source.indexOf(startMarker);
+	const end = source.indexOf(endMarker);
+
+	if (start < 0 || end < 0 || end <= start) {
+		return undefined;
+	}
+
+	return source.slice(start + startMarker.length, end).trim();
 }
 
 function postPlainText(post, maxLength = 4000) {

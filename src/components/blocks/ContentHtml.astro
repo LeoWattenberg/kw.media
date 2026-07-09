@@ -84,6 +84,39 @@ if (base) {
 		padding-left: 1.2rem;
 	}
 
+	.content-html .original-transcript {
+		margin-top: 36px;
+		padding-top: 24px;
+		border-top: 1px solid var(--color-line);
+	}
+
+	.content-html .original-transcript details {
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.content-html .original-transcript summary {
+		cursor: pointer;
+		padding: 16px 18px;
+		color: var(--color-ink);
+		font-weight: 850;
+	}
+
+	.content-html .original-transcript summary:hover {
+		color: var(--color-accent-dark);
+	}
+
+	.content-html .original-transcript-body {
+		padding: 0 18px 18px;
+		border-top: 1px solid var(--color-line);
+	}
+
+	.content-html .original-transcript-body h2:first-child {
+		margin-top: 18px;
+		font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+	}
+
 	.content-html img {
 		max-width: 100%;
 		height: auto;
