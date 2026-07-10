@@ -1,0 +1,750 @@
+---
+import type { Locale } from '../../../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Video-Tool',
+		title: 'Video zu GIF',
+		intro: 'Erzeuge aus lokalen Videoclips direkt im Browser ein optimiertes GIF mit FFmpeg wasm.',
+		privacy: 'Deine Datei wird nicht hochgeladen. Die Konvertierung läuft clientseitig in deinem Browser.',
+		sourceTitle: 'Quelldatei',
+		chooseSource: 'Video auswählen',
+		sourceHint: 'MP4, WebM, MOV, MKV, AVI und weitere FFmpeg-kompatible Formate',
+		settingsTitle: 'GIF-Einstellungen',
+		startLabel: 'Start',
+		durationLabel: 'Dauer',
+		fpsLabel: 'Bilder pro Sekunde',
+		widthLabel: 'Breite',
+		colorsLabel: 'Farben',
+		loopLabel: 'Endlos wiederholen',
+		convert: 'GIF erstellen',
+		clear: 'Zurücksetzen',
+		resultTitle: 'Ergebnis',
+		download: 'GIF herunterladen',
+		preview: 'Vorschau',
+		client: {
+			waiting: 'Wähle ein Video aus, um zu starten.',
+			fileReady: '{name} ist ausgewählt ({size}).',
+			fileMeta: '{size} | {type}',
+			videoMeta: '{width} x {height}px | {duration}',
+			noFile: 'Wähle zuerst eine Videodatei.',
+			metadataMissing: 'Die Video-Metadaten konnten nicht gelesen werden.',
+			converting: 'GIF wird erstellt...',
+			ready: 'Das GIF ist bereit.',
+			reset: 'Das Tool wurde zurückgesetzt.',
+			ffmpegLoading: 'FFmpeg wasm wird geladen...',
+			ffmpegReady: 'FFmpeg wasm ist bereit.',
+			ffmpegProgress: 'FFmpeg arbeitet... {progress}%',
+			ffmpegTimeout: 'FFmpeg wasm hat nicht innerhalb von 90 Sekunden geladen.',
+			outputMeta: '{width}px breit | {fps} FPS | {colors} Farben | {size}',
+			unknownError: 'Unbekannter Fehler',
+		},
+	},
+	en: {
+		eyebrow: 'Video tool',
+		title: 'Video to GIF',
+		intro: 'Turn local video clips into optimized GIFs directly in your browser with FFmpeg wasm.',
+		privacy: 'Your file is not uploaded. Conversion runs client-side in your browser.',
+		sourceTitle: 'Source file',
+		chooseSource: 'Choose video',
+		sourceHint: 'MP4, WebM, MOV, MKV, AVI, and other FFmpeg-compatible formats',
+		settingsTitle: 'GIF settings',
+		startLabel: 'Start',
+		durationLabel: 'Duration',
+		fpsLabel: 'Frames per second',
+		widthLabel: 'Width',
+		colorsLabel: 'Colors',
+		loopLabel: 'Loop forever',
+		convert: 'Create GIF',
+		clear: 'Reset',
+		resultTitle: 'Result',
+		download: 'Download GIF',
+		preview: 'Preview',
+		client: {
+			waiting: 'Choose a video to start.',
+			fileReady: '{name} is selected ({size}).',
+			fileMeta: '{size} | {type}',
+			videoMeta: '{width} x {height}px | {duration}',
+			noFile: 'Choose a video file first.',
+			metadataMissing: 'Video metadata could not be read.',
+			converting: 'Creating GIF...',
+			ready: 'The GIF is ready.',
+			reset: 'The tool has been reset.',
+			ffmpegLoading: 'Loading FFmpeg wasm...',
+			ffmpegReady: 'FFmpeg wasm is ready.',
+			ffmpegProgress: 'FFmpeg is working... {progress}%',
+			ffmpegTimeout: 'FFmpeg wasm did not finish loading within 90 seconds.',
+			outputMeta: '{width}px wide | {fps} FPS | {colors} colors | {size}',
+			unknownError: 'Unknown error',
+		},
+	},
+} satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy.client);
+---
+
+<section class="tool-intro">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{copy.title}</h1>
+		<p class="tool-lede">{copy.intro}</p>
+		<p class="tool-note">{copy.privacy}</p>
+	</div>
+</section>
+
+<section class="section video-gif-section tool-workspace">
+	<div class="container">
+		<div class="video-gif-tool" data-video-gif data-copy={copyJson}>
+			<div class="video-gif-grid">
+				<section class="video-gif-panel tool-panel">
+					<h2>{copy.sourceTitle}</h2>
+					<label class="file-picker tool-file-picker">
+						<span>{copy.sourceTitle}</span>
+						<strong data-file-name>{copy.chooseSource}</strong>
+						<small data-file-meta>{copy.sourceHint}</small>
+						<input data-file type="file" accept="video/*,.3gp,.avi,.flv,.m4v,.mkv,.mov,.mp4,.mpeg,.mpg,.ogv,.webm,.wmv" />
+					</label>
+					<div class="preview-card" data-source-preview hidden>
+						<p>{copy.preview}</p>
+						<div class="preview-frame">
+							<video data-source-video controls playsinline muted></video>
+						</div>
+						<small data-video-meta></small>
+					</div>
+				</section>
+
+				<section class="video-gif-panel tool-panel">
+					<h2>{copy.settingsTitle}</h2>
+					<div class="number-grid">
+						<label class="number-control">
+							<span>{copy.startLabel}</span>
+							<input data-start type="number" min="0" step="0.1" value="0" inputmode="decimal" />
+						</label>
+						<label class="number-control">
+							<span>{copy.durationLabel}</span>
+							<input data-duration type="number" min="0.5" max="20" step="0.5" value="3" inputmode="decimal" />
+						</label>
+					</div>
+					<label class="range-control tool-range-control">
+						<span>{copy.fpsLabel}: <strong data-fps-label>12</strong></span>
+						<input data-fps type="range" min="6" max="24" step="1" value="12" />
+					</label>
+					<label class="range-control tool-range-control">
+						<span>{copy.widthLabel}: <strong data-width-label>480px</strong></span>
+						<input data-width type="range" min="240" max="960" step="80" value="480" />
+					</label>
+					<label class="range-control tool-range-control">
+						<span>{copy.colorsLabel}: <strong data-colors-label>128</strong></span>
+						<input data-colors type="range" min="32" max="256" step="32" value="128" />
+					</label>
+					<label class="toggle-control">
+						<input data-loop type="checkbox" checked />
+						<span>{copy.loopLabel}</span>
+					</label>
+					<div class="tool-actions">
+						<button class="button primary" data-convert type="button" disabled>{copy.convert}</button>
+						<button class="button secondary" data-clear type="button">{copy.clear}</button>
+					</div>
+					<p class="status tool-status" data-status role="status">{copy.client.waiting}</p>
+				</section>
+			</div>
+
+			<section class="video-gif-panel tool-panel result-panel" data-result hidden>
+				<div class="result-heading">
+					<div>
+						<p class="eyebrow">{copy.preview}</p>
+						<h2>{copy.resultTitle}</h2>
+					</div>
+					<a class="button primary" data-download href="#" download hidden>{copy.download}</a>
+				</div>
+				<div class="result-preview">
+					<div class="preview-frame">
+						<img data-output-image alt="" />
+					</div>
+					<small data-output-meta></small>
+				</div>
+			</section>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	(() => {
+		const roots = document.querySelectorAll('[data-video-gif]:not([data-video-gif-bound])');
+
+		for (const root of roots) {
+			root.dataset.videoGifBound = 'true';
+			initVideoToGif(root);
+		}
+
+		function initVideoToGif(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const fileInput = root.querySelector('[data-file]');
+			const fileName = root.querySelector('[data-file-name]');
+			const fileMeta = root.querySelector('[data-file-meta]');
+			const sourcePreview = root.querySelector('[data-source-preview]');
+			const sourceVideo = root.querySelector('[data-source-video]');
+			const videoMeta = root.querySelector('[data-video-meta]');
+			const startInput = root.querySelector('[data-start]');
+			const durationInput = root.querySelector('[data-duration]');
+			const fpsInput = root.querySelector('[data-fps]');
+			const fpsLabel = root.querySelector('[data-fps-label]');
+			const widthInput = root.querySelector('[data-width]');
+			const widthLabel = root.querySelector('[data-width-label]');
+			const colorsInput = root.querySelector('[data-colors]');
+			const colorsLabel = root.querySelector('[data-colors-label]');
+			const loopInput = root.querySelector('[data-loop]');
+			const convertButton = root.querySelector('[data-convert]');
+			const clearButton = root.querySelector('[data-clear]');
+			const status = root.querySelector('[data-status]');
+			const result = root.querySelector('[data-result]');
+			const outputImage = root.querySelector('[data-output-image]');
+			const outputMeta = root.querySelector('[data-output-meta]');
+			const downloadLink = root.querySelector('[data-download]');
+
+			if (
+				!fileInput || !fileName || !fileMeta || !sourcePreview || !sourceVideo || !videoMeta ||
+				!startInput || !durationInput || !fpsInput || !fpsLabel || !widthInput || !widthLabel ||
+				!colorsInput || !colorsLabel || !loopInput || !convertButton || !clearButton || !status ||
+				!result || !outputImage || !outputMeta || !downloadLink
+			) {
+				return;
+			}
+
+			const state = {
+				file: null,
+				sourceUrl: null,
+				outputUrl: null,
+				width: 0,
+				height: 0,
+				duration: 0,
+				isWorking: false,
+				ffmpeg: null,
+				ffmpegPromise: null,
+				ffmpegQueue: Promise.resolve(),
+			};
+			const defaults = {
+				fileName: fileName.textContent,
+				fileMeta: fileMeta.textContent,
+			};
+
+			fileInput.addEventListener('change', () => {
+				void setSourceFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
+			});
+			convertButton.addEventListener('click', () => {
+				void convertVideo();
+			});
+			clearButton.addEventListener('click', resetTool);
+
+			for (const input of [fpsInput, widthInput, colorsInput]) {
+				input.addEventListener('input', updateRangeLabels);
+			}
+
+			for (const input of [startInput, durationInput, fpsInput, widthInput, colorsInput, loopInput]) {
+				input.addEventListener('input', updateReadyState);
+				input.addEventListener('change', updateReadyState);
+			}
+
+			updateRangeLabels();
+			updateReadyState();
+
+			async function setSourceFile(file) {
+				resetOutput();
+				revokeUrl('sourceUrl');
+				state.file = file;
+				state.width = 0;
+				state.height = 0;
+				state.duration = 0;
+
+				if (!file) {
+					fileInput.value = '';
+					fileName.textContent = defaults.fileName;
+					fileMeta.textContent = defaults.fileMeta;
+					sourcePreview.hidden = true;
+					sourceVideo.removeAttribute('src');
+					videoMeta.textContent = '';
+					setStatus(copy.waiting, 'info');
+					updateReadyState();
+					return;
+				}
+
+				state.sourceUrl = URL.createObjectURL(file);
+				fileName.textContent = file.name;
+				fileMeta.textContent = format(copy.fileMeta, {
+					size: formatBytes(file.size),
+					type: file.type || inputExtension(file.name).slice(1).toUpperCase(),
+				});
+				sourceVideo.src = state.sourceUrl;
+				sourcePreview.hidden = false;
+
+				try {
+					const metadata = await loadVideoMetadata(state.sourceUrl);
+					state.width = metadata.width;
+					state.height = metadata.height;
+					state.duration = metadata.duration;
+					if (!state.width || !state.height || !state.duration) {
+						throw new Error(copy.metadataMissing);
+					}
+					durationInput.value = String(Math.min(3, Math.max(0.5, roundToHalf(state.duration))));
+					durationInput.max = String(Math.min(20, Math.max(0.5, roundToHalf(state.duration))));
+					startInput.max = String(Math.max(0, roundToTenths(state.duration - 0.5)));
+					videoMeta.textContent = format(copy.videoMeta, {
+						width: state.width,
+						height: state.height,
+						duration: formatTime(state.duration),
+					});
+					setStatus(format(copy.fileReady, { name: file.name, size: formatBytes(file.size) }), 'success');
+				} catch (error) {
+					setStatus(messageFromError(error), 'error');
+				} finally {
+					updateReadyState();
+				}
+			}
+
+			async function convertVideo() {
+				if (!state.file) {
+					setStatus(copy.noFile, 'error');
+					return;
+				}
+
+				setWorking(true);
+				resetOutput();
+				setStatus(copy.converting, 'info');
+
+				try {
+					const settings = readSettings();
+					const output = await renderGif(state.file, settings);
+					const blob = new Blob([output], { type: 'image/gif' });
+					const outputName = `${baseName(state.file.name)}.gif`;
+
+					state.outputUrl = URL.createObjectURL(blob);
+					outputImage.src = state.outputUrl;
+					downloadLink.href = state.outputUrl;
+					downloadLink.download = outputName;
+					downloadLink.hidden = false;
+					outputMeta.textContent = format(copy.outputMeta, {
+						width: settings.width,
+						fps: settings.fps,
+						colors: settings.colors,
+						size: formatBytes(blob.size),
+					});
+					result.hidden = false;
+					setStatus(copy.ready, 'success');
+				} catch (error) {
+					setStatus(messageFromError(error), 'error');
+				} finally {
+					setWorking(false);
+				}
+			}
+
+			async function renderGif(file, settings) {
+				return queueFfmpegTask(async () => {
+					const ffmpeg = await loadFfmpeg();
+					const inputName = `input-${Date.now()}${inputExtension(file.name)}`;
+					const outputName = `output-${Date.now()}.gif`;
+					const filter = [
+						`fps=${settings.fps},scale=${settings.width}:-1:flags=lanczos,split[s0][s1]`,
+						`[s0]palettegen=max_colors=${settings.colors}:reserve_transparent=0[p]`,
+						'[s1][p]paletteuse=dither=sierra2_4a',
+					].join(';');
+					const args = [
+						'-ss', String(settings.start),
+						'-t', String(settings.duration),
+						'-i', inputName,
+						'-filter_complex', filter,
+						'-loop', settings.loop ? '0' : '-1',
+						'-gifflags', '+transdiff',
+						'-y', outputName,
+					];
+
+					await ffmpeg.writeFile(inputName, new Uint8Array(await file.arrayBuffer()));
+					ffmpeg.on('progress', handleFfmpegProgress);
+
+					try {
+						const resultCode = await ffmpeg.exec(args);
+						if (resultCode !== 0) {
+							throw new Error(`FFmpeg exited with code ${resultCode}`);
+						}
+
+						const output = await ffmpeg.readFile(outputName);
+						return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
+					} finally {
+						ffmpeg.off('progress', handleFfmpegProgress);
+						await ffmpeg.deleteFile(inputName).catch(() => {});
+						await ffmpeg.deleteFile(outputName).catch(() => {});
+					}
+				});
+			}
+
+			async function loadFfmpeg() {
+				if (state.ffmpeg) {
+					return state.ffmpeg;
+				}
+
+				if (state.ffmpegPromise) {
+					return state.ffmpegPromise;
+				}
+
+				state.ffmpegPromise = (async () => {
+					setStatus(copy.ffmpegLoading, 'info');
+					const ffmpegVersion = '0.12.15';
+					const coreVersion = '0.12.9';
+					const ffmpegBase = `https://unpkg.com/@ffmpeg/ffmpeg@${ffmpegVersion}/dist/esm`;
+					const coreBase = `https://unpkg.com/@ffmpeg/core@${coreVersion}/dist/esm`;
+					const [{ FFmpeg }, classWorkerURL, coreURL, wasmURL] = await Promise.all([
+						import(/* @vite-ignore */ `${ffmpegBase}/index.js`),
+						createModuleWorkerUrl(`${ffmpegBase}/worker.js`),
+						toBlobUrl(`${coreBase}/ffmpeg-core.js`, 'text/javascript'),
+						toBlobUrl(`${coreBase}/ffmpeg-core.wasm`, 'application/wasm'),
+					]);
+
+					const ffmpeg = new FFmpeg();
+					await withTimeout(ffmpeg.load({ classWorkerURL, coreURL, wasmURL }), 90000, copy.ffmpegTimeout);
+					state.ffmpeg = ffmpeg;
+					setStatus(copy.ffmpegReady, 'success');
+					return ffmpeg;
+				})().catch((error) => {
+					state.ffmpegPromise = null;
+					throw error;
+				});
+
+				return state.ffmpegPromise;
+			}
+
+			function queueFfmpegTask(task) {
+				const run = state.ffmpegQueue.then(task, task);
+				state.ffmpegQueue = run.catch(() => {});
+				return run;
+			}
+
+			function handleFfmpegProgress(event) {
+				const progress = Math.max(0, Math.min(100, Math.round((event.progress || 0) * 100)));
+				setStatus(format(copy.ffmpegProgress, { progress }), 'info');
+			}
+
+			function createModuleWorkerUrl(url) {
+				return URL.createObjectURL(new Blob([
+					`import ${JSON.stringify(url)};`,
+				], { type: 'text/javascript' }));
+			}
+
+			async function toBlobUrl(url, mimeType) {
+				const response = await fetch(url);
+				if (!response.ok) {
+					throw new Error(`${response.status} ${response.statusText}`);
+				}
+
+				const buffer = await response.arrayBuffer();
+				return URL.createObjectURL(new Blob([buffer], { type: mimeType }));
+			}
+
+			function readSettings() {
+				const maxDuration = state.duration || 20;
+				const start = clamp(Number(startInput.value), 0, Math.max(0, maxDuration - 0.5));
+				const duration = clamp(Number(durationInput.value), 0.5, Math.min(20, Math.max(0.5, maxDuration - start)));
+				return {
+					start: roundToTenths(start),
+					duration: roundToTenths(duration),
+					fps: Math.round(clamp(Number(fpsInput.value), 6, 24)),
+					width: Math.round(clamp(Number(widthInput.value), 240, 960)),
+					colors: Math.round(clamp(Number(colorsInput.value), 32, 256)),
+					loop: loopInput.checked,
+				};
+			}
+
+			function updateRangeLabels() {
+				fpsLabel.textContent = fpsInput.value;
+				widthLabel.textContent = `${widthInput.value}px`;
+				colorsLabel.textContent = colorsInput.value;
+			}
+
+			function updateReadyState() {
+				const ready = Boolean(state.file && state.width && state.height && state.duration);
+				convertButton.disabled = state.isWorking || !ready;
+				fileInput.disabled = state.isWorking;
+				startInput.disabled = state.isWorking || !ready;
+				durationInput.disabled = state.isWorking || !ready;
+				fpsInput.disabled = state.isWorking;
+				widthInput.disabled = state.isWorking;
+				colorsInput.disabled = state.isWorking;
+				loopInput.disabled = state.isWorking;
+				clearButton.disabled = state.isWorking || (!state.file && !state.outputUrl);
+			}
+
+			function setWorking(isWorking) {
+				state.isWorking = isWorking;
+				updateReadyState();
+			}
+
+			function resetTool() {
+				fileInput.value = '';
+				state.file = null;
+				state.width = 0;
+				state.height = 0;
+				state.duration = 0;
+				revokeUrl('sourceUrl');
+				resetOutput();
+				fileName.textContent = defaults.fileName;
+				fileMeta.textContent = defaults.fileMeta;
+				sourcePreview.hidden = true;
+				sourceVideo.removeAttribute('src');
+				videoMeta.textContent = '';
+				startInput.value = '0';
+				startInput.removeAttribute('max');
+				durationInput.value = '3';
+				durationInput.max = '20';
+				setStatus(copy.reset, 'info');
+				updateReadyState();
+			}
+
+			function resetOutput() {
+				revokeUrl('outputUrl');
+				result.hidden = true;
+				downloadLink.hidden = true;
+				downloadLink.removeAttribute('href');
+				downloadLink.removeAttribute('download');
+				outputImage.removeAttribute('src');
+				outputMeta.textContent = '';
+			}
+
+			function revokeUrl(key) {
+				if (state[key]) {
+					URL.revokeObjectURL(state[key]);
+					state[key] = null;
+				}
+			}
+
+			function loadVideoMetadata(url) {
+				return new Promise((resolve, reject) => {
+					const video = document.createElement('video');
+					video.preload = 'metadata';
+					video.muted = true;
+					video.onloadedmetadata = () => resolve({
+						width: video.videoWidth,
+						height: video.videoHeight,
+						duration: Number.isFinite(video.duration) ? video.duration : 0,
+					});
+					video.onerror = () => reject(new Error(copy.metadataMissing));
+					video.src = url;
+				});
+			}
+
+			function setStatus(message, type) {
+				status.textContent = message;
+				status.dataset.state = type;
+			}
+
+			function inputExtension(name) {
+				const match = String(name || '').toLowerCase().match(/\.[a-z0-9]+$/);
+				return match ? match[0] : '.bin';
+			}
+
+			function baseName(name) {
+				return String(name || '').replace(/\.[^.]+$/, '') || 'converted-video';
+			}
+
+			function clamp(value, min, max) {
+				if (!Number.isFinite(value)) {
+					return min;
+				}
+				return Math.min(max, Math.max(min, value));
+			}
+
+			function roundToTenths(value) {
+				return Math.round(value * 10) / 10;
+			}
+
+			function roundToHalf(value) {
+				return Math.round(value * 2) / 2;
+			}
+
+			function formatTime(seconds) {
+				const totalSeconds = Math.max(0, Math.round(seconds));
+				const minutes = Math.floor(totalSeconds / 60);
+				const remainingSeconds = totalSeconds % 60;
+				return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
+			}
+
+			function format(template, values) {
+				return String(template).replace(/\{(\w+)\}/g, (_match, key) => {
+					return values && key in values ? String(values[key]) : '';
+				});
+			}
+
+			function formatBytes(bytes) {
+				if (!Number.isFinite(bytes) || bytes <= 0) {
+					return '0 B';
+				}
+
+				const units = ['B', 'KB', 'MB', 'GB'];
+				const power = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
+				const value = bytes / (1024 ** power);
+				return `${value.toFixed(value >= 10 || power === 0 ? 0 : 1)} ${units[power]}`;
+			}
+
+			function messageFromError(error) {
+				return error && typeof error === 'object' && 'message' in error
+					? String(error.message)
+					: copy.unknownError;
+			}
+
+			function withTimeout(promise, timeoutMs, message) {
+				let timeoutId = 0;
+				const timeout = new Promise((_resolve, reject) => {
+					timeoutId = window.setTimeout(() => reject(new Error(message)), timeoutMs);
+				});
+
+				return Promise.race([promise, timeout]).finally(() => {
+					window.clearTimeout(timeoutId);
+				});
+			}
+		}
+	})();
+</script>
+
+<style>
+	.video-gif-tool,
+	.video-gif-grid {
+		display: grid;
+		gap: 18px;
+	}
+
+	.video-gif-tool [hidden] {
+		display: none !important;
+	}
+
+	.video-gif-grid {
+		grid-template-columns: minmax(0, 1fr) minmax(300px, 0.44fr);
+		align-items: start;
+	}
+
+	.file-picker {
+		min-height: 160px;
+		margin-top: 18px;
+	}
+
+	.preview-card {
+		display: grid;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	.preview-card p,
+	.number-control span,
+	.toggle-control span,
+	.result-heading .eyebrow {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.preview-card p,
+	.result-heading .eyebrow {
+		margin: 0;
+	}
+
+	.preview-frame {
+		display: grid;
+		overflow: hidden;
+		min-height: 260px;
+		place-items: center;
+		padding: 12px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.preview-frame video,
+	.preview-frame img {
+		display: block;
+		max-width: 100%;
+		max-height: 420px;
+		object-fit: contain;
+	}
+
+	.preview-card small,
+	.result-preview small {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.number-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+		margin-top: 18px;
+	}
+
+	.number-control {
+		display: grid;
+		gap: 8px;
+	}
+
+	.number-control input {
+		width: 100%;
+		min-height: 48px;
+		padding: 0 14px;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font: inherit;
+		font-weight: 800;
+	}
+
+	.number-control input:focus-visible {
+		border-color: var(--color-accent);
+		outline: 3px solid var(--color-accent-focus-soft);
+	}
+
+	.toggle-control {
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		margin-top: 18px;
+	}
+
+	.toggle-control input {
+		width: 20px;
+		height: 20px;
+		accent-color: var(--color-accent);
+	}
+
+	.result-heading {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 14px;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.result-heading h2 {
+		margin-top: 6px;
+	}
+
+	.result-preview {
+		display: grid;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	@media (max-width: 880px) {
+		.video-gif-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.number-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
