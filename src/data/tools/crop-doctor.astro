@@ -1,0 +1,15 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import CropDoctor from '../../components/tools/CropDoctor.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('crop-doctor', {
+	id: 'crop-doctor',
+	translations: {
+		de: { path: '/de/tools/crop-doctor/', title: 'Crop Doctor', description: 'Erkenne schwarze Balken in lokalen Videos und exportiere eine gecroppte Version.' },
+		en: { path: '/en/tools/crop-doctor/', title: 'Crop Doctor', description: 'Detect black bars in local videos and export a cropped version.' },
+	},
+});
+const { tool, alternatePaths } = Astro.props;
+---
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}><CropDoctor locale={tool.locale} /></ToolPageShell>
