@@ -1,0 +1,323 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import RangeControl from './shared/RangeControl.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props { locale: Locale }
+
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Vektor-Tool', title: 'Raster/SVG Workbench',
+		intro: 'Vektorisiere Rasterbilder zu SVG und rendere SVG-Dateien wieder als PNG, komplett lokal im Browser.',
+		privacy: 'Keine Uploads. ImageTracer.js wird für Pfad-Tracing genutzt, mit lokalem Fallback.',
+		mode: 'Modus', rasterMode: 'Raster zu SVG', pngMode: 'SVG zu PNG',
+		raster: 'Rasterbild', chooseRaster: 'Bild auswählen', rasterHint: 'PNG, JPEG, WebP, GIF oder SVG-Preview-fähige Bilder',
+		svg: 'SVG', chooseSvg: 'SVG auswählen', svgText: 'SVG-Text', svgHint: 'SVG-Datei auswählen oder Markup einfügen',
+		settings: 'Einstellungen', colors: 'Farben', detail: 'Detail', scale: 'PNG-Skalierung', background: 'PNG-Hintergrund',
+		vectorize: 'SVG erzeugen', rasterize: 'PNG erzeugen', clear: 'Zurücksetzen',
+		result: 'Ergebnis', downloadSvg: 'SVG herunterladen', downloadPng: 'PNG herunterladen',
+		waiting: 'Wähle eine Datei.', loaded: '{name} geladen.', vectorizing: 'Vektorisiere Bild…', rasterizing: 'Rendere SVG…',
+		doneSvg: 'SVG wurde erstellt.', donePng: 'PNG wurde erstellt.', tracerFallback: 'ImageTracer nicht geladen, Pixel-Vektor-Fallback verwendet.',
+		error: 'Aktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', invalidSvg: 'Kein gültiger SVG-Text gefunden.',
+	},
+	en: {
+		eyebrow: 'Vector tool', title: 'Raster/SVG Workbench',
+		intro: 'Vectorize raster images to SVG and render SVG files back to PNG, fully local in the browser.',
+		privacy: 'No uploads. ImageTracer.js is used for path tracing, with a local fallback.',
+		mode: 'Mode', rasterMode: 'Raster to SVG', pngMode: 'SVG to PNG',
+		raster: 'Raster image', chooseRaster: 'Choose image', rasterHint: 'PNG, JPEG, WebP, GIF, or browser-previewable images',
+		svg: 'SVG', chooseSvg: 'Choose SVG', svgText: 'SVG text', svgHint: 'Choose an SVG file or paste markup',
+		settings: 'Settings', colors: 'Colors', detail: 'Detail', scale: 'PNG scale', background: 'PNG background',
+		vectorize: 'Create SVG', rasterize: 'Create PNG', clear: 'Reset',
+		result: 'Result', downloadSvg: 'Download SVG', downloadPng: 'Download PNG',
+		waiting: 'Choose a file.', loaded: '{name} loaded.', vectorizing: 'Vectorizing image…', rasterizing: 'Rendering SVG…',
+		doneSvg: 'SVG created.', donePng: 'PNG created.', tracerFallback: 'ImageTracer did not load, used pixel-vector fallback.',
+		error: 'Action failed: {message}', generic: 'Unknown error', invalidSvg: 'No valid SVG text found.',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section raster-svg-section tool-workspace">
+	<div class="container">
+		<div class="raster-svg" data-raster-svg data-copy={copyJson}>
+			<ToolPanel title={copy.raster}>
+				<SelectControl label={copy.mode} selectAttrs={{ 'data-mode': true }}>
+					<option value="vector">{copy.rasterMode}</option><option value="png">{copy.pngMode}</option>
+				</SelectControl>
+				<div data-raster-pane>
+					<FilePicker label={copy.chooseRaster} name={copy.chooseRaster} hint={copy.rasterHint} accept="image/*,.avif,.gif,.jpeg,.jpg,.png,.svg,.webp" nameAttrs={{ 'data-raster-name': true }} metaAttrs={{ 'data-raster-meta': true }} inputAttrs={{ 'data-raster': true }} />
+				</div>
+				<div data-svg-pane hidden>
+					<FilePicker label={copy.chooseSvg} name={copy.chooseSvg} hint={copy.svgHint} accept="image/svg+xml,.svg" nameAttrs={{ 'data-svg-name': true }} metaAttrs={{ 'data-svg-meta': true }} inputAttrs={{ 'data-svg-file': true }} />
+					<label class="svg-text-label">
+						<span>{copy.svgText}</span>
+						<textarea data-svg-text rows="12" spellcheck="false"></textarea>
+					</label>
+				</div>
+			</ToolPanel>
+
+			<ToolPanel title={copy.settings}>
+				<RangeControl label={copy.colors} value="16" valueAttrs={{ 'data-colors-label': true }} inputAttrs={{ 'data-colors': true, min: 2, max: 64, step: 1, value: 16 }} />
+				<RangeControl label={copy.detail} value="60%" valueAttrs={{ 'data-detail-label': true }} inputAttrs={{ 'data-detail': true, min: 10, max: 100, step: 5, value: 60 }} />
+				<RangeControl label={copy.scale} value="2x" valueAttrs={{ 'data-scale-label': true }} inputAttrs={{ 'data-scale': true, min: 1, max: 4, step: 0.5, value: 2 }} />
+				<SelectControl label={copy.background} selectAttrs={{ 'data-background': true }}>
+					<option value="transparent">Transparent</option><option value="white">White</option><option value="black">Black</option>
+				</SelectControl>
+				<ToolActions>
+					<button class="button primary" data-run type="button">{copy.vectorize}</button>
+					<button class="button secondary" data-clear type="button">{copy.clear}</button>
+				</ToolActions>
+				<ToolStatus data-status text={copy.waiting} />
+			</ToolPanel>
+
+			<ToolPanel class="result-panel" title={copy.result}>
+				<div class="workbench-preview" data-preview hidden></div>
+				<div class="workbench-downloads">
+					<a class="tool-download-link" data-download-svg href="#" download hidden>{copy.downloadSvg}</a>
+					<a class="tool-download-link" data-download-png href="#" download hidden>{copy.downloadPng}</a>
+				</div>
+			</ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	(() => {
+		const roots = document.querySelectorAll('[data-raster-svg]:not([data-raster-svg-bound])');
+		for (const root of roots) {
+			root.dataset.rasterSvgBound = 'true';
+			initRasterSvg(root);
+		}
+
+		function initRasterSvg(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const mode = root.querySelector('[data-mode]');
+			const rasterPane = root.querySelector('[data-raster-pane]');
+			const svgPane = root.querySelector('[data-svg-pane]');
+			const rasterInput = root.querySelector('[data-raster]');
+			const rasterName = root.querySelector('[data-raster-name]');
+			const rasterMeta = root.querySelector('[data-raster-meta]');
+			const svgFile = root.querySelector('[data-svg-file]');
+			const svgName = root.querySelector('[data-svg-name]');
+			const svgMeta = root.querySelector('[data-svg-meta]');
+			const svgText = root.querySelector('[data-svg-text]');
+			const colors = root.querySelector('[data-colors]');
+			const colorsLabel = root.querySelector('[data-colors-label]');
+			const detail = root.querySelector('[data-detail]');
+			const detailLabel = root.querySelector('[data-detail-label]');
+			const scale = root.querySelector('[data-scale]');
+			const scaleLabel = root.querySelector('[data-scale-label]');
+			const background = root.querySelector('[data-background]');
+			const runButton = root.querySelector('[data-run]');
+			const clearButton = root.querySelector('[data-clear]');
+			const status = root.querySelector('[data-status]');
+			const preview = root.querySelector('[data-preview]');
+			const downloadSvg = root.querySelector('[data-download-svg]');
+			const downloadPng = root.querySelector('[data-download-png]');
+			let rasterUrl = null;
+			let resultUrl = null;
+			let tracerPromise = null;
+
+			mode.addEventListener('change', updateMode);
+			rasterInput.addEventListener('change', onRaster);
+			svgFile.addEventListener('change', onSvgFile);
+			colors.addEventListener('input', () => colorsLabel.textContent = colors.value);
+			detail.addEventListener('input', () => detailLabel.textContent = `${detail.value}%`);
+			scale.addEventListener('input', () => scaleLabel.textContent = `${scale.value}x`);
+			runButton.addEventListener('click', () => void run());
+			clearButton.addEventListener('click', reset);
+			colorsLabel.textContent = colors.value;
+			detailLabel.textContent = `${detail.value}%`;
+			scaleLabel.textContent = `${scale.value}x`;
+
+			function updateMode() {
+				const rasterMode = mode.value === 'vector';
+				rasterPane.hidden = !rasterMode;
+				svgPane.hidden = rasterMode;
+				runButton.textContent = rasterMode ? copy.vectorize : copy.rasterize;
+				setStatus(copy.waiting, 'info');
+			}
+
+			function onRaster() {
+				const file = rasterInput.files?.[0];
+				if (!file) return;
+				if (rasterUrl) URL.revokeObjectURL(rasterUrl);
+				rasterUrl = URL.createObjectURL(file);
+				rasterName.textContent = file.name;
+				rasterMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'image'}`;
+				setStatus(format(copy.loaded, { name: file.name }), 'success');
+			}
+
+			async function onSvgFile() {
+				const file = svgFile.files?.[0];
+				if (!file) return;
+				svgText.value = await file.text();
+				svgName.textContent = file.name;
+				svgMeta.textContent = `${formatBytes(file.size)} · image/svg+xml`;
+				setStatus(format(copy.loaded, { name: file.name }), 'success');
+			}
+
+			async function run() {
+				try {
+					if (mode.value === 'vector') await vectorize();
+					else await rasterize();
+				} catch (error) {
+					setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
+				}
+			}
+
+			async function vectorize() {
+				const file = rasterInput.files?.[0];
+				if (!file) throw new Error(copy.waiting);
+				setStatus(copy.vectorizing, 'info');
+				const image = await loadImage(rasterUrl);
+				const canvas = document.createElement('canvas');
+				const maxSide = 1200;
+				const ratio = Math.min(1, maxSide / Math.max(image.naturalWidth, image.naturalHeight));
+				canvas.width = Math.max(1, Math.round(image.naturalWidth * ratio));
+				canvas.height = Math.max(1, Math.round(image.naturalHeight * ratio));
+				const context = canvas.getContext('2d', { willReadFrequently: true });
+				context.drawImage(image, 0, 0, canvas.width, canvas.height);
+				const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+				let svg;
+				try {
+					const tracer = await loadTracer();
+					svg = tracer.imagedataToSVG(imageData, {
+						numberofcolors: Number(colors.value),
+						pathomit: Math.round(20 - Number(detail.value) / 5),
+						ltres: 1,
+						qtres: Math.max(1, 10 - Number(detail.value) / 12),
+						roundcoords: 1,
+						viewbox: true,
+					});
+				} catch {
+					svg = pixelVectorFallback(imageData, Number(colors.value));
+					setStatus(copy.tracerFallback, 'info');
+				}
+				showSvg(svg);
+				const name = `${baseName(file.name)}.svg`;
+				downloadSvg.download = name;
+				setStatus(copy.doneSvg, 'success');
+			}
+
+			async function rasterize() {
+				const source = svgText.value.trim();
+				if (!source || !source.includes('<svg')) throw new Error(copy.invalidSvg);
+				setStatus(copy.rasterizing, 'info');
+				const image = await loadImage(URL.createObjectURL(new Blob([source], { type: 'image/svg+xml' })));
+				const multiplier = Number(scale.value || 1);
+				const canvas = document.createElement('canvas');
+				canvas.width = Math.max(1, Math.round((image.naturalWidth || 512) * multiplier));
+				canvas.height = Math.max(1, Math.round((image.naturalHeight || 512) * multiplier));
+				const context = canvas.getContext('2d');
+				if (background.value !== 'transparent') {
+					context.fillStyle = background.value;
+					context.fillRect(0, 0, canvas.width, canvas.height);
+				}
+				context.drawImage(image, 0, 0, canvas.width, canvas.height);
+				const blob = await canvasToBlob(canvas, 'image/png');
+				setResultUrl(URL.createObjectURL(blob));
+				preview.innerHTML = '';
+				const img = document.createElement('img');
+				img.src = resultUrl;
+				preview.append(img);
+				preview.hidden = false;
+				downloadSvg.hidden = true;
+				downloadPng.href = resultUrl;
+				downloadPng.download = 'rasterized-svg.png';
+				downloadPng.hidden = false;
+				setStatus(copy.donePng, 'success');
+			}
+
+			function showSvg(svg) {
+				const blob = new Blob([svg], { type: 'image/svg+xml' });
+				setResultUrl(URL.createObjectURL(blob));
+				preview.innerHTML = '';
+				const img = document.createElement('img');
+				img.src = resultUrl;
+				preview.append(img);
+				preview.hidden = false;
+				downloadSvg.href = resultUrl;
+				downloadSvg.hidden = false;
+				downloadPng.hidden = true;
+			}
+
+			function loadTracer() {
+				if (window.ImageTracer) return Promise.resolve(window.ImageTracer);
+				if (tracerPromise) return tracerPromise;
+				tracerPromise = new Promise((resolve, reject) => {
+					const script = document.createElement('script');
+					script.src = 'https://cdn.jsdelivr.net/npm/imagetracerjs@1.2.6/imagetracer_v1.2.6.js';
+					script.onload = () => window.ImageTracer ? resolve(window.ImageTracer) : reject(new Error(copy.generic));
+					script.onerror = () => reject(new Error(copy.generic));
+					document.head.append(script);
+				});
+				return tracerPromise;
+			}
+
+			function pixelVectorFallback(imageData, paletteSize) {
+				const step = Math.max(4, Math.round(28 - paletteSize / 3));
+				const rects = [];
+				for (let y = 0; y < imageData.height; y += step) {
+					for (let x = 0; x < imageData.width; x += step) {
+						const i = (y * imageData.width + x) * 4;
+						const r = quantize(imageData.data[i], paletteSize);
+						const g = quantize(imageData.data[i + 1], paletteSize);
+						const b = quantize(imageData.data[i + 2], paletteSize);
+						const a = imageData.data[i + 3] / 255;
+						if (a > 0.02) rects.push(`<rect x="${x}" y="${y}" width="${step}" height="${step}" fill="rgb(${r},${g},${b})" opacity="${a.toFixed(2)}"/>`);
+					}
+				}
+				return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${imageData.width} ${imageData.height}" width="${imageData.width}" height="${imageData.height}">${rects.join('')}</svg>`;
+			}
+
+			function quantize(value, colors) {
+				const levels = Math.max(2, Math.round(Math.cbrt(colors)));
+				const step = 255 / (levels - 1);
+				return Math.round(Math.round(value / step) * step);
+			}
+
+			function reset() {
+				rasterInput.value = ''; svgFile.value = ''; svgText.value = '';
+				rasterName.textContent = copy.chooseRaster; rasterMeta.textContent = copy.rasterHint;
+				svgName.textContent = copy.chooseSvg; svgMeta.textContent = copy.svgHint;
+				preview.innerHTML = ''; preview.hidden = true; downloadSvg.hidden = true; downloadPng.hidden = true;
+				for (const url of [rasterUrl, resultUrl]) if (url) URL.revokeObjectURL(url);
+				rasterUrl = resultUrl = null;
+				setStatus(copy.waiting, 'info');
+			}
+
+			function setResultUrl(url) {
+				if (resultUrl) URL.revokeObjectURL(resultUrl);
+				resultUrl = url;
+			}
+			function loadImage(url) { return new Promise((resolve, reject) => { const image = new Image(); image.onload = () => resolve(image); image.onerror = reject; image.src = url; }); }
+			function canvasToBlob(canvas, type) { return new Promise((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error(copy.generic)), type)); }
+			function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+			function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
+			function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'image'; }
+			function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
+			updateMode();
+		}
+	})();
+</script>
+
+<style>
+	.raster-svg { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+	.raster-svg .result-panel { grid-column: 1 / -1; }
+	.svg-text-label { display: grid; gap: 8px; margin-top: 14px; font-weight: 800; }
+	.svg-text-label textarea { width: 100%; min-height: 220px; padding: 12px; border: 1px solid var(--color-line); border-radius: 6px; background: var(--color-surface-raised); color: var(--color-ink); font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; resize: vertical; }
+	.workbench-preview { display: grid; place-items: center; min-height: 240px; border: 1px solid var(--color-line); border-radius: 6px; background: var(--color-surface-raised); overflow: auto; }
+	.workbench-preview img { display: block; max-width: 100%; height: auto; }
+	.workbench-downloads { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+	@media (max-width: 860px) { .raster-svg { grid-template-columns: 1fr; } }
+</style>
