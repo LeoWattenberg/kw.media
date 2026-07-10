@@ -1,0 +1,198 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Reframe-Tool', title: 'Smart Vertical Reframer',
+		intro: 'Erstelle vertikale Shorts-Versionen aus lokalen Videos mit face-aware Crop und FFmpeg-Export.',
+		privacy: 'Die Analyse läuft lokal. Für lange Videos ist ein kurzer Ausschnitt realistischer als ein kompletter Re-Encode.',
+		source: 'Video', choose: 'Video auswählen', hint: 'MP4, MOV, WebM, MKV und weitere Browser/FFmpeg-Formate',
+		settings: 'Format', preset: 'Ziel', quality: 'Qualität', analyze: 'Crop analysieren', render: 'Vertikales Video erstellen', clear: 'Zurücksetzen',
+		presets: { shorts: '9:16 Shorts', square: '1:1 Square', portrait: '4:5 Portrait' },
+		result: 'Ergebnis', download: 'Video herunterladen', waiting: 'Wähle ein Video.', selected: '{name} ist bereit.',
+		analyzing: 'Analysiere Gesicht/Framing…', face: 'Gesicht erkannt. Crop-Zentrum: {x}%.', fallback: 'Kein Gesicht erkannt, Center-Crop wird verwendet.',
+		processing: 'FFmpeg rendert das Reframe…', loading: 'FFmpeg WASM wird geladen…', ready: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%',
+		done: 'Vertikales Video erstellt.', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.', error: 'Reframe fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
+	},
+	en: {
+		eyebrow: 'Reframe tool', title: 'Smart Vertical Reframer',
+		intro: 'Create vertical Shorts versions from local videos with face-aware crop and FFmpeg export.',
+		privacy: 'Analysis runs locally. For long videos, a short segment is more realistic than a full re-encode.',
+		source: 'Video', choose: 'Choose video', hint: 'MP4, MOV, WebM, MKV, and other browser/FFmpeg formats',
+		settings: 'Format', preset: 'Target', quality: 'Quality', analyze: 'Analyze crop', render: 'Create vertical video', clear: 'Reset',
+		presets: { shorts: '9:16 Shorts', square: '1:1 Square', portrait: '4:5 Portrait' },
+		result: 'Result', download: 'Download video', waiting: 'Choose a video.', selected: '{name} is ready.',
+		analyzing: 'Analyzing face/framing…', face: 'Face detected. Crop center: {x}%.', fallback: 'No face detected, using center crop.',
+		processing: 'FFmpeg is rendering the reframe…', loading: 'Loading FFmpeg WASM…', ready: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%',
+		done: 'Vertical video created.', timeout: 'FFmpeg WASM did not load within 90 seconds.', error: 'Reframe failed: {message}', generic: 'Unknown error',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+<section class="section smart-reframer-section tool-workspace">
+	<div class="container">
+		<div class="smart-reframer" data-smart-reframer data-copy={copyJson}>
+			<ToolPanel title={copy.source}>
+				<FilePicker label={copy.choose} name={copy.choose} hint={copy.hint} accept="video/*,.mkv,.mov,.mp4,.webm" nameAttrs={{ 'data-file-name': true }} metaAttrs={{ 'data-file-meta': true }} inputAttrs={{ 'data-file': true }} />
+				<video class="reframe-video" data-video controls hidden></video>
+			</ToolPanel>
+			<ToolPanel title={copy.settings}>
+				<SelectControl label={copy.preset} selectAttrs={{ 'data-preset': true }}>
+					<option value="9:16">{copy.presets.shorts}</option><option value="1:1">{copy.presets.square}</option><option value="4:5">{copy.presets.portrait}</option>
+				</SelectControl>
+				<SelectControl label={copy.quality} selectAttrs={{ 'data-quality': true }}>
+					<option value="24">High</option><option value="28">Medium</option><option value="32">Small</option>
+				</SelectControl>
+				<ToolActions><button class="button secondary" data-analyze type="button" disabled>{copy.analyze}</button><button class="button primary" data-render type="button" disabled>{copy.render}</button><button class="button secondary" data-clear type="button">{copy.clear}</button></ToolActions>
+				<ToolStatus data-status text={copy.waiting} />
+			</ToolPanel>
+			<ToolPanel class="result-panel" title={copy.result}><canvas data-preview hidden></canvas><p data-result-meta>{copy.waiting}</p><a class="tool-download-link" data-download href="#" download hidden>{copy.download}</a></ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+
+	for (const root of document.querySelectorAll('[data-smart-reframer]:not([data-bound])')) {
+		root.dataset.bound = 'true';
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const fileInput = root.querySelector('[data-file]');
+		const fileName = root.querySelector('[data-file-name]');
+		const fileMeta = root.querySelector('[data-file-meta]');
+		const video = root.querySelector('[data-video]');
+		const preset = root.querySelector('[data-preset]');
+		const quality = root.querySelector('[data-quality]');
+		const analyzeButton = root.querySelector('[data-analyze]');
+		const renderButton = root.querySelector('[data-render]');
+		const clearButton = root.querySelector('[data-clear]');
+		const status = root.querySelector('[data-status]');
+		const preview = root.querySelector('[data-preview]');
+		const resultMeta = root.querySelector('[data-result-meta]');
+		const download = root.querySelector('[data-download]');
+		let inputUrl = null;
+		let outputUrl = null;
+		let cropCenter = 0.5;
+		let detectorPromise = null;
+		const runtime = createFfmpegRuntime({
+			timeoutMessage: copy.timeout,
+			onLoading: () => setStatus(copy.loading, 'info'),
+			onReady: () => setStatus(copy.ready, 'success'),
+			onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info'),
+		});
+
+		fileInput.addEventListener('change', onFile);
+		analyzeButton.addEventListener('click', () => void analyze());
+		renderButton.addEventListener('click', () => void render());
+		clearButton.addEventListener('click', reset);
+
+		function onFile() {
+			const file = fileInput.files?.[0];
+			if (!file) return;
+			if (inputUrl) URL.revokeObjectURL(inputUrl);
+			inputUrl = URL.createObjectURL(file);
+			video.src = inputUrl; video.hidden = false;
+			fileName.textContent = file.name;
+			fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'video'}`;
+			analyzeButton.disabled = false; renderButton.disabled = false;
+			setStatus(format(copy.selected, { name: file.name }), 'success');
+		}
+
+		async function analyze() {
+			setStatus(copy.analyzing, 'info');
+			await waitForMetadata(video);
+			video.currentTime = Math.min(Math.max(video.duration * 0.2, 0), 3);
+			await new Promise((resolve) => video.addEventListener('seeked', resolve, { once: true }));
+			const canvas = drawFrame();
+			try {
+				const detector = await loadFaceDetector();
+				const detections = detector.detect(canvas).detections || [];
+				if (detections.length) {
+					const box = detections[0].boundingBox;
+					cropCenter = Math.max(0, Math.min(1, (box.originX + box.width / 2) / canvas.width));
+					setStatus(format(copy.face, { x: Math.round(cropCenter * 100) }), 'success');
+				} else {
+					cropCenter = 0.5; setStatus(copy.fallback, 'info');
+				}
+			} catch {
+				cropCenter = 0.5; setStatus(copy.fallback, 'info');
+			}
+			preview.hidden = false;
+		}
+
+		async function render() {
+			const file = fileInput.files?.[0];
+			if (!file) return;
+			if (!video.videoWidth) await waitForMetadata(video);
+			setStatus(copy.processing, 'info');
+			try {
+				const [rw, rh] = preset.value.split(':').map(Number);
+				const targetRatio = rw / rh;
+				let cropW = video.videoWidth;
+				let cropH = Math.round(cropW / targetRatio);
+				if (cropH > video.videoHeight) { cropH = video.videoHeight; cropW = Math.round(cropH * targetRatio); }
+				const x = Math.round(Math.max(0, Math.min(video.videoWidth - cropW, cropCenter * video.videoWidth - cropW / 2)));
+				const y = Math.round(Math.max(0, (video.videoHeight - cropH) / 2));
+				const outSize = preset.value === '1:1' ? '1080:1080' : preset.value === '4:5' ? '1080:1350' : '1080:1920';
+				const bytes = await runtime.run(async (ffmpeg) => {
+					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+					const input = `input-${stamp}${extension(file.name)}`;
+					const output = `reframe-${stamp}.mp4`;
+					await ffmpeg.writeFile(input, new Uint8Array(await file.arrayBuffer()));
+					try {
+						const args = ['-i', input, '-vf', `crop=${cropW}:${cropH}:${x}:${y},scale=${outSize},setsar=1`, '-c:v', 'libx264', '-crf', quality.value, '-preset', 'veryfast', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-y', output];
+						const code = await ffmpeg.exec(args);
+						if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
+						const result = await ffmpeg.readFile(output);
+						return result instanceof Uint8Array ? result : new TextEncoder().encode(String(result));
+					} finally { await ffmpeg.deleteFile(input).catch(() => {}); await ffmpeg.deleteFile(output).catch(() => {}); }
+				});
+				if (outputUrl) URL.revokeObjectURL(outputUrl);
+				const blob = new Blob([bytes], { type: 'video/mp4' });
+				outputUrl = URL.createObjectURL(blob);
+				download.href = outputUrl; download.download = `${baseName(file.name)}-vertical.mp4`; download.hidden = false;
+				resultMeta.textContent = `${download.download} · ${formatBytes(blob.size)}`;
+				setStatus(copy.done, 'success');
+			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
+		}
+
+		function drawFrame() {
+			preview.width = video.videoWidth; preview.height = video.videoHeight;
+			preview.getContext('2d').drawImage(video, 0, 0, preview.width, preview.height);
+			return preview;
+		}
+		async function loadFaceDetector() {
+			if (detectorPromise) return detectorPromise;
+			detectorPromise = (async () => {
+				const vision = await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18/+esm');
+				const fileset = await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18/wasm');
+				return vision.FaceDetector.createFromOptions(fileset, { baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/latest/blaze_face_short_range.tflite', delegate: 'GPU' } });
+			})();
+			return detectorPromise;
+		}
+		function waitForMetadata(media) { return media.readyState >= 1 ? Promise.resolve() : new Promise((resolve) => media.addEventListener('loadedmetadata', resolve, { once: true })); }
+		function reset() { fileInput.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; video.hidden = true; video.removeAttribute('src'); preview.hidden = true; download.hidden = true; analyzeButton.disabled = true; renderButton.disabled = true; resultMeta.textContent = copy.waiting; for (const url of [inputUrl, outputUrl]) if (url) URL.revokeObjectURL(url); inputUrl = outputUrl = null; cropCenter = 0.5; setStatus(copy.waiting, 'info'); }
+		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
+		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
+		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'video'; }
+		function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
+	}
+</script>
+
+<style>
+	.smart-reframer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+	.smart-reframer .result-panel { grid-column: 1 / -1; }
+	.reframe-video, .smart-reframer canvas { width: 100%; margin-top: 14px; border-radius: 6px; background: #000; }
+	@media (max-width: 860px) { .smart-reframer { grid-template-columns: 1fr; } }
+</style>
