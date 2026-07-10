@@ -1,0 +1,15 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import OfflineSubtitleStudio from '../../components/tools/OfflineSubtitleStudio.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('offline-subtitle-studio', {
+	id: 'offline-subtitle-studio',
+	translations: {
+		de: { path: '/de/tools/offline-subtitle-studio/', title: 'Offline Subtitle Studio', description: 'Bearbeite, verschiebe, konvertiere und muxe SRT- und WebVTT-Untertitel lokal im Browser.' },
+		en: { path: '/en/tools/offline-subtitle-studio/', title: 'Offline Subtitle Studio', description: 'Edit, offset, convert, and mux SRT and WebVTT subtitles locally in your browser.' },
+	},
+});
+const { tool, alternatePaths } = Astro.props;
+---
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}><OfflineSubtitleStudio locale={tool.locale} /></ToolPageShell>
