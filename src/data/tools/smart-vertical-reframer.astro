@@ -1,0 +1,15 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import SmartVerticalReframer from '../../components/tools/SmartVerticalReframer.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('smart-vertical-reframer', {
+	id: 'smart-vertical-reframer',
+	translations: {
+		de: { path: '/de/tools/smart-vertical-reframer/', title: 'Smart Vertical Reframer', description: 'Erstelle vertikale Shorts- und Portrait-Versionen lokaler Videos mit face-aware Crop.' },
+		en: { path: '/en/tools/smart-vertical-reframer/', title: 'Smart Vertical Reframer', description: 'Create vertical Shorts and portrait versions of local videos with face-aware crop.' },
+	},
+});
+const { tool, alternatePaths } = Astro.props;
+---
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}><SmartVerticalReframer locale={tool.locale} /></ToolPageShell>
