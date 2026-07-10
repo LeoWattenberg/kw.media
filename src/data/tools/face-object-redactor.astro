@@ -1,0 +1,15 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import FaceObjectRedactor from '../../components/tools/FaceObjectRedactor.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('face-object-redactor', {
+	id: 'face-object-redactor',
+	translations: {
+		de: { path: '/de/tools/face-object-redactor/', title: 'Face/Object Redactor', description: 'Erkenne und redigiere Gesichter oder Objekte in lokalen Bildern.' },
+		en: { path: '/en/tools/face-object-redactor/', title: 'Face/Object Redactor', description: 'Detect and redact faces or objects in local images.' },
+	},
+});
+const { tool, alternatePaths } = Astro.props;
+---
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}><FaceObjectRedactor locale={tool.locale} /></ToolPageShell>
