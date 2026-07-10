@@ -12,7 +12,7 @@ const copy = {
 		eyebrow: 'Daily Game',
 		title: 'MP3 Guesser',
 		intro:
-			'Finde das unkomprimierte Original zwischen vier LAME-MP3-Versionen. Jeden Tag gibt es eine neue Audiodatei aus offenen Quellen.',
+			'Finde das unkomprimierte Original zwischen LAME-MP3-Versionen von V9 bis V0. Jeden Tag gibt es eine neue Audiodatei aus offenen Quellen.',
 		start: 'Heute spielen',
 		loading: 'Lade das heutige Spiel...',
 		errorTitle: 'Heute ist noch kein Spiel bereit',
@@ -27,7 +27,7 @@ const copy = {
 		duration: 'Dauer',
 		level: 'Level',
 		score: 'Punkte',
-		roundPrompt: 'Welche der fünf Dateien ist das Original?',
+		roundPrompt: 'Welche der drei Dateien ist das Original?',
 		playSample: 'Sample abspielen',
 		play: 'Abspielen',
 		pause: 'Pause',
@@ -37,12 +37,12 @@ const copy = {
 		submit: 'Antwort einloggen',
 		next: 'Nächstes Level',
 		showResults: 'Ergebnis anzeigen',
-		playAgain: 'Nochmal spielen',
+		resultsCta: 'MP3-Qualitätstester ausprobieren',
 		correct: 'Richtig. Das Original war Sample {letter}.',
 		wrong: 'Nicht ganz. Das Original war Sample {letter}.',
 		completeTitle: 'Dein Ergebnis',
 		completeBody:
-			'{score} von {total} erkannt. Eine perfekte Zufallsrunde liegt bei 1 zu 3125, weil jedes Level fünf Optionen hat.',
+			'{score} von {total} erkannt. Eine perfekte Zufallsrunde liegt ungefähr bei 1 zu {odds}.',
 		previousTitle: 'Du hast das heutige Spiel schon gespielt',
 		previousBody: 'Gespeichertes Ergebnis: {score} von {total}.',
 		originalBadge: 'Original',
@@ -57,7 +57,7 @@ const copy = {
 		eyebrow: 'Daily game',
 		title: 'MP3 Guesser',
 		intro:
-			'Find the uncompressed original among four LAME MP3 versions. Every day uses a new audio file from open sources.',
+			'Find the uncompressed original among LAME MP3 versions from V9 up to V0. Every day uses a new audio file from open sources.',
 		start: "Play today's game",
 		loading: "Loading today's game...",
 		errorTitle: "Today's game is not ready yet",
@@ -72,7 +72,7 @@ const copy = {
 		duration: 'Duration',
 		level: 'Level',
 		score: 'Score',
-		roundPrompt: 'Which of the five files is the original?',
+		roundPrompt: 'Which of the three files is the original?',
 		playSample: 'Play sample',
 		play: 'Play',
 		pause: 'Pause',
@@ -82,12 +82,12 @@ const copy = {
 		submit: 'Lock in answer',
 		next: 'Next level',
 		showResults: 'Show results',
-		playAgain: 'Play again',
+		resultsCta: 'Try the MP3 Quality Tester',
 		correct: 'Correct. The original was sample {letter}.',
 		wrong: 'Not quite. The original was sample {letter}.',
 		completeTitle: 'Your result',
 		completeBody:
-			'{score} out of {total} spotted. A perfect random run is 1 in 3125 because every level has five options.',
+			'{score} out of {total} spotted. A perfect random run is about 1 in {odds}.',
 		previousTitle: "You've already played today",
 		previousBody: 'Saved result: {score} out of {total}.',
 		originalBadge: 'Original',
@@ -186,8 +186,8 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 							<span data-duration-time>0:00</span>
 						</div>
 					</div>
-					<div class="mp3g-options" data-options></div>
-					<p class="mp3g-feedback" data-feedback hidden></p>
+						<div class="mp3g-options" data-options></div>
+						<p class="mp3g-feedback" data-feedback hidden></p>
 
 						<div class="mp3g-actions">
 							<button class="mp3g-button mp3g-button-primary" type="button" data-submit disabled>
@@ -200,7 +200,9 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 					<section class="mp3g-panel mp3g-results" data-results hidden>
 						<h2 data-results-title>{copy.completeTitle}</h2>
 						<p data-results-body></p>
-						<button class="mp3g-button mp3g-button-primary" type="button" data-replay>{copy.playAgain}</button>
+						<a class="mp3g-button mp3g-button-primary" href={withBase(mp3TesterPath)} data-results-cta>
+							{copy.resultsCta}
+						</a>
 					</section>
 				</div>
 			</div>
@@ -253,52 +255,42 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 				score: root.querySelector('[data-score]'),
 				total: root.querySelector('[data-total]'),
 				progress: root.querySelector('[data-progress]'),
-			levelKicker: root.querySelector('[data-level-kicker]'),
-			levelTitle: root.querySelector('[data-level-title]'),
-			transport: root.querySelector('[data-transport]'),
-			playToggle: root.querySelector('[data-play-toggle]'),
-			seek: root.querySelector('[data-seek]'),
-			currentTime: root.querySelector('[data-current-time]'),
-			durationTime: root.querySelector('[data-duration-time]'),
-			options: root.querySelector('[data-options]'),
+				levelKicker: root.querySelector('[data-level-kicker]'),
+				levelTitle: root.querySelector('[data-level-title]'),
+				transport: root.querySelector('[data-transport]'),
+				playToggle: root.querySelector('[data-play-toggle]'),
+				seek: root.querySelector('[data-seek]'),
+				currentTime: root.querySelector('[data-current-time]'),
+				durationTime: root.querySelector('[data-duration-time]'),
+				options: root.querySelector('[data-options]'),
 				feedback: root.querySelector('[data-feedback]'),
 				submit: root.querySelector('[data-submit]'),
 				next: root.querySelector('[data-next]'),
 				results: root.querySelector('[data-results]'),
 				resultsTitle: root.querySelector('[data-results-title]'),
 				resultsBody: root.querySelector('[data-results-body]'),
-				replay: root.querySelector('[data-replay]'),
 				round: root.querySelector('[data-round]'),
 			};
-		const letters = ['A', 'B', 'C', 'D', 'E'];
-		const transport = new AudioTransport({
-			onTick: () => {
-				updateTransportUi();
-				updateOptionUi();
-			},
-		});
-		const state = {
-			manifest: null,
-			levelIndex: 0,
-			selectedIndex: -1,
-			answered: false,
-			answers: [],
-			buffers: new Map(),
-			activeOptionId: null,
-			decodeVersion: 0,
-		};
+			const letters = ['A', 'B', 'C', 'D', 'E'];
+			const transport = new AudioTransport({
+				onTick: () => {
+					updateTransportUi();
+					updateOptionUi();
+				},
+			});
+			const state = {
+				manifest: null,
+				levelIndex: 0,
+				selectedIndex: -1,
+				answered: false,
+				answers: [],
+				buffers: new Map(),
+				activeOptionId: null,
+				decodeVersion: 0,
+			};
 
-		nodes.submit?.addEventListener('click', submitAnswer);
-		nodes.next?.addEventListener('click', goNext);
-		nodes.replay?.addEventListener('click', () => {
-			state.levelIndex = 0;
-			state.selectedIndex = -1;
-			state.answered = false;
-			state.answers = [];
-			nodes.results.hidden = true;
-			nodes.round.hidden = false;
-			render();
-		});
+			nodes.submit?.addEventListener('click', submitAnswer);
+			nodes.next?.addEventListener('click', goNext);
 			nodes.playToggle?.addEventListener('click', togglePlayback);
 			nodes.seek?.addEventListener('input', () => {
 				transport.seek(Number(nodes.seek.value) / 1000);
@@ -331,20 +323,18 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 				}
 			}
 
-		function normalizeManifest(manifest) {
-			return {
-				...manifest,
-				levels: [...manifest.levels]
-					.reverse()
-					.map((level) => ({
+			function normalizeManifest(manifest) {
+				return {
+					...manifest,
+					levels: manifest.levels.map((level) => ({
 						...level,
 						options: level.options.map((option) => ({
 							...option,
 							url: resolveAssetUrl(option.url),
 						})),
 					})),
-			};
-		}
+				};
+			}
 
 			function resolveAssetUrl(url) {
 				if (!url || /^(https?:|data:|blob:)/.test(url)) {
@@ -399,6 +389,7 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 				nodes.resultsBody.textContent = format(copy.previousBody, {
 					score: String(stored.score),
 					total: String(total),
+					odds: String(calculatePerfectOdds()),
 				});
 			}
 
@@ -639,9 +630,18 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 				nodes.resultsBody.textContent = format(copy.completeBody, {
 					score: String(score),
 					total: String(total),
+					odds: String(calculatePerfectOdds()),
 				});
 				storeResult(score);
 				renderProgress();
+			}
+
+			function calculatePerfectOdds() {
+				if (!state.manifest?.levels?.length) {
+					return 0;
+				}
+
+				return state.manifest.levels.reduce((odds, level) => odds * Math.max(1, level.options?.length || 0), 1);
 			}
 
 			function storageKey() {

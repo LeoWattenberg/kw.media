@@ -21,11 +21,11 @@ const USER_AGENT = process.env.MP3_GUESSER_USER_AGENT || 'kw.media MP3 Guesser g
 const FREESOUND_API_TOKEN = process.env.FREESOUND_API_TOKEN || '';
 const FREESOUND_OAUTH_TOKEN = process.env.FREESOUND_OAUTH_TOKEN || '';
 const LEVELS = [
-	{ id: 'v0', label: 'LAME V0 VBR', lameQuality: 0 },
-	{ id: 'v2', label: 'LAME V2 VBR', lameQuality: 2 },
-	{ id: 'v4', label: 'LAME V4 VBR', lameQuality: 4 },
-	{ id: 'v6', label: 'LAME V6 VBR', lameQuality: 6 },
-	{ id: 'v8', label: 'LAME V8 VBR', lameQuality: 8 },
+	{ id: 'v9', label: 'LAME V9 VBR (~65 kbps)', lameQuality: 9 },
+	{ id: 'v7', label: 'LAME V7 VBR (~100 kbps)', lameQuality: 7 },
+	{ id: 'v5', label: 'LAME V5 VBR (~130 kbps)', lameQuality: 5 },
+	{ id: 'v3', label: 'LAME V3 VBR (~175 kbps)', lameQuality: 3 },
+	{ id: 'v0', label: 'LAME V0 VBR (~245 kbps)', lameQuality: 0 },
 ];
 const ACCEPTED_EXTENSIONS = new Set(['.flac', '.wav']);
 const LINEAR_PCM_CODECS = new Set([
@@ -170,7 +170,7 @@ async function buildGameFromCandidate(candidate) {
 			},
 		];
 
-		for (let copyIndex = 1; copyIndex <= 4; copyIndex += 1) {
+		for (let copyIndex = 1; copyIndex <= 2; copyIndex += 1) {
 			const filename = `${level.id}-${copyIndex}.mp3`;
 			const outputPath = path.join(encodedRoot, filename);
 
