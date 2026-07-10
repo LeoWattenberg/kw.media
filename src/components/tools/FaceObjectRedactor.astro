@@ -1,0 +1,183 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import RangeControl from './shared/RangeControl.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Privacy-Tool', title: 'Face/Object Redactor',
+		intro: 'Erkenne Gesichter oder Objekte in lokalen Bildern und exportiere eine geschwärzte oder weichgezeichnete Version.',
+		privacy: 'Erkennung und Export laufen lokal im Browser mit MediaPipe und Canvas.',
+		source: 'Bild', choose: 'Bild auswählen', hint: 'PNG, JPEG, WebP und weitere Browser-Bildformate',
+		settings: 'Redaktion', target: 'Ziel', style: 'Stil', strength: 'Stärke', detect: 'Erkennen', apply: 'Redaktion anwenden', clear: 'Zurücksetzen',
+		targets: { faces: 'Gesichter', objects: 'Objekte' }, styles: { blur: 'Weichzeichnen', block: 'Schwarze Box', pixel: 'Pixeln' },
+		result: 'Ergebnis', download: 'Redigiertes Bild herunterladen', waiting: 'Wähle ein Bild.', selected: '{name} ist bereit.',
+		loading: 'MediaPipe-Modell wird geladen…', detecting: 'Suche Bereiche…', detected: '{count} Bereiche erkannt.', none: 'Keine Bereiche erkannt.',
+		done: 'Redaktion angewendet.', error: 'Redaktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
+	},
+	en: {
+		eyebrow: 'Privacy tool', title: 'Face/Object Redactor',
+		intro: 'Detect faces or objects in local images and export a blurred or blocked version.',
+		privacy: 'Detection and export run locally in the browser with MediaPipe and Canvas.',
+		source: 'Image', choose: 'Choose image', hint: 'PNG, JPEG, WebP, and other browser image formats',
+		settings: 'Redaction', target: 'Target', style: 'Style', strength: 'Strength', detect: 'Detect', apply: 'Apply redaction', clear: 'Reset',
+		targets: { faces: 'Faces', objects: 'Objects' }, styles: { blur: 'Blur', block: 'Black box', pixel: 'Pixelate' },
+		result: 'Result', download: 'Download redacted image', waiting: 'Choose an image.', selected: '{name} is ready.',
+		loading: 'Loading MediaPipe model…', detecting: 'Finding regions…', detected: '{count} regions detected.', none: 'No regions detected.',
+		done: 'Redaction applied.', error: 'Redaction failed: {message}', generic: 'Unknown error',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+<section class="section redactor-section tool-workspace">
+	<div class="container">
+		<div class="redactor" data-redactor data-copy={copyJson}>
+			<ToolPanel title={copy.source}>
+				<FilePicker label={copy.choose} name={copy.choose} hint={copy.hint} accept="image/*,.jpeg,.jpg,.png,.webp" nameAttrs={{ 'data-file-name': true }} metaAttrs={{ 'data-file-meta': true }} inputAttrs={{ 'data-file': true }} />
+				<canvas data-canvas hidden></canvas>
+			</ToolPanel>
+			<ToolPanel title={copy.settings}>
+				<SelectControl label={copy.target} selectAttrs={{ 'data-target': true }}><option value="faces">{copy.targets.faces}</option><option value="objects">{copy.targets.objects}</option></SelectControl>
+				<SelectControl label={copy.style} selectAttrs={{ 'data-style': true }}><option value="blur">{copy.styles.blur}</option><option value="block">{copy.styles.block}</option><option value="pixel">{copy.styles.pixel}</option></SelectControl>
+				<RangeControl label={copy.strength} value="18" valueAttrs={{ 'data-strength-label': true }} inputAttrs={{ 'data-strength': true, min: 4, max: 40, step: 1, value: 18 }} />
+				<ToolActions><button class="button secondary" data-detect type="button" disabled>{copy.detect}</button><button class="button primary" data-apply type="button" disabled>{copy.apply}</button><button class="button secondary" data-clear type="button">{copy.clear}</button></ToolActions>
+				<ToolStatus data-status text={copy.waiting} />
+			</ToolPanel>
+			<ToolPanel class="result-panel" title={copy.result}><a class="tool-download-link" data-download href="#" download hidden>{copy.download}</a></ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	(() => {
+		for (const root of document.querySelectorAll('[data-redactor]:not([data-bound])')) {
+			root.dataset.bound = 'true';
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const fileInput = root.querySelector('[data-file]');
+			const fileName = root.querySelector('[data-file-name]');
+			const fileMeta = root.querySelector('[data-file-meta]');
+			const canvas = root.querySelector('[data-canvas]');
+			const ctx = canvas.getContext('2d');
+			const target = root.querySelector('[data-target]');
+			const style = root.querySelector('[data-style]');
+			const strength = root.querySelector('[data-strength]');
+			const strengthLabel = root.querySelector('[data-strength-label]');
+			const detectButton = root.querySelector('[data-detect]');
+			const applyButton = root.querySelector('[data-apply]');
+			const clearButton = root.querySelector('[data-clear]');
+			const status = root.querySelector('[data-status]');
+			const download = root.querySelector('[data-download]');
+			const image = new Image();
+			let inputUrl = null;
+			let outputUrl = null;
+			let boxes = [];
+			let detectorPromise = null;
+
+			strength.addEventListener('input', () => strengthLabel.textContent = strength.value);
+			fileInput.addEventListener('change', onFile);
+			detectButton.addEventListener('click', () => void detect());
+			applyButton.addEventListener('click', applyRedaction);
+			clearButton.addEventListener('click', reset);
+			strengthLabel.textContent = strength.value;
+
+			function onFile() {
+				const file = fileInput.files?.[0];
+				if (!file) return;
+				if (inputUrl) URL.revokeObjectURL(inputUrl);
+				inputUrl = URL.createObjectURL(file);
+				image.onload = () => {
+					const scale = Math.min(1, 1600 / Math.max(image.naturalWidth, image.naturalHeight));
+					canvas.width = Math.round(image.naturalWidth * scale);
+					canvas.height = Math.round(image.naturalHeight * scale);
+					ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+					canvas.hidden = false; detectButton.disabled = false; applyButton.disabled = true; boxes = [];
+				};
+				image.src = inputUrl;
+				fileName.textContent = file.name; fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'image'}`;
+				setStatus(format(copy.selected, { name: file.name }), 'success');
+			}
+
+			async function detect() {
+				try {
+					setStatus(copy.detecting, 'info');
+					ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+					const detector = await loadDetector();
+					const result = target.value === 'faces' ? detector.detect(canvas).detections : detector.detect(canvas).detections;
+					boxes = (result || []).map((item) => item.boundingBox).filter(Boolean).map((box) => ({
+						x: box.originX, y: box.originY, width: box.width, height: box.height,
+					}));
+					drawBoxes();
+					applyButton.disabled = !boxes.length;
+					setStatus(boxes.length ? format(copy.detected, { count: boxes.length }) : copy.none, boxes.length ? 'success' : 'info');
+				} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
+			}
+
+			function applyRedaction() {
+				ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+				for (const box of boxes) redactBox(box);
+				canvas.toBlob((blob) => {
+					if (!blob) return setStatus(copy.generic, 'error');
+					if (outputUrl) URL.revokeObjectURL(outputUrl);
+					outputUrl = URL.createObjectURL(blob);
+					download.href = outputUrl; download.download = `${baseName(fileInput.files?.[0]?.name || 'image')}-redacted.png`; download.hidden = false;
+					setStatus(copy.done, 'success');
+				}, 'image/png');
+			}
+
+			function redactBox(box) {
+				const pad = Math.round(Math.max(box.width, box.height) * 0.12);
+				const x = Math.max(0, box.x - pad), y = Math.max(0, box.y - pad);
+				const w = Math.min(canvas.width - x, box.width + pad * 2), h = Math.min(canvas.height - y, box.height + pad * 2);
+				if (style.value === 'block') { ctx.fillStyle = '#050505'; ctx.fillRect(x, y, w, h); return; }
+				if (style.value === 'pixel') {
+					const small = document.createElement('canvas'); small.width = Math.max(1, Math.round(w / Number(strength.value))); small.height = Math.max(1, Math.round(h / Number(strength.value)));
+					const sctx = small.getContext('2d'); sctx.imageSmoothingEnabled = false; sctx.drawImage(canvas, x, y, w, h, 0, 0, small.width, small.height);
+					ctx.imageSmoothingEnabled = false; ctx.drawImage(small, 0, 0, small.width, small.height, x, y, w, h); ctx.imageSmoothingEnabled = true; return;
+				}
+				ctx.save(); ctx.filter = `blur(${strength.value}px)`; ctx.drawImage(canvas, x, y, w, h, x, y, w, h); ctx.restore();
+			}
+
+			function drawBoxes() {
+				ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+				ctx.strokeStyle = '#ff3b30'; ctx.lineWidth = Math.max(2, canvas.width / 300);
+				for (const box of boxes) ctx.strokeRect(box.x, box.y, box.width, box.height);
+			}
+
+			async function loadDetector() {
+				const key = target.value;
+				if (detectorPromise?.key === key) return detectorPromise.promise;
+				setStatus(copy.loading, 'info');
+				const promise = (async () => {
+					const vision = await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18/+esm');
+					const fileset = await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18/wasm');
+					if (key === 'faces') return vision.FaceDetector.createFromOptions(fileset, { baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/latest/blaze_face_short_range.tflite', delegate: 'GPU' }, minDetectionConfidence: 0.45 });
+					return vision.ObjectDetector.createFromOptions(fileset, { baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-tasks/object_detector/efficientdet_lite0_uint8.tflite', delegate: 'GPU' }, scoreThreshold: 0.35 });
+				})();
+				detectorPromise = { key, promise };
+				return promise;
+			}
+
+			function reset() { fileInput.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; canvas.hidden = true; download.hidden = true; detectButton.disabled = true; applyButton.disabled = true; boxes = []; for (const url of [inputUrl, outputUrl]) if (url) URL.revokeObjectURL(url); inputUrl = outputUrl = null; setStatus(copy.waiting, 'info'); }
+			function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+			function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
+			function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'image'; }
+			function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
+		}
+	})();
+</script>
+
+<style>
+	.redactor { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+	.redactor .result-panel { grid-column: 1 / -1; }
+	.redactor canvas { width: 100%; margin-top: 14px; border: 1px solid var(--color-line); border-radius: 6px; }
+	@media (max-width: 860px) { .redactor { grid-template-columns: 1fr; } }
+</style>
