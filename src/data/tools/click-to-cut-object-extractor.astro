@@ -1,0 +1,15 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import ClickToCutObjectExtractor from '../../components/tools/ClickToCutObjectExtractor.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('click-to-cut-object-extractor', {
+	id: 'click-to-cut-object-extractor',
+	translations: {
+		de: { path: '/de/tools/click-to-cut-object-extractor/', title: 'Click-to-Cut Object Extractor', description: 'Klicke ein Objekt in einem lokalen Bild an und exportiere es als transparente PNG- oder WebP-Datei.' },
+		en: { path: '/en/tools/click-to-cut-object-extractor/', title: 'Click-to-Cut Object Extractor', description: 'Click an object in a local image and export it as a transparent PNG or WebP file.' },
+	},
+});
+const { tool, alternatePaths } = Astro.props;
+---
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}><ClickToCutObjectExtractor locale={tool.locale} /></ToolPageShell>
