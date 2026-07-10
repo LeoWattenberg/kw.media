@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import Watermarker from '../../components/tools/Watermarker.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('watermarker', {
+	id: 'watermarker',
+	translations: {
+		de: {
+			id: 'watermarker-de',
+			path: '/de/tools/watermarker/',
+			title: 'Watermarker',
+			description: 'Lege eigene Text- oder Bild-Wasserzeichen clientseitig über Bilder und Videos.',
+		},
+		en: {
+			id: 'watermarker-en',
+			path: '/en/tools/watermarker/',
+			title: 'Watermarker',
+			description: 'Add custom text or image watermarks to local images and videos in your browser.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<Watermarker locale={tool.locale} />
+</ToolPageShell>
