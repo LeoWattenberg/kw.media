@@ -1,0 +1,246 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import RangeControl from './shared/RangeControl.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToggleControl from './shared/ToggleControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props { locale: Locale }
+
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Audio-Tool', title: 'Podcast Cleaner',
+		intro: 'Bereinige Sprachaufnahmen lokal mit FFmpeg-Filtern für Podcast- und Voiceover-Workflows.',
+		privacy: 'Keine Uploads. Die Audiodatei wird in deinem Browser verarbeitet.',
+		source: 'Quelle', choose: 'Audio oder Video auswählen', hint: 'WAV, MP3, M4A, FLAC, Opus, WebM, MP4 und mehr',
+		settings: 'Reinigung', highpass: 'Rumpeln entfernen', lowpass: 'Harte Höhen zähmen', denoise: 'FFT-Rauschminderung', declick: 'Klicks reduzieren',
+		compress: 'Stimme verdichten', loudness: 'Auf Podcast-Lautheit normalisieren', silence: 'Lange Pausen kürzen',
+		highpassFreq: 'High-pass Frequenz', silenceThreshold: 'Stille-Schwelle', output: 'Ausgabeformat',
+		process: 'Podcast reinigen', clear: 'Zurücksetzen', result: 'Ergebnis', download: 'Bereinigte Datei herunterladen',
+		original: 'Original', cleaned: 'Bereinigt', waiting: 'Wähle eine Datei.', selected: '{name} ist bereit.',
+		loading: 'FFmpeg WASM wird geladen…', ready: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%',
+		processing: 'Audio wird bereinigt…', done: 'Podcast Cleaner ist fertig.', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.',
+		error: 'Reinigung fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
+	},
+	en: {
+		eyebrow: 'Audio tool', title: 'Podcast Cleaner',
+		intro: 'Clean spoken-word recordings locally with FFmpeg filters for podcast and voiceover workflows.',
+		privacy: 'No uploads. The audio file is processed in your browser.',
+		source: 'Source', choose: 'Choose audio or video', hint: 'WAV, MP3, M4A, FLAC, Opus, WebM, MP4, and more',
+		settings: 'Cleanup', highpass: 'Remove rumble', lowpass: 'Tame harsh highs', denoise: 'FFT noise reduction', declick: 'Reduce clicks',
+		compress: 'Tighten voice', loudness: 'Normalize podcast loudness', silence: 'Shorten long pauses',
+		highpassFreq: 'High-pass frequency', silenceThreshold: 'Silence threshold', output: 'Output format',
+		process: 'Clean podcast', clear: 'Reset', result: 'Result', download: 'Download cleaned file',
+		original: 'Original', cleaned: 'Cleaned', waiting: 'Choose a file.', selected: '{name} is ready.',
+		loading: 'Loading FFmpeg WASM…', ready: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%',
+		processing: 'Cleaning audio…', done: 'Podcast Cleaner is done.', timeout: 'FFmpeg WASM did not load within 90 seconds.',
+		error: 'Cleanup failed: {message}', generic: 'Unknown error',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section podcast-cleaner-section tool-workspace">
+	<div class="container">
+		<div class="podcast-cleaner" data-podcast-cleaner data-copy={copyJson}>
+			<ToolPanel title={copy.source}>
+				<FilePicker label={copy.choose} name={copy.choose} hint={copy.hint} accept="audio/*,video/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.mp4,.oga,.ogg,.opus,.wav,.webm" nameAttrs={{ 'data-file-name': true }} metaAttrs={{ 'data-file-meta': true }} inputAttrs={{ 'data-file': true }} />
+				<div class="audio-preview" data-original-wrap hidden>
+					<p>{copy.original}</p>
+					<audio data-original controls></audio>
+				</div>
+			</ToolPanel>
+
+			<ToolPanel title={copy.settings}>
+				<div class="toggle-grid">
+					<ToggleControl label={copy.highpass} inputAttrs={{ 'data-highpass': true, checked: true }} />
+					<ToggleControl label={copy.lowpass} inputAttrs={{ 'data-lowpass': true, checked: true }} />
+					<ToggleControl label={copy.denoise} inputAttrs={{ 'data-denoise': true }} />
+					<ToggleControl label={copy.declick} inputAttrs={{ 'data-declick': true }} />
+					<ToggleControl label={copy.compress} inputAttrs={{ 'data-compress': true, checked: true }} />
+					<ToggleControl label={copy.loudness} inputAttrs={{ 'data-loudness': true, checked: true }} />
+					<ToggleControl label={copy.silence} inputAttrs={{ 'data-silence': true }} />
+				</div>
+				<RangeControl label={copy.highpassFreq} value="80 Hz" valueAttrs={{ 'data-highpass-label': true }} inputAttrs={{ 'data-highpass-freq': true, min: 50, max: 180, step: 5, value: 80 }} />
+				<RangeControl label={copy.silenceThreshold} value="-45 dB" valueAttrs={{ 'data-silence-label': true }} inputAttrs={{ 'data-silence-threshold': true, min: -65, max: -25, step: 1, value: -45 }} />
+				<SelectControl label={copy.output} selectAttrs={{ 'data-format': true }}>
+					<option value="mp3">MP3</option><option value="m4a">M4A/AAC</option><option value="opus">Opus</option><option value="wav">WAV</option>
+				</SelectControl>
+				<ToolActions>
+					<button class="button primary" data-process type="button" disabled>{copy.process}</button>
+					<button class="button secondary" data-clear type="button">{copy.clear}</button>
+				</ToolActions>
+				<ToolStatus data-status text={copy.waiting} />
+			</ToolPanel>
+
+			<ToolPanel class="result-panel" title={copy.result}>
+				<div class="audio-preview" data-cleaned-wrap hidden>
+					<p>{copy.cleaned}</p>
+					<audio data-cleaned controls></audio>
+				</div>
+				<a class="tool-download-link" data-download href="#" download hidden>{copy.download}</a>
+			</ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+
+	for (const root of document.querySelectorAll('[data-podcast-cleaner]:not([data-bound])')) {
+		root.dataset.bound = 'true';
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const fileInput = root.querySelector('[data-file]');
+		const fileName = root.querySelector('[data-file-name]');
+		const fileMeta = root.querySelector('[data-file-meta]');
+		const originalWrap = root.querySelector('[data-original-wrap]');
+		const originalAudio = root.querySelector('[data-original]');
+		const cleanedWrap = root.querySelector('[data-cleaned-wrap]');
+		const cleanedAudio = root.querySelector('[data-cleaned]');
+		const processButton = root.querySelector('[data-process]');
+		const clearButton = root.querySelector('[data-clear]');
+		const status = root.querySelector('[data-status]');
+		const download = root.querySelector('[data-download]');
+		const highpassFreq = root.querySelector('[data-highpass-freq]');
+		const highpassLabel = root.querySelector('[data-highpass-label]');
+		const silenceThreshold = root.querySelector('[data-silence-threshold]');
+		const silenceLabel = root.querySelector('[data-silence-label]');
+		const formatSelect = root.querySelector('[data-format]');
+		let inputUrl = null;
+		let outputUrl = null;
+
+		const runtime = createFfmpegRuntime({
+			timeoutMessage: copy.timeout,
+			onLoading: () => setStatus(copy.loading, 'info'),
+			onReady: () => setStatus(copy.ready, 'success'),
+			onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info'),
+		});
+
+		fileInput.addEventListener('change', onFile);
+		processButton.addEventListener('click', () => void process());
+		clearButton.addEventListener('click', reset);
+		highpassFreq.addEventListener('input', () => highpassLabel.textContent = `${highpassFreq.value} Hz`);
+		silenceThreshold.addEventListener('input', () => silenceLabel.textContent = `${silenceThreshold.value} dB`);
+		highpassLabel.textContent = `${highpassFreq.value} Hz`;
+		silenceLabel.textContent = `${silenceThreshold.value} dB`;
+
+		function onFile() {
+			const file = fileInput.files?.[0];
+			if (!file) return;
+			if (inputUrl) URL.revokeObjectURL(inputUrl);
+			inputUrl = URL.createObjectURL(file);
+			originalAudio.src = inputUrl;
+			originalWrap.hidden = false;
+			fileName.textContent = file.name;
+			fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'media'}`;
+			processButton.disabled = false;
+			setStatus(format(copy.selected, { name: file.name }), 'success');
+		}
+
+		async function process() {
+			const file = fileInput.files?.[0];
+			if (!file) return;
+			processButton.disabled = true;
+			setStatus(copy.processing, 'info');
+			try {
+				const output = await runtime.run(async (ffmpeg) => {
+					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+					const inputName = `podcast-${stamp}${extension(file.name)}`;
+					const outputInfo = outputFormat(formatSelect.value);
+					const outputName = `cleaned-${stamp}.${outputInfo.extension}`;
+					await ffmpeg.writeFile(inputName, new Uint8Array(await file.arrayBuffer()));
+					try {
+						const code = await ffmpeg.exec(buildArgs(inputName, outputName, outputInfo));
+						if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
+						const bytes = await ffmpeg.readFile(outputName);
+						return bytes instanceof Uint8Array ? bytes : new TextEncoder().encode(String(bytes));
+					} finally {
+						await ffmpeg.deleteFile(inputName).catch(() => {});
+						await ffmpeg.deleteFile(outputName).catch(() => {});
+					}
+				});
+				const info = outputFormat(formatSelect.value);
+				const blob = new Blob([output], { type: info.mime });
+				if (outputUrl) URL.revokeObjectURL(outputUrl);
+				outputUrl = URL.createObjectURL(blob);
+				cleanedAudio.src = outputUrl;
+				cleanedWrap.hidden = false;
+				download.href = outputUrl;
+				download.download = `${baseName(file.name)}-cleaned.${info.extension}`;
+				download.hidden = false;
+				setStatus(copy.done, 'success');
+			} catch (error) {
+				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
+			} finally {
+				processButton.disabled = !fileInput.files?.[0];
+			}
+		}
+
+		function buildArgs(inputName, outputName, outputInfo) {
+			const filters = [];
+			if (checked('highpass')) filters.push(`highpass=f=${Number(highpassFreq.value || 80)}`);
+			if (checked('lowpass')) filters.push('lowpass=f=14500');
+			if (checked('denoise')) filters.push('afftdn=nf=-25');
+			if (checked('declick')) filters.push('adeclick');
+			if (checked('silence')) {
+				const threshold = Number(silenceThreshold.value || -45);
+				filters.push(`silenceremove=start_periods=1:start_duration=0.25:start_threshold=${threshold}dB:stop_periods=-1:stop_duration=0.7:stop_threshold=${threshold}dB`);
+			}
+			if (checked('compress')) filters.push('acompressor=threshold=-18dB:ratio=3:attack=12:release=180:makeup=2');
+			if (checked('loudness')) filters.push('loudnorm=I=-16:TP=-1.5:LRA=11');
+			const args = ['-i', inputName, '-map', '0:a:0', '-vn'];
+			if (filters.length) args.push('-af', filters.join(','));
+			args.push(...outputInfo.args, '-y', outputName);
+			return args;
+		}
+
+		function checked(name) {
+			return root.querySelector(`[data-${name}]`)?.checked;
+		}
+
+		function reset() {
+			fileInput.value = '';
+			fileName.textContent = copy.choose;
+			fileMeta.textContent = copy.hint;
+			processButton.disabled = true;
+			originalWrap.hidden = true;
+			cleanedWrap.hidden = true;
+			download.hidden = true;
+			originalAudio.removeAttribute('src');
+			cleanedAudio.removeAttribute('src');
+			for (const url of [inputUrl, outputUrl]) if (url) URL.revokeObjectURL(url);
+			inputUrl = outputUrl = null;
+			setStatus(copy.waiting, 'info');
+		}
+
+		function outputFormat(value) {
+			if (value === 'wav') return { extension: 'wav', mime: 'audio/wav', args: ['-c:a', 'pcm_s16le'] };
+			if (value === 'm4a') return { extension: 'm4a', mime: 'audio/mp4', args: ['-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart'] };
+			if (value === 'opus') return { extension: 'opus', mime: 'audio/ogg', args: ['-c:a', 'libopus', '-b:a', '96k'] };
+			return { extension: 'mp3', mime: 'audio/mpeg', args: ['-c:a', 'libmp3lame', '-b:a', '160k'] };
+		}
+
+		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
+		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
+		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'podcast'; }
+		function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
+	}
+</script>
+
+<style>
+	.podcast-cleaner { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+	.podcast-cleaner .result-panel { grid-column: 1 / -1; }
+	.toggle-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+	.audio-preview { margin-top: 16px; }
+	.audio-preview p { margin: 0 0 8px; font-weight: 800; }
+	.audio-preview audio { width: 100%; }
+	@media (max-width: 860px) { .podcast-cleaner, .toggle-grid { grid-template-columns: 1fr; } }
+</style>
