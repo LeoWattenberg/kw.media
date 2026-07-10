@@ -24,6 +24,55 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## YouTube räumt auf: Das Ende des Abonnieren-Wasserzeichens und neue Live-Funktionen
+
+In der aktuellen Woche gibt es von YouTube eine Reihe von Updates, die von einer konsequenten Bereinigung veralteter Funktionen bis hin zu neuen Tools für das Fan Funding reichen. Während einige Änderungen den Workflow im Backend verbessern, verschwindet ein bekanntes Element des Kanalbrandings komplett. Besonders interessant ist zudem, dass YouTube verstärkt in [vertikale Live-Streams](/de/live/) investiert, auch wenn diese Neuerungen vorerst nur einem Teil der weltweiten Creator zur Verfügung stehen.
+
+## Das Abonnieren-Wasserzeichen wird abgeschafft
+
+Die wohl bedeutendste Nachricht für viele Creator ist das offizielle Ende des Abonnieren-Button-Wasserzeichens. Dabei handelt es sich um das kleine, quadratische Icon in der unteren rechten Ecke von Videos, das über die Kanalbranding-Einstellungen im [YouTube Studio](/de/youtube-tipps/) hinterlegt werden konnte. Wer darauf klickte (oder mit der Maus darüberfuhr), erhielt die Möglichkeit, den Kanal direkt zu abonnieren.
+
+### Warum verschwindet diese Funktion?
+YouTube begründet diesen Schritt vor allem mit dem Nutzerverhalten und der technischen Entwicklung der Benutzeroberfläche. Da ein Großteil der Zuschauer YouTube über mobile Geräte nutzt, ist das Wasserzeichen dort oft problematisch: Entweder wird es durch andere UI-Elemente (wie die Playback-Steuerung oder Overlays) verdeckt oder es ist schlichtweg zu klein, um auf einem Smartphone effektiv als Interaktionspunkt zu dienen. Die internen Daten von YouTube bestätigen dies – die Klickraten waren so gering, dass der Nutzen der Funktion nicht mehr in einem angemessenen Verhältnis zum Wartungsaufwand stand.
+
+### Welche Alternativen gibt es für dich?
+Wenn du bisher auf das Wasserzeichen gesetzt hast, um deine Abonnentenzahlen zu steigern, solltest du nun auf bewährte Methoden ausweichen, die eine deutlich höhere Conversion-Rate haben:
+
+*   **Direkte Handlungsaufforderungen (CTAs):** Sprich deine Zuschauer direkt im Video an. Ein einfacher Satz wie „Abonniere bitte, wenn du mehr über YouTube erfahren möchtest“, ist weitaus effektiver als ein passives Icon.
+*   **Endbildschirme:** Nutze die letzten Sekunden deines Videos, um gezielt auf den Abo-Button in den Endcards hinzuweisen.
+*   **Angepinnte Kommentare:** Ein Kommentar unter deinem eigenen Video, der zur Interaktion und zum Abonnieren einlädt, bleibt für jeden Zuschauer sichtbar und ist leicht zugänglich.
+
+Aus Entwicklersicht ist dies eine logische Entscheidung: Ressourcen, die bisher in die Pflege einer kaum genutzten Funktion geflossen sind, können nun in modernere Tools investiert werden.
+
+## Neue Möglichkeiten für vertikale Live-Streams
+
+Parallel zur Bereinigung führt YouTube neue Funktionen für [vertikale Live-Streams](/youtube-tipps-de/youtube-live-stream-updates-hype-erweiterung-und-ki-inspirationswerkzeuge-fur-eu-creator/) ein, die darauf abzielen, das Fan Funding zu steigern. Im Zentrum stehen hierbei die sogenannten „Geschenkziele“.
+
+### Was sind Geschenkziele?
+Mit dieser Funktion können Creator spezifische Ziele für die Anzahl der erhaltenen Fan-Funding-Geschenke oder YouTube-Juwelen festlegen. Diese Ziele werden während des Live-Streams sichtbar gemacht und motivieren die Community, gemeinsam ein Ziel zu erreichen. 
+
+Hier ist jedoch eine wichtige Unterscheidung notwendig: **Geschenkziele haben nichts mit geschenkten Mitgliedschaften (Memberships) zu tun.** Es geht ausschließlich um die kleinen animierten Geschenke, die Zuschauer in vertikalen Live-Streams erwerben und an den Creator senden können.
+
+### Regionale Einschränkungen und Design-Updates
+Für viele Creator gibt es hier allerdings einen Haken: Die gesamte Funktion inklusive der Geschenke ist derzeit **nur in den USA verfügbar**. Ein Zeitplan für eine internationale Erweiterung, beispielsweise nach Europa, wurde bisher nicht kommuniziert. 
+
+Wer in den USA tätig ist oder Zugriff auf die Funktion hat, kann sich zudem auf neue Design-Kollektionen freuen. Für den Herbst plant YouTube eine neue Serie von Geschenkdesigns, die primär rund um das Thema Kürbisse gestaltet sind, um saisonale Akzente zu setzen.
+
+## Optimierungen im YouTube Studio und bei Live-Streams
+
+Neben den großen Feature-Änderungen gibt es einige Anpassungen an der Benutzeroberfläche, die den administrativen Aufwand für Creator reduzieren sollen.
+
+### UI-Cleanup in den Moderations-Einstellungen
+YouTube räumt im YouTube Studio auf, um die Navigation intuitiver zu gestalten. Konkret betrifft dies die Kanaleinstellungen zur Moderation. Bisher mussten Creator oft weit nach unten scrollen, um die „Benutzerverwaltung“ zu finden. Diese Funktion erhält nun eine eigene Registerkarte (Tab). Es wurden keine Funktionen entfernt oder hinzugefügt; es handelt sich rein um eine ergonomische Verbesserung der Benutzeroberfläche, die den Zugriff auf die Verwaltung deiner Moderatoren und Berechtigungen beschleunigt.
+
+### Mehr Kontrolle über Leaderboards
+Ein weiteres Update betrifft die Kontrolle über YouTube Live. Creator haben nun die Möglichkeit, die Leaderboards für ihren Kanal komplett abzuschalten (Opt-out). 
+
+Diese Funktion ist insbesondere für [Corporate-Kanäle](/de/b2b/) oder Nachrichten-Streams relevant. Viele professionelle Sender nutzen zwar den Live-Chat, empfinden die spielerischen Elemente wie Leaderboards jedoch als unpassend für ihr seriöses Format. Durch die neue Option können diese Kanäle nun ein professionelleres Erscheinungsbild wahren, ohne auf die Interaktion im Chat verzichten zu müssen.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Was geht Leute und herzlich willkommen zurück zu den YouTube-News. Diese Woche schafft YouTube endlich eine Funktion ab, die wahrscheinlich niemand mehr benutzt. Wir bekommen neue Tools für [vertikale Live-Streams](/youtube-tipps-de/youtube-live-stream-updates-hype-erweiterung-und-ki-inspirationswerkzeuge-fur-eu-creator/), die die meisten von uns nicht nutzen können, und ein bisschen Aufräumen in YouTube Studio. Los geht's.
@@ -45,3 +94,4 @@ Da wir gerade bei YouTube Live sind, bekommen Creator etwas mehr Kontrolle. Ihr 
 Das war's für diese Woche. Das Aus des Abonnieren-Wasserzeichens ist definitiv die größte Schlagzeile hier. Also, sagt mir in den Kommentaren: Habt ihr als Zuschauer tatsächlich das Wasserzeichen-Button benutzt? Und glaubt ihr, dass es euch jemals einen einzigen Abonnenten eingebracht hat?
 
 Danke fürs Vorbeischauen. Passt auf euch auf und bis zum nächsten YouTube-Update-Video.
+<!-- kwm:transcript:end -->

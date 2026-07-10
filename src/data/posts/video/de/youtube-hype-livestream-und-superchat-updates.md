@@ -24,6 +24,72 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Neue Funktionen für YouTube: Von Shorts-Sounds bis hin zu KI-Zusammenfassungen
+
+YouTube rollt kontinuierlich neue Features aus, die sowohl die Interaktion zwischen Creator und Community verbessern als auch neue Monetarisierungsmöglichkeiten schaffen sollen. In den letzten Updates stehen vor allem die Optimierung von Shorts, neue Wege im Affiliate-Marketing sowie signifikante Änderungen bei Livestreams im Fokus. Hier erfährst du, welche Neuerungen auf dich zukommen und was sie für deinen Workflow bedeuten.
+
+### Effizienteres Content-Creation mit gespeicherten Shorts-Sounds
+
+Ein praktisches Update betrifft den YouTube Shorts Feed. Creator haben nun die Möglichkeit, Sounds und Musik direkt aus dem Feed zu speichern. Diese landen in einer persönlichen Sammlung, sodass du sie später im Shorts Editor bequem abrufen und für deine eigenen Videos nutzen kannst.
+
+Für dich bedeutet das einen deutlich beschleunigten Workflow: Du musst nicht mehr mühsam nach einem Trend-Sound suchen, wenn du gerade in der Produktionsphase bist, sondern kannst Inspirationen direkt während des Konsumierens sichern. Da Musik und Sounds ein zentraler Treiber für die Reichweite von Shorts sind, ist diese Funktion ein sinnvolles Werkzeug, um schneller auf aktuelle Trends reagieren zu können.
+
+### YouTube Shopping: Die neue Chrome Extension für Affiliate-Marketing
+
+Im Bereich der Monetarisierung gibt es Neuigkeiten zum Thema YouTube Shopping, allerdings mit einer starken regionalen Einschränkung. YouTube führt eine Chrome Extension ein, die es Creator erleichtern soll, passende Produkte für ihr Affiliate-Programm zu finden. 
+
+Das Prinzip funktioniert ähnlich wie das Amazon-Affiliate-Programm: Du verlinkst Produkte direkt unter deinem Video und verdienst an den generierten Umsätzen mit. Die neue Browser-Erweiterung unterstützt dich dabei, während des normalen Surfens im Web Produkte zu identifizieren, die sich gut für eine Empfehlung in deinen Videos eignen würden.
+
+**Wichtiger Hinweis zur Verfügbarkeit:** Aktuell ist diese Funktion ausschließlich in den USA verfügbar. Für Creator in anderen Regionen bedeutet dies leider weiterhin, dass sie auf alternative Lösungen oder Konkurrenzprodukte zurückgreifen müssen, solange YouTube das Affiliate-Programm und die dazugehörigen Tools nicht global ausrollt.
+
+### Interaktions-Boost durch Super Chat Antworten
+
+Ein Feature, das die Kommunikation in Livestreams grundlegend verbessern soll, sind die [Super Chat-Antworten](/youtube-tipps-de/superchat-antworten-youtube-rollt-neue-features-aus/). Diese Funktion ist mittlerweile zu 100 % ausgerollt und seit dem 1. August aktiv.
+
+Bisher waren Super Chats primär ein Weg für Zuschauer, Aufmerksamkeit zu erregen oder den Creator finanziell zu unterstützen. Mit der neuen Antwort-Funktion wird daraus jedoch ein echter Dialog. Du kannst nun direkt auf einen Super Chat klicken und darauf antworten. Dies fördert die Bindung zu deinen zahlenden Community-Mitgliedern, da die Interaktion nicht mehr nur linear (Zuschauer $\rightarrow$ Creator), sondern bidirektional verläuft.
+
+### KI-gestützte Zusammenfassungen für Livestreams
+
+Ein weiteres großes Thema ist der Einsatz von Künstlicher Intelligenz in YouTube Live. Es wurde bekannt, dass KI künftig in der Lage sein wird, Livestreams automatisch zusammenzufassen. Dies ist besonders wertvoll für Zuschauer, die erst spät in einen Stream einsteigen und schnell wissen wollen, was sie bisher verpasst haben.
+
+Interessant sind hierbei die technischen Voraussetzungen, die YouTube festgelegt hat: Eine KI-Zusammenfassung wird nur dann erstellt, wenn innerhalb der letzten zwei Minuten mehr als 30 Nachrichten im Chat geschrieben wurden, die zudem nicht repetitiv (also keine Spam-Nachrichten) und in englischer Sprache verfasst waren.
+
+**Einschränkungen in der EU:** Aufgrund regulatorischer Beschränkungen für KI-Funktionen wird dieses Feature vorerst nicht in der EU verfügbar sein. Wer in Großbritannien oder anderen englischsprachigen Ländern streamt, wird diese Funktion eventuell bereits sehen; für europäische Creator und Zuschauer bleibt abzuwarten, wann die rechtlichen Hürden genommen werden.
+
+### Optimierung von Midroll-Anzeigen in Livestreams
+
+Wer regelmäßig Livestreams schaut oder produziert, kennt das Problem: Klassische Werbeunterbrechungen (Midrolls) unterbrechen den Fluss des Streams komplett und führen oft zu einer asynchronen Erfahrung für die Zuschauer. 
+
+Ab dem 5. August führt YouTube hier eine Lösung per Picture-in-Picture (PiP) ein. Anstatt dass der Stream komplett durch eine Anzeige ersetzt wird, passiert Folgendes:
+1. Das Bild des Livestreams wird komprimiert.
+2. Die Anzeige läuft parallel neben dem Stream.
+3. Es erscheinen schwarze Balken oben und unten, um das Layout zu wahren.
+4. Nach Ende der Anzeige vergrößert sich das Bild wieder auf die ursprüngliche Größe.
+
+Diese Änderung soll die Zuschauerbindung erhöhen, da der visuelle Kontakt zum Stream nicht vollständig abreißt. Ein ergänzender Feature-Request in diesem Zusammenhang ist die Aktivierung von [automatischen Untertiteln](/de/video-synchronisation/) während dieser Midrolls, was insbesondere bei Talkrunden den Mehrwert steigern könnte.
+
+### YouTube Hype: Eine neue Chance für kleinere Kanäle
+
+In einigen Märkten (derzeit Türkei, Taiwan und Brasilien) experimentiert YouTube mit einer Funktion namens [YouTube Hype](/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/). Während die ursprüngliche Idee, Videos gegen Bezahlung in die Trends zu bringen, verworfen wurde, ist "Hype" nun als Interaktionsmöglichkeit für Zuschauer positioniert.
+
+**Wer kann an YouTube Hype teilnehmen?**
+Damit ein Video "gehypt" werden kann, müssen folgende Kriterien erfüllt sein:
+* Der Kanal muss weniger als 500.000 Abonnenten haben.
+* Es dürfen keine Verstöße gegen die Community-Richtlinien vorliegen.
+* Der Creator muss Teil des Partnerprogramms sein.
+* Das Video muss innerhalb der letzten 7 Tage veröffentlicht worden sein.
+
+Zuschauer können diese Videos dann aktiv "hypen". Die erfolgreichsten Videos landen in einer separaten Sektion auf der Explore-Seite von YouTube. Dies könnte eine enorme Chance für wachsende Kanäle sein, da es einen neuen Entdeckungsweg abseits des klassischen Algorithmus schafft und die Community direkt in den Erfolg eines Videos involvieren kann.
+
+### "Add Yours"-Sticker für mehr Engagement
+
+Abschließend gibt es ein Update zu den "Add Yours"-Stickern. Diese Funktion befindet sich im 100%-Rollout und wird voraussichtlich bis Ende August oder Anfang September für alle Nutzer verfügbar sein. 
+
+Diese Sticker ermöglichen es dir, interaktive Ketten in deinen Shorts zu starten, indem du andere dazu aufforderst, ein ähnliches Bild oder Video zu ihrem eigenen Content hinzuzufügen. Es ist ein bewährtes Mittel aus anderen sozialen Netzwerken, um User-Generated Content (UGC) zu fördern und die Sichtbarkeit durch virale Trends zu steigern.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Der YouTube Shorts-Feed bekommt jetzt die Möglichkeit, Sounds bzw. Musik abzuspeichern, damit man diese später im Shorts-Editor als Creator nutzen kann. Ich finde, das ist alles in allem eine sinnvolle Funktion, über die wir nicht weiter diskutieren müssen. Deshalb gehen wir direkt zur YouTube Chrome Extension für Shopping-Affiliate-Geschichten über. Das heißt, es ist natürlich nur in den USA verfügbar, keine Frage. Wir wissen ja, dass YouTube Shopping in den USA ähnlich funktioniert wie das Amazon-Affiliate-Programm weltweit. Das bedeutet, man kann Produkte unter dem Video mit Affiliate-Links verlinken und der Creator verdient an den Umsätzen.
@@ -57,3 +123,4 @@ ADD yours Sticker
 Die ADD yours Sticker sind im 100%-Rollout und werden bis Ende August/Anfang September für alle verfügbar sein. Habt ihr sie schon ausprobiert? Teilt eure Erfahrungen gerne in den Kommentaren!
 
 Das war's für diese Woche. Vielen Dank, dass ihr eingeschaltet habt! Abonniert den Kanal, um keine weiteren YouTube-Updates zu verpassen. Bis nächste Woche!
+<!-- kwm:transcript:end -->

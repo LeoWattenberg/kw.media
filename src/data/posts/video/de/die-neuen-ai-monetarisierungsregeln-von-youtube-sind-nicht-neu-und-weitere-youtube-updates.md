@@ -27,6 +27,63 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Die „neuen“ KI-Monetarisierungsregeln: Was sich wirklich ändert
+
+In der Creator-Community kursieren derzeit Meldungen über eine Aktualisierung der YouTube-Richtlinien zur [Monetarisierung von KI-generierten Inhalten](/de/creator/). Doch bei genauerem Hinsehen zeigt sich: Es handelt sich nicht um eine neue Richtlinie. Die bestehenden Regeln sind bereits seit 2019 unverändert in Kraft.
+
+Was sich jedoch massiv verändert, ist die technische Umsetzung im Hintergrund. YouTube optimiert seine Erkennungsalgorithmen. Ab dem 15. Juli wird die Plattform in der Lage sein, massenhaft produzierten Inhalt und sogenannten KI-„Schund“ wesentlich präziser zu identifizieren.
+
+### Kreative Nutzung vs. minderwertige Massenproduktion
+
+Für dich als Creator bedeutet das: Die Nutzung von Künstlicher Intelligenz ist grundsätzlich weiterhin erlaubt und kann auch monetarisiert werden – sofern die KI kreativ eingesetzt wird, um einen Mehrwert zu schaffen. Problematisch wird es hingegen bei Inhalten, die lediglich auf Quantität statt Qualität setzen.
+
+Besonders im Visier der Algorithmen stehen Formate wie:
+*   Automatisiert erstellte Reddit-Geschichten.
+*   KI-generierte Fake News.
+*   Ähnliche Arten von Shorts, die ohne nennenswerten redaktionellen Aufwand in Masse produziert werden.
+
+Solche Videos können zwar weiterhin hochgeladen werden, doch sie erfüllen nicht die Kriterien für eine Monetarisierung. Wer solche Inhalte produziert, riskiert, dass der Zugang zum [YouTube Partner Programm](/youtube-tipps-de/wiedernutzung-von-inhalt-monetarisierung-deaktiviert-was-nun/) verweigert oder deaktiviert wird. Die Grenze zwischen „KI als Werkzeug“ und „KI als Ersatz für Kreativität“ ist hier entscheidend.
+
+### Warnung vor „Automatisierungs-Masterclasses“
+
+Im Zuge dieser Entwicklungen tauchen immer häufiger Angebote für sogenannte YouTube-Automatisierungs-Masterclasses oder Anleitungen auf. Diese versprechen gegen eine hohe Gebühr Zugang zu Tools, die angeblich einen garantierten Einstieg ins Partnerprogramm ermöglichen, indem sie die Algorithmen umgehen.
+
+Hier ist höchste Vorsicht geboten: Solche Versprechen sind oft betrügerisch. Der einzige Profiteur dieser Angebote ist der Anbieter der Masterclass. Es gibt keinen „geheimen Weg“ oder ein Tool, das eine Monetarisierung garantiert, wenn der Inhalt selbst minderwertig ist. Erfolg auf YouTube erfordert auch im Zeitalter von KI harte Arbeit, Hingabe und eine durchdachte Content-Strategie.
+
+## Das Ende einer Ära: Die Trending-Seite verschwindet
+
+Nach zehn Jahren zieht YouTube einen Schlussstrich unter ein bekanntes Feature: Die Trending-Seite wird abgeschafft. Seit ihrer Einführung im Jahr 2015 war sie ein zentraler Punkt, um zu sehen, was die Plattform gerade bewegt.
+
+In den letzten Jahren wurde die Seite jedoch immer tiefer in der Benutzeroberfläche versteckt. Nutzer mussten oft durch drei verschiedene Untermenüs navigieren, um überhaupt darauf zuzugreifen. Diese eingeschränkte Zugänglichkeit führte zwangsläufig zu einem Rückgang der Nutzung, weshalb die Entscheidung zur Entfernung wenig überraschend kommt.
+
+### Neue Wege der Entdeckung
+
+Anstatt einer allgemeinen Trending-Seite setzt YouTube nun auf spezialisierte Entdeckungsseiten, die eine gezieltere Nutzerführung ermöglichen sollen. Es werden vier neue Bereiche eingeführt:
+
+1.  **Musik:** Eine chartähnliche Seite, die beliebte Musik hervorhebt.
+2.  **Top Podcasts:** Ein Bereich mit Highlights aus der Welt der YouTube-Podcasts.
+3.  **Filmtrailer:** Eine dedizierte Seite für aktuelle Kinovorschauen.
+4.  **Game Exploration:** Ein Bereich für trendige Gaming-Videos.
+
+Während die „Game Exploration“-Seite ein interessanter Ansatz ist, bleibt abzuwarten, ob sie ein vollwertiges Spieleverzeichnis ersetzen kann. Dennoch ist die Entscheidung, Ressourcen von einer veralteten Trending-Seite hin zu diesen spezifischen Kategorien umzuverteilen, ein logischer Schritt zur Verbesserung der User Experience.
+
+## Identität im Live-Chat: Benutzernamen statt Kanalnamen
+
+Eine weitere wichtige Änderung betrifft die Art und Weise, wie du in [YouTube Live-Chats](/de/live/) identifiziert wirst. Die Umstellung von Kanalnamen auf eindeutige Benutzernamen (Handles) ist bereits im Gange und wird bis zum 14. Juli abgeschlossen sein.
+
+### Was du jetzt wissen musst
+
+Nach diesem Stichtag wirst du in allen Live-Chats mit deinem gewählten Benutzernamen angezeigt. Da jeder Benutzername plattformweit eindeutig sein muss, ist es ratsam, sich zeitnah den gewünschten Namen zu sichern.
+
+Falls du deinen Benutzernamen nachträglich ändern möchtest, gibt es eine wichtige Einschränkung: Dein alter Name wird für einen Zeitraum von 14 Tagen gesperrt, bevor er wieder für andere verfügbar ist oder von dir erneut gewählt werden kann.
+
+### Datenschutz-Tipp
+
+Wenn du Bedenken hinsichtlich deiner Privatsphäre hast – beispielsweise, weil dein aktueller Benutzername deinen echten Namen enthält –, solltest du dies jetzt prüfen. Du kannst deinen Benutzernamen in den Einstellungen anpassen, um im Live-Chat unter einem Pseudonym oder deinem Brand-Namen aufzutreten und so deine privaten Daten zu schützen.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Wir müssen über die Aktualisierung der YouTube-Richtlinie zur [KI-Monetarisierung](/youtube-tipps-de/erstellt-youtube-ki-klonen-von-creatorn-youtube-creator-news/) sprechen, die eigentlich keine Aktualisierung ist, da sie seit 2019 unverändert in Kraft ist. Die Richtlinie bleibt also gleich, nur die Erkennungsalgorithmen werden sich ändern und ab dem 15. Juli mehr massenhaft produzierten Inhalt und KI-generierten "Schund" identifizieren können.
@@ -48,3 +105,4 @@ Abschließend haben wir endlich einen Zeitplan für die Einführung von Benutzer
 Wenn Sie Bedenken hinsichtlich der Privatsphäre haben, besuchen Sie den Link auf dem Bildschirm oder in der Beschreibung unten, um Ihren Benutzernamen in etwas anderes als Ihren Namen zu ändern.
 
 Das war's für heute. Wenn Sie Fragen zu diesen Aktualisierungen haben, hinterlassen Sie diese bitte in den Kommentaren. Abonnieren Sie uns für mehr YouTube-News und -Updates, bis nächste Woche!
+<!-- kwm:transcript:end -->

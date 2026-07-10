@@ -31,7 +31,7 @@ Was uns das zeigt, ist einfach: Das Agenturmodell, auf das die VTuber-Branche gr
 
 ## Die alte Leier: Von MCNs bis Hollywood
 
-Die Spannungen zwischen Plattformen, Agenturen und Talenten sind nichts Neues. Bevor es VTubing gab, gab es [YouTube Multi-Channel Networks (MCNs)](/youtube-tipps-de/hort-auf-andere-youtuber-als-feinde-zu-behandeln/) wie Machinima und Maker Studios. Damals wurden den Createuren Wachstum, Bekanntheit und Ressourcen versprochen, aber was sie oft bekamen, waren restriktive Verträge, verspätete Zahlungen und keine wirkliche Mitsprache bei der Gestaltung ihres Inhalts oder ihrer Karriere.
+Die Spannungen zwischen Plattformen, Agenturen und Talenten sind nichts Neues. Bevor es [VTubing](/de/vtuber/) gab, gab es [YouTube Multi-Channel Networks (MCNs)](/youtube-tipps-de/hort-auf-andere-youtuber-als-feinde-zu-behandeln/) wie Machinima und Maker Studios. Damals wurden den Createuren Wachstum, Bekanntheit und Ressourcen versprochen, aber was sie oft bekamen, waren restriktive Verträge, verspätete Zahlungen und keine wirkliche Mitsprache bei der Gestaltung ihres Inhalts oder ihrer Karriere.
 
 Noch weiter zurückblickend können wir Hollywood betrachten, eine Branche, die für ihre Gatekeeping-Praktiken, Erpressung und intransparente Machtdynamik berüchtigt ist. Insbesondere für Frauen bedeutete der Einstieg oft, Systeme zu durchschauen, die weniger um Talent als um Zugang zu einflussreichen Personen kreisten.
 

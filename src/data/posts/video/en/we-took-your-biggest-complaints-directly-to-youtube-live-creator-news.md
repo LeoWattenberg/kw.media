@@ -33,6 +33,81 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## The Shifting Landscape of Live Streaming and Shorts
+
+The creator economy is currently witnessing a significant realignment in how audiences consume live content and short-form media. Recent data suggests a cooling interest in [vertical live streaming](/en/live/), while established horizontal platforms are proving their resilience. Simultaneously, YouTube is evolving its Shorts ecosystem to incorporate more static visual elements, blurring the lines between video and social imagery.
+
+## Live Streaming Trends: The Q1 2026 Reality Check
+
+Recent data from Stream Charts regarding the global livestreaming landscape in Q1 2026 provides a sobering look at the current state of vertical live content. While many platforms have chased the "vertical revolution," the numbers indicate that this trend may be hitting a ceiling.
+
+### The Decline of TikTok LIVE and the Resilience of Twitch
+
+The most striking figure is the decline of TikTok LIVE, which saw its viewership drop by 11.92% in a single quarter. This suggests that the novelty of infinite vertical scrolling and the rise of "NPC streams" may be wearing off for a significant portion of the audience. There appears to be a fundamental preference among viewers: when seeking long-form background entertainment, the horizontal desktop experience remains the gold standard.
+
+In contrast, Twitch has shown surprising growth, increasing its viewership by 4.5%. This is particularly notable given the corporate headwinds Twitch has faced. Amazon has recently scaled back several key incentives, including the elimination of Prime Gaming benefits and a drastic reduction in the Luna cloud gaming service, which included ending game purchases and third-party integrations. Despite these cuts to corporate infrastructure, the core gaming culture on Twitch remains intact. This suggests that viewers are not driven by corporate perks, but rather by the deep parasocial connections they form with creators in a traditional 16x9 format.
+
+### YouTube's Market Dominance
+
+While other platforms fluctuate, YouTube continues to operate as the industry behemoth. With 13.5 billion hours watched, YouTube’s scale is so vast that even a minor dip—such as the 0.24% drop seen in Q1—represents a massive amount of watch time. To put this into perspective, a 1% fluctuation on YouTube involves more hours than the entire quarterly growth of smaller platforms like Kickstarter, which currently sits at approximately 1.4 billion total hours watched despite reporting a 1.7% growth rate.
+
+## Bridging the Gap in YouTube Live Infrastructure
+
+As TikTok LIVE struggles, YouTube appears to be doubling down on vertical live streaming. Barbara McDonald, the lead for YouTube LIVE, recently highlighted new updates and [monetization tools](/en/creator/) specifically designed for vertical formats. However, there is often a disconnect between official PR announcements and the day-to-day experience of creators using the platform.
+
+### Addressing Community Pain Points
+
+While new features are welcome, core infrastructure issues for traditional 16x9 streamers remain unresolved. To address this, we have initiated direct communication with Barbara McDonald via the YTG Discord to bring specific community grievances to the engineering team's attention.
+
+The current list of critical pain points includes:
+
+*   **Discoverability and Navigation:** The need for a comprehensive overhaul of the gaming directory to help viewers find creators more efficiently.
+*   **Moderation Tooling:** A long-standing request for expanded moderator permissions, including the ability to pin messages, create polls, and set specific live goals.
+*   **Technical Stability:** A reported memory leak in the YouTube live chat that consumes excessive RAM, leading to browser crashes specifically when opening the participant list.
+*   **Mobile Enhancements:** The implementation of auto-complete for @mentions on mobile devices to streamline interaction.
+*   **Feature Parity:** Bringing "auto clips" functionality—currently available for vertical streams—to traditional horizontal broadcasts.
+*   **Monetization Integration:** Integrating channel memberships directly into live goals to incentivize community support during broadcasts.
+
+For creators currently streaming on YouTube, identifying these bugs and feature gaps is essential for improving the overall production quality and viewer experience.
+
+## The Evolution of Shorts: Introducing Image Carousels
+
+In a move that brings YouTube Shorts closer to the functionality of platforms like Instagram, YouTube has officially expanded its image post capabilities. Following a limited test in November 2025, [image carousels](/en/youtube-tips/) were rolled out globally on April 14th.
+
+### How Image Carousels Work
+
+Creators can now upload up to 10 images into a single carousel directly within the Shorts feed. To make these posts more engaging and dynamic, YouTube has integrated several creative tools:
+
+*   **Text Overlays:** Creators can add context or captions directly onto the images.
+*   **Audio Integration:** Users can add royalty-free music from the YouTube Audio Library.
+*   **Dream Track:** In supported regions, creators can utilize Dream Track to enhance their visual storytelling with AI-generated audio.
+
+### Strategic Implementation for Creators
+
+The introduction of carousels offers a "low-effort, high-reward" strategy for maintaining channel visibility. Producing high-quality video content requires significant time for filming and color grading; image carousels allow creators to stay active in the Shorts algorithm without the overhead of full video production.
+
+Practical applications include:
+*   **Educational Content:** Creating "before-and-after" transformations or step-by-step guides.
+*   **Community Engagement:** Posting a "photo dump" of behind-the-scenes moments or quick three-image meme sequences.
+*   **Consistency:** Using carousels to fill gaps in a content calendar on days when a full video is not feasible, ensuring the algorithm continues to serve the channel's content to new viewers.
+
+## Navigating Policy Risks and Monetization
+
+While image carousels provide an easy way to generate engagement, they come with significant policy caveats. Creators must be cautious about the type of content they upload to avoid triggering YouTube's automated systems.
+
+### The Danger of "Meme Dumps"
+
+There is a temptation to use this feature for rapid-fire posting of trending memes. However, excessive reliance on stolen or unoriginal imagery can lead to violations of [YouTube Monetization Policies regarding Reused Content](https://support.google.com/youtube/answer/1311392). 
+
+If a channel becomes primarily a repository for low-effort meme dumps without adding significant original commentary or educational value, it may be flagged as "inauthentic content." The consequences of such violations are severe and can include:
+1.  **Loss of Monetization:** Demonetization of the specific Shorts.
+2.  **Channel-Wide Impact:** Potential loss of monetization across all channels associated with the creator.
+
+To mitigate these risks, creators should ensure that every carousel aligns with their unique brand identity and adds value to the viewer beyond simply reposting existing internet content. The goal is to use carousels as a supplement to original work, not as a replacement for it.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 TikTok LIVE is bleeding viewers while Twitch survives Amazon's corporate cuts. Also, we're taking your biggest questions and complaints directly to the head of YouTube LIVE, and YouTube Shorts is officially turning into Instagram. Here are the creator news of the week. Let's dive in.
@@ -70,3 +145,4 @@ A quick three-image meme carousel, a before-and-after short, or a photo dump can
 For those with access to this feature on their mobile app, carefully integrate it into your content strategy. And that concludes this week's update. I'd love to hear your thoughts: why do you think TikTok Live is experiencing a decline in viewers? Remember to leave your YouTube Live questions for Barbara in the comments.
 
 Until next week, I'm Martin, keeping you informed about the latest creator news.
+<!-- kwm:transcript:end -->

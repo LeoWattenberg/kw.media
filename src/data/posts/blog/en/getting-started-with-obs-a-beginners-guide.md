@@ -19,7 +19,7 @@ postCta:
   pageTitle: "Tools"
 ---
 
-*OBS is an amazing tool for creators, if you want to live stream; record your videos or even do both at the same time. This guide will focus on beginner advice, and a later guide will tackle more advanced advice regarding the use of OBS and the [YouTube Live Dashboard](/youtube-tips-en/connecting-obs-to-twitch-and-youtube/).*
+*OBS is an amazing tool for creators, if you want to [live stream](/en/live/); record your videos or even do both at the same time. This guide will focus on beginner advice, and a later guide will tackle more advanced advice regarding the use of OBS and the [YouTube Live Dashboard](/youtube-tips-en/connecting-obs-to-twitch-and-youtube/).*
 
 <figure><div>
 <div class="nv-iframe-embed"><iframe title="How to use OBS Studio - OBS Studio QUICKSTART Tutorial for Beginners (2025)" width="1200" height="675" src="https://www.youtube.com/embed/UYYrZnRHVHI?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>

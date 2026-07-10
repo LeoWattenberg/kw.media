@@ -27,6 +27,64 @@ postCta:
   pageTitle: "Audacity Tutorials"
 ---
 
+<!-- kwm:article:start -->
+## Setting Up Desktop Audio Recording in Audacity
+
+Recording audio that is playing directly from your computer—such as a video call, a web browser, or a software application—is a common requirement for many creators. In Audacity, this process involves configuring the software to "listen" to your system's output rather than an external hardware input like a microphone. 
+
+While recording desktop audio is possible on various operating systems, the method varies significantly. This guide focuses specifically on Windows users; recording desktop audio on Mac or Linux is considerably more complex and falls outside the scope of this tutorial.
+
+## Configuring the Audio Host for Windows WASAPI
+
+The first step in capturing system sound is changing how Audacity interacts with your audio hardware. By default, Audacity may be set to a host that only recognizes physical inputs. To capture internal sounds, you must use the Windows Audio Session API (WASAPI).
+
+To do this, navigate to **Audio Setup > Host** and select **Windows WASAPI**. 
+
+Changing the host to WASAPI allows Audacity to access the "loopback" functionality of your sound card. In simple terms, loopback tells the computer to route the audio that is intended for your speakers back into the recording software.
+
+## Selecting the Correct Loopback Device
+
+Once you have switched the host to Windows WASAPI, you will notice a change in your available recording devices. Your standard playback devices (your speakers or headphones) will now appear in the recording devices list, but they will be labeled with the suffix **"(loopback)"**.
+
+These loopback devices essentially treat your speakers as if they were a microphone. To ensure you are capturing the correct audio stream, you must select the device that matches your current system output. 
+
+If you are unsure which device is currently active, you can verify this through your Windows system settings:
+1. Click on the **speaker icon** in your system tray.
+2. Access the secondary speaker/volume menu to see which output device is currently selected by Windows.
+3. Return to Audacity and select the corresponding device that has "loopback" attached to its name.
+
+## Adjusting Recording Channels
+
+Before you begin recording, check your channel settings. Because almost all desktop audio outputs are delivered in stereo, you should set your **recording channels to Stereo**. Selecting mono may result in a loss of audio data or an unbalanced recording, as it would not accurately represent the stereo output of your system.
+
+## Understanding Recording Behavior
+
+It is important to note that recording desktop audio via WASAPI behaves differently than recording from a microphone. When you hit the record button, you may notice that the recording cursor does not move and no waveform appears immediately. 
+
+This is by design. Audacity is currently in a waiting state; it will only begin capturing data once there is an actual audio signal being played through your system. Once you start playing a file or a video, Audacity will begin recording. Similarly, if the audio stops playing, the recording process effectively pauses until sound resumes.
+
+## Enabling Continuous Recording and Overdubbing
+
+In some scenarios, you may want to record continuously without the recording stopping when the source audio pauses. To achieve this, you need to adjust your track configuration and transport settings.
+
+First, remove any existing tracks that are causing issues and add a new track specifically for the recording. Then, ensure that **Overdub** is enabled by navigating to **Transport > Transport Options**. Overdub is typically enabled by default, but verifying this setting ensures that Audacity handles multiple audio streams correctly.
+
+A critical requirement for continuous recording is ensuring that your **playback device and recording device are identical**. If these two settings are mismatched, Audacity may trigger a cryptic error—such as error -9997—or exhibit other undesirable behavior. When the devices match, the software can maintain a steady stream of desktop audio without interruption.
+
+## Troubleshooting Sample Rate Errors
+
+If you encounter error messages despite having the correct host and devices selected, the issue is likely a mismatch between your project's sample rate and your hardware's sample rate.
+
+To resolve this, you must align the values in both Audacity and Windows:
+1. **In Audacity:** Go to your audio settings and locate the **project template**. Note the current sample rate (for example, 44.1 kHz).
+2. **In Windows:** Click the **speaker icon**, go to **more volume settings**, and find the properties for the speaker device you are using. Check the "Advanced" tab or the general properties to see the default format/sample rate.
+
+If the Windows system is set to 44.1 kHz but Audacity is set to 48 kHz (or vice versa), an error will occur. Adjust the project rate in Audacity to match the value found in your Windows settings.
+
+Regarding the **sample format**, this setting is generally less critical for the recording process itself. It is recommended to leave this at **32-bit float** within Audacity, as this is the native format used by most of the software's internal effects and processing tools.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 To record desktop audio in Audacity, go to Audio Setup > Host and set the host to Windows WASAPI. In the case of Mac or Linux, it's a lot more complicated, and I will not be covering it in this tutorial. 
@@ -40,3 +98,4 @@ If you instead want to continuously record audio, what you have to do is first r
 If you run into some other error messages at this point, what you have to do instead is go to your audio settings, and here you will find the project template. This sample rate you can match with your audio devices, which you can then find again in the speaker icon > more volume settings. Here, for your speaker in question, you will find the appropriate value; in my case, it's 44.1 kHz, which matches my project rate. Incidentally, the sample format is not important and you generally should leave it at 32-bit float in Audacity, as that's the format that all the effects are using as well.
 
 This is all I have for you in this tutorial. If you have any questions, you can ask them in the Discord or the forum. To see an updated version of this guide, check the link in the description. And with that, take care and goodbye!
+<!-- kwm:transcript:end -->

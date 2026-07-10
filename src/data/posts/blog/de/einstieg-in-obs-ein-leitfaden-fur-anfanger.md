@@ -19,7 +19,7 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
-*OBS ist ein fantastisches Tool für Creator, wenn du live streamen, Videos aufnehmen oder sogar beides gleichzeitig machen möchtest. Dieser Leitfaden konzentriert sich auf Tipps für Anfänger, während ein späterer Leitfaden fortgeschrittenere Ratschläge zur Verwendung von OBS und dem YouTube Live Dashboard geben wird.*
+*OBS ist ein fantastisches Tool für Creator, wenn du [live streamen](/de/live/), Videos aufnehmen oder sogar beides gleichzeitig machen möchtest. Dieser Leitfaden konzentriert sich auf Tipps für Anfänger, während ein späterer Leitfaden fortgeschrittenere Ratschläge zur Verwendung von OBS und dem [YouTube Live Dashboard](/de/creator/) geben wird.*
 
 <figure><div>
 <div class="nv-iframe-embed"><iframe title="Wie man OBS Studio verwendet - OBS Studio QUICKSTART Tutorial für Anfänger (2025)" width="1200" height="675" src="https://www.youtube.com/embed/UYYrZnRHVHI?feature=oembed" frameborder="0" allow="Beschleunigungsmesser; automatisches Abspielen; Clipboard-Schreiben; verschlüsselte Medien; Gyroskop; Bild-im-Bild; Web-Freigabe" allowfullscreen></iframe></div>
@@ -54,7 +54,7 @@ Nehmen wir an, mein Internet kann 25.000 kbit/s Download und 5.000 kbit/s Upload
 
 Nochmals: All das geht davon aus, dass meine Internet-Upload-Geschwindigkeit maximal 5.000 kbit/s erreichen kann.
 
-**Wenn du nicht streamst**, kannst du theoretisch die Bitrate für deine Aufnahmen so hoch wie gewünscht einstellen. In der Praxis ist es jedoch sinnvoll, [YouTube's Leitfaden zu Bitraten für Uploads](https://support.google.com/youtube/answer/1722171) (die etwas höher sind als Streaming-Raten) zu befolgen, um die Dateigrößen im Zaum zu halten:
+**[Wenn du nicht streamst](/youtube-tipps-de/obs-mit-twitch-und-youtube-verbinden/)**, kannst du theoretisch die Bitrate für deine Aufnahmen so hoch wie gewünscht einstellen. In der Praxis ist es jedoch sinnvoll, [YouTube's Leitfaden zu Bitraten für Uploads](https://support.google.com/youtube/answer/1722171) (die etwas höher sind als Streaming-Raten) zu befolgen, um die Dateigrößen im Zaum zu halten:
 
 - 1 Stunde bei 8.000 kbit/s (empfohlen für 720p60 und 1080p) benötigt 3,6 GB
 - 1 Stunde bei 12.000 kbit/s (empfohlen für 1080p60) benötigt 5,4 GB

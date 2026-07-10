@@ -28,7 +28,7 @@ postCta:
 
 Hallo und herzlich willkommen zu einem weiteren Video auf meinem YouTube-Kanal! Heute möchte ich mit euch über ein Thema sprechen, das mir sehr am Herzen liegt: die Zukunft der Nachhaltigkeit in unserer Branche. Als Creator haben wir eine große Verantwortung, wenn es darum geht, unsere Zuschauer zu beeinflussen und positive Veränderungen voranzutreiben.
 
-In den letzten Monaten habe ich viel über A/B-Testing und die Optimierung meines Kanals nachgedacht. Dabei ist mir aufgefallen, dass wir als Creator-Community noch viel mehr für den Umweltschutz tun könnten. Wir alle wissen, dass YouTube eine riesige Plattform ist, und unsere Inhalte erreichen Millionen von Menschen weltweit. Warum nutzen wir diese Reichweite nicht, um Bewusstsein für ökologische Themen zu schaffen?
+In den letzten Monaten habe ich viel über [A/B-Testing](/de/creator/) und die Optimierung meines Kanals nachgedacht. Dabei ist mir aufgefallen, dass wir als Creator-Community noch viel mehr für den Umweltschutz tun könnten. Wir alle wissen, dass YouTube eine riesige Plattform ist, und unsere Inhalte erreichen Millionen von Menschen weltweit. Warum nutzen wir diese Reichweite nicht, um Bewusstsein für ökologische Themen zu schaffen?
 
 Ich habe mir einige Ideen überlegt, wie wir als Creator aktiv werden können:
 
@@ -58,7 +58,7 @@ Fan Communities werden seit letztem Jahr getestet. Sie ermöglichen einen bidire
 
 Schwierigkeiten und Benachrichtigungen
 
-Wenn ihr bereits Zugriff habt, werdet ihr sowohl eine Benachrichtigung im YouTube Studio als auch eine E-Mail erhalten. So könnt ihr einen ersten Blick auf die Neuigkeiten werfen. Sobald wir mehr Informationen haben, werden wir natürlich aktiv werden und uns freuen, wenn ihr eure Gedanken in Posts und Kommentaren teilt.
+Wenn ihr bereits Zugriff habt, werdet ihr sowohl eine Benachrichtigung im [YouTube Studio](/de/youtube-tipps/) als auch eine E-Mail erhalten. So könnt ihr einen ersten Blick auf die Neuigkeiten werfen. Sobald wir mehr Informationen haben, werden wir natürlich aktiv werden und uns freuen, wenn ihr eure Gedanken in Posts und Kommentaren teilt.
 
 Zusammenfassung der Updates
 

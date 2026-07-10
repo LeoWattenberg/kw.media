@@ -24,6 +24,65 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## Streamlining the Mobile Experience: Updates to the Content Tab
+
+YouTube is implementing a series of updates to the YouTube Studio mobile app designed to clean up the interface and make content management more intuitive. The most significant change occurs within the "Content" tab, which is being restructured to move away from a simple list and toward a "Shelves" system.
+
+### A New Way to Organize Formats
+The introduction of "Shelves" allows creators to see their various content formats organized more logically. Rather than scrolling through a singular chronological list, these shelves categorize videos, making it easier to navigate between different types of uploads. For those who prefer the traditional layout, the classic list view remains available and can be accessed by selecting "View All."
+
+To further reduce visual clutter, YouTube is adjusting how scheduled content is handled; these entries will now only appear in the view if there is actually scheduled content pending. 
+
+### Improved Data Visibility
+The way performance data and status updates are displayed has also been refined to ensure that creators see the most relevant information first:
+*   **Performance Metrics:** Meaningful performance data will now be positioned directly below the content itself, allowing for a quicker glance at how a video is performing without digging into deeper menus.
+*   **Status Alerts:** Information regarding monetization and visibility status will no longer be permanently displayed for every video. Instead, these details will only surface if there is a problem that requires attention or if the content is set to non-public. This "exception-based" reporting ensures that creators are alerted to issues immediately while keeping the interface clean for healthy, public videos.
+
+Creators should keep an eye on their app store updates over the coming weeks as this rollout progresses.
+
+## Expanding Engagement: The Transition to the Community Tab
+
+In addition to content management, YouTube is rebranding and expanding the comments section in the mobile app. The tab previously known as "Comments" is being renamed to the "Community" tab. 
+
+### Consolidating Creator-Fan Interactions
+This renaming is more than cosmetic; it serves as a consolidation point for several engagement tools. By grouping [Community Posts](/youtube-tips-en/youtube-updates-youtube-studio-app-youtube-app-comments-community-posts/) and [Fan Communities](/youtube-tips-en/youtube-fan-communities-everything-you-need-to-know/) under one roof, YouTube is creating a centralized hub for all non-video interactions.
+
+Within this new Community tab, creators will find updated metrics that provide deeper insight into their audience's behavior:
+*   **Returning Viewers:** This metric allows you to track not just how many people are commenting, but how many of those users return regularly to engage with your channel. This is a critical KPI for understanding audience loyalty and community health.
+*   **Community Spotlights:** To reward the most dedicated fans, YouTube is introducing "Community Spotlights." This feature highlights the most active and engaged viewers—similar to top commenters who frequently receive hearts. These recognized viewers will be distinguished by a small badge next to their name, providing a visual incentive for fans to stay active in the conversation.
+
+## The Integration of AI in Studio and Support
+
+YouTube is aggressively integrating artificial intelligence into the Studio ecosystem to assist with repetitive tasks and content discovery, though these features come with some caveats regarding language support and control.
+
+### AI-Powered Commenting and Summaries
+For creators who struggle to keep up with high volumes of comments, YouTube is testing AI-generated comment suggestions. These suggestions are designed to mimic the specific style and tone of the creator, ensuring that responses feel authentic rather than robotic. This feature will initially roll out to a small test group before expanding to all users in the coming months. It remains unclear if this functionality will be available for languages other than English (such as German) at launch.
+
+Additionally, AI video summaries are being expanded to more users worldwide. These summaries are intended to complement the creator's own description rather than replace it. However, there is a significant limitation: these summaries are currently only available for selected English-language videos. 
+
+Crucially, creators cannot opt out of this feature. If you produce English-language content and the AI captures your video, the summary will be generated automatically. This presents a risk, as AI can occasionally generate inaccurate information or "nonsense" that the creator has no power to object to or edit.
+
+### AI in Creator Support
+The shift toward automation extends to [YouTube Studio](/youtube-tips-en/hdr-youtube-streams-made-easier-than-ever-your-weekly-youtube-updates/) desktop support. When attempting to contact [Creator Support](/en/creator/), users will no longer be forwarded directly to a human employee. Instead, an AI bot will first intercept the request and compile relevant help articles based on the query. While this may help some creators find obscure documentation more quickly, it adds a layer of friction for those requiring direct human intervention for complex issues.
+
+## Monetization Updates: Super Chat Goals
+
+For creators who utilize [live streaming](/en/live/), YouTube is rolling out "Super Chat Goals," a feature designed to incentivize viewers to contribute during a broadcast.
+
+### Setting Up and Customizing Goals
+Creating a goal is integrated directly into the live stream or live chat interface via a dedicated symbol. The process is straightforward:
+1.  **Set a Target:** Creators can choose a specific target, such as 5 or 50 Super Chats.
+2.  **Define Contribution Levels:** A unique aspect of this feature is the ability to specify which levels of Super Chats count toward the goal. This means creators can decide if only high-tier Super Chats contribute to the progress bar or if all tiers are included.
+3.  **Naming the Goal:** Creators can either use YouTube's provided suggestions for the goal name or write a custom title to fit the theme of their stream.
+
+### Permission Limitations and Workflow Issues
+While the feature is functionally simple, there is a significant restriction regarding channel permissions. Currently, only the primary channel owner has the authority to create and manage Super Chat Goals. 
+
+This creates a bottleneck for professional creators who operate brand channels with a team. Channel managers and editors—who may have the authority to manage AdSense settings or delete content—are currently excluded from creating goals. Similarly, chat moderators are unable to set these targets. For those relying on a management team to run their live productions, this limitation means the channel owner must be personally involved in the setup of every stream's monetization goals, which is an inefficient workflow for larger operations.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 The mobile studio is being cleaned up: The "Content" tab is being adjusted and now offers "Shelves" with all formats. There is still the list view, which can be selected via "View All". Scheduled content will only be displayed if there is any. Meaningful performance data will be shown below the content itself, and the monetization and visibility status will only be displayed in case of problems or non-public content - but also in the classic list view, as already known. The rollout is expected to take place in the coming weeks, so check if your Studio app needs an update!
@@ -53,3 +112,4 @@ But it wouldn't be a typical YouTube patch rundown if I didn't complain about so
 So, if the channel owner has set up the goal, it will look like this. I'm curious what your first Super Chat Goals will be and what target you'll set first. Let's discuss! I think improvements are needed here.
 
 Until next week for more YouTube updates! Take care and keep going!
+<!-- kwm:transcript:end -->

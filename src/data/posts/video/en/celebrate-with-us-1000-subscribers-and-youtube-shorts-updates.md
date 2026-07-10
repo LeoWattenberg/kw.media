@@ -24,6 +24,49 @@ postCta:
   pageTitle: "YouTube Tips & Tricks in English"
 ---
 
+<!-- kwm:article:start -->
+## YouTube Shorts Duration Increase: What Creators Need to Know
+
+YouTube is introducing a significant change to the Shorts format that will alter how creators approach short-form vertical content. Starting October 15th, YouTube Shorts will support a maximum duration of up to three minutes. While this provides more breathing room for storytelling and detailed tutorials, there are several technical nuances and strategic considerations that creators must understand before updating their production workflows.
+
+### Technical Requirements and Rollout Details
+
+It is important to note that the transition to longer durations does not replace existing options; you can still upload shorter Shorts without any issues. However, the classification of a video as a "Short" will depend on both its resolution and its upload date. 
+
+To be categorized as a Short under the new rules, a video must have a square or vertical resolution and a duration of less than 180 seconds. Any vertical videos published before October 15th will remain classified as long-form videos and will not be retroactively converted into Shorts.
+
+There is also a significant limitation regarding how these longer videos are uploaded. Initially, the ability to upload these extended Shorts is limited to desktop. This is because the integrated mobile creation tools—specifically the Shorts Editor and the Remix button found under videos—will not be updated to support the three-minute duration until early next year. Creators who rely exclusively on mobile editing will need to use a desktop environment if they wish to take advantage of the extended length immediately.
+
+### Distribution and Discovery Challenges
+
+While these longer videos are technically Shorts, they may not behave like traditional Shorts in terms of discovery. Currently referred to as [long shorts](/youtube-tips-en/long-shorts-are-not-displayed-correctly-in-youtube-studio-memberships-updates-and-more/), these uploads will not initially appear in the dedicated Shorts feed. Instead, they are expected to surface in the home feed or the "Up Next" suggestions.
+
+Creators should manage their expectations regarding immediate reach. Because YouTube needs time to process the data for this new format, visibility may be limited at first. It is unlikely that simply increasing the length of a video will lead to an instant surge in performance; rather, it is a tool for those who need more than 60 seconds to convey their message.
+
+### Monetization Strategies for Longer Shorts
+
+The extended duration does not change the fundamental [monetization structure](/en/creator/) of the format. Long shorts are integrated into the existing Shorts monetization program. If you are already a member of the YouTube Partner Program (YPP) and earn revenue from your Shorts, you will also be able to generate ad revenue from these longer versions.
+
+However, there is a strategic caveat regarding how this revenue is calculated. Because monetization for Shorts is based on views rather than total watch time, a three-minute video may not be the most profitable choice. From a revenue perspective, it might be more beneficial to split a single three-minute concept into three separate one-minute videos and link them together. This approach potentially increases the total number of views, thereby increasing overall earnings.
+
+The question of whether YouTube will implement a higher revenue share for longer Shorts based on watch time—similar to how long-form content is treated—has been raised with YouTube directly to seek further clarification.
+
+### The Risks of Protected Content
+
+Creators must be especially cautious regarding copyright when producing longer Shorts. While YouTube has various systems for handling copyrighted material, the rules for these extended Shorts are particularly strict. 
+
+If a long short utilizes protected audio or video content, it will be site-wide blocked and will not be recommended by the algorithm. This is more severe than a national block; it means the content will effectively be hidden from discovery across the entire platform. While there are no direct penalties or sanctions for accidentally using protected content—often due to YouTube's own timing in securing rights—the consequence is a total loss of visibility. To avoid this, creators are strongly encouraged to use their own original content.
+
+### Celebrating 1000 Subscribers
+
+Alongside these platform updates, we have a major milestone to celebrate: the channel has reached 1,000 subscribers. This achievement is a labor of love driven by a passion for educating creators on how to navigate the complexities of YouTube.
+
+To thank the community for finding this value, we are giving away 25 small swag packages containing caps and jute bags. To enter the giveaway, simply leave a comment on the video including an orange heart for kw.media. On October 12th, we will review the comments and select those that stand out. Winners will be contacted directly via existing contact details or asked to provide them in a reply.
+
+As we look toward the next milestone of 100,000 subscribers and the eventual play button, we continue to engage directly with YouTube to ensure creators have the best information possible. Any suggestions for better naming conventions for "long shorts" or specific questions about the update will be brought to our upcoming meeting with YouTube on Monday.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 We need to talk about YouTube Shorts: starting on October 15th, they will support a duration of up to 3 minutes. Of course, you can still upload shorter shorts as well, no problem there. Vertical videos published before October 15th will continue to be treated as long-form videos. New videos with square or vertical resolution and a duration of less than 180 seconds will become shorts. Initially, uploads are limited to desktop since the shorts creation tools like the Shorts Editor or the Remix button under videos will only be updated early next year.
@@ -41,3 +84,4 @@ If you have questions about long shorts or name suggestions, feel free to drop t
 Subscribe to the channel to stay updated. Thank you so much for 1000 subscribers! This is a labor of love for me as I enjoy educating creators about YouTube. I'm thrilled that 1000 people find this valuable and have subscribed. To celebrate this milestone, we've created 25 small swag packages with caps and jute bags. If you'd like one, please comment something in the comments with an orange heart for kw.media. On October 12th, we'll go through the comments and reply to those whose comments we particularly liked. Either we'll message you directly if we have your contact details, or we'll ask you to send them to us.
 
 Onward to the next 99,000 subscribers so we can get that play button! Thank you, and see you next week for more YouTube updates. Until then, take care!
+<!-- kwm:transcript:end -->

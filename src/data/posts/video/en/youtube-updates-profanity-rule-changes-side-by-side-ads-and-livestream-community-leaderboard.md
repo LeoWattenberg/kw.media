@@ -24,6 +24,57 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## New Insights into YouTube Live Side-by-Side Ads
+
+YouTube is evolving how advertisements are integrated into live streams, moving toward a side-by-side format rather than traditional full-screen interruptions. This shift is driven by both technical constraints and the practicalities of advertiser assets.
+
+### Why Side-by-Side Instead of Full-Screen?
+The decision to implement [side-by-side ads](/youtube-tips-en/youtube-updates-new-av1-codec-support-voice-replies-expansion-and-side-by-side-ads-rollout/) is primarily a matter of efficiency for advertisers. Currently, most advertisers provide content in a 16:9 aspect ratio, which is the standard for pre-roll and mid-roll ads on traditional videos. By using a side-by-side layout during live streams, YouTube can reuse these existing assets without requiring advertisers to produce entirely new creative materials specifically for the live format—a requirement many advertisers were unwilling to meet.
+
+Beyond asset availability, there is a significant technical hurdle regarding computational costs. For non-premium viewers, YouTube generates individualized video feeds where ads are "burned-in" to the stream. Creating full-screen ads in real-time for millions of unique viewers would be far more computationally intensive than the side-by-side approach. To avoid these high computing costs and maintain stream stability, the side-by-side format is the most viable path forward.
+
+For viewers who wish to avoid these interruptions entirely, [YouTube Premium](/en/creator/) remains the primary solution. At €6 a month, it removes ads while providing direct support to creators.
+
+### Rollout Timeline
+Creators and viewers should prepare for a wider rollout of these [side-by-side ads](/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/) starting the week of May 5th. While an exact date has not been specified, non-premium users can expect to encounter this ad format more frequently in their live stream experiences moving forward.
+
+## Boosting Engagement with Community Leaderboards
+
+To further incentivize viewer participation during YouTube Live events, YouTube is preparing to test a new [community leaderboard](/en/live/) experiment later this month. This feature aims to gamify the viewing experience and reward the most active members of a channel's community.
+
+### How the Leaderboard Works
+The prototype will track and display the top 50 chatters on a specific channel. Ranking is determined by "interactivity," which includes metrics such as:
+*   Frequency and quality of chat interactions.
+*   Usage of Super Chats.
+*   Other general interaction metrics.
+
+To add an extra layer of prestige, the top three viewers on the leaderboard will be awarded a special badge that appears next to their name whenever they chat, making their status visible to both the creator and other viewers.
+
+### Creator Control and Compatibility
+YouTube is designing this feature to be flexible. It will be compatible with both horizontal and vertical live streams, ensuring that creators across different formats can utilize it. Furthermore, the leaderboard is not mandatory; creators will have the ability to enable or disable the feature within their settings based on their preference for community management.
+
+### The Question of API Integration
+Currently, there are no plans to allow data exchange between the leaderboard and external tools via an API. However, a feature request has been submitted to YouTube. If implemented, an API would allow creators to connect the leaderboard to third-party bots or create custom "channel points" systems, significantly expanding how creators can reward their most loyal fans.
+
+## Relaxing Profanity Rules for Monetization
+
+In addition to technical and engagement updates, YouTube is adjusting its monetization policies regarding language. Toward the end of May, there will be a notable change in how profanity affects the "yellow icon" (limited or disabled monetization).
+
+### The End of the Seven-Second Rule
+Previously, creators had to ensure that the first seven seconds of their video were free of strong profanity to avoid receiving a yellow monetization icon. This strict window often forced creators to carefully edit their introductions to ensure they didn't lose revenue. 
+
+Following consultations with advertisers, YouTube has found that most advertisers are now comfortable with swearing in content. As a result, the specific "first seven seconds" rule is being removed.
+
+### Important Caveats
+While this change provides more freedom in how creators open their videos, it is not a blanket license for unrestricted language. Creators must still strictly adhere to YouTube's Community Guidelines regarding:
+*   **Hate Speech:** Content that promotes violence or hatred against individuals or groups.
+*   **Cyberbullying:** Harassment or targeted abuse.
+
+Even with the relaxed profanity rules, it is generally advisable to avoid excessive strong language where possible to maintain a broad appeal and ensure long-term advertiser friendliness.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 We had the opportunity to talk to someone who is actually working on the YouTube [side-by-side ads](/youtube-tips-en/youtube-updates-new-av1-codec-support-voice-replies-expansion-and-side-by-side-ads-rollout/) for live streams, and we have some new information to share. Firstly, why are they only side-by-side and not full-screen? Well, there are a few technical limitations at play here.
@@ -41,3 +92,4 @@ Unfortunately, there are currently no plans to allow data exchange with the lead
 Towards the end of May, YouTube will also make changes regarding profanity and yellow monetization icons. Previously, the first seven seconds of a video had to be free of strong profanity to avoid a yellow icon. This rule will be removed as YouTube has consulted with advertisers, who are okay with swearing. However, remember that you still need to adhere to hate speech and cyberbullying community guidelines. So, don't go overboard, and if you can avoid strong profanity, it's advisable to do so.
 
 That's all for today. If you have any further questions about the topics we discussed, feel free to leave a comment. Otherwise, we'll see you next week with more YouTube updates. Take care!
+<!-- kwm:transcript:end -->

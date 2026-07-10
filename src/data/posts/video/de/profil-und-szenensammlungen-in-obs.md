@@ -24,6 +24,37 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Effizientes Streaming mit OBS-Profilen und Szenensammlungen
+
+Wenn du als Creator auf verschiedenen Geräten streamst oder unterschiedliche Inhaltsformate produzierst, kann die manuelle Konfiguration von OBS jedes Mal sehr zeitaufwendig sein. Um diesen Prozess zu beschleunigen und Fehler zu vermeiden, bietet OBS zwei mächtige Werkzeuge: Profile und Szenensammlungen. Obwohl beide Funktionen dazu dienen, Voreinstellungen zu speichern, steuern sie unterschiedliche Bereiche deiner Stream-Konfiguration.
+
+### Die technische Basis: OBS-Profile
+
+Ein Profil in OBS fungiert im Grunde als Speicher für deine technischen Streaming-Einstellungen. Hier geht es primär um das „Backend“ deines Streams. Ein zentrales Beispiel hierfür ist die Bitrate, aber auch andere Ausgabeeinstellungen werden in den Profilen hinterlegt.
+
+Das ist besonders nützlich, wenn du an verschiedenen Standorten oder mit unterschiedlicher Hardware streamst. Da nicht jedes Gerät oder jede Internetverbindung dieselbe Performance bietet, kannst du für jedes Szenario ein eigenes Profil erstellen und so sicherstellen, dass die technischen Parameter optimal auf die jeweilige Umgebung abgestimmt sind.
+
+### Die visuelle Gestaltung: Szenensammlungen
+
+Während Profile die Technik regeln, kümmern sich Szenensammlungen um das visuelle Layout. Eine Szenensammlung enthält all deine [Szenen und Quellen](/youtube-tipps-de/szenen-und-quellen-in-obs-nutzen/), also beispielsweise die Position deiner Kamera, Overlays, Spielquellen oder Browser-Fenster.
+
+Durch die Trennung von Profilen und Szenensammlungen gewinnst du eine enorme Flexibilität: Du kannst dieselbe visuelle Gestaltung (Szenensammlung) beibehalten, während du im Hintergrund das technische Profil wechselst, um beispielsweise die Qualität an eine schwächere Internetleitung anzupassen.
+
+### Workflow-Optimierung durch Export und Import
+
+Ein großer Vorteil dieser Funktionen ist die Möglichkeit, beide Sammlungen zu exportieren. Dies bietet dir zwei wesentliche Vorteile in der Praxis:
+
+1.  **Geräteübergreifendes Streaming:** Du musst deine Einstellungen nicht auf jedem PC oder Laptop mühsam neu konfigurieren. Durch den Export deiner Profile und Szenensammlungen kannst du diese einfach auf einem anderen Gerät importieren und bist sofort startklar.
+2.  **[Sicherung deiner Arbeit](/de/creator/):** Da das Einrichten komplexer Szenen Zeit kostet, dient der Export gleichzeitig als Backup deiner Konfiguration.
+
+### Flexibilität bei verschiedenen Formaten
+
+Neben dem Gerätewechsel ist die Funktion ideal, wenn du schnell zwischen verschiedenen Formaten wechseln möchtest. Wenn du beispielsweise eine Session aufnimmst und kurz darauf einen [Live-Stream](/de/live/) startest – oder wenn du zwischen unterschiedlichen Aufnahmeformaten wechselst –, erlauben dir Profile und Szenensammlungen, mit wenigen Klicks das gesamte Setup umzustellen. So vermeidest du manuelle Fehler und sparst wertvolle Zeit vor dem Start deiner Produktion.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Um schnell mit Voreinstellungen auf anderen Geräten zu streamen, bietet OBS Profil und Szenensammlung an. Mit der Profilsammlung könnt ihr dabei Streaming-Einstellungen wie z. B. Bitraten übertragen, die Szenensammlung hingegen enthält eure [Szenen und Quellen](/youtube-tipps-de/szenen-und-quellen-in-obs-nutzen/). Beide Sammlungen könnt ihr zur Sicherung exportieren und entweder importieren, um auf anderen Geräten zu streamen, oder auch, um schnell alle Einstellungen und Szenen zu wechseln, wenn ihr zum Beispiel ein anderes Format aufnehmen bzw. streamen wollt.
+<!-- kwm:transcript:end -->

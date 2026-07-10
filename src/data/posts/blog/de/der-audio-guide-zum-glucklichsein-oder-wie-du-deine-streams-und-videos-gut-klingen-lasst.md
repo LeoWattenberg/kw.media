@@ -27,7 +27,7 @@ Dieser Leitfaden richtet sich hauptsächlich an Anfänger und beantwortet Fragen
 
 ## Allgemeines
 
-Bevor wir uns den technischen Details widmen, beginnen wir mit etwas Offensichtlichem: Der Grundsatz "Müll rein, Müll raus" gilt auch für Audio. Der Kauf eines teuren Mikrofons mag das Audio verbessern, aber es wird dich nicht lustiger machen, deine Aussprache korrigieren, dich dazu bringen, mehr zu sprechen oder weniger um den heißen Brei herumzureden. Um diese Fähigkeiten zu verbessern, musst du üben. Dieser Übungsprozess findet automatisch statt, indem du einfach Videos erstellst, aber ich empfehle dringend, aktiv an diesen Bereichen zu arbeiten, da du so viel schneller lernen und dich verbessern wirst.
+Bevor wir uns den technischen Details widmen, beginnen wir mit etwas Offensichtlichem: Der Grundsatz "Müll rein, Müll raus" gilt auch für Audio. Der Kauf eines teuren Mikrofons mag das Audio verbessern, aber es wird dich nicht lustiger machen, deine Aussprache korrigieren, dich dazu bringen, mehr zu sprechen oder weniger um den heißen Brei herumzureden. Um diese Fähigkeiten zu verbessern, musst du üben. Dieser Übungsprozess findet automatisch statt, indem du einfach [Videos erstellst](/de/creator/), aber ich empfehle dringend, aktiv an diesen Bereichen zu arbeiten, da du so viel schneller lernen und dich verbessern wirst.
 
 Kommen wir nun tatsächlich zu Mikrofonen.
 

@@ -19,7 +19,7 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
-You want to get started with YouTube streaming – great! YouTube works as most live streaming platforms in its core, but let’s go over the most important bits together.
+You want to get started with [YouTube streaming](/en/live/) – great! YouTube works as most live streaming platforms in its core, but let’s go over the most important bits together.
 
 Before starting a YouTube streaming you need to actually [create a stream](/youtube-tips-en/how-to-master-live-streams/).
 
@@ -45,11 +45,11 @@ Follow the Stream Creation process by providing a [title, description](/youtube-
 
 *Add a custom Thumbnail, and decide whether to automatically add the VOD to a playlist*
 
-If you are in the YouTube Partner Programm, you can also chose what type of ads you want to run on the livestream.
+If you are in the YouTube Partner Programm, you can also chose what [type of ads](/en/ads/) you want to run on the livestream.
 
 <figure><img src="https://lh3.googleusercontent.com/9wrGKuMl8K2ef0SdGC3boC_a2C0ErvyoWEIQWIsHXGLSEgTUeglXf1q9mLAqVy0AS-FituJTBtXvH_UfJ5iGqRZVYshY8I4AA8-v0BvSncWRodalEJFvJBBFlLn3dIlRb5lq42Fog4l7_z5YTC-6IVyBRNa1W2_aL2S7yrzSmp3n_ddDy6W8l4Pcew7nHQ" alt></figure>
 
-*Add different kinds of monetization options*
+*Add different kinds of [monetization options](/en/creator/)*
 
 In the customization tab, you can choose chat settings, e.g. who is allowed to chat or if you want to use a slower live chat mode. You can also choose a short trailer for your upcoming livestream that automatically plays on the stream watchpage before your stream starts.  If you already have 1000 subscribers you can choose on what livestream or premiere you want to redirect to after the stream has finished – same as before: don’t worry you can choose this at a later moment as well.
 

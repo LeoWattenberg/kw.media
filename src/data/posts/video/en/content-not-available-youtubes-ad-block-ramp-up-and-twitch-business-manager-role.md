@@ -24,6 +24,62 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## Platform Updates: YouTube's Ad Blocker Crackdown and Twitch's Professionalization
+
+The landscape for digital creators is shifting as platforms move toward stricter [monetization enforcement](/en/creator/) and more professionalized management structures. From YouTube’s aggressive stance on ad blockers to Twitch’s new administrative roles, the focus is clearly moving toward maximizing revenue efficiency and securing account infrastructure.
+
+## YouTube Intensifies Ad Blocker Enforcement
+
+Since January 27th, YouTube has significantly tightened its [ad blocker enforcement](/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/). For users employing popular ad-blocking software, the experience has changed from simply skipping ads to a complete loss of access. Many users are now encountering error messages stating that content is unavailable, effectively preventing the video player from functioning until the blocker is disabled.
+
+### The Impact on Creator Analytics and RPM
+
+For Creators, this shift creates a paradoxical situation in [YouTube Studio](/en/youtube-tips/): while total view counts may dip, the quality of those views—from a financial perspective—increases. 
+
+When ad blockers are active, the resulting views are "valueless" because they cannot be monetized. By filtering these users out, YouTube is essentially cleaning the data pool. This leads to two primary consequences in your analytics:
+1. **A decrease in desktop views:** Since ad blockers are more prevalent on desktop browsers than on mobile apps, you will likely see a drop in desktop traffic.
+2. **An increase in RPM (Revenue Per Mille):** Because the remaining desktop viewers are those who can actually see ads, the revenue generated per thousand views rises.
+
+To illustrate this, data from a portfolio channel analyzed during the launch week (January 27th to 28th) showed a clear trend. Desktop views dropped by nearly 9%, but total revenue increased by 10%. This resulted in an overnight surge in desktop RPM of 21%, reaching €582—a figure that even surpassed the channel's mobile RPM.
+
+Ultimately, this suggests that while reach may suffer slightly on desktop, the remaining traffic becomes significantly more valuable for Creators.
+
+## The "On-Demand YouTube Support" Pilot Program
+
+Alongside these policy changes, screenshots have surfaced regarding a new pilot program titled "On-Demand YouTube Support." Approximately 8,000 Creators have been invited to participate in this six-month trial.
+
+### What the Pilot Offers
+The program is designed to provide a more streamlined communication channel between Creators and the platform. Participants receive:
+* Direct access to a dedicated YouTube team via email.
+* Specialized support regarding monetization and platform policies.
+* General channel guidance.
+* A promised response time of one business day.
+
+### Reactive vs. Strategic Support
+While a one-day response time is an improvement over standard ticket systems, it raises the question of whether this constitutes "premium" support. There is a fundamental difference between reactive support—answering questions about existing policies or fixing bugs—and strategic partnership.
+
+True premium support involves proactive management: auditing content for compliance risks *before* upload and developing long-term, sustainable business strategies to grow a brand. For Creators seeking this level of strategic oversight rather than just a faster ticket response, external professional partnerships remain the most viable path. If you require a partner who treats your channel as a business rather than a support ticket, reaching out to team@kwmedia is the recommended step.
+
+## Twitch Introduces Business Manager Role
+
+Moving away from YouTube, Twitch has introduced a feature that addresses a long-standing security and organizational pain point for professional streamers: the Business Manager role.
+
+### Separating Talent from Administration
+Until now, many Creators had to share sensitive account credentials with managers or agencies to handle the business side of their brand. This created significant security risks, as it often gave third parties access to the stream key (which allows anyone to broadcast to the channel) and chat moderation permissions.
+
+The new Business Manager role solves this by granting specific, limited access to the dashboard. A Business Manager can now oversee:
+* **Sponsorships:** Managing brand deals and integrations.
+* **Analytics:** Tracking growth and viewer demographics.
+* **Payouts:** Handling the financial aspects of the channel.
+
+Crucially, this role does not grant access to the stream key or moderation tools, effectively separating the "talent" side of the operation from the "business" side.
+
+### Practical Steps for Creators
+If you are currently working with an agency or a personal manager, it is highly recommended that you implement this role immediately. Moving away from shared logins to a dedicated Business Manager role is a critical step in securing your account and professionalizing your workflow.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 YouTube is intensifying its fight against ad blockers, and Twitch is helping professional creators separate business from talent. Welcome to the Creator News, with everything you need to know this week as a creator. Let's start with an aggressive move by YouTube. From January 27th onwards, [ad blocker enforcement](/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/) will be significantly tightened. Users of popular blockers will likely see an error message stating that the content is unavailable. The video player simply won't work.
@@ -37,3 +93,4 @@ Given the expertise of the regular Creator Support and the depth that Partner Ma
 If you need a support partner and not just a ticket number, reach out to us. In the future, we plan to expand our scope to the entire creator ecosystem. So, let's look beyond the red platform. Twitch is introducing a Business Manager role. Access to your dashboard specifically for sponsorships, analytics, and payouts without giving up your stream key or chat moderation permissions is actually a win. It securely separates the talent and business sides of the channel.
 
 If you're working with a manager or agency, you should set this up as soon as possible to secure your account. And that's it for this week. I'd love to hear your thoughts. Will the ad blocker blockade actually increase our RPM in the long run, or will it kill desktop reach even more? Let me know in the comments. I'm Martin, and I'll keep you updated on all relevant creator news. Until next week.
+<!-- kwm:transcript:end -->

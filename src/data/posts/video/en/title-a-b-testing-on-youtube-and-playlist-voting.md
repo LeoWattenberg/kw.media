@@ -27,6 +27,57 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## New Interactive Features and Optimization Tools on YouTube
+
+YouTube continues to roll out updates designed to increase audience engagement and provide creators with more data-driven ways to optimize their content. This week's updates focus on two distinct areas: a new community-driven feature for playlists and an early-stage experiment that expands the capabilities of A/B testing.
+
+## Enhancing Community Engagement with Playlist Voting
+
+One of the most notable additions is a new feature called **Playlist Voting**. This tool transforms static playlists into interactive experiences, allowing viewers or specific contributors to have a say in the content within a collection.
+
+### How to Enable Playlist Voting
+It is important to note that Playlist Voting is turned off by default. Furthermore, there is currently a platform restriction regarding its setup: creators can only enable this feature via the YouTube main app. It is not available for activation through a desktop browser or within YouTube Studio. 
+
+Once you access the settings in the mobile app, you can define who is eligible to participate in the voting process. You have three primary options for permissions:
+*   **Everyone:** Any viewer who comes across the playlist can cast a vote.
+*   **Collaborators only:** Only individuals who have been specifically invited to contribute videos to the playlist can vote.
+*   **No one:** The feature remains disabled.
+
+For those unfamiliar with the collaboration aspect, collaborators are users whom the creator has explicitly invited to add their own videos to the playlist. For more detailed information on how to manage these settings, you can refer to the official documentation on [playlist collaboration & voting](https://support.google.com/youtube/answer/6109639).
+
+### Voting Mechanics and Practical Use Cases
+The system is designed for fairness and simplicity: eligible accounts are permitted to cast one vote each. This limitation prevents a small number of users from disproportionately influencing the results.
+
+From a creator's perspective, this feature opens up several creative avenues for audience interaction:
+*   **Collaborative Curation:** You can create "community-driven" playlists, such as a shared music list for road trips or themed collections where the community decides which videos deserve the top spot.
+*   **Community Contests:** This is particularly useful for challenge-based content. For example, in a Minecraft building challenge, creators could invite participants to add their entries to a playlist and then let the wider audience vote on the best build.
+
+By shifting from a curator-only model to a voting model, creators can foster a stronger sense of community and give their viewers a tangible way to influence the content they consume.
+
+## The Evolution of A/B Testing: Moving Beyond Thumbnails
+
+While Playlist Voting focuses on engagement, YouTube is also experimenting with tools to help creators optimize their click-through rates (CTR). Last year, the platform introduced [A/B testing for thumbnails](/youtube-tips-en/what-is-youtube-test-and-compare-or-thumbnail-a-b-testing/), allowing creators to "Test and Compare" different visuals to see which performed better.
+
+Due to high demand from the creator community, YouTube is now testing a similar functionality for video titles.
+
+### An Early Look at Title A/B Testing
+Currently, this feature is in a very early alpha stage. While it is not yet widely available, experimental data suggests a significant expansion of the existing "Test and Compare" framework. 
+
+The proposed system would allow creators to test multiple variables simultaneously. Specifically, the experiment indicates that you could enter:
+*   Up to three different variations of a title.
+*   Up to three different thumbnails (similar to the current [thumbnail A/B testing](/youtube-tips-en/the-secret-formula-of-a-b-tests-on-youtube/)).
+*   A combination of both: three titles and three thumbnails, creating a matrix of possible combinations to determine the most effective pairing.
+
+### Technical Considerations and Implications
+The introduction of title testing brings up interesting questions regarding YouTube's automated systems, particularly [autodubbing and auto-translations](/en/video-dubbing/). Because YouTube titles are limited to approximately 100 characters, translating multiple variations for a global audience should be technically manageable without disrupting the user experience.
+
+However, the broader impact of this tool remains to be seen. The primary goal of A/B testing is optimization, but it remains unclear how these variations will affect overall impressions or the accuracy of the data provided to creators. Whether this leads to a consistent increase in views or simply provides better insight into viewer psychology is something that will become clear as the feature moves out of alpha and into wider release.
+
+For creators who rely heavily on data to refine their packaging, the ability to test titles alongside thumbnails represents a major step toward full control over how content is discovered and clicked on the platform.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 **YouTube Updates:**
@@ -48,3 +99,4 @@ I'm curious to see if this feature increases impressions, decreases them, or imp
 Don't forget to subscribe to stay updated on this feature and all other creator-focused updates. Please share your thoughts on A/B testing for titles – would you use it?
 
 I'll keep you informed as always. Thanks for watching, and see you next week for more YouTube updates!
+<!-- kwm:transcript:end -->

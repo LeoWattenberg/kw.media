@@ -27,6 +27,51 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Neue Funktionen für Shorts und Premium sowie wichtige Warnungen zu Musiklizenzen
+
+YouTube hat am 27. März eine Reihe von Updates veröffentlicht, die sowohl das Nutzererlebnis als auch die strategische Planung für Creator beeinflussen. Während einige Neuerungen darauf abzielen, das Engagement in den Shorts zu steigern oder neue Abo-Modelle zu testen, gibt es kritische Änderungen bei Musiklizenzen, die für viele Creator unmittelbare Konsequenzen haben könnten.
+
+### Mehr Interaktion durch Kommentarvorschauen in Shorts
+
+Ein interessantes Update betrifft die Art und Weise, wie Zuschauer mit YouTube Shorts interagieren. YouTube führt sogenannte „Kommentar-Teaser“ ein. Dabei handelt es sich um ein kleines Rechteck am unteren Bildschirmrand der Shorts, das bereits eine Vorschau auf bestehende Kommentare gibt oder diese andeutet.
+
+Wenn du als Zuschauer auf diesen Teaser klickst, wirst du direkt in den Kommentarbereich weitergeleitet. Der Clou dabei: Die im Teaser angedeuteten Kommentare werden in der Liste ganz oben angezeigt. Für dich als Creator bedeutet dies eine potenzielle Steigerung des Engagements, da die Hürde gesenkt wird, sich an Diskussionen unter einem Video zu beteiligen. Ein sichtbarer, interessanter Kommentar kann Zuschauer dazu animieren, selbst aktiv zu werden und die Interaktionsrate deines Shorts zu erhöhen.
+
+### Experiment: YouTube Premium für Zwei-Personen-Haushalte
+
+Neben funktionalen Updates testet YouTube neue Preismodelle für seine Premium-Mitgliedschaft. In Indien, Hongkong, Frankreich und Taiwan wird derzeit ein neues Angebot für Zwei-Personen-Haushalte experimentell eingeführt. 
+
+Es handelt sich im Grunde um eine Art „kleinen Familienplan“, der eine Lücke zwischen dem Einzelabo und dem großen Familienpaket schließen soll. Aktuell sehen etwa 50 % der Nutzer in den betroffenen Regionen dieses Angebot. Wer prüfen möchte, ob er Zugang zu diesem Experiment hat, kann die Seite [YouTube.com/premium/2person](https://www.youtube.com/premium/2person) besuchen. Informationen zu den genauen Preisen liegen derzeit noch nicht vor, da es sich um eine Testphase handelt.
+
+### Achtung: Kritische Änderungen bei Musiklizenzen
+
+Besonders aufmerksam sollten Creator jetzt auf ihre E-Mails und ihre Video-Bibliotheken schauen, da es massive Änderungen bei zwei großen Musikpartnern gibt. Hier geht es nicht nur um Monetarisierung, sondern im schlimmsten Fall um den Verlust von Inhalten.
+
+#### Vixen Music: Entfernung von Shorts
+Das Musiklabel Vixen Music hat zum 28. März 2025 die Lizenzen für seine Audiobibliothek in YouTube Shorts zurückgezogen. Das hat direkte Folgen:
+- **Shorts:** Wenn du Vixen-Musik in deinen Shorts verwendet hast, werden diese Videos entfernt. Betroffene Creator erhalten hierzu eine Benachrichtigung per E-Mail.
+- **Langformvideos:** Videos im klassischen Format bleiben zwar bestehen, können aber Urheberrechtsansprüche (Copyright Claims) erhalten, sofern keine separaten Vereinbarungen vorliegen.
+
+#### Warner Music Group (WMG): Widerruf von Lizenzen
+Ähnlich kritisch ist die Situation bei der Warner Music Group. Lizenzen für WMG-Songs, die über das Tool „Creator Music“ erworben wurden, werden widerrufen. 
+
+Die Konsequenz ist hier eine Umwandlung in Urheberrechtsansprüche. Das bedeutet, dass sämtliche Einnahmen aus diesen Videos künftig direkt an die WMG fließen. Wenn du YouTube Music oder Creator Music nutzt, solltest du dringend deine Unterlagen prüfen und sicherstellen, dass deine Lizenzen aktuell sind oder alternative Quellen genutzt werden, um rechtliche Probleme und Einkommensverluste zu vermeiden.
+
+### KI-Unterstützung im Inspiration-Tab (außerhalb der EU)
+
+Für Creator außerhalb der Europäischen Union gibt es neue Funktionen im [Inspiration-Tab](/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/), der zuvor als „Research“-Tab bekannt war. Diese Tools sollen den kreativen Prozess und die strategische Planung vereinfachen.
+
+#### KI-gestütztes Brainstorming
+Die neue Brainstorming-Funktion analysiert Daten und Kommentare aus deinen bereits veröffentlichten Videos, um daraus neue Ideen zu generieren. Besonders wertvoll ist hierbei die Unterstützung durch KI bei der Erstellung von „Haken“ (Hooks). Da die ersten Sekunden eines Videos entscheidend für die Zuschauerbindung sind, helfen diese Tools dabei, packende Einführungen zu entwerfen, was letztlich die Video-Retention und das allgemeine Engagement verbessern kann.
+
+#### Quick Saves für eine bessere Organisation
+Ergänzend dazu wurde die Funktion „Quick Saves“ eingeführt. Damit kannst du Ideen, die dir während des Brainstormings oder beim Sichten von Zuschauerfeedback kommen, schnell notieren und für die spätere Produktion speichern. 
+
+Obwohl diese Tools nicht grundlegend die Art der Inhaltserstellung verändern, bieten sie eine effiziente Möglichkeit, direkt aus dem Feedback deiner Community neue Inhalte zu generieren und die Qualität deiner Video-Intros durch datengestützte Ansätze zu optimieren.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 **YouTube Updates:**
@@ -54,3 +99,4 @@ Obwohl sie nicht bahnbrechend sind, könnten diese Tools nützlich sein, um von 
 Dieser Kanal hat nun automatische Untertitel aktiviert, daher können deutsche Zuschauer eine weniger als perfekte Übersetzung bemerken. Wir arbeiten daran, eine hochwertige deutsche Audiospur hochzuladen, um unsere üblichen Standards aufrechtzuerhalten. Während wir uns in Richtung englischsprachiger Inhalte bewegen, um ein breiteres Publikum zu erreichen, danke fürs Einschalten! Abonniert für weitere [YouTube-Updates](/youtube-tipps-de/youtube-updates-neue-untertitel-fur-shorts-und-erweiterung-der-hype-funktion/), bis nächste Woche!
 
 *Tschüss!*
+<!-- kwm:transcript:end -->

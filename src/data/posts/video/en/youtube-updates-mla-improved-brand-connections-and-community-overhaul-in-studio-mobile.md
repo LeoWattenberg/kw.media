@@ -27,6 +27,78 @@ postCta:
   pageTitle: "YouTube Tips & Tricks in English"
 ---
 
+<!-- kwm:article:start -->
+## Expanding Global Reach with Multilingual Audio
+
+YouTube is entering the final stages of rolling out [Multilingual audio (MLA) or autodubbing](/youtube-tips-en/youtube-updates-subscribe-confusion-and-autodubbing-fully-rolled-out/), a feature that could significantly lower the barrier for Creators looking to reach international audiences. The rollout is moving quickly: following an initial 1% rollout in early November, it is expected to expand to 10% within two weeks, with the goal of reaching 100% availability by the end of the year.
+
+The confirmed supported languages include French, German, Italian, Portuguese, and Spanish. Additionally, YouTube plans to add Hindi, Indonesian, and Japanese to the list. For Creators, this means the ability to provide multiple audio tracks for a single video, allowing viewers to listen in their native language without relying solely on subtitles.
+
+### The Challenge of Automated Language Selection
+
+While the technology is promising, there is a significant caveat regarding how YouTube implements the user experience. Rather than simply letting the viewer choose their preferred audio track, YouTube utilizes an automated system to decide which language to play. This decision is based on several data points:
+*   The browser language settings.
+*   The in-app language selection.
+*   The user's watch history (e.g., whether they typically consume content in English or German).
+*   Past changes made to subtitles or language settings.
+
+Because YouTube attempts to solve the language preference via AI and historical data rather than a simple manual toggle, there is a risk of "disastrous" implementation where the system selects the wrong audio track for the user. For Creators, this means that while your content becomes more accessible, the actual delivery depends on YouTube's internal logic, which has historically struggled with remembering subtitle settings.
+
+## Speculation on Gifted Membership Distribution
+
+There are currently rumors regarding changes to how gifted memberships are distributed among a community. While these details remain speculative and have not been officially confirmed by YouTube, they suggest a shift in priority for who receives these memberships during a [live stream](/en/live/).
+
+Currently, subscribers are prioritized. According to the rumors, this will remain true, but new criteria will be introduced to prioritize active engagement. The rumored distribution order is as follows:
+1.  **New subscribers** who are currently watching the stream.
+2.  **Non-subscribers** who are currently watching the stream.
+3.  **Subscribers** who are not currently watching the stream.
+
+The logic behind this proposed change is to reward those who are actively participating in the live event. While some may find this counterintuitive—as it potentially deprioritizes long-term subscribers who aren't present—it emphasizes real-time engagement. This change is rumored for Q4 2024, though it is equally possible that it may not arrive until Q1 2025.
+
+## New Insights in YouTube Studio: Data Stories and Community Spotlight
+
+[YouTube Studio](/en/creator/) is receiving updates designed to give Creators a more nuanced understanding of their audience and video performance.
+
+### Video-Level Data Stories
+
+Data Stories are being expanded to provide a more immediate breakdown of performance. Previously, these summaries were often weekly or monthly. Now, Creators can access Data Stories that specifically analyze a video's performance within its first 24 hours. This shift from broad summaries to video-level insights allows Creators to react faster to what is working and why, moving beyond raw graphs toward meaningful data narratives.
+
+### The Community Section and Spotlight
+
+A new Community section is rolling out in YouTube Studio, though it is currently available primarily on mobile rather than desktop. This section provides a snapshot of the most engaged users over the last 28 days.
+
+Crucially, this "Community Spotlight" does not rely solely on comment counts. While top commentators are included, the system also identifies users who may only comment occasionally but consistently like and share content. This gives Creators a more holistic view of their "super-fans"—those who support the channel through various engagement metrics rather than just text discussions. 
+
+Creators should check their YouTube Studio mobile app to see if they have access to this feature, as it allows for a better understanding of who the most loyal members of the community are, even if those users aren't the loudest in the comment section.
+
+## Navigating Creator-Initiated Brand Video Links
+
+One of the more complex updates is the introduction of Creator-Initiated Brand Video Links. This feature is designed for videos containing [paid promotion or product placement](/en/b2b/). It allows a Creator to tag a brand and share organic performance metrics directly with them.
+
+### The Risk of Usage Rights
+
+There is a critical warning for Creators using this feature: **linking your video to a brand does not automatically trigger payment.** More importantly, by initiating this link, you may be automatically granting usage rights of the video to the advertiser. 
+
+Because of these implications, it is vital that Creators do not send out invitations or click through the linking process before a formal agreement is in place. The following practical steps are recommended:
+*   **Negotiate First:** Ensure all terms regarding usage rights and compensation are settled in a written contract.
+*   **Secure Payment:** Ideally, ensure at least a deposit has been made before releasing data or granting advertising permissions via the link.
+
+### Technical Details of Brand Linking
+
+According to the [official help documentation](https://support.google.com/youtube/answer/3063482), it is important to note that this linking process does not grant the Creator access to the advertiser's Google Ads account, nor does it give the advertiser access to the Creator's full account—only the specific analytics data and the permission to use the video for advertising.
+
+Furthermore, these links are non-exclusive. If a Creator produces a comparison video featuring multiple different brands, they can send separate linking requests to each respective brand without being restricted to a single partner.
+
+## Critical Advice for "Reused Content" Appeals
+
+For Creators facing monetization issues due to "reused content" flags, there is a vital procedural detail regarding the appeal process. 
+
+If you believe your content has been mistakenly identified as copyright-infringing or reused, you must submit your video appeal in **English**. There have been documented cases where Creators submitted appeals in German and were automatically rejected by the system, despite having created original content.
+
+While it is possible to forward these cases to YouTube if an English version of the video can be provided later, the most efficient way to avoid automatic rejection is to ensure the appeal is written and spoken in English from the start. This ensures that the review process is not hindered by language barriers within YouTube's automated or manual review systems.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 [Multilingual audio or autodubbing](/youtube-tips-en/youtube-updates-subscribe-confusion-and-autodubbing-fully-rolled-out/) is entering its final stages. At the beginning of the month, early November, we already had a 1% rollout. Within the next two weeks, we're expecting a 10% rollout, and by the end of the year, it should be 100%, according to the current timeline. Supported languages will include French, German, Italian, Portuguese, and Spanish—those are confirmed. Additionally, Hindi, Indonesian, and Japanese are set to be added. I think this is a great development, and I'm curious to see how it's implemented. Of course, it's going to be a disastrous launch, we already know that. YouTube already has issues remembering your subtitle settings.
@@ -60,3 +132,4 @@ Reused Content and Video Appeals
 Please remember that video appeals must be submitted in English. In the last two months, I had two cases where Creators who created their own content were mistakenly identified as copyright infringers, submitted their appeals in German, and they were automatically rejected. This is a bit annoying, but we can still forward it to YouTube if an English version of the video is available. However, it's in your best interest to write the appeal directly in English.
 
 Ideally, this shouldn't happen, but now you've heard this information from me as well. I will probably make an extra video about it to address it again. Thank you in any case for watching! If you have questions, feel free to comment. See you next week for more updates - take care and keep going!
+<!-- kwm:transcript:end -->

@@ -24,6 +24,101 @@ postCta:
   pageTitle: "YouTube Tips & Tricks in English"
 ---
 
+<!-- kwm:article:start -->
+## New Engagement and Monetization Tools Coming to YouTube
+
+YouTube is introducing several updates designed to enhance how creators interact with their audiences, promote their content, and manage monetization. From the introduction of voice-based community interaction to a significant overhaul of mid-roll ad placements, these changes aim to balance creator revenue with a better viewer experience.
+
+The most critical updates involve new tools for YouTube Shorts and [Live streaming](/en/live/), as well as a systemic change to how ads are placed in long-form videos, which will take full effect by May 2025.
+
+## Voice Replies: A New Layer of Community Engagement
+
+To foster more personal connections between creators and their viewers, YouTube is rolling out [voice messages in comments](/youtube-tips-en/youtube-updates-comment-teasers-in-shorts-duo-premium-plans-and-music-license-changes/). This feature allows users to leave audio replies rather than relying solely on text.
+
+### Availability and Limitations
+Currently, this feature is in a limited rollout phase:
+*   **Platform:** Exclusively available on iOS.
+*   **Region:** Limited to the United States.
+*   **Duration:** Voice replies can be up to 30 seconds long.
+
+For creators and viewers on Android, access is expected to arrive in the first quarter of 2025 (by March 31st). While the feature remains restricted to the US for now, some users may be able to access it via a VPN. This shift toward audio comments suggests a move toward more dynamic, social-media-style interactions within the YouTube ecosystem.
+
+## Expanding Reach with Shorts Promotions
+
+For creators looking to grow their audience quickly, YouTube has integrated "Shorts Promotions." These are essentially [Google Ads Press ads](/en/ads/), designed to be a streamlined version of a full advertising campaign.
+
+### How to Set Up a Shorts Promotion
+Unlike professional Google Ads campaigns, which require deep technical knowledge and complex targeting, Shorts Promotions are accessible directly within the platform:
+1.  Navigate to your own channel.
+2.  Open the three-dot menu on the specific Short you wish to promote.
+3.  Select **"Start a Shorts Promotion."**
+4.  Define your budget (how much money you want to spend) and select the target countries.
+
+### The Caveat: Content Quality vs. Ad Spend
+While these promotions are easier to set up, they are generally less targeted than professionally managed campaigns. More importantly, advertising is not a substitute for quality. If the underlying content is not engaging, spending money on promotions will likely result in wasted budget without meaningful growth. For creators producing high-quality content, organic growth remains the most sustainable path, and paid ads should be viewed as an optional supplement rather than a necessity.
+
+## Enhancing Live Streams with "Take a Break"
+
+Live streaming can be exhausting, and maintaining a constant presence on camera for hours is challenging. To address this, YouTube is introducing the "Take a Break" function in March 2025.
+
+### Managing Breaks via the Live Control Room
+Creators will find a new button within the Live Control Room (located in YouTube Studio under the "Live" section). When triggered during a stream, creators can choose between a **3-minute or 5-minute break**.
+
+### Monetization During Pauses
+The "Take a Break" feature is not just a utility for the creator; it is also a [monetization tool](/en/creator/). While the creator is away:
+*   **Non-Premium Viewers:** Will see one or more mid-roll ads. The number of ads depends on "ad saturation."
+*   **Dynamic Ad Delivery:** If a new viewer joins and has already seen a pre-roll ad, they will see fewer ads during the break. Conversely, viewers who have been watching for a long time without an ad break may see several ads played back-to-back.
+*   **Premium Viewers:** Will continue to see no ads.
+
+### The "Away" Video Opportunity
+To prevent the stream from feeling dead during these pauses, YouTube is introducing the "Away" function. Creators can upload a video as "unlisted" and link it to their break. This video—which could be an animation or a voiced announcement—plays automatically while the creator is off-camera. 
+
+This opens up significant opportunities for brand partnerships; creators can effectively treat these breaks as dedicated sponsorship slots, playing a pre-produced ad for a partner during their scheduled pause.
+
+## Major Overhaul of Mid-Roll Ad Placements
+
+Perhaps the most impactful change arrives on **May 12, 2025**. YouTube is attempting to repair its reputation regarding intrusive advertising by optimizing where mid-roll ads appear in long-form videos.
+
+### The Shift Toward Natural Pauses
+Rather than placing ads at arbitrary intervals, YouTube will now use automated systems to identify "natural pauses" and transitions within a video. The goal is to make ad placements less disruptive to the viewer's experience, which in turn should improve viewer retention and engagement metrics.
+
+### Impact on Legacy Content
+There is a specific transition period for older content:
+*   **Cut-off Date:** Videos uploaded before February 24, 2025, that have manually placed mid-roll ads will be affected.
+*   **Automated Additions:** These videos will receive additional automated ad placements by default to optimize the viewer experience.
+*   **Opt-out Window:** Creators who do not want these automated additions must object/opt out before May 12, 2025. After this date, automated placement becomes the default for these videos.
+
+### New Tools in YouTube Studio
+To help creators manage this transition, YouTube Studio is introducing a new indicator that estimates whether an ad break might be perceived as "intrusive." While creators can still choose to keep these ads, there is a higher risk that YouTube will simply not play the ad if it is deemed too disruptive.
+
+### Revenue Implications: Manual vs. Automatic
+Data from tests conducted in July 2024 suggests a financial incentive for adopting these changes. Creators who enabled automatic mid-roll ads in addition to their manual placements saw an average increase of approximately **5% in gross revenue**. 
+
+While manual placement remains possible, the platform warns that poorly placed manual ads may generate less revenue starting in May 2025 as the system prioritizes quality and viewer experience.
+
+## Mid-Roll Changes: Frequently Asked Questions
+
+To clarify how these monetization changes will work in practice, here are the key details regarding the upcoming rollout:
+
+**Will this affect shorter videos?**
+No. Videos under 8 minutes will remain ad-free regarding mid-rolls.
+
+**Will YouTube add mid-rolls to videos that never had them?**
+No. If a creator has explicitly opted out of mid-roll ads for a video, that preference will be respected. Automatic mid-rolls are only added to videos that already contain at least some manual mid-roll placements.
+
+**Can I disable automatic mid-roll ads entirely?**
+Yes. This can be managed within the Monetization settings in YouTube Studio. However, creators should be aware that relying solely on manual placements may lead to lower revenue if those placements are flagged as intrusive.
+
+**Will viewers see more ads than before?**
+No. The total number of ads displayed is not increasing; the system is simply shifting *when* those ads appear to ensure they occur at more appropriate times.
+
+**Can I still place ads manually?**
+Yes, but it is highly recommended to use the new feedback tool in YouTube Studio to ensure the placement isn't too intrusive.
+
+By optimizing ad timing, YouTube aims to increase overall watch time and improve recommendation metrics, which ultimately benefits the creator's long-term growth. Creators are encouraged to begin testing automatic placements now to prepare for the final May deadline.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 Welcome to the latest YouTube updates! Today we're discussing [voice messages in comments](/youtube-tips-en/youtube-updates-new-av1-codec-support-voice-replies-expansion-and-side-by-side-ads-rollout/), Shorts promotions (ads on Shorts), a new live feature, and major changes to [mid-roll ads](/youtube-tips-en/youtube-updates-mid-roll-ad-bug-and-editing-restrictions-incoming/) taking effect in May 2025.
@@ -76,3 +171,4 @@ I think this is a positive development and a good opportunity to reevaluate your
 **What do you think about these changes? Have you already tried promoting Shorts?** I'm looking forward to your comments!
 
 Subscribe to my channel for weekly YouTube updates!
+<!-- kwm:transcript:end -->

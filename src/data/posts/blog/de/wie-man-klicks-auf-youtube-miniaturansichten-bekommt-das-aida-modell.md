@@ -19,7 +19,7 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
-Das Erstellen von Miniaturansichten kann schwierig und frustrierend sein. Selbst wenn du die technischen Fähigkeiten hast, um sie ansprechend zu gestalten, funktionieren sie vielleicht trotzdem nicht und erzielen katastrophale Klickraten. Aber warum ist das so? Genau darum geht es in diesem YouTube-Miniaturansicht-Tutorial. Es ist etwas theoretisch, aber du solltest ein grundlegendes Verständnis für das „Warum“ bekommen.
+Das Erstellen von Miniaturansichten kann schwierig und frustrierend sein. Selbst wenn du die technischen Fähigkeiten hast, um sie ansprechend zu gestalten, funktionieren sie vielleicht trotzdem nicht und erzielen katastrophale Klickraten. Aber warum ist das so? Genau darum geht es in diesem [YouTube-Miniaturansicht-Tutorial](/de/youtube-tipps/). Es ist etwas theoretisch, aber du solltest ein grundlegendes Verständnis für das „Warum“ bekommen.
 
 Um dies zu verstehen, müssen wir zunächst an einen potenziellen Zuschauer denken, der die Startseite durchstöbert. Nennen wir sie Tama. Wenn Tama youtube.com aufruft, wird sie sofort mit einem Dutzend oder mehr empfohlenen Videos überschwemmt. Sie scannt die Seite schnell und ihr Blick bleibt sofort bei der am meisten aufmerksamkeitserregenden Miniaturansicht hängen. Vielleicht gefällt sie ihr, vielleicht auch nicht, und wenn nicht, schaut sie sich eine andere Miniaturansicht an – wahrscheinlich eine weitere, die sehr aufmerksamkeitsstark ist.
 

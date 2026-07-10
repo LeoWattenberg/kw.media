@@ -24,6 +24,42 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## So erstellst du deinen eigenen YouTube Short
+
+Kurzvideos sind ein mächtiges Werkzeug für jeden Creator, um schnell und unkompliziert Inhalte zu teilen und neue Zuschauer zu erreichen. Der Prozess der Erstellung ist direkt in die mobile App integriert, sodass du keine externe Software benötigst, um einen ersten Short zu veröffentlichen. 
+
+Hier erfährst du Schritt für Schritt, wie du von der ersten Idee bis zum fertigen Upload gelangst.
+
+### Den Erstellungsprozess starten
+
+Alles beginnt in der YouTube-App auf deinem Smartphone. Um mit der Produktion zu starten, suchst du in der unteren Navigationsleiste das Plus-Symbol (+). Dieses dient als zentraler Einstiegspunkt für alle Arten von Uploads und Live-Übertragungen. 
+
+Sobald du darauf klickst, öffnet sich ein Menü mit verschiedenen Optionen. Wähle hier den Punkt [Kurzvideo erstellen](/youtube-tipps-de/verschiedene-wege-shorts-zu-erstellen-shorts/), um in den speziellen Modus für Shorts zu wechseln.
+
+### Aufnahme und Materialwahl
+
+Nachdem du den Short-Modus aktiviert hast, stehst du vor der Entscheidung, wie dein Video gefüllt werden soll. Du hast hierbei zwei grundlegende Möglichkeiten:
+
+1. **Direkte Aufnahme:** Du kannst die Kamerafunktion der App nutzen, um deinen Clip spontan aufzunehmen. Dies eignet sich besonders für authentische Momente oder schnelle Updates.
+2. **Bestehende Clips verwenden:** Falls du dein Material bereits vorproduziert hast oder ein Video in deinem Galerie-Ordner gespeichert ist, kannst du diesen bestehenden Clip einfach importieren und als Short hochladen.
+
+### Den Short bearbeiten: Musik und Text hinzufügen
+
+Ein Video wird erst durch die richtige Gestaltung lebendig. Bevor du den Short finalisierst, bietet YouTube dir integrierte Werkzeuge an, um die Qualität und Attraktivität deines Contents zu steigern:
+
+* **Musik:** Du kannst deinem Video einen passenden Soundtrack hinzufügen. Musik hilft dabei, die Stimmung des Videos zu unterstreichen und kann oft dazu beitragen, dass ein Short besser in den Algorithmus passt.
+* **Text-Overlays:** Durch das Hinzufügen von Text kannst du wichtige Informationen direkt im Bild kommunizieren oder Highlights hervorheben, was besonders für Zuschauer hilfreich ist, die das Video ohne Ton konsumieren.
+
+### Finalisierung und Veröffentlichung
+
+Der letzte Schritt vor der Veröffentlichung ist die Optimierung des Titels. Gib [deinem Short](/youtube-tipps-de/bearbeitbare-miniaturansichten-fur-shorts/) einen prägnanten Titel, der neugierig macht und klar beschreibt, worum es in dem kurzen Clip geht. Sobald der Titel gesetzt ist, ist dein Video bereit für den Upload.
+
+Wenn du tiefer in die Welt der Kurzvideos eintauchen möchtest und [weitere Tipps rund um YouTube und YouTube Shorts](/de/youtube-tipps/) suchst, lohnt sich ein Abonnement des kw.media-Kanals, um keine Creator-Infos mehr zu verpassen.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Um selbst einen Short zu produzieren, klicke in einer YouTube-App auf das Plus-Symbol, klick auf [Kurzvideo erstellen](/youtube-tipps-de/verschiedene-wege-shorts-zu-erstellen-shorts/), nimm deinen Short auf oder verwende einen bereits bestehenden Clip, füge Musik oder Text ein, gib einen Titel ein und fertig. Für mehr Creator-Infos rund um YouTube und YouTube Shorts abonniere den kw.media-Kanal.
+<!-- kwm:transcript:end -->

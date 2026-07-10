@@ -21,7 +21,7 @@ postCta:
 
 Die zentrale Frage, die zu diesem Leitfaden führt, ist: ***„Wie bekomme ich mehr Aufrufe?“*** Die kurze und einfache Antwort lautet: Optimieren Sie Ihre Videos für Suchmaschinen.
 
-Suchmaschinenoptimierung (SEO) ist eine Art schwarze Magie, die, wenn sie korrekt angewendet wird, dazu führt, dass Ihre Videos in den Suchergebnissen erscheinen. Es ist einfach zu lernen, aber schwer zu meistern und erfordert ständige Forschung, Anpassung und ein ständiges Im-Auge-Behalten Ihres Kalenders. Mehr dazu später!
+[Suchmaschinenoptimierung (SEO)](/de/youtube-tipps/) ist eine Art schwarze Magie, die, wenn sie korrekt angewendet wird, dazu führt, dass Ihre Videos in den Suchergebnissen erscheinen. Es ist einfach zu lernen, aber schwer zu meistern und erfordert ständige Forschung, Anpassung und ein ständiges Im-Auge-Behalten Ihres Kalenders. Mehr dazu später!
 
 Übrigens: Ein Video, das hoch im Ranking steht, nützt Ihnen nur wenig, wenn niemand darauf klickt. Stellen Sie also sicher, dass Sie für Ihr Video ein gutes [Vorschaubild (Thumbnail)](/youtube-tipps-de/wie-man-seine-miniaturansichten-auf-youtube-nicht-vermasselt-ein-tutorial/) haben! Wir haben bereits einen [Leitfaden zur Erstellung guter Thumbnails](https://www.reddit.com/r/youtubegaming/comments/i5cs8p/how_to_not_fuck_up_your_thumbnails/), daher wird dies hier nicht weiter diskutiert.
 

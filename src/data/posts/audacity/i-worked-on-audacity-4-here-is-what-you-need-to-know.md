@@ -28,7 +28,7 @@ postCta:
 
 ### Introduction
 
-Hello and welcome to this Audacity 4 tour. My name is Leo Wattenberg, and I was a designer on Audacity 4. Today I wanted to show you all of the things we have been up to in the past couple of years. For this, I'm using the Audacity 4 beta. And as you can see, it has an actual functioning dark theme. It also has a functioning light theme that looks pretty sleek. On the next screen here, we ask you about what clip visualizations you want.
+Hello and welcome to this [Audacity 4](/en/audacity/) tour. My name is Leo Wattenberg, and I was a designer on Audacity 4. Today I wanted to show you all of the things we have been up to in the past couple of years. For this, I'm using the Audacity 4 beta. And as you can see, it has an actual functioning dark theme. It also has a functioning light theme that looks pretty sleek. On the next screen here, we ask you about what clip visualizations you want.
 
 We have added a new and colorful logic which just colors each track differently. However, if you prefer the Audacity 3 style, you also have that available to you. You'll notice that this is going to be a little bit of a theme in this video because one of our guiding principles was to keep Audacity modern, of course, but to keep it familiar to those who have been used to Audacity 3 for the past many, many years. Because of this, we also have different options for what you want in your toolbar.
 

@@ -24,6 +24,45 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## Optimizing Content with New Device Type Insights
+
+YouTube is introducing a new way for Creators to understand exactly how their audience consumes their content. A new [Analytics card](/youtube-tips-en/youtube-analytics-top-earning-content-by-format-as-a-guide-for-creators/) has been added to the Audience section of [YouTube Analytics](/en/creator/), bringing critical data to the forefront that was previously tucked away in advanced mode.
+
+This update transforms how device distribution data is presented. Instead of digging through complex reports in advanced mode, Creators can now view a clear card format that provides a percentage breakdown of the device types their viewers are actively using. This allows for a quick snapshot of whether the majority of an audience is watching via smartphones, tablets, desktop computers, or televisions.
+
+### Why Device Distribution Matters for Production
+
+Understanding the primary device your audience uses is not just about gathering statistics; it has direct implications for how you produce and edit your videos. When you know the percentage breakdown of your viewers' devices, you can make informed decisions regarding on-screen elements.
+
+For example, if a significant portion of your audience views your content on smartphones, you must ensure that any on-screen text, captions, or graphics are proportionally sized to be legible on a small screen. Conversely, if there is a high percentage of TV viewing, you may want to focus more on high-resolution visuals and layouts that complement a cinematic experience. By aligning your production choices with the actual habits of your viewers, you can improve the overall user experience and keep your audience engaged longer.
+
+## Improving Viewer Engagement in Mobile Live Chats
+
+Beyond analytics, YouTube is focusing on reducing friction for viewers who interact with livestreams via mobile devices. For those who consume live content on the go, typing in a fast-moving chat can be challenging. To address this, YouTube is implementing auto-completions for mobile chats, with a rollout expected by Q1 2025 (by the end of March).
+
+### How Auto-Completion Works
+
+The upcoming auto-completion feature is designed to streamline communication within the live chat. When a user begins typing on a mobile device, YouTube will provide a small selection of suggestions. These suggestions will include:
+*   Names of people who have recently participated in the chat.
+*   Suggestions that match the specific letters the user has already typed.
+
+This functionality mirrors the ease of chatting from a PC, making it significantly faster for viewers to mention other participants or respond to ongoing conversations without having to type out full usernames manually.
+
+### Support for Vertical and Horizontal Streams
+
+A key detail of this update is its versatility: auto-completions will be available for both vertical and horizontal livestreams. This ensures a consistent experience regardless of the stream's orientation.
+
+From a technical perspective, it is helpful for Creators to remember that YouTube livestreams are essentially the same in the backend, whether they are delivered in a horizontal or vertical format. By utilizing the Live Control Room and an automatic stream key, Creators can easily create both types of streams. Because the underlying infrastructure is shared, these mobile chat improvements will benefit all live formats equally.
+
+### The Impact on Community Interaction
+
+For Creators, this update is particularly valuable because it lowers the barrier to entry for viewer interaction. When viewers find it easier to engage with one another and the Creator in real-time, the overall energy of the stream often increases. By making the mobile chat experience more fluid, YouTube is helping Creators foster more active and responsive fan communities during live events.
+
+As these features roll out through the first quarter of 2025, Creators should keep an eye on their YouTube Studio updates to see when these improvements become fully active for their specific audiences.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 With the YouTube updates, we're starting this week with Analytics, as there's a new [Analytics card](/youtube-tips-en/youtube-analytics-top-earning-content-by-format-as-a-guide-for-creators/) in the Audience section. It displays the device types that were previously available in advanced mode but are now presented in a clear card format. This provides a percentage breakdown of the device types your viewers are actively using. This can be helpful to adjust on-screen elements proportionally and understand which device you're primarily producing for—is it more smartphone or TV viewing?
@@ -35,3 +74,4 @@ Staying on the topic of smartphones, those of you who consume livestreams on mob
 I think this is great because, at the backend, YouTube livestreams are essentially the same whether horizontal or vertical. So, using the Live Control Room and an automatic stream key, you can create both types. The important thing is to be excited that auto-completions are finally coming to mobile live chats! And if you have viewers watching your streams on mobile, they'll naturally be happy about this too.
 
 As soon as we have more information, you'll hear it here on the channel. Thanks as always for watching, and see you next week! Until then, take care and keep pushing!
+<!-- kwm:transcript:end -->
