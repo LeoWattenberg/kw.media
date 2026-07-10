@@ -1,0 +1,15 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import PodcastChapterizer from '../../components/tools/PodcastChapterizer.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('podcast-chapterizer', {
+	id: 'podcast-chapterizer',
+	translations: {
+		de: { path: '/de/tools/podcast-chapterizer/', title: 'Podcast Chapterizer', description: 'Erstelle YouTube-Chapter, FFmetadata und optional Medien mit eingebetteten Kapiteln.' },
+		en: { path: '/en/tools/podcast-chapterizer/', title: 'Podcast Chapterizer', description: 'Create YouTube chapters, FFmetadata, and optionally media with embedded chapters.' },
+	},
+});
+const { tool, alternatePaths } = Astro.props;
+---
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}><PodcastChapterizer locale={tool.locale} /></ToolPageShell>

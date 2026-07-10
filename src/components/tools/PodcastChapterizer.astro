@@ -1,0 +1,206 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Podcast-Tool', title: 'Podcast Chapterizer',
+		intro: 'Erstelle Podcast-Kapitel, YouTube-Chapter-Text und optional eine Mediendatei mit eingebetteten Kapiteln.',
+		privacy: 'Kapiteltext und Medien bleiben lokal. Muxing läuft über FFmpeg WASM.',
+		media: 'Mediendatei', choose: 'Audio oder Video auswählen', hint: 'Optional für eingebettete Kapitel',
+		editor: 'Kapitel', chapters: 'Kapiteltext', output: 'Mux-Container', make: 'Kapiteldateien erstellen', mux: 'Kapitel einbetten', clear: 'Zurücksetzen',
+		result: 'Ergebnis', downloadYoutube: 'YouTube-Chapter herunterladen', downloadMeta: 'FFmetadata herunterladen', downloadMedia: 'Mediendatei herunterladen',
+		waiting: 'Füge Kapitel ein. Format: 00:00 Titel', ready: '{count} Kapitel erkannt.', noChapters: 'Keine gültigen Kapitel gefunden.',
+		loading: 'FFmpeg WASM wird geladen…', ffmpegReady: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%', muxing: 'Kapitel werden eingebettet…',
+		done: 'Kapitel wurden erstellt.', muxed: 'Mediendatei mit Kapiteln erstellt.', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.',
+		error: 'Chapterizer fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', noMedia: 'Wähle zuerst eine Mediendatei.',
+	},
+	en: {
+		eyebrow: 'Podcast tool', title: 'Podcast Chapterizer',
+		intro: 'Create podcast chapters, YouTube chapter text, and optionally a media file with embedded chapters.',
+		privacy: 'Chapter text and media stay local. Muxing runs through FFmpeg WASM.',
+		media: 'Media file', choose: 'Choose audio or video', hint: 'Optional for embedded chapters',
+		editor: 'Chapters', chapters: 'Chapter text', output: 'Mux container', make: 'Create chapter files', mux: 'Embed chapters', clear: 'Reset',
+		result: 'Result', downloadYoutube: 'Download YouTube chapters', downloadMeta: 'Download FFmetadata', downloadMedia: 'Download media file',
+		waiting: 'Paste chapters. Format: 00:00 Title', ready: '{count} chapters detected.', noChapters: 'No valid chapters found.',
+		loading: 'Loading FFmpeg WASM…', ffmpegReady: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%', muxing: 'Embedding chapters…',
+		done: 'Chapter files created.', muxed: 'Media file with chapters created.', timeout: 'FFmpeg WASM did not load within 90 seconds.',
+		error: 'Chapterizer failed: {message}', generic: 'Unknown error', noMedia: 'Choose a media file first.',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+<section class="section chapterizer-section tool-workspace">
+	<div class="container">
+		<div class="chapterizer" data-chapterizer data-copy={copyJson}>
+			<ToolPanel title={copy.media}>
+				<FilePicker label={copy.choose} name={copy.choose} hint={copy.hint} accept="audio/*,video/*,.mp3,.m4a,.mp4,.mkv,.mov,.wav" nameAttrs={{ 'data-file-name': true }} metaAttrs={{ 'data-file-meta': true }} inputAttrs={{ 'data-file': true }} />
+				<audio data-audio controls hidden></audio>
+			</ToolPanel>
+			<ToolPanel title={copy.editor}>
+				<label class="chapter-text-label"><span>{copy.chapters}</span><textarea data-chapters rows="14" spellcheck="false">00:00 Intro
+02:30 Main topic
+10:00 Listener question
+18:45 Outro</textarea></label>
+				<SelectControl label={copy.output} selectAttrs={{ 'data-output': true }}><option value="m4a">M4A</option><option value="mp3">MP3</option><option value="mp4">MP4</option><option value="mkv">MKV</option></SelectControl>
+				<ToolActions><button class="button primary" data-make type="button">{copy.make}</button><button class="button secondary" data-mux type="button">{copy.mux}</button><button class="button secondary" data-clear type="button">{copy.clear}</button></ToolActions>
+				<ToolStatus data-status text={copy.waiting} />
+			</ToolPanel>
+			<ToolPanel class="result-panel" title={copy.result}>
+				<ol data-preview></ol>
+				<div class="chapter-downloads"><a class="tool-download-link" data-youtube href="#" download hidden>{copy.downloadYoutube}</a><a class="tool-download-link" data-meta href="#" download hidden>{copy.downloadMeta}</a><a class="tool-download-link" data-media href="#" download hidden>{copy.downloadMedia}</a></div>
+			</ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+
+	for (const root of document.querySelectorAll('[data-chapterizer]:not([data-bound])')) {
+		root.dataset.bound = 'true';
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const fileInput = root.querySelector('[data-file]');
+		const fileName = root.querySelector('[data-file-name]');
+		const fileMeta = root.querySelector('[data-file-meta]');
+		const audio = root.querySelector('[data-audio]');
+		const chaptersText = root.querySelector('[data-chapters]');
+		const output = root.querySelector('[data-output]');
+		const makeButton = root.querySelector('[data-make]');
+		const muxButton = root.querySelector('[data-mux]');
+		const clearButton = root.querySelector('[data-clear]');
+		const status = root.querySelector('[data-status]');
+		const preview = root.querySelector('[data-preview]');
+		const youtubeLink = root.querySelector('[data-youtube]');
+		const metaLink = root.querySelector('[data-meta]');
+		const mediaLink = root.querySelector('[data-media]');
+		let inputUrl = null;
+		let youtubeUrl = null;
+		let metaUrl = null;
+		let mediaUrl = null;
+		const runtime = createFfmpegRuntime({ timeoutMessage: copy.timeout, onLoading: () => setStatus(copy.loading, 'info'), onReady: () => setStatus(copy.ffmpegReady, 'success'), onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info') });
+
+		fileInput.addEventListener('change', onFile);
+		chaptersText.addEventListener('input', updatePreview);
+		makeButton.addEventListener('click', makeFiles);
+		muxButton.addEventListener('click', () => void mux());
+		clearButton.addEventListener('click', reset);
+		updatePreview();
+
+		function onFile() {
+			const file = fileInput.files?.[0];
+			if (!file) return;
+			if (inputUrl) URL.revokeObjectURL(inputUrl);
+			inputUrl = URL.createObjectURL(file);
+			audio.src = inputUrl; audio.hidden = false;
+			fileName.textContent = file.name; fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'media'}`;
+		}
+
+		function makeFiles() {
+			try {
+				const chapters = getChapters();
+				const youtube = toYoutube(chapters);
+				const meta = toMetadata(chapters);
+				setTextDownload(youtubeLink, youtube, 'youtube-chapters.txt', 'text/plain', 'youtube');
+				setTextDownload(metaLink, meta, 'chapters.ffmetadata', 'text/plain', 'meta');
+				setStatus(copy.done, 'success');
+			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
+		}
+
+		async function mux() {
+			const file = fileInput.files?.[0];
+			if (!file) { setStatus(copy.noMedia, 'error'); return; }
+			try {
+				const metadata = toMetadata(getChapters());
+				setStatus(copy.muxing, 'info');
+				const ext = output.value;
+				const bytes = await runtime.run(async (ffmpeg) => {
+					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+					const input = `input-${stamp}${extension(file.name)}`;
+					const meta = `chapters-${stamp}.ffmetadata`;
+					const out = `chapterized-${stamp}.${ext}`;
+					await ffmpeg.writeFile(input, new Uint8Array(await file.arrayBuffer()));
+					await ffmpeg.writeFile(meta, new TextEncoder().encode(metadata));
+					try {
+						const args = ['-i', input, '-i', meta, '-map_metadata', '1', '-map_chapters', '1', '-map', '0', '-c', 'copy'];
+						if (ext === 'mp4' || ext === 'm4a') args.push('-movflags', '+faststart');
+						args.push('-y', out);
+						const code = await ffmpeg.exec(args);
+						if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
+						const result = await ffmpeg.readFile(out);
+						return result instanceof Uint8Array ? result : new TextEncoder().encode(String(result));
+					} finally { await ffmpeg.deleteFile(input).catch(() => {}); await ffmpeg.deleteFile(meta).catch(() => {}); await ffmpeg.deleteFile(out).catch(() => {}); }
+				});
+				if (mediaUrl) URL.revokeObjectURL(mediaUrl);
+				mediaUrl = URL.createObjectURL(new Blob([bytes], { type: mime(ext) }));
+				mediaLink.href = mediaUrl; mediaLink.download = `${baseName(file.name)}-chapters.${ext}`; mediaLink.hidden = false;
+				setStatus(copy.muxed, 'success');
+			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
+		}
+
+		function getChapters() {
+			const chapters = parseChapters(chaptersText.value);
+			if (!chapters.length) throw new Error(copy.noChapters);
+			return chapters;
+		}
+		function updatePreview() {
+			const chapters = parseChapters(chaptersText.value);
+			preview.replaceChildren(...chapters.map((chapter) => { const li = document.createElement('li'); li.textContent = `${formatTime(chapter.start)} ${chapter.title}`; return li; }));
+			setStatus(chapters.length ? format(copy.ready, { count: chapters.length }) : copy.waiting, chapters.length ? 'success' : 'info');
+		}
+		function parseChapters(source) {
+			return String(source || '').split('\n').map((line) => {
+				const match = line.trim().match(/^(\d{1,2}:)?\d{1,2}:\d{2}(?:[.,]\d{1,3})?\s+(.+)$/);
+				if (!match) return null;
+				const time = line.trim().split(/\s+/)[0];
+				return { start: parseTime(time), title: line.trim().slice(time.length).trim() };
+			}).filter((chapter) => chapter && Number.isFinite(chapter.start)).sort((a, b) => a.start - b.start);
+		}
+		function toYoutube(chapters) { return chapters.map((chapter) => `${formatTime(chapter.start)} ${chapter.title}`).join('\n') + '\n'; }
+		function toMetadata(chapters) {
+			const lines = [';FFMETADATA1'];
+			for (let i = 0; i < chapters.length; i++) {
+				const start = Math.round(chapters[i].start * 1000);
+				const end = Math.round(((chapters[i + 1]?.start ?? chapters[i].start + 60) * 1000) - 1);
+				lines.push('[CHAPTER]', 'TIMEBASE=1/1000', `START=${start}`, `END=${Math.max(start + 1, end)}`, `title=${chapters[i].title.replace(/\n/g, ' ')}`);
+			}
+			return lines.join('\n') + '\n';
+		}
+		function setTextDownload(link, text, name, type, kind) {
+			if (kind === 'youtube' && youtubeUrl) URL.revokeObjectURL(youtubeUrl);
+			if (kind === 'meta' && metaUrl) URL.revokeObjectURL(metaUrl);
+			const url = URL.createObjectURL(new Blob([text], { type }));
+			if (kind === 'youtube') youtubeUrl = url; else metaUrl = url;
+			link.href = url; link.download = name; link.hidden = false;
+		}
+		function parseTime(value) { const parts = value.replace(',', '.').split(':').map(Number); const seconds = parts.pop() || 0; const minutes = parts.pop() || 0; const hours = parts.pop() || 0; return hours * 3600 + minutes * 60 + seconds; }
+		function formatTime(seconds) { const h = Math.floor(seconds / 3600); const m = Math.floor((seconds % 3600) / 60); const s = Math.floor(seconds % 60); return h ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`; }
+		function reset() { fileInput.value = ''; chaptersText.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; audio.hidden = true; audio.removeAttribute('src'); for (const link of [youtubeLink, metaLink, mediaLink]) link.hidden = true; for (const url of [inputUrl, youtubeUrl, metaUrl, mediaUrl]) if (url) URL.revokeObjectURL(url); inputUrl = youtubeUrl = metaUrl = mediaUrl = null; updatePreview(); }
+		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
+		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
+		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'podcast'; }
+		function mime(ext) { return ({ mp3: 'audio/mpeg', m4a: 'audio/mp4', mp4: 'video/mp4', mkv: 'video/x-matroska' })[ext] || 'application/octet-stream'; }
+		function pad(value) { return String(value).padStart(2, '0'); }
+		function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
+	}
+</script>
+
+<style>
+	.chapterizer { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+	.chapterizer .result-panel { grid-column: 1 / -1; }
+	.chapter-text-label { display: grid; gap: 8px; font-weight: 800; }
+	.chapter-text-label textarea { width: 100%; min-height: 260px; padding: 12px; border: 1px solid var(--color-line); border-radius: 6px; background: var(--color-surface-raised); color: var(--color-ink); font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; resize: vertical; }
+	.chapter-downloads { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+	.chapterizer audio { width: 100%; margin-top: 14px; }
+	@media (max-width: 860px) { .chapterizer { grid-template-columns: 1fr; } }
+</style>
