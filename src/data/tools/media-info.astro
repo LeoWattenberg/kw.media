@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import MediaInfo from '../../components/tools/MediaInfo.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('media-info', {
+	id: 'media-info',
+	translations: {
+		de: {
+			id: 'media-info-de',
+			path: '/de/tools/media-info/',
+			title: 'MediaInfo',
+			description: 'Lies technische Metadaten aus lokalen Audio-, Video- und Bilddateien clientseitig mit MediaInfoLib WASM.',
+		},
+		en: {
+			id: 'media-info-en',
+			path: '/en/tools/media-info/',
+			title: 'MediaInfo',
+			description: 'Read technical metadata from local audio, video, and image files client-side with MediaInfoLib WASM.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<MediaInfo locale={tool.locale} />
+</ToolPageShell>
