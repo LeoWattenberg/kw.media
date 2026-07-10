@@ -1,0 +1,1111 @@
+---
+import type { Locale } from '../../i18n';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const positions = [
+	{ value: 'top-left', label: { de: 'Oben links', en: 'Top left' } },
+	{ value: 'top-center', label: { de: 'Oben mittig', en: 'Top center' } },
+	{ value: 'top-right', label: { de: 'Oben rechts', en: 'Top right' } },
+	{ value: 'center-left', label: { de: 'Mitte links', en: 'Center left' } },
+	{ value: 'center', label: { de: 'Mitte', en: 'Center' } },
+	{ value: 'center-right', label: { de: 'Mitte rechts', en: 'Center right' } },
+	{ value: 'bottom-left', label: { de: 'Unten links', en: 'Bottom left' } },
+	{ value: 'bottom-center', label: { de: 'Unten mittig', en: 'Bottom center' } },
+	{ value: 'bottom-right', label: { de: 'Unten rechts', en: 'Bottom right' } },
+];
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Bild- & Video-Tool',
+		title: 'Watermarker',
+		intro: 'Lege eigene Text- oder Bild-Wasserzeichen über lokale Bilder und Videos. Bilder werden per Canvas verarbeitet, Videos per FFmpeg wasm.',
+		privacy: 'Deine Datei wird nicht hochgeladen. Die Verarbeitung läuft clientseitig in deinem Browser.',
+		sourceTitle: 'Quelldatei',
+		chooseSource: 'Bild oder Video auswählen',
+		sourceHint: 'PNG, JPEG, WebP, GIF, MP4, WebM, MOV und weitere Browser-/FFmpeg-kompatible Formate',
+		watermarkTitle: 'Wasserzeichen',
+		modeLabel: 'Art',
+		textMode: 'Text',
+		imageMode: 'Bild',
+		textLabel: 'Text',
+		textPlaceholder: 'kw.media',
+		colorLabel: 'Textfarbe',
+		watermarkImage: 'Wasserzeichen-Bild',
+		chooseWatermark: 'PNG oder anderes Bild auswählen',
+		positionLabel: 'Position',
+		opacityLabel: 'Deckkraft',
+		sizeLabel: 'Größe',
+		marginLabel: 'Abstand',
+		tileLabel: 'Wiederholen',
+		process: 'Wasserzeichen anwenden',
+		clear: 'Zurücksetzen',
+		resultTitle: 'Ergebnis',
+		download: 'Datei herunterladen',
+		sourcePreview: 'Vorschau',
+		outputPreview: 'Ausgabe',
+		client: {
+			waiting: 'Wähle eine Bild- oder Videodatei aus, um zu starten.',
+			sourceReady: '{name} ist ausgewählt ({size}).',
+			watermarkReady: '{name} wird als Wasserzeichen verwendet.',
+			needSource: 'Wähle zuerst eine Quelldatei.',
+			needWatermark: 'Gib einen Text ein oder wähle ein Wasserzeichen-Bild.',
+			metadataMissing: 'Die Abmessungen der Datei konnten nicht gelesen werden.',
+			processingImage: 'Bild wird verarbeitet...',
+			processingVideo: 'Video wird vorbereitet...',
+			ffmpegLoading: 'FFmpeg wasm wird geladen...',
+			ffmpegProgress: 'FFmpeg rendert... {progress}%',
+			ffmpegReady: 'FFmpeg wasm ist bereit.',
+			ffmpegTimeout: 'FFmpeg wasm hat nicht innerhalb von 90 Sekunden geladen.',
+			imageReady: 'Das Bild wurde mit Wasserzeichen erzeugt.',
+			videoReady: 'Das Video wurde mit Wasserzeichen erzeugt.',
+			reset: 'Das Tool wurde zurückgesetzt.',
+			meta: '{width} x {height}px | {size}',
+			fileMeta: '{size} | {type}',
+			outputImage: '{name}.png',
+			outputVideo: '{name}.mp4',
+			unknownError: 'Unbekannter Fehler',
+		},
+	},
+	en: {
+		eyebrow: 'Image & video tool',
+		title: 'Watermarker',
+		intro: 'Place custom text or image watermarks over local images and videos. Images are processed with Canvas, videos with FFmpeg wasm.',
+		privacy: 'Your file is not uploaded. Processing runs client-side in your browser.',
+		sourceTitle: 'Source file',
+		chooseSource: 'Choose image or video',
+		sourceHint: 'PNG, JPEG, WebP, GIF, MP4, WebM, MOV, and other browser/FFmpeg-compatible formats',
+		watermarkTitle: 'Watermark',
+		modeLabel: 'Type',
+		textMode: 'Text',
+		imageMode: 'Image',
+		textLabel: 'Text',
+		textPlaceholder: 'kw.media',
+		colorLabel: 'Text color',
+		watermarkImage: 'Watermark image',
+		chooseWatermark: 'Choose PNG or another image',
+		positionLabel: 'Position',
+		opacityLabel: 'Opacity',
+		sizeLabel: 'Size',
+		marginLabel: 'Margin',
+		tileLabel: 'Repeat',
+		process: 'Apply watermark',
+		clear: 'Reset',
+		resultTitle: 'Result',
+		download: 'Download file',
+		sourcePreview: 'Preview',
+		outputPreview: 'Output',
+		client: {
+			waiting: 'Choose an image or video file to start.',
+			sourceReady: '{name} is selected ({size}).',
+			watermarkReady: '{name} will be used as the watermark.',
+			needSource: 'Choose a source file first.',
+			needWatermark: 'Enter watermark text or choose a watermark image.',
+			metadataMissing: 'The file dimensions could not be read.',
+			processingImage: 'Processing image...',
+			processingVideo: 'Preparing video...',
+			ffmpegLoading: 'Loading FFmpeg wasm...',
+			ffmpegProgress: 'FFmpeg is rendering... {progress}%',
+			ffmpegReady: 'FFmpeg wasm is ready.',
+			ffmpegTimeout: 'FFmpeg wasm did not finish loading within 90 seconds.',
+			imageReady: 'The watermarked image is ready.',
+			videoReady: 'The watermarked video is ready.',
+			reset: 'The tool has been reset.',
+			meta: '{width} x {height}px | {size}',
+			fileMeta: '{size} | {type}',
+			outputImage: '{name}.png',
+			outputVideo: '{name}.mp4',
+			unknownError: 'Unknown error',
+		},
+	},
+} satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy.client);
+---
+
+<section class="tool-intro">
+	<div class="container">
+		<p class="eyebrow">{copy.eyebrow}</p>
+		<h1>{copy.title}</h1>
+		<p class="tool-lede">{copy.intro}</p>
+		<p class="tool-note">{copy.privacy}</p>
+	</div>
+</section>
+
+<section class="section watermarker-section">
+	<div class="container">
+		<div class="watermarker-tool" data-watermarker data-copy={copyJson}>
+			<div class="watermarker-grid">
+				<section class="watermarker-panel">
+					<h2>{copy.sourceTitle}</h2>
+					<label class="file-picker">
+						<span>{copy.sourceTitle}</span>
+						<strong data-source-name>{copy.chooseSource}</strong>
+						<small data-source-meta>{copy.sourceHint}</small>
+						<input data-source-file type="file" accept="image/*,video/*,.mkv,.mov,.mp4,.webm,.avi,.m4v" />
+					</label>
+					<div class="preview-card" data-output-preview hidden>
+						<div class="result-heading">
+							<p>{copy.outputPreview}</p>
+							<a class="button primary" data-download href="#" download hidden>{copy.download}</a>
+						</div>
+						<div class="preview-frame">
+							<img data-output-image alt="" hidden />
+							<video data-output-video controls playsinline hidden></video>
+						</div>
+						<small data-output-details></small>
+					</div>
+				</section>
+
+				<section class="watermarker-panel settings-panel">
+					<h2>{copy.watermarkTitle}</h2>
+					<label class="select-control">
+						<span>{copy.modeLabel}</span>
+						<select data-mode>
+							<option value="text">{copy.textMode}</option>
+							<option value="image">{copy.imageMode}</option>
+						</select>
+					</label>
+					<label class="text-control" data-text-group>
+						<span>{copy.textLabel}</span>
+						<input data-watermark-text type="text" value={copy.textPlaceholder} placeholder={copy.textPlaceholder} />
+					</label>
+					<label class="color-control" data-color-group>
+						<span>{copy.colorLabel}</span>
+						<input data-watermark-color type="color" value="#ffffff" />
+					</label>
+					<label class="file-picker watermark-file" data-image-group hidden>
+						<span>{copy.watermarkImage}</span>
+						<strong data-watermark-name>{copy.chooseWatermark}</strong>
+						<small>{copy.chooseWatermark}</small>
+						<input data-watermark-file type="file" accept="image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp" />
+					</label>
+					<label class="select-control">
+						<span>{copy.positionLabel}</span>
+						<select data-position>
+							{positions.map((position) => <option value={position.value}>{position.label[locale]}</option>)}
+						</select>
+					</label>
+					<label class="range-control">
+						<span>{copy.opacityLabel}: <strong data-opacity-label>55%</strong></span>
+						<input data-opacity type="range" min="5" max="100" step="1" value="55" />
+					</label>
+					<label class="range-control">
+						<span>{copy.sizeLabel}: <strong data-size-label>24%</strong></span>
+						<input data-size type="range" min="5" max="60" step="1" value="24" />
+					</label>
+					<label class="range-control">
+						<span>{copy.marginLabel}: <strong data-margin-label>4%</strong></span>
+						<input data-margin type="range" min="0" max="20" step="1" value="4" />
+					</label>
+					<label class="toggle-control">
+						<input data-tile type="checkbox" />
+						<span>{copy.tileLabel}</span>
+					</label>
+					<div class="tool-actions">
+						<button class="button primary" data-process type="button" disabled>{copy.process}</button>
+						<button class="button secondary" data-clear type="button">{copy.clear}</button>
+					</div>
+					<p class="status" data-status role="status">{copy.client.waiting}</p>
+				</section>
+			</div>
+
+		</div>
+	</div>
+</section>
+
+<script is:inline>
+	(() => {
+		const roots = document.querySelectorAll('[data-watermarker]:not([data-watermarker-bound])');
+
+		for (const root of roots) {
+			root.dataset.watermarkerBound = 'true';
+			initWatermarker(root);
+		}
+
+		function initWatermarker(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const sourceInput = root.querySelector('[data-source-file]');
+			const sourceName = root.querySelector('[data-source-name]');
+			const sourceMeta = root.querySelector('[data-source-meta]');
+			const outputPreview = root.querySelector('[data-output-preview]');
+			const modeSelect = root.querySelector('[data-mode]');
+			const textGroup = root.querySelector('[data-text-group]');
+			const colorGroup = root.querySelector('[data-color-group]');
+			const imageGroup = root.querySelector('[data-image-group]');
+			const textInput = root.querySelector('[data-watermark-text]');
+			const colorInput = root.querySelector('[data-watermark-color]');
+			const watermarkInput = root.querySelector('[data-watermark-file]');
+			const watermarkName = root.querySelector('[data-watermark-name]');
+			const positionSelect = root.querySelector('[data-position]');
+			const opacityInput = root.querySelector('[data-opacity]');
+			const opacityLabel = root.querySelector('[data-opacity-label]');
+			const sizeInput = root.querySelector('[data-size]');
+			const sizeLabel = root.querySelector('[data-size-label]');
+			const marginInput = root.querySelector('[data-margin]');
+			const marginLabel = root.querySelector('[data-margin-label]');
+			const tileInput = root.querySelector('[data-tile]');
+			const processButton = root.querySelector('[data-process]');
+			const clearButton = root.querySelector('[data-clear]');
+			const status = root.querySelector('[data-status]');
+			const downloadLink = root.querySelector('[data-download]');
+			const outputImage = root.querySelector('[data-output-image]');
+			const outputVideo = root.querySelector('[data-output-video]');
+			const outputDetails = root.querySelector('[data-output-details]');
+
+			if (
+				!sourceInput || !sourceName || !sourceMeta || !outputPreview || !modeSelect ||
+				!textGroup || !colorGroup || !imageGroup || !textInput ||
+				!colorInput || !watermarkInput || !watermarkName || !positionSelect || !opacityInput ||
+				!opacityLabel || !sizeInput || !sizeLabel || !marginInput || !marginLabel || !tileInput ||
+				!processButton || !clearButton || !status || !downloadLink || !outputImage ||
+				!outputVideo || !outputDetails
+			) {
+				return;
+			}
+
+			const state = {
+				sourceFile: null,
+				sourceUrl: null,
+				sourceKind: null,
+				sourceWidth: 0,
+				sourceHeight: 0,
+				watermarkFile: null,
+				watermarkUrl: null,
+				outputUrl: null,
+				isWorking: false,
+				ffmpeg: null,
+				ffmpegPromise: null,
+				ffmpegQueue: Promise.resolve(),
+			};
+			const defaults = {
+				sourceName: sourceName.textContent,
+				sourceMeta: sourceMeta.textContent,
+				watermarkName: watermarkName.textContent,
+			};
+
+			sourceInput.addEventListener('change', () => {
+				void setSourceFile(sourceInput.files && sourceInput.files[0] ? sourceInput.files[0] : null);
+			});
+			watermarkInput.addEventListener('change', () => {
+				setWatermarkFile(watermarkInput.files && watermarkInput.files[0] ? watermarkInput.files[0] : null);
+			});
+			modeSelect.addEventListener('change', updateModeUi);
+			textInput.addEventListener('input', updateReadyState);
+			for (const input of [opacityInput, sizeInput, marginInput]) {
+				input.addEventListener('input', updateRangeLabels);
+			}
+			processButton.addEventListener('click', () => {
+				void processSource();
+			});
+			clearButton.addEventListener('click', resetTool);
+
+			updateModeUi();
+			updateRangeLabels();
+			updateReadyState();
+
+			async function setSourceFile(file) {
+				resetOutput();
+				revokeUrl('sourceUrl');
+				state.sourceFile = file;
+				state.sourceKind = null;
+				state.sourceWidth = 0;
+				state.sourceHeight = 0;
+
+				if (!file) {
+					sourceInput.value = '';
+					sourceName.textContent = defaults.sourceName;
+					sourceMeta.textContent = defaults.sourceMeta;
+					setStatus(copy.waiting, 'info');
+					updateReadyState();
+					return;
+				}
+
+				state.sourceUrl = URL.createObjectURL(file);
+				state.sourceKind = detectSourceKind(file);
+				sourceName.textContent = file.name;
+				sourceMeta.textContent = format(copy.fileMeta, {
+					size: formatBytes(file.size),
+					type: file.type || state.sourceKind,
+				});
+
+				try {
+					if (state.sourceKind === 'video') {
+						const metadata = await loadVideoMetadata(state.sourceUrl);
+						state.sourceWidth = metadata.width;
+						state.sourceHeight = metadata.height;
+					} else {
+						const image = await loadImage(state.sourceUrl);
+						state.sourceKind = 'image';
+						state.sourceWidth = image.naturalWidth;
+						state.sourceHeight = image.naturalHeight;
+					}
+
+					if (!state.sourceWidth || !state.sourceHeight) {
+						throw new Error(copy.metadataMissing);
+					}
+
+					setStatus(format(copy.sourceReady, { name: file.name, size: formatBytes(file.size) }), 'success');
+				} catch (error) {
+					setStatus(messageFromError(error), 'error');
+				} finally {
+					updateReadyState();
+				}
+			}
+
+			function setWatermarkFile(file) {
+				revokeUrl('watermarkUrl');
+				state.watermarkFile = file;
+				watermarkInput.value = file ? watermarkInput.value : '';
+
+				if (!file) {
+					watermarkName.textContent = defaults.watermarkName;
+					updateReadyState();
+					return;
+				}
+
+				state.watermarkUrl = URL.createObjectURL(file);
+				watermarkName.textContent = file.name;
+				setStatus(format(copy.watermarkReady, { name: file.name }), 'success');
+				updateReadyState();
+			}
+
+			async function processSource() {
+				if (!state.sourceFile) {
+					setStatus(copy.needSource, 'error');
+					return;
+				}
+
+				if (!hasWatermark()) {
+					setStatus(copy.needWatermark, 'error');
+					return;
+				}
+
+				setWorking(true);
+				resetOutput();
+
+				try {
+					if (state.sourceKind === 'video') {
+						await processVideo();
+					} else {
+						await processImage();
+					}
+				} catch (error) {
+					setStatus(messageFromError(error), 'error');
+				} finally {
+					setWorking(false);
+				}
+			}
+
+			async function processImage() {
+				setStatus(copy.processingImage, 'info');
+				const source = await loadImage(state.sourceUrl);
+				const canvas = document.createElement('canvas');
+				canvas.width = source.naturalWidth;
+				canvas.height = source.naturalHeight;
+				const context = canvas.getContext('2d');
+				context.drawImage(source, 0, 0);
+				await drawWatermark(context, canvas.width, canvas.height);
+				const blob = await canvasToBlob(canvas, 'image/png', 0.95);
+				const outputName = format(copy.outputImage, { name: baseName(state.sourceFile.name) });
+
+				state.outputUrl = URL.createObjectURL(blob);
+				outputImage.src = state.outputUrl;
+				outputImage.hidden = false;
+				outputVideo.hidden = true;
+				downloadLink.href = state.outputUrl;
+				downloadLink.download = outputName;
+				downloadLink.hidden = false;
+				outputDetails.textContent = format(copy.meta, {
+					width: canvas.width,
+					height: canvas.height,
+					size: formatBytes(blob.size),
+				});
+				outputPreview.hidden = false;
+				setStatus(copy.imageReady, 'success');
+			}
+
+			async function processVideo() {
+				setStatus(copy.processingVideo, 'info');
+				const overlayCanvas = document.createElement('canvas');
+				overlayCanvas.width = state.sourceWidth;
+				overlayCanvas.height = state.sourceHeight;
+				await drawWatermark(overlayCanvas.getContext('2d'), overlayCanvas.width, overlayCanvas.height);
+				const overlayBlob = await canvasToBlob(overlayCanvas, 'image/png', 0.95);
+				const output = await renderVideoWithOverlay(state.sourceFile, overlayBlob);
+				const blob = new Blob([output], { type: 'video/mp4' });
+				const outputName = format(copy.outputVideo, { name: baseName(state.sourceFile.name) });
+
+				state.outputUrl = URL.createObjectURL(blob);
+				outputVideo.src = state.outputUrl;
+				outputVideo.hidden = false;
+				outputImage.hidden = true;
+				downloadLink.href = state.outputUrl;
+				downloadLink.download = outputName;
+				downloadLink.hidden = false;
+				outputDetails.textContent = format(copy.meta, {
+					width: state.sourceWidth,
+					height: state.sourceHeight,
+					size: formatBytes(blob.size),
+				});
+				outputPreview.hidden = false;
+				setStatus(copy.videoReady, 'success');
+			}
+
+			async function renderVideoWithOverlay(file, overlayBlob) {
+				return queueFfmpegTask(async () => {
+					const ffmpeg = await loadFfmpeg();
+					const inputName = `input-${Date.now()}${inputExtension(file.name)}`;
+					const overlayName = `watermark-${Date.now()}.png`;
+					const outputName = `output-${Date.now()}.mp4`;
+
+					await ffmpeg.writeFile(inputName, new Uint8Array(await file.arrayBuffer()));
+					await ffmpeg.writeFile(overlayName, new Uint8Array(await overlayBlob.arrayBuffer()));
+					ffmpeg.on('progress', handleFfmpegProgress);
+
+					try {
+						const resultCode = await ffmpeg.exec([
+							'-i', inputName,
+							'-i', overlayName,
+							'-filter_complex', '[0:v][1:v]overlay=0:0:format=auto,scale=trunc(iw/2)*2:trunc(ih/2)*2[v]',
+							'-map', '[v]',
+							'-map', '0:a?',
+							'-c:v', 'libx264',
+							'-preset', 'veryfast',
+							'-crf', '23',
+							'-pix_fmt', 'yuv420p',
+							'-c:a', 'aac',
+							'-b:a', '160k',
+							'-shortest',
+							'-movflags', '+faststart',
+							'-y', outputName,
+						]);
+
+						if (resultCode !== 0) {
+							throw new Error(`FFmpeg exited with code ${resultCode}`);
+						}
+
+						const output = await ffmpeg.readFile(outputName);
+						return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
+					} finally {
+						ffmpeg.off('progress', handleFfmpegProgress);
+						await ffmpeg.deleteFile(inputName).catch(() => {});
+						await ffmpeg.deleteFile(overlayName).catch(() => {});
+						await ffmpeg.deleteFile(outputName).catch(() => {});
+					}
+				});
+			}
+
+			async function drawWatermark(context, width, height) {
+				const opacity = Number(opacityInput.value) / 100;
+				const size = Number(sizeInput.value) / 100;
+				const margin = Math.round(Math.min(width, height) * (Number(marginInput.value) / 100));
+				const position = positionSelect.value;
+				const shouldTile = tileInput.checked;
+				context.save();
+				context.globalAlpha = opacity;
+
+				if (modeSelect.value === 'image') {
+					const watermark = await loadImage(state.watermarkUrl);
+					let targetWidth = Math.max(12, Math.round(width * size));
+					const ratio = watermark.naturalHeight / watermark.naturalWidth;
+					let targetHeight = Math.max(12, Math.round(targetWidth * ratio));
+					const maxHeight = Math.round(height * 0.9);
+
+					if (targetHeight > maxHeight) {
+						targetHeight = maxHeight;
+						targetWidth = Math.max(12, Math.round(targetHeight / ratio));
+					}
+
+					drawWatermarkItem(context, {
+						draw: (x, y) => context.drawImage(watermark, x, y, targetWidth, targetHeight),
+						width: targetWidth,
+						height: targetHeight,
+						canvasWidth: width,
+						canvasHeight: height,
+						margin,
+						position,
+						shouldTile,
+					});
+				} else {
+					const text = textInput.value.trim();
+					const targetWidth = Math.max(80, width * size);
+					let fontSize = Math.max(16, Math.round(height * size * 0.18));
+					context.font = `800 ${fontSize}px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+
+					while (context.measureText(text).width > targetWidth && fontSize > 12) {
+						fontSize -= 2;
+						context.font = `800 ${fontSize}px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+					}
+
+					const metrics = context.measureText(text);
+					const textWidth = Math.ceil(metrics.width);
+					const textHeight = Math.ceil(fontSize * 1.18);
+					context.textBaseline = 'top';
+					context.lineJoin = 'round';
+					context.lineWidth = Math.max(3, Math.round(fontSize * 0.08));
+					context.strokeStyle = 'rgba(0, 0, 0, 0.58)';
+					context.fillStyle = colorInput.value || '#ffffff';
+
+					drawWatermarkItem(context, {
+						draw: (x, y) => {
+							context.strokeText(text, x, y);
+							context.fillText(text, x, y);
+						},
+						width: textWidth,
+						height: textHeight,
+						canvasWidth: width,
+						canvasHeight: height,
+						margin,
+						position,
+						shouldTile,
+					});
+				}
+
+				context.restore();
+			}
+
+			function drawWatermarkItem(context, item) {
+				if (item.shouldTile) {
+					const gap = Math.max(item.margin, Math.round(Math.min(item.canvasWidth, item.canvasHeight) * 0.05));
+					for (let y = gap; y < item.canvasHeight; y += item.height + gap) {
+						for (let x = gap; x < item.canvasWidth; x += item.width + gap) {
+							item.draw(x, y);
+						}
+					}
+					return;
+				}
+
+				const point = placementFor(item.position, item.canvasWidth, item.canvasHeight, item.width, item.height, item.margin);
+				item.draw(point.x, point.y);
+			}
+
+			function placementFor(position, canvasWidth, canvasHeight, itemWidth, itemHeight, margin) {
+				const xMap = {
+					'top-left': margin,
+					'center-left': margin,
+					'bottom-left': margin,
+					'top-center': (canvasWidth - itemWidth) / 2,
+					center: (canvasWidth - itemWidth) / 2,
+					'bottom-center': (canvasWidth - itemWidth) / 2,
+					'top-right': canvasWidth - itemWidth - margin,
+					'center-right': canvasWidth - itemWidth - margin,
+					'bottom-right': canvasWidth - itemWidth - margin,
+				};
+				const yMap = {
+					'top-left': margin,
+					'top-center': margin,
+					'top-right': margin,
+					'center-left': (canvasHeight - itemHeight) / 2,
+					center: (canvasHeight - itemHeight) / 2,
+					'center-right': (canvasHeight - itemHeight) / 2,
+					'bottom-left': canvasHeight - itemHeight - margin,
+					'bottom-center': canvasHeight - itemHeight - margin,
+					'bottom-right': canvasHeight - itemHeight - margin,
+				};
+				return {
+					x: Math.max(0, Math.round(xMap[position] ?? xMap['bottom-right'])),
+					y: Math.max(0, Math.round(yMap[position] ?? yMap['bottom-right'])),
+				};
+			}
+
+			async function loadFfmpeg() {
+				if (state.ffmpeg) {
+					return state.ffmpeg;
+				}
+
+				if (state.ffmpegPromise) {
+					return state.ffmpegPromise;
+				}
+
+				state.ffmpegPromise = (async () => {
+					setStatus(copy.ffmpegLoading, 'info');
+					const ffmpegVersion = '0.12.15';
+					const coreVersion = '0.12.9';
+					const ffmpegBase = `https://unpkg.com/@ffmpeg/ffmpeg@${ffmpegVersion}/dist/esm`;
+					const coreBase = `https://unpkg.com/@ffmpeg/core@${coreVersion}/dist/esm`;
+					const [{ FFmpeg }, classWorkerURL, coreURL, wasmURL] = await Promise.all([
+						import(/* @vite-ignore */ `${ffmpegBase}/index.js`),
+						createModuleWorkerUrl(`${ffmpegBase}/worker.js`),
+						toBlobUrl(`${coreBase}/ffmpeg-core.js`, 'text/javascript'),
+						toBlobUrl(`${coreBase}/ffmpeg-core.wasm`, 'application/wasm'),
+					]);
+
+					const ffmpeg = new FFmpeg();
+					await withTimeout(ffmpeg.load({ classWorkerURL, coreURL, wasmURL }), 90000, copy.ffmpegTimeout);
+					state.ffmpeg = ffmpeg;
+					setStatus(copy.ffmpegReady, 'success');
+					return ffmpeg;
+				})().catch((error) => {
+					state.ffmpegPromise = null;
+					throw error;
+				});
+
+				return state.ffmpegPromise;
+			}
+
+			function queueFfmpegTask(task) {
+				const run = state.ffmpegQueue.then(task, task);
+				state.ffmpegQueue = run.catch(() => {});
+				return run;
+			}
+
+			function handleFfmpegProgress(event) {
+				const progress = Math.max(0, Math.min(100, Math.round((event.progress || 0) * 100)));
+				setStatus(format(copy.ffmpegProgress, { progress }), 'info');
+			}
+
+			function createModuleWorkerUrl(url) {
+				return URL.createObjectURL(new Blob([
+					`import ${JSON.stringify(url)};`,
+				], { type: 'text/javascript' }));
+			}
+
+			async function toBlobUrl(url, mimeType) {
+				const response = await fetch(url);
+				if (!response.ok) {
+					throw new Error(`${response.status} ${response.statusText}`);
+				}
+
+				const buffer = await response.arrayBuffer();
+				return URL.createObjectURL(new Blob([buffer], { type: mimeType }));
+			}
+
+			function updateModeUi() {
+				const isImageMode = modeSelect.value === 'image';
+				textGroup.hidden = isImageMode;
+				colorGroup.hidden = isImageMode;
+				imageGroup.hidden = !isImageMode;
+				updateReadyState();
+			}
+
+			function updateRangeLabels() {
+				opacityLabel.textContent = `${opacityInput.value}%`;
+				sizeLabel.textContent = `${sizeInput.value}%`;
+				marginLabel.textContent = `${marginInput.value}%`;
+			}
+
+			function updateReadyState() {
+				const ready = Boolean(state.sourceFile && state.sourceWidth && state.sourceHeight && hasWatermark());
+				processButton.disabled = state.isWorking || !ready;
+				sourceInput.disabled = state.isWorking;
+				watermarkInput.disabled = state.isWorking;
+				modeSelect.disabled = state.isWorking;
+				textInput.disabled = state.isWorking;
+				colorInput.disabled = state.isWorking;
+				positionSelect.disabled = state.isWorking;
+				opacityInput.disabled = state.isWorking;
+				sizeInput.disabled = state.isWorking;
+				marginInput.disabled = state.isWorking;
+				tileInput.disabled = state.isWorking;
+				clearButton.disabled = state.isWorking || (!state.sourceFile && !state.watermarkFile && !state.outputUrl);
+			}
+
+			function hasWatermark() {
+				if (modeSelect.value === 'image') {
+					return Boolean(state.watermarkFile && state.watermarkUrl);
+				}
+
+				return Boolean(textInput.value.trim());
+			}
+
+			function setWorking(isWorking) {
+				state.isWorking = isWorking;
+				updateReadyState();
+			}
+
+			function resetTool() {
+				sourceInput.value = '';
+				watermarkInput.value = '';
+				state.sourceFile = null;
+				state.sourceKind = null;
+				state.sourceWidth = 0;
+				state.sourceHeight = 0;
+				state.watermarkFile = null;
+				revokeUrl('sourceUrl');
+				revokeUrl('watermarkUrl');
+				resetOutput();
+				sourceName.textContent = defaults.sourceName;
+				sourceMeta.textContent = defaults.sourceMeta;
+				watermarkName.textContent = defaults.watermarkName;
+				setStatus(copy.reset, 'info');
+				updateReadyState();
+			}
+
+			function resetOutput() {
+				revokeUrl('outputUrl');
+				outputPreview.hidden = true;
+				downloadLink.hidden = true;
+				downloadLink.removeAttribute('href');
+				downloadLink.removeAttribute('download');
+				outputImage.hidden = true;
+				outputVideo.hidden = true;
+				outputImage.removeAttribute('src');
+				outputVideo.removeAttribute('src');
+				outputDetails.textContent = '';
+			}
+
+			function revokeUrl(key) {
+				if (state[key]) {
+					URL.revokeObjectURL(state[key]);
+					state[key] = null;
+				}
+			}
+
+			function detectSourceKind(file) {
+				const type = String(file.type || '').toLowerCase();
+				if (type.startsWith('video/')) {
+					return 'video';
+				}
+				if (type.startsWith('image/')) {
+					return 'image';
+				}
+				const extension = inputExtension(file.name).slice(1);
+				return videoExtensions.has(extension) ? 'video' : 'image';
+			}
+
+			function inputExtension(name) {
+				const match = String(name || '').toLowerCase().match(/\.[a-z0-9]+$/);
+				return match ? match[0] : '.bin';
+			}
+
+			const videoExtensions = new Set(['3g2', '3gp', 'avi', 'flv', 'm4v', 'mkv', 'mov', 'mp4', 'mpeg', 'mpg', 'ogv', 'ts', 'webm', 'wmv']);
+
+			function loadImage(url) {
+				return new Promise((resolve, reject) => {
+					const image = new Image();
+					image.onload = () => resolve(image);
+					image.onerror = () => reject(new Error(copy.metadataMissing));
+					image.src = url;
+				});
+			}
+
+			function loadVideoMetadata(url) {
+				return new Promise((resolve, reject) => {
+					const video = document.createElement('video');
+					video.preload = 'metadata';
+					video.muted = true;
+					video.onloadedmetadata = () => resolve({
+						width: video.videoWidth,
+						height: video.videoHeight,
+					});
+					video.onerror = () => reject(new Error(copy.metadataMissing));
+					video.src = url;
+				});
+			}
+
+			function canvasToBlob(canvas, type, quality) {
+				return new Promise((resolve, reject) => {
+					canvas.toBlob((blob) => {
+						if (blob) {
+							resolve(blob);
+						} else {
+							reject(new Error(copy.unknownError));
+						}
+					}, type, quality);
+				});
+			}
+
+			function setStatus(message, type) {
+				status.textContent = message;
+				status.dataset.state = type;
+			}
+
+			function format(template, values) {
+				return String(template).replace(/\{(\w+)\}/g, (_match, key) => {
+					return values && key in values ? String(values[key]) : '';
+				});
+			}
+
+			function formatBytes(bytes) {
+				if (!Number.isFinite(bytes) || bytes <= 0) {
+					return '0 B';
+				}
+
+				const units = ['B', 'KB', 'MB', 'GB'];
+				const power = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
+				const value = bytes / (1024 ** power);
+				return `${value.toFixed(value >= 10 || power === 0 ? 0 : 1)} ${units[power]}`;
+			}
+
+			function baseName(name) {
+				return String(name || '').replace(/\.[^.]+$/, '') || 'watermarked-media';
+			}
+
+			function messageFromError(error) {
+				return error && typeof error === 'object' && 'message' in error
+					? String(error.message)
+					: copy.unknownError;
+			}
+
+			function withTimeout(promise, timeoutMs, message) {
+				let timeoutId = 0;
+				const timeout = new Promise((_resolve, reject) => {
+					timeoutId = window.setTimeout(() => reject(new Error(message)), timeoutMs);
+				});
+
+				return Promise.race([promise, timeout]).finally(() => {
+					window.clearTimeout(timeoutId);
+				});
+			}
+		}
+	})();
+</script>
+
+<style>
+	.tool-intro {
+		padding-block: clamp(42px, 7vw, 82px);
+		background: var(--color-surface-alt);
+		border-bottom: 1px solid var(--color-line);
+	}
+
+	.tool-intro h1 {
+		max-width: 780px;
+		margin: 0;
+		font-size: clamp(2.6rem, 7vw, 5.6rem);
+		line-height: 0.96;
+		letter-spacing: 0;
+	}
+
+	.tool-lede,
+	.tool-note {
+		max-width: 760px;
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+	}
+
+	.tool-note {
+		font-size: 0.98rem;
+		font-weight: 700;
+	}
+
+	.watermarker-section {
+		background: var(--color-surface-raised);
+	}
+
+	.watermarker-tool,
+	.watermarker-grid {
+		display: grid;
+		gap: 18px;
+	}
+
+	.watermarker-tool [hidden] {
+		display: none !important;
+	}
+
+	.watermarker-grid {
+		grid-template-columns: minmax(0, 1fr) minmax(300px, 0.44fr);
+		align-items: start;
+	}
+
+	.watermarker-panel {
+		padding: clamp(18px, 3vw, 28px);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.watermarker-panel h2 {
+		margin: 0;
+		color: var(--color-ink);
+		font-size: clamp(1.4rem, 3vw, 2rem);
+		line-height: 1.1;
+		letter-spacing: 0;
+	}
+
+	.file-picker {
+		position: relative;
+		display: grid;
+		gap: 8px;
+		min-height: 160px;
+		margin-top: 18px;
+		padding: 18px;
+		background: var(--color-surface-alt);
+		border: 1px dashed var(--color-accent-dashed-line);
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.watermark-file {
+		min-height: 112px;
+	}
+
+	.file-picker:focus-within {
+		outline: 3px solid var(--color-accent-focus);
+		outline-offset: 2px;
+	}
+
+	.file-picker span,
+	.select-control span,
+	.text-control span,
+	.color-control span,
+	.range-control span,
+	.toggle-control span,
+	.preview-card p {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.file-picker strong {
+		align-self: end;
+		overflow-wrap: anywhere;
+		color: var(--color-ink);
+		font-size: 1.05rem;
+	}
+
+	.file-picker small,
+	.preview-card small,
+	.result-panel small {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.file-picker input[type='file'] {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+		cursor: pointer;
+	}
+
+	.select-control,
+	.text-control,
+	.color-control,
+	.range-control {
+		display: grid;
+		gap: 8px;
+		margin-top: 18px;
+	}
+
+	.select-control select,
+	.text-control input {
+		width: 100%;
+		min-height: 48px;
+		padding: 0 14px;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.color-control input {
+		width: 100%;
+		height: 48px;
+		padding: 4px;
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.range-control input {
+		width: 100%;
+		accent-color: var(--color-accent);
+	}
+
+	.toggle-control {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	.toggle-control input {
+		width: 20px;
+		height: 20px;
+		accent-color: var(--color-accent);
+	}
+
+	.tool-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-top: 18px;
+	}
+
+	.status {
+		margin: 16px 0 0;
+		color: var(--color-muted);
+		font-weight: 750;
+	}
+
+	.status[data-state='success'] {
+		color: var(--color-success, var(--color-accent-dark));
+	}
+
+	.status[data-state='error'] {
+		color: var(--color-danger, #a83232);
+	}
+
+	.preview-card {
+		display: grid;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	.preview-card p {
+		margin: 0;
+	}
+
+	.preview-frame {
+		display: grid;
+		place-items: center;
+		overflow: hidden;
+		min-height: 240px;
+		background:
+			linear-gradient(45deg, rgba(0, 0, 0, 0.04) 25%, transparent 25%),
+			linear-gradient(-45deg, rgba(0, 0, 0, 0.04) 25%, transparent 25%),
+			linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.04) 75%),
+			linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.04) 75%);
+		background-color: var(--color-surface-alt);
+		background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+		background-size: 20px 20px;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.preview-frame img,
+	.preview-frame video {
+		display: block;
+		width: 100%;
+		max-height: 68vh;
+		object-fit: contain;
+	}
+
+	.result-heading {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 14px;
+		margin-bottom: 18px;
+	}
+
+	.result-heading .eyebrow {
+		margin: 0 0 6px;
+	}
+
+	.result-heading h2 {
+		margin: 0;
+	}
+
+	.result-frame {
+		min-height: 280px;
+	}
+
+	@media (max-width: 820px) {
+		.watermarker-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.preview-frame {
+			min-height: 190px;
+		}
+	}
+</style>
