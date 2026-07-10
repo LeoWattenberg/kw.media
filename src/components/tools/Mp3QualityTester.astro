@@ -1,5 +1,10 @@
 ---
 import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import RangeControl from './shared/RangeControl.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
 
 interface Props {
 	locale: Locale;
@@ -146,34 +151,28 @@ const copy = copyByLocale[locale];
 const copyJson = JSON.stringify(copy.client);
 ---
 
-<section class="tool-intro">
-	<div class="container">
-		<p class="eyebrow">{copy.eyebrow}</p>
-		<h1>{copy.title}</h1>
-		<p class="tool-lede">{copy.intro}</p>
-		<p class="tool-note">{copy.privacy}</p>
-	</div>
-</section>
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
 
 <section class="section mp3-tool-section tool-workspace">
 	<div class="container">
 		<div class="mp3-tester" data-mp3-quality-tester data-copy={copyJson}>
 			<div class="mp3-setup">
-				<section class="mp3-panel tool-panel">
-					<h2>{copy.fileTitle}</h2>
+				<ToolPanel class="mp3-panel" title={copy.fileTitle}>
 					<div class="file-grid single-file">
-						<label class="file-picker tool-file-picker">
-							<span>{copy.fileTitle}</span>
-							<strong data-file-name>{copy.chooseFile}</strong>
-							<small data-file-meta>{copy.fileHint}</small>
-							<input data-file type="file" accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba" />
-						</label>
+						<FilePicker
+							label={copy.fileTitle}
+							name={copy.chooseFile}
+							hint={copy.fileHint}
+							accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba"
+							nameAttrs={{ 'data-file-name': true }}
+							metaAttrs={{ 'data-file-meta': true }}
+							inputAttrs={{ 'data-file': true }}
+						/>
 					</div>
-					<p class="mp3-status tool-status" data-status>{copy.client.waiting}</p>
-				</section>
+					<ToolStatus class="mp3-status" data-status text={copy.client.waiting} />
+				</ToolPanel>
 
-				<section class="mp3-panel tool-panel">
-					<h2>{copy.settingsTitle}</h2>
+				<ToolPanel class="mp3-panel" title={copy.settingsTitle}>
 					<div class="preset-grid">
 						<label class="preset-option">
 							<input data-preset type="checkbox" value="mp3-320" data-label={copy.preset320} checked />
@@ -192,19 +191,21 @@ const copyJson = JSON.stringify(copy.client);
 							<span>{copy.presetV6}</span>
 						</label>
 					</div>
-					<label class="range-control tool-range-control">
-						<span>{copy.repeats}: <strong data-repeat-count-label>2</strong></span>
-						<input data-repeat-count type="range" min="1" max="5" step="1" value="2" />
-					</label>
+					<RangeControl
+						label={copy.repeats}
+						value="2"
+						valueAttrs={{ 'data-repeat-count-label': true }}
+						inputAttrs={{ 'data-repeat-count': true, min: 1, max: 5, step: 1, value: 2 }}
+					/>
 					<p class="trial-total">{copy.totalTrials}: <strong data-total-trials-label>8</strong></p>
 					<div class="setup-actions">
 						<button class="button primary" data-start disabled>{copy.generate}</button>
 						<button class="button secondary" data-clear>{copy.clear}</button>
 					</div>
-				</section>
+				</ToolPanel>
 			</div>
 
-			<section class="mp3-panel tool-panel mp3-player" data-stage hidden>
+			<ToolPanel class="mp3-panel mp3-player" data-stage hidden>
 				<div class="player-heading">
 					<div>
 						<h2>{copy.playbackTitle}</h2>
@@ -242,15 +243,14 @@ const copyJson = JSON.stringify(copy.client);
 						<button class="answer-button" data-answer="B" type="button">{copy.originalB}</button>
 					</div>
 				</div>
-			</section>
+			</ToolPanel>
 
-			<section class="mp3-panel tool-panel mp3-results" data-results hidden>
-				<h2>{copy.resultsTitle}</h2>
+			<ToolPanel class="mp3-panel mp3-results" data-results hidden title={copy.resultsTitle}>
 				<p class="score" data-score></p>
 				<p class="result-note" data-result-note></p>
 				<ol class="result-list" data-result-list></ol>
 				<button class="button primary" data-new-run type="button">{copy.newRun}</button>
-			</section>
+			</ToolPanel>
 		</div>
 	</div>
 </section>

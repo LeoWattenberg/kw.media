@@ -1,0 +1,38 @@
+---
+interface Props {
+	label: string;
+	name: string;
+	hint?: string;
+	accept?: string;
+	class?: string;
+	inputAttrs?: Record<string, unknown>;
+	nameAttrs?: Record<string, unknown>;
+	metaAttrs?: Record<string, unknown>;
+	[key: string]: unknown;
+}
+
+const {
+	label,
+	name,
+	hint,
+	accept,
+	class: className,
+	inputAttrs = {},
+	nameAttrs = {},
+	metaAttrs = {},
+	...attrs
+} = Astro.props;
+
+const mergedInputAttrs = {
+	type: 'file',
+	accept,
+	...inputAttrs,
+};
+---
+
+<label {...attrs} class:list={[className, 'file-picker', 'tool-file-picker']}>
+	<span>{label}</span>
+	<strong {...nameAttrs}>{name}</strong>
+	{hint && <small {...metaAttrs}>{hint}</small>}
+	<input {...mergedInputAttrs} />
+</label>

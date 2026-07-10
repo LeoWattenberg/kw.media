@@ -1,0 +1,11 @@
+---
+interface Props {
+	text: string;
+	class?: string;
+	[key: string]: unknown;
+}
+
+const { text, class: className, ...attrs } = Astro.props;
+---
+
+<p {...attrs} class:list={[className, 'status', 'tool-status']}>{text}</p>

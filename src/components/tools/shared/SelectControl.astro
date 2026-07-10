@@ -1,0 +1,17 @@
+---
+interface Props {
+	label: string;
+	class?: string;
+	selectAttrs?: Record<string, unknown>;
+	[key: string]: unknown;
+}
+
+const { label, class: className, selectAttrs = {}, ...attrs } = Astro.props;
+---
+
+<label {...attrs} class:list={[className, 'select-control', 'tool-select-control']}>
+	<span>{label}</span>
+	<select {...selectAttrs}>
+		<slot />
+	</select>
+</label>

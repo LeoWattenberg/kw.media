@@ -1,0 +1,29 @@
+---
+interface Props {
+	label: string;
+	value: string | number;
+	class?: string;
+	inputAttrs?: Record<string, unknown>;
+	valueAttrs?: Record<string, unknown>;
+	[key: string]: unknown;
+}
+
+const {
+	label,
+	value,
+	class: className,
+	inputAttrs = {},
+	valueAttrs = {},
+	...attrs
+} = Astro.props;
+
+const mergedInputAttrs = {
+	type: 'range',
+	...inputAttrs,
+};
+---
+
+<label {...attrs} class:list={[className, 'range-control', 'tool-range-control']}>
+	<span>{label}: <strong {...valueAttrs}>{value}</strong></span>
+	<input {...mergedInputAttrs} />
+</label>

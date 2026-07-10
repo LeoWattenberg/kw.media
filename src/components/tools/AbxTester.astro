@@ -1,5 +1,11 @@
 ---
 import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import RangeControl from './shared/RangeControl.astro';
+import ToggleControl from './shared/ToggleControl.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
 
 interface Props {
 	locale: Locale;
@@ -136,56 +142,52 @@ const copy = copyByLocale[locale];
 const copyJson = JSON.stringify(copy.client);
 ---
 
-<section class="tool-intro">
-	<div class="container">
-		<p class="eyebrow">{copy.eyebrow}</p>
-		<h1>{copy.title}</h1>
-		<p class="tool-lede">{copy.intro}</p>
-		<p class="tool-note">{copy.privacy}</p>
-	</div>
-</section>
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
 
 <section class="section abx-tool-section tool-workspace">
 	<div class="container">
 		<div class="abx-tester" data-abx-tester data-copy={copyJson}>
 			<div class="abx-setup">
-				<section class="abx-panel tool-panel">
-					<h2>{copy.filesTitle}</h2>
+				<ToolPanel class="abx-panel" title={copy.filesTitle}>
 					<div class="file-grid">
-						<label class="file-picker tool-file-picker">
-							<span>{copy.fileA}</span>
-							<strong data-file-a-name>{copy.chooseFile}</strong>
-							<small data-file-a-meta>{copy.fileHint}</small>
-							<input data-file-a type="file" accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba" />
-						</label>
-						<label class="file-picker tool-file-picker">
-							<span>{copy.fileB}</span>
-							<strong data-file-b-name>{copy.chooseFile}</strong>
-							<small data-file-b-meta>{copy.fileHint}</small>
-							<input data-file-b type="file" accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba" />
-						</label>
+						<FilePicker
+							label={copy.fileA}
+							name={copy.chooseFile}
+							hint={copy.fileHint}
+							accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba"
+							nameAttrs={{ 'data-file-a-name': true }}
+							metaAttrs={{ 'data-file-a-meta': true }}
+							inputAttrs={{ 'data-file-a': true }}
+						/>
+						<FilePicker
+							label={copy.fileB}
+							name={copy.chooseFile}
+							hint={copy.fileHint}
+							accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.weba"
+							nameAttrs={{ 'data-file-b-name': true }}
+							metaAttrs={{ 'data-file-b-meta': true }}
+							inputAttrs={{ 'data-file-b': true }}
+						/>
 					</div>
-					<p class="abx-status tool-status" data-status>{copy.client.waiting}</p>
-				</section>
+					<ToolStatus class="abx-status" data-status text={copy.client.waiting} />
+				</ToolPanel>
 
-				<section class="abx-panel tool-panel">
-					<h2>{copy.settingsTitle}</h2>
-					<label class="range-control tool-range-control">
-						<span>{copy.trials}: <strong data-trial-count-label>8</strong></span>
-						<input data-trial-count type="range" min="4" max="20" step="2" value="8" />
-					</label>
-					<label class="toggle-control">
-						<input data-loop type="checkbox" checked />
-						<span>{copy.loop}</span>
-					</label>
+				<ToolPanel class="abx-panel" title={copy.settingsTitle}>
+					<RangeControl
+						label={copy.trials}
+						value="8"
+						valueAttrs={{ 'data-trial-count-label': true }}
+						inputAttrs={{ 'data-trial-count': true, min: 4, max: 20, step: 2, value: 8 }}
+					/>
+					<ToggleControl label={copy.loop} inputAttrs={{ 'data-loop': true, checked: true }} />
 					<div class="setup-actions">
 						<button class="button primary" data-start disabled>{copy.start}</button>
 						<button class="button secondary" data-clear>{copy.clear}</button>
 					</div>
-				</section>
+				</ToolPanel>
 			</div>
 
-			<section class="abx-panel tool-panel abx-player" data-stage hidden>
+			<ToolPanel class="abx-panel abx-player" data-stage hidden>
 				<div class="player-heading">
 					<div>
 						<h2>{copy.playbackTitle}</h2>
@@ -227,15 +229,14 @@ const copyJson = JSON.stringify(copy.client);
 						<button class="answer-button" data-answer="B" type="button">{copy.xIsB}</button>
 					</div>
 				</div>
-			</section>
+			</ToolPanel>
 
-			<section class="abx-panel tool-panel abx-results" data-results hidden>
-				<h2>{copy.resultsTitle}</h2>
+			<ToolPanel class="abx-panel abx-results" data-results hidden title={copy.resultsTitle}>
 				<p class="score" data-score></p>
 				<p class="result-note" data-result-note></p>
 				<ol class="result-list" data-result-list></ol>
 				<button class="button primary" data-new-run type="button">{copy.newRun}</button>
-			</section>
+			</ToolPanel>
 		</div>
 	</div>
 </section>

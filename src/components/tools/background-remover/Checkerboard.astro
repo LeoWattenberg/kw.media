@@ -1,5 +1,11 @@
 ---
 import type { Locale } from '../../../i18n';
+import FilePicker from '../shared/FilePicker.astro';
+import RangeControl from '../shared/RangeControl.astro';
+import SelectControl from '../shared/SelectControl.astro';
+import ToolIntro from '../shared/ToolIntro.astro';
+import ToolPanel from '../shared/ToolPanel.astro';
+import ToolStatus from '../shared/ToolStatus.astro';
 
 interface Props {
 	locale: Locale;
@@ -110,31 +116,22 @@ const modeOptions = [
 ];
 ---
 
-<section class="tool-intro">
-	<div class="container">
-		<p class="eyebrow">{copy.eyebrow}</p>
-		<h1>{copy.title}</h1>
-		<p class="tool-lede">{copy.intro}</p>
-		<p class="tool-note">{copy.privacy}</p>
-	</div>
-</section>
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
 
 <section class="section background-remover-section tool-workspace">
 	<div class="container">
 		<div class="background-remover" data-background-remover data-copy={copyJson} data-formats={outputFormatsJson} data-variant="checkerboard">
 			<div class="remover-grid">
-				<section class="remover-panel tool-panel source-panel">
-					<h2>{copy.fileTitle}</h2>
-					<label class="file-picker tool-file-picker">
-						<span>{copy.fileTitle}</span>
-						<strong data-file-name>{copy.chooseFile}</strong>
-						<small data-file-meta>{copy.fileHint}</small>
-						<input
-							data-file
-							type="file"
-							accept="image/*,.avif,.bmp,.gif,.heic,.heif,.ico,.jpeg,.jpg,.png,.psd,.svg,.tif,.tiff,.webp"
-						/>
-					</label>
+				<ToolPanel class="remover-panel source-panel" title={copy.fileTitle}>
+					<FilePicker
+						label={copy.fileTitle}
+						name={copy.chooseFile}
+						hint={copy.fileHint}
+						accept="image/*,.avif,.bmp,.gif,.heic,.heif,.ico,.jpeg,.jpg,.png,.psd,.svg,.tif,.tiff,.webp"
+						nameAttrs={{ 'data-file-name': true }}
+						metaAttrs={{ 'data-file-meta': true }}
+						inputAttrs={{ 'data-file': true }}
+					/>
 					<div class="preview-card" data-source-preview hidden>
 						<p>{copy.sourcePreview}</p>
 						<div class="preview-frame source-frame">
@@ -143,10 +140,9 @@ const modeOptions = [
 						</div>
 						<small data-source-meta></small>
 					</div>
-				</section>
+				</ToolPanel>
 
-				<section class="remover-panel tool-panel settings-panel">
-					<h2>{copy.settingsTitle}</h2>
+				<ToolPanel class="remover-panel settings-panel" title={copy.settingsTitle}>
 					<fieldset class="mode-control">
 						<legend>{copy.mode}</legend>
 						{modeOptions.map((option, index) => (
@@ -156,35 +152,38 @@ const modeOptions = [
 							</label>
 						))}
 					</fieldset>
-					<label class="range-control tool-range-control">
-						<span>{copy.tolerance}: <strong data-fuzz-label>8%</strong></span>
-						<input data-fuzz type="range" min="0" max="30" step="1" value="8" />
-					</label>
-					<label class="select-control tool-select-control">
-						<span>{copy.outputFormat}</span>
-						<select data-format>
-							{
-								outputFormats.map((format) => (
-									<option value={format.value} selected={format.value === 'PNG'}>
-										{format.label}
-									</option>
-								))
-							}
-						</select>
-					</label>
-					<label class="range-control tool-range-control" data-quality-control hidden>
-						<span>{copy.quality}: <strong data-quality-label>90</strong></span>
-						<input data-quality type="range" min="1" max="100" step="1" value="90" />
-					</label>
+					<RangeControl
+						label={copy.tolerance}
+						value="8%"
+						valueAttrs={{ 'data-fuzz-label': true }}
+						inputAttrs={{ 'data-fuzz': true, min: 0, max: 30, step: 1, value: 8 }}
+					/>
+					<SelectControl label={copy.outputFormat} selectAttrs={{ 'data-format': true }}>
+						{
+							outputFormats.map((format) => (
+								<option value={format.value} selected={format.value === 'PNG'}>
+									{format.label}
+								</option>
+							))
+						}
+					</SelectControl>
+					<RangeControl
+						data-quality-control
+						hidden
+						label={copy.quality}
+						value="90"
+						valueAttrs={{ 'data-quality-label': true }}
+						inputAttrs={{ 'data-quality': true, min: 1, max: 100, step: 1, value: 90 }}
+					/>
 				<div class="remover-actions">
 						<button class="button primary" data-remove type="button" disabled>{copy.remove}</button>
 						<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
 					</div>
-					<p class="remover-status tool-status" data-status role="status">{copy.client.waiting}</p>
-				</section>
+					<ToolStatus class="remover-status" data-status role="status" text={copy.client.waiting} />
+				</ToolPanel>
 			</div>
 
-			<section class="remover-panel tool-panel result-panel" data-result hidden>
+			<ToolPanel class="remover-panel result-panel" data-result hidden>
 				<div class="result-heading">
 					<div>
 						<p class="eyebrow">{copy.outputPreview}</p>
@@ -208,7 +207,7 @@ const modeOptions = [
 						</div>
 					</dl>
 				</div>
-			</section>
+			</ToolPanel>
 		</div>
 	</div>
 </section>

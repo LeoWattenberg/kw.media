@@ -1,5 +1,12 @@
 ---
-import type { Locale } from '../../i18n';
+import type { Locale } from '../../../i18n';
+import FilePicker from '../shared/FilePicker.astro';
+import SelectControl from '../shared/SelectControl.astro';
+import ToolActions from '../shared/ToolActions.astro';
+import ToolIntro from '../shared/ToolIntro.astro';
+import ToolPanel from '../shared/ToolPanel.astro';
+import ToolResultCard from '../shared/ToolResultCard.astro';
+import ToolStatus from '../shared/ToolStatus.astro';
 
 interface Props {
 	locale: Locale;
@@ -80,52 +87,45 @@ const copyJson = JSON.stringify(copy);
 const profilesJson = JSON.stringify(profileDefinitions);
 ---
 
-<section class="tool-intro">
-	<div class="container">
-		<p class="eyebrow">{copy.eyebrow}</p>
-		<h1>{copy.title}</h1>
-		<p class="tool-lede">{copy.intro}</p>
-		<p class="tool-note">{copy.privacy}</p>
-	</div>
-</section>
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
 
 <section class="section converter-section tool-workspace">
 	<div class="container">
 		<div class="converter-tool" data-document-converter data-copy={copyJson} data-profiles={profilesJson}>
-			<section class="converter-panel tool-panel">
-				<h2>{copy.fileLabel}</h2>
-				<label class="file-picker tool-file-picker">
-					<span>{copy.chooseFile}</span>
-					<strong data-file-name>{copy.chooseFile}</strong>
-					<small data-file-meta>{copy.fileHint}</small>
-					<input data-file-input type="file" accept=".md,.markdown,.txt,.html,.htm,.tex,.rst,.adoc,.docx,.odt,.rtf,.epub" />
-				</label>
-				<div class="tool-actions">
+			<ToolPanel class="converter-panel" title={copy.fileLabel}>
+				<FilePicker
+					label={copy.chooseFile}
+					name={copy.chooseFile}
+					hint={copy.fileHint}
+					accept=".md,.markdown,.txt,.html,.htm,.tex,.rst,.adoc,.docx,.odt,.rtf,.epub"
+					nameAttrs={{ 'data-file-name': true }}
+					metaAttrs={{ 'data-file-meta': true }}
+					inputAttrs={{ 'data-file-input': true }}
+				/>
+				<ToolActions>
 					<button class="button primary" data-process type="button" disabled>{copy.process}</button>
 					<button class="button secondary" data-clear type="button">{copy.clear}</button>
-				</div>
-			</section>
+				</ToolActions>
+			</ToolPanel>
 
-			<section class="converter-panel tool-panel">
-				<h2>{copy.profileLabel}</h2>
-				<label class="select-control tool-select-control">
-					<span>{copy.profileLabel}</span>
-					<select data-profile-select disabled>
-						<option value="">{copy.profilePlaceholder}</option>
-					</select>
-				</label>
-				<p class="status tool-status" data-status>{copy.statusWaiting}</p>
-			</section>
+			<ToolPanel class="converter-panel" title={copy.profileLabel}>
+				<SelectControl label={copy.profileLabel} selectAttrs={{ 'data-profile-select': true, disabled: true }}>
+					<option value="">{copy.profilePlaceholder}</option>
+				</SelectControl>
+				<ToolStatus data-status text={copy.statusWaiting} />
+			</ToolPanel>
 
-			<section class="converter-panel tool-panel">
-				<h2>{copy.outputTitle}</h2>
-				<div class="result-card tool-result-card">
-					<p data-result-title>{copy.selectedFile.replace('{name}', copy.chooseFile)}</p>
-					<p data-result-meta>{copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}</p>
-					<a class="download-link tool-download-link" data-download hidden href="#">{copy.download}</a>
-				</div>
+			<ToolPanel class="converter-panel" title={copy.outputTitle}>
+				<ToolResultCard
+					title={copy.selectedFile.replace('{name}', copy.chooseFile)}
+					meta={copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}
+					downloadLabel={copy.download}
+					titleAttrs={{ 'data-result-title': true }}
+					metaAttrs={{ 'data-result-meta': true }}
+					downloadAttrs={{ 'data-download': true }}
+				/>
 				<p class="output-help">{copy.outputHelp}</p>
-			</section>
+			</ToolPanel>
 		</div>
 	</div>
 </section>
