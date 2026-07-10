@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import VideoToGifConverter from '../../../components/tools/converter/VideoToGifConverter.astro';
+import { defineToolModule } from '../../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('video-to-gif', {
+	id: 'video-to-gif',
+	translations: {
+		de: {
+			id: 'video-to-gif-de',
+			path: '/de/tools/converter/video-to-gif/',
+			title: 'Video zu GIF',
+			description: 'Erzeuge aus lokalen Videoclips browserseitig ein optimiertes GIF mit FFmpeg wasm.',
+		},
+		en: {
+			id: 'video-to-gif-en',
+			path: '/en/tools/converter/video-to-gif/',
+			title: 'Video to GIF',
+			description: 'Create optimized GIFs from local video clips in the browser with FFmpeg wasm.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<VideoToGifConverter locale={tool.locale} />
+</ToolPageShell>
