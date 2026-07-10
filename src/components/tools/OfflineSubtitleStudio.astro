@@ -1,0 +1,310 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import RangeControl from './shared/RangeControl.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props { locale: Locale }
+
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Untertitel-Tool',
+		title: 'Offline Subtitle Studio',
+		intro: 'Bearbeite, verschiebe, konvertiere und muxe Untertitel direkt im Browser.',
+		privacy: 'Medien und Untertitel bleiben lokal. FFmpeg WASM wird nur in deinem Browser ausgeführt.',
+		media: 'Mediendatei', chooseMedia: 'Audio oder Video auswählen', mediaHint: 'Optional, nur für Vorschau oder Muxing erforderlich',
+		subtitles: 'Untertitel', chooseSubtitles: 'SRT oder VTT auswählen', subtitleHint: 'Oder Text direkt unten einfügen',
+		editor: 'Editor', textLabel: 'Untertiteltext', inputFormat: 'Quellformat', outputFormat: 'Ausgabeformat', offset: 'Timing-Versatz',
+		container: 'Mux-Container', convert: 'Untertitel erstellen', mux: 'Mit Medien muxen', clear: 'Zurücksetzen',
+		downloadSubtitles: 'Untertitel herunterladen', downloadMedia: 'Gemuxte Datei herunterladen',
+		result: 'Ergebnis', waiting: 'Lade Untertitel oder füge Text ein.', ready: '{count} Untertitelzeilen erkannt.',
+		converted: '{name} wurde erstellt.', muxed: '{name} wurde gemuxt.', noCues: 'Keine gültigen Untertitel gefunden.',
+		loading: 'FFmpeg WASM wird geladen…', ffmpegReady: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%',
+		muxing: 'Muxe Untertitel in die Mediendatei…', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.',
+		error: 'Aktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', noMedia: 'Wähle zuerst eine Mediendatei.',
+	},
+	en: {
+		eyebrow: 'Subtitle tool',
+		title: 'Offline Subtitle Studio',
+		intro: 'Edit, offset, convert, and mux subtitles directly in your browser.',
+		privacy: 'Media and subtitles stay local. FFmpeg WASM only runs in your browser.',
+		media: 'Media file', chooseMedia: 'Choose audio or video', mediaHint: 'Optional, only needed for preview or muxing',
+		subtitles: 'Subtitles', chooseSubtitles: 'Choose SRT or VTT', subtitleHint: 'Or paste text directly below',
+		editor: 'Editor', textLabel: 'Subtitle text', inputFormat: 'Source format', outputFormat: 'Output format', offset: 'Timing offset',
+		container: 'Mux container', convert: 'Create subtitles', mux: 'Mux with media', clear: 'Reset',
+		downloadSubtitles: 'Download subtitles', downloadMedia: 'Download muxed file',
+		result: 'Result', waiting: 'Load subtitles or paste text.', ready: '{count} subtitle cues detected.',
+		converted: '{name} was created.', muxed: '{name} was muxed.', noCues: 'No valid subtitle cues found.',
+		loading: 'Loading FFmpeg WASM…', ffmpegReady: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%',
+		muxing: 'Muxing subtitles into the media file…', timeout: 'FFmpeg WASM did not load within 90 seconds.',
+		error: 'Action failed: {message}', generic: 'Unknown error', noMedia: 'Choose a media file first.',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section subtitle-studio-section tool-workspace">
+	<div class="container">
+		<div class="subtitle-studio" data-subtitle-studio data-copy={copyJson}>
+			<ToolPanel title={copy.media}>
+				<FilePicker label={copy.chooseMedia} name={copy.chooseMedia} hint={copy.mediaHint} accept="audio/*,video/*,.mkv,.mov,.mp4,.webm" nameAttrs={{ 'data-media-name': true }} metaAttrs={{ 'data-media-meta': true }} inputAttrs={{ 'data-media': true }} />
+				<video class="subtitle-preview" data-preview controls hidden></video>
+			</ToolPanel>
+
+			<ToolPanel title={copy.subtitles}>
+				<FilePicker label={copy.chooseSubtitles} name={copy.chooseSubtitles} hint={copy.subtitleHint} accept=".srt,.vtt,text/vtt,application/x-subrip,text/plain" nameAttrs={{ 'data-subtitle-name': true }} metaAttrs={{ 'data-subtitle-meta': true }} inputAttrs={{ 'data-subtitles': true }} />
+				<label class="subtitle-textarea-label">
+					<span>{copy.textLabel}</span>
+					<textarea data-text rows="14" spellcheck="false" placeholder="00:00:00.000 --> 00:00:03.000&#10;Hello world"></textarea>
+				</label>
+			</ToolPanel>
+
+			<ToolPanel title={copy.editor}>
+				<SelectControl label={copy.inputFormat} selectAttrs={{ 'data-input-format': true }}>
+					<option value="auto">Auto</option><option value="srt">SRT</option><option value="vtt">WebVTT</option>
+				</SelectControl>
+				<SelectControl label={copy.outputFormat} selectAttrs={{ 'data-output-format': true }}>
+					<option value="srt">SRT</option><option value="vtt">WebVTT</option>
+				</SelectControl>
+				<RangeControl label={copy.offset} value="0s" valueAttrs={{ 'data-offset-label': true }} inputAttrs={{ 'data-offset': true, min: -30, max: 30, step: 0.1, value: 0 }} />
+				<SelectControl label={copy.container} selectAttrs={{ 'data-container': true }}>
+					<option value="mkv">MKV</option><option value="mp4">MP4</option>
+				</SelectControl>
+				<ToolActions>
+					<button class="button primary" data-convert type="button">{copy.convert}</button>
+					<button class="button secondary" data-mux type="button">{copy.mux}</button>
+					<button class="button secondary" data-clear type="button">{copy.clear}</button>
+				</ToolActions>
+				<ToolStatus data-status text={copy.waiting} />
+			</ToolPanel>
+
+			<ToolPanel class="result-panel" title={copy.result}>
+				<p data-result>{copy.waiting}</p>
+				<div class="subtitle-downloads">
+					<a class="tool-download-link" data-download-subtitles href="#" download hidden>{copy.downloadSubtitles}</a>
+					<a class="tool-download-link" data-download-media href="#" download hidden>{copy.downloadMedia}</a>
+				</div>
+			</ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+
+	for (const root of document.querySelectorAll('[data-subtitle-studio]:not([data-bound])')) {
+		root.dataset.bound = 'true';
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const mediaInput = root.querySelector('[data-media]');
+		const mediaName = root.querySelector('[data-media-name]');
+		const mediaMeta = root.querySelector('[data-media-meta]');
+		const subtitleInput = root.querySelector('[data-subtitles]');
+		const subtitleName = root.querySelector('[data-subtitle-name]');
+		const subtitleMeta = root.querySelector('[data-subtitle-meta]');
+		const preview = root.querySelector('[data-preview]');
+		const text = root.querySelector('[data-text]');
+		const inputFormat = root.querySelector('[data-input-format]');
+		const outputFormat = root.querySelector('[data-output-format]');
+		const offset = root.querySelector('[data-offset]');
+		const offsetLabel = root.querySelector('[data-offset-label]');
+		const container = root.querySelector('[data-container]');
+		const convertButton = root.querySelector('[data-convert]');
+		const muxButton = root.querySelector('[data-mux]');
+		const clearButton = root.querySelector('[data-clear]');
+		const status = root.querySelector('[data-status]');
+		const result = root.querySelector('[data-result]');
+		const downloadSubtitles = root.querySelector('[data-download-subtitles]');
+		const downloadMedia = root.querySelector('[data-download-media]');
+		let mediaUrl = null;
+		let subtitleUrl = null;
+		let muxUrl = null;
+
+		const runtime = createFfmpegRuntime({
+			timeoutMessage: copy.timeout,
+			onLoading: () => setStatus(copy.loading, 'info'),
+			onReady: () => setStatus(copy.ffmpegReady, 'success'),
+			onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info'),
+		});
+
+		mediaInput.addEventListener('change', onMedia);
+		subtitleInput.addEventListener('change', onSubtitle);
+		text.addEventListener('input', updateCueStatus);
+		offset.addEventListener('input', () => { offsetLabel.textContent = `${Number(offset.value).toFixed(1)}s`; updateCueStatus(); });
+		convertButton.addEventListener('click', convertSubtitles);
+		muxButton.addEventListener('click', () => void muxMedia());
+		clearButton.addEventListener('click', reset);
+		offsetLabel.textContent = '0.0s';
+
+		function onMedia() {
+			const file = mediaInput.files?.[0];
+			if (mediaUrl) URL.revokeObjectURL(mediaUrl);
+			mediaUrl = file ? URL.createObjectURL(file) : null;
+			preview.hidden = !file;
+			if (file) preview.src = mediaUrl;
+			mediaName.textContent = file ? file.name : copy.chooseMedia;
+			mediaMeta.textContent = file ? `${formatBytes(file.size)} · ${file.type || 'media'}` : copy.mediaHint;
+		}
+
+		async function onSubtitle() {
+			const file = subtitleInput.files?.[0];
+			if (!file) return;
+			text.value = await file.text();
+			subtitleName.textContent = file.name;
+			subtitleMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'text'}`;
+			updateCueStatus();
+		}
+
+		function updateCueStatus() {
+			const cues = parseCues(text.value, inputFormat.value);
+			setStatus(cues.length ? format(copy.ready, { count: cues.length }) : copy.waiting, cues.length ? 'success' : 'info');
+		}
+
+		function convertSubtitles() {
+			try {
+				const output = renderSubtitles();
+				const name = `subtitles.${outputFormat.value}`;
+				if (subtitleUrl) URL.revokeObjectURL(subtitleUrl);
+				subtitleUrl = URL.createObjectURL(new Blob([output], { type: outputFormat.value === 'vtt' ? 'text/vtt' : 'text/plain' }));
+				downloadSubtitles.href = subtitleUrl;
+				downloadSubtitles.download = name;
+				downloadSubtitles.hidden = false;
+				result.textContent = format(copy.converted, { name });
+				setStatus(format(copy.converted, { name }), 'success');
+			} catch (error) {
+				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
+			}
+		}
+
+		async function muxMedia() {
+			const media = mediaInput.files?.[0];
+			if (!media) { setStatus(copy.noMedia, 'error'); return; }
+			try {
+				const subtitles = renderSubtitles('srt');
+				setStatus(copy.muxing, 'info');
+				const bytes = await runtime.run(async (ffmpeg) => {
+					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+					const mediaFile = `media-${stamp}${extension(media.name)}`;
+					const subtitleFile = `subtitles-${stamp}.srt`;
+					const outputFile = `subtitled-${stamp}.${container.value}`;
+					await ffmpeg.writeFile(mediaFile, new Uint8Array(await media.arrayBuffer()));
+					await ffmpeg.writeFile(subtitleFile, new TextEncoder().encode(subtitles));
+					try {
+						const args = ['-i', mediaFile, '-i', subtitleFile, '-map', '0', '-map', '1:0', '-c', 'copy'];
+						if (container.value === 'mp4') args.push('-c:s', 'mov_text', '-movflags', '+faststart');
+						else args.push('-c:s', 'srt');
+						args.push('-metadata:s:s:0', 'language=und', '-y', outputFile);
+						const code = await ffmpeg.exec(args);
+						if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
+						const output = await ffmpeg.readFile(outputFile);
+						return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
+					} finally {
+						await ffmpeg.deleteFile(mediaFile).catch(() => {});
+						await ffmpeg.deleteFile(subtitleFile).catch(() => {});
+						await ffmpeg.deleteFile(outputFile).catch(() => {});
+					}
+				});
+				const name = `${baseName(media.name)}-subtitled.${container.value}`;
+				if (muxUrl) URL.revokeObjectURL(muxUrl);
+				muxUrl = URL.createObjectURL(new Blob([bytes], { type: container.value === 'mp4' ? 'video/mp4' : 'video/x-matroska' }));
+				downloadMedia.href = muxUrl;
+				downloadMedia.download = name;
+				downloadMedia.hidden = false;
+				result.textContent = format(copy.muxed, { name });
+				setStatus(format(copy.muxed, { name }), 'success');
+			} catch (error) {
+				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
+			}
+		}
+
+		function renderSubtitles(forceFormat) {
+			const cues = parseCues(text.value, inputFormat.value).map((cue) => ({
+				...cue,
+				start: Math.max(0, cue.start + Number(offset.value || 0)),
+				end: Math.max(0, cue.end + Number(offset.value || 0)),
+			})).filter((cue) => cue.end > cue.start);
+			if (!cues.length) throw new Error(copy.noCues);
+			return (forceFormat || outputFormat.value) === 'vtt' ? toVtt(cues) : toSrt(cues);
+		}
+
+		function reset() {
+			mediaInput.value = ''; subtitleInput.value = ''; text.value = ''; offset.value = '0'; offsetLabel.textContent = '0.0s';
+			for (const link of [downloadSubtitles, downloadMedia]) link.hidden = true;
+			for (const url of [mediaUrl, subtitleUrl, muxUrl]) if (url) URL.revokeObjectURL(url);
+			mediaUrl = subtitleUrl = muxUrl = null;
+			preview.hidden = true; preview.removeAttribute('src');
+			mediaName.textContent = copy.chooseMedia; mediaMeta.textContent = copy.mediaHint;
+			subtitleName.textContent = copy.chooseSubtitles; subtitleMeta.textContent = copy.subtitleHint;
+			result.textContent = copy.waiting; setStatus(copy.waiting, 'info');
+		}
+
+		function parseCues(source, format) {
+			const normalized = String(source || '').replace(/\r/g, '').trim();
+			if (!normalized) return [];
+			const isVtt = format === 'vtt' || (format === 'auto' && /^WEBVTT/m.test(normalized));
+			const body = isVtt ? normalized.replace(/^WEBVTT[^\n]*\n+/, '').trim() : normalized;
+			return body.split(/\n{2,}/).map((block) => {
+				const lines = block.split('\n').filter(Boolean);
+				const timeIndex = lines.findIndex((line) => line.includes('-->'));
+				if (timeIndex < 0) return null;
+				const [startRaw, endRaw] = lines[timeIndex].split('-->').map((part) => part.trim().split(/\s+/)[0]);
+				const start = parseTime(startRaw);
+				const end = parseTime(endRaw);
+				if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) return null;
+				return { start, end, text: lines.slice(timeIndex + 1).join('\n').trim() };
+			}).filter(Boolean);
+		}
+
+		function parseTime(value) {
+			const match = String(value).replace(',', '.').match(/(?:(\d+):)?(\d{2}):(\d{2})(?:\.(\d{1,3}))?/);
+			if (!match) return NaN;
+			const hours = Number(match[1] || 0);
+			const minutes = Number(match[2] || 0);
+			const seconds = Number(match[3] || 0);
+			const ms = Number((match[4] || '0').padEnd(3, '0'));
+			return hours * 3600 + minutes * 60 + seconds + ms / 1000;
+		}
+
+		function toSrt(cues) {
+			return cues.map((cue, index) => `${index + 1}\n${formatTime(cue.start, ',')} --> ${formatTime(cue.end, ',')}\n${cue.text}`).join('\n\n') + '\n';
+		}
+
+		function toVtt(cues) {
+			return `WEBVTT\n\n${cues.map((cue) => `${formatTime(cue.start, '.')} --> ${formatTime(cue.end, '.')}\n${cue.text}`).join('\n\n')}\n`;
+		}
+
+		function formatTime(seconds, decimal) {
+			const totalMs = Math.round(seconds * 1000);
+			const ms = totalMs % 1000;
+			const totalSeconds = (totalMs - ms) / 1000;
+			const s = totalSeconds % 60;
+			const totalMinutes = (totalSeconds - s) / 60;
+			const m = totalMinutes % 60;
+			const h = (totalMinutes - m) / 60;
+			return `${pad(h)}:${pad(m)}:${pad(s)}${decimal}${String(ms).padStart(3, '0')}`;
+		}
+
+		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+		function format(template, values) { return Object.entries(values).reduce((out, [key, value]) => out.replace(`{${key}}`, String(value)), template); }
+		function pad(value) { return String(value).padStart(2, '0'); }
+		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
+		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'media'; }
+		function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
+	}
+</script>
+
+<style>
+	.subtitle-studio { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+	.subtitle-studio .result-panel { grid-column: 1 / -1; }
+	.subtitle-preview { width: 100%; margin-top: 14px; border-radius: 6px; background: #000; }
+	.subtitle-textarea-label { display: grid; gap: 8px; margin-top: 14px; font-weight: 800; }
+	.subtitle-textarea-label textarea { width: 100%; min-height: 260px; padding: 12px; border: 1px solid var(--color-line); border-radius: 6px; background: var(--color-surface-raised); color: var(--color-ink); font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; resize: vertical; }
+	.subtitle-downloads { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+	@media (max-width: 860px) { .subtitle-studio { grid-template-columns: 1fr; } }
+</style>
