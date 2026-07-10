@@ -1,0 +1,15 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import DeliveryDoctor from '../../components/tools/DeliveryDoctor.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('delivery-doctor', {
+	id: 'delivery-doctor',
+	translations: {
+		de: { path: '/de/tools/delivery-doctor/', title: 'Delivery Doctor', description: 'Prüfe und repariere lokale Mediendateien für Upload, Web-Playback und Übergabe.' },
+		en: { path: '/en/tools/delivery-doctor/', title: 'Delivery Doctor', description: 'Check and repair local media files for upload, web playback, and delivery.' },
+	},
+});
+const { tool, alternatePaths } = Astro.props;
+---
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}><DeliveryDoctor locale={tool.locale} /></ToolPageShell>
