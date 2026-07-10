@@ -117,7 +117,9 @@ const copyJson = JSON.stringify(copy);
 	</div>
 </section>
 
-<script is:inline>
+<script>
+	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+
 	(() => {
 		const roots = document.querySelectorAll('[data-loudness-mastering]:not([data-loudness-bound])');
 
@@ -139,12 +141,17 @@ const copyJson = JSON.stringify(copy);
 			const downloadLink = root.querySelector('[data-download]');
 
 			const state = {
-				ffmpeg: null,
-				ffmpegPromise: null,
-				ffmpegQueue: Promise.resolve(),
 				selectedFile: null,
 				downloadUrl: null,
 			};
+			const ffmpegRuntime = createFfmpegRuntime({
+				timeoutMessage: copy.statusFfmpegTimeout,
+				onLoading: () => setStatus(copy.statusFfmpegLoading, 'info'),
+				onReady: () => setStatus(copy.statusFfmpegReady, 'success'),
+				onProgress: (progress) => {
+					setStatus(format(copy.statusFfmpegProgress, { progress }), 'info');
+				},
+			});
 
 			fileInput.addEventListener('change', () => {
 				void selectFile(fileInput.files && fileInput.files[0]);
@@ -202,16 +209,13 @@ const copyJson = JSON.stringify(copy);
 			}
 
 			async function masterFile(file) {
-				return queueFfmpegTask(async () => {
-					const ffmpeg = await loadFfmpeg();
+				return ffmpegRuntime.run(async (ffmpeg) => {
 					const inputName = `${Date.now()}-${Math.random().toString(16).slice(2)}${inputExtension(file)}`;
 					const outputInfo = buildOutputInfo(file);
 					const outputName = `${inputName}-mastered${outputInfo.extension}`;
 					const sourceBuffer = await file.arrayBuffer();
 
 					await ffmpeg.writeFile(inputName, new Uint8Array(sourceBuffer.slice(0)));
-					ffmpeg.on('progress', handleFfmpegProgress);
-
 					try {
 						const result = await ffmpeg.exec(buildMasteringArgs(inputName, outputName, file));
 
@@ -222,85 +226,9 @@ const copyJson = JSON.stringify(copy);
 						const output = await ffmpeg.readFile(outputName);
 						return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
 					} finally {
-						ffmpeg.off('progress', handleFfmpegProgress);
 						await ffmpeg.deleteFile(inputName).catch(() => {});
 						await ffmpeg.deleteFile(outputName).catch(() => {});
 					}
-				});
-			}
-
-			function queueFfmpegTask(task) {
-				const run = state.ffmpegQueue.then(task, task);
-				state.ffmpegQueue = run.catch(() => {});
-				return run;
-			}
-
-			function handleFfmpegProgress(event) {
-				const progress = Math.max(0, Math.min(100, Math.round((event.progress || 0) * 100)));
-				setStatus(format(copy.statusFfmpegProgress, { progress }), 'info');
-			}
-
-			async function loadFfmpeg() {
-				if (state.ffmpeg) {
-					return state.ffmpeg;
-				}
-
-				if (state.ffmpegPromise) {
-					return state.ffmpegPromise;
-				}
-
-				state.ffmpegPromise = (async () => {
-					setStatus(copy.statusFfmpegLoading, 'info');
-					const ffmpegVersion = '0.12.15';
-					const coreVersion = '0.12.9';
-					const ffmpegBase = `https://unpkg.com/@ffmpeg/ffmpeg@${ffmpegVersion}/dist/esm`;
-					const coreBase = `https://unpkg.com/@ffmpeg/core@${coreVersion}/dist/esm`;
-					const [{ FFmpeg }, classWorkerURL, coreURL, wasmURL] = await Promise.all([
-						import(/* @vite-ignore */ `${ffmpegBase}/index.js`),
-						createModuleWorkerUrl(`${ffmpegBase}/worker.js`),
-						toBlobUrl(`${coreBase}/ffmpeg-core.js`, 'text/javascript'),
-						toBlobUrl(`${coreBase}/ffmpeg-core.wasm`, 'application/wasm'),
-					]);
-
-					const ffmpeg = new FFmpeg();
-					await withTimeout(ffmpeg.load({ classWorkerURL, coreURL, wasmURL }), 90000, copy.statusFfmpegTimeout);
-					state.ffmpeg = ffmpeg;
-					setStatus(copy.statusFfmpegReady, 'success');
-					return ffmpeg;
-				})().catch((error) => {
-					state.ffmpegPromise = null;
-					throw error;
-				});
-
-				return state.ffmpegPromise;
-			}
-
-			function createModuleWorkerUrl(url) {
-				return URL.createObjectURL(new Blob([
-					`import ${JSON.stringify(url)};`,
-				], { type: 'text/javascript' }));
-			}
-
-			async function toBlobUrl(url, mimeType) {
-				const response = await fetch(url);
-				if (!response.ok) {
-					throw new Error(`${response.status} ${response.statusText}`);
-				}
-
-				const buffer = await response.arrayBuffer();
-				return URL.createObjectURL(new Blob([buffer], { type: mimeType }));
-			}
-
-			function withTimeout(promise, timeoutMs, message) {
-				let timeoutId = 0;
-				const timeout = new Promise((_resolve, reject) => {
-					timeoutId = window.setTimeout(() => {
-						reject(new Error(message));
-					}, timeoutMs);
-				});
-
-				return Promise.race([promise, timeout]).finally(() => {
-					window.clearTimeout(timeoutId);
 				});
 			}
 
