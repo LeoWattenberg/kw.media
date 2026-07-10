@@ -1,0 +1,745 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Media-Tool',
+		title: 'MediaInfo',
+		intro: 'Lies technische Metadaten aus lokalen Audio-, Video- und Bilddateien direkt im Browser mit MediaInfoLib WASM.',
+		privacy: 'Deine Datei wird nicht hochgeladen. MediaInfo wird im Browser geladen und analysiert die Datei lokal in kleinen Chunks.',
+		fileTitle: 'Datei wählen',
+		chooseFile: 'Mediendatei auswählen',
+		fileHint: 'Audio, Video, Bilder, Untertitel und Containerdateien',
+		analyze: 'Analysieren',
+		clear: 'Zurücksetzen',
+		download: 'JSON-Bericht herunterladen',
+		statusWaiting: 'Wähle eine Mediendatei aus, um die Analyse zu starten.',
+		statusSelected: 'Datei bereit: {name}',
+		statusLoading: 'MediaInfo WASM wird geladen...',
+		statusAnalyzing: 'Metadaten werden gelesen...',
+		statusReady: 'Analyse abgeschlossen.',
+		statusError: 'Analyse fehlgeschlagen: {message}',
+		statusTimeout: 'MediaInfo WASM hat nicht innerhalb von 90 Sekunden geladen.',
+		statusGeneric: 'Unbekannter Fehler',
+		summaryTitle: 'Überblick',
+		tracksTitle: 'Tracks',
+		reportTitle: 'Bericht',
+		emptySummary: 'Noch keine Analyse vorhanden.',
+		emptyTracks: 'Die erkannten Tracks erscheinen nach der Analyse hier.',
+		fileName: 'Dateiname',
+		fileSize: 'Dateigröße',
+		fileType: 'Browser-MIME-Typ',
+		unknown: 'Unbekannt',
+		track: 'Track',
+		noFields: 'Keine Felder gefunden.',
+		labels: {
+			format: 'Format',
+			duration: 'Dauer',
+			overallBitRate: 'Gesamt-Bitrate',
+			bitRate: 'Bitrate',
+			size: 'Größe',
+			resolution: 'Auflösung',
+			frameRate: 'Bildrate',
+			channels: 'Kanäle',
+			samplingRate: 'Abtastrate',
+			bitDepth: 'Bittiefe',
+			compression: 'Kompression',
+			language: 'Sprache',
+			codec: 'Codec-ID',
+			streamSize: 'Streamgröße',
+		},
+	},
+	en: {
+		eyebrow: 'Media tool',
+		title: 'MediaInfo',
+		intro: 'Read technical metadata from local audio, video, and image files directly in your browser with MediaInfoLib WASM.',
+		privacy: 'Your file is not uploaded. MediaInfo loads in the browser and analyzes the file locally in small chunks.',
+		fileTitle: 'Choose file',
+		chooseFile: 'Select media file',
+		fileHint: 'Audio, video, images, subtitles, and container files',
+		analyze: 'Analyze',
+		clear: 'Reset',
+		download: 'Download JSON report',
+		statusWaiting: 'Choose a media file to start the analysis.',
+		statusSelected: 'File ready: {name}',
+		statusLoading: 'Loading MediaInfo WASM...',
+		statusAnalyzing: 'Reading metadata...',
+		statusReady: 'Analysis complete.',
+		statusError: 'Analysis failed: {message}',
+		statusTimeout: 'MediaInfo WASM did not finish loading within 90 seconds.',
+		statusGeneric: 'Unknown error',
+		summaryTitle: 'Overview',
+		tracksTitle: 'Tracks',
+		reportTitle: 'Report',
+		emptySummary: 'No analysis yet.',
+		emptyTracks: 'Detected tracks will appear here after analysis.',
+		fileName: 'File name',
+		fileSize: 'File size',
+		fileType: 'Browser MIME type',
+		unknown: 'Unknown',
+		track: 'Track',
+		noFields: 'No fields found.',
+		labels: {
+			format: 'Format',
+			duration: 'Duration',
+			overallBitRate: 'Overall bit rate',
+			bitRate: 'Bit rate',
+			size: 'Size',
+			resolution: 'Resolution',
+			frameRate: 'Frame rate',
+			channels: 'Channels',
+			samplingRate: 'Sampling rate',
+			bitDepth: 'Bit depth',
+			compression: 'Compression',
+			language: 'Language',
+			codec: 'Codec ID',
+			streamSize: 'Stream size',
+		},
+	},
+} satisfies Record<Locale, Record<string, unknown> & { labels: Record<string, string> }>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section mediainfo-section tool-workspace">
+	<div class="container">
+		<div class="mediainfo-tool" data-mediainfo-tool data-copy={copyJson}>
+			<ToolPanel class="mediainfo-panel input-panel" title={copy.fileTitle}>
+				<FilePicker
+					label={copy.chooseFile}
+					name={copy.chooseFile}
+					hint={copy.fileHint}
+					accept="audio/*,video/*,image/*,.aac,.aif,.aiff,.ass,.flac,.m2ts,.m4a,.mkv,.mov,.mp3,.mp4,.mxf,.oga,.ogg,.opus,.srt,.ts,.vtt,.wav,.webm"
+					nameAttrs={{ 'data-file-name': true }}
+					metaAttrs={{ 'data-file-meta': true }}
+					inputAttrs={{ 'data-file-input': true }}
+				/>
+				<ToolActions>
+					<button class="button primary" data-analyze type="button" disabled>{copy.analyze}</button>
+					<button class="button secondary" data-clear type="button">{copy.clear}</button>
+				</ToolActions>
+				<ToolStatus data-status text={copy.statusWaiting} />
+			</ToolPanel>
+
+			<ToolPanel class="mediainfo-panel summary-panel" title={copy.summaryTitle}>
+				<dl class="summary-grid" data-summary>
+					<div>
+						<dt>{copy.fileName}</dt>
+						<dd>{copy.emptySummary}</dd>
+					</div>
+				</dl>
+				<a class="download-link tool-download-link" data-download href="#" download hidden>{copy.download}</a>
+			</ToolPanel>
+
+			<ToolPanel class="mediainfo-panel tracks-panel" title={copy.tracksTitle}>
+				<div class="track-list" data-tracks>
+					<p class="empty-state">{copy.emptyTracks}</p>
+				</div>
+			</ToolPanel>
+		</div>
+	</div>
+</section>
+
+<style>
+	.mediainfo-tool {
+		display: grid;
+		gap: 16px;
+		grid-template-columns: minmax(260px, 0.42fr) minmax(0, 0.58fr);
+		align-items: start;
+	}
+
+	.mediainfo-panel {
+		display: grid;
+		gap: 12px;
+	}
+
+	.tracks-panel {
+		grid-column: 1 / -1;
+	}
+
+	.file-picker {
+		margin-top: 18px;
+		min-height: 160px;
+	}
+
+	.summary-grid {
+		display: grid;
+		gap: 10px;
+		margin: 4px 0 0;
+	}
+
+	.summary-grid div,
+	.track-field {
+		display: grid;
+		gap: 5px;
+		padding: 12px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.summary-grid dt,
+	.track-field dt {
+		color: var(--color-accent-dark);
+		font-size: 0.76rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.summary-grid dd,
+	.track-field dd {
+		margin: 0;
+		overflow-wrap: anywhere;
+		color: var(--color-ink);
+		font-weight: 780;
+	}
+
+	.track-list {
+		display: grid;
+		gap: 14px;
+	}
+
+	.track-card {
+		display: grid;
+		gap: 12px;
+		padding: 16px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.track-card h3 {
+		margin: 0;
+		color: var(--color-ink);
+		font-size: 1.2rem;
+		line-height: 1.2;
+		letter-spacing: 0;
+	}
+
+	.track-fields {
+		display: grid;
+		gap: 10px;
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	}
+
+	.empty-state {
+		margin: 0;
+		color: var(--color-muted);
+		font-weight: 700;
+	}
+
+	@media (max-width: 760px) {
+		.mediainfo-tool {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script is:inline>
+	(() => {
+		const roots = document.querySelectorAll('[data-mediainfo-tool]:not([data-mediainfo-bound])');
+
+		for (const root of roots) {
+			root.dataset.mediainfoBound = 'true';
+			initMediaInfoTool(root);
+		}
+
+		function initMediaInfoTool(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const fileInput = root.querySelector('[data-file-input]');
+			const fileName = root.querySelector('[data-file-name]');
+			const fileMeta = root.querySelector('[data-file-meta]');
+			const analyzeButton = root.querySelector('[data-analyze]');
+			const clearButton = root.querySelector('[data-clear]');
+			const status = root.querySelector('[data-status]');
+			const summary = root.querySelector('[data-summary]');
+			const tracks = root.querySelector('[data-tracks]');
+			const downloadLink = root.querySelector('[data-download]');
+
+			const state = {
+				selectedFile: null,
+				mediaInfo: null,
+				mediaInfoPromise: null,
+				reportUrl: null,
+			};
+
+			fileInput.addEventListener('change', () => {
+				selectFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
+			});
+			analyzeButton.addEventListener('click', () => {
+				void analyzeFile();
+			});
+			clearButton.addEventListener('click', resetTool);
+
+			function selectFile(file) {
+				state.selectedFile = file || null;
+				analyzeButton.disabled = !state.selectedFile;
+				clearReport();
+
+				if (!file) {
+					fileName.textContent = copy.chooseFile;
+					fileMeta.textContent = copy.fileHint;
+					setStatus(copy.statusWaiting, 'info');
+					return;
+				}
+
+				fileName.textContent = file.name;
+				fileMeta.textContent = `${formatBytes(file.size)} | ${file.type || copy.unknown}`;
+				setStatus(format(copy.statusSelected, { name: file.name }), 'info');
+				renderSummary(buildBasicSummary(file));
+			}
+
+			async function analyzeFile() {
+				if (!state.selectedFile) {
+					return;
+				}
+
+				analyzeButton.disabled = true;
+				setStatus(copy.statusAnalyzing, 'info');
+
+				try {
+					const mediaInfo = await loadMediaInfo();
+					setStatus(copy.statusAnalyzing, 'info');
+					const result = await mediaInfo.analyzeData(state.selectedFile.size, readChunk);
+					const report = normalizeResult(result);
+					renderSummary(buildSummary(state.selectedFile, report));
+					renderTracks(report.media && Array.isArray(report.media.track) ? report.media.track : []);
+					updateDownload(report);
+					setStatus(copy.statusReady, 'success');
+				} catch (error) {
+					setStatus(format(copy.statusError, { message: messageFromError(error, copy.statusGeneric) }), 'error');
+					throw error;
+				} finally {
+					analyzeButton.disabled = !state.selectedFile;
+				}
+			}
+
+			async function readChunk(chunkSize, offset) {
+				const buffer = await state.selectedFile.slice(offset, offset + chunkSize).arrayBuffer();
+				return new Uint8Array(buffer);
+			}
+
+			async function loadMediaInfo() {
+				if (state.mediaInfo) {
+					return state.mediaInfo;
+				}
+
+				if (state.mediaInfoPromise) {
+					return state.mediaInfoPromise;
+				}
+
+				state.mediaInfoPromise = (async () => {
+					setStatus(copy.statusLoading, 'info');
+					const factory = await loadMediaInfoFactory();
+					const mediaInfo = await withTimeout(factory({ format: 'object' }), 90000, copy.statusTimeout);
+					state.mediaInfo = mediaInfo;
+					return mediaInfo;
+				})().catch((error) => {
+					state.mediaInfoPromise = null;
+					throw error;
+				});
+
+				return state.mediaInfoPromise;
+			}
+
+			async function loadMediaInfoFactory() {
+				const existingFactory = getMediaInfoFactory();
+				if (existingFactory) {
+					return existingFactory;
+				}
+
+				await loadScript('https://unpkg.com/mediainfo.js@0.3.5');
+				const factory = getMediaInfoFactory();
+
+				if (!factory) {
+					throw new Error('MediaInfo factory was not found on window.');
+				}
+
+				return factory;
+			}
+
+			function getMediaInfoFactory() {
+				const candidate = window.MediaInfo || window.mediaInfoFactory || window.MediaInfoFactory;
+
+				if (typeof candidate === 'function') {
+					return candidate;
+				}
+
+				if (candidate && typeof candidate.default === 'function') {
+					return candidate.default;
+				}
+
+				return null;
+			}
+
+			function loadScript(src) {
+				return new Promise((resolve, reject) => {
+					const existing = document.querySelector(`script[src="${src}"]`);
+
+					if (existing && existing.dataset.loaded === 'true') {
+						resolve();
+						return;
+					}
+
+					if (existing) {
+						existing.addEventListener('load', resolve, { once: true });
+						existing.addEventListener('error', () => reject(new Error(src)), { once: true });
+						return;
+					}
+
+					const script = document.createElement('script');
+					script.src = src;
+					script.async = true;
+					script.addEventListener('load', () => {
+						script.dataset.loaded = 'true';
+						resolve();
+					}, { once: true });
+					script.addEventListener('error', () => reject(new Error(src)), { once: true });
+					document.head.appendChild(script);
+				});
+			}
+
+			function normalizeResult(result) {
+				if (typeof result === 'string') {
+					return JSON.parse(result);
+				}
+
+				return result && typeof result === 'object' ? result : { media: { track: [] } };
+			}
+
+			function buildBasicSummary(file) {
+				return [
+					[copy.fileName, file.name],
+					[copy.fileSize, formatBytes(file.size)],
+					[copy.fileType, file.type || copy.unknown],
+				];
+			}
+
+			function buildSummary(file, report) {
+				const trackList = report.media && Array.isArray(report.media.track) ? report.media.track : [];
+				const general = trackList.find((track) => track['@type'] === 'General') || {};
+				const video = trackList.find((track) => track['@type'] === 'Video') || {};
+				const audio = trackList.find((track) => track['@type'] === 'Audio') || {};
+				const rows = buildBasicSummary(file);
+				addRow(rows, copy.labels.format, general.Format || video.Format || audio.Format);
+				addRow(rows, copy.labels.duration, formatDuration(general.Duration || video.Duration || audio.Duration));
+				addRow(rows, copy.labels.overallBitRate, formatBitRate(general.OverallBitRate || general.BitRate));
+				addRow(rows, copy.labels.resolution, formatResolution(video));
+				addRow(rows, copy.labels.frameRate, formatFrameRate(video.FrameRate));
+				addRow(rows, copy.labels.channels, formatChannels(audio.Channels));
+				addRow(rows, copy.labels.samplingRate, formatSamplingRate(audio.SamplingRate));
+				return rows;
+			}
+
+			function addRow(rows, label, value) {
+				if (value) {
+					rows.push([label, value]);
+				}
+			}
+
+			function renderSummary(rows) {
+				summary.replaceChildren(...rows.map(([label, value]) => createDefinition(label, value)));
+			}
+
+			function renderTracks(trackList) {
+				if (!trackList.length) {
+					const empty = document.createElement('p');
+					empty.className = 'empty-state';
+					empty.textContent = copy.emptyTracks;
+					tracks.replaceChildren(empty);
+					return;
+				}
+
+				tracks.replaceChildren(...trackList.map((track, index) => createTrackCard(track, index)));
+			}
+
+			function createTrackCard(track, index) {
+				const card = document.createElement('article');
+				card.className = 'track-card';
+				const heading = document.createElement('h3');
+				const type = track['@type'] || copy.track;
+				const format = track.Format ? ` | ${track.Format}` : '';
+				heading.textContent = `${type}${format}`;
+				const fieldList = document.createElement('dl');
+				fieldList.className = 'track-fields';
+				const fields = pickTrackFields(track);
+
+				if (!fields.length) {
+					fields.push([copy.track, `${index + 1}`], [copy.noFields, copy.unknown]);
+				}
+
+				fieldList.replaceChildren(...fields.map(([label, value]) => createDefinition(label, value, 'track-field')));
+				card.append(heading, fieldList);
+				return card;
+			}
+
+			function pickTrackFields(track) {
+				const preferredKeys = [
+					'Format',
+					'Format_Profile',
+					'CodecID',
+					'Duration',
+					'FileSize',
+					'StreamSize',
+					'OverallBitRate',
+					'BitRate',
+					'Width',
+					'Height',
+					'FrameRate',
+					'ColorSpace',
+					'ChromaSubsampling',
+					'BitDepth',
+					'Channels',
+					'ChannelLayout',
+					'SamplingRate',
+					'Compression_Mode',
+					'Language',
+					'Title',
+					'Encoded_Library',
+				];
+				const seen = new Set(['@type']);
+				const fields = [];
+
+				for (const key of preferredKeys) {
+					if (track[key]) {
+						fields.push([labelForKey(key), formatFieldValue(key, track[key])]);
+						seen.add(key);
+					}
+				}
+
+				for (const [key, value] of Object.entries(track)) {
+					if (seen.has(key) || value === '' || value == null || fields.length >= 36) {
+						continue;
+					}
+
+					fields.push([labelForKey(key), String(value)]);
+				}
+
+				return fields;
+			}
+
+			function createDefinition(label, value, className) {
+				const wrapper = document.createElement('div');
+				if (className) {
+					wrapper.className = className;
+				}
+				const term = document.createElement('dt');
+				const description = document.createElement('dd');
+				term.textContent = label;
+				description.textContent = value || copy.unknown;
+				wrapper.append(term, description);
+				return wrapper;
+			}
+
+			function updateDownload(report) {
+				if (state.reportUrl) {
+					URL.revokeObjectURL(state.reportUrl);
+				}
+
+				const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
+				state.reportUrl = URL.createObjectURL(blob);
+				downloadLink.href = state.reportUrl;
+				downloadLink.download = `${baseName(state.selectedFile.name)}-mediainfo.json`;
+				downloadLink.hidden = false;
+				downloadLink.textContent = copy.download;
+			}
+
+			function clearReport() {
+				if (state.reportUrl) {
+					URL.revokeObjectURL(state.reportUrl);
+				}
+
+				state.reportUrl = null;
+				downloadLink.hidden = true;
+				renderSummary([[copy.fileName, copy.emptySummary]]);
+				renderTracks([]);
+			}
+
+			function resetTool() {
+				state.selectedFile = null;
+				fileInput.value = '';
+				analyzeButton.disabled = true;
+				fileName.textContent = copy.chooseFile;
+				fileMeta.textContent = copy.fileHint;
+				clearReport();
+				setStatus(copy.statusWaiting, 'info');
+			}
+
+			function labelForKey(key) {
+				const labelMap = {
+					BitDepth: copy.labels.bitDepth,
+					BitRate: copy.labels.bitRate,
+					Channels: copy.labels.channels,
+					CodecID: copy.labels.codec,
+					Compression_Mode: copy.labels.compression,
+					Duration: copy.labels.duration,
+					FileSize: copy.labels.size,
+					Format: copy.labels.format,
+					FrameRate: copy.labels.frameRate,
+					Language: copy.labels.language,
+					OverallBitRate: copy.labels.overallBitRate,
+					SamplingRate: copy.labels.samplingRate,
+					StreamSize: copy.labels.streamSize,
+				};
+
+				return labelMap[key] || key.replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2');
+			}
+
+			function formatFieldValue(key, value) {
+				if (key === 'Duration') {
+					return formatDuration(value);
+				}
+				if (key === 'FileSize' || key === 'StreamSize') {
+					return formatNumericBytes(value);
+				}
+				if (key === 'OverallBitRate' || key === 'BitRate') {
+					return formatBitRate(value);
+				}
+				if (key === 'SamplingRate') {
+					return formatSamplingRate(value);
+				}
+				if (key === 'FrameRate') {
+					return formatFrameRate(value);
+				}
+
+				return String(value);
+			}
+
+			function formatResolution(video) {
+				if (!video.Width || !video.Height) {
+					return '';
+				}
+
+				return `${video.Width} x ${video.Height}`;
+			}
+
+			function formatDuration(value) {
+				const seconds = Number(value);
+
+				if (!Number.isFinite(seconds) || seconds <= 0) {
+					return value ? String(value) : '';
+				}
+
+				const hours = Math.floor(seconds / 3600);
+				const minutes = Math.floor((seconds % 3600) / 60);
+				const wholeSeconds = Math.floor(seconds % 60);
+				const milliseconds = Math.round((seconds % 1) * 1000);
+				const parts = hours > 0
+					? [hours, String(minutes).padStart(2, '0'), String(wholeSeconds).padStart(2, '0')]
+					: [minutes, String(wholeSeconds).padStart(2, '0')];
+				const suffix = milliseconds > 0 ? `.${String(milliseconds).padStart(3, '0')}` : '';
+				return `${parts.join(':')}${suffix}`;
+			}
+
+			function formatBitRate(value) {
+				const bits = Number(value);
+
+				if (!Number.isFinite(bits) || bits <= 0) {
+					return value ? String(value) : '';
+				}
+
+				if (bits >= 1000000) {
+					return `${trimNumber(bits / 1000000)} Mb/s`;
+				}
+
+				return `${trimNumber(bits / 1000)} kb/s`;
+			}
+
+			function formatFrameRate(value) {
+				const frameRate = Number(value);
+
+				if (!Number.isFinite(frameRate) || frameRate <= 0) {
+					return value ? String(value) : '';
+				}
+
+				return `${trimNumber(frameRate)} fps`;
+			}
+
+			function formatChannels(value) {
+				const channels = Number(value);
+
+				if (!Number.isFinite(channels) || channels <= 0) {
+					return value ? String(value) : '';
+				}
+
+				return `${channels}`;
+			}
+
+			function formatSamplingRate(value) {
+				const rate = Number(value);
+
+				if (!Number.isFinite(rate) || rate <= 0) {
+					return value ? String(value) : '';
+				}
+
+				if (rate >= 1000) {
+					return `${trimNumber(rate / 1000)} kHz`;
+				}
+
+				return `${rate} Hz`;
+			}
+
+			function formatNumericBytes(value) {
+				const bytes = Number(value);
+				return Number.isFinite(bytes) && bytes >= 0 ? formatBytes(bytes) : String(value);
+			}
+
+			function formatBytes(bytes) {
+				if (!Number.isFinite(bytes) || bytes <= 0) {
+					return '0 B';
+				}
+
+				const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+				const index = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+				const value = bytes / 1024 ** index;
+				return `${trimNumber(value)} ${units[index]}`;
+			}
+
+			function trimNumber(value) {
+				return Number(value.toFixed(value >= 10 ? 1 : 2)).toString();
+			}
+
+			function baseName(name) {
+				return name.replace(/\.[^.]+$/, '') || 'media';
+			}
+
+			function withTimeout(promise, timeoutMs, message) {
+				let timeoutId = 0;
+				const timeout = new Promise((_resolve, reject) => {
+					timeoutId = window.setTimeout(() => reject(new Error(message)), timeoutMs);
+				});
+
+				return Promise.race([promise, timeout]).finally(() => {
+					window.clearTimeout(timeoutId);
+				});
+			}
+
+			function setStatus(message, stateName) {
+				status.textContent = message;
+				status.dataset.state = stateName;
+			}
+
+			function format(template, values) {
+				return Object.entries(values).reduce((result, [key, value]) => result.replace(`{${key}}`, value), template);
+			}
+
+			function messageFromError(error, fallback) {
+				return error && error.message ? error.message : fallback;
+			}
+		}
+	})();
+</script>
