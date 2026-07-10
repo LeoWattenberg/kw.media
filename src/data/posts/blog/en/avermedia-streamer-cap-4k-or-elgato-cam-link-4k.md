@@ -21,7 +21,7 @@ postCta:
 
 [AVerMedia](/youtube-tips-en/avermedia-nexus-ax310-streamer-mic-330-review/) has released a new [capture card](/youtube-tips-en/integrating-cameras-and-consoles-playstation-xbox-switch-into-obs-with-capture-cards/), and they sent me a sample to take a closer look at and share my thoughts. I made sure to approach the comparison as objectively as possible.
 
-The [AVerMedia Streamer Cap4K (BU113)](https://www.avermedia.com/de/product-detail/bu113?utm_source=PR&utm_medium=post&utm_campaign=BU113_NPI) is designed to connect DSLR cameras to a PC for recording or streaming using [recording software such as OBS](/youtube-tips-en/getting-started-with-obs-a-beginners-guide/) or AVerMedia's own RECentral. This makes it a direct competitor to Elgato's Camlink4K. So, our central question today is: Can AVerMedia overcome Elgato's market dominance and convince with cheaper products?
+The [AVerMedia Streamer Cap4K (BU113)](https://www.avermedia.com/de/product-detail/bu113?utm_source=PR&utm_medium=post&utm_campaign=BU113_NPI) is designed to connect DSLR cameras to a PC for [recording or streaming](/en/live/) using [recording software such as OBS](/youtube-tips-en/getting-started-with-obs-a-beginners-guide/) or AVerMedia's own RECentral. This makes it a direct competitor to Elgato's Camlink4K. So, our central question today is: Can AVerMedia overcome Elgato's market dominance and convince with cheaper products?
 
 <figure class="image-full"><img width="1000" height="400" src="/assets/wp-content/uploads/2021/10/camlink_cap4k_vergleich.jpg" alt></figure>
 

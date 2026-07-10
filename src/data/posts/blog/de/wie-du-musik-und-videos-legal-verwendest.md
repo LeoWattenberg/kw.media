@@ -22,7 +22,7 @@ In diesem Tutorial/Ratgeber für YouTuber geht es um das Ding, was die einfache 
 
 `Ich bin kein Anwalt und kann daher keine Rechtsberatung geben.`
 
-Wie auch immer, hier sind ein paar Grundregeln, solltest du noch nie mit dem Urheberrecht zu tun gehabt haben und jetzt YouTube-Videos machen wollen:
+Wie auch immer, hier sind ein paar Grundregeln, solltest du noch nie mit dem Urheberrecht zu tun gehabt haben und jetzt [YouTube-Videos machen wollen](/de/youtube-tipps/):
 
 <h2 id="regel_1">Regel 1: Alles ist urheberrechtlich geschützt.</h2>
 

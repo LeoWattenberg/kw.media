@@ -24,6 +24,59 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Neue Funktionen für Mobilgeräte und Live-Streaming
+
+YouTube legt derzeit einen starken Fokus auf die Optimierung der mobilen Nutzererfahrung, insbesondere im Bereich der Live-Streams. Ein zentrales Update betrifft die [vertikalen Livestreams](/de/live/). Hier wird eine Funktion eingeführt, die es ermöglicht, Mit-Chattende direkt zu taggen. 
+
+Konkret bedeutet das: Du kannst über einen Button in den Chat wechseln, einige Buchstaben des Namens eingeben und dann aus einer Liste der anwesenden Nutzer die gewünschte Person auswählen. Diese Markierungen werden dem Empfänger – genau wie bereits in der Desktop-Version bekannt – farblich hervorgehoben angezeigt. Dies ist ein wichtiger Schritt für die Interaktion, da Nutzer in einem schnelllebigen Chat oft übersehen werden. Durch die farbliche Hervorhebung weiß der angesprochene Zuschauer sofort, dass er gemeint ist, was die Bindung zwischen Creator und Community stärkt.
+
+Interessanterweise wird diese Funktion priorisiert für vertikale Streams ausgerollt. Für horizontale Live-Chats ist die Implementierung zwar geplant, jedoch erst dann, wenn die Version für vertikale Streams stabil läuft und vollständig ausgerollt wurde. Ein konkretes Datum für die horizontale Variante gibt es derzeit noch nicht.
+
+## Shorts auf dem Desktop: Fokus auf Mobile-First
+
+Im Bereich der Shorts gab es auf der Desktop-Seite eine technische Korrektur: Ein Fehler bei der Anzeige der Aufrufe wurde behoben, sodass die Statistiken nun wieder korrekt dargestellt werden. 
+
+Wer jedoch auf die Rückkehr von Shorts-Thumbnails in der Desktop-Version hofft, wird enttyscht. Alles deutet darauf hin, dass YouTube hier konsequent den "Mobile-First"-Ansatz verfolgt. Das bedeutet für dich als Creator: Wenn du individuelle Thumbnails für deine Shorts festlegen möchtest, musst du den Upload zwingend über ein Mobilgerät (Android oder iOS) durchführen. 
+
+Um diesen Prozess zu erleichtern, führt YouTube zudem einen Texteditor für Shorts-Thumbnails ein, der direkt mobil funktioniert. Damit kannst du Textelemente einfach über den Frame des Videos legen, um die Klickrate zu erhöhen. Der Launch-Zeitraum hierfür ist für Ende Februar bis Ende März angesetzt – es lohnt sich also, in deinem [YouTube Studio](/de/youtube-tipps/) auf dem Smartphone Ausschau nach dieser Funktion zu halten.
+
+## Kanal-Mitgliedschaften und das Experiment mit Premium-Nutzern
+
+Das Thema Member Gifting (das Verschenken von Mitgliedschaften) bleibt komplex. Die Funktion "2x Free Memberships" ist weiterhin nur für Accounts verfügbar, die als Hauptaccount im [YouTube Partnerprogramm](/de/creator/) sind. Brand Accounts sind von dieser spezifischen Funktion derzeit ausgeschlossen. Obwohl das Feature für dieses Quartal priorisiert wurde, ist im März nicht mit einer breiten Verfügbarkeit zu rechnen; auch für das nächste Quartal bleibt die Lage ungewiss.
+
+Ein weiterer wichtiger Punkt ist das "Targeted Member Gifting". Hier gibt es eine klare Ansage: Diese Funktion wird im zweiten Quartal 2024 definitiv nicht implementiert.
+
+Stattdessen startet im nächsten Monat ein spannendes Experiment: YouTube testet kostenlose Mitgliedschaften für Nutzer von [YouTube Premium](/youtube-tipps-de/youtube-updates-kommentervorschauen-in-shorts-duo-premium-plane-und-anderungen-bei-musiklizenzen/). Es gibt jedoch ein wichtiges Detail, das du im Auge behalten solltest: Aktuellen Gerüchten zufolge könnte diese kostenlose Mitgliedschaft nicht monatlich gewährt werden, sondern nur einmalig beim Upgrade auf Premium. 
+
+Sollte sich dies bewahrheiten, wäre das für Creator und Zuschauer weniger attraktiv als ein monatliches Modell. Falls du an diesem Experiment teilnimmst, ist es daher ratsam, aktiv Feedback an YouTube zu senden. Ein starkes Signal der Community könnte dazu beitragen, dass YouTube die Funktion in Richtung einer monatlichen Bereitstellung anpasst.
+
+## Super Chat: Likes und strukturierte Diskussionen
+
+Die Interaktionsmöglichkeiten in Live-Streams werden durch Updates bei den [Super Chats](/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/) deutlich erweitert. Eine der kommenden Neuerungen sind "Likes" für Super Chats, die sowohl mobil als auch auf dem Desktop verfügbar sein werden. Der vollständige Launch ist für etwa den 20. März geplant.
+
+Noch bedeutender könnte jedoch das Update Ende April sein: YouTube plant die Einführung von Super-Chat-Antworten und Threads. Obwohl die genaue optische Umsetzung noch nicht bekannt ist, verspricht dies eine völlig neue Dynamik in der Kommunikation. Anstatt dass ein Super Chat einfach nur im Strom der Nachrichten verschwindet, könnten gezielte Diskussionen entstehen.
+
+Besonders für Creator, die Tutorials oder Erklärvideos produzieren – etwa in den Bereichen Motorrad-Technik oder Basteln –, bietet dies einen enormen Mehrwert. Es erlaubt dir, spezifische Fragen innerhalb eines Super Chats zu beantworten und so eine strukturierte Diskussion zu führen, ohne dass der rote Faden im Chat verloren geht.
+
+## Gaming-Integration: Playables und die Vision von Crowdplay
+
+Ein massives Update steht im Bereich Gaming an, wobei hier ein "US-first"-Launch (inklusive einiger englischsprachiger Länder) erwartet wird. In etwa anderthalb Monaten kehren die YouTube Playables zurück. Dabei handelt es sich um kleine Spiele, die für [YouTube Premium](/youtube-tipps-de/youtube-updates-kommentervorschauen-in-shorts-duo-premium-plane-und-anderungen-bei-musiklizenzen/)-Kunden kostenlos direkt auf der Plattform spielbar sind.
+
+Hinter diesen Playables steckt eine tiefere strategische Entwicklung: Ehemalige Entwickler von Google Stadia arbeiten nun bei YouTube an der Weiterentwicklung des "Crowdplay"-Features. Ursprünglich erlaubte Crowdplay es Stadia-Nutzern, über einen Livestream einem anderen Spieler beizutreten. 
+
+Das Ziel ist ambitioniert: Bis Ende 2024 soll es in Livestreams einen Button geben, über den Zuschauer Spiele direkt kaufen und herunterladen können. Damit würde YouTube die Lücke zwischen dem Zuschauen und dem aktiven Spielen schließen.
+
+### Die Rolle von Third-Party-Plattformen und Affiliate-Keys
+
+Damit dieses System funktioniert, ist eine Verknüpfung mit Third-Party-Plattformen notwendig. Aktuell stehen hier vor allem Epic Games und Battlenet im Fokus. Die technische Schnittstelle zwischen diesen Accounts und YouTube existiert laut Berichten bereits. 
+
+Der Workflow sähe dann so aus: Ein Zuschauer sieht einen Stream, klickt auf den integrierten Button, kauft das Spiel über Battlenet oder Epic Games, lädt es herunter und kann dem Creator im Stream beitreten. 
+
+Für dich als Gaming-Creator ist hier vor allem der Aspekt der "Affiliate-Keys" interessant. In Anlehnung an die bereits existierenden Creator Codes von Epic Games könnte dies bedeuten, dass Creator eine Umsatzbeteiligung erhalten, wenn über ihren Stream ein Spiel gekauft wird. Damit würde YouTube eine Monetarisierungsform etablieren, die stark an bewährte Affiliate-Modelle im Gaming-Sektor angelehnt ist. Gaming-Creator sollten diese Entwicklung genau beobachten, da sie eine neue, attraktive Einnahmequelle neben den klassischen Werbeeinnahmen und Super Chats darstellen könnte.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Ich bin im Urlaub, dieser Rechner ist am Sterben, daher entschuldigt bitte die Geräusche, die der Lüfter von sich gibt. Daher starten wir direkt mit den Neuigkeiten für Mobilgeräte. Die bekommen nämlich neue Prioritäten. Das Team arbeitet gerade an vertikalen Livestreams, das heißt, dort wird es zuerst ausgerollt, dass ihr einen Button drücken könnt, dann ein paar Buchstaben eingebt und dann auswählen könnt, wer von den Mit-Chattenden getagt werden soll. Diese Tags werden dann natürlich genau wie auf Desktop auch dem Empfänger entsprechend hervorgehoben, das heißt in einer anderen Farbe dargestellt, [damit man](/youtube-tipps-de/youtube-hype-livestream-und-superchat-updates/) weiß, dass man angesprochen wurde. Sehr gute Sache! Für horizontale Live-Chats soll das Ganze noch gebaut werden, sobald vertikale Live-Streams in einer stabilen Version bereitstehen und ausgerollt werden können. Dafür gibt es allerdings noch kein spezifisches Datum.
@@ -43,3 +96,4 @@ Aktuelle Updates zu YouTube und Gaming
 Es ist wichtig, dass man eine entsprechende Third-Party-Plattform mit YouTube verbindet. Derzeit gibt es beispielsweise Epic Games und Battlenet, die in Frage kommen. Meines Erachtens sind das alles nur Gerüchte, aber diese Schnittstelle zwischen den beiden Accounts existiert bereits. Das bedeutet, ihr könnt dann letztendlich einen Button klicken, das Spiel über Battlenet oder Epic Games kaufen, herunterladen und dem Streamer oder der Streamerin beitreten. In dieser Vision ist auch von Affiliate-Keys die Rede. Wenn wir uns das Ökosystem im Bereich YouTube und YouTube Live anschauen, wissen wir, dass Epic Games sogenannte Creator Codes anbietet, die genau das sind: eine Umsatzbeteiligung, eine Art Affiliation beim Verkauf von Keys. Deshalb ist Epic Games hier tatsächlich der stärkste Partner, den man sich vorstellen kann. Eine auf jeden Fall interessante Geschichte, die Gaming-Creator im Auge behalten sollten.
 
 Das war es auch schon für heute. Wenn ihr weitere Fragen habt, gerne in die Kommentare damit. Ansonsten Kanal abonnieren, um keine Updates zu verpassen. Nächste Woche sehen wir uns dann wieder aus dem normalen Studio mit einem funktionierenden Rechner. Bis dahin macht's gut und haut rein!
+<!-- kwm:transcript:end -->

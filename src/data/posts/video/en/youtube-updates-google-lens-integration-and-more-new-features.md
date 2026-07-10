@@ -24,6 +24,51 @@ postCta:
   pageTitle: "YouTube Tips & Tricks in English"
 ---
 
+<!-- kwm:article:start -->
+## New YouTube Updates: From Google Lens Integration to AI Chat Summaries
+
+YouTube continues to roll out a variety of experiments and feature updates across its ecosystem. These changes range from user interface tweaks on mobile devices to sophisticated [AI tools for live streamers](/en/live/) and new analytics for those utilizing [YouTube Shopping](/en/creator/). Whether you are an Android or iOS user, or a Creator managing a large community, these updates change how users find content and how Creators manage their channels.
+
+### Google Lens Integration for Android Users
+
+In a new experiment for selected Android users, YouTube is integrating Google Lens directly into the search functionality. For those unfamiliar with the tool, Google Lens is an application that utilizes the smartphone camera to identify objects and perform visual searches.
+
+By bringing this capability into the YouTube search bar, users can now perform image-based searches to find relevant videos. This has significant practical implications for "how-to" and repair content. For example, if a user is attempting to fix a household item—such as a sink siphon—but does not know the technical name of the part or how to spell it, they can simply take a photo via Google Lens. The system then identifies the object and suggests corresponding tutorials on YouTube. This removes the linguistic barrier between seeing a problem and finding the visual solution.
+
+### UI Experiments on iOS
+
+While Android users are seeing functional search updates, iOS users may notice changes to the app's layout. YouTube is currently testing a user interface (UI) change where the "Search" and "Create" buttons have swapped positions. 
+
+As this is an active UI test, it is only appearing for a specific group of users. It is important to note that if you are part of this test group, there is currently no option to opt out or revert the buttons to their original positions. These types of A/B tests allow YouTube to determine which layout leads to better user engagement and ease of navigation before a wider rollout.
+
+### AI-Powered Summaries for Live Chat
+
+Managing a live stream with thousands of active participants can be overwhelming for any Creator. To address this, YouTube is rolling out AI summaries for live chats, specifically targeting large English-language streams.
+
+These AI summaries are designed to distill the essence of the conversation happening in real-time. To ensure safety and accuracy, the AI only analyzes messages that have not been blocked and does not include withheld content. Because the system requires a high volume of chat messages to function effectively, it is primarily relevant for Creators with very large audiences. While this feature is currently limited to English streams, it represents a significant step in helping Creators stay connected with their community without having to read every single message manually.
+
+### Content Policy and Mandatory Training
+
+YouTube is tightening the way it handles content violations related to third-party material. If a Creator uses content belonging to someone else without explicit permission in their videos or livestreams, they now face more than just the risk of a copyright strike.
+
+Creators found in violation may now be required to undergo "Policy Training." This suggests that YouTube is focusing on education to prevent repeat offenses. The most effective way to avoid both strikes and mandatory training is simple: do not use third-party content without prior consent from the original owner.
+
+### Expanding YouTube Shopping Analytics
+
+For Creators who sell products through their channel, YouTube Shopping is receiving an update to its analytics suite. Within YouTube Studio, under the Revenue tab of YouTube Analytics, Creators can now access a map that visualizes where their best-selling items are being purchased.
+
+However, the effectiveness of YouTube Shopping varies significantly by region. In the United States, the feature is more robust because Creators can utilize Google Shopping affiliate links in addition to linking their own stores. In contrast, the impact of these shopping features remains relatively low for Creators based in the European Union.
+
+### Clarifying the "Erase Song" Feature
+
+Recently, there has been a surge of reports from media outlets and update channels presenting the "Erase Song" feature as a brand-new novelty. However, records from web archives indicate that this tool has actually existed for approximately ten years.
+
+The "Erase Song" feature allows Creators to remove a specific song from a video after receiving a copyright infringement notice, potentially saving the rest of the video from being muted or blocked. Despite its long existence, it is noted that the tool has not always worked reliably. 
+
+This serves as a reminder for Creators to be cautious with music licensing. Relying on cheap license providers can lead to issues if those licenses later change or prove invalid. The best practice remains avoiding the use of copyrighted audio without proper permission to eliminate the need for removal tools entirely.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 There are fresh YouTube updates. Let's start with a little Android experiment, as Google Lens search is now available via YouTube search for some selected Android users. That means Google Lens is an app (in case you didn't know) that uses your smartphone camera to...
@@ -53,3 +98,4 @@ Erase Song: Not a New Feature
 A big announced feature is "Erase Song." I initially thought it was new, but as web archive records show, it's been around for 10 years. It allows you to remove a song from a video if you've received a copyright infringement notice. However, it never really worked well. It's alarming that major media outlets and creator update channels present this as a novelty despite its long existence. Again, don't use content without permission, then you won't have to deal with removing songs. It can, however, be useful when licenses change and you've relied on a cheap provider who sold the license.
 
 Feel free to share your thoughts on these updates in the comments! Until next week for more YouTube news. Stay tuned and keep going!
+<!-- kwm:transcript:end -->

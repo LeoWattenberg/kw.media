@@ -24,6 +24,57 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## A Pattern of Control: AI Traps and Revenue Shifts
+
+There is a unsettling sense of déjà vu currently permeating the creator economy. Between [YouTube’s recent AI monetization rules](/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/) and [Twitch’s move toward AI-driven micromanagement](/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/), the platforms seem to be rehashing a specific script: encourage creators to adopt new technologies, then tighten the rules to limit their autonomy.
+
+When you combine these policy shifts with sudden changes in pricing and revenue structures, a clear pattern emerges. The platforms are not just providing tools; they are moving the goalposts in real-time, leaving creators with diminishing control over their businesses and their creative output.
+
+## The Hidden Cost of YouTube Premium Price Hikes
+
+YouTube is currently notifying users in Germany about significant price increases for YouTube Premium, set to take effect in July. While the standard and family plans are seeing an increase of approximately 15-17%, the most drastic change is hitting "Premium Light." This tier is jumping from €5.99 to €7.99—a substantial 33% increase.
+
+At first glance, a price hike for viewers might seem irrelevant to the person behind the camera. However, for creators, this is a direct financial risk. Analysis of various channel portfolios shows that [YouTube Premium revenue](/en/creator/) typically accounts for between 3% and 10% of total earnings, depending on the specific niche and audience demographics.
+
+### Why Premium Revenue Matters
+Premium views are among the most stable and highest-paying views a creator can receive. Unlike ad-supported views, which fluctuate based on advertiser demand and seasonality, Premium revenue is more consistent. 
+
+The danger lies in user churn. If viewers cancel their Premium Light subscriptions due to this 33% price jump, those views do not simply stay "premium." They fall back into the regular ad-supported pool. In an environment where ad blockers are prevalent, a shift from a Premium view to an ad-blocked view results in a total loss of revenue for that specific impression. Creators should expect significant volatility in their RPMs (Revenue Per Mille) starting in July and should monitor their revenue tabs closely to assess the impact.
+
+## The Automation Trap: New Policy vs. AI Hype
+
+While financial stability is being threatened by pricing shifts, channel security is being threatened by a subtle update to [YouTube's Creator Responsibility Policy](/en/youtube-tips/). A new rule has been implemented stating that using YouTube features, tools, or services to create content that harms—or is intended to harm—others is considered a serious violation. This explicitly includes the creation of spam.
+
+The penalties for violating this policy are severe, ranging from the loss of specific YouTube features to full channel termination. 
+
+### The Hypocrisy of Generative AI
+There is a glaring contradiction in how YouTube is positioning itself. On one hand, the platform is aggressively pushing generative AI tools like Gemini and AI avatars, encouraging creators to automate their workflows and scale their production. On the other hand, they are establishing a legal "backdoor" that allows them to terminate channels if those same automation tools are used to create content deemed as spam or harmful.
+
+Essentially, YouTube wants the prestige and hype of being an AI-forward platform, but they are offloading all the operational risk onto the creators. If you use these tools to scale too aggressively or in a way that triggers their "spam" filters, you are giving the platform a blank check to delete your business at their discretion. For those running a serious professional operation, the lesson is clear: avoid the temptation of cheap AI automation channels. The risk of termination far outweighs the perceived efficiency of scaling without manual effort.
+
+## Twitch and the Shift Toward "Advertiser-Friendly" Formatting
+
+The trend toward platform control isn't limited to YouTube. On Twitch, the move toward micromanagement is accelerating. Following the introduction of Campaign Assists—which monitors sponsorship reads—Twitch is now seeking testers on Discord for a new AI tool designed to optimize streams.
+
+Unlike the tools found in YouTube Studio, which generally focus on discovery (how people find your videos) or monetization (how you make money), this Twitch AI focuses on [stream optimization](/en/live/). By analyzing previous streams and channel metrics, the AI provides "actionable feedback" to the creator.
+
+### The Erosion of Creativity
+While "optimization" sounds positive, the underlying goal is more restrictive. This tool is designed to shape creators into a specific, advertiser-friendly format. When a platform begins to automate stream reviews and dictate what constitutes a "good" stream, it takes control away from the creator and their community. 
+
+This shift moves the focus away from organic creativity and community engagement and toward a standardized corporate template. The result is a loss of creative agency, where the AI becomes the invisible producer directing the show to satisfy the needs of advertisers rather than the desires of the audience.
+
+## Reclaiming Control in an Unstable Ecosystem
+
+When you look at these updates collectively, the pattern is undeniable:
+* **YouTube** threatens channel termination if you misuse tools they simultaneously encourage you to use.
+* **Twitch** implements AI to dictate how you should perform and interact with your community.
+* **Google** arbitrarily adjusts pricing in a way that can destabilize creator RPMs.
+
+Creators are operating in an environment where the rules change without warning and the platforms hold all the leverage. To survive this, creators must move away from total dependency on platform-dictated "best practices" and focus on reclaiming control of their own capacity and business models.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 Wait a second, I'm getting a serious déjà vu here. Am I just reading the exact same script as last week? [YouTube has handed us another AI trap for creators](/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/), and [Twitch is building an AI tool to micromanage your streams](/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/), while YouTube Premium is increasing its prices, directly impacting your channel's revenue. The platforms are basically rehashing their greatest hits. Let's cut to the chase and get straight to the creator news, starting with your finances.
@@ -43,3 +94,4 @@ This AI will analyze your previous streams and channel metrics to provide action
 Notice the pattern? YouTube threatens your channel if you misuse their tools, Twitch builds an AI to dictate how you stream, and Google arbitrarily raises prices that affect your RPM. The platforms constantly move the goalposts, leaving you with zero control. If you're tired of this constant pressure, check out the survey pinned below. We're developing a tool to help you reclaim control of your capacity, and we need your input to make it effective.
 
 That's all for this week. Protect your time, know your worth, subscribe for more relevant creator news, and I'll see you next week with more updates.
+<!-- kwm:transcript:end -->

@@ -23,7 +23,7 @@ Moin.
 
 The [Hero–Hub–Help model](/youtube-tips-en/the-eee-model-how-to-break-out-of-the-small-youtuber-niche/) [which YouTube developed in 2014](https://think.storage.googleapis.com/docs/creator-playbook-for-brands_research-studies.pdf) has been a [helpful tool for video marketeers](https://www.thinkwithgoogle.com/features/youtube-playbook/topic/programming-channel-strategy/) to help them understand what they can do on YouTube. Namely:
 
-- Hero content is big events, which you can advertise in a big way. It gets huge attention on the day it’s happening, and then quickly becomes uninteresting again, such as the E3 presentations.
+- Hero content is big events, which you can [advertise in a big way](/en/ads/). It gets huge attention on the day it’s happening, and then quickly becomes uninteresting again, such as the E3 presentations.
 - Hub content is regularly scheduled content, to keep subscribers (and viewers you’ve reached through the other content) interested in your channel. This content gets watched by your subscribers in the first couple days after upload, and then basically never again.
 - Help content (originally named: hygiene) is helpful content teaching users how to do stuff, ie tutorials. This content gets found at any time via search, but doesn’t add much value to subscribers to your channel.
 

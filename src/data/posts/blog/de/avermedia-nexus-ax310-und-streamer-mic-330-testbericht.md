@@ -19,7 +19,7 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
-Wenn es darum geht, Streaming oder Content-Erstellung im Allgemeinen auf das nächste Level zu heben, ist eines der ersten Dinge, die man tun sollte, die Aufrüstung des Audioequipments. Für eine Orientierung, was für dich passen könnte, wirf einen Blick auf unseren [Audio-Guide zum Glück](/youtube-tipps-de/der-audio-guide-zum-glucklichsein-oder-wie-du-deine-streams-und-videos-gut-klingen-lasst/).
+Wenn es darum geht, [Streaming oder Content-Erstellung](/de/live/) im Allgemeinen auf das nächste Level zu heben, ist eines der ersten Dinge, die man tun sollte, die Aufrüstung des Audioequipments. Für eine Orientierung, was für dich passen könnte, wirf einen Blick auf unseren [Audio-Guide zum Glück](/youtube-tipps-de/der-audio-guide-zum-glucklichsein-oder-wie-du-deine-streams-und-videos-gut-klingen-lasst/).
 
 In diesem Review/Guide sprechen wir über eine mögliche One-Stop-Shop-Lösung, die für dich interessant sein könnte. Zunächst muss ich jedoch offenlegen: AVerMedia hat mir ihr NEXUS-Interface und ihr dynamisches Mikrofon zur Rezension geschickt. Sie haben dies kostenlos getan, aber dieser Beitrag ist nicht gesponsert. Vor dem Test habe ich bereits bei mehreren Geschäftsveranstaltungen [AVerMedia-Produkte](/youtube-tipps-de/avermedia-streamer-cap4k-bu113-oder-elgato-camlink4k/) als kompakte Geräte verwendet, die gute Bildqualität geliefert haben, daher sind meine Erwartungen an ihr Audioequipment ebenfalls hoch.
 
@@ -31,7 +31,7 @@ Beginnen wir mit dem Mikrofon selbst. Es ist ein recht geradliniges dynamisches 
 
 <figure class="image-large"><img width="918" height="1024" src="/assets/wp-content/uploads/2021/06/AM_STREAMMIC.jpg" alt><figcaption>Das AM330 verfügt über einen integrierten Pop-Filter, und du kannst das Mikrofon mit dem Schalter auf der rechten Seite ausschalten.</figcaption></figure>
 
-Da man für ein XLR-Mikrofon auch ein USB-Interface benötigt, um es an den Computer anzuschließen, könnte dies eines sein, das du gebraucht günstig gekauft hast, oder du bleibst bei AVerMedia. Ich habe einen Link zu einem Video von mir hinzugefügt, in dem du hören kannst, wie es in Kombination mit dem nächsten Gerät, dem AVerMedia Live Streamer NEXUS, klingt.
+Da man für ein XLR-Mikrofon auch ein [USB-Interface](/de/tools/) benötigt, um es an den Computer anzuschließen, könnte dies eines sein, das du gebraucht günstig gekauft hast, oder du bleibst bei AVerMedia. Ich habe einen Link zu einem Video von mir hinzugefügt, in dem du hören kannst, wie es in Kombination mit dem nächsten Gerät, dem AVerMedia Live Streamer NEXUS, klingt.
 
 ## Live Streamer NEXUS AX310
 

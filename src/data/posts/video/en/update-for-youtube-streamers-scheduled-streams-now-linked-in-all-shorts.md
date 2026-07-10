@@ -24,6 +24,67 @@ postCta:
   pageTitle: "YouTube Tips & Tricks in English"
 ---
 
+<!-- kwm:article:start -->
+## Navigating the New Era of YouTube Shorts and Live Streaming
+
+YouTube is rapidly evolving its short-form video ecosystem, introducing changes that blur the lines between quick clips and longer content. From the official announcement of 3-minute Shorts to new ways of promoting live streams, creators have several new tools—and a few technical hurdles—to navigate. Whether you are a dedicated streamer or a short-form creator, these updates change how you should approach your content pipeline and [monetization strategy](/en/creator/).
+
+## The Arrival of 3-Minute Shorts: Understanding "Compacts"
+
+The most significant recent update is the official introduction of Shorts that can last up to three minutes. While YouTube has provided the technical capability, the community is still grappling with what to call this new format. Terms like "Long Shorts" have been dismissed as awkward, and while "Pants" exists in English for certain video types, it isn't a fit here. Suggestions such as "Maxi Shorts," "Minis," or simply keeping them under the "Shorts" umbrella are on the table, though "Compacts" has emerged as a strong candidate for describing this middle-ground format.
+
+Regardless of the name, the extension to three minutes provides creators with more breathing room to develop a narrative, provide deeper tutorials, or share more detailed highlights without needing to transition the viewer to a full-length long-form video.
+
+### Monetization and YouTube Partner Requirements
+
+For many creators, the primary concern with any new format is how it affects their path to monetization. If you are working toward the [YouTube Partner requirements](/youtube-tips-en/celebrate-with-us-1000-subscribers-and-youtube-shorts-updates/), it is important to understand how these longer Shorts—or "Compacts"—are tracked.
+
+The simple answer is that they count as Shorts views. However, the transition phase may introduce some visual confusion within YouTube Studio. You might notice discrepancies between different sections of your dashboard:
+
+*   **The Content Page:** In this view, Compacts might temporarily appear as standard videos.
+*   **The Monetization Page:** Here, the actual watch time and view metrics are tracked correctly in the backend.
+
+Creators should not be alarmed if they see a "back-and-forth" in how these views are displayed. Once the backend transition is complete, the watch time will align, and the views will be fully integrated into your Shorts view count. 
+
+Regarding revenue, there are currently no plans to change the monetization model for longer Shorts. For now, both standard Shorts and Compacts will continue to be monetized equally under the existing Shorts framework.
+
+## Bridging the Gap Between Shorts and Live Streaming
+
+While longer Shorts offer more creative freedom, a separate update is fundamentally changing how streamers can use short-form content to drive traffic to their [live broadcasts](/en/live/). YouTube is currently testing a new notification prompt for scheduled streams that appears directly on a creator's Shorts.
+
+### The "Live Ring" vs. Scheduled Notifications
+
+To understand this feature, it is helpful to distinguish between the two ways YouTube signals a creator's status:
+
+1.  **The Live Ring:** This is the red ring that appears around a profile picture when a creator is currently live. It serves as an immediate signal for viewers to jump into the stream.
+2.  **Scheduled Stream Prompts:** For creators who have a stream planned but are not yet live, YouTube is testing a prompt on all of their Shorts. This notification—which may say something like "Next stream in XY Z hours. Notify me now"—acts as a call-to-action for viewers to set a reminder.
+
+This means that every Short you upload becomes a potential landing page and advertisement for your upcoming live event, provided you have a schedule in place.
+
+### Why You Should Stop Using "Go Live" Exclusively
+
+Many streamers rely on the "Go Live" function because it is faster and requires less preparation. However, relying solely on spontaneous streaming means you miss out on these automated promotional tools. 
+
+By utilizing the "Schedule a stream" feature in YouTube Studio, you allow the platform to automatically place notification prompts across your Shorts library. This transforms your existing content into a passive marketing engine that works for you even when you are offline. If you want to maximize your viewership, scheduling is no longer optional—it is a strategic necessity.
+
+## Strategic Content Creation for Streamers
+
+The synergy between Shorts and live streaming is becoming the primary growth engine for creators on the platform. This is particularly advantageous for YouTube streamers compared to those who stream on other platforms like Twitch. While many creators feel forced to record content, edit it, and then upload it across TikTok or Instagram to find new audiences, YouTube streamers can keep their entire funnel within a single ecosystem.
+
+Because the link between Shorts and Live streams is a native feature, there is no manual linking required; the platform handles the connection automatically when you are live or have a stream scheduled.
+
+### Optimizing Your Workflow with OBS
+
+To take full advantage of this ecosystem, streamers need to move beyond traditional horizontal broadcasting. The goal is to create a pipeline where live moments are seamlessly converted into Shorts. This involves several technical steps within streaming software like OBS:
+
+*   **Vertical Scenes:** Setting up a dedicated vertical scene allows you to broadcast or record in the 9:16 aspect ratio required for Shorts, ensuring your content looks professional and native to the mobile experience.
+*   **The Buffer System:** Implementing a 5-minute buffer for your vertical scene is a critical safeguard. This ensures that when a "viral moment" happens, you have the preceding seconds of context captured.
+*   **Retroactive Saving:** By configuring your software to save material retroactively with one click, you can instantly capture high-quality clips from your stream without having to record the entire multi-hour broadcast in high resolution.
+
+By integrating these technical workflows, you can ensure that every live stream produces a steady supply of Shorts, which in turn feed more viewers back into your next scheduled stream.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 YouTube has now officially announced [3-minute Shorts](/youtube-tips-en/youtube-updates-playable-multitasking-and-3-minute-shorts/) as well. I've linked the summary of the news above. As promised, we also asked a few follow-up questions. First of all, about the name: "Long Shorts" is a silly name, we can all agree on that. "Pants" is already taken in English for videos, which I didn't know either. In the comments, people suggested "Maxi Shorts" and "Compacts". Other creators mentioned "Minis" and just "Shorts". None of these names are perfect. I'd stick with "Compacts" for now, but feel free to keep suggesting names in the comments below. Maybe we can find something we all agree on.
@@ -45,3 +106,4 @@ How does it work? No problem!
 You can already look forward to it in the comments. And finally: A huge thank you for all the sharing and commenting! Last week was an incredible celebration, we're already almost at 1100 subscribers – that even surprises me how quickly it's going. But of course, you still have until October 12th to leave an orange heart and a nice comment. I'll reach out to the comments I like best so they can also get a great CAPI, and yes, another YouTube bag. You know the drill, right?
 
 In that sense: Thank you so much for tuning in! See you next week for more YouTube updates. Until then, take care and keep pushing!
+<!-- kwm:transcript:end -->

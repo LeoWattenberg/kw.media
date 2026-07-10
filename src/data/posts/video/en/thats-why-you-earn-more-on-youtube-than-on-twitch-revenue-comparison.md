@@ -29,6 +29,56 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## Understanding Net Revenue: YouTube vs. Twitch
+
+When a viewer sends a donation or signs up for a subscription, it is easy to assume that the amount they pay is the amount the Creator receives. However, there is a significant difference between the gross payment made by a user and the net amount that actually hits a Creator's bank account. 
+
+To understand why some platforms are more lucrative than others, we have to look at the "revenue waterfall"—the series of deductions that occur during a digital transaction. Before a Creator sees a single cent, several entities take their share: value-added tax (VAT), app store fees (such as those from Apple or Google), the platform's own service cut, and finally, the Creator's personal income tax.
+
+## How YouTube Handles Digital Transactions
+
+On YouTube, digital revenue primarily flows through two channels: paid channel memberships and "super features," which include [Super Chat, Super Stickers, and Super Thanks](/youtube-tips-en/new-feature-alert-superthanks/). Both of these systems follow the same basic billing principle.
+
+The efficiency of these payments depends heavily on the device the viewer uses to make the transaction. Because YouTube is part of the Google ecosystem, transactions made via desktop or Android devices are generally more efficient for the Creator. In these cases, there are no additional third-party app store fees. 
+
+However, the situation changes when a user pays via iOS. Apple charges a fee for in-app payments, which increases the cost for the user and reduces the final share that reaches the Creator. For those looking to maximize their earnings, [YouTube's ecosystem](/en/youtube-tips/) provides a distinct advantage for users staying within Google-supported platforms.
+
+## The Complexity of Twitch Monetization
+
+Twitch operates differently, requiring a distinction between subscriptions and Bits. Each has its own set of rules regarding platform cuts and payouts.
+
+### Twitch Subscriptions
+Subscriptions are more complex than YouTube memberships because the platform cut can vary depending on the subscription tier and the platform used for the purchase. Generally, desktop subscriptions result in a lower net share for the Creator compared to YouTube memberships. 
+
+The gap widens further with mobile subscriptions. Not only do additional app store fees apply—similar to the iOS issue on YouTube—but the price for the user can be higher, while the amount reaching the Creator remains unfavorable.
+
+### Twitch Bits
+Bits operate on a different logic entirely. Instead of a percentage-based cut of a subscription fee, Creators receive a fixed amount per Bit. The variable here is not what the Creator receives, but what the viewer pays to acquire those Bits. 
+
+The purchase price for Bits varies based on the package size and the device used. For example, buying large packages of Bits on a desktop is typically more cost-effective for the user than buying small packages via a mobile app. Because the payout per Bit to the Creator is fixed, the net share can sometimes appear more competitive than mobile subscriptions, depending on how the viewer purchased their Bits.
+
+## Comparing the Two: Which Platform Wins?
+
+When comparing the two platforms, the "winner" depends on the type of support you are seeking from your community.
+
+For long-term, recurring support through memberships, YouTube is often the more financially attractive option for Creators due to its higher net efficiency and better integration with Android and desktop payments. 
+
+One-time payments are a closer contest. While Twitch Bits can be competitive depending on how the viewer purchases them, mobile transactions across both platforms significantly degrade the final payout. If a large portion of your community is "mobile-first," you will inevitably see a larger share of your potential revenue absorbed by app store fees.
+
+## Strategic Takeaways for Creators
+
+Understanding these mechanics allows you to make informed decisions about your [monetization strategy](/youtube-tips-en/7-ways-creators-make-money-beyond-youtube-ads/). If you notice that a significant portion of your audience uses iOS devices, you are losing a percentage of your revenue to platform fees before the money even reaches the service provider.
+
+To optimize your income, consider the following:
+*   **Analyze your community's habits:** Determine if your fans primarily interact via mobile or desktop.
+*   **Encourage efficient payment paths:** While you cannot control user behavior, understanding that desktop and Android payments are more efficient can help you guide your community toward the best ways to support you.
+*   **Evaluate long-term vs. short-term goals:** If your goal is to build a stable, recurring income stream through memberships, YouTube's structure may offer a better financial return than Twitch.
+
+Ultimately, the difference in earnings isn't just about the platform's base cut, but about the hidden fees embedded in the digital ecosystem of app stores and mobile payment processing.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 How much money actually reaches you as a Creator when a user makes a digital transaction? That's exactly what this video is about. We compare YouTube and Twitch and look at how much remains after value-added tax (VAT), app store fees, platform cuts, and income tax.
@@ -50,3 +100,4 @@ The most important difference is: For long-term memberships and regular support,
 For Creators, this means: Pay attention to where your community is active. A mobile-first community can be less efficient for digital transactions because app store fees take a large share. Desktop users are usually best for such payments, and on YouTube, Android is also relatively strong.
 
 Conclusion: If you want to build long-term memberships, YouTube is often financially more attractive. When considering one-time payments, the comparison depends more on the product, platform, and device. Take a close look at the numbers before finalizing your [monetization strategy](/youtube-tips-en/7-ways-creators-make-money-beyond-youtube-ads/).
+<!-- kwm:transcript:end -->

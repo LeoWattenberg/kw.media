@@ -21,7 +21,7 @@ postCta:
 
 Wenn du also mit YouTube anfangen möchtest, insbesondere als Gaming-Channel, dann willst du vielleicht nicht gleich ein Vermögen für Equipment ausgeben, nur um es mal auszuprobieren. Ich meine, das ist bei jedem Hobby das Gleiche. Du fängst nicht mit dem Bogenschießen an und kaufst dir den besten Bogen auf dem Markt, aber auch nicht mit dem billigsten Spielzeug.
 
-In diesem Leitfaden sprechen wir über einige grundlegende Faktoren beim Start eines YouTube-Kanals mit gamingbezogenem Inhalt und wie du möglicherweise deine Ausgaben reduzieren kannst.
+In diesem Leitfaden sprechen wir über einige grundlegende Faktoren beim [Start eines YouTube-Kanals mit gamingbezogenem Inhalt](/youtube-tipps-de/einfache-youtube-seo-fur-gaming-kanale/) und wie du möglicherweise deine Ausgaben reduzieren kannst.
 
 Denke jedoch daran: Es wird immer empfohlen, dein Equipment auf Industrie-Standards zu upgraden, wenn du halbprofessionell oder sogar vollzeitmäßig durchstarten möchtest.
 

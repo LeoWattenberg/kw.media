@@ -24,6 +24,76 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Effizienteres Management: Das Update für das mobile YouTube Studio
+
+YouTube überarbeitet derzeit die Benutzeroberfläche der YouTube Studio App, um den Workflow für Creator zu optimieren. Im Fokus stehen dabei eine aufgeräumtere Inhaltsverwaltung und eine stärkere Integration von Community-Funktionen. Wenn du deine Kanalverwaltung primär über das Smartphone erledigst, werden dich diese Änderungen direkt betreffen.
+
+### Die neue Struktur der Registerkarte „Inhalte“
+
+Die Verwaltung deiner Videos wird intuitiver. [YouTube führt](/youtube-tipps-de/youtube-fuhrt-spannende-neuerungen-ein-clips-feed-update-und-mehr/) in der Registerkarte „Inhalte“ sogenannte „Shelfs“ (Regale) ein. Anstatt einer einfachen, langen Liste werden die verschiedenen Formate nun in übersichtlichen Kategorien gruppiert. Dies ermöglicht es dir, schneller zwischen deinen Shorts, regulären Videos und anderen Formaten zu navigieren, ohne durch eine endlose Liste scrollen zu müssen.
+
+Für diejenigen, die die klassische Übersicht bevorzugen, gibt es jedoch eine gute Nachricht: Die Listenansicht bleibt erhalten. Du kannst diese jederzeit über die Option „View All“ aufrufen, falls du einen detaillierteren Überblick über alle hochgeladenen Inhalte benötigst.
+
+Auch bei der Anzeige von Informationen wurde gefiltert, um visuelles Rauschen zu vermeiden:
+* **Geplante Inhalte:** Diese werden nur dann in der Ansicht angezeigt, wenn tatsächlich Videos für die Zukunft geplant sind.
+* **[Performance-Daten](/de/youtube-tipps/):** Relevante Kennzahlen werden nun direkt unter dem jeweiligen Inhalt platziert, was den schnellen Check der Performance erleichtert.
+* **Status-Anzeigen:** Informationen zur Monetarisierung und zum Sichtbarkeitsstatus werden nur dann prominent eingeblendet, wenn es ein Problem gibt oder das Video nicht öffentlich ist. In der klassischen Listenansicht bleiben diese Informationen jedoch weiterhin wie gewohnt verfügbar.
+
+Der Rollout dieser Änderungen erfolgt schrittweise über die nächsten Wochen. Es lohnt sich also, regelmäßig im App Store oder Play Store zu prüfen, ob ein Update für deine Studio-App bereitsteht.
+
+### Vom Kommentar-Tab zum Community-Zentrum
+
+Eine wesentliche Änderung betrifft die Navigation innerhalb der App. Die bisherige Registerkarte „Kommentare“ wird in „Community“-Registerkarte umbenannt. Dieser Namenswechsel ist mehr als nur Kosmetik; er signalisiert eine Erweiterung des Funktionsumfangs. 
+
+YouTube bündelt unter diesem Tab nun verschiedene Interaktionsmöglichkeiten, um den Platz effizienter zu nutzen. Neben den klassischen Kommentaren finden hier künftig auch Community Posts und [Fan Communities](/youtube-tipps-de/youtube-fan-communities-alles-was-du-wissen-musst/) ihren Platz. Ziel ist es, alle Werkzeuge zur Zuschauerbindung an einem zentralen Ort zu sammeln.
+
+#### Neue Metriken für die Zuschauerbindung
+
+Zusammen mit der Umbenennung kommen wertvolle Daten hinzu, die dir helfen sollen, deine Community besser zu verstehen:
+1. **Anzahl der Kommentare:** Eine schnelle Übersicht über das aktuelle Interaktionsvolumen.
+2. **Wiederkehrende Zuschauer:** Diese Metrik ist besonders spannend, da sie dir zeigt, wie viele Nutzer nicht nur einmalig dein Video gesehen haben, sondern regelmäßig auf deinen Kanal zurückkehren. Dies ist ein wichtiger Indikator für die langfristige Bindung deiner Audience.
+
+Zusätzlich führt YouTube die „Community Spotlights“ ein. Hier werden die aktivsten und engagiertesten Zuschauer hervorgehoben. Ähnlich wie bei den Top-Kommentatoren, die bereits durch viele Herzen auffallen, erhalten diese besonders aktiven Nutzer einen kleinen Badge neben ihrem Namen. Dies schafft einen Anreiz für Zuschauer, sich intensiver an der Diskussion unter deinen Videos zu beteiligen.
+
+### KI-Integration: Unterstützung oder Risiko?
+
+YouTube integriert verstärkt [künstliche Intelligenz](/de/kurse/) in das Studio, wobei die Funktionen unterschiedlich bewertet werden können.
+
+#### KI-generierte Kommentarvorschläge
+Um dir Zeit bei der Beantwortung von Kommentaren zu sparen, testet YouTube eine Funktion für KI-generierte Antwortvorschläge. Das Besondere daran: Die KI soll versuchen, den individuellen Stil und Ton des jeweiligen Creators zu übernehmen. 
+
+Der Rollout erfolgt vorsichtig: Zunächst erhält eine kleine Gruppe von Creatoren Zugriff, bevor die Funktion in den kommenden Monaten für alle verfügbar wird. Ob diese Unterstützung auch für deutsche Kommentare optimiert wird oder zunächst auf Englisch beschränkt bleibt, ist derzeit noch nicht eindeutig geklärt.
+
+#### KI-Videozusammenfassungen
+Aufgrund von Nutzerfeedback wird die KI-gestützte Zusammenfassung von Videos weltweit für mehr Nutzer bereitgestellt. Hier gibt es jedoch eine wichtige Einschränkung: Die Funktion gilt aktuell nur für ausgewählte englischsprachige Videos; deutschsprachiger Content ist davon nicht betroffen.
+
+Kritisch zu betrachten ist hierbei die fehlende Kontrolle: Creator können zwar weiterhin ihre eigenen Beschreibungen schreiben, doch die KI ergänzt diese eigenständig. Es gibt derzeit keinen Opt-out. Das bedeutet, dass bei englischsprachigem Content das Risiko besteht, dass die KI unzutreffende Zusammenfassungen erstellt, gegen die der Creator keine Handhabe hat.
+
+### Automatisierung im Creator Support
+
+Auch im Desktop-Bereich des YouTube Studios gibt es Neuerungen beim Kontakt zum Creator Support. Wer Hilfe benötigt und den Chat sucht, wird nun nicht mehr sofort mit einem menschlichen Mitarbeiter verbunden. Stattdessen schaltet YouTube einen KI-Bot vor.
+
+Dieser Bot analysiert dein Anliegen und stellt dir passende Hilfestellungsartikel zusammen. Während dies theoretisch effizient sein kann – da die Suche in der offiziellen Dokumentation oft mühsam ist –, bleibt fraglich, ob ein interaktiver Chatbot hier die richtige Lösung ist. Die Gefahr besteht, dass spezifische Probleme durch standardisierte Artikel nicht gelöst werden und eine direkte Kommunikation mit geschultem Personal blockiert wird.
+
+### Super Chat Goals: Motivation für Livestreams
+
+Ein weiteres Highlight sind die neuen „Super Chat Goals“. Diese Funktion ermöglicht es dir, während eines Livestreams konkrete Ziele zu setzen, um die Interaktion und finanzielle Unterstützung durch deine Zuschauer zu steigern.
+
+#### So funktioniert die Einrichtung
+Die Erstellung eines Goals ist unkompliziert: Über ein Symbol im Livestream oder Live Chat kannst du ein Ziel definieren. Aktuell stehen Optionen zur Auswahl, ob man beispielsweise 5 oder 50 Super Chats als Ziel setzen möchte. Zudem hast du die Möglichkeit, das Ziel individuell zu benennen – entweder durch eigene Texte oder durch die Nutzung von Vorschlägen.
+
+Eine Besonderheit ist die Auswahl der Super Chat Stufen: Du kannst festlegen, welche Beträge bzw. Stufen auf das Goal angerechnet werden sollen. Dies wirkt in der Umsetzung etwas redundant, da normalerweise jeder Beitrag zum Erreichen eines finanziellen Ziels beitragen sollte, unabhängig von der Höhe des Einzelbetrags.
+
+#### Problematische Berechtigungen bei Brandkanälen
+Trotz der technischen Einfachheit gibt es einen massiven Kritikpunkt bei den Zugriffsrechten. Aktuell können ausschließlich die Kanalinhaber Super Chat Goals erstellen. 
+
+Das bedeutet: Editoren, Kanalmanager oder Moderatoren sind komplett ausgeschlossen. In professionellen Setups oder bei Brandkanälen, an denen mehrere Personen arbeiten, ist dies höchst problematisch. Es ist paradox, dass ein Manager, der weitreichende Rechte besitzt – inklusive der Verwaltung von AdSense-Einstellungen und dem Geldfluss des Kanals –, nicht berechtigt ist, ein einfaches Interaktionsziel im Stream zu setzen. Hier besteht dringender Nachbesserungsbedarf seitens YouTube, um die Zusammenarbeit in Teams zu erleichtern.
+
+Weitere Details zu diesen Funktionen findest du auch unter [YouTube-Updates](/youtube-tipps-de/youtube-updates-youtube-studio-app-youtube-app-kommentare-community-posts/).
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Das mobile Studio wird aufgeräumt: Die Registerkarte "Inhalte" wird angepasst und bietet nun "Shelfs" (Regale) mit allen Formaten. Es gibt weiterhin die Listenansicht, die über "View All" ausgewählt werden kann. Geplante Inhalte werden nur dann angezeigt, wenn solche vorhanden sind. Sinnvolle Performance-Daten werden unter dem Inhalt selbst angezeigt, und der Monetarisierungs- und Sichtbarkeitsstatus wird nur bei Problemen oder nicht-öffentlichen Inhalten angezeigt – aber auch in der klassischen Listenansicht, wie bereits bekannt. Der Rollout soll in den nächsten Wochen erfolgen, also Ausschau halten, ob eure Studio-App ein Update benötigt!
@@ -53,3 +123,4 @@ Aber es wäre kein typischer YouTube-Patch-Rundown, wenn ich mich nicht über et
 Wenn der Kanalinhaber also das Goal eingerichtet hat, sieht es so aus. Ich bin gespannt, was eure ersten Super Chat Goals sein werden und welches Ziel ihr als erstes setzen möchtet. Lasst uns gerne darüber diskutieren! Ich finde, da muss noch nachgebessert werden.
 
 Bis nächste Woche zu weiteren YouTube-Updates! Macht's gut und haut rein!
+<!-- kwm:transcript:end -->

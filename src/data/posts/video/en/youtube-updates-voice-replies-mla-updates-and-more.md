@@ -28,7 +28,7 @@ postCta:
 
 Hello and a very warm welcome to another video on my YouTube channel! Today, I want to talk to you about a topic that is very close to my heart: the future of sustainability in our industry. As creators, we have a huge responsibility when it comes to influencing our viewers and driving positive change.
 
-Over the past few months, I've been thinking a lot about A/B testing and optimizing my channel. In doing so, I realized that we, as a creator community, could do so much more for environmental protection. We all know that YouTube is a massive platform, and our content reaches millions of people worldwide. Why don't we use this reach to raise awareness for ecological issues?
+Over the past few months, I've been thinking a lot about [A/B testing and optimizing my channel](/en/creator/). In doing so, I realized that we, as a creator community, could do so much more for environmental protection. We all know that YouTube is a massive platform, and our content reaches millions of people worldwide. Why don't we use this reach to raise awareness for ecological issues?
 
 I've come up with some ideas on how we, as creators, can take action:
 

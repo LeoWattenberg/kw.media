@@ -24,6 +24,30 @@ postCta:
   pageTitle: "YouTube Tips & Tricks in English"
 ---
 
+<!-- kwm:article:start -->
+## Exploring Different Ways to Create Shorts
+
+YouTube provides several intuitive entry points for creators to begin producing short-form vertical video. Depending on whether you are starting a project from scratch or drawing inspiration from other content, there are multiple ways to access the [YouTube Shorts camera](/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts/).
+
+### Using the Mobile App Navigation
+
+The most direct way to begin creating is through the main interface of the YouTube mobile app. By tapping the plus sign (+) located in the center of the bottom navigation bar, you can quickly launch the creation tools. This method is ideal for creators who have a specific idea ready and want to jump straight into recording or uploading their content without navigating through other sections of the platform.
+
+### Creating Directly from the Shorts Feed
+
+For those who are currently browsing through short-form content, there is a more integrated path to production. While navigating the Shorts feed, you will find a camera icon located in the top right corner of the screen. 
+
+Clicking this icon allows you to transition instantly from a viewer to a creator. This is particularly useful for capturing spontaneous ideas or reacting to the current flow of content while staying within the immersive Shorts ecosystem.
+
+### Leveraging Audio Sampling
+
+Beyond starting with a blank canvas, YouTube offers a creative way to build content based on existing trends: audio sampling. You can [sample audio from other creators](/youtube-tips-en/what-exactly-is-short-sampling-shorts/) and use that specific sound as the foundation for your own Short.
+
+Sampling allows you to take an audio track that is already performing well or trending and incorporate it into your own video. This process not only simplifies the audio production phase but also helps your content connect with wider community trends, allowing you to add your own visual twist to a popular sound.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 You can access the [YouTube Shorts camera](/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts/) in several ways. One is the plus sign in the center of the app, you can also click on the camera in the top right corner of the Shorts feed. Additionally, you can [sample audio from other creators](/youtube-tips-en/what-exactly-is-short-sampling-shorts/) and create a Short from it.
+<!-- kwm:transcript:end -->

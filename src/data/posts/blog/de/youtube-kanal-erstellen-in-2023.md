@@ -21,7 +21,7 @@ postCta:
 
 ## Soll ich einen Persönlichen YouTube Kanal oder ein Brandkonto erstellen?
 
-Ein **persönlicher** YouTube Kanal eignet sich für **Solo Creator**, die nicht vorhaben ihren Kanal an andere zu Übertragen. **Firmen** hingegen sind besser mit einem **Brandkonto** aufgehoben, da mehrere Google Konten gleichzeitig ein YouTube Brandkonto verwalten können.
+Ein **persönlicher** YouTube Kanal eignet sich für **[Solo Creator](/de/creator/)**, die nicht vorhaben ihren Kanal an andere zu Übertragen. **Firmen** hingegen sind besser mit einem **Brandkonto** aufgehoben, da mehrere Google Konten gleichzeitig ein YouTube Brandkonto verwalten können.
 
 <figure><div>
 <div class="nv-iframe-embed"><iframe title="Starte Durch: Deinen YouTube Kanal erstellen in 2023 (persönliche &amp; Firmen Kanäle)" width="1200" height="675" src="https://www.youtube.com/embed/mKOsyRGYNyc?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>

@@ -24,6 +24,54 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Mehr Natürlichkeit bei Autodubbing und neue iOS-Tests für YouTube Create
+
+YouTube arbeitet kontinuierlich an Tools, die Creator dabei helfen sollen, ihre Reichweite über Sprachgrenzen hinweg zu vergrößern und den Produktionsprozess auf mobilen Geräten zu vereinfachen. In dieser Woche gibt es spannende Neuigkeiten zu drei verschiedenen Bereichen: einem wichtigen Update für das [automatische Dubbing](/de/video-synchronisation/), dem vorsichtigen Rollout der [YouTube Create App](/de/creator/) auf iOS sowie einem neuen Förderprogramm für Creator in Indien.
+
+### Autodubbing: Weg vom Roboter-Klang, hin zur Intonation
+
+Die Funktion des automatischen Dubbings (Autodubbing) wurde von vielen Creatorn bisher eher skeptisch betrachtet. Während die Idee – [Videos automatisch](/youtube-tipps-de/youtube-news-auto-synchronisation-bei-alten-videos-klarstellung-zu-kollaborationen-und-mehr/) in andere Sprachen zu übersetzen, um ein globales Publikum zu erreichen – theoretisch brillant ist, hinkte die Umsetzung in der Praxis oft hinterher. Die generierten KI-Stimmen klangen häufig distanziert und roboterhaft, was dazu führte, dass die Funktion eher als technisches Gimmick denn als echtes Werkzeug für das Kanalwachstum wahrgenommen wurde.
+
+Nun experimentiert YouTube mit einem Update, das dieses Problem an der Wurzel packen soll: der Intonation. 
+
+#### Was bedeutet das für dich als Creator?
+Die neue Version versucht nicht mehr nur, den Text stumpf zu übersetzen, sondern die Tonlage und die spezifische Intonation des Original-Creators bei der Sprachsynthese zu imitieren. Das Ziel ist es, dass die übersetzte Stimme endlich mehr nach dir klingt – oder zumindest die emotionale Stimmung und die beabsichtigte Betonung deiner ursprünglichen Aufnahme transportiert.
+
+Es ist wichtig festzuhalten, dass dies noch kein vollständiges "Voice Cloning" im Sinne von spezialisierten Drittanbieter-Tools ist. Dennoch könnte dieser Schritt den entscheidenden Unterschied machen, ob ein Zuschauer das dubbte Video als authentisch empfindet oder nach wenigen Sekunden abschaltet, weil die Stimme zu künstlich wirkt.
+
+#### Verfügbarkeit und Sprachkombinationen
+Aktuell ist dieses Experiment mit der verbesserten Intonation nur für bestimmte Sprachrichtungen verfügbar:
+*   **Von Englisch** in Richtung **Spanisch oder Portugiesisch**.
+*   **Von Spanisch, Portugiesisch, Deutsch oder Französisch** zurück ins **Englische**.
+
+Ob und wann weitere Sprachen hinzugefügt werden oder ob Creator die Möglichkeit erhalten, ihre eigene Sprache detaillierter einzustellen, bleibt abzuwarten.
+
+#### Ein Blick in die Zukunft: Personalisierte Zuschauer-Erlebnisse
+Interessanterweise gibt es Hinweise darauf, dass YouTube über eine noch tiefere Integration von Sprachpräferenzen nachdenkt. Interne Diskussionen deuten darauf hin, dass YouTube prüfen möchte, wie man die bevorzugten Sprachen der Zuschauer besser respektieren kann. Das würde weit über das bloße Dubbing hinausgehen und könnte potenziell auch Titel, Beschreibungen, die Suche und sogar die Empfehlungsalgorithmen beeinflussen. Wenn dies umgesetzt wird, könnten deine Videos für Nutzer in anderen Ländern nicht nur anders klingen, sondern in ihrer Gesamtheit (Metadaten inklusive) nahtlos an die Sprache des Zuschauers angepasst werden.
+
+### YouTube Create App: Erster Schritt auf iOS
+
+Für Creator, die ihre Videos primär am Smartphone schneiden, ist die YouTube Create App ein wichtiges Tool. Bisher war die Verfügbarkeit stark eingeschränkt, doch nun gibt es erste Bewegung in Richtung iOS.
+
+Derzeit können **1 % der iOS-Nutzer in Kanada** die App bereits verwenden. Es handelt sich hierbei um einen sehr langsamen und kontrollierten Rollout. Solche Experimente dienen YouTube meist dazu, die Stabilität der App unter realen Bedingungen zu testen, bevor sie weltweit ausgerollt wird. Auch wenn du vermutlich noch nicht zu diesem Prozentanteil gehörst, ist dies ein positives Signal dafür, dass die App bald für mehr iOS-Nutzer weltweit zugänglich sein wird.
+
+### Neues Creator-Förderprogramm in Indien
+
+Ein weiterer interessanter Test findet derzeit in Indien statt. YouTube führt dort ein neues Creator-Förderprogramm ein, das darauf abzielt, das Wachstum von Shorts und Long-Form-Content gezielt zu belohnen.
+
+#### Wie funktioniert das Programm?
+Das Prinzip erinnert an den ehemaligen YouTube Shorts Fund: Es geht primär darum, Anreize für Wachstum zu schaffen. Wenn ein Creator beispielsweise in einem Monat 1.000 Shorts-Aufrufe generiert und im nächsten Monat auf 10.000 Aufrufe steigt, wird dieses Wachstum honoriert. Die Belohnung erfolgt über einen Prozentsatz der Gesamtaufrufe.
+
+#### Ein fairer Ansatz für verschiedene Formate
+Das Besondere an diesem neuen Programm ist jedoch, dass es nicht ausschließlich auf Shorts fokussiert ist. Im Gegensatz zu früheren Initiativen wird auch die **Watchtime von klassischen Videos** berücksichtigt. 
+
+Dies ist ein wichtiger strategischer Punkt: Es verhindert, dass Creator ihre gesamte Strategie nur auf kurze Clips ausrichten, um Boni zu kassieren, und fördert stattdessen einen gesunden Mix aus Shorts (für Reichweite) und längeren Videos (für Tiefe und Bindung). Ob dieses Modell später auf andere Regionen ausgeweitet wird, bleibt eine der spannendsten Fragen für die kommenden Monate.
+
+Bleib dran bei den neuesten [YouTube-Updates](/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/), um keine technischen Neuerungen und strategischen Änderungen zu verpassen.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Wir haben diese Woche große Neuigkeiten. Autodubbing bekommt ein Upgrade, das es tatsächlich etwas nutzbarer macht. Die YouTube Create App kommt auf iOS (irgendwie) und es gibt ein Creator-Förderprogramm für Creator aus Indien.
@@ -43,3 +91,4 @@ Abschließend eine interessante Neuigkeit aus Indien: YouTube testet ein neues C
 Dieses Programm sollten wir im Auge behalten, da es sowohl die Erstellung von Videos als auch von Shorts fördert. Bitte teilen Sie Ihre Gedanken in den Kommentaren unten mit.
 
 Und das war's für diese Woche an [YouTube-Updates](/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/). Vergessen Sie nicht, sich zu abonnieren, damit Sie keines verpassen. Bis nächste Woche! Tschüss.
+<!-- kwm:transcript:end -->

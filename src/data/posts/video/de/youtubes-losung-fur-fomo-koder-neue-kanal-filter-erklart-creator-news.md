@@ -27,6 +27,54 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Community-Feedback und neue YouTube-Funktionen: Hype-Updates und Kanal-Filter
+
+Bevor wir uns den technischen Neuerungen dieser Woche widmen, gibt es ein wichtiges Anliegen an die Community: Ein großes Dankeschön geht an die Hunderten von euch, die bereits an der „Creator Struggle Umfrage“ teilgenommen haben. Das Feedback ist enorm wertvoll und zeigt oft ein viel differenzierteres Bild der aktuellen Lage als die offiziellen Ankündigungen. Falls du deine Gedanken zu den Herausforderungen im Creator-Alltag noch nicht geteilt hast, findest du den Link dazu in der Beschreibung (https://forms.gle/SxGtJhEVBphp4oYN).
+
+Kommen wir zu den eigentlichen Updates. YouTube hat diese Woche zwei kleinere, aber effektive Verbesserungen für die „Quality of Life“ angekündigt, die sowohl die Entdeckung von Inhalten als auch die Nutzererfahrung auf den Kanalseiten optimieren sollen.
+
+## Die Hype-Funktion: Gezieltere Entdeckung und soziale Interaktion
+
+Die [Hype-Funktion](/de/creator/) ist nach wie vor ein zentrales Thema in der Creator-Landschaft. YouTube rollt nun Funktionen aus, die bereits im Herbst versprochen wurden, um das System hinter dem „Hypen“ von Videos zu verfeinern.
+
+### Kategorie-Bestenlisten für mehr Sichtbarkeit
+Eine der wichtigsten Neuerungen sind die Kategorie-Bestenlisten. Zuschauer können nun gezielt nach Bestenlisten für spezifische Interessen suchen – beispielsweise in den Bereichen Gaming oder Beauty. 
+
+Für dich als Creator bedeutet das eine Chance auf eine gezieltere Entdeckung. Anstatt nur in einem allgemeinen Topf zu landen, ermöglicht diese Segmentierung es Zuschauern, die sich für ein bestimmtes Thema interessieren, genau dort fündig zu werden. Dies könnte besonders für Nischen-Creator ein Hebel sein, um innerhalb ihrer Community sichtbarer zu werden.
+
+### Öffentliches Hype-Teilen im Community-Tab
+Zusätzlich wird die soziale Komponente gestärkt: Zuschauer, die ein Video hypen, haben nun die Möglichkeit, diesen Hype als öffentlichen Beitrag im Community-Tab des jeweiligen Creators zu teilen. Dies macht [Fan-Communities](/youtube-tipps-de/youtube-fuhrt-spannende-neuerungen-ein-clips-feed-update-und-mehr/) zugänglicher und schafft eine direkte Sichtbarkeit für die Unterstützung der Fans direkt auf deiner Kanalseite.
+
+### Wichtige Einschränkungen bei Hype
+Trotz dieser Fortschritte gibt es einige wichtige Punkte, die du beachten musst, um keine falschen Erwartungen an die Reichweite zu haben:
+* **Marktverfügbarkeit:** Die Hype-Funktion ist nach wie vor nicht in allen Märkten weltweit verfügbar.
+* **Plattform-Limitierung:** Aktuell funktioniert Hype ausschließlich mobil. Es gibt derzeit keine Informationen über eine Desktop-Version. 
+
+Diese Beschränkung auf mobile Endgeräte ist ein kritischer Punkt, da sie das volle Potenzial der Funktion einschränkt, solange ein großer Teil der Zuschauer YouTube weiterhin am Desktop nutzt.
+
+## Optimierung der Inhaltsreiter für Kanalmitglieder
+
+Das zweite Update betrifft die Organisation deiner Kanalseite, speziell für Creator, die Mitgliedschaften anbieten. Wer exklusive Inhalte für seine zahlenden Mitglieder erstellt, kennt das Problem der Auffindbarkeit.
+
+### Neue Filterchips: „Nur für Mitglieder“ und „Öffentlich“
+Bisher war die Sortierung in den Inhaltsreitern auf deiner Kanalseite sehr begrenzt; Zuschauer konnten lediglich nach „Aktuellsten“, „Beliebtesten“ oder „Ältesten“ sortieren. YouTube führt nun zwei neue Filterchips ein: **„Nur für Mitglieder“** und **„Öffentlich“**.
+
+Diese Ergänzung ist ein wichtiger Schritt zur Verbesserung der User Experience (UX). Deine zahlenden Mitglieder müssen nicht mehr mühsam durch alle Videos scrollen, um die exklusiven Inhalte zu finden, sondern können diese mit einem Klick isolieren.
+
+### Kontext: Reaktion auf Creator-Feedback
+Dieses Update wirkt wie eine direkte Antwort auf Kritik, die unter anderem von großen Creatoren wie Linus Tech Tips laut wurde. In der Vergangenheit wurden einige Kanäle kritisiert, weil sie den Feed von Nicht-Mitgliedern mit „Nur für Mitglieder“-Inhalten überfluteten, was von vielen als Trick wahrgenommen wurde, um Aufmerksamkeit zu generieren oder Nutzer zum Abschluss einer Mitgliedschaft zu drängen.
+
+Die Einführung dieser Filter ist ein eleganter Versuch, die Struktur auf der Kanalseite zu ordnen. Allerdings bleibt eine kritische Frage offen: Es ist fraglich, ob diese Filterchips auch dazu führen, dass „Nur für Mitglieder“-Inhalte seltener in den allgemeinen Empfehlungen auftauchen. Der Filter hilft zwar bei der Navigation auf dem Kanal selbst, löst aber möglicherweise nicht das Problem der Feed-Überflutung im Algorithmus.
+
+## Fazit und Ausblick
+
+Zusammenfassend lässt sich sagen, dass YouTube versucht, die Reibungspunkte zwischen Creatoren, zahlenden Mitgliedern und neuen Zuschauern zu reduzieren. Während die Hype-Funktion durch Kategorien und Community-Integration mehr „Social Proof“ und Entdeckungsmöglichkeiten bietet, zielen die neuen Filterchips auf eine professionellere Kanalverwaltung ab.
+
+Wie bewertest du diese Änderungen? Glaubst du, dass die neuen Filterchips ein echtes Problem für deine Mitglieder lösen, oder ist es eher eine kosmetische Änderung? Und nutzt du die Hype-Funktion bereits aktiv in deiner Strategie? Teile deine Erfahrungen gerne in den Kommentaren!
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Was geht ab, Leute? Herzlich willkommen zurück zu den YouTube Creator News! Zuallererst ein riesiges Dankeschön an die Hunderten von euch, die bereits an unserer Creator Struggle Umfrage teilgenommen haben. Das Feedback ist unglaublich und ehrlich gesagt ist es viel interessanter als die offiziellen Nachrichten dieser Woche. Wenn ihr noch nicht eure Gedanken geteilt habt, der Link ist immer noch in der Beschreibung.
@@ -53,3 +101,4 @@ Und das war's für diese Woche. Es ist eine kurze.
 Was haltet ihr von den neuen Filterchips? Eine nützliche Ergänzung für euren Kanal? Nutzt ihr die Hype-Funktion aktiv? Teilt mir eure Gedanken in den Kommentaren unten mit und lasst uns diskutieren!
 
 Danke, dass ihr vorbeigeschaut habt. Passt auf euch auf und bis nächste Woche mit weiteren Creator-Updates.
+<!-- kwm:transcript:end -->

@@ -24,6 +24,81 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Neue Möglichkeiten für Sichtbarkeit und Monetarisierung auf YouTube
+
+YouTube arbeitet kontinuierlich an der Verknüpfung seiner verschiedenen Formate, um die Entdeckung von Inhalten zu fördern und die Einnahmequellen für Creator zu diversifizieren. In den letzten Updates stehen vor allem die Synergie zwischen [Shorts und Live-Streaming](/de/live/) sowie neue Mechanismen zur finanziellen Unterstützung im Vordergrund. Von automatisierten Erinnerungen im Feed bis hin zu neuen [Monetarisierungs-Experimenten](/de/creator/) gibt es einige wichtige Neuerungen, die du als Creator auf dem Schirm haben solltest.
+
+## Mehr Reichweite für Livestreams durch Shorts-Integration
+
+Eine der spannendsten Entwicklungen ist die engere Verzahnung von kurzen Videos und Live-Übertragungen. Viele Creator nutzen Shorts bereits aktiv, um Traffic auf ihre längeren Videos zu lenken. Nun geht YouTube einen Schritt weiter und automatisiert diesen Prozess für geplante Streams.
+
+### Automatische Live-Erinnerungen im Shorts-Feed
+Wie bereits in ersten Berichten über die [Benachrichtigung für bevorstehende Livestreams im Shorts-Feed](/youtube-tipps-de/update-fur-youtube-streamer-geplante-streams-jetzt-in-allen-shorts-verlinkt/) angedeutet, testet YouTube derzeit ein neues Feature: sogenannte "Reminders". 
+
+Das Prinzip ist simpel, aber effektiv: Wenn du einen Livestream planst, der innerhalb der nächsten 24 Stunden startet, zeigt YouTube in allen deinen Shorts automatisch eine Benachrichtigungsaufforderung an. Zuschauer, die gerade durch deine Shorts scrollen, werden so direkt auf den bevorstehenden Stream hingewiesen und können sich erinnern lassen.
+
+Aktuell befindet sich dieses Feature in einer experimentellen Phase, die etwa zwei Wochen dauert. Nach diesem Testzeitraum ist mit einem offiziellen Post des YouTube-Teams und dem anschließenden breiten Rollout für alle Creator zu rechnen. Für dich bedeutet das: Du musst keine manuellen Verlinkungen in jedem einzelnen Short vornehmen, um auf deinen Stream aufmerksam zu machen – das System übernimmt die Bewerbung im Hintergrund.
+
+### Die Zuschauerseite: Der Umgang mit Shorts
+Interessanterweise gibt es auch auf der Nutzerseite Anpassungen. Zuschauer haben in der YouTube-Standard-App die Möglichkeit, über ein 2x2-Kästchen oben im Shorts-Bereich anzugeben, dass sie "weniger Shorts sehen" möchten. 
+
+Aus Creator-Sicht ist dies zunächst kritisch zu betrachten, doch laut YouTube hat dies wenig Einfluss auf die Gesamtzahlen, da Nutzer, die diese Option wählen, ohnehin generell weniger Shorts konsumieren würden. Ein Diskussionspunkt bleibt jedoch die zeitliche Befristung: Diese Einstellung scheint nur temporär zu sein (etwa für 30 oder 60 Tage), wonach die Shorts wieder regulär im Feed erscheinen. Warum YouTube hier keine permanente Deaktivierung ermöglicht, bleibt offen, ist aber ein wichtiger Aspekt für das Verständnis der Zuschauer-Psychologie und der Plattform-Steuerung.
+
+## Technische Optimierungen beim Live-Streaming
+
+Neben neuen Features gibt es auch wichtige Bugfixes und technische Hinweise, die deine Stream-Qualität und die User Experience deiner Zuschauer direkt beeinflussen.
+
+### Live-Redirects und die Rolle von Autoplay
+In den vergangenen Wochen gab es Probleme bei den Live-Redirects, wodurch Zuschauer nicht immer korrekt vom einen zum anderen Stream weitergeleitet wurden. Laut YouTube wurde dieser Fehler behoben. 
+
+Trotz der Fixes gibt es eine praktische Empfehlung für dich als Streamer: Sensibilisiere deine Community dafür, das Autoplay-Feature zu aktivieren. Zwar gibt es Berichte, dass Redirects auch ohne Autoplay funktionieren können, doch die Aktivierung ist die sicherste Methode, um einen reibungslosen Übergang zwischen den Streams zu gewährleisten und Zuschauerverluste beim Wechsel zu minimieren.
+
+### Besonderheiten bei mobilen Zuschauern
+Ein weiteres, wenn auch seltener auftretendes Problem betrifft Smartphone-Nutzer. Es wurde beobachtet, dass Zuschauer, die zuvor Shorts geschaut haben, beim Wechsel in einen horizontalen Stream ein "Shorts-Overlay" laden, obwohl sie sich im Querformat befinden. 
+
+Da dies eine sehr seltsame und störende Situation ist, gibt es derzeit nur einen einfachen Workaround: Die betroffenen Zuschauer sollten die YouTube-App komplett schließen und neu starten. Sobald das Problem seitens YouTube final behoben ist, wird dieser manuelle Schritt nicht mehr nötig sein.
+
+## Neue Wege der Monetarisierung: Hypes und Super Chat Ziele
+
+Die finanzielle Unterstützung durch die Community ist ein zentraler Pfeiler für viele Creator. Hier experimentiert YouTube mit neuen Ansätzen, um die Interaktion zwischen Fans und Creatoren zu monetarisieren.
+
+### Bezahlte Hypes als Einnahmequelle
+Das Feature [bezahlte Hypes](/youtube-tipps-de/youtube-hype-livestream-und-superchat-updates/) erweitert das bestehende Hype-System. Bisher konnten Zuschauer dreimal pro Woche kostenlose Hypes verteilen, um Creator zu unterstützen und deren Sichtbarkeit zu erhöhen. 
+
+Die Neuerung besteht darin, dass Nutzer nun gegen Bezahlung mehr als diese drei kostenlosen Hypes pro Woche vergeben können. Besonders positiv für die Creator ist hierbei die Umsatzverteilung: YouTube hat bestätigt, dass für diese bezahlten Hypes eine 70/30-Beteiligung gilt. Das bedeutet, dass der Großteil der Einnahmen direkt an den Creator fließt und das Feature als Transaktionseinnahme gewertet wird.
+
+Aktuell wird dieses Modell in Brasilien und der Türkei getestet. Es ist zu erwarten, dass bei Erfolg weitere Regionen folgen werden.
+
+### Update zu den Super Chat-Goals
+Ein weiteres wichtiges Thema sind die [Super Chat-Goals](/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/). Diese Funktion, die es ermöglicht, konkrete finanzielle Ziele während eines Streams sichtbar zu machen, hat bereits einige Verzögerungen (Pushbacks) erfahren.
+
+Der aktuelle Stand ist eine experimentelle Phase, an der etwa 20 bis 30 Prozent aller Nutzer teilnehmen. Für Ende des Monats wird ein weiteres Update vom YouTube-Team erwartet, mit dem Ziel, den offiziellen Launch bis zum Ende des Jahres zu realisieren. Auch wenn Zeitpläne bei Plattform-Updates oft volatil sind, ist die Funktion nun wieder fest auf der Roadmap.
+
+## Workflow-Verbesserungen im YouTube Studio Mobile
+
+Für Creator, die ihre Kanäle auch unterwegs verwalten, gibt es eine kleine, aber feine Verbesserung in der mobilen App des YouTube Studios.
+
+### Der Landscape-Modus (Querformat)
+Das YouTube Studio Mobile unterstützt nun den horizontalen Modus. Dies ist vor allem dann nützlich, wenn du dir Analytics-Grafiken und Performance-Kurven ansiehst, da diese im Querformat deutlich mehr Platz einnehmen und somit besser lesbar sind.
+
+Ob dies jedoch die Art und Weise verändert, wie tiefgehende Analysen durchgeführt werden, bleibt fraglich. Die Bedienung per Touch auf einem kleinen Bildschirm ist für detaillierte Auswertungen oft weniger effizient als am Desktop. Dennoch ist es eine willkommene Ergänzung für den schnellen Check der Zahlen zwischendurch.
+
+## Deine Chance: Direktes Feedback an das YouTube-Management
+
+Ein besonders spannender Punkt ist die aktuelle Möglichkeit, direkt Einfluss auf die zukünftige Entwicklung der Plattform zu nehmen. Es gibt derzeit die Gelegenheit, Themen und gewünschte Funktionen in eine Management-Präsentation bei YouTube einzubringen.
+
+### So funktioniert die Community-Beteiligung
+In einer internen Präsentation (ähnlich einer PowerPoint-Folie) wird Platz für Wünsche und Feedback aus der Creator-Community reserviert sein. Um sicherzustellen, dass die relevantesten Punkte gehört werden, ist folgendes Vorgehen geplant:
+
+1. **Ideensammlung:** Vorschläge für Funktionen oder Verbesserungen werden gesammelt.
+2. **Community-Voting:** Über eine Liste wird abgestimmt, welche dieser Ideen die höchste Priorität haben.
+3. **Einreichung:** Die Top 10 der meistgewünschten Features (inklusive Input aus der YouTube Gaming-Community) werden direkt an das Management übermittelt.
+
+Dies ist eine seltene Chance, die Lücke zwischen den täglichen Herausforderungen der Creator und den Entscheidungsträgern bei YouTube zu schließen. Ob es sich um technische Verbesserungen im Studio, neue Monetarisierungsoptionen oder Änderungen in den Algorithmen handelt – solche direkten Kanäle sind essenziell für eine nachhaltige Plattform-Entwicklung.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Wir hatten letzte Woche bereits kurz über die [Benachrichtigung für bevorstehende Livestreams im Shorts-Feed](/youtube-tipps-de/update-fur-youtube-streamer-geplante-streams-jetzt-in-allen-shorts-verlinkt/) gesprochen und konnten uns eine Bestätigung von YouTube einholen: Es handelt sich tatsächlich um ein Experiment, das kurz vor dem Rollout steht. Die Reminders, wie sie offiziell genannt werden, werden wie von uns vermutet für alle Creator ausgerollt und zeigen automatisch eine Benachrichtigungsaufforderung an – und zwar in allen Shorts des Creators, wenn ein Stream in den nächsten 24 Stunden geplant ist. Das Experiment läuft jetzt für die nächsten zwei Wochen und wird dann in einem Post vom YouTube-Team zur Veröffentlichung übergehen. Das heißt, wir haben etwa zwei Wochen Testphase, und dann sollten wir das tatsächlich in breiterer Masse sehen.
@@ -47,3 +122,4 @@ Eine interessante Neuigkeit: Wir haben mit jemandem bei YouTube gesprochen und s
 Ich habe bereits eine Liste mit mindestens 12 Ideen, aber ich verrate sie euch noch nicht, da ich erst eure Wünsche hören möchte.
 
 Vielen Dank für eure Teilnahme! Bis zum nächsten Samstag, wenn es weitere YouTube-Updates gibt. Bleibt gesund und aktiv!
+<!-- kwm:transcript:end -->

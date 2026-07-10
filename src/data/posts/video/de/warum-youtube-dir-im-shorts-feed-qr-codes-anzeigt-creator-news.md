@@ -24,6 +24,63 @@ postCta:
   pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
+<!-- kwm:article:start -->
+## Die Creator-News der Woche: KI-Matching, UX-Experimente und neue Editoren-Tools
+
+In der Welt der Content Creation geht es derzeit rasant voran – besonders wenn es um die Integration von Künstlicher Intelligenz (KI) und die Optimierung der User Experience (UX) über verschiedene Geräte hinweg geht. Von einer grundlegenden Umstrukturierung bei YouTube Brand Deals über strategische Rückzüge bei Twitch bis hin zu neuen KI-Assistenten in der Adobe-Suite gibt es diese Woche einiges zu besprechen. Besonders spannend ist dabei die Frage, wie Plattformen versuchen, passive Zuschauer in aktive Creator zu verwandeln.
+
+## Von Brand Connect zu YouTube Creator Partnerships: Die KI übernimmt das Matching
+
+Für alle, die ihre [Einnahmen durch Brand Deals auf YouTube diversifizieren](/de/creator/) möchten, gibt es ein wichtiges B2B-Update. YouTube strukturiert Brand Connect komplett um und führt die **[YouTube Creator Partnerships](/de/b2b/)** ein. Das Tool ist nun tiefer in [Google Ads](/de/werbung/) und direkt in dein [YouTube Studio](/de/youtube-tipps/) integriert.
+
+Der entscheidende Unterschied liegt im Prozess: Marken werden künftig kaum noch manuell nach passenden Creatorn suchen. Stattdessen setzt Google auf Gemini AI, um Daten von über drei Millionen Creatorn zu analysieren. Die KI fungiert hier als intelligenter Matchmaker. Wenn ein Werbetreibender beispielsweise gezielt nach einem „Tech-Creator mit einer hohen Gen Z-Behaltensrate“ sucht, filtert die KI automatisch die Kanäle heraus, die genau dieses Profil erfüllen.
+
+### Das Dilemma zwischen Privatsphäre und Sichtbarkeit
+
+Hier ergibt sich für dich als Creator eine wichtige Konsequenz: Die Sichtbarkeit gegenüber potenziellen Sponsoren hängt nun direkt von der Verfügbarkeit deiner Daten ab. Wer seine detaillierten Kanalinformationen in der Studio-Registerkarte privat hält, läuft Gefahr, für diese KI-gesteuerten Suchanfragen unsichtbar zu werden. 
+
+YouTube lockt Marken mit beeindruckenden Versprechen: Laut internen Angaben sollen die Konversionsraten um 30 % steigen und der Return on Ad Spend (ROAS) – also das Verhältnis von Gewinn zu Werbekosten – um 86 % besser ausfallen. Wenn du also planst, über die offiziellen Creator-Partnerschaften an Sponsoren zu gelangen, musst du abwägen, wie viel deiner internen Daten du preisgibst. Es bleibt jedoch eine persönliche Entscheidung, ob man sich auf ein KI-Matching verlässt oder weiterhin auf den direkten, manuellen Kontakt mit Marken setzt.
+
+## Twitch räumt auf: Warum der TikTok-Klon „Combos“ verschwindet
+
+Während YouTube und TikTok versuchen, die [Interaktion in Live-Streams](/de/live/) durch immer neue Elemente zu steigern, geht Twitch einen anderen Weg. Am 31. März wird die Funktion „Combos“ vollständig entfernt.
+
+Die Combos-Funktion war im Grunde ein Versuch, erfolgreiche Mechaniken von TikTok zu kopieren. Doch genau hier lag das Problem: Die vertikalen Stream-Animationen, die auf einem Smartphone gut funktionieren, erwiesen sich in der 16:9-Ansicht von Desktop-Streams als störend. Viele Nutzer aus der Gaming-Community empfanden diese Einblendungen schlichtweg als nervigen Spam.
+
+Dieser Schritt zeigt eine wichtige Erkenntnis für Plattformbetreiber: Das blinde Kopieren von Funktionen einer anderen Plattform funktioniert nicht immer, wenn das Kernpublikum und die Nutzungsgewohnheiten (Desktop vs. Mobile) unterschiedlich sind. Twitch priorisiert hier wieder die Experience seiner Desktop-Nutzer.
+
+## Die Brücke vom Desktop zum Smartphone: QR-Codes im Shorts-Feed
+
+Ein weiteres interessantes Phänomen betrifft die User Journey bei YouTube Shorts. Wer Shorts über einen Desktop-Browser ansieht, bemerkt eventuell riesige QR-Codes, die neben den Videos erscheinen. 
+
+### Wie funktioniert dieser Workflow?
+Der Prozess ist simpel, aber strategisch durchdacht:
+1. Du siehst ein Short am PC/Laptop.
+2. Du scannst den QR-Code mit deinem Smartphone.
+3. Die YouTube-App öffnet sich automatisch auf deinem Handy.
+4. Die Shorts-Kamera startet direkt im Remix-Modus mit der Videospur des gerade gesehenen Clips.
+
+### Warum macht YouTube das?
+Das Ziel ist die Umwandlung von passivem Traffic in aktiven User-Generated Content (UGC). Daten aus dem kw.media-Portfolio belegen, dass mittlerweile etwa 20 % der Short-Aufrufe über verbundene Fernseher oder Desktop-Browser erfolgen. Das Problem dabei: Die eigentlichen Erstellungstools wie Remix, Collab oder Greenscreen sind exklusiv in der mobilen App verfügbar.
+
+Der QR-Code dient also als technische Brücke. YouTube möchte verhindern, dass die Inspiration am Desktop endet, und drängt den Nutzer so schnell wie möglich zurück in die mobile App, wo er aktiv produzieren kann. Ob dies für dich als Creator einen echten Mehrwert bietet oder ob Zuschauer tatsächlich bereit sind, diesen Umweg zu gehen, bleibt abzuwarten.
+
+## KI als Co-Editor: Adobe präsentiert Project Moonlight
+
+Für alle, die viel Zeit im Schnittraum verbringen, hat Adobe mit **Project Moonlight** eine Neuerung vorgestellt. Dabei handelt es sich um einen KI-Kollegen, der direkt in Premiere Pro und Photoshop integriert wird.
+
+Die Technologie basiert auf Firefly AI, die in der Lage ist, deinen individuellen Bearbeitungsstil zu lernen. Das Ziel ist es, die Navigation durch komplexe Menüs zu reduzieren. Statt mühsam Funktionen zu suchen, kannst du Textbefehle nutzen, um Aufgaben wie grobe Schnitte (Rough Cuts) oder Farbkorrekturen durchzuführen.
+
+### Alternativen zum Adobe-Ökosystem
+Obwohl die Integration von KI faszinierend ist, solltest du den Wechsel in das [Adobe-Ökosystem](/de/tools/) nicht allein wegen dieser Funktionen wagen, insbesondere wenn dich monatliche Abonnements abschrecken. Es gibt leistungsstarke Alternativen:
+
+*   **Für Bildbearbeitung:** Photopea bietet eine hervorragende Open-Source-Alternative.
+*   **Für Videobearbeitung:** DaVinci Resolve ist die Top-Empfehlung bei kw.media, da es professionelle Tools bietet, ohne dass man auf eine KI-Assistentin oder ein Abo-Modell angewiesen ist.
+
+Die Entscheidung zwischen einem KI-gestützten Workflow und klassischen Profi-Tools hängt letztlich davon ab, wie viel Kontrolle du behalten möchtest und wie stark du dich auf automatisierte Prozesse verlassen willst.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 YouTube vergraben Brand Connect für eine KI-gesteuerte Werbemaschine, Twitch löscht seinen TikTok-Klon, Adobe möchte deinen Editor durch einen KI-Kollegen ersetzen und warum zeigt YouTube dir gerade QR-Codes in deinem Desktop-Shorts-Feed an? Das sind die Creator-News der Woche. Lass uns reintauchen.
@@ -45,3 +102,4 @@ Nun zu einem Update für Produzenten und Editoren. Adobe hat diese Woche Project
 Für Bildbearbeitung gibt es hervorragende Open-Source-Alternativen wie Photopea. Und für Videobearbeitung ist DaVinci Resolve unsere Top-Empfehlung bei kw.media. Resolve bietet leistungsstarke Tools, ohne eine KI-Assistentin oder ein monatliches Abonnement zu benötigen.
 
 Das waren die News der Woche. Ich möchte deine Meinung zu YouTube's Strategie hören, Desktop-Traffic über QR-Codes zu mobilen Shorts umzuleiten. Kluger Zug oder nervig? Teile deine Meinungen in den Kommentaren unten. Ich bin Martin, der dir relevante Creator-News bringt, und bis nächste Woche.
+<!-- kwm:transcript:end -->

@@ -24,6 +24,59 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## Critical Updates for YouTube Creators: Ad Revenue Bugs and Editor Restrictions
+
+YouTube continues to roll out frequent updates to its platform, some of which have significant implications for how creators manage their revenue and their content archives. This week's updates focus on a critical bug affecting mid-roll ad placements and an upcoming change to the YouTube video editor that removes a vital safety net for creators.
+
+### Addressing the Automated Mid-Roll Ad Bug
+
+For creators producing longer-form content, specifically videos with a runtime of at least eight minutes, there is an important update regarding [automated midroll ads](/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/). Scheduled for launch on May 12th, this update addresses a technical issue where automated ad slots were not functioning as intended.
+
+Previously, while the system would display where an ad break was considered "interruptive" (and thus a good spot for an ad), these slots failed to actually initiate an ad auction. In the YouTube ecosystem, the ad auction is the mechanism that determines which ad is shown and how much the creator is paid. Because the auctions weren't triggering, many creators experienced a noticeable [revenue drop](/youtube-tips-en/youtube-updates-youtube-bug-wipes-ad-revenue-collab-feed-rollout/).
+
+#### Recommended Action for Revenue Recovery
+To mitigate this loss and ensure your videos are properly monetized, the current best practice is to avoid relying solely on the automated system. Instead:
+1. Use the automated ad slots as a guide to identify optimal placement points suggested by YouTube.
+2. Manually insert an ad break into those specific suggested slots within YouTube Studio.
+
+Creators are encouraged to review and update their most-watched videos—where the revenue impact is highest—to ensure these manual breaks are in place.
+
+### The Removal of "Revert to Original" in YouTube Editor
+
+In a more concerning move for content management, YouTube has announced that it will discontinue the "revert to original" feature within the YouTube video editor in the coming month. 
+
+For years, this feature allowed creators to make non-destructive edits—such as trimming sections of a video, cutting out mistakes, or applying blurs to sensitive information—with the ability to undo those changes and return the video to its original uploaded state. Once this feature is removed, any change made via the [YouTube Studio editor](/en/youtube-tips/) will become permanent.
+
+YouTube has cited two primary reasons for this decision: feature abuse and poor performance. Rather than investing in fixing the tool, Google has opted to remove it entirely to free up development resources for other projects.
+
+### The Consequences of Permanent Edits
+
+The removal of the revert function creates a significant risk for creators. If you make an error while trimming or blurring a video, you will no longer be able to "undo" that action within the platform. This places a much higher premium on having local backups of all original project files.
+
+If you need to make a correction to a video after the revert feature is gone, your options are limited and potentially costly in terms of channel growth:
+
+#### The Google Takeout Workaround
+Because YouTube Studio only allows creators to download their own videos at a maximum resolution of 720p, those who need the high-quality original file must use Google Takeout. This tool allows you to export your data from Google's servers. However, this process is fraught with inefficiency:
+* **Lack of Granularity:** Google Takeout currently lacks a tool to select specific videos for download. 
+* **Data Overload:** If you have a large library—for example, a gaming channel with thousands of public videos and unlisted live streams—a single request via Google Takeout will trigger a download of every single video on the channel.
+
+#### The Risk of Re-uploading
+If you do not have the original files saved locally and need to perform an edit that cannot be done in the YouTube Studio editor, your only remaining option is to edit the downloaded file locally and re-upload it as a new video. 
+
+This is a worst-case scenario for most creators because a re-upload results in the total loss of all existing metadata associated with the original URL, including:
+* Total view counts
+* Likes and dislikes
+* The entire comment section
+
+### Final Thoughts and Creator Feedback
+
+The shift toward permanent edits effectively forces creators to manage massive amounts of local storage or rely on the cumbersome Google Takeout system. This not only increases the workload for the creator but also significantly spikes data traffic for Google's infrastructure, as thousands of creators may begin downloading petabytes of data to ensure they have backups before the feature disappears.
+
+Creators who wish to see this feature preserved are encouraged to visit Creator Insider and leave feedback in the comments. Advocating for the "revert to original" tool may persuade YouTube to allocate development costs toward improving the feature rather than removing it entirely.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 YouTube updates weekly, fresh off the press. Let's start with the [automated midroll ads update](/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/) for videos with at least 8 minutes runtime, which is set to launch on May 12th. While the automated ad slots display when an ad break is considered interruptive, they didn't initiate an ad auction. This led to a [revenue drop](/youtube-tips-en/youtube-updates-youtube-bug-wipes-ad-revenue-collab-feed-rollout/) for some creators.
@@ -39,3 +92,4 @@ Given that many people might regularly do this, it could significantly increase 
 Please utilize the feature extensively. YouTube is essentially forcing creators to do this. Even if you don't save the downloaded videos, constantly downloading and deleting them in the background generates traffic. I'm genuinely tired of this.
 
 Feel free to visit Creator Insider and tell them in the comments that you'd like to keep using the "revert to original" feature. They could allocate development costs to improving it instead of having thousands of creators download multiple petabytes of data weekly. Just saying. That's all for this week. Apologies for the somewhat harsh undertone. We'll keep you updated on new YouTube developments every week, so subscribe if you haven't already. See you next week! Bye.
+<!-- kwm:transcript:end -->

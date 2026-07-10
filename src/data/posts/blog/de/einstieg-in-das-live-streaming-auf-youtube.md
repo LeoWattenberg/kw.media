@@ -21,7 +21,7 @@ postCta:
 
 Du möchtest mit dem [YouTube-Streaming](/youtube-tipps-de/wie-man-live-streams-beherrscht/) beginnen – super! YouTube funktioniert in seinem Kern wie die meisten Live-Streaming-Plattformen, aber lasst uns gemeinsam die wichtigsten Punkte durchgehen.
 
-Bevor du mit dem YouTube-Streaming beginnst, musst du tatsächlich einen Stream erstellen.
+Bevor du mit dem [YouTube-Streaming](/de/live/) beginnst, musst du tatsächlich einen Stream erstellen.
 
 Der Erstellungsprozess ähnelt stark dem Hochladen eines Videos, da der Stream-Archiv nach Abschluss des Streams genau wie ein Video behandelt wird. **Hinweis:** Vor deinem ersten Stream musst du eine 24-stündige Sicherheitsperiode abwarten, bevor du tatsächlich mit dem Streaming beginnen kannst.
 
@@ -45,7 +45,7 @@ Folge dem Stream-Erstellungsprozess, indem du einen [Titel, Beschreibung](/youtu
 
 *Füge ein benutzerdefiniertes Miniaturbild hinzu und entscheide, ob du das VOD automatisch zu einer Playlist hinzufügen möchtest.*
 
-Wenn du im YouTube-Partnerprogramm bist, kannst du auch auswählen, welche Art von Werbung du auf dem Livestream schalten möchtest.
+Wenn du im [YouTube-Partnerprogramm](/de/creator/) bist, kannst du auch auswählen, welche Art von Werbung du auf dem Livestream schalten möchtest.
 
 <figure><img src="https://lh3.googleusercontent.com/9wrGKuMl8K2ef0SdGC3boC_a2C0ErvyoWEIQWIsHXGLSEgTUeglXf1q9mLAqVy0AS-FituJTBtXvH_UfJ5iGqRZVYshY8I4AA8-v0BvSncWRodalEJFvJBBFlLn3dIlRb5lq42Fog4l7_z5YTC-6IVyBRNa1W2_aL2S7yrzSmp3n_ddDy6W8l4Pcew7nHQ" alt></figure>
 
@@ -65,7 +65,7 @@ Wenn du bereits zuvor gestreamt hast, siehst du einen blauen "Einstellungen wied
 
 ## Verbinde OBS mit YouTube
 
-Wenn du es noch nicht getan hast, lies unseren OBS-Leitfaden zum Einrichten von OBS.
+Wenn du es noch nicht getan hast, lies unseren [OBS-Leitfaden zum Einrichten von OBS](/de/youtube-tipps/).
 
 > [Einstieg in OBS: Ein Leitfaden für Anfänger](/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/)
 

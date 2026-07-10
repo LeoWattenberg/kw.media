@@ -21,7 +21,7 @@ postCta:
 
 The central question that leads to this guide is: ***“How do I get more views?”*** The short and simple answer: Optimize your videos for search engines.
 
-Search Engine Optimization (SEO) is some kind of black magic that, when used correctly, makes your videos appear in the search results. It’s easy to learn but hard to master and requires constant research, adaptation and having a calendar on your mind. More on that later!
+[Search Engine Optimization (SEO)](/en/youtube-tips/) is some kind of black magic that, when used correctly, makes your videos appear in the search results. It’s easy to learn but hard to master and requires constant research, adaptation and having a calendar on your mind. More on that later!
 
 By the way: A video that ranks high does very little for you if nobody clicks on it. So make sure you’ve got a [good thumbnail for your video](/youtube-tips-en/how-to-get-clicks-on-thumbnails-the-aida-model/)! We already have a [guide on making good thumbnails](https://www.reddit.com/r/youtubegaming/comments/i5cs8p/how_to_not_fuck_up_your_thumbnails/), so this won’t be discussed further here.
 

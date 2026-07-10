@@ -24,6 +24,49 @@ postCta:
   pageTitle: "YouTube Tips & Tricks in English"
 ---
 
+<!-- kwm:article:start -->
+## YouTube's End-of-Year Sprint: Thumbnail Limits, Super Chat Goals, and Ad Changes
+
+As the year draws to a close, YouTube is rolling out a series of updates that impact how Creators manage their content, interact with their communities during live streams, and handle international audiences. From technical adjustments to thumbnail file sizes to significant changes in ad delivery and AI-driven audio, there are several critical deadlines and rollout dates for Creators to keep in mind before the winter break.
+
+### Expanding Thumbnail File Size Limits
+
+For a long time, YouTube thumbnails were restricted to a maximum file size of 2 MB. For many Creators, this limitation was a constant hurdle, often forcing them to downscale their images from higher resolutions to 720p or apply heavy compression to meet the requirement without sacrificing too much visual quality.
+
+To address this, YouTube previously introduced a [10MB data limit for thumbnails](/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/) specifically for YouTube podcasts. The good news is that this expanded limit is now set to apply to all videos and live streams as well, with the rollout expected in the first quarter of 2025. This change allows Creators to upload higher-quality preview images without the need for aggressive downscaling, ensuring that the first impression a viewer has of a video remains sharp and professional.
+
+### Enhanced Control for Super Chat Goals
+
+[Super Chat Goals](/youtube-tips-en/youtubes-end-of-year-updates-jewels-superchat-goals-and-more/) have been a topic of discussion throughout the year, but specific functional details remained unclear until recently. Following feedback from the community, YouTube has updated the feature to grant moderators the necessary rights to manage these goals.
+
+Moderators will now be able to create, edit, and stop [Super Chat Goals](/en/live/) directly. This is a significant quality-of-life improvement for Creators who rely on a moderation team to handle the technical side of a live broadcast, allowing the streamer to focus entirely on the content and audience interaction.
+
+The final launch date for this functionality is scheduled for December 16th. Given that this date precedes the typical winter break for engineering teams, it is likely to remain on schedule, making it available just in time for end-of-year holiday live streams.
+
+### The Evolution of Live Stream Advertising: Side-by-Side Ads
+
+YouTube is changing how advertisements are integrated into live broadcasts with the introduction of [side-by-side ads](/en/ads/). Unlike traditional mid-roll ads that interrupt the stream and force the viewer to stop watching the content, these ads will be displayed alongside the live video.
+
+From a user experience perspective, this is a major upgrade. Viewers can continue to follow the action of the live stream in real-time while an advertisement plays in a separate area of the screen. However, several unknowns remain: it is not yet clear if these ads will include audio or what specific types of advertising content will be permitted in this format.
+
+The rollout for side-by-side ads will occur in two distinct waves:
+*   **Wave 1 (Early January):** Integration will begin for the web browser on PCs, as well as YouTube TV and gaming consoles.
+*   **Wave 2 (End of Q1 2025):** The feature is expected to reach mobile devices on iOS and Android.
+
+### Critical Warning: Multilingual Audio and Auto-Opt-In
+
+Perhaps the most urgent update concerns the [multilingual audio and AI auto-dubbing features](/en/video-dubbing/). While the goal of expanding global reach is positive, the current state of the translation quality has been described as catastrophic. 
+
+The most critical detail for Creators is that this feature is **automatically enabled (auto-opt-in)**. If you do not manually disable it, YouTube may automatically apply a poor-quality AI English translation to your videos, which could negatively impact the viewer experience and the perceived professionalism of your channel.
+
+**The deadline to manage this setting is December 11th.** 
+
+Creators are strongly advised to check their upload settings and turn off the auto-dubbing feature if they do not want AI-generated translations appearing on their content. For those who require high-quality multilingual audio, seeking third-party voice cloning and dubbing alternatives may be a more viable path than relying on YouTube's native Autodubbing at this stage. 
+
+As these tools evolve, it is important to weigh the cost of professional translation services against the risk of automated errors, especially for Creators who publish a high volume of content monthly.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 YouTube thumbnails were limited to 2MB for a very long time, which often meant downscaling from higher resolutions like 180p to 720p. Some time ago, a [10MB data limit was introduced for thumbnails](/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/) in YouTube podcasts. This is now set to apply to videos and live streams in the first quarter of 2025 as well. This is long overdue and a very welcome change. I'm curious to see how it develops.
@@ -41,3 +84,4 @@ Our beloved and hated concern remains multilingual audio. We had the 1% launch a
 December 11th is the deadline. Please remember: This feature is automatically enabled (auto-opt-in). If you don't disable it, your viewers may suddenly hear a poor English AI translation. So when uploading, make sure to turn off this feature if you don't want that. We will introduce corresponding tools separately, and I'm sure KB Media will also offer solutions that might be cheaper if you don't publish 80 videos per month.
 
 Thanks for watching and being here! I hope you could take something away from this patch rundown. See you again next week for YouTube updates before we likely go on winter break. If YouTube doesn't have any updates, we won't make update videos either. Maybe we'll shoot a relaxed tutorial instead. See you next week, ciao!
+<!-- kwm:transcript:end -->

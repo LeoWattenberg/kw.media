@@ -30,11 +30,11 @@ Was geht ab Leute? Nach unserem Follow-up-Video zu den jüngsten YouTube-Ankünd
 
 Bevor wir beginnen, stellt sicher, dass ihr abonniert seid, damit ihr künftige YouTube-Updates wie dieses nicht verpasst. Los geht's!
 
-**Kann man die neue Kollaborationsfunktion bei Live-Streams nutzen?**
+**Kann man die neue Kollaborationsfunktion bei [Live-Streams](/de/live/) nutzen?**
 
 Die Antwort lautet sowohl ja als auch nein. Ihr könnt *nach* Ende eines Live-Streams kollaborieren und eure Beiträge zum Archiv hinzufügen. Allerdings können mehrere Creator nicht gleichzeitig einen aktiven Live-Stream kollaborativ gestalten – zumindest noch nicht. Ich vermute, das liegt an technischen Einschränkungen. Einen Kollaborateur zu einem VoD (Video on Demand) hinzuzufügen, ist eine einfache Metadatenänderung, während dies während eines Live-Streams komplexere Infrastruktur erfordern würde. Auch wenn YouTube möglicherweise daran arbeitet, erwartet diese Funktion nicht in naher Zukunft.
 
-**Wenn ihr ein Short mit der [V3 Text-to-Video-Funktion](/youtube-tipps-de/die-neue-schutzbestimmung-von-youtube-ist-da-veo-3-update/) oder anderen [KI-Tools](/youtube-tipps-de/youtube-news-100-publikumsmetriken-ausrollung-start-der-shorts-ki-und-was-uns-vshojo-lehrt/) erstellt, müsst ihr es dann als KI-generierten Inhalt kennzeichnen?**
+**Wenn ihr ein Short mit der [V3 Text-to-Video-Funktion](/youtube-tipps-de/die-neue-schutzbestimmung-von-youtube-ist-da-veo-3-update/) oder anderen [KI-Tools](/youtube-tipps-de/youtube-news-100-publikumsmetriken-ausrollung-start-der-shorts-ki-und-was-uns-vshojo-lehrt/) erstellt, müsst ihr es dann als [KI-generierten Inhalt](/de/kurse/) kennzeichnen?**
 
 Kurze Antwort: Ja. Jeder mit V3 erstellte Inhalt erhält automatisch das Standard-KI-Kennzeichnungsetikett von YouTube, entsprechend ihrer bestehenden Richtlinie. Keine Überraschungen hier.
 
@@ -62,7 +62,7 @@ Dies ist ein schrittweiser Rollout, aber er zeigt YouTube's Engagement, die Desk
 
 * **Ist die neue Studio-Funktion einfach eine Abzweigung des öffentlichen Gemini-Modells?**
 
-Die Antwort ist differenziert. Alle KI-Chat-Tools von Google werden mit einer Version der Gemini-Modellfamilie aufgebaut. Allerdings betonte mein Kontakt, dass Studio sich vom öffentlichen Gemini-Modell unterscheidet. Denkt daran, als würden sie den gleichen Kernmotor teilen, aber für unterschiedliche Zwecke abgestimmt sein: Öffentliches Gemini ist ein Generalist, während Studio ein Spezialist ist, der stark auf YouTube-Analysen und Creator-Daten trainiert ist.
+Die Antwort ist differenziert. Alle KI-Chat-Tools von Google werden mit einer Version der Gemini-Modellfamilie aufgebaut. Allerdings betonte mein Kontakt, dass Studio sich vom öffentlichen Gemini-Modell unterscheidet. Denkt daran, als würden sie den gleichen Kernmotor teilen, aber für unterschiedliche Zwecke abgestimmt sein: Öffentliches Gemini ist ein Generalist, während Studio ein Spezialist ist, der stark auf [YouTube-Analysen](/de/creator/) und Creator-Daten trainiert ist.
 
 Das war's für diese FAQ-Runde! Danke für die großartigen Fragen, Leute. Haltet sie in den Kommentaren unten am Laufen – wir graben immer nach Antworten.
 

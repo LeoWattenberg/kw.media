@@ -24,6 +24,36 @@ postCta:
   pageTitle: "Tools"
 ---
 
+<!-- kwm:article:start -->
+## Streamlining Your Setup with OBS Presets
+
+When managing a professional broadcast, consistency is key. However, not every stream requires the same technical configuration or visual layout. To handle these variations efficiently, OBS provides two distinct preset systems: Profiles and Scene Collections. Understanding the difference between them allows creators to switch between different streaming environments without manually reconfiguring their software every time.
+
+### Managing Technical Settings with Profiles
+
+An OBS Profile acts as a container for your general streaming settings. Rather than adjusting your technical parameters manually for every session, you can save these configurations into a specific Profile. 
+
+The primary focus of a Profile is the "how" of your stream—the backend technicalities. This includes critical settings such as bitrates, which determine the quality and stability of your broadcast based on your internet upload speed. By using different Profiles, you can quickly pivot between various technical requirements without risking the stability of your primary setup.
+
+### Organizing Visuals with Scene Collections
+
+While Profiles handle the technical side, Scene Collections manage the visual presentation. A Scene Collection contains all your [scenes and sources](/youtube-tips-en/using-scenes-and-sources-in-obs/), including your camera overlays, game captures, and alerts.
+
+By separating these into collections, you can create entirely different visual identities for different types of content. For example, a "Just Chatting" collection might look completely different from a "Gaming" or "Tutorial" collection. Instead of deleting and rebuilding your layout every time you change the topic of your stream, you can simply switch to the corresponding Scene Collection.
+
+### Portability, Backups, and Format Switching
+
+One of the most significant advantages of both Profiles and Scene Collections is that they can be exported. This functionality serves two primary purposes:
+
+**1. Cross-Device Synchronization**
+If you use multiple computers or laptops for your broadcasts, exporting these collections allows you to import them onto another device. This ensures a seamless transition between hardware, as your bitrates, sources, and scenes remain identical regardless of which machine you are using.
+
+**2. Rapid Format Switching**
+Exporting also provides an essential backup of your hard work. Furthermore, it allows you to switch formats instantly. If you need to move from a high-bitrate live stream to a specific configuration optimized for recording, swapping your Profile and Scene Collection is significantly faster than manually editing individual settings. This flexibility ensures that you can adapt your output format to suit the needs of your project with minimal downtime.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 To quickly stream with presets on other devices, OBS offers Profile and Scene Collections. The Profile Collection allows you to transfer streaming settings such as bitrates, while the Scene Collection contains your [scenes and sources](/youtube-tips-en/using-scenes-and-sources-in-obs/). You can export both collections for backup and either import them to stream on other devices or use them to quickly switch all settings and scenes if, for example, you want to record or stream in a different format.
+<!-- kwm:transcript:end -->

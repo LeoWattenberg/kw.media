@@ -18,7 +18,7 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
-Moin. Running a YouTube channel is hard. There’s a lot of things to consider, ranging from thumbnails and SEO to get found better, to monetization and branding. And while each of these things are important in their own right, it’s easy to lose track of what really matters: Making great content.
+Moin. Running a YouTube channel is hard. There’s a lot of things to consider, ranging from [thumbnails and SEO](/en/ads/) to get found better, to [monetization and branding](/en/). And while each of these things are important in their own right, it’s easy to lose track of what really matters: Making great content.
 
 Your content is the actual video. The things you say, the things you show, the narrative, the structure. And it’s this content that makes people laugh, that makes them think, that amazes them, or makes them learn. Your content is fundamentally the most important thing about your channel, without it, none of your other strategies will work. For example, a good thumbnail and title without great content is just clickbait. And as for SEO, well, the most important metric is user happiness, followed by watch time. All your keyword research won’t have much effect if it’s not backed up by great content.
 
@@ -60,7 +60,7 @@ The first point should be self-explanatory, but figuring out the other two point
 
 <figure class="align-right image-large resized"><img src="/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-10-21-50-36.png" alt width="384" height="412"><figcaption>YouTube’s explanation for the retention graphs</figcaption></figure>
 
-One way to do this is the viewer retention graph in YouTube Analytics. It’s a brutal, no-sugarcoat-kind of feedback on how your content has been perceived. On the right, and in the studio itself, you’ll see a quick explanation of how to read it.
+One way to do this is the [viewer retention graph in YouTube Analytics](/youtube-tips-en/the-eee-model-how-to-break-out-of-the-small-youtuber-niche/). It’s a brutal, no-sugarcoat-kind of feedback on how your content has been perceived. On the right, and in the studio itself, you’ll see a quick explanation of how to read it.
 
 Overall, the graph tells you about a couple of things. Most importantly, **if the graph drops off very quickly in the beginning, your content didn’t meet the viewer’s expectations**.
 

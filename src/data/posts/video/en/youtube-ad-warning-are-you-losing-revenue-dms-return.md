@@ -24,6 +24,57 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## New Tools for Community Management, Monetization, and Communication
+
+YouTube is introducing a series of updates that impact how creators manage their communities, how they earn revenue from long-form content, and how they communicate with other users. From granular comment controls to changes in AI-driven ad placements and the return of a legacy messaging feature, these updates require creators to be proactive in their channel management.
+
+## Enhanced Community Control: "Who Can Comment"
+
+One of the most significant additions for community moderation is the rollout of new "Who Can Comment" settings. This feature allows creators to move beyond simple [comment moderation](/en/creator/) and implement structural barriers to who can participate in a video's discussion.
+
+### Subscriber-Only Comments
+Creators now have the ability to lock their comment sections so that only subscribers can post. To add an extra layer of security, YouTube has included a setting for minimum subscription duration. This means you can require a user to have been subscribed for a specific amount of time before they are eligible to leave a comment.
+
+### Strategic Use Cases
+This functionality mirrors the "sub-only mode" familiar to those who stream on Twitch, but it is now available for VODs (Video on Demand). There are two primary ways to utilize this tool:
+
+*   **Crisis Management:** During periods when a video goes viral or becomes the center of a controversy, these settings can be used as a shield to prevent waves of hate speech and spam from non-subscribers.
+*   **Viewer Rewards:** Conversely, creators can use subscriber-only comments as an exclusive perk, rewarding their most loyal fans with a dedicated space for interaction.
+
+While these tools offer better protection, creators should consider the trade-off: restricting comments may reduce overall engagement and potentially discourage new viewers from interacting with the channel.
+
+## Revenue Warning: Automatic Mid-Roll Ad Changes
+
+For creators relying on ad revenue, there is an important update regarding [automatic mid-roll ad settings](/youtube-tips-en/youtube-updates-mid-roll-ad-bug-and-editing-restrictions-incoming/). YouTube has been working on updating its AI to find "non-interruptive" placements for ads—an initiative first announced in March.
+
+### The Impact on Ad Inventory
+The goal of this update is to improve the viewer experience by ensuring ads do not cut off a sentence or interrupt a pivotal moment in a video. However, from a monetization perspective, there is a risk. If the AI determines that fewer ads result in a better viewer experience, it may reduce the total number of ads served on your long-form videos.
+
+This could lead to a [drop in ad inventory](/youtube-tips-en/new-audio-settings-vpn-revenue-warning-youtube-creator-news/), which directly impacts your RPM (Revenue Per Mille). When fewer ads are shown, the total earnings per thousand views typically decrease.
+
+### Practical Steps for Creators
+Because of this shift, creators are advised not to rely blindly on [automatic ad placements](/en/ads/) at this time. To protect your revenue, take the following steps:
+1.  **Monitor Top Content:** Keep a close eye on your highest-performing videos over the next two weeks.
+2.  **Analyze RPM:** Check for any sudden dips in your revenue metrics.
+3.  **Manual Adjustment:** If you notice a decline, consider switching from automatic placements to manual ad markers in YouTube Studio to ensure your ads are placed optimally without sacrificing inventory.
+
+## The Return of In-App Messaging (DMs)
+
+In a move that brings back a legacy feature, YouTube is piloting the return of direct messaging (DMs). While this may feel like a new addition to some, it is actually a revival of a system that was shut down in 2019.
+
+### Pilot Availability and Functionality
+Currently, this is not a global rollout. The pilot test is limited to adults aged 18 and over residing in Ireland and Poland. Users in these regions can once again share videos and chat directly within the YouTube app.
+
+### Privacy and Moderation Caveats
+It is crucial for users to understand that these DMs are not designed as a private, end-to-end encrypted messenger. Instead, they function as a moderated space within the YouTube ecosystem. 
+
+YouTube has indicated that messages may be reviewed to ensure they adhere to community guidelines. This implies that private shares and conversations are subject to automatic scanning. Because the same rules apply here as they do in the comment section or other public areas of the platform, creators and users should maintain the same level of caution and professionalism in their DMs as they do in their public-facing content.
+
+Whether you are looking forward to more direct interaction via DMs or planning your strategy for subscriber-only comments, these updates highlight YouTube's ongoing effort to balance user experience with creator control and platform safety. Let's talk about it [/youtube-tips-en/youtube-updates-youtube-bug-wipes-ad-revenue-collab-feed-rollout/] in the comments.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 What's up, everyone? Welcome back to the YouTube Creator News. 
@@ -37,3 +88,4 @@ Here's a feature that feels like a blast from the past: In-app messaging is comi
 I want to know: Will you be using the subscriber-only comment mode, or are you afraid it will kill your engagement? Are you looking forward to using YouTube DMs? Let me know in the comments below. Let'[s talk about](/youtube-tips-en/youtube-updates-youtube-bug-wipes-ad-revenue-collab-feed-rollout/) it. 
 
 Thanks for stopping by. Take care, and I'll see you next week with more creator updates.
+<!-- kwm:transcript:end -->

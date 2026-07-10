@@ -18,7 +18,7 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
-Moin! Einen YouTube Kanal zu betreiben ist harte Arbeit. Es gibt eine Menge Dinge die man bedenken muss, diese reichen von Thumbnails (Vorschaubildern) und SEO (Suchmaschinenoptimierung) bis hin zur Monetarisierung und Branding. Und auch wenn all diese Dinge an sich wichtig sind, ist es einfach das Wichtigste zu vergessen: Guten Content machen.
+Moin! Einen YouTube Kanal zu betreiben ist harte Arbeit. Es gibt eine Menge Dinge die man bedenken muss, diese reichen von [Thumbnails (Vorschaubildern)](/de/creator/) und SEO (Suchmaschinenoptimierung) bis hin zur Monetarisierung und Branding. Und auch wenn all diese Dinge an sich wichtig sind, ist es einfach das Wichtigste zu vergessen: Guten Content machen.
 
 Dein Content ist das Video. Die Dinge die du sagst, die Dinge du zeigst, die Geschichte, die Struktur. Und es ist der Content der Leute zum Lachen bringt, zum Denken anregt, der sie begeistert oder ihnen etwas beibringt. Dein Content ist grundsätzlich das Wichtigste an deinem Kanal, denn ohne ihn werden keine deiner anderen Strategien funktionieren. Zum Beispiel ist ein gutes Thumbnail und ein guter Titel ohne guten Content einfach nur Clickbait. Was die SEO angeht, naja, da ist die wichtigste Metrik die Zufriedenheit der Zuschauer, gefolgt von der Wiedergabezeit. All deine Keyword Recherche bringt dir überhaupt nichts, wenn sie nicht von gutem Content gestützt wird.
 

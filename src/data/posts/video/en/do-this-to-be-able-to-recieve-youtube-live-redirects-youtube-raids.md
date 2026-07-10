@@ -24,6 +24,38 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## Understanding YouTube Live Redirects
+
+[YouTube Live Redirects](/youtube-tips-en/live-redirect-from-one-stream-to-the-next/) are a powerful feature that allows creators to send their live audience directly to another stream. Essentially, this acts as a bridge between two channels, enabling a seamless transition for viewers from one broadcast to another. For creators looking to grow their reach and foster collaboration within the streaming community, being able to receive these redirects is essential.
+
+If you are interested in the broader mechanics of how this works, you can learn more about [how to receive YouTube redirects and raids on your channel](/youtube-tips-en/how-to-receive-youtube-redirects-youtube-raids-on-your-channel/). However, before another creator can send their audience your way, you must first configure your channel settings to permit these incoming redirects.
+
+## How to Enable Redirects in YouTube Studio
+
+By default, you have control over who can redirect their viewers to your live stream. To ensure you are reachable for collaborations or community raids, you need to adjust your permissions within the YouTube Studio dashboard.
+
+Follow these steps to enable the feature:
+
+1. **Access YouTube Studio:** Log into your account and open the YouTube Studio dashboard.
+2. **Open Settings:** Navigate to the **Settings** menu (typically found in the left-hand sidebar).
+3. **Navigate to Community:** Within the settings window, select the **Community** tab. This section manages how your channel interacts with other users and creators.
+
+## Configuring Your Redirect Permissions
+
+Once you are in the Community settings, scroll down until you find the options for Live Redirects. YouTube provides two primary ways to manage who can send viewers to your stream, allowing you to balance growth with channel security.
+
+### Option 1: Allow Specific Channels
+If you prefer a curated approach, you can manually add specific channels to an approved list. This is ideal for creators who have pre-arranged collaborations or only want to receive redirects from trusted partners and friends.
+
+### Option 2: Allow All Creators
+For those who want to maximize their visibility and welcome new audiences from any source, there is a checkbox to allow all creators to redirect to your channel. Enabling this option removes the need for manual approvals and opens your stream up to spontaneous "raids" from the wider YouTube community.
+
+By adjusting these settings, you ensure that when another creator decides to send their audience to your stream, the transition happens smoothly without being blocked by your privacy or community settings.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 Every YouTube creator can receive [YouTube Live Redirects](/youtube-tips-en/how-to-receive-youtube-redirects-youtube-raids-on-your-channel/). To enable them for your stream, you have to allow other creators to redirect to you. You'll find that setting in YouTube Studio under Settings > Community. Scroll down and either allow specific channels or tick the box to allow all creators to redirect to you.
+<!-- kwm:transcript:end -->

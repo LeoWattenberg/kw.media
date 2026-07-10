@@ -24,6 +24,54 @@ postCta:
   pageTitle: "YouTube Tipps & Tricks auf Deutsch"
 ---
 
+<!-- kwm:article:start -->
+## Automatische Untertitelung und neue Funktionen für YouTube Creator
+
+In den aktuellen Updates von YouTube stehen Themen im Vordergrund, die sowohl die globale Reichweite deiner Inhalte als auch die Art und Weise, wie du mit anderen Creatorn zusammenarbeitest, beeinflussen. Besonders die [automatische Untertitelung](/de/video-synchronisation/) sorgt derzeit für Gesprächsstoff, da viele Kanäle Benachrichtigungen über Änderungen an ihren älteren Videos erhalten.
+
+### Automatische Untertitelung: Mehr Reichweite trotz „Roboter-Stimme“
+
+Viele Creator bemerken aktuell, dass YouTube Benachrichtigungen versendet, wonach ältere Videos automatisch mit Untertitelungsspuren versehen werden. Diese [automatische Untertitelung](/youtube-tipps-de/youtubes-neue-ausdrucksstarke-sprache-ki-besser-als-menschliche-synchronisationen/) ist ein mächtiges Werkzeug, um die Barriere zwischen verschiedenen Sprachräumen zu überbrücken.
+
+Im Kern funktioniert das System so, dass die Stimmen im Video erkannt und in verschiedene Sprachen übersetzt werden. Ein wichtiger Punkt für dich als Creator: Die Stimme dieser automatischen Übersetzung klingt derzeit noch sehr roboterartig. Dennoch ist dies ein positiver Schritt, da deine Inhalte dadurch einem weltweiten Publikum zugänglich gemacht werden – insbesondere der englischsprachige Markt öffnet sich so für viele nicht-englischsprachige Kanäle.
+
+Besonders profitabel könnte dies für ältere Tutorials sein. Anstatt mühsam alte Videos neu aufzunehmen, um sie international zu vermarkten, übernimmt YouTube hier einen Teil der Arbeit. Allerdings solltest du dies als Anlass nehmen, deine alten Inhalte zu prüfen: Da Tutorials oft veralten, ist es ratsam, zu schauen, ob die Informationen noch aktuell sind oder ob eine komplette Aktualisierung des Inhalts sinnvoller wäre als eine bloße Übersetzung.
+
+### Die Alternative: Mehrsprachiges Audio
+
+Wenn dir die roboterhafte Qualität der automatischen Untertitelung nicht ausreicht, gibt es das [mehrsprachige Audio](/youtube-tipps-de/youtube-aktualisiert-automatische-synchronisation-mit-intonation-create-app-auf-ios-fur-1/). Diese Funktion ist die fortgeschrittenere Version der Sprachunterstützung.
+
+Der entscheidende Vorteil hierbei ist die Kontrolle: Du kannst eigene Audiospuren hochladen und so die KI-Stimme komplett umgehen. Wenn du eine andere Sprache ausreichend beherrschst oder professionelle Synchronisationen beauftragst, kannst du diese Spuren direkt hinterlegen. Seit den Tests mit mehrsprachigen Miniaturansichten im Juli gibt es zwar keine neuen offiziellen Nachrichten zu diesem Feature, doch es bleibt die qualitativ hochwertigere Lösung für Creator, die eine echte internationale Präsenz aufbauen wollen.
+
+### Kooperationen via Zusammenklapp-Funktion: Chancen und Hürden
+
+Ein weiteres wichtiges Thema ist die sogenannte Zusammenklapp-Funktion, die neue Wege für Kollaborationen eröffnet. Hier gibt es jedoch wichtige Details zur Monetarisierung und Performance-Messung zu beachten.
+
+#### Aktueller Status der Einnahmen und Statistiken
+Derzeit ist die Funktion noch nicht vollständig ausgewogen: Wenn du ein Video hochlädst und eine Person über die Zusammenklapp-Funktion einlädst, fließen die Einnahmen, die Aufrufe und die Watchtime ausschließlich dem ursprünglichen Uploader zu. Eine Teilung der Einnahmen existiert momentan nicht. YouTube hat jedoch bestätigt, dass eine Revenue-Sharing-Option im Rahmen dieser Funktion diskutiert wird. Ob dies später auch für Aufrufe oder die Watchtime gelten wird, ist derzeit nicht bekannt.
+
+#### Strategische Nutzung für dein Wachstum
+Trotz der aktuellen Einschränkungen bietet die Zusammenklapp-Funktion spannende strategische Möglichkeiten. Du kannst sie nutzen, um deine Nische zu erweitern oder neue Zielgruppen zu erschließen. Ein Beispiel: Ein Kanal, der sich primär auf YouTube-Updates konzentriert, könnte mit einem Creator zusammenarbeiten, der tiefgehende Tutorials erstellt. Durch die Integration der Tutorial-Inhalte auf dem News-Kanal erreicht der Tutorial-Creator ein neues Publikum, während der News-Kanal seinen Zuschauern einen Mehrwert durch praktische Anleitungen bietet.
+
+Überlege dir daher genau, welche Partner in deiner Nische für eine solche Kooperation infrage kommen. Es ist eine hervorragende Gelegenheit, bestehende Beziehungen zu Wettbewerbern oder befreundeten Creatorn zu stärken und gegenseitig vom jeweiligen Publikum zu profitieren.
+
+### Ausblick auf Sprachantworten und YouTube Live Experimente
+
+Neben den dauerhaften Funktionen gibt es einige experimentelle Updates, die du im Auge behalten solltest.
+
+#### Sprachantworten in der Testphase
+In den kommenden Wochen wird die Funktion für Sprachantworten eine weitere Experimentierphase durchlaufen. Ein fester Starttermin ist zwar geplant, wurde jedoch noch nicht final kommuniziert. Für dich als Nutzer bedeutet das: Wenn du diese Funktion testen möchtest, musst du zwingend die YouTube-App verwenden, da sie derzeit nicht über andere Wege verfügbar ist.
+
+#### Neue Möglichkeiten für Moderatoren bei YouTube Live
+Für diejenigen, die regelmäßig live gehen, gibt es ein Experiment für [YouTube Live](/de/live/), das bis Ende September läuft. Hierbei erhalten ausgewählte Moderatoren erweiterte Rechte, um den Stream effektiver zu steuern und Creator-Ziele zu unterstützen:
+
+*   **Festlegung von Zielen:** Moderatoren können Ziele wie „Juwelen“ (speziell für vertikale Live-Streams) oder Mitgliedschaften festlegen. Wichtig ist hierbei, dass geschenkte Mitgliedschaften in dieser Phase noch nicht enthalten sind.
+*   **Interaktions-Tools:** Das Anpinnen von Nachrichten sowie das Erstellen von Umfragen direkt im Live-Chat gehören ebenfalls zu diesem Experiment.
+
+Diese Funktionen helfen dabei, die Community während eines Live-Events aktiver einzubinden und gezielt auf bestimmte Ziele (wie z. B. eine bestimmte Anzahl an Mitgliedschaften) hinzuarbeiten.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Die [YouTube-Updates](/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/) der Woche: Wir müssen über die [automatische Untertitelung](/youtube-tipps-de/youtubes-neue-ausdrucksstarke-sprache-ki-besser-als-menschliche-synchronisationen/) sprechen. Erstens erhalten Kanäle Benachrichtigungen, dass ihre alten Videos automatische Untertitelungsspuren erhalten werden. Kurze Zusammenfassung: Die automatische Untertitelung übersetzt die Stimmen im Video in verschiedene Sprachen, aber mit einer roboterartigen Stimme. Die fortgeschrittenere Version dieser Funktion wäre [mehrsprachiges Audio](/youtube-tipps-de/youtube-aktualisiert-automatische-synchronisation-mit-intonation-create-app-auf-ios-fur-1/), worauf wir gleich zu sprechen kommen werden. Zunächst einmal ein großes Dankeschön an Renee, der ebenfalls YouTube-Hilfeinhalte auf seinem Kanal erstellt und mir freundlicherweise einen seiner Screenshots zur Verfügung gestellt hat. Schaut euch seinen Kanal in der Videobeschreibung an.
@@ -41,3 +89,4 @@ Als nächstes scheinen Sprachantworten in den kommenden Wochen eine weitere Expe
 Abschließend ein experimentelles Update für YouTube Live: Einige Moderatoren haben die Option, Creator-Ziele wie Juwelen für vertikale Live-Streams und Mitgliedschaften (geschenkte Mitgliedschaften sind in dieser Phase nicht enthalten) festzulegen. Das Anpinnen von Nachrichten und das Erstellen von Umfragen sind ebenfalls Teil dieses Experiments, das bis Ende September laufen soll. Ich halte euch auf dem Laufenden, wenn wir mehr erfahren.
 
 Falls ihr Fragen zu den heutigen Themen oder anderen YouTube-bezogenen Angelegenheiten habt, hinterlasst sie bitte in den Kommentaren unten. Begleitet mich nächste Woche für weitere YouTube-Updates!
+<!-- kwm:transcript:end -->

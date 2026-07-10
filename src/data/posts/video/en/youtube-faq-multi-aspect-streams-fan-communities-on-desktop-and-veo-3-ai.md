@@ -24,6 +24,94 @@ postCta:
   pageTitle: "YouTube Tips & Tricks in English"
 ---
 
+<!-- kwm:article:start -->
+## Navigating the Latest YouTube Updates: An FAQ for Creators
+
+Following the recent wave of announcements from YouTube, many creators have raised specific technical questions regarding how new features will actually function in practice. From the nuances of AI disclosure to the logistics of [multi-aspect streaming](/en/youtube-tips/), there is a significant difference between a feature announcement and its real-world implementation.
+
+To provide clarity, we have compiled the most pressing queries into this comprehensive guide, detailing the current status of these tools and what you can expect as they roll out.
+
+## Collaborations in Live Streaming
+
+One of the most anticipated features is the ability to collaborate with other creators. However, when it comes to [YouTube Live](/en/live/), there is a critical distinction between active broadcasts and archived content.
+
+### Active Streams vs. VODs
+Currently, multiple creators cannot collaborate on an active live stream. If you are looking to have a co-host officially linked to your stream in real-time, that functionality is not yet available. 
+
+The ability to collaborate is limited to the archive—the Video-on-Demand (VOD) version of the stream. Once the broadcast has ended and the video is processed as a VOD, you can add collaborators to the project.
+
+### The Technical Hurdle
+This limitation likely stems from the difference in how YouTube handles metadata versus live infrastructure. Adding a collaborator to a VOD is essentially a metadata change—updating the information associated with a static file. In contrast, implementing this during a live broadcast would require a more complex technical infrastructure to handle real-time permissions and attribution across multiple accounts simultaneously. While it is possible that YouTube is developing a solution, creators should not expect live collaboration features in the immediate future.
+
+## AI Content Generation and Disclosure Policies
+
+As YouTube integrates more advanced generative [AI tools](/en/lectures-courses/), such as the [V3 text-to-video feature](/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/), transparency has become a central pillar of their policy.
+
+### Mandatory AI Labeling
+If you utilize V3 or any other AI tools to generate your content, you must disclose this to your audience. For those using the V3 feature specifically, YouTube has streamlined this process: content created with these tools will automatically receive the standard [AI-generated content](/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/) disclosure label. This ensures that creators remain compliant with platform policies without having to manually flag every AI-assisted Short.
+
+### Viewer Control and Feed Visibility
+A common question among creators is whether viewers will have the ability to filter out or hide AI-generated content from their feeds. Based on current information, YouTube does not plan to provide a "disable" button for AI content. 
+
+YouTube is investing heavily in these generative tools and intends to encourage both the creation and consumption of AI-driven media. Consequently, viewers will continue to see AI-generated content in their recommendations and feeds, meaning creators who leverage these tools can expect their reach to remain intact.
+
+## Understanding Multi-Aspect Streaming
+
+Multi-aspect streaming allows creators to cater to different viewing habits by providing both horizontal and vertical versions of a live broadcast. However, the delivery system for these streams is not identical.
+
+### Notification Logic
+To prevent subscriber fatigue and avoid spamming users with multiple alerts for the same event, YouTube employs a smart notification system. Only one notification is sent per stream, and it is specifically tied to the horizontal version. 
+
+This horizontal stream serves as the primary entry point, appearing in traditional locations such as:
+* The subscription feed
+* Home page recommendations
+* The channel's main page
+
+The vertical version of the stream is handled differently; it is primarily visible within the Shorts feed, capturing viewers who are browsing short-form content.
+
+### The Lack of Stream Swapping
+Currently, there is no native functionality for a viewer to "swap" between the vertical and horizontal versions of a live stream. The experience is determined by the point of discovery:
+* **Shorts Feed Discovery:** The viewer stays in the vertical version.
+* **Home/Channel Page Discovery:** The viewer stays in the horizontal version.
+
+Because there is no built-in toggle to switch aspects, creators who want to direct their audience toward a specific viewing experience should take manual action. A practical workaround is to pin links to both versions of the stream in the live chat, allowing viewers to manually navigate to their preferred format.
+
+## Improving Fan Communities on Desktop
+
+For many, [Fan Communities](/youtube-tips-en/youtube-fan-communities-everything-you-need-to-know/) have felt like a mobile-only feature, with the desktop experience being clunky or virtually unusable. YouTube is now addressing this gap.
+
+### The Desktop Rollout
+YouTube has initiated a 1% rollout of a major update designed to bring full functionality to Fan Communities on desktop. This update aims to bridge the gap between the mobile app and the browser experience.
+
+**For Viewers:**
+The update allows viewers to finally view and post within communities directly from their computers, removing the necessity of switching to a mobile device to engage with the community.
+
+**For Creators:**
+Creators gain significantly more control over their community management from their desktop channel. New capabilities include:
+* Posting new updates.
+* Replying to community members.
+* Utilizing standard moderation tools to manage the conversation.
+
+It is important to note that some features are still missing from this rollout, specifically the ability to "heart" posts or pin specific messages to the top of the community page.
+
+### Timeline and Expectations
+YouTube intends to complete this rollout by October 9th. While timelines for platform-wide updates can be fluid, creators should monitor their desktop Studio and channel pages to see when these community management tools become active for their accounts.
+
+## The Intelligence Behind YouTube Studio AI
+
+With the integration of AI into YouTube Studio, there has been speculation regarding whether this is simply a "fork" or a rebranded version of the public Gemini model. While they share a lineage, the distinction is important for creators.
+
+### Generalist vs. Specialist Models
+All of Google's current AI chat tools are built upon the Gemini family of models. However, the version integrated into YouTube Studio is not a general-purpose tool. 
+
+To understand the difference, consider the following:
+* **Public Gemini:** This is a "generalist" model designed to handle a vast array of tasks across different domains, from writing emails to coding.
+* **YouTube Studio AI:** This is a "specialist" model. While it uses the same core engine as Gemini, it has been specifically tuned and trained on YouTube-specific data, including analytics and creator-centric information.
+
+This specialization allows the Studio AI to provide insights that are grounded in actual platform performance and creator trends, rather than general web knowledge. This makes it a far more potent tool for strategic planning and audience analysis than the public version of the model.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 What's up everyone? After our follow-up video on the recent YouTube announcements, we've received some excellent, very specific questions in the comment section—and I love the energy! Keep those questions coming. In this video, we'll address your most pressing queries during a quick FAQ session. 
@@ -67,3 +155,4 @@ The answer is nuanced. All of Google's AI chat tools are built using some versio
 That's all for this FAQ session! Thanks for the great questions, everyone. Keep them coming in the comments below—we're always digging for answers. 
 
 One last request: If you're watching this from a personal account on your mobile phone, please give this video a "hype." It's a free way to support the channel and helps more creators discover this information. Thanks for watching! Take care, and see you next week with more YouTube updates.
+<!-- kwm:transcript:end -->

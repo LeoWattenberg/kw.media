@@ -24,6 +24,57 @@ postCta:
   pageTitle: "YouTube Tips & Tricks in English"
 ---
 
+<!-- kwm:article:start -->
+## Streamlining Your Workflow: New YouTube Thumbnail Tools
+
+YouTube is introducing several updates designed to give creators more flexibility and viewers a more dynamic experience, particularly regarding how content is presented in the feed. One of the most practical additions is the ability to [edit thumbnails](/en/youtube-tips/) directly within the mobile ecosystem.
+
+### Direct Thumbnail Editing via Mobile
+Creators no longer need to rely solely on external design software or desktop uploads to tweak their video covers. You can now manage your [thumbnails](/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/) directly through the YouTube app or the YouTube Studio app. 
+
+The process is straightforward: select a specific video, choose a frame from the footage, add text overlays, and set it as the thumbnail. This integration into the mobile apps allows for faster iterations, enabling creators to update their visuals on the fly based on how a video is performing in its first few hours of publication.
+
+### The Rise of "Lively Thumbnails"
+While editable thumbnails empower the creator, YouTube is also experimenting with the viewer's experience through "lively thumbnails." This feature is specifically designed for [live streams](/en/live/) and functions similarly to the hover-preview seen in the regular video feed.
+
+Instead of a static image, [lively thumbnails](/youtube-tips-en/membership-bonus-program-thumbnail-updates-and-ai-dubbing-on-the-horizon/) will rotate through current highlights of what is happening live in the stream. For creators, this means that while you can still set a [specific thumbnail](/youtube-tips-en/how-to-use-youtubes-new-thumbnail-test-and-compare-feature-for-better-engagement/), the platform may override it with real-time footage to entice viewers.
+
+This experiment is scheduled to run until the end of 2024 and will be available across TV, mobile, and desktop platforms. The rollout begins with the desktop version, meaning computer users will be the first to encounter these dynamic previews.
+
+## Expanding BrandConnect and Monetization Opportunities
+
+YouTube is expanding its BrandConnect service, specifically focusing on an allow-listing process for creators in Germany. This move opens the door for more creators to professionalize their [brand partnerships](/en/creator/) through the platform's integrated tools.
+
+### Accessing the Media Kit
+A key component of this expansion is the media kit. For those who meet the requirements—specifically reaching a milestone of 20,000 subscribers by the end of the year—the ability to apply for BrandConnect becomes available. 
+
+However, there is a current caveat: while creators can be accepted into the program and generate their professional media kits, active deals within the platform are not yet available in this region. In the interim, the media kit serves as a valuable asset that creators can manually forward to companies and potential sponsors to showcase their channel's value, even if the automated deal-matching system is not yet fully operational.
+
+## Enhancements for Live Streamers and Mobile Creators
+
+Live streaming on YouTube is receiving several quality-of-life updates aimed at increasing visibility and improving the mobile experience.
+
+### Increased Visibility with "Live Rings"
+One of the subtle but impactful changes is the expansion of "live rings." These are the red visual indicators that signal a creator is currently live. Previously, these were primarily visible in the subscriber bar on the side of the interface. 
+
+As of September, these rings have been rolled out to all feeds, including the desktop home feed. This change significantly boosts discoverability, as viewers browsing their main page can now instantly identify which of their favorite creators are streaming in real-time without having to click through to a specific channel or tab.
+
+### Super Chat Goals and Mobile Updates
+For those utilizing monetization features during streams, the rollout for Super Chat Goals has been extended through the end of November. This gives creators more time to implement these goals to encourage viewer contributions and hit specific funding targets during their broadcasts.
+
+Looking ahead to the final quarter of 2024 (Q4), YouTube has indicated that new mobile features are coming specifically for "corp-streaming" (corporate/professional streaming). While the exact nature of these tools remains under wraps, they are expected to enhance the capabilities of creators who stream primarily from mobile devices.
+
+## Centralizing Ad Management in YouTube Studio
+
+For members of the YouTube Partner Program, managing which advertisements appear on their content is becoming significantly more convenient. 
+
+### Moving Away from AdSense
+Previously, if a creator wanted to [block specific advertisers](/en/ads/) or URLs—perhaps due to personal convictions or to avoid conflicts of interest (for example, blocking a specific food conglomerate like Nestlé)—they had to log into YouTube AdSense separately. This added an extra layer of navigation and authentication to a routine administrative task.
+
+Starting next week, the first phase of a rollout will integrate these ad-blocking settings directly into YouTube Studio. By moving these controls into the primary creator dashboard, YouTube is eliminating the need for a separate AdSense login to manage brand safety and advertiser preferences. This centralization allows creators to maintain tighter control over their channel's environment from a single interface.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 The YouTube updates this week: [Thumbnails are now editable](/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/). That means you simply go to your YouTube app or YouTube Studio app, select a video, and then you can choose a frame, add text, and set it as the thumbnail. I think this is a good thing. Let me know in the comments if you'd like to see additional features.
@@ -39,3 +90,4 @@ A small thing for those in the YouTube Partner Program: The so-called ad-blockin
 Super Chat Goals are already being rolled out, with the deadline extended until the end of November. There was some news on this in a small update. The live rings, the red ring when you're live, will now be displayed in all feeds—including the desktop home feed. Previously, they were only visible in the subscriber bar on the side. Some attentive viewers noticed this, and I had it confirmed by YouTube: Yes, indeed, the live rings were rolled out in September.
 
 That's a lot to take in again. If you have any further questions, feel free to leave them in the comments. Otherwise, see you next week. Until then, take care!
+<!-- kwm:transcript:end -->

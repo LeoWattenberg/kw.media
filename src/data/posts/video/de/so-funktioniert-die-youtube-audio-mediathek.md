@@ -24,6 +24,30 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Musik ohne Lizenzprobleme finden
+
+Wer hochwertige Videos produziert, weiß, wie wichtig die richtige musikalische Untermalung ist. Doch für viele Creator stellt sich schnell ein Problem: Die Urheberrechte. Wer einfach beliebige Songs verwendet, riskiert Copyright-Claims oder die Demonetarisierung seiner Inhalte. Um diesen Aufwand und das Risiko zu vermeiden, bietet YouTube eine integrierte Lösung an: die Audio-Mediathek.
+
+### Wo findest du die YouTube Audio-Mediathek?
+
+Die Audio-Mediathek ist direkt in das [YouTube Studio](/youtube-tipps-de/replace-song-update-youtube-schlagt-dir-10-passende-tracks-vor/) integriert. Hier hast du Zugriff auf eine riesige Auswahl von über 1.000 verschiedenen Musikstücken, die du kostenlos herunterladen und in deinen Projekten einsetzen kannst. Das ist besonders hilfreich für Creator, die nicht über das Budget für teure Lizenzen verfügen oder sich nicht mit komplexen rechtlichen Verträgen herumschlagen möchten.
+
+### Monetarisierung und Sicherheit
+
+Ein entscheidender Vorteil der Audio-Mediathek ist die Rechtssicherheit innerhalb des YouTube-Ökosystems. Wenn du Musik aus dieser Sammlung nutzt, kannst du deine Videos problemlos monetarisieren. Du musst also keine Sorge haben, dass Werbeeinnahmen aufgrund von Urheberrechtsverletzungen an die Rechteinhaber der Musik fließen oder dein Video gesperrt wird. Die Tracks sind explizit dafür vorgesehen, in YouTube-Videos verwendet zu werden, ohne dass dies den Monetarisierungsstatus deines Kanals beeinträchtigt.
+
+### Nutzung außerhalb von YouTube
+
+Die Flexibilität der Audio-Mediathek endet nicht an den Grenzen der Plattform. Du darfst die Songs auch in Videos einbauen, die du auf anderen Kanälen oder Plattformen veröffentlichst. Allerdings gibt es hier eine wichtige Einschränkung: Die Musik darf nur begleitend zu deinen restlichen Inhalten verwendet werden.
+
+Das bedeutet konkret, dass die Musik eine unterstützende Funktion haben muss – etwa als Hintergrundmusik für einen Vlog, ein Tutorial oder ein Gaming-Video. Es ist nicht gestattet, die Musikstücke als eigenständige Inhalte (zum Beispiel als reine Musik-Uploads ohne weiteren Mehrwert) zu veröffentlichen. Solange die Musik jedoch Teil eines größeren kreativen Werks ist, in dem du eigene Inhalte präsentierst, ist die Nutzung auch außerhalb von YouTube zulässig.
+
+Zusammenfassend bietet die Audio-Mediathek im [YouTube Studio](/de/youtube-tipps/) eine effiziente und rechtlich sichere Möglichkeit, deinen Videos einen professionellen Sound zu verleihen, ohne dass du dich mit komplizierten Lizenzfragen beschäftigen musst.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Falls ihr Musik in euren Videos nutzen wollt, euch jedoch nicht mit Lizenzen herumschlagen wollt, bietet euch YouTube die Audio-Mediathek [im YouTube Studio](/youtube-tipps-de/replace-song-update-youtube-schlagt-dir-10-passende-tracks-vor/). Dort könnt ihr über 1.000 verschiedene Musikstücke herunterladen und in euren YouTube-Videos verwenden, sogar wenn ihr diese monetarisiert. Ihr dürft die Songs auch außerhalb von YouTube in Videos einbauen, jedoch immer nur begleitend zu euren restlichen Inhalten.
+<!-- kwm:transcript:end -->

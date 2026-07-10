@@ -31,7 +31,7 @@ What this shows us is simple: the agency model that much of the VTuber industry 
 
 ## Same Old Story: From MCNs to Hollywood
 
-The tension between platforms, agencies, and talent is nothing new. Before VTubing, there were YouTube Multi-Channel Networks (MCNs) like Machinima and Maker Studios. Back then, creators were promised growth, exposure, and resources, but what they often got were restrictive contracts, late payments, and no real voice in how their content or careers were managed.
+The tension between platforms, agencies, and talent is nothing new. Before [VTubing](/en/vtuber/), there were YouTube Multi-Channel Networks (MCNs) like Machinima and Maker Studios. Back then, creators were promised growth, exposure, and resources, but what they often got were restrictive contracts, late payments, and no real voice in how their content or careers were managed.
 
 Even further back, we can look at Hollywood, an industry notorious for gatekeeping, coercion, and opaque power dynamics. Especially for women, breaking in often meant navigating systems that were less about talent and more about access to powerful people.
 
@@ -96,7 +96,7 @@ If creators are spread across different regions (e.g., U.S. or Japan), local co-
 
 ### Privacy & Identity Concerns
 
-For many VTubers, anonymity is core to their identity. And yes, legally, founding a company (especially in Europe or the U.S.) requires real names. But this applies only to the founding members. From there, internal systems can be built with **strict access control** to ensure that sensitive personal information is not exposed to the group unless explicitly necessary.
+For many VTubers, anonymity is core to their identity. And yes, legally, [founding a company](/en/imprint-service/) (especially in Europe or the U.S.) requires real names. But this applies only to the founding members. From there, internal systems can be built with **strict access control** to ensure that sensitive personal information is not exposed to the group unless explicitly necessary.
 
 This is especially important in an industry where doxxing and harassment are real risks.
 

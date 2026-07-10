@@ -24,6 +24,56 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Neue Entwicklungen bei YouTube Live und der Monetarisierung
+
+YouTube plant derzeit mehrere Anpassungen, die sowohl die technische Ausspielung von Werbung als auch die Interaktion mit deiner Community und die Regeln zur Monetarisierung betreffen. Besonders für Creator, die regelmäßig live streamen oder auf eine schnelle Monetarisierung ihrer Inhalte achten, gibt es hier wichtige Neuigkeiten zu beachten.
+
+## Seiten-an-Seiten-Anzeigen in Live-Streams: Warum kein Vollbild?
+
+Ein Thema, das viele Creator und Zuschauer beschäftigt, sind die [Seiten-an-Seiten-Anzeigen](/youtube-tipps-de/youtube-updates-neue-av1-codec-unterstutzung-erweiterung-der-sprachantworten-und-einfuhrung-von-neben-einem-anderen-anzeigen/) bei YouTube Live. Es stellt sich oft die Frage, warum diese Anzeigen in einem geteilten Format erscheinen und nicht als klassische Vollbild-Werbespots.
+
+### Technische Hürden und Werbeformate
+Der Hauptgrund liegt in der Effizienz für die Werbetreibenden. Die meisten Unternehmen nutzen bereits standardisierte 16:9-Anzeigen, die für normale Videos oder Mid-Rolls optimiert sind. YouTube möchte diese bestehenden Assets direkt in [Live-Streams](/de/live/) integrieren können. Würden Vollbildanzeigen in Live-Streams geschaltet, müssten Werbetreibende völlig neue Formate erstellen, was einen erheblichen Mehraufwand bedeuten würde und von vielen nicht unterstützt würde.
+
+Ein weiterer entscheidender Faktor ist die Rechenleistung. Da jeder Zuschauer ohne [YouTube Premium](/de/youtube-tipps/) einen individualisierten Videostream erhält, bei dem die Werbung quasi "eingebrannt" wird, wäre die Erstellung von Vollbildanzeigen in Echtzeit technisch zu rechenintensiv. Um die Kosten und die Systemlast für diese personalisierten Streams gering zu halten, ist das Seiten-an-Seiten-Format die praktikabelste Lösung.
+
+### Rollout-Zeitplan
+Für Nutzer ohne YouTube Premium wird dieses Format bald präsenter sein: Die breitere Einführung der [Seiten-an-Seiten-Anzeigen](/de/werbung/) ist für die Woche des 5. Mai geplant. Auch wenn ein exaktes Datum noch nicht feststeht, ist davon auszugehen, dass diese Anzeigen in Kürze häufiger im Live-Kontext auftauchen werden.
+
+## Mehr Interaktion durch das Community-Leaderboard
+
+Um die Bindung zwischen Creator und Zuschauern zu stärken, führt YouTube später in diesem Monat ein Experiment mit einem Community-Leaderboard für Live-Streams ein. Dabei handelt es sich zunächst um einen frühen Prototypen.
+
+### So funktioniert das Leaderboard
+Das Leaderboard listet die Top 50 der aktivsten Teilnehmer im Chat eines Kanals auf. Die Platzierung ergibt sich aus verschiedenen Interaktionsmetriken, darunter:
+*   Die allgemeine Aktivität im Chat.
+*   Der Einsatz von Super Chats.
+*   Weitere Interaktionssignale.
+
+Ein besonderes Highlight für die treuesten Fans: Die Top 3 der Zuschauer erhalten ein spezielles Abzeichen direkt neben ihrem Namen, wenn sie im Chat schreiben. Dies schafft einen spielerischen Anreiz (Gamification), sich aktiver am Stream zu beteiligen.
+
+### Flexibilität und Einschränkungen
+Die Funktion ist vielseitig einsetzbar und unterstützt sowohl horizontale als auch vertikale Live-Streams. Als Creator hast du die volle Kontrolle darüber, ob du dieses Feature aktivieren oder deaktivieren möchtest.
+
+Ein wichtiger Punkt für Power-User und technisch versierte Creator: Aktuell gibt es keine Pläne, die Daten des Leaderboards über eine API zur Verfügung zu stellen. [Das bedeutet](/youtube-tipps-de/youtube-updates-brandconnect-expansion-und-neue-streaming-features/), dass derzeit keine Integrationen mit externen Drittanbieter-Bots möglich sind. Es wurde jedoch bereits ein Feature-Antrag gestellt, da eine API-Anbindung beispielsweise die Implementierung von Channel Points ermöglichen würde, was die Interaktion weiter vertiefen könnte.
+
+## Lockerung bei Schimpfwörtern und der Monetarisierung
+
+Ein Thema, das viele Creator schon lange beschäftigt, ist das "gelbe Icon" in YouTube Studio, welches auf eingeschränkte Monetarisierung hinweist. Ende Mai wird YouTube hier eine wichtige Änderung an den Richtlinien vornehmen.
+
+### Wegfall der "7-Sekunden-Regel"
+Bisher galt die strikte Vorgabe, dass die ersten sieben Sekunden eines Videos frei von starken Schimpfwörtern sein mussten, um ein gelbes Icon zu vermeiden. Diese spezifische Regel wird nun entfernt. Hintergrund sind Konsultationen mit Werbetreibenden, die signalisiert haben, dass sie mit einer gewissen Menge an Fluchen in den Inhalten einverstanden sind.
+
+### Wichtige Caveats für Creator
+Auch wenn die erste Hürde fällt, bedeutet dies keinen Freifahrtschein für ungefilterte Sprache. Du solltest folgende Punkte unbedingt beachten:
+1.  **Community-Richtlinien:** Die allgemeinen Regeln gegen Hassrede und Cybermobbing bleiben in voller Kraft. Verstöße hiergegen führen weiterhin zu Sanktionen oder einer Demonetarisierung.
+2.  **Werberelation:** Auch wenn die Toleranz steigt, ist es ratsam, starke Schimpfwörter dennoch sparsam einzusetzen. Eine moderate Sprache ist oft sicherer für eine langfristig stabile Monetarisierung.
+
+Zusammenfassend lässt sich sagen, dass YouTube versucht, technische Hürden bei der Werbung zu umschiffen, die Community-Bindung durch neue Features wie das Leaderboard zu fördern und die Monetarisierungsregeln an die Realität moderner Content-Erstellung anzupassen. Für weitere Details kannst du dich auch an die regelmäßigen [YouTube-Updates](/youtube-tipps-de/youtube-updates-ios-beitrittstaste-multi-format-live-streams-und-analysereparatur/) halten.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Wir hatten die Gelegenheit, mit jemandem zu sprechen, der tatsächlich an den YouTube-[Seiten-an-Seiten-Anzeigen](/youtube-tipps-de/youtube-updates-neue-av1-codec-unterstutzung-erweiterung-der-sprachantworten-und-einfuhrung-von-neben-einem-anderen-anzeigen/) für Live-Streams arbeitet, und wir haben einige neue Informationen zu teilen. Erstens, warum sind sie nur Seiten-an-Seiten und nicht Vollbild? Nun, hier kommen einige technische Einschränkungen ins Spiel.
@@ -41,3 +91,4 @@ Leider gibt es derzeit keine Pläne, Daten mit dem Leaderboard über eine API au
 Ende Mai wird YouTube auch Änderungen hinsichtlich Schimpfwörtern und gelben Monetarisierungs-Icons vornehmen. Bisher mussten die ersten sieben Sekunden eines Videos frei von starken Schimpfwörtern sein, um ein gelbes Icon zu vermeiden. Diese Regel wird entfernt, da YouTube mit Werbetreibenden konsultiert hat, die mit Fluchen einverstanden sind. Denken Sie jedoch daran, dass Sie sich weiterhin an die Community-Richtlinien gegen Hassrede und Cybermobbing halten müssen. Also, übertreiben Sie es nicht, und wenn Sie starke Schimpfwörter vermeiden können, ist es ratsam, dies zu tun.
 
 Das war's für heute. Wenn Sie weitere Fragen zu den besprochenen Themen haben, hinterlassen Sie gerne einen Kommentar. Ansonsten sehen wir uns nächste Woche mit weiteren [YouTube-Updates](/youtube-tipps-de/youtube-updates-ios-beitrittstaste-multi-format-live-streams-und-analysereparatur/). Auf Wiedersehen!
+<!-- kwm:transcript:end -->

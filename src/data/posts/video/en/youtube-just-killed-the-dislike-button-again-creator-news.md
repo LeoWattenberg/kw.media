@@ -24,6 +24,80 @@ postCta:
   pageTitle: "Creator Services"
 ---
 
+<!-- kwm:article:start -->
+## Platform Shifts: Twitch Ad Extensions and YouTube's New Focus on Revenue
+
+The landscape for digital creators is shifting once again, with recent updates from Twitch and YouTube signaling a move toward aggressive monetization and altered community feedback loops. From significantly longer ad breaks that threaten organic growth to changes in how audience sentiment is tracked in the studio, creators must adapt their strategies to navigate these platform pivots.
+
+## Twitch Increases Pre-Roll Ad Lengths
+
+Recent leaks from support chats have confirmed a concerning trend for streamers: Twitch is quietly extending the length of pre-roll advertisements. Previously, standard pre-roll ads were generally limited to 30 seconds. Now, these can reach up to 90 seconds.
+
+### The Impact on Top-of-Funnel Discovery
+
+For any creator, "top-of-funnel" discovery refers to the process of attracting new viewers who have never seen your content before. On Twitch, this usually happens when a user browses a category and clicks on a stream. 
+
+The introduction of 90-second unskippable ads creates a massive barrier to entry. It is highly unlikely that a prospective viewer—someone who has no existing loyalty to the streamer—will sit through a minute and a half of advertising before the actual content begins. In most cases, these viewers will simply click away to another channel, effectively killing [organic discovery](/en/ads/) for smaller or growing streamers.
+
+### Mid-Roll Extensions and Monetization Pressure
+
+The ad pressure isn't limited to new arrivals. There are reports that Twitch may arbitrarily extend mid-roll ad breaks. For instance, if a creator sets their [mid-roll ad break](/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/) to three minutes, the platform may extend that window to four minutes.
+
+This suggests a prioritization of short-term cash flow and ad revenue over long-term creator growth. For streamers, this reinforces a critical strategic shift: Twitch should no longer be viewed as a primary discovery engine. Instead, creators are encouraged to build their audience funnels on platforms like YouTube or TikTok—where discovery algorithms are more robust—and treat Twitch primarily as a monetization platform for an already established community.
+
+## YouTube Shorts and the Erosion of Sentiment Metrics
+
+YouTube is implementing several changes to how viewers interact with Shorts and how creators view their performance data, moving away from traditional sentiment indicators.
+
+### Changes to the Shorts Interface
+
+The Shorts player is receiving a UI update that alters the way viewers express their opinion on content:
+*   **The Like Button:** The traditional thumbs-up icon is being replaced by a heart icon.
+*   **The Dislike Button:** This has been removed from the main interface entirely.
+
+While the dislike button is gone from the primary view, it hasn't vanished completely. Viewers who wish to express a negative preference must now navigate through the three-dot menu and select "Not Interested in Channel." This adds significant friction to the process of signaling dislike, which may artificially inflate perceived sentiment on Shorts.
+
+### YouTube Studio: Revenue Over Sentiment
+
+The shift toward monetization is even more apparent within the YouTube dashboard. YouTube has updated the content list UI to include a new estimated revenue column. To make room for this financial data in the quick view, YouTube has removed the like-to-dislike ratio.
+
+For years, audience sentiment was one of the first metrics creators saw when opening Studio. By replacing this with revenue data, YouTube is signaling a change in priority: the primary metric of success is now how much money a video generates, rather than how the community feels about it.
+
+## Clarifying EU Refund Laws for Digital Goods
+
+There has been significant alarm within the creator community regarding the 14-day right of withdrawal under EU law. Many creators fear that this will lead to "refund trolling," where viewers purchase high-tier memberships or Super Chats, receive a shout-out and attention during a live stream, and then request a refund shortly after.
+
+### Understanding the Legal Reality
+
+It is important to clarify that the 14-day right of withdrawal for online purchases in the EU is not a new law; it has been in place since 2011. The current update is not a change in the law itself, but rather a requirement for platforms to make the "cancel contract" button more prominent in the user interface, rather than burying it deep within the terms of service.
+
+### Managing "Business Shrinkage"
+
+While this increased visibility may lead to a slight uptick in refund requests from bad actors, creators should view this as standard business shrinkage. Credit card chargebacks and PayPal refunds have always been a possibility for digital entrepreneurs. 
+
+If a channel's entire economy is threatened by a small percentage of viewers utilizing a legal refund button, the issue is likely one of audience retention rather than a legal loophole. A healthy community and a sustainable business model should be able to absorb these occasional losses without collapsing.
+
+## YouTube Membership Pricing and Transparency Updates
+
+Following recent news regarding membership pricing, YouTube has introduced several updates to how creators manage their tiers and how those prices are presented globally.
+
+### The Transparency Dashboard and Regional Pricing
+
+One of the most significant additions is a comprehensive transparency dashboard. This tool solves a long-standing issue with regional pricing—such as the "Argentina exploit," where broken pricing allowed users to purchase memberships at a fraction of the intended cost (e.g., 800 Tier 1 memberships for €5).
+
+The new dashboard shows how YouTube automatically adjusts the home market base price to align with local purchasing power worldwide. This removes the need for creators to manually edit prices across dozens of different currencies, ensuring that pricing remains fair and transparent based on the viewer's region.
+
+### Manual Price Adjustments and Gifting
+
+Creators now have more control over their membership structures:
+*   **Price Changes:** You can now manually change your tier prices once every 12 months.
+*   **Legacy Pricing:** To protect existing supporters, current members will retain their old rate when a price change occurs; only new members will pay the updated price.
+*   **Gifting Tiers:** A new setting allows creators to specify exactly which membership tier is used when viewers gift memberships during a stream. This option can be found in the "Special Features" section of the memberships tab.
+
+These updates, while arriving alongside some disorganized communication from the Creator Insider team, provide much-needed clarity and control over how creators monetize their most loyal fans.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transcript
 
 Twitch is quietly introducing up to 90-second pre-roll ads, effectively eliminating your top-of-funnel discovery on the platform. Additionally, [YouTube has removed the dislike button from Shorts](/youtube-tips-en/why-youtube-is-showing-you-qr-codes-in-the-shorts-feed-creator-news/), and we're dispelling the false panic surrounding EU refunds for digital goods. Let's dive straight into the creator news. Thanks to leaked support chats, we now have confirmation that Twitch is significantly extending ad lengths. Standard pre-roll ads, which were previously limited to 30 seconds, can now often reach up to 90 seconds.
@@ -47,3 +121,4 @@ You won't be manually editing 50 different currencies. Instead, it's a comprehen
 The actual feature update allows you to manually change your tier prices every 12 months. Existing members will retain their old rate for now, while new members pay the updated price. Furthermore, you can now specify which membership tier is used when viewers gift memberships during your streams. This setting is hidden in the special features section of the memberships tab.
 
 That's all for this week. Let me know what you think about these creator news updates, subscribe for more, and I'll see you next week.
+<!-- kwm:transcript:end -->

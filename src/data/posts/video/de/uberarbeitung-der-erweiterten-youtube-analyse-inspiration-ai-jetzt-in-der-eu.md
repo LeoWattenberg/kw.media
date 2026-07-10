@@ -27,6 +27,53 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Aktuelle YouTube-Updates: Jugendschutz, Analyse-Tools und KI-Unterstützung
+
+YouTube hat in den letzten Tagen eine Reihe von Updates veröffentlicht, die von wichtigen Richtlinien für junge Creator über technische Verbesserungen im Backend bis hin zu neuen KI-gestützten Kreativ-Tools reichen. Besonders für Creator in der EU gibt es spannende Neuigkeiten rund um die Ideenfindung.
+
+## Neue Live-Streaming-Richtlinien für minderjährige Creator
+
+Ein zentrales Thema ist die Sicherheit und der Jugendschutz bei YouTube Live. Nach einer Phase der Feinabstimmung gibt es nun eine endgültige Formulierung der Richtlinien, die insbesondere Creator im Alter von 13 bis 15 Jahren betrifft.
+
+### Aufsichtspflicht für 13- bis 15-Jährige
+Creator in dieser Altersgruppe müssen während ihrer [Live-Streams](/de/live/) sichtbar von einem Erwachsenen begleitet werden. Diese Maßnahme dient dem Schutz junger Nutzer. Werden diese Vorgaben nicht eingehalten, riskiert der betroffene Account den Verlust der Live-Streaming-Funktion.
+
+Ein wichtiger Warnhinweis hierzu: Sollte der Zugriff auf die Streaming-Funktion einmal gesperrt worden sein, ist es absolut nicht ratsam, zu versuchen, über einen anderen Kanal weiterzustreamen. YouTube wertet dies als Umgehungssperre, was im schlimmsten Fall zum dauerhaften Verlust des gesamten YouTube-Kanals führen kann.
+
+### Entwarnung für 16-Jährige
+Für Creator ab 16 Jahren gibt es eine positive Nachricht: Diese können nun ohne Aufsicht streamen. Zuvor war die Regelung in diesem Punkt unklar, was nun offiziell geklärt wurde. Um jungen Streamern den Einstieg zu erleichtern und offene Fragen zu beantworten, hat YouTube zudem einen umfassenden Help-Center-Artikel veröffentlicht, der als wertvolle Ressource für alle betroffenen Creator dient.
+
+## Effizienzsteigerung in der erweiterten YouTube-Analyse
+
+Für alle, die ihre Daten im Detail auswerten, gibt es ein bedeutendes Update im Bereich der Analytics. Der erweiterte Analyse-Modus wurde umfassend überarbeitet, um den Workflow in [YouTube Studio](/de/creator/) zu optimieren. [Haben wir](/youtube-tipps-de/youtube-faq-multi-aspekt-streams-fan-communities-auf-dem-desktop-und-veo-3-ai/) die Benutzeroberfläche betrachtet, fallen vor allem zwei Verbesserungen auf:
+
+### Gespeicherte Filter-Einstellungen
+Bisher mussten viele Metriken bei jedem Aufruf manuell angepasst werden. Mit dem Update kannst du nun deine Filter-Einstellungen speichern. Das bedeutet, dass du deine individuellen Berichte mit einem Klick laden kannst, ohne jedes Mal die gesamte Konfiguration von vorne beginnen zu müssen. Dies spart insbesondere bei komplexen Analysen erheblich Zeit.
+
+### Optimiertes Layout
+Die neue UI erlaubt es zudem, die Seitenleiste und das Diagramm separat einzuklappen. Je nachdem, ob du dich gerade auf die harten Daten in der Tabelle oder auf die visuelle Darstellung im Chart konzentrieren möchtest, kannst du den Arbeitsbereich nun flexibel anpassen.
+
+## Status-Update zu Autodubbing und mehrsprachigem Audio
+
+Die internationale Reichweite von Videos wird durch KI-gestützte Tools immer einfacher. YouTube weitet das Autodubbing derzeit auf weitere Sprachen aus. 
+
+Es gibt jedoch eine technische Einschränkung, die derzeit noch besteht: Transkriptbasierte Clips sind aktuell nicht mit dem Autodubbing kompatibel. Warum dies so ist, ist momentan nicht bekannt. Da der übliche Ansprechpartner bei YouTube derzeit nicht verfügbar ist, [müssen wir](/youtube-tipps-de/das-bezahlte-vs-organische-analyse-tool-von-youtube-endlich-creator-news/) auf eine offizielle Antwort warten, um die Hintergründe zu klären. Auch im Bereich des mehrsprachigen Audios gibt es zum jetzigen Zeitpunkt keine neuen Informationen oder Updates.
+
+## KI-gestützte Inspiration jetzt in der EU und im UK
+
+Ein Highlight für den kreativen Prozess ist die [Inspiration-Registerkarte](/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/), die nun auch in der EU und im Vereinigten Königreich verfügbar ist.
+
+### Wie funktioniert das Inspiration-Tool?
+Die Funktion nutzt KI, um deinen Kanalinhalt sowie die spezifischen Interessen deiner Zuschauer zu analysieren. Basierend auf diesen Daten schlägt YouTube dir relevante Videoideen vor. Diese Vorschläge können als direkter Ausgangspunkt für dein Brainstorming dienen oder für einen späteren Zeitpunkt gespeichert werden.
+
+Interessant ist hierbei der Vergleich zu allgemeinen KI-Tools: In der Praxis erweist sich dieses Tool oft als hilfreicher als generische Ideengeneratoren wie ChatGPT oder Gemini, da es direkt auf deine Kanal-Daten zugreift und somit kontextbezogenere Vorschläge liefert.
+
+### Einschränkungen bei Dream Screen
+Während die Inspiration-Registerkarte in der EU verfügbar ist, gilt dies nicht für die verwandte Funktion "Dream Screen". Dieses Tool ermöglicht es, [KI-generierte Bilder](/de/vtuber/) für Community-Beiträge sowie Hintergründe für Shorts zu erstellen. Aktuell ist Dream Screen jedoch nur im UK verfügbar, nicht aber in der EU. Creator in der EU müssen sich daher vorerst auf alternative Lösungen verlassen, wenn sie KI-generierte visuelle Hintergründe für ihre Shorts nutzen möchten.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Lass uns einen Blick auf die neuesten YouTube-Updates werfen. Als Erstes ein Rückblick auf die Live-Streaming-Richtlinie, die wir letzte Woche erwähnt haben. Nach einigen Feinabstimmungen lautet die endgültige Formulierung: Creator im Alter von 13 bis 15 Jahren müssen während Live-Streams sichtbar von einem Erwachsenen begleitet werden; andernfalls riskieren sie den Verlust der Live-Streaming-Funktion. Wenn du den Zugriff auf diese Funktion verloren hast, versuche bitte nicht, auf einem anderen Kanal zu streamen. Dies könnte zu einer Umgehungssperre führen, was den dauerhaften Verlust deines YouTube-Kanals zur Folge haben kann.
@@ -44,3 +91,4 @@ Abschließend sprechen wir über die [Inspiration-Registerkarte](/youtube-tipps-
 Allerdings ist die verwandte Dream Screen-Funktion, die KI-Bilder für Beiträge und Hintergründe für Shorts generiert, derzeit nur im UK, nicht in der EU, verfügbar. Wenn du vorhattest, dies für deinen Content zu nutzen, musst du dich vorerst nach alternativen Lösungen umsehen. Du kannst gerne alle Fragen zu dieser Funktion in den Kommentaren stellen.
 
 Vergiss nicht, dich für wöchentliche YouTube-Updates zu abonnieren! Bis zum nächsten Mal. Tschüss, mach's gut!
+<!-- kwm:transcript:end -->

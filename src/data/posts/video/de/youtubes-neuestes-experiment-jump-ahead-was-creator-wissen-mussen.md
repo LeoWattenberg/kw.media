@@ -24,6 +24,70 @@ postCta:
   pageTitle: "Creator Support und Beratung"
 ---
 
+<!-- kwm:article:start -->
+## Jump Ahead – Ein neues Experiment mit weitreichenden Folgen
+
+[YouTube testet](/youtube-tipps-de/youtubes-ui-update-bringt-nutzer-und-creator-durcheinander/) derzeit eine Funktion namens "[Jump ahead](/youtube-tipps-de/neues-von-youtube-qr-codes-fur-creator-und-premium-jump-ahead-rollout/)", die aktuell einer sehr kleinen Gruppe von YouTube-Premium-Nutzern in den USA zur Verfügung steht. Die Funktionsweise ist simpel, aber potent: Durch einen Doppelklick auf dem Smartphone wird das Video an eine Stelle vorgespult, an der die KI vermutet, dass der Nutzer eigentlich hin möchte.
+
+Es ist davon auszugehen, dass diese KI-gestützte Vorhersage auf den [Audience-Retention-Graphen](/youtube-tipps-de/youtubes-neue-ki-zerstort-dein-pacing-und-analytics-creator-news/) basiert. Das bedeutet, die Funktion erkennt wahrscheinlich Spitzen in der Zuschauerbindung oder häufig wiederholte Abschnitte und springt direkt dorthin. Während dies aus Nutzersicht eine enorme Zeitersparnis und ein Komfortgewinn ist, bringt es für dich als Creator erhebliche Herausforderungen mit sich.
+
+### Die Gefahr für die Monetarisierung
+
+Das größte Problem liegt in der Struktur deiner Einnahmen. Viele Creator optimieren ihre Videos auf eine Länge von mindestens acht Minuten, um [Mid-Roll-Werbeanzeigen](/de/werbung/) platzieren zu können. Wenn Nutzer jedoch per KI-Sprung einfach über weite Teile des Videos hinweggleiten, sinkt die Wahrscheinlichkeit, dass diese Anzeigen überhaupt ausgespielt werden.
+
+Noch kritischer wird es bei sogenannten Adreads – also Werbeblöcken innerhalb des Videos. Wenn ein Sponsor bezahlt hat, damit eine bestimmte Botschaft platziert wird, der Nutzer diesen Teil aber mit einem einfachen Doppelklick überspringen kann, hat das direkte Auswirkungen auf den Werbetreibenden:
+*   **Sinkende Conversion-Rates:** Weniger Menschen sehen die Werbung, was zu weniger Klicks und Verkäufen führt.
+*   **Wertverlust der Ads:** Wenn die Effektivität sinkt, könnten Anzeigen in Zukunft günstiger werden, da sie weniger Reichweite garantieren.
+
+### Der Weg zum integrierten Sponsor-Content
+
+Diese Entwicklung könnte einen Paradigmenwechsel in der Art und Weise erzwingen, wie Werbung in Videos eingebunden wird. Ein einfacher Adread, der als isolierter Block im Video steht, wird immer anfälliger für solche "Jump ahead"-Funktionen. Die Lösung liegt in einem tieferen Sponsor-Content.
+
+Ein positives Beispiel hierfür ist HandOfBlatt, der in seinem Sparkassenberater-Video zeigt, wie man Werbung und Content so eng miteinander verwebt, dass sie eine Einheit bilden. Wenn die Werbung Teil der Erzählung oder des Nutzens des Videos ist, wird der Zuschauer weniger geneigt sein, sie zu überspringen.
+
+Falls du überlegst, wie du deine Werbeformate anpassen kannst, könnten folgende Alternativen zu klassischen Adreads interessant sein:
+*   **Lower Thirds:** Einblendungen im unteren Bilddrittel während das eigentliche Thema besprochen wird.
+*   **Logorotation:** Dezent platzierte Logos im Bild.
+*   **Livestream-Ankündigungen:** Direkte Ansprache in Live-Formaten.
+*   **Automatische Chatnachrichten:** Gezielte Links bei Premieren.
+
+## Tiefergehende Analysen: Neue Segmentierung der Audience Retention
+
+Neben dem Jump-ahead-Experiment gibt es wichtige Neuerungen im Bereich der Analytics. Bisher konntest du in den [Audience-Retention-Graphen](/de/creator/) über "View More" zwischen organischen und bezahlten Aufrufen unterscheiden – eine Funktion, die primär für Werbetreibende nützlich war. Nun wird diese Segmentierung massiv erweitert.
+
+### Abonnenten vs. Nicht-Abonnenten
+
+Du wirst künftig in der Lage sein, das Zuschauerverhalten von Abonnenten und Nicht-Abonnenten direkt miteinander zu vergleichen. Diese Information ist strategisch extrem wertvoll:
+*   **Optimierung für Neukunden:** Du siehst genau, an welchen Stellen neue Zuschauer das Video verlassen. So kannst du dein Pacing anpassen, um die Bindung neuer Zuschauer zu erhöhen.
+*   **Loyalität wahren:** Gleichzeitig stellst du sicher, dass du deine treuen Abonnenten nicht durch zu lange Einleitungen oder redundante Erklärungen langweilst.
+
+### Neue vs. wiederkehrende Zuschauer
+
+Zusätzlich wird YouTube eine Unterscheidung zwischen neuen und wiederkehrenden Zuschauern einführen. Das ist ein wichtiger Unterschied zur Abo-Metrik, da nicht jeder Nicht-Abonnent zwangsläufig ein völlig neuer Zuschauer auf deinem Kanal ist. Diese Daten helfen dir zu verstehen, ob dein Content in der Lage ist, Gelegenheitszuschauer in regelmäßige Besucher zu verwandeln.
+
+## Shorts Remixes: Unendliche Ketten und neue Möglichkeiten
+
+Auch im Bereich der Shorts gibt es ein Update zur Remix-Funktion. Bereits Ende letzten Jahres wurde das Cap-Tool eingeführt, mit dem horizontale oder vertikale Splitscreens erstellt werden konnten. Nun wird diese Funktion erweitert: Du kannst Remixes nun miteinander verknüpfen.
+
+Das bedeutet, dass du weitere Splitscreens hinzufügen und die Kette theoretisch unendlich fortsetzen kannst. Dies eröffnet neue kreative Wege, beispielsweise um auf Zuschauerfragen einzugehen oder Diskussionen in einer visuellen Kette abzubilden.
+
+**Ein wichtiger Hinweis zur Vorsicht:** Beachte bitte die technische Abhängigkeit dieser Ketten. Wenn das ursprüngliche Originalvideo gelöscht wird, werden automatisch alle Remixes in dieser gesamten Kette mitgelöscht. Plane deine Content-Strategie daher entsprechend, wenn du auf Remixes setzt.
+
+## Kapitel: Ein wichtiger Schritt für die Sichtbarkeit
+
+Ein weiteres Update betrifft die YouTube-Kapitel. Bisher war die Freischaltung von Kapiteln an eine gewisse "geheime Metrik" gebunden, die nicht offiziell mit den Intermediate- oder Advanced-Features verknüpft war. Das hat oft zu Verwirrung geführt, warum Kapitel bei einigen Creatorn funktionierten und bei anderen nicht.
+
+### Integration in die erweiterten Funktionen
+
+YouTube hat nun angekündigt, dass Kapitel bald offiziell zu den erweiterten Funktionen gehören werden. Geplant ist dies für das zweite Quartal 2024 (April, Mai oder Juni), wobei es wie immer bei YouTube-Rollouts auch etwas länger dauern kann.
+
+Warum du Kapitel unbedingt nutzen solltest:
+Obwohl die Erstellung von Kapiteln einen zusätzlichen Aufwand bedeutet und nicht immer intuitiv erscheint, ist sie ein mächtiges Werkzeug zur Reichweitensteigerung. Kapitel verbessern nicht nur die Nutzererfahrung, indem sie dem Zuschauer eine schnelle Navigation ermöglichen, sondern helfen auch dabei, neue Zuschauer über gezielte Suchanfragen zu erreichen. Sie machen dein Video für den Algorithmus und die Suche greifbarer.
+
+Zusammenfassend lässt sich sagen: Während Funktionen wie "Jump ahead" bestehende Monetarisierungsmodelle unter Druck setzen, bieten die neuen Analytics-Optionen und die erweiterten Shorts-Funktionen enorme Chancen, das Publikum besser zu verstehen und kreativer mit ihm zu interagieren.
+<!-- kwm:article:end -->
+
+<!-- kwm:transcript:start -->
 ## Transkript
 
 Es gibt neue YouTube-Updates, und derzeit läuft ein sogenanntes "[Jump ahead](/youtube-tipps-de/neues-von-youtube-qr-codes-fur-creator-und-premium-jump-ahead-rollout/)"-Experiment für eine sehr kleine Gruppe von YouTube-Premium-Nutzern in den USA. Dabei soll beim Doppelklicken auf einem Smartphone das Video so weit vorgespult werden, wie die KI annimmt, dass der Nutzer es vorspulen möchte. Es wird wahrscheinlich auf den [Audience-Retention-Graphen](/youtube-tipps-de/youtubes-neue-ki-zerstort-dein-pacing-und-analytics-creator-news/) basieren und aus Nutzersicht ein sehr interessantes Feature sein. Für Creator ist das jedoch eine Herausforderung, aus mehreren Gründen: Natürlich wird man weniger motiviert sein, Videos zu erstellen, die acht Minuten lang sind, um Midrolls zu platzieren. Auch Adreads (Werbeeinblendungen) könnten betroffen sein. Wenn ein Werbeinhalt von einer Firma bezahlt wird, könnte der Nutzer ihn einfach überspringen, was natürlich auch Auswirkungen auf den Werbetreibenden hat.
@@ -43,3 +107,4 @@ In unserem letzten Video haben wir bereits die Grundlagen zu diesem Thema behand
 Falls ihr weitere Fragen habt, schreibt sie gerne in die Kommentare. Im letzten Livestream haben wir auch über AI-Labels gesprochen, falls ihr diesen verpasst habt, könnt ihr ihn euch gerne noch einmal ansehen.
 
 Ich denke, das war's für diese Woche. Nächste Woche ist Ostern, daher wird es wahrscheinlich kein Video geben. Wir sehen uns dann in der Woche danach. Bis dahin, macht's gut und bleibt gesund!
+<!-- kwm:transcript:end -->
