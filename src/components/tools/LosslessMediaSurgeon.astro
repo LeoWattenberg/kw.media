@@ -1,0 +1,215 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Lossless Media-Tool', title: 'Lossless Media Surgeon',
+		intro: 'Ändere Container und Tracks lokaler Mediendateien ohne erneute Kodierung mit FFmpeg WASM.',
+		privacy: 'Alles bleibt lokal. Stream Copy erhält die ursprüngliche Audio- und Videoqualität.',
+		primary: 'Quelldatei', choose: 'Audio oder Video auswählen', hint: 'MP4, MOV, MKV, WebM, TS und weitere FFmpeg-Formate',
+		secondary: 'Ersatzaudio', chooseAudio: 'Neue Audiospur auswählen', audioHint: 'Nur für „Audiospur ersetzen“ erforderlich',
+		operation: 'Operation', output: 'Ausgabecontainer', start: 'Startzeit in Sekunden (optional)', end: 'Endzeit in Sekunden (optional)',
+		operations: { remux: 'Container wechseln / remuxen', trim: 'Verlustfrei schneiden', extract: 'Erste Audiospur extrahieren', mute: 'Alle Audiospuren entfernen', replace: 'Audiospur ersetzen' },
+		process: 'Operation ausführen', clear: 'Zurücksetzen', download: 'Ergebnis herunterladen',
+		waiting: 'Wähle eine Quelldatei.', selected: 'Bereit: {name}', loading: 'FFmpeg WASM wird geladen…', readyEngine: 'FFmpeg WASM ist bereit.',
+		progress: 'FFmpeg arbeitet… {progress}%', processing: 'Streams werden verarbeitet…', done: 'Lossless-Verarbeitung abgeschlossen.',
+		timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.', error: 'Verarbeitung fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
+		note: 'Schnitte erfolgen an Codec-Keyframes und können daher leicht von der gewählten Zeit abweichen.', result: 'Ergebnis', noResult: 'Noch keine Ausgabe vorhanden.',
+	},
+	en: {
+		eyebrow: 'Lossless media tool', title: 'Lossless Media Surgeon',
+		intro: 'Change containers and tracks in local media without re-encoding using FFmpeg WASM.',
+		privacy: 'Everything stays local. Stream copy preserves the original audio and video quality.',
+		primary: 'Source file', choose: 'Select audio or video', hint: 'MP4, MOV, MKV, WebM, TS, and other FFmpeg formats',
+		secondary: 'Replacement audio', chooseAudio: 'Select new audio track', audioHint: 'Only required for “Replace audio track”',
+		operation: 'Operation', output: 'Output container', start: 'Start time in seconds (optional)', end: 'End time in seconds (optional)',
+		operations: { remux: 'Change container / remux', trim: 'Lossless trim', extract: 'Extract first audio track', mute: 'Remove all audio tracks', replace: 'Replace audio track' },
+		process: 'Run operation', clear: 'Reset', download: 'Download result',
+		waiting: 'Choose a source file.', selected: 'Ready: {name}', loading: 'Loading FFmpeg WASM…', readyEngine: 'FFmpeg WASM is ready.',
+		progress: 'FFmpeg is working… {progress}%', processing: 'Processing streams…', done: 'Lossless processing complete.',
+		timeout: 'FFmpeg WASM did not load within 90 seconds.', error: 'Processing failed: {message}', generic: 'Unknown error',
+		note: 'Cuts happen at codec keyframes and may differ slightly from the selected time.', result: 'Result', noResult: 'No output yet.',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section surgeon-section tool-workspace">
+	<div class="container">
+		<div class="surgeon-grid" data-media-surgeon data-copy={copyJson}>
+			<ToolPanel title={copy.primary}>
+				<FilePicker label={copy.choose} name={copy.choose} hint={copy.hint} accept="audio/*,video/*,.mkv,.m2ts,.ts" nameAttrs={{ 'data-source-name': true }} metaAttrs={{ 'data-source-meta': true }} inputAttrs={{ 'data-source': true }} />
+				<div data-replacement-wrap hidden>
+					<FilePicker label={copy.chooseAudio} name={copy.chooseAudio} hint={copy.audioHint} accept="audio/*,video/*" nameAttrs={{ 'data-audio-name': true }} metaAttrs={{ 'data-audio-meta': true }} inputAttrs={{ 'data-audio': true }} />
+				</div>
+			</ToolPanel>
+
+			<ToolPanel title={copy.operation}>
+				<SelectControl label={copy.operation} selectAttrs={{ 'data-operation': true }}>
+					{Object.entries(copy.operations).map(([value, label]) => <option value={value}>{label}</option>)}
+				</SelectControl>
+				<SelectControl label={copy.output} selectAttrs={{ 'data-container': true }}>
+					<option value="mkv">MKV</option><option value="mp4">MP4</option><option value="mov">MOV</option><option value="webm">WebM</option><option value="mka">MKA</option>
+				</SelectControl>
+				<div class="time-grid" data-times hidden>
+					<label><span>{copy.start}</span><input data-start type="number" min="0" step="0.01" placeholder="0" /></label>
+					<label><span>{copy.end}</span><input data-end type="number" min="0" step="0.01" placeholder="" /></label>
+				</div>
+				<p class="tool-note" data-trim-note hidden>{copy.note}</p>
+				<ToolActions><button class="button primary" data-process type="button" disabled>{copy.process}</button><button class="button secondary" data-clear type="button">{copy.clear}</button></ToolActions>
+				<ToolStatus data-status text={copy.waiting} />
+			</ToolPanel>
+
+			<ToolPanel class="result-panel" title={copy.result}>
+				<p data-result-meta>{copy.noResult}</p>
+				<a class="tool-download-link" data-download href="#" download hidden>{copy.download}</a>
+			</ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+
+	for (const root of document.querySelectorAll('[data-media-surgeon]:not([data-bound])')) {
+		root.dataset.bound = 'true';
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const sourceInput = root.querySelector('[data-source]');
+		const audioInput = root.querySelector('[data-audio]');
+		const operation = root.querySelector('[data-operation]');
+		const container = root.querySelector('[data-container]');
+		const replacementWrap = root.querySelector('[data-replacement-wrap]');
+		const times = root.querySelector('[data-times]');
+		const trimNote = root.querySelector('[data-trim-note]');
+		const startInput = root.querySelector('[data-start]');
+		const endInput = root.querySelector('[data-end]');
+		const processButton = root.querySelector('[data-process]');
+		const clearButton = root.querySelector('[data-clear]');
+		const status = root.querySelector('[data-status]');
+		const resultMeta = root.querySelector('[data-result-meta]');
+		const download = root.querySelector('[data-download]');
+		let outputUrl = null;
+
+		const runtime = createFfmpegRuntime({
+			timeoutMessage: copy.timeout,
+			onLoading: () => setStatus(copy.loading, 'info'),
+			onReady: () => setStatus(copy.readyEngine, 'success'),
+			onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info'),
+		});
+
+		sourceInput.addEventListener('change', update);
+		audioInput.addEventListener('change', update);
+		operation.addEventListener('change', () => { updateOperation(); update(); });
+		processButton.addEventListener('click', () => void process());
+		clearButton.addEventListener('click', reset);
+		updateOperation();
+
+		function updateOperation() {
+			const isReplace = operation.value === 'replace';
+			const isTrim = operation.value === 'trim';
+			replacementWrap.hidden = !isReplace;
+			times.hidden = !isTrim;
+			trimNote.hidden = !isTrim;
+			if (operation.value === 'extract') container.value = 'mka';
+			else if (container.value === 'mka') container.value = 'mkv';
+		}
+
+		function update() {
+			const file = sourceInput.files?.[0];
+			processButton.disabled = !file || (operation.value === 'replace' && !audioInput.files?.[0]);
+			setStatus(file ? format(copy.selected, { name: file.name }) : copy.waiting, file ? 'success' : 'info');
+		}
+
+		async function process() {
+			const source = sourceInput.files?.[0];
+			if (!source) return;
+			processButton.disabled = true;
+			setStatus(copy.processing, 'info');
+			try {
+				const bytes = await runtime.run(async (ffmpeg) => {
+					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+					const inputName = `source-${stamp}${extension(source.name)}`;
+					const audio = audioInput.files?.[0];
+					const audioName = audio ? `audio-${stamp}${extension(audio.name)}` : null;
+					const outputName = `result-${stamp}.${container.value}`;
+					await ffmpeg.writeFile(inputName, new Uint8Array(await source.arrayBuffer()));
+					if (audio && audioName) await ffmpeg.writeFile(audioName, new Uint8Array(await audio.arrayBuffer()));
+					try {
+						const args = buildArgs(inputName, audioName, outputName);
+						const code = await ffmpeg.exec(args);
+						if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
+						const output = await ffmpeg.readFile(outputName);
+						return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
+					} finally {
+						await ffmpeg.deleteFile(inputName).catch(() => {});
+						if (audioName) await ffmpeg.deleteFile(audioName).catch(() => {});
+						await ffmpeg.deleteFile(outputName).catch(() => {});
+					}
+				});
+				if (outputUrl) URL.revokeObjectURL(outputUrl);
+				const blob = new Blob([bytes], { type: mime(container.value) });
+				outputUrl = URL.createObjectURL(blob);
+				download.href = outputUrl;
+				download.download = `${baseName(source.name)}-${operation.value}.${container.value}`;
+				download.hidden = false;
+				resultMeta.textContent = `${download.download} · ${formatBytes(blob.size)}`;
+				setStatus(copy.done, 'success');
+			} catch (error) {
+				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
+			} finally { update(); }
+		}
+
+		function buildArgs(inputName, audioName, outputName) {
+			const op = operation.value;
+			const args = [];
+			if (op === 'trim' && startInput.value) args.push('-ss', startInput.value);
+			args.push('-i', inputName);
+			if (op === 'replace' && audioName) args.push('-i', audioName);
+			if (op === 'trim' && endInput.value) {
+				const start = Number(startInput.value || 0);
+				const duration = Number(endInput.value) - start;
+				if (duration <= 0) throw new Error('End time must be after start time');
+				args.push('-t', String(duration));
+			}
+			if (op === 'extract') args.push('-map', '0:a:0', '-vn', '-c:a', 'copy');
+			else if (op === 'mute') args.push('-map', '0:v?', '-map', '0:s?', '-c', 'copy');
+			else if (op === 'replace') args.push('-map', '0:v?', '-map', '1:a:0', '-map', '0:s?', '-c', 'copy', '-shortest');
+			else args.push('-map', '0', '-c', 'copy');
+			if (container.value === 'mp4' || container.value === 'mov') args.push('-movflags', '+faststart');
+			args.push('-y', outputName);
+			return args;
+		}
+
+		function reset() {
+			sourceInput.value = ''; audioInput.value = ''; startInput.value = ''; endInput.value = '';
+			operation.value = 'remux'; container.value = 'mkv'; download.hidden = true; resultMeta.textContent = copy.noResult;
+			if (outputUrl) URL.revokeObjectURL(outputUrl); outputUrl = null; updateOperation(); update();
+		}
+		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
+		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
+		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'media'; }
+		function mime(ext) { return ({ mp4: 'video/mp4', mov: 'video/quicktime', webm: 'video/webm', mka: 'audio/x-matroska', mkv: 'video/x-matroska' })[ext] || 'application/octet-stream'; }
+		function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
+	}
+</script>
+
+<style>
+	.surgeon-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+	.result-panel { grid-column: 1 / -1; }
+	.time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+	.time-grid label { display: grid; gap: 7px; font-weight: 800; }
+	.time-grid input { width: 100%; padding: 11px 12px; border: 1px solid var(--color-line); border-radius: 6px; background: var(--color-surface-raised); color: var(--color-ink); }
+	.tool-note { color: var(--color-muted); }
+	@media (max-width: 760px) { .surgeon-grid, .time-grid { grid-template-columns: 1fr; } }
+</style>
