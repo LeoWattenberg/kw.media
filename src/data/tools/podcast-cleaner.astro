@@ -1,0 +1,15 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import PodcastCleaner from '../../components/tools/PodcastCleaner.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('podcast-cleaner', {
+	id: 'podcast-cleaner',
+	translations: {
+		de: { path: '/de/tools/podcast-cleaner/', title: 'Podcast Cleaner', description: 'Bereinige lokale Sprachaufnahmen mit FFmpeg-Filtern für Rumpeln, Rauschen, Dynamik, Pausen und Lautheit.' },
+		en: { path: '/en/tools/podcast-cleaner/', title: 'Podcast Cleaner', description: 'Clean local spoken-word recordings with FFmpeg filters for rumble, noise, dynamics, pauses, and loudness.' },
+	},
+});
+const { tool, alternatePaths } = Astro.props;
+---
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}><PodcastCleaner locale={tool.locale} /></ToolPageShell>
