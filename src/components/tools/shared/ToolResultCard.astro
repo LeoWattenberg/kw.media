@@ -1,0 +1,35 @@
+---
+interface Props {
+	title: string;
+	meta: string;
+	downloadLabel: string;
+	class?: string;
+	titleAttrs?: Record<string, unknown>;
+	metaAttrs?: Record<string, unknown>;
+	downloadAttrs?: Record<string, unknown>;
+	[key: string]: unknown;
+}
+
+const {
+	title,
+	meta,
+	downloadLabel,
+	class: className,
+	titleAttrs = {},
+	metaAttrs = {},
+	downloadAttrs = {},
+	...attrs
+} = Astro.props;
+
+const mergedDownloadAttrs = {
+	href: '#',
+	hidden: true,
+	...downloadAttrs,
+};
+---
+
+<div {...attrs} class:list={[className, 'result-card', 'tool-result-card']}>
+	<p {...titleAttrs}>{title}</p>
+	<p {...metaAttrs}>{meta}</p>
+	<a class="download-link tool-download-link" {...mergedDownloadAttrs}>{downloadLabel}</a>
+</div>

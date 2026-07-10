@@ -1,5 +1,12 @@
 ---
 import type { Locale } from '../../../i18n';
+import FilePicker from '../shared/FilePicker.astro';
+import RangeControl from '../shared/RangeControl.astro';
+import ToggleControl from '../shared/ToggleControl.astro';
+import ToolActions from '../shared/ToolActions.astro';
+import ToolIntro from '../shared/ToolIntro.astro';
+import ToolPanel from '../shared/ToolPanel.astro';
+import ToolStatus from '../shared/ToolStatus.astro';
 
 interface Props {
 	locale: Locale;
@@ -90,27 +97,22 @@ const copy = copyByLocale[locale];
 const copyJson = JSON.stringify(copy.client);
 ---
 
-<section class="tool-intro">
-	<div class="container">
-		<p class="eyebrow">{copy.eyebrow}</p>
-		<h1>{copy.title}</h1>
-		<p class="tool-lede">{copy.intro}</p>
-		<p class="tool-note">{copy.privacy}</p>
-	</div>
-</section>
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
 
 <section class="section video-gif-section tool-workspace">
 	<div class="container">
 		<div class="video-gif-tool" data-video-gif data-copy={copyJson}>
 			<div class="video-gif-grid">
-				<section class="video-gif-panel tool-panel">
-					<h2>{copy.sourceTitle}</h2>
-					<label class="file-picker tool-file-picker">
-						<span>{copy.sourceTitle}</span>
-						<strong data-file-name>{copy.chooseSource}</strong>
-						<small data-file-meta>{copy.sourceHint}</small>
-						<input data-file type="file" accept="video/*,.3gp,.avi,.flv,.m4v,.mkv,.mov,.mp4,.mpeg,.mpg,.ogv,.webm,.wmv" />
-					</label>
+				<ToolPanel class="video-gif-panel" title={copy.sourceTitle}>
+					<FilePicker
+						label={copy.sourceTitle}
+						name={copy.chooseSource}
+						hint={copy.sourceHint}
+						accept="video/*,.3gp,.avi,.flv,.m4v,.mkv,.mov,.mp4,.mpeg,.mpg,.ogv,.webm,.wmv"
+						nameAttrs={{ 'data-file-name': true }}
+						metaAttrs={{ 'data-file-meta': true }}
+						inputAttrs={{ 'data-file': true }}
+					/>
 					<div class="preview-card" data-source-preview hidden>
 						<p>{copy.preview}</p>
 						<div class="preview-frame">
@@ -118,10 +120,9 @@ const copyJson = JSON.stringify(copy.client);
 						</div>
 						<small data-video-meta></small>
 					</div>
-				</section>
+				</ToolPanel>
 
-				<section class="video-gif-panel tool-panel">
-					<h2>{copy.settingsTitle}</h2>
+				<ToolPanel class="video-gif-panel" title={copy.settingsTitle}>
 					<div class="number-grid">
 						<label class="number-control">
 							<span>{copy.startLabel}</span>
@@ -132,31 +133,34 @@ const copyJson = JSON.stringify(copy.client);
 							<input data-duration type="number" min="0.5" max="20" step="0.5" value="3" inputmode="decimal" />
 						</label>
 					</div>
-					<label class="range-control tool-range-control">
-						<span>{copy.fpsLabel}: <strong data-fps-label>12</strong></span>
-						<input data-fps type="range" min="6" max="24" step="1" value="12" />
-					</label>
-					<label class="range-control tool-range-control">
-						<span>{copy.widthLabel}: <strong data-width-label>480px</strong></span>
-						<input data-width type="range" min="240" max="960" step="80" value="480" />
-					</label>
-					<label class="range-control tool-range-control">
-						<span>{copy.colorsLabel}: <strong data-colors-label>128</strong></span>
-						<input data-colors type="range" min="32" max="256" step="32" value="128" />
-					</label>
-					<label class="toggle-control">
-						<input data-loop type="checkbox" checked />
-						<span>{copy.loopLabel}</span>
-					</label>
-					<div class="tool-actions">
+					<RangeControl
+						label={copy.fpsLabel}
+						value="12"
+						valueAttrs={{ 'data-fps-label': true }}
+						inputAttrs={{ 'data-fps': true, min: 6, max: 24, step: 1, value: 12 }}
+					/>
+					<RangeControl
+						label={copy.widthLabel}
+						value="480px"
+						valueAttrs={{ 'data-width-label': true }}
+						inputAttrs={{ 'data-width': true, min: 240, max: 960, step: 80, value: 480 }}
+					/>
+					<RangeControl
+						label={copy.colorsLabel}
+						value="128"
+						valueAttrs={{ 'data-colors-label': true }}
+						inputAttrs={{ 'data-colors': true, min: 32, max: 256, step: 32, value: 128 }}
+					/>
+					<ToggleControl label={copy.loopLabel} inputAttrs={{ 'data-loop': true, checked: true }} />
+					<ToolActions>
 						<button class="button primary" data-convert type="button" disabled>{copy.convert}</button>
 						<button class="button secondary" data-clear type="button">{copy.clear}</button>
-					</div>
-					<p class="status tool-status" data-status role="status">{copy.client.waiting}</p>
-				</section>
+					</ToolActions>
+					<ToolStatus data-status role="status" text={copy.client.waiting} />
+				</ToolPanel>
 			</div>
 
-			<section class="video-gif-panel tool-panel result-panel" data-result hidden>
+			<ToolPanel class="video-gif-panel result-panel" data-result hidden>
 				<div class="result-heading">
 					<div>
 						<p class="eyebrow">{copy.preview}</p>
@@ -170,7 +174,7 @@ const copyJson = JSON.stringify(copy.client);
 					</div>
 					<small data-output-meta></small>
 				</div>
-			</section>
+			</ToolPanel>
 		</div>
 	</div>
 </section>

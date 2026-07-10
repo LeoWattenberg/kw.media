@@ -1,5 +1,11 @@
 ---
 import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolResultCard from './shared/ToolResultCard.astro';
+import ToolStatus from './shared/ToolStatus.astro';
 
 interface Props {
 	locale: Locale;
@@ -70,47 +76,43 @@ const copy = copyByLocale[locale];
 const copyJson = JSON.stringify(copy);
 ---
 
-<section class="tool-intro">
-	<div class="container">
-		<p class="eyebrow">{copy.eyebrow}</p>
-		<h1>{copy.title}</h1>
-		<p class="tool-lede">{copy.intro}</p>
-		<p class="tool-note">{copy.privacy}</p>
-	</div>
-</section>
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
 
 <section class="section loudness-tool-section tool-workspace">
 	<div class="container">
 		<div class="loudness-mastering" data-loudness-mastering data-copy={copyJson}>
-			<section class="loudness-panel tool-panel">
-				<h2>{copy.fileLabel}</h2>
-				<label class="file-picker tool-file-picker">
-					<span>{copy.chooseFile}</span>
-					<strong data-file-name>{copy.chooseFile}</strong>
-					<small data-file-meta>{copy.fileHint}</small>
-					<input data-file-input type="file" accept="audio/*,video/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.webm,.mp4,.mkv,.mov,.avi" />
-				</label>
-				<div class="tool-actions">
+			<ToolPanel class="loudness-panel" title={copy.fileLabel}>
+				<FilePicker
+					label={copy.chooseFile}
+					name={copy.chooseFile}
+					hint={copy.fileHint}
+					accept="audio/*,video/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.webm,.mp4,.mkv,.mov,.avi"
+					nameAttrs={{ 'data-file-name': true }}
+					metaAttrs={{ 'data-file-meta': true }}
+					inputAttrs={{ 'data-file-input': true }}
+				/>
+				<ToolActions>
 					<button class="button primary" data-process type="button" disabled>{copy.process}</button>
 					<button class="button secondary" data-clear type="button">{copy.clear}</button>
-				</div>
-			</section>
+				</ToolActions>
+			</ToolPanel>
 
-			<section class="loudness-panel tool-panel">
-				<h2>{copy.targetsTitle}</h2>
+			<ToolPanel class="loudness-panel" title={copy.targetsTitle}>
 				<p class="panel-copy">{copy.targetsText}</p>
 				<p class="panel-copy">{copy.outputHelp}</p>
-				<p class="status tool-status" data-status>{copy.statusWaiting}</p>
-			</section>
+				<ToolStatus data-status text={copy.statusWaiting} />
+			</ToolPanel>
 
-			<section class="loudness-panel tool-panel">
-				<h2>{copy.outputTitle}</h2>
-				<div class="result-card tool-result-card">
-					<p data-result-title>{copy.selectedFile.replace('{name}', copy.chooseFile)}</p>
-					<p data-result-meta>{copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}</p>
-					<a class="download-link tool-download-link" data-download hidden href="#">{copy.download}</a>
-				</div>
-			</section>
+			<ToolPanel class="loudness-panel" title={copy.outputTitle}>
+				<ToolResultCard
+					title={copy.selectedFile.replace('{name}', copy.chooseFile)}
+					meta={copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}
+					downloadLabel={copy.download}
+					titleAttrs={{ 'data-result-title': true }}
+					metaAttrs={{ 'data-result-meta': true }}
+					downloadAttrs={{ 'data-download': true }}
+				/>
+			</ToolPanel>
 		</div>
 	</div>
 </section>
