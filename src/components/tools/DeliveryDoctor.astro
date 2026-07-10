@@ -1,0 +1,227 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Delivery-Tool', title: 'Delivery Doctor',
+		intro: 'Prüfe lokale Mediendateien auf typische Abgabeprobleme und erstelle schnelle Reparatur-Remuxe.',
+		privacy: 'Analyse und Reparatur laufen lokal. Dateien werden nicht hochgeladen.',
+		source: 'Quelldatei', choose: 'Media-Datei auswählen', hint: 'MP4, MOV, MKV, WebM, MP3, WAV, M4A und mehr',
+		settings: 'Reparatur', output: 'Zielcontainer', mode: 'Reparaturmodus', analyze: 'Diagnose starten', repair: 'Reparatur erstellen', clear: 'Zurücksetzen',
+		modes: { copy: 'Stream Copy / Remux', audio: 'Audio nach AAC wandeln', web: 'Web-MP4 erstellen' },
+		report: 'Diagnose', result: 'Reparatur', download: 'Reparierte Datei herunterladen',
+		waiting: 'Wähle eine Datei für die Diagnose.', analyzing: 'MediaInfo analysiert die Datei…', loadingInfo: 'MediaInfo wird geladen…',
+		ready: 'Diagnose abgeschlossen.', repairing: 'FFmpeg erstellt die Reparatur…', loading: 'FFmpeg WASM wird geladen…', ffmpegReady: 'FFmpeg WASM ist bereit.',
+		progress: 'FFmpeg arbeitet… {progress}%', done: 'Reparatur abgeschlossen.', timeout: 'WASM-Engine hat nicht innerhalb von 90 Sekunden geladen.',
+		error: 'Aktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', none: 'Keine offensichtlichen Probleme gefunden.',
+	},
+	en: {
+		eyebrow: 'Delivery tool', title: 'Delivery Doctor',
+		intro: 'Check local media for common delivery problems and create quick repair remuxes.',
+		privacy: 'Analysis and repair run locally. Files are not uploaded.',
+		source: 'Source file', choose: 'Choose media file', hint: 'MP4, MOV, MKV, WebM, MP3, WAV, M4A, and more',
+		settings: 'Repair', output: 'Target container', mode: 'Repair mode', analyze: 'Run diagnosis', repair: 'Create repair', clear: 'Reset',
+		modes: { copy: 'Stream copy / remux', audio: 'Convert audio to AAC', web: 'Create web MP4' },
+		report: 'Diagnosis', result: 'Repair', download: 'Download repaired file',
+		waiting: 'Choose a file for diagnosis.', analyzing: 'MediaInfo is analyzing the file…', loadingInfo: 'Loading MediaInfo…',
+		ready: 'Diagnosis complete.', repairing: 'FFmpeg is creating the repair…', loading: 'Loading FFmpeg WASM…', ffmpegReady: 'FFmpeg WASM is ready.',
+		progress: 'FFmpeg is working… {progress}%', done: 'Repair complete.', timeout: 'WASM engine did not load within 90 seconds.',
+		error: 'Action failed: {message}', generic: 'Unknown error', none: 'No obvious delivery issues found.',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section delivery-doctor-section tool-workspace">
+	<div class="container">
+		<div class="delivery-doctor" data-delivery-doctor data-copy={copyJson}>
+			<ToolPanel title={copy.source}>
+				<FilePicker label={copy.choose} name={copy.choose} hint={copy.hint} accept="audio/*,video/*,.mkv,.mov,.mp4,.webm,.wav,.m4a,.mp3" nameAttrs={{ 'data-file-name': true }} metaAttrs={{ 'data-file-meta': true }} inputAttrs={{ 'data-file': true }} />
+				<ToolActions>
+					<button class="button primary" data-analyze type="button" disabled>{copy.analyze}</button>
+					<button class="button secondary" data-clear type="button">{copy.clear}</button>
+				</ToolActions>
+			</ToolPanel>
+			<ToolPanel title={copy.settings}>
+				<SelectControl label={copy.output} selectAttrs={{ 'data-output': true }}>
+					<option value="mp4">MP4</option><option value="mkv">MKV</option><option value="mov">MOV</option><option value="webm">WebM</option>
+				</SelectControl>
+				<SelectControl label={copy.mode} selectAttrs={{ 'data-mode': true }}>
+					{Object.entries(copy.modes).map(([value, label]) => <option value={value}>{label}</option>)}
+				</SelectControl>
+				<ToolActions><button class="button primary" data-repair type="button" disabled>{copy.repair}</button></ToolActions>
+				<ToolStatus data-status text={copy.waiting} />
+			</ToolPanel>
+			<ToolPanel title={copy.report}><ul class="doctor-report" data-report><li>{copy.waiting}</li></ul></ToolPanel>
+			<ToolPanel title={copy.result}><p data-result-meta>{copy.waiting}</p><a class="tool-download-link" data-download href="#" download hidden>{copy.download}</a></ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+
+	for (const root of document.querySelectorAll('[data-delivery-doctor]:not([data-bound])')) {
+		root.dataset.bound = 'true';
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const fileInput = root.querySelector('[data-file]');
+		const fileName = root.querySelector('[data-file-name]');
+		const fileMeta = root.querySelector('[data-file-meta]');
+		const analyzeButton = root.querySelector('[data-analyze]');
+		const repairButton = root.querySelector('[data-repair]');
+		const clearButton = root.querySelector('[data-clear]');
+		const output = root.querySelector('[data-output]');
+		const mode = root.querySelector('[data-mode]');
+		const status = root.querySelector('[data-status]');
+		const report = root.querySelector('[data-report]');
+		const resultMeta = root.querySelector('[data-result-meta]');
+		const download = root.querySelector('[data-download]');
+		let mediaInfo = null;
+		let mediaInfoPromise = null;
+		let outputUrl = null;
+
+		const runtime = createFfmpegRuntime({
+			timeoutMessage: copy.timeout,
+			onLoading: () => setStatus(copy.loading, 'info'),
+			onReady: () => setStatus(copy.ffmpegReady, 'success'),
+			onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info'),
+		});
+
+		fileInput.addEventListener('change', updateFile);
+		analyzeButton.addEventListener('click', () => void analyze());
+		repairButton.addEventListener('click', () => void repair());
+		clearButton.addEventListener('click', reset);
+
+		function updateFile() {
+			const file = fileInput.files?.[0];
+			analyzeButton.disabled = !file;
+			repairButton.disabled = !file;
+			if (!file) return;
+			fileName.textContent = file.name;
+			fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'media'}`;
+			setStatus(format('{name}', { name: file.name }), 'success');
+		}
+
+		async function analyze() {
+			const file = fileInput.files?.[0];
+			if (!file) return;
+			setStatus(copy.analyzing, 'info');
+			try {
+				const info = await getMediaInfo();
+				const data = await info.analyzeData(file.size, async (size, offset) => new Uint8Array(await file.slice(offset, offset + size).arrayBuffer()));
+				renderDiagnosis(file, typeof data === 'string' ? JSON.parse(data) : data);
+				setStatus(copy.ready, 'success');
+			} catch (error) {
+				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
+			}
+		}
+
+		async function repair() {
+			const file = fileInput.files?.[0];
+			if (!file) return;
+			setStatus(copy.repairing, 'info');
+			try {
+				const bytes = await runtime.run(async (ffmpeg) => {
+					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+					const input = `source-${stamp}${extension(file.name)}`;
+					const out = `delivery-${stamp}.${output.value}`;
+					await ffmpeg.writeFile(input, new Uint8Array(await file.arrayBuffer()));
+					try {
+						const args = ['-i', input, '-map', '0', '-map_metadata', '0'];
+						if (mode.value === 'web') args.push('-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k');
+						else if (mode.value === 'audio') args.push('-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k', '-c:s', 'copy');
+						else args.push('-c', 'copy');
+						if (output.value === 'mp4' || output.value === 'mov') args.push('-movflags', '+faststart');
+						args.push('-y', out);
+						const code = await ffmpeg.exec(args);
+						if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
+						const result = await ffmpeg.readFile(out);
+						return result instanceof Uint8Array ? result : new TextEncoder().encode(String(result));
+					} finally {
+						await ffmpeg.deleteFile(input).catch(() => {});
+						await ffmpeg.deleteFile(out).catch(() => {});
+					}
+				});
+				if (outputUrl) URL.revokeObjectURL(outputUrl);
+				const blob = new Blob([bytes], { type: mime(output.value) });
+				outputUrl = URL.createObjectURL(blob);
+				download.href = outputUrl;
+				download.download = `${baseName(file.name)}-delivery.${output.value}`;
+				download.hidden = false;
+				resultMeta.textContent = `${download.download} · ${formatBytes(blob.size)}`;
+				setStatus(copy.done, 'success');
+			} catch (error) {
+				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
+			}
+		}
+
+		function renderDiagnosis(file, data) {
+			const tracks = data?.media?.track || [];
+			const general = tracks.find((track) => track['@type'] === 'General') || {};
+			const video = tracks.find((track) => track['@type'] === 'Video') || {};
+			const audio = tracks.find((track) => track['@type'] === 'Audio') || {};
+			const notes = [];
+			notes.push(`${file.name}: ${general.Format || file.type || 'media'} · ${formatBytes(file.size)}`);
+			if (video.Format && !/AVC|HEVC|VP9|AV1/i.test(video.Format)) notes.push(`Video codec may need transcoding for web delivery: ${video.Format}.`);
+			if (audio.Format && !/AAC|Opus|MPEG Audio|FLAC|PCM/i.test(audio.Format)) notes.push(`Audio codec may surprise platforms: ${audio.Format}.`);
+			if (Number(video.Width) % 2 || Number(video.Height) % 2) notes.push('Video dimensions are odd; some encoders and platforms prefer even dimensions.');
+			if (general.Format === 'MPEG-4' && !/isom|mp4/i.test(general.CodecID || '')) notes.push('MP4 brand looks unusual; remuxing with faststart may help playback.');
+			if (!notes.length) notes.push(copy.none);
+			report.replaceChildren(...notes.map((note) => { const li = document.createElement('li'); li.textContent = note; return li; }));
+		}
+
+		async function getMediaInfo() {
+			if (mediaInfo) return mediaInfo;
+			if (mediaInfoPromise) return mediaInfoPromise;
+			mediaInfoPromise = (async () => {
+				setStatus(copy.loadingInfo, 'info');
+				await loadScript('https://unpkg.com/mediainfo.js@0.3.5');
+				const factory = window.MediaInfo || window.mediaInfoFactory || window.MediaInfoFactory;
+				mediaInfo = await factory({ format: 'object' });
+				return mediaInfo;
+			})();
+			return mediaInfoPromise;
+		}
+
+		function loadScript(src) {
+			return new Promise((resolve, reject) => {
+				const existing = document.querySelector(`script[src="${src}"]`);
+				if (existing?.dataset.loaded === 'true') return resolve();
+				const script = existing || document.createElement('script');
+				script.src = src; script.async = true;
+				script.addEventListener('load', () => { script.dataset.loaded = 'true'; resolve(); }, { once: true });
+				script.addEventListener('error', () => reject(new Error(src)), { once: true });
+				if (!existing) document.head.append(script);
+			});
+		}
+
+		function reset() {
+			fileInput.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint;
+			analyzeButton.disabled = true; repairButton.disabled = true; download.hidden = true; resultMeta.textContent = copy.waiting;
+			report.replaceChildren(Object.assign(document.createElement('li'), { textContent: copy.waiting }));
+			if (outputUrl) URL.revokeObjectURL(outputUrl); outputUrl = null; setStatus(copy.waiting, 'info');
+		}
+		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
+		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
+		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'media'; }
+		function mime(ext) { return ({ mp4: 'video/mp4', mov: 'video/quicktime', webm: 'video/webm', mkv: 'video/x-matroska' })[ext] || 'application/octet-stream'; }
+		function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
+	}
+</script>
+
+<style>
+	.delivery-doctor { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+	.doctor-report { margin: 0; padding-left: 1.2rem; color: var(--color-muted); }
+	@media (max-width: 860px) { .delivery-doctor { grid-template-columns: 1fr; } }
+</style>
