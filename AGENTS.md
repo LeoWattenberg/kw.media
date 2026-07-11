@@ -137,3 +137,4 @@ Follow the current pattern:
 - Do not edit `dist/`, `node_modules/`, `test-results/`, or generated public game/audio assets unless the task explicitly concerns those artifacts.
 - Avoid changing generated or imported content in bulk without using the documented scripts and reviewing the diff.
 - Preserve user changes in the working tree; do not revert unrelated edits.
+- For German content, use Umlauts (öäü), not oe, ue, ae.
