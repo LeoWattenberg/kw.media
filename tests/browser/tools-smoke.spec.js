@@ -106,21 +106,6 @@ test.describe('tool pages browser smoke', () => {
 test.describe('visual tool interactions', () => {
 	test('Document converter produces and previews every displayed output format', async ({ page }) => {
 		const errors = collectClientErrors(page);
-		await page.route('https://cdn.jsdelivr.net/npm/pandoc-wasm@1.1.0/+esm', async (route) => {
-			await route.fulfill({
-				contentType: 'application/javascript',
-				body: `export async function convert(options, stdin = '', files = {}) {
-					const source = stdin || '# Converted document';
-					const to = options.to;
-					if (options['output-file']) return { stdout: '', files: { ...files, [options['output-file']]: new Blob(['binary-' + to]) } };
-					if (to === 'html') return { stdout: '<!doctype html><html><body><h1>Conversion test</h1><p>Preview output</p></body></html>', files };
-					if (to === 'latex') return { stdout: '\\\\section{Conversion test}\\nPreview output', files };
-					if (to === 'rtf') return { stdout: '{\\\\rtf1 Conversion test}', files };
-					if (to === 'plain') return { stdout: 'Conversion test\\nPreview output', files };
-					return { stdout: source, files };
-				}`,
-			});
-		});
 		await page.goto('/en/tools/converter/document-converter/');
 		await page.locator('[data-file-input]').setInputFiles(documentFixture);
 
@@ -278,6 +263,16 @@ test.describe('visual tool interactions', () => {
 
 function collectClientErrors(page) {
 	const errors = [];
+	const reportedRequests = new Set();
+
+	function reportRequest(request, reason) {
+		const url = request.url();
+		const key = `${url}: ${reason}`;
+		if (!reportedRequests.has(key)) {
+			reportedRequests.add(key);
+			errors.push(`Browser dependency ${url} was rejected: ${reason}`);
+		}
+	}
 
 	page.on('pageerror', (error) => {
 		errors.push(error.message);
@@ -290,5 +285,34 @@ function collectClientErrors(page) {
 		}
 	});
 
+	page.on('requestfailed', (request) => {
+		if (isBrowserDependency(request)) {
+			reportRequest(request, request.failure()?.errorText || 'request failed');
+		}
+	});
+
+	page.on('response', (response) => {
+		const request = response.request();
+		if (!isBrowserDependency(request)) return;
+
+		if (!response.ok()) {
+			reportRequest(request, `HTTP ${response.status()}`);
+			return;
+		}
+
+		const contentType = response.headers()['content-type']?.toLowerCase() || '';
+		if (request.resourceType() === 'script' && !/(?:java|ecma)script/.test(contentType)) {
+			reportRequest(request, `script has disallowed MIME type ${contentType || '(missing)'}`);
+		}
+		if (/\.wasm(?:$|[?#])/.test(request.url()) && !contentType.startsWith('application/wasm')) {
+			reportRequest(request, `WebAssembly has disallowed MIME type ${contentType || '(missing)'}`);
+		}
+	});
+
 	return errors;
+}
+
+function isBrowserDependency(request) {
+	return request.resourceType() === 'script'
+		|| /\.(?:wasm|worker\.js)(?:$|[?#])/.test(request.url());
 }
