@@ -49,6 +49,11 @@ import {
 	subtitleOutputName,
 } from '../src/lib/tools/subtitle-burner.js';
 import {
+	softSubtitleArgs,
+	subtitleStudioMime,
+	subtitleStudioOutputName,
+} from '../src/lib/tools/subtitle-studio.js';
+import {
 	mixAndResampleAudio,
 	parseWhisperLog,
 	renderWhisperSubtitles,
@@ -168,6 +173,17 @@ test('subtitle burner creates ASS styles and FFmpeg burn-in arguments', () => {
 		'-i', 'input.mov', '-vf', 'subtitles=captions.ass', '-map', '0:v:0?', '-map', '0:a:0?',
 		'-c:v', 'libx264', '-crf', '23', '-preset', 'veryfast', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-y', 'output.mp4',
 	]);
+});
+
+test('subtitle studio builds soft-subtitle outputs and names both application modes', () => {
+	assert.deepEqual(softSubtitleArgs('input.mov', 'captions.srt', 'output.mp4', 'mp4'), [
+		'-i', 'input.mov', '-i', 'captions.srt', '-map', '0', '-map', '1:0', '-c', 'copy',
+		'-c:s', 'mov_text', '-movflags', '+faststart', '-metadata:s:s:0', 'language=und', '-y', 'output.mp4',
+	]);
+	assert.equal(subtitleStudioOutputName('clip.final.mov', 'soft', 'mkv'), 'clip.final-soft-subtitles.mkv');
+	assert.equal(subtitleStudioOutputName('clip.final.mov', 'hard'), 'clip.final-hard-subtitles.mp4');
+	assert.equal(subtitleStudioMime('soft', 'mkv'), 'video/x-matroska');
+	assert.equal(subtitleStudioMime('hard'), 'video/mp4');
 });
 
 test('whisper subtitle generator parses logs and renders downloadable subtitle formats', () => {

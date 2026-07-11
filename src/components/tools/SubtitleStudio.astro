@@ -1,0 +1,178 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import RangeControl from './shared/RangeControl.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props { locale: Locale }
+
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Komplettes Untertitel-Tool', title: 'Subtitle Studio',
+		intro: 'Erstelle, bearbeite und exportiere Untertitel oder wende sie als Soft- und Hard-Subs auf lokale Videos an.',
+		privacy: 'Medien und Untertitel bleiben lokal. Whisper und FFmpeg WASM laufen direkt in deinem Browser.',
+		media: '1. Medium auswählen', chooseMedia: 'Audio oder Video auswählen', mediaHint: 'Audio oder Video bis 30 Minuten für Whisper; Video für Soft- oder Hard-Subs',
+		create: 'Untertitel mit Whisper erstellen', language: 'Gesprochene Sprache', automatic: 'Automatisch erkennen', german: 'Deutsch', english: 'Englisch',
+		task: 'Whisper-Aufgabe', transcribe: 'Originalsprache transkribieren', translate: 'Ins Englische übersetzen', generate: 'Mit Whisper erzeugen',
+		subtitles: '2. Untertitel bearbeiten', chooseSubtitles: 'SRT oder WebVTT laden', subtitleHint: 'Oder Untertiteltext direkt einfügen', subtitleText: 'Untertiteltext',
+		inputFormat: 'Quellformat', outputFormat: 'Downloadformat', offset: 'Timing-Versatz', downloadSubtitles: 'Untertitel herunterladen',
+		apply: '3. Auf Medium anwenden', applyMode: 'Untertiteltyp', soft: 'Soft-Subs (ein-/ausblendbar)', hard: 'Hard-Subs (eingebrannt)', container: 'Soft-Sub-Container',
+		display: 'Hard-Sub-Darstellung', full: 'Kompletter Untertitel', single: 'Ein Wort pro Einblendung', karaoke: 'Karaoke-Hervorhebung', position: 'Position', bottom: 'Unten', center: 'Mitte', top: 'Oben', fontSize: 'Schriftgröße', margin: 'Randabstand',
+		applyButton: 'Untertitel anwenden', reset: 'Zurücksetzen', result: 'Ergebnis', downloadMedia: 'Fertiges Video herunterladen',
+		waiting: 'Wähle ein Medium oder lade Untertitel.', selected: '{name} · {size}', ready: '{count} Untertitelzeilen bereit.', noCues: 'Keine gültigen Untertitel gefunden.', noMedia: 'Wähle zuerst eine Mediendatei.',
+		isolation: 'Der lokale KI-Arbeitsbereich wird vorbereitet. Die Seite wird einmal neu geladen…', unsupported: 'Dieser Browser unterstützt den isolierten Whisper-Arbeitsbereich nicht.', decoding: 'Audio wird lokal dekodiert…', runtime: 'whisper.cpp wird geladen…', model: 'Whisper-Modell wird geladen… {progress}%', modelCached: 'Whisper-Modell aus dem Cache wird geladen… {progress}%', transcribing: 'Whisper transkribiert die Datei…', tooLong: 'Die Mediendatei ist länger als 30 Minuten.',
+		loading: 'FFmpeg WASM wird geladen…', ffmpegReady: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%', processing: 'Untertitel werden angewendet…', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.', subtitlesDone: '{name} wurde erstellt.', mediaDone: '{name} wurde erstellt.', error: 'Aktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
+	},
+	en: {
+		eyebrow: 'Complete subtitle tool', title: 'Subtitle Studio',
+		intro: 'Create, edit, and export subtitles or apply them to local video as switchable soft subs or permanent hard subs.',
+		privacy: 'Media and subtitles stay local. Whisper and FFmpeg WASM run directly in your browser.',
+		media: '1. Choose media', chooseMedia: 'Choose audio or video', mediaHint: 'Audio or video up to 30 minutes for Whisper; video for soft or hard subtitles',
+		create: 'Create subtitles with Whisper', language: 'Spoken language', automatic: 'Detect automatically', german: 'German', english: 'English',
+		task: 'Whisper task', transcribe: 'Transcribe original language', translate: 'Translate into English', generate: 'Generate with Whisper',
+		subtitles: '2. Edit subtitles', chooseSubtitles: 'Load SRT or WebVTT', subtitleHint: 'Or paste subtitle text directly', subtitleText: 'Subtitle text',
+		inputFormat: 'Source format', outputFormat: 'Download format', offset: 'Timing offset', downloadSubtitles: 'Download subtitles',
+		apply: '3. Apply to media', applyMode: 'Subtitle type', soft: 'Soft subtitles (switchable)', hard: 'Hard subtitles (burned in)', container: 'Soft-sub container',
+		display: 'Hard-sub display', full: 'Full subtitle', single: 'One word per appearance', karaoke: 'Karaoke highlight', position: 'Position', bottom: 'Bottom', center: 'Center', top: 'Top', fontSize: 'Font size', margin: 'Edge distance',
+		applyButton: 'Apply subtitles', reset: 'Reset', result: 'Result', downloadMedia: 'Download finished video',
+		waiting: 'Choose media or load subtitles.', selected: '{name} · {size}', ready: '{count} subtitle cues ready.', noCues: 'No valid subtitle cues found.', noMedia: 'Choose a media file first.',
+		isolation: 'Preparing the local AI workspace. The page will reload once…', unsupported: 'This browser cannot prepare the isolated Whisper workspace.', decoding: 'Decoding audio locally…', runtime: 'Loading whisper.cpp…', model: 'Downloading the Whisper model… {progress}%', modelCached: 'Loading the cached Whisper model… {progress}%', transcribing: 'Whisper is transcribing the file…', tooLong: 'The media file is longer than 30 minutes.',
+		loading: 'Loading FFmpeg WASM…', ffmpegReady: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%', processing: 'Applying subtitles…', timeout: 'FFmpeg WASM did not load within 90 seconds.', subtitlesDone: '{name} was created.', mediaDone: '{name} was created.', error: 'Action failed: {message}', generic: 'Unknown error',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section combined-subtitle-studio-section tool-workspace">
+	<div class="container">
+		<div class="combined-subtitle-studio" data-combined-subtitle-studio data-copy={copyJson}>
+			<ToolPanel title={copy.media}>
+				<FilePicker label={copy.chooseMedia} name={copy.chooseMedia} hint={copy.mediaHint} accept="audio/*,video/*,.m4a,.mkv,.mov,.mp3,.mp4,.ogg,.wav,.webm" nameAttrs={{ 'data-media-name': true }} metaAttrs={{ 'data-media-meta': true }} inputAttrs={{ 'data-media': true }} />
+				<video class="studio-preview" data-media-preview controls playsinline hidden></video>
+				<div class="studio-controls">
+					<h3>{copy.create}</h3>
+					<SelectControl label={copy.language} selectAttrs={{ 'data-language': true }}><option value="auto">{copy.automatic}</option><option value="de">{copy.german}</option><option value="en">{copy.english}</option></SelectControl>
+					<SelectControl label={copy.task} selectAttrs={{ 'data-task': true }}><option value="transcribe">{copy.transcribe}</option><option value="translate">{copy.translate}</option></SelectControl>
+					<button class="button secondary" data-generate type="button" disabled>{copy.generate}</button>
+				</div>
+			</ToolPanel>
+
+			<ToolPanel title={copy.subtitles}>
+				<FilePicker label={copy.chooseSubtitles} name={copy.chooseSubtitles} hint={copy.subtitleHint} accept=".srt,.vtt,text/vtt,application/x-subrip,text/plain" nameAttrs={{ 'data-subtitle-name': true }} metaAttrs={{ 'data-subtitle-meta': true }} inputAttrs={{ 'data-subtitles': true }} />
+				<label class="studio-text"><span>{copy.subtitleText}</span><textarea data-text rows="16" spellcheck="false" placeholder="00:00:00.000 --> 00:00:03.000&#10;Hello world"></textarea></label>
+				<div class="studio-editor-grid">
+					<SelectControl label={copy.inputFormat} selectAttrs={{ 'data-input-format': true }}><option value="auto">Auto</option><option value="srt">SRT</option><option value="vtt">WebVTT</option></SelectControl>
+					<SelectControl label={copy.outputFormat} selectAttrs={{ 'data-output-format': true }}><option value="srt">SRT</option><option value="vtt">WebVTT</option></SelectControl>
+				</div>
+				<RangeControl label={copy.offset} value="0.0s" valueAttrs={{ 'data-offset-label': true }} inputAttrs={{ 'data-offset': true, min: -30, max: 30, step: 0.1, value: 0 }} />
+				<a class="tool-download-link" data-download-subtitles href="#" download hidden>{copy.downloadSubtitles}</a>
+			</ToolPanel>
+
+			<ToolPanel title={copy.apply}>
+				<SelectControl label={copy.applyMode} selectAttrs={{ 'data-apply-mode': true }}><option value="soft">{copy.soft}</option><option value="hard">{copy.hard}</option></SelectControl>
+				<div data-soft-settings><SelectControl label={copy.container} selectAttrs={{ 'data-container': true }}><option value="mkv">MKV</option><option value="mp4">MP4</option></SelectControl></div>
+				<div class="studio-hard-settings" data-hard-settings hidden>
+					<SelectControl label={copy.display} selectAttrs={{ 'data-display': true }}><option value="full">{copy.full}</option><option value="single">{copy.single}</option><option value="karaoke">{copy.karaoke}</option></SelectControl>
+					<SelectControl label={copy.position} selectAttrs={{ 'data-position': true }}><option value="2">{copy.bottom}</option><option value="5">{copy.center}</option><option value="8">{copy.top}</option></SelectControl>
+					<RangeControl label={copy.fontSize} value="58" valueAttrs={{ 'data-font-size-label': true }} inputAttrs={{ 'data-font-size': true, min: 28, max: 100, step: 2, value: 58 }} />
+					<RangeControl label={copy.margin} value="180px" valueAttrs={{ 'data-margin-label': true }} inputAttrs={{ 'data-margin': true, min: 40, max: 600, step: 20, value: 180 }} />
+				</div>
+				<ToolActions><button class="button primary" data-apply type="button">{copy.applyButton}</button><button class="button secondary" data-reset type="button">{copy.reset}</button></ToolActions>
+				<ToolStatus data-status text={copy.waiting} />
+			</ToolPanel>
+
+			<ToolPanel class="studio-result" title={copy.result}><p data-result>{copy.waiting}</p><a class="tool-download-link" data-download-media href="#" download hidden>{copy.downloadMedia}</a></ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
+	import { fileExtension } from '../../lib/tools/media-file';
+	import { offsetCues, parseCues, toSrt, toVtt } from '../../lib/tools/offline-subtitle-studio';
+	import { buildSubtitleAss, subtitleBurnerArgs } from '../../lib/tools/subtitle-burner';
+	import { softSubtitleArgs, subtitleStudioMime, subtitleStudioOutputName } from '../../lib/tools/subtitle-studio';
+	import { createWhisperRuntime, decodeAudioFile, fetchWhisperModel, parseWhisperLog, renderWhisperSubtitles } from '../../lib/tools/whisper-subtitle-generator';
+
+	for (const root of document.querySelectorAll('[data-combined-subtitle-studio]:not([data-bound])')) {
+		root.dataset.bound = 'true';
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const mediaInput = root.querySelector('[data-media]'); const mediaName = root.querySelector('[data-media-name]'); const mediaMeta = root.querySelector('[data-media-meta]'); const mediaPreview = root.querySelector('[data-media-preview]');
+		const subtitleInput = root.querySelector('[data-subtitles]'); const subtitleName = root.querySelector('[data-subtitle-name]'); const subtitleMeta = root.querySelector('[data-subtitle-meta]'); const text = root.querySelector('[data-text]');
+		const language = root.querySelector('[data-language]'); const task = root.querySelector('[data-task]'); const generate = root.querySelector('[data-generate]');
+		const inputFormat = root.querySelector('[data-input-format]'); const outputFormat = root.querySelector('[data-output-format]'); const offset = root.querySelector('[data-offset]'); const offsetLabel = root.querySelector('[data-offset-label]');
+		const applyMode = root.querySelector('[data-apply-mode]'); const softSettings = root.querySelector('[data-soft-settings]'); const hardSettings = root.querySelector('[data-hard-settings]'); const container = root.querySelector('[data-container]');
+		const display = root.querySelector('[data-display]'); const position = root.querySelector('[data-position]'); const fontSize = root.querySelector('[data-font-size]'); const fontSizeLabel = root.querySelector('[data-font-size-label]'); const margin = root.querySelector('[data-margin]'); const marginLabel = root.querySelector('[data-margin-label]');
+		const apply = root.querySelector('[data-apply]'); const reset = root.querySelector('[data-reset]'); const status = root.querySelector('[data-status]'); const result = root.querySelector('[data-result]'); const downloadSubtitles = root.querySelector('[data-download-subtitles]'); const downloadMedia = root.querySelector('[data-download-media]');
+		let mediaUrl = null; let subtitleUrl = null; let outputUrl = null; let whisper = null; let whisperModelLoaded = false; const whisperLogs = [];
+		const ffmpegRuntime = createFfmpegRuntime({ timeoutMessage: copy.timeout, onLoading: () => setStatus(copy.loading, 'info'), onReady: () => setStatus(copy.ffmpegReady, 'success'), onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info') });
+
+		mediaInput.addEventListener('change', selectMedia); subtitleInput.addEventListener('change', () => void selectSubtitles()); text.addEventListener('input', updateCues); inputFormat.addEventListener('change', updateCues);
+		offset.addEventListener('input', () => { offsetLabel.textContent = `${Number(offset.value).toFixed(1)}s`; updateCues(); }); outputFormat.addEventListener('change', updateSubtitleDownload); applyMode.addEventListener('change', updateMode);
+		fontSize.addEventListener('input', () => fontSizeLabel.textContent = fontSize.value); margin.addEventListener('input', () => marginLabel.textContent = `${margin.value}px`);
+		generate.addEventListener('click', () => void generateSubtitles()); apply.addEventListener('click', () => void applySubtitles()); reset.addEventListener('click', resetStudio);
+		void prepareIsolation(); updateMode();
+
+		function selectMedia() {
+			const file = mediaInput.files?.[0]; if (mediaUrl) URL.revokeObjectURL(mediaUrl); mediaUrl = file ? URL.createObjectURL(file) : null;
+			mediaPreview.hidden = !file; if (file) mediaPreview.src = mediaUrl; else mediaPreview.removeAttribute('src');
+			mediaName.textContent = file?.name || copy.chooseMedia; mediaMeta.textContent = file ? format(copy.selected, { name: file.type || 'media', size: formatBytes(file.size) }) : copy.mediaHint;
+			generate.disabled = !file || !globalThis.crossOriginIsolated; setStatus(file ? format(copy.selected, { name: file.name, size: formatBytes(file.size) }) : copy.waiting, file ? 'success' : 'info');
+		}
+
+		async function selectSubtitles() { const file = subtitleInput.files?.[0]; if (!file) return; text.value = await file.text(); subtitleName.textContent = file.name; subtitleMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'text'}`; updateCues(); }
+		function editedCues() { return offsetCues(parseCues(text.value, inputFormat.value), offset.value); }
+		function updateCues() { const cues = editedCues(); setStatus(cues.length ? format(copy.ready, { count: cues.length }) : copy.waiting, cues.length ? 'success' : 'info'); updateSubtitleDownload(); }
+		function updateSubtitleDownload() { const cues = editedCues(); if (!cues.length) { downloadSubtitles.hidden = true; return; } const kind = outputFormat.value; const output = kind === 'vtt' ? toVtt(cues) : toSrt(cues); if (subtitleUrl) URL.revokeObjectURL(subtitleUrl); subtitleUrl = URL.createObjectURL(new Blob([output], { type: kind === 'vtt' ? 'text/vtt' : 'application/x-subrip' })); downloadSubtitles.href = subtitleUrl; downloadSubtitles.download = `subtitles.${kind}`; downloadSubtitles.hidden = false; }
+		function updateMode() { const hard = applyMode.value === 'hard'; softSettings.hidden = hard; hardSettings.hidden = !hard; }
+
+		async function prepareIsolation() {
+			if (globalThis.crossOriginIsolated && typeof SharedArrayBuffer !== 'undefined') return;
+			if (!('serviceWorker' in navigator) || !globalThis.isSecureContext) { setStatus(copy.unsupported, 'error'); return; }
+			setStatus(copy.isolation, 'info'); const base = import.meta.env.BASE_URL; const registration = await navigator.serviceWorker.register(`${base}whisper-coi-serviceworker.js`, { scope: base }); await navigator.serviceWorker.ready; if (registration.active) location.reload();
+		}
+
+		async function generateSubtitles() {
+			const file = mediaInput.files?.[0]; if (!file) return; generate.disabled = true;
+			try {
+				setStatus(copy.decoding, 'info'); const audio = await decodeAudioFile(file); if (audio.length > 30 * 60 * 16_000) throw new Error(copy.tooLong); whisperLogs.length = 0;
+				if (!whisper) { setStatus(copy.runtime, 'info'); whisper = await createWhisperRuntime((line) => whisperLogs.push(String(line))); }
+				if (!whisperModelLoaded) { const bytes = await fetchWhisperModel((received, total, cached) => setStatus(format(cached ? copy.modelCached : copy.model, { progress: Math.min(100, Math.round(received / total * 100)) }), 'info')); whisper.FS_createDataFile('/', 'whisper.bin', bytes, true, true); if (!whisper.init('whisper.bin')) throw new Error(copy.generic); whisperModelLoaded = true; }
+				setStatus(copy.transcribing, 'info'); const code = whisper.full_default(audio, language.value, task.value === 'translate'); if (code !== 0) throw new Error(`whisper.cpp exited with code ${code}`); const cues = parseWhisperLog(whisperLogs); if (!cues.length) throw new Error(copy.noCues);
+				text.value = renderWhisperSubtitles(whisperLogs, 'srt'); inputFormat.value = 'auto'; updateCues();
+			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); } finally { generate.disabled = !mediaInput.files?.[0] || !globalThis.crossOriginIsolated; }
+		}
+
+		async function applySubtitles() {
+			const media = mediaInput.files?.[0]; if (!media) { setStatus(copy.noMedia, 'error'); return; } const cues = editedCues(); if (!cues.length) { setStatus(copy.noCues, 'error'); return; }
+			try {
+				setStatus(copy.processing, 'info'); const mode = applyMode.value; const outputContainer = mode === 'hard' ? 'mp4' : container.value;
+				const bytes = await ffmpegRuntime.run(async (ffmpeg) => { const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`; const input = `media-${stamp}${fileExtension(media.name)}`; const subtitleFile = `subtitles-${stamp}.${mode === 'hard' ? 'ass' : 'srt'}`; const output = `subtitled-${stamp}.${outputContainer}`; const subtitleBytes = mode === 'hard' ? buildSubtitleAss(cues, { mode: display.value, alignment: position.value, fontSize: fontSize.value, marginV: margin.value }) : toSrt(cues); await ffmpeg.writeFile(input, new Uint8Array(await media.arrayBuffer())); await ffmpeg.writeFile(subtitleFile, new TextEncoder().encode(subtitleBytes)); try { const args = mode === 'hard' ? subtitleBurnerArgs(input, subtitleFile, output) : softSubtitleArgs(input, subtitleFile, output, outputContainer); const code = await ffmpeg.exec(args); if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`); const rendered = await ffmpeg.readFile(output); return rendered instanceof Uint8Array ? rendered : new TextEncoder().encode(String(rendered)); } finally { await ffmpeg.deleteFile(input).catch(() => {}); await ffmpeg.deleteFile(subtitleFile).catch(() => {}); await ffmpeg.deleteFile(output).catch(() => {}); } });
+				const name = subtitleStudioOutputName(media.name, mode, outputContainer); if (outputUrl) URL.revokeObjectURL(outputUrl); outputUrl = URL.createObjectURL(new Blob([bytes], { type: subtitleStudioMime(mode, outputContainer) })); downloadMedia.href = outputUrl; downloadMedia.download = name; downloadMedia.hidden = false; result.textContent = format(copy.mediaDone, { name }); setStatus(result.textContent, 'success');
+			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
+		}
+
+		function resetStudio() { mediaInput.value = ''; subtitleInput.value = ''; text.value = ''; offset.value = '0'; offsetLabel.textContent = '0.0s'; applyMode.value = 'soft'; updateMode(); for (const url of [mediaUrl, subtitleUrl, outputUrl]) if (url) URL.revokeObjectURL(url); mediaUrl = subtitleUrl = outputUrl = null; mediaPreview.hidden = true; mediaPreview.removeAttribute('src'); mediaName.textContent = copy.chooseMedia; mediaMeta.textContent = copy.mediaHint; subtitleName.textContent = copy.chooseSubtitles; subtitleMeta.textContent = copy.subtitleHint; generate.disabled = true; downloadSubtitles.hidden = true; downloadMedia.hidden = true; result.textContent = copy.waiting; setStatus(copy.waiting, 'info'); }
+		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+	}
+</script>
+
+<style>
+	.combined-subtitle-studio { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+	.studio-result { grid-column: 1 / -1; }
+	.studio-preview { width: 100%; max-height: 320px; margin-top: 16px; border-radius: 8px; background: #000; }
+	.studio-controls, .studio-hard-settings { display: grid; gap: 12px; margin-top: 18px; }
+	.studio-controls h3 { margin: 0; font-size: 1rem; }
+	.studio-text { display: grid; gap: 8px; margin-top: 16px; font-weight: 850; }
+	.studio-text textarea { box-sizing: border-box; width: 100%; min-height: 300px; padding: 12px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 8px; font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; resize: vertical; }
+	.studio-editor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+	@media (max-width: 860px) { .combined-subtitle-studio, .studio-editor-grid { grid-template-columns: 1fr; } .studio-result { grid-column: auto; } }
+</style>

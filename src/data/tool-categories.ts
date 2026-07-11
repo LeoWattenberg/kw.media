@@ -46,6 +46,7 @@ export const toolCategories: ToolCategory[] = [
 		id: 'audio',
 		slug: 'audio',
 		toolIds: [
+			'subtitle-studio',
 			'abx-tester',
 			'whisper-subtitle-generator',
 			'mp3-quality-tester',
@@ -76,6 +77,7 @@ export const toolCategories: ToolCategory[] = [
 		id: 'video',
 		slug: 'video',
 		toolIds: [
+			'subtitle-studio',
 			'video-audio-converter',
 			'whisper-subtitle-generator',
 			'video-to-gif',
@@ -138,7 +140,7 @@ export const toolCategories: ToolCategory[] = [
 	{
 		id: 'text',
 		slug: 'text',
-		toolIds: ['document-converter', 'whisper-subtitle-generator', 'offline-subtitle-studio', 'subtitle-burner', 'podcast-chapterizer', 'metadata-privacy-scrubber'],
+		toolIds: ['subtitle-studio', 'document-converter', 'whisper-subtitle-generator', 'offline-subtitle-studio', 'subtitle-burner', 'podcast-chapterizer', 'metadata-privacy-scrubber'],
 		translations: {
 			de: {
 				eyebrow: 'Text',
