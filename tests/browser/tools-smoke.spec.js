@@ -18,7 +18,7 @@ const toolPages = [
 	['/en/tools/background-remover/', 'Background Remover', '[data-background-remover]'],
 	['/en/tools/background-remover-checkerboard/', 'Checkerboard Background Remover', '[data-background-remover]'],
 	['/en/tools/click-to-cut-object-extractor/', 'Click-to-Cut Object Extractor', '[data-object-extractor]'],
-	['/en/tools/converter/', 'Converter Tools', '.converter-grid'],
+	['/en/tools/converter/', 'Converter Tools', '.tool-category-grid'],
 	['/en/tools/converter/document-converter/', 'Document Converter', '[data-document-converter]'],
 	['/en/tools/converter/image-format-converter/', 'Image Format Converter', '[data-image-converter]'],
 	['/en/tools/converter/video-audio-converter/', 'Audio and Video Converter', '[data-video-audio-converter]'],
@@ -71,6 +71,25 @@ test.describe('tool pages browser smoke', () => {
 		await expect(page.getByRole('link', { name: /Document Converter/ })).toHaveCount(1);
 		await expect(page.getByRole('link', { name: /MediaInfo/ })).toHaveCount(0);
 		await expect(page.locator('[data-tool-empty]')).toBeHidden();
+		expect(errors).toEqual([]);
+	});
+
+	test('category overviews filter their own tool cards', async ({ page }) => {
+		const errors = collectClientErrors(page);
+
+		await page.goto('/en/tools/audio/');
+		await page.locator('[data-tool-category-search-input]').fill('abx');
+
+		await expect(page.getByRole('link', { name: /ABX Audio Tester/ })).toHaveCount(1);
+		await expect(page.getByRole('link', { name: /Podcast Cleaner/ })).toHaveCount(0);
+		await expect(page.locator('[data-tool-category-empty]')).toBeHidden();
+
+		await page.goto('/en/tools/converter/');
+		await page.locator('[data-tool-category-search-input]').fill('svg');
+
+		await expect(page.getByRole('link', { name: /Raster\/SVG Workbench/ })).toHaveCount(1);
+		await expect(page.getByRole('link', { name: /Document Converter/ })).toHaveCount(0);
+		await expect(page.locator('[data-tool-category-empty]')).toBeHidden();
 		expect(errors).toEqual([]);
 	});
 });

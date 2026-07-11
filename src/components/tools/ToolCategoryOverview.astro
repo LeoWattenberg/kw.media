@@ -13,6 +13,20 @@ interface Props {
 const { categoryId, locale } = Astro.props;
 const category = getToolCategory(categoryId);
 const copy = category.translations[locale];
+const searchCopy = {
+	de: {
+		label: 'Tools durchsuchen',
+		placeholder: 'In diesem Ordner suchen',
+		resultCount: '{count} Treffer',
+		empty: 'Keine passenden Tools in diesem Ordner gefunden.',
+	},
+	en: {
+		label: 'Search tools',
+		placeholder: 'Search this folder',
+		resultCount: '{count} matches',
+		empty: 'No matching tools found in this folder.',
+	},
+}[locale];
 const toolsById = new Map(toolPages.filter((tool) => tool.locale === locale).map((tool) => [toolGroup(tool.id), tool]));
 const tools = category.toolIds.map((toolId) => toolsById.get(toolId)).filter(Boolean);
 ---
@@ -25,19 +39,159 @@ const tools = category.toolIds.map((toolId) => toolsById.get(toolId)).filter(Boo
 	</div>
 </section>
 
-<section class="section tool-category-section">
-	<div class="container tool-category-grid">
-		{
-			tools.map((tool) => (
-				<a class="tool-category-card" href={withBase(tool.path)}>
-					<span>{copy.open}</span>
-					<h2>{tool.title}</h2>
-					<p>{tool.description}</p>
-				</a>
-			))
-		}
+<section class="section tool-category-section" data-tool-category-index data-result-template={searchCopy.resultCount}>
+	<div class="container tool-category-shell">
+		<div class="tool-category-search">
+			<label for={`tool-category-search-${category.id}-${locale}`}>{searchCopy.label}</label>
+			<div class="tool-category-search-field">
+				<input
+					id={`tool-category-search-${category.id}-${locale}`}
+					type="search"
+					name="tool-category-search"
+					placeholder={searchCopy.placeholder}
+					autocomplete="off"
+					spellcheck="false"
+					data-tool-category-search-input
+				/>
+				<span aria-live="polite" data-tool-category-count></span>
+			</div>
+		</div>
+
+		<div class="tool-category-grid">
+			{
+				tools.map((tool) => (
+					<a class="tool-category-card" href={withBase(tool.path)} data-tool-category-card data-tool-search={[tool.title, tool.description, tool.path].join(' ')}>
+						<span>{copy.open}</span>
+						<h2>{tool.title}</h2>
+						<p>{tool.description}</p>
+					</a>
+				))
+			}
+		</div>
+
+		<p class="tool-category-empty is-filtered-out" data-tool-category-empty>{searchCopy.empty}</p>
 	</div>
 </section>
+
+<script>
+	for (const categoryIndex of document.querySelectorAll('[data-tool-category-index]')) {
+		if (!(categoryIndex instanceof HTMLElement)) {
+			continue;
+		}
+
+		const input = categoryIndex.querySelector('[data-tool-category-search-input]');
+		const count = categoryIndex.querySelector('[data-tool-category-count]');
+		const empty = categoryIndex.querySelector('[data-tool-category-empty]');
+		const cards = Array.from(categoryIndex.querySelectorAll('[data-tool-category-card]'));
+		const resultTemplate = categoryIndex.dataset.resultTemplate ?? '{count}';
+
+		const normalize = (value) =>
+			value
+				.normalize('NFD')
+				.replace(/[\u0300-\u036f]/g, '')
+				.toLowerCase()
+				.replace(/[^a-z0-9]+/g, ' ')
+				.trim();
+
+		const distance = (first, second) => {
+			const previous = Array.from({ length: second.length + 1 }, (_, index) => index);
+
+			for (let row = 1; row <= first.length; row += 1) {
+				let last = previous[0];
+				previous[0] = row;
+
+				for (let column = 1; column <= second.length; column += 1) {
+					const insert = previous[column] + 1;
+					const remove = previous[column - 1] + 1;
+					const replace = last + (first[row - 1] === second[column - 1] ? 0 : 1);
+					last = previous[column];
+					previous[column] = Math.min(insert, remove, replace);
+				}
+			}
+
+			return previous[second.length];
+		};
+
+		const isSubsequence = (needle, haystack) => {
+			let position = 0;
+
+			for (const character of haystack) {
+				if (character === needle[position]) {
+					position += 1;
+				}
+
+				if (position === needle.length) {
+					return true;
+				}
+			}
+
+			return false;
+		};
+
+		const tokenMatches = (token, haystack, words) => {
+			if (!token) {
+				return true;
+			}
+
+			if (haystack.includes(token) || words.some((word) => word.includes(token))) {
+				return true;
+			}
+
+			const typoAllowance = token.length > 5 ? 2 : 1;
+			const closeWord = words.some((word) => word.length > 2 && distance(token, word) <= typoAllowance);
+			const closeSequence = words.some((word) => word.length > 2 && token.length / word.length >= 0.55 && isSubsequence(token, word));
+
+			return closeWord || (token.length > 2 && closeSequence);
+		};
+
+		const matchesSearch = (query, value) => {
+			const tokens = normalize(query).split(/\s+/).filter(Boolean);
+
+			if (tokens.length === 0) {
+				return true;
+			}
+
+			const haystack = normalize(value);
+			const words = haystack.split(/\s+/).filter(Boolean);
+
+			return tokens.every((token) => tokenMatches(token, haystack, words));
+		};
+
+		const update = () => {
+			if (!(input instanceof HTMLInputElement)) {
+				return;
+			}
+
+			const query = input.value.trim();
+			let visibleCards = 0;
+
+			for (const card of cards) {
+				if (!(card instanceof HTMLElement)) {
+					continue;
+				}
+
+				const isVisible = matchesSearch(query, card.dataset.toolSearch ?? '');
+				card.classList.toggle('is-filtered-out', !isVisible);
+				card.setAttribute('aria-hidden', String(!isVisible));
+
+				if (isVisible) {
+					visibleCards += 1;
+				}
+			}
+
+			if (count) {
+				count.textContent = query ? resultTemplate.replace('{count}', String(visibleCards)) : '';
+			}
+
+			if (empty instanceof HTMLElement) {
+				empty.classList.toggle('is-filtered-out', !query || visibleCards > 0);
+			}
+		};
+
+		input?.addEventListener('input', update);
+		update();
+	}
+</script>
 
 <style>
 	.tool-category-hero {
@@ -63,6 +217,57 @@ const tools = category.toolIds.map((toolId) => toolsById.get(toolId)).filter(Boo
 
 	.tool-category-section {
 		background: var(--color-surface-raised);
+	}
+
+	.tool-category-shell {
+		display: grid;
+		gap: clamp(24px, 4vw, 40px);
+	}
+
+	.tool-category-search {
+		display: grid;
+		gap: 10px;
+		max-width: 720px;
+	}
+
+	.tool-category-search label {
+		color: var(--color-muted);
+		font-size: 0.82rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.tool-category-search-field {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		align-items: center;
+		gap: 14px;
+	}
+
+	.tool-category-search input {
+		width: 100%;
+		min-height: 52px;
+		padding: 12px 16px;
+		color: var(--color-ink);
+		background: var(--color-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font: inherit;
+		font-weight: 750;
+	}
+
+	.tool-category-search input:focus-visible {
+		border-color: var(--color-accent);
+		outline: 3px solid color-mix(in srgb, var(--color-accent) 22%, transparent);
+		outline-offset: 2px;
+	}
+
+	.tool-category-search span {
+		min-width: 92px;
+		color: var(--color-muted);
+		font-size: 0.9rem;
+		font-weight: 750;
+		text-align: right;
 	}
 
 	.tool-category-grid {
@@ -114,5 +319,30 @@ const tools = category.toolIds.map((toolId) => toolsById.get(toolId)).filter(Boo
 		margin: 0;
 		color: var(--color-muted);
 		font-weight: 700;
+	}
+
+	.tool-category-empty {
+		margin: 0;
+		padding: 24px;
+		color: var(--color-muted);
+		background: var(--color-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 800;
+	}
+
+	.is-filtered-out {
+		display: none !important;
+	}
+
+	@media (max-width: 640px) {
+		.tool-category-search-field {
+			grid-template-columns: 1fr;
+		}
+
+		.tool-category-search span {
+			min-width: 0;
+			text-align: left;
+		}
 	}
 </style>
