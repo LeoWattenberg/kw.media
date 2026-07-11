@@ -86,6 +86,7 @@ export const toolCategories: ToolCategory[] = [
 			'podcast-chapterizer',
 			'media-info',
 			'metadata-privacy-scrubber',
+			'short-form-safe-zone-previewer',
 		],
 		translations: {
 			de: {
@@ -161,6 +162,7 @@ export const toolCategories: ToolCategory[] = [
 			'mp3-quality-tester',
 			'youtube-thumbnail-preview',
 			'vtuber-preview',
+			'short-form-safe-zone-previewer',
 		],
 		translations: {
 			de: {
