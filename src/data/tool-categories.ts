@@ -11,7 +11,6 @@ export interface ToolCategory {
 		title: string;
 		description: string;
 		eyebrow: string;
-		open: string;
 	}>;
 }
 
@@ -32,13 +31,11 @@ export const toolCategories: ToolCategory[] = [
 				eyebrow: 'Konverter',
 				title: 'Konverter-Tools',
 				description: 'Dateien direkt im Browser in andere Formate bringen.',
-				open: 'Konverter öffnen',
 			},
 			en: {
 				eyebrow: 'Converters',
 				title: 'Converter Tools',
 				description: 'Move files into other formats right in the browser.',
-				open: 'Open converter',
 			},
 		},
 	},
@@ -63,13 +60,11 @@ export const toolCategories: ToolCategory[] = [
 				eyebrow: 'Audio',
 				title: 'Audio-Tools',
 				description: 'Hören, testen, mastern, bereinigen und Audio aus lokalen Medien verarbeiten.',
-				open: 'Audio-Tool öffnen',
 			},
 			en: {
 				eyebrow: 'Audio',
 				title: 'Audio Tools',
 				description: 'Listen, test, master, clean, and process audio from local media.',
-				open: 'Open audio tool',
 			},
 		},
 	},
@@ -98,13 +93,11 @@ export const toolCategories: ToolCategory[] = [
 				eyebrow: 'Video',
 				title: 'Video-Tools',
 				description: 'Clips prüfen, schneiden, reframen, konvertieren und ausliefern.',
-				open: 'Video-Tool öffnen',
 			},
 			en: {
 				eyebrow: 'Video',
 				title: 'Video Tools',
 				description: 'Inspect, trim, reframe, convert, and deliver local clips.',
-				open: 'Open video tool',
 			},
 		},
 	},
@@ -127,13 +120,11 @@ export const toolCategories: ToolCategory[] = [
 				eyebrow: 'Bild',
 				title: 'Bild-Tools',
 				description: 'Bilder vorbereiten, freistellen, prüfen, markieren und umwandeln.',
-				open: 'Bild-Tool öffnen',
 			},
 			en: {
 				eyebrow: 'Image',
 				title: 'Image Tools',
 				description: 'Prepare, isolate, inspect, mark, and convert image assets.',
-				open: 'Open image tool',
 			},
 		},
 	},
@@ -146,13 +137,11 @@ export const toolCategories: ToolCategory[] = [
 				eyebrow: 'Text',
 				title: 'Text-Tools',
 				description: 'Dokumente, Untertitel, Kapitel und Metadaten lokal bearbeiten.',
-				open: 'Text-Tool öffnen',
 			},
 			en: {
 				eyebrow: 'Text',
 				title: 'Text Tools',
 				description: 'Work locally with documents, subtitles, chapters, and metadata.',
-				open: 'Open text tool',
 			},
 		},
 	},
@@ -174,13 +163,11 @@ export const toolCategories: ToolCategory[] = [
 				eyebrow: 'Analyzer',
 				title: 'Analyzer',
 				description: 'Medien, Qualitaet, Crops, Thumbnails und Produktionsrisiken einschaetzen.',
-				open: 'Analyzer öffnen',
 			},
 			en: {
 				eyebrow: 'Analyzers',
 				title: 'Analyzers',
 				description: 'Judge media, quality, crops, thumbnails, and production risks.',
-				open: 'Open analyzer',
 			},
 		},
 	},

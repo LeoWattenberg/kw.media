@@ -1,7 +1,7 @@
 ---
 import type { Locale } from '../../i18n';
 import { getToolCategoryPath, toolCategories } from '../../data/tool-categories';
-import { toolGroup, toolPages } from '../../data/tools';
+import { getToolEyebrow, toolGroup, toolPages } from '../../data/tools';
 import { withBase } from '../../lib/url';
 
 interface Props {
@@ -15,7 +15,6 @@ const copy = {
 		title: 'Creator-Tools',
 		intro: 'Kleine, clientseitige Werkzeuge für Content-, Audio- und Produktionsentscheidungen.',
 		openFolder: 'Ordner öffnen',
-		openTool: 'Tool öffnen',
 		searchLabel: 'Tools durchsuchen',
 		searchPlaceholder: 'Nach Tool, Aufgabe oder Format suchen',
 		resultCount: '{count} Treffer',
@@ -27,7 +26,6 @@ const copy = {
 		title: 'Creator Tools',
 		intro: 'Small client-side tools for content, audio, and production decisions.',
 		openFolder: 'Open folder',
-		openTool: 'Open tool',
 		searchLabel: 'Search tools',
 		searchPlaceholder: 'Search by tool, task, or format',
 		resultCount: '{count} matches',
@@ -121,7 +119,7 @@ const searchTools = localizedTools
 							data-search-card
 							data-tool-search={[tool.title, tool.description, tool.path].join(' ')}
 						>
-							<span>{copy.openTool}</span>
+							<span>{getToolEyebrow(tool)}</span>
 							<h3>{tool.title}</h3>
 							<p>{tool.description}</p>
 						</a>

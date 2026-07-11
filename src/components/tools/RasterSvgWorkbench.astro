@@ -19,7 +19,7 @@ const { locale, defaultMode = 'vector', title, eyebrow } = Astro.props;
 const normalizedDefaultMode = defaultMode === 'png' ? 'png' : 'vector';
 const defaultCopy = {
 	de: {
-		eyebrow: 'Vektor-Tool', title: 'Raster/SVG Workbench',
+		eyebrow: 'Vektorisieren & rendern', title: 'Raster/SVG Studio',
 		intro: 'Vektorisiere Rasterbilder zu SVG und rendere SVG-Dateien wieder als PNG, komplett lokal im Browser.',
 		privacy: 'Keine Uploads. ImageTracer.js wird für Pfad-Tracing genutzt, mit lokalem Fallback.',
 		mode: 'Modus', rasterMode: 'Raster zu SVG', pngMode: 'SVG zu PNG',
@@ -33,7 +33,7 @@ const defaultCopy = {
 		error: 'Aktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', invalidSvg: 'Kein gültiger SVG-Text gefunden.',
 	},
 	en: {
-		eyebrow: 'Vector tool', title: 'Raster/SVG Workbench',
+		eyebrow: 'Vectorize & render', title: 'Raster/SVG Studio',
 		intro: 'Vectorize raster images to SVG and render SVG files back to PNG, fully local in the browser.',
 		privacy: 'No uploads. ImageTracer.js is used for path tracing, with a local fallback.',
 		mode: 'Mode', rasterMode: 'Raster to SVG', pngMode: 'SVG to PNG',

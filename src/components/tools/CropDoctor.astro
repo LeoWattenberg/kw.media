@@ -11,7 +11,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const copy = {
 	de: {
-		eyebrow: 'Crop-Tool', title: 'Crop Doctor',
+		eyebrow: 'Automatische Crop-Erkennung', title: 'Schwarze Balken entfernen',
 		intro: 'Erkenne schwarze Balken in lokalen Videos und exportiere eine sauber gecroppte Version.',
 		privacy: 'Die Frame-Analyse läuft per Canvas lokal, der Export über FFmpeg WASM.',
 		source: 'Video', choose: 'Video auswählen', hint: 'MP4, MOV, WebM, MKV und weitere Formate',
@@ -22,7 +22,7 @@ const copy = {
 		done: 'Crop abgeschlossen.', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.', error: 'Crop fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
 	},
 	en: {
-		eyebrow: 'Crop tool', title: 'Crop Doctor',
+		eyebrow: 'Automatic crop detection', title: 'Black Bar Remover',
 		intro: 'Detect black bars in local videos and export a clean cropped version.',
 		privacy: 'Frame analysis runs locally via Canvas, export uses FFmpeg WASM.',
 		source: 'Video', choose: 'Choose video', hint: 'MP4, MOV, WebM, MKV, and more',
