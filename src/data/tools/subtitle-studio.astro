@@ -1,0 +1,17 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import SubtitleStudio from '../../components/tools/SubtitleStudio.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('subtitle-studio', {
+	id: 'subtitle-studio',
+	translations: {
+		de: { path: '/de/tools/untertitel-studio/', title: 'Subtitle Studio', description: 'Erstelle und bearbeite Untertitel lokal und wende sie als einblendbare Soft-Subs oder eingebrannte Hard-Subs auf Videos an.' },
+		en: { path: '/en/tools/subtitle-studio/', title: 'Subtitle Studio', description: 'Create and edit subtitles locally, then apply them to video as switchable soft subtitles or permanent burned-in hard subtitles.' },
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}><SubtitleStudio locale={tool.locale} /></ToolPageShell>
