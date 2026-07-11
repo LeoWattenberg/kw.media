@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "test": "node --test",
+    "pretest:browser": "npm run build",
+    "test:browser": "playwright test",
     "preview": "astro preview",
     "astro": "astro",
     "import:youtube": "node scripts/manual-import.js",
@@ -33,5 +35,8 @@
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.0.4",
     "pandoc-wasm": "^1.1.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
   }
 }
