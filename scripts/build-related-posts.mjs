@@ -1,7 +1,8 @@
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { readAllPosts } from './content-ai.mjs';
+import { relatedPathsToRefresh } from './related-posts-utils.mjs';
 
 const ollamaUrl = process.env.OLLAMA_URL ?? process.env.OLLAMA_TRANSLATE_URL ?? 'http://172.20.208.1:11434';
 const embeddingModel = process.env.OLLAMA_RELATED_EMBED_MODEL ?? 'nomic-embed-text-v2-moe:latest';
@@ -13,6 +14,7 @@ const timeoutMs = Number(process.env.OLLAMA_TIMEOUT_MS ?? 300000);
 const shouldRerank = !process.argv.includes('--no-rerank') && process.env.RELATED_POST_RERANK !== '0';
 const dryRun = process.argv.includes('--dry') || process.argv.includes('--dry-run');
 const limit = Number(argumentValue('--limit') ?? process.env.RELATED_POST_LIMIT ?? 0);
+const targetArguments = process.argv.slice(2).filter((argument) => !argument.startsWith('-'));
 const outputPath = join(process.cwd(), 'src/data/related-posts.json');
 const cachePath = join(process.cwd(), '.cache', `related-post-embeddings-${slugify(embeddingModel)}.json`);
 
@@ -20,14 +22,19 @@ if (limit > 0 && !dryRun) {
 	throw new Error('Use --limit only with --dry so the generated related-posts.json is not partial.');
 }
 
+if (limit > 0 && targetArguments.length) {
+	throw new Error('Do not combine target post arguments with --limit.');
+}
+
 const posts = readAllPosts();
-const selectedPosts = limit > 0 ? posts.slice(0, limit) : posts;
+const targetPaths = resolveTargetPaths(posts, targetArguments);
+const incremental = targetPaths.size > 0;
 const cache = readCache();
 const embeddings = new Map();
 
 console.log(`Embedding model: ${embeddingModel}`);
 console.log(`Rerank model: ${shouldRerank ? rerankModel : 'disabled'}`);
-console.log(`Posts: ${selectedPosts.length}${limit ? ` of ${posts.length}` : ''}`);
+console.log(`Posts: ${posts.length}${incremental ? ` (${targetPaths.size} new or changed)` : ''}`);
 
 for (const post of posts) {
 	embeddings.set(post.frontmatter.path, await embeddingForPost(post));
@@ -35,10 +42,49 @@ for (const post of posts) {
 
 writeCache(cache);
 
-const relatedPosts = {};
+const candidatesByPost = new Map(posts.map((post) => [
+	post.frontmatter.path,
+	candidatesForPost(post),
+]));
+const refreshPaths = incremental
+	? new Set(relatedPathsToRefresh(
+		posts,
+		new Map([...candidatesByPost].map(([path, candidates]) => [
+			path,
+			candidates.map((candidate) => candidate.post.frontmatter.path),
+		])),
+		targetPaths,
+	))
+	: undefined;
+const selectedPosts = limit > 0
+	? posts.slice(0, limit)
+	: refreshPaths
+		? posts.filter((post) => refreshPaths.has(post.frontmatter.path))
+		: posts;
+const relatedPosts = incremental ? readRelatedPosts() : {};
+
+console.log(`Reranking: ${selectedPosts.length}${incremental ? ` of ${posts.length}; unaffected entries stay unchanged` : ''}`);
 
 for (const [index, post] of selectedPosts.entries()) {
-	const candidates = posts
+	const candidates = candidatesByPost.get(post.frontmatter.path);
+
+	let selectedPaths = shouldRerank
+		? await rerankCandidates(post, candidates)
+		: [];
+
+	selectedPaths = completeSelection(selectedPaths, candidates);
+
+	if (selectedPaths.length) {
+		relatedPosts[post.frontmatter.path] = selectedPaths;
+	} else {
+		delete relatedPosts[post.frontmatter.path];
+	}
+
+	console.log(`${index + 1}/${selectedPosts.length} ${post.frontmatter.path} -> ${selectedPaths.join(', ')}`);
+}
+
+function candidatesForPost(post) {
+	return posts
 		.filter((candidate) => candidate.frontmatter.path !== post.frontmatter.path)
 		.filter((candidate) => candidate.frontmatter.locale === post.frontmatter.locale)
 		.filter((candidate) => compatibleRelatedCategory(post, candidate))
@@ -49,18 +95,6 @@ for (const [index, post] of selectedPosts.entries()) {
 		.filter((candidate) => candidate.score >= minScore)
 		.sort((a, b) => b.score - a.score)
 		.slice(0, candidateCount);
-
-	let selectedPaths = shouldRerank
-		? await rerankCandidates(post, candidates)
-		: [];
-
-	selectedPaths = completeSelection(selectedPaths, candidates);
-
-	if (selectedPaths.length) {
-		relatedPosts[post.frontmatter.path] = selectedPaths;
-	}
-
-	console.log(`${index + 1}/${selectedPosts.length} ${post.frontmatter.path} -> ${selectedPaths.join(', ')}`);
 }
 
 if (dryRun) {
@@ -264,6 +298,38 @@ function readCache() {
 	}
 
 	return JSON.parse(readFileSync(cachePath, 'utf8'));
+}
+
+function readRelatedPosts() {
+	if (!existsSync(outputPath)) {
+		return {};
+	}
+
+	return JSON.parse(readFileSync(outputPath, 'utf8'));
+}
+
+function resolveTargetPaths(allPosts, argumentsList) {
+	if (!argumentsList.length) {
+		return new Set();
+	}
+
+	const targets = new Set();
+	const unmatched = new Set(argumentsList);
+
+	for (const post of allPosts) {
+		for (const argument of argumentsList) {
+			if (argument === post.frontmatter.path || resolve(argument) === resolve(post.filePath)) {
+				targets.add(post.frontmatter.path);
+				unmatched.delete(argument);
+			}
+		}
+	}
+
+	if (unmatched.size) {
+		throw new Error(`Target post(s) not found: ${[...unmatched].join(', ')}`);
+	}
+
+	return targets;
 }
 
 function writeCache(data) {

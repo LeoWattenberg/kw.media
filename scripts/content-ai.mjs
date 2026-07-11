@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
+import { assertTextLocale } from './language-utils.mjs';
 
 export const postsDir = join(process.cwd(), 'src/data/posts');
 
@@ -111,6 +112,7 @@ export async function cleanupPostFile(filePath, options = {}) {
 	const post = readPostFile(filePath);
 	const model = options.model ?? cleanupModelForCategory(post.frontmatter.category);
 	const cleanedBody = await cleanupMarkdown(post.body, post.frontmatter, model);
+	assertTextLocale(cleanedBody, post.frontmatter.locale, `Cleaned post ${post.frontmatter.path}`);
 	const frontmatter = {
 		...post.frontmatter,
 		excerpt: excerptFromBody(cleanedBody, post.frontmatter.locale),
@@ -123,6 +125,16 @@ export async function cleanupPostFile(filePath, options = {}) {
 		model,
 		category: post.frontmatter.category,
 	};
+}
+
+export async function translateTranscriptMarkdown(markdown, sourceLocale, targetLocale, category = 'video-tutorial') {
+	if (sourceLocale === targetLocale) {
+		return markdown;
+	}
+
+	const translated = await translateMarkdown(markdown, { locale: sourceLocale, category }, targetLocale);
+	assertTextLocale(translated, targetLocale, 'Translated transcript');
+	return translated;
 }
 
 export async function expandTranscriptPostFile(filePath, options = {}) {
