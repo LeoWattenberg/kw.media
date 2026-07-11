@@ -147,10 +147,6 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 						</div>
 						<small data-source-meta></small>
 					</div>
-					<div class="preview-toggle" data-preview-toggle hidden>
-						<button class="button secondary" data-show-source type="button" aria-pressed="true">{copy.showSource}</button>
-						<button class="button secondary" data-show-output type="button" aria-pressed="false">{copy.showOutput}</button>
-					</div>
 					<div class="preview-card converted-preview" data-result hidden>
 						<p>{copy.outputPreview}</p>
 						<div class="preview-frame output-frame">
@@ -194,6 +190,7 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 						<div class="converter-actions">
 							<button class="button primary" data-convert type="button" disabled>{copy.convert}</button>
 							<button class="button secondary" data-clear type="button">{copy.clear}</button>
+							<button class="button secondary" data-preview-toggle type="button" hidden>{copy.showOutput}</button>
 						</div>
 						<ToolStatus class="converter-status" data-status role="status" text={copy.client.waiting} />
 					</ToolPanel>
@@ -233,8 +230,6 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 			const sourcePreviewNote = root.querySelector('[data-source-preview-note]');
 			const sourceMeta = root.querySelector('[data-source-meta]');
 			const previewToggle = root.querySelector('[data-preview-toggle]');
-			const sourceButton = root.querySelector('[data-show-source]');
-			const outputButton = root.querySelector('[data-show-output]');
 			const result = root.querySelector('[data-result]');
 			const outputImage = root.querySelector('[data-output-image]');
 			const outputPreviewNote = root.querySelector('[data-output-preview-note]');
@@ -245,7 +240,7 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 			if (
 				!fileInput || !fileName || !fileMeta || !formatSelect || !qualityControl || !qualityInput ||
 				!qualityLabel || !convertButton || !clearButton || !status || !sourcePreview || !sourceImage ||
-				!sourcePreviewNote || !sourceMeta || !previewToggle || !sourceButton || !outputButton || !result || !outputImage || !outputPreviewNote ||
+				!sourcePreviewNote || !sourceMeta || !previewToggle || !result || !outputImage || !outputPreviewNote ||
 				!outputFormat || !outputMeta || !downloadLink
 			) {
 				return;
@@ -268,8 +263,9 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 			});
 
 			formatSelect.addEventListener('change', updateQualityControl);
-			sourceButton.addEventListener('click', () => showPreview('source'));
-			outputButton.addEventListener('click', () => showPreview('output'));
+			previewToggle.addEventListener('click', () => {
+				showPreview(state.outputUrl && !result.hidden ? 'source' : 'output');
+			});
 			qualityInput.addEventListener('input', () => {
 				qualityLabel.textContent = qualityInput.value;
 			});
@@ -509,8 +505,7 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 				const showOutput = kind === 'output' && Boolean(state.outputUrl);
 				sourcePreview.hidden = showOutput || !state.file;
 				result.hidden = !showOutput;
-				sourceButton.setAttribute('aria-pressed', String(!showOutput));
-				outputButton.setAttribute('aria-pressed', String(showOutput));
+				previewToggle.textContent = showOutput ? copy.showSource : copy.showOutput;
 			}
 
 			function revokeUrl(key) {
@@ -596,19 +591,6 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 		align-items: center;
 		justify-content: space-between;
 		margin-top: 20px;
-	}
-
-	.preview-toggle {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
-		margin-top: 18px;
-	}
-
-	.preview-toggle [aria-pressed='true'] {
-		color: var(--color-accent-on);
-		background: var(--color-accent);
-		border-color: var(--color-accent);
 	}
 
 	.preview-card {
