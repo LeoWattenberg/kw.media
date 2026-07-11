@@ -1,0 +1,287 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import RangeControl from './shared/RangeControl.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Kurzvideo-Tool',
+		title: 'Shorts, TikTok & Reels Safe-Zone-Vorschau',
+		intro: 'Prüfe lokale Hochkantclips auf Bereiche, die von Plattform-Bedienelementen, Untertiteln oder Beschreibungen verdeckt werden können.',
+		privacy: 'Deine Bild- oder Videodatei bleibt in deinem Browser. Die Zonen sind praxisnahe Sicherheitsränder, keine verbindlichen Plattform-Spezifikationen.',
+		source: 'Hochkantclip', choose: 'Bild oder Video auswählen', hint: 'Bild oder Video im Hochformat, idealerweise 9:16',
+		settings: 'Sicherheitszonen', platform: 'Plattform-Vorlage', platformHint: 'Vorlagen passen die Vorsichtszonen an typische UI-Positionen an.',
+		top: 'Oben freihalten', bottom: 'Unten freihalten', right: 'Rechte Seite freihalten',
+		preview: 'Live-Vorschau', safe: 'Sicherer Bereich für wichtige Inhalte', topZone: 'Plattformkopf', bottomZone: 'Beschreibung & Untertitel', rightZone: 'Aktionen',
+		reset: 'Zurücksetzen', waiting: 'Wähle ein Bild oder Video für die Vorschau.', selected: '{name} wird mit Safe Zones angezeigt.', resetDone: 'Die Vorschau wurde zurückgesetzt.',
+		client: { fileMeta: '{size} · {type}', generic: 'Unbekannter Dateityp' },
+	},
+	en: {
+		eyebrow: 'Short-form tool',
+		title: 'Shorts, TikTok & Reels Safe Zone Preview',
+		intro: 'Check local vertical clips against areas that platform controls, captions, and descriptions can cover.',
+		privacy: 'Your image or video stays in your browser. The zones are practical safety margins, not binding platform specifications.',
+		source: 'Vertical clip', choose: 'Choose image or video', hint: 'Portrait image or video, ideally 9:16',
+		settings: 'Safety zones', platform: 'Platform preset', platformHint: 'Presets adjust cautious zones around typical UI positions.',
+		top: 'Keep top clear', bottom: 'Keep bottom clear', right: 'Keep right side clear',
+		preview: 'Live preview', safe: 'Safe area for important content', topZone: 'Platform header', bottomZone: 'Description & captions', rightZone: 'Actions',
+		reset: 'Reset', waiting: 'Choose an image or video to preview.', selected: '{name} is shown with safe zones.', resetDone: 'The preview was reset.',
+		client: { fileMeta: '{size} · {type}', generic: 'Unknown file type' },
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section safe-zone-section tool-workspace">
+	<div class="container">
+		<div class="safe-zone-tool" data-safe-zone-tool data-copy={copyJson}>
+			<ToolPanel class="safe-zone-preview-panel" title={copy.preview}>
+				<div class="vertical-preview" data-preview style="--top-zone: 14%; --bottom-zone: 24%; --right-zone: 22%;">
+					<div class="preview-placeholder" data-placeholder>9:16</div>
+					<img data-image-preview alt="" hidden />
+					<video data-video-preview controls playsinline muted hidden></video>
+					<div class="safe-area" data-safe-label>{copy.safe}</div>
+					<div class="safe-zone safe-zone-top"><span>{copy.topZone}</span></div>
+					<div class="safe-zone safe-zone-bottom"><span>{copy.bottomZone}</span></div>
+					<div class="safe-zone safe-zone-right"><span>{copy.rightZone}</span></div>
+				</div>
+			</ToolPanel>
+
+			<details class="safe-zone-toolbar" open>
+				<summary>{copy.settings}</summary>
+				<ToolPanel title={copy.settings}>
+					<FilePicker
+						label={copy.source}
+						name={copy.choose}
+						hint={copy.hint}
+						accept="image/*,video/*,.avif,.mov,.mkv,.webm"
+						nameAttrs={{ 'data-file-name': true }}
+						metaAttrs={{ 'data-file-meta': true }}
+						inputAttrs={{ 'data-file-input': true }}
+					/>
+					<SelectControl label={copy.platform} selectAttrs={{ 'data-preset': true }}>
+						<option value="shorts">YouTube Shorts</option>
+						<option value="tiktok">TikTok</option>
+						<option value="reels">Instagram Reels</option>
+						<option value="custom">Custom</option>
+					</SelectControl>
+					<p class="platform-hint">{copy.platformHint}</p>
+					<RangeControl label={copy.top} value="14%" valueAttrs={{ 'data-top-label': true }} inputAttrs={{ 'data-top': true, min: 0, max: 30, step: 1, value: 14 }} />
+					<RangeControl label={copy.bottom} value="24%" valueAttrs={{ 'data-bottom-label': true }} inputAttrs={{ 'data-bottom': true, min: 0, max: 40, step: 1, value: 24 }} />
+					<RangeControl label={copy.right} value="22%" valueAttrs={{ 'data-right-label': true }} inputAttrs={{ 'data-right': true, min: 0, max: 35, step: 1, value: 22 }} />
+					<ToolActions><button class="button secondary" data-reset type="button">{copy.reset}</button></ToolActions>
+					<ToolStatus data-status text={copy.waiting} />
+				</ToolPanel>
+			</details>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
+
+	for (const root of document.querySelectorAll('[data-safe-zone-tool]:not([data-bound])')) {
+		root.dataset.bound = 'true';
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const fileInput = root.querySelector('[data-file-input]');
+		const fileName = root.querySelector('[data-file-name]');
+		const fileMeta = root.querySelector('[data-file-meta]');
+		const preset = root.querySelector('[data-preset]');
+		const preview = root.querySelector('[data-preview]');
+		const image = root.querySelector('[data-image-preview]');
+		const video = root.querySelector('[data-video-preview]');
+		const placeholder = root.querySelector('[data-placeholder]');
+		const top = root.querySelector('[data-top]');
+		const bottom = root.querySelector('[data-bottom]');
+		const right = root.querySelector('[data-right]');
+		const topLabel = root.querySelector('[data-top-label]');
+		const bottomLabel = root.querySelector('[data-bottom-label]');
+		const rightLabel = root.querySelector('[data-right-label]');
+		const reset = root.querySelector('[data-reset]');
+		const status = root.querySelector('[data-status]');
+		let sourceUrl = null;
+
+		const presets = {
+			shorts: { top: 14, bottom: 24, right: 22 },
+			tiktok: { top: 12, bottom: 27, right: 24 },
+			reels: { top: 14, bottom: 25, right: 23 },
+		};
+
+		fileInput.addEventListener('change', showFile);
+		preset.addEventListener('change', applyPreset);
+		for (const input of [top, bottom, right]) {
+			input.addEventListener('input', () => {
+				preset.value = 'custom';
+				updateZones();
+			});
+		}
+		reset.addEventListener('click', resetTool);
+
+		function showFile() {
+			const file = fileInput.files?.[0];
+			if (!file) return;
+			if (sourceUrl) URL.revokeObjectURL(sourceUrl);
+			sourceUrl = URL.createObjectURL(file);
+			const isVideo = file.type.startsWith('video/') || /\.(mov|mkv|mp4|webm)$/i.test(file.name);
+			image.hidden = isVideo;
+			video.hidden = !isVideo;
+			placeholder.hidden = true;
+			if (isVideo) video.src = sourceUrl;
+			else image.src = sourceUrl;
+			fileName.textContent = file.name;
+			fileMeta.textContent = format(copy.client.fileMeta, { size: formatBytes(file.size), type: file.type || copy.client.generic });
+			setStatus(format(copy.selected, { name: file.name }), 'success');
+		}
+
+		function applyPreset() {
+			const values = presets[preset.value];
+			if (!values) return;
+			top.value = values.top;
+			bottom.value = values.bottom;
+			right.value = values.right;
+			updateZones();
+		}
+
+		function updateZones() {
+			preview.style.setProperty('--top-zone', `${top.value}%`);
+			preview.style.setProperty('--bottom-zone', `${bottom.value}%`);
+			preview.style.setProperty('--right-zone', `${right.value}%`);
+			topLabel.textContent = `${top.value}%`;
+			bottomLabel.textContent = `${bottom.value}%`;
+			rightLabel.textContent = `${right.value}%`;
+		}
+
+		function resetTool() {
+			fileInput.value = '';
+			fileName.textContent = copy.choose;
+			fileMeta.textContent = copy.hint;
+			image.removeAttribute('src');
+			video.pause();
+			video.removeAttribute('src');
+			image.hidden = true;
+			video.hidden = true;
+			placeholder.hidden = false;
+			if (sourceUrl) URL.revokeObjectURL(sourceUrl);
+			sourceUrl = null;
+			preset.value = 'shorts';
+			applyPreset();
+			setStatus(copy.resetDone, 'info');
+		}
+
+		function setStatus(message, state) {
+			status.textContent = message;
+			status.dataset.state = state;
+		}
+	}
+</script>
+
+<style>
+	.safe-zone-tool {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+		gap: 18px;
+		align-items: start;
+	}
+
+	.safe-zone-toolbar {
+		display: contents;
+	}
+
+	.safe-zone-toolbar > summary {
+		display: none;
+	}
+
+	.platform-hint {
+		margin: 8px 0 0;
+		color: var(--color-muted);
+		font-size: 0.9rem;
+	}
+
+	.vertical-preview {
+		position: relative;
+		isolation: isolate;
+		width: min(100%, 430px);
+		aspect-ratio: 9 / 16;
+		margin-inline: auto;
+		overflow: hidden;
+		background: #131318;
+		border: 1px solid var(--color-line);
+		border-radius: 12px;
+	}
+
+	.vertical-preview img,
+	.vertical-preview video,
+	.preview-placeholder {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.preview-placeholder {
+		display: grid;
+		place-items: center;
+		color: var(--color-muted);
+		background: linear-gradient(145deg, #22232b, #101116);
+		font-size: clamp(2rem, 8vw, 4rem);
+		font-weight: 900;
+	}
+
+	.safe-area {
+		position: absolute;
+		z-index: 2;
+		top: var(--top-zone);
+		right: var(--right-zone);
+		bottom: var(--bottom-zone);
+		left: 7%;
+		display: grid;
+		place-items: center;
+		padding: 16px;
+		color: white;
+		border: 2px solid #aaf2d7;
+		border-radius: 6px;
+		background: color-mix(in srgb, #0b8f66 12%, transparent);
+		font-size: 0.82rem;
+		font-weight: 850;
+		text-align: center;
+		text-shadow: 0 1px 2px #000;
+		pointer-events: none;
+	}
+
+	.safe-zone {
+		position: absolute;
+		z-index: 1;
+		display: grid;
+		padding: 8px;
+		color: white;
+		background: color-mix(in srgb, #df4a58 48%, transparent);
+		font-size: 0.72rem;
+		font-weight: 850;
+		text-shadow: 0 1px 2px #000;
+		pointer-events: none;
+	}
+
+	.safe-zone-top { inset: 0 0 auto; height: var(--top-zone); align-content: start; }
+	.safe-zone-bottom { inset: auto 0 0; height: var(--bottom-zone); align-content: end; }
+	.safe-zone-right { inset: var(--top-zone) 0 var(--bottom-zone) auto; width: var(--right-zone); align-content: center; text-align: right; }
+
+	@media (max-width: 860px) {
+		.safe-zone-tool { grid-template-columns: 1fr; }
+		.safe-zone-toolbar { display: block; background: var(--color-surface-alt); border: 1px solid var(--color-line); border-radius: 8px; }
+		.safe-zone-toolbar > summary { display: block; padding: 18px; font-weight: 850; cursor: pointer; }
+		.safe-zone-toolbar > .tool-panel { border: 0; border-top: 1px solid var(--color-line); border-radius: 0 0 8px 8px; }
+	}
+</style>

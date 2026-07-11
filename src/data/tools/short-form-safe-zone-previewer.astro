@@ -1,0 +1,27 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import ShortFormSafeZonePreviewer from '../../components/tools/ShortFormSafeZonePreviewer.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('short-form-safe-zone-previewer', {
+	id: 'short-form-safe-zone-previewer',
+	translations: {
+		de: {
+			path: '/de/tools/short-form-safe-zone-previewer/',
+			title: 'Shorts, TikTok & Reels Safe Zones',
+			description: 'Prüfe lokale Hochkantvideos und Bilder auf sichere Bereiche für Untertitel, Text und wichtige Overlays.',
+		},
+		en: {
+			path: '/en/tools/short-form-safe-zone-previewer/',
+			title: 'Shorts, TikTok & Reels Safe Zones',
+			description: 'Check local vertical videos and images for safe areas for captions, text, and important overlays.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<ShortFormSafeZonePreviewer locale={tool.locale} />
+</ToolPageShell>
