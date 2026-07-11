@@ -79,6 +79,7 @@ export const virtualConverterDefinitions: VirtualConverterDefinition[] = [
 		['document-to-html', 'html', 'HTML', 'HTML'],
 		['document-to-markdown', 'markdown', 'Markdown', 'Markdown'],
 		['document-to-txt', 'plain', 'plain text', 'Klartext'],
+		['document-to-pdf', 'pdf', 'PDF', 'PDF'],
 		['document-to-docx', 'docx', 'DOCX', 'DOCX'],
 		['document-to-odt', 'odt', 'ODT', 'ODT'],
 		['document-to-epub', 'epub', 'EPUB', 'EPUB'],

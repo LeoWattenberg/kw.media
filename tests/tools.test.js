@@ -10,7 +10,9 @@ import {
 	formatTime,
 } from '../src/lib/tools/abx-tester.js';
 import {
+	DOCUMENT_OUTPUT_PROFILES,
 	buildOutputName as buildDocumentOutputName,
+	buildPandocOptions,
 	detectInputFormat,
 	isBinaryInput,
 } from '../src/lib/tools/document-converter.js';
@@ -144,6 +146,14 @@ test('document converter detects binary pandoc inputs and output names', () => {
 	assert.equal(isBinaryInput({ type: 'text/markdown' }, 'markdown'), false);
 	assert.equal(buildDocumentOutputName('draft.v2.md', '.html'), 'draft.v2.html');
 	assert.equal(buildDocumentOutputName('', '.txt'), 'converted-document.txt');
+	assert.deepEqual(DOCUMENT_OUTPUT_PROFILES.map((profile) => profile.value), [
+		'html', 'markdown', 'plain', 'pdf', 'docx', 'odt', 'epub', 'latex', 'rtf',
+	]);
+	assert.deepEqual(buildPandocOptions(DOCUMENT_OUTPUT_PROFILES.find((profile) => profile.value === 'docx'), 'output.docx'), {
+		to: 'docx',
+		'output-file': 'output.docx',
+	});
+	assert.deepEqual(buildPandocOptions(DOCUMENT_OUTPUT_PROFILES.find((profile) => profile.value === 'latex'), 'output.tex'), { to: 'latex' });
 });
 
 test('subtitle burner creates ASS styles and FFmpeg burn-in arguments', () => {
