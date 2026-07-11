@@ -1,5 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const port = Number(process.env.PLAYWRIGHT_PORT ?? 4322);
+const baseURL = `http://127.0.0.1:${port}`;
+
 export default defineConfig({
 	testDir: './tests/browser',
 	timeout: 30000,
@@ -8,13 +11,13 @@ export default defineConfig({
 	},
 	fullyParallel: true,
 	webServer: {
-		command: 'npm run preview -- --host 127.0.0.1 --port 4321',
-		url: 'http://127.0.0.1:4321',
-		reuseExistingServer: true,
+		command: `npm run preview -- --host 127.0.0.1 --port ${port}`,
+		url: baseURL,
+		reuseExistingServer: false,
 		timeout: 30000,
 	},
 	use: {
-		baseURL: 'http://127.0.0.1:4321',
+		baseURL,
 		trace: 'on-first-retry',
 	},
 	projects: [
