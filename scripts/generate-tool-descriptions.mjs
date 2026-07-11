@@ -7,8 +7,7 @@ import process from 'node:process';
 const root = process.cwd();
 const toolsDirectory = path.join(root, 'src/data/tools');
 const args = process.argv.slice(2);
-const writeChanges = args.includes('--write');
-const dryRun = !writeChanges || args.includes('--dry');
+const dryRun = args.includes('--dry');
 const model = optionValue('--model') || process.env.OLLAMA_TOOL_DESCRIPTION_MODEL || 'aya-expanse:8b';
 const ollamaUrl = process.env.OLLAMA_URL ?? process.env.OLLAMA_TRANSLATE_URL ?? 'http://172.20.208.1:11434';
 const limit = Number(optionValue('--limit') || 0);
@@ -59,7 +58,7 @@ for (const candidate of selected) {
 }
 
 if (dryRun) {
-	console.log('\nDry run only. Re-run with --write to update the descriptions.');
+	console.log('\nDry run only. Re-run without --dry to update the descriptions.');
 	process.exit(0);
 }
 
