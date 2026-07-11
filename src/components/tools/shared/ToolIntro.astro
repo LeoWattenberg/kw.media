@@ -1,4 +1,6 @@
 ---
+import generatedToolMetadata from '../../../data/generated-tool-metadata.json';
+
 interface Props {
 	eyebrow: string;
 	title: string;
@@ -7,13 +9,16 @@ interface Props {
 }
 
 const { eyebrow, title, intro, note } = Astro.props;
+const pagePath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const generated = generatedToolMetadata as Record<string, { description?: string }>;
+const lede = generated[pagePath]?.description ?? intro;
 ---
 
 <section class="tool-intro">
 	<div class="container">
 		<p class="eyebrow">{eyebrow}</p>
 		<h1>{title}</h1>
-		<p class="tool-lede">{intro}</p>
+		<p class="tool-lede">{lede}</p>
 		{note && <p class="tool-note">{note}</p>}
 	</div>
 </section>

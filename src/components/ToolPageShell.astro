@@ -14,5 +14,5 @@ const { tool, alternatePaths } = Astro.props;
 
 <ToolsLayout tool={tool} alternatePaths={alternatePaths}>
 	<slot />
-	<ToolDescription locale={tool.locale} description={tool.description} />
+	<ToolDescription locale={tool.locale} description={tool.description} content={tool.content} />
 </ToolsLayout>

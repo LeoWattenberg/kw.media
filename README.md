@@ -25,6 +25,7 @@ Run commands from the project root:
 | `npm run fix:posts -- --all-fixes` | Also apply local-AI title/excerpt metadata suggestions |
 | `npm run metadata:posts -- --weak --output=.cache/post-metadata-suggestions.json` | Generate local-AI metadata suggestions for weak posts |
 | `npm run description:tools -- --dry` | Preview local-AI SEO-description suggestions for tool pages; run without `--dry` to apply them |
+| `npm run content:tools -- --dry --limit=5` | Preview local-AI multi-paragraph tool copy; run without `--dry` to store it below each tool |
 | `npm run cta:posts -- --missing --dry` | Preview local-AI post CTAs with relevant site-page links |
 | `npm run tags:posts -- --missing --dry` | Preview local-AI post tags (3-10 per post) and the global tag list |
 | `npm run excerpt:posts -- --weak --dry` | Preview local-AI excerpt repairs for weak posts |
@@ -50,6 +51,8 @@ OLLAMA_POST_CTA_MODEL=aya-expanse:32b
 OLLAMA_POST_TAG_MODEL=aya-expanse:32b
 OLLAMA_INLINE_LINK_MODEL=gemma4:31b
 OLLAMA_TRANSCRIPT_EXPAND_MODEL=gemma4:31b
+OLLAMA_TOOL_DESCRIPTION_MODEL=aya-expanse:8b
+OLLAMA_TOOL_CONTENT_MODEL=aya-expanse:8b
 ```
 
 Cleanup model selection:
@@ -62,6 +65,7 @@ Cleanup model selection:
 - Post tagging uses `OLLAMA_POST_TAG_MODEL`, falling back to `OLLAMA_METADATA_MODEL`.
 - Inline post linking uses `OLLAMA_INLINE_LINK_MODEL`, defaulting to `gemma4:31b` for higher-quality anchor selection. Use `aya-expanse:32b` if speed matters more than precision.
 - Transcript expansion uses `OLLAMA_TRANSCRIPT_EXPAND_MODEL`, defaulting to the deep cleanup model, to turn thin transcript-style video posts into fuller article bodies.
+- Tool meta descriptions use `OLLAMA_TOOL_DESCRIPTION_MODEL`; expanded below-tool copy uses `OLLAMA_TOOL_CONTENT_MODEL` and falls back to the description model.
 
 Generated translation pairs are connected with `translationKey` frontmatter, and video translations can also be inferred from shared `youtubeId`. The YouTube importer extracts external links from each video description into `sources` frontmatter; use `npm run import:missing-sources` to backfill existing video posts.
 

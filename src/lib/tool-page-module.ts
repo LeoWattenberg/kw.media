@@ -6,6 +6,7 @@ export interface ToolPage {
 	locale: Locale;
 	title: string;
 	description: string;
+	content?: string[];
 }
 
 export interface ToolPageTranslation {
@@ -13,6 +14,7 @@ export interface ToolPageTranslation {
 	path: string;
 	title: string;
 	description: string;
+	content?: string[];
 }
 
 export interface ToolPageTranslations {
@@ -34,6 +36,7 @@ export function defineToolModule(id: string, source: ToolPageTranslations): Tool
 			locale: locale as Locale,
 			title: translation.title,
 			description: translation.description,
+			content: translation.content,
 		})),
 	};
 }

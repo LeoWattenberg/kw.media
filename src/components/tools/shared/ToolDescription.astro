@@ -4,9 +4,11 @@ import type { Locale } from '../../../i18n';
 interface Props {
 	locale: Locale;
 	description: string;
+	content?: string[];
 }
 
-const { locale, description } = Astro.props;
+const { locale, description, content = [] } = Astro.props;
+const paragraphs = content.length ? content : [description];
 const copy = locale === 'de'
 	? { eyebrow: 'Tool-Beschreibung', title: 'Was dieses Tool macht' }
 	: { eyebrow: 'Tool description', title: 'What this tool does' };
@@ -17,7 +19,9 @@ const copy = locale === 'de'
 		<div class="tool-description-card">
 			<p class="eyebrow">{copy.eyebrow}</p>
 			<h2>{copy.title}</h2>
-			<p>{description}</p>
+			<div class="tool-description-copy">
+				{paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+			</div>
 		</div>
 	</div>
 </section>
@@ -34,7 +38,8 @@ const copy = locale === 'de'
 
 	.tool-description-card .eyebrow,
 	.tool-description-card h2,
-	.tool-description-card p:last-child {
+	.tool-description-copy,
+	.tool-description-copy p {
 		margin: 0;
 	}
 
@@ -44,8 +49,13 @@ const copy = locale === 'de'
 		letter-spacing: 0;
 	}
 
-	.tool-description-card p:last-child {
+	.tool-description-copy {
 		margin-top: 14px;
+		display: grid;
+		gap: 12px;
+	}
+
+	.tool-description-copy p {
 		color: var(--color-muted);
 		font-size: 1.04rem;
 		line-height: 1.6;
