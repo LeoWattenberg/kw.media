@@ -1,0 +1,241 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props { locale: Locale }
+
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'KI-Untertitel-Tool', title: 'Whisper Untertitel-Generator',
+		intro: 'Erzeuge mit whisper.cpp automatisch SRT- oder WebVTT-Untertitel aus lokalen Audio- und Videodateien.',
+		privacy: 'Deine Datei bleibt im Browser. Nur das etwa 78 MB große Whisper-Modell wird beim ersten Start geladen und lokal zwischengespeichert.',
+		media: 'Audio oder Video', choose: 'Mediendatei auswählen', hint: 'Audio und Video bis 30 Minuten; die Browserunterstützung bestimmt die lesbaren Codecs.',
+		settings: 'Transkription', language: 'Gesprochene Sprache', automatic: 'Automatisch erkennen', german: 'Deutsch', english: 'Englisch',
+		task: 'Aufgabe', transcribe: 'In Originalsprache transkribieren', translate: 'Ins Englische übersetzen',
+		generate: 'Untertitel erzeugen', clear: 'Zurücksetzen', result: 'Ergebnis', preview: 'Untertitelvorschau',
+		downloadSrt: 'SRT herunterladen', downloadVtt: 'WebVTT herunterladen', waiting: 'Wähle eine Audio- oder Videodatei aus.',
+		isolation: 'Der lokale KI-Arbeitsbereich wird vorbereitet. Die Seite wird einmal neu geladen…', unsupported: 'Dieser Browser kann den benötigten isolierten WebAssembly-Arbeitsbereich nicht einrichten.',
+		decoding: 'Audio wird lokal dekodiert…', runtime: 'whisper.cpp wird vom CDN geladen…', model: 'Whisper-Modell wird geladen… {progress}%',
+		modelCached: 'Zwischengespeichertes Whisper-Modell wird geladen… {progress}%', transcribing: 'Whisper transkribiert die Datei. Das kann einige Minuten dauern…',
+		ready: '{count} Untertitel wurden erzeugt.', noCues: 'Whisper hat keine gesprochenen Untertitel erkannt.', tooLong: 'Die Mediendatei ist länger als 30 Minuten.',
+		error: 'Untertitel konnten nicht erzeugt werden: {message}', generic: 'Unbekannter Fehler', selected: '{name} · {size}',
+	},
+	en: {
+		eyebrow: 'AI subtitle tool', title: 'Whisper Subtitle Generator',
+		intro: 'Automatically create SRT or WebVTT subtitles from local audio and video with whisper.cpp.',
+		privacy: 'Your file stays in the browser. Only the roughly 78 MB Whisper model is downloaded once and cached locally.',
+		media: 'Audio or video', choose: 'Choose a media file', hint: 'Audio and video up to 30 minutes; readable codecs depend on browser support.',
+		settings: 'Transcription', language: 'Spoken language', automatic: 'Detect automatically', german: 'German', english: 'English',
+		task: 'Task', transcribe: 'Transcribe in the original language', translate: 'Translate into English',
+		generate: 'Generate subtitles', clear: 'Reset', result: 'Result', preview: 'Subtitle preview',
+		downloadSrt: 'Download SRT', downloadVtt: 'Download WebVTT', waiting: 'Choose an audio or video file.',
+		isolation: 'Preparing the local AI workspace. The page will reload once…', unsupported: 'This browser cannot prepare the isolated WebAssembly workspace that whisper.cpp needs.',
+		decoding: 'Decoding audio locally…', runtime: 'Loading whisper.cpp from the CDN…', model: 'Downloading the Whisper model… {progress}%',
+		modelCached: 'Loading the cached Whisper model… {progress}%', transcribing: 'Whisper is transcribing the file. This can take several minutes…',
+		ready: '{count} subtitle cues were generated.', noCues: 'Whisper did not detect any spoken subtitle cues.', tooLong: 'The media file is longer than 30 minutes.',
+		error: 'Subtitles could not be generated: {message}', generic: 'Unknown error', selected: '{name} · {size}',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section whisper-section tool-workspace">
+	<div class="container">
+		<div class="whisper-tool" data-whisper-subtitle-generator data-copy={copyJson}>
+			<ToolPanel title={copy.media}>
+				<FilePicker label={copy.choose} name={copy.choose} hint={copy.hint} accept="audio/*,video/*,.m4a,.mkv,.mov,.mp3,.mp4,.ogg,.wav,.webm" nameAttrs={{ 'data-file-name': true }} metaAttrs={{ 'data-file-meta': true }} inputAttrs={{ 'data-file': true }} />
+				<audio data-audio-preview controls hidden></audio>
+			</ToolPanel>
+
+			<ToolPanel title={copy.settings}>
+				<SelectControl label={copy.language} selectAttrs={{ 'data-language': true }}>
+					<option value="auto">{copy.automatic}</option>
+					<option value="de">{copy.german}</option>
+					<option value="en">{copy.english}</option>
+				</SelectControl>
+				<SelectControl label={copy.task} selectAttrs={{ 'data-task': true }}>
+					<option value="transcribe">{copy.transcribe}</option>
+					<option value="translate">{copy.translate}</option>
+				</SelectControl>
+				<ToolActions>
+					<button class="button primary" data-generate type="button" disabled>{copy.generate}</button>
+					<button class="button secondary" data-clear type="button">{copy.clear}</button>
+				</ToolActions>
+				<ToolStatus data-status text={copy.waiting} />
+			</ToolPanel>
+
+			<ToolPanel class="whisper-result" title={copy.result}>
+				<label class="whisper-preview-label">
+					<span>{copy.preview}</span>
+					<textarea data-preview rows="16" readonly placeholder={copy.waiting}></textarea>
+				</label>
+				<div class="whisper-downloads">
+					<a class="tool-download-link" data-download-srt href="#" download hidden>{copy.downloadSrt}</a>
+					<a class="tool-download-link" data-download-vtt href="#" download hidden>{copy.downloadVtt}</a>
+				</div>
+			</ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
+	import {
+		createWhisperRuntime,
+		decodeAudioFile,
+		fetchWhisperModel,
+		parseWhisperLog,
+		renderWhisperSubtitles,
+		whisperSubtitleOutputName,
+	} from '../../lib/tools/whisper-subtitle-generator';
+
+	for (const root of document.querySelectorAll('[data-whisper-subtitle-generator]:not([data-bound])')) {
+		root.dataset.bound = 'true';
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const fileInput = root.querySelector('[data-file]');
+		const fileName = root.querySelector('[data-file-name]');
+		const fileMeta = root.querySelector('[data-file-meta]');
+		const audioPreview = root.querySelector('[data-audio-preview]');
+		const language = root.querySelector('[data-language]');
+		const task = root.querySelector('[data-task]');
+		const generate = root.querySelector('[data-generate]');
+		const clear = root.querySelector('[data-clear]');
+		const status = root.querySelector('[data-status]');
+		const preview = root.querySelector('[data-preview]');
+		const downloadSrt = root.querySelector('[data-download-srt]');
+		const downloadVtt = root.querySelector('[data-download-vtt]');
+		let mediaUrl = null;
+		let srtUrl = null;
+		let vttUrl = null;
+		let runtime = null;
+		let modelLoaded = false;
+
+		fileInput.addEventListener('change', onFile);
+		generate.addEventListener('click', () => void generateSubtitles());
+		clear.addEventListener('click', reset);
+		void prepareIsolation();
+
+		function onFile() {
+			const file = fileInput.files?.[0];
+			if (mediaUrl) URL.revokeObjectURL(mediaUrl);
+			mediaUrl = file ? URL.createObjectURL(file) : null;
+			audioPreview.hidden = !file;
+			if (file) audioPreview.src = mediaUrl;
+			else audioPreview.removeAttribute('src');
+			fileName.textContent = file?.name || copy.choose;
+			fileMeta.textContent = file ? format(copy.selected, { name: file.type || 'media', size: formatBytes(file.size) }) : copy.hint;
+			generate.disabled = !file || !globalThis.crossOriginIsolated;
+			setStatus(file ? format(copy.selected, { name: file.name, size: formatBytes(file.size) }) : copy.waiting, file ? 'success' : 'info');
+		}
+
+		async function prepareIsolation() {
+			if (globalThis.crossOriginIsolated && typeof SharedArrayBuffer !== 'undefined') return;
+			if (!('serviceWorker' in navigator) || !globalThis.isSecureContext) {
+				setStatus(copy.unsupported, 'error');
+				return;
+			}
+
+			setStatus(copy.isolation, 'info');
+			const base = import.meta.env.BASE_URL;
+			const registration = await navigator.serviceWorker.register(`${base}whisper-coi-serviceworker.js`, { scope: base });
+			await navigator.serviceWorker.ready;
+			if (registration.active) location.reload();
+		}
+
+		async function generateSubtitles() {
+			const file = fileInput.files?.[0];
+			if (!file) return;
+			generate.disabled = true;
+			hideDownloads();
+
+			try {
+				setStatus(copy.decoding, 'info');
+				const audio = await decodeAudioFile(file);
+				if (audio.length > 30 * 60 * 16_000) throw new Error(copy.tooLong);
+				const logLines = [];
+
+				if (!runtime) {
+					setStatus(copy.runtime, 'info');
+					runtime = await createWhisperRuntime((line) => logLines.push(String(line)));
+				}
+
+				if (!modelLoaded) {
+					const bytes = await fetchWhisperModel((received, total, cached) => {
+						const progress = Math.min(100, Math.round(received / total * 100));
+						setStatus(format(cached ? copy.modelCached : copy.model, { progress }), 'info');
+					});
+					runtime.FS_createDataFile('/', 'whisper.bin', bytes, true, true);
+					if (!runtime.init('whisper.bin')) throw new Error(copy.generic);
+					modelLoaded = true;
+				}
+
+				setStatus(copy.transcribing, 'info');
+				const result = runtime.full_default(audio, language.value, task.value === 'translate');
+				if (result !== 0) throw new Error(`whisper.cpp exited with code ${result}`);
+				const cues = parseWhisperLog(logLines);
+				if (!cues.length) throw new Error(copy.noCues);
+
+				const srt = renderWhisperSubtitles(logLines, 'srt');
+				const vtt = renderWhisperSubtitles(logLines, 'vtt');
+				preview.value = srt;
+				srtUrl = updateDownload(downloadSrt, srtUrl, srt, whisperSubtitleOutputName(file.name, 'srt'), 'application/x-subrip');
+				vttUrl = updateDownload(downloadVtt, vttUrl, vtt, whisperSubtitleOutputName(file.name, 'vtt'), 'text/vtt');
+				setStatus(format(copy.ready, { count: cues.length }), 'success');
+			} catch (error) {
+				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
+			} finally {
+				generate.disabled = !fileInput.files?.[0] || !globalThis.crossOriginIsolated;
+			}
+		}
+
+		function updateDownload(link, oldUrl, content, name, type) {
+			if (oldUrl) URL.revokeObjectURL(oldUrl);
+			const url = URL.createObjectURL(new Blob([content], { type }));
+			link.href = url;
+			link.download = name;
+			link.hidden = false;
+			return url;
+		}
+
+		function hideDownloads() {
+			for (const link of [downloadSrt, downloadVtt]) link.hidden = true;
+			preview.value = '';
+		}
+
+		function reset() {
+			fileInput.value = '';
+			for (const url of [mediaUrl, srtUrl, vttUrl]) if (url) URL.revokeObjectURL(url);
+			mediaUrl = srtUrl = vttUrl = null;
+			audioPreview.hidden = true;
+			audioPreview.removeAttribute('src');
+			fileName.textContent = copy.choose;
+			fileMeta.textContent = copy.hint;
+			generate.disabled = true;
+			hideDownloads();
+			setStatus(copy.waiting, 'info');
+		}
+
+		function setStatus(message, state) {
+			status.textContent = message;
+			status.dataset.state = state;
+		}
+	}
+</script>
+
+<style>
+	.whisper-tool { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+	.whisper-result { grid-column: 1 / -1; }
+	.whisper-tool audio { width: 100%; margin-top: 14px; }
+	.whisper-preview-label { display: grid; gap: 8px; font-weight: 800; }
+	.whisper-preview-label textarea { box-sizing: border-box; width: 100%; padding: 12px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 6px; font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; resize: vertical; }
+	.whisper-downloads { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+	@media (max-width: 860px) { .whisper-tool { grid-template-columns: 1fr; } }
+</style>

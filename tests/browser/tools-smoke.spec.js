@@ -25,6 +25,7 @@ const toolPages = [
 	['/en/tools/converter/video-to-gif/', 'Video to GIF', '[data-video-gif]'],
 	['/en/tools/short-form-safe-zone-previewer/', 'Shorts, TikTok & Reels Safe Zones', '[data-safe-zone-tool]'],
 	['/en/tools/subtitle-burner/', 'Subtitle Burner', '[data-subtitle-burner]'],
+	['/en/tools/whisper-subtitle-generator/', 'Whisper Subtitle Generator', '[data-whisper-subtitle-generator]'],
 	['/en/tools/crop-doctor/', 'Crop Doctor', '[data-crop-doctor]'],
 	['/en/tools/delivery-doctor/', 'Delivery Doctor', '[data-delivery-doctor]'],
 	['/en/tools/face-object-redactor/', 'Face/Object Redactor', '[data-redactor]'],
@@ -97,6 +98,17 @@ test.describe('tool pages browser smoke', () => {
 });
 
 test.describe('visual tool interactions', () => {
+	test('Whisper subtitle generator prepares its isolated WebAssembly workspace', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		await page.goto('/en/tools/whisper-subtitle-generator/');
+		await page.waitForEvent('framenavigated');
+		await page.waitForLoadState('load');
+
+		expect(await page.evaluate(() => globalThis.crossOriginIsolated)).toBe(true);
+		await expect(page.locator('[data-whisper-subtitle-generator]')).toBeVisible();
+		expect(errors).toEqual([]);
+	});
+
 	test('YouTube thumbnail preview updates image and title previews', async ({ page }) => {
 		const errors = collectClientErrors(page);
 		await page.goto('/en/tools/youtube-thumbnail-preview/');
