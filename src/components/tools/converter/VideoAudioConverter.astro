@@ -119,10 +119,6 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 						inputAttrs={{ 'data-file-input': true }}
 					/>
 					<div class="media-preview" data-media-preview hidden>
-						<div class="preview-toggle" data-preview-toggle hidden>
-							<button class="button secondary" data-show-source type="button" aria-pressed="true">{copy.showSource}</button>
-							<button class="button secondary" data-show-output type="button" aria-pressed="false">{copy.showOutput}</button>
-						</div>
 						<div class="media-preview-frame">
 							<video data-source-video controls playsinline hidden></video>
 							<audio data-source-audio controls hidden></audio>
@@ -149,6 +145,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 						<ToolActions>
 							<button class="button primary" data-process type="button" disabled>{copy.process}</button>
 							<button class="button secondary" data-clear type="button">{copy.clear}</button>
+							<button class="button secondary" data-preview-toggle type="button" hidden>{copy.showOutput}</button>
 						</ToolActions>
 						<ToolStatus data-status text={copy.statusWaiting} />
 					</ToolPanel>
@@ -192,8 +189,6 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 			const downloadLink = root.querySelector('[data-download]');
 			const mediaPreview = root.querySelector('[data-media-preview]');
 			const previewToggle = root.querySelector('[data-preview-toggle]');
-			const sourceButton = root.querySelector('[data-show-source]');
-			const outputButton = root.querySelector('[data-show-output]');
 			const sourceVideo = root.querySelector('[data-source-video]');
 			const sourceAudio = root.querySelector('[data-source-audio]');
 			const outputVideo = root.querySelector('[data-output-video]');
@@ -203,6 +198,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 				selectedFile: null,
 				inputUrl: null,
 				downloadUrl: null,
+				outputKind: null,
 			};
 			const ffmpegRuntime = createFfmpegRuntime({
 				timeoutMessage: copy.statusFfmpegTimeout,
@@ -223,8 +219,10 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 				void convertFile();
 			});
 			clearButton.addEventListener('click', resetTool);
-			sourceButton.addEventListener('click', () => showMediaPreview('source'));
-			outputButton.addEventListener('click', () => showMediaPreview('output'));
+			previewToggle.addEventListener('click', () => {
+				const showingOutput = Boolean(state.downloadUrl && (!outputVideo.hidden || !outputAudio.hidden));
+				showMediaPreview(showingOutput ? 'source' : 'output');
+			});
 
 			function selectFile(file) {
 				clearOutput();
@@ -270,6 +268,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 					}
 
 					state.downloadUrl = url;
+					state.outputKind = outputProfile.kind;
 					downloadLink.href = url;
 					downloadLink.download = buildOutputName(state.selectedFile.name, outputProfile.extension);
 					downloadLink.hidden = false;
@@ -381,6 +380,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 					URL.revokeObjectURL(state.downloadUrl);
 					state.downloadUrl = null;
 				}
+				state.outputKind = null;
 				downloadLink.hidden = true;
 				downloadLink.removeAttribute('href');
 				downloadLink.removeAttribute('download');
@@ -396,7 +396,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 				}
 
 				const showingOutput = view === 'output';
-				const kind = showingOutput ? getSelectedProfile().kind : detectMediaKind(state.selectedFile);
+				const kind = showingOutput ? state.outputKind : detectMediaKind(state.selectedFile);
 				const active = showingOutput
 					? (kind === 'audio' ? outputAudio : outputVideo)
 					: (kind === 'audio' ? sourceAudio : sourceVideo);
@@ -413,8 +413,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 					active.src = url;
 				}
 				mediaPreview.hidden = false;
-				sourceButton.setAttribute('aria-pressed', String(!showingOutput));
-				outputButton.setAttribute('aria-pressed', String(showingOutput));
+				previewToggle.textContent = showingOutput ? copy.showSource : copy.showOutput;
 			}
 
 			function getSelectedProfile() {
@@ -472,17 +471,6 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 		width: min(100%, 560px);
 	}
 
-	.preview-toggle {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
-	}
-
-	.preview-toggle [aria-pressed='true'] {
-		color: var(--color-accent-on);
-		background: var(--color-accent);
-		border-color: var(--color-accent);
-	}
 
 	.file-picker span,
 	.select-control span,
