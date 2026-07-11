@@ -55,6 +55,8 @@ const copyByLocale = {
 		selectedMeta: '{size} · {type}',
 		outputTitle: 'Ergebnis',
 		outputHelp: 'Die Ausgabe wird direkt heruntergeladen. Für PDF- oder andere externe Ausgabeformate sind zusätzliche Schritte nötig.',
+		previewTitle: 'Vorschau der konvertierten Datei',
+		previewUnavailable: 'Für dieses Zielformat ist keine sichere Browser-Vorschau verfügbar. Du kannst die Datei herunterladen.',
 	},
 	en: {
 		eyebrow: 'Document tool',
@@ -82,6 +84,8 @@ const copyByLocale = {
 		selectedMeta: '{size} · {type}',
 		outputTitle: 'Result',
 		outputHelp: 'The output is downloaded right away. PDF and other external output formats require extra steps.',
+		previewTitle: 'Converted-file preview',
+		previewUnavailable: 'This target format cannot be previewed safely in the browser. You can download the file.',
 	},
 } satisfies Record<Locale, Record<string, string>>;
 
@@ -101,40 +105,48 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 <section class="section converter-section tool-workspace">
 	<div class="container">
 		<div class="converter-tool" data-document-converter data-copy={copyJson} data-profiles={profilesJson} data-default-profile={normalizedDefaultProfile}>
-			<ToolPanel class="converter-panel" title={copy.fileLabel}>
-				<FilePicker
-					label={copy.chooseFile}
-					name={copy.chooseFile}
-					hint={copy.fileHint}
-					accept=".md,.markdown,.txt,.html,.htm,.tex,.rst,.adoc,.docx,.odt,.rtf,.epub"
-					nameAttrs={{ 'data-file-name': true }}
-					metaAttrs={{ 'data-file-meta': true }}
-					inputAttrs={{ 'data-file-input': true }}
-				/>
-				<ToolActions>
-					<button class="button primary" data-process type="button" disabled>{copy.process}</button>
-					<button class="button secondary" data-clear type="button">{copy.clear}</button>
-				</ToolActions>
-			</ToolPanel>
+			<div class="converter-workspace">
+				<ToolPanel class="converter-panel converter-stage" title={copy.fileLabel}>
+					<FilePicker
+						label={copy.chooseFile}
+						name={copy.chooseFile}
+						hint={copy.fileHint}
+						accept=".md,.markdown,.txt,.html,.htm,.tex,.rst,.adoc,.docx,.odt,.rtf,.epub"
+						nameAttrs={{ 'data-file-name': true }}
+						metaAttrs={{ 'data-file-meta': true }}
+						inputAttrs={{ 'data-file-input': true }}
+					/>
+					<ToolResultCard
+						title={copy.selectedFile.replace('{name}', copy.chooseFile)}
+						meta={copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}
+						downloadLabel={copy.download}
+						titleAttrs={{ 'data-result-title': true }}
+						metaAttrs={{ 'data-result-meta': true }}
+						downloadAttrs={{ 'data-download': true }}
+					/>
+					<div class="document-preview" data-document-preview hidden>
+						<p>{copy.previewTitle}</p>
+						<iframe data-html-preview title={copy.previewTitle} sandbox hidden></iframe>
+						<pre data-text-preview hidden></pre>
+						<small data-preview-unavailable hidden>{copy.previewUnavailable}</small>
+					</div>
+					<p class="output-help">{copy.outputHelp}</p>
+				</ToolPanel>
 
-			<ToolPanel class="converter-panel" title={copy.profileLabel}>
-				<SelectControl label={copy.profileLabel} selectAttrs={{ 'data-profile-select': true, disabled: true }}>
-					<option value="">{copy.profilePlaceholder}</option>
-				</SelectControl>
-				<ToolStatus data-status text={copy.statusWaiting} />
-			</ToolPanel>
-
-			<ToolPanel class="converter-panel" title={copy.outputTitle}>
-				<ToolResultCard
-					title={copy.selectedFile.replace('{name}', copy.chooseFile)}
-					meta={copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}
-					downloadLabel={copy.download}
-					titleAttrs={{ 'data-result-title': true }}
-					metaAttrs={{ 'data-result-meta': true }}
-					downloadAttrs={{ 'data-download': true }}
-				/>
-				<p class="output-help">{copy.outputHelp}</p>
-			</ToolPanel>
+				<details class="converter-toolbar" open>
+					<summary>{copy.profileLabel}</summary>
+					<ToolPanel class="converter-panel" title={copy.profileLabel}>
+						<SelectControl label={copy.profileLabel} selectAttrs={{ 'data-profile-select': true, disabled: true }}>
+							<option value="">{copy.profilePlaceholder}</option>
+						</SelectControl>
+						<ToolActions>
+							<button class="button primary" data-process type="button" disabled>{copy.process}</button>
+							<button class="button secondary" data-clear type="button">{copy.clear}</button>
+						</ToolActions>
+						<ToolStatus data-status text={copy.statusWaiting} />
+					</ToolPanel>
+				</details>
+			</div>
 		</div>
 	</div>
 </section>
@@ -143,7 +155,6 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 	.converter-tool {
 		display: grid;
 		gap: 16px;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 	}
 
 	.converter-panel {
@@ -160,6 +171,43 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 		margin: 0;
 		color: var(--color-muted);
 		font-size: 0.95rem;
+	}
+
+	.document-preview {
+		display: grid;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	.document-preview > p {
+		margin: 0;
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.document-preview iframe,
+	.document-preview pre {
+		box-sizing: border-box;
+		width: 100%;
+		min-height: 300px;
+		margin: 0;
+		padding: 16px;
+		color: var(--color-ink);
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.document-preview pre {
+		overflow: auto;
+		white-space: pre-wrap;
+		font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	}
+
+	.document-preview small {
+		color: var(--color-muted);
 	}
 </style>
 
@@ -188,6 +236,10 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 			const resultTitle = root.querySelector('[data-result-title]');
 			const resultMeta = root.querySelector('[data-result-meta]');
 			const downloadLink = root.querySelector('[data-download]');
+			const documentPreview = root.querySelector('[data-document-preview]');
+			const htmlPreview = root.querySelector('[data-html-preview]');
+			const textPreview = root.querySelector('[data-text-preview]');
+			const previewUnavailable = root.querySelector('[data-preview-unavailable]');
 
 			const state = {
 				pandoc: null,
@@ -209,6 +261,14 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 			clearButton.addEventListener('click', resetTool);
 
 			function selectFile(file) {
+				if (state.downloadUrl) {
+					URL.revokeObjectURL(state.downloadUrl);
+					state.downloadUrl = null;
+				}
+				downloadLink.hidden = true;
+				downloadLink.removeAttribute('href');
+				downloadLink.removeAttribute('download');
+				resetDocumentPreview();
 				state.selectedFile = file || null;
 				populateProfileOptions();
 				updateSelectionUi();
@@ -250,6 +310,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 						size: formatBytes(blob.size),
 						type: outputProfile.label,
 					});
+					await renderDocumentPreview(blob, url, outputProfile);
 					setStatus(copy.statusReady, 'success');
 				} catch (error) {
 					setStatus(format(copy.statusError, { message: messageFromError(error) }), 'error');
@@ -366,6 +427,9 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 			}
 
 			function resetTool() {
+				if (state.downloadUrl) {
+					URL.revokeObjectURL(state.downloadUrl);
+				}
 				fileInput.value = '';
 				state.selectedFile = null;
 				state.downloadUrl = null;
@@ -380,7 +444,36 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 				downloadLink.hidden = true;
 				downloadLink.removeAttribute('href');
 				downloadLink.removeAttribute('download');
+				resetDocumentPreview();
 				setStatus(copy.statusWaiting, 'info');
+			}
+
+			async function renderDocumentPreview(blob, url, profile) {
+				resetDocumentPreview();
+				documentPreview.hidden = false;
+
+				if (profile.format === 'html' || profile.mimeType === 'application/pdf') {
+					htmlPreview.src = url;
+					htmlPreview.hidden = false;
+					return;
+				}
+
+				if (['markdown', 'plain', 'latex', 'rtf'].includes(profile.format)) {
+					textPreview.textContent = await blob.text();
+					textPreview.hidden = false;
+					return;
+				}
+
+				previewUnavailable.hidden = false;
+			}
+
+			function resetDocumentPreview() {
+				documentPreview.hidden = true;
+				htmlPreview.hidden = true;
+				htmlPreview.removeAttribute('src');
+				textPreview.hidden = true;
+				textPreview.textContent = '';
+				previewUnavailable.hidden = true;
 			}
 
 			function getSelectedProfile() {
