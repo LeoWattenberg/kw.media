@@ -1,0 +1,53 @@
+---
+import type { Locale } from '../../../i18n';
+
+interface Props {
+	locale: Locale;
+	description: string;
+}
+
+const { locale, description } = Astro.props;
+const copy = locale === 'de'
+	? { eyebrow: 'Tool-Beschreibung', title: 'Was dieses Tool macht' }
+	: { eyebrow: 'Tool description', title: 'What this tool does' };
+---
+
+<section class="section tool-description">
+	<div class="container">
+		<div class="tool-description-card">
+			<p class="eyebrow">{copy.eyebrow}</p>
+			<h2>{copy.title}</h2>
+			<p>{description}</p>
+		</div>
+	</div>
+</section>
+
+<style>
+	.tool-description {
+		background: var(--color-surface-alt);
+		border-top: 1px solid var(--color-line);
+	}
+
+	.tool-description-card {
+		max-width: 780px;
+	}
+
+	.tool-description-card .eyebrow,
+	.tool-description-card h2,
+	.tool-description-card p:last-child {
+		margin: 0;
+	}
+
+	.tool-description-card h2 {
+		margin-top: 6px;
+		font-size: clamp(1.55rem, 3vw, 2.3rem);
+		letter-spacing: 0;
+	}
+
+	.tool-description-card p:last-child {
+		margin-top: 14px;
+		color: var(--color-muted);
+		font-size: 1.04rem;
+		line-height: 1.6;
+	}
+</style>
