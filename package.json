@@ -21,6 +21,7 @@
     "fix:posts": "node scripts/fix-post-issues.mjs",
     "fix:links": "node scripts/fix-post-issues.mjs --links",
     "metadata:posts": "node scripts/generate-post-metadata.mjs",
+	"description:tools": "node scripts/generate-tool-descriptions.mjs",
     "cta:posts": "node scripts/generate-post-ctas.mjs",
     "tags:posts": "node scripts/generate-post-tags.mjs",
     "excerpt:posts": "node scripts/generate-excerpts.mjs",

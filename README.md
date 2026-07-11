@@ -24,6 +24,7 @@ Run commands from the project root:
 | `npm run fix:posts -- --common` | Apply deterministic fixes, excerpt regeneration, and wrong-language retranslation |
 | `npm run fix:posts -- --all-fixes` | Also apply local-AI title/excerpt metadata suggestions |
 | `npm run metadata:posts -- --weak --output=.cache/post-metadata-suggestions.json` | Generate local-AI metadata suggestions for weak posts |
+| `npm run description:tools -- --dry` | Preview local-AI SEO-description suggestions for tool pages; add `--write` to apply them |
 | `npm run cta:posts -- --missing --dry` | Preview local-AI post CTAs with relevant site-page links |
 | `npm run tags:posts -- --missing --dry` | Preview local-AI post tags (3-10 per post) and the global tag list |
 | `npm run excerpt:posts -- --weak --dry` | Preview local-AI excerpt repairs for weak posts |
