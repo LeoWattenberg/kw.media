@@ -30,13 +30,13 @@ export const toolCategories: ToolCategory[] = [
 		translations: {
 			de: {
 				eyebrow: 'Konverter',
-				title: 'Konverter',
+				title: 'Konverter-Tools',
 				description: 'Dateien direkt im Browser in andere Formate bringen.',
 				open: 'Konverter oeffnen',
 			},
 			en: {
 				eyebrow: 'Converters',
-				title: 'Converters',
+				title: 'Converter Tools',
 				description: 'Move files into other formats right in the browser.',
 				open: 'Open converter',
 			},

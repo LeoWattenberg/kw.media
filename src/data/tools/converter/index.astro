@@ -1,6 +1,6 @@
 ---
 import ToolPageShell from '../../../components/ToolPageShell.astro';
-import ConverterOverview from '../../../components/tools/converter/ConverterOverview.astro';
+import ToolCategoryOverview from '../../../components/tools/ToolCategoryOverview.astro';
 import { defineToolModule } from '../../../lib/tool-page-module';
 
 export const toolModule = defineToolModule('converter', {
@@ -25,5 +25,5 @@ const { tool, alternatePaths } = Astro.props;
 ---
 
 <ToolPageShell tool={tool} alternatePaths={alternatePaths}>
-	<ConverterOverview locale={tool.locale} />
+	<ToolCategoryOverview locale={tool.locale} categoryId="converter" />
 </ToolPageShell>
