@@ -90,7 +90,7 @@ const copyJson = JSON.stringify(copy);
 				<ToolStatus data-status text={copy.waiting} />
 			</ToolPanel>
 
-			<ToolPanel class="result-panel" title={copy.result}>
+			<ToolPanel class="result-panel" data-result-panel hidden title={copy.result}>
 				<div class="workbench-preview" data-preview hidden></div>
 				<div class="workbench-downloads">
 					<a class="tool-download-link" data-download-svg href="#" download hidden>{copy.downloadSvg}</a>
@@ -131,6 +131,7 @@ const copyJson = JSON.stringify(copy);
 			const runButton = root.querySelector('[data-run]');
 			const clearButton = root.querySelector('[data-clear]');
 			const status = root.querySelector('[data-status]');
+			const resultPanel = root.querySelector('[data-result-panel]');
 			const preview = root.querySelector('[data-preview]');
 			const downloadSvg = root.querySelector('[data-download-svg]');
 			const downloadPng = root.querySelector('[data-download-png]');
@@ -244,6 +245,7 @@ const copyJson = JSON.stringify(copy);
 				const img = document.createElement('img');
 				img.src = resultUrl;
 				preview.append(img);
+				resultPanel.hidden = false;
 				preview.hidden = false;
 				downloadSvg.hidden = true;
 				downloadPng.href = resultUrl;
@@ -259,6 +261,7 @@ const copyJson = JSON.stringify(copy);
 				const img = document.createElement('img');
 				img.src = resultUrl;
 				preview.append(img);
+				resultPanel.hidden = false;
 				preview.hidden = false;
 				downloadSvg.href = resultUrl;
 				downloadSvg.hidden = false;
@@ -304,7 +307,7 @@ const copyJson = JSON.stringify(copy);
 				rasterInput.value = ''; svgFile.value = ''; svgText.value = '';
 				rasterName.textContent = copy.chooseRaster; rasterMeta.textContent = copy.rasterHint;
 				svgName.textContent = copy.chooseSvg; svgMeta.textContent = copy.svgHint;
-				preview.innerHTML = ''; preview.hidden = true; downloadSvg.hidden = true; downloadPng.hidden = true;
+				resultPanel.hidden = true; preview.innerHTML = ''; preview.hidden = true; downloadSvg.hidden = true; downloadPng.hidden = true;
 				for (const url of [rasterUrl, resultUrl]) if (url) URL.revokeObjectURL(url);
 				rasterUrl = resultUrl = null;
 				setStatus(copy.waiting, 'info');
