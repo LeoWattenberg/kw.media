@@ -47,6 +47,12 @@ import {
 	subtitleOutputName,
 } from '../src/lib/tools/subtitle-burner.js';
 import {
+	mixAndResampleAudio,
+	parseWhisperLog,
+	renderWhisperSubtitles,
+	whisperSubtitleOutputName,
+} from '../src/lib/tools/whisper-subtitle-generator.js';
+import {
 	buildGifArgs,
 	buildGifFilter,
 	normalizeGifSettings,
@@ -152,6 +158,29 @@ test('subtitle burner creates ASS styles and FFmpeg burn-in arguments', () => {
 		'-i', 'input.mov', '-vf', 'subtitles=captions.ass', '-map', '0:v:0?', '-map', '0:a:0?',
 		'-c:v', 'libx264', '-crf', '23', '-preset', 'veryfast', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-y', 'output.mp4',
 	]);
+});
+
+test('whisper subtitle generator parses logs and renders downloadable subtitle formats', () => {
+	const logs = [
+		'system_info: n_threads = 8',
+		'[00:00:01.250 --> 00:00:03.500]   Hello world',
+		'[00:00:03.500 --> 00:00:05.000]   Second line',
+	];
+	assert.deepEqual(parseWhisperLog(logs), [
+		{ start: 1.25, end: 3.5, text: 'Hello world' },
+		{ start: 3.5, end: 5, text: 'Second line' },
+	]);
+	assert.match(renderWhisperSubtitles(logs, 'srt'), /00:00:01,250 --> 00:00:03,500/);
+	assert.match(renderWhisperSubtitles(logs, 'vtt'), /^WEBVTT/);
+	assert.equal(whisperSubtitleOutputName('interview.final.mp4', 'vtt'), 'interview.final.vtt');
+});
+
+test('whisper subtitle generator mixes channels and resamples to 16 kHz', () => {
+	const result = mixAndResampleAudio([
+		Float32Array.from([0, 1, 0, -1]),
+		Float32Array.from([0, 0, 0, 0]),
+	], 4, 2);
+	assert.deepEqual(Array.from(result), [0, 0]);
 });
 
 test('abx helpers produce deterministic trials and statistics', () => {

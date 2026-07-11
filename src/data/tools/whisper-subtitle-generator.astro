@@ -1,0 +1,27 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import WhisperSubtitleGenerator from '../../components/tools/WhisperSubtitleGenerator.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('whisper-subtitle-generator', {
+	id: 'whisper-subtitle-generator',
+	translations: {
+		de: {
+			path: '/de/tools/whisper-untertitel-generator/',
+			title: 'Whisper Untertitel-Generator',
+			description: 'Erzeuge mit whisper.cpp automatisch SRT- und WebVTT-Untertitel aus lokalen Audio- und Videodateien direkt im Browser.',
+		},
+		en: {
+			path: '/en/tools/whisper-subtitle-generator/',
+			title: 'Whisper Subtitle Generator',
+			description: 'Generate SRT and WebVTT subtitles from local audio and video with whisper.cpp running privately in your browser.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<WhisperSubtitleGenerator locale={tool.locale} />
+</ToolPageShell>
