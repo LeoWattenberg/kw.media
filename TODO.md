@@ -8,7 +8,7 @@
   - [x] Image, GIF, and media converters switch between original and converted assets in the same preview area.
   - [x] Pandoc HTML outputs render in a sandboxed preview and text outputs render in a text preview. Binary outputs retain a download action.
 - [x] Add a local-AI tool-description workflow.
-  - [x] `npm run description:tools -- --dry` proposes reviewed SEO descriptions with local Ollama; `--write` applies them.
+  - [x] `npm run description:tools -- --dry` proposes reviewed SEO descriptions with local Ollama; running without `--dry` applies them.
   - [x] Every tools page renders its metadata description below the workspace.
 - [x] Add feasible new tools.
   - [x] Shorts, TikTok, and Reels Safe Zone Previewer with platform presets and adjustable safety margins.
