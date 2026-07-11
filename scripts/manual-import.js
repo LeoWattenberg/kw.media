@@ -6,8 +6,10 @@ import {
 	cleanupPostFile,
 	expandTranscriptPostFile,
 	extractSourceLinksFromDescription,
+	translateTranscriptMarkdown,
 	translatePostFile,
 } from './content-ai.mjs';
+import { detectTextLocale } from './language-utils.mjs';
 
 const playlists = [
 	{
@@ -469,7 +471,18 @@ try {
 				continue;
 			}
 
-			const cleanedTranscript = cleanTranscript(transcript, locale);
+			let cleanedTranscript = cleanTranscript(transcript, locale);
+			const transcriptLocale = detectTextLocale(cleanedTranscript);
+
+			if (transcriptLocale && transcriptLocale !== locale) {
+				console.warn(`Transcript for ${entry.id} looks ${transcriptLocale}, not ${locale}; translating before import.`);
+				cleanedTranscript = await translateTranscriptMarkdown(
+					cleanedTranscript,
+					transcriptLocale,
+					locale,
+					playlist.category,
+				);
+			}
 			const slug = uniqueSlug(slugify(metadata.title, locale), existingSlugs);
 			const routePrefix = playlist.pathPrefix ?? `/${locale === 'de' ? 'youtube-tipps-de' : 'youtube-tips-en'}`;
 			const postPath = `${routePrefix}/${slug}/`;
@@ -540,7 +553,7 @@ if (runAiPostProcessing && createdPostPaths.length) {
 	}
 
 	console.log('Generating related-post data for imported post(s)');
-	runNodeScript('build-related-posts.mjs');
+	runNodeScript('build-related-posts.mjs', createdPostPaths);
 
 	console.log('Adding inline links to imported post(s)');
 	runNodeScript('add-inline-post-links.mjs', createdPostPaths);
