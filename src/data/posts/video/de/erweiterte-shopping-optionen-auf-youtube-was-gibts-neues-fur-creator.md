@@ -49,7 +49,7 @@ Der Affiliate Hub führt ein klassisches Provisionsmodell ein: Wenn Zuschauer ü
 
 Neben der finanziellen Vergütung bietet das System weitere Vorteile:
 *   **Testprodukte:** Je nach Kampagne und den Bedingungen der jeweiligen Brand besteht die Möglichkeit, kostenlose Review-Exemplare oder Produkte zum Testen zu erhalten.
-*   **Sicherheit gegen Betrug:** Ein wichtiger Nebeneffekt ist der Schutz vor E-Mail-Scams. Da die Kommunikation und Verknüpfung über das System läuft, können Brands sicherstellen, dass sie tatsächlich mit dem verifizierten Creator des Kanals kommunizieren und nicht mit einem Betrüger, der eine gefälschte Anfrage sendet.
+*   **Sicherheit gegen Betrug:** Ein wichtiger Nebeneffekt ist der [Schutz vor](/de/tools/loudness-mastering/) E-Mail-Scams. Da die Kommunikation und Verknüpfung über das System läuft, können Brands sicherstellen, dass sie tatsächlich mit dem verifizierten Creator des Kanals kommunizieren und nicht mit einem Betrüger, der eine gefälschte Anfrage sendet.
 
 ### Einschränkungen beim Rollout
 Ein wichtiger Punkt für alle Creator außerhalb der USA: Aktuell gibt es keine gesicherten Informationen darüber, ob oder wann der Affiliate Hub in anderen Märkten (wie etwa in Europa) eingeführt wird. Die Verfügbarkeit bleibt somit vorerst auf den US-Markt beschränkt.

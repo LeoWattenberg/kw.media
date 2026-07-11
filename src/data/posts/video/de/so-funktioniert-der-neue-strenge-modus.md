@@ -33,7 +33,7 @@ Dieser Modus ist darauf ausgelegt, die Erkennung von unerwünschten Inhalten zu 
 
 ## Schritt-für-Schritt: Den strengen Modus aktivieren
 
-Wenn du deinen Kommentarbereich sauberer halten möchtest und weniger Zeit mit manuellem Löschen verbringen willst, kannst du diese Funktion in deinem Backend testen. Die Einstellung ist tief in den Community-Optionen integriert. Gehe dazu wie folgt vor:
+Wenn du deinen Kommentarbereich sauberer halten möchtest und weniger Zeit mit manuellem Löschen verbringen willst, kannst du diese Funktion in deinem Backend testen. Die Einstellung ist tief in den [Community-Optionen](/youtube-tipps-de/einrichtungshinweise-leitfaden-fur-youtube-kanale/) integriert. Gehe dazu wie folgt vor:
 
 1. Melde dich in deinem **YouTube Studio** an.
 2. Navigiere in der linken Menüleiste zu den **Einstellungen**.

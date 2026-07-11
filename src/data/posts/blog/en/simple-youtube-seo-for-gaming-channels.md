@@ -84,7 +84,7 @@ Again: keep in mind what people are searching for to include phrases and keyword
 
 ## Chapters
 
-YouTube Chapters are a relatively new feature since they were released in late 2020 to the public and not many people make use of them yet. Coming from the description keywords, chapters are basically keywords with a timestamp. They look clean, help the user navigate your video and not only get shown on the YouTube search results but on Google, too.
+[YouTube Chapters](/en/tools/podcast-chapter-editor/) are a relatively new feature since they were released in late 2020 to the public and not many people make use of them yet. Coming from the description keywords, chapters are basically keywords with a timestamp. They look clean, help the user navigate your video and not only get shown on the YouTube search results but on Google, too.
 
 An example for their use in a gaming content environment:If you have solved a specific puzzle in “Breath of the Wild” or looted a specific grave in “Tomb Raider” putting a timestamp into the video at those strategic points will get you more reach. For example: `0:00 find the entrance to XYZ` `0:31 platforming` `1:23 legendary item ABC hidden in XYZ` or something similar to that.
 

@@ -67,7 +67,7 @@ Wer über solche strategischen Änderungen auf dem Laufenden bleiben möchte, so
 Abseits von Formaten und Interaktionen gibt es eine technische Änderung in den Einstellungen der Kanal-Info-Boxen, die insbesondere für Creator im deutschsprachigen Raum relevant ist.
 
 ### Das Problem mit dem Captcha
-Bisher war es möglich, eine Kontakt-E-Mail-Adresse zu hinterlegen, die für Besucher erst nach dem Lösen eines Captchas sichtbar wurde. Dies diente primär als Schutz vor Spam. Aktuell scheint diese Funktion nicht mehr wie gewohnt zu funktionieren. Zwar kann die E-Mail-Adresse weiterhin in den Einstellungen hinterlegt werden, doch die Option, sie über ein Captcha auf der Kanalseite anzuzeigen, ist teilweise verschwunden oder defekt.
+Bisher war es möglich, eine Kontakt-E-Mail-Adresse zu hinterlegen, die für Besucher erst nach dem Lösen eines Captchas sichtbar wurde. Dies diente primär als [Schutz vor](/de/tools/loudness-mastering/) Spam. Aktuell scheint diese Funktion nicht mehr wie gewohnt zu funktionieren. Zwar kann die E-Mail-Adresse weiterhin in den Einstellungen hinterlegt werden, doch die Option, sie über ein Captcha auf der Kanalseite anzuzeigen, ist teilweise verschwunden oder defekt.
 
 Es ist derzeit unklar, ob es sich hierbei um eine bewusste Design-Änderung im Zuge von UI-Updates handelt oder um einen Fehler im System.
 

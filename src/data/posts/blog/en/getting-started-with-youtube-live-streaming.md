@@ -43,9 +43,9 @@ Follow the Stream Creation process by providing a [title, description](/youtube-
 
 <figure><img src="https://lh4.googleusercontent.com/rzRGmt2X8-BG8er4tfFdIdprqeRq-5Nu3Xy8_GWzKHTVZQWhCKMsZbvV8joFmXApb5PFg1TZLyW3CnmZp6zcDoOi9QLHIy4PuaoTycmfb8pUL2key3E81Ea5Ika0LWZbUFOdXdAgv3PaMEq6zNLXaShPFhdiAUqENeKTUwLLJgbA9q273MSCNQQPEkSu9g" alt></figure>
 
-*Add a custom Thumbnail, and decide whether to automatically add the VOD to a playlist*
+*Add a [custom Thumbnail](/en/tools/youtube-thumbnail-preview/), and decide whether to automatically add the VOD to a playlist*
 
-If you are in the YouTube Partner Programm, you can also chose what [type of ads](/en/ads/) you want to run on the livestream.
+If you are in the [YouTube Partner Programm](/en/youtube-tips/), you can also chose what [type of ads](/en/ads/) you want to run on the livestream.
 
 <figure><img src="https://lh3.googleusercontent.com/9wrGKuMl8K2ef0SdGC3boC_a2C0ErvyoWEIQWIsHXGLSEgTUeglXf1q9mLAqVy0AS-FituJTBtXvH_UfJ5iGqRZVYshY8I4AA8-v0BvSncWRodalEJFvJBBFlLn3dIlRb5lq42Fog4l7_z5YTC-6IVyBRNa1W2_aL2S7yrzSmp3n_ddDy6W8l4Pcew7nHQ" alt></figure>
 

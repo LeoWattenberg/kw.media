@@ -31,7 +31,7 @@ So with that in mind, here’s some things I often see which really don’t work
 
 ## Don’t repeat the title in the thumbnail
 
-Your thumbnail and title are always being shown together. There really is no need to repeat it, especially not word for word. It may be useful to paraphrase a few words from the title in the thumbnail if those words on their own are attention-grabbing, but entire titles generally aren’t attention-grabbing, especially not if they’re [search engine optimized](/en/youtube-tips/).
+Your [thumbnail and title](/en/tools/youtube-thumbnail-preview/) are always being shown together. There really is no need to repeat it, especially not word for word. It may be useful to paraphrase a few words from the title in the thumbnail if those words on their own are attention-grabbing, but entire titles generally aren’t attention-grabbing, especially not if they’re [search engine optimized](/en/youtube-tips/).
 
 <figure class="image-large"><img src="https://preview.redd.it/kyowv0gqyjf51.png?width=871&amp;format=png&amp;auto=webp&amp;s=3dd0d8ac5dcc28d8239a720c6d0e94aded380d63" alt><figcaption>GOOD: A part of the title is being paraphrased in the thumbnail. Now imagine how this thumbnail would look like if it had the full title and the fortnite logo in there as well. It follows the rule of thirds.</figcaption></figure>
 

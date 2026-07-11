@@ -51,7 +51,7 @@ Die Einführung dieser Audience Segments hat bereits begonnen. Da YouTube Update
 
 ## Effizienteres Community-Management: Optimierte Kommentarfilter
 
-Neben den Analyse-Tools gibt es eine praktische Neuerung im Bereich des Community-Managements. Sowohl in [YouTube Studio](/de/youtube-tipps/) als auch in der mobilen App von YouTube Studio wurde die Filterfunktion für Kommentare aufgewertet.
+Neben den Analyse-Tools gibt es eine praktische Neuerung im Bereich des Community-Managements. Sowohl in [YouTube Studio](/de/youtube-tipps/) als auch in der mobilen App von [YouTube Studio](/youtube-tipps-de/youtube-abc-schneller-einstieg-mit-youtube-analytics/) wurde die Filterfunktion für Kommentare aufgewertet.
 
 ### Weg vom reinen Zeitstempel: Die „Relevantesten“ Inhalte
 

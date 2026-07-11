@@ -32,7 +32,7 @@ postCta:
 <!-- kwm:article:start -->
 ## YouTube AutoDubbing enttäuscht und neue Monetarisierung für vertikale Livestreams
 
-In der Welt der Video-Creator gibt es immer wieder Updates, die auf dem Papier vielversprechend klingen, in der Praxis jedoch hinter den Erwartungen zurückbleiben. Aktuell erleben wir genau das beim Rollout von [MLA bzw. Auto-Dubbing](/youtube-tipps-de/youtube-updates-mla-verbesserte-marken-verbindungen-und-community-uberarbeitung-im-studio-mobile/). Während YouTube versucht, die Sprachbarrieren zwischen globalen Zielgruppen zu überbrücken, zeigt sich in der Realität ein anderes Bild. Gleichzeitig gibt es jedoch positive Nachrichten für alle, die mit längeren Shorts experimentieren oder ihre Livestreams besser bewerben wollen.
+In der Welt der Video-Creator gibt es immer wieder Updates, die auf dem Papier vielversprechend klingen, in der Praxis jedoch hinter den Erwartungen zurückbleiben. Aktuell erleben wir genau das beim Rollout von [MLA bzw. Auto-Dubbing](/youtube-tipps-de/youtube-updates-mla-verbesserte-marken-verbindungen-und-community-uberarbeitung-im-studio-mobile/). Während YouTube versucht, die Sprachbarrieren zwischen globalen Zielgruppen zu überbrücken, zeigt sich in der Realität ein anderes Bild. Gleichzeitig gibt es jedoch positive Nachrichten für alle, die mit [längeren Shorts](/youtube-tipps-de/lange-shorts-werden-nicht-richtig-im-youtube-studio-angezeigt-mitgliedschaften-updates-und-mehr/) experimentieren oder ihre Livestreams besser bewerben wollen.
 
 ### AutoDubbing: Ein technischer Rückschritt bei der Qualität?
 

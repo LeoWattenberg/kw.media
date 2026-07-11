@@ -61,7 +61,7 @@ Dies bedeutet auch, dass du nicht allzu viel auf dem Bildschirm haben kannst, da
 
 Vorschaubilder müssen nur [Aufmerksamkeit erregen](/youtube-tipps-de/wie-man-klicks-auf-youtube-miniaturansichten-bekommt-das-aida-modell/), daher müssen sie nicht die realistischsten oder ästhetisch ansprechendsten Bilder sein. Das bedeutet, dass du im Allgemeinen, egal welches Quellbild du hast, einfach die Sättigung auf das Maximum erhöhen und vielleicht auch etwas mehr Kontrast hinzufügen kannst, um ein auffälligeres Vorschaubild zu erhalten als das Original.
 
-<figure class="image-large"><img src="https://preview.redd.it/vl9xe7ts8kf51.png?width=500&amp;format=png&amp;auto=webp&amp;s=e7744be55f87628c7ad957d97a7fa8412aa79824" alt><figcaption>Beispiel: Die Sättigung in GIMP auf das Maximum erhöht und den Kontrast etwas angehoben. Es ist nicht mehr originalgetreu und die Wolken sehen etwas seltsam aus, aber es ist deutlich auffälliger. Es folgt der Drittelregel.</figcaption></figure>
+<figure class="image-large"><img src="https://preview.redd.it/vl9xe7ts8kf51.png?width=500&amp;format=png&amp;auto=webp&amp;s=e7744be55f87628c7ad957d97a7fa8412aa79824" alt><figcaption>Beispiel: Die [Sättigung in GIMP](/youtube-tipps-de/wie-man-schnell-kostenlose-gaming-miniaturansichten-mit-gimp-erstellt/) auf das Maximum erhöht und den Kontrast etwas angehoben. Es ist nicht mehr originalgetreu und die Wolken sehen etwas seltsam aus, aber es ist deutlich auffälliger. Es folgt der Drittelregel.</figcaption></figure>
 
 ## Komposition
 

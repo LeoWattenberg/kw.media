@@ -27,7 +27,7 @@ postCta:
 <!-- kwm:article:start -->
 ## YouTube Shorts werden länger: Alles zu den Neuerungen ab dem 15. Oktober
 
-YouTube bringt eine bedeutende Änderung für das Format der Shorts auf den Weg. Ab dem 15. Oktober wird die maximal zulässige Laufzeit für Shorts auf bis zu drei Minuten (180 Sekunden) erweitert. Für dich als Creator bedeutet das mehr Spielraum, um Geschichten zu erzählen oder komplexere Themen in einem vertikalen Format zu präsentieren.
+YouTube bringt eine bedeutende Änderung für das Format der Shorts auf den Weg. Ab dem 15. Oktober wird die maximal zulässige Laufzeit für Shorts auf bis zu drei Minuten (180 Sekunden) erweitert. Für dich als Creator bedeutet das mehr Spielraum, um Geschichten zu erzählen oder komplexere Themen in einem [vertikalen Format](/de/tools/vertikaler-video-reframer/) zu präsentieren.
 
 Natürlich bleibt es weiterhin möglich, kürzere Videos hochzuladen – die Flexibilität des Formats bleibt also voll erhalten. Es gibt jedoch einige technische Details und zeitliche Einschränkungen, die du bei deiner [Content-Strategie](/de/creator/) berücksichtigen solltest.
 

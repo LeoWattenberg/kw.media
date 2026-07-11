@@ -32,9 +32,9 @@ postCta:
 <!-- kwm:article:start -->
 ## Why You Need FFmpeg for Audacity
 
-Audacity is a powerful tool for audio editing, but out of the box, it has limitations regarding the types of files it can handle. To expand its capabilities, you need to install [FFmpeg](/en/audacity/installing-ffmpeg-for-audacity-tutorial/). 
+Audacity is a powerful tool for [audio editing](/en/audacity/), but out of the box, it has limitations regarding the types of files it can handle. To expand its capabilities, you need to install [FFmpeg](/en/audacity/installing-ffmpeg-for-audacity-tutorial/). 
 
-[FFmpeg](/en/tools/) is essentially a library—a collection of code—that allows Audacity to open, import, and export a wider variety of media files. Without this library, you may find that certain audio or video formats are unsupported when you try to bring them into your project or save your final work. Because of licensing and distribution reasons, FFmpeg is not included with the default Audacity installation, meaning users must add it manually to unlock full file compatibility.
+[FFmpeg](/en/tools/) is essentially a library—a collection of code—that allows Audacity to open, import, and export a wider variety of media files. Without this library, you may find that certain audio or video formats are unsupported when you try to bring them into your project or save your final work. Because of licensing and distribution reasons, [FFmpeg](/en/tools/converter/video-audio-converter/) is not included with the default Audacity installation, meaning users must add it manually to unlock full file compatibility.
 
 ## Choosing the Right Version for Your System
 

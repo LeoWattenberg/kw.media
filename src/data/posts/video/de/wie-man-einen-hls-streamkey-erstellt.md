@@ -36,7 +36,7 @@ Damit YouTube diesen Datenstrom korrekt verarbeiten und ausliefern kann, ist ein
 Die Einrichtung erfolgt direkt in den [Einstellungen deines Kanals](/de/creator/), bevor du mit der eigentlichen Übertragung beginnst. Folge diesen Schritten, um deinen Account für HDR-Streaming vorzubereiten:
 
 ### 1. Zugriff auf den Live Control Room
-Navigiere zunächst in den [Live Control Room](/youtube-tipps-de/einstieg-in-das-live-streaming-auf-youtube/). Dies ist die zentrale Steuereinheit für deine Live-Übertragungen, in der du alle technischen Parameter verwalten kannst.
+Navigiere zunächst in den [Live Control Room](/youtube-tipps-de/einstieg-in-das-live-streaming-auf-youtube/). Dies ist die zentrale Steuereinheit für deine [Live-Übertragungen](/youtube-tipps-de/wie-man-live-streams-beherrscht/), in der du alle technischen Parameter verwalten kannst.
 
 ### 2. Einen neuen Schlüssel anlegen
 Öffne das Menü und wähle den Punkt „Stream-Schlüssel“ aus. Klicke anschließend auf die Option „Neuen Stream-Schlüssel erstellen“. Da du eventuell verschiedene Setups für unterschiedliche Stream-Qualitäten nutzt, ist es ratsam, dem Schlüssel einen eindeutigen Namen zu geben, damit du ihn später leicht identifizieren kannst.

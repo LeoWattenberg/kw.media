@@ -39,7 +39,7 @@ Ein Thema, das wir bereits im letzten Herbst während der geschlossenen Beta-Pha
 ### Was bedeutet das für dein Wachstum?
 Bisher warst du darauf angewiesen, dass ein einziges Vorschaubild für eine globale Zielgruppe funktioniert. Mit diesem Update kannst du nun unterschiedliche visuelle Inhalte hochladen, die basierend auf den Spracheinstellungen deiner Zuschauer angezeigt werden. Das ist ein massiver Hebel für die Internationalisierung deines Kanals.
 
-Ein Bild sagt mehr als tausend Worte – und das gilt besonders in verschiedenen Kulturkreisen. Wenn du jedoch nur die Optik anpasst, aber beim Audio bei automatischen Untertiteln bleibst, riskierst du Verluste bei der Zuschauerbindung (Retention), da automatisierte Systeme oft ungenau sind. Für ein wirklich globales Wachstum ist es daher ratsam, mehrsprachige Audio-Tracks (MLA) zu nutzen. Wer hier professionelle Unterstützung sucht: kw.media bietet native klingende Audios an, um deine lokalisierten Thumbnails perfekt zu ergänzen.
+Ein Bild sagt mehr als tausend Worte – und das gilt besonders in verschiedenen Kulturkreisen. Wenn du jedoch nur die Optik anpasst, aber beim Audio bei automatischen Untertiteln bleibst, riskierst du Verluste bei der Zuschauerbindung (Retention), da automatisierte Systeme oft ungenau sind. Für ein wirklich globales Wachstum ist es daher ratsam, [mehrsprachige Audio-Tracks (MLA)](/de/video-synchronisation/) zu nutzen. Wer hier professionelle Unterstützung sucht: kw.media bietet native klingende Audios an, um deine lokalisierten Thumbnails perfekt zu ergänzen.
 
 ## Die neue 50MB-Grenze für Thumbnails: Chance oder Risiko?
 

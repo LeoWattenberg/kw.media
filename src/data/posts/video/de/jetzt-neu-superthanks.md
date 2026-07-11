@@ -30,7 +30,7 @@ postCta:
 <!-- kwm:article:start -->
 ## Was sind Super Thanks?
 
-Mit Super Thanks bietet YouTube eine weitere Möglichkeit für Zuschauer, ihre Lieblings-Creator direkt finanziell zu unterstützen. Während Funktionen wie Super Chat primär auf Live-Streams ausgerichtet sind, ermöglichen Super Thanks die Interaktion und Unterstützung bei regulären Video-Uploads. Es handelt sich dabei um eine Form des [Fan-Fundings](/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/), die es der Community erlaubt, Wertschätzung für einen bestimmten Inhalt durch eine kleine Geldspende auszudrücken.
+Mit Super Thanks bietet YouTube eine weitere Möglichkeit für Zuschauer, ihre Lieblings-Creator direkt finanziell zu unterstützen. Während Funktionen wie [Super Chat](/youtube-tipps-de/superchat-antworten-youtube-rollt-neue-features-aus/) primär auf Live-Streams ausgerichtet sind, ermöglichen Super Thanks die Interaktion und Unterstützung bei regulären Video-Uploads. Es handelt sich dabei um eine Form des [Fan-Fundings](/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/), die es der Community erlaubt, Wertschätzung für einen bestimmten Inhalt durch eine kleine Geldspende auszudrücken.
 
 ### Voraussetzungen für Creator
 

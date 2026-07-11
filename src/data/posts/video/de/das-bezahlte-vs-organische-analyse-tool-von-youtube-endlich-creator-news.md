@@ -33,7 +33,7 @@ Hier erfährst du, welche Änderungen ab dem 17. November in Kraft treten und wi
 
 ## Verschärfte Community-Richtlinien für Gaming-Inhalte
 
-YouTube hat angekündigt, die Durchsetzung seiner Community-Richtlinien ab dem 17. November deutlich zu verschärfen. Betroffen sind vor allem zwei Bereiche, die in der Gaming-Community weit verbreitet sind: Online-Glücksspiel und die Darstellung von grafischer Gewalt.
+YouTube hat angekündigt, die Durchsetzung seiner Community-Richtlinien ab dem 17. November deutlich zu verschärfen. Betroffen sind vor allem zwei Bereiche, die in der Gaming-Community weit verbreitet sind: [Online-Glücksspiel](/youtube-tipps-de/youtube-update-strengere-glucksspiel-regeln-und-anderungen-bei-monetarisierungs-checks/) und die Darstellung von grafischer Gewalt.
 
 ### Fokus auf digitales Glücksspiel und NFTs
 Bisher untersagte YouTube bereits die Verlinkung zu nicht zertifizierten Glücksspielseiten. Die neue Richtlinie weitet diese Durchsetzung nun explizit auf das Online-Glücksspiel mit digitalen Gütern aus. Das bedeutet konkret, dass Inhalte, die sich um Videospiel-Skins, Kosmetika und NFTs drehen, unter verstärkte Beobachtung geraten. 

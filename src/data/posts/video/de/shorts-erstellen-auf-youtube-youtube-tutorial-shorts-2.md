@@ -49,7 +49,7 @@ Nachdem du den Short-Modus aktiviert hast, stehst du vor der Entscheidung, wie d
 Ein Video wird erst durch die richtige Gestaltung lebendig. Bevor du den Short finalisierst, bietet YouTube dir integrierte Werkzeuge an, um die Qualität und Attraktivität deines Contents zu steigern:
 
 * **Musik:** Du kannst deinem Video einen passenden Soundtrack hinzufügen. Musik hilft dabei, die Stimmung des Videos zu unterstreichen und kann oft dazu beitragen, dass ein Short besser in den Algorithmus passt.
-* **Text-Overlays:** Durch das Hinzufügen von Text kannst du wichtige Informationen direkt im Bild kommunizieren oder Highlights hervorheben, was besonders für Zuschauer hilfreich ist, die das Video ohne Ton konsumieren.
+* **[Text-Overlays](/de/tools/short-form-safe-zone-previewer/):** Durch das Hinzufügen von Text kannst du wichtige Informationen direkt im Bild kommunizieren oder Highlights hervorheben, was besonders für Zuschauer hilfreich ist, die das Video ohne Ton konsumieren.
 
 ### Finalisierung und Veröffentlichung
 

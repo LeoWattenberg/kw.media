@@ -44,7 +44,7 @@ Wenn man die erfolgreichsten Creator der letzten Jahre beobachtet, stellt man fe
 
 Diese Strategie, die unter anderem von Creator Ludwig propagiert wurde, basiert auf einer harten Realität des Plattform-Algorithmus: Live-Streams haben eine nahezu null organische Auffindbarkeit. Ein Stream ist im Grunde Rohmaterial – ein langes Dokumentationsvideo. Das eigentliche Wachstum findet nicht während der Übertragung statt, sondern danach.
 
-Um in 2026 und darüber hinaus erfolgreich zu sein, musst du deinen Kurzform-Funnel professionalisieren. Der Weg zum Erfolg sieht heute so aus:
+Um in 2026 und darüber hinaus erfolgreich zu sein, musst du deinen [Kurzform-Funnel](/de/tools/short-form-safe-zone-previewer/) professionalisieren. Der Weg zum Erfolg sieht heute so aus:
 1. **Live-Stream als Content-Quelle:** Hier produzierst du das Rohmaterial.
 2. **Kuratierung von Highlights:** Die Identifikation der stärksten Momente.
 3. **Distribution über Shorts:** Die Nutzung von Kurzform-Inhalten, um neue Zuschauer in deinen Funnel zu ziehen und sie schließlich zu deinen langen Videos oder Live-Streams zu führen.

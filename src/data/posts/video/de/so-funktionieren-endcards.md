@@ -27,7 +27,7 @@ postCta:
 <!-- kwm:article:start -->
 ## Endcards in YouTube erstellen und optimieren
 
-Endcards sind ein effektives Werkzeug für jeden Creator, um die Zuschauerbindung zu erhöhen und das Publikum gezielt zu weiteren Inhalten auf dem eigenen Kanal zu lenken. Anstatt die Zuschauer am Ende eines Videos allein zu lassen, kannst du sie mit interaktiven Elementen dazu animieren, weitere Videos anzusehen oder Playlists zu entdecken.
+Endcards sind ein effektives Werkzeug für jeden Creator, um die [Zuschauerbindung zu erhöhen](/de/creator/) und das Publikum gezielt zu weiteren Inhalten auf dem eigenen Kanal zu lenken. Anstatt die Zuschauer am Ende eines Videos allein zu lassen, kannst du sie mit interaktiven Elementen dazu animieren, weitere Videos anzusehen oder Playlists zu entdecken.
 
 ### Der Weg zum Editor
 

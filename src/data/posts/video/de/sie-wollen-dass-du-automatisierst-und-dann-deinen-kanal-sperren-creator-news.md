@@ -37,7 +37,7 @@ YouTube informiert derzeit deutsche Nutzer über eine signifikante Preiserhöhun
 
 ### Warum dich die Preise deiner Zuschauer interessieren müssen
 
-Viele Creator neigen dazu, Preisanpassungen für Abonnements als rein konsumentenseitiges Problem zu betrachten. Doch das ist ein Trugschluss. Premium-Aufrufe sind für viele Kanäle eine der stabilsten und bestbezahlten Einnahmequellen. Analysen aus verschiedenen Kanal-Portfolios zeigen, dass die Einnahmen aus YouTube Premium je nach Nische und Publikum zwischen 3 % und 10 % der gesamten Kanaleinnahmen ausmachen können.
+Viele Creator neigen dazu, Preisanpassungen für Abonnements als rein konsumentenseitiges Problem zu betrachten. Doch das ist ein Trugschluss. Premium-Aufrufe sind für viele Kanäle eine der stabilsten und bestbezahlten Einnahmequellen. Analysen aus verschiedenen Kanal-Portfolios zeigen, dass die [Einnahmen aus YouTube Premium](/de/creator/) je nach Nische und Publikum zwischen 3 % und 10 % der gesamten Kanaleinnahmen ausmachen können.
 
 Das Problem liegt in der Nutzerreaktion: Wenn Zuschauer aufgrund der massiven Preiserhöhung bei Premium Light ihre Abonnements kündigen, verschwinden diese Aufrufe nicht einfach. Sie fallen zurück in den regulären, werbefinanzierten Pool. In diesem Bereich sind Creator jedoch einem viel größeren Risiko ausgesetzt, da Adblocker weit verbreitet sind und die Werbeeinnahmen pro Aufruf oft deutlich geringer und volatiler sind als die festen Premium-Zahlungen.
 

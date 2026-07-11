@@ -21,7 +21,7 @@ postCta:
 
 Audio is the most important part to get right of a video. This may be counterintuitive at first – it ought to be the actual visual part (ie, the video), right? – but: A lot of viewers watch your content on mobile, and on mobile phones, 480p often is clear enough, especially if you are on mobile data.
 
-This guide is mostly a beginner’s guide, so it just goes over “what mic do I even need as a game streamer?”, “where do I place my mic?”, “what should my recording set-up look like” and just one of the many possible [filter chains you can set up in OBS](/youtube-tips-en/getting-started-with-obs-a-beginners-guide/). Which doesn’t mean that it’s not somewhat in-depth at 2000+ words long.General
+This guide is mostly a beginner’s guide, so it just goes over “what mic do I even need as a [game streamer](/youtube-tips-en/starting-a-gaming-channel-on-a-budget/)?”, “where do I place my mic?”, “what should my recording set-up look like” and just one of the many possible [filter chains you can set up in OBS](/youtube-tips-en/getting-started-with-obs-a-beginners-guide/). Which doesn’t mean that it’s not somewhat in-depth at 2000+ words long.General
 
 Before we get started with the deep techy part, let’s start with something fairly obvious: Garbage-in, garbage-out applies to audio. Buying an expensive mic may make the audio sound better, but it won’t make you any funnier, fix your pronunciation, make you talk more or make you less rambly. In order to get better at those things, you’ll need to practice. This practice automatically happens just by making videos, but I’d highly recommend actively looking to improve these areas, as that’ll make the learning (and thus, improvement) go much faster.
 

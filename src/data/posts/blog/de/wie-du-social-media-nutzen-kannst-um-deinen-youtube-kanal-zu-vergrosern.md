@@ -30,7 +30,7 @@ Social Media kann, wenn man es richtig nutzt, ein sehr mächtiges Werkzeug sein.
 
 ## Bewerbe deine Videos in Reddit / Discord / Facebook Communities
 
-Wie oben schon erwähnt solltest du deine Videos nicht in self-promotion Communities teilen. Aber wo dann? Die Antwort ist vermutlich genauso einfach wie offensichtlich: In Communities in denen es um deinen Content geht. Machst du Beauty Content, teile deine Videos in Beauty tip Communities. Outdoor Content passt vermutlich gut in Outdoor, Natur oder sogar Fitness Communities, oder Communities über die Orte, die du besucht hast.
+Wie oben schon erwähnt solltest du deine Videos nicht in self-promotion Communities teilen. Aber wo dann? Die Antwort ist vermutlich genauso einfach wie offensichtlich: In Communities in denen es [um deinen](/youtube-tipps-de/trendinge-hashtags-sind-hashtags-noch-relevant/) Content geht. Machst du Beauty Content, teile deine Videos in Beauty tip Communities. Outdoor Content passt vermutlich gut in Outdoor, Natur oder sogar Fitness Communities, oder Communities über die Orte, die du besucht hast.
 
 Davon abgesehen davon, dass diese Communities fantastische Orte zur Selbstbewerbung sind, sind sie auch der Ort für dich an dem du Inspirationen und [Kooperationspartner finden](/youtube-tipps-de/hort-auf-andere-youtuber-als-feinde-zu-behandeln/) kannst. Vielleicht redet jemand über einen Insider tip den sonst nur Einheimische kennen. Vielleicht findest du Leute, die großartigen Textanalysen machen, welche du als Basis für ein Video nutzen kannst. Und vielleicht ist es auch einfach nur eine angenehme Community, in der man sich gerne aufhält.
 

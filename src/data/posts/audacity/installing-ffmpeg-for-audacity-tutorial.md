@@ -42,7 +42,7 @@ postCta:
 
 If you have spent any time using Audacity, you may have encountered a limitation when trying to open or export certain media files. This is because Audacity does not include FFmpeg by default. 
 
-FFmpeg is a powerful library that allows software to open, import, and export a wide variety of media formats. Without it, Audacity's ability to handle diverse audio and video containers is limited. To unlock full compatibility with various media files, you will need to install the FFmpeg library separately.
+FFmpeg is a powerful library that allows software to open, import, and export a wide variety of media formats. Without it, Audacity's ability to handle diverse [audio and video](/en/tools/converter/) containers is limited. To unlock full compatibility with various media files, you will need to install the FFmpeg library separately.
 
 ## Determining Which Version You Need
 

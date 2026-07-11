@@ -22,7 +22,7 @@ postCta:
 
 Moin.
 
-If wielded well, social media can be a powerful tool. It can reach new audiences, boost your old videos, and might even make your video go viral. But before we get ahead of ourselves, let’s first start with what doesn’t work. We’ll get to what works later, down to the strategy for each section.
+If wielded well, [social media](/en/b2b/) can be a powerful tool. It can reach new audiences, boost your old videos, and might even make your video go viral. But before we get ahead of ourselves, let’s first start with what doesn’t work. We’ll get to what works later, down to the strategy for each section.
 
 <div></div>
 
@@ -77,7 +77,7 @@ As for what clip to share, there is a range of options:
 
 <h2 id="use-social-media">Using Social Media well</h2>
 
-You probably know the rules to grow your YouTube channel: Post frequently, find your niche, optimize your content and so on. The very same rules apply to any social media. This is because these rules aren’t necessarily YouTube rules, they’re audience growth rules. You can even apply them to TV shows quite well! So of course, you can use them for your social media as well.
+You probably know the rules to grow your YouTube channel: Post frequently, find your niche, optimize your content and so on. The very same rules apply to any social media. This is because these rules aren’t necessarily YouTube rules, they’re audience growth rules. You can even [apply them](/en/tools/subtitle-studio/) to TV shows quite well! So of course, you can use them for your social media as well.
 
 This also is where the point I left out earlier comes back into play:
 

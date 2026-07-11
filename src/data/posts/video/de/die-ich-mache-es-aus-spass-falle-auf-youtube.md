@@ -35,7 +35,7 @@ Tatsächlich kann diese Einstellung sogar ein großer Vorteil für deine mentale
 
 ## Die Falle der „Spaß-Mentalität“
 
-Doch genau hier liegt eine versteckte Gefahr: die sogenannte „Ich mache es nur aus Spaß“-Falle. Viele Creator neigen dazu, in diesem Modus auch bei den technischen und rechtlichen Grundlagen nachlässig zu werden. Sie denken, dass Regeln wie das Urheberrecht oder die Community-Richtlinien nur dann relevant sind, wenn man professionell Geld verdienen möchte.
+Doch genau hier liegt eine versteckte Gefahr: die sogenannte „Ich mache es nur aus Spaß“-Falle. Viele Creator neigen dazu, in diesem Modus auch bei den technischen und rechtlichen Grundlagen nachlässig zu werden. Sie denken, dass Regeln wie das Urheberrecht oder die Community-Richtlinien nur dann relevant sind, wenn man professionell [Geld verdienen](/youtube-tipps-de/7-wege-wie-creator-geld-verdienen-jenseits-von-youtube-anzeigen/) möchte.
 
 Das ist ein gefährlicher Irrtum. Auch wenn du heute kein finanzielles Interesse an deinem Kanal hast, solltest du deine zukünftigen Möglichkeiten nicht aktiv sabotieren. 
 

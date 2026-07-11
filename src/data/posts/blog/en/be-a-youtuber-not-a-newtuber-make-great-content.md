@@ -20,7 +20,7 @@ postCta:
 
 Moin. Running a YouTube channel is hard. There’s a lot of things to consider, ranging from [thumbnails and SEO](/en/ads/) to get found better, to [monetization and branding](/en/). And while each of these things are important in their own right, it’s easy to lose track of what really matters: Making great content.
 
-Your content is the actual video. The things you say, the things you show, the narrative, the structure. And it’s this content that makes people laugh, that makes them think, that amazes them, or makes them learn. Your content is fundamentally the most important thing about your channel, without it, none of your other strategies will work. For example, a good thumbnail and title without great content is just clickbait. And as for SEO, well, the most important metric is user happiness, followed by watch time. All your keyword research won’t have much effect if it’s not backed up by great content.
+Your content is the actual video. The things you say, the things you show, the narrative, the structure. And it’s this content that makes people laugh, that makes them think, that amazes them, or makes them learn. Your content is fundamentally the most important thing about your channel, without it, none of your other strategies will work. For example, a good [thumbnail and title](/en/tools/youtube-thumbnail-preview/) without great content is just clickbait. And as for SEO, well, the most important metric is user happiness, followed by watch time. All your keyword research won’t have much effect if it’s not backed up by great content.
 
 So how do you make great content? Well, it all starts with the idea.
 

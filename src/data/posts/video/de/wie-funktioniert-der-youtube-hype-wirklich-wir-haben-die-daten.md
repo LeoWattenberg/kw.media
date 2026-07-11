@@ -45,7 +45,7 @@ Auch für die Zuschauer gibt es eine technische Hürde: Um ein Video hypen zu k�
 
 ## Die Mechanik hinter den Daten: Gewichtung und Bonustufen
 
-Ein besonders interessanter Aspekt von YouTube Hype ist, dass die Funktion anscheinend nicht linear funktioniert. Ein Hype ist nicht zwangsläufig gleich ein Hype. Aus den vorliegenden Daten geht hervor, dass YouTube eine unterschiedliche Gewichtung je nach Kanalgröße anwendet.
+Ein besonders interessanter Aspekt von [YouTube Hype](/youtube-tipps-de/youtubes-losung-fur-fomo-koder-neue-kanal-filter-erklart-creator-news/) ist, dass die Funktion anscheinend nicht linear funktioniert. Ein Hype ist nicht zwangsläufig gleich ein Hype. Aus den vorliegenden Daten geht hervor, dass YouTube eine unterschiedliche Gewichtung je nach Kanalgröße anwendet.
 
 ### Der Einfluss der Kanalgröße
 Es deutet vieles darauf hin, dass ein Hype für einen sehr kleinen Kanal mehr „Punkte“ wert ist als ein Hype für einen bereits größeren Kanal. Dies unterstreicht die Absicht von YouTube, gezielt kleinere Creator zu fördern, die es schwerer haben, organisch gegen etablierte Kanäle zu konkurrieren.

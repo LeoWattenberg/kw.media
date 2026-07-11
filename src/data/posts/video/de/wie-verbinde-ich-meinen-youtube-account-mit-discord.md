@@ -38,7 +38,7 @@ Die Verknüpfung ist schnell erledigt und erfordert nur wenige Klicks in deinen 
 1. **Einstellungen öffnen:** Navigiere in deinem Discord-Client zu den allgemeinen Einstellungen (das Zahnrad-Symbol).
 2. **Verbindungen aufrufen:** Suche im Menü den Punkt „Verbindungen“. Hier werden alle Drittanbieter-Konten aufgelistet, die du mit deinem Discord-Profil verknüpfen kannst.
 3. **YouTube auswählen:** Klicke auf das YouTube-Icon, um den Verbindungsprozess zu starten.
-4. **Google-Konto autorisieren:** Es öffnet sich ein Anmeldefenster. Melde dich hier mit dem Google-Konto an, das mit deinem YouTube-Kanal verknüpft ist. Achte darauf, dass du das richtige Konto wählst, falls du mehrere Google-Accounts besitzt.
+4. **Google-Konto autorisieren:** Es öffnet sich ein Anmeldefenster. Melde dich hier mit dem Google-Konto an, das mit deinem [YouTube-Kanal](/de/youtube-tipps/) verknüpft ist. Achte darauf, dass du das richtige Konto wählst, falls du mehrere Google-Accounts besitzt.
 5. **Zugriff bestätigen:** Autorisiere die App, damit Discord die notwendigen Informationen von YouTube abrufen darf.
 
 ### Warum ist diese Integration sinnvoll?

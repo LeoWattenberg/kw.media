@@ -27,7 +27,7 @@ postCta:
 <!-- kwm:article:start -->
 ## Warum werden meine YouTube-Kapitel nicht angezeigt?
 
-Du hast dir die Mühe gemacht, dein Video strukturiert aufzubauen und Zeitstempel in die Beschreibung einzufügen, aber im Videoplayer bleibt der Fortschrittsbalken glatt – es erscheinen keine [YouTube-Kapitel](/youtube-tipps-de/youtube-video-kapitel-sind-awesome-und-das-ist-der-grund-shorts/). Das kann frustrierend sein, da Kapitel sowohl für die User Experience als auch für die Navigation innerhalb eines Videos ein enormer Mehrwert sind.
+Du hast dir die Mühe gemacht, dein Video strukturiert aufzubauen und [Zeitstempel in die Beschreibung einzufügen](/de/tools/podcast-kapitel-editor/), aber im Videoplayer bleibt der Fortschrittsbalken glatt – es erscheinen keine [YouTube-Kapitel](/youtube-tipps-de/youtube-video-kapitel-sind-awesome-und-das-ist-der-grund-shorts/). Das kann frustrierend sein, da Kapitel sowohl für die User Experience als auch für die Navigation innerhalb eines Videos ein enormer Mehrwert sind.
 
 Es gibt jedoch eine Reihe von technischen Voraussetzungen und Richtlinien, die erfüllt sein müssen, damit YouTube diese Zeitstempel automatisch in Kapitel umwandelt. Wenn eine dieser Bedingungen nicht erfüllt ist, blendet das System die Funktion einfach aus.
 

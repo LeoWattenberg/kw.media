@@ -31,7 +31,7 @@ Wenn du als Creator kurze, vertikale Videos produzieren möchtest, bietet YouTub
 
 ### Der direkte Weg über das Plus-Symbol
 
-Der intuitivste Weg für die mobile Produktion ist der Zugriff über die zentrale Navigationsleiste der YouTube-App. Hier findest du in der Mitte ein Plus-Zeichen (+). Ein Klick auf dieses Symbol öffnet ein Menü, über das du direkt die Option wählst, einen Short zu erstellen. 
+Der intuitivste Weg für die mobile Produktion ist der Zugriff über die zentrale Navigationsleiste der YouTube-App. Hier findest du in der Mitte ein Plus-Zeichen (+). Ein Klick auf dieses Symbol öffnet ein Menü, über das du direkt die Option wählst, [einen Short zu erstellen](/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts-2/). 
 
 Dieser Weg eignet sich besonders dann, wenn du gezielt mit der Produktion eines neuen Videos beginnst und die Kamera-Funktionen von YouTube nutzen möchtest, um Inhalte schnell und unkompliziert aufzunehmen.
 

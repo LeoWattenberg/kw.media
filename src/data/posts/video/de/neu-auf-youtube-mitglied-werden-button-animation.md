@@ -45,7 +45,7 @@ Sobald diese Phrasen fallen, leuchtet der Button farbig auf und signalisiert dem
 
 Diese Funktion kommt nicht aus dem Nichts, sondern ist eine Erweiterung eines Mechanismus, den YouTube bereits erfolgreich implementiert hat. Schon seit einiger Zeit gibt es eine ähnliche Animation für den „[Abonnieren“-Button](/youtube-tipps-de/youtube-updates-verwirrung-um-abonnieren-und-autodubbing-vollstandig-ausgerollt/). Wenn Creator in ihren Videos dazu aufrufen, den Kanal zu abonnieren, wird auch dieser Button hervorgehoben.
 
-Dass YouTube dieses Prinzip nun auch auf die [Kanal-Mitgliedschaften](/de/creator/) überträgt, zeigt, wie wichtig die Synchronisation von Audio- und visuellen Reizen für die Conversion-Rate ist. Ein rein verbaler Aufruf kann in der Hektik eines Videos untergehen; ein blinkender oder leuchtender Button hingegen fungiert als Wegweiser, der den Zuschauer im Moment der höchsten Motivation direkt zur gewünschten Aktion führt.
+Dass YouTube dieses Prinzip nun auch auf die [Kanal-Mitgliedschaften](/de/creator/) überträgt, zeigt, wie wichtig die Synchronisation von [Audio-](/de/tools/converter/video-audio-converter/) und visuellen Reizen für die Conversion-Rate ist. Ein rein verbaler Aufruf kann in der Hektik eines Videos untergehen; ein blinkender oder leuchtender Button hingegen fungiert als Wegweiser, der den Zuschauer im Moment der höchsten Motivation direkt zur gewünschten Aktion führt.
 
 ### Warum diese Funktion für Creator wertvoll ist
 

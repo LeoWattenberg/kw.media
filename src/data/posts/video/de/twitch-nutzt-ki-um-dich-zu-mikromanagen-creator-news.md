@@ -46,7 +46,7 @@ Ergänzt wird dies durch eine „Chat-Stimmungsanalyse“. Hierbei misst die KI 
 ### Die finanzielle Diskrepanz
 Besonders kritisch ist dieser technologische Vorstoß im Kontext der Vergütung zu sehen. In der Branche gilt oft ein Standardwert von etwa 1 US-Dollar pro CCV (Concurrent Viewers) pro Stunde als fairer Richtwert für verhandelte Kampagnen. Berichten zufolge unterbieten Twitch und Amazon Ads diese Sätze jedoch seit einiger Zeit.
 
-Für dich als Creator ergibt sich hier eine riskante Konstellation: Du wirst aufgefordert, ein KI-gesteuertes Mikromanagement zu akzeptieren und deine Performance durch Stimmungsanalysen belegen zu lassen, während die Bezahlung unter dem Marktwert liegt. Es ist daher essenziell, den eigenen Wert genau zu kennen. Wer sich unsicher bei den Verhandlungen fühlt, sollte in Erwägung ziehen, eine Agentur einzuschalten, um gerechte Entschädigungen durchzusetzen.
+Für dich als Creator ergibt sich hier eine riskante Konstellation: Du wirst aufgefordert, ein KI-gesteuertes Mikromanagement zu akzeptieren und deine Performance durch Stimmungsanalysen belegen zu lassen, während die Bezahlung unter dem Marktwert liegt. Es ist daher essenziell, den eigenen Wert genau zu kennen. Wer sich unsicher bei den Verhandlungen fühlt, sollte in Erwägung ziehen, [eine Agentur einzuschalten](/de/b2b/), um gerechte Entschädigungen durchzusetzen.
 
 ## YouTube: Die Ära der KI-Avatare und digitalen Zwillinge
 
@@ -55,7 +55,7 @@ Parallel dazu treibt Google die Integration von KI auf YouTube voran. Nachdem er
 ### Funktionsweise und regulatorische Hürden
 Über die YouTube-Mobile-App oder die YouTube Create-App können sich Creator aktiv dazu entscheiden, einen digitalen Zwilling von sich selbst zu generieren. Dieser Avatar kann dann genutzt werden, um Inhalte effizienter zu skalieren, ohne dass der Creator jedes Mal vor der Kamera stehen muss.
 
-Ein wichtiger Punkt ist hierbei die Transparenz: YouTube fordert eine klare Kennzeichnung von KI-generierten Inhalten. Wer dies versäumt, riskiert Verwarnungen, da solche Verstöße unter die Richtlinien gegen Spam und irreführende Praktiken fallen. Es ist zudem wichtig, dieses Feature von dem Gemini Omni zu unterscheiden, das bereits für kurze Remixes diskutiert wurde; die Avatar-Erstellung ist ein separater, aktiver Opt-in-Prozess.
+Ein wichtiger Punkt ist hierbei die Transparenz: YouTube fordert eine klare Kennzeichnung von [KI-generierten Inhalten](/de/kurse/). Wer dies versäumt, riskiert Verwarnungen, da solche Verstöße unter die Richtlinien gegen Spam und irreführende Praktiken fallen. Es ist zudem wichtig, dieses Feature von dem Gemini Omni zu unterscheiden, das bereits für kurze Remixes diskutiert wurde; die Avatar-Erstellung ist ein separater, aktiver Opt-in-Prozess.
 
 Interessanterweise ist diese Funktion innerhalb des Europäischen Wirtschaftsraums (EWR) derzeit aufgrund regulatorischer Einschränkungen nicht verfügbar. Dies wirft eine grundlegende Frage auf: Werden europäische Creator im globalen Wettbewerb benachteiligt, weil sie diese Skalierungstools nicht nutzen können? Oder schützt die EU hier effektiv vor der Kommodifizierung der eigenen Persönlichkeit und dem Risiko von Deepfakes?
 

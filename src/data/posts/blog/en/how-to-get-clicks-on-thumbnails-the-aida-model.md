@@ -19,7 +19,7 @@ postCta:
   pageTitle: "YouTube Tips & Tricks in English"
 ---
 
-Making thumbnails can be difficult and frustrating. Even if you have the technical skills to make them pretty, they still might not work out and get abysmal click-through rates. So why is that? Well, that’s what this YouTube thumbnail tutorial is about. It’s a bit theoretical, but you should get a fundamental understanding on the “why”.
+Making thumbnails can be difficult and frustrating. Even if you have the technical skills to make them pretty, they still might not work out and get abysmal click-through rates. So why is that? Well, that’s what this [YouTube thumbnail tutorial](/en/youtube-tips/) is about. It’s a bit theoretical, but you should get a fundamental understanding on the “why”.
 
 To figure this out, we must first think about a potential viewer browsing the home page. Let’s call her Tama. When Tama looks at youtube.com, she is immediately flooded with a dozen or so recommended videos. She quickly scans the page, and her gaze immediately sticks to the most attention-grabbing thumbnail. Maybe she likes it, maybe she doesn’t, and if she doesn’t, she’ll look at another thumbnail – probably another one that’s very attention-grabbing.
 
@@ -38,7 +38,7 @@ But Tama isn’t a toddler who you can entertain by just showing high-contrast b
 
 ## Step 2: Generate Interest
 
-When your thumbnail has done the heavy lifting, your title can jump in to help out. Tama now is examining the thumbnail and title together closer. Your thumbnail and title now need to work together to formulate a promise that clicking on the video will lead to an interesting couple of minutes. Unlike the rather subconscious process of getting attention, getting interest on something depends on your audience and what their background and interests are like. Because of that, the following is rather vague. If you’d like some examples more tailored to your channel, you can [ask us](/en/creator/).
+When your thumbnail has done the heavy lifting, your title can jump in to help out. Tama now is examining the [thumbnail and title](/en/tools/youtube-thumbnail-preview/) together closer. Your thumbnail and title now need to work together to formulate a promise that clicking on the video will lead to an interesting couple of minutes. Unlike the rather subconscious process of getting attention, getting interest on something depends on your audience and what their background and interests are like. Because of that, the following is rather vague. If you’d like some examples more tailored to your channel, you can [ask us](/en/creator/).
 
 That said, to generate interest:
 

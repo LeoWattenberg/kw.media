@@ -45,7 +45,7 @@ Damit die Zusammenarbeit aktiv wird, muss der andere Creator den Link erhalten u
 
 ## Warum nutzt YouTube ein Link-System?
 
-Vielleicht fragst du dich, warum der Prozess über einen externen Link läuft und nicht über eine einfache Benachrichtigung innerhalb der Plattform. Der Grund hierfür ist der Schutz vor Spam. 
+Vielleicht fragst du dich, warum der Prozess über einen externen Link läuft und nicht über eine einfache Benachrichtigung innerhalb der Plattform. Der Grund hierfür ist der [Schutz vor](/de/tools/loudness-mastering/) Spam. 
 
 Durch dieses System wird verhindert, dass insbesondere große Creator mit einer Flut von Kollaborationsanfragen in ihrem YouTube Studio überrollt werden. Nur wer den Link erhält und aktiv darauf klickt, geht die Zusammenarbeit ein, was die Verwaltung der Anfragen für alle Beteiligten übersichtlicher macht.
 

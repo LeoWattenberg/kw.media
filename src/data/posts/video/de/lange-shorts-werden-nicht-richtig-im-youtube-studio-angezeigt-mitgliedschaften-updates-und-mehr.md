@@ -50,7 +50,7 @@ Damit du nicht in Panik gerätst, wenn deine Statistiken oder Kategorisierungen 
 *   **Ende November:** Dies ist der entscheidende Zeitpunkt für die visuelle Integration. Zu diesem Zeitpunkt sollen die langen Shorts auch im sogenannten „Shorts-Shelf“ (dem Shorts-Regal auf der Kanalseite), im Abonnenten-Feed und im dedizierten Shorts-Tab deiner Kanalseite erscheinen. Gleichzeitig wird erwartet, dass das YouTube Studio seine Anzeige anpasst und diese Videos korrekt als Shorts ausweist.
 *   **Erstes Quartal 2025:** Wer seine Shorts direkt in der App erstellt, muss sich noch etwas gedulden. Das Erstellungstool innerhalb der YouTube App wird im ersten Quartal 2025 angepasst, sodass du dann nativ 3-Minuten-Shorts produzieren kannst. Beachte bitte, dass ein Quartal mehrere Monate umfasst und Zeitpläne bei Software-Updates immer flexibel bleiben.
 
-**Praktischer Rat:** Wenn du alles richtig gemacht hast (vertikales Format, Länge unter 3 Minuten), musst du dir keine Sorgen machen. Dass das Studio die Videos vorerst als normale Videos anzeigt, ist ein bekanntes Problem der aktuellen Übergangsphase. Du kannst in der Zwischenzeit gerne experimentieren, solltest aber die folgenden rechtlichen Aspekte beachten.
+**Praktischer Rat:** Wenn du alles richtig gemacht hast ([vertikales Format](/de/tools/vertikaler-video-reframer/), Länge unter 3 Minuten), musst du dir keine Sorgen machen. Dass das Studio die Videos vorerst als normale Videos anzeigt, ist ein bekanntes Problem der aktuellen Übergangsphase. Du kannst in der Zwischenzeit gerne experimentieren, solltest aber die folgenden rechtlichen Aspekte beachten.
 
 ### Rechtliche Fallstricke bei längeren Shorts
 
