@@ -4,6 +4,7 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
 import { getSitePageAlternatePaths, getSitePageComponent, sitePages } from '../data/pages';
 import { getGamePageAlternatePaths, getGamePageComponent, gamePages } from '../data/games';
 import { getToolPageAlternatePaths, getToolPageComponent, toolPages } from '../data/tools';
+import { routeFor } from '../i18n';
 import { getAllPosts, getPostAlternatePaths } from '../lib/source-content';
 
 export function getStaticPaths() {
@@ -56,6 +57,29 @@ export function getStaticPaths() {
 }
 
 const { kind, page, post, tool, game, PageComponent, ToolComponent, GameComponent } = Astro.props;
+
+function pageTitleForPath(path: string): string | undefined {
+	return sitePages.find((sitePage) => sitePage.path === path)?.title;
+}
+
+const postOverviewPath = post
+	? post.category === 'audacity'
+		? routeFor('audacity', post.locale)
+		: routeFor('tips', post.locale)
+	: undefined;
+const postOverviewTitle = postOverviewPath ? pageTitleForPath(postOverviewPath) : undefined;
+const postBreadcrumbs = post && postOverviewPath
+	? [
+			{
+				label: postOverviewTitle ?? (post.category === 'audacity' ? 'Audacity' : post.locale === 'de' ? 'YouTube Tipps' : 'YouTube Tips'),
+				href: postOverviewPath,
+			},
+			{
+				label: post.title,
+				href: post.path,
+			},
+		]
+	: undefined;
 ---
 
 {
@@ -73,6 +97,7 @@ const { kind, page, post, tool, game, PageComponent, ToolComponent, GameComponen
 			publishedTime={post.date}
 			modifiedTime={post.modified}
 			authorName={post.authorName}
+			breadcrumbs={postBreadcrumbs}
 		>
 			<ArticlePage post={post} />
 		</BaseLayout>

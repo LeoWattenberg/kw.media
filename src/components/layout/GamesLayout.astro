@@ -9,6 +9,8 @@ interface Props {
 }
 
 const { game, alternatePaths } = Astro.props;
+const gamesPath = game.locale === 'de' ? '/de/games/' : '/en/games/';
+const gamesLabel = game.locale === 'de' ? 'Spiele' : 'Games';
 ---
 
 <BaseLayout
@@ -17,6 +19,10 @@ const { game, alternatePaths } = Astro.props;
 	description={game.description}
 	canonicalPath={game.path}
 	alternatePaths={alternatePaths}
+	breadcrumbs={[
+		{ label: gamesLabel, href: gamesPath },
+		{ label: game.title, href: game.path },
+	]}
 >
 	<div class="games-layout">
 		<slot />

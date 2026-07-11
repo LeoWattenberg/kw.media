@@ -17,6 +17,11 @@ interface FaqItem {
 	answer: string[];
 }
 
+interface BreadcrumbItem {
+	label: string;
+	href?: string;
+}
+
 interface Props {
 	locale: Locale;
 	title: string;
@@ -32,6 +37,7 @@ interface Props {
 	authorName?: string;
 	profileAuthor?: AuthorProfile;
 	faqItems?: FaqItem[];
+	breadcrumbs?: BreadcrumbItem[];
 }
 
 const {
@@ -49,6 +55,7 @@ const {
 	authorName,
 	profileAuthor,
 	faqItems = [],
+	breadcrumbs,
 } = Astro.props;
 const t = useTranslations(locale);
 const siteName = t('siteName');
@@ -106,26 +113,25 @@ const articleId = `${canonicalHref}#article`;
 const profilePersonId = `${canonicalHref}#person`;
 const homePath = locale === 'en' ? '/en/' : '/';
 const isHomePage = canonicalPath === '/' || canonicalPath === '/en/';
-const breadcrumbItems = [
+const breadcrumbTrail = [
 	{
-		'@type': 'ListItem',
-		position: 1,
-		name: siteName,
-		item: absoluteUrl(homePath),
+		label: siteName,
+		href: homePath,
 	},
 	...(
 		isHomePage
 			? []
-			: [
-					{
-						'@type': 'ListItem',
-						position: 2,
-						name: title,
-						item: canonicalHref,
-					},
-				]
+			: breadcrumbs?.length
+				? breadcrumbs
+				: [{ label: title, href: canonicalPath }]
 	),
 ];
+const breadcrumbItems = breadcrumbTrail.map((item, index) => ({
+	'@type': 'ListItem',
+	position: index + 1,
+	name: item.label,
+	item: absoluteUrl(item.href ?? canonicalPath),
+}));
 const organizationSchema = {
 	'@type': 'Organization',
 	'@id': organizationId,
@@ -302,6 +308,27 @@ const jsonLd = JSON.stringify({
 			<SiteSidebar locale={locale} currentPath={currentPath} alternatePaths={effectiveAlternatePaths} />
 			<div class="site-content">
 				<main>
+					{
+						breadcrumbTrail.length > 1 && (
+							<nav class="breadcrumbs" aria-label={locale === 'de' ? 'Breadcrumb' : 'Breadcrumb'}>
+								<ol class="container">
+									{breadcrumbTrail.map((item, index) => {
+										const isCurrent = index === breadcrumbTrail.length - 1;
+
+										return (
+											<li>
+												{isCurrent ? (
+													<span aria-current="page">{item.label}</span>
+												) : (
+													<a href={withBase(item.href ?? homePath)}>{item.label}</a>
+												)}
+											</li>
+										);
+									})}
+								</ol>
+							</nav>
+						)
+					}
 					<slot />
 				</main>
 				<SiteFooter locale={locale} />
@@ -457,6 +484,50 @@ const jsonLd = JSON.stringify({
 
 	main {
 		min-height: 60vh;
+	}
+
+	.breadcrumbs {
+		padding-block: 14px;
+		color: var(--color-muted);
+		background: var(--color-surface);
+		border-bottom: 1px solid var(--color-line);
+		font-size: 0.88rem;
+		font-weight: 750;
+	}
+
+	.breadcrumbs ol {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px;
+		margin-block: 0;
+		padding-left: 0;
+		list-style: none;
+	}
+
+	.breadcrumbs li {
+		display: inline-flex;
+		align-items: center;
+		min-width: 0;
+	}
+
+	.breadcrumbs li + li::before {
+		content: '/';
+		margin-right: 8px;
+		color: var(--color-line);
+	}
+
+	.breadcrumbs a {
+		text-decoration: none;
+	}
+
+	.breadcrumbs a:hover {
+		color: var(--color-accent-dark);
+	}
+
+	.breadcrumbs [aria-current='page'] {
+		overflow-wrap: anywhere;
+		color: var(--color-ink);
 	}
 
 	.youtube-consent-frame {

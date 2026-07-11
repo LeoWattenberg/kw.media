@@ -9,6 +9,7 @@ interface Props {
 }
 
 const { tool, alternatePaths } = Astro.props;
+const toolsPath = tool.locale === 'de' ? '/de/tools/' : '/en/tools/';
 ---
 
 <BaseLayout
@@ -17,6 +18,10 @@ const { tool, alternatePaths } = Astro.props;
 	description={tool.description}
 	canonicalPath={tool.path}
 	alternatePaths={alternatePaths}
+	breadcrumbs={[
+		{ label: 'Tools', href: toolsPath },
+		{ label: tool.title, href: tool.path },
+	]}
 >
 	<div class="tools-layout">
 		<slot />
