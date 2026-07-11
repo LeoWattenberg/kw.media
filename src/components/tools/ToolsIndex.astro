@@ -1,6 +1,7 @@
 ---
 import type { Locale } from '../../i18n';
-import { toolPages } from '../../data/tools';
+import { getToolCategoryPath, toolCategories } from '../../data/tool-categories';
+import { toolGroup, toolPages } from '../../data/tools';
 import { withBase } from '../../lib/url';
 
 interface Props {
@@ -13,18 +14,51 @@ const copy = {
 		eyebrow: 'Tools',
 		title: 'Creator-Tools',
 		intro: 'Kleine, clientseitige Werkzeuge für Content-, Audio- und Produktionsentscheidungen.',
-		open: 'Tool öffnen',
+		openFolder: 'Ordner oeffnen',
+		openTool: 'Tool oeffnen',
+		searchLabel: 'Tools durchsuchen',
+		searchPlaceholder: 'Nach Tool, Aufgabe oder Format suchen',
+		resultCount: '{count} Treffer',
+		empty: 'Keine passenden Tools gefunden.',
+		resultsTitle: 'Suchergebnisse',
 	},
 	en: {
 		eyebrow: 'Tools',
 		title: 'Creator Tools',
 		intro: 'Small client-side tools for content, audio, and production decisions.',
-		open: 'Open tool',
+		openFolder: 'Open folder',
+		openTool: 'Open tool',
+		searchLabel: 'Search tools',
+		searchPlaceholder: 'Search by tool, task, or format',
+		resultCount: '{count} matches',
+		empty: 'No matching tools found.',
+		resultsTitle: 'Search Results',
 	},
 }[locale];
-const tools = toolPages
-	.filter((tool) => tool.locale === locale)
-	.filter((tool) => !tool.path.startsWith(`/${locale}/tools/converter/`) || tool.path === `/${locale}/tools/converter/`)
+
+const localizedTools = toolPages.filter((tool) => tool.locale === locale);
+const toolsById = new Map(localizedTools.map((tool) => [toolGroup(tool.id), tool]));
+const categoryPageIds = new Set(['converter', 'audio-tools', 'video-tools', 'image-tools', 'text-tools', 'analyzers']);
+const categoryFolders = toolCategories.map((category) => {
+	const translation = category.translations[locale];
+	const tools = category.toolIds.map((toolId) => toolsById.get(toolId)).filter(Boolean);
+
+	return {
+		category,
+		translation,
+		path: getToolCategoryPath(category, locale),
+		tools,
+		searchText: [
+			translation.title,
+			translation.description,
+			category.slug,
+			...tools.flatMap((tool) => [tool.title, tool.description, tool.path]),
+		].join(' '),
+	};
+});
+
+const searchTools = localizedTools
+	.filter((tool) => !categoryPageIds.has(toolGroup(tool.id)))
 	.sort((first, second) => first.title.localeCompare(second.title));
 ---
 
@@ -36,19 +70,197 @@ const tools = toolPages
 	</div>
 </section>
 
-<section class="section tool-index-section">
-	<div class="container tool-grid">
-		{
-			tools.map((tool) => (
-				<a class="tool-card" href={withBase(tool.path)}>
-					<span>{copy.open}</span>
-					<h2>{tool.title}</h2>
-					<p>{tool.description}</p>
-				</a>
-			))
-		}
+<section class="section tool-index-section" data-tool-index data-result-template={copy.resultCount}>
+	<div class="container tool-index-shell">
+		<div class="tool-search">
+			<label for={`tool-search-${locale}`}>{copy.searchLabel}</label>
+			<div class="tool-search-field">
+				<input
+					id={`tool-search-${locale}`}
+					type="search"
+					name="tool-search"
+					placeholder={copy.searchPlaceholder}
+					autocomplete="off"
+					spellcheck="false"
+					data-tool-search-input
+				/>
+				<span aria-live="polite" data-tool-count></span>
+			</div>
+		</div>
+
+		<div class="tool-folder-grid" data-folder-grid>
+			{
+				categoryFolders.map(({ translation, path, tools, searchText }) => (
+					<a class="tool-card" href={withBase(path)} data-tool-folder-card data-tool-search={searchText}>
+						<span>{copy.openFolder}</span>
+						<h2>{translation.title}</h2>
+						<p>{translation.description}</p>
+						<small>{tools.length} tools</small>
+					</a>
+				))
+			}
+		</div>
+
+		<section class="tool-results" hidden data-tool-results>
+			<h2>{copy.resultsTitle}</h2>
+			<div class="tool-grid">
+				{
+					categoryFolders.map(({ translation, path, searchText }) => (
+						<a class="tool-card" href={withBase(path)} data-search-card data-tool-search={searchText}>
+							<span>{copy.openFolder}</span>
+							<h3>{translation.title}</h3>
+							<p>{translation.description}</p>
+						</a>
+					))
+				}
+				{
+					searchTools.map((tool) => (
+						<a
+							class="tool-card"
+							href={withBase(tool.path)}
+							data-search-card
+							data-tool-search={[tool.title, tool.description, tool.path].join(' ')}
+						>
+							<span>{copy.openTool}</span>
+							<h3>{tool.title}</h3>
+							<p>{tool.description}</p>
+						</a>
+					))
+				}
+			</div>
+		</section>
+
+		<p class="tool-empty" hidden data-tool-empty>{copy.empty}</p>
 	</div>
 </section>
+
+<script>
+	const index = document.querySelector('[data-tool-index]');
+
+	if (index instanceof HTMLElement) {
+		const input = index.querySelector('[data-tool-search-input]');
+		const count = index.querySelector('[data-tool-count]');
+		const empty = index.querySelector('[data-tool-empty]');
+		const folderGrid = index.querySelector('[data-folder-grid]');
+		const results = index.querySelector('[data-tool-results]');
+		const resultCards = Array.from(index.querySelectorAll('[data-search-card]'));
+		const resultTemplate = index.dataset.resultTemplate ?? '{count}';
+
+		const normalize = (value) =>
+			value
+				.normalize('NFD')
+				.replace(/[\u0300-\u036f]/g, '')
+				.toLowerCase()
+				.replace(/[^a-z0-9]+/g, ' ')
+				.trim();
+
+		const distance = (first, second) => {
+			const previous = Array.from({ length: second.length + 1 }, (_, index) => index);
+
+			for (let row = 1; row <= first.length; row += 1) {
+				let last = previous[0];
+				previous[0] = row;
+
+				for (let column = 1; column <= second.length; column += 1) {
+					const insert = previous[column] + 1;
+					const remove = previous[column - 1] + 1;
+					const replace = last + (first[row - 1] === second[column - 1] ? 0 : 1);
+					last = previous[column];
+					previous[column] = Math.min(insert, remove, replace);
+				}
+			}
+
+			return previous[second.length];
+		};
+
+		const isSubsequence = (needle, haystack) => {
+			let position = 0;
+
+			for (const character of haystack) {
+				if (character === needle[position]) {
+					position += 1;
+				}
+
+				if (position === needle.length) {
+					return true;
+				}
+			}
+
+			return false;
+		};
+
+		const tokenMatches = (token, haystack, words) => {
+			if (!token) {
+				return true;
+			}
+
+			if (haystack.includes(token) || words.some((word) => word.includes(token))) {
+				return true;
+			}
+
+			const typoAllowance = token.length > 5 ? 2 : 1;
+			const closeWord = words.some((word) => word.length > 2 && distance(token, word) <= typoAllowance);
+			const closeSequence = words.some((word) => word.length > 2 && token.length / word.length >= 0.55 && isSubsequence(token, word));
+
+			return closeWord || (token.length > 2 && closeSequence);
+		};
+
+		const matchesSearch = (query, value) => {
+			const tokens = normalize(query).split(/\s+/).filter(Boolean);
+
+			if (tokens.length === 0) {
+				return true;
+			}
+
+			const haystack = normalize(value);
+			const words = haystack.split(/\s+/).filter(Boolean);
+
+			return tokens.every((token) => tokenMatches(token, haystack, words));
+		};
+
+		const update = () => {
+			if (!(input instanceof HTMLInputElement)) {
+				return;
+			}
+
+			const query = input.value.trim();
+			const hasQuery = query.length > 0;
+			let visibleCards = 0;
+
+			if (folderGrid instanceof HTMLElement) {
+				folderGrid.hidden = hasQuery;
+			}
+
+			if (results instanceof HTMLElement) {
+				results.hidden = !hasQuery;
+			}
+
+			for (const card of resultCards) {
+				if (!(card instanceof HTMLElement)) {
+					continue;
+				}
+
+				const isVisible = hasQuery && matchesSearch(query, card.dataset.toolSearch ?? '');
+				card.hidden = !isVisible;
+
+				if (isVisible) {
+					visibleCards += 1;
+				}
+			}
+
+			if (count) {
+				count.textContent = hasQuery ? resultTemplate.replace('{count}', String(visibleCards)) : '';
+			}
+
+			if (empty instanceof HTMLElement) {
+				empty.hidden = !hasQuery || visibleCards > 0;
+			}
+		};
+
+		input?.addEventListener('input', update);
+		update();
+	}
+</script>
 
 <style>
 	.tool-index-hero {
@@ -76,15 +288,78 @@ const tools = toolPages
 		background: var(--color-surface-raised);
 	}
 
+	.tool-index-shell,
+	.tool-results {
+		display: grid;
+		gap: clamp(24px, 4vw, 40px);
+	}
+
+	.tool-search {
+		display: grid;
+		gap: 10px;
+		max-width: 720px;
+	}
+
+	.tool-search label {
+		color: var(--color-muted);
+		font-size: 0.82rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.tool-search-field {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		align-items: center;
+		gap: 14px;
+	}
+
+	.tool-search input {
+		width: 100%;
+		min-height: 52px;
+		padding: 12px 16px;
+		color: var(--color-ink);
+		background: var(--color-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font: inherit;
+		font-weight: 750;
+	}
+
+	.tool-search input:focus-visible {
+		border-color: var(--color-accent);
+		outline: 3px solid color-mix(in srgb, var(--color-accent) 22%, transparent);
+		outline-offset: 2px;
+	}
+
+	.tool-search span {
+		min-width: 92px;
+		color: var(--color-muted);
+		font-size: 0.9rem;
+		font-weight: 750;
+		text-align: right;
+	}
+
+	.tool-folder-grid,
 	.tool-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 		gap: 16px;
 	}
 
+	.tool-results h2 {
+		margin: 0;
+		color: var(--color-ink);
+		font-size: clamp(1.7rem, 4vw, 3rem);
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
 	.tool-card {
 		display: grid;
+		grid-template-rows: auto auto 1fr auto;
 		gap: 12px;
+		min-height: 210px;
 		padding: clamp(18px, 3vw, 28px);
 		color: inherit;
 		background: var(--color-surface-raised);
@@ -98,6 +373,12 @@ const tools = toolPages
 		border-color: var(--color-accent);
 	}
 
+	.tool-card:focus-visible {
+		border-color: var(--color-accent);
+		outline: 3px solid color-mix(in srgb, var(--color-accent) 24%, transparent);
+		outline-offset: 2px;
+	}
+
 	.tool-card span {
 		color: var(--color-accent-dark);
 		font-size: 0.78rem;
@@ -105,17 +386,48 @@ const tools = toolPages
 		text-transform: uppercase;
 	}
 
-	.tool-card h2 {
+	.tool-card h2,
+	.tool-card h3 {
 		margin: 0;
 		color: var(--color-ink);
-		font-size: clamp(1.35rem, 3vw, 2rem);
+		font-size: clamp(1.25rem, 3vw, 1.75rem);
 		line-height: 1.1;
 		letter-spacing: 0;
 	}
 
-	.tool-card p {
+	.tool-card p,
+	.tool-card small {
 		margin: 0;
 		color: var(--color-muted);
 		font-weight: 700;
+	}
+
+	.tool-card small {
+		font-size: 0.9rem;
+	}
+
+	.tool-empty {
+		margin: 0;
+		padding: 24px;
+		color: var(--color-muted);
+		background: var(--color-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-weight: 800;
+	}
+
+	[hidden] {
+		display: none !important;
+	}
+
+	@media (max-width: 640px) {
+		.tool-search-field {
+			grid-template-columns: 1fr;
+		}
+
+		.tool-search span {
+			min-width: 0;
+			text-align: left;
+		}
 	}
 </style>

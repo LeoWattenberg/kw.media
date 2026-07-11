@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import ToolCategoryOverview from '../../../components/tools/ToolCategoryOverview.astro';
+import { defineToolModule } from '../../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('analyzers', {
+	id: 'analyzers',
+	translations: {
+		de: {
+			id: 'analyzers-de',
+			path: '/de/tools/analyzers/',
+			title: 'Analyzer',
+			description: 'Clientseitige Analyzer fuer Medien, Qualitaet, Crops, Thumbnails und Produktionsrisiken.',
+		},
+		en: {
+			id: 'analyzers-en',
+			path: '/en/tools/analyzers/',
+			title: 'Analyzers',
+			description: 'Client-side analyzers for media, quality, crops, thumbnails, and production risks.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<ToolCategoryOverview locale={tool.locale} categoryId="analyzers" />
+</ToolPageShell>

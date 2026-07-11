@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import ToolCategoryOverview from '../../../components/tools/ToolCategoryOverview.astro';
+import { defineToolModule } from '../../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('text-tools', {
+	id: 'text-tools',
+	translations: {
+		de: {
+			id: 'text-tools-de',
+			path: '/de/tools/text/',
+			title: 'Text-Tools',
+			description: 'Clientseitige Text-Tools fuer Dokumente, Untertitel, Kapitel und Metadaten.',
+		},
+		en: {
+			id: 'text-tools-en',
+			path: '/en/tools/text/',
+			title: 'Text Tools',
+			description: 'Client-side text tools for documents, subtitles, chapters, and metadata.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<ToolCategoryOverview locale={tool.locale} categoryId="text" />
+</ToolPageShell>

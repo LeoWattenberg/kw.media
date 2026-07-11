@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import ToolCategoryOverview from '../../../components/tools/ToolCategoryOverview.astro';
+import { defineToolModule } from '../../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('image-tools', {
+	id: 'image-tools',
+	translations: {
+		de: {
+			id: 'image-tools-de',
+			path: '/de/tools/image/',
+			title: 'Bild-Tools',
+			description: 'Clientseitige Bild-Tools fuer Freisteller, Vorschauen, Wasserzeichen und Formatwechsel.',
+		},
+		en: {
+			id: 'image-tools-en',
+			path: '/en/tools/image/',
+			title: 'Image Tools',
+			description: 'Client-side image tools for cutouts, previews, watermarks, and format changes.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<ToolCategoryOverview locale={tool.locale} categoryId="image" />
+</ToolPageShell>

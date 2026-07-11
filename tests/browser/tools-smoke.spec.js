@@ -12,8 +12,9 @@ const imageFixture = {
 const svgSource = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8"><rect width="12" height="8" fill="#2f80ed"/><circle cx="6" cy="4" r="3" fill="#ffffff"/></svg>';
 
 const toolPages = [
-	['/en/tools/', 'Creator Tools', '.tool-grid'],
+	['/en/tools/', 'Creator Tools', '.tool-folder-grid'],
 	['/en/tools/abx-tester/', 'ABX Audio Tester', '[data-abx-tester]'],
+	['/en/tools/audio/', 'Audio Tools', '.tool-category-grid'],
 	['/en/tools/background-remover/', 'Background Remover', '[data-background-remover]'],
 	['/en/tools/background-remover-checkerboard/', 'Checkerboard Background Remover', '[data-background-remover]'],
 	['/en/tools/click-to-cut-object-extractor/', 'Click-to-Cut Object Extractor', '[data-object-extractor]'],
@@ -25,6 +26,7 @@ const toolPages = [
 	['/en/tools/crop-doctor/', 'Crop Doctor', '[data-crop-doctor]'],
 	['/en/tools/delivery-doctor/', 'Delivery Doctor', '[data-delivery-doctor]'],
 	['/en/tools/face-object-redactor/', 'Face/Object Redactor', '[data-redactor]'],
+	['/en/tools/image/', 'Image Tools', '.tool-category-grid'],
 	['/en/tools/lossless-media-surgeon/', 'Lossless Media Surgeon', '[data-media-surgeon]'],
 	['/en/tools/loudness-mastering/', 'Loudness Mastering', '[data-loudness-mastering]'],
 	['/en/tools/media-info/', 'MediaInfo', '[data-mediainfo-tool]'],
@@ -35,9 +37,12 @@ const toolPages = [
 	['/en/tools/podcast-cleaner/', 'Podcast Cleaner', '[data-podcast-cleaner]'],
 	['/en/tools/raster-svg-workbench/', 'Raster/SVG Workbench', '[data-raster-svg]'],
 	['/en/tools/smart-vertical-reframer/', 'Smart Vertical Reframer', '[data-smart-reframer]'],
+	['/en/tools/text/', 'Text Tools', '.tool-category-grid'],
 	['/en/tools/vtuber-preview/', 'VTuber Preview', '[data-vtuber-preview]'],
+	['/en/tools/video/', 'Video Tools', '.tool-category-grid'],
 	['/en/tools/watermarker/', 'Watermarker', '[data-watermarker]'],
 	['/en/tools/youtube-thumbnail-preview/', 'YouTube Thumbnail Preview', '[data-thumbnail-preview]'],
+	['/en/tools/analyzers/', 'Analyzers', '.tool-category-grid'],
 ];
 
 test.describe('tool pages browser smoke', () => {
@@ -52,6 +57,22 @@ test.describe('tool pages browser smoke', () => {
 			expect(errors).toEqual([]);
 		});
 	}
+
+	test('tools overview behaves as a folder hub and searches child tools', async ({ page }) => {
+		const errors = collectClientErrors(page);
+
+		await page.goto('/en/tools/');
+		await expect(page.locator('[data-tool-folder-card]')).toHaveCount(6);
+		await expect(page.getByRole('link', { name: /Audio Tools/ })).toBeVisible();
+
+		await page.locator('[data-tool-search-input]').fill('documnt');
+
+		await expect(page.locator('[data-folder-grid]')).toBeHidden();
+		await expect(page.getByRole('link', { name: /Document Converter/ })).toHaveCount(1);
+		await expect(page.getByRole('link', { name: /MediaInfo/ })).toHaveCount(0);
+		await expect(page.locator('[data-tool-empty]')).toBeHidden();
+		expect(errors).toEqual([]);
+	});
 });
 
 test.describe('visual tool interactions', () => {
