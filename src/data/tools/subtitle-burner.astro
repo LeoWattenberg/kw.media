@@ -1,0 +1,17 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import SubtitleBurner from '../../components/tools/SubtitleBurner.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('subtitle-burner', {
+	id: 'subtitle-burner',
+	translations: {
+		de: { path: '/de/tools/subtitle-burner/', title: 'Subtitle Burner', description: 'Brenne eigene SRT- oder WebVTT-Untertitel mit anpassbarer Darstellung direkt lokal in Videos ein.' },
+		en: { path: '/en/tools/subtitle-burner/', title: 'Subtitle Burner', description: 'Burn your own SRT or WebVTT subtitles into local videos with adjustable display styles.' },
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}><SubtitleBurner locale={tool.locale} /></ToolPageShell>

@@ -83,6 +83,7 @@ export const toolCategories: ToolCategory[] = [
 			'smart-vertical-reframer',
 			'watermarker',
 			'offline-subtitle-studio',
+			'subtitle-burner',
 			'podcast-chapterizer',
 			'media-info',
 			'metadata-privacy-scrubber',
@@ -135,7 +136,7 @@ export const toolCategories: ToolCategory[] = [
 	{
 		id: 'text',
 		slug: 'text',
-		toolIds: ['document-converter', 'offline-subtitle-studio', 'podcast-chapterizer', 'metadata-privacy-scrubber'],
+		toolIds: ['document-converter', 'offline-subtitle-studio', 'subtitle-burner', 'podcast-chapterizer', 'metadata-privacy-scrubber'],
 		translations: {
 			de: {
 				eyebrow: 'Text',

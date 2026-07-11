@@ -41,6 +41,12 @@ import {
 	toVtt,
 } from '../src/lib/tools/offline-subtitle-studio.js';
 import {
+	assTimestamp,
+	buildSubtitleAss,
+	subtitleBurnerArgs,
+	subtitleOutputName,
+} from '../src/lib/tools/subtitle-burner.js';
+import {
 	buildGifArgs,
 	buildGifFilter,
 	normalizeGifSettings,
@@ -132,6 +138,20 @@ test('document converter detects binary pandoc inputs and output names', () => {
 	assert.equal(isBinaryInput({ type: 'text/markdown' }, 'markdown'), false);
 	assert.equal(buildDocumentOutputName('draft.v2.md', '.html'), 'draft.v2.html');
 	assert.equal(buildDocumentOutputName('', '.txt'), 'converted-document.txt');
+});
+
+test('subtitle burner creates ASS styles and FFmpeg burn-in arguments', () => {
+	const ass = buildSubtitleAss([{ start: 1, end: 3, text: 'Hello world' }], { mode: 'karaoke', fontSize: 64, alignment: 8, marginV: 120 });
+	assert.match(ass, /Style: Default,Arial,64/);
+	assert.match(ass, /,8,70,70,120,1/);
+	assert.match(ass, /Dialogue: 0,0:00:01.00,0:00:03.00/);
+	assert.match(ass, /\{\\k100\}Hello \{\\k100\}world/);
+	assert.equal(assTimestamp(3661.25), '1:01:01.25');
+	assert.equal(subtitleOutputName('clip.final.mov'), 'clip.final-subtitled.mp4');
+	assert.deepEqual(subtitleBurnerArgs('input.mov', 'captions.ass', 'output.mp4'), [
+		'-i', 'input.mov', '-vf', 'subtitles=captions.ass', '-map', '0:v:0?', '-map', '0:a:0?',
+		'-c:v', 'libx264', '-crf', '23', '-preset', 'veryfast', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-y', 'output.mp4',
+	]);
 });
 
 test('abx helpers produce deterministic trials and statistics', () => {
