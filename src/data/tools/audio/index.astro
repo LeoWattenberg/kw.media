@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import ToolCategoryOverview from '../../../components/tools/ToolCategoryOverview.astro';
+import { defineToolModule } from '../../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('audio-tools', {
+	id: 'audio-tools',
+	translations: {
+		de: {
+			id: 'audio-tools-de',
+			path: '/de/tools/audio/',
+			title: 'Audio-Tools',
+			description: 'Clientseitige Audio-Tools fuer Tests, Mastering, Bereinigung und Medienverarbeitung.',
+		},
+		en: {
+			id: 'audio-tools-en',
+			path: '/en/tools/audio/',
+			title: 'Audio Tools',
+			description: 'Client-side audio tools for testing, mastering, cleanup, and media processing.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<ToolCategoryOverview locale={tool.locale} categoryId="audio" />
+</ToolPageShell>

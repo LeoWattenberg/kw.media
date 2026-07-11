@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import ToolCategoryOverview from '../../../components/tools/ToolCategoryOverview.astro';
+import { defineToolModule } from '../../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('video-tools', {
+	id: 'video-tools',
+	translations: {
+		de: {
+			id: 'video-tools-de',
+			path: '/de/tools/video/',
+			title: 'Video-Tools',
+			description: 'Clientseitige Video-Tools zum Pruefen, Schneiden, Reframen, Konvertieren und Ausliefern.',
+		},
+		en: {
+			id: 'video-tools-en',
+			path: '/en/tools/video/',
+			title: 'Video Tools',
+			description: 'Client-side video tools for inspecting, trimming, reframing, converting, and delivering clips.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<ToolCategoryOverview locale={tool.locale} categoryId="video" />
+</ToolPageShell>
