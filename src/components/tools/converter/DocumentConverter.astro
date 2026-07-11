@@ -7,6 +7,7 @@ import ToolIntro from '../shared/ToolIntro.astro';
 import ToolPanel from '../shared/ToolPanel.astro';
 import ToolResultCard from '../shared/ToolResultCard.astro';
 import ToolStatus from '../shared/ToolStatus.astro';
+import { DOCUMENT_OUTPUT_PROFILES } from '../../../lib/tools/document-converter';
 
 interface Props {
 	locale: Locale;
@@ -17,16 +18,7 @@ interface Props {
 
 const { locale, defaultProfile = '', title, eyebrow } = Astro.props;
 
-const profileDefinitions = [
-	{ value: 'html', label: 'HTML', extension: '.html', mimeType: 'text/html; charset=utf-8', format: 'html' },
-	{ value: 'markdown', label: 'Markdown', extension: '.md', mimeType: 'text/markdown; charset=utf-8', format: 'markdown' },
-	{ value: 'plain', label: 'Plain text', extension: '.txt', mimeType: 'text/plain; charset=utf-8', format: 'plain' },
-	{ value: 'docx', label: 'DOCX', extension: '.docx', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', format: 'docx' },
-	{ value: 'odt', label: 'ODT', extension: '.odt', mimeType: 'application/vnd.oasis.opendocument.text', format: 'odt' },
-	{ value: 'epub', label: 'EPUB', extension: '.epub', mimeType: 'application/epub+zip', format: 'epub' },
-	{ value: 'latex', label: 'LaTeX', extension: '.tex', mimeType: 'text/x-tex; charset=utf-8', format: 'latex' },
-	{ value: 'rtf', label: 'RTF', extension: '.rtf', mimeType: 'text/rtf; charset=utf-8', format: 'rtf' },
-];
+const profileDefinitions = DOCUMENT_OUTPUT_PROFILES;
 
 const copyByLocale = {
 	de: {
@@ -54,7 +46,7 @@ const copyByLocale = {
 		selectedFile: 'Ausgewählte Datei: {name}',
 		selectedMeta: '{size} · {type}',
 		outputTitle: 'Ergebnis',
-		outputHelp: 'Die Ausgabe wird direkt heruntergeladen. Für PDF- oder andere externe Ausgabeformate sind zusätzliche Schritte nötig.',
+		outputHelp: 'Prüfe die Ausgabe direkt in der Vorschau oder lade die konvertierte Datei herunter.',
 		previewTitle: 'Vorschau der konvertierten Datei',
 		previewUnavailable: 'Für dieses Zielformat ist keine sichere Browser-Vorschau verfügbar. Du kannst die Datei herunterladen.',
 	},
@@ -83,7 +75,7 @@ const copyByLocale = {
 		selectedFile: 'Selected file: {name}',
 		selectedMeta: '{size} · {type}',
 		outputTitle: 'Result',
-		outputHelp: 'The output is downloaded right away. PDF and other external output formats require extra steps.',
+		outputHelp: 'Review the output in the built-in preview or download the converted file.',
 		previewTitle: 'Converted-file preview',
 		previewUnavailable: 'This target format cannot be previewed safely in the browser. You can download the file.',
 	},
@@ -223,7 +215,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 </style>
 
 <script>
-	import { buildOutputName, detectInputFormat, isBinaryInput } from '../../../lib/tools/document-converter';
+	import { buildOutputName, buildPandocOptions, createTextPdf, detectInputFormat, isBinaryInput } from '../../../lib/tools/document-converter';
 	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
 
 	(() => {
@@ -322,7 +314,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 						size: formatBytes(blob.size),
 						type: outputProfile.label,
 					});
-					await renderDocumentPreview(blob, url, outputProfile);
+					await renderDocumentPreview(blob, url, outputProfile, output.previewHtml);
 					setStatus(copy.statusReady, 'success');
 				} catch (error) {
 					setStatus(format(copy.statusError, { message: messageFromError(error) }), 'error');
@@ -343,27 +335,45 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 
 					const result = await pandoc.convert({
 						from: inputFormat,
-						to: profile.format,
-						'output-file': outputName,
+						...buildPandocOptions(profile, outputName),
 					}, stdin, files);
+					const previewHtml = profile.preview === 'html' && profile.format !== 'html'
+						? await createHtmlPreview(pandoc, inputFormat, stdin, files)
+						: profile.preview === 'latex'
+							? await createHtmlPreview(pandoc, 'latex', result.stdout, {})
+							: null;
+
+					if (profile.pdf) {
+						return { blob: createTextPdf(result.stdout, buildOutputName(file.name, profile.extension)), previewHtml };
+					}
 
 					if (typeof result.stdout === 'string' && result.stdout.length) {
-						return { blob: new Blob([result.stdout], { type: profile.mimeType }) };
+						return { blob: new Blob([result.stdout], { type: profile.mimeType }), previewHtml };
 					}
 
 					const outputFile = result.files && result.files[outputName];
 					if (outputFile instanceof Blob) {
-						return { blob: outputFile };
+						return { blob: outputFile, previewHtml };
 					}
 					if (outputFile instanceof Uint8Array) {
-						return { blob: new Blob([outputFile], { type: profile.mimeType }) };
+						return { blob: new Blob([outputFile], { type: profile.mimeType }), previewHtml };
 					}
 					if (typeof outputFile === 'string') {
-						return { blob: new Blob([outputFile], { type: profile.mimeType }) };
+						return { blob: new Blob([outputFile], { type: profile.mimeType }), previewHtml };
 					}
 
 					throw new Error(copy.statusGeneric);
 				});
+			}
+
+			async function createHtmlPreview(pandoc, inputFormat, stdin, files) {
+				const result = await pandoc.convert({
+					from: inputFormat,
+					to: 'html',
+					standalone: true,
+					'html-math-method': { method: 'mathml' },
+				}, stdin, { ...files });
+				return result.stdout;
 			}
 
 			function queuePandocTask(task) {
@@ -462,17 +472,23 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 				setStatus(copy.statusWaiting, 'info');
 			}
 
-			async function renderDocumentPreview(blob, url, profile) {
+			async function renderDocumentPreview(blob, url, profile, previewHtml) {
 				resetDocumentPreview();
 				documentPreview.hidden = false;
 
-				if (profile.format === 'html' || profile.mimeType === 'application/pdf') {
+				if (profile.preview === 'pdf' || profile.format === 'html') {
 					htmlPreview.src = url;
 					htmlPreview.hidden = false;
 					return;
 				}
 
-				if (['markdown', 'plain', 'latex', 'rtf'].includes(profile.format)) {
+				if (previewHtml) {
+					htmlPreview.srcdoc = previewHtml;
+					htmlPreview.hidden = false;
+					return;
+				}
+
+				if (profile.preview === 'text') {
 					textPreview.textContent = await blob.text();
 					textPreview.hidden = false;
 					return;
@@ -485,6 +501,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 				documentPreview.hidden = true;
 				htmlPreview.hidden = true;
 				htmlPreview.removeAttribute('src');
+				htmlPreview.removeAttribute('srcdoc');
 				textPreview.hidden = true;
 				textPreview.textContent = '';
 				previewUnavailable.hidden = true;
