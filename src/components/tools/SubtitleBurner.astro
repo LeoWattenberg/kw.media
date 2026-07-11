@@ -1,0 +1,115 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import RangeControl from './shared/RangeControl.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props { locale: Locale }
+
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Untertitel-Tool', title: 'Subtitle Burner',
+		intro: 'Brenne eigene SRT- oder WebVTT-Untertitel direkt im Browser in ein lokales Video ein.',
+		privacy: 'Video und Untertitel bleiben lokal. Die Ausgabe wird mit FFmpeg WASM im Browser erstellt.',
+		video: 'Video', chooseVideo: 'Video auswählen', videoHint: 'MP4, MOV, WebM, MKV und weitere FFmpeg-kompatible Formate',
+		subtitles: 'Untertitel', chooseSubtitles: 'SRT oder VTT auswählen', subtitleHint: 'Oder Untertiteltext unten einfügen', text: 'Untertiteltext',
+		settings: 'Darstellung', mode: 'Anzeige', full: 'Kompletter Untertitel', single: 'Ein Wort pro Einblendung', karaoke: 'Karaoke: Wort für Wort hervorheben',
+		position: 'Position', bottom: 'Unten', center: 'Mitte', top: 'Oben', fontSize: 'Schriftgröße', margin: 'Abstand zum Rand',
+		burn: 'Untertitel einbrennen', clear: 'Zurücksetzen', result: 'Ergebnis', download: 'Video herunterladen',
+		waiting: 'Wähle ein Video und füge Untertitel ein.', ready: '{count} Untertitelzeilen bereit.', processing: 'Untertitel werden eingebrannt…', done: '{name} wurde erstellt.',
+		loading: 'FFmpeg WASM wird geladen…', runtimeReady: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.',
+		error: 'Einbrennen fehlgeschlagen: {message}', noVideo: 'Wähle zuerst ein Video.', noCues: 'Keine gültigen Untertitel gefunden.', generic: 'Unbekannter Fehler',
+	},
+	en: {
+		eyebrow: 'Subtitle tool', title: 'Subtitle Burner',
+		intro: 'Burn your own SRT or WebVTT subtitles into a local video directly in your browser.',
+		privacy: 'Video and subtitles stay local. The output is created with FFmpeg WASM in your browser.',
+		video: 'Video', chooseVideo: 'Choose video', videoHint: 'MP4, MOV, WebM, MKV, and other FFmpeg-compatible formats',
+		subtitles: 'Subtitles', chooseSubtitles: 'Choose SRT or VTT', subtitleHint: 'Or paste subtitle text below', text: 'Subtitle text',
+		settings: 'Appearance', mode: 'Display', full: 'Full subtitle', single: 'One word per appearance', karaoke: 'Karaoke: highlight each word',
+		position: 'Position', bottom: 'Bottom', center: 'Center', top: 'Top', fontSize: 'Font size', margin: 'Distance from edge',
+		burn: 'Burn subtitles', clear: 'Reset', result: 'Result', download: 'Download video',
+		waiting: 'Choose a video and add subtitles.', ready: '{count} subtitle cues ready.', processing: 'Burning subtitles…', done: '{name} was created.',
+		loading: 'Loading FFmpeg WASM…', runtimeReady: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%', timeout: 'FFmpeg WASM did not load within 90 seconds.',
+		error: 'Subtitle burn failed: {message}', noVideo: 'Choose a video first.', noCues: 'No valid subtitles found.', generic: 'Unknown error',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+<section class="section subtitle-burner-section tool-workspace">
+	<div class="container">
+		<div class="subtitle-burner" data-subtitle-burner data-copy={copyJson}>
+			<ToolPanel title={copy.video}>
+				<FilePicker label={copy.chooseVideo} name={copy.chooseVideo} hint={copy.videoHint} accept="video/*,.mkv,.mov,.mp4,.webm" nameAttrs={{ 'data-video-name': true }} metaAttrs={{ 'data-video-meta': true }} inputAttrs={{ 'data-video': true }} />
+				<video class="burner-preview" data-preview controls playsinline hidden></video>
+			</ToolPanel>
+			<ToolPanel title={copy.subtitles}>
+				<FilePicker label={copy.chooseSubtitles} name={copy.chooseSubtitles} hint={copy.subtitleHint} accept=".srt,.vtt,text/plain,text/vtt,application/x-subrip" nameAttrs={{ 'data-subtitle-name': true }} metaAttrs={{ 'data-subtitle-meta': true }} inputAttrs={{ 'data-subtitles': true }} />
+				<label class="subtitle-text"><span>{copy.text}</span><textarea data-text rows="14" spellcheck="false" placeholder="00:00:00.000 --> 00:00:03.000&#10;Hello world"></textarea></label>
+			</ToolPanel>
+			<details class="burner-toolbar" open>
+				<summary>{copy.settings}</summary>
+				<ToolPanel title={copy.settings}>
+					<SelectControl label={copy.mode} selectAttrs={{ 'data-mode': true }}><option value="full">{copy.full}</option><option value="single">{copy.single}</option><option value="karaoke">{copy.karaoke}</option></SelectControl>
+					<SelectControl label={copy.position} selectAttrs={{ 'data-position': true }}><option value="2">{copy.bottom}</option><option value="5">{copy.center}</option><option value="8">{copy.top}</option></SelectControl>
+					<RangeControl label={copy.fontSize} value="58" valueAttrs={{ 'data-font-size-label': true }} inputAttrs={{ 'data-font-size': true, min: 28, max: 100, step: 2, value: 58 }} />
+					<RangeControl label={copy.margin} value="180px" valueAttrs={{ 'data-margin-label': true }} inputAttrs={{ 'data-margin': true, min: 40, max: 600, step: 20, value: 180 }} />
+					<ToolActions><button class="button primary" data-burn type="button">{copy.burn}</button><button class="button secondary" data-clear type="button">{copy.clear}</button></ToolActions>
+					<ToolStatus data-status text={copy.waiting} />
+				</ToolPanel>
+			</details>
+			<ToolPanel class="burner-result" title={copy.result}><p data-result>{copy.waiting}</p><a class="tool-download-link" data-download href="#" download hidden>{copy.download}</a></ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
+	import { buildSubtitleAss, parseCues, subtitleBurnerArgs, subtitleOutputName } from '../../lib/tools/subtitle-burner';
+	import { fileExtension } from '../../lib/tools/media-file';
+
+	for (const root of document.querySelectorAll('[data-subtitle-burner]:not([data-bound])')) {
+		root.dataset.bound = 'true';
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const videoInput = root.querySelector('[data-video]'); const videoName = root.querySelector('[data-video-name]'); const videoMeta = root.querySelector('[data-video-meta]'); const preview = root.querySelector('[data-preview]');
+		const subtitleInput = root.querySelector('[data-subtitles]'); const subtitleName = root.querySelector('[data-subtitle-name]'); const subtitleMeta = root.querySelector('[data-subtitle-meta]'); const text = root.querySelector('[data-text]');
+		const mode = root.querySelector('[data-mode]'); const position = root.querySelector('[data-position]'); const fontSize = root.querySelector('[data-font-size]'); const fontSizeLabel = root.querySelector('[data-font-size-label]'); const margin = root.querySelector('[data-margin]'); const marginLabel = root.querySelector('[data-margin-label]');
+		const burn = root.querySelector('[data-burn]'); const clear = root.querySelector('[data-clear]'); const status = root.querySelector('[data-status]'); const result = root.querySelector('[data-result]'); const download = root.querySelector('[data-download]');
+		let previewUrl = null; let outputUrl = null;
+		const runtime = createFfmpegRuntime({ timeoutMessage: copy.timeout, onLoading: () => setStatus(copy.loading, 'info'), onReady: () => setStatus(copy.runtimeReady, 'success'), onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info') });
+
+		videoInput.addEventListener('change', selectVideo); subtitleInput.addEventListener('change', () => void selectSubtitles()); text.addEventListener('input', updateCues); burn.addEventListener('click', () => void burnSubtitles()); clear.addEventListener('click', reset);
+		fontSize.addEventListener('input', () => fontSizeLabel.textContent = fontSize.value); margin.addEventListener('input', () => marginLabel.textContent = `${margin.value}px`);
+
+		function selectVideo() { const file = videoInput.files?.[0]; if (!file) return; if (previewUrl) URL.revokeObjectURL(previewUrl); previewUrl = URL.createObjectURL(file); preview.src = previewUrl; preview.hidden = false; videoName.textContent = file.name; videoMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'video'}`; updateCues(); }
+		async function selectSubtitles() { const file = subtitleInput.files?.[0]; if (!file) return; text.value = await file.text(); subtitleName.textContent = file.name; subtitleMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'text'}`; updateCues(); }
+		function updateCues() { const cues = parseCues(text.value); setStatus(cues.length ? format(copy.ready, { count: cues.length }) : copy.waiting, cues.length ? 'success' : 'info'); }
+		async function burnSubtitles() {
+			const video = videoInput.files?.[0]; if (!video) { setStatus(copy.noVideo, 'error'); return; }
+			const cues = parseCues(text.value); if (!cues.length) { setStatus(copy.noCues, 'error'); return; }
+			try { setStatus(copy.processing, 'info'); const bytes = await runtime.run(async (ffmpeg) => { const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`; const input = `video-${stamp}${fileExtension(video.name)}`; const subtitles = `subtitles-${stamp}.ass`; const output = `subtitled-${stamp}.mp4`; await ffmpeg.writeFile(input, new Uint8Array(await video.arrayBuffer())); await ffmpeg.writeFile(subtitles, new TextEncoder().encode(buildSubtitleAss(cues, { mode: mode.value, alignment: position.value, fontSize: fontSize.value, marginV: margin.value }))); try { const code = await ffmpeg.exec(subtitleBurnerArgs(input, subtitles, output)); if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`); const rendered = await ffmpeg.readFile(output); return rendered instanceof Uint8Array ? rendered : new TextEncoder().encode(String(rendered)); } finally { await ffmpeg.deleteFile(input).catch(() => {}); await ffmpeg.deleteFile(subtitles).catch(() => {}); await ffmpeg.deleteFile(output).catch(() => {}); } }); if (outputUrl) URL.revokeObjectURL(outputUrl); const name = subtitleOutputName(video.name); outputUrl = URL.createObjectURL(new Blob([bytes], { type: 'video/mp4' })); download.href = outputUrl; download.download = name; download.hidden = false; result.textContent = format(copy.done, { name }); setStatus(result.textContent, 'success'); } catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
+		}
+		function reset() { videoInput.value = ''; subtitleInput.value = ''; text.value = ''; preview.hidden = true; preview.removeAttribute('src'); for (const url of [previewUrl, outputUrl]) if (url) URL.revokeObjectURL(url); previewUrl = outputUrl = null; videoName.textContent = copy.chooseVideo; videoMeta.textContent = copy.videoHint; subtitleName.textContent = copy.chooseSubtitles; subtitleMeta.textContent = copy.subtitleHint; download.hidden = true; result.textContent = copy.waiting; setStatus(copy.waiting, 'info'); }
+		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+	}
+</script>
+
+<style>
+	.subtitle-burner { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+	.burner-toolbar { grid-column: 2; grid-row: 1 / span 2; display: contents; }
+	.burner-toolbar > summary { display: none; }
+	.burner-toolbar > .tool-panel { grid-column: 2; grid-row: 1 / span 2; }
+	.burner-result { grid-column: 1 / -1; }
+	.burner-preview { width: 100%; margin-top: 18px; background: #000; border-radius: 8px; }
+	.subtitle-text { display: grid; gap: 8px; margin-top: 18px; font-weight: 850; }
+	.subtitle-text textarea { width: 100%; min-height: 260px; box-sizing: border-box; padding: 12px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 8px; font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; resize: vertical; }
+	@media (max-width: 860px) { .subtitle-burner { grid-template-columns: 1fr; } .burner-toolbar { grid-column: auto; grid-row: auto; display: block; border: 1px solid var(--color-line); border-radius: 8px; } .burner-toolbar > summary { display: block; padding: 18px; font-weight: 850; cursor: pointer; } .burner-toolbar > .tool-panel { grid-column: auto; grid-row: auto; border: 0; border-top: 1px solid var(--color-line); border-radius: 0 0 8px 8px; } .burner-result { grid-column: auto; } }
+</style>

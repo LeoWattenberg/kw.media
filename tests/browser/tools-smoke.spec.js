@@ -24,6 +24,7 @@ const toolPages = [
 	['/en/tools/converter/video-audio-converter/', 'Audio and Video Converter', '[data-video-audio-converter]'],
 	['/en/tools/converter/video-to-gif/', 'Video to GIF', '[data-video-gif]'],
 	['/en/tools/short-form-safe-zone-previewer/', 'Shorts, TikTok & Reels Safe Zones', '[data-safe-zone-tool]'],
+	['/en/tools/subtitle-burner/', 'Subtitle Burner', '[data-subtitle-burner]'],
 	['/en/tools/crop-doctor/', 'Crop Doctor', '[data-crop-doctor]'],
 	['/en/tools/delivery-doctor/', 'Delivery Doctor', '[data-delivery-doctor]'],
 	['/en/tools/face-object-redactor/', 'Face/Object Redactor', '[data-redactor]'],
