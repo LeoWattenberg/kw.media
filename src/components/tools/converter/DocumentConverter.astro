@@ -393,7 +393,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 
 				state.pandocPromise = (async () => {
 					setStatus(copy.statusPandocLoading, 'info');
-					const module = await import(/* @vite-ignore */ 'https://cdn.jsdelivr.net/npm/pandoc-wasm@1.1.0/+esm');
+					const module = await import('../../../lib/tools/pandoc-browser');
 					state.pandoc = module;
 					setStatus(copy.statusPandocReady, 'success');
 					return module;

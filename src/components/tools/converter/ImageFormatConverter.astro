@@ -118,7 +118,11 @@ const copy = {
 	title: title || defaultCopy.title,
 	eyebrow: eyebrow || defaultCopy.eyebrow,
 };
-const copyJson = JSON.stringify(copy.client);
+const copyJson = JSON.stringify({
+	...copy.client,
+	showSource: copy.showSource,
+	showOutput: copy.showOutput,
+});
 const outputFormatsJson = JSON.stringify(outputFormats);
 const normalizedDefaultFormat = outputFormats.some((format) => format.value === defaultFormat.toUpperCase()) ? defaultFormat.toUpperCase() : 'PNG';
 ---
