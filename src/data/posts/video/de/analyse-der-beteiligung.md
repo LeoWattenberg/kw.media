@@ -56,7 +56,7 @@ Die Analyse dieser Kurve hat direkte Auswirkungen auf deine Content-Strategie:
 
 Durch die Auswertung dieser Daten kannst du gezielt an deiner Struktur arbeiten, um die Zuschauerbindung in zukünftigen Videos zu erhöhen.
 
-Hast du Fragen zur Umsetzung oder zur Interpretation deiner Daten? Schreibe uns gerne in den Kommentaren und abonniere unseren Kanal für weitere Tipps rund um das YouTube-ABC.
+Hast du Fragen zur Umsetzung oder zur Interpretation deiner Daten? Schreibe uns gerne in den Kommentaren und abonniere unseren Kanal für weitere Tipps rund um [das YouTube-ABC](/youtube-tipps-de/youtube-abc-dashboard-mit-untertiteln/).
 <!-- kwm:article:end -->
 
 <!-- kwm:transcript:start -->

@@ -51,7 +51,7 @@ Dieser Schritt zeigt eine wichtige Erkenntnis für Plattformbetreiber: Das blind
 
 ## Die Brücke vom Desktop zum Smartphone: QR-Codes im Shorts-Feed
 
-Ein weiteres interessantes Phänomen betrifft die User Journey bei YouTube Shorts. Wer Shorts über einen Desktop-Browser ansieht, bemerkt eventuell riesige QR-Codes, die neben den Videos erscheinen. 
+Ein weiteres interessantes Phänomen betrifft die User Journey bei YouTube Shorts. Wer Shorts über einen Desktop-Browser ansieht, bemerkt eventuell riesige [QR-Codes](/youtube-tipps-de/neues-von-youtube-qr-codes-fur-creator-und-premium-jump-ahead-rollout/), die neben den Videos erscheinen. 
 
 ### Wie funktioniert dieser Workflow?
 Der Prozess ist simpel, aber strategisch durchdacht:

@@ -35,7 +35,7 @@ Wenn du sicherstellen möchtest, dass deine Uploads genau so bleiben, wie du sie
 
 Die Einstellung befindet sich tief in den Kanaloptionen von [YouTube Studio](/de/youtube-tipps/). Folge einfach diesen Schritten:
 
-1. **YouTube Studio öffnen:** Logge dich in deinen Account ein und navigiere zu deinem Dashboard.
+1. **[YouTube Studio](/de/b2b/) öffnen:** Logge dich in deinen Account ein und navigiere zu deinem Dashboard.
 2. **Einstellungen aufrufen:** Klicke in der unteren linken Ecke des Bildschirms auf das Zahnrad-Symbol für die „Einstellungen“.
 3. **Erweiterte Einstellungen finden:** Es öffnet sich ein Pop-up-Fenster. Wähle hier im linken Menü den Reiter „Kanal“ aus und klicke anschließend oben auf den Tab „Erweiterte Einstellungen“.
 4. **Bereich Videoqualitätsverbesserung suchen:** Scrolle in diesem Menü nach unten, bis du den Abschnitt mit der Bezeichnung „Videoqualitätsverbesserung“ findest. 

@@ -49,7 +49,7 @@ In diesem Bereich kannst du präzise steuern, wer überhaupt in der Lage ist, Zu
 
 Ein besonders hilfreiches Detail ist die Option für öffentliche Abonnements: Du kannst einstellen, dass Kanäle, die du öffentlich abonniert hast, automatisch die Berechtigung erhalten, Redirects an dich zu senden. Das vereinfacht den Prozess erheblich, wenn du dich mit einer festen Gruppe von anderen Creatorn vernetzt hast und euch gegenseitig unterstützen möchtet.
 
-Durch diese gezielte Steuerung in den Community-Einstellungen behältst du die volle Kontrolle darüber, wer deine Zuschauerströme beeinflussen darf, während du gleichzeitig die Tür für eine engere Vernetzung innerhalb der YouTube-Streaming-Community öffnest.
+Durch diese gezielte Steuerung in den Community-Einstellungen behältst du die volle Kontrolle darüber, wer deine Zuschauerströme beeinflussen darf, während du gleichzeitig die Tür für eine engere Vernetzung innerhalb der [YouTube-Streaming-Community](/de/live/) öffnest.
 <!-- kwm:article:end -->
 
 <!-- kwm:transcript:start -->

@@ -35,7 +35,7 @@ There are many different use cases for secondary content, all with different str
 
 ## How to split up your formats between channels, or: Should VODs be kept online?
 
-This somewhat depends on your audience. However, for most gaming channels, it’s advisable to have Clips, Compilations, Highlights and Streams on one channel while keeping VODs unlisted. This way, people can subscribe to you just once and have easy access to all your edited content. Plus, every time you stream your stream will get highlighted on all your videos across YouTube.
+This somewhat depends on your audience. However, for most gaming channels, it’s advisable to have Clips, Compilations, Highlights and Streams on one channel [while keeping](/en/tools/loudness-mastering/) VODs unlisted. This way, people can subscribe to you just once and have easy access to all your edited content. Plus, every time you stream your stream will get highlighted on all your videos across YouTube.
 
 The major exception to this is if you already have a channel with content for an audience that is distinct from your streams, or if you’re streaming on Twitch. In this case, it typically is good to have one channel for clips, compilations and highlights, a second for VODs and edited VODs, and a third that is your other content.
 

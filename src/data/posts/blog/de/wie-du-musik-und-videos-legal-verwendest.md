@@ -63,7 +63,7 @@ Oftmals ist es einfacher, eine Genehmigung zu bekommen als sein Video soweit anz
 
 Ein klassisches Beispiel hierfür sind Videospiele. Das liegt daran, dass die Publisher mittlerweile (meist) rausgefunden haben, dass ihnen keine Verkäufe verloren gehen, wenn irgendein YouTuber zeigt, wie toll deren Spiel ist. Dementsprechend ist die Liste von [Game Publishern, die Gameplay-Videos erlauben](https://wholetsplay.com/), recht lang.
 
-Für Musik gibt es ebenfalls ganze Webseiten, wo irgendwas mit “Urheberrechtsfrei/lizenzfrei/copyright-free/royalty-free/GEMA-frei” dran steht. Außerdem gibt es diverse Musiker (gerade im Indie-Bereich), die sich freuen, wenn du deren Musik für deine Videos verwendest. Leider – vielleicht siehst du den Trend hier – wird es auch hier wieder kompliziert.
+Für Musik gibt es ebenfalls ganze Webseiten, wo irgendwas mit “Urheberrechtsfrei/lizenzfrei/copyright-free/royalty-free/GEMA-frei” dran steht. Außerdem gibt es diverse Musiker (gerade im Indie-Bereich), die sich freuen, wenn du deren [Musik für deine Videos](/youtube-tipps-de/neues-zu-creator-music/) verwendest. Leider – vielleicht siehst du den Trend hier – wird es auch hier wieder kompliziert.
 
 <h3 id="kannste_verwenden">“Kannste verwenden” heißt nicht, dass du’s verwenden kannst</h3>
 
@@ -95,10 +95,10 @@ Ich habe über die Jahre diverse Portale und Webseiten zusammengesammelt, auf de
 
 [»» Frei lizenzierte, kostenlose Musik, Soundeffekte, Photos und Videos](https://docs.google.com/spreadsheets/d/1dEbxtBlvwxj2ZwtcoNU05Cg4_pgpuBYAWbO_5twoA2A/edit#gid=0)
 
-Die Ressourcen dort gehen von Musik über Soundeffekte, Bilder und Videos bis hin zu sehr nischigen Angeboten, wie zum Beispiel Archivbildern und -texten. Alle Ressourcen sind kostenlos. Und alle Ressourcen können überall (d.h. auch Außerhalb YouTube) verwendet werden.
+Die Ressourcen dort gehen von Musik über Soundeffekte, [Bilder und Videos](/de/tools/bild-video-wasserzeichen/) bis hin zu sehr nischigen Angeboten, wie zum Beispiel Archivbildern und -texten. Alle Ressourcen sind kostenlos. Und alle Ressourcen können überall (d.h. auch Außerhalb YouTube) verwendet werden.
 
 ## Regel 3: Vermeide Risiken.
 
-Ich gehe davon aus, dass dir dein YouTube-Kanal mehr wert ist, als jedes Videos an sich. Wenn du das auch so siehst, bedenke: Es braucht nur 3 Strikes, dann ist dein Kanal weg. Und jedes mal wenn du einen Claim auf deine Videos bekommst und jemand anders Geld mit deinen Videos verdient, denk dran: **Jeder Claim kann jederzeit zu einem Strike werden**.
+Ich gehe davon aus, dass dir dein YouTube-Kanal mehr wert ist, als jedes [Videos an](/de/tools/untertitel-studio/) sich. Wenn du das auch so siehst, bedenke: Es braucht nur 3 Strikes, dann ist dein Kanal weg. Und jedes mal wenn du einen Claim auf deine Videos bekommst und jemand anders Geld mit deinen Videos verdient, denk dran: **Jeder Claim kann jederzeit zu einem Strike werden**.
 
 Wenn du Hilfe brauchst, was genau du tun und nicht tun darfst, kannst du gerne dich an den Anwalt deines Vertrauens wenden. Die geben auch oftmals kostenlose Erstberatung. Für alles andere kannst du auch [uns fragen](/de/creator/).

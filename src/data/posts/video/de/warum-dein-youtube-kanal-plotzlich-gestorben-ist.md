@@ -41,7 +41,7 @@ Das Problem ist hier nicht der Algorithmus, sondern die Stagnation des Contents.
 
 Um den Wachstumsgraphen wieder nach oben zu treiben, reicht es nicht aus, einfach „mehr vom Gleichen“ zu produzieren. Du musst dein Konzept aktualisieren, um eine breitere oder neue Zielgruppe anzusprechen. Dabei stehen zwei Hebel im Vordergrund:
 
-1.  **Die Verpackung (Packaging):** Damit ist die Art und Weise gemeint, wie dein Video präsentiert wird – primär das Thumbnail und der Titel. Wenn du neue Zuschauer gewinnen willst, muss die Verpackung so optimiert werden, dass sie auch Menschen anspricht, die bisher nicht auf deine Videos geklickt haben.
+1.  **Die Verpackung (Packaging):** Damit ist die Art und Weise gemeint, wie dein Video präsentiert wird – primär das [Thumbnail und der Titel](/de/tools/youtube-thumbnail-preview/). Wenn du neue Zuschauer gewinnen willst, muss die Verpackung so optimiert werden, dass sie auch Menschen anspricht, die bisher nicht auf deine Videos geklickt haben.
 2.  **Die Retention (Zuschauerbindung):** Es reicht nicht, Leute zum Klicken zu bewegen; du musst sie auch im Video halten. Eine erhebliche Aktualisierung deiner Retention-Strategie sorgt dafür, dass Zuschauer länger zusehen, was wiederum ein Signal an YouTube ist, das Video einer noch größeren Gruppe von Menschen vorzuschlagen.
 
 ### Fazit: Anpassung statt Stillstand

@@ -119,7 +119,7 @@ Tags können im Grunde vergessen werden, es sei denn, du bist bereits im YPP (Yo
 
 ## Konkurrenz
 
-Wenn du auf YouTube nach einem Video suchst, werden nur 4 Videos auf dem Desktop und 2 auf mobilen Geräten angezeigt, bevor du nach unten scrollen musst. Offensichtlich möchtest du so hoch wie möglich ranken, damit potenzielle Zuschauer nicht scrollen müssen, um deinen Miniaturansicht zu sehen.
+Wenn du auf YouTube nach einem Video suchst, werden nur 4 Videos auf dem Desktop und 2 auf mobilen Geräten angezeigt, bevor du nach unten scrollen musst. Offensichtlich möchtest du so hoch wie möglich ranken, damit potenzielle Zuschauer nicht scrollen müssen, [um deinen](/youtube-tipps-de/trendinge-hashtags-sind-hashtags-noch-relevant/) Miniaturansicht zu sehen.
 
 Die Konkurrenz bezieht sich auf einzelne Schlüsselwörter und nicht auf dein Video an sich. Selbst wenn du bei einem bestimmten Keyword auf der zweiten Seite der Ergebnisse bist, kannst du für ein anderes Keyword recht weit oben ranken.
 

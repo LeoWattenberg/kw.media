@@ -40,7 +40,7 @@ postCta:
 <!-- kwm:article:start -->
 ## Warum du FFmpeg für Audacity benötigst
 
-Wenn du mit Audacity arbeitest, wirst du feststellen, dass das Programm zwar mächtig ist, aber standardmäßig nicht alle gängigen Audio- und Videoformate importieren oder exportieren kann. Hier kommt [FFmpeg](/de/tools/) ins Spiel. 
+Wenn du mit Audacity arbeitest, wirst du feststellen, dass das Programm zwar mächtig ist, aber standardmäßig nicht alle gängigen [Audio-](/de/tools/converter/video-audio-converter/) und Videoformate importieren oder exportieren kann. Hier kommt [FFmpeg](/de/tools/) ins Spiel. 
 
 FFmpeg ist eine umfangreiche Bibliothek, die es Audacity ermöglicht, eine Vielzahl verschiedener Mediendateien zu öffnen und zu verarbeiten. Da diese Bibliothek nicht direkt in der Standardinstallation von Audacity enthalten ist, musst du sie separat installieren, um den vollen Funktionsumfang des Programms zu nutzen. Ohne FFmpeg fehlen dir wichtige Optionen beim Import von Dateien aus anderen Quellen oder beim Export in spezifische Formate.
 

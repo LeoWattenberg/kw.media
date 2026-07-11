@@ -37,7 +37,7 @@ Besonders betroffen sind Gaming-Creator, die in Nischen wie Minecraft oder Roblo
 ### Strategische Anpassung als Schutzmaßnahme
 Wenn deine Analysen in [YouTube Studio](/de/youtube-tipps/) eine starke Neigung zu Zuschauern unter 16 Jahren zeigen, solltest du jetzt handeln, bevor die Gesetzgebung dies für dich tut. Es ist ratsam, deinen Inhalt strategisch umzugestalten:
 *   **Themenwahl:** Wähle Themen, die auch für ein älteres Publikum relevant und attraktiv sind.
-*   **Tempo und Tonalität:** Passe das Pacing deiner Videos an, um eine reifere Zielgruppe anzusprechen.
+*   **Tempo und Tonalität:** Passe das Pacing deiner [Videos an](/de/tools/untertitel-studio/), um eine reifere Zielgruppe anzusprechen.
 *   **Diversifizierung:** Versuche, deine Zuschauerbasis zu verbreitern, um die Abhängigkeit von einer einzigen, regulierten Altersgruppe zu verringern.
 
 ## Optimierung der Live-Streaming-Monetarisierung auf YouTube

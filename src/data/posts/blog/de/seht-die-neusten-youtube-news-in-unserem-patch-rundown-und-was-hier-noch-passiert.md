@@ -36,6 +36,6 @@ Oder direkt hier:
 <div class="nv-iframe-embed"><iframe title="YouTube Patch Rundown | 2021" width="1200" height="675" src="https://www.youtube.com/embed/videoseries?list=PLpM9DoCHlaQFiS4SI8CVi8_mJFLH2C9HN" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 </div></figure>
 
-Ansonsten bleibt noch die Frage: Was gibt’s hier noch zu sehen? Nun, aktuell noch nix. Das ändert sich demnächst aber, wenn wir neue und (hoffentlich) hilfreiche Ratgeber und Tips hier teilen. Bleibt auf jeden Fall dran!
+Ansonsten bleibt noch die Frage: Was gibt’s hier noch zu sehen? Nun, aktuell noch nix. Das ändert sich demnächst aber, wenn wir neue und (hoffentlich) [hilfreiche Ratgeber und Tips](/de/youtube-tipps/) hier teilen. Bleibt auf jeden Fall dran!
 
 ~/Leo

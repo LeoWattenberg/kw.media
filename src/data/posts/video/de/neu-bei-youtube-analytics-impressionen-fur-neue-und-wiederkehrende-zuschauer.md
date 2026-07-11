@@ -51,7 +51,7 @@ Weitere Details zu diesem Thema findest du auch in unserem Guide zu [gelegenheit
 
 ### Interaktion im Livestream: Likes für Super Chats
 
-Im Bereich des Livestreamings gibt es eine Erweiterung der Monetarisierungs- und Interaktionsmöglichkeiten. Die Funktion "Super Chat-Likes" wird derzeit vollständig ausgerollt. Das bedeutet, dass Zuschauer nun nicht nur Super Chats senden können, sondern diese auch liken können. Dies gilt sowohl für die primären Super Chats im Chatverlauf als auch für die sogenannten Super-Chat-Threads (Antworten auf bestehende Super Chats).
+Im Bereich des Livestreamings gibt es eine Erweiterung der Monetarisierungs- und Interaktionsmöglichkeiten. Die Funktion "[Super Chat](/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/)-Likes" wird derzeit vollständig ausgerollt. Das bedeutet, dass Zuschauer nun nicht nur Super Chats senden können, sondern diese auch liken können. Dies gilt sowohl für die primären Super Chats im Chatverlauf als auch für die sogenannten Super-Chat-Threads (Antworten auf bestehende Super Chats).
 
 Der Rollout dieser Funktion ist für den Zeitraum von Mitte April bis Anfang Mai geplant. Für dich als Creator bedeutet dies eine zusätzliche Ebene der Interaktion innerhalb deiner Fan Communities. Es ermöglicht anderen Zuschauern, sich an einer Diskussion zu beteiligen oder ihre Zustimmung zu einem finanziellen Support-Beitrag zu zeigen, ohne selbst einen kostenpflichtigen Chat senden zu müssen.
 

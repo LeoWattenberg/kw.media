@@ -27,7 +27,7 @@ postCta:
 <!-- kwm:article:start -->
 ## Textformatierung in YouTube-Beschreibungen mit Markdown
 
-Du möchtest deine Videobeschreibungen auf YouTube ansprechender gestalten und wichtige Informationen für deine Zuschauer hervorheben? Mit der Markdown-Funktion ist das möglich. Anstatt auf komplexe Editoren angewiesen zu sein, kannst du einfache Zeichenkombinationen nutzen, um die visuelle Struktur deiner Texte zu verbessern.
+Du möchtest deine [Videobeschreibungen auf YouTube](/de/youtube-tipps/) ansprechender gestalten und wichtige Informationen für deine Zuschauer hervorheben? Mit der Markdown-Funktion ist das möglich. Anstatt auf komplexe Editoren angewiesen zu sein, kannst du einfache Zeichenkombinationen nutzen, um die visuelle Struktur deiner Texte zu verbessern.
 
 Markdown ist im Grunde eine Kurzschreibweise, die es dir erlaubt, Text direkt während des Schreibens zu formatieren. Sobald du das Video veröffentlichst oder die Beschreibung speicherst, wandelt YouTube diese Zeichen in die entsprechende Formatierung um.
 

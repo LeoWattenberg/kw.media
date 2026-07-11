@@ -50,7 +50,7 @@ Bei KI-generierten Videos liegt die Erkennungsrate derzeit noch bei etwa 70 %. E
 
 ## Die C2PA-Zertifizierung: Ein digitaler Fingerabdruck für die Wahrheit
 
-Um diesem Problem zu begegnen, schlägt die Tech-Industrie die sogenannte C2PA-Zertifizierung vor. Dabei handelt es sich um eine kryptografische Signatur auf Hardware-Ebene. Diese Signatur wird direkt in die Metadaten eines Videos eingebettet und dient als Beweis dafür, dass das Material von einem echten Menschen mit einer zertifizierten Kamera aufgenommen wurde.
+Um diesem Problem zu begegnen, schlägt die Tech-Industrie die sogenannte C2PA-Zertifizierung vor. Dabei handelt es sich um eine kryptografische Signatur auf Hardware-Ebene. Diese Signatur wird direkt in die [Metadaten eines Videos](/de/tools/media-info/) eingebettet und dient als Beweis dafür, dass das Material von einem echten Menschen mit einer zertifizierten Kamera aufgenommen wurde.
 
 Hier ergibt sich jedoch ein massives philosophisches und praktisches Problem für die Creator-Community. Eine echte C2PA-Zertifizierung auf Hardware-Ebene erfordert den Kauf spezifischer, hochpreisiger Kameratechnik. In der Diskussion wird hier eine Summe von etwa 3.000 Dollar genannt.
 

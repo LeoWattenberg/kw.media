@@ -32,7 +32,7 @@ postCta:
 
 Der erste Eindruck zählt – auch auf YouTube. Wenn neue Zuschauerinnen und Zuschauer auf deinen Kanal stoßen, entscheiden oft die visuellen Elemente darüber, ob sie bleiben und dein Content-Angebot erkunden oder den Kanal sofort wieder verlassen. Ein stimmiges Design sorgt nicht nur für einen professionellen Auftritt, sondern hilft deiner Community zudem dabei, dich über verschiedene Plattformen und Formate hinweg schneller wiederzuerkennen.
 
-Um eine [konsistente Markenidentität](/youtube-tipps-de/steigere-deinen-kanal-mit-effektivem-branding/) aufzubauen, stehen dir drei zentrale Werkzeuge zur Verfügung: das Profilbild, das Kanalbanner und das Video-Wasserzeichen. In diesem Artikel erfährst du, wie du diese Elemente optimal gestaltest und wo du die Einstellungen in deinem Account findest.
+Um eine [konsistente Markenidentität](/youtube-tipps-de/steigere-deinen-kanal-mit-effektivem-branding/) aufzubauen, stehen dir drei zentrale Werkzeuge zur Verfügung: das Profilbild, das Kanalbanner und das [Video-Wasserzeichen](/de/tools/bild-video-wasserzeichen/). In diesem Artikel erfährst du, wie du diese Elemente optimal gestaltest und wo du die Einstellungen in deinem Account findest.
 
 ### Das Profilbild: Dein digitales Aushängeschild
 

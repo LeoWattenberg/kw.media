@@ -31,7 +31,7 @@ Die Startseite von YouTube ist für viele Zuschauer der erste Berührungspunkt m
 
 ### Warum Sichtbarkeit in den Highlights entscheidend ist
 
-Wenn deine Videos in den hervorgehobenen Inhalten der Startseite auftauchen, profitierst du von einer deutlich gesteigerten Sichtbarkeit. Da YouTube diese Inhalte basierend auf Nutzerinteressen ausspielt, erreichst du Menschen, die bereits ein Interesse an deinen Themen haben, dich aber vielleicht noch nicht kennen.
+Wenn deine Videos in den [hervorgehobenen Inhalten](/youtube-tipps-de/so-funktionieren-kanaltrailer/) der Startseite auftauchen, profitierst du von einer deutlich gesteigerten Sichtbarkeit. Da YouTube diese Inhalte basierend auf Nutzerinteressen ausspielt, erreichst du Menschen, die bereits ein Interesse an deinen Themen haben, dich aber vielleicht noch nicht kennen.
 
 Dieser Mechanismus hilft dir dabei, deinen Publikumskreis gezielt zu erweitern. Die daraus resultierende Aufmerksamkeit führt in der Regel zu einer höheren Anzahl an Aufrufen und kann die Gewinnung neuer Abonnenten beschleunigen. Letztendlich ist dies ein wesentlicher Hebel, um das [Wachstum deines Kanals](/youtube-tipps-de/erweitere-deine-reichweite-bleib-mit-deiner-community-in-kontakt/) nachhaltig zu fördern.
 

@@ -47,7 +47,7 @@ Um Interesse zu wecken:
 *Beispiel einer Miniaturansicht, die sowohl Aufmerksamkeit (helle Farbe) als auch Interesse (Titel widerspricht dem Offensichtlichen) erzeugt. [Quelle der Miniaturansicht: Vsauce](https://www.youtube.com/watch?v=R3unPcJDbCc)*
 
 - Biete eine Lösung für ein Problem an. Insbesondere wenn Menschen über die Suche kommen, mit einer Frage wie „Wie repariere ich XYZ“, würde ein Video mit dem Titel „Wie man XYZ repariert“ ihr wahrscheinlich sehr interessieren.
-- Verwende Klick-Köder. Du kannst Informationen im Titel und in der Miniaturansicht zurückhalten (einen Teil des Bildes zensieren, im Titel auf ein vages „dieses“ verweisen usw.). Das kann dir später allerdings zum Verhängnis werden.
+- Verwende [Klick-Köder](/youtube-tipps-de/wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt/). Du kannst Informationen im Titel und in der Miniaturansicht zurückhalten (einen Teil des Bildes zensieren, im Titel auf ein vages „dieses“ verweisen usw.). Das kann dir später allerdings zum Verhängnis werden.
 - Verwende Branding. Dies ist für Menschen, die deinen Kanal nicht kennen, völlig nutzlos, aber wenn du eine Fangemeinde hast, die sich für deinen Kanal interessiert, unabhängig davon, was er bietet, könnte es helfen.
 - Wecke Emotionen. Ein lachendes oder weinendes Gesicht in der Miniaturansicht sagt viel über das Video selbst aus.
 - Wecke Neugier. Zum Beispiel eine vollständig gelbe Miniaturansicht mit dem Titel „Das ist nicht gelb“ ist ein so offensichtlicher Widerspruch, dass es sich nicht um einen Fehler handeln kann. Was ist also hier los?
@@ -82,4 +82,4 @@ Neben [guter SEO](/youtube-tipps-de/einfache-youtube-seo-fur-gaming-kanale/) , u
 - **Finde ein Gleichgewicht**. Oft bedeutet die Verbesserung eines Bereichs, in einem anderen einzubüßen. Eine Miniaturansicht, die einen tollen AIDA hat, aber so unsichtbar ist, dass sie niemand bemerkt, wird genauso schlecht abschneiden wie ein Video, das sehr sichtbar ist, aber keinen Grund bietet, es anzusehen.
 - Und zuletzt: **Halte deine Versprechen**. Deine Zuschauer haben begrenzte Zeit und erwarten, wenn sie dein Video öffnen, dass du dein Versprechen einlöst. Wenn du nicht sofort lieferst, werden sie in der Regel innerhalb der ersten 15-30 Sekunden das Video verlassen.
 
-Das war's mit diesem YouTube-Miniaturansicht-Tutorial. Bei Fragen stehe ich dir gerne zur Verfügung.
+Das war's mit diesem [YouTube-Miniaturansicht-Tutorial](/de/tools/youtube-thumbnail-preview/). Bei Fragen stehe ich dir gerne zur Verfügung.

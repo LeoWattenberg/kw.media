@@ -33,7 +33,7 @@ Ein Handle ist eine einzigartige Kennung, die dich auf der Plattform identifizie
 
 ## Schritt-für-Schritt: So änderst du deinen Handle mobil
 
-Die Anpassung deines @-Namens ist direkt über die YouTube-App möglich und in wenigen Schritten erledigt. Gehe wie folgt vor:
+Die Anpassung deines @-Namens ist direkt über die [YouTube-App](/youtube-tipps-de/wie-man-den-youtube-namen-andert-desktop/) möglich und in wenigen Schritten erledigt. Gehe wie folgt vor:
 
 1. **Profil aufrufen:** Öffne die YouTube-App auf deinem Smartphone und tippe unten rechts auf dein Profilbild.
 2. **Kanalansicht öffnen:** Wähle aus dem Menü den Punkt „Kanal anzeigen“.

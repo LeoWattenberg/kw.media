@@ -39,7 +39,7 @@ Der Zugriff auf diese Funktion ist unkompliziert. Über den entsprechenden Commu
 
 ### Warum Interaktion entscheidend für dein Wachstum ist
 
-Die regelmäßige Nutzung des Community-Reiters ist nicht nur ein nettes Extra, sondern spielt eine entscheidende Rolle beim [Wachstum deines Kanals](/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/). Durch die aktive Kommunikation förderst du das Engagement deiner Zuschauer. 
+Die regelmäßige Nutzung des Community-Reiters ist nicht nur ein nettes Extra, sondern spielt eine entscheidende Rolle beim [Wachstum deines Kanals](/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/). Durch die aktive Kommunikation förderst du das Engagement [deiner Zuschauer](/youtube-tipps-de/analyse-der-beteiligung/). 
 
 Beiträge im Community-Tab führen häufig zu einer höheren Anzahl an Likes, Kommentaren und neuen Abonnements, da sie eine niedrigere Hemmschwelle für Interaktionen bieten als ein langes Video. Es ist daher wichtig, deine Community regelmäßig über die aktuellen Geschehnisse auf deinem Kanal zu informieren und sie so eng an deine Arbeit zu binden.
 

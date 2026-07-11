@@ -27,7 +27,7 @@ postCta:
 <!-- kwm:article:start -->
 ## Effizientes Streaming mit OBS-Profilen und Szenensammlungen
 
-Wenn du als Creator auf verschiedenen Geräten streamst oder unterschiedliche Inhaltsformate produzierst, kann die manuelle Konfiguration von OBS jedes Mal sehr zeitaufwendig sein. Um diesen Prozess zu beschleunigen und Fehler zu vermeiden, bietet OBS zwei mächtige Werkzeuge: Profile und Szenensammlungen. Obwohl beide Funktionen dazu dienen, Voreinstellungen zu speichern, steuern sie unterschiedliche Bereiche deiner Stream-Konfiguration.
+Wenn du als Creator auf verschiedenen Geräten streamst oder unterschiedliche Inhaltsformate produzierst, kann die [manuelle Konfiguration von OBS](/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/) jedes Mal sehr zeitaufwendig sein. Um diesen Prozess zu beschleunigen und Fehler zu vermeiden, bietet OBS zwei mächtige Werkzeuge: Profile und Szenensammlungen. Obwohl beide Funktionen dazu dienen, Voreinstellungen zu speichern, steuern sie unterschiedliche Bereiche deiner Stream-Konfiguration.
 
 ### Die technische Basis: OBS-Profile
 

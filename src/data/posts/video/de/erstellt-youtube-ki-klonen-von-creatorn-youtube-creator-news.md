@@ -48,7 +48,7 @@ Trotz des Potenzials gibt es kritische Punkte zu bedenken. Das größte Risiko i
 
 ## Updates für Streamer: Multi-Aspekt-Streaming
 
-Für alle, die regelmäßig live gehen, gibt es wichtige Neuigkeiten zum Thema Reichweite. Berichten aus dem YouTube Gaming Discord Server zufolge wird die Funktion für [Multi-Aspekt-Streaming](/de/live/) schnell auf weitere Kanäle ausgeweitet. Diese Funktion erlaubt es dir, gleichzeitig im Hochformat (für Shorts/Mobile) und im Querformat zu streamen.
+Für alle, die regelmäßig live gehen, gibt es wichtige Neuigkeiten zum Thema Reichweite. Berichten aus dem YouTube Gaming Discord Server zufolge wird die Funktion für [Multi-Aspekt-Streaming](/de/live/) schnell auf weitere Kanäle ausgeweitet. Diese Funktion erlaubt es dir, gleichzeitig im [Hochformat (für Shorts/Mobile)](/de/tools/short-form-safe-zone-previewer/) und im Querformat zu streamen.
 
 ### Single-Ingestion vs. Double-Ingestion
 Hier ist jedoch eine wichtige technische Unterscheidung notwendig, damit du keine bösen Überraschungen erlebst:

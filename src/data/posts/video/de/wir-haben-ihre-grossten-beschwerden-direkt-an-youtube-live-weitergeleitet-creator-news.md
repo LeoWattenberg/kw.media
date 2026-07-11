@@ -58,7 +58,7 @@ Während Twitch stabil bleibt, scheint die Neuheit des endlosen vertikalen Scrol
 
 ## YouTube LIVE: Die Kluft zwischen PR und technischer Realität
 
-Trotz des allgemeinen Trends bei vertikalem Content investiert YouTube massiv in diesen Bereich. Barbara McDonald, die Leiterin von YouTube LIVE, hat kürzlich Updates zu neuen Monetarisierungstools für vertikale Streams veröffentlicht. Doch wer aktiv auf der Plattform streamt oder [Kanäle berät](/de/creator/), merkt schnell, dass die offizielle Kommunikation oft an den tatsächlichen Problemen vorbeigeht.
+Trotz des allgemeinen Trends bei vertikalem Content investiert YouTube massiv in diesen Bereich. Barbara McDonald, die Leiterin von [YouTube LIVE](/youtube-tipps-de/neu-bei-youtube-analytics-impressionen-fur-neue-und-wiederkehrende-zuschauer/), hat kürzlich Updates zu neuen Monetarisierungstools für vertikale Streams veröffentlicht. Doch wer aktiv auf der Plattform streamt oder [Kanäle berät](/de/creator/), merkt schnell, dass die offizielle Kommunikation oft an den tatsächlichen Problemen vorbeigeht.
 
 ### Direkter Draht zur Produktleitung
 

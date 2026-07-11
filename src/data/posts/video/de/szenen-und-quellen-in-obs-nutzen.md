@@ -50,7 +50,7 @@ Je nachdem, was du produzieren möchtest, kannst du verschiedene Quellentypen ko
 
 Damit dein Layout genau so aussieht, wie du es dir vorstellst, bietet OBS flexible Anpassungsmöglichkeiten. Als Creator kannst du die Größe und Position jeder einzelnen Quelle individuell verändern, um den Platz auf dem Bildschirm optimal zu nutzen.
 
-Zusätzlich gibt es die Möglichkeit, Filter einzusetzen. Ein wichtiges Beispiel hierfür ist der Kalibrierungseffekt, der insbesondere dann zum Einsatz kommt, wenn du einen Greenscreen nutzt. Durch solche Filter kannst du den Hintergrund entfernen oder das Bild an deine spezifischen Anforderungen anpassen.
+Zusätzlich gibt es die Möglichkeit, Filter einzusetzen. Ein wichtiges Beispiel hierfür ist der Kalibrierungseffekt, der insbesondere dann zum Einsatz kommt, wenn du einen Greenscreen nutzt. Durch solche Filter kannst du den [Hintergrund entfernen](/de/tools/background-remover/) oder das Bild an deine spezifischen Anforderungen anpassen.
 
 ### Sicherheit durch Backups: Szenensammlungen exportieren
 

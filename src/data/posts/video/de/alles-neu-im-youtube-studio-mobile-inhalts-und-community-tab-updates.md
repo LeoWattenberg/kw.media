@@ -27,7 +27,7 @@ postCta:
 <!-- kwm:article:start -->
 ## Effizienteres Management: Das Update für das mobile YouTube Studio
 
-YouTube überarbeitet derzeit die Benutzeroberfläche der YouTube Studio App, um den Workflow für Creator zu optimieren. Im Fokus stehen dabei eine aufgeräumtere Inhaltsverwaltung und eine stärkere Integration von Community-Funktionen. Wenn du deine Kanalverwaltung primär über das Smartphone erledigst, werden dich diese Änderungen direkt betreffen.
+YouTube überarbeitet derzeit die Benutzeroberfläche der [YouTube Studio App](/youtube-tipps-de/hdr-youtube-streams-jetzt-einfacher-denn-je-deine-wochentlichen-youtube-updates/), um den Workflow für Creator zu optimieren. Im Fokus stehen dabei eine aufgeräumtere Inhaltsverwaltung und eine stärkere Integration von Community-Funktionen. Wenn du deine Kanalverwaltung primär über das Smartphone erledigst, werden dich diese Änderungen direkt betreffen.
 
 ### Die neue Struktur der Registerkarte „Inhalte“
 

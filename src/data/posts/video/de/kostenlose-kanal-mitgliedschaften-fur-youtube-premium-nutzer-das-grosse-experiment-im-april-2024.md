@@ -37,7 +37,7 @@ Interessanterweise wird diese Funktion priorisiert für vertikale Streams ausger
 
 Im Bereich der Shorts gab es auf der Desktop-Seite eine technische Korrektur: Ein Fehler bei der Anzeige der Aufrufe wurde behoben, sodass die Statistiken nun wieder korrekt dargestellt werden. 
 
-Wer jedoch auf die Rückkehr von Shorts-Thumbnails in der Desktop-Version hofft, wird enttyscht. Alles deutet darauf hin, dass YouTube hier konsequent den "Mobile-First"-Ansatz verfolgt. Das bedeutet für dich als Creator: Wenn du individuelle Thumbnails für deine Shorts festlegen möchtest, musst du den Upload zwingend über ein Mobilgerät (Android oder iOS) durchführen. 
+Wer jedoch auf die Rückkehr von Shorts-Thumbnails in der Desktop-Version hofft, wird enttyscht. Alles deutet darauf hin, dass YouTube hier konsequent den "Mobile-First"-Ansatz verfolgt. Das bedeutet für dich als Creator: Wenn du [individuelle Thumbnails für deine Shorts](/de/tools/youtube-thumbnail-preview/) festlegen möchtest, musst du den Upload zwingend über ein Mobilgerät (Android oder iOS) durchführen. 
 
 Um diesen Prozess zu erleichtern, führt YouTube zudem einen Texteditor für Shorts-Thumbnails ein, der direkt mobil funktioniert. Damit kannst du Textelemente einfach über den Frame des Videos legen, um die Klickrate zu erhöhen. Der Launch-Zeitraum hierfür ist für Ende Februar bis Ende März angesetzt – es lohnt sich also, in deinem [YouTube Studio](/de/youtube-tipps/) auf dem Smartphone Ausschau nach dieser Funktion zu halten.
 

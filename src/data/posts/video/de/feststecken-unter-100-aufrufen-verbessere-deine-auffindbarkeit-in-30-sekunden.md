@@ -42,7 +42,7 @@ Das Thumbnail ist dein digitales Aushängeschild. Wenn es nicht auffällt, wird 
 *   **Fette Gesichter:** Emotionen ziehen Aufmerksamkeit auf sich.
 *   **Einfacher Text:** Wenige Worte, die neugierig machen, statt langer Sätze.
 
-Ein wichtiger Praxistipp: Prüfe dein Thumbnail auf dem Smartphone. Da ein Großteil der Nutzer mobil konsumiert, muss die Grafik auch in einer sehr kleinen Darstellung klar und lesbar sein.
+Ein wichtiger Praxistipp: Prüfe dein [Thumbnail auf dem Smartphone](/de/tools/youtube-thumbnail-preview/). Da ein Großteil der Nutzer mobil konsumiert, muss die Grafik auch in einer sehr kleinen Darstellung klar und lesbar sein.
 
 ### 3. Den Zuschauer sofort einhaken
 Die ersten Sekunden entscheiden darüber, ob ein Zuschauer bleibt oder das Video abbricht. Vermeide langatmige Intros, Logos-Animationen oder Ladescreens, die Zeit kosten, ohne Wert zu liefern. Springe direkt ins Geschehen. Je schneller du zum Kern des Themas kommst, desto höher ist die Chance, dass die Zuschauer bis zum Ende dranbleiben.

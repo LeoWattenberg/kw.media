@@ -33,7 +33,7 @@ Eine gesunde und aktive Community ist für jeden Creator das Herzstück seines K
 
 Die Einrichtung deiner Richtlinien erfolgt direkt über die Verwaltungsoberfläche deines Kanals. Um die Funktion zu finden und zu nutzen, folge diesen Schritten:
 
-1. Melde dich in deinem **YouTube Studio** an.
+1. Melde dich in deinem **[YouTube Studio](/youtube-tipps-de/bleib-auf-dem-laufenden-schalte-benachrichtigungen-ein/)** an.
 2. Öffere das Menü für die **Einstellungen**.
 3. Navigiere zur Registerkarte **„Community“**.
 4. Wähle dort den Bereich **„Kanalrichtlinien“** aus.

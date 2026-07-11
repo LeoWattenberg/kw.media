@@ -38,7 +38,7 @@ If all of this fails, you’re out of luck. Should you try to re-upload your vid
 
 ## What to do if you get a Copyright Strike
 
-Copyright strikes are effectively a copyright owner saying that you violated their copyrights. Note that in addition to copyright strikes, there also are copyright claims. A **copyright claim** may run ads on the claimed video, or block it in some countries, however, it won’t have any effect on your channel. You can have as many claims as you want. A **copyright strike** will remove your video and, once you get 3 strikes, terminate your channel.
+Copyright strikes are effectively a copyright owner saying that you violated their copyrights. Note that in addition to copyright strikes, there also are [copyright claims](/en/creator/). A **copyright claim** may run ads on the claimed video, or block it in some countries, however, it won’t have any effect on your channel. You can have as many claims as you want. A **copyright strike** will remove your video and, once you get 3 strikes, terminate your channel.
 
 When you get a copyright strike, the first question to ask yourself is: **Is the video completly my work?** A video only can be completely yours if you don’t use anything that anyone else has made. For example, if you play a game in your video, that game is copyrighted by whoever made the game. Should you use music, the music is copyrighted unless you made *all of it* yourself (melody, chords, lyrics and playing instruments).
 

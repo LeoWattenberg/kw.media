@@ -43,7 +43,7 @@ Anstatt darauf zu warten, dass ein Video nach der Veröffentlichung gemeldet wir
 * Eine spezifische Szene bearbeiten oder kürzen, bevor das Video live geht.
 * Sicherstellen, dass deine Metadaten keine Trigger auslösen, die zu einer ungerechtfertigten Meldung führen könnten.
 
-Diese Vorabprüfung ist ein wichtiges Sicherheitsnetz, um automatisierte Fehler vorherzusehen und deinen Kanal langfristig abzusichern.
+Diese Vorabprüfung ist ein wichtiges Sicherheitsnetz, um automatisierte Fehler vorherzusehen und deinen [Kanal langfristig abzusichern](/de/creator/).
 
 ## Kreativ-Boost für Shorts: Veo 3 und generative Videoinhalte
 
@@ -62,7 +62,7 @@ Diese Integration ermöglicht es dir, visuell hochwertige Sequenzen zu produzier
 YouTube arbeitet kontinuierlich daran, die Grenzen zwischen den verschiedenen Inhaltsformaten (Longform, Shorts, Community) aufzuweichen, um die Zuschauerbindung zu erhöhen.
 
 ### Bild-Karussells im Shorts-Feed
-In einem aktuellen Test, der derzeit für etwa 5 % der Kanäle ausgerollt wird, landen Bildbeiträge aus dem Community-Tab direkt im vertikalen Shorts-Feed. Zuschauer können nun durch Karussells mit bis zu 10 Bildern wischen.
+In einem aktuellen Test, der derzeit für etwa 5 % der Kanäle ausgerollt wird, landen Bildbeiträge aus dem Community-Tab direkt im [vertikalen Shorts-Feed](/de/tools/short-form-safe-zone-previewer/). Zuschauer können nun durch Karussells mit bis zu 10 Bildern wischen.
 
 Obwohl Funktionen wie Musik oder Aufkleber in diesem Format noch nicht unterstützt werden, ist das Potenzial hoch: YouTube zielt hier auf Zuschauer ab, die bereits ein hohes Interesse an deinem Kanal haben. Für Creator, die den Community-Tab bisher vernachlässigt haben, ist dies ein deutliches Signal, diesen Bereich wieder aktiver zu nutzen, um im Shorts-Feed präsent zu sein.
 

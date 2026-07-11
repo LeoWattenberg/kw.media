@@ -60,7 +60,7 @@ Wenn Hypes käuflich erwerbbar werden, entsteht eine sogenannte "Pay-to-Win"-Sit
 
 ## US-Steuerformulare: Wichtige Fristen für YouTube Partner
 
-Ein Thema, das weniger glamourös ist als neue Features, aber existenzielle Bedeutung für deine Auszahlungen hat, sind die US-Steuerformulare. Wenn du Teil des [YouTube-Partnerprogramms](/de/creator/) bist und Einnahmen aus den USA generierst, musst du bestimmte steuerrechtliche Anforderungen erfüllen.
+Ein Thema, das weniger glamourös ist als neue Features, aber existenzielle Bedeutung für deine Auszahlungen hat, sind die [US-Steuerformulare](/youtube-tipps-de/youtube-updates-youtube-studio-app-youtube-app-kommentare-community-posts/). Wenn du Teil des [YouTube-Partnerprogramms](/de/creator/) bist und Einnahmen aus den USA generierst, musst du bestimmte steuerrechtliche Anforderungen erfüllen.
 
 ### W8BEN vs. W8BENE: Welches Formular ist das richtige?
 
