@@ -126,14 +126,16 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 							<audio data-output-audio controls hidden></audio>
 						</div>
 					</div>
-					<ToolResultCard
-						title={copy.selectedFile.replace('{name}', copy.chooseFile)}
-						meta={copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}
-						downloadLabel={copy.download}
-						titleAttrs={{ 'data-result-title': true }}
-						metaAttrs={{ 'data-result-meta': true }}
-						downloadAttrs={{ 'data-download': true }}
-					/>
+					<div class="converter-output" data-converter-output hidden>
+						<ToolResultCard
+							title={copy.selectedFile.replace('{name}', copy.chooseFile)}
+							meta={copy.selectedMeta.replace('{size}', '—').replace('{type}', '—')}
+							downloadLabel={copy.download}
+							titleAttrs={{ 'data-result-title': true }}
+							metaAttrs={{ 'data-result-meta': true }}
+							downloadAttrs={{ 'data-download': true }}
+						/>
+					</div>
 				</ToolPanel>
 
 				<details class="converter-toolbar" open>
@@ -187,6 +189,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 			const resultTitle = root.querySelector('[data-result-title]');
 			const resultMeta = root.querySelector('[data-result-meta]');
 			const downloadLink = root.querySelector('[data-download]');
+			const converterOutput = root.querySelector('[data-converter-output]');
 			const mediaPreview = root.querySelector('[data-media-preview]');
 			const previewToggle = root.querySelector('[data-preview-toggle]');
 			const sourceVideo = root.querySelector('[data-source-video]');
@@ -341,6 +344,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 			}
 
 			function updateSelectionUi() {
+				converterOutput.hidden = !state.selectedFile;
 				if (!state.selectedFile) {
 					fileName.textContent = copy.chooseFile;
 					fileMeta.textContent = copy.fileHint;
@@ -438,6 +442,10 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 	.converter-tool {
 		display: grid;
 		gap: 18px;
+	}
+
+	.converter-output {
+		display: grid;
 	}
 
 	.file-picker {
