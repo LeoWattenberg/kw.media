@@ -12,6 +12,22 @@ const paragraphs = content.length ? content : [description];
 const copy = locale === 'de'
 	? { eyebrow: 'Tool-Beschreibung', title: 'Was dieses Tool macht' }
 	: { eyebrow: 'Tool description', title: 'What this tool does' };
+
+function inlineInternalLinks(paragraph: string) {
+	const parts: Array<{ text: string; href?: string }> = [];
+	const pattern = /\[([^\]]+)]\((\/(?:de|en)\/[^)]+\/)\)/g;
+	let cursor = 0;
+	let match;
+
+	while ((match = pattern.exec(paragraph))) {
+		parts.push({ text: paragraph.slice(cursor, match.index) });
+		parts.push({ text: match[1], href: match[2] });
+		cursor = match.index + match[0].length;
+	}
+
+	parts.push({ text: paragraph.slice(cursor) });
+	return parts;
+}
 ---
 
 <section class="section tool-description">
@@ -20,7 +36,9 @@ const copy = locale === 'de'
 			<p class="eyebrow">{copy.eyebrow}</p>
 			<h2>{copy.title}</h2>
 			<div class="tool-description-copy">
-				{paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+				{paragraphs.map((paragraph) => (
+					<p>{inlineInternalLinks(paragraph).map((part) => part.href ? <a href={part.href}>{part.text}</a> : part.text)}</p>
+				))}
 			</div>
 		</div>
 	</div>
@@ -41,6 +59,10 @@ const copy = locale === 'de'
 	.tool-description-copy,
 	.tool-description-copy p {
 		margin: 0;
+	}
+
+	.tool-description-copy a {
+		color: var(--color-accent);
 	}
 
 	.tool-description-card h2 {
