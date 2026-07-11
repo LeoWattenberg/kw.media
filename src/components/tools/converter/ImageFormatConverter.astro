@@ -10,9 +10,11 @@ import ToolStatus from '../shared/ToolStatus.astro';
 interface Props {
 	locale: Locale;
 	defaultFormat?: string;
+	title?: string;
+	eyebrow?: string;
 }
 
-const { locale, defaultFormat = 'PNG' } = Astro.props;
+const { locale, defaultFormat = 'PNG', title, eyebrow } = Astro.props;
 
 const outputFormats = [
 	{ value: 'PNG', label: 'PNG', extension: 'png', mime: 'image/png', quality: false },
@@ -106,7 +108,12 @@ const copyByLocale = {
 	},
 } satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
 
-const copy = copyByLocale[locale];
+const defaultCopy = copyByLocale[locale];
+const copy = {
+	...defaultCopy,
+	title: title || defaultCopy.title,
+	eyebrow: eyebrow || defaultCopy.eyebrow,
+};
 const copyJson = JSON.stringify(copy.client);
 const outputFormatsJson = JSON.stringify(outputFormats);
 const normalizedDefaultFormat = outputFormats.some((format) => format.value === defaultFormat.toUpperCase()) ? defaultFormat.toUpperCase() : 'PNG';

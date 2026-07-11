@@ -11,9 +11,11 @@ import ToolStatus from '../shared/ToolStatus.astro';
 interface Props {
 	locale: Locale;
 	defaultProfile?: string;
+	title?: string;
+	eyebrow?: string;
 }
 
-const { locale, defaultProfile = '' } = Astro.props;
+const { locale, defaultProfile = '', title, eyebrow } = Astro.props;
 
 const profileDefinitions = [
 	{ value: 'wav', label: 'WAV', extension: '.wav', mimeType: 'audio/wav', kind: 'audio', codec: 'pcm_s16le', args: ['-ar', '48000'] },
@@ -85,7 +87,12 @@ const copyByLocale = {
 	},
 } satisfies Record<Locale, Record<string, string>>;
 
-const copy = copyByLocale[locale];
+const defaultCopy = copyByLocale[locale];
+const copy = {
+	...defaultCopy,
+	title: title || defaultCopy.title,
+	eyebrow: eyebrow || defaultCopy.eyebrow,
+};
 const copyJson = JSON.stringify(copy);
 const profilesJson = JSON.stringify(profileDefinitions);
 const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.value === defaultProfile) ? defaultProfile : '';

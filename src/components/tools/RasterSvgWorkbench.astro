@@ -11,11 +11,13 @@ import ToolStatus from './shared/ToolStatus.astro';
 interface Props {
 	locale: Locale;
 	defaultMode?: string;
+	title?: string;
+	eyebrow?: string;
 }
 
-const { locale, defaultMode = 'vector' } = Astro.props;
+const { locale, defaultMode = 'vector', title, eyebrow } = Astro.props;
 const normalizedDefaultMode = defaultMode === 'png' ? 'png' : 'vector';
-const copy = {
+const defaultCopy = {
 	de: {
 		eyebrow: 'Vektor-Tool', title: 'Raster/SVG Workbench',
 		intro: 'Vektorisiere Rasterbilder zu SVG und rendere SVG-Dateien wieder als PNG, komplett lokal im Browser.',
@@ -45,6 +47,11 @@ const copy = {
 		error: 'Action failed: {message}', generic: 'Unknown error', invalidSvg: 'No valid SVG text found.',
 	},
 }[locale];
+const copy = {
+	...defaultCopy,
+	title: title || defaultCopy.title,
+	eyebrow: eyebrow || defaultCopy.eyebrow,
+};
 const copyJson = JSON.stringify(copy);
 ---
 

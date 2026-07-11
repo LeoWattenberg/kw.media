@@ -17,18 +17,35 @@ const definition = getVirtualConverterDefinition(tool.id.replace(/-(de|en)$/, ''
 if (!definition) {
 	throw new Error(`Missing virtual converter definition for ${tool.id}`);
 }
+
+const converterNames = {
+	de: {
+		document: 'Dokumenten-Konverter',
+		'image-format': 'Bildformat-Konverter',
+		'raster-svg': 'Raster/SVG Workbench',
+		'video-audio': 'Audio- und Video-Konverter',
+	},
+	en: {
+		document: 'Document Converter',
+		'image-format': 'Image Format Converter',
+		'raster-svg': 'Raster/SVG Workbench',
+		'video-audio': 'Audio and Video Converter',
+	},
+} as const;
+
+const converterName = converterNames[tool.locale][definition.renderer];
 ---
 
 <ToolPageShell tool={tool} alternatePaths={alternatePaths}>
 	{
 		definition.renderer === 'raster-svg' ? (
-			<RasterSvgWorkbench locale={tool.locale} defaultMode={definition.defaultValue} />
+			<RasterSvgWorkbench locale={tool.locale} defaultMode={definition.defaultValue} title={tool.title} eyebrow={converterName} />
 		) : definition.renderer === 'image-format' ? (
-			<ImageFormatConverter locale={tool.locale} defaultFormat={definition.defaultValue} />
+			<ImageFormatConverter locale={tool.locale} defaultFormat={definition.defaultValue} title={tool.title} eyebrow={converterName} />
 		) : definition.renderer === 'document' ? (
-			<DocumentConverter locale={tool.locale} defaultProfile={definition.defaultValue} />
+			<DocumentConverter locale={tool.locale} defaultProfile={definition.defaultValue} title={tool.title} eyebrow={converterName} />
 		) : (
-			<VideoAudioConverter locale={tool.locale} defaultProfile={definition.defaultValue} />
+			<VideoAudioConverter locale={tool.locale} defaultProfile={definition.defaultValue} title={tool.title} eyebrow={converterName} />
 		)
 	}
 </ToolPageShell>
