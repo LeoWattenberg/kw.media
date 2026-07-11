@@ -9,9 +9,10 @@ import ToolStatus from '../shared/ToolStatus.astro';
 
 interface Props {
 	locale: Locale;
+	defaultFormat?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, defaultFormat = 'PNG' } = Astro.props;
 
 const outputFormats = [
 	{ value: 'PNG', label: 'PNG', extension: 'png', mime: 'image/png', quality: false },
@@ -108,13 +109,14 @@ const copyByLocale = {
 const copy = copyByLocale[locale];
 const copyJson = JSON.stringify(copy.client);
 const outputFormatsJson = JSON.stringify(outputFormats);
+const normalizedDefaultFormat = outputFormats.some((format) => format.value === defaultFormat.toUpperCase()) ? defaultFormat.toUpperCase() : 'PNG';
 ---
 
 <ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
 
 <section class="section image-converter-section tool-workspace">
 	<div class="container">
-		<div class="image-converter" data-image-converter data-copy={copyJson} data-formats={outputFormatsJson}>
+		<div class="image-converter" data-image-converter data-copy={copyJson} data-formats={outputFormatsJson} data-default-format={normalizedDefaultFormat}>
 			<div class="converter-grid">
 				<ToolPanel class="converter-panel source-panel" title={copy.fileTitle}>
 					<FilePicker
@@ -140,7 +142,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 					<SelectControl label={copy.outputFormat} selectAttrs={{ 'data-format': true }}>
 						{
 							outputFormats.map((format) => (
-								<option value={format.value} selected={format.value === 'PNG'}>
+								<option value={format.value} selected={format.value === normalizedDefaultFormat}>
 									{format.label}
 								</option>
 							))
@@ -245,6 +247,9 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				magickPromise: null,
 			};
 
+			if (root.dataset.defaultFormat && outputFormats.some((formatOption) => formatOption.value === root.dataset.defaultFormat)) {
+				formatSelect.value = root.dataset.defaultFormat;
+			}
 			fileInput.addEventListener('change', () => {
 				setSourceFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
 			});
