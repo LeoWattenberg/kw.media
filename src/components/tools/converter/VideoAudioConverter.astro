@@ -10,9 +10,10 @@ import ToolStatus from '../shared/ToolStatus.astro';
 
 interface Props {
 	locale: Locale;
+	defaultProfile?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, defaultProfile = '' } = Astro.props;
 
 const profileDefinitions = [
 	{ value: 'wav', label: 'WAV', extension: '.wav', mimeType: 'audio/wav', kind: 'audio', codec: 'pcm_s16le', args: ['-ar', '48000'] },
@@ -87,13 +88,14 @@ const copyByLocale = {
 const copy = copyByLocale[locale];
 const copyJson = JSON.stringify(copy);
 const profilesJson = JSON.stringify(profileDefinitions);
+const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.value === defaultProfile) ? defaultProfile : '';
 ---
 
 <ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
 
 <section class="section converter-section tool-workspace">
 	<div class="container">
-		<div class="converter-tool" data-video-audio-converter data-copy={copyJson} data-profiles={profilesJson}>
+		<div class="converter-tool" data-video-audio-converter data-copy={copyJson} data-profiles={profilesJson} data-default-profile={normalizedDefaultProfile}>
 			<ToolPanel class="converter-panel" title={copy.fileLabel}>
 				<FilePicker
 					label={copy.chooseFile}
@@ -266,6 +268,7 @@ const profilesJson = JSON.stringify(profileDefinitions);
 			function populateProfileOptions() {
 				const options = filterProfilesForMediaKind(profileDefinitions, state.selectedFile);
 				const previousValue = profileSelect.value;
+				const defaultValue = root.dataset.defaultProfile || '';
 				profileSelect.innerHTML = '';
 				const placeholder = document.createElement('option');
 				placeholder.value = '';
@@ -282,6 +285,8 @@ const profilesJson = JSON.stringify(profileDefinitions);
 				profileSelect.disabled = !state.selectedFile;
 				if (previousValue && options.some((profile) => profile.value === previousValue)) {
 					profileSelect.value = previousValue;
+				} else if (defaultValue && options.some((profile) => profile.value === defaultValue)) {
+					profileSelect.value = defaultValue;
 				} else if (state.selectedFile) {
 					profileSelect.value = options[0] ? options[0].value : '';
 				}

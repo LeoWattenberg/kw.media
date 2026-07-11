@@ -1,0 +1,34 @@
+---
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import RasterSvgWorkbench from '../../../components/tools/RasterSvgWorkbench.astro';
+import DocumentConverter from '../../../components/tools/converter/DocumentConverter.astro';
+import ImageFormatConverter from '../../../components/tools/converter/ImageFormatConverter.astro';
+import VideoAudioConverter from '../../../components/tools/converter/VideoAudioConverter.astro';
+import { getVirtualConverterDefinition, virtualConverterPages } from '../../virtual-converters';
+
+export const toolModule = {
+	id: 'virtual-converters',
+	pages: virtualConverterPages,
+};
+
+const { tool, alternatePaths } = Astro.props;
+const definition = getVirtualConverterDefinition(tool.id.replace(/-(de|en)$/, ''));
+
+if (!definition) {
+	throw new Error(`Missing virtual converter definition for ${tool.id}`);
+}
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	{
+		definition.renderer === 'raster-svg' ? (
+			<RasterSvgWorkbench locale={tool.locale} defaultMode={definition.defaultValue} />
+		) : definition.renderer === 'image-format' ? (
+			<ImageFormatConverter locale={tool.locale} defaultFormat={definition.defaultValue} />
+		) : definition.renderer === 'document' ? (
+			<DocumentConverter locale={tool.locale} defaultProfile={definition.defaultValue} />
+		) : (
+			<VideoAudioConverter locale={tool.locale} defaultProfile={definition.defaultValue} />
+		)
+	}
+</ToolPageShell>

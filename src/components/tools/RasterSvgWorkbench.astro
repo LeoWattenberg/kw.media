@@ -8,9 +8,13 @@ import ToolIntro from './shared/ToolIntro.astro';
 import ToolPanel from './shared/ToolPanel.astro';
 import ToolStatus from './shared/ToolStatus.astro';
 
-interface Props { locale: Locale }
+interface Props {
+	locale: Locale;
+	defaultMode?: string;
+}
 
-const { locale } = Astro.props;
+const { locale, defaultMode = 'vector' } = Astro.props;
+const normalizedDefaultMode = defaultMode === 'png' ? 'png' : 'vector';
 const copy = {
 	de: {
 		eyebrow: 'Vektor-Tool', title: 'Raster/SVG Workbench',
@@ -48,10 +52,10 @@ const copyJson = JSON.stringify(copy);
 
 <section class="section raster-svg-section tool-workspace">
 	<div class="container">
-		<div class="raster-svg" data-raster-svg data-copy={copyJson}>
+		<div class="raster-svg" data-raster-svg data-copy={copyJson} data-default-mode={normalizedDefaultMode}>
 			<ToolPanel title={copy.raster}>
 				<SelectControl label={copy.mode} selectAttrs={{ 'data-mode': true }}>
-					<option value="vector">{copy.rasterMode}</option><option value="png">{copy.pngMode}</option>
+					<option value="vector" selected={normalizedDefaultMode === 'vector'}>{copy.rasterMode}</option><option value="png" selected={normalizedDefaultMode === 'png'}>{copy.pngMode}</option>
 				</SelectControl>
 				<div data-raster-pane>
 					<FilePicker label={copy.chooseRaster} name={copy.chooseRaster} hint={copy.rasterHint} accept="image/*,.avif,.gif,.jpeg,.jpg,.png,.svg,.webp" nameAttrs={{ 'data-raster-name': true }} metaAttrs={{ 'data-raster-meta': true }} inputAttrs={{ 'data-raster': true }} />
@@ -127,6 +131,9 @@ const copyJson = JSON.stringify(copy);
 			let resultUrl = null;
 			let tracerPromise = null;
 
+			if (root.dataset.defaultMode === 'png' || root.dataset.defaultMode === 'vector') {
+				mode.value = root.dataset.defaultMode;
+			}
 			mode.addEventListener('change', updateMode);
 			rasterInput.addEventListener('change', onRaster);
 			svgFile.addEventListener('change', onSvgFile);

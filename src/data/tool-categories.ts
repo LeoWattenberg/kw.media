@@ -1,4 +1,5 @@
 import type { Locale } from '../i18n';
+import { virtualConverterToolIds } from './virtual-converters';
 
 export type ToolCategoryId = 'converter' | 'audio' | 'video' | 'image' | 'text' | 'analyzers';
 
@@ -18,7 +19,14 @@ export const toolCategories: ToolCategory[] = [
 	{
 		id: 'converter',
 		slug: 'converter',
-		toolIds: ['document-converter', 'image-format-converter', 'raster-svg-workbench', 'video-audio-converter', 'video-to-gif'],
+		toolIds: [
+			'document-converter',
+			'image-format-converter',
+			'raster-svg-workbench',
+			'video-audio-converter',
+			'video-to-gif',
+			...virtualConverterToolIds,
+		],
 		translations: {
 			de: {
 				eyebrow: 'Konverter',
