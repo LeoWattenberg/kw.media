@@ -1,5 +1,5 @@
 const DEFAULT_FFMPEG_VERSION = '0.12.15';
-const DEFAULT_CORE_VERSION = '0.12.9';
+const DEFAULT_CORE_VERSION = '0.12.10';
 const DEFAULT_TIMEOUT_MS = 90_000;
 
 interface FfmpegProgressEvent {
@@ -65,7 +65,7 @@ export function createFfmpegRuntime(options: FfmpegRuntimeOptions): FfmpegRuntim
 			return loadPromise;
 		}
 
-		loadPromise = loadFfmpeg().catch((error) => {
+		loadPromise = withTimeout(loadFfmpeg(), timeoutMs, options.timeoutMessage).catch((error) => {
 			loadPromise = null;
 			revokeObjectUrls();
 			throw error;
@@ -91,11 +91,7 @@ export function createFfmpegRuntime(options: FfmpegRuntimeOptions): FfmpegRuntim
 		instance.on('progress', handleProgress);
 
 		try {
-			await withTimeout(
-				instance.load({ classWorkerURL, coreURL, wasmURL }),
-				timeoutMs,
-				options.timeoutMessage,
-			);
+			await instance.load({ classWorkerURL, coreURL, wasmURL });
 		} catch (error) {
 			instance.off('progress', handleProgress);
 			instance.terminate?.();

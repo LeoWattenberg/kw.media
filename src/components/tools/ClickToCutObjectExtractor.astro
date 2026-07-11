@@ -64,7 +64,7 @@ const copyJson = JSON.stringify(copy);
 				<ToolStatus data-status text={copy.waiting} />
 			</ToolPanel>
 
-			<ToolPanel class="result-panel" title={copy.result}>
+			<ToolPanel class="result-panel" data-result-panel title={copy.result} hidden>
 				<div class="result-frame" data-result-frame hidden><img data-result-image alt="" /></div>
 				<a class="tool-download-link" data-download href="#" download hidden>{copy.download}</a>
 			</ToolPanel>
@@ -97,6 +97,7 @@ const copyJson = JSON.stringify(copy);
 			const clearButton = root.querySelector('[data-clear]');
 			const status = root.querySelector('[data-status]');
 			const resultFrame = root.querySelector('[data-result-frame]');
+			const resultPanel = root.querySelector('[data-result-panel]');
 			const resultImage = root.querySelector('[data-result-image]');
 			const download = root.querySelector('[data-download]');
 			const context = canvas.getContext('2d');
@@ -132,10 +133,12 @@ const copyJson = JSON.stringify(copy);
 					cutButton.disabled = true;
 					setStatus(copy.ready, 'success');
 				};
+				image.onerror = () => setStatus(format(copy.error, { message: copy.generic }), 'error');
 				image.src = sourceUrl;
 				fileName.textContent = file.name;
 				fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'image'}`;
 				resultFrame.hidden = true;
+				resultPanel.hidden = true;
 				download.hidden = true;
 			}
 
@@ -171,6 +174,7 @@ const copyJson = JSON.stringify(copy);
 					if (outputUrl) URL.revokeObjectURL(outputUrl);
 					outputUrl = URL.createObjectURL(blob);
 					resultImage.src = outputUrl;
+					resultPanel.hidden = false;
 					resultFrame.hidden = false;
 					download.href = outputUrl;
 					download.download = `cut-object.${mime === 'image/webp' ? 'webp' : 'png'}`;
@@ -274,6 +278,7 @@ const copyJson = JSON.stringify(copy);
 				canvasWrap.hidden = true;
 				target.hidden = true;
 				resultFrame.hidden = true;
+				resultPanel.hidden = true;
 				download.hidden = true;
 				cutButton.disabled = true;
 				point = null;
@@ -295,6 +300,7 @@ const copyJson = JSON.stringify(copy);
 <style>
 	.object-extractor { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 	.object-extractor .result-panel { grid-column: 1 / -1; }
+	.object-extractor [hidden] { display: none !important; }
 	.extractor-canvas-wrap { position: relative; margin-top: 14px; overflow: hidden; border: 1px solid var(--color-line); border-radius: 6px; background: var(--color-surface-raised); }
 	.extractor-canvas-wrap canvas { display: block; width: 100%; height: auto; cursor: crosshair; }
 	.target-dot { position: absolute; width: 18px; height: 18px; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 0 2px var(--color-accent), 0 8px 18px rgba(0,0,0,.28); transform: translate(-50%, -50%); pointer-events: none; }

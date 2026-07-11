@@ -23,9 +23,9 @@ const profileDefinitions = [
 	{ value: 'ogg', label: 'OGG', extension: '.ogg', mimeType: 'audio/ogg', kind: 'audio', codec: 'libopus', args: ['-b:a', '192k', '-ar', '48000'] },
 	{ value: 'm4a', label: 'M4A', extension: '.m4a', mimeType: 'audio/mp4', kind: 'audio', codec: 'aac', args: ['-b:a', '192k'] },
 	{ value: 'flac', label: 'FLAC', extension: '.flac', mimeType: 'audio/flac', kind: 'audio', codec: 'flac', args: ['-ar', '48000'] },
-	{ value: 'mp4', label: 'MP4', extension: '.mp4', mimeType: 'video/mp4', kind: 'video', codec: 'copy', audioCodec: 'aac', audioArgs: ['-b:a', '192k'] },
-	{ value: 'webm', label: 'WebM', extension: '.webm', mimeType: 'video/webm', kind: 'video', codec: 'copy', audioCodec: 'libopus', audioArgs: ['-b:a', '192k', '-ar', '48000'] },
-	{ value: 'mov', label: 'MOV', extension: '.mov', mimeType: 'video/quicktime', kind: 'video', codec: 'copy', audioCodec: 'aac', audioArgs: ['-b:a', '192k'] },
+	{ value: 'mp4', label: 'MP4', extension: '.mp4', mimeType: 'video/mp4', kind: 'video', codec: 'libx264', videoArgs: ['-crf', '23', '-preset', 'veryfast', '-pix_fmt', 'yuv420p'], audioCodec: 'aac', audioArgs: ['-b:a', '192k'] },
+	{ value: 'webm', label: 'WebM', extension: '.webm', mimeType: 'video/webm', kind: 'video', codec: 'libvpx', videoArgs: ['-deadline', 'realtime', '-cpu-used', '8', '-threads', '2', '-lag-in-frames', '0', '-b:v', '2M'], audioCodec: 'libopus', audioArgs: ['-b:a', '160k', '-ar', '48000'] },
+	{ value: 'mov', label: 'MOV', extension: '.mov', mimeType: 'video/quicktime', kind: 'video', codec: 'libx264', videoArgs: ['-crf', '20', '-preset', 'veryfast', '-pix_fmt', 'yuv420p'], audioCodec: 'aac', audioArgs: ['-b:a', '192k'] },
 ];
 
 const copyByLocale = {
@@ -161,7 +161,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 	import { createFfmpegRuntime } from '../../../lib/ffmpeg-runtime';
 	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
 	import {
-		buildConversionArgs,
+		buildConversionAttempts,
 		buildOutputName,
 		detectMediaKind,
 		filterProfilesForMediaKind,
@@ -286,7 +286,6 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 					setStatus(copy.statusReady, 'success');
 				} catch (error) {
 					setStatus(format(copy.statusError, { message: messageFromError(error) }), 'error');
-					throw error;
 				} finally {
 					processButton.disabled = !state.selectedFile || !profileSelect.value;
 				}
@@ -301,11 +300,12 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 					await ffmpeg.writeFile(inputName, new Uint8Array(sourceBuffer.slice(0)));
 
 					try {
-						const result = await ffmpeg.exec(buildConversionArgs(inputName, outputName, file, profile));
-
-						if (result !== 0) {
-							throw new Error(`FFmpeg exited with code ${result}`);
+						let result = 1;
+						for (const args of buildConversionAttempts(inputName, outputName, file, profile)) {
+							result = await ffmpeg.exec(args);
+							if (result === 0) break;
 						}
+						if (result !== 0) throw new Error(`FFmpeg exited with code ${result}`);
 
 						const output = await ffmpeg.readFile(outputName);
 						return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
@@ -432,7 +432,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 			function messageFromError(error) {
 				return error && typeof error === 'object' && 'message' in error
 					? String(error.message)
-					: copy.statusGeneric;
+					: String(error || copy.statusGeneric);
 			}
 		}
 	})();

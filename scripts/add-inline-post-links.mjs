@@ -9,6 +9,7 @@ import {
 	writePostFile,
 } from './content-ai.mjs';
 import {
+	GENERATED_TOOL_METADATA_PATH,
 	loadToolCandidates,
 	readGeneratedToolMetadata,
 	writeGeneratedToolMetadata,
@@ -66,7 +67,7 @@ const sidebarPageOrder = [
 
 if (help) {
 	console.log(`Usage:
-node scripts/add-inline-post-links.mjs [--dry] [--link-density=2] [--limit=20] [post.md ...]
+node scripts/add-inline-post-links.mjs [--dry] [--link-density=2] [--limit=20] [post.md ...|src/data/generated-tool-metadata.json]
 
 Creates inline Markdown links in post bodies and generated multi-paragraph tool descriptions.
 Writes changes by default. Add --dry to preview proposed links.
@@ -95,9 +96,10 @@ const sidebarPages = readSidebarPages();
 const toolPages = (await loadToolCandidates()).map(toolPageCandidate);
 const generatedToolMetadata = await readGeneratedToolMetadata();
 const relatedPosts = readRelatedPosts(relatedPath);
-const selectedFiles = selectFiles();
+const passedFiles = positionalArgs();
+const selectedFiles = selectFiles(passedFiles);
 const selectedPosts = (limit > 0 ? selectedFiles.slice(0, limit) : selectedFiles).map((filePath) => readPostFile(filePath));
-const allToolSources = positionalArgs().length ? [] : toolSourcePages();
+const allToolSources = !passedFiles.length || passedFiles.some(isGeneratedToolMetadataPath) ? toolSourcePages() : [];
 const selectedTools = limit > 0 ? allToolSources.slice(0, limit) : allToolSources;
 const results = [];
 let changedTools = 0;
@@ -149,13 +151,18 @@ if (!dryRun && selectedTools.length) await writeGeneratedToolMetadata(generatedT
 const changed = results.filter(({ result }) => result.links.length).length;
 console.log(`${dryRun ? 'Would change' : 'Changed'} ${changed} of ${selectedPosts.length} post(s) and ${changedTools} of ${selectedTools.length} tool description(s).`);
 
-function selectFiles() {
-	const passedFiles = positionalArgs();
+function selectFiles(passedFiles = positionalArgs()) {
 	if (passedFiles.length) {
-		return passedFiles.map((filePath) => resolve(filePath));
+		return passedFiles
+			.filter((filePath) => !isGeneratedToolMetadataPath(filePath))
+			.map((filePath) => resolve(filePath));
 	}
 
 	return allPostFiles();
+}
+
+function isGeneratedToolMetadataPath(filePath) {
+	return resolve(filePath) === resolve(GENERATED_TOOL_METADATA_PATH);
 }
 
 function positionalArgs() {

@@ -54,15 +54,25 @@ export function buildConversionArgs(inputName, outputName, file, profile) {
 		return ['-i', inputName, '-vn', '-map', '0:a:0?', '-c:a', profile.codec, ...profile.args, '-y', outputName];
 	}
 
-	return [
+	const args = [
 		'-i', inputName,
 		'-map', '0:v:0?',
 		'-map', '0:a:0?',
 		'-c:v', profile.codec,
+		...(profile.videoArgs || []),
 		'-c:a', profile.audioCodec || 'aac',
 		...(profile.audioArgs || []),
-		'-y', outputName,
 	];
+	if (profile.extension === '.mp4' || profile.extension === '.mov') args.push('-movflags', '+faststart');
+	args.push('-y', outputName);
+	return args;
+}
+
+export function buildConversionAttempts(inputName, outputName, file, profile) {
+	const transcode = buildConversionArgs(inputName, outputName, file, profile);
+	if (detectMediaKind(file) !== 'video' || profile.kind !== 'video' || profile.codec === 'copy') return [transcode];
+	const streamCopy = buildConversionArgs(inputName, outputName, file, { ...profile, codec: 'copy', videoArgs: [] });
+	return [streamCopy, transcode];
 }
 
 export function buildOutputName(name, extension) {
@@ -70,6 +80,7 @@ export function buildOutputName(name, extension) {
 	return `${baseName}${extension}`;
 }
 
-export function inputExtension() {
-	return '.bin';
+export function inputExtension(file) {
+	const extension = getFileExtension(file?.name || '');
+	return extension ? `.${extension}` : '.bin';
 }

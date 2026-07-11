@@ -70,6 +70,7 @@ const copyJson = JSON.stringify(copy);
 
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+	import { analyzeMediaFile, loadMediaInfo } from '../../lib/tools/media-info-browser';
 
 	for (const root of document.querySelectorAll('[data-delivery-doctor]:not([data-bound])')) {
 		root.dataset.bound = 'true';
@@ -118,8 +119,8 @@ const copyJson = JSON.stringify(copy);
 			setStatus(copy.analyzing, 'info');
 			try {
 				const info = await getMediaInfo();
-				const data = await info.analyzeData(file.size, async (size, offset) => new Uint8Array(await file.slice(offset, offset + size).arrayBuffer()));
-				renderDiagnosis(file, typeof data === 'string' ? JSON.parse(data) : data);
+				const data = await analyzeMediaFile(file, info);
+				renderDiagnosis(file, data);
 				setStatus(copy.ready, 'success');
 			} catch (error) {
 				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
@@ -185,24 +186,13 @@ const copyJson = JSON.stringify(copy);
 			if (mediaInfoPromise) return mediaInfoPromise;
 			mediaInfoPromise = (async () => {
 				setStatus(copy.loadingInfo, 'info');
-				await loadScript('https://unpkg.com/mediainfo.js@0.3.5');
-				const factory = window.MediaInfo || window.mediaInfoFactory || window.MediaInfoFactory;
-				mediaInfo = await factory({ format: 'object' });
+				mediaInfo = await loadMediaInfo();
 				return mediaInfo;
-			})();
-			return mediaInfoPromise;
-		}
-
-		function loadScript(src) {
-			return new Promise((resolve, reject) => {
-				const existing = document.querySelector(`script[src="${src}"]`);
-				if (existing?.dataset.loaded === 'true') return resolve();
-				const script = existing || document.createElement('script');
-				script.src = src; script.async = true;
-				script.addEventListener('load', () => { script.dataset.loaded = 'true'; resolve(); }, { once: true });
-				script.addEventListener('error', () => reject(new Error(src)), { once: true });
-				if (!existing) document.head.append(script);
+			})().catch((error) => {
+				mediaInfoPromise = null;
+				throw error;
 			});
+			return mediaInfoPromise;
 		}
 
 		function reset() {

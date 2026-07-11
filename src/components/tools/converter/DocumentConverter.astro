@@ -215,7 +215,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 </style>
 
 <script>
-	import { buildOutputName, buildPandocOptions, createTextPdf, detectInputFormat, isBinaryInput } from '../../../lib/tools/document-converter';
+	import { buildOutputName, buildPandocInputOptions, buildPandocOptions, createTextPdf, detectInputFormat, isBinaryInput } from '../../../lib/tools/document-converter';
 	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
 
 	(() => {
@@ -318,7 +318,6 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 					setStatus(copy.statusReady, 'success');
 				} catch (error) {
 					setStatus(format(copy.statusError, { message: messageFromError(error) }), 'error');
-					throw error;
 				} finally {
 					processButton.disabled = !state.selectedFile || !profileSelect.value;
 				}
@@ -335,6 +334,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 
 					const result = await pandoc.convert({
 						from: inputFormat,
+						...buildPandocInputOptions(inputFormat, file.name),
 						...buildPandocOptions(profile, outputName),
 					}, stdin, files);
 					const previewHtml = profile.preview === 'html' && profile.format !== 'html'
@@ -369,6 +369,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 			async function createHtmlPreview(pandoc, inputFormat, stdin, files) {
 				const result = await pandoc.convert({
 					from: inputFormat,
+					...buildPandocInputOptions(inputFormat, Object.keys(files)[0]),
 					to: 'html',
 					standalone: true,
 					'html-math-method': { method: 'mathml' },

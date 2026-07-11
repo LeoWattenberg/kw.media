@@ -1,10 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 
 import { convert, query } from 'pandoc-wasm';
 import {
 	DOCUMENT_OUTPUT_PROFILES,
 	buildPandocOptions,
+	buildPandocInputOptions,
 	createTextPdf,
 } from '../src/lib/tools/document-converter.js';
 
@@ -36,6 +38,21 @@ test('every document-converter target produces a non-empty output', async () => 
 			assert.ok(result.stdout.length > 0, `${profile.label} output is not empty`);
 		}
 	}
+});
+
+test('the real ODT fixture converts to HTML when Pandoc receives its input filename', async () => {
+	const fileName = 'legal document.odt';
+	const source = new Blob([await readFile(new URL(`../reference/${fileName}`, import.meta.url))]);
+	const result = await convert({
+		from: 'odt',
+		...buildPandocInputOptions('odt', fileName),
+		to: 'html',
+		standalone: true,
+	}, null, { [fileName]: source });
+
+	assert.equal(result.stderr, '');
+	assert.match(result.stdout, /<!DOCTYPE html>/i);
+	assert.ok(result.stdout.length > 1000);
 });
 
 test('LaTeX output converts back into an HTML preview with native MathML', async () => {

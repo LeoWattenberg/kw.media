@@ -52,7 +52,7 @@ const copyJson = JSON.stringify(copy);
 				<ToolActions><button class="button secondary" data-detect type="button" disabled>{copy.detect}</button><button class="button primary" data-apply type="button" disabled>{copy.apply}</button><button class="button secondary" data-clear type="button">{copy.clear}</button></ToolActions>
 				<ToolStatus data-status text={copy.waiting} />
 			</ToolPanel>
-			<ToolPanel class="result-panel" title={copy.result}><a class="tool-download-link" data-download href="#" download hidden>{copy.download}</a></ToolPanel>
+			<ToolPanel class="result-panel" data-result-panel title={copy.result} hidden><a class="tool-download-link" data-download href="#" download hidden>{copy.download}</a></ToolPanel>
 		</div>
 	</div>
 </section>
@@ -76,6 +76,7 @@ const copyJson = JSON.stringify(copy);
 			const clearButton = root.querySelector('[data-clear]');
 			const status = root.querySelector('[data-status]');
 			const download = root.querySelector('[data-download]');
+			const resultPanel = root.querySelector('[data-result-panel]');
 			const image = new Image();
 			let inputUrl = null;
 			let outputUrl = null;
@@ -85,6 +86,7 @@ const copyJson = JSON.stringify(copy);
 			strength.addEventListener('input', () => strengthLabel.textContent = strength.value);
 			fileInput.addEventListener('change', onFile);
 			detectButton.addEventListener('click', () => void detect());
+			target.addEventListener('change', () => { if (image.naturalWidth) void detect(); });
 			applyButton.addEventListener('click', applyRedaction);
 			clearButton.addEventListener('click', reset);
 			strengthLabel.textContent = strength.value;
@@ -93,6 +95,8 @@ const copyJson = JSON.stringify(copy);
 				const file = fileInput.files?.[0];
 				if (!file) return;
 				if (inputUrl) URL.revokeObjectURL(inputUrl);
+				if (outputUrl) URL.revokeObjectURL(outputUrl);
+				outputUrl = null; download.hidden = true; resultPanel.hidden = true;
 				inputUrl = URL.createObjectURL(file);
 				image.onload = () => {
 					const scale = Math.min(1, 1600 / Math.max(image.naturalWidth, image.naturalHeight));
@@ -100,6 +104,7 @@ const copyJson = JSON.stringify(copy);
 					canvas.height = Math.round(image.naturalHeight * scale);
 					ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 					canvas.hidden = false; detectButton.disabled = false; applyButton.disabled = true; boxes = [];
+					void detect();
 				};
 				image.src = inputUrl;
 				fileName.textContent = file.name; fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'image'}`;
@@ -107,6 +112,7 @@ const copyJson = JSON.stringify(copy);
 			}
 
 			async function detect() {
+				detectButton.disabled = true;
 				try {
 					setStatus(copy.detecting, 'info');
 					ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
@@ -119,6 +125,7 @@ const copyJson = JSON.stringify(copy);
 					applyButton.disabled = !boxes.length;
 					setStatus(boxes.length ? format(copy.detected, { count: boxes.length }) : copy.none, boxes.length ? 'success' : 'info');
 				} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
+				finally { detectButton.disabled = !image.naturalWidth; }
 			}
 
 			function applyRedaction() {
@@ -129,6 +136,7 @@ const copyJson = JSON.stringify(copy);
 					if (outputUrl) URL.revokeObjectURL(outputUrl);
 					outputUrl = URL.createObjectURL(blob);
 					download.href = outputUrl; download.download = `${baseName(fileInput.files?.[0]?.name || 'image')}-redacted.png`; download.hidden = false;
+					resultPanel.hidden = false;
 					setStatus(copy.done, 'success');
 				}, 'image/png');
 			}
@@ -159,14 +167,14 @@ const copyJson = JSON.stringify(copy);
 				const promise = (async () => {
 					const vision = await import('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18/+esm');
 					const fileset = await vision.FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.18/wasm');
-					if (key === 'faces') return vision.FaceDetector.createFromOptions(fileset, { baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/latest/blaze_face_short_range.tflite', delegate: 'GPU' }, minDetectionConfidence: 0.45 });
-					return vision.ObjectDetector.createFromOptions(fileset, { baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-tasks/object_detector/efficientdet_lite0_uint8.tflite', delegate: 'GPU' }, scoreThreshold: 0.35 });
+					if (key === 'faces') return vision.FaceDetector.createFromOptions(fileset, { baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/latest/blaze_face_short_range.tflite', delegate: 'CPU' }, runningMode: 'IMAGE', minDetectionConfidence: 0.45 });
+					return vision.ObjectDetector.createFromOptions(fileset, { baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-tasks/object_detector/efficientdet_lite0_uint8.tflite', delegate: 'CPU' }, runningMode: 'IMAGE', scoreThreshold: 0.35 });
 				})();
 				detectorPromise = { key, promise };
-				return promise;
+				return promise.catch((error) => { detectorPromise = null; throw error; });
 			}
 
-			function reset() { fileInput.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; canvas.hidden = true; download.hidden = true; detectButton.disabled = true; applyButton.disabled = true; boxes = []; for (const url of [inputUrl, outputUrl]) if (url) URL.revokeObjectURL(url); inputUrl = outputUrl = null; setStatus(copy.waiting, 'info'); }
+			function reset() { fileInput.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; canvas.hidden = true; download.hidden = true; resultPanel.hidden = true; detectButton.disabled = true; applyButton.disabled = true; boxes = []; for (const url of [inputUrl, outputUrl]) if (url) URL.revokeObjectURL(url); inputUrl = outputUrl = null; setStatus(copy.waiting, 'info'); }
 			function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
 			function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
 			function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'image'; }
@@ -178,6 +186,7 @@ const copyJson = JSON.stringify(copy);
 <style>
 	.redactor { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 	.redactor .result-panel { grid-column: 1 / -1; }
+	.redactor [hidden] { display: none !important; }
 	.redactor canvas { width: 100%; margin-top: 14px; border: 1px solid var(--color-line); border-radius: 6px; }
 	@media (max-width: 860px) { .redactor { grid-template-columns: 1fr; } }
 </style>

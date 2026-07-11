@@ -4,11 +4,41 @@ export function imageExtension(type) {
 
 export function mediaContainerMime(extension) {
 	return ({
+		aac: 'audio/aac',
+		flac: 'audio/flac',
+		m4a: 'audio/mp4',
+		mp3: 'audio/mpeg',
+		oga: 'audio/ogg',
+		ogg: 'audio/ogg',
+		opus: 'audio/ogg',
+		wav: 'audio/wav',
 		mp4: 'video/mp4',
 		mov: 'video/quicktime',
 		webm: 'video/webm',
 		mkv: 'video/x-matroska',
 	})[extension] || 'application/octet-stream';
+}
+
+export function metadataOutputProfile(file) {
+	const type = String(file?.type || '').toLowerCase();
+	const name = String(file?.name || '');
+	const match = name.toLowerCase().match(/\.([a-z0-9]+)$/);
+	let extension = match?.[1] || extensionForMime(type);
+	const isImage = type.startsWith('image/') && type !== 'image/svg+xml';
+	if (isImage && extension === 'jpeg') extension = 'jpg';
+	return {
+		isImage,
+		extension: extension || 'bin',
+		mimeType: type || mediaContainerMime(extension),
+	};
+}
+
+function extensionForMime(type) {
+	return ({
+		'audio/aac': 'aac', 'audio/flac': 'flac', 'audio/mp4': 'm4a', 'audio/mpeg': 'mp3', 'audio/ogg': 'ogg', 'audio/opus': 'opus', 'audio/wav': 'wav',
+		'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp',
+		'video/mp4': 'mp4', 'video/quicktime': 'mov', 'video/webm': 'webm', 'video/x-matroska': 'mkv',
+	})[type] || '';
 }
 
 export function buildScrubMediaArgs(input, output, container) {
