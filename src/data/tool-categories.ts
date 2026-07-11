@@ -18,7 +18,7 @@ export const toolCategories: ToolCategory[] = [
 	{
 		id: 'converter',
 		slug: 'converter',
-		toolIds: ['document-converter', 'image-format-converter', 'video-audio-converter', 'video-to-gif'],
+		toolIds: ['document-converter', 'image-format-converter', 'raster-svg-workbench', 'video-audio-converter', 'video-to-gif'],
 		translations: {
 			de: {
 				eyebrow: 'Konverter',
