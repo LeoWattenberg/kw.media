@@ -44,6 +44,8 @@ const copyByLocale = {
 		resultTitle: 'Konvertiertes Bild',
 		sourcePreview: 'Quelle',
 		outputPreview: 'Ausgabe',
+		showSource: 'Original anzeigen',
+		showOutput: 'Konvertiertes Bild anzeigen',
 		download: 'Konvertiertes Bild herunterladen',
 		client: {
 			chooseFile: 'Bilddatei wählen',
@@ -83,6 +85,8 @@ const copyByLocale = {
 		resultTitle: 'Converted image',
 		sourcePreview: 'Source',
 		outputPreview: 'Output',
+		showSource: 'Show original',
+		showOutput: 'Show converted image',
 		download: 'Download converted image',
 		client: {
 			chooseFile: 'Choose image file',
@@ -143,59 +147,58 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 						</div>
 						<small data-source-meta></small>
 					</div>
+					<div class="preview-toggle" data-preview-toggle hidden>
+						<button class="button secondary" data-show-source type="button" aria-pressed="true">{copy.showSource}</button>
+						<button class="button secondary" data-show-output type="button" aria-pressed="false">{copy.showOutput}</button>
+					</div>
+					<div class="preview-card converted-preview" data-result hidden>
+						<p>{copy.outputPreview}</p>
+						<div class="preview-frame output-frame">
+							<img data-output-image alt="" />
+							<span data-output-preview-note hidden>{copy.client.previewUnavailable}</span>
+						</div>
+						<dl class="result-meta">
+							<div>
+								<dt>{copy.outputFormat}</dt>
+								<dd data-output-format></dd>
+							</div>
+							<div>
+								<dt>{copy.resultTitle}</dt>
+								<dd data-output-meta></dd>
+							</div>
+						</dl>
+						<a class="button primary" data-download href="#" download hidden>{copy.download}</a>
+					</div>
 				</ToolPanel>
 
-				<ToolPanel class="converter-panel settings-panel" title={copy.settingsTitle}>
-					<SelectControl label={copy.outputFormat} selectAttrs={{ 'data-format': true }}>
-						{
-							outputFormats.map((format) => (
-								<option value={format.value} selected={format.value === normalizedDefaultFormat}>
-									{format.label}
-								</option>
-							))
-						}
-					</SelectControl>
-					<RangeControl
-						data-quality-control
-						hidden
-						label={copy.quality}
-						value="90"
-						valueAttrs={{ 'data-quality-label': true }}
-						inputAttrs={{ 'data-quality': true, min: 1, max: 100, step: 1, value: 90 }}
-					/>
-					<div class="converter-actions">
-						<button class="button primary" data-convert type="button" disabled>{copy.convert}</button>
-						<button class="button secondary" data-clear type="button">{copy.clear}</button>
-					</div>
-					<ToolStatus class="converter-status" data-status role="status" text={copy.client.waiting} />
-				</ToolPanel>
+				<details class="converter-toolbar" open>
+					<summary>{copy.settingsTitle}</summary>
+					<ToolPanel class="converter-panel settings-panel" title={copy.settingsTitle}>
+						<SelectControl label={copy.outputFormat} selectAttrs={{ 'data-format': true }}>
+							{
+								outputFormats.map((format) => (
+									<option value={format.value} selected={format.value === normalizedDefaultFormat}>
+										{format.label}
+									</option>
+								))
+							}
+						</SelectControl>
+						<RangeControl
+							data-quality-control
+							hidden
+							label={copy.quality}
+							value="90"
+							valueAttrs={{ 'data-quality-label': true }}
+							inputAttrs={{ 'data-quality': true, min: 1, max: 100, step: 1, value: 90 }}
+						/>
+						<div class="converter-actions">
+							<button class="button primary" data-convert type="button" disabled>{copy.convert}</button>
+							<button class="button secondary" data-clear type="button">{copy.clear}</button>
+						</div>
+						<ToolStatus class="converter-status" data-status role="status" text={copy.client.waiting} />
+					</ToolPanel>
+				</details>
 			</div>
-
-			<ToolPanel class="converter-panel result-panel" data-result hidden>
-				<div class="result-heading">
-					<div>
-						<p class="eyebrow">{copy.outputPreview}</p>
-						<h2>{copy.resultTitle}</h2>
-					</div>
-					<a class="button primary" data-download href="#" download hidden>{copy.download}</a>
-				</div>
-				<div class="result-preview">
-					<div class="preview-frame output-frame">
-						<img data-output-image alt="" />
-						<span data-output-preview-note hidden>{copy.client.previewUnavailable}</span>
-					</div>
-					<dl class="result-meta">
-						<div>
-							<dt>{copy.outputFormat}</dt>
-							<dd data-output-format></dd>
-						</div>
-						<div>
-							<dt>{copy.resultTitle}</dt>
-							<dd data-output-meta></dd>
-						</div>
-					</dl>
-				</div>
-			</ToolPanel>
 		</div>
 	</div>
 </section>
@@ -229,6 +232,9 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 			const sourceImage = root.querySelector('[data-source-image]');
 			const sourcePreviewNote = root.querySelector('[data-source-preview-note]');
 			const sourceMeta = root.querySelector('[data-source-meta]');
+			const previewToggle = root.querySelector('[data-preview-toggle]');
+			const sourceButton = root.querySelector('[data-show-source]');
+			const outputButton = root.querySelector('[data-show-output]');
 			const result = root.querySelector('[data-result]');
 			const outputImage = root.querySelector('[data-output-image]');
 			const outputPreviewNote = root.querySelector('[data-output-preview-note]');
@@ -239,7 +245,7 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 			if (
 				!fileInput || !fileName || !fileMeta || !formatSelect || !qualityControl || !qualityInput ||
 				!qualityLabel || !convertButton || !clearButton || !status || !sourcePreview || !sourceImage ||
-				!sourcePreviewNote || !sourceMeta || !result || !outputImage || !outputPreviewNote ||
+				!sourcePreviewNote || !sourceMeta || !previewToggle || !sourceButton || !outputButton || !result || !outputImage || !outputPreviewNote ||
 				!outputFormat || !outputMeta || !downloadLink
 			) {
 				return;
@@ -262,6 +268,8 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 			});
 
 			formatSelect.addEventListener('change', updateQualityControl);
+			sourceButton.addEventListener('click', () => showPreview('source'));
+			outputButton.addEventListener('click', () => showPreview('output'));
 			qualityInput.addEventListener('input', () => {
 				qualityLabel.textContent = qualityInput.value;
 			});
@@ -306,6 +314,7 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 				}
 
 				state.inputUrl = URL.createObjectURL(file);
+				previewToggle.hidden = true;
 				fileName.textContent = file.name;
 				fileMeta.textContent = format(copy.fileMeta, {
 					size: formatBytes(file.size),
@@ -357,7 +366,8 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 					downloadLink.href = state.outputUrl;
 					downloadLink.download = outputName;
 					downloadLink.hidden = false;
-					result.hidden = false;
+					previewToggle.hidden = false;
+					showPreview('output');
 					setStatus(format(copy.converted, { name: outputName, format: selectedFormat.label }), 'success');
 
 					if (Magick && Magick.imageMagickVersion) {
@@ -469,6 +479,7 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 			function resetOutput() {
 				revokeUrl('outputUrl');
 				result.hidden = true;
+				previewToggle.hidden = true;
 				downloadLink.hidden = true;
 				downloadLink.removeAttribute('href');
 				outputImage.removeAttribute('src');
@@ -492,6 +503,14 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 				fileMeta.textContent = copy.fileHint || '';
 				setStatus(copy.reset, 'info');
 				updateReadyState();
+			}
+
+			function showPreview(kind) {
+				const showOutput = kind === 'output' && Boolean(state.outputUrl);
+				sourcePreview.hidden = showOutput || !state.file;
+				result.hidden = !showOutput;
+				sourceButton.setAttribute('aria-pressed', String(!showOutput));
+				outputButton.setAttribute('aria-pressed', String(showOutput));
 			}
 
 			function revokeUrl(key) {
@@ -579,6 +598,19 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 		margin-top: 20px;
 	}
 
+	.preview-toggle {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-top: 18px;
+	}
+
+	.preview-toggle [aria-pressed='true'] {
+		color: var(--color-accent-on);
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+	}
+
 	.preview-card {
 		display: grid;
 		gap: 10px;
@@ -660,6 +692,10 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 	.result-meta dt,
 	.result-meta dd {
 		margin: 0;
+	}
+
+	.converted-preview .button {
+		justify-self: start;
 	}
 
 	.result-meta dd {

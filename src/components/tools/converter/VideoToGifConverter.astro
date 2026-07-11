@@ -35,6 +35,8 @@ const copyByLocale = {
 		resultTitle: 'Ergebnis',
 		download: 'GIF herunterladen',
 		preview: 'Vorschau',
+		showSource: 'Original anzeigen',
+		showOutput: 'GIF anzeigen',
 		client: {
 			waiting: 'Wähle ein Video aus, um zu starten.',
 			fileReady: '{name} ist ausgewählt ({size}).',
@@ -73,6 +75,8 @@ const copyByLocale = {
 		resultTitle: 'Result',
 		download: 'Download GIF',
 		preview: 'Preview',
+		showSource: 'Show original',
+		showOutput: 'Show GIF',
 		client: {
 			waiting: 'Choose a video to start.',
 			fileReady: '{name} is selected ({size}).',
@@ -120,61 +124,60 @@ const copyJson = JSON.stringify(copy.client);
 						</div>
 						<small data-video-meta></small>
 					</div>
+					<div class="preview-toggle" data-preview-toggle hidden>
+						<button class="button secondary" data-show-source type="button" aria-pressed="true">{copy.showSource}</button>
+						<button class="button secondary" data-show-output type="button" aria-pressed="false">{copy.showOutput}</button>
+					</div>
+					<div class="preview-card converted-preview" data-result hidden>
+						<p>{copy.preview}</p>
+						<div class="preview-frame">
+							<img data-output-image alt="" />
+						</div>
+						<small data-output-meta></small>
+						<a class="button primary" data-download href="#" download hidden>{copy.download}</a>
+					</div>
 				</ToolPanel>
 
-				<ToolPanel class="video-gif-panel" title={copy.settingsTitle}>
-					<div class="number-grid">
-						<label class="number-control">
-							<span>{copy.startLabel}</span>
-							<input data-start type="number" min="0" step="0.1" value="0" inputmode="decimal" />
-						</label>
-						<label class="number-control">
-							<span>{copy.durationLabel}</span>
-							<input data-duration type="number" min="0.5" max="20" step="0.5" value="3" inputmode="decimal" />
-						</label>
-					</div>
-					<RangeControl
-						label={copy.fpsLabel}
-						value="12"
-						valueAttrs={{ 'data-fps-label': true }}
-						inputAttrs={{ 'data-fps': true, min: 6, max: 24, step: 1, value: 12 }}
-					/>
-					<RangeControl
-						label={copy.widthLabel}
-						value="480px"
-						valueAttrs={{ 'data-width-label': true }}
-						inputAttrs={{ 'data-width': true, min: 240, max: 960, step: 80, value: 480 }}
-					/>
-					<RangeControl
-						label={copy.colorsLabel}
-						value="128"
-						valueAttrs={{ 'data-colors-label': true }}
-						inputAttrs={{ 'data-colors': true, min: 32, max: 256, step: 32, value: 128 }}
-					/>
-					<ToggleControl label={copy.loopLabel} inputAttrs={{ 'data-loop': true, checked: true }} />
-					<ToolActions>
-						<button class="button primary" data-convert type="button" disabled>{copy.convert}</button>
-						<button class="button secondary" data-clear type="button">{copy.clear}</button>
-					</ToolActions>
-					<ToolStatus data-status role="status" text={copy.client.waiting} />
-				</ToolPanel>
+				<details class="converter-toolbar" open>
+					<summary>{copy.settingsTitle}</summary>
+					<ToolPanel class="video-gif-panel" title={copy.settingsTitle}>
+						<div class="number-grid">
+							<label class="number-control">
+								<span>{copy.startLabel}</span>
+								<input data-start type="number" min="0" step="0.1" value="0" inputmode="decimal" />
+							</label>
+							<label class="number-control">
+								<span>{copy.durationLabel}</span>
+								<input data-duration type="number" min="0.5" max="20" step="0.5" value="3" inputmode="decimal" />
+							</label>
+						</div>
+						<RangeControl
+							label={copy.fpsLabel}
+							value="12"
+							valueAttrs={{ 'data-fps-label': true }}
+							inputAttrs={{ 'data-fps': true, min: 6, max: 24, step: 1, value: 12 }}
+						/>
+						<RangeControl
+							label={copy.widthLabel}
+							value="480px"
+							valueAttrs={{ 'data-width-label': true }}
+							inputAttrs={{ 'data-width': true, min: 240, max: 960, step: 80, value: 480 }}
+						/>
+						<RangeControl
+							label={copy.colorsLabel}
+							value="128"
+							valueAttrs={{ 'data-colors-label': true }}
+							inputAttrs={{ 'data-colors': true, min: 32, max: 256, step: 32, value: 128 }}
+						/>
+						<ToggleControl label={copy.loopLabel} inputAttrs={{ 'data-loop': true, checked: true }} />
+						<ToolActions>
+							<button class="button primary" data-convert type="button" disabled>{copy.convert}</button>
+							<button class="button secondary" data-clear type="button">{copy.clear}</button>
+						</ToolActions>
+						<ToolStatus data-status role="status" text={copy.client.waiting} />
+					</ToolPanel>
+				</details>
 			</div>
-
-			<ToolPanel class="video-gif-panel result-panel" data-result hidden>
-				<div class="result-heading">
-					<div>
-						<p class="eyebrow">{copy.preview}</p>
-						<h2>{copy.resultTitle}</h2>
-					</div>
-					<a class="button primary" data-download href="#" download hidden>{copy.download}</a>
-				</div>
-				<div class="result-preview">
-					<div class="preview-frame">
-						<img data-output-image alt="" />
-					</div>
-					<small data-output-meta></small>
-				</div>
-			</ToolPanel>
 		</div>
 	</div>
 </section>
@@ -207,6 +210,9 @@ const copyJson = JSON.stringify(copy.client);
 			const sourcePreview = root.querySelector('[data-source-preview]');
 			const sourceVideo = root.querySelector('[data-source-video]');
 			const videoMeta = root.querySelector('[data-video-meta]');
+			const previewToggle = root.querySelector('[data-preview-toggle]');
+			const sourceButton = root.querySelector('[data-show-source]');
+			const outputButton = root.querySelector('[data-show-output]');
 			const startInput = root.querySelector('[data-start]');
 			const durationInput = root.querySelector('[data-duration]');
 			const fpsInput = root.querySelector('[data-fps]');
@@ -227,7 +233,7 @@ const copyJson = JSON.stringify(copy.client);
 			if (
 				!fileInput || !fileName || !fileMeta || !sourcePreview || !sourceVideo || !videoMeta ||
 				!startInput || !durationInput || !fpsInput || !fpsLabel || !widthInput || !widthLabel ||
-				!colorsInput || !colorsLabel || !loopInput || !convertButton || !clearButton || !status ||
+				!colorsInput || !colorsLabel || !loopInput || !convertButton || !clearButton || !status || !previewToggle || !sourceButton || !outputButton ||
 				!result || !outputImage || !outputMeta || !downloadLink
 			) {
 				return;
@@ -262,6 +268,8 @@ const copyJson = JSON.stringify(copy.client);
 				void convertVideo();
 			});
 			clearButton.addEventListener('click', resetTool);
+			sourceButton.addEventListener('click', () => showPreview('source'));
+			outputButton.addEventListener('click', () => showPreview('output'));
 
 			for (const input of [fpsInput, widthInput, colorsInput]) {
 				input.addEventListener('input', updateRangeLabels);
@@ -296,6 +304,7 @@ const copyJson = JSON.stringify(copy.client);
 				}
 
 				state.sourceUrl = URL.createObjectURL(file);
+				previewToggle.hidden = true;
 				fileName.textContent = file.name;
 				fileMeta.textContent = format(copy.fileMeta, {
 					size: formatBytes(file.size),
@@ -355,7 +364,8 @@ const copyJson = JSON.stringify(copy.client);
 						colors: settings.colors,
 						size: formatBytes(blob.size),
 					});
-					result.hidden = false;
+					previewToggle.hidden = false;
+					showPreview('output');
 					setStatus(copy.ready, 'success');
 				} catch (error) {
 					setStatus(messageFromError(error), 'error');
@@ -446,6 +456,7 @@ const copyJson = JSON.stringify(copy.client);
 			function resetOutput() {
 				revokeUrl('outputUrl');
 				result.hidden = true;
+				previewToggle.hidden = true;
 				downloadLink.hidden = true;
 				downloadLink.removeAttribute('href');
 				downloadLink.removeAttribute('download');
@@ -458,6 +469,14 @@ const copyJson = JSON.stringify(copy.client);
 					URL.revokeObjectURL(state[key]);
 					state[key] = null;
 				}
+			}
+
+			function showPreview(kind) {
+				const showOutput = kind === 'output' && Boolean(state.outputUrl);
+				sourcePreview.hidden = showOutput || !state.file;
+				result.hidden = !showOutput;
+				sourceButton.setAttribute('aria-pressed', String(!showOutput));
+				outputButton.setAttribute('aria-pressed', String(showOutput));
 			}
 
 			function loadVideoMetadata(url) {
@@ -530,6 +549,23 @@ const copyJson = JSON.stringify(copy.client);
 	.preview-card p,
 	.result-heading .eyebrow {
 		margin: 0;
+	}
+
+	.preview-toggle {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-top: 18px;
+	}
+
+	.preview-toggle [aria-pressed='true'] {
+		color: var(--color-accent-on);
+		background: var(--color-accent);
+		border-color: var(--color-accent);
+	}
+
+	.converted-preview .button {
+		justify-self: start;
 	}
 
 	.preview-frame {

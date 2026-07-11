@@ -60,6 +60,51 @@ const toolsPath = tool.locale === 'de' ? '/de/tools/' : '/en/tools/';
 		background: var(--color-surface-raised);
 	}
 
+	.tools-layout .converter-workspace {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+		gap: 18px;
+		align-items: start;
+	}
+
+	.tools-layout .converter-toolbar {
+		display: contents;
+	}
+
+	.tools-layout .converter-toolbar > summary {
+		display: none;
+	}
+
+	@media (max-width: 860px) {
+		.tools-layout .converter-workspace {
+			grid-template-columns: 1fr;
+		}
+
+		.tools-layout .converter-toolbar {
+			display: block;
+			background: var(--color-surface-alt);
+			border: 1px solid var(--color-line);
+			border-radius: 8px;
+		}
+
+		.tools-layout .converter-toolbar > summary {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			min-height: 56px;
+			padding: 0 18px;
+			color: var(--color-ink);
+			font-weight: 850;
+			cursor: pointer;
+		}
+
+		.tools-layout .converter-toolbar > .tool-panel {
+			border: 0;
+			border-top: 1px solid var(--color-line);
+			border-radius: 0 0 8px 8px;
+		}
+	}
+
 	.tools-layout .tool-panel {
 		padding: clamp(18px, 3vw, 28px);
 		background: var(--color-surface-raised);
