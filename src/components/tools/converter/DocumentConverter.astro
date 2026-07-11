@@ -154,7 +154,10 @@ const profilesJson = JSON.stringify(profileDefinitions);
 	}
 </style>
 
-<script is:inline>
+<script>
+	import { buildOutputName, detectInputFormat, isBinaryInput } from '../../../lib/tools/document-converter';
+	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
+
 	(() => {
 		const roots = document.querySelectorAll('[data-document-converter]:not([data-document-converter-bound])');
 
@@ -372,49 +375,9 @@ const profilesJson = JSON.stringify(profileDefinitions);
 				return profileDefinitions.find((profile) => profile.value === profileSelect.value) || profileDefinitions[0];
 			}
 
-			function detectInputFormat(fileName) {
-				const lower = fileName.toLowerCase();
-				if (lower.endsWith('.md') || lower.endsWith('.markdown')) return 'markdown';
-				if (lower.endsWith('.html') || lower.endsWith('.htm')) return 'html';
-				if (lower.endsWith('.txt')) return 'markdown';
-				if (lower.endsWith('.tex')) return 'latex';
-				if (lower.endsWith('.rst')) return 'rst';
-				if (lower.endsWith('.adoc')) return 'asciidoc';
-				if (lower.endsWith('.docx')) return 'docx';
-				if (lower.endsWith('.odt')) return 'odt';
-				if (lower.endsWith('.rtf')) return 'rtf';
-				if (lower.endsWith('.epub')) return 'epub';
-				return 'markdown';
-			}
-
-			function isBinaryInput(file, inputFormat) {
-				return ['docx', 'odt', 'epub'].includes(inputFormat) || ['application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.oasis.opendocument.text', 'application/epub+zip'].includes(file.type);
-			}
-
-			function buildOutputName(sourceName, extension) {
-				const base = sourceName.replace(/\.[^.]+$/, '');
-				return `${base}${extension}`;
-			}
-
 			function setStatus(message, kind) {
 				status.textContent = message;
 				status.dataset.kind = kind;
-			}
-
-			function format(template, values) {
-				return template.replace(/\{(\w+)\}/g, (_match, key) => values[key] ?? '');
-			}
-
-			function formatBytes(bytes) {
-				if (!Number.isFinite(bytes) || bytes <= 0) return '0 B';
-				const units = ['B', 'KB', 'MB', 'GB'];
-				let size = bytes;
-				let unitIndex = 0;
-				while (size >= 1024 && unitIndex < units.length - 1) {
-					size /= 1024;
-					unitIndex += 1;
-				}
-				return `${size.toFixed(size >= 10 || unitIndex === 0 ? 0 : 1)} ${units[unitIndex]}`;
 			}
 
 			function messageFromError(error) {
