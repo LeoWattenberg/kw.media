@@ -22,7 +22,7 @@ const toolPages = [
 	['/en/tools/audio/', 'Audio Tools', '.tool-category-grid'],
 	['/en/tools/background-remover/', 'Background Remover', '[data-background-remover]'],
 	['/en/tools/background-remover-checkerboard/', 'Checkerboard Background Remover', '[data-background-remover]'],
-	['/en/tools/click-to-cut-object-extractor/', 'Click-to-Cut Object Extractor', '[data-object-extractor]'],
+	['/en/tools/image-object-extractor/', 'Image Object Extractor', '[data-object-extractor]'],
 	['/en/tools/converter/', 'Converter Tools', '.tool-category-grid'],
 	['/en/tools/converter/document-converter/', 'Document Converter', '[data-document-converter]'],
 	['/en/tools/converter/image-format-converter/', 'Image Format Converter', '[data-image-converter]'],
@@ -32,24 +32,24 @@ const toolPages = [
 	['/en/tools/subtitle-studio/', 'Subtitle Studio', '[data-combined-subtitle-studio]'],
 	['/en/tools/subtitle-burner/', 'Subtitle Burner', '[data-subtitle-burner]'],
 	['/en/tools/whisper-subtitle-generator/', 'Whisper Subtitle Generator', '[data-whisper-subtitle-generator]'],
-	['/en/tools/crop-doctor/', 'Crop Doctor', '[data-crop-doctor]'],
-	['/en/tools/delivery-doctor/', 'Delivery Doctor', '[data-delivery-doctor]'],
+	['/en/tools/black-bar-remover/', 'Black Bar Remover', '[data-crop-doctor]'],
+	['/en/tools/media-delivery-checker/', 'Media Delivery Checker', '[data-delivery-doctor]'],
 	['/en/tools/face-object-redactor/', 'Face/Object Redactor', '[data-redactor]'],
 	['/en/tools/image/', 'Image Tools', '.tool-category-grid'],
-	['/en/tools/lossless-media-surgeon/', 'Lossless Media Surgeon', '[data-media-surgeon]'],
+	['/en/tools/lossless-media-studio/', 'Lossless Media Studio', '[data-media-surgeon]'],
 	['/en/tools/loudness-mastering/', 'Loudness Mastering', '[data-loudness-mastering]'],
 	['/en/tools/media-info/', 'MediaInfo', '[data-mediainfo-tool]'],
-	['/en/tools/metadata-privacy-scrubber/', 'Metadata Privacy Scrubber', '[data-metadata-scrubber]'],
+	['/en/tools/metadata-remover/', 'Metadata Remover', '[data-metadata-scrubber]'],
 	['/en/tools/mp3-quality-tester/', 'MP3 Quality Tester', '[data-mp3-quality-tester]'],
-	['/en/tools/offline-subtitle-studio/', 'Offline Subtitle Studio', '[data-subtitle-studio]'],
-	['/en/tools/podcast-chapterizer/', 'Podcast Chapterizer', '[data-chapterizer]'],
+	['/en/tools/subtitle-editor-converter/', 'Subtitle Editor & Converter', '[data-subtitle-studio]'],
+	['/en/tools/podcast-chapter-editor/', 'Podcast Chapter Editor', '[data-chapterizer]'],
 	['/en/tools/podcast-cleaner/', 'Podcast Cleaner', '[data-podcast-cleaner]'],
-	['/en/tools/raster-svg-workbench/', 'Raster/SVG Workbench', '[data-raster-svg]'],
-	['/en/tools/smart-vertical-reframer/', 'Smart Vertical Reframer', '[data-smart-reframer]'],
+	['/en/tools/raster-svg-studio/', 'Raster/SVG Studio', '[data-raster-svg]'],
+	['/en/tools/vertical-video-reframer/', 'Vertical Video Reframer', '[data-smart-reframer]'],
 	['/en/tools/text/', 'Text Tools', '.tool-category-grid'],
 	['/en/tools/vtuber-preview/', 'VTuber Preview', '[data-vtuber-preview]'],
 	['/en/tools/video/', 'Video Tools', '.tool-category-grid'],
-	['/en/tools/watermarker/', 'Watermarker', '[data-watermarker]'],
+	['/en/tools/image-video-watermark/', 'Image & Video Watermark', '[data-watermarker]'],
 	['/en/tools/youtube-thumbnail-preview/', 'YouTube Thumbnail Preview', '[data-thumbnail-preview]'],
 	['/en/tools/analyzers/', 'Analyzers', '.tool-category-grid'],
 ];
@@ -96,7 +96,7 @@ test.describe('tool pages browser smoke', () => {
 		await page.goto('/en/tools/converter/');
 		await page.locator('[data-tool-category-search-input]').fill('svg');
 
-		await expect(page.getByRole('link', { name: /Raster\/SVG Workbench/ })).toHaveCount(1);
+		await expect(page.getByRole('link', { name: /Raster\/SVG Studio/ })).toHaveCount(1);
 		await expect(page.getByRole('link', { name: /Document Converter/ })).toHaveCount(0);
 		await expect(page.locator('[data-tool-category-empty]')).toBeHidden();
 		expect(errors).toEqual([]);
@@ -198,7 +198,7 @@ test.describe('visual tool interactions', () => {
 
 	test('Watermarker processes an image watermark in canvas mode', async ({ page }) => {
 		const errors = collectClientErrors(page);
-		await page.goto('/en/tools/watermarker/');
+		await page.goto('/en/tools/image-video-watermark/');
 
 		await page.locator('[data-source-file]').setInputFiles(imageFixture);
 		await expect(page.locator('[data-process]')).toBeEnabled();
@@ -212,7 +212,7 @@ test.describe('visual tool interactions', () => {
 
 	test('Object extractor accepts an image and arms the canvas workflow', async ({ page }) => {
 		const errors = collectClientErrors(page);
-		await page.goto('/en/tools/click-to-cut-object-extractor/');
+		await page.goto('/en/tools/image-object-extractor/');
 
 		await page.locator('[data-file]').setInputFiles(imageFixture);
 
@@ -235,9 +235,9 @@ test.describe('visual tool interactions', () => {
 		expect(errors).toEqual([]);
 	});
 
-	test('Raster/SVG Workbench rasterizes inline SVG without remote libraries', async ({ page }) => {
+	test('Raster/SVG Studio rasterizes inline SVG without remote libraries', async ({ page }) => {
 		const errors = collectClientErrors(page);
-		await page.goto('/en/tools/raster-svg-workbench/');
+		await page.goto('/en/tools/raster-svg-studio/');
 
 		await page.locator('[data-mode]').selectOption('png');
 		await page.locator('[data-svg-text]').fill(svgSource);

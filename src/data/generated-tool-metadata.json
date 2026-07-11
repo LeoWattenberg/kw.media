@@ -44,9 +44,9 @@
 		],
 		"description": "Entferne einfarbige Hintergründe schnell und einfach direkt im Browser mit Hintergrund entfernen und ImageMagick WASM."
 	},
-	"/de/tools/click-to-cut-object-extractor/": {
+	"/de/tools/bildobjekt-freistellen/": {
 		"content": [
-			"Der Click-to-Cut Object Extractor ist ein einfaches, aber leistungsstarkes Tool, das es Ihnen ermöglicht, Objekte aus Bildern auszuwählen und zu extrahieren. Mit nur einem Klick können Sie ein Objekt in einem lokalen Bild identifizieren und es als transparente PNG- oder WebP-Datei exportieren.",
+			"Der Bildobjekt freistellen ist ein einfaches, aber leistungsstarkes Tool, das es Ihnen ermöglicht, Objekte aus Bildern auszuwählen und zu extrahieren. Mit nur einem Klick können Sie ein Objekt in einem lokalen Bild identifizieren und es als transparente PNG- oder WebP-Datei exportieren.",
 			"Die Nutzung ist kinderleicht: Laden Sie einfach das gewünschte Bild hoch, wählen Sie das Objekt aus, das Sie extrahieren möchten, und klicken Sie. Das Tool erzeugt dann eine präzise Umrisslinie um das Objekt herum. Anschließend können Sie die Datei in einem der unterstützten Formate speichern.",
 			"Dieser Browser-basierte Extraktor unterstützt Bilder im PNG- und WebP-Format. Er funktioniert direkt in Ihrem Webbrowser, ohne dass zusätzliche Software erforderlich ist. Alle Verarbeitungsschritte erfolgen lokal auf Ihrem Gerät, um Ihre Privatsphäre zu schützen.",
 			"Durch die direkte Verarbeitung im Browser bleiben Ihre Daten auf Ihrem Gerät und es werden keine sensiblen Informationen an externe Server übermittelt. Dies gewährleistet eine sichere und diskrete Nutzung des Tools."
@@ -341,23 +341,23 @@
 		],
 		"description": "Konvertiere SVG zu PNG direkt im Browser – schnelle, lokale Verarbeitung für optimale Bilder, ohne Server-Abhängigkeit."
 	},
-	"/de/tools/crop-doctor/": {
+	"/de/tools/schwarze-balken-entfernen/": {
 		"content": [
-			"Crop Doctor ist ein einfaches, aber leistungsstarkes Tool, das speziell für die Bearbeitung lokaler Videos entwickelt wurde. Es hilft dir, unerwünschte schwarze Balken aus deinen Videos zu entfernen und ermöglicht es dir, eine präzise, gecropte Version zu exportieren. Mit nur wenigen Klicks kannst du dein Video optimieren und die bestmögliche visuelle Erfahrung bieten.",
-			"Die Nutzung von Crop Doctor ist kinderleicht: Lade einfach dein Video hoch, wähle den Bereich aus, den du behalten möchtest, und der Rest wird automatisch erledigt. Das Tool passt sich an verschiedene Bildverhältnisse an und stellt sicher, dass dein Video perfekt geschnitten ist, ohne Qualitätseinbußen.",
+			"Schwarze Balken entfernen ist ein einfaches, aber leistungsstarkes Tool, das speziell für die Bearbeitung lokaler Videos entwickelt wurde. Es hilft dir, unerwünschte schwarze Balken aus deinen Videos zu entfernen und ermöglicht es dir, eine präzise, gecropte Version zu exportieren. Mit nur wenigen Klicks kannst du dein Video optimieren und die bestmögliche visuelle Erfahrung bieten.",
+			"Die Nutzung von Schwarze Balken entfernen ist kinderleicht: Lade einfach dein Video hoch, wähle den Bereich aus, den du behalten möchtest, und der Rest wird automatisch erledigt. Das Tool passt sich an verschiedene Bildverhältnisse an und stellt sicher, dass dein Video perfekt geschnitten ist, ohne Qualitätseinbußen.",
 			"Unterstützt werden Videoformate wie MP4, MOV und AVI. Du kannst sowohl vertikale als auch horizontale schwarze Balken entfernen und dein Video in verschiedenen Auflösungen exportieren, um es an verschiedene Plattformen anzupassen. Die Dateigröße bleibt dabei überschaubar, da die Bearbeitung direkt im Browser erfolgt.",
-			"Deine Daten bleiben lokal und werden nicht an Dritte übermittelt. Alle Verarbeitungsschritte finden auf deinem Gerät statt, was deine Privatsphäre schützt. Crop Doctor ist ein vertrauenswürdiger Begleiter für alle, die ihre Videos schnell und diskret optimieren möchten."
+			"Deine Daten bleiben lokal und werden nicht an Dritte übermittelt. Alle Verarbeitungsschritte finden auf deinem Gerät statt, was deine Privatsphäre schützt. Schwarze Balken entfernen ist ein vertrauenswürdiger Begleiter für alle, die ihre Videos schnell und diskret optimieren möchten."
 		],
 		"description": "Entferne unerwünschte Bereiche aus lokalen Videos mit unserem Browser-Tool und exportiere optimierte Crop-Versionen."
 	},
-	"/de/tools/delivery-doctor/": {
+	"/de/tools/medien-abgabepruefung/": {
 		"content": [
-			"Delivery Doctor ist ein leistungsstarkes Tool, das entwickelt wurde, um die Integrität Ihrer Mediendateien zu gewährleisten. Es ermöglicht Ihnen, lokale Dateien auf Fehler zu überprüfen und diese zu reparieren, bevor Sie sie hochladen oder in Webanwendungen wiedergeben möchten. So stellen Sie sicher, dass Ihre Inhalte immer in bester Qualität präsentiert werden.",
-			"Die Nutzung ist einfach: Laden Sie einfach die gewünschte Mediendatei in den Browser hoch. Delivery Doctor analysiert dann die Datei und zeigt mögliche Probleme an. Mit wenigen Klicks können Sie die Fehler beheben lassen oder manuell Korrekturen vornehmen. Der Prozess ist intuitiv und erfordert keine technischen Kenntnisse.",
-			"Unser Tool unterstützt eine Vielzahl von Dateiformaten, darunter Bilder (JPEG, PNG), Videos (MP4, MOV) und Audiodateien (MP3, WAV). Auch für Dokumentenformate wie PDF und DOCX bietet Delivery Doctor Überprüfungsmöglichkeiten. So decken wir die gängigsten Medienarten ab, die in Online-Projekten verwendet werden.",
-			"Lokale Verarbeitung ist ein wichtiger Aspekt von Delivery Doctor. Alle Analysen und Reparaturen erfolgen direkt im Browser Ihres Computers, ohne dass sensible Daten an externe Server übermittelt werden. Ihre Privatsphäre bleibt gewahrt, da keine Dateien ins Internet hochgeladen oder gespeichert werden."
+			"Medien-Abgabeprüfung ist ein leistungsstarkes Tool, das entwickelt wurde, um die Integrität Ihrer Mediendateien zu gewährleisten. Es ermöglicht Ihnen, lokale Dateien auf Fehler zu überprüfen und diese zu reparieren, bevor Sie sie hochladen oder in Webanwendungen wiedergeben möchten. So stellen Sie sicher, dass Ihre Inhalte immer in bester Qualität präsentiert werden.",
+			"Die Nutzung ist einfach: Laden Sie einfach die gewünschte Mediendatei in den Browser hoch. Medien-Abgabeprüfung analysiert dann die Datei und zeigt mögliche Probleme an. Mit wenigen Klicks können Sie die Fehler beheben lassen oder manuell Korrekturen vornehmen. Der Prozess ist intuitiv und erfordert keine technischen Kenntnisse.",
+			"Unser Tool unterstützt eine Vielzahl von Dateiformaten, darunter Bilder (JPEG, PNG), Videos (MP4, MOV) und Audiodateien (MP3, WAV). Auch für Dokumentenformate wie PDF und DOCX bietet Medien-Abgabeprüfung Überprüfungsmöglichkeiten. So decken wir die gängigsten Medienarten ab, die in Online-Projekten verwendet werden.",
+			"Lokale Verarbeitung ist ein wichtiger Aspekt von Medien-Abgabeprüfung. Alle Analysen und Reparaturen erfolgen direkt im Browser Ihres Computers, ohne dass sensible Daten an externe Server übermittelt werden. Ihre Privatsphäre bleibt gewahrt, da keine Dateien ins Internet hochgeladen oder gespeichert werden."
 		],
-		"description": "Optimieren Sie Mediendateien direkt im Browser mit Delivery Doctor – schnelle Reparatur für bessere Online-Leistung."
+		"description": "Optimieren Sie Mediendateien direkt im Browser mit Medien-Abgabeprüfung – schnelle Reparatur für bessere Online-Leistung."
 	},
 	"/de/tools/face-object-redactor/": {
 		"content": [
@@ -377,14 +377,14 @@
 		],
 		"description": "Erstellen Sie Bilder direkt im Browser: Freistellen, Vorschauen, Wasserzeichen und Formatwechsel mit unseren leistungsstarken, clientseitigen Bild-Tools."
 	},
-	"/de/tools/lossless-media-surgeon/": {
+	"/de/tools/lossless-media-studio/": {
 		"content": [
-			"Lossless Media Surgeon ist ein leistungsstarkes Tool, das es Ihnen ermöglicht, lokale Audios und Videos zu bearbeiten und zu optimieren, ohne die Qualität durch erneute Kodierung zu beeinträchtigen. Mit seiner FFmpeg WASM-Technologie können Sie Ihre Mediendateien effizient remuxen, schneiden oder umwandeln, während alle ursprünglichen Daten intakt bleiben.",
+			"Lossless Media Studio ist ein leistungsstarkes Tool, das es Ihnen ermöglicht, lokale Audios und Videos zu bearbeiten und zu optimieren, ohne die Qualität durch erneute Kodierung zu beeinträchtigen. Mit seiner FFmpeg WASM-Technologie können Sie Ihre Mediendateien effizient remuxen, schneiden oder umwandeln, während alle ursprünglichen Daten intakt bleiben.",
 			"Die Browser-basierte Oberfläche bietet eine intuitive Arbeitsweise: Laden Sie einfach Ihre Mediendateien hoch, wählen Sie die gewünschten Bearbeitungsoptionen aus und starten Sie den Prozess. Das Tool übernimmt dann die komplexe Arbeit der Manipulation mit modernster Codierungstechnologie, ohne dass Sie tiefe technische Kenntnisse benötigen.",
 			"Unterstützte Formate umfassen MP3, AAC, FLAC für Audio sowie MP4, MKV, AVI für Video. Dies ermöglicht eine breite Palette an Anpassungen, von einfachen Schnitten bis hin zu fortgeschrittenen Konvertierungen, ohne Kompromisse bei der Qualität einzugehen.",
-			"Durch die lokale Verarbeitung Ihrer Daten im Browser gewährleistet Lossless Media Surgeon Ihre Privatsphäre und Sicherheit. Keine sensiblen Informationen verlassen Ihren Gerät, und Sie haben die volle Kontrolle über Ihre Mediendateien."
+			"Durch die lokale Verarbeitung Ihrer Daten im Browser gewährleistet Lossless Media Studio Ihre Privatsphäre und Sicherheit. Keine sensiblen Informationen verlassen Ihren Gerät, und Sie haben die volle Kontrolle über Ihre Mediendateien."
 		],
-		"description": "Verfeinern Sie Ihre Medien lokal mit dem schnellen, browserbasierten Tool Lossless Media Surgeon. Bearbeiten Sie Audio & Video ohne Aufwändigem Kodieren"
+		"description": "Verfeinern Sie Ihre Medien lokal mit dem schnellen, browserbasierten Tool Lossless Media Studio. Bearbeiten Sie Audio & Video ohne Aufwändigem Kodieren"
 	},
 	"/de/tools/loudness-mastering/": {
 		"content": [
@@ -404,14 +404,14 @@
 		],
 		"description": "Extrahiere technische Metadaten aus Audio, Video & Bildern direkt im Browser mit MediaInfo – lokaler, schneller und effizienter Datenzugriff."
 	},
-	"/de/tools/metadata-privacy-scrubber/": {
+	"/de/tools/metadaten-entfernen/": {
 		"content": [
-			"Der Metadata Privacy Scrubber ist ein leistungsstarkes Werkzeug, das entwickelt wurde, um die Privatsphäre von Benutzern zu schützen, indem es unerwünschte Metadaten aus lokalen Mediendateien entfernt. Diese Metadaten, wie EXIF-Daten, XMP-Metadaten und Kapitelinformationen, können sensible Informationen über den Benutzer oder seine Gewohnheiten enthalten. Mit diesem Tool können Sie die Anonymität Ihrer Fotos, Videos und Dokumente gewährleisten.",
+			"Der Metadaten entfernen ist ein leistungsstarkes Werkzeug, das entwickelt wurde, um die Privatsphäre von Benutzern zu schützen, indem es unerwünschte Metadaten aus lokalen Mediendateien entfernt. Diese Metadaten, wie EXIF-Daten, XMP-Metadaten und Kapitelinformationen, können sensible Informationen über den Benutzer oder seine Gewohnheiten enthalten. Mit diesem Tool können Sie die Anonymität Ihrer Fotos, Videos und Dokumente gewährleisten.",
 			"Die Nutzung ist einfach: Laden Sie einfach Ihre Dateien in den Browser hoch, wählen Sie die gewünschten Metadatenarten aus, und der Scrubber übernimmt den Rest. Die ausgewählten Metadaten werden effizient entfernt, ohne die Integrität der ursprünglichen Datei zu beeinträchtigen. Dieser Prozess geschieht direkt im Browser, wodurch Ihre Daten lokal verarbeitet werden und keine Übertragung an externe Server erforderlich ist.",
-			"Unterstützte Formate umfassen JPEG, PNG, PDF, EPUB und bestimmte Videoformate. Das Tool entfernt EXIF-Daten, XMP-Metadaten, Kapitelinformationen und Container-Metadaten, wodurch eine effektive Verschleierung Ihrer digitalen Spuren gewährleistet wird. Der Metadata Privacy Scrubber ist ein einfacher und direkter Weg, um die Privatsphäre Ihrer digitalen Inhalte zu schützen.",
+			"Unterstützte Formate umfassen JPEG, PNG, PDF, EPUB und bestimmte Videoformate. Das Tool entfernt EXIF-Daten, XMP-Metadaten, Kapitelinformationen und Container-Metadaten, wodurch eine effektive Verschleierung Ihrer digitalen Spuren gewährleistet wird. Der Metadaten entfernen ist ein einfacher und direkter Weg, um die Privatsphäre Ihrer digitalen Inhalte zu schützen.",
 			"Durch die lokale Verarbeitung Ihrer Daten auf Ihrem Browser garantiert dieses Tool, dass Ihre Informationen sicher bleiben. Es bietet eine diskrete und effektive Lösung, um unerwünschte Metadaten zu entfernen, ohne Kompromisse bei der Qualität oder Funktionalität einzugehen. So können Sie Ihre Medien mit einem reinen Gewissen teilen oder archivieren."
 		],
-		"description": "Entferne sensible Metadaten wie EXIF, XMP und mehr aus deinen lokalen Dateien – schütze deine Privatsphäre mit dem Metadata Privacy Scrubber."
+		"description": "Entferne sensible Metadaten wie EXIF, XMP und mehr aus deinen lokalen Dateien – schütze deine Privatsphäre mit dem Metadaten entfernen."
 	},
 	"/de/tools/mp3-quality-tester/": {
 		"content": [
@@ -422,18 +422,18 @@
 		],
 		"description": "Testen Sie die MP3-Qualität direkt im Browser - Vergleich mit Originaldateien, schnell und lokal auf Ihrem Gerät."
 	},
-	"/de/tools/offline-subtitle-studio/": {
+	"/de/tools/untertitel-editor-konverter/": {
 		"content": [
-			"Offline Subtitle Studio ist ein leistungsstarkes Tool, das es dir ermöglicht, SRT- und WebVTT-Untertitel direkt in deinem Browser zu bearbeiten, zu verschieben, zu konvertieren und zu mischen. Egal ob du Videos für deinen YouTube-Kanal vorbereitest oder Untertitel für persönliche Projekte benötigst – mit diesem Tool hast du die volle Kontrolle über deine Untertitel, ohne auf eine Internetverbindung angewiesen zu sein.",
+			"Untertitel-Editor & Konverter ist ein leistungsstarkes Tool, das es dir ermöglicht, SRT- und WebVTT-Untertitel direkt in deinem Browser zu bearbeiten, zu verschieben, zu konvertieren und zu mischen. Egal ob du Videos für deinen YouTube-Kanal vorbereitest oder Untertitel für persönliche Projekte benötigst – mit diesem Tool hast du die volle Kontrolle über deine Untertitel, ohne auf eine Internetverbindung angewiesen zu sein.",
 			"Die Nutzung ist einfach: Lade deine Untertiteldateien hoch, bearbeite sie nach Bedarf und speichere sie lokal. Alle Änderungen werden direkt im Browser vorgenommen, sodass du jederzeit einen Überblick über deine Arbeit hast. Keine komplizierten Downloads oder Installationen erforderlich – alles, was du brauchst, ist in deinem Browser integriert.",
-			"Unterstützt werden die gängigen Untertitelformate SRT und WebVTT. So kannst du sicher sein, dass du mit den meisten Video- und Untertitel-Plattformen kompatibel bist. Egal ob du professionelle Untertitel für Filme oder persönliche Videos erstellen möchtest – Offline Subtitle Studio deckt deine Bedürfnisse ab.",
+			"Unterstützt werden die gängigen Untertitelformate SRT und WebVTT. So kannst du sicher sein, dass du mit den meisten Video- und Untertitel-Plattformen kompatibel bist. Egal ob du professionelle Untertitel für Filme oder persönliche Videos erstellen möchtest – Untertitel-Editor & Konverter deckt deine Bedürfnisse ab.",
 			"Deine Daten bleiben lokal und werden nicht an Dritte weitergegeben. Alle Verarbeitungsschritte erfolgen direkt im Browser, sodass keine Datenübertragung ins Internet erforderlich ist. Genieße die Freiheit, Untertitel ohne Online-Abhängigkeit zu erstellen und bearbeiten."
 		],
 		"description": "Bearbeite, verschiebe und konvertiere SRT- und WebVTT-Untertitel direkt im Browser – leistungsstark und offline."
 	},
-	"/de/tools/podcast-chapterizer/": {
+	"/de/tools/podcast-kapitel-editor/": {
 		"content": [
-			"Podcast Chapterizer ist ein leistungsstarkes Tool, das die Organisation und Strukturierung von Podcasts revolutioniert. Es ermöglicht es Podcastern, ihre Inhalte effizient zu unterteilen und so eine verbesserte Benutzererfahrung auf YouTube zu schaffen. Mit nur wenigen Klicks können Sie Kapitel erstellen, die nicht nur den Inhalt gliedern, sondern auch eine nahtlose Navigation während der Wiedergabe ermöglichen.",
+			"Podcast-Kapitel-Editor ist ein leistungsstarkes Tool, das die Organisation und Strukturierung von Podcasts revolutioniert. Es ermöglicht es Podcastern, ihre Inhalte effizient zu unterteilen und so eine verbesserte Benutzererfahrung auf YouTube zu schaffen. Mit nur wenigen Klicks können Sie Kapitel erstellen, die nicht nur den Inhalt gliedern, sondern auch eine nahtlose Navigation während der Wiedergabe ermöglichen.",
 			"Die Verwendung ist einfach: Laden Sie einfach Ihre Podcast-Audiodateien hoch und wählen Sie die gewünschte Ausgabeformatierung aus. Das Tool analysiert dann das Audio und generiert automatisch Kapitelmarkierungen basierend auf natürlichen Pausen und sprachlichen Mustern. Anschließend können Sie diese Kapitel anpassen, indem Sie Titel und Beschreibungen hinzufügen oder bearbeiten.",
 			"Unterstützte Formate umfassen MP3, WAV und FLAC für Audiodateien sowie FFmetadata-Dateien. Für eine erweiterte Integration kann das Tool auch YouTube-Chapter im gewünschten Format erstellen und so die Online-Verfügbarkeit Ihrer Podcast-Episoden verbessern. Die erstellten Medien können direkt in Ihre Videos eingebettet werden, um ein nahtloses Erlebnis zu gewährleisten.",
 			"Datenschutz ist uns wichtig: Alle Verarbeitung geschieht lokal auf Ihrem Gerät, und Ihre Daten bleiben vertraulich. Keine sensiblen Informationen werden an externe Server übermittelt. So können Sie sicher sein, dass Ihre Podcast-Produktionsprozesse geschützt sind."
@@ -449,14 +449,14 @@
 		],
 		"description": "Bereinige deine Podcasts mit lokalem FFmpeg-Tool: Reduziere Rumpeln, Rauschen, dynamische Schwankungen und reguliere Pausen & Lautstärke."
 	},
-	"/de/tools/raster-svg-workbench/": {
+	"/de/tools/raster-svg-studio/": {
 		"content": [
-			"Raster/SVG Workbench ist ein leistungsstarkes, browserbasiertes Werkzeug, das Ihnen ermöglicht, Rasterbilder in Vektorformate umzuwandeln und zu bearbeiten. Mit dieser Plattform können Sie Bilder optimieren, skalieren und anpassen, ohne Qualitätseinbußen hinnehmen zu müssen. Es ist die perfekte Lösung für Designer und Entwickler, die schnelle und präzise Vektorisierungen benötigen.",
+			"Raster/SVG Studio ist ein leistungsstarkes, browserbasiertes Werkzeug, das Ihnen ermöglicht, Rasterbilder in Vektorformate umzuwandeln und zu bearbeiten. Mit dieser Plattform können Sie Bilder optimieren, skalieren und anpassen, ohne Qualitätseinbußen hinnehmen zu müssen. Es ist die perfekte Lösung für Designer und Entwickler, die schnelle und präzise Vektorisierungen benötigen.",
 			"Die Benutzerfreundlichkeit steht im Mittelpunkt: Laden Sie einfach Ihr Rasterbild hoch, wählen Sie die gewünschten Einstellungen aus und klicken Sie auf 'Umwandeln'. Das Tool erzeugt dann ein SVG-Bild, das Sie in Echtzeit anpassen können. Durch die intuitive Browser-Oberfläche ist die Arbeit mit Vektoren so einfach wie nie zuvor.",
 			"Unterstützte Formate umfassen Rasterbilder (JPEG, PNG) und Vektordarstellungen (SVG). Das Tool rendert SVGs lokal als PNG-Dateien, was eine schnelle Bearbeitung und Verwendung in verschiedenen Projekten ermöglicht. Keine Internetverbindung erforderlich – alle Verarbeitungen erfolgen direkt im Browser.",
 			"Datenschutz und lokale Verarbeitung sind uns wichtig. Ihr Bild wird nicht an externe Server übermittelt, und die Verarbeitung erfolgt vollständig im Browser. So können Sie Ihre Dateien sicher und vertraulich bearbeiten, ohne sich um Datensicherheit sorgen zu müssen."
 		],
-		"description": "Raster/SVG Workbench: Konvertiere Bilder direkt im Browser, rendere lokale SVGs als PNG - schnelle, effiziente Vektorisierung ohne Server-Abhängigkeit."
+		"description": "Raster/SVG Studio: Konvertiere Bilder direkt im Browser, rendere lokale SVGs als PNG - schnelle, effiziente Vektorisierung ohne Server-Abhängigkeit."
 	},
 	"/de/tools/short-form-safe-zone-previewer/": {
 		"content": [
@@ -467,11 +467,11 @@
 		],
 		"description": "Überprüfe deine Hochkantvideos & Bilder lokal auf sichere Zonen für Texte, Untertitel & Overlays - optimiert für Shorts, TikTok & Reels."
 	},
-	"/de/tools/smart-vertical-reframer/": {
+	"/de/tools/vertikaler-video-reframer/": {
 		"content": [
-			"Der Smart Vertical Reframer ist ein leistungsstarkes Tool, das es dir ermöglicht, aus deinen lokalen Videos vertikale Shorts und Portrait-Versionen zu erstellen. Mit seiner fortschrittlichen face-aware Crop-Technologie passt er automatisch Gesichter an, um optimale Ergebnisse in kürzester Zeit zu liefern.",
+			"Der Vertikaler Video-Reframer ist ein leistungsstarkes Tool, das es dir ermöglicht, aus deinen lokalen Videos vertikale Shorts und Portrait-Versionen zu erstellen. Mit seiner fortschrittlichen face-aware Crop-Technologie passt er automatisch Gesichter an, um optimale Ergebnisse in kürzester Zeit zu liefern.",
 			"Die Nutzung ist einfach: Lade dein Video hoch, wähle den gewünschten Format (Short oder Portrait) und klicke auf 'Umwandeln'. Das Tool verarbeitet das Video lokal auf deinem Gerät, ohne sensible Daten zu verlassen. Du hast die volle Kontrolle über deine Inhalte.",
-			"Unterstützte Formate umfassen MP4, MOV und WMV. Der Smart Vertical Reframer ist darauf ausgelegt, eine nahtlose Integration in deinen Workflow zu bieten, ohne Kompromisse bei der Qualität einzugehen. Erlebe die Flexibilität, deine Videos nach deinen Vorstellungen neu zu gestalten.",
+			"Unterstützte Formate umfassen MP4, MOV und WMV. Der Vertikaler Video-Reframer ist darauf ausgelegt, eine nahtlose Integration in deinen Workflow zu bieten, ohne Kompromisse bei der Qualität einzugehen. Erlebe die Flexibilität, deine Videos nach deinen Vorstellungen neu zu gestalten.",
 			"Durch den lokalen Verarbeitungsmodus gewährleistet das Tool maximale Privatsphäre und Datensicherheit. Deine Daten bleiben auf deinem Gerät, ohne an externe Server gesendet zu werden. So kannst du beruhigt kreative Entscheidungen treffen und deine Inhalte nach Belieben umgestalten."
 		],
 		"description": "Erstelle ansprechende vertikale Videos aus deinen lokalen Clips – schnell und einfach, mit intelligenter Gesichtsausrichtung."
@@ -515,11 +515,11 @@
 		],
 		"description": "Erlebe zukunftsweisende Avatar-Technologie: Testen Sie Webcam-Motion-Tracking mit 3D-Avataren direkt im Browser – einfach und lokal."
 	},
-	"/de/tools/watermarker/": {
+	"/de/tools/bild-video-wasserzeichen/": {
 		"content": [
-			"Watermarker ist ein mächtiges, browserbasiertes Werkzeug, das es Benutzern ermöglicht, individuelle Text- oder Bildwasserzeichen direkt auf ihre Bilder und Videos zu setzen. Mit nur wenigen Klicks können Sie Ihre Inhalte schützen und Ihre Marke oder Botschaft sichtbar machen. Ob für persönliche Projekte oder professionelle Zwecke – Watermarker bietet eine einfache Lösung für die Markierung digitaler Medien.",
+			"Bild- & Video-Wasserzeichen ist ein mächtiges, browserbasiertes Werkzeug, das es Benutzern ermöglicht, individuelle Text- oder Bildwasserzeichen direkt auf ihre Bilder und Videos zu setzen. Mit nur wenigen Klicks können Sie Ihre Inhalte schützen und Ihre Marke oder Botschaft sichtbar machen. Ob für persönliche Projekte oder professionelle Zwecke – Bild- & Video-Wasserzeichen bietet eine einfache Lösung für die Markierung digitaler Medien.",
 			"Die Nutzung ist unkompliziert: Laden Sie einfach das Bild oder Video hoch, wählen Sie das gewünschte Wasserzeichen aus und passen Sie dessen Position und Größe an. Der Browser übernimmt den Rest. Die Wasserzeichen werden clientseitig generiert und angezeigt, was eine schnelle und effiziente Bearbeitung ermöglicht, ohne dass Daten an externe Server gesendet werden müssen.",
-			"Unterstützt werden gängige Bild- und Videoformate wie JPEG, PNG, GIF, MP4 und WebM. Hiermit können Sie Ihre Fotos, Grafiken, Videos und animierten Dateien mit personalisierten Wasserzeichen versehen. Watermarker ist die ideale Wahl für alle, die ihre digitalen Inhalte schützen und individualisieren möchten, ohne auf komplexe Software zurückgreifen zu müssen.",
+			"Unterstützt werden gängige Bild- und Videoformate wie JPEG, PNG, GIF, MP4 und WebM. Hiermit können Sie Ihre Fotos, Grafiken, Videos und animierten Dateien mit personalisierten Wasserzeichen versehen. Bild- & Video-Wasserzeichen ist die ideale Wahl für alle, die ihre digitalen Inhalte schützen und individualisieren möchten, ohne auf komplexe Software zurückgreifen zu müssen.",
 			"Datenschutz hat oberste Priorität: Alle Verarbeitungen erfolgen lokal im Browser, sodass Ihre Dateien und persönlichen Informationen nicht an externe Dienste übermittelt werden. Sie haben die volle Kontrolle über Ihre Daten und können sicher sein, dass Ihre Inhalte vertraulich bleiben."
 		],
 		"description": "Erstelle individuelle Wasserzeichen für Bilder und Videos direkt im Browser - einfach, schnell und lokal auf deinem Gerät."
@@ -587,12 +587,12 @@
 		],
 		"description": "Remove solid backgrounds instantly using ImageMagick WASM in your browser. Fast, local processing for seamless background removal."
 	},
-	"/en/tools/click-to-cut-object-extractor/": {
+	"/en/tools/image-object-extractor/": {
 		"content": [
-			"The Click-to-Cut Object Extractor is a powerful, user-friendly tool designed to simplify the process of object extraction from images. With just a single click, you can select and isolate any object within an image, making it ideal for designers, developers, and anyone working with graphics who needs precise object cutting.",
+			"The Image Object Extractor is a powerful, user-friendly tool designed to simplify the process of object extraction from images. With just a single click, you can select and isolate any object within an image, making it ideal for designers, developers, and anyone working with graphics who needs precise object cutting.",
 			"This browser-based application allows you to upload local images or directly access them from your device's library. Once an object is selected, the tool automatically generates a transparent background around it, ensuring clean cuts. The extracted object can then be exported in high quality as either a PNG or WebP file, suitable for various design and development workflows.",
 			"Supported media types include JPEG, PNG, GIF, and WebP formats for images. The tool leverages your browser's capabilities for efficient local processing, ensuring fast extraction times without requiring any data to leave your device.",
-			"By utilizing browser technologies, the Click-to-Cut Object Extractor prioritizes user privacy. No image data is stored or shared externally, providing a secure and reliable solution for handling sensitive graphics."
+			"By utilizing browser technologies, the Image Object Extractor prioritizes user privacy. No image data is stored or shared externally, providing a secure and reliable solution for handling sensitive graphics."
 		],
 		"description": "Extract objects from images with a single click, saving them as transparent PNG or WebP files—all done locally on your browser."
 	},
@@ -884,23 +884,23 @@
 		],
 		"description": "Transform SVG to PNG locally using your browser. No server-side processing, fast & efficient conversion with pure client-side technology."
 	},
-	"/en/tools/crop-doctor/": {
+	"/en/tools/black-bar-remover/": {
 		"content": [
-			"Crop Doctor is a powerful, user-friendly tool designed to enhance your video editing experience by removing unwanted black bars from your local videos. It offers a simple and efficient solution for achieving perfect crops without the need for complex software.",
+			"Black Bar Remover is a powerful, user-friendly tool designed to enhance your video editing experience by removing unwanted black bars from your local videos. It offers a simple and efficient solution for achieving perfect crops without the need for complex software.",
 			"Using our browser-based platform, you can easily upload your video files and instantly visualize the results. Our advanced algorithms detect the black bars and provide you with options to customize the crop. The cropped video is then exported in high quality, ready for your next project.",
 			"This tool supports a wide range of video formats, including MP4, MOV, AVI, and MKV. It ensures compatibility with various devices and editing software, making it accessible to all video creators.",
-			"Privacy and local processing are at the core of Crop Doctor. Your videos remain on your device throughout the process, ensuring maximum security. No data is stored or shared, giving you full control over your media."
+			"Privacy and local processing are at the core of Black Bar Remover. Your videos remain on your device throughout the process, ensuring maximum security. No data is stored or shared, giving you full control over your media."
 		],
-		"description": "Crop Doctor: Locally crop videos by removing black bars, preserving quality with browser-based, efficient processing."
+		"description": "Black Bar Remover: Locally crop videos by removing black bars, preserving quality with browser-based, efficient processing."
 	},
-	"/en/tools/delivery-doctor/": {
+	"/en/tools/media-delivery-checker/": {
 		"content": [
-			"Delivery Doctor is a powerful browser-based tool designed to ensure your digital content is delivered flawlessly. It identifies and rectifies issues with local media files, from videos to audio, ensuring they meet the standards required for seamless online playback and efficient distribution.",
-			"The process is straightforward: upload your media file, select the desired repair options, and let Delivery Doctor do its magic. The tool analyzes the file, detects problems like codec mismatches or corrupted data, and applies tailored fixes to ensure optimal quality. This all happens directly in your browser, without any need for complex installations.",
-			"Supported formats include MP4, MOV, MKV for video, as well as MP3, WAV, AAC for audio. Delivery Doctor leverages efficient local processing to enhance performance while respecting user privacy by keeping all operations within the browser, ensuring your data remains secure and confidential.",
-			"By utilizing advanced algorithms and a deep understanding of multimedia standards, Delivery Doctor ensures your content is ready for global reach, whether it's for streaming services, websites, or mobile applications."
+			"Media Delivery Checker is a powerful browser-based tool designed to ensure your digital content is delivered flawlessly. It identifies and rectifies issues with local media files, from videos to audio, ensuring they meet the standards required for seamless online playback and efficient distribution.",
+			"The process is straightforward: upload your media file, select the desired repair options, and let Media Delivery Checker do its magic. The tool analyzes the file, detects problems like codec mismatches or corrupted data, and applies tailored fixes to ensure optimal quality. This all happens directly in your browser, without any need for complex installations.",
+			"Supported formats include MP4, MOV, MKV for video, as well as MP3, WAV, AAC for audio. Media Delivery Checker leverages efficient local processing to enhance performance while respecting user privacy by keeping all operations within the browser, ensuring your data remains secure and confidential.",
+			"By utilizing advanced algorithms and a deep understanding of multimedia standards, Media Delivery Checker ensures your content is ready for global reach, whether it's for streaming services, websites, or mobile applications."
 		],
-		"description": "Delivery Doctor: Locally optimize media files for seamless web uploads, playback, and delivery. Fast, efficient, and browser-based."
+		"description": "Media Delivery Checker: Locally optimize media files for seamless web uploads, playback, and delivery. Fast, efficient, and browser-based."
 	},
 	"/en/tools/face-object-redactor/": {
 		"content": [
@@ -920,14 +920,14 @@
 		],
 		"description": "Powerful browser-based image tools for precise cuts, previews, watermarks, and format conversions—all done locally on your device."
 	},
-	"/en/tools/lossless-media-surgeon/": {
+	"/en/tools/lossless-media-studio/": {
 		"content": [
-			"Lossless Media Surgeon is a powerful browser-based tool designed to meticulously manipulate media files without sacrificing quality. Its primary function is to enable users to remux, trim, and modify local audio and video tracks, all while utilizing the efficiency of FFmpeg WASM, ensuring no re-encoding takes place.",
+			"Lossless Media Studio is a powerful browser-based tool designed to meticulously manipulate media files without sacrificing quality. Its primary function is to enable users to remux, trim, and modify local audio and video tracks, all while utilizing the efficiency of FFmpeg WASM, ensuring no re-encoding takes place.",
 			"The workflow is straightforward: upload your desired media file, access the intuitive interface, and make the necessary adjustments. The tool processes the changes directly in your browser, providing real-time feedback and allowing for precise control over the final output.",
 			"Supported formats include popular video (MP4, MKV) and audio (MP3, AAC, WAV) codecs, ensuring a wide range of file types can be manipulated. This versatility makes it an invaluable asset for content creators, editors, and anyone working with multimedia projects.",
-			"By leveraging local processing powered by FFmpeg WASM, Lossless Media Surgeon guarantees privacy and security without compromising performance. Your media files remain on your device, ensuring sensitive data is protected during the editing process."
+			"By leveraging local processing powered by FFmpeg WASM, Lossless Media Studio guarantees privacy and security without compromising performance. Your media files remain on your device, ensuring sensitive data is protected during the editing process."
 		],
-		"description": "Lossless Media Surgeon: Effortlessly remux, trim, & edit media locally with FFmpeg WASM, avoiding re-encoding for optimal speed and quality."
+		"description": "Lossless Media Studio: Effortlessly remux, trim, & edit media locally with FFmpeg WASM, avoiding re-encoding for optimal speed and quality."
 	},
 	"/en/tools/loudness-mastering/": {
 		"content": [
@@ -947,14 +947,14 @@
 		],
 		"description": "MediaInfo: Client-side tool for reading audio, video, & image metadata in over 40 formats using MediaInfoLib WASM."
 	},
-	"/en/tools/metadata-privacy-scrubber/": {
+	"/en/tools/metadata-remover/": {
 		"content": [
-			"The Metadata Privacy Scrubber is a powerful tool designed to protect your privacy by securely erasing sensitive data embedded within digital media files. It's an easy-to-use browser-based solution for removing potentially revealing metadata, ensuring your photos, videos, and documents remain truly private.",
+			"The Metadata Remover is a powerful tool designed to protect your privacy by securely erasing sensitive data embedded within digital media files. It's an easy-to-use browser-based solution for removing potentially revealing metadata, ensuring your photos, videos, and documents remain truly private.",
 			"After uploading your file, the tool analyzes it and identifies specific types of metadata: EXIF from images, XMP from PDFs and other formats, chapters in eBooks, and container metadata. It then provides you with an option to scrub this data, rendering it inaccessible without specialized tools.",
 			"Supported media types include JPEG, PNG, GIF for images; PDF, EPUB for documents; and MP4, MKV for videos. The Scrubber is optimized for local processing, ensuring your files remain secure within your browser, without relying on external servers or sharing any data beyond the scrubbing process.",
 			"By using this tool, you gain control over your digital privacy. It's a simple yet effective way to protect sensitive information from prying eyes, preserving the integrity of your media and maintaining your right to discretion."
 		],
-		"description": "Metadata Privacy Scrubber: Remove sensitive data like EXIF, XMP, and chapters from local media files with a browser-based, client-side tool."
+		"description": "Metadata Remover: Remove sensitive data like EXIF, XMP, and chapters from local media files with a browser-based, client-side tool."
 	},
 	"/en/tools/mp3-quality-tester/": {
 		"content": [
@@ -965,23 +965,23 @@
 		],
 		"description": "Blindly compare MP3 quality to the original file with our browser tool, ensuring optimal audio fidelity without downloading."
 	},
-	"/en/tools/offline-subtitle-studio/": {
+	"/en/tools/subtitle-editor-converter/": {
 		"content": [
-			"Offline Subtitle Studio empowers you to take control of your subtitle editing process without relying on external servers. This browser-based tool allows you to easily create, modify, and manage subtitles for videos in popular formats right in your web browser, ensuring convenience and privacy.",
+			"Subtitle Editor & Converter empowers you to take control of your subtitle editing process without relying on external servers. This browser-based tool allows you to easily create, modify, and manage subtitles for videos in popular formats right in your web browser, ensuring convenience and privacy.",
 			"The workflow is straightforward: upload your video or subtitle files, access the editing interface, make necessary adjustments such as timing and text changes, then export your updated subtitles in SRT or WebVTT format. All processing happens locally on your device, ensuring fast response times and secure handling of your media.",
 			"This tool supports editing and conversion of SRT and WebVTT subtitles. It enables you to offset subtitles for precise synchronization with video content, making it ideal for professionals and enthusiasts alike who need to create or refine subtitles without online constraints.",
-			"By utilizing local processing, Offline Subtitle Studio guarantees that your video data remains confidential. No files are uploaded to the cloud, ensuring maximum privacy during subtitle creation and editing sessions. Experience seamless, offline subtitle management with this innovative browser tool."
+			"By utilizing local processing, Subtitle Editor & Converter guarantees that your video data remains confidential. No files are uploaded to the cloud, ensuring maximum privacy during subtitle creation and editing sessions. Experience seamless, offline subtitle management with this innovative browser tool."
 		],
-		"description": "Offline Subtitle Studio: Edit, convert, and manage SRT & WebVTT subtitles directly in your browser with local processing power."
+		"description": "Subtitle Editor & Converter: Edit, convert, and manage SRT & WebVTT subtitles directly in your browser with local processing power."
 	},
-	"/en/tools/podcast-chapterizer/": {
+	"/en/tools/podcast-chapter-editor/": {
 		"content": [
-			"Podcast Chapterizer is a powerful browser-based tool designed to simplify the process of organizing and structuring your podcast episodes into easily digestible chapters. Whether you're a podcaster looking to enhance your content or a video editor working with YouTube, this tool offers an efficient solution for creating well-defined sections within your audio or video files.",
+			"Podcast Chapter Editor is a powerful browser-based tool designed to simplify the process of organizing and structuring your podcast episodes into easily digestible chapters. Whether you're a podcaster looking to enhance your content or a video editor working with YouTube, this tool offers an efficient solution for creating well-defined sections within your audio or video files.",
 			"The workflow is straightforward: upload your podcast episode, be it in MP3 or WAV format, and specify the desired chapter points. Our algorithm will then automatically generate chapters at these intervals, allowing you to focus on content rather than technicalities. You can also choose to export the generated chapters as FFmetadata for seamless integration with YouTube.",
 			"Supported media formats include MP3 and WAV audio files. For video creators, we enable the generation of YouTube-ready chapters, ensuring a smooth viewing experience. This tool is versatile, catering to both podcasters and video editors alike, without requiring any complex coding or external plugins.",
-			"By utilizing local processing, Podcast Chapterizer ensures your data remains secure and private. We do not store or share your media files beyond the duration needed for generating chapters. Your content is handled with the utmost care, giving you control over your creative assets."
+			"By utilizing local processing, Podcast Chapter Editor ensures your data remains secure and private. We do not store or share your media files beyond the duration needed for generating chapters. Your content is handled with the utmost care, giving you control over your creative assets."
 		],
-		"description": "Podcast Chapterizer: Create YouTube chapters, FFmetadata, & embed media with local, efficient chapter integration."
+		"description": "Podcast Chapter Editor: Create YouTube chapters, FFmetadata, & embed media with local, efficient chapter integration."
 	},
 	"/en/tools/podcast-cleaner/": {
 		"content": [
@@ -992,14 +992,14 @@
 		],
 		"description": "Podcast Cleaner: Locally refine audio with FFmpeg, removing rumble, noise, and adjusting dynamics, pauses, and loudness."
 	},
-	"/en/tools/raster-svg-workbench/": {
+	"/en/tools/raster-svg-studio/": {
 		"content": [
-			"The Raster/SVG Workbench is a powerful, browser-based tool designed for artists, designers, and developers who work with digital media. Its primary function is to facilitate the conversion of raster images into scalable vector graphics (SVG), offering a versatile solution for creating and editing visual content.",
+			"The Raster/SVG Studio is a powerful, browser-based tool designed for artists, designers, and developers who work with digital media. Its primary function is to facilitate the conversion of raster images into scalable vector graphics (SVG), offering a versatile solution for creating and editing visual content.",
 			"Using this tool, users can upload raster images directly from their devices or choose them from an online library. The browser-based workflow allows for real-time visualization and interaction with the image during the vectorization process. Users can adjust settings, preview results, and even animate SVGs before exporting.",
 			"Supported formats include PNG, JPEG, and GIF for input raster images, and the output is limited to SVG and PNG. This tool excels in creating high-quality, editable vector graphics while ensuring a smooth user experience without requiring any downloads or plugins.",
 			"Privacy and local processing are at the core of this tool's design. All image processing occurs within the user's browser, guaranteeing that sensitive data remains secure and under the user's control. No files leave the user's device unless explicitly exported."
 		],
-		"description": "Raster/SVG Workbench: Convert raster images to SVG, rendering them locally as PNG for fast, efficient vector graphics editing."
+		"description": "Raster/SVG Studio: Convert raster images to SVG, rendering them locally as PNG for fast, efficient vector graphics editing."
 	},
 	"/en/tools/short-form-safe-zone-previewer/": {
 		"content": [
@@ -1010,14 +1010,14 @@
 		],
 		"description": "Ensure your Shorts, TikTok & Reels stay visible with our tool. Check local safe zones for captions, text, & overlays, all within your browser."
 	},
-	"/en/tools/smart-vertical-reframer/": {
+	"/en/tools/vertical-video-reframer/": {
 		"content": [
-			"The Smart Vertical Reframer is a powerful browser-based tool designed to transform your existing videos into captivating vertical formats, perfect for social media and short-form content. Its primary function is to create vertical 'Shorts' or portrait versions of local videos while ensuring key elements like faces remain centered and in focus.",
+			"The Vertical Video Reframer is a powerful browser-based tool designed to transform your existing videos into captivating vertical formats, perfect for social media and short-form content. Its primary function is to create vertical 'Shorts' or portrait versions of local videos while ensuring key elements like faces remain centered and in focus.",
 			"Using this tool, you simply upload your video, select the desired output format, and adjust cropping preferences. The magic happens instantly as our algorithm intelligently reframing the video for vertical viewing, preserving important visual cues and maintaining the original quality. No coding or complex editing required!",
 			"Supported media types include MP4 and MOV video formats. This tool is optimized for face-aware cropping, ensuring portraits and close-ups are accurately detected and highlighted during the reframe process. It's an ideal solution for content creators looking to adapt their footage swiftly and efficiently.",
 			"Privacy and local processing are at the core of this tool. Your videos remain on your device; we don't store or transmit any media files. All processing happens directly in your browser, ensuring fast results while giving you control over your data."
 		],
-		"description": "Smart Vertical Reframer: Create vertical shorts & portraits from local videos, using face-aware cropping for precise, local processing."
+		"description": "Vertical Video Reframer: Create vertical shorts & portraits from local videos, using face-aware cropping for precise, local processing."
 	},
 	"/en/tools/subtitle-burner/": {
 		"content": [
@@ -1058,14 +1058,14 @@
 		],
 		"description": "Create & preview VTubers with real-time webcam motion tracking in your browser, using lightweight local processing."
 	},
-	"/en/tools/watermarker/": {
+	"/en/tools/image-video-watermark/": {
 		"content": [
-			"Watermarker is a powerful yet simple tool designed to protect and personalize your digital media. It allows you to add custom text or image watermarks directly to local images and videos, ensuring your content remains recognizable while keeping it safe from unauthorized use.",
-			"Using Watermarker is seamless; simply upload your image or video, select the desired watermark, adjust settings as needed, and click 'Apply'. The watermark will be integrated into your media file, ready for download or sharing. No complex installations or software downloads are required—it's all done within your browser.",
-			"This tool supports a wide range of formats, including JPEG, PNG, GIF, MP4, and WebM. Whether you're marking personal photos or protecting a short video, Watermarker has you covered. It leverages your browser's capabilities for efficient local processing, ensuring your data remains private and secure.",
-			"Privacy is paramount; Watermarker processes all media locally on your device, meaning no files leave your computer unless you choose to download the modified content. This ensures that sensitive or personal media remains just that—yours and yours alone."
+			"Image & Video Watermark is a powerful yet simple tool designed to protect and personalize your digital media. It allows you to add custom text or image watermarks directly to local images and videos, ensuring your content remains recognizable while keeping it safe from unauthorized use.",
+			"Using Image & Video Watermark is seamless; simply upload your image or video, select the desired watermark, adjust settings as needed, and click 'Apply'. The watermark will be integrated into your media file, ready for download or sharing. No complex installations or software downloads are required—it's all done within your browser.",
+			"This tool supports a wide range of formats, including JPEG, PNG, GIF, MP4, and WebM. Whether you're marking personal photos or protecting a short video, Image & Video Watermark has you covered. It leverages your browser's capabilities for efficient local processing, ensuring your data remains private and secure.",
+			"Privacy is paramount; Image & Video Watermark processes all media locally on your device, meaning no files leave your computer unless you choose to download the modified content. This ensures that sensitive or personal media remains just that—yours and yours alone."
 		],
-		"description": "Watermarker: Easily add personalized watermarks to images and videos right in your browser, ensuring local privacy with client-side processing."
+		"description": "Image & Video Watermark: Easily add personalized watermarks to images and videos right in your browser, ensuring local privacy with client-side processing."
 	},
 	"/en/tools/whisper-subtitle-generator/": {
 		"content": [

@@ -2,7 +2,7 @@
 import type { Locale } from '../../i18n';
 import type { ToolCategoryId } from '../../data/tool-categories';
 import { getToolCategory } from '../../data/tool-categories';
-import { toolGroup, toolPages } from '../../data/tools';
+import { getToolEyebrow, toolGroup, toolPages } from '../../data/tools';
 import { withBase } from '../../lib/url';
 
 interface Props {
@@ -61,7 +61,7 @@ const tools = category.toolIds.map((toolId) => toolsById.get(toolId)).filter(Boo
 			{
 				tools.map((tool) => (
 					<a class="tool-category-card" href={withBase(tool.path)} data-tool-category-card data-tool-search={[tool.title, tool.description, tool.path].join(' ')}>
-						<span>{copy.open}</span>
+						<span>{getToolEyebrow(tool)}</span>
 						<h2>{tool.title}</h2>
 						<p>{tool.description}</p>
 					</a>

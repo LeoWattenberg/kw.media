@@ -11,7 +11,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const copy = {
 	de: {
-		eyebrow: 'Privacy-Tool', title: 'Metadata Privacy Scrubber',
+		eyebrow: 'EXIF, XMP & Containerdaten', title: 'Metadaten entfernen',
 		intro: 'Entferne EXIF, XMP, Kapitel, Container-Tags und eingebettete Metadaten aus lokalen Medien.',
 		privacy: 'Alles bleibt im Browser. Bilder werden neu gerendert, Audio/Video per FFmpeg ohne Metadaten remuxt.',
 		source: 'Datei', choose: 'Datei auswählen', hint: 'Bilder, Audio und Video',
@@ -23,7 +23,7 @@ const copy = {
 		error: 'Scrubbing fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
 	},
 	en: {
-		eyebrow: 'Privacy tool', title: 'Metadata Privacy Scrubber',
+		eyebrow: 'EXIF, XMP & container data', title: 'Metadata Remover',
 		intro: 'Remove EXIF, XMP, chapters, container tags, and embedded metadata from local media.',
 		privacy: 'Everything stays in the browser. Images are re-rendered; audio/video is remuxed without metadata via FFmpeg.',
 		source: 'File', choose: 'Choose file', hint: 'Images, audio, and video',

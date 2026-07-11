@@ -13,7 +13,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const copy = {
 	de: {
-		eyebrow: 'Segmentierungs-Tool', title: 'Click-to-Cut Object Extractor',
+		eyebrow: 'Punktbasierte Segmentierung', title: 'Bildobjekt freistellen',
 		intro: 'Klicke auf ein Objekt im Bild und exportiere es als transparente Datei mit MediaPipe im Browser.',
 		privacy: 'Das Bild bleibt lokal. Das Segmentierungsmodell läuft clientseitig.',
 		source: 'Quelle', choose: 'Bild auswählen', hint: 'PNG, JPEG, WebP und weitere Browser-Bildformate',
@@ -24,7 +24,7 @@ const copy = {
 		noPoint: 'Klicke zuerst auf das Objekt im Bild.', loadError: 'MediaPipe konnte nicht geladen werden: {message}', error: 'Extraktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
 	},
 	en: {
-		eyebrow: 'Segmentation tool', title: 'Click-to-Cut Object Extractor',
+		eyebrow: 'Point-based segmentation', title: 'Image Object Extractor',
 		intro: 'Click an object in an image and export it as a transparent asset with MediaPipe in the browser.',
 		privacy: 'The image stays local. The segmentation model runs client-side.',
 		source: 'Source', choose: 'Choose image', hint: 'PNG, JPEG, WebP, and other browser image formats',

@@ -11,7 +11,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const copy = {
 	de: {
-		eyebrow: 'Podcast-Tool', title: 'Podcast Chapterizer',
+		eyebrow: 'YouTube- & Medienkapitel', title: 'Podcast-Kapitel-Editor',
 		intro: 'Erstelle Podcast-Kapitel, YouTube-Chapter-Text und optional eine Mediendatei mit eingebetteten Kapiteln.',
 		privacy: 'Kapiteltext und Medien bleiben lokal. Muxing läuft über FFmpeg WASM.',
 		media: 'Mediendatei', choose: 'Audio oder Video auswählen', hint: 'Optional für eingebettete Kapitel',
@@ -20,10 +20,10 @@ const copy = {
 		waiting: 'Füge Kapitel ein. Format: 00:00 Titel', ready: '{count} Kapitel erkannt.', noChapters: 'Keine gültigen Kapitel gefunden.',
 		loading: 'FFmpeg WASM wird geladen…', ffmpegReady: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%', muxing: 'Kapitel werden eingebettet…',
 		done: 'Kapitel wurden erstellt.', muxed: 'Mediendatei mit Kapiteln erstellt.', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.',
-		error: 'Chapterizer fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', noMedia: 'Wähle zuerst eine Mediendatei.',
+		error: 'Kapitelverarbeitung fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', noMedia: 'Wähle zuerst eine Mediendatei.',
 	},
 	en: {
-		eyebrow: 'Podcast tool', title: 'Podcast Chapterizer',
+		eyebrow: 'YouTube & media chapters', title: 'Podcast Chapter Editor',
 		intro: 'Create podcast chapters, YouTube chapter text, and optionally a media file with embedded chapters.',
 		privacy: 'Chapter text and media stay local. Muxing runs through FFmpeg WASM.',
 		media: 'Media file', choose: 'Choose audio or video', hint: 'Optional for embedded chapters',
@@ -32,7 +32,7 @@ const copy = {
 		waiting: 'Paste chapters. Format: 00:00 Title', ready: '{count} chapters detected.', noChapters: 'No valid chapters found.',
 		loading: 'Loading FFmpeg WASM…', ffmpegReady: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%', muxing: 'Embedding chapters…',
 		done: 'Chapter files created.', muxed: 'Media file with chapters created.', timeout: 'FFmpeg WASM did not load within 90 seconds.',
-		error: 'Chapterizer failed: {message}', generic: 'Unknown error', noMedia: 'Choose a media file first.',
+		error: 'Chapter processing failed: {message}', generic: 'Unknown error', noMedia: 'Choose a media file first.',
 	},
 }[locale];
 const copyJson = JSON.stringify(copy);
