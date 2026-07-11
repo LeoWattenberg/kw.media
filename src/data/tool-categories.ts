@@ -32,7 +32,7 @@ export const toolCategories: ToolCategory[] = [
 				eyebrow: 'Konverter',
 				title: 'Konverter-Tools',
 				description: 'Dateien direkt im Browser in andere Formate bringen.',
-				open: 'Konverter oeffnen',
+				open: 'Konverter öffnen',
 			},
 			en: {
 				eyebrow: 'Converters',
@@ -60,8 +60,8 @@ export const toolCategories: ToolCategory[] = [
 			de: {
 				eyebrow: 'Audio',
 				title: 'Audio-Tools',
-				description: 'Hoeren, testen, mastern, bereinigen und Audio aus lokalen Medien verarbeiten.',
-				open: 'Audio-Tool oeffnen',
+				description: 'Hören, testen, mastern, bereinigen und Audio aus lokalen Medien verarbeiten.',
+				open: 'Audio-Tool öffnen',
 			},
 			en: {
 				eyebrow: 'Audio',
@@ -91,8 +91,8 @@ export const toolCategories: ToolCategory[] = [
 			de: {
 				eyebrow: 'Video',
 				title: 'Video-Tools',
-				description: 'Clips pruefen, schneiden, reframen, konvertieren und ausliefern.',
-				open: 'Video-Tool oeffnen',
+				description: 'Clips prüfen, schneiden, reframen, konvertieren und ausliefern.',
+				open: 'Video-Tool öffnen',
 			},
 			en: {
 				eyebrow: 'Video',
@@ -120,8 +120,8 @@ export const toolCategories: ToolCategory[] = [
 			de: {
 				eyebrow: 'Bild',
 				title: 'Bild-Tools',
-				description: 'Bilder vorbereiten, freistellen, pruefen, markieren und umwandeln.',
-				open: 'Bild-Tool oeffnen',
+				description: 'Bilder vorbereiten, freistellen, prüfen, markieren und umwandeln.',
+				open: 'Bild-Tool öffnen',
 			},
 			en: {
 				eyebrow: 'Image',
@@ -140,7 +140,7 @@ export const toolCategories: ToolCategory[] = [
 				eyebrow: 'Text',
 				title: 'Text-Tools',
 				description: 'Dokumente, Untertitel, Kapitel und Metadaten lokal bearbeiten.',
-				open: 'Text-Tool oeffnen',
+				open: 'Text-Tool öffnen',
 			},
 			en: {
 				eyebrow: 'Text',
@@ -167,7 +167,7 @@ export const toolCategories: ToolCategory[] = [
 				eyebrow: 'Analyzer',
 				title: 'Analyzer',
 				description: 'Medien, Qualitaet, Crops, Thumbnails und Produktionsrisiken einschaetzen.',
-				open: 'Analyzer oeffnen',
+				open: 'Analyzer öffnen',
 			},
 			en: {
 				eyebrow: 'Analyzers',
