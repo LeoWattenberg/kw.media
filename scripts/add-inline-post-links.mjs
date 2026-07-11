@@ -8,6 +8,11 @@ import {
 	splitPostBodyParts,
 	writePostFile,
 } from './content-ai.mjs';
+import {
+	loadToolCandidates,
+	readGeneratedToolMetadata,
+	writeGeneratedToolMetadata,
+} from './tool-metadata.mjs';
 
 const args = process.argv.slice(2);
 const help = args.includes('--help') || args.includes('-h');
@@ -63,15 +68,15 @@ if (help) {
 	console.log(`Usage:
 node scripts/add-inline-post-links.mjs [--dry] [--link-density=2] [--limit=20] [post.md ...]
 
-Creates inline Markdown links from post bodies to other same-locale posts.
+Creates inline Markdown links in post bodies and generated multi-paragraph tool descriptions.
 Writes changes by default. Add --dry to preview proposed links.
 
 Options:
 - --dry            Preview proposed links without editing files.
 - --link-density=N Maximum new links per 1000 body words. Defaults to 2.
-- --candidates=N  Related post candidates to send to Ollama after sidebar pages. Defaults to 8.
+- --candidates=N  Related post candidates to send to Ollama after page and tool targets. Defaults to 8.
 - --no-ai         Use deterministic phrase matching instead of Ollama anchor selection.
-- --limit=N       Process only the first N selected posts.
+- --limit=N       Process only the first N selected posts and tool descriptions.
 - --related=...   Related-post JSON path. Defaults to src/data/related-posts.json.`);
 	process.exit(0);
 }
@@ -87,12 +92,17 @@ if (!Number.isFinite(candidateCount) || candidateCount < 1) {
 const allPosts = readAllPosts();
 const postsByPath = new Map(allPosts.map((post) => [post.frontmatter.path, post]));
 const sidebarPages = readSidebarPages();
+const toolPages = (await loadToolCandidates()).map(toolPageCandidate);
+const generatedToolMetadata = await readGeneratedToolMetadata();
 const relatedPosts = readRelatedPosts(relatedPath);
 const selectedFiles = selectFiles();
 const selectedPosts = (limit > 0 ? selectedFiles.slice(0, limit) : selectedFiles).map((filePath) => readPostFile(filePath));
+const allToolSources = positionalArgs().length ? [] : toolSourcePages();
+const selectedTools = limit > 0 ? allToolSources.slice(0, limit) : allToolSources;
 const results = [];
+let changedTools = 0;
 
-console.log(`${dryRun ? 'Dry run' : 'Writing inline links'} for ${selectedPosts.length} post(s).`);
+console.log(`${dryRun ? 'Dry run' : 'Writing inline links'} for ${selectedPosts.length} post(s) and ${selectedTools.length} tool description(s).`);
 console.log(`Anchor selection: ${useAi ? `Ollama ${anchorModel}` : 'deterministic'}`);
 
 for (const [index, post] of selectedPosts.entries()) {
@@ -119,8 +129,25 @@ for (const [index, post] of selectedPosts.entries()) {
 	results.push({ post, result });
 }
 
+for (const [index, tool] of selectedTools.entries()) {
+	const candidates = candidatePagesFor(tool);
+	const result = await linkPostBody(tool, candidates);
+
+	console.log(`${index + 1}/${selectedTools.length} ${tool.frontmatter.path} (${result.wordCount} words, max ${result.linkLimit} link(s))`);
+	if (!result.links.length) {
+		console.log('  no natural inline link target found');
+		continue;
+	}
+
+	changedTools += 1;
+	for (const link of result.links) console.log(`  ${link.anchor} -> ${link.path} (${link.source})`);
+	if (!dryRun) generatedToolMetadata[tool.frontmatter.path].content = result.body.split('\n\n');
+}
+
+if (!dryRun && selectedTools.length) await writeGeneratedToolMetadata(generatedToolMetadata);
+
 const changed = results.filter(({ result }) => result.links.length).length;
-console.log(`${dryRun ? 'Would change' : 'Changed'} ${changed} of ${selectedPosts.length} post(s).`);
+console.log(`${dryRun ? 'Would change' : 'Changed'} ${changed} of ${selectedPosts.length} post(s) and ${changedTools} of ${selectedTools.length} tool description(s).`);
 
 function selectFiles() {
 	const passedFiles = positionalArgs();
@@ -183,6 +210,28 @@ function readSidebarPages() {
 	return [...jsonPages, ...toolPages]
 		.filter((page) => sidebarPageOrder.includes(pageGroup(page.pageId)))
 		.sort((first, second) => sidebarPageOrder.indexOf(pageGroup(first.pageId)) - sidebarPageOrder.indexOf(pageGroup(second.pageId)));
+}
+
+function toolPageCandidate(tool) {
+	return {
+		pageId: tool.path,
+		frontmatter: {
+			path: tool.path,
+			locale: tool.locale,
+			title: tool.title,
+			excerpt: tool.description,
+			category: 'tool-page',
+		},
+		body: '',
+	};
+}
+
+function toolSourcePages() {
+	return toolPages.flatMap((tool) => {
+		const content = generatedToolMetadata[tool.frontmatter.path]?.content;
+		if (!Array.isArray(content) || content.length < 2) return [];
+		return [{ ...tool, body: content.join('\n\n') }];
+	});
 }
 
 function pageCandidate(pageId, locale, translation) {
@@ -255,7 +304,7 @@ function candidatePostsFor(post) {
 		? relatedPosts[post.frontmatter.path]
 		: [];
 	const seen = new Set([post.frontmatter.path]);
-	const candidates = sidebarPageCandidatesFor(post);
+	const candidates = candidatePagesFor(post);
 
 	for (const candidate of candidates) {
 		seen.add(candidate.frontmatter.path);
@@ -291,15 +340,15 @@ function candidatePostsFor(post) {
 	return candidates;
 }
 
-function sidebarPageCandidatesFor(post) {
-	return sidebarPages
-		.filter((page) => page.frontmatter.locale === post.frontmatter.locale || page.frontmatter.path === '/impressum/')
-		.filter((page) => page.frontmatter.path !== post.frontmatter.path)
-		.filter((page) => compatibleLinkCategory(post, page));
+function candidatePagesFor(source) {
+	return [...sidebarPages, ...toolPages]
+		.filter((page) => page.frontmatter.locale === source.frontmatter.locale || page.frontmatter.path === '/impressum/')
+		.filter((page) => page.frontmatter.path !== source.frontmatter.path)
+		.filter((page) => compatibleLinkCategory(source, page));
 }
 
 function compatibleLinkCategory(post, candidate) {
-	if (candidate.frontmatter.category === 'site-page') {
+	if (candidate.frontmatter.category === 'site-page' || candidate.frontmatter.category === 'tool-page') {
 		return true;
 	}
 
@@ -315,10 +364,10 @@ async function linkPostBody(post, candidates) {
 	const linkLimit = linkLimitForWordCount(wordCount);
 	const links = [];
 	const availablePageCandidates = candidates
-		.filter((candidate) => candidate.frontmatter.category === 'site-page')
+		.filter((candidate) => ['site-page', 'tool-page'].includes(candidate.frontmatter.category))
 		.filter((candidate) => !existingPaths.has(candidate.frontmatter.path));
 	const availablePostCandidates = candidates
-		.filter((candidate) => candidate.frontmatter.category !== 'site-page')
+		.filter((candidate) => !['site-page', 'tool-page'].includes(candidate.frontmatter.category))
 		.filter((candidate) => !existingPaths.has(candidate.frontmatter.path))
 		.slice(0, candidateCount);
 	const availableCandidates = [...availablePageCandidates, ...availablePostCandidates];
