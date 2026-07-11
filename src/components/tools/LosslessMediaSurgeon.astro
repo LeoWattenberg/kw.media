@@ -80,6 +80,9 @@ const copyJson = JSON.stringify(copy);
 
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+	import { baseName, fileExtension as extension } from '../../lib/tools/media-file';
+	import { buildLosslessArgs, containerMime as mime } from '../../lib/tools/lossless-media-surgeon';
+	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
 
 	for (const root of document.querySelectorAll('[data-media-surgeon]:not([data-bound])')) {
 		root.dataset.bound = 'true';
@@ -160,7 +163,7 @@ const copyJson = JSON.stringify(copy);
 				const blob = new Blob([bytes], { type: mime(container.value) });
 				outputUrl = URL.createObjectURL(blob);
 				download.href = outputUrl;
-				download.download = `${baseName(source.name)}-${operation.value}.${container.value}`;
+				download.download = `${baseName(source.name, 'media')}-${operation.value}.${container.value}`;
 				download.hidden = false;
 				resultMeta.textContent = `${download.download} · ${formatBytes(blob.size)}`;
 				setStatus(copy.done, 'success');
@@ -170,24 +173,12 @@ const copyJson = JSON.stringify(copy);
 		}
 
 		function buildArgs(inputName, audioName, outputName) {
-			const op = operation.value;
-			const args = [];
-			if (op === 'trim' && startInput.value) args.push('-ss', startInput.value);
-			args.push('-i', inputName);
-			if (op === 'replace' && audioName) args.push('-i', audioName);
-			if (op === 'trim' && endInput.value) {
-				const start = Number(startInput.value || 0);
-				const duration = Number(endInput.value) - start;
-				if (duration <= 0) throw new Error('End time must be after start time');
-				args.push('-t', String(duration));
-			}
-			if (op === 'extract') args.push('-map', '0:a:0', '-vn', '-c:a', 'copy');
-			else if (op === 'mute') args.push('-map', '0:v?', '-map', '0:s?', '-c', 'copy');
-			else if (op === 'replace') args.push('-map', '0:v?', '-map', '1:a:0', '-map', '0:s?', '-c', 'copy', '-shortest');
-			else args.push('-map', '0', '-c', 'copy');
-			if (container.value === 'mp4' || container.value === 'mov') args.push('-movflags', '+faststart');
-			args.push('-y', outputName);
-			return args;
+			return buildLosslessArgs(inputName, audioName, outputName, {
+				operation: operation.value,
+				container: container.value,
+				start: startInput.value,
+				end: endInput.value,
+			});
 		}
 
 		function reset() {
@@ -196,11 +187,6 @@ const copyJson = JSON.stringify(copy);
 			if (outputUrl) URL.revokeObjectURL(outputUrl); outputUrl = null; updateOperation(); update();
 		}
 		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
-		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
-		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
-		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'media'; }
-		function mime(ext) { return ({ mp4: 'video/mp4', mov: 'video/quicktime', webm: 'video/webm', mka: 'audio/x-matroska', mkv: 'video/x-matroska' })[ext] || 'application/octet-stream'; }
-		function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
 	}
 </script>
 

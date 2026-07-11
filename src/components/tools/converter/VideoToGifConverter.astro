@@ -181,6 +181,15 @@ const copyJson = JSON.stringify(copy.client);
 
 <script>
 	import { createFfmpegRuntime } from '../../../lib/ffmpeg-runtime';
+	import { baseName, lowerFileExtension as inputExtension } from '../../../lib/tools/media-file';
+	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
+	import {
+		buildGifArgs,
+		formatTime,
+		normalizeGifSettings,
+		roundToHalf,
+		roundToTenths,
+	} from '../../../lib/tools/video-to-gif-converter';
 
 	(() => {
 		const roots = document.querySelectorAll('[data-video-gif]:not([data-video-gif-bound])');
@@ -333,7 +342,7 @@ const copyJson = JSON.stringify(copy.client);
 					const settings = readSettings();
 					const output = await renderGif(state.file, settings);
 					const blob = new Blob([output], { type: 'image/gif' });
-					const outputName = `${baseName(state.file.name)}.gif`;
+					const outputName = `${baseName(state.file.name, 'converted-video')}.gif`;
 
 					state.outputUrl = URL.createObjectURL(blob);
 					outputImage.src = state.outputUrl;
@@ -359,20 +368,7 @@ const copyJson = JSON.stringify(copy.client);
 				return ffmpegRuntime.run(async (ffmpeg) => {
 					const inputName = `input-${Date.now()}${inputExtension(file.name)}`;
 					const outputName = `output-${Date.now()}.gif`;
-					const filter = [
-						`fps=${settings.fps},scale=${settings.width}:-1:flags=lanczos,split[s0][s1]`,
-						`[s0]palettegen=max_colors=${settings.colors}:reserve_transparent=0[p]`,
-						'[s1][p]paletteuse=dither=sierra2_4a',
-					].join(';');
-					const args = [
-						'-ss', String(settings.start),
-						'-t', String(settings.duration),
-						'-i', inputName,
-						'-filter_complex', filter,
-						'-loop', settings.loop ? '0' : '-1',
-						'-gifflags', '+transdiff',
-						'-y', outputName,
-					];
+					const args = buildGifArgs(inputName, outputName, settings);
 
 					await ffmpeg.writeFile(inputName, new Uint8Array(await file.arrayBuffer()));
 					try {
@@ -392,16 +388,14 @@ const copyJson = JSON.stringify(copy.client);
 
 			function readSettings() {
 				const maxDuration = state.duration || 20;
-				const start = clamp(Number(startInput.value), 0, Math.max(0, maxDuration - 0.5));
-				const duration = clamp(Number(durationInput.value), 0.5, Math.min(20, Math.max(0.5, maxDuration - start)));
-				return {
-					start: roundToTenths(start),
-					duration: roundToTenths(duration),
-					fps: Math.round(clamp(Number(fpsInput.value), 6, 24)),
-					width: Math.round(clamp(Number(widthInput.value), 240, 960)),
-					colors: Math.round(clamp(Number(colorsInput.value), 32, 256)),
+				return normalizeGifSettings({
+					start: startInput.value,
+					duration: durationInput.value,
+					fps: fpsInput.value,
+					width: widthInput.value,
+					colors: colorsInput.value,
 					loop: loopInput.checked,
-				};
+				}, maxDuration);
 			}
 
 			function updateRangeLabels() {
@@ -484,54 +478,6 @@ const copyJson = JSON.stringify(copy.client);
 			function setStatus(message, type) {
 				status.textContent = message;
 				status.dataset.state = type;
-			}
-
-			function inputExtension(name) {
-				const match = String(name || '').toLowerCase().match(/\.[a-z0-9]+$/);
-				return match ? match[0] : '.bin';
-			}
-
-			function baseName(name) {
-				return String(name || '').replace(/\.[^.]+$/, '') || 'converted-video';
-			}
-
-			function clamp(value, min, max) {
-				if (!Number.isFinite(value)) {
-					return min;
-				}
-				return Math.min(max, Math.max(min, value));
-			}
-
-			function roundToTenths(value) {
-				return Math.round(value * 10) / 10;
-			}
-
-			function roundToHalf(value) {
-				return Math.round(value * 2) / 2;
-			}
-
-			function formatTime(seconds) {
-				const totalSeconds = Math.max(0, Math.round(seconds));
-				const minutes = Math.floor(totalSeconds / 60);
-				const remainingSeconds = totalSeconds % 60;
-				return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
-			}
-
-			function format(template, values) {
-				return String(template).replace(/\{(\w+)\}/g, (_match, key) => {
-					return values && key in values ? String(values[key]) : '';
-				});
-			}
-
-			function formatBytes(bytes) {
-				if (!Number.isFinite(bytes) || bytes <= 0) {
-					return '0 B';
-				}
-
-				const units = ['B', 'KB', 'MB', 'GB'];
-				const power = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
-				const value = bytes / (1024 ** power);
-				return `${value.toFixed(value >= 10 || power === 0 ? 0 : 1)} ${units[power]}`;
 			}
 
 			function messageFromError(error) {

@@ -191,7 +191,10 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 	</div>
 </section>
 
-<script is:inline>
+<script>
+	import { createOutputName, fileExtension, formatFrames } from '../../../lib/tools/image-format-converter';
+	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
+
 	(() => {
 		const roots = document.querySelectorAll('[data-image-converter]:not([data-image-converter-bound])');
 
@@ -336,7 +339,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 					outputMeta.textContent = format(copy.imageMeta, {
 						width: conversion.width || '?',
 						height: conversion.height || '?',
-						frames: formatFrames(conversion.frames),
+						frames: formatFrames(conversion.frames, copy),
 						size: formatBytes(outputBlob.size),
 					});
 					downloadLink.href = state.outputUrl;
@@ -489,41 +492,6 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			function setStatus(message, type) {
 				status.textContent = message;
 				status.dataset.state = type;
-			}
-
-			function createOutputName(name, extension) {
-				const baseName = name.replace(/\.[^.]+$/, '') || 'converted-image';
-				return `${baseName}.${extension}`;
-			}
-
-			function fileExtension(name) {
-				const match = name.toLowerCase().match(/\.[a-z0-9]+$/);
-				return match ? match[0] : '.image';
-			}
-
-			function format(template, values) {
-				return String(template).replace(/\{(\w+)\}/g, (_match, key) => {
-					return values && key in values ? String(values[key]) : '';
-				});
-			}
-
-			function formatBytes(bytes) {
-				if (!Number.isFinite(bytes) || bytes <= 0) {
-					return '0 B';
-				}
-
-				const units = ['B', 'KB', 'MB', 'GB'];
-				const power = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
-				const value = bytes / (1024 ** power);
-				return `${value.toFixed(value >= 10 || power === 0 ? 0 : 1)} ${units[power]}`;
-			}
-
-			function formatFrames(frames) {
-				if (!Number.isFinite(frames) || frames <= 1) {
-					return copy.singleFrame;
-				}
-
-				return format(copy.multipleFrames, { count: frames });
 			}
 
 			function messageFromError(error) {

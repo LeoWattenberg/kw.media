@@ -93,6 +93,9 @@ const copyJson = JSON.stringify(copy);
 
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+	import { baseName, fileExtension as extension } from '../../lib/tools/media-file';
+	import { buildPodcastCleanerArgs, outputFormat } from '../../lib/tools/podcast-cleaner';
+	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
 
 	for (const root of document.querySelectorAll('[data-podcast-cleaner]:not([data-bound])')) {
 		root.dataset.bound = 'true';
@@ -152,7 +155,7 @@ const copyJson = JSON.stringify(copy);
 			try {
 				const output = await runtime.run(async (ffmpeg) => {
 					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-					const inputName = `podcast-${stamp}${extension(file.name)}`;
+						const inputName = `podcast-${stamp}${extension(file.name)}`;
 					const outputInfo = outputFormat(formatSelect.value);
 					const outputName = `cleaned-${stamp}.${outputInfo.extension}`;
 					await ffmpeg.writeFile(inputName, new Uint8Array(await file.arrayBuffer()));
@@ -173,7 +176,7 @@ const copyJson = JSON.stringify(copy);
 				cleanedAudio.src = outputUrl;
 				cleanedWrap.hidden = false;
 				download.href = outputUrl;
-				download.download = `${baseName(file.name)}-cleaned.${info.extension}`;
+				download.download = `${baseName(file.name, 'podcast')}-cleaned.${info.extension}`;
 				download.hidden = false;
 				setStatus(copy.done, 'success');
 			} catch (error) {
@@ -184,21 +187,17 @@ const copyJson = JSON.stringify(copy);
 		}
 
 		function buildArgs(inputName, outputName, outputInfo) {
-			const filters = [];
-			if (checked('highpass')) filters.push(`highpass=f=${Number(highpassFreq.value || 80)}`);
-			if (checked('lowpass')) filters.push('lowpass=f=14500');
-			if (checked('denoise')) filters.push('afftdn=nf=-25');
-			if (checked('declick')) filters.push('adeclick');
-			if (checked('silence')) {
-				const threshold = Number(silenceThreshold.value || -45);
-				filters.push(`silenceremove=start_periods=1:start_duration=0.25:start_threshold=${threshold}dB:stop_periods=-1:stop_duration=0.7:stop_threshold=${threshold}dB`);
-			}
-			if (checked('compress')) filters.push('acompressor=threshold=-18dB:ratio=3:attack=12:release=180:makeup=2');
-			if (checked('loudness')) filters.push('loudnorm=I=-16:TP=-1.5:LRA=11');
-			const args = ['-i', inputName, '-map', '0:a:0', '-vn'];
-			if (filters.length) args.push('-af', filters.join(','));
-			args.push(...outputInfo.args, '-y', outputName);
-			return args;
+			return buildPodcastCleanerArgs(inputName, outputName, outputInfo, {
+				highpass: checked('highpass'),
+				highpassFreq: highpassFreq.value,
+				lowpass: checked('lowpass'),
+				denoise: checked('denoise'),
+				declick: checked('declick'),
+				silence: checked('silence'),
+				silenceThreshold: silenceThreshold.value,
+				compress: checked('compress'),
+				loudness: checked('loudness'),
+			});
 		}
 
 		function checked(name) {
@@ -220,18 +219,7 @@ const copyJson = JSON.stringify(copy);
 			setStatus(copy.waiting, 'info');
 		}
 
-		function outputFormat(value) {
-			if (value === 'wav') return { extension: 'wav', mime: 'audio/wav', args: ['-c:a', 'pcm_s16le'] };
-			if (value === 'm4a') return { extension: 'm4a', mime: 'audio/mp4', args: ['-c:a', 'aac', '-b:a', '160k', '-movflags', '+faststart'] };
-			if (value === 'opus') return { extension: 'opus', mime: 'audio/ogg', args: ['-c:a', 'libopus', '-b:a', '96k'] };
-			return { extension: 'mp3', mime: 'audio/mpeg', args: ['-c:a', 'libmp3lame', '-b:a', '160k'] };
-		}
-
 		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
-		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
-		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
-		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'podcast'; }
-		function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
 	}
 </script>
 
