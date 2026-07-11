@@ -48,6 +48,10 @@ export function buildPandocOptions(profile, outputName) {
 	return options;
 }
 
+export function buildPandocInputOptions(inputFormat, fileName) {
+	return isBinaryInput(null, inputFormat) ? { 'input-files': [fileName] } : {};
+}
+
 export function createTextPdf(text, title = 'Converted document') {
 	const pdf = new jsPDF({ unit: 'pt', format: 'a4', compress: true });
 	const margin = 48;

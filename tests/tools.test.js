@@ -12,13 +12,16 @@ import {
 import {
 	DOCUMENT_OUTPUT_PROFILES,
 	buildOutputName as buildDocumentOutputName,
+	buildPandocInputOptions,
 	buildPandocOptions,
+	createTextPdf,
 	detectInputFormat,
 	isBinaryInput,
 } from '../src/lib/tools/document-converter.js';
 import { formatBytes, formatTemplate } from '../src/lib/tools/format.js';
 import {
 	buildConversionArgs,
+	buildConversionAttempts,
 	buildOutputName as buildMediaOutputName,
 	detectMediaKind,
 	filterProfilesForMediaKind,
@@ -30,6 +33,9 @@ import { buildLosslessArgs, containerMime } from '../src/lib/tools/lossless-medi
 import {
 	buildMasteringArgs,
 	buildOutputInfo,
+	detectMediaKind as detectMasteringMediaKind,
+	getBaseName,
+	inputExtension as masteringInputExtension,
 	selectAudioArgs,
 	selectAudioCodec,
 	selectOutputProfile,
@@ -62,7 +68,10 @@ import {
 import {
 	buildGifArgs,
 	buildGifFilter,
+	clamp,
+	formatTime as formatGifTime,
 	normalizeGifSettings,
+	roundToHalf,
 } from '../src/lib/tools/video-to-gif-converter.js';
 import {
 	createOutputName as createImageOutputName,
@@ -73,10 +82,12 @@ import {
 	buildScrubMediaArgs,
 	imageExtension,
 	mediaContainerMime,
+	metadataOutputProfile,
 } from '../src/lib/tools/metadata-privacy-scrubber.js';
 import {
 	formatBitRate,
 	formatBytes as formatMediaInfoBytes,
+	formatChannels,
 	formatDuration as formatMediaInfoDuration,
 	formatFrameRate,
 	formatNumericBytes,
@@ -85,11 +96,12 @@ import {
 	normalizeResult,
 	trimNumber,
 } from '../src/lib/tools/media-info.js';
+import { getMediaInfoFactory } from '../src/lib/tools/media-info-browser.js';
 
 const profiles = [
 	{ value: 'wav', label: 'WAV', extension: '.wav', mimeType: 'audio/wav', kind: 'audio', codec: 'pcm_s16le', args: ['-ar', '48000'] },
-	{ value: 'mp4', label: 'MP4', extension: '.mp4', mimeType: 'video/mp4', kind: 'video', codec: 'copy', audioCodec: 'aac', audioArgs: ['-b:a', '192k'] },
-	{ value: 'webm', label: 'WebM', extension: '.webm', mimeType: 'video/webm', kind: 'video', codec: 'copy', audioCodec: 'libopus', audioArgs: ['-b:a', '192k', '-ar', '48000'] },
+	{ value: 'mp4', label: 'MP4', extension: '.mp4', mimeType: 'video/mp4', kind: 'video', codec: 'libx264', videoArgs: ['-crf', '23'], audioCodec: 'aac', audioArgs: ['-b:a', '192k'] },
+	{ value: 'webm', label: 'WebM', extension: '.webm', mimeType: 'video/webm', kind: 'video', codec: 'libvpx', videoArgs: ['-deadline', 'realtime'], audioCodec: 'libopus', audioArgs: ['-b:a', '160k', '-ar', '48000'] },
 ];
 
 test('shared formatting helpers keep compact UI-friendly labels', () => {
@@ -109,6 +121,7 @@ test('video/audio converter detects media type from mime type and extension', ()
 	assert.equal(detectMediaKind({ name: 'upload.bin', type: 'video/mp4' }), 'video');
 	assert.equal(detectMediaKind({ name: 'notes.txt', type: '' }), 'unknown');
 	assert.equal(getFileExtension('archive.TAR.GZ'), 'gz');
+	assert.equal(detectMediaKind(null), 'unknown');
 });
 
 test('video/audio converter filters profiles based on source media type', () => {
@@ -128,11 +141,23 @@ test('video/audio converter builds ffmpeg args for audio extraction and remuxing
 	);
 	assert.deepEqual(
 		buildConversionArgs('input.bin', 'output.mp4', { name: 'source.mov', type: 'video/quicktime' }, profiles[1]),
-		['-i', 'input.bin', '-map', '0:v:0?', '-map', '0:a:0?', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-y', 'output.mp4'],
+		['-i', 'input.bin', '-map', '0:v:0?', '-map', '0:a:0?', '-c:v', 'libx264', '-crf', '23', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-y', 'output.mp4'],
+	);
+	assert.deepEqual(
+		buildConversionArgs('input.mp4', 'output.webm', { name: 'source.mp4', type: 'video/mp4' }, profiles[2]),
+		['-i', 'input.mp4', '-map', '0:v:0?', '-map', '0:a:0?', '-c:v', 'libvpx', '-deadline', 'realtime', '-c:a', 'libopus', '-b:a', '160k', '-ar', '48000', '-y', 'output.webm'],
+	);
+	assert.deepEqual(
+		buildConversionAttempts('input.mp4', 'output.webm', { name: 'source.mp4', type: 'video/mp4' }, profiles[2]),
+		[
+			['-i', 'input.mp4', '-map', '0:v:0?', '-map', '0:a:0?', '-c:v', 'copy', '-c:a', 'libopus', '-b:a', '160k', '-ar', '48000', '-y', 'output.webm'],
+			['-i', 'input.mp4', '-map', '0:v:0?', '-map', '0:a:0?', '-c:v', 'libvpx', '-deadline', 'realtime', '-c:a', 'libopus', '-b:a', '160k', '-ar', '48000', '-y', 'output.webm'],
+		],
 	);
 	assert.equal(buildMediaOutputName('cut.final.mp4', '.wav'), 'cut.final.wav');
 	assert.equal(buildMediaOutputName('', '.mp3'), 'converted-media.mp3');
-	assert.equal(inputExtension({ name: 'clip.mp4' }), '.bin');
+	assert.equal(inputExtension({ name: 'clip.mp4' }), '.mp4');
+	assert.equal(inputExtension({ name: 'clip' }), '.bin');
 });
 
 test('document converter maps source files to pandoc input formats', () => {
@@ -159,6 +184,9 @@ test('document converter detects binary pandoc inputs and output names', () => {
 		'output-file': 'output.docx',
 	});
 	assert.deepEqual(buildPandocOptions(DOCUMENT_OUTPUT_PROFILES.find((profile) => profile.value === 'latex'), 'output.tex'), { to: 'latex' });
+	assert.deepEqual(buildPandocInputOptions('odt', 'legal document.odt'), { 'input-files': ['legal document.odt'] });
+	assert.deepEqual(buildPandocInputOptions('markdown', 'README.md'), {});
+	assert.ok(createTextPdf(Array.from({ length: 200 }, (_, index) => `Line ${index}`).join('\n')).size > 1000);
 });
 
 test('subtitle burner creates ASS styles and FFmpeg burn-in arguments', () => {
@@ -167,6 +195,9 @@ test('subtitle burner creates ASS styles and FFmpeg burn-in arguments', () => {
 	assert.match(ass, /,8,70,70,120,1/);
 	assert.match(ass, /Dialogue: 0,0:00:01.00,0:00:03.00/);
 	assert.match(ass, /\{\\k100\}Hello \{\\k100\}world/);
+	assert.match(buildSubtitleAss([{ start: 0, end: 2, text: 'One two' }], { mode: 'single' }), /Dialogue: 0,0:00:00\.00,0:00:01\.00.*One/);
+	assert.match(buildSubtitleAss([{ start: 0, end: 1, text: 'A\\B\n\{C\}' }], { fontSize: 'bad', marginV: 'bad' }), /A\\\\B\\N\\\{C\\\}/);
+	assert.doesNotMatch(buildSubtitleAss([{ start: 0, end: 1, text: '' }]), /Dialogue:/);
 	assert.equal(assTimestamp(3661.25), '1:01:01.25');
 	assert.equal(subtitleOutputName('clip.final.mov'), 'clip.final-subtitled.mp4');
 	assert.deepEqual(subtitleBurnerArgs('input.mov', 'captions.ass', 'output.mp4'), [
@@ -179,6 +210,9 @@ test('subtitle studio builds soft-subtitle outputs and names both application mo
 	assert.deepEqual(softSubtitleArgs('input.mov', 'captions.srt', 'output.mp4', 'mp4'), [
 		'-i', 'input.mov', '-i', 'captions.srt', '-map', '0', '-map', '1:0', '-c', 'copy',
 		'-c:s', 'mov_text', '-movflags', '+faststart', '-metadata:s:s:0', 'language=und', '-y', 'output.mp4',
+	]);
+	assert.deepEqual(softSubtitleArgs('input.mov', 'captions.srt', 'output.mkv'), [
+		'-i', 'input.mov', '-i', 'captions.srt', '-map', '0', '-map', '1:0', '-c', 'copy', '-c:s', 'srt', '-metadata:s:s:0', 'language=und', '-y', 'output.mkv',
 	]);
 	assert.equal(subtitleStudioOutputName('clip.final.mov', 'soft', 'mkv'), 'clip.final-soft-subtitles.mkv');
 	assert.equal(subtitleStudioOutputName('clip.final.mov', 'hard'), 'clip.final-hard-subtitles.mp4');
@@ -207,6 +241,7 @@ test('whisper subtitle generator mixes channels and resamples to 16 kHz', () => 
 		Float32Array.from([0, 0, 0, 0]),
 	], 4, 2);
 	assert.deepEqual(Array.from(result), [0, 0]);
+	assert.deepEqual(Array.from(mixAndResampleAudio([], 48000)), []);
 });
 
 test('abx helpers produce deterministic trials and statistics', () => {
@@ -222,6 +257,8 @@ test('abx helpers produce deterministic trials and statistics', () => {
 	assert.equal(formatTime(65.9), '1:05');
 	assert.equal(fileExtension('SONG.FLAC'), '.flac');
 	assert.equal(fileExtension('no-extension'), '.audio');
+	assert.equal(combination(2, 3), 0);
+	assert.equal(formatTime(Number.NaN), '0:00');
 });
 
 test('podcast cleaner builds selected ffmpeg filter chains and output formats', () => {
@@ -258,6 +295,9 @@ test('lossless media surgeon builds remux, trim, extract, mute, and replace args
 
 test('loudness mastering keeps compatible output profiles and audio codecs', () => {
 	assert.deepEqual(selectOutputProfile({ type: 'audio/flac' }), { extension: '.flac', displayName: 'FLAC', mimeType: 'audio/flac' });
+	assert.equal(masteringInputExtension(), '.bin');
+	assert.equal(getBaseName('mix.final.wav'), 'mix.final');
+	assert.equal(detectMasteringMediaKind({ type: 'video/mp4' }), 'video');
 	assert.deepEqual(selectOutputProfile({ type: '' }, 'video'), { extension: '.mp4', displayName: 'MP4', mimeType: 'video/mp4' });
 	assert.equal(selectAudioCodec({ type: 'audio/wav' }), 'pcm_s16le');
 	assert.equal(selectAudioCodec({ type: 'video/webm' }, true), 'libopus');
@@ -272,6 +312,10 @@ test('loudness mastering keeps compatible output profiles and audio codecs', () 
 		buildMasteringArgs('input.bin', 'output.mp4', { type: 'video/mp4' }),
 		['-i', 'input.bin', '-af', 'loudnorm=I=-14:TP=-1:LRA=11', '-map', '0:v:0', '-map', '0:a:0?', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-y', 'output.mp4'],
 	);
+	assert.deepEqual(buildMasteringArgs('input.bin', 'output.mp3', { type: 'audio/mpeg' }), [
+		'-i', 'input.bin', '-vn', '-af', 'loudnorm=I=-14:TP=-1:LRA=11', '-c:a', 'libmp3lame', '-b:a', '192k', '-y', 'output.mp3',
+	]);
+	assert.deepEqual(selectAudioArgs('unknown'), []);
 });
 
 test('subtitle studio parses, offsets, and renders srt and vtt cues', () => {
@@ -306,6 +350,9 @@ test('video-to-gif converter clamps settings and builds palette ffmpeg args', ()
 		'-filter_complex', 'fps=12,scale=480:-1:flags=lanczos,split[s0][s1];[s0]palettegen=max_colors=64:reserve_transparent=0[p];[s1][p]paletteuse=dither=sierra2_4a',
 		'-loop', '-1', '-gifflags', '+transdiff', '-y', 'out.gif',
 	]);
+	assert.equal(clamp(Number.NaN, 2, 4), 2);
+	assert.equal(roundToHalf(2.3), 2.5);
+	assert.equal(formatGifTime(65.4), '1:05');
 });
 
 test('image converter and metadata scrubber helpers preserve output naming and stripping args', () => {
@@ -316,6 +363,10 @@ test('image converter and metadata scrubber helpers preserve output naming and s
 	assert.equal(formatFrames(7, { singleFrame: 'single', multipleFrames: '{count} frames' }), '7 frames');
 	assert.equal(imageExtension('image/jpeg'), 'jpg');
 	assert.equal(mediaContainerMime('mov'), 'video/quicktime');
+	assert.deepEqual(metadataOutputProfile({ name: 'clip.webm', type: 'video/webm' }), { isImage: false, extension: 'webm', mimeType: 'video/webm' });
+	assert.deepEqual(metadataOutputProfile({ name: 'photo.jpeg', type: 'image/jpeg' }), { isImage: true, extension: 'jpg', mimeType: 'image/jpeg' });
+	assert.deepEqual(metadataOutputProfile({ name: 'recording', type: 'audio/mpeg' }), { isImage: false, extension: 'mp3', mimeType: 'audio/mpeg' });
+	assert.deepEqual(metadataOutputProfile({ name: 'unknown', type: '' }), { isImage: false, extension: 'bin', mimeType: 'application/octet-stream' });
 	assert.deepEqual(buildScrubMediaArgs('in.mov', 'out.mp4', 'mp4'), ['-i', 'in.mov', '-map', '0', '-map_metadata', '-1', '-map_chapters', '-1', '-c', 'copy', '-movflags', '+faststart', '-y', 'out.mp4']);
 });
 
@@ -323,13 +374,29 @@ test('media info formatting helpers normalize analysis output for display', () =
 	assert.deepEqual(normalizeResult('{"media":{"track":[]}}'), { media: { track: [] } });
 	assert.deepEqual(normalizeResult(null), { media: { track: [] } });
 	assert.equal(formatResolution({ Width: 1920, Height: 1080 }), '1920 x 1080');
+	assert.equal(formatResolution({}), '');
 	assert.equal(formatMediaInfoDuration(65.25), '1:05.250');
 	assert.equal(formatMediaInfoDuration(3661), '1:01:01');
+	assert.equal(formatMediaInfoDuration('unknown'), 'unknown');
+	assert.equal(formatMediaInfoDuration(null), '');
 	assert.equal(formatBitRate(2500000), '2.5 Mb/s');
 	assert.equal(formatBitRate(192000), '192 kb/s');
+	assert.equal(formatBitRate('variable'), 'variable');
 	assert.equal(formatFrameRate(29.97003), '30 fps');
+	assert.equal(formatFrameRate('variable'), 'variable');
+	assert.equal(formatChannels(2), '2');
+	assert.equal(formatChannels(null), '');
 	assert.equal(formatSamplingRate(48000), '48 kHz');
+	assert.equal(formatSamplingRate(800), '800 Hz');
+	assert.equal(formatSamplingRate('unknown'), 'unknown');
 	assert.equal(formatNumericBytes(1536), '1.5 KB');
+	assert.equal(formatNumericBytes('unknown'), 'unknown');
 	assert.equal(formatMediaInfoBytes(5 * 1024 ** 4), '5 TB');
+	assert.equal(formatMediaInfoBytes(Number.NaN), '0 B');
 	assert.equal(trimNumber(12.345), '12.3');
+	const factory = () => {};
+	assert.equal(getMediaInfoFactory(factory), factory);
+	assert.equal(getMediaInfoFactory({ mediaInfoFactory: factory }), factory);
+	assert.equal(getMediaInfoFactory({ default: factory }), factory);
+	assert.equal(getMediaInfoFactory({}), null);
 });

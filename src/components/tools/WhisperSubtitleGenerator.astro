@@ -14,7 +14,7 @@ const copy = {
 	de: {
 		eyebrow: 'KI-Untertitel-Tool', title: 'Whisper Untertitel-Generator',
 		intro: 'Erzeuge mit whisper.cpp automatisch SRT- oder WebVTT-Untertitel aus lokalen Audio- und Videodateien.',
-		privacy: 'Deine Datei bleibt im Browser. Nur das etwa 78 MB große Whisper-Modell wird beim ersten Start geladen und lokal zwischengespeichert.',
+		privacy: 'Deine Datei bleibt im Browser. Das etwa 60 MB große, genauere Whisper-Base-Modell wird beim ersten Start geladen und lokal zwischengespeichert.',
 		media: 'Audio oder Video', choose: 'Mediendatei auswählen', hint: 'Audio und Video bis 30 Minuten; die Browserunterstützung bestimmt die lesbaren Codecs.',
 		settings: 'Transkription', language: 'Gesprochene Sprache', automatic: 'Automatisch erkennen', german: 'Deutsch', english: 'Englisch',
 		task: 'Aufgabe', transcribe: 'In Originalsprache transkribieren', translate: 'Ins Englische übersetzen',
@@ -29,7 +29,7 @@ const copy = {
 	en: {
 		eyebrow: 'AI subtitle tool', title: 'Whisper Subtitle Generator',
 		intro: 'Automatically create SRT or WebVTT subtitles from local audio and video with whisper.cpp.',
-		privacy: 'Your file stays in the browser. Only the roughly 78 MB Whisper model is downloaded once and cached locally.',
+		privacy: 'Your file stays in the browser. The more accurate, roughly 60 MB Whisper Base model is downloaded once and cached locally.',
 		media: 'Audio or video', choose: 'Choose a media file', hint: 'Audio and video up to 30 minutes; readable codecs depend on browser support.',
 		settings: 'Transcription', language: 'Spoken language', automatic: 'Detect automatically', german: 'German', english: 'English',
 		task: 'Task', transcribe: 'Transcribe in the original language', translate: 'Translate into English',
@@ -72,7 +72,7 @@ const copyJson = JSON.stringify(copy);
 				<ToolStatus data-status text={copy.waiting} />
 			</ToolPanel>
 
-			<ToolPanel class="whisper-result" title={copy.result}>
+			<ToolPanel class="whisper-result" data-result-panel title={copy.result} hidden>
 				<label class="whisper-preview-label">
 					<span>{copy.preview}</span>
 					<textarea data-preview rows="16" readonly placeholder={copy.waiting}></textarea>
@@ -89,9 +89,9 @@ const copyJson = JSON.stringify(copy);
 <script>
 	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
 	import {
-		createWhisperRuntime,
+		createWhisperTranscriber,
 		decodeAudioFile,
-		fetchWhisperModel,
+		ensureWhisperIsolation,
 		parseWhisperLog,
 		renderWhisperSubtitles,
 		whisperSubtitleOutputName,
@@ -110,13 +110,13 @@ const copyJson = JSON.stringify(copy);
 		const clear = root.querySelector('[data-clear]');
 		const status = root.querySelector('[data-status]');
 		const preview = root.querySelector('[data-preview]');
+		const resultPanel = root.querySelector('[data-result-panel]');
 		const downloadSrt = root.querySelector('[data-download-srt]');
 		const downloadVtt = root.querySelector('[data-download-vtt]');
 		let mediaUrl = null;
 		let srtUrl = null;
 		let vttUrl = null;
-		let runtime = null;
-		let modelLoaded = false;
+		let transcriber = null;
 
 		fileInput.addEventListener('change', onFile);
 		generate.addEventListener('click', () => void generateSubtitles());
@@ -131,23 +131,24 @@ const copyJson = JSON.stringify(copy);
 			if (file) audioPreview.src = mediaUrl;
 			else audioPreview.removeAttribute('src');
 			fileName.textContent = file?.name || copy.choose;
+			resultPanel.hidden = true;
+			hideDownloads();
 			fileMeta.textContent = file ? format(copy.selected, { name: file.type || 'media', size: formatBytes(file.size) }) : copy.hint;
 			generate.disabled = !file || !globalThis.crossOriginIsolated;
 			setStatus(file ? format(copy.selected, { name: file.name, size: formatBytes(file.size) }) : copy.waiting, file ? 'success' : 'info');
 		}
 
 		async function prepareIsolation() {
-			if (globalThis.crossOriginIsolated && typeof SharedArrayBuffer !== 'undefined') return;
+			const alreadyIsolated = globalThis.crossOriginIsolated && typeof SharedArrayBuffer !== 'undefined';
 			if (!('serviceWorker' in navigator) || !globalThis.isSecureContext) {
 				setStatus(copy.unsupported, 'error');
 				return;
 			}
 
-			setStatus(copy.isolation, 'info');
-			const base = import.meta.env.BASE_URL;
-			const registration = await navigator.serviceWorker.register(`${base}whisper-coi-serviceworker.js`, { scope: base });
-			await navigator.serviceWorker.ready;
-			if (registration.active) location.reload();
+			if (!alreadyIsolated) setStatus(copy.isolation, 'info');
+			const ready = await ensureWhisperIsolation(import.meta.env.BASE_URL);
+			if (!ready) location.reload();
+			else if (!fileInput.files?.[0]) setStatus(copy.waiting, 'info');
 		}
 
 		async function generateSubtitles() {
@@ -160,26 +161,20 @@ const copyJson = JSON.stringify(copy);
 				setStatus(copy.decoding, 'info');
 				const audio = await decodeAudioFile(file);
 				if (audio.length > 30 * 60 * 16_000) throw new Error(copy.tooLong);
-				const logLines = [];
-
-				if (!runtime) {
+				if (!transcriber) {
 					setStatus(copy.runtime, 'info');
-					runtime = await createWhisperRuntime((line) => logLines.push(String(line)));
-				}
-
-				if (!modelLoaded) {
-					const bytes = await fetchWhisperModel((received, total, cached) => {
+					transcriber = createWhisperTranscriber({
+						workerUrl: `${import.meta.env.BASE_URL}whisper-transcription-worker.js`,
+						onProgress: (received, total, cached) => {
 						const progress = Math.min(100, Math.round(received / total * 100));
 						setStatus(format(cached ? copy.modelCached : copy.model, { progress }), 'info');
+						},
+						onPhase: (phase) => { if (phase === 'transcribing') setStatus(copy.transcribing, 'info'); },
 					});
-					runtime.FS_createDataFile('/', 'whisper.bin', bytes, true, true);
-					if (!runtime.init('whisper.bin')) throw new Error(copy.generic);
-					modelLoaded = true;
 				}
 
 				setStatus(copy.transcribing, 'info');
-				const result = runtime.full_default(audio, language.value, task.value === 'translate');
-				if (result !== 0) throw new Error(`whisper.cpp exited with code ${result}`);
+				const logLines = await transcriber.transcribe(audio, language.value, task.value === 'translate');
 				const cues = parseWhisperLog(logLines);
 				if (!cues.length) throw new Error(copy.noCues);
 
@@ -188,6 +183,7 @@ const copyJson = JSON.stringify(copy);
 				preview.value = srt;
 				srtUrl = updateDownload(downloadSrt, srtUrl, srt, whisperSubtitleOutputName(file.name, 'srt'), 'application/x-subrip');
 				vttUrl = updateDownload(downloadVtt, vttUrl, vtt, whisperSubtitleOutputName(file.name, 'vtt'), 'text/vtt');
+				resultPanel.hidden = false;
 				setStatus(format(copy.ready, { count: cues.length }), 'success');
 			} catch (error) {
 				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
@@ -219,6 +215,7 @@ const copyJson = JSON.stringify(copy);
 			fileName.textContent = copy.choose;
 			fileMeta.textContent = copy.hint;
 			generate.disabled = true;
+			resultPanel.hidden = true;
 			hideDownloads();
 			setStatus(copy.waiting, 'info');
 		}
@@ -233,6 +230,7 @@ const copyJson = JSON.stringify(copy);
 <style>
 	.whisper-tool { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 	.whisper-result { grid-column: 1 / -1; }
+	.whisper-tool [hidden] { display: none !important; }
 	.whisper-tool audio { width: 100%; margin-top: 14px; }
 	.whisper-preview-label { display: grid; gap: 8px; font-weight: 800; }
 	.whisper-preview-label textarea { box-sizing: border-box; width: 100%; padding: 12px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 6px; font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; resize: vertical; }

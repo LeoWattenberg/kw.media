@@ -119,7 +119,7 @@ Follow the current pattern:
 2. Add or update the rendering component in `src/components/tools/**`.
 3. Put reusable tool UI in `src/components/tools/shared/` only when more than one tool needs it.
 4. Put pure helper/runtime logic in `src/lib/tools/*.js`.
-5. Add or update focused tests in `tests/tools.test.js`.
+5. Add or update focused tests in `tests/`. Tests should be comprehensive for the feature that got added. 
 6. Use category subdirectories for category landing pages, such as `src/data/tools/converter/index.astro`.
 
 ## Testing Expectations

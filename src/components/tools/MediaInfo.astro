@@ -260,8 +260,8 @@ const copyJson = JSON.stringify(copy);
 		formatNumericBytes,
 		formatResolution,
 		formatSamplingRate,
-		normalizeResult,
 	} from '../../lib/tools/media-info';
+	import { analyzeMediaFile, loadMediaInfo as loadSharedMediaInfo } from '../../lib/tools/media-info-browser';
 
 	(() => {
 		const roots = document.querySelectorAll('[data-mediainfo-tool]:not([data-mediainfo-bound])');
@@ -327,23 +327,16 @@ const copyJson = JSON.stringify(copy);
 				try {
 					const mediaInfo = await loadMediaInfo();
 					setStatus(copy.statusAnalyzing, 'info');
-					const result = await mediaInfo.analyzeData(state.selectedFile.size, readChunk);
-					const report = normalizeResult(result);
+					const report = await analyzeMediaFile(state.selectedFile, mediaInfo);
 					renderSummary(buildSummary(state.selectedFile, report));
 					renderTracks(report.media && Array.isArray(report.media.track) ? report.media.track : []);
 					updateDownload(report);
 					setStatus(copy.statusReady, 'success');
 				} catch (error) {
 					setStatus(format(copy.statusError, { message: messageFromError(error, copy.statusGeneric) }), 'error');
-					throw error;
 				} finally {
 					analyzeButton.disabled = !state.selectedFile;
 				}
-			}
-
-			async function readChunk(chunkSize, offset) {
-				const buffer = await state.selectedFile.slice(offset, offset + chunkSize).arrayBuffer();
-				return new Uint8Array(buffer);
 			}
 
 			async function loadMediaInfo() {
@@ -357,8 +350,7 @@ const copyJson = JSON.stringify(copy);
 
 				state.mediaInfoPromise = (async () => {
 					setStatus(copy.statusLoading, 'info');
-					const factory = await loadMediaInfoFactory();
-					const mediaInfo = await withTimeout(factory({ format: 'object' }), 90000, copy.statusTimeout);
+					const mediaInfo = await withTimeout(loadSharedMediaInfo(), 90000, copy.statusTimeout);
 					state.mediaInfo = mediaInfo;
 					return mediaInfo;
 				})().catch((error) => {
@@ -367,63 +359,6 @@ const copyJson = JSON.stringify(copy);
 				});
 
 				return state.mediaInfoPromise;
-			}
-
-			async function loadMediaInfoFactory() {
-				const existingFactory = getMediaInfoFactory();
-				if (existingFactory) {
-					return existingFactory;
-				}
-
-				await loadScript('https://unpkg.com/mediainfo.js@0.3.5');
-				const factory = getMediaInfoFactory();
-
-				if (!factory) {
-					throw new Error('MediaInfo factory was not found on window.');
-				}
-
-				return factory;
-			}
-
-			function getMediaInfoFactory() {
-				const candidate = window.MediaInfo || window.mediaInfoFactory || window.MediaInfoFactory;
-
-				if (typeof candidate === 'function') {
-					return candidate;
-				}
-
-				if (candidate && typeof candidate.default === 'function') {
-					return candidate.default;
-				}
-
-				return null;
-			}
-
-			function loadScript(src) {
-				return new Promise((resolve, reject) => {
-					const existing = document.querySelector(`script[src="${src}"]`);
-
-					if (existing && existing.dataset.loaded === 'true') {
-						resolve();
-						return;
-					}
-
-					if (existing) {
-						existing.addEventListener('load', resolve, { once: true });
-						existing.addEventListener('error', () => reject(new Error(src)), { once: true });
-						return;
-					}
-
-					const script = document.createElement('script');
-					script.src = src;
-					script.async = true;
-					script.addEventListener('load', () => {
-						script.dataset.loaded = 'true';
-						resolve();
-					}, { once: true });
-					script.addEventListener('error', () => reject(new Error(src)), { once: true });
-					document.head.appendChild(script);
-				});
 			}
 
 			function buildBasicSummary(file) {

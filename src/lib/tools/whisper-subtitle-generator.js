@@ -2,10 +2,78 @@ import { toSrt, toVtt } from './offline-subtitle-studio.js';
 
 export const WHISPER_RUNTIME_URL = 'https://cdn.jsdelivr.net/npm/whisper.cpp@1.0.3/whisper.js';
 export const WHISPER_WORKER_URL = 'https://cdn.jsdelivr.net/npm/whisper.cpp@1.0.3/libwhisper.worker.js';
-export const WHISPER_MODEL_URL = 'https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-tiny.bin';
-export const WHISPER_MODEL_SIZE = 77_691_713;
+export const WHISPER_MODEL_URL = 'https://huggingface.co/ggerganov/whisper.cpp/resolve/5359861c739e955e79d9a303bcbc70fb988958b1/ggml-base-q5_1.bin';
+export const WHISPER_MODEL_SIZE = 59_707_625;
 
-let runtimeAssetsPromise;
+export function createWhisperTranscriber({ workerUrl, onLog = () => {}, onProgress = () => {}, onPhase = () => {} } = {}) {
+	if (typeof Worker === 'undefined') throw new Error('Web Workers are not supported in this browser.');
+	const worker = new Worker(workerUrl || '/whisper-transcription-worker.js');
+	const pending = new Map();
+	let requestId = 0;
+
+	worker.addEventListener('message', ({ data }) => {
+		if (data.type === 'log') return onLog(data.line);
+		if (data.type === 'progress') return onProgress(data.received, data.total, data.cached);
+		if (data.type === 'phase') return onPhase(data.phase);
+		const request = pending.get(data.id);
+		if (!request) return;
+		pending.delete(data.id);
+		if (data.type === 'error') request.reject(new Error(data.message));
+		else request.resolve(data.lines);
+	});
+	worker.addEventListener('error', (event) => {
+		const error = new Error(event.message || 'The Whisper worker stopped unexpectedly.');
+		for (const request of pending.values()) request.reject(error);
+		pending.clear();
+	});
+
+	return {
+		transcribe(audio, language = 'auto', translate = false) {
+			const id = ++requestId;
+			const samples = audio instanceof Float32Array ? audio : new Float32Array(audio);
+			const result = new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
+			worker.postMessage({
+				type: 'transcribe', id, audio: samples, language, translate,
+				runtimeUrl: WHISPER_RUNTIME_URL, pthreadWorkerUrl: WHISPER_WORKER_URL,
+				modelUrl: WHISPER_MODEL_URL, modelSize: WHISPER_MODEL_SIZE,
+			}, [samples.buffer]);
+			return result;
+		},
+		dispose() {
+			worker.terminate();
+			for (const request of pending.values()) request.reject(new Error('The Whisper worker was disposed.'));
+			pending.clear();
+		},
+	};
+}
+
+export async function ensureWhisperIsolation(baseUrl = '/') {
+	if (!('serviceWorker' in navigator) || !globalThis.isSecureContext) return false;
+	const scriptUrl = new URL(`${baseUrl}whisper-coi-serviceworker.js`, location.origin).href;
+	const scope = new URL('.', location.href).href;
+	const registrations = await navigator.serviceWorker.getRegistrations();
+	await Promise.all(registrations
+		.filter((registration) => {
+			const activeScript = registration.active?.scriptURL || registration.waiting?.scriptURL || registration.installing?.scriptURL;
+			return activeScript === scriptUrl && registration.scope !== scope;
+		})
+		.map((registration) => registration.unregister()));
+	const registration = await navigator.serviceWorker.register(scriptUrl, { scope: new URL(scope).pathname });
+	await waitForServiceWorker(registration);
+	return globalThis.crossOriginIsolated && typeof SharedArrayBuffer !== 'undefined';
+}
+
+function waitForServiceWorker(registration) {
+	if (registration.active) return Promise.resolve();
+	const worker = registration.installing || registration.waiting;
+	if (!worker) return Promise.resolve();
+	return new Promise((resolve, reject) => {
+		worker.addEventListener('statechange', () => {
+			if (worker.state === 'activated') resolve();
+			if (worker.state === 'redundant') reject(new Error('The isolation service worker could not be activated.'));
+		});
+	});
+}
 
 export function parseWhisperLog(lines) {
 	const cues = [];
@@ -70,101 +138,6 @@ export async function decodeAudioFile(file) {
 	} finally {
 		await context.close();
 	}
-}
-
-export async function fetchWhisperModel(onProgress = () => {}) {
-	const cache = 'caches' in globalThis ? await caches.open('kwm-whisper-models-v1') : null;
-	let response = cache ? await cache.match(WHISPER_MODEL_URL) : null;
-	const cached = Boolean(response);
-
-	if (!response) {
-		response = await fetch(WHISPER_MODEL_URL, { mode: 'cors' });
-		if (!response.ok) throw new Error(`Model download failed (${response.status}).`);
-		if (cache) void cache.put(WHISPER_MODEL_URL, response.clone()).catch(() => {});
-	}
-
-	const total = Number(response.headers.get('content-length')) || WHISPER_MODEL_SIZE;
-	if (!response.body) {
-		const bytes = new Uint8Array(await response.arrayBuffer());
-		onProgress(bytes.length, total, cached);
-		return bytes;
-	}
-
-	const reader = response.body.getReader();
-	const chunks = [];
-	let received = 0;
-
-	while (true) {
-		const { done, value } = await reader.read();
-		if (done) break;
-		chunks.push(value);
-		received += value.length;
-		onProgress(received, total, cached);
-	}
-
-	const bytes = new Uint8Array(received);
-	let offset = 0;
-	for (const chunk of chunks) {
-		bytes.set(chunk, offset);
-		offset += chunk.length;
-	}
-	return bytes;
-}
-
-export async function createWhisperRuntime(onLog = () => {}) {
-	if (!globalThis.crossOriginIsolated || typeof SharedArrayBuffer === 'undefined') {
-		throw new Error('The threaded whisper.cpp runtime requires cross-origin isolation.');
-	}
-
-	const assets = await loadRuntimeAssets();
-	const module = await globalThis.whisper_factory({
-		print: onLog,
-		printErr: onLog,
-		locateFile: (name) => name === 'libwhisper.worker.js' ? assets.workerUrl : name,
-		mainScriptUrlOrBlob: assets.scriptBlob,
-	});
-
-	return module;
-}
-
-async function loadRuntimeAssets() {
-	if (!runtimeAssetsPromise) {
-		runtimeAssetsPromise = (async () => {
-			const [scriptResponse, workerResponse] = await Promise.all([
-				fetch(WHISPER_RUNTIME_URL, { mode: 'cors' }),
-				fetch(WHISPER_WORKER_URL, { mode: 'cors' }),
-			]);
-			if (!scriptResponse.ok || !workerResponse.ok) throw new Error('The whisper.cpp CDN runtime could not be loaded.');
-
-			const [scriptSource, workerSource] = await Promise.all([scriptResponse.text(), workerResponse.text()]);
-			const scriptBlob = new Blob([scriptSource], { type: 'text/javascript' });
-			const workerUrl = URL.createObjectURL(new Blob([workerSource], { type: 'text/javascript' }));
-
-			if (typeof globalThis.whisper_factory !== 'function') {
-				const scriptUrl = URL.createObjectURL(scriptBlob);
-				try {
-					await loadClassicScript(scriptUrl);
-				} finally {
-					URL.revokeObjectURL(scriptUrl);
-				}
-			}
-
-			if (typeof globalThis.whisper_factory !== 'function') throw new Error('The whisper.cpp factory is unavailable.');
-			return { scriptBlob, workerUrl };
-		})();
-	}
-
-	return runtimeAssetsPromise;
-}
-
-function loadClassicScript(url) {
-	return new Promise((resolve, reject) => {
-		const script = document.createElement('script');
-		script.src = url;
-		script.onload = () => { script.remove(); resolve(); };
-		script.onerror = () => { script.remove(); reject(new Error('The whisper.cpp script could not be evaluated.')); };
-		document.head.appendChild(script);
-	});
 }
 
 function parseTimestamp(value) {

@@ -100,7 +100,7 @@ const copyJson = JSON.stringify(copy);
 	import { offsetCues, parseCues, toSrt, toVtt } from '../../lib/tools/offline-subtitle-studio';
 	import { buildSubtitleAss, subtitleBurnerArgs } from '../../lib/tools/subtitle-burner';
 	import { softSubtitleArgs, subtitleStudioMime, subtitleStudioOutputName } from '../../lib/tools/subtitle-studio';
-	import { createWhisperRuntime, decodeAudioFile, fetchWhisperModel, parseWhisperLog, renderWhisperSubtitles } from '../../lib/tools/whisper-subtitle-generator';
+	import { createWhisperTranscriber, decodeAudioFile, ensureWhisperIsolation, parseWhisperLog, renderWhisperSubtitles } from '../../lib/tools/whisper-subtitle-generator';
 
 	for (const root of document.querySelectorAll('[data-combined-subtitle-studio]:not([data-bound])')) {
 		root.dataset.bound = 'true';
@@ -112,7 +112,7 @@ const copyJson = JSON.stringify(copy);
 		const applyMode = root.querySelector('[data-apply-mode]'); const softSettings = root.querySelector('[data-soft-settings]'); const hardSettings = root.querySelector('[data-hard-settings]'); const container = root.querySelector('[data-container]');
 		const display = root.querySelector('[data-display]'); const position = root.querySelector('[data-position]'); const fontSize = root.querySelector('[data-font-size]'); const fontSizeLabel = root.querySelector('[data-font-size-label]'); const margin = root.querySelector('[data-margin]'); const marginLabel = root.querySelector('[data-margin-label]');
 		const apply = root.querySelector('[data-apply]'); const reset = root.querySelector('[data-reset]'); const status = root.querySelector('[data-status]'); const result = root.querySelector('[data-result]'); const downloadSubtitles = root.querySelector('[data-download-subtitles]'); const downloadMedia = root.querySelector('[data-download-media]');
-		let mediaUrl = null; let subtitleUrl = null; let outputUrl = null; let whisper = null; let whisperModelLoaded = false; const whisperLogs = [];
+		let mediaUrl = null; let subtitleUrl = null; let outputUrl = null; let whisper = null;
 		const ffmpegRuntime = createFfmpegRuntime({ timeoutMessage: copy.timeout, onLoading: () => setStatus(copy.loading, 'info'), onReady: () => setStatus(copy.ffmpegReady, 'success'), onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info') });
 
 		mediaInput.addEventListener('change', selectMedia); subtitleInput.addEventListener('change', () => void selectSubtitles()); text.addEventListener('input', updateCues); inputFormat.addEventListener('change', updateCues);
@@ -135,18 +135,16 @@ const copyJson = JSON.stringify(copy);
 		function updateMode() { const hard = applyMode.value === 'hard'; softSettings.hidden = hard; hardSettings.hidden = !hard; }
 
 		async function prepareIsolation() {
-			if (globalThis.crossOriginIsolated && typeof SharedArrayBuffer !== 'undefined') return;
 			if (!('serviceWorker' in navigator) || !globalThis.isSecureContext) { setStatus(copy.unsupported, 'error'); return; }
-			setStatus(copy.isolation, 'info'); const base = import.meta.env.BASE_URL; const registration = await navigator.serviceWorker.register(`${base}whisper-coi-serviceworker.js`, { scope: base }); await navigator.serviceWorker.ready; if (registration.active) location.reload();
+			setStatus(copy.isolation, 'info'); if (!await ensureWhisperIsolation(import.meta.env.BASE_URL)) location.reload();
 		}
 
 		async function generateSubtitles() {
 			const file = mediaInput.files?.[0]; if (!file) return; generate.disabled = true;
 			try {
-				setStatus(copy.decoding, 'info'); const audio = await decodeAudioFile(file); if (audio.length > 30 * 60 * 16_000) throw new Error(copy.tooLong); whisperLogs.length = 0;
-				if (!whisper) { setStatus(copy.runtime, 'info'); whisper = await createWhisperRuntime((line) => whisperLogs.push(String(line))); }
-				if (!whisperModelLoaded) { const bytes = await fetchWhisperModel((received, total, cached) => setStatus(format(cached ? copy.modelCached : copy.model, { progress: Math.min(100, Math.round(received / total * 100)) }), 'info')); whisper.FS_createDataFile('/', 'whisper.bin', bytes, true, true); if (!whisper.init('whisper.bin')) throw new Error(copy.generic); whisperModelLoaded = true; }
-				setStatus(copy.transcribing, 'info'); const code = whisper.full_default(audio, language.value, task.value === 'translate'); if (code !== 0) throw new Error(`whisper.cpp exited with code ${code}`); const cues = parseWhisperLog(whisperLogs); if (!cues.length) throw new Error(copy.noCues);
+				setStatus(copy.decoding, 'info'); const audio = await decodeAudioFile(file); if (audio.length > 30 * 60 * 16_000) throw new Error(copy.tooLong);
+				if (!whisper) { setStatus(copy.runtime, 'info'); whisper = createWhisperTranscriber({ workerUrl: `${import.meta.env.BASE_URL}whisper-transcription-worker.js`, onProgress: (received, total, cached) => setStatus(format(cached ? copy.modelCached : copy.model, { progress: Math.min(100, Math.round(received / total * 100)) }), 'info'), onPhase: (phase) => { if (phase === 'transcribing') setStatus(copy.transcribing, 'info'); } }); }
+				setStatus(copy.transcribing, 'info'); const whisperLogs = await whisper.transcribe(audio, language.value, task.value === 'translate'); const cues = parseWhisperLog(whisperLogs); if (!cues.length) throw new Error(copy.noCues);
 				text.value = renderWhisperSubtitles(whisperLogs, 'srt'); inputFormat.value = 'auto'; updateCues();
 			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); } finally { generate.disabled = !mediaInput.files?.[0] || !globalThis.crossOriginIsolated; }
 		}

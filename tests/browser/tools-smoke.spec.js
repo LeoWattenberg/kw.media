@@ -1,4 +1,7 @@
 import { expect, test } from '@playwright/test';
+import { fileURLToPath } from 'node:url';
+
+const referenceFile = (name) => fileURLToPath(new URL(`../../reference/${name}`, import.meta.url));
 
 const imageFixture = {
 	name: 'fixture.png',
@@ -133,6 +136,19 @@ test.describe('visual tool interactions', () => {
 		expect(errors).toEqual([]);
 	});
 
+	test('Document converter converts the real ODT fixture in the browser', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		await page.goto('/en/tools/converter/document-converter/');
+		await page.locator('[data-file-input]').setInputFiles(referenceFile('legal document.odt'));
+		await page.locator('[data-profile-select]').selectOption('html');
+		await page.locator('[data-process]').click();
+
+		await expect(page.locator('[data-status]')).toContainText('successfully', { timeout: 30000 });
+		await expect(page.locator('[data-download]')).toHaveAttribute('download', /legal document\.html$/);
+		await expect(page.locator('[data-html-preview]')).toBeVisible();
+		expect(errors).toEqual([]);
+	});
+
 	test('Whisper subtitle generator prepares its isolated WebAssembly workspace', async ({ page }) => {
 		const errors = collectClientErrors(page);
 		await page.goto('/en/tools/whisper-subtitle-generator/');
@@ -141,6 +157,9 @@ test.describe('visual tool interactions', () => {
 
 		expect(await page.evaluate(() => globalThis.crossOriginIsolated)).toBe(true);
 		await expect(page.locator('[data-whisper-subtitle-generator]')).toBeVisible();
+		await page.goto('/en/tools/');
+		await expect(page.locator('.tool-folder-grid')).toBeVisible();
+		await page.waitForTimeout(250);
 		expect(errors).toEqual([]);
 	});
 
@@ -208,15 +227,67 @@ test.describe('visual tool interactions', () => {
 		expect(errors).toEqual([]);
 	});
 
-	test('Face/Object Redactor loads an image onto its canvas without detection', async ({ page }) => {
+	test('Face/Object Redactor detects a face immediately with the CPU delegate', async ({ page }) => {
 		const errors = collectClientErrors(page);
 		await page.goto('/en/tools/face-object-redactor/');
 
-		await page.locator('[data-file]').setInputFiles(imageFixture);
+		await expect(page.locator('[data-result-panel]')).toBeHidden();
+		await page.locator('[data-file]').setInputFiles(referenceFile('face at angle.png'));
 
 		await expect(page.locator('[data-canvas]')).toBeVisible();
+		await expect(page.locator('[data-status]')).toContainText(/regions? detected|No regions detected/, { timeout: 30000 });
 		await expect(page.locator('[data-detect]')).toBeEnabled();
-		await expect(page.locator('[data-apply]')).toBeDisabled();
+		expect(errors).toEqual([]);
+	});
+
+	test('result panels stay hidden until their tools produce output', async ({ page }) => {
+		for (const path of [
+			'/en/tools/black-bar-remover/',
+			'/en/tools/face-object-redactor/',
+			'/en/tools/image-object-extractor/',
+			'/en/tools/metadata-remover/',
+			'/en/tools/whisper-subtitle-generator/',
+		]) {
+			await page.goto(path);
+			await expect(page.locator('[data-result-panel]')).toBeHidden();
+		}
+	});
+
+	test('MediaInfo analyzes the real MP4 and WebM fixtures', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		await page.goto('/en/tools/media-info/');
+
+		for (const name of ['greenscreen-video.mp4', 'greenscreen-video.webm']) {
+			await page.locator('[data-file-input]').setInputFiles(referenceFile(name));
+			await page.locator('[data-analyze]').click();
+			await expect(page.locator('[data-status]')).toContainText('Analysis complete', { timeout: 30000 });
+			await expect(page.locator('[data-tracks]')).toContainText('General');
+		}
+		expect(errors).toEqual([]);
+	});
+
+	test('Media Delivery Checker diagnoses a real media file', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		await page.goto('/en/tools/media-delivery-checker/');
+		await page.locator('[data-file]').setInputFiles(referenceFile('greenscreen-video.mp4'));
+		await page.locator('[data-analyze]').click();
+
+		await expect(page.locator('[data-status]')).toContainText('Diagnosis complete', { timeout: 30000 });
+		await expect(page.locator('[data-report]')).toContainText('greenscreen-video.mp4');
+		expect(errors).toEqual([]);
+	});
+
+	test('Metadata Remover preserves image format and compares metadata before and after', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		await page.goto('/en/tools/metadata-remover/');
+		await expect(page.locator('[data-image-format], [data-media-container]')).toHaveCount(0);
+		await page.locator('[data-file]').setInputFiles(referenceFile('profile photo.jpg'));
+		await expect(page.locator('[data-metadata-before]')).toContainText('media', { timeout: 30000 });
+		await page.locator('[data-scrub]').click();
+
+		await expect(page.locator('[data-result-panel]')).toBeVisible();
+		await expect(page.locator('[data-download]')).toHaveAttribute('download', /-scrubbed\.jpg$/);
+		await expect(page.locator('[data-metadata-after]')).toContainText('media', { timeout: 30000 });
 		expect(errors).toEqual([]);
 	});
 
@@ -280,6 +351,7 @@ function collectClientErrors(page) {
 
 	page.on('console', (message) => {
 		if (message.type() === 'error') {
+			if (message.text().startsWith('INFO: Created TensorFlow Lite XNNPACK delegate')) return;
 			const source = message.location().url;
 			errors.push(source ? `${message.text()} (${source})` : message.text());
 		}

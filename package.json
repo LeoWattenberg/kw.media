@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "test": "node --test",
+		"test": "node --test",
+		"test:coverage": "node --test --experimental-test-coverage --test-coverage-include='src/lib/tools/*.js' --test-coverage-lines=100 tests/*.test.js",
     "pretest:browser": "npm run build",
     "test:browser": "playwright test",
     "preview": "astro preview",
