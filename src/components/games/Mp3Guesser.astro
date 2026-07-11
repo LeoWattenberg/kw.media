@@ -231,6 +231,14 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 
 <script>
 	import { AudioTransport, formatAudioTime } from '../../lib/audio-transport';
+	import {
+		calculatePerfectOdds as calculateOddsForLevels,
+		escapeHtml,
+		formatDuration,
+		formatTemplate as format,
+		normalizeManifest,
+		storageKey as buildStorageKey,
+	} from '../../lib/games/mp3-guesser';
 
 	(() => {
 		const roots = document.querySelectorAll('[data-mp3-guesser]:not([data-mp3g-bound])');
@@ -312,7 +320,7 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 						throw new Error('Manifest has no playable levels');
 					}
 
-					state.manifest = normalizeManifest(manifest);
+					state.manifest = normalizeManifest(manifest, basePath);
 					showGame();
 					renderSource();
 					renderPreviousResult();
@@ -321,32 +329,6 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 					console.error(error);
 					showError();
 				}
-			}
-
-			function normalizeManifest(manifest) {
-				return {
-					...manifest,
-					levels: manifest.levels.map((level) => ({
-						...level,
-						options: level.options.map((option) => ({
-							...option,
-							url: resolveAssetUrl(option.url),
-						})),
-					})),
-				};
-			}
-
-			function resolveAssetUrl(url) {
-				if (!url || /^(https?:|data:|blob:)/.test(url)) {
-					return url;
-				}
-
-				if (!url.startsWith('/')) {
-					return url;
-				}
-
-				const normalizedBase = basePath.endsWith('/') ? basePath.slice(0, -1) : basePath;
-				return `${normalizedBase}${url}`;
 			}
 
 			function showGame() {
@@ -641,11 +623,11 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 					return 0;
 				}
 
-				return state.manifest.levels.reduce((odds, level) => odds * Math.max(1, level.options?.length || 0), 1);
+				return calculateOddsForLevels(state.manifest.levels);
 			}
 
 			function storageKey() {
-				return `kwm-mp3-guesser:${state.manifest?.date || 'unknown'}`;
+				return buildStorageKey(state.manifest?.date);
 			}
 
 			function readStoredResult() {
@@ -671,33 +653,6 @@ const mp3TesterPath = locale === 'de' ? '/de/tools/mp3-quality-tester/' : '/en/t
 				}
 			}
 
-			function format(template, values) {
-				return Object.entries(values).reduce(
-					(result, [key, value]) => result.replaceAll(`{${key}}`, value),
-					template,
-				);
-			}
-
-			function formatDuration(value) {
-				const seconds = Math.max(0, Math.round(Number(value) || 0));
-				const minutes = Math.floor(seconds / 60);
-				const remainder = seconds % 60;
-
-				if (!minutes) {
-					return `${remainder}s`;
-				}
-
-				return `${minutes}:${String(remainder).padStart(2, '0')}`;
-			}
-
-			function escapeHtml(value) {
-				return String(value)
-					.replaceAll('&', '&amp;')
-					.replaceAll('<', '&lt;')
-					.replaceAll('>', '&gt;')
-					.replaceAll('"', '&quot;')
-					.replaceAll("'", '&#039;');
-			}
 		}
 	})();
 </script>
