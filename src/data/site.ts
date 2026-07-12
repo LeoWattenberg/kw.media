@@ -56,8 +56,4 @@ export const socialLinks = [
 		label: 'LinkedIn',
 		href: 'https://www.linkedin.com/company/kwmediaug',
 	},
-	{
-		label: 'X',
-		href: 'https://x.com/kwmediaUG',
-	},
 ];
