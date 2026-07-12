@@ -1,0 +1,822 @@
+---
+import type { Locale } from '../../i18n';
+import ToolIntro from './shared/ToolIntro.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copyByLocale = {
+	de: {
+		eyebrow: 'Mehrspur-Audio lokal bearbeiten',
+		title: 'Audio Editor & Analyzer',
+		intro: 'Nimm Audio auf, schneide mehrere Spuren nondestruktiv, mische Effekte und prüfe Lautheit und Spektrum.',
+		privacy: 'Deine Aufnahmen, Projekte und Audiodateien bleiben auf diesem Gerät und werden ausschließlich in deinem Browser verarbeitet.',
+		project: 'Projekt',
+		untitledProject: 'Unbenanntes Projekt',
+		newProject: 'Neues Projekt',
+		openProject: 'Projekte öffnen',
+		renameProject: 'Projekt umbenennen',
+		duplicateProject: 'Projekt duplizieren',
+		deleteProject: 'Projekt löschen',
+		clearData: 'Alle lokalen Editordaten löschen',
+		importAudio: 'Audio importieren',
+		importHint: 'WAV, MP3, FLAC, Opus, OGG, M4A, AIFF oder WebM',
+		localProject: 'Lokal auf diesem Gerät',
+		projectSaved: 'Alle Änderungen lokal gespeichert',
+		projectSaving: 'Projekt wird gespeichert…',
+		projectDirty: 'Nicht gespeicherte Änderungen',
+		storage: 'Lokaler Speicher',
+		editControls: 'Bearbeitungswerkzeuge',
+		undo: 'Rückgängig',
+		redo: 'Wiederholen',
+		cut: 'Ausschneiden',
+		copy: 'Kopieren',
+		paste: 'Einfügen',
+		split: 'An Abspielposition teilen',
+		liftDelete: 'Löschen und Lücke behalten',
+		rippleDelete: 'Löschen und Lücke schließen',
+		transport: 'Wiedergabe und Aufnahme',
+		jumpStart: 'Zum Projektanfang',
+		rewind: 'Fünf Sekunden zurück',
+		play: 'Abspielen',
+		pause: 'Pause',
+		stop: 'Stopp',
+		forward: 'Fünf Sekunden vor',
+		jumpEnd: 'Zum Projektende',
+		loop: 'Auswahl wiederholen',
+		record: 'Auf der aktivierten Spur aufnehmen',
+		monitor: 'Eingang mithören',
+		monitorWarning: 'Nutze beim Mithören Kopfhörer, um Rückkopplungen zu vermeiden.',
+		inputLevel: 'Eingangspegel',
+		latencyOffset: 'Aufnahmeversatz (ms)',
+		playhead: 'Abspielposition',
+		selection: 'Zeitauswahl',
+		zoomControls: 'Timeline-Ansicht',
+		zoomOut: 'Verkleinern',
+		zoomIn: 'Vergrößern',
+		zoomFit: 'Projekt einpassen',
+		addTrack: 'Spur hinzufügen',
+		tracks: 'Spuren',
+		timeline: 'Timeline',
+		timelineHint: 'Ziehe Clips zum Verschieben. Ziehe die Ränder zum Trimmen. Ziehe im Lineal für eine Zeitauswahl.',
+		emptyTitle: 'Starte mit Audio oder einer Aufnahme',
+		emptyText: 'Importiere eine oder mehrere Dateien oder füge eine Spur hinzu und aktiviere sie für die Aufnahme.',
+		track: 'Spur',
+		trackName: 'Spurname',
+		mute: 'Stumm',
+		solo: 'Solo',
+		arm: 'Für Aufnahme aktivieren',
+		trackMenu: 'Spuroptionen',
+		gain: 'Verstärkung',
+		pan: 'Panorama',
+		center: 'Mitte',
+		clip: 'Clip',
+		effects: 'Effekte',
+		analysis: 'Analyse',
+		export: 'Export',
+		closeInspector: 'Inspector schließen',
+		openInspector: 'Inspector öffnen',
+		noClipSelected: 'Wähle einen Clip aus, um Start, Länge, Fades und Verstärkung präzise zu bearbeiten.',
+		clipName: 'Clipname',
+		clipStart: 'Start',
+		clipIn: 'Quellanfang',
+		clipDuration: 'Länge',
+		frames: 'Frames',
+		clipGain: 'Clip-Verstärkung',
+		fadeIn: 'Einblendung',
+		fadeOut: 'Ausblendung',
+		reverse: 'Rückwärts',
+		normalizePeak: 'Auf −1 dBFS normalisieren',
+		normalizeLufs: 'Auf −14 LUFS normalisieren',
+		effectTarget: 'Effektziel',
+		selectedTrack: 'Ausgewählte Spur',
+		master: 'Master',
+		masterGain: 'Master-Verstärkung',
+		addEffect: 'Effekt hinzufügen',
+		chooseEffect: 'Effekt auswählen',
+		highPass: 'Hochpass',
+		lowPass: 'Tiefpass',
+		parametricEq: 'Parametrischer 4-Band-EQ',
+		compressor: 'Kompressor',
+		limiter: 'Limiter',
+		gate: 'Gate',
+		reverb: 'Hall',
+		delay: 'Delay',
+		effectRackEmpty: 'Noch keine Effekte. Die Reihenfolge im Rack bestimmt den Signalfluss.',
+		bypass: 'Effekt umgehen',
+		moveEffectUp: 'Effekt nach oben',
+		moveEffectDown: 'Effekt nach unten',
+		removeEffect: 'Effekt entfernen',
+		metering: 'Live-Metering',
+		peak: 'Peak',
+		truePeak: 'True Peak (Schätzung)',
+		rms: 'RMS',
+		lufsMomentary: 'LUFS · M',
+		lufsShort: 'LUFS · S',
+		lufsIntegrated: 'LUFS · I',
+		lra: 'LRA',
+		correlation: 'Korrelation',
+		clipping: 'Clipping',
+		spectrum: 'Frequenzspektrum',
+		spectrogram: 'Spektrogramm',
+		analyzeTrack: 'Spur analysieren',
+		analyzeMaster: 'Master analysieren',
+		analyzeHint: 'Die Analyse verwendet die aktuelle Auswahl oder das gesamte Projekt und berücksichtigt alle aktiven Effekte. True Peak ist bis zum Abschluss der Referenzvektor-Prüfung als Schätzung gekennzeichnet.',
+		exportMode: 'Ausgabe',
+		mix: 'Stereomix',
+		stems: 'Einzelspuren (ZIP)',
+		exportRange: 'Bereich',
+		entireProject: 'Gesamtes Projekt',
+		currentSelection: 'Aktuelle Auswahl',
+		format: 'Format',
+		bitDepth: 'Bittiefe',
+		quality: 'Qualität',
+		sampleRate: 'Samplerate',
+		includeTails: 'Effektfahnen bis 10 Sekunden einbeziehen',
+		startExport: 'Export starten',
+		cancelExport: 'Export abbrechen',
+		exportHint: 'Der Browser rendert zuerst den Audiomix. FFmpeg wird nur für komprimierte Formate bei Bedarf geladen.',
+		projectsTitle: 'Lokale Projekte',
+		projectsDescription: 'Projekte sind nur in diesem Browserprofil verfügbar.',
+		close: 'Schließen',
+		noProjects: 'Noch keine gespeicherten Projekte.',
+		lastEdited: 'Zuletzt bearbeitet',
+		open: 'Öffnen',
+		projectName: 'Projektname',
+		saveName: 'Namen speichern',
+		cancel: 'Abbrechen',
+		deleteTitle: 'Projekt wirklich löschen?',
+		deleteDescription: 'Das Projekt wird zusammen mit nicht mehr verwendeten lokalen Audiodaten entfernt. Dies kann nicht rückgängig gemacht werden.',
+		confirmDelete: 'Endgültig löschen',
+		ready: 'Editor bereit. Erstelle ein Projekt oder importiere Audio.',
+		loading: 'Projekt wird geladen…',
+		importing: 'Audio wird lokal importiert und dekodiert…',
+		recording: 'Aufnahme läuft…',
+		rendering: 'Audio wird im Browser gerendert…',
+		encoding: 'Export wird kodiert…',
+		done: 'Fertig.',
+		genericError: 'Die Aktion ist fehlgeschlagen: {message}',
+		keyboardHelp: 'Leertaste: Wiedergabe · R: Aufnahme · S: Teilen · Entf: Löschen · Strg/Cmd + Z: Rückgängig',
+	},
+	en: {
+		eyebrow: 'Local multitrack audio editing',
+		title: 'Audio Editor & Analyzer',
+		intro: 'Record audio, edit multiple tracks nondestructively, mix effects, and inspect loudness and frequency content.',
+		privacy: 'Your recordings, projects, and audio files stay on this device and are processed entirely in your browser.',
+		project: 'Project',
+		untitledProject: 'Untitled project',
+		newProject: 'New project',
+		openProject: 'Open projects',
+		renameProject: 'Rename project',
+		duplicateProject: 'Duplicate project',
+		deleteProject: 'Delete project',
+		clearData: 'Clear all local editor data',
+		importAudio: 'Import audio',
+		importHint: 'WAV, MP3, FLAC, Opus, OGG, M4A, AIFF, or WebM',
+		localProject: 'Local to this device',
+		projectSaved: 'All changes saved locally',
+		projectSaving: 'Saving project…',
+		projectDirty: 'Unsaved changes',
+		storage: 'Local storage',
+		editControls: 'Editing tools',
+		undo: 'Undo',
+		redo: 'Redo',
+		cut: 'Cut',
+		copy: 'Copy',
+		paste: 'Paste',
+		split: 'Split at playhead',
+		liftDelete: 'Delete and leave gap',
+		rippleDelete: 'Delete and close gap',
+		transport: 'Playback and recording',
+		jumpStart: 'Jump to project start',
+		rewind: 'Back five seconds',
+		play: 'Play',
+		pause: 'Pause',
+		stop: 'Stop',
+		forward: 'Forward five seconds',
+		jumpEnd: 'Jump to project end',
+		loop: 'Loop selection',
+		record: 'Record onto the armed track',
+		monitor: 'Monitor input',
+		monitorWarning: 'Use headphones while monitoring to prevent feedback.',
+		inputLevel: 'Input level',
+		latencyOffset: 'Recording offset (ms)',
+		playhead: 'Playhead',
+		selection: 'Time selection',
+		zoomControls: 'Timeline view',
+		zoomOut: 'Zoom out',
+		zoomIn: 'Zoom in',
+		zoomFit: 'Fit project',
+		addTrack: 'Add track',
+		tracks: 'Tracks',
+		timeline: 'Timeline',
+		timelineHint: 'Drag clips to move them. Drag their edges to trim. Drag in the ruler to create a time selection.',
+		emptyTitle: 'Start with audio or a recording',
+		emptyText: 'Import one or more files, or add a track and arm it for recording.',
+		track: 'Track',
+		trackName: 'Track name',
+		mute: 'Mute',
+		solo: 'Solo',
+		arm: 'Arm for recording',
+		trackMenu: 'Track options',
+		gain: 'Gain',
+		pan: 'Pan',
+		center: 'Center',
+		clip: 'Clip',
+		effects: 'Effects',
+		analysis: 'Analysis',
+		export: 'Export',
+		closeInspector: 'Close inspector',
+		openInspector: 'Open inspector',
+		noClipSelected: 'Select a clip to edit its start, length, fades, and gain precisely.',
+		clipName: 'Clip name',
+		clipStart: 'Start',
+		clipIn: 'Source in',
+		clipDuration: 'Duration',
+		frames: 'Frames',
+		clipGain: 'Clip gain',
+		fadeIn: 'Fade in',
+		fadeOut: 'Fade out',
+		reverse: 'Reverse',
+		normalizePeak: 'Normalize to −1 dBFS',
+		normalizeLufs: 'Normalize to −14 LUFS',
+		effectTarget: 'Effect target',
+		selectedTrack: 'Selected track',
+		master: 'Master',
+		masterGain: 'Master gain',
+		addEffect: 'Add effect',
+		chooseEffect: 'Choose an effect',
+		highPass: 'High-pass filter',
+		lowPass: 'Low-pass filter',
+		parametricEq: 'Four-band parametric EQ',
+		compressor: 'Compressor',
+		limiter: 'Limiter',
+		gate: 'Gate',
+		reverb: 'Reverb',
+		delay: 'Delay',
+		effectRackEmpty: 'No effects yet. Rack order determines the signal flow.',
+		bypass: 'Bypass effect',
+		moveEffectUp: 'Move effect up',
+		moveEffectDown: 'Move effect down',
+		removeEffect: 'Remove effect',
+		metering: 'Live metering',
+		peak: 'Peak',
+		truePeak: 'True peak (estimated)',
+		rms: 'RMS',
+		lufsMomentary: 'LUFS · M',
+		lufsShort: 'LUFS · S',
+		lufsIntegrated: 'LUFS · I',
+		lra: 'LRA',
+		correlation: 'Correlation',
+		clipping: 'Clipping',
+		spectrum: 'Frequency spectrum',
+		spectrogram: 'Spectrogram',
+		analyzeTrack: 'Analyze track',
+		analyzeMaster: 'Analyze master',
+		analyzeHint: 'Analysis uses the current selection or entire project and includes all active effects. True peak remains labeled as an estimate until reference-vector validation is complete.',
+		exportMode: 'Output',
+		mix: 'Stereo mix',
+		stems: 'Individual stems (ZIP)',
+		exportRange: 'Range',
+		entireProject: 'Entire project',
+		currentSelection: 'Current selection',
+		format: 'Format',
+		bitDepth: 'Bit depth',
+		quality: 'Quality',
+		sampleRate: 'Sample rate',
+		includeTails: 'Include effect tails up to 10 seconds',
+		startExport: 'Start export',
+		cancelExport: 'Cancel export',
+		exportHint: 'The browser renders the audio mix first. FFmpeg only loads for compressed formats when needed.',
+		projectsTitle: 'Local projects',
+		projectsDescription: 'Projects are available only in this browser profile.',
+		close: 'Close',
+		noProjects: 'No saved projects yet.',
+		lastEdited: 'Last edited',
+		open: 'Open',
+		projectName: 'Project name',
+		saveName: 'Save name',
+		cancel: 'Cancel',
+		deleteTitle: 'Delete this project?',
+		deleteDescription: 'The project and any unreferenced local audio will be removed. This cannot be undone.',
+		confirmDelete: 'Delete permanently',
+		ready: 'Editor ready. Create a project or import audio.',
+		loading: 'Loading project…',
+		importing: 'Importing and decoding audio locally…',
+		recording: 'Recording…',
+		rendering: 'Rendering audio in your browser…',
+		encoding: 'Encoding export…',
+		done: 'Done.',
+		genericError: 'The action failed: {message}',
+		keyboardHelp: 'Space: play · R: record · S: split · Delete: remove · Ctrl/Cmd + Z: undo',
+	},
+} satisfies Record<Locale, Record<string, string>>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy);
+const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section audio-editor-section tool-workspace">
+	<div class="container audio-editor-container">
+		<div class="audio-editor" data-audio-editor data-copy={copyJson} data-locale={locale}>
+			<header class="project-bar" aria-label={copy.project}>
+				<div class="project-identity">
+					<span class="local-dot" aria-hidden="true"></span>
+					<div>
+						<span class="project-kicker">{copy.project}</span>
+						<strong data-project-name>{copy.untitledProject}</strong>
+					</div>
+					<span class="save-state" data-save-state data-state="saved">{copy.projectSaved}</span>
+				</div>
+
+				<div class="project-actions">
+					<button class="editor-button" type="button" data-project-action="new">{copy.newProject}</button>
+					<button class="editor-button" type="button" data-project-action="open">{copy.openProject}</button>
+					<button class="editor-button project-overflow" type="button" data-project-action="rename" title={copy.renameProject}>{copy.renameProject}</button>
+					<button class="editor-button project-overflow" type="button" data-project-action="duplicate" title={copy.duplicateProject}>{copy.duplicateProject}</button>
+					<button class="editor-button danger project-overflow" type="button" data-project-action="delete" title={copy.deleteProject}>{copy.deleteProject}</button>
+					<label class="editor-button primary import-button">
+						{copy.importAudio}
+						<input data-import-input type="file" accept="audio/*,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.webm" multiple />
+					</label>
+				</div>
+			</header>
+
+			<div class="control-deck">
+				<div class="button-strip edit-strip" role="group" aria-label={copy.editControls}>
+					<button class="deck-button" type="button" data-edit="undo" title={copy.undo} disabled><span aria-hidden="true">↶</span><span>{copy.undo}</span></button>
+					<button class="deck-button" type="button" data-edit="redo" title={copy.redo} disabled><span aria-hidden="true">↷</span><span>{copy.redo}</span></button>
+					<span class="strip-divider" aria-hidden="true"></span>
+					<button class="deck-button" type="button" data-edit="cut" title={copy.cut} disabled><span aria-hidden="true">✂</span><span>{copy.cut}</span></button>
+					<button class="deck-button" type="button" data-edit="copy" title={copy.copy} disabled><span aria-hidden="true">▣</span><span>{copy.copy}</span></button>
+					<button class="deck-button" type="button" data-edit="paste" title={copy.paste} disabled><span aria-hidden="true">▤</span><span>{copy.paste}</span></button>
+					<button class="deck-button" type="button" data-edit="split" title={copy.split} disabled><span aria-hidden="true">│</span><span>{copy.split}</span></button>
+					<button class="deck-button" type="button" data-edit="delete" title={copy.liftDelete} disabled><span aria-hidden="true">⌫</span><span>{copy.liftDelete}</span></button>
+					<button class="deck-button" type="button" data-edit="ripple-delete" title={copy.rippleDelete} disabled><span aria-hidden="true">⇤</span><span>{copy.rippleDelete}</span></button>
+				</div>
+
+				<div class="transport-strip" role="group" aria-label={copy.transport}>
+					<button class="transport-button" type="button" data-transport="jump-start" aria-label={copy.jumpStart} title={copy.jumpStart}>|◀</button>
+					<button class="transport-button" type="button" data-transport="rewind" aria-label={copy.rewind} title={copy.rewind}>−5</button>
+					<button class="transport-button main" type="button" data-transport="play" aria-label={copy.play} title={copy.play}><span data-play-icon aria-hidden="true">▶</span><span class="visually-hidden" data-play-label>{copy.play}</span></button>
+					<button class="transport-button" type="button" data-transport="stop" aria-label={copy.stop} title={copy.stop}>■</button>
+					<button class="transport-button" type="button" data-transport="forward" aria-label={copy.forward} title={copy.forward}>+5</button>
+					<button class="transport-button" type="button" data-transport="jump-end" aria-label={copy.jumpEnd} title={copy.jumpEnd}>▶|</button>
+					<button class="transport-button toggle" type="button" data-transport="loop" aria-label={copy.loop} title={copy.loop} aria-pressed="false">↻</button>
+					<button class="transport-button record" type="button" data-transport="record" aria-label={copy.record} title={copy.record} aria-pressed="false"><span aria-hidden="true"></span></button>
+				</div>
+
+				<div class="time-cluster">
+					<div class="time-readout">
+						<span>{copy.playhead}</span>
+						<output data-time-display aria-live="off">00:00:00.000</output>
+					</div>
+					<div class="input-cluster">
+						<label class="monitor-toggle"><input type="checkbox" data-monitor /> <span>{copy.monitor}</span></label>
+						<label class="latency-control"><span>{copy.latencyOffset}</span><input type="number" min="-500" max="500" step="1" value="0" data-latency-offset /></label>
+						<div class="input-meter" data-input-meter role="meter" aria-label={copy.inputLevel} aria-valuemin="-60" aria-valuemax="0" aria-valuenow="-60"><span data-input-meter-fill></span></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="editor-status-row">
+				<p class="editor-status" data-status data-state="info" role="status">{copy.ready}</p>
+				<p class="project-stat"><span>{copy.localProject}</span><span aria-hidden="true">·</span><span data-storage-usage>{copy.storage}: —</span></p>
+			</div>
+
+			<div class="editor-workspace">
+				<main class="timeline-panel" aria-labelledby={`timeline-heading-${locale}`}>
+					<div class="timeline-heading-row">
+						<div>
+							<h2 id={`timeline-heading-${locale}`}>{copy.timeline}</h2>
+							<p>{copy.timelineHint}</p>
+						</div>
+						<div class="timeline-actions">
+							<button class="editor-button" type="button" data-add-track>+ {copy.addTrack}</button>
+							<div class="zoom-strip" role="group" aria-label={copy.zoomControls}>
+								<button type="button" data-zoom="out" aria-label={copy.zoomOut} title={copy.zoomOut}>−</button>
+								<button type="button" data-zoom="fit" title={copy.zoomFit}>{copy.zoomFit}</button>
+								<button type="button" data-zoom="in" aria-label={copy.zoomIn} title={copy.zoomIn}>+</button>
+							</div>
+							<button class="inspector-launch" type="button" data-inspector-toggle aria-controls={`audio-editor-inspector-${locale}`} aria-expanded="false">{copy.openInspector}</button>
+						</div>
+					</div>
+
+					<div class="timeline-scroll" data-timeline tabindex="0" aria-label={copy.timeline}>
+						<div class="timeline-inner" data-timeline-inner>
+							<div class="ruler-row">
+								<div class="ruler-corner"><span>{copy.tracks}</span></div>
+								<div class="ruler" data-ruler>
+									<canvas data-ruler-canvas aria-hidden="true"></canvas>
+									<div class="selection-overlay" data-selection-overlay hidden></div>
+									<button class="ruler-playhead" type="button" role="slider" data-playhead aria-label={copy.playhead} aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" style="--playhead-x: 0px"><span></span></button>
+								</div>
+							</div>
+
+							<div class="track-list" data-track-list aria-label={copy.tracks}></div>
+							<div class="timeline-empty" data-empty-state>
+								<span class="empty-wave" aria-hidden="true">⌁⌁⌁</span>
+								<strong>{copy.emptyTitle}</strong>
+								<p>{copy.emptyText}</p>
+								<div>
+									<button class="editor-button primary" type="button" data-import-button>{copy.importAudio}</button>
+									<button class="editor-button" type="button" data-add-track>{copy.addTrack}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p class="keyboard-help">{copy.keyboardHelp}</p>
+				</main>
+
+				<aside class="inspector" id={`audio-editor-inspector-${locale}`} data-inspector data-open="false" aria-labelledby={`inspector-heading-${locale}`}>
+					<div class="inspector-topline">
+						<h2 id={`inspector-heading-${locale}`}>{copy.clip}</h2>
+						<button type="button" data-inspector-close aria-label={copy.closeInspector} title={copy.closeInspector}>×</button>
+					</div>
+					<div class="inspector-tabs" role="tablist" aria-label={copy.openInspector}>
+						{tabIds.map((tab, index) => (
+							<button
+								type="button"
+								role="tab"
+								id={`inspector-tab-${tab}-${locale}`}
+								aria-controls={`inspector-panel-${tab}-${locale}`}
+								aria-selected={index === 0 ? 'true' : 'false'}
+								tabindex={index === 0 ? 0 : -1}
+								data-inspector-tab={tab}
+							>{copy[tab]}</button>
+						))}
+					</div>
+
+					<div class="inspector-body">
+						<section class="inspector-panel" role="tabpanel" id={`inspector-panel-clip-${locale}`} aria-labelledby={`inspector-tab-clip-${locale}`} data-inspector-panel="clip">
+							<p class="panel-hint" data-no-clip>{copy.noClipSelected}</p>
+							<div class="clip-fields" data-clip-fields aria-disabled="true">
+								<label class="field wide"><span>{copy.clipName}</span><input type="text" data-clip-field="name" disabled /></label>
+								<label class="field"><span>{copy.clipStart}</span><input type="text" inputmode="decimal" data-clip-field="start" value="00:00.000" disabled /></label>
+								<label class="field"><span>{copy.clipIn}</span><input type="text" inputmode="decimal" data-clip-field="sourceIn" value="00:00.000" disabled /></label>
+								<label class="field"><span>{copy.clipDuration}</span><input type="text" inputmode="decimal" data-clip-field="duration" value="00:00.000" disabled /></label>
+								<label class="field"><span>{copy.clipStart} ({copy.frames})</span><input type="number" min="0" step="1" data-clip-field="startFrame" value="0" disabled /></label>
+								<label class="field"><span>{copy.clipIn} ({copy.frames})</span><input type="number" min="0" step="1" data-clip-field="sourceInFrame" value="0" disabled /></label>
+								<label class="field"><span>{copy.clipDuration} ({copy.frames})</span><input type="number" min="1" step="1" data-clip-field="durationFrame" value="1" disabled /></label>
+								<label class="field"><span>{copy.clipGain}</span><input type="number" min="-60" max="24" step="0.1" value="0" data-clip-field="gain" disabled /><small>dB</small></label>
+								<label class="field"><span>{copy.fadeIn}</span><input type="number" min="0" step="0.001" value="0" data-clip-field="fadeIn" disabled /><small>s</small></label>
+								<label class="field"><span>{copy.fadeOut}</span><input type="number" min="0" step="0.001" value="0" data-clip-field="fadeOut" disabled /><small>s</small></label>
+							</div>
+							<div class="panel-actions">
+								<button type="button" data-clip-action="reverse" disabled>{copy.reverse}</button>
+								<button type="button" data-clip-action="normalize-peak" disabled>{copy.normalizePeak}</button>
+								<button type="button" data-clip-action="normalize-lufs" disabled>{copy.normalizeLufs}</button>
+							</div>
+						</section>
+
+						<section class="inspector-panel" role="tabpanel" id={`inspector-panel-effects-${locale}`} aria-labelledby={`inspector-tab-effects-${locale}`} data-inspector-panel="effects" hidden>
+							<label class="field wide"><span>{copy.effectTarget}</span><select data-effect-target><option value="track">{copy.selectedTrack}</option><option value="master">{copy.master}</option></select></label>
+							<label class="field wide"><span>{copy.masterGain}</span><input type="range" min="-60" max="12" step="0.1" value="0" data-master-gain /><output data-master-gain-value>0.0 dB</output></label>
+							<div class="add-effect-row">
+								<label class="field"><span>{copy.chooseEffect}</span><select data-effect-type><option value="highpass">{copy.highPass}</option><option value="lowpass">{copy.lowPass}</option><option value="eq">{copy.parametricEq}</option><option value="compressor">{copy.compressor}</option><option value="limiter">{copy.limiter}</option><option value="gate">{copy.gate}</option><option value="reverb">{copy.reverb}</option><option value="delay">{copy.delay}</option></select></label>
+								<button class="editor-button primary" type="button" data-add-effect>{copy.addEffect}</button>
+							</div>
+							<div class="effect-rack" data-effect-rack>
+								<p class="panel-hint" data-effect-empty>{copy.effectRackEmpty}</p>
+							</div>
+						</section>
+
+						<section class="inspector-panel" role="tabpanel" id={`inspector-panel-analysis-${locale}`} aria-labelledby={`inspector-tab-analysis-${locale}`} data-inspector-panel="analysis" hidden>
+							<h3>{copy.metering}</h3>
+							<div class="analysis-grid" data-analysis-values>
+								{[
+									['peak', copy.peak, '−∞ dBFS'], ['truePeak', copy.truePeak, '−∞ dBTP'], ['rms', copy.rms, '−∞ dBFS'],
+									['momentary', copy.lufsMomentary, '—'], ['shortTerm', copy.lufsShort, '—'], ['integrated', copy.lufsIntegrated, '—'],
+									['lra', copy.lra, '—'], ['correlation', copy.correlation, '—'], ['clipping', copy.clipping, '0'],
+								].map(([key, label, value]) => <div><span>{label}</span><strong data-analysis-value={key}>{value}</strong></div>)}
+							</div>
+							<div class="analysis-visual">
+								<div><h3>{copy.spectrum}</h3><canvas data-analysis-spectrum aria-label={copy.spectrum}></canvas></div>
+								<div><h3>{copy.spectrogram}</h3><canvas data-analysis-spectrogram aria-label={copy.spectrogram}></canvas></div>
+							</div>
+							<p class="panel-hint">{copy.analyzeHint}</p>
+							<div class="panel-actions"><button type="button" data-analyze="track">{copy.analyzeTrack}</button><button type="button" data-analyze="master">{copy.analyzeMaster}</button></div>
+						</section>
+
+						<section class="inspector-panel" role="tabpanel" id={`inspector-panel-export-${locale}`} aria-labelledby={`inspector-tab-export-${locale}`} data-inspector-panel="export" hidden>
+							<div class="export-grid">
+								<label class="field"><span>{copy.exportMode}</span><select data-export-field="mode"><option value="mix">{copy.mix}</option><option value="stems">{copy.stems}</option></select></label>
+								<label class="field"><span>{copy.exportRange}</span><select data-export-field="range"><option value="project">{copy.entireProject}</option><option value="selection">{copy.currentSelection}</option></select></label>
+								<label class="field"><span>{copy.format}</span><select data-export-field="format"><option value="wav">WAV</option><option value="flac">FLAC</option><option value="mp3">MP3</option><option value="opus">Opus</option></select></label>
+								<label class="field" data-bit-depth-field><span>{copy.bitDepth}</span><select data-export-field="bitDepth"><option value="16">16-bit PCM</option><option value="24" selected>24-bit PCM</option><option value="32f">32-bit Float</option></select></label>
+								<label class="field" data-quality-field hidden><span>{copy.quality}</span><select data-export-field="quality"></select></label>
+								<label class="field"><span>{copy.sampleRate}</span><select data-export-field="sampleRate"><option value="44100">44.1 kHz</option><option value="48000" selected>48 kHz</option></select></label>
+							</div>
+							<label class="check-field"><input type="checkbox" data-export-field="tails" checked /><span>{copy.includeTails}</span></label>
+							<p class="panel-hint">{copy.exportHint}</p>
+							<progress data-export-progress max="1" value="0" hidden></progress>
+							<div class="panel-actions"><button class="primary" type="button" data-export-action="start">{copy.startExport}</button><button type="button" data-export-action="cancel" hidden>{copy.cancelExport}</button></div>
+							<a class="export-download" data-export-download href="#" download hidden>{copy.done}</a>
+						</section>
+					</div>
+				</aside>
+			</div>
+
+			<div class="monitor-warning" data-monitor-warning role="alert" hidden>{copy.monitorWarning}</div>
+			<div class="visually-hidden" data-live aria-live="polite" aria-atomic="true"></div>
+			<div class="visually-hidden" data-file-live aria-live="assertive" aria-atomic="true"></div>
+
+			<template data-track-template>
+				<section class="track-row" data-track-row>
+					<div class="track-header" data-track-header>
+						<div class="track-title-row"><input class="track-name" data-track-name aria-label={copy.trackName} value={copy.track} /><button type="button" data-track-action="menu" aria-label={copy.trackMenu} title={copy.trackMenu}>•••</button></div>
+						<div class="track-toggles"><button type="button" data-track-action="mute" aria-pressed="false">M <span>{copy.mute}</span></button><button type="button" data-track-action="solo" aria-pressed="false">S <span>{copy.solo}</span></button><button class="arm" type="button" data-track-action="arm" aria-pressed="false">● <span>{copy.arm}</span></button></div>
+						<label class="compact-slider"><span>{copy.gain}</span><input type="range" min="-60" max="12" step="0.1" value="0" data-track-gain /><output data-track-gain-value>0.0 dB</output></label>
+						<label class="compact-slider"><span>{copy.pan}</span><input type="range" min="-1" max="1" step="0.01" value="0" data-track-pan /><output data-track-pan-value>{copy.center}</output></label>
+						<div class="track-meter" data-track-meter role="meter" aria-label={copy.peak} aria-valuemin="-60" aria-valuemax="0" aria-valuenow="-60"><span data-track-meter-left></span><span data-track-meter-right></span></div>
+					</div>
+					<div class="track-lane" data-track-lane tabindex="0">
+						<canvas class="track-waveform" data-track-waveform aria-hidden="true"></canvas>
+						<div class="clip-layer" data-clip-layer></div>
+						<div class="track-selection" data-track-selection hidden></div>
+					</div>
+				</section>
+			</template>
+
+			<template data-clip-template>
+				<div class="audio-clip" data-clip tabindex="0" role="button" aria-pressed="false">
+					<span class="clip-handle start" data-clip-handle="start"></span>
+					<canvas data-clip-waveform aria-hidden="true"></canvas>
+					<span class="clip-label" data-clip-label>{copy.clip}</span>
+					<span class="clip-fade in" data-clip-fade="in"></span>
+					<span class="clip-fade out" data-clip-fade="out"></span>
+					<span class="clip-handle end" data-clip-handle="end"></span>
+				</div>
+			</template>
+
+			<template data-effect-template>
+				<article class="effect-card" data-effect>
+					<header><label><input type="checkbox" data-effect-enabled checked /><span data-effect-name>{copy.effects}</span></label><div><button type="button" data-effect-action="up" aria-label={copy.moveEffectUp}>↑</button><button type="button" data-effect-action="down" aria-label={copy.moveEffectDown}>↓</button><button type="button" data-effect-action="remove" aria-label={copy.removeEffect}>×</button></div></header>
+					<div class="effect-parameters" data-effect-parameters></div>
+				</article>
+			</template>
+
+			<template data-project-template>
+				<li class="project-list-item" data-project-item><button type="button" data-project-open><span><strong data-project-item-name></strong><small data-project-item-date></small></span><span aria-hidden="true">→</span></button></li>
+			</template>
+
+			<dialog class="editor-dialog project-dialog" data-project-dialog aria-labelledby={`projects-title-${locale}`}>
+				<form method="dialog"><button class="dialog-close" value="cancel" aria-label={copy.close}>×</button></form>
+				<h2 id={`projects-title-${locale}`}>{copy.projectsTitle}</h2>
+				<p>{copy.projectsDescription}</p>
+				<ul class="project-list" data-project-list></ul>
+				<p class="dialog-empty" data-project-list-empty>{copy.noProjects}</p>
+				<div class="dialog-actions"><button class="editor-button danger" type="button" data-project-action="clear">{copy.clearData}</button><button class="editor-button primary" type="button" data-project-action="new">{copy.newProject}</button><form method="dialog"><button class="editor-button" value="cancel">{copy.close}</button></form></div>
+			</dialog>
+
+			<dialog class="editor-dialog" data-name-dialog aria-labelledby={`name-title-${locale}`}>
+				<form method="dialog" data-name-form>
+					<h2 id={`name-title-${locale}`}>{copy.renameProject}</h2>
+					<label class="field wide"><span>{copy.projectName}</span><input data-project-name-input type="text" maxlength="120" required autocomplete="off" /></label>
+					<div class="dialog-actions"><button class="editor-button primary" value="save">{copy.saveName}</button><button class="editor-button" value="cancel">{copy.cancel}</button></div>
+				</form>
+			</dialog>
+
+			<dialog class="editor-dialog" data-confirm-dialog aria-labelledby={`delete-title-${locale}`}>
+				<form method="dialog">
+					<h2 id={`delete-title-${locale}`}>{copy.deleteTitle}</h2>
+					<p>{copy.deleteDescription}</p>
+					<div class="dialog-actions"><button class="editor-button danger" value="confirm">{copy.confirmDelete}</button><button class="editor-button" value="cancel">{copy.cancel}</button></div>
+				</form>
+			</dialog>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { initAudioEditors } from '../../lib/tools/audio-editor/app';
+
+	for (const root of document.querySelectorAll('[data-audio-editor]:not([data-audio-editor-bound])')) {
+		root.dataset.audioEditorBound = 'true';
+		initAudioEditors(root);
+	}
+</script>
+
+<style>
+	.audio-editor-section { padding-block: clamp(22px, 4vw, 48px); }
+	.audio-editor-section .audio-editor-container { width: min(1760px, calc(100% - 24px)); }
+	.audio-editor { --track-header-width: 248px; --timeline-width: 1400px; overflow: hidden; color: var(--color-ink); background: var(--color-surface-alt); border: 1px solid var(--color-line); border-radius: 12px; box-shadow: var(--shadow-soft); }
+	.audio-editor button, .audio-editor input, .audio-editor select { font: inherit; }
+	.audio-editor button:focus-visible, .audio-editor input:focus-visible, .audio-editor select:focus-visible, .audio-editor [tabindex='0']:focus-visible { outline: 3px solid var(--color-accent-focus); outline-offset: 2px; }
+	.visually-hidden { position: absolute !important; overflow: hidden; width: 1px; height: 1px; padding: 0; margin: -1px; white-space: nowrap; clip: rect(0, 0, 0, 0); border: 0; }
+	.project-bar { display: flex; gap: 16px; align-items: center; justify-content: space-between; min-height: 72px; padding: 12px 16px; background: var(--color-surface-raised); border-bottom: 1px solid var(--color-line); }
+	.project-identity, .project-actions, .button-strip, .transport-strip, .timeline-actions, .panel-actions, .dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+	.project-identity { min-width: 0; }
+	.project-identity > div { display: grid; min-width: 0; }
+	.project-identity strong { overflow: hidden; max-width: 32ch; font-size: 1.05rem; text-overflow: ellipsis; white-space: nowrap; }
+	.project-kicker { color: var(--color-accent-dark); font-size: 0.68rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+	.local-dot { width: 10px; height: 10px; background: var(--color-positive-accent); border-radius: 999px; box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-positive-accent) 18%, transparent); }
+	.save-state { color: var(--color-muted); font-size: 0.76rem; font-weight: 700; white-space: nowrap; }
+	.editor-button, .panel-actions button, .inspector-launch { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 0 13px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 7px; font-weight: 800; cursor: pointer; }
+	.editor-button.primary, .panel-actions button.primary, .inspector-launch { color: var(--color-accent-on); background: var(--color-accent); border-color: var(--color-accent); }
+	.editor-button.danger { color: var(--color-status-negative-text); background: var(--color-status-negative-background); border-color: var(--color-status-negative-border); }
+	.import-button { position: relative; cursor: pointer; }
+	.import-button input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+	.control-deck { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(280px, 0.75fr); gap: 12px; align-items: center; padding: 12px 16px; background: color-mix(in srgb, var(--color-deep) 94%, var(--color-surface-raised)); border-bottom: 1px solid var(--color-deep-border); }
+	.button-strip { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; }
+	.deck-button { display: grid; min-width: 54px; min-height: 48px; gap: 2px; place-items: center; padding: 4px 8px; color: var(--color-deep-contrast); background: var(--color-deep-subtle); border: 1px solid var(--color-deep-border); border-radius: 6px; cursor: pointer; }
+	.deck-button > span:first-child { font-size: 1.1rem; line-height: 1; }
+	.deck-button > span:last-child { max-width: 70px; overflow: hidden; font-size: 0.62rem; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+	.deck-button:disabled { opacity: 0.35; cursor: not-allowed; }
+	.strip-divider { width: 1px; height: 34px; flex: 0 0 auto; margin-inline: 2px; background: var(--color-deep-border); }
+	.transport-strip { flex-wrap: nowrap; gap: 5px; }
+	.transport-button { min-width: 44px; min-height: 44px; padding: 0 8px; color: var(--color-deep-contrast); background: var(--color-deep-subtle); border: 1px solid var(--color-deep-border); border-radius: 999px; font-weight: 900; cursor: pointer; }
+	.transport-button.main { min-width: 54px; min-height: 54px; color: var(--color-accent-on); background: var(--color-accent); border-color: var(--color-accent); font-size: 1.1rem; }
+	.transport-button[aria-pressed='true'] { color: var(--color-accent-on); background: var(--color-accent); border-color: var(--color-accent); }
+	.transport-button.record > span { display: block; width: 16px; height: 16px; margin: auto; background: #f44436; border-radius: 999px; }
+	.transport-button.record[aria-pressed='true'] > span { border-radius: 3px; }
+	.time-cluster { display: flex; gap: 14px; align-items: center; justify-content: flex-end; min-width: 0; color: var(--color-deep-contrast); }
+	.time-readout { display: grid; }
+	.time-readout > span { color: var(--color-deep-muted); font-size: 0.64rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+	.time-readout output { font: 800 clamp(0.95rem, 2vw, 1.25rem)/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+	.input-cluster { display: grid; min-width: 150px; gap: 5px; }
+	.monitor-toggle { display: flex; gap: 6px; align-items: center; font-size: 0.72rem; font-weight: 700; }
+	.monitor-toggle input { accent-color: var(--color-accent); }
+	.latency-control { display: flex; gap: 6px; align-items: center; justify-content: space-between; color: var(--color-deep-muted); font-size: 0.64rem; font-weight: 700; }
+	.latency-control input { width: 62px; min-height: 28px; padding: 0 5px; color: var(--color-deep-contrast); background: var(--color-deep-subtle); border: 1px solid var(--color-deep-border); border-radius: 4px; }
+	.input-meter, .track-meter { position: relative; overflow: hidden; height: 8px; background: #17120f; border: 1px solid var(--color-deep-border); border-radius: 999px; }
+	.input-meter > span { display: block; width: var(--meter, 0%); height: 100%; background: linear-gradient(90deg, #43b95c 0 72%, #e6c33f 72% 88%, #ef493d 88%); }
+	.editor-status-row { display: flex; gap: 12px; align-items: center; justify-content: space-between; min-height: 42px; padding: 7px 16px; background: var(--color-surface-raised); border-bottom: 1px solid var(--color-line); }
+	.editor-status, .project-stat { margin: 0; color: var(--color-muted); font-size: 0.78rem; font-weight: 700; }
+	.editor-status[data-state='error'] { color: var(--color-status-negative-text); }
+	.editor-status[data-state='success'] { color: var(--color-status-positive-text); }
+	.project-stat { display: flex; gap: 7px; white-space: nowrap; }
+	.editor-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 370px; min-height: 620px; }
+	.timeline-panel { min-width: 0; padding: 16px; background: var(--color-surface-alt); }
+	.timeline-heading-row { display: flex; gap: 14px; align-items: start; justify-content: space-between; margin-bottom: 12px; }
+	.timeline-heading-row h2 { margin: 0; font-size: 1.25rem; }
+	.timeline-heading-row p { max-width: 72ch; margin: 4px 0 0; color: var(--color-muted); font-size: 0.78rem; }
+	.zoom-strip { display: flex; }
+	.zoom-strip button { min-width: 44px; min-height: 44px; padding: 0 10px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); font-weight: 850; cursor: pointer; }
+	.zoom-strip button + button { border-left: 0; }
+	.zoom-strip button:first-child { border-radius: 7px 0 0 7px; }
+	.zoom-strip button:last-child { border-radius: 0 7px 7px 0; }
+	.inspector-launch { display: none; }
+	.timeline-scroll { position: relative; overflow: auto; min-height: 510px; max-height: 66vh; overscroll-behavior: contain; background: var(--color-deep); border: 1px solid var(--color-line); border-radius: 8px; touch-action: pan-x pan-y; }
+	.timeline-inner { position: relative; width: calc(var(--track-header-width) + var(--timeline-width)); min-height: 508px; }
+	.ruler-row, .track-row { display: grid; grid-template-columns: var(--track-header-width) var(--timeline-width); }
+	.ruler-row { position: sticky; z-index: 8; top: 0; min-height: 38px; }
+	.ruler-corner { position: sticky; z-index: 9; left: 0; display: flex; align-items: center; padding: 0 12px; color: var(--color-deep-muted); background: color-mix(in srgb, var(--color-deep) 90%, #fff); border-right: 1px solid var(--color-deep-border); border-bottom: 1px solid var(--color-deep-border); font-size: 0.7rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
+	.ruler { position: relative; overflow: hidden; background: color-mix(in srgb, var(--color-deep) 90%, #fff); border-bottom: 1px solid var(--color-deep-border); }
+	.ruler canvas, .track-waveform, .audio-clip canvas, .analysis-visual canvas { display: block; width: 100%; height: 100%; }
+	.ruler-playhead { position: absolute; z-index: 10; top: 0; left: var(--playhead-x); width: 17px; height: 100%; padding: 0; transform: translateX(-8px); background: transparent; border: 0; cursor: ew-resize; }
+	.ruler-playhead::after { position: absolute; top: 13px; left: 8px; width: 1px; height: 2000px; content: ''; background: var(--color-accent); pointer-events: none; }
+	.ruler-playhead span { display: block; width: 0; height: 0; margin: 0 auto; border-top: 9px solid var(--color-accent); border-right: 6px solid transparent; border-left: 6px solid transparent; }
+	.selection-overlay, .track-selection { position: absolute; inset-block: 0; background: color-mix(in srgb, var(--color-accent) 20%, transparent); border-inline: 1px solid var(--color-accent); pointer-events: none; }
+	.track-list { position: relative; }
+	.track-row { min-height: 142px; border-bottom: 1px solid var(--color-deep-border); }
+	.track-header { position: sticky; z-index: 5; left: 0; display: grid; align-content: start; gap: 8px; padding: 10px; color: var(--color-deep-contrast); background: color-mix(in srgb, var(--color-deep) 88%, #fff); border-right: 1px solid var(--color-deep-border); }
+	.track-title-row, .track-toggles { display: flex; gap: 5px; }
+	.track-name { width: 100%; min-width: 0; min-height: 34px; padding: 0 8px; color: var(--color-deep-contrast); background: var(--color-deep-subtle); border: 1px solid transparent; border-radius: 5px; font-weight: 850; }
+	.track-title-row button, .track-toggles button { min-width: 36px; min-height: 36px; color: var(--color-deep-contrast); background: var(--color-deep-subtle); border: 1px solid var(--color-deep-border); border-radius: 5px; font-weight: 900; cursor: pointer; }
+	.track-toggles button { flex: 1; }
+	.track-toggles button span { position: absolute; overflow: hidden; width: 1px; height: 1px; clip: rect(0 0 0 0); }
+	.track-toggles button[aria-pressed='true'] { color: var(--color-accent-on); background: var(--color-accent); border-color: var(--color-accent); }
+	.track-toggles .arm[aria-pressed='true'] { color: #fff; background: #c52f24; border-color: #ee5b50; }
+	.compact-slider { display: grid; grid-template-columns: 42px minmax(0, 1fr) 53px; gap: 6px; align-items: center; color: var(--color-deep-muted); font-size: 0.66rem; font-weight: 700; }
+	.compact-slider input { min-width: 0; accent-color: var(--color-accent); }
+	.compact-slider output { text-align: right; font-variant-numeric: tabular-nums; }
+	.track-meter { display: grid; grid-template-rows: 1fr 1fr; gap: 1px; height: 10px; }
+	.track-meter span { width: var(--meter, 0%); background: linear-gradient(90deg, #43b95c 0 75%, #e6c33f 75% 90%, #ef493d 90%); }
+	.track-lane { position: relative; overflow: hidden; background-color: #17120f; background-image: linear-gradient(90deg, var(--color-deep-border) 1px, transparent 1px), linear-gradient(0deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 100px 100%, 100% 35px; }
+	.track-lane[aria-selected='true'] { background-color: color-mix(in srgb, var(--color-accent) 8%, #17120f); }
+	.track-waveform, .clip-layer, .track-selection { position: absolute; inset: 0; }
+	.audio-clip { position: absolute; top: 8px; bottom: 8px; overflow: hidden; min-width: 12px; color: #fff; background: color-mix(in srgb, var(--color-accent) 74%, #48200a); border: 1px solid color-mix(in srgb, var(--color-accent) 75%, #fff); border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,.2); cursor: grab; touch-action: none; }
+	.audio-clip[aria-pressed='true'] { outline: 3px solid #fff; outline-offset: -4px; }
+	.audio-clip canvas { opacity: 0.78; }
+	.clip-label { position: absolute; top: 5px; left: 10px; overflow: hidden; max-width: calc(100% - 20px); padding: 2px 5px; background: rgba(0,0,0,.45); border-radius: 3px; font-size: 0.7rem; font-weight: 850; text-overflow: ellipsis; white-space: nowrap; }
+	.clip-handle { position: absolute; z-index: 2; inset-block: 0; width: 16px; cursor: ew-resize; }
+	.clip-handle.start { left: 0; }
+	.clip-handle.end { right: 0; }
+	.clip-fade { position: absolute; z-index: 1; top: 0; width: var(--fade-width, 0); height: 48%; border-bottom: 2px solid rgba(255,255,255,.78); pointer-events: none; }
+	.clip-fade.in { left: 0; transform: skewY(-25deg); transform-origin: left bottom; }
+	.clip-fade.out { right: 0; transform: skewY(25deg); transform-origin: right bottom; }
+	.timeline-empty { position: absolute; top: 110px; left: calc(var(--track-header-width) + 24px); display: grid; width: min(460px, calc(100vw - 360px)); gap: 8px; justify-items: start; padding: 24px; color: var(--color-deep-contrast); background: color-mix(in srgb, var(--color-deep) 80%, transparent); border: 1px dashed var(--color-deep-border); border-radius: 8px; }
+	.timeline-empty strong { font-size: 1.15rem; }
+	.timeline-empty p { margin: 0 0 8px; color: var(--color-deep-muted); }
+	.empty-wave { color: var(--color-accent); font-size: 2rem; letter-spacing: -0.15em; }
+	.keyboard-help { margin: 10px 2px 0; color: var(--color-muted); font-size: 0.72rem; }
+	.inspector { min-width: 0; background: var(--color-surface-raised); border-left: 1px solid var(--color-line); }
+	.inspector-topline { display: flex; align-items: center; justify-content: space-between; min-height: 54px; padding: 0 15px; border-bottom: 1px solid var(--color-line); }
+	.inspector-topline h2 { margin: 0; font-size: 1.05rem; }
+	.inspector-topline button { display: none; width: 44px; height: 44px; color: var(--color-ink); background: transparent; border: 0; font-size: 1.6rem; cursor: pointer; }
+	.inspector-tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--color-line); }
+	.inspector-tabs button { min-width: 0; min-height: 48px; padding: 0 5px; color: var(--color-muted); background: var(--color-surface-alt); border: 0; border-right: 1px solid var(--color-line); font-size: 0.72rem; font-weight: 850; cursor: pointer; }
+	.inspector-tabs button:last-child { border-right: 0; }
+	.inspector-tabs button[aria-selected='true'] { color: var(--color-accent-dark); background: var(--color-surface-raised); box-shadow: inset 0 -3px var(--color-accent); }
+	.inspector-body { overflow-y: auto; max-height: 650px; }
+	.inspector-panel { display: grid; gap: 14px; padding: 16px; }
+	.inspector-panel h3 { margin: 0; font-size: 0.86rem; }
+	.panel-hint { margin: 0; color: var(--color-muted); font-size: 0.82rem; line-height: 1.45; }
+	.clip-fields, .export-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+	.field { position: relative; display: grid; min-width: 0; gap: 5px; color: var(--color-accent-dark); font-size: 0.7rem; font-weight: 850; text-transform: uppercase; }
+	.field.wide { grid-column: 1 / -1; }
+	.field input, .field select { box-sizing: border-box; width: 100%; min-height: 44px; padding: 0 10px; color: var(--color-ink); background: var(--color-control-surface); border: 1px solid var(--color-line); border-radius: 6px; font-weight: 700; text-transform: none; }
+	.field input:disabled { opacity: 0.6; }
+	.field small { position: absolute; right: 9px; bottom: 14px; color: var(--color-muted); font-size: 0.65rem; text-transform: none; pointer-events: none; }
+	.field input + small { padding-right: 26px; }
+	.panel-actions { align-items: stretch; }
+	.panel-actions button { flex: 1 1 130px; min-height: 44px; }
+	.panel-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+	.add-effect-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: end; }
+	.effect-rack { display: grid; gap: 8px; }
+	.effect-card { overflow: hidden; background: var(--color-surface-alt); border: 1px solid var(--color-line); border-radius: 7px; }
+	.effect-card header { display: flex; gap: 8px; align-items: center; justify-content: space-between; min-height: 48px; padding: 5px 8px; }
+	.effect-card header label { display: flex; gap: 8px; align-items: center; font-weight: 850; }
+	.effect-card header input { accent-color: var(--color-accent); }
+	.effect-card header button { min-width: 38px; min-height: 38px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); cursor: pointer; }
+	.effect-parameters { padding: 10px; border-top: 1px solid var(--color-line); }
+	.analysis-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+	.analysis-grid > div { display: grid; gap: 4px; padding: 9px; background: var(--color-surface-alt); border: 1px solid var(--color-line); border-radius: 6px; }
+	.analysis-grid span { color: var(--color-muted); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; }
+	.analysis-grid strong { font: 850 0.84rem/1.2 ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+	.analysis-visual { display: grid; gap: 10px; }
+	.analysis-visual > div { overflow: hidden; background: var(--color-deep); border: 1px solid var(--color-line); border-radius: 6px; }
+	.analysis-visual h3 { padding: 8px 10px; color: var(--color-deep-muted); border-bottom: 1px solid var(--color-deep-border); }
+	.analysis-visual canvas { height: 120px; }
+	.check-field { display: flex; gap: 8px; align-items: start; font-size: 0.82rem; font-weight: 700; }
+	.check-field input { margin-top: 2px; accent-color: var(--color-accent); }
+	.inspector progress { width: 100%; accent-color: var(--color-accent); }
+	.export-download { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; color: var(--color-accent-dark); border: 1px solid var(--color-accent); border-radius: 6px; font-weight: 850; text-decoration: none; }
+	.monitor-warning { position: fixed; z-index: 60; right: 18px; bottom: 18px; max-width: 380px; padding: 14px 16px; color: var(--color-status-negative-text); background: var(--color-status-negative-background); border: 1px solid var(--color-status-negative-border); border-radius: 8px; box-shadow: var(--shadow-raised); font-weight: 800; }
+	.editor-dialog { width: min(560px, calc(100% - 28px)); max-height: min(720px, calc(100vh - 40px)); padding: 24px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 10px; box-shadow: var(--shadow-raised); }
+	.editor-dialog::backdrop { background: rgba(12, 8, 6, 0.7); backdrop-filter: blur(3px); }
+	.editor-dialog h2 { margin: 0 0 8px; }
+	.editor-dialog > p, .editor-dialog form > p { color: var(--color-muted); }
+	.dialog-close { float: right; width: 44px; height: 44px; color: var(--color-ink); background: transparent; border: 0; font-size: 1.7rem; cursor: pointer; }
+	.project-list { display: grid; max-height: 400px; gap: 7px; overflow-y: auto; padding: 0; margin: 18px 0; list-style: none; }
+	.project-list-item button { display: flex; width: 100%; min-height: 60px; gap: 12px; align-items: center; justify-content: space-between; padding: 9px 12px; color: var(--color-ink); text-align: left; background: var(--color-surface-alt); border: 1px solid var(--color-line); border-radius: 7px; cursor: pointer; }
+	.project-list-item button > span:first-child { display: grid; }
+	.project-list-item small, .dialog-empty { color: var(--color-muted); }
+	.dialog-actions { justify-content: flex-end; margin-top: 20px; }
+
+	@media (max-width: 1240px) {
+		.control-deck { grid-template-columns: 1fr auto; }
+		.button-strip { grid-column: 1 / -1; grid-row: 2; }
+		.time-cluster { grid-column: 2; grid-row: 1; }
+		.editor-workspace { grid-template-columns: minmax(0, 1fr) 340px; }
+	}
+
+	@media (max-width: 920px) {
+		.audio-editor { --track-header-width: 190px; }
+		.project-bar { align-items: flex-start; }
+		.project-actions { justify-content: flex-end; }
+		.project-overflow { display: none; }
+		.editor-workspace { display: block; min-height: 560px; }
+		.inspector-launch { display: inline-flex; }
+		.inspector { position: fixed; z-index: 80; inset: auto 0 0; display: none; max-height: min(78vh, 720px); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 14px 14px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,.3); }
+		.inspector[data-open='true'] { display: block; }
+		.inspector::before { display: block; width: 52px; height: 5px; margin: 8px auto 0; content: ''; background: var(--color-line); border-radius: 999px; }
+		.inspector-topline button { display: block; }
+		.inspector-body { max-height: calc(78vh - 112px); }
+		.timeline-scroll { max-height: 64vh; }
+	}
+
+	@media (max-width: 680px) {
+		.audio-editor-section .audio-editor-container { width: min(100%, calc(100% - 12px)); }
+		.audio-editor { --track-header-width: 156px; border-radius: 8px; }
+		.project-bar { display: grid; gap: 10px; }
+		.project-identity { width: 100%; }
+		.save-state { margin-left: auto; font-size: 0; }
+		.save-state::after { font-size: 0.72rem; content: '●'; }
+		.project-actions { display: grid; grid-template-columns: 1fr 1fr 1.2fr; width: 100%; }
+		.project-actions .editor-button { padding-inline: 7px; font-size: 0.76rem; }
+		.control-deck { display: flex; flex-wrap: wrap; padding: 10px; }
+		.transport-strip { order: 1; width: 100%; justify-content: center; overflow-x: auto; }
+		.transport-button { min-width: 42px; }
+		.time-cluster { order: 2; width: 100%; justify-content: space-between; }
+		.button-strip { order: 3; width: 100%; }
+		.editor-status-row { align-items: flex-start; }
+		.project-stat { display: none; }
+		.timeline-panel { padding: 10px 6px; }
+		.timeline-heading-row { display: grid; }
+		.timeline-actions { justify-content: space-between; }
+		.timeline-actions > .editor-button { display: none; }
+		.timeline-heading-row p, .keyboard-help { display: none; }
+		.timeline-scroll { min-height: 470px; }
+		.timeline-inner { min-height: 468px; }
+		.timeline-empty { top: 86px; left: calc(var(--track-header-width) + 14px); width: min(340px, calc(100vw - 190px)); padding: 16px; }
+		.timeline-empty div { display: grid; gap: 7px; }
+		.track-row { min-height: 166px; }
+		.track-header { padding: 7px; }
+		.compact-slider { grid-template-columns: 32px minmax(0, 1fr); }
+		.compact-slider output { grid-column: 2; }
+		.clip-fields, .export-grid { grid-template-columns: 1fr; }
+		.field.wide { grid-column: auto; }
+		.analysis-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.audio-editor *, .audio-editor *::before, .audio-editor *::after { scroll-behavior: auto !important; transition: none !important; }
+	}
+</style>

@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import AudioEditor from '../../components/tools/AudioEditor.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('audio-editor', {
+	id: 'audio-editor',
+	translations: {
+		de: {
+			id: 'audio-editor-de',
+			path: '/de/tools/audio-editor/',
+			title: 'Audio Editor & Analyzer',
+			description: 'Nimm Audio lokal auf, bearbeite mehrere Spuren nondestruktiv, mische Effekte und analysiere Pegel, Lautheit und Frequenzen direkt im Browser.',
+		},
+		en: {
+			id: 'audio-editor-en',
+			path: '/en/tools/audio-editor/',
+			title: 'Audio Editor & Analyzer',
+			description: 'Record audio locally, edit multiple tracks nondestructively, mix effects, and analyze levels, loudness, and frequencies directly in your browser.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<AudioEditor locale={tool.locale} />
+</ToolPageShell>

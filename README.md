@@ -37,6 +37,26 @@ Run commands from the project root:
 | `npx @astrojs/upgrade` | Update Astro (fixes security issues but may break the site)|
 | `npm audit fix` | Fixes security updates without updating Astro|
 
+## Audio Editor
+
+The local-first multitrack editor is available at `/de/tools/audio-editor/` and `/en/tools/audio-editor/`. Its canonical project model, Web Audio engine, worklets, OPFS/IndexedDB storage, analysis, and export helpers live in `src/lib/tools/audio-editor/`. The existing single-file Audio Analyzer remains independent.
+
+- Audio sources are converted to immutable 48 kHz mono/stereo PCM and stored in bounded chunks. OPFS is preferred, with IndexedDB and memory fallbacks.
+- Playback, recording, effects, mixing, analysis, and WAV bounce run in the browser. Large or unsupported offline renders fall back to a bounded 1× AudioWorklet render.
+- The pinned single-thread FFmpeg core is emitted as a same-origin lazy build asset and is used only for decoder fallback and MP3, FLAC, or Opus encoding.
+- The direct routes remain out of category listings until the Firefox/WebKit, physical mobile-device, loudness-reference, performance, and FFmpeg release-license gates are complete.
+
+Focused checks:
+
+```sh
+node --test tests/audio-editor-model.test.js tests/audio-editor-runtime.test.js tests/audio-editor-lock.test.js
+npx playwright test tests/browser/audio-editor.spec.js --project=chromium
+PLAYWRIGHT_CROSS_BROWSER=1 npx playwright test tests/browser/audio-editor.spec.js --project=mobile-chromium
+AUDIO_EDITOR_FFMPEG_BROWSER=1 npx playwright test tests/browser/audio-editor.spec.js --project=chromium --grep='self-hosted FFmpeg'
+```
+
+See `THIRD_PARTY_LICENSES.md` before deploying the bundled FFmpeg core.
+
 ## AI Cleanup And Translation
 
 The import and one-off scripts use Ollama by default:
