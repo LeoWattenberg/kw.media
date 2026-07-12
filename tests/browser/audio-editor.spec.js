@@ -51,6 +51,11 @@ const toneA = createWavFixture({ name: 'browser-tone-a.wav', frequency: 330 });
 const toneB = createWavFixture({ name: 'browser-tone-b.wav', frequency: 660 });
 
 test.describe('audio editor browser workflows', () => {
+	test('is listed on the audio tools overview', async ({ page }) => {
+		await page.goto('/en/tools/audio/');
+		await expect(page.locator('[data-tool-category-card][href="/en/tools/audio-editor/"]')).toBeVisible();
+	});
+
 	for (const locale of AUDIO_EDITOR_PATHS) {
 		test(`${locale.path} boots a writable project without client errors`, async ({ page }) => {
 			const errors = collectClientErrors(page);
@@ -133,6 +138,62 @@ test.describe('audio editor browser workflows', () => {
 		await expect(restoredSecondTrack.locator('[data-track-action="solo"]')).toHaveAttribute('aria-pressed', 'true');
 		await expect(restoredSecondTrack.locator('[data-track-action="arm"]')).toHaveAttribute('aria-pressed', 'true');
 
+		expect(errors).toEqual([]);
+	});
+
+	test('supports crisp viewport canvases, keyboard split, spectrograms, and menus', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await editor.locator('[data-import-input]').setInputFiles(toneA);
+		const clip = editor.locator('[data-clip]');
+		await clip.click();
+		await editor.locator('[data-ruler]').click({ position: { x: 36, y: 16 } });
+		await page.keyboard.press('s');
+		await expect(editor.locator('[data-clip]')).toHaveCount(2);
+
+		await editor.locator('[data-timeline-view="spectrogram"]').click();
+		await expect(editor).toHaveAttribute('data-timeline-view', 'spectrogram');
+		await expect(editor.locator('[data-timeline-view="spectrogram"]')).toHaveAttribute('aria-pressed', 'true');
+		await page.setViewportSize({ width: 930, height: 800 });
+		await expect.poll(() => editor.locator('[data-ruler-canvas]').evaluate((canvas) => {
+			const ratio = canvas.width / canvas.getBoundingClientRect().width;
+			return Number.isFinite(ratio) ? Math.round(ratio * 10) / 10 : 0;
+		})).toBeGreaterThanOrEqual(1);
+		const canvasGeometry = await editor.locator('[data-clip-waveform]').first().evaluate((canvas) => ({
+			backingWidth: canvas.width,
+			cssWidth: canvas.getBoundingClientRect().width,
+			viewportWidth: canvas.closest('[data-timeline]')?.clientWidth || 0,
+		}));
+		expect(canvasGeometry.backingWidth).toBeGreaterThanOrEqual(Math.floor(canvasGeometry.cssWidth));
+		expect(canvasGeometry.cssWidth).toBeLessThanOrEqual(canvasGeometry.viewportWidth + 100);
+
+		const track = editor.locator('[data-track-row]').first();
+		await track.locator('[data-track-action="menu"]').click();
+		await expect(track.locator('[data-track-menu]')).toBeVisible();
+		await track.locator('[data-track-menu-action="duplicate"]').click();
+		await expect(editor.locator('[data-track-row]')).toHaveCount(3);
+
+		await editor.locator('[data-file-menu-toggle]').click();
+		await expect(editor.locator('[data-file-menu-panel]')).toBeVisible();
+		await expect(editor.locator('[data-file-menu-panel] [data-project-action]')).toHaveCount(5);
+		expect(errors).toEqual([]);
+	});
+
+	test('deletes a project and its indexed records', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await editor.locator('[data-file-menu-toggle]').click();
+		await editor.locator('[data-project-action="duplicate"]').click();
+		await expect(editor.locator('[data-project-name]')).toContainText('copy');
+		await editor.locator('[data-file-menu-toggle]').click();
+		await editor.locator('[data-project-action="delete"]').click();
+		await expect(editor.locator('[data-confirm-dialog]')).toBeVisible();
+		await editor.locator('[data-confirm-dialog] [value="confirm"]').click();
+		await expect(editor.locator('[data-confirm-dialog]')).not.toBeVisible();
+		await expect(editor.locator('[data-save-state]')).toHaveAttribute('data-state', 'saved');
+		await editor.locator('[data-file-menu-toggle]').click();
+		await editor.locator('[data-project-action="open"]').click();
+		await expect(editor.locator('[data-project-item]')).toHaveCount(2);
 		expect(errors).toEqual([]);
 	});
 
