@@ -35,7 +35,11 @@ const copyByLocale = {
 		spectrum: 'Frequenzspektrum',
 		frequency: 'Frequenz',
 		level: 'Pegel (dBFS)',
-		playSelection: 'Auswahl abspielen',
+		transport: 'Wiedergabesteuerung',
+		play: 'Abspielen',
+		pause: 'Pause',
+		skipStart: 'Zum Start',
+		stop: 'Stopp',
 		fileMeta: '{duration} · {sampleRate} Hz · {channels} Kanäle',
 		mono: 'Kanal',
 		channels: 'Kanäle',
@@ -65,7 +69,11 @@ const copyByLocale = {
 		spectrum: 'Frequency spectrum',
 		frequency: 'Frequency',
 		level: 'Level (dBFS)',
-		playSelection: 'Play selection',
+		transport: 'Playback controls',
+		play: 'Play',
+		pause: 'Pause',
+		skipStart: 'To start',
+		stop: 'Stop',
 		fileMeta: '{duration} · {sampleRate} Hz · {channels} channels',
 		mono: 'channel',
 		channels: 'channels',
@@ -96,13 +104,32 @@ const copy = copyByLocale[locale];
 			<div class="analyzer-workspace" data-workspace hidden>
 				<div class="visualization-column">
 					<div class="playback-bar">
-						<div>
+						<div class="loaded-file">
 							<strong data-loaded-name></strong>
 							<span data-loaded-meta></span>
 						</div>
-						<button class="button secondary" type="button" data-play-selection>{copy.playSelection}</button>
+						<div class="transport-toolbar" role="group" aria-label={copy.transport}>
+							<button class="button secondary transport-button" type="button" data-skip-start aria-label={copy.skipStart} title={copy.skipStart}>
+								<span aria-hidden="true">↤</span><span>{copy.skipStart}</span>
+							</button>
+							<button
+								class="button primary transport-button"
+								type="button"
+								data-play-pause
+								data-play-label={copy.play}
+								data-pause-label={copy.pause}
+								aria-label={copy.play}
+								aria-pressed="false"
+							>
+								<span data-transport-icon aria-hidden="true">▶</span><span data-transport-label>{copy.play}</span>
+							</button>
+							<button class="button secondary transport-button" type="button" data-stop aria-label={copy.stop} title={copy.stop}>
+								<span aria-hidden="true">■</span><span>{copy.stop}</span>
+							</button>
+							<output class="transport-time" data-playback-time aria-live="off">0:00.000 / 0:00.000</output>
+						</div>
 					</div>
-					<audio controls preload="metadata" data-audio></audio>
+					<audio preload="metadata" data-audio hidden></audio>
 
 					<section class="visualization-card" aria-labelledby={`spectrogram-title-${locale}`}>
 						<div class="visualization-heading">
@@ -177,7 +204,10 @@ const copy = copyByLocale[locale];
 		const spectrogram = root.querySelector('[data-spectrogram]');
 		const spectrum = root.querySelector('[data-spectrum]');
 		const clearSelection = root.querySelector('[data-clear-selection]');
-		const playSelection = root.querySelector('[data-play-selection]');
+		const playPauseButton = root.querySelector('[data-play-pause]');
+		const skipStartButton = root.querySelector('[data-skip-start]');
+		const stopButton = root.querySelector('[data-stop]');
+		const playbackTime = root.querySelector('[data-playback-time]');
 		const state = {
 			samples: null,
 			sampleRate: 0,
@@ -189,20 +219,34 @@ const copy = copyByLocale[locale];
 			objectUrl: null,
 			drag: null,
 			animationFrame: 0,
+			playbackOrigin: 0,
+			transportState: 'stopped',
 		};
 
 		fileInput.addEventListener('change', () => void loadFile(fileInput.files?.[0]));
 		clearSelection.addEventListener('click', () => setSelection(null));
-		playSelection.addEventListener('click', () => {
-			const selection = activeSelection();
-			audio.currentTime = selection.startTime;
-			void audio.play();
-		});
+		playPauseButton.addEventListener('click', togglePlayback);
+		skipStartButton.addEventListener('click', skipToStart);
+		stopButton.addEventListener('click', stopPlayback);
+		document.addEventListener('keydown', handleTransportShortcut);
 		bindSelectionCanvas(waveform, 'waveform');
 		bindSelectionCanvas(spectrogram, 'spectrogram');
-		audio.addEventListener('play', animatePlayback);
-		audio.addEventListener('pause', () => cancelAnimationFrame(state.animationFrame));
-		audio.addEventListener('seeked', renderOverlays);
+		audio.addEventListener('play', () => {
+			state.transportState = 'playing';
+			updateTransport();
+			animatePlayback();
+		});
+		audio.addEventListener('pause', () => {
+			cancelAnimationFrame(state.animationFrame);
+			if (state.transportState === 'playing') state.transportState = 'paused';
+			updateTransport();
+			renderOverlays();
+		});
+		audio.addEventListener('seeked', () => {
+			updateTransport();
+			renderOverlays();
+		});
+		audio.addEventListener('ended', stopPlayback);
 
 		async function loadFile(file) {
 			if (!file) return;
@@ -222,6 +266,8 @@ const copy = copyByLocale[locale];
 				state.duration = buffer.duration;
 				state.nyquist = buffer.sampleRate / 2;
 				state.selection = null;
+				state.playbackOrigin = 0;
+				state.transportState = 'stopped';
 				await context.close();
 
 				if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
@@ -234,6 +280,7 @@ const copy = copyByLocale[locale];
 					channels: String(buffer.numberOfChannels),
 				});
 				workspace.hidden = false;
+				updateTransport();
 				drawWaveformBase();
 				drawSpectrogramBase(createSpectrogram(state.samples, state.sampleRate));
 				setSelection(null);
@@ -246,9 +293,77 @@ const copy = copyByLocale[locale];
 
 		function setSelection(selection) {
 			state.selection = selection ? normalizeSelection(selection, state.duration, state.nyquist) : null;
+			if (state.selection) {
+				audio.pause();
+				audio.currentTime = state.selection.startTime;
+				state.playbackOrigin = state.selection.startTime;
+				state.transportState = 'stopped';
+			}
 			clearSelection.disabled = !state.selection;
 			updateAnalysis();
+			updateTransport();
 			renderOverlays();
+		}
+
+		function togglePlayback() {
+			if (state.transportState === 'playing') {
+				state.transportState = 'paused';
+				audio.pause();
+				return;
+			}
+
+			const selection = activeSelection();
+			if (audio.currentTime < selection.startTime || audio.currentTime >= selection.endTime) {
+				audio.currentTime = selection.startTime;
+			}
+			if (state.transportState !== 'paused') state.playbackOrigin = audio.currentTime;
+			void audio.play();
+		}
+
+		function handleTransportShortcut(event) {
+			if (!state.samples || event.repeat || event.code !== 'Space') return;
+
+			if (event.ctrlKey && !event.altKey && !event.metaKey) {
+				event.preventDefault();
+				stopPlayback();
+				return;
+			}
+
+			if (event.ctrlKey || event.altKey || event.metaKey || event.shiftKey) return;
+			const target = event.target;
+			if (target instanceof Element && target.closest('button, a, input, select, textarea, [contenteditable="true"]')) return;
+
+			event.preventDefault();
+			togglePlayback();
+		}
+
+		function skipToStart() {
+			const wasPlaying = state.transportState === 'playing';
+			const start = activeSelection().startTime;
+			audio.currentTime = start;
+			state.playbackOrigin = start;
+			if (!wasPlaying) state.transportState = 'stopped';
+			updateTransport();
+			renderOverlays();
+		}
+
+		function stopPlayback() {
+			state.transportState = 'stopped';
+			audio.pause();
+			audio.currentTime = clamp(state.playbackOrigin, 0, state.duration);
+			updateTransport();
+			renderOverlays();
+		}
+
+		function updateTransport() {
+			const playing = state.transportState === 'playing';
+			const label = playing ? playPauseButton.dataset.pauseLabel : playPauseButton.dataset.playLabel;
+			playPauseButton.dataset.state = state.transportState;
+			playPauseButton.setAttribute('aria-pressed', String(playing));
+			playPauseButton.setAttribute('aria-label', label);
+			playPauseButton.querySelector('[data-transport-icon]').textContent = playing ? '❚❚' : '▶';
+			playPauseButton.querySelector('[data-transport-label]').textContent = label;
+			playbackTime.textContent = `${formatAnalyzerTime(audio.currentTime)} / ${formatAnalyzerTime(state.duration)}`;
 		}
 
 		function activeSelection() {
@@ -363,6 +478,7 @@ const copy = copyByLocale[locale];
 				context.strokeRect(x, y, width, height);
 			}
 			const playhead = bounds.left + clamp(audio.currentTime / state.duration, 0, 1) * bounds.width;
+			canvas.dataset.playheadTime = String(audio.currentTime);
 			context.strokeStyle = '#4bf3d1';
 			context.lineWidth = 2;
 			context.beginPath();
@@ -394,6 +510,9 @@ const copy = copyByLocale[locale];
 					setSelection(drag.preview);
 				} else {
 					audio.currentTime = clamp(drag.preview.startTime, 0, state.duration);
+					state.playbackOrigin = audio.currentTime;
+					if (state.transportState !== 'playing') state.transportState = 'stopped';
+					updateTransport();
 					renderOverlays();
 				}
 				canvas.releasePointerCapture(event.pointerId);
@@ -490,10 +609,11 @@ const copy = copyByLocale[locale];
 			cancelAnimationFrame(state.animationFrame);
 			const tick = () => {
 				const selection = activeSelection();
-				if (state.selection && audio.currentTime >= selection.endTime) {
-					audio.pause();
-					audio.currentTime = selection.startTime;
+				if (audio.currentTime >= selection.endTime) {
+					stopPlayback();
+					return;
 				}
+				updateTransport();
 				renderOverlays();
 				if (!audio.paused) state.animationFrame = requestAnimationFrame(tick);
 			};
@@ -593,7 +713,7 @@ const copy = copyByLocale[locale];
 		border-radius: 8px;
 	}
 
-	.playback-bar div {
+	.loaded-file {
 		display: grid;
 		gap: 3px;
 		min-width: 0;
@@ -606,16 +726,43 @@ const copy = copyByLocale[locale];
 		white-space: nowrap;
 	}
 
-	.playback-bar span,
+	.loaded-file span,
 	.visualization-heading span {
 		color: var(--color-muted);
 		font-size: 0.82rem;
 		font-weight: 750;
 	}
 
-	audio {
-		width: 100%;
-		height: 46px;
+	.audio-analyzer audio[hidden] {
+		display: none;
+	}
+
+	.transport-toolbar {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	.transport-button {
+		gap: 7px;
+		min-height: 42px;
+		padding-inline: 12px;
+	}
+
+	.transport-button > span:first-child {
+		font-size: 0.95rem;
+		line-height: 1;
+	}
+
+	.transport-time {
+		min-width: 148px;
+		color: var(--color-muted);
+		font-size: 0.82rem;
+		font-weight: 800;
+		font-variant-numeric: tabular-nums;
+		text-align: right;
 	}
 
 	.visualization-card,
@@ -764,6 +911,15 @@ const copy = copyByLocale[locale];
 		.analysis-heading {
 			align-items: stretch;
 			flex-direction: column;
+		}
+
+		.transport-toolbar {
+			justify-content: flex-start;
+		}
+
+		.transport-time {
+			width: 100%;
+			text-align: left;
 		}
 
 		.spectrogram-canvas {
