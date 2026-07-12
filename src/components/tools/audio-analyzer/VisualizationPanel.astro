@@ -1,0 +1,81 @@
+---
+interface Props {
+	id: string;
+	title: string;
+	kind: 'spectrogram' | 'waveform';
+}
+
+const { id, title, kind } = Astro.props;
+const isSpectrogram = kind === 'spectrogram';
+const width = 1080;
+const height = isSpectrogram ? 360 : 120;
+---
+
+<section class="visualization-card" aria-labelledby={id}>
+	<div class="visualization-heading">
+		<h2 id={id}>{title}</h2>
+		<span data-spectrogram-readout={isSpectrogram ? true : undefined} data-time-readout={!isSpectrogram ? true : undefined}></span>
+	</div>
+	<canvas
+		class:list={['visualization-canvas', `${kind}-canvas`]}
+		width={width}
+		height={height}
+		data-spectrogram={isSpectrogram ? true : undefined}
+		data-waveform={!isSpectrogram ? true : undefined}
+		aria-label={title}
+	></canvas>
+</section>
+
+<style>
+	.visualization-card {
+		padding: 16px;
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.visualization-heading {
+		display: flex;
+		gap: 14px;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 10px;
+	}
+
+	.visualization-heading h2 {
+		margin: 0;
+		font-size: 1.05rem;
+		letter-spacing: 0;
+	}
+
+	.visualization-heading span {
+		color: var(--color-muted);
+		font-size: 0.82rem;
+		font-weight: 750;
+	}
+
+	.visualization-canvas {
+		display: block;
+		width: 100%;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 5px;
+		cursor: crosshair;
+		touch-action: none;
+	}
+
+	.spectrogram-canvas {
+		aspect-ratio: 3 / 1;
+	}
+
+	.waveform-canvas {
+		aspect-ratio: 9 / 1;
+	}
+
+	@media (max-width: 760px) {
+		.spectrogram-canvas {
+			min-height: 220px;
+			aspect-ratio: auto;
+		}
+	}
+</style>

@@ -139,6 +139,7 @@ test.describe('visual tool interactions', () => {
 		await expect(page.locator('[data-audio]')).toBeHidden();
 
 		const waveform = page.locator('[data-waveform]');
+		const canvas = page.locator('[data-spectrogram]');
 		await waveform.scrollIntoViewIfNeeded();
 		const waveformBox = await waveform.boundingBox();
 		expect(waveformBox).not.toBeNull();
@@ -173,10 +174,58 @@ test.describe('visual tool interactions', () => {
 		await page.keyboard.press('Control+Space');
 		await expect(page.locator('[data-play-pause]')).toHaveAttribute('data-state', 'stopped');
 
-		const canvas = page.locator('[data-spectrogram]');
+		await waveform.scrollIntoViewIfNeeded();
+		const zoomWaveformBox = await waveform.boundingBox();
+		expect(zoomWaveformBox).not.toBeNull();
+		await page.mouse.move(zoomWaveformBox.x + zoomWaveformBox.width * 0.5, zoomWaveformBox.y + zoomWaveformBox.height * 0.5);
+		await page.mouse.wheel(0, -240);
+		await expect.poll(async () => {
+			const start = Number(await waveform.getAttribute('data-view-start'));
+			const end = Number(await waveform.getAttribute('data-view-end'));
+			return end - start;
+		}).toBeLessThan(0.8);
+		const zoomedStart = Number(await waveform.getAttribute('data-view-start'));
+		await page.keyboard.down('Shift');
+		await page.mouse.wheel(0, 120);
+		await page.keyboard.up('Shift');
+		await expect.poll(() => waveform.getAttribute('data-view-start').then(Number)).toBeGreaterThan(zoomedStart);
+		expect(Number(await waveform.getAttribute('data-view-start'))).toBeCloseTo(Number(await canvas.getAttribute('data-view-start')), 5);
+		expect(Number(await waveform.getAttribute('data-view-end'))).toBeCloseTo(Number(await canvas.getAttribute('data-view-end')), 5);
+
 		await canvas.scrollIntoViewIfNeeded();
 		const box = await canvas.boundingBox();
 		expect(box).not.toBeNull();
+		const fullFrequencyHigh = Number(await canvas.getAttribute('data-view-high-frequency'));
+
+		const scaleX = box.x + box.width * 0.03;
+		await page.mouse.move(scaleX, box.y + box.height * 0.68);
+		await page.mouse.down();
+		await page.mouse.move(scaleX, box.y + box.height * 0.34);
+		await page.mouse.up();
+		await expect.poll(async () => {
+			const low = Number(await canvas.getAttribute('data-view-low-frequency'));
+			const high = Number(await canvas.getAttribute('data-view-high-frequency'));
+			return high - low;
+		}).toBeLessThan(fullFrequencyHigh * 0.8);
+		const frequencyLowBeforePan = Number(await canvas.getAttribute('data-view-low-frequency'));
+		await page.keyboard.down('Control');
+		await page.mouse.move(box.x + box.width * 0.5, box.y + box.height * 0.5);
+		await page.mouse.wheel(0, -100);
+		await page.keyboard.up('Control');
+		await expect.poll(() => canvas.getAttribute('data-view-low-frequency').then(Number)).not.toBe(frequencyLowBeforePan);
+
+		await page.mouse.dblclick(scaleX, box.y + box.height * 0.5);
+		await expect.poll(() => canvas.getAttribute('data-view-low-frequency').then(Number)).toBeCloseTo(0, 2);
+		await expect.poll(() => canvas.getAttribute('data-view-high-frequency').then(Number)).toBeCloseTo(fullFrequencyHigh, 2);
+		await page.mouse.move(scaleX, box.y + box.height * 0.68);
+		await page.mouse.down();
+		await page.mouse.move(scaleX, box.y + box.height * 0.48);
+		await page.mouse.up();
+		await page.keyboard.down('Control');
+		await page.mouse.click(scaleX, box.y + box.height * 0.5);
+		await page.keyboard.up('Control');
+		await expect.poll(() => canvas.getAttribute('data-view-high-frequency').then(Number)).toBeCloseTo(fullFrequencyHigh, 2);
+
 		await page.mouse.move(box.x + box.width * 0.25, box.y + box.height * 0.25);
 		await page.mouse.down();
 		await page.mouse.move(box.x + box.width * 0.7, box.y + box.height * 0.75);

@@ -1,0 +1,144 @@
+---
+import MetricCard from './MetricCard.astro';
+
+interface Props {
+	id: string;
+	selectionLabel: string;
+	analysisTitle: string;
+	clearSelectionLabel: string;
+	entireFileLabel: string;
+	peakLabel: string;
+	rmsLabel: string;
+	momentaryLabel: string;
+	shortTermLabel: string;
+	integratedLabel: string;
+	spectrumTitle: string;
+}
+
+const {
+	id,
+	selectionLabel,
+	analysisTitle,
+	clearSelectionLabel,
+	entireFileLabel,
+	peakLabel,
+	rmsLabel,
+	momentaryLabel,
+	shortTermLabel,
+	integratedLabel,
+	spectrumTitle,
+} = Astro.props;
+const spectrumId = `${id}-spectrum`;
+---
+
+<aside class="analysis-column" aria-labelledby={id}>
+	<div class="analysis-heading">
+		<div>
+			<p class="eyebrow">{selectionLabel}</p>
+			<h2 id={id}>{analysisTitle}</h2>
+		</div>
+		<button class="button secondary" type="button" data-clear-selection disabled>{clearSelectionLabel}</button>
+	</div>
+	<p class="selection-summary" data-selection-summary>{entireFileLabel}</p>
+	<div class="metric-grid">
+		<MetricCard label={peakLabel} metric="peak" unit="dBFS" />
+		<MetricCard label={rmsLabel} metric="rms" unit="dBFS" />
+		<MetricCard label={momentaryLabel} metric="momentary" unit="LUFS" />
+		<MetricCard label={shortTermLabel} metric="shortTerm" unit="LUFS" />
+		<MetricCard label={integratedLabel} metric="integrated" unit="LUFS" wide />
+	</div>
+	<section class="spectrum-card" aria-labelledby={spectrumId}>
+		<h3 id={spectrumId}>{spectrumTitle}</h3>
+		<canvas width="520" height="300" data-spectrum aria-label={spectrumTitle}></canvas>
+	</section>
+</aside>
+
+<style>
+	.analysis-column {
+		position: sticky;
+		top: 18px;
+		display: grid;
+		gap: 14px;
+		min-width: 0;
+		padding: 16px;
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.analysis-heading {
+		display: flex;
+		gap: 14px;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.analysis-heading .eyebrow {
+		margin-bottom: 5px;
+	}
+
+	.analysis-heading h2,
+	.spectrum-card h3 {
+		margin: 0;
+		font-size: 1.05rem;
+		letter-spacing: 0;
+	}
+
+	.selection-summary {
+		margin: 0;
+		padding: 11px 12px;
+		color: var(--color-muted);
+		background: var(--color-surface-alt);
+		border-radius: 6px;
+		font-size: 0.9rem;
+		font-weight: 750;
+	}
+
+	.metric-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 10px;
+	}
+
+	.spectrum-card {
+		padding: 16px;
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.spectrum-card h3 {
+		margin-bottom: 12px;
+	}
+
+	.spectrum-card canvas {
+		display: block;
+		width: 100%;
+		aspect-ratio: 1.7 / 1;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 5px;
+		touch-action: none;
+	}
+
+	@media (max-width: 1100px) {
+		.analysis-column {
+			position: static;
+		}
+
+		.metric-grid {
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 760px) {
+		.analysis-heading {
+			align-items: stretch;
+			flex-direction: column;
+		}
+
+		.metric-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
