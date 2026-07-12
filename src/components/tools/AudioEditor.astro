@@ -14,6 +14,7 @@ const copyByLocale = {
 		intro: 'Nimm Audio auf, schneide mehrere Spuren nondestruktiv, mische Effekte und prüfe Lautheit und Spektrum.',
 		privacy: 'Deine Aufnahmen, Projekte und Audiodateien bleiben auf diesem Gerät und werden ausschließlich in deinem Browser verarbeitet.',
 		project: 'Projekt',
+		fileMenu: 'Datei',
 		untitledProject: 'Unbenanntes Projekt',
 		newProject: 'Neues Projekt',
 		openProject: 'Projekte öffnen',
@@ -69,6 +70,11 @@ const copyByLocale = {
 		solo: 'Solo',
 		arm: 'Für Aufnahme aktivieren',
 		trackMenu: 'Spuroptionen',
+		renameTrack: 'Spur umbenennen',
+		duplicateTrack: 'Spur duplizieren',
+		deleteTrack: 'Spur löschen',
+		waveformView: 'Wellenform',
+		spectrogramView: 'Spektrogramm',
 		gain: 'Verstärkung',
 		pan: 'Panorama',
 		center: 'Mitte',
@@ -166,6 +172,7 @@ const copyByLocale = {
 		intro: 'Record audio, edit multiple tracks nondestructively, mix effects, and inspect loudness and frequency content.',
 		privacy: 'Your recordings, projects, and audio files stay on this device and are processed entirely in your browser.',
 		project: 'Project',
+		fileMenu: 'File',
 		untitledProject: 'Untitled project',
 		newProject: 'New project',
 		openProject: 'Open projects',
@@ -221,6 +228,11 @@ const copyByLocale = {
 		solo: 'Solo',
 		arm: 'Arm for recording',
 		trackMenu: 'Track options',
+		renameTrack: 'Rename track',
+		duplicateTrack: 'Duplicate track',
+		deleteTrack: 'Delete track',
+		waveformView: 'Waveform',
+		spectrogramView: 'Spectrogram',
 		gain: 'Gain',
 		pan: 'Pan',
 		center: 'Center',
@@ -335,11 +347,17 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 				</div>
 
 				<div class="project-actions">
-					<button class="editor-button" type="button" data-project-action="new">{copy.newProject}</button>
-					<button class="editor-button" type="button" data-project-action="open">{copy.openProject}</button>
-					<button class="editor-button project-overflow" type="button" data-project-action="rename" title={copy.renameProject}>{copy.renameProject}</button>
-					<button class="editor-button project-overflow" type="button" data-project-action="duplicate" title={copy.duplicateProject}>{copy.duplicateProject}</button>
-					<button class="editor-button danger project-overflow" type="button" data-project-action="delete" title={copy.deleteProject}>{copy.deleteProject}</button>
+					<div class="menu-shell file-menu" data-file-menu>
+						<button class="editor-button" type="button" data-file-menu-toggle aria-haspopup="menu" aria-expanded="false">{copy.fileMenu} <span aria-hidden="true">▾</span></button>
+						<div class="editor-menu" role="menu" data-file-menu-panel hidden>
+							<button type="button" role="menuitem" data-project-action="new">{copy.newProject}</button>
+							<button type="button" role="menuitem" data-project-action="open">{copy.openProject}</button>
+							<hr />
+							<button type="button" role="menuitem" data-project-action="rename">{copy.renameProject}</button>
+							<button type="button" role="menuitem" data-project-action="duplicate">{copy.duplicateProject}</button>
+							<button class="danger" type="button" role="menuitem" data-project-action="delete">{copy.deleteProject}</button>
+						</div>
+					</div>
 					<label class="editor-button primary import-button">
 						{copy.importAudio}
 						<input data-import-input type="file" accept="audio/*,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.webm" multiple />
@@ -398,6 +416,10 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 						</div>
 						<div class="timeline-actions">
 							<button class="editor-button" type="button" data-add-track>+ {copy.addTrack}</button>
+							<div class="view-strip" role="group" aria-label={`${copy.waveformView} / ${copy.spectrogramView}`}>
+								<button type="button" data-timeline-view="waveform" aria-pressed="true">{copy.waveformView}</button>
+								<button type="button" data-timeline-view="spectrogram" aria-pressed="false">{copy.spectrogramView}</button>
+							</div>
 							<div class="zoom-strip" role="group" aria-label={copy.zoomControls}>
 								<button type="button" data-zoom="out" aria-label={copy.zoomOut} title={copy.zoomOut}>−</button>
 								<button type="button" data-zoom="fit" title={copy.zoomFit}>{copy.zoomFit}</button>
@@ -529,7 +551,7 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 			<template data-track-template>
 				<section class="track-row" data-track-row>
 					<div class="track-header" data-track-header>
-						<div class="track-title-row"><input class="track-name" data-track-name aria-label={copy.trackName} value={copy.track} /><button type="button" data-track-action="menu" aria-label={copy.trackMenu} title={copy.trackMenu}>•••</button></div>
+						<div class="track-title-row"><input class="track-name" data-track-name aria-label={copy.trackName} value={copy.track} /><div class="menu-shell track-menu-shell"><button type="button" data-track-action="menu" aria-label={copy.trackMenu} title={copy.trackMenu} aria-haspopup="menu" aria-expanded="false">•••</button><div class="editor-menu track-menu" role="menu" data-track-menu hidden><button type="button" role="menuitem" data-track-menu-action="rename">{copy.renameTrack}</button><button type="button" role="menuitem" data-track-menu-action="duplicate">{copy.duplicateTrack}</button><hr /><button class="danger" type="button" role="menuitem" data-track-menu-action="delete">{copy.deleteTrack}</button></div></div></div>
 						<div class="track-toggles"><button type="button" data-track-action="mute" aria-pressed="false">M <span>{copy.mute}</span></button><button type="button" data-track-action="solo" aria-pressed="false">S <span>{copy.solo}</span></button><button class="arm" type="button" data-track-action="arm" aria-pressed="false">● <span>{copy.arm}</span></button></div>
 						<label class="compact-slider"><span>{copy.gain}</span><input type="range" min="-60" max="12" step="0.1" value="0" data-track-gain /><output data-track-gain-value>0.0 dB</output></label>
 						<label class="compact-slider"><span>{copy.pan}</span><input type="range" min="-1" max="1" step="0.01" value="0" data-track-pan /><output data-track-pan-value>{copy.center}</output></label>
@@ -617,6 +639,13 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 	.project-kicker { color: var(--color-accent-dark); font-size: 0.68rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 	.local-dot { width: 10px; height: 10px; background: var(--color-positive-accent); border-radius: 999px; box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-positive-accent) 18%, transparent); }
 	.save-state { color: var(--color-muted); font-size: 0.76rem; font-weight: 700; white-space: nowrap; }
+	.menu-shell { position: relative; }
+	.editor-menu { position: absolute; z-index: 100; top: calc(100% + 5px); right: 0; display: grid; min-width: 210px; overflow: hidden; padding: 5px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 8px; box-shadow: var(--shadow-raised); }
+	.editor-menu[hidden] { display: none; }
+	.editor-menu button { min-height: 40px; padding: 0 10px; color: inherit; text-align: left; background: transparent; border: 0; border-radius: 5px; cursor: pointer; }
+	.editor-menu button:hover, .editor-menu button:focus-visible { background: var(--color-surface-alt); }
+	.editor-menu button.danger { color: var(--color-status-negative-text); }
+	.editor-menu hr { width: 100%; margin: 4px 0; border: 0; border-top: 1px solid var(--color-line); }
 	.editor-button, .panel-actions button, .inspector-launch { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 0 13px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 7px; font-weight: 800; cursor: pointer; }
 	.editor-button.primary, .panel-actions button.primary, .inspector-launch { color: var(--color-accent-on); background: var(--color-accent); border-color: var(--color-accent); }
 	.editor-button.danger { color: var(--color-status-negative-text); background: var(--color-status-negative-background); border-color: var(--color-status-negative-border); }
@@ -656,11 +685,12 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 	.timeline-heading-row { display: flex; gap: 14px; align-items: start; justify-content: space-between; margin-bottom: 12px; }
 	.timeline-heading-row h2 { margin: 0; font-size: 1.25rem; }
 	.timeline-heading-row p { max-width: 72ch; margin: 4px 0 0; color: var(--color-muted); font-size: 0.78rem; }
-	.zoom-strip { display: flex; }
-	.zoom-strip button { min-width: 44px; min-height: 44px; padding: 0 10px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); font-weight: 850; cursor: pointer; }
-	.zoom-strip button + button { border-left: 0; }
-	.zoom-strip button:first-child { border-radius: 7px 0 0 7px; }
-	.zoom-strip button:last-child { border-radius: 0 7px 7px 0; }
+	.zoom-strip, .view-strip { display: flex; }
+	.zoom-strip button, .view-strip button { min-width: 44px; min-height: 44px; padding: 0 10px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); font-weight: 850; cursor: pointer; }
+	.zoom-strip button + button, .view-strip button + button { border-left: 0; }
+	.zoom-strip button:first-child, .view-strip button:first-child { border-radius: 7px 0 0 7px; }
+	.zoom-strip button:last-child, .view-strip button:last-child { border-radius: 0 7px 7px 0; }
+	.view-strip button[aria-pressed='true'] { color: var(--color-accent-on); background: var(--color-accent); border-color: var(--color-accent); }
 	.inspector-launch { display: none; }
 	.timeline-scroll { position: relative; overflow: auto; min-height: 510px; max-height: 66vh; overscroll-behavior: contain; background: var(--color-deep); border: 1px solid var(--color-line); border-radius: 8px; touch-action: pan-x pan-y; }
 	.timeline-inner { position: relative; width: calc(var(--track-header-width) + var(--timeline-width)); min-height: 508px; }
@@ -668,7 +698,9 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 	.ruler-row { position: sticky; z-index: 8; top: 0; min-height: 38px; }
 	.ruler-corner { position: sticky; z-index: 9; left: 0; display: flex; align-items: center; padding: 0 12px; color: var(--color-deep-muted); background: color-mix(in srgb, var(--color-deep) 90%, #fff); border-right: 1px solid var(--color-deep-border); border-bottom: 1px solid var(--color-deep-border); font-size: 0.7rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 	.ruler { position: relative; overflow: hidden; background: color-mix(in srgb, var(--color-deep) 90%, #fff); border-bottom: 1px solid var(--color-deep-border); }
-	.ruler canvas, .track-waveform, .audio-clip canvas, .analysis-visual canvas { display: block; width: 100%; height: 100%; }
+	.ruler canvas, .track-waveform, .audio-clip canvas, .analysis-visual canvas { display: block; height: 100%; }
+	.ruler canvas { position: sticky; left: var(--track-header-width); width: auto; }
+	.track-waveform, .analysis-visual canvas { width: 100%; }
 	.ruler-playhead { position: absolute; z-index: 10; top: 0; left: var(--playhead-x); width: 17px; height: 100%; padding: 0; transform: translateX(-8px); background: transparent; border: 0; cursor: ew-resize; }
 	.ruler-playhead::after { position: absolute; top: 13px; left: 8px; width: 1px; height: 2000px; content: ''; background: var(--color-accent); pointer-events: none; }
 	.ruler-playhead span { display: block; width: 0; height: 0; margin: 0 auto; border-top: 9px solid var(--color-accent); border-right: 6px solid transparent; border-left: 6px solid transparent; }
@@ -677,6 +709,9 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 	.track-row { min-height: 142px; border-bottom: 1px solid var(--color-deep-border); }
 	.track-header { position: sticky; z-index: 5; left: 0; display: grid; align-content: start; gap: 8px; padding: 10px; color: var(--color-deep-contrast); background: color-mix(in srgb, var(--color-deep) 88%, #fff); border-right: 1px solid var(--color-deep-border); }
 	.track-title-row, .track-toggles { display: flex; gap: 5px; }
+	.track-title-row { position: relative; }
+	.track-menu-shell { flex: 0 0 auto; }
+	.track-menu { top: 38px; right: 0; }
 	.track-name { width: 100%; min-width: 0; min-height: 34px; padding: 0 8px; color: var(--color-deep-contrast); background: var(--color-deep-subtle); border: 1px solid transparent; border-radius: 5px; font-weight: 850; }
 	.track-title-row button, .track-toggles button { min-width: 36px; min-height: 36px; color: var(--color-deep-contrast); background: var(--color-deep-subtle); border: 1px solid var(--color-deep-border); border-radius: 5px; font-weight: 900; cursor: pointer; }
 	.track-toggles button { flex: 1; }
@@ -693,7 +728,8 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 	.track-waveform, .clip-layer, .track-selection { position: absolute; inset: 0; }
 	.audio-clip { position: absolute; top: 8px; bottom: 8px; overflow: hidden; min-width: 12px; color: #fff; background: color-mix(in srgb, var(--color-accent) 74%, #48200a); border: 1px solid color-mix(in srgb, var(--color-accent) 75%, #fff); border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,.2); cursor: grab; touch-action: none; }
 	.audio-clip[aria-pressed='true'] { outline: 3px solid #fff; outline-offset: -4px; }
-	.audio-clip canvas { opacity: 0.78; }
+	.audio-clip canvas { position: absolute; top: 0; opacity: 0.88; }
+	.audio-editor[data-timeline-view='spectrogram'] .audio-clip { background: #17120f; }
 	.clip-label { position: absolute; top: 5px; left: 10px; overflow: hidden; max-width: calc(100% - 20px); padding: 2px 5px; background: rgba(0,0,0,.45); border-radius: 3px; font-size: 0.7rem; font-weight: 850; text-overflow: ellipsis; white-space: nowrap; }
 	.clip-handle { position: absolute; z-index: 2; inset-block: 0; width: 16px; cursor: ew-resize; }
 	.clip-handle.start { left: 0; }
@@ -771,7 +807,6 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 		.audio-editor { --track-header-width: 190px; }
 		.project-bar { align-items: flex-start; }
 		.project-actions { justify-content: flex-end; }
-		.project-overflow { display: none; }
 		.editor-workspace { display: block; min-height: 560px; }
 		.inspector-launch { display: inline-flex; }
 		.inspector { position: fixed; z-index: 80; inset: auto 0 0; display: none; max-height: min(78vh, 720px); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 14px 14px 0 0; box-shadow: 0 -20px 60px rgba(0,0,0,.3); }
@@ -789,7 +824,7 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 		.project-identity { width: 100%; }
 		.save-state { margin-left: auto; font-size: 0; }
 		.save-state::after { font-size: 0.72rem; content: '●'; }
-		.project-actions { display: grid; grid-template-columns: 1fr 1fr 1.2fr; width: 100%; }
+		.project-actions { display: flex; width: 100%; }
 		.project-actions .editor-button { padding-inline: 7px; font-size: 0.76rem; }
 		.control-deck { display: flex; flex-wrap: wrap; padding: 10px; }
 		.transport-strip { order: 1; width: 100%; justify-content: center; overflow-x: auto; }

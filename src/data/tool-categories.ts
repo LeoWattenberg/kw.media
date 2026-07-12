@@ -43,6 +43,7 @@ export const toolCategories: ToolCategory[] = [
 		id: 'audio',
 		slug: 'audio',
 		toolIds: [
+			'audio-editor',
 			'audio-analyzer',
 			'subtitle-studio',
 			'abx-tester',

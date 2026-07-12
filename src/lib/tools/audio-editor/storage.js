@@ -642,7 +642,8 @@ function transactionCompletion(transaction) {
 
 function deleteByIndex(index, key) {
 	return new Promise((resolve, reject) => {
-		const cursorRequest = index.openKeyCursor(key);
+		// IDBKeyCursor cannot mutate records; a value cursor can delete them.
+		const cursorRequest = index.openCursor(key);
 		cursorRequest.onerror = () => reject(cursorRequest.error || new Error('Could not enumerate IndexedDB records.'));
 		cursorRequest.onsuccess = () => {
 			const cursor = cursorRequest.result;

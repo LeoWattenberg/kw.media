@@ -81,6 +81,9 @@ export function createAudioEditorController(root, options = {}) {
 		pixelsPerSecond: DEFAULT_PIXELS_PER_SECOND,
 		mobile: classifyMobile(),
 		timelineWidth: MIN_TIMELINE_SECONDS * DEFAULT_PIXELS_PER_SECOND,
+		timelineView: 'waveform',
+		timelineDrawFrame: 0,
+		resizeObserver: null,
 		readOnly: false,
 		projectLock: null,
 		autosaveTimer: 0,
@@ -121,6 +124,10 @@ export function createAudioEditorController(root, options = {}) {
 			if (state.disposed) return;
 			state.disposed = true;
 			window.clearTimeout(state.autosaveTimer);
+			if (state.timelineDrawFrame) cancelAnimationFrame(state.timelineDrawFrame);
+			state.resizeObserver?.disconnect();
+			document.removeEventListener('keydown', handleKeyboard);
+			document.removeEventListener('pointerdown', handleDocumentPointerDown);
 			await stopRecording().catch(() => undefined);
 			state.projectLock?.release();
 			state.projectLock = null;
@@ -172,6 +179,13 @@ export function createAudioEditorController(root, options = {}) {
 		for (const button of root.querySelectorAll('[data-zoom]')) {
 			button.addEventListener('click', () => updateZoom(button.dataset.zoom));
 		}
+		for (const button of root.querySelectorAll('[data-timeline-view]')) {
+			button.addEventListener('click', () => setTimelineView(button.dataset.timelineView));
+		}
+		nodes.fileMenuToggle?.addEventListener('click', (event) => {
+			event.stopPropagation();
+			toggleMenu(nodes.fileMenuPanel, nodes.fileMenuToggle);
+		});
 		nodes.monitor?.addEventListener('change', () => {
 			nodes.monitorWarning.hidden = !nodes.monitor.checked;
 			state.recorder?.setMonitoring(nodes.monitor.checked);
@@ -202,12 +216,17 @@ export function createAudioEditorController(root, options = {}) {
 		bindPlayhead();
 		bindTimelineGestures();
 		updateExportFields();
-		root.addEventListener('keydown', handleKeyboard);
+		nodes.timeline.addEventListener('scroll', scheduleTimelineRedraw, { passive: true });
+		state.resizeObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(scheduleTimelineRedraw) : null;
+		state.resizeObserver?.observe(nodes.timeline);
+		document.addEventListener('keydown', handleKeyboard);
+		document.addEventListener('pointerdown', handleDocumentPointerDown);
 		window.addEventListener('pagehide', handlePageHide, { once: true });
 		document.addEventListener('visibilitychange', handleVisibility);
 	}
 
 	async function handleProjectAction(action) {
+		closeMenu(nodes.fileMenuPanel, nodes.fileMenuToggle);
 		if (action === 'new') {
 			if (nodes.projectDialog?.open) nodes.projectDialog.close();
 			return newProject();
@@ -622,11 +641,61 @@ export function createAudioEditorController(root, options = {}) {
 		state.pixelsPerSecond = Math.min(state.pixelsPerSecond, MAX_TIMELINE_PIXELS / durationSeconds);
 		state.timelineWidth = Math.max(1, Math.round(durationSeconds * state.pixelsPerSecond));
 		root.style.setProperty('--timeline-width', `${state.timelineWidth}px`);
+		root.dataset.timelineView = state.timelineView;
 		nodes.trackList.replaceChildren();
 		nodes.emptyState.hidden = project.tracks.length > 0 || project.clips.length > 0;
-		drawRuler(nodes.rulerCanvas, durationSeconds, state.pixelsPerSecond, state.timelineWidth);
 		for (const track of project.tracks) nodes.trackList.append(renderTrack(track));
 		updateSelectionOverlay();
+		redrawTimelineCanvases();
+	}
+
+	function setTimelineView(view) {
+		state.timelineView = view === 'spectrogram' ? 'spectrogram' : 'waveform';
+		root.dataset.timelineView = state.timelineView;
+		for (const button of root.querySelectorAll('[data-timeline-view]')) button.setAttribute('aria-pressed', String(button.dataset.timelineView === state.timelineView));
+		redrawTimelineCanvases();
+	}
+
+	function scheduleTimelineRedraw() {
+		if (state.timelineDrawFrame) return;
+		state.timelineDrawFrame = requestAnimationFrame(() => {
+			state.timelineDrawFrame = 0;
+			redrawTimelineCanvases();
+		});
+	}
+
+	function redrawTimelineCanvases() {
+		if (!project || !nodes.timeline?.isConnected) return;
+		const headerWidth = Number.parseFloat(getComputedStyle(root).getPropertyValue('--track-header-width')) || 0;
+		const viewportWidth = Math.max(1, nodes.timeline.clientWidth - headerWidth);
+		const scrollOffset = Math.max(0, nodes.timeline.scrollLeft);
+		const durationSeconds = Math.max(MIN_TIMELINE_SECONDS, projectDurationFrames(project) / AUDIO_EDITOR_SAMPLE_RATE);
+		drawRuler(nodes.rulerCanvas, durationSeconds, state.pixelsPerSecond, viewportWidth, scrollOffset);
+		for (const canvas of nodes.trackList.querySelectorAll('[data-clip-waveform]')) {
+			const clip = findClip(project, canvas.closest('[data-clip]')?.dataset.clipId);
+			if (clip) drawClipVisual(canvas, clip, sourceBuffers.get(clip.sourceId), sourcePeaks.get(clip.sourceId), { viewportWidth, scrollOffset });
+		}
+	}
+
+	function drawClipVisual(canvas, clip, buffer, peaks, viewport = {}) {
+		if (!canvas || !buffer) return;
+		const headerWidth = Number.parseFloat(getComputedStyle(root).getPropertyValue('--track-header-width')) || 0;
+		const viewportWidth = viewport.viewportWidth || Math.max(1, nodes.timeline.clientWidth - headerWidth);
+		const scrollOffset = viewport.scrollOffset ?? Math.max(0, nodes.timeline.scrollLeft);
+		const fullWidth = Math.max(12, framesToPixels(clip.durationFrames));
+		const clipLeft = framesToPixels(clip.timelineStartFrame);
+		const overscan = 48;
+		const visibleStartPx = Math.max(0, scrollOffset - clipLeft - overscan);
+		const visibleEndPx = Math.min(fullWidth, scrollOffset + viewportWidth - clipLeft + overscan);
+		if (visibleEndPx <= visibleStartPx) {
+			canvas.hidden = true;
+			return;
+		}
+		canvas.hidden = false;
+		canvas.style.left = `${visibleStartPx}px`;
+		const options = { fullWidth, visibleStartPx, visibleWidth: visibleEndPx - visibleStartPx };
+		if (state.timelineView === 'spectrogram') drawClipSpectrogram(canvas, clip, buffer, options);
+		else drawClipWaveform(canvas, clip, buffer, peaks, options);
 	}
 
 	function renderTrack(track) {
@@ -668,10 +737,32 @@ export function createAudioEditorController(root, options = {}) {
 				button.setAttribute('aria-pressed', String(Boolean(track[action === 'arm' ? 'armed' : action])));
 				button.addEventListener('click', () => commit({ type: 'track/update', trackId: track.id, changes: { [action === 'arm' ? 'armed' : action]: !track[action === 'arm' ? 'armed' : action] } }, { selectTrackId: track.id }));
 			} else if (action === 'menu') {
-				button.addEventListener('click', () => {
-					if (window.confirm(locale === 'de' ? `Spur „${track.name}“ löschen?` : `Delete track “${track.name}”?`)) commit({ type: 'track/remove', trackId: track.id });
+				const menu = row.querySelector('[data-track-menu]');
+				button.addEventListener('click', (event) => {
+					event.stopPropagation();
+					toggleMenu(menu, button);
+				});
+				header.addEventListener('contextmenu', (event) => {
+					event.preventDefault();
+					closeAllMenus();
+					menu.hidden = false;
+					button.setAttribute('aria-expanded', 'true');
 				});
 			}
+		}
+		for (const item of row.querySelectorAll('[data-track-menu-action]')) {
+			item.disabled = blocked;
+			item.addEventListener('click', () => {
+				closeAllMenus();
+				const action = item.dataset.trackMenuAction;
+				if (action === 'rename') {
+					name.focus();
+					name.select();
+				} else if (action === 'duplicate') duplicateTrack(track);
+				else if (action === 'delete' && window.confirm(locale === 'de' ? `Spur „${track.name}“ löschen?` : `Delete track “${track.name}”?`)) {
+					commit({ type: 'track/remove', trackId: track.id });
+				}
+			});
 		}
 		bindTrackSlider(row, track, 'gain');
 		bindTrackSlider(row, track, 'pan');
@@ -728,8 +819,23 @@ export function createAudioEditorController(root, options = {}) {
 			}
 		});
 		bindClipDrag(element, clip, track);
-		drawClipWaveform(element.querySelector('[data-clip-waveform]'), clip, sourceBuffers.get(clip.sourceId), sourcePeaks.get(clip.sourceId));
+		drawClipVisual(element.querySelector('[data-clip-waveform]'), clip, sourceBuffers.get(clip.sourceId), sourcePeaks.get(clip.sourceId));
 		return element;
+	}
+
+	function duplicateTrack(track) {
+		if (editingBlocked()) return;
+		const trackId = createStableId('track');
+		const commands = [createAddTrackCommand({ ...track, id: trackId, name: `${track.name} ${locale === 'de' ? 'Kopie' : 'copy'}`, armed: false, clipIds: [] })];
+		let selectedClipId = null;
+		for (const clipId of track.clipIds) {
+			const clip = findClip(project, clipId);
+			if (!clip) continue;
+			const nextClipId = createStableId('clip');
+			selectedClipId ||= nextClipId;
+			commands.push(createAddClipCommand(trackId, { ...clip, id: nextClipId }));
+		}
+		commit({ type: 'batch', commands }, { selectTrackId: trackId, selectClipId: selectedClipId });
 	}
 
 	function bindClipDrag(element, clip, track) {
@@ -1418,7 +1524,7 @@ export function createAudioEditorController(root, options = {}) {
 		const exportButton = root.querySelector('[data-export-action="start"]');
 		if (exportButton) exportButton.disabled = state.importing || state.recordingStarting || Boolean(state.recorder) || Boolean(state.exportAbort) || state.missingSourceIds.size > 0;
 		for (const element of root.querySelectorAll('[data-effect-target], [data-effect-type], [data-master-gain]')) element.disabled = blocked;
-		for (const element of root.querySelectorAll('[data-track-name], [data-track-gain], [data-track-pan], [data-track-action], [data-effect] input, [data-effect] button')) element.disabled = blocked;
+		for (const element of root.querySelectorAll('[data-track-name], [data-track-gain], [data-track-pan], [data-track-action], [data-track-menu-action], [data-effect] input, [data-effect] button')) element.disabled = blocked;
 		for (const element of root.querySelectorAll('[data-clip-field], [data-clip-action]')) element.disabled = blocked || !hasClip;
 		const loopButton = root.querySelector('[data-transport="loop"]');
 		loopButton?.setAttribute('aria-pressed', String(Boolean(project.loop.enabled)));
@@ -1597,6 +1703,12 @@ export function createAudioEditorController(root, options = {}) {
 	}
 
 	function handleKeyboard(event) {
+		if (event.key === 'Escape') {
+			closeAllMenus();
+			return;
+		}
+		if (event.target instanceof Element && event.target.closest('[role="menu"]')) return;
+		if (event.target !== document.body && event.target !== document.documentElement && !root.contains(event.target)) return;
 		if (event.target.matches('input, select, textarea') || event.target.isContentEditable) return;
 		const modifier = event.ctrlKey || event.metaKey;
 		if (event.code === 'Space') { event.preventDefault(); void handleTransport('play'); }
@@ -1621,6 +1733,31 @@ export function createAudioEditorController(root, options = {}) {
 				render();
 				nodes.trackList.querySelector(`[data-track-id="${cssEscape(track.id)}"] [data-track-lane]`)?.focus();
 			}
+		}
+	}
+
+	function handleDocumentPointerDown(event) {
+		if (!event.target.closest?.('.menu-shell')) closeAllMenus();
+	}
+
+	function toggleMenu(menu, toggle) {
+		const open = Boolean(menu?.hidden);
+		closeAllMenus();
+		if (!menu || !open) return;
+		menu.hidden = false;
+		toggle?.setAttribute('aria-expanded', 'true');
+		menu.querySelector('[role="menuitem"]:not(:disabled)')?.focus({ preventScroll: true });
+	}
+
+	function closeMenu(menu, toggle) {
+		if (menu) menu.hidden = true;
+		toggle?.setAttribute('aria-expanded', 'false');
+	}
+
+	function closeAllMenus() {
+		for (const menu of root.querySelectorAll('.editor-menu')) {
+			menu.hidden = true;
+			menu.closest('.menu-shell')?.querySelector('[aria-haspopup="menu"]')?.setAttribute('aria-expanded', 'false');
 		}
 	}
 
@@ -1693,6 +1830,7 @@ function collectNodes(root) {
 	const query = (selector) => root.querySelector(selector);
 	return {
 		projectName: query('[data-project-name]'), saveState: query('[data-save-state]'), storageUsage: query('[data-storage-usage]'),
+		fileMenuToggle: query('[data-file-menu-toggle]'), fileMenuPanel: query('[data-file-menu-panel]'),
 		importInput: query('[data-import-input]'), status: query('[data-status]'), live: query('[data-live]'),
 		timeline: query('[data-timeline]'), ruler: query('[data-ruler]'), rulerCanvas: query('[data-ruler-canvas]'), trackList: query('[data-track-list]'), emptyState: query('[data-empty-state]'),
 		playhead: query('[data-playhead]'), timeDisplay: query('[data-time-display]'), monitor: query('[data-monitor]'), latencyOffset: query('[data-latency-offset]'), monitorWarning: query('[data-monitor-warning]'), inputMeter: query('[data-input-meter]'), inputMeterFill: query('[data-input-meter-fill]'),
@@ -1722,11 +1860,13 @@ async function readStoredAudioBuffer(store, source, context) {
 	return store.loadSourceAudioBuffer(source.id, context);
 }
 
-function drawRuler(canvas, durationSeconds, pixelsPerSecond, timelineWidth) {
+function drawRuler(canvas, durationSeconds, pixelsPerSecond, viewportWidth, scrollOffset = 0) {
 	if (!canvas) return;
 	const cssHeight = 38;
-	const width = Math.max(1, Math.min(8192, Math.round(timelineWidth)));
+	const width = Math.max(1, Math.round(viewportWidth));
 	const dpr = Math.min(2, globalThis.devicePixelRatio || 1);
+	canvas.style.width = `${width}px`;
+	canvas.style.height = `${cssHeight}px`;
 	canvas.width = Math.round(width * dpr);
 	canvas.height = Math.round(cssHeight * dpr);
 	const context = canvas.getContext('2d');
@@ -1739,9 +1879,10 @@ function drawRuler(canvas, durationSeconds, pixelsPerSecond, timelineWidth) {
 	const candidates = [0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 30, 60, 120, 300, 600];
 	const majorStep = candidates.find((step) => step * pixelsPerSecond >= 70) || 600;
 	const minorStep = majorStep / 5;
-	const scale = width / timelineWidth;
-	for (let seconds = 0; seconds <= durationSeconds + minorStep / 2; seconds += minorStep) {
-		const x = seconds * pixelsPerSecond * scale;
+	const firstTick = Math.max(0, Math.floor(scrollOffset / pixelsPerSecond / minorStep) * minorStep);
+	const lastTick = Math.min(durationSeconds + minorStep / 2, (scrollOffset + width) / pixelsPerSecond + minorStep);
+	for (let seconds = firstTick; seconds <= lastTick; seconds += minorStep) {
+		const x = seconds * pixelsPerSecond - scrollOffset;
 		const major = Math.abs(seconds / majorStep - Math.round(seconds / majorStep)) < 1e-5;
 		context.beginPath();
 		context.moveTo(x + 0.5, major ? 12 : 25);
@@ -1751,11 +1892,15 @@ function drawRuler(canvas, durationSeconds, pixelsPerSecond, timelineWidth) {
 	}
 }
 
-function drawClipWaveform(canvas, clip, buffer, peaks) {
+function drawClipWaveform(canvas, clip, buffer, peaks, options = {}) {
 	if (!canvas || !buffer) return;
-	const cssWidth = Math.max(24, Math.min(2048, Math.round(Number.parseFloat(canvas.parentElement?.style.width) || 300)));
+	const fullWidth = Math.max(1, options.fullWidth || Number.parseFloat(canvas.parentElement?.style.width) || 300);
+	const visibleStartPx = Math.max(0, options.visibleStartPx || 0);
+	const cssWidth = Math.max(1, Math.round(options.visibleWidth || fullWidth));
 	const cssHeight = 124;
 	const dpr = Math.min(2, globalThis.devicePixelRatio || 1);
+	canvas.style.width = `${cssWidth}px`;
+	canvas.style.height = '100%';
 	canvas.width = Math.round(cssWidth * dpr);
 	canvas.height = Math.round(cssHeight * dpr);
 	const context = canvas.getContext('2d');
@@ -1766,14 +1911,14 @@ function drawClipWaveform(canvas, clip, buffer, peaks) {
 	context.lineWidth = 1;
 	context.beginPath();
 	const channels = Array.from({ length: buffer.numberOfChannels }, (_, channel) => buffer.getChannelData(channel));
-	const framesPerPixel = Math.max(1, clip.durationFrames / cssWidth);
+	const framesPerPixel = clip.durationFrames / fullWidth;
 	const peakLevel = (peaks?.levels || [])
 		.filter((level) => level.blockSize <= framesPerPixel)
 		.sort((first, second) => first.blockSize - second.blockSize)
 		.at(-1);
 	for (let x = 0; x < cssWidth; x += 1) {
-		const localStart = Math.floor(x * framesPerPixel);
-		const localEnd = Math.min(clip.durationFrames, Math.ceil((x + 1) * framesPerPixel));
+		const localStart = Math.max(0, Math.floor((visibleStartPx + x) * framesPerPixel));
+		const localEnd = Math.min(clip.durationFrames, Math.max(localStart + 1, Math.ceil((visibleStartPx + x + 1) * framesPerPixel)));
 		let minimum = 1;
 		let maximum = -1;
 		if (peakLevel) {
@@ -1811,6 +1956,33 @@ function drawClipWaveform(canvas, clip, buffer, peaks) {
 		context.lineTo(x + 0.5, (1 - minimum) * cssHeight / 2);
 	}
 	context.stroke();
+}
+
+function drawClipSpectrogram(canvas, clip, buffer, options = {}) {
+	if (!canvas || !buffer) return;
+	const fullWidth = Math.max(1, options.fullWidth || Number.parseFloat(canvas.parentElement?.style.width) || 300);
+	const visibleStartPx = Math.max(0, options.visibleStartPx || 0);
+	const visibleWidth = Math.max(1, Math.round(options.visibleWidth || fullWidth));
+	const firstLocalFrame = Math.max(0, Math.floor(visibleStartPx / fullWidth * clip.durationFrames));
+	const lastLocalFrame = Math.min(clip.durationFrames, Math.ceil((visibleStartPx + visibleWidth) / fullWidth * clip.durationFrames));
+	const sourceLength = Math.max(1, lastLocalFrame - firstLocalFrame);
+	const stride = Math.max(1, Math.ceil(sourceLength / 65_536));
+	const samples = new Float32Array(Math.ceil(sourceLength / stride));
+	const channels = Array.from({ length: buffer.numberOfChannels }, (_, channel) => buffer.getChannelData(channel));
+	for (let index = 0; index < samples.length; index += 1) {
+		const local = Math.min(lastLocalFrame - 1, firstLocalFrame + index * stride);
+		const sourceLocal = clip.reversed ? clip.durationFrames - local - 1 : local;
+		const sourceFrame = clip.sourceStartFrame + sourceLocal;
+		let sample = 0;
+		for (const channel of channels) sample += (channel[sourceFrame] || 0) / channels.length;
+		let envelope = 1;
+		if (clip.fadeInFrames > 0 && local < clip.fadeInFrames) envelope *= local / clip.fadeInFrames;
+		if (clip.fadeOutFrames > 0 && local > clip.durationFrames - clip.fadeOutFrames) envelope *= (clip.durationFrames - local) / clip.fadeOutFrames;
+		samples[index] = sample * clip.gain * Math.max(0, envelope);
+	}
+	canvas.style.width = `${visibleWidth}px`;
+	canvas.style.height = '100%';
+	drawSpectrogram(canvas, samples, buffer.sampleRate / stride);
 }
 
 async function canonicalizeBuffer(input, context) {
