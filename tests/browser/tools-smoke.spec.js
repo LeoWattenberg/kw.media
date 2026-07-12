@@ -19,9 +19,31 @@ const documentFixture = {
 	buffer: Buffer.from('# Conversion test\n\nA paragraph with **bold text** and math $x^2 + y^2$.\n'),
 };
 
+const createWavFixture = ({ duration = 1, sampleRate = 8000, frequency = 440 } = {}) => {
+	const sampleCount = Math.round(duration * sampleRate);
+	const buffer = Buffer.alloc(44 + sampleCount * 2);
+	buffer.write('RIFF', 0);
+	buffer.writeUInt32LE(36 + sampleCount * 2, 4);
+	buffer.write('WAVEfmt ', 8);
+	buffer.writeUInt32LE(16, 16);
+	buffer.writeUInt16LE(1, 20);
+	buffer.writeUInt16LE(1, 22);
+	buffer.writeUInt32LE(sampleRate, 24);
+	buffer.writeUInt32LE(sampleRate * 2, 28);
+	buffer.writeUInt16LE(2, 32);
+	buffer.writeUInt16LE(16, 34);
+	buffer.write('data', 36);
+	buffer.writeUInt32LE(sampleCount * 2, 40);
+	for (let index = 0; index < sampleCount; index += 1) {
+		buffer.writeInt16LE(Math.round(Math.sin(2 * Math.PI * frequency * index / sampleRate) * 16000), 44 + index * 2);
+	}
+	return { name: 'analyzer-tone.wav', mimeType: 'audio/wav', buffer };
+};
+
 const toolPages = [
 	['/en/tools/', 'Creator Tools', '.tool-folder-grid'],
 	['/en/tools/abx-tester/', 'ABX Audio Tester', '[data-abx-tester]'],
+	['/en/tools/audio-analyzer/', 'Audio Analyzer', '[data-audio-analyzer]'],
 	['/en/tools/audio/', 'Audio Tools', '.tool-category-grid'],
 	['/en/tools/background-remover/', 'Background Remover', '[data-background-remover]'],
 	['/en/tools/background-remover-checkerboard/', 'Checkerboard Background Remover', '[data-background-remover]'],
@@ -107,6 +129,27 @@ test.describe('tool pages browser smoke', () => {
 });
 
 test.describe('visual tool interactions', () => {
+	test('Audio Analyzer renders local audio and updates a time-frequency selection', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		await page.goto('/en/tools/audio-analyzer/');
+		await page.locator('[data-file-input]').setInputFiles(createWavFixture());
+		await expect(page.locator('[data-workspace]')).toBeVisible();
+		await expect(page.locator('[data-status]')).toHaveAttribute('data-state', 'success');
+		await expect(page.locator('[data-metric="peak"]')).not.toHaveText('—');
+
+		const canvas = page.locator('[data-spectrogram]');
+		await canvas.scrollIntoViewIfNeeded();
+		const box = await canvas.boundingBox();
+		expect(box).not.toBeNull();
+		await page.mouse.move(box.x + box.width * 0.25, box.y + box.height * 0.25);
+		await page.mouse.down();
+		await page.mouse.move(box.x + box.width * 0.7, box.y + box.height * 0.75);
+		await page.mouse.up();
+		await expect(page.locator('[data-clear-selection]')).toBeEnabled();
+		await expect(page.locator('[data-selection-summary]')).toContainText('Hz');
+		expect(errors).toEqual([]);
+	});
+
 	test('Document converter produces and previews every displayed output format', async ({ page }) => {
 		const errors = collectClientErrors(page);
 		await page.goto('/en/tools/converter/document-converter/');

@@ -97,6 +97,18 @@ import {
 	trimNumber,
 } from '../src/lib/tools/media-info.js';
 import { getMediaInfoFactory } from '../src/lib/tools/media-info-browser.js';
+import {
+	amplitudeToDbfs,
+	analyzeLevels,
+	averageSpectrum,
+	createSpectrogram,
+	downmixChannels,
+	formatAnalyzerTime,
+	meanSquare,
+	normalizeSelection,
+	peakAmplitude,
+	roseusColor,
+} from '../src/lib/tools/audio-analyzer.js';
 
 const profiles = [
 	{ value: 'wav', label: 'WAV', extension: '.wav', mimeType: 'audio/wav', kind: 'audio', codec: 'pcm_s16le', args: ['-ar', '48000'] },
@@ -112,6 +124,41 @@ test('shared formatting helpers keep compact UI-friendly labels', () => {
 	assert.equal(formatBytes(1024), '1.0 KB');
 	assert.equal(formatBytes(12 * 1024), '12 KB');
 	assert.equal(formatBytes(3 * 1024 ** 2), '3.0 MB');
+});
+
+test('audio analyzer calculates deterministic sample levels and selections', () => {
+	const samples = Float32Array.from([0.5, -0.5, 0.25, -0.25]);
+	assert.equal(peakAmplitude(samples), 0.5);
+	assert.equal(meanSquare(samples), 0.15625);
+	assert.equal(amplitudeToDbfs(0.5).toFixed(3), '-6.021');
+	assert.equal(formatAnalyzerTime(65.4321), '1:05.432');
+	assert.deepEqual(normalizeSelection({ startTime: 8, endTime: 2, lowFrequency: 9000, highFrequency: 1000 }, 6, 8000), {
+		startTime: 2,
+		endTime: 6,
+		lowFrequency: 1000,
+		highFrequency: 8000,
+	});
+	assert.deepEqual(Array.from(downmixChannels([Float32Array.from([1, -1]), Float32Array.from([-1, 1])])), [0, 0]);
+});
+
+test('audio analyzer creates Roseus spectrograms, spectra, and loudness values', () => {
+	const sampleRate = 8192;
+	const samples = Float32Array.from({ length: sampleRate }, (_, index) => 0.5 * Math.sin(2 * Math.PI * 1024 * index / sampleRate));
+	const levels = analyzeLevels(samples, sampleRate);
+	assert.ok(Math.abs(levels.peakDbfs + 6.0206) < 0.01);
+	assert.ok(Math.abs(levels.rmsDbfs + 9.0309) < 0.01);
+	assert.ok(Number.isFinite(levels.momentaryLufs));
+	assert.ok(Number.isFinite(levels.shortTermLufs));
+	assert.ok(Number.isFinite(levels.integratedLufs));
+
+	const spectrogram = createSpectrogram(samples, sampleRate, { fftSize: 256, maxFrames: 12 });
+	assert.equal(spectrogram.frames.length, 12);
+	assert.equal(spectrogram.frames[0].length, 128);
+	const spectrum = averageSpectrum(samples, sampleRate, { fftSize: 1024, maxFrames: 4, lowFrequency: 500, highFrequency: 1500 });
+	const strongest = spectrum.reduce((best, point) => point.db > best.db ? point : best);
+	assert.ok(Math.abs(strongest.frequency - 1024) <= 8);
+	assert.deepEqual(roseusColor(0), [0, 0, 0]);
+	assert.deepEqual(roseusColor(1), [255, 255, 255]);
 });
 
 test('video/audio converter detects media type from mime type and extension', () => {
