@@ -22,6 +22,7 @@ const useAi = !args.includes('--no-ai') && process.env.INLINE_POST_LINK_AI !== '
 const linkDensity = Number(argumentValue('--link-density') ?? process.env.INLINE_POST_LINK_DENSITY ?? 2);
 const limit = Number(argumentValue('--limit') ?? 0);
 const candidateCount = Number(argumentValue('--candidates') ?? process.env.INLINE_POST_LINK_CANDIDATES ?? 8);
+const fileFilter = argumentValue('--file');
 const ollamaUrl = process.env.OLLAMA_URL ?? process.env.OLLAMA_TRANSLATE_URL ?? 'http://172.20.208.1:11434';
 const anchorModel = process.env.OLLAMA_INLINE_LINK_MODEL ?? 'gemma4:31b';
 const timeoutMs = Number(process.env.OLLAMA_TIMEOUT_MS ?? 300000);
@@ -77,6 +78,7 @@ Options:
 - --candidates=N  Related post candidates to send to Ollama after page and tool targets. Defaults to 8.
 - --no-ai         Use deterministic phrase matching instead of Ollama anchor selection.
 - --limit=N       Process only the first N selected posts and tool descriptions.
+- --file=FILTER   Process only generated tool descriptions matching a source file, path, or title.
 
 Related-post candidates come from each post's relatedPosts frontmatter.`);
 	process.exit(0);
@@ -96,9 +98,11 @@ const sidebarPages = readSidebarPages();
 const toolPages = (await loadToolCandidates()).map(toolPageCandidate);
 const generatedToolMetadata = await readGeneratedToolMetadata();
 const passedFiles = positionalArgs();
-const selectedFiles = selectFiles(passedFiles);
+const selectedFiles = fileFilter ? [] : selectFiles(passedFiles);
 const selectedPosts = (limit > 0 ? selectedFiles.slice(0, limit) : selectedFiles).map((filePath) => readPostFile(filePath));
-const allToolSources = !passedFiles.length || passedFiles.some(isGeneratedToolMetadataPath) ? toolSourcePages() : [];
+const allToolSources = fileFilter || !passedFiles.length || passedFiles.some(isGeneratedToolMetadataPath)
+	? toolSourcePages().filter(matchesToolFilter)
+	: [];
 const selectedTools = limit > 0 ? allToolSources.slice(0, limit) : allToolSources;
 const results = [];
 let changedTools = 0;
@@ -214,6 +218,8 @@ function readSidebarPages() {
 function toolPageCandidate(tool) {
 	return {
 		pageId: tool.path,
+		sourceFilePath: tool.filePath,
+		metadataFile: tool.metadataFile,
 		frontmatter: {
 			path: tool.path,
 			locale: tool.locale,
@@ -231,6 +237,15 @@ function toolSourcePages() {
 		if (!Array.isArray(content) || content.length < 2) return [];
 		return [{ ...tool, body: content.join('\n\n') }];
 	});
+}
+
+function matchesToolFilter(tool) {
+	if (!fileFilter) return true;
+	const normalizedFilter = fileFilter.toLowerCase();
+	return tool.sourceFilePath?.toLowerCase().includes(normalizedFilter)
+		|| tool.metadataFile?.toLowerCase().includes(normalizedFilter)
+		|| tool.frontmatter.path.toLowerCase().includes(normalizedFilter)
+		|| tool.frontmatter.title.toLowerCase().includes(normalizedFilter);
 }
 
 function pageCandidate(pageId, locale, translation) {
