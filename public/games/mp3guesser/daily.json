@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "date": "2026-07-11",
-  "generatedAt": "2026-07-11T05:22:08.746Z",
+  "date": "2026-07-12",
+  "generatedAt": "2026-07-12T05:37:48.482Z",
   "duration": 30,
   "source": {
     "provider": "Wikimedia Commons",
-    "title": "02 - Die Wetterfahne (CK 2947-2, ES 383)",
-    "creator": "Schubert 1827",
-    "license": "Public domain",
-    "licenseUrl": "",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3A02_-_Die_Wetterfahne_(CK_2947-2%2C_ES_383).flac",
-    "downloadUrl": "https://commons.wikimedia.org/wiki/File:02_-_Die_Wetterfahne_(CK_2947-2,_ES_383).flac",
-    "duration": 141.897143,
+    "title": "Square Punch - Thundercat",
+    "creator": "Square Punch",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ASquare_Punch_-_Thundercat.flac",
+    "downloadUrl": "https://commons.wikimedia.org/wiki/File:Square_Punch_-_Thundercat.flac",
+    "duration": 469.786122,
     "format": "FLAC"
   },
   "levels": [
@@ -23,17 +23,17 @@
         {
           "id": "v9-encode-2",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-11/v9-2.mp3"
+          "url": "/games/mp3guesser/2026-07-12/v9-2.mp3"
         },
         {
           "id": "v9-original",
           "kind": "original",
-          "url": "/games/mp3guesser/2026-07-11/original.wav"
+          "url": "/games/mp3guesser/2026-07-12/original.wav"
         },
         {
           "id": "v9-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-11/v9-1.mp3"
+          "url": "/games/mp3guesser/2026-07-12/v9-1.mp3"
         }
       ]
     },
@@ -43,19 +43,19 @@
       "lameQuality": 7,
       "options": [
         {
+          "id": "v7-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-12/v7-1.mp3"
+        },
+        {
           "id": "v7-encode-2",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-11/v7-2.mp3"
+          "url": "/games/mp3guesser/2026-07-12/v7-2.mp3"
         },
         {
           "id": "v7-original",
           "kind": "original",
-          "url": "/games/mp3guesser/2026-07-11/original.wav"
-        },
-        {
-          "id": "v7-encode-1",
-          "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-11/v7-1.mp3"
+          "url": "/games/mp3guesser/2026-07-12/original.wav"
         }
       ]
     },
@@ -67,17 +67,17 @@
         {
           "id": "v5-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-11/v5-1.mp3"
-        },
-        {
-          "id": "v5-original",
-          "kind": "original",
-          "url": "/games/mp3guesser/2026-07-11/original.wav"
+          "url": "/games/mp3guesser/2026-07-12/v5-1.mp3"
         },
         {
           "id": "v5-encode-2",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-11/v5-2.mp3"
+          "url": "/games/mp3guesser/2026-07-12/v5-2.mp3"
+        },
+        {
+          "id": "v5-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-12/original.wav"
         }
       ]
     },
@@ -87,19 +87,19 @@
       "lameQuality": 3,
       "options": [
         {
-          "id": "v3-original",
-          "kind": "original",
-          "url": "/games/mp3guesser/2026-07-11/original.wav"
-        },
-        {
           "id": "v3-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-11/v3-1.mp3"
+          "url": "/games/mp3guesser/2026-07-12/v3-1.mp3"
         },
         {
           "id": "v3-encode-2",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-11/v3-2.mp3"
+          "url": "/games/mp3guesser/2026-07-12/v3-2.mp3"
+        },
+        {
+          "id": "v3-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-12/original.wav"
         }
       ]
     },
@@ -109,19 +109,19 @@
       "lameQuality": 0,
       "options": [
         {
-          "id": "v0-encode-1",
-          "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-11/v0-1.mp3"
-        },
-        {
           "id": "v0-original",
           "kind": "original",
-          "url": "/games/mp3guesser/2026-07-11/original.wav"
+          "url": "/games/mp3guesser/2026-07-12/original.wav"
+        },
+        {
+          "id": "v0-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-12/v0-1.mp3"
         },
         {
           "id": "v0-encode-2",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-11/v0-2.mp3"
+          "url": "/games/mp3guesser/2026-07-12/v0-2.mp3"
         }
       ]
     }
