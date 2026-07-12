@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import AudioAnalyzer from '../../components/tools/AudioAnalyzer.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('audio-analyzer', {
+	id: 'audio-analyzer',
+	translations: {
+		de: {
+			id: 'audio-analyzer-de',
+			path: '/de/tools/audio-analyzer/',
+			title: 'Audio Analyzer',
+			description: 'Analysiere Wellenform, Spektrogramm, Pegel, Lautheit und Frequenzspektrum einer lokalen Audiodatei im Browser.',
+		},
+		en: {
+			id: 'audio-analyzer-en',
+			path: '/en/tools/audio-analyzer/',
+			title: 'Audio Analyzer',
+			description: 'Analyze the waveform, spectrogram, levels, loudness, and frequency spectrum of a local audio file in your browser.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<AudioAnalyzer locale={tool.locale} />
+</ToolPageShell>

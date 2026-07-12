@@ -1,0 +1,774 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copyByLocale = {
+	de: {
+		eyebrow: 'Audio analysieren',
+		title: 'Audio Analyzer',
+		intro: 'Untersuche Pegel, Lautheit und Frequenzen in einer Wellenform und einem Spektrogramm.',
+		privacy: 'Deine Audiodatei bleibt lokal und wird vollständig in deinem Browser analysiert.',
+		choose: 'Audiodatei auswählen',
+		hint: 'WAV, MP3, FLAC, OGG, M4A und weitere vom Browser unterstützte Formate',
+		waiting: 'Wähle eine Audiodatei aus, um die Analyse zu starten.',
+		decoding: 'Audio wird dekodiert und analysiert…',
+		ready: 'Analyse bereit. Ziehe in den Ansichten, um einen Bereich auszuwählen.',
+		error: 'Die Audiodatei konnte nicht analysiert werden: {message}',
+		waveform: 'Wellenform',
+		spectrogram: 'Spektrogramm · Roseus',
+		analysis: 'Analyse',
+		selection: 'Auswahl',
+		entireFile: 'Gesamte Datei',
+		clearSelection: 'Auswahl aufheben',
+		peak: 'Peak',
+		rms: 'RMS',
+		momentary: 'LUFS Momentary (max.)',
+		shortTerm: 'LUFS Short-term (max.)',
+		integrated: 'LUFS Integrated',
+		spectrum: 'Frequenzspektrum',
+		frequency: 'Frequenz',
+		level: 'Pegel (dBFS)',
+		playSelection: 'Auswahl abspielen',
+		fileMeta: '{duration} · {sampleRate} Hz · {channels} Kanäle',
+		mono: 'Kanal',
+		channels: 'Kanäle',
+	},
+	en: {
+		eyebrow: 'Analyze audio',
+		title: 'Audio Analyzer',
+		intro: 'Inspect levels, loudness, and frequency content in a waveform and spectrogram.',
+		privacy: 'Your audio stays local and is analyzed entirely in your browser.',
+		choose: 'Select audio file',
+		hint: 'WAV, MP3, FLAC, OGG, M4A, and other formats supported by your browser',
+		waiting: 'Choose an audio file to start the analysis.',
+		decoding: 'Decoding and analyzing audio…',
+		ready: 'Analysis ready. Drag in either view to select a region.',
+		error: 'The audio file could not be analyzed: {message}',
+		waveform: 'Waveform',
+		spectrogram: 'Spectrogram',
+		analysis: 'Analysis',
+		selection: 'Selection',
+		entireFile: 'Entire file',
+		clearSelection: 'Clear selection',
+		peak: 'Peak',
+		rms: 'RMS',
+		momentary: 'LUFS momentary (max)',
+		shortTerm: 'LUFS short-term (max)',
+		integrated: 'LUFS integrated',
+		spectrum: 'Frequency spectrum',
+		frequency: 'Frequency',
+		level: 'Level (dBFS)',
+		playSelection: 'Play selection',
+		fileMeta: '{duration} · {sampleRate} Hz · {channels} channels',
+		mono: 'channel',
+		channels: 'channels',
+	},
+} satisfies Record<Locale, Record<string, string>>;
+
+const copy = copyByLocale[locale];
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section audio-analyzer-section tool-workspace">
+	<div class="container analyzer-container">
+		<div class="audio-analyzer" data-audio-analyzer data-copy={JSON.stringify(copy)}>
+			<div class="analyzer-loader tool-panel">
+				<FilePicker
+					label={copy.choose}
+					name={copy.choose}
+					hint={copy.hint}
+					accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.webm"
+					nameAttrs={{ 'data-file-name': true }}
+					metaAttrs={{ 'data-file-meta': true }}
+					inputAttrs={{ 'data-file-input': true }}
+				/>
+				<ToolStatus data-status text={copy.waiting} />
+			</div>
+
+			<div class="analyzer-workspace" data-workspace hidden>
+				<div class="visualization-column">
+					<div class="playback-bar">
+						<div>
+							<strong data-loaded-name></strong>
+							<span data-loaded-meta></span>
+						</div>
+						<button class="button secondary" type="button" data-play-selection>{copy.playSelection}</button>
+					</div>
+					<audio controls preload="metadata" data-audio></audio>
+
+					<section class="visualization-card" aria-labelledby={`spectrogram-title-${locale}`}>
+						<div class="visualization-heading">
+							<h2 id={`spectrogram-title-${locale}`}>{copy.spectrogram}</h2>
+							<span data-spectrogram-readout></span>
+						</div>
+						<canvas class="spectrogram-canvas" width="1080" height="360" data-spectrogram aria-label={copy.spectrogram}></canvas>
+					</section>
+
+					<section class="visualization-card" aria-labelledby={`waveform-title-${locale}`}>
+						<div class="visualization-heading">
+							<h2 id={`waveform-title-${locale}`}>{copy.waveform}</h2>
+							<span data-time-readout></span>
+						</div>
+						<canvas class="waveform-canvas" width="1080" height="120" data-waveform aria-label={copy.waveform}></canvas>
+					</section>
+				</div>
+
+				<aside class="analysis-column" aria-labelledby={`analysis-title-${locale}`}>
+					<div class="analysis-heading">
+						<div>
+							<p class="eyebrow">{copy.selection}</p>
+							<h2 id={`analysis-title-${locale}`}>{copy.analysis}</h2>
+						</div>
+						<button class="button secondary" type="button" data-clear-selection disabled>{copy.clearSelection}</button>
+					</div>
+					<p class="selection-summary" data-selection-summary>{copy.entireFile}</p>
+					<div class="metric-grid">
+						<div class="metric-card"><span>{copy.peak}</span><strong data-metric="peak">—</strong><small>dBFS</small></div>
+						<div class="metric-card"><span>{copy.rms}</span><strong data-metric="rms">—</strong><small>dBFS</small></div>
+						<div class="metric-card"><span>{copy.momentary}</span><strong data-metric="momentary">—</strong><small>LUFS</small></div>
+						<div class="metric-card"><span>{copy.shortTerm}</span><strong data-metric="shortTerm">—</strong><small>LUFS</small></div>
+						<div class="metric-card metric-wide"><span>{copy.integrated}</span><strong data-metric="integrated">—</strong><small>LUFS</small></div>
+					</div>
+					<section class="spectrum-card" aria-labelledby={`spectrum-title-${locale}`}>
+						<h3 id={`spectrum-title-${locale}`}>{copy.spectrum}</h3>
+						<canvas width="520" height="300" data-spectrum aria-label={copy.spectrum}></canvas>
+					</section>
+				</aside>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	import {
+		analyzeLevels,
+		averageSpectrum,
+		clamp,
+		createSpectrogram,
+		downmixChannels,
+		formatAnalyzerTime,
+		normalizeSelection,
+		roseusColor,
+	} from '../../lib/tools/audio-analyzer';
+	import { formatBytes, formatTemplate } from '../../lib/tools/format';
+
+	for (const root of document.querySelectorAll('[data-audio-analyzer]:not([data-audio-analyzer-bound])')) {
+		root.dataset.audioAnalyzerBound = 'true';
+		initAudioAnalyzer(root);
+	}
+
+	function initAudioAnalyzer(root) {
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const fileInput = root.querySelector('[data-file-input]');
+		const fileName = root.querySelector('[data-file-name]');
+		const fileMeta = root.querySelector('[data-file-meta]');
+		const status = root.querySelector('[data-status]');
+		const workspace = root.querySelector('[data-workspace]');
+		const audio = root.querySelector('[data-audio]');
+		const waveform = root.querySelector('[data-waveform]');
+		const spectrogram = root.querySelector('[data-spectrogram]');
+		const spectrum = root.querySelector('[data-spectrum]');
+		const clearSelection = root.querySelector('[data-clear-selection]');
+		const playSelection = root.querySelector('[data-play-selection]');
+		const state = {
+			samples: null,
+			sampleRate: 0,
+			duration: 0,
+			nyquist: 0,
+			selection: null,
+			waveformBase: document.createElement('canvas'),
+			spectrogramBase: document.createElement('canvas'),
+			objectUrl: null,
+			drag: null,
+			animationFrame: 0,
+		};
+
+		fileInput.addEventListener('change', () => void loadFile(fileInput.files?.[0]));
+		clearSelection.addEventListener('click', () => setSelection(null));
+		playSelection.addEventListener('click', () => {
+			const selection = activeSelection();
+			audio.currentTime = selection.startTime;
+			void audio.play();
+		});
+		bindSelectionCanvas(waveform, 'waveform');
+		bindSelectionCanvas(spectrogram, 'spectrogram');
+		audio.addEventListener('play', animatePlayback);
+		audio.addEventListener('pause', () => cancelAnimationFrame(state.animationFrame));
+		audio.addEventListener('seeked', renderOverlays);
+
+		async function loadFile(file) {
+			if (!file) return;
+			setStatus(copy.decoding, 'info');
+			fileName.textContent = file.name;
+			fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'audio'}`;
+			workspace.hidden = true;
+
+			try {
+				const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+				if (!AudioContextClass) throw new Error('Web Audio API is not supported by this browser.');
+				const context = new AudioContextClass();
+				const buffer = await context.decodeAudioData((await file.arrayBuffer()).slice(0));
+				const channels = Array.from({ length: buffer.numberOfChannels }, (_, index) => buffer.getChannelData(index));
+				state.samples = downmixChannels(channels);
+				state.sampleRate = buffer.sampleRate;
+				state.duration = buffer.duration;
+				state.nyquist = buffer.sampleRate / 2;
+				state.selection = null;
+				await context.close();
+
+				if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
+				state.objectUrl = URL.createObjectURL(file);
+				audio.src = state.objectUrl;
+				root.querySelector('[data-loaded-name]').textContent = file.name;
+				root.querySelector('[data-loaded-meta]').textContent = formatTemplate(copy.fileMeta, {
+					duration: formatAnalyzerTime(buffer.duration),
+					sampleRate: String(buffer.sampleRate),
+					channels: String(buffer.numberOfChannels),
+				});
+				workspace.hidden = false;
+				drawWaveformBase();
+				drawSpectrogramBase(createSpectrogram(state.samples, state.sampleRate));
+				setSelection(null);
+				setStatus(copy.ready, 'success');
+			} catch (error) {
+				const message = error instanceof Error ? error.message : String(error);
+				setStatus(formatTemplate(copy.error, { message }), 'error');
+			}
+		}
+
+		function setSelection(selection) {
+			state.selection = selection ? normalizeSelection(selection, state.duration, state.nyquist) : null;
+			clearSelection.disabled = !state.selection;
+			updateAnalysis();
+			renderOverlays();
+		}
+
+		function activeSelection() {
+			return normalizeSelection(state.selection, state.duration, state.nyquist);
+		}
+
+		function updateAnalysis() {
+			if (!state.samples) return;
+			const selection = activeSelection();
+			const first = Math.floor(selection.startTime * state.sampleRate);
+			const last = Math.max(first + 1, Math.ceil(selection.endTime * state.sampleRate));
+			const selectedSamples = state.samples.subarray(first, Math.min(last, state.samples.length));
+			const levels = analyzeLevels(selectedSamples, state.sampleRate);
+			const values = {
+				peak: levels.peakDbfs,
+				rms: levels.rmsDbfs,
+				momentary: levels.momentaryLufs,
+				shortTerm: levels.shortTermLufs,
+				integrated: levels.integratedLufs,
+			};
+			for (const [name, value] of Object.entries(values)) {
+				root.querySelector(`[data-metric="${name}"]`).textContent = formatLevel(value);
+			}
+
+			root.querySelector('[data-selection-summary]').textContent = state.selection
+				? `${formatAnalyzerTime(selection.startTime)}–${formatAnalyzerTime(selection.endTime)} · ${formatFrequency(selection.lowFrequency)}–${formatFrequency(selection.highFrequency)}`
+				: copy.entireFile;
+			root.querySelector('[data-time-readout]').textContent = `${formatAnalyzerTime(selection.startTime)}–${formatAnalyzerTime(selection.endTime)}`;
+			root.querySelector('[data-spectrogram-readout]').textContent = `${formatFrequency(selection.lowFrequency)}–${formatFrequency(selection.highFrequency)}`;
+			drawSpectrum(averageSpectrum(selectedSamples, state.sampleRate, selection));
+		}
+
+		function drawWaveformBase() {
+			const canvas = state.waveformBase;
+			canvas.width = waveform.width;
+			canvas.height = waveform.height;
+			const context = canvas.getContext('2d');
+			const bounds = plotBounds(canvas, 'waveform');
+			fillCanvas(context, canvas);
+			drawTimeAxis(context, bounds);
+			context.strokeStyle = cssColor('--color-accent', '#d54f70');
+			context.lineWidth = 1.4;
+			context.beginPath();
+			const samplesPerPixel = state.samples.length / bounds.width;
+			for (let x = 0; x < bounds.width; x += 1) {
+				const first = Math.floor(x * samplesPerPixel);
+				const last = Math.max(first + 1, Math.floor((x + 1) * samplesPerPixel));
+				let minimum = 1;
+				let maximum = -1;
+				for (let index = first; index < last && index < state.samples.length; index += 1) {
+					minimum = Math.min(minimum, state.samples[index]);
+					maximum = Math.max(maximum, state.samples[index]);
+				}
+				const px = bounds.left + x + 0.5;
+				context.moveTo(px, bounds.top + (1 - maximum) * bounds.height / 2);
+				context.lineTo(px, bounds.top + (1 - minimum) * bounds.height / 2);
+			}
+			context.stroke();
+		}
+
+		function drawSpectrogramBase(data) {
+			const canvas = state.spectrogramBase;
+			canvas.width = spectrogram.width;
+			canvas.height = spectrogram.height;
+			const context = canvas.getContext('2d');
+			const bounds = plotBounds(canvas, 'spectrogram');
+			fillCanvas(context, canvas);
+			const image = context.createImageData(bounds.width, bounds.height);
+			for (let x = 0; x < bounds.width; x += 1) {
+				const frame = data.frames[Math.min(data.frames.length - 1, Math.floor(x / bounds.width * data.frames.length))];
+				for (let y = 0; y < bounds.height; y += 1) {
+					const bin = Math.min(frame.length - 1, Math.floor((1 - y / bounds.height) * frame.length));
+					const color = roseusColor((frame[bin] + 100) / 100);
+					const offset = (y * bounds.width + x) * 4;
+					image.data[offset] = color[0];
+					image.data[offset + 1] = color[1];
+					image.data[offset + 2] = color[2];
+					image.data[offset + 3] = 255;
+				}
+			}
+			context.putImageData(image, bounds.left, bounds.top);
+			drawTimeAxis(context, bounds);
+			drawFrequencyAxis(context, bounds);
+		}
+
+		function renderOverlays() {
+			if (!state.samples) return;
+			drawOverlay(waveform, state.waveformBase, 'waveform');
+			drawOverlay(spectrogram, state.spectrogramBase, 'spectrogram');
+		}
+
+		function drawOverlay(canvas, base, kind) {
+			const context = canvas.getContext('2d');
+			context.clearRect(0, 0, canvas.width, canvas.height);
+			context.drawImage(base, 0, 0);
+			const bounds = plotBounds(canvas, kind);
+			const selection = state.drag?.kind === kind ? state.drag.preview : state.selection;
+			if (selection) {
+				const normalized = normalizeSelection(selection, state.duration, state.nyquist);
+				const x = bounds.left + normalized.startTime / state.duration * bounds.width;
+				const width = Math.max(1, (normalized.endTime - normalized.startTime) / state.duration * bounds.width);
+				let y = bounds.top;
+				let height = bounds.height;
+				if (kind === 'spectrogram') {
+					y = bounds.top + (1 - normalized.highFrequency / state.nyquist) * bounds.height;
+					height = Math.max(1, (normalized.highFrequency - normalized.lowFrequency) / state.nyquist * bounds.height);
+				}
+				context.fillStyle = 'rgba(255, 255, 255, 0.17)';
+				context.fillRect(x, y, width, height);
+				context.strokeStyle = '#ffffff';
+				context.lineWidth = 2;
+				context.strokeRect(x, y, width, height);
+			}
+			const playhead = bounds.left + clamp(audio.currentTime / state.duration, 0, 1) * bounds.width;
+			context.strokeStyle = '#4bf3d1';
+			context.lineWidth = 2;
+			context.beginPath();
+			context.moveTo(playhead, bounds.top);
+			context.lineTo(playhead, bounds.top + bounds.height);
+			context.stroke();
+		}
+
+		function bindSelectionCanvas(canvas, kind) {
+			canvas.addEventListener('pointerdown', (event) => {
+				if (!state.samples) return;
+				canvas.setPointerCapture(event.pointerId);
+				const point = canvasPoint(canvas, event);
+				state.drag = { kind, start: point, preview: selectionFromPoints(kind, point, point), moved: false };
+				renderOverlays();
+			});
+			canvas.addEventListener('pointermove', (event) => {
+				if (!state.drag || state.drag.kind !== kind) return;
+				const point = canvasPoint(canvas, event);
+				state.drag.moved ||= Math.hypot(point.x - state.drag.start.x, point.y - state.drag.start.y) > 4;
+				state.drag.preview = selectionFromPoints(kind, state.drag.start, point);
+				renderOverlays();
+			});
+			canvas.addEventListener('pointerup', (event) => {
+				if (!state.drag || state.drag.kind !== kind) return;
+				const drag = state.drag;
+				state.drag = null;
+				if (drag.moved) {
+					setSelection(drag.preview);
+				} else {
+					audio.currentTime = clamp(drag.preview.startTime, 0, state.duration);
+					renderOverlays();
+				}
+				canvas.releasePointerCapture(event.pointerId);
+			});
+		}
+
+		function selectionFromPoints(kind, first, second) {
+			const bounds = plotBounds(kind === 'waveform' ? waveform : spectrogram, kind);
+			const startTime = clamp((Math.min(first.x, second.x) - bounds.left) / bounds.width, 0, 1) * state.duration;
+			const endTime = clamp((Math.max(first.x, second.x) - bounds.left) / bounds.width, 0, 1) * state.duration;
+			if (kind === 'waveform') {
+				return { startTime, endTime, lowFrequency: 0, highFrequency: state.nyquist };
+			}
+			const lowFrequency = (1 - clamp((Math.max(first.y, second.y) - bounds.top) / bounds.height, 0, 1)) * state.nyquist;
+			const highFrequency = (1 - clamp((Math.min(first.y, second.y) - bounds.top) / bounds.height, 0, 1)) * state.nyquist;
+			return { startTime, endTime, lowFrequency, highFrequency };
+		}
+
+		function drawSpectrum(points) {
+			const context = spectrum.getContext('2d');
+			const bounds = { left: 54, top: 18, width: spectrum.width - 72, height: spectrum.height - 58 };
+			fillCanvas(context, spectrum);
+			context.strokeStyle = cssColor('--color-line', '#d6d2cc');
+			context.fillStyle = cssColor('--color-muted', '#6f6a64');
+			context.font = '12px sans-serif';
+			context.textAlign = 'right';
+			for (const db of [-100, -80, -60, -40, -20, 0]) {
+				const y = bounds.top + (-db / 100) * bounds.height;
+				context.beginPath();
+				context.moveTo(bounds.left, y);
+				context.lineTo(bounds.left + bounds.width, y);
+				context.stroke();
+				context.fillText(String(db), bounds.left - 7, y + 4);
+			}
+			if (!points.length) return;
+			const minimumFrequency = Math.max(20, points[0].frequency);
+			const maximumFrequency = Math.max(minimumFrequency * 1.01, points.at(-1).frequency);
+			const logMinimum = Math.log10(minimumFrequency);
+			const logRange = Math.log10(maximumFrequency) - logMinimum;
+			context.beginPath();
+			let started = false;
+			for (const point of points) {
+				if (point.frequency < minimumFrequency) continue;
+				const x = bounds.left + (Math.log10(point.frequency) - logMinimum) / logRange * bounds.width;
+				const y = bounds.top + clamp(-point.db / 100, 0, 1) * bounds.height;
+				if (started) context.lineTo(x, y);
+				else context.moveTo(x, y);
+				started = true;
+			}
+			context.lineTo(bounds.left + bounds.width, bounds.top + bounds.height);
+			context.lineTo(bounds.left, bounds.top + bounds.height);
+			context.closePath();
+			const gradient = context.createLinearGradient(bounds.left, 0, bounds.left + bounds.width, 0);
+			gradient.addColorStop(0, '#5f164f');
+			gradient.addColorStop(0.55, '#d45152');
+			gradient.addColorStop(1, '#f9d383');
+			context.fillStyle = gradient;
+			context.globalAlpha = 0.55;
+			context.fill();
+			context.globalAlpha = 1;
+			context.strokeStyle = '#d54f70';
+			context.lineWidth = 2;
+			context.stroke();
+			context.fillStyle = cssColor('--color-muted', '#6f6a64');
+			context.textAlign = 'center';
+			for (const frequency of [20, 100, 1000, 10000, 20000]) {
+				if (frequency < minimumFrequency || frequency > maximumFrequency) continue;
+				const x = bounds.left + (Math.log10(frequency) - logMinimum) / logRange * bounds.width;
+				context.fillText(formatFrequency(frequency), x, bounds.top + bounds.height + 20);
+			}
+		}
+
+		function drawTimeAxis(context, bounds) {
+			context.fillStyle = cssColor('--color-muted', '#6f6a64');
+			context.font = '12px sans-serif';
+			context.textAlign = 'center';
+			for (let index = 0; index <= 4; index += 1) {
+				const x = bounds.left + index / 4 * bounds.width;
+				context.fillText(formatAnalyzerTime(index / 4 * state.duration), x, bounds.top + bounds.height + 18);
+			}
+		}
+
+		function drawFrequencyAxis(context, bounds) {
+			context.fillStyle = '#ffffff';
+			context.font = '12px sans-serif';
+			context.textAlign = 'right';
+			for (let index = 0; index <= 4; index += 1) {
+				const frequency = (1 - index / 4) * state.nyquist;
+				context.fillText(formatFrequency(frequency), bounds.left - 7, bounds.top + index / 4 * bounds.height + 4);
+			}
+		}
+
+		function animatePlayback() {
+			cancelAnimationFrame(state.animationFrame);
+			const tick = () => {
+				const selection = activeSelection();
+				if (state.selection && audio.currentTime >= selection.endTime) {
+					audio.pause();
+					audio.currentTime = selection.startTime;
+				}
+				renderOverlays();
+				if (!audio.paused) state.animationFrame = requestAnimationFrame(tick);
+			};
+			tick();
+		}
+
+		function canvasPoint(canvas, event) {
+			const rectangle = canvas.getBoundingClientRect();
+			return {
+				x: (event.clientX - rectangle.left) / rectangle.width * canvas.width,
+				y: (event.clientY - rectangle.top) / rectangle.height * canvas.height,
+			};
+		}
+
+		function plotBounds(canvas, kind) {
+			const left = kind === 'spectrogram' ? 62 : 12;
+			const bottom = 27;
+			return { left, top: 10, width: canvas.width - left - 10, height: canvas.height - 10 - bottom };
+		}
+
+		function fillCanvas(context, canvas) {
+			context.fillStyle = cssColor('--color-surface-alt', '#f4f1ec');
+			context.fillRect(0, 0, canvas.width, canvas.height);
+		}
+
+		function cssColor(name, fallback) {
+			return getComputedStyle(root).getPropertyValue(name).trim() || fallback;
+		}
+
+		function formatFrequency(value) {
+			return value >= 1000 ? `${(value / 1000).toFixed(value >= 10000 ? 0 : 1)} kHz` : `${Math.round(value)} Hz`;
+		}
+
+		function formatLevel(value) {
+			return value <= -119.9 ? '−∞' : value.toFixed(1).replace('-', '−');
+		}
+
+		function setStatus(message, stateName) {
+			status.textContent = message;
+			status.dataset.state = stateName;
+		}
+	}
+</script>
+
+<style>
+	.audio-analyzer-section .analyzer-container {
+		width: min(1500px, calc(100% - 32px));
+	}
+
+	.audio-analyzer {
+		display: grid;
+		gap: 18px;
+	}
+
+	.analyzer-loader {
+		display: grid;
+		grid-template-columns: minmax(260px, 620px) minmax(280px, 1fr);
+		gap: 18px;
+		align-items: center;
+	}
+
+	.analyzer-loader :global(.tool-status) {
+		margin: 0;
+	}
+
+	.analyzer-workspace {
+		display: grid;
+		grid-template-columns: minmax(0, 2.2fr) minmax(340px, 0.9fr);
+		gap: 18px;
+		align-items: start;
+	}
+
+	.analyzer-workspace[hidden] {
+		display: none;
+	}
+
+	.visualization-column,
+	.analysis-column {
+		display: grid;
+		gap: 14px;
+		min-width: 0;
+	}
+
+	.playback-bar,
+	.analysis-heading,
+	.visualization-heading {
+		display: flex;
+		gap: 14px;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.playback-bar {
+		padding: 14px 16px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.playback-bar div {
+		display: grid;
+		gap: 3px;
+		min-width: 0;
+	}
+
+	.playback-bar strong,
+	.playback-bar span {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.playback-bar span,
+	.visualization-heading span {
+		color: var(--color-muted);
+		font-size: 0.82rem;
+		font-weight: 750;
+	}
+
+	audio {
+		width: 100%;
+		height: 46px;
+	}
+
+	.visualization-card,
+	.analysis-column,
+	.spectrum-card {
+		padding: 16px;
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.visualization-heading {
+		margin-bottom: 10px;
+	}
+
+	.visualization-heading h2,
+	.analysis-heading h2,
+	.spectrum-card h3 {
+		margin: 0;
+		font-size: 1.05rem;
+		letter-spacing: 0;
+	}
+
+	.spectrogram-canvas,
+	.waveform-canvas,
+	.spectrum-card canvas {
+		display: block;
+		width: 100%;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 5px;
+		touch-action: none;
+	}
+
+	.spectrogram-canvas,
+	.waveform-canvas {
+		cursor: crosshair;
+	}
+
+	.spectrogram-canvas {
+		aspect-ratio: 3 / 1;
+	}
+
+	.waveform-canvas {
+		aspect-ratio: 9 / 1;
+	}
+
+	.analysis-column {
+		position: sticky;
+		top: 18px;
+	}
+
+	.analysis-heading .eyebrow {
+		margin-bottom: 5px;
+	}
+
+	.selection-summary {
+		margin: 0;
+		padding: 11px 12px;
+		color: var(--color-muted);
+		background: var(--color-surface-alt);
+		border-radius: 6px;
+		font-size: 0.9rem;
+		font-weight: 750;
+	}
+
+	.metric-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 10px;
+	}
+
+	.metric-card {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 5px 8px;
+		align-items: end;
+		padding: 13px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 7px;
+	}
+
+	.metric-card span {
+		grid-column: 1 / -1;
+		min-height: 2.25em;
+		color: var(--color-muted);
+		font-size: 0.76rem;
+		font-weight: 800;
+		line-height: 1.15;
+		text-transform: uppercase;
+	}
+
+	.metric-card strong {
+		font-size: clamp(1.4rem, 2.5vw, 2rem);
+		line-height: 1;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.metric-card small {
+		color: var(--color-muted);
+		font-weight: 750;
+	}
+
+	.metric-wide {
+		grid-column: 1 / -1;
+	}
+
+	.spectrum-card h3 {
+		margin-bottom: 12px;
+	}
+
+	.spectrum-card canvas {
+		aspect-ratio: 1.7 / 1;
+	}
+
+	@media (max-width: 1100px) {
+		.analyzer-workspace {
+			grid-template-columns: 1fr;
+		}
+
+		.analysis-column {
+			position: static;
+		}
+
+		.metric-grid {
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+		}
+
+		.metric-wide {
+			grid-column: auto;
+		}
+	}
+
+	@media (max-width: 760px) {
+		.analyzer-loader,
+		.metric-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.metric-wide {
+			grid-column: auto;
+		}
+
+		.playback-bar,
+		.analysis-heading {
+			align-items: stretch;
+			flex-direction: column;
+		}
+
+		.spectrogram-canvas {
+			min-height: 220px;
+			aspect-ratio: auto;
+		}
+	}
+</style>

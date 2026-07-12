@@ -43,6 +43,7 @@ export const toolCategories: ToolCategory[] = [
 		id: 'audio',
 		slug: 'audio',
 		toolIds: [
+			'audio-analyzer',
 			'subtitle-studio',
 			'abx-tester',
 			'whisper-subtitle-generator',
@@ -149,6 +150,7 @@ export const toolCategories: ToolCategory[] = [
 		id: 'analyzers',
 		slug: 'analyzers',
 		toolIds: [
+			'audio-analyzer',
 			'media-info',
 			'delivery-doctor',
 			'crop-doctor',
