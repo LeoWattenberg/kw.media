@@ -1,0 +1,20 @@
+{
+	"/de/tools/audio-analyzer/": {
+		"description": "Analysiere lokale Audiodateien direkt im Browser: Visualisiere Wellenform und Spektrogramm und prüfe Pegel, Lautheit und Frequenzspektrum.",
+		"content": [
+			"Der Audio Analyzer macht die Struktur einer Audiodatei sichtbar und hilft dabei, zeitliche sowie klangliche Eigenschaften zu untersuchen. Neben der Wellenform zeigt das Tool ein Spektrogramm und ein Frequenzspektrum. Messwerte für Spitzenpegel, RMS, Dynamik und eine integrierte Lautheitsschätzung ergänzen die grafischen Ansichten und lassen sich auf einen ausgewählten Zeit- und Frequenzbereich beziehen.",
+			"Wähle eine lokale Audiodatei aus; die Analyse beginnt nach dem Einlesen automatisch. In Wellenform oder Spektrogramm kannst du einen Bereich aufziehen und die Auswahl anschließend verschieben oder an ihren Rändern anpassen. Zeit- und Frequenzangaben sowie die Messwerte werden passend zur Auswahl aktualisiert. Mit der Schaltfläche zum Zurücksetzen kehrst du jederzeit zur vollständigen Datei zurück.",
+			"Der Dateiauswahldialog akzeptiert WAV, MP3, FLAC, OGG, M4A, AAC, AIFF, Opus, WebM und weitere [Audioformate](/de/tools/audio/). Ob eine konkrete Datei dekodiert werden kann, hängt von der Audio-Unterstützung des verwendeten Browsers ab. Nach erfolgreichem Einlesen zeigt das Tool außerdem Dateigröße, Dauer, Abtastrate und Kanalanzahl an, bevor du einzelne Bereiche genauer untersuchst.",
+			"Die Audiodatei wird mit den Audio- und Canvas-Funktionen deines Browsers verarbeitet. Für die Analyse ist kein Upload zu einem Server erforderlich; die ausgewählte Datei bleibt auf deinem Gerät. Das eignet sich auch für Aufnahmen, die du nicht an einen externen Analysedienst übertragen möchtest. Leistungsfähigkeit und unterstützte Dateiformate richten sich dabei nach deinem Browser und Gerät."
+		]
+	},
+	"/en/tools/audio-analyzer/": {
+		"description": "Analyze local audio directly in your browser: visualize waveforms and spectrograms, then inspect levels, loudness, and the frequency spectrum.",
+		"content": [
+			"Audio Analyzer reveals the structure of an audio file so you can inspect its timing and sound characteristics. It combines a waveform, spectrogram, and frequency spectrum with measurements for peak level, RMS, dynamic range, and estimated integrated loudness. Those measurements can cover the complete file or a time and frequency region that you select in the visualizations.",
+			"Choose a local audio file and analysis starts automatically after the browser decodes it. Drag across the waveform or spectrogram to create a selection, then move the region or adjust its edges. The time and frequency readouts and level measurements update for that selection. A reset control restores the full-file view whenever you want to begin again.",
+			"The file picker accepts WAV, MP3, FLAC, OGG, M4A, AAC, AIFF, Opus, WebM, and other [audio formats](/en/tools/audio/). Whether a particular file can be decoded depends on the audio support in your browser. After loading succeeds, the tool also reports the file size, duration, sample rate, and channel count before you inspect individual regions in more detail.",
+			"The browser processes the audio with its built-in audio and canvas capabilities. Analysis does not require uploading the selected file to a server, so the file remains on your device. This is useful for recordings you would rather not send to an external analysis service. Performance and format compatibility ultimately depend on your browser and device."
+		]
+	}
+}
