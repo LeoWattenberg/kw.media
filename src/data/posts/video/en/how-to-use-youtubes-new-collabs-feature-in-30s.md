@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:SazJMCMxsQo"
 category: "short-tutorial"
 tags: ["YouTube Platform Updates", "Collaboration Strategies", "YouTube Features Access", "Short Tutorial", "YouTube Community Engagement", "Channel Management", "Online Collaboration", "Creator-Tools", "Discoverability"]
+relatedPosts: ["/youtube-tips-en/stop-treating-other-youtubers-as-enemies/", "/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts/", "/youtube-tips-en/expand-your-reach-stay-in-touch-with-your-community/"]
 image: "https://i.ytimg.com/vi/SazJMCMxsQo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/SazJMCMxsQo"

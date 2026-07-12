@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:VTYh7opEoNY"
 category: "news-video"
 tags: ["YouTube Updates", "Twitch-Funktionen", "Ad-Blocker", "Einnahmenoptimierung", "Creator-Support", "Plattform-Sicherheit", "Business Manager", "Talentmanagement"]
+relatedPosts: ["/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/", "/youtube-tipps-de/youtube-premium-bug-warum-dein-umsatz-im-marz-sinken-wird/", "/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/"]
 image: "https://i.ytimg.com/vi/VTYh7opEoNY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=VTYh7opEoNY"

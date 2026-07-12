@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:JvwkzUSuNFM"
 category: "news-video"
 tags: ["YouTube Updates", "KI-Altersverifizierung", "Autodubbing-Editor", "Community-Beitragslimits", "Bildlimite", "YouTube Promote", "Audio-Bearbeitung", "Kurzvideo-Erstellung", "Inhaltsstrategie", "Plattform-Neuerungen"]
+relatedPosts: ["/youtube-tipps-de/youtube-news-auto-synchronisation-bei-alten-videos-klarstellung-zu-kollaborationen-und-mehr/", "/youtube-tipps-de/ich-lag-falsch-uber-autodubbing-erster-wochen-youtube-datensatz-april-2025/", "/youtube-tipps-de/youtube-aktualisiert-automatische-synchronisation-mit-intonation-create-app-auf-ios-fur-1/"]
 image: "https://i.ytimg.com/vi/JvwkzUSuNFM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JvwkzUSuNFM"

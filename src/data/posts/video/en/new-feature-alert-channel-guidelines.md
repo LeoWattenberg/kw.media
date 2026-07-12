@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:SI8OKrwxSu8"
 category: "short-tutorial"
 tags: ["Channel Management", "Community Settings", "YouTube Platform Updates", "Chat Interaction", "Comment Replies", "Viewer Engagement", "Channel Guidelines", "Community Features"]
+relatedPosts: ["/youtube-tips-en/how-to-set-up-youtube-channel-guidelines/", "/youtube-tips-en/follow-the-guidelines-watch-your-channel-shine/", "/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/"]
 image: "https://i.ytimg.com/vi/SI8OKrwxSu8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/SI8OKrwxSu8"

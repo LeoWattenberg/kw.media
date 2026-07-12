@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:CVIdTBgfJ4g"
 category: "short-tutorial"
 tags: ["OBS", "Scene Management", "Source Types", "Stream Setup", "Video Production", "Streaming Software", "Customization Tools", "Green Screen Effects", "Backup and Transfer"]
+relatedPosts: ["/youtube-tips-en/getting-started-with-obs-a-beginners-guide/", "/youtube-tips-en/integrating-cameras-and-consoles-playstation-xbox-switch-into-obs-with-capture-cards/", "/youtube-tips-en/integrating-youtube-chat-into-obs/"]
 image: "https://i.ytimg.com/vi/CVIdTBgfJ4g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CVIdTBgfJ4g"

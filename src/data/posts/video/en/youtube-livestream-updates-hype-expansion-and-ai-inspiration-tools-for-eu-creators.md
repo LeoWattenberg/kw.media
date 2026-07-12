@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:glHG5LA9-4E"
 category: "news-video"
 tags: ["YouTube Live Streaming", "Vertical Live Streaming", "Gift Combos", "AI Tools", "Inspiration-Tab", "EU Creators", "UK Creators", "Switzerland Creators", "YouTube Jewels", "YouTube-Hype"]
+relatedPosts: ["/youtube-tips-en/youtube-autodubbing-disappoints-and-youtube-introduces-jewels-for-vertical-live-streams/", "/youtube-tips-en/youtube-updates-leaderboards-shorts-visual-guides-and-shorts-quiz-stickers/", "/youtube-tips-en/youtube-advanced-analytics-overhaul-inspiration-ai-now-in-eu/"]
 image: "https://i.ytimg.com/vi/glHG5LA9-4E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=glHG5LA9-4E"

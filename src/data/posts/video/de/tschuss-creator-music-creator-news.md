@@ -9,6 +9,7 @@ modified: "2026-07-11T08:54:42"
 locale: "de"
 translationKey: "video:yxTNciEnvXo"
 category: "news-video"
+relatedPosts: ["/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/", "/youtube-tipps-de/youtubes-neue-ask-studio-ki-lugt-dich-an-twitch-drama/", "/youtube-tipps-de/twitch-nutzt-ki-um-dich-zu-mikromanagen-creator-news/"]
 image: "https://i.ytimg.com/vi/yxTNciEnvXo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=yxTNciEnvXo"

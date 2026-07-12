@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:87bdAsXU_kI"
 category: "news-video"
 tags: ["YouTube Studio", "Urheberrecht", "Copyright", "Musik ersetzen", "KI-Integration", "Audio-Bibliothek", "Video-Optimierung", "Creator-Tipps", "YouTube Updates"]
+relatedPosts: ["/youtube-tipps-de/so-funktioniert-die-youtube-audio-mediathek/", "/youtube-tipps-de/neues-zu-creator-music/", "/youtube-tipps-de/wie-du-musik-und-videos-legal-verwendest/"]
 image: "https://i.ytimg.com/vi/87bdAsXU_kI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=87bdAsXU_kI"

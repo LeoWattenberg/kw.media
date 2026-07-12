@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:3sIpLIwsQEo"
 category: "short-tutorial"
 tags: ["YouTube Analytics", "YouTube Studio", "Impressionen", "Reichweitenanalyse", "Video-Statistiken", "Zuschaueranalyse", "Metriken-Filterung", "Klickrate (CTR)", "Entdeckungsseiten"]
+relatedPosts: ["/youtube-tipps-de/youtube-abc-schneller-einstieg-mit-youtube-analytics/", "/youtube-tipps-de/neu-bei-youtube-analytics-impressionen-fur-neue-und-wiederkehrende-zuschauer/", "/youtube-tipps-de/gelegenheits-vs-regelmassige-zuschauer-neue-youtube-analytics-verraten-mehr/"]
 image: "https://i.ytimg.com/vi/3sIpLIwsQEo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/3sIpLIwsQEo"

@@ -1,0 +1,20 @@
+{
+	"/de/tools/analyzers/": {
+		"content": [
+			"Analyzer ist ein leistungsstarkes Tool, das Entwicklern und Designern die Möglichkeit bietet, Medieninhalte [direkt im Browser](/de/tools/vtuber-preview/) zu analysieren und zu optimieren. Mit seiner intuitiven Benutzeroberfläche können Sie Bilder, Videos und andere Medienformate effizient überprüfen, um ihre Qualität, Format und potenzielle Probleme zu bewerten. Durch die clientseitige Verarbeitung wird sichergestellt, dass sensible Daten lokal bleiben.",
+			"Die Verwendung von Analyzer ist einfach: Laden Sie Ihre Mediendateien hoch oder wählen Sie sie direkt aus Ihrem System aus. Das Tool analysiert dann jedes Element und präsentiert Ihnen detaillierte Informationen zu Größe, Auflösung, Dateityp und Komprimierung. Sie können auch spezifische Bereiche auswählen, um [Crops oder Thumbnails](/de/tools/youtube-thumbnail-preview/) zu erstellen, und so die optimale Darstellung für Ihre Bedürfnisse sicherstellen.",
+			"Unterstützte Formate umfassen Bilder ([JPEG, PNG, WebP](/de/tools/converter/image-format-converter/)), Videos ([MP4, WebM](/de/tools/converter/video-audio-converter/)) und [animierte GIFs](/de/tools/converter/video-to-gif/). Analyzer bietet Einblicke in die Komprimierungseinstellungen und empfiehlt Verbesserungen, um die Dateigröße zu reduzieren, ohne die visuelle Qualität zu beeinträchtigen. So können Sie die [Ladezeiten Ihrer Website](/de/webdesign-management/) oder Anwendung verbessern und ein reibungsloseres Benutzererlebnis gewährleisten.",
+			"Datenschutz ist unsere Priorität. Analyzer führt alle Analysen [lokal im Browser](/de/tools/converters/document-to-docx/) durch, was bedeutet, dass Ihre Mediendaten nicht an externe Server übermittelt werden. Sie haben die volle Kontrolle über Ihre Inhalte und können sicher sein, dass keine sensiblen Informationen geteilt werden, selbst wenn Sie die Tool-Funktionen voll ausnutzen."
+		],
+		"description": "Effizienter Browser-Analyzer für Medienoptimierung: Qualität, Schnitte, Miniaturansichten & Risikomanagement – lokal und einfach zu bedienen."
+	},
+	"/en/tools/analyzers/": {
+		"content": [
+			"Analyzers is a powerful [browser-based tool](/en/tools/) designed to streamline your content creation process by offering precise client-side analysis of various media types. It provides critical insights for optimal production, ensuring your final outputs meet the highest standards.",
+			"Upon accessing Analyzers, users can upload their desired files directly from the browser. The tool then employs advanced algorithms to analyze media quality, detect potential issues, and provide tailored suggestions for improvement, all without leaving your web interface.",
+			"Supported formats include [images (JPEG, PNG)](/en/tools/image/), [videos (MP4, WebM)](/en/tools/video/), and [audio (MP3)](/en/tools/audio/). Analyzers meticulously examines each asset, offering detailed reports on resolution, aspect ratio, file size, potential artifacts, and more. It also generates [optimized thumbnails](/en/tools/youtube-thumbnail-preview/) for enhanced user experience.",
+			"Privacy is paramount; all processing occurs locally, ensuring your data remains secure. No sensitive information leaves your device, giving you full control over your content's integrity and confidentiality."
+		],
+		"description": "Analyzers: Powerful, browser-based tools for media analysis, ensuring optimal quality, crops, thumbnails, and risk management."
+	}
+}

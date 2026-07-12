@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:gdibcpbh45g"
 category: "video-tutorial"
 tags: ["Gaming-Miniaturansichten", "GIMP Tutorial", "Bildbearbeitung", "Design-Tipps", "YouTube-Thumbnails", "Kostenlose Software", "Visuelle Gestaltung", "Einfache Effekte", "Screenshot-Bearbeitung", "Handybildschirm-Optimierung"]
+relatedPosts: ["/youtube-tipps-de/wie-man-seine-miniaturansichten-auf-youtube-nicht-vermasselt-ein-tutorial/", "/youtube-tipps-de/wie-man-klicks-auf-youtube-miniaturansichten-bekommt-das-aida-modell/", "/youtube-tipps-de/wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt/"]
 image: "https://i.ytimg.com/vi/gdibcpbh45g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gdibcpbh45g"

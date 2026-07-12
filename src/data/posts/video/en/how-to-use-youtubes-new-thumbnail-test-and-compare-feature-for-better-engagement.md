@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:R7uZYO3UbB0"
 category: "video-tutorial"
 tags: ["YouTube Features", "A/B Testing", "Thumbnail Optimization", "Viewer Engagement", "Content Creator Tools", "Platform Updates", "YouTube Studio", "Video Promotion Strategies", "Visual Design"]
+relatedPosts: ["/youtube-tips-en/what-is-youtube-test-and-compare-or-thumbnail-a-b-testing/", "/youtube-tips-en/the-secret-formula-of-a-b-tests-on-youtube/", "/youtube-tips-en/a-b-testing-on-youtube-everything-you-need-to-know-for-the-summer-launch/"]
 image: "https://i.ytimg.com/vi/R7uZYO3UbB0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=R7uZYO3UbB0"

@@ -965,6 +965,10 @@ function frontmatterString(data) {
 		lines.push(`tags: [${data.tags.map((tag) => quote(String(tag))).join(', ')}]`);
 	}
 
+	if (Array.isArray(data.relatedPosts) && data.relatedPosts.length) {
+		lines.push(`relatedPosts: [${data.relatedPosts.map((postPath) => quote(String(postPath))).join(', ')}]`);
+	}
+
 	if (data.image) {
 		lines.push(`image: ${quote(data.image)}`);
 	}

@@ -1,0 +1,20 @@
+{
+	"/de/tools/media-info/": {
+		"content": [
+			"MediaInfo ist ein leistungsstarkes Tool, das es Benutzern ermöglicht, detaillierte [technische Informationen](/de/tools/analyzers/) aus verschiedenen Medienformaten direkt in ihrem Browser zu extrahieren. Es nutzt die Fähigkeiten von MediaInfoLib WASM, um [Audio-, Video- und Bilddateien](/de/tools/) zu analysieren und Metadaten bereitzustellen.",
+			"Nach der Auswahl einer Datei startet der Prozess: MediaInfoLib WASM verarbeitet die Datei im Browser ohne Datenübertragung an externe Server. Dies gewährleistet eine schnelle und sichere Analyse, da alle Verarbeitung lokal stattfindet. Die Ergebnisse werden dann in einem übersichtlichen Format angezeigt.",
+			"Unterstützte Formate umfassen [MP3, AAC, MP4, AVI, JPEG und PNG](/de/tools/converter/). MediaInfo extrahiert Metadaten wie [Bitrate, Auflösung, Audio- und Videokodierung](/de/tools/video/) sowie Bildinformationen. Diese Informationen bieten Einblicke in die technischen Spezifikationen Ihrer Medien.",
+			"Durch die lokale Verarbeitung schützt MediaInfo Ihre Privatsphäre, da keine Dateien das Gerät verlassen. Alle Daten bleiben innerhalb Ihres Browsers, was eine diskrete und sichere Nutzung gewährleistet."
+		],
+		"description": "Extrahiere technische Metadaten aus Audio, Video & Bildern direkt im Browser mit MediaInfo – lokaler, schneller und effizienter Datenzugriff."
+	},
+	"/en/tools/media-info/": {
+		"content": [
+			"MediaInfo is a powerful tool designed to extract detailed [technical metadata](/en/tools/analyzers/) from various [media files](/en/tools/media-delivery-checker/) directly in your browser. It leverages MediaInfoLib WASM, a WebAssembly library, to provide fast and efficient client-side analysis without relying on external servers.",
+			"Simply upload or link to your [audio, video, or image file](/en/tools/), and MediaInfo will instantly generate a comprehensive [JSON output](/en/tools/text/) containing information about the media's format, resolution, codec, bit rate, and more. The entire process occurs within your browser, ensuring privacy and security.",
+			"Supported media formats include MP3, WAV, [MPEG-4](/en/tools/converters/media-to-mp4/), AVI, JPEG, PNG, and many others. MediaInfo extracts metadata directly from the file data without storing or transmitting any sensitive information beyond the scope of the analysis.",
+			"By utilizing local processing power, MediaInfo ensures fast response times and maintains your privacy. No data leaves your device unless explicitly shared by you. This commitment to security and efficiency makes MediaInfo an indispensable tool for media enthusiasts, developers, and anyone curious about their media files."
+		],
+		"description": "MediaInfo: Client-side tool for reading audio, video, & image metadata in over 40 formats using MediaInfoLib WASM."
+	}
+}

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:Rl2fol2fqhg"
 category: "news-video"
 tags: ["YouTube Updates", "Google Lens", "Android-Funktionen", "Bildersuche", "KI-Zusammenfassungen", "Live-Chat", "Inhaltsrichtlinien", "Urheberrechtsverletzungen", "YouTube Shopping", "Analytics-Verbesserungen"]
+relatedPosts: ["/youtube-tipps-de/youtubes-updates-q-und-a-sticker-und-10mb-thumbnails/", "/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/", "/youtube-tipps-de/youtube-updates-brandconnect-expansion-und-neue-streaming-features/"]
 image: "https://i.ytimg.com/vi/Rl2fol2fqhg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=Rl2fol2fqhg"

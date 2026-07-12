@@ -1,0 +1,20 @@
+{
+	"/de/tools/audio/": {
+		"content": [
+			"Audio-Tools ist eine intuitive Browser-basierte Plattform, die Ihnen leistungsstarke Audiobearbeitungsfunktionen direkt in Ihrem Webbrowser bietet. Ob für professionelle [Mastering-Aufgaben](/de/tools/loudness-mastering/), die [Bereinigung von Audioaufnahmen](/de/tools/podcast-cleaner/) oder die [Umwandlung verschiedener Medienformate](/de/tools/converter/) – mit unseren Tools haben Sie alles Notwendige zur Hand.",
+			"Unsere Benutzeroberfläche ist einfach zu navigieren: Laden Sie Ihre Audiodateien hoch, wählen Sie das gewünschte Werkzeug und passen Sie die Einstellungen an. Die Bearbeitungsfunktionen werden vollständig in Ihrem Browser ausgeführt, sodass keine zusätzliche Software erforderlich ist.",
+			"Unterstützt werden gängige Audioformate wie MP3, WAV, FLAC und OGG. Darüber hinaus können Sie auch [Videos konvertieren](/de/tools/converter/video-audio-converter/) und [extrahierte Audiospuren bearbeiten](/de/tools/lossless-media-studio/). Unsere Tools ermöglichen es Ihnen, Ihre Audioinhalte effizient zu verwalten und zu optimieren, ohne dass sensible Daten das Gerät verlassen.",
+			"Die Verarbeitung erfolgt vollständig lokal auf Ihrem Computer, was Ihre Privatsphäre schützt. Keine Daten werden an externe Server übermittelt. So können Sie sicher sein, dass Ihre Audiodateien vertraulich behandelt werden."
+		],
+		"description": "Erstellen Sie professionelle Audios direkt im Browser: Testen, Masteren, Reinigen und Verarbeiten mit leistungsstarken, clientseitigen Audio-Tools."
+	},
+	"/en/tools/audio/": {
+		"content": [
+			"Audio Tools empowers you to master your [audio files](/en/tools/converter/video-audio-converter/) directly in your browser without leaving your workspace. Whether you're a musician, podcaster, or [sound designer](/en/tools/loudness-mastering/), our suite of tools allows for precise editing, enhancement, and processing of your audio content. Achieve professional-grade results with ease.",
+			"Our user-friendly interface streamlines the workflow: upload your audio file, select the desired tool, adjust settings as needed, and instantly listen to the changes. No downloads or complex installations required—all processing happens [locally in your browser](/en/tools/subtitle-editor-converter/) for fast, efficient results.",
+			"Supported formats include MP3, WAV, FLAC, and OGG. Edit, normalize, apply EQ, reduce noise, and more—all without sacrificing privacy. Your audio data remains local, ensuring secure handling and control over your sensitive media.",
+			"By leveraging browser capabilities, Audio Tools offers lightweight, efficient processing with no external dependencies. Experience the convenience of client-side audio manipulation while maintaining the highest standards of data protection."
+		],
+		"description": "Audio Tools: Powerful, browser-based solutions for audio testing, mastering, cleanup, and more. Local processing for optimal performance."
+	}
+}

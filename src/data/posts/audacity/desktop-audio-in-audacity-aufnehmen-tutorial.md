@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:VB0-XfW6lms"
 category: "audacity"
 tags: ["Audioaufnahme", "Desktop-Audio", "Audacity Tutorial", "Windows WASAPI", "Aufnahmegeräte", "Stereo-Aufnahme", "Overdub", "Audiokontrolle", "Fehlermeldungen"]
+relatedPosts: ["/audacity/ffmpeg-fur-audacity-installieren-schnelltutorial/", "/audacity/ffmpeg-fur-audacity-installieren-tutorial/", "/audacity/ich-habe-an-audacity-4-gearbeitet-das-musst-du-wissen/"]
 image: "https://i.ytimg.com/vi/VB0-XfW6lms/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=VB0-XfW6lms"

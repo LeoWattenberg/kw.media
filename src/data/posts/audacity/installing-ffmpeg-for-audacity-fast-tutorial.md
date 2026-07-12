@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:OSmA6MtFYZ8"
 category: "audacity"
 tags: ["Audacity 3", "Audio Editing", "Software Update", "FFmpeg", "Media File Compatibility", "Installation Guide", "Windows Software"]
+relatedPosts: ["/en/audacity/installing-ffmpeg-for-audacity-tutorial/", "/en/audacity/recording-desktop-audio-in-audacity-tutorial/", "/en/audacity/i-worked-on-audacity-4-here-is-what-you-need-to-know/"]
 image: "https://i.ytimg.com/vi/OSmA6MtFYZ8/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=OSmA6MtFYZ8"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:dweBFb3ts3k"
 category: "short-tutorial"
 tags: ["YouTube Feature Requests", "Creator-Feedback", "Platform Improvements", "Surveys for Creators", "Community-Engagement", "YouTube Studio Updates", "Content Optimization", "Monetization Ideas", "Audience Interaction"]
+relatedPosts: ["/youtube-tips-en/new-audio-settings-vpn-revenue-warning-youtube-creator-news/", "/youtube-tips-en/youtube-news-second-chance-pilot-ask-studio-deep-dive-and-communities-on-desktop/", "/youtube-tips-en/youtube-update-the-inspiration-tab-formerly-research-tab-and-its-new-features/"]
 image: "https://i.ytimg.com/vi/dweBFb3ts3k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/dweBFb3ts3k"

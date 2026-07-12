@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:tvpXlghvKzo"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Sensitive Topics", "Thumbnail Customization", "Search Features", "User Experience", "Content Moderation", "AI Tools", "AI Updates"]
+relatedPosts: ["/youtube-tips-en/coming-soon-to-youtube-custom-thumbs-for-shorts-and-superchat-goals/", "/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/", "/youtube-tips-en/uploading-50mb-thumbnails-will-break-your-youtube-video-creator-news/"]
 image: "https://i.ytimg.com/vi/tvpXlghvKzo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=tvpXlghvKzo"

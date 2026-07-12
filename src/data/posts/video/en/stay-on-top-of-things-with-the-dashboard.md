@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:8nnJUcL5qtU"
 category: "short-tutorial"
 tags: ["YouTube Studio Dashboard", "Channel Management", "Content Performance", "Video Statistics", "Creator-Tools", "Platform Navigation", "Audience Engagement", "Content Strategy", "YouTube Updates", "Short Tutorial"]
+relatedPosts: ["/youtube-tips-en/youtubeabc-dashboard-withsub/", "/youtube-tips-en/youtube-abc-quick-start-with-youtube-analytics/", "/youtube-tips-en/youtube-analytics-top-earning-content-by-format-as-a-guide-for-creators/"]
 image: "https://i.ytimg.com/vi/8nnJUcL5qtU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8nnJUcL5qtU"

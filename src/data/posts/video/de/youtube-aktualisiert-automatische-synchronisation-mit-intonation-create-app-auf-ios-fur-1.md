@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:EY8-P89G3Js"
 category: "news-video"
 tags: ["Autodubbing-Update", "YouTube Create App iOS", "Creator-Förderprogramm Indien", "Sprachsynthese", "Intonation", "Sprachübersetzung", "Mobile App-Updates", "Monetarisierung für Creator", "YouTube-Strategie"]
+relatedPosts: ["/youtube-tipps-de/youtubes-neue-ausdrucksstarke-sprache-ki-besser-als-menschliche-synchronisationen/", "/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/", "/youtube-tipps-de/ich-lag-falsch-uber-autodubbing-erster-wochen-youtube-datensatz-april-2025/"]
 image: "https://i.ytimg.com/vi/EY8-P89G3Js/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EY8-P89G3Js"

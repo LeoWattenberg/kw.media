@@ -1,0 +1,20 @@
+{
+	"/de/tools/converter/video-to-gif/": {
+		"content": [
+			"Mit 'Video zu GIF' verwandeln Sie Ihre lokalen Videoclips in lebendige GIF-Animationen – [direkt im Browser](/de/tools/vtuber-preview/). Keine Installation erforderlich, keine Registrierung, nur ein einfacher Upload Ihres Videos und das Auswählen der gewünschten Einstellungen. Unser Tool nutzt die leistungsstarke Bibliothek [FFmpeg in WebAssembly (WASM)](/de/tools/converter/video-audio-converter/), um Ihre Videostreifen effizient in hochwertige GIFs umzuwandeln.",
+			"Der Prozess ist einfach: Wählen Sie Ihr Video aus, passen Sie optional Dauer und Qualität an und klicken Sie auf 'Konvertieren'. Unser Tool verarbeitet das Video browserseitig mit [FFmpeg WASM](/de/tools/lossless-media-studio/) und generiert ein optimiertes GIF. So können Sie Ihre Kreationen sofort teilen oder herunterladen.",
+			"Unser Tool unterstützt eine Vielzahl von Videoformaten, darunter [MP4, WebM und OGG](/de/tools/converter/). Alle Verarbeitungsschritte erfolgen lokal auf Ihrem Gerät, ohne dass Ihre Daten das Internet verlassen – Ihre Privatsphäre bleibt gewährleistet.",
+			"Wir setzen FFmpeg WASM ein, um die Konvertierung [direkt im Browser](/de/tools/whisper-untertitel-generator/) durchzuführen, was eine schnelle und effiziente Verarbeitung ermöglicht. Keine Sorge um Datenschutz: Alle Vorgänge finden lokal auf Ihrem Gerät statt, ohne dass Daten an externe Server übermittelt werden."
+		],
+		"description": "Erstelle dein perfektes GIF: Konvertiere lokale Videos schnell und einfach im Browser zu optimierten GIFs mit FFmpeg WASM."
+	},
+	"/en/tools/converter/video-to-gif/": {
+		"content": [
+			"Transform your videos into engaging GIFs with our powerful, user-friendly Video to GIF tool. No downloads or complex software required—simply upload your video clip and let our [browser-based converter](/en/tools/converter/) do its magic. This innovative tool leverages [FFmpeg WebAssembly (WASM) technology](/en/tools/lossless-media-studio/) to provide seamless processing right in your web browser.",
+			"The process is straightforward: upload your local video, select the portion you want to convert, adjust settings like loop duration and frame rate, then click 'Convert'. Our advanced algorithms optimize the output for size and quality, ensuring fast loading times without sacrificing visual appeal. The resulting GIF will be ready for immediate use on social media, websites, or messaging apps.",
+			"Our tool supports a wide range of video formats, including [MP4, MOV, AVI](/en/tools/converter/video-audio-converter/), and more. We handle the conversion internally, ensuring your data remains local and secure. No files are uploaded to external servers, preserving your privacy throughout the process. Experience the convenience of [creating high-quality GIFs](/en/tools/converters/image-to-gif/) directly in your browser.",
+			"With Video to GIF, you have complete control over your content. [Edit, crop, or trim your video clips](/en/tools/video/) as needed before converting them into GIFs. The generated GIFs are optimized for web use, ensuring smooth playback and fast loading speeds. Enjoy the flexibility of creating custom animations from your videos, all while maintaining the highest level of data privacy."
+		],
+		"description": "Transform videos into smooth GIFs instantly, right in your browser. Utilizes FFmpeg WASM for efficient, local processing."
+	}
+}

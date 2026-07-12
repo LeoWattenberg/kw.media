@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:KAWEPkrS2eI"
 category: "news-video"
 tags: ["YouTube-Partnerprogramm", "Einspruchsmöglichkeit", "Kanalseiten-Überarbeitung", "Navigation optimieren", "Inhaltsverwaltung", "Plattform-Updates", "YouTube-Richtlinien", "Kanalmanagement", "Benutzererfahrung"]
+relatedPosts: ["/youtube-tipps-de/youtube-news-neue-ypp-sperrungen-wegen-klickkoder-irrefuhrende-metadaten/", "/youtube-tipps-de/verliere-ich-die-youtube-monetarisierung-wenn-ich-eine-pause-einlege/", "/youtube-tipps-de/youtube-strike-was-nun/"]
 image: "https://i.ytimg.com/vi/KAWEPkrS2eI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=KAWEPkrS2eI"

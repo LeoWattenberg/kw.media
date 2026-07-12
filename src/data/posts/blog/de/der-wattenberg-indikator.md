@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "post:1875"
 category: "blog"
 tags: ["Inhaltsplanung", "YouTube-Strategie", "Video-Marketing", "Abonnenten-Engagement", "Evergreen-Inhalte", "Event-Marketing", "Zielgruppenansprache", "Content-Modellierung"]
+relatedPosts: ["/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/", "/youtube-tipps-de/youtube-update-der-inspiration-tab-fruher-research-tab-und-seine-neuen-funktionen/", "/youtube-tipps-de/einfache-youtube-seo-fur-gaming-kanale/"]
 image: "https://leowattenberg.files.wordpress.com/2020/10/3d-see-nts-1.png?w=300"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-wattenberg-indicator/"

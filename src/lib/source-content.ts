@@ -1,6 +1,4 @@
 import type { Locale } from '../i18n';
-import relatedPostPaths from '../data/related-posts.json';
-
 export interface SourcePost {
 	id: number;
 	slug: string;
@@ -16,6 +14,7 @@ export interface SourcePost {
 	image?: string;
 	authorName: string;
 	tags?: string[];
+	relatedPosts?: string[];
 	sourceUrl: string;
 	sources?: Array<{
 		title: string;
@@ -145,7 +144,7 @@ export function getPostNavigation(post: SourcePost): PostNavigation {
 }
 
 export function getRelatedPosts(post: SourcePost): SourcePost[] {
-	const paths = (relatedPostPaths as Record<string, string[]>)[post.path] ?? [];
+	const paths = post.relatedPosts ?? [];
 
 	return paths
 		.map((path) => getPostByPath(path))

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:oYttE8RpUqQ"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Channel Memberships", "User Interaction", "Visual Design", "Call to Action", "Animation in Chat"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-ios-join-button-multi-format-live-streams-and-analytics-fix/", "/youtube-tips-en/youtube-updates-subscribe-confusion-and-autodubbing-fully-rolled-out/", "/youtube-tips-en/elevate-your-channel-with-memberships/"]
 image: "https://i.ytimg.com/vi/oYttE8RpUqQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=oYttE8RpUqQ"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:EwZklcCUoO8"
 category: "news-video"
 tags: ["YouTube Updates", "Shopping-Sticker", "Shorts", "Multisprachige Audios", "Autodubbing", "Thumbnails", "Clips aus Transkripten", "Live-Streaming-Richtlinien", "Jugendschutz"]
+relatedPosts: ["/youtube-tipps-de/erweiterte-shopping-optionen-auf-youtube-was-gibts-neues-fur-creator/", "/youtube-tipps-de/langere-shorts-und-add-yours-sticker-youtubes-neueste-experimente/", "/youtube-tipps-de/update-fur-youtube-streamer-geplante-streams-jetzt-in-allen-shorts-verlinkt/"]
 image: "https://i.ytimg.com/vi/EwZklcCUoO8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EwZklcCUoO8"

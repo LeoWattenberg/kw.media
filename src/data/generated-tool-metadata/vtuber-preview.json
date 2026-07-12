@@ -1,0 +1,20 @@
+{
+	"/de/tools/vtuber-preview/": {
+		"content": [
+			"VTuber-Vorschau ist ein [browserbasierter Werkzeug](/de/tools/), das es dir ermöglicht, die Macht von [Motion Tracking](/de/vtuber/) auf deine VTubing-Erfahrung zu bringen. Mit nur einer Webcam und einem einfachen 3D-Avatar kannst du in Echtzeit animierte Interaktionen erleben, ohne komplexe Software installieren zu müssen.",
+			"Unser Tool führt den gesamten Prozess [direkt im Browser](/de/tools/whisper-untertitel-generator/) aus. Du musst lediglich deine Webcam aktivieren und einen Avatar auswählen. Dann kannst du dich frei bewegen und siehst deine Animationen sofort auf dem Bildschirm. Es ist so einfach wie das Drehen vor der Kamera, während ein virtueller Charakter mit dir tanzt oder interagiert.",
+			"Unterstützte Medien umfassen 3D-Modelle im .glb-Format und einfache Texturen als .png. Für die Bewegungserkennung nutzen wir moderne Web-Technologien wie WebGL und JavaScript, um eine nahtlose Integration deiner Kamera in den Avatar zu gewährleisten.",
+			"Deine Daten bleiben lokal und werden nicht an Dritte weitergegeben. Die Verarbeitung erfolgt ausschließlich auf deinem Gerät, sodass du die volle Kontrolle über deine Privatsphäre behältst. Wir setzen keine Cookies oder verfolgen dein Verhalten außerhalb dieses Tools."
+		],
+		"description": "Erlebe zukunftsweisende Avatar-Technologie: Testen Sie Webcam-Motion-Tracking mit 3D-Avataren direkt im Browser – einfach und lokal."
+	},
+	"/en/tools/vtuber-preview/": {
+		"content": [
+			"VTuber Preview is a powerful tool designed to revolutionize your [virtual streaming experience](/en/vtuber/). It allows you to preview webcam-based motion tracking on a simple 3D avatar, all within the convenience of your browser. No downloads or complex setups are required—simply access the tool and start creating instantly.",
+			"The workflow is straightforward: connect your webcam, select an avatar, and adjust settings. The tool processes the video feed in real-time, applying the motion tracking to your chosen avatar. You can then view a preview of your virtual performance, ensuring smooth synchronization before going live.",
+			"Supported media types include standard webcam video feeds and 3D model formats compatible with common web technologies. This ensures a wide range of avatars and effects can be utilized without any compatibility issues.",
+			"Privacy is paramount; all processing occurs locally on your device, ensuring your data remains secure. No personal information or content is shared beyond your browser session, giving you control over your virtual identity."
+		],
+		"description": "Create & preview VTubers with real-time webcam motion tracking in your browser, using lightweight local processing."
+	}
+}

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1638"
 category: "blog"
 tags: ["Streaming Equipment", "Audio Interface Review", "Microphone Review", "AVerMedia NEXUS AX310", "Streamer MIC 330", "XLR Microphones", "USB Audio Interfaces", "OBS Integration", "YouTube-Streaming", "Audio Production"]
+relatedPosts: ["/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/", "/youtube-tips-en/avermedia-streamer-cap-4k-or-elgato-cam-link-4k/", "/youtube-tips-en/getting-started-with-obs-a-beginners-guide/"]
 image: "/assets/wp-content/uploads/2021/06/AM_NEXUS_BACK.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/avermedia-nexus-ax310-streamer-mic-330-review/"

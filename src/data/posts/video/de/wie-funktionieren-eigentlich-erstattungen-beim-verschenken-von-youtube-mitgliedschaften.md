@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:dnT2t4c94kw"
 category: "short-tutorial"
 tags: ["YouTube-Mitgliedschaften", "Geschenkfunktionen", "Einnahmen für Creator", "Erstattungen", "Live-Streaming", "Monetarisierung", "Zuschauer-Interaktion"]
+relatedPosts: ["/youtube-tipps-de/so-funktioniert-youtube-membership-gifting/", "/youtube-tipps-de/wo-finde-ich-auf-youtube-meine-kaufe-und-mitgliedschaften/", "/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/"]
 image: "https://i.ytimg.com/vi/dnT2t4c94kw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/dnT2t4c94kw"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:2JIHi4MVn9w"
 category: "short-tutorial"
 tags: ["YouTube-Kanalwachstum", "Inhaltsstrategie", "Algorithmus-Anpassung", "Zuschauerbindung", "Content-Erstellung", "Kanaloptimierung", "Monetarisierungsstrategien", "YouTube-Richtlinien", "Zielgruppenanalyse"]
+relatedPosts: ["/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/", "/youtube-tipps-de/warum-50-stunden-schnittarbeit-0-aufrufe-bringen/", "/youtube-tipps-de/warum-grinden-schlecht-fur-dich-ist/"]
 image: "https://i.ytimg.com/vi/2JIHi4MVn9w/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/2JIHi4MVn9w"

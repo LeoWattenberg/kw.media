@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:2gVOJsKlUbo"
 category: "short-tutorial"
 tags: ["Gesichtskamera", "Kanalwachstum", "Streaming-Ausrüstung", "Visuelle Präsenz", "Persönlichkeitsdarstellung", "Streaming-Tipps", "YouTube-Strategie", "Zuschauerbindung", "Inhaltserstellung"]
+relatedPosts: ["/youtube-tipps-de/kameras-und-konsolen-playstation-xbox-switch-in-obs-einbinden-mit-capture-cards/", "/youtube-tipps-de/steigere-deinen-kanal-mit-effektivem-branding/", "/youtube-tipps-de/warum-50-stunden-schnittarbeit-0-aufrufe-bringen/"]
 image: "https://i.ytimg.com/vi/2gVOJsKlUbo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/2gVOJsKlUbo"

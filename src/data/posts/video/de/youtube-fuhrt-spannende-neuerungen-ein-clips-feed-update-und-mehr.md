@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:K7CyD1EvaeE"
 category: "news-video"
 tags: ["YouTube Updates", "Clips Feed", "Fan Communities", "Community-Tab", "Abonnements", "YouTube-Funktionen", "Experimentelle Funktionen", "Moderation auf YouTube", "Creator-Interaktion", "Zuschauer Engagement"]
+relatedPosts: ["/youtube-tipps-de/youtube-fan-communities-alles-was-du-wissen-musst/", "/youtube-tipps-de/youtube-beendet-das-clip-feature-und-warum-das-tatsachlich-ein-gewinn-fur-deinen-kanal-ist/", "/youtube-tipps-de/youtubes-losung-fur-fomo-koder-neue-kanal-filter-erklart-creator-news/"]
 image: "https://i.ytimg.com/vi/K7CyD1EvaeE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=K7CyD1EvaeE"

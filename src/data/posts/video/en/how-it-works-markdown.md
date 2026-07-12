@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:39fXwnCNd3I"
 category: "short-tutorial"
 tags: ["YouTube Description Formatting", "Markdown Basics", "Text Styling", "Italic Text", "Bold Text", "Strikethrough Text", "Video Description Tips", "YouTube Features"]
+relatedPosts: ["/youtube-tips-en/how-to-change-youtube-handle-desktop/", "/youtube-tips-en/youtube-update-handles-now-support-more-languages-and-special-characters/", "/youtube-tips-en/text-to-speech-feature-for-youtube-shorts-on-android/"]
 image: "https://i.ytimg.com/vi/39fXwnCNd3I/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/39fXwnCNd3I"

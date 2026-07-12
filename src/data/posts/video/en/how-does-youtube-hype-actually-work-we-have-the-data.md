@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:FUEDT9dEIxQ"
 category: "video-tutorial"
 tags: ["YouTube Features", "YouTube Platform Updates", "Channel Growth", "Emerging Creators", "Community-Engagement", "Viewer Interactions", "Video Promotion Strategies", "Monetization Strategies", "Data Analysis"]
+relatedPosts: ["/youtube-tips-en/youtube-expands-free-hype-to-the-eu-10-year-member-badges/", "/youtube-tips-en/tax-form-updates-for-youtube-partners-and-youtube-hype-under-fire/", "/youtube-tips-en/everything-important-about-the-new-youtube-fan-funding-partner-level/"]
 image: "https://i.ytimg.com/vi/FUEDT9dEIxQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=FUEDT9dEIxQ"

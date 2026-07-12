@@ -9,6 +9,7 @@ modified: "2022-07-16T12:47:06"
 locale: "en"
 category: "blog"
 tags: ["Copyright Law", "Content Creation", "Legal Issues", "Fair Use", "Intellectual Property", "Creative Industry Trends", "Licensing", "Music Licensing", "Video Production", "Creator Resources"]
+relatedPosts: ["/youtube-tips-en/reused-content-monetization-disabled-what-now/", "/youtube-tips-en/i-got-a-strike-what-now/", "/youtube-tips-en/how-the-youtube-audio-library-works/"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-fuck-copyright-guide-how-to-legally-use-things-in-your-videos-that-other-people-made/"

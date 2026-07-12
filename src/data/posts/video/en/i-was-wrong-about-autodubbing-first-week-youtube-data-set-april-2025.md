@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:e77-Rus2x4g"
 category: "news-video"
 tags: ["YouTube Autodubbing", "Data Analysis", "International Engagement", "View Duration", "Audience Retention", "YouTube Features", "Content Localization", "Voiceover Technology", "Automated Translation"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-auto-dubbing-with-intonation-create-app-on-ios-for-1/", "/youtube-tips-en/youtube-updates-subscribe-confusion-and-autodubbing-fully-rolled-out/", "/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/"]
 image: "https://i.ytimg.com/vi/e77-Rus2x4g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=e77-Rus2x4g"

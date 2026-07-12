@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:2325"
 category: "blog"
 tags: ["YouTube Channel Design", "Banner Templates", "Visual Branding", "Channel Aesthetics", "Design Guidelines", "YouTube Tips", "Content Presentation", "Creator Resources", "Channel Management"]
+relatedPosts: ["/youtube-tips-en/your-youtube-channel-guide-to-customizing-profile-picture-banner-and-watermark/", "/youtube-tips-en/boost-your-channel-with-effective-branding/", "/youtube-tips-en/take-off-create-your-youtube-channel-in-2024-personal-and-company-channels/"]
 image: "/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-channel-banner-template-updated-2024/"

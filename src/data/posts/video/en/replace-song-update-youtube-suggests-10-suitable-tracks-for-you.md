@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:87bdAsXU_kI"
 category: "news-video"
 tags: ["YouTube Studio", "Copyright Management", "Music Replacement", "AI Suggestions", "Content Creator Tools", "Platform Updates", "Video Optimization", "Licensing", "YouTube Audio Library"]
+relatedPosts: ["/youtube-tips-en/how-the-youtube-audio-library-works/", "/youtube-tips-en/new-developments-in-creator-music/", "/youtube-tips-en/stop-using-background-music-biggest-youtube-search-update-in-years-youtube-creator-news/"]
 image: "https://i.ytimg.com/vi/87bdAsXU_kI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=87bdAsXU_kI"

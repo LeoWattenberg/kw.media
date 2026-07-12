@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:bXbIz9BKeUc"
 category: "news-video"
 tags: ["YouTube Updates", "Playlist Voting", "A/B-Testen für Titel", "Titeloptimierung", "Community-Interaktion", "Neue Funktionen", "YouTube Studio", "Creator-Tools", "Video-Marketing"]
+relatedPosts: ["/youtube-tipps-de/a-b-testen-und-bearbeiten-mit-ki-ist-da-erstellt-auf-youtube-follow-up/", "/youtube-tipps-de/wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt/", "/youtube-tipps-de/youtube-updates-abonnenten-liste-shorts-views-definitionen-und-take-a-break/"]
 image: "https://i.ytimg.com/vi/bXbIz9BKeUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=bXbIz9BKeUc"

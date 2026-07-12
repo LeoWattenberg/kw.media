@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:0g-IDgMvpRs"
 category: "news-video"
 tags: ["YouTube Studio Mobile", "Notification Feed Filter", "Clips Library", "HDR-Streaming", "RTMP/S Protocols", "OBS", "Content Creator Tools", "Platform Updates", "Mobile Optimization", "Streaming Equipment"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/", "/youtube-tips-en/youtube-updates-youtube-studio-app-youtube-app-comments-community-posts/", "/youtube-tips-en/everything-new-in-youtube-studio-mobile-content-and-community-tab-updates/"]
 image: "https://i.ytimg.com/vi/0g-IDgMvpRs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=0g-IDgMvpRs"

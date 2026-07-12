@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:nTyBDl2lbMg"
 category: "news-video"
 tags: ["Super Chat Replies", "Monetization Tools", "AFG Violations", "A/B Testing (Test and Compare)", "YouTube Platform Updates", "Creator Monetization", "Video Guidelines", "Transparency Features", "Audience Engagement", "YouTube Community"]
+relatedPosts: ["/youtube-tips-en/a-b-testing-on-youtube-everything-you-need-to-know-for-the-summer-launch/", "/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/coming-soon-to-youtube-custom-thumbs-for-shorts-and-superchat-goals/"]
 image: "https://i.ytimg.com/vi/nTyBDl2lbMg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=nTyBDl2lbMg"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:mwI9bSG6_dw"
 category: "news-video"
 tags: ["YouTube Shorts Updates", "Comment Teasers", "YouTube Premium Plans", "Music Licensing Changes", "Vixen Music", "Warner Music Group", "Inspiration Tab Features", "Brainstorming Tools", "Quick Saves", "AI-Assisted Content Generation"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/", "/youtube-tips-en/ai-summaries-for-comments-and-why-you-dont-see-the-add-yours-sticker/", "/youtube-tips-en/free-channel-memberships-for-youtube-premium-users-the-big-experiment-in-april-2024/"]
 image: "https://i.ytimg.com/vi/mwI9bSG6_dw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=mwI9bSG6_dw"

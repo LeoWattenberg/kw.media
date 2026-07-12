@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:eUxLizKDC6M"
 category: "short-tutorial"
 tags: ["Live Redirects", "YouTube Features", "Channel Management", "Viewer Engagement", "Twitch Raids", "Community Settings", "YouTube Studio Navigation", "Streaming Community"]
+relatedPosts: ["/youtube-tips-en/do-this-to-be-able-to-recieve-youtube-live-redirects-youtube-raids/", "/youtube-tips-en/getting-started-with-youtube-live-streaming/", "/youtube-tips-en/how-to-receive-youtube-redirects-youtube-raids-on-your-channel/"]
 image: "https://i.ytimg.com/vi/eUxLizKDC6M/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/eUxLizKDC6M"

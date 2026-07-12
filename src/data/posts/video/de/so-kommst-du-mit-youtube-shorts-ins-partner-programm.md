@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:oyX_dfP3Wv8"
 category: "short-tutorial"
 tags: ["YouTube Shorts", "Partnerprogramm", "Aufruf-Anforderungen", "Monetarisierung", "Kurzvideo-Strategien"]
+relatedPosts: ["/youtube-tipps-de/wann-kommt-die-shorts-monetarisierung/", "/youtube-tipps-de/so-monetarisierst-du-alte-shorts/", "/youtube-tipps-de/verliere-ich-die-youtube-monetarisierung-wenn-ich-eine-pause-einlege/"]
 image: "https://i.ytimg.com/vi/oyX_dfP3Wv8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/oyX_dfP3Wv8"

@@ -7,6 +7,7 @@ import {
 	loadToolCandidates,
 	parseAstroToolCandidates,
 	parseJsonResponse,
+	readGeneratedToolMetadata,
 	requestOllamaJson,
 	validMetaDescription,
 } from '../scripts/tool-metadata.mjs';
@@ -55,6 +56,16 @@ test('tool candidate inventory gives every virtual converter its own metadata ca
 	assert.notEqual(png?.path, jpeg?.path);
 	assert.equal(png?.virtual, true);
 	assert.equal(jpeg?.virtual, true);
+	assert.equal(png?.metadataFile, 'converter/virtual-converters.json');
+	assert.equal(candidates.find((candidate) => candidate.path === '/en/tools/audio-analyzer/')?.metadataFile, 'audio-analyzer.json');
+});
+
+test('split tool metadata sidecars load as one page-path registry', async () => {
+	const metadata = await readGeneratedToolMetadata();
+
+	assert.ok(Object.keys(metadata).length > 100);
+	assert.ok(metadata['/en/tools/abx-tester/']?.description);
+	assert.ok(metadata['/en/tools/converters/image-to-png/']?.content?.length);
 });
 
 test('tool description validation accepts fenced JSON recovery and strict SEO lengths', () => {

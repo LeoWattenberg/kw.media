@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:SERd4-20rtI"
 category: "news-video"
 tags: ["YouTube Partner Program", "YouTube Platform Updates", "YouTube Features", "Monetization Strategies", "Taxes", "Community Guidelines", "Content Moderation", "YouTube Studio"]
+relatedPosts: ["/youtube-tips-en/how-does-youtube-hype-actually-work-we-have-the-data/", "/youtube-tips-en/youtube-expands-free-hype-to-the-eu-10-year-member-badges/", "/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/"]
 image: "https://i.ytimg.com/vi/SERd4-20rtI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=SERd4-20rtI"

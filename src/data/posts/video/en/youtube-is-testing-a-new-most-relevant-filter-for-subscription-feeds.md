@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:D8AioV3AM6Y"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Subscription Feed Changes", "AI-Curated Feeds", "User Interaction", "Viewer Experience", "Opt-In Features", "Mobile Optimization", "YouTube Memberships", "Content Discoverability", "Community-Engagement"]
+relatedPosts: ["/youtube-tips-en/youtube-introduces-exciting-innovations-clips-feed-update-and-more/", "/youtube-tips-en/youtubes-fix-for-fomo-bait-new-channel-filters-explained-creator-news/", "/youtube-tips-en/youtube-updates-subscriber-list-shorts-view-definitions-and-take-a-break/"]
 image: "https://i.ytimg.com/vi/D8AioV3AM6Y/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=D8AioV3AM6Y"

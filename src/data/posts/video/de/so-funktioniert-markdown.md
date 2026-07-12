@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:39fXwnCNd3I"
 category: "short-tutorial"
 tags: ["Markdown auf YouTube", "Textformatierung", "Videobeschreibung", "Kursivschrift", "Fetttext", "Durchgestrichener Text", "YouTube-Funktionen", "Kurze Tutorials"]
+relatedPosts: ["/youtube-tipps-de/mentions-sind-klasse-zwar-deswegen/", "/youtube-tipps-de/trendinge-hashtags-sind-hashtags-noch-relevant/", "/youtube-tipps-de/jetzt-neu-kanalrichtlinien/"]
 image: "https://i.ytimg.com/vi/39fXwnCNd3I/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/39fXwnCNd3I"

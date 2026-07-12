@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:cZ3k13Ca0n8"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Handle Customization", "Multilingual Content", "Android Features", "A/B Testing (Test and Compare)", "Creator-Tools"]
+relatedPosts: ["/youtube-tips-en/how-to-change-youtube-handle-mobile/", "/youtube-tips-en/how-to-change-youtube-handle-desktop/", "/youtube-tips-en/what-are-youtube-handles-aliases/"]
 image: "https://i.ytimg.com/vi/cZ3k13Ca0n8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=cZ3k13Ca0n8"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:M_hmS22uI-8"
 category: "short-tutorial"
 tags: ["YouTube Shorts", "Short Tutorial", "Content Creation", "Mobile Production", "Video Recording Software", "YouTube Features", "Creator Resources", "Audience Engagement", "Visual Branding"]
+relatedPosts: ["/youtube-tips-en/different-ways-to-create-shorts-shorts/", "/youtube-tips-en/editable-thumbnails-for-shorts/", "/youtube-tips-en/answering-comments-with-short-heres-how/"]
 image: "https://i.ytimg.com/vi/M_hmS22uI-8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/M_hmS22uI-8"

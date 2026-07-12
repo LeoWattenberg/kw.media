@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:RaauubMlzic"
 category: "news-video"
 tags: ["YouTube Shorts", "Platform Updates", "Video Duration", "Monetization Strategies", "Copyrighted Content", "Creator Resources", "Audience Engagement", "Channel Growth", "YouTube Community"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-playable-multitasking-and-3-minute-shorts/", "/youtube-tips-en/update-for-youtube-streamers-scheduled-streams-now-linked-in-all-shorts/", "/youtube-tips-en/longer-shorts-and-add-yours-stickers-youtubes-latest-experiments/"]
 image: "https://i.ytimg.com/vi/RaauubMlzic/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=RaauubMlzic"

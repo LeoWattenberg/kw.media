@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:N4NERKAfs5k"
 category: "news-video"
 tags: ["YouTube Updates", "Content Discoverability", "Community Features", "Memberships", "Hype Feature", "Category Leaderboards", "Public Hype Sharing", "Channel Management", "Creator-Feedback"]
+relatedPosts: ["/youtube-tips-en/youtube-is-testing-a-new-most-relevant-filter-for-subscription-feeds/", "/youtube-tips-en/youtube-updates-leaderboards-shorts-visual-guides-and-shorts-quiz-stickers/", "/youtube-tips-en/youtube-introduces-exciting-innovations-clips-feed-update-and-more/"]
 image: "https://i.ytimg.com/vi/N4NERKAfs5k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=N4NERKAfs5k"

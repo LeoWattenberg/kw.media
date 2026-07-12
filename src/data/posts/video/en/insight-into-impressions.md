@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:3sIpLIwsQEo"
 category: "short-tutorial"
 tags: ["YouTube Analytics", "Impressions Data", "Click-Through Rate", "Viewer Interactions", "YouTube Studio Navigation", "Video Performance Metrics", "Channel Growth Strategies", "YouTube Features", "Data Analysis"]
+relatedPosts: ["/youtube-tips-en/youtube-abc-quick-start-with-youtube-analytics/", "/youtube-tips-en/engagement-analysis/", "/youtube-tips-en/new-in-youtube-analytics-impressions-for-new-and-returning-viewers/"]
 image: "https://i.ytimg.com/vi/3sIpLIwsQEo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/3sIpLIwsQEo"

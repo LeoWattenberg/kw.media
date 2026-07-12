@@ -9,6 +9,7 @@ modified: "2026-07-11T08:54:42"
 locale: "en"
 translationKey: "video:yxTNciEnvXo"
 category: "news-video"
+relatedPosts: ["/youtube-tips-en/youtube-kills-seo-and-twitchs-fake-monetization-creator-news/", "/youtube-tips-en/thats-why-you-earn-more-on-youtube-than-on-twitch-revenue-comparison/", "/youtube-tips-en/content-not-available-youtubes-ad-block-ramp-up-and-twitch-business-manager-role/"]
 image: "https://i.ytimg.com/vi/yxTNciEnvXo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=yxTNciEnvXo"

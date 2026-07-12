@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:Ca2UQvh5p5Q"
 category: "news-video"
 tags: ["Autodubbing-Update", "Sprachübersetzung", "YouTube Shorts", "Livestreaming-Funktionen", "Monetarisierung", "Microtransaktionen", "YouTube Juwelen", "Vertikale Videos"]
+relatedPosts: ["/youtube-tipps-de/ich-lag-falsch-uber-autodubbing-erster-wochen-youtube-datensatz-april-2025/", "/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/", "/youtube-tipps-de/lange-shorts-werden-nicht-richtig-im-youtube-studio-angezeigt-mitgliedschaften-updates-und-mehr/"]
 image: "https://i.ytimg.com/vi/Ca2UQvh5p5Q/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=Ca2UQvh5p5Q"

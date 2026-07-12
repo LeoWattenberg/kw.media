@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:5nw4Hz0d2mk"
 category: "news-video"
 tags: ["YouTube Community Features", "Fan Communities", "Mobile First Rollout", "Desktop Version Upcoming", "Community-Engagement", "Subscriber Interaction", "Two-Way Communication", "Community Tab Updates", "Moderation Tools", "Pronoun Customization"]
+relatedPosts: ["/youtube-tips-en/youtube-faq-multi-aspect-streams-fan-communities-on-desktop-and-veo-3-ai/", "/youtube-tips-en/youtube-introduces-exciting-innovations-clips-feed-update-and-more/", "/youtube-tips-en/youtube-news-second-chance-pilot-ask-studio-deep-dive-and-communities-on-desktop/"]
 image: "https://i.ytimg.com/vi/5nw4Hz0d2mk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=5nw4Hz0d2mk"

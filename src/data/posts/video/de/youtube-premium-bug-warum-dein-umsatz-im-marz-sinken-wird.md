@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:3BrtN4P1Qnc"
 category: "news-video"
 tags: ["YouTube Premium", "Einnahmenkorrektur", "Multistreaming", "Twitch-Integration", "Chat-Kombination", "Social Stream Ninja", "Streamerbot", "Vertikale Live-Chat-Übersetzungen", "Benutzeroberflächen-Änderungen"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-youtube-fehler-loscht-werbeeinnahmen-einfuhrung-der-kollaborations-feed-funktion/", "/youtube-tipps-de/youtube-updates-fehler-bei-mid-roll-anzeigen-und-kommende-bearbeitungseinschrankungen/", "/youtube-tipps-de/inhalt-nicht-verfugbar-youtube-anzeigenblock-eskalation-und-rolle-des-twitch-business-managers/"]
 image: "https://i.ytimg.com/vi/3BrtN4P1Qnc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=3BrtN4P1Qnc"

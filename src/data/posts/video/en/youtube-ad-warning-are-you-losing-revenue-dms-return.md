@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:MNWt6hzVztI"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Community Settings", "Ad Strategy", "Monetization Changes", "YouTube Mobile App", "User Interaction", "Viewer Engagement", "Content Moderation"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/", "/youtube-tips-en/new-audio-settings-vpn-revenue-warning-youtube-creator-news/", "/youtube-tips-en/content-not-available-youtubes-ad-block-ramp-up-and-twitch-business-manager-role/"]
 image: "https://i.ytimg.com/vi/MNWt6hzVztI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=MNWt6hzVztI"

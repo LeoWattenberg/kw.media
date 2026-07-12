@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1432"
 category: "blog"
 tags: ["Mobile Production", "YouTube Live Streaming", "Content Creation", "Audio Quality", "Microphone Recommendations", "Lighting Solutions", "Power Banks", "Screen Recording", "Gameplay Capture"]
+relatedPosts: ["/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/", "/youtube-tips-en/getting-started-with-youtube-live-streaming/", "/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts/"]
 image: "https://preview.redd.it/4qkmx58k7sh51.png?width=1800&format=png&auto=webp&s=680b7612091c15be4832e8f1f9960ecc64d5438b"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-mobile-producion-for-everyone/"

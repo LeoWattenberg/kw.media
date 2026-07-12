@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:A95WfCKuuYo"
 category: "short-tutorial"
 tags: ["Content Monetization", "Creator Agreements", "Pricing Negotiation", "Production Costs", "Market Value", "Legal Requirements", "Taxes", "Collaboration Strategies"]
+relatedPosts: ["/youtube-tips-en/lets-talk-about-youtube-money-and-sponsorships-for-youtube-channels/", "/youtube-tips-en/7-ways-creators-make-money-beyond-youtube-ads/", "/youtube-tips-en/thats-why-you-earn-more-on-youtube-than-on-twitch-revenue-comparison/"]
 image: "https://i.ytimg.com/vi/A95WfCKuuYo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/A95WfCKuuYo"

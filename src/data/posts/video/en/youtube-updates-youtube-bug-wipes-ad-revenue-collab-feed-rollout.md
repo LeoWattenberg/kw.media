@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:JhqpnMVoupA"
 category: "news-video"
 tags: ["YouTube Updates", "Ad Revenue Impact", "Collab Feed Rollout", "YouTube Studio Changes", "Profanity Policy Changes", "Fan Communities Enhancements"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-mid-roll-ad-bug-and-editing-restrictions-incoming/", "/youtube-tips-en/youtube-premium-bug-why-your-revenue-will-drop-in-march/", "/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/"]
 image: "https://i.ytimg.com/vi/JhqpnMVoupA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JhqpnMVoupA"

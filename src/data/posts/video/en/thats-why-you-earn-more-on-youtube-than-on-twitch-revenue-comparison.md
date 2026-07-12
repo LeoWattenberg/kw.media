@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:1dTIcDQb0pY"
 category: "video-tutorial"
 tags: ["Creator Revenue", "YouTube Monetization", "Twitch Monetization", "Digital Transactions", "Platform Fees", "Taxes", "Subscription Models", "Super Chat", "Bits", "Mobile vs Desktop Payments"]
+relatedPosts: ["/youtube-tips-en/youtube-analytics-top-earning-content-by-format-as-a-guide-for-creators/", "/youtube-tips-en/7-ways-creators-make-money-beyond-youtube-ads/", "/youtube-tips-en/youtube-kills-seo-and-twitchs-fake-monetization-creator-news/"]
 image: "https://i.ytimg.com/vi/1dTIcDQb0pY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1dTIcDQb0pY"

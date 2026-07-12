@@ -1,0 +1,20 @@
+{
+	"/de/tools/converter/document-converter/": {
+		"content": [
+			"Der Dokumenten-Konverter ist ein leistungsstarkes Tool, das es Ihnen ermöglicht, Dokumente direkt in Ihrem Browser zu konvertieren. Mit dieser benutzerfreundlichen Plattform können Sie verschiedene Dateiformate in andere umwandeln, ohne Software herunterladen oder installieren zu müssen. Es ist die perfekte Lösung für schnelle und effiziente Dokumentenkonvertierung.",
+			"Der Workflow ist einfach: Laden Sie Ihre Dokumente hoch, wählen Sie das gewünschte Zielformat aus und starten Sie den Konvertierungsprozess. Pandoc WASM, eine leistungsstarke Bibliothek, verarbeitet die Dateien clientseitig, was schnelle Umwandlungen und eine sichere Datenverarbeitung garantiert. Alle Konvertierungen erfolgen direkt in Ihrem Browser, ohne dass Ihre Daten das Gerät verlassen.",
+			"Unterstützte Formate umfassen PDF, DOCX, HTML, Markdown, LaTeX und viele mehr. Ob Textdokumente, Präsentationen oder wissenschaftliche Arbeiten – der Dokumenten-Konverter bewältigt eine Vielzahl von Dateitypen. Diese Flexibilität macht ihn zu einem vielseitigen Werkzeug für jeden Anwender.",
+			"Datensicherheit und Privatsphäre sind uns wichtig. Durch die Verarbeitung aller Konvertierungen [direkt im Browser](/de/tools/vtuber-preview/) bleiben Ihre [Dokumente lokal](/de/tools/converters/document-to-docx/) und werden nicht an externe Server übermittelt. Sie haben die volle Kontrolle über Ihre Daten und können sicher sein, dass keine sensiblen Informationen geteilt werden."
+		],
+		"description": "Konvertiere Dokumente schnell und sicher im Browser mit Dokumenten-Konverter. Ermöglicht die Umwandlung in verschiedene Formate mithilfe von Pandoc WASM."
+	},
+	"/en/tools/converter/document-converter/": {
+		"content": [
+			"Document Converter is a powerful tool designed to transform your documents seamlessly. It allows you to convert various file formats directly in your web browser, offering convenience and flexibility without the need for downloads or installations.",
+			"The process is straightforward: upload your document, select the desired output format, and watch as Pandoc WASM, an advanced conversion engine, does its magic. This tool supports a wide range of input and output formats, ensuring compatibility with most common document types.",
+			"Supported formats include Markdown, HTML, PDF, DOCX, and many more. Whether you need to convert notes, research papers, or even complex technical documents, Document Converter has got you covered. All processing happens locally within your browser for enhanced privacy and security.",
+			"No personal data is stored or shared. The tool leverages the power of WASM technology to process files securely on your device, ensuring your documents remain confidential throughout the conversion process."
+		],
+		"description": "Convert documents instantly in your browser using Pandoc WASM. Local, fast, and powerful document transformation to any format."
+	}
+}

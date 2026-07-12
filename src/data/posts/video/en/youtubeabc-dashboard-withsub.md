@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:1prNYRTvh8Y"
 category: "short-tutorial"
 tags: ["YouTube Studio Dashboard", "Content Management", "Channel Performance", "Video Statistics", "Creator-Tools", "Platform Navigation", "Short Tutorial"]
+relatedPosts: ["/youtube-tips-en/stay-on-top-of-things-with-the-dashboard/", "/youtube-tips-en/youtube-abc-quick-start-with-youtube-analytics/", "/youtube-tips-en/engagement-analysis/"]
 image: "https://i.ytimg.com/vi/1prNYRTvh8Y/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/1prNYRTvh8Y"

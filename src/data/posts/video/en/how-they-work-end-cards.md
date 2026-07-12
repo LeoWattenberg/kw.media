@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:MESXE9-pLDc"
 category: "short-tutorial"
 tags: ["YouTube End Cards", "End Screen Templates", "Video Customization", "YouTube Editor", "Element Design", "Video Duration", "Playlist Management", "Content Promotion"]
+relatedPosts: ["/youtube-tips-en/how-they-work-channel-trailers/", "/youtube-tips-en/youtubeabc-dashboard-withsub/", "/youtube-tips-en/boost-your-channel-with-effective-branding/"]
 image: "https://i.ytimg.com/vi/MESXE9-pLDc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/MESXE9-pLDc"

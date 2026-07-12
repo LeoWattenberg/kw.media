@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:jkTohCOCLdg"
 category: "news-video"
 tags: ["YouTube Updates", "Midroll-Anzeigen", "Einnahmenverlust", "Automatisierte Werbeplätze", "Kurzvideo-Bearbeitung", "YouTube Studio", "Google Takeout", "Datenverkehr", "Creator-Tools", "Monetarisierung"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-voice-replies-shorts-promotions-und-anderungen-bei-mid-roll-ads/", "/youtube-tipps-de/youtube-updates-youtube-fehler-loscht-werbeeinnahmen-einfuhrung-der-kollaborations-feed-funktion/", "/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/"]
 image: "https://i.ytimg.com/vi/jkTohCOCLdg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=jkTohCOCLdg"

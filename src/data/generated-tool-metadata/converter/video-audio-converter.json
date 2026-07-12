@@ -1,0 +1,20 @@
+{
+	"/de/tools/converter/video-audio-converter/": {
+		"content": [
+			"Der Audio- und Video-Konverter ist ein leistungsstarkes Tool, das es Ihnen ermöglicht, Audiodateien oder Videos direkt in Ihrem Browser zu konvertieren. Mit dieser benutzerfreundlichen Online-Lösung können Sie verschiedene [Medienformate umwandeln](/de/tools/converter/), ohne Software herunterladen oder installieren zu müssen.",
+			"Der Prozess ist einfach: Wählen Sie die Datei aus, die Sie konvertieren möchten, geben Sie das gewünschte Ausgabeformat an und starten Sie den Konverter. Unser Tool nutzt die Kraft von [FFmpeg WebAssembly (WASM)](/de/tools/lossless-media-studio/), um die Umwandlung reibungslos und effizient durchzuführen. So können Sie Ihre Medien schnell und bequem anpassen.",
+			"Unterstützte Formate umfassen gängige Audio- und Video-Codecs wie MP3, WAV, MP4, AVI, MKV und viele mehr. Ob Sie ein Video in ein anderes Format exportieren oder eine [Audiodatei komprimieren](/de/tools/audio/) möchten – unser Konverter erledigt es mit minimaler Benutzerinteraktion.",
+			"Alle Verarbeitungsschritte erfolgen lokal in Ihrem Browser, was Ihre Privatsphäre schützt. Keine Dateien verlassen Ihren Gerätespeicher, und sensible Medien bleiben sicher. Der Audio- und Video-Konverter ist eine sichere und diskrete Lösung für alle Ihre Konvertierungsbedürfnisse."
+		],
+		"description": "Konvertiere Audios und Videos direkt im Browser mit unserer leistungsstarken Tool, die FFmpeg WASM nutzt. Umwandlung lokaler Dateien in neue Formate"
+	},
+	"/en/tools/converter/video-audio-converter/": {
+		"content": [
+			"The [Audio and Video](/en/tools/converter/) Converter is a powerful tool designed to help you effortlessly transform your [media files](/en/tools/media-delivery-checker/) right within your web browser. Whether you need to convert [audio tracks](/en/tools/audio/) or videos, this converter provides an intuitive interface for quick and efficient file manipulation without the need for downloads or external software.",
+			"To use, simply upload your desired [audio or video](/en/tools/converters/media-to-flac/) file, select the output format, and adjust any necessary settings. The converter utilizes FFmpeg WebAssembly ([FFmpeg wasm](/en/tools/converter/video-to-gif/)) for seamless processing, ensuring compatibility with a wide range of media types. Once complete, you can download the converted file directly from your browser.",
+			"Supported formats include MP3, WAV, AAC, MP4, AVI, MKV, and more. This tool is optimized for local file conversion, allowing you to process media discreetly without any data leaving your device, ensuring maximum privacy and security.",
+			"By leveraging WebAssembly technology, the converter achieves efficient local processing, enabling fast conversions while maintaining the integrity of your files. Experience seamless media manipulation with a tool designed for simplicity, speed, and privacy."
+		],
+		"description": "Convert audio & video locally in your browser using FFmpeg WASM. Support for various formats, fast and efficient."
+	}
+}

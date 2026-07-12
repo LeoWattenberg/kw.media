@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:IICk-BdIuXQ"
 category: "news-video"
 tags: ["YouTube Updates", "Miniaturansichten", "Miniaturansichten erstellen", "Dateigrößenbeschränkung", "Twitch-Funktionen", "Auto Clips", "Monetarisierung", "Super Chat", "Abonnements"]
+relatedPosts: ["/youtube-tipps-de/youtubes-updates-q-und-a-sticker-und-10mb-thumbnails/", "/youtube-tipps-de/youtube-updates-dezember-endspurt-mit-mla-und-superchat-goals/", "/youtube-tipps-de/youtube-updates-brandconnect-expansion-und-neue-streaming-features/"]
 image: "https://i.ytimg.com/vi/IICk-BdIuXQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=IICk-BdIuXQ"

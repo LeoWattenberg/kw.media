@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:iKf9XHFUSos"
 category: "short-tutorial"
 tags: ["YouTube Monetization", "Super Thanks", "Creator-Tools", "Platform Updates", "YouTube Partner Program", "Monetization Features", "Short Tutorial", "Audio Settings"]
+relatedPosts: ["/youtube-tips-en/new-feature-alert-superthanks/", "/youtube-tips-en/everything-important-about-the-new-youtube-fan-funding-partner-level/", "/youtube-tips-en/super-chat-replies-youtube-rolling-out-new-features/"]
 image: "https://i.ytimg.com/vi/iKf9XHFUSos/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iKf9XHFUSos"

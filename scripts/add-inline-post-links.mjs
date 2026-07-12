@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve, relative } from 'node:path';
 import {
 	allPostFiles,
@@ -22,7 +22,6 @@ const useAi = !args.includes('--no-ai') && process.env.INLINE_POST_LINK_AI !== '
 const linkDensity = Number(argumentValue('--link-density') ?? process.env.INLINE_POST_LINK_DENSITY ?? 2);
 const limit = Number(argumentValue('--limit') ?? 0);
 const candidateCount = Number(argumentValue('--candidates') ?? process.env.INLINE_POST_LINK_CANDIDATES ?? 8);
-const relatedPath = resolve(argumentValue('--related') ?? join(process.cwd(), 'src/data/related-posts.json'));
 const ollamaUrl = process.env.OLLAMA_URL ?? process.env.OLLAMA_TRANSLATE_URL ?? 'http://172.20.208.1:11434';
 const anchorModel = process.env.OLLAMA_INLINE_LINK_MODEL ?? 'gemma4:31b';
 const timeoutMs = Number(process.env.OLLAMA_TIMEOUT_MS ?? 300000);
@@ -67,7 +66,7 @@ const sidebarPageOrder = [
 
 if (help) {
 	console.log(`Usage:
-node scripts/add-inline-post-links.mjs [--dry] [--link-density=2] [--limit=20] [post.md ...|src/data/generated-tool-metadata.json]
+node scripts/add-inline-post-links.mjs [--dry] [--link-density=2] [--limit=20] [post.md ...|src/data/generated-tool-metadata]
 
 Creates inline Markdown links in post bodies and generated multi-paragraph tool descriptions.
 Writes changes by default. Add --dry to preview proposed links.
@@ -78,7 +77,8 @@ Options:
 - --candidates=N  Related post candidates to send to Ollama after page and tool targets. Defaults to 8.
 - --no-ai         Use deterministic phrase matching instead of Ollama anchor selection.
 - --limit=N       Process only the first N selected posts and tool descriptions.
-- --related=...   Related-post JSON path. Defaults to src/data/related-posts.json.`);
+
+Related-post candidates come from each post's relatedPosts frontmatter.`);
 	process.exit(0);
 }
 
@@ -95,7 +95,6 @@ const postsByPath = new Map(allPosts.map((post) => [post.frontmatter.path, post]
 const sidebarPages = readSidebarPages();
 const toolPages = (await loadToolCandidates()).map(toolPageCandidate);
 const generatedToolMetadata = await readGeneratedToolMetadata();
-const relatedPosts = readRelatedPosts(relatedPath);
 const passedFiles = positionalArgs();
 const selectedFiles = selectFiles(passedFiles);
 const selectedPosts = (limit > 0 ? selectedFiles.slice(0, limit) : selectedFiles).map((filePath) => readPostFile(filePath));
@@ -162,7 +161,9 @@ function selectFiles(passedFiles = positionalArgs()) {
 }
 
 function isGeneratedToolMetadataPath(filePath) {
-	return resolve(filePath) === resolve(GENERATED_TOOL_METADATA_PATH);
+	const resolved = resolve(filePath);
+	const metadataDirectory = resolve(GENERATED_TOOL_METADATA_PATH);
+	return resolved === metadataDirectory || resolved.startsWith(`${metadataDirectory}/`);
 }
 
 function positionalArgs() {
@@ -178,15 +179,6 @@ function argumentValue(name) {
 
 	const index = args.indexOf(name);
 	return index >= 0 ? args[index + 1] : undefined;
-}
-
-function readRelatedPosts(filePath) {
-	if (!existsSync(filePath)) {
-		console.warn(`Related-post data not found at ${relative(process.cwd(), filePath)}; falling back to same-locale candidates.`);
-		return {};
-	}
-
-	return JSON.parse(readFileSync(filePath, 'utf8'));
 }
 
 function readSidebarPages() {
@@ -307,8 +299,8 @@ function pageBlockText(blocks) {
 }
 
 function candidatePostsFor(post) {
-	const relatedPaths = Array.isArray(relatedPosts[post.frontmatter.path])
-		? relatedPosts[post.frontmatter.path]
+	const relatedPaths = Array.isArray(post.frontmatter.relatedPosts)
+		? post.frontmatter.relatedPosts
 		: [];
 	const seen = new Set([post.frontmatter.path]);
 	const candidates = candidatePagesFor(post);

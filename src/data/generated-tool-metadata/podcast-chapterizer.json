@@ -1,0 +1,20 @@
+{
+	"/de/tools/podcast-kapitel-editor/": {
+		"content": [
+			"Podcast-Kapitel-Editor ist ein leistungsstarkes Tool, das die Organisation und Strukturierung von Podcasts revolutioniert. Es ermöglicht es Podcastern, ihre Inhalte effizient zu unterteilen und so eine verbesserte Benutzererfahrung auf YouTube zu schaffen. Mit nur wenigen Klicks können Sie Kapitel erstellen, die nicht nur den Inhalt gliedern, sondern auch eine nahtlose Navigation während der Wiedergabe ermöglichen.",
+			"Die Verwendung ist einfach: Laden Sie einfach Ihre [Podcast-Audiodateien](/de/tools/audio/) hoch und wählen Sie die gewünschte Ausgabeformatierung aus. Das Tool analysiert dann das Audio und generiert automatisch Kapitelmarkierungen basierend auf natürlichen Pausen und sprachlichen Mustern. Anschließend können Sie diese Kapitel anpassen, indem Sie Titel und Beschreibungen hinzufügen oder bearbeiten.",
+			"Unterstützte Formate umfassen [MP3, WAV und FLAC](/de/tools/converter/) für Audiodateien sowie FFmetadata-Dateien. Für eine erweiterte Integration kann das Tool auch YouTube-Chapter im gewünschten Format erstellen und so die Online-Verfügbarkeit Ihrer Podcast-Episoden verbessern. Die erstellten Medien können direkt in Ihre Videos eingebettet werden, um ein nahtloses Erlebnis zu gewährleisten.",
+			"Datenschutz ist uns wichtig: Alle Verarbeitung geschieht lokal auf Ihrem Gerät, und Ihre Daten bleiben vertraulich. Keine sensiblen Informationen werden an externe Server übermittelt. So können Sie sicher sein, dass Ihre Podcast-Produktionsprozesse geschützt sind."
+		],
+		"description": "Erstelle perfekt formatierte Podcast-Kapitel direkt im Browser. Generiere YouTube-Chapters, FFmetadata und integriere Medien mit einfacher"
+	},
+	"/en/tools/podcast-chapter-editor/": {
+		"content": [
+			"Podcast Chapter Editor is a powerful browser-based tool designed to simplify the process of organizing and structuring your podcast episodes into easily digestible chapters. Whether you're a podcaster looking to enhance your content or a [video editor working with YouTube](/en/creator/), this tool offers an efficient solution for creating well-defined sections within your [audio or video files](/en/tools/converters/media-to-flac/).",
+			"The workflow is straightforward: upload your podcast episode, be it in [MP3 or WAV format](/en/tools/converter/video-audio-converter/), and specify the desired chapter points. Our algorithm will then automatically generate chapters at these intervals, allowing you to focus on content rather than technicalities. You can also choose to [export the generated chapters as FFmetadata for seamless integration with YouTube](/en/tools/text/).",
+			"Supported media formats include MP3 and WAV [audio files](/en/tools/abx-tester/). For video creators, we enable the generation of YouTube-ready chapters, ensuring a smooth viewing experience. This tool is versatile, catering to both podcasters and video editors alike, without requiring any complex coding or external plugins.",
+			"By utilizing local processing, Podcast Chapter Editor ensures your data remains secure and private. We do not store or share your [media files](/en/tools/media-delivery-checker/) beyond the duration needed for generating chapters. Your content is handled with the utmost care, giving you control over your creative assets."
+		],
+		"description": "Podcast Chapter Editor: Create YouTube chapters, FFmetadata, & embed media with local, efficient chapter integration."
+	}
+}

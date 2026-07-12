@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "post:2314"
 category: "blog"
 tags: ["YouTube-Kanal erstellen", "YouTube Studio", "Persönlicher Kanal", "Brandkonto", "Kanaloptimierung", "YouTube-Richtlinien", "Benutzerdefinierte URL", "Telefonnummer Bestätigung", "Kontoverwaltung"]
+relatedPosts: ["/youtube-tipps-de/starte-durch-deinen-youtube-kanal-erstellen-in-2024-personliche-und-firmen-kanale/", "/youtube-tipps-de/steigere-deinen-kanal-mit-effektivem-branding/", "/youtube-tipps-de/dein-youtube-kanal-anleitung-zur-anpassung-von-profilbild-banner-und-wasserzeichen/"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-kanal-erstellen-in-2023/"

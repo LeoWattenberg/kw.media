@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:nMgllfy0VUc"
 category: "short-tutorial"
 tags: ["YouTube-Mitgliedschaften", "Live-Chat-Interaktionen", "Zuschauer Engagement", "Geschenkfunktionen", "Beta-Funktionen", "Abonnement-Strategien", "Community-Belohnungen"]
+relatedPosts: ["/youtube-tipps-de/wie-funktionieren-eigentlich-erstattungen-beim-verschenken-von-youtube-mitgliedschaften/", "/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/", "/youtube-tipps-de/wo-finde-ich-auf-youtube-meine-kaufe-und-mitgliedschaften/"]
 image: "https://i.ytimg.com/vi/nMgllfy0VUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nMgllfy0VUc"

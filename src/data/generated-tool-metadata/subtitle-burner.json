@@ -1,0 +1,20 @@
+{
+	"/de/tools/subtitle-burner/": {
+		"content": [
+			"Mit Subtitle Burner kannst du deine eigenen Untertitel direkt in Videos einbrennen – einfach, schnell und lokal. Egal ob für private Projekte oder zur Verbesserung von Online-Inhalten, diese Tool ermöglicht es dir, [professionell aussehende Untertitel zu erstellen und anzupassen](/de/tools/untertitel-studio/), ohne komplexe Software installieren zu müssen.",
+			"Die Nutzung ist kinderleicht: Lade dein Video und die gewünschten Untertiteldateien ([SRT oder WebVTT](/de/tools/untertitel-editor-konverter/)) hoch. Passe deren Position, Formatierung und Timing nach Bedarf an. Klicke dann auf 'Brennen' und Subtitle Burner übernimmt den Rest – deine personalisierten Untertitel werden direkt in das Video eingebettet.",
+			"Unsere Plattform unterstützt die gängigen Formate SRT und WebVTT. So kannst du sicher sein, dass deine [Untertitel mit den meisten Videowiedergabegeräten kompatibel](/de/tools/video/) sind. Für eine optimale Darstellung empfehlen wir die Verwendung von Standard-Tastaturkürzeln und einer modernen Browserversion.",
+			"Deine [Daten bleiben lokal](/de/tools/) und werden nicht an Dritte weitergegeben. Subtitle Burner verarbeitet alle Vorgänge auf deinem Gerät, sodass du die volle Kontrolle über deine Inhalte behältst. Wir setzen uns für Transparenz und Datenschutz ein, ohne dabei Kompromisse bei der Funktionalität einzugehen."
+		],
+		"description": "Erstelle personalisierte Untertitel für deine Videos mit Subtitle Burner – direkt im Browser, lokal und anpassbar."
+	},
+	"/en/tools/subtitle-burner/": {
+		"content": [
+			"Subtitle Burner is a powerful, user-friendly tool designed to seamlessly integrate [custom subtitles](/en/video-dubbing/) into any video file directly from your browser. Whether for personal projects or professional productions, it offers an efficient way to enhance videos with accurate and stylistically controlled subtitles.",
+			"The process is straightforward: upload your video, input the subtitle file ([SRT or WebVTT](/en/tools/subtitle-editor-converter/)), adjust display settings like position, size, and font, then click 'Burn'. The tool renders the final product as a new video file ready for download, preserving your original video intact.",
+			"Supported formats include [SRT and WebVTT](/en/tools/whisper-subtitle-generator/) for subtitles. For best results, ensure your input files are correctly formatted with synchronized text and timing. Subtitle Burner leverages [browser-based processing](/en/tools/) for fast, local editing without sacrificing privacy.",
+			"All processing occurs within your browser, ensuring no file uploads leave your device. This means complete control over your media and data security throughout the subtitle customization process."
+		],
+		"description": "Create custom subtitles for videos with Subtitle Burner. Locally burn SRT/WebVTT subtitles with adjustable styles, all within your browser."
+	}
+}

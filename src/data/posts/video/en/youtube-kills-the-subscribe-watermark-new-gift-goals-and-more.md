@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:PLZG4pTLp14"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Vertical Live Streaming", "Gift Goals", "YouTube Studio Changes", "Channel Moderation", "Live Stream Leaderboards", "Subscribe Watermark Removal"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-subscribe-confusion-and-autodubbing-fully-rolled-out/", "/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/", "/youtube-tips-en/youtube-updates-subscriber-list-shorts-view-definitions-and-take-a-break/"]
 image: "https://i.ytimg.com/vi/PLZG4pTLp14/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=PLZG4pTLp14"

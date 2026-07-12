@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1875"
 category: "blog"
 tags: ["YouTube Strategy", "Content Creation", "Content Model", "Audience Engagement", "Video-Marketing", "Subscriber Retention", "New Viewer Acquisition", "Evergreen Content", "Event-Based Content", "Serial Content"]
+relatedPosts: ["/youtube-tips-en/the-eee-model-how-to-break-out-of-the-small-youtuber-niche/", "/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/", "/youtube-tips-en/simple-youtube-seo-for-gaming-channels/"]
 image: "https://leowattenberg.files.wordpress.com/2020/10/3d-see-nts-1.png?w=300"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-wattenberg-indicator/"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:1xInnsGnSxM"
 category: "news-video"
 tags: ["YouTube Updates", "Shorts-Updates", "Live-Streaming-Richtlinien", "Monetarisierung", "YouTube-Strategie", "Creator-Tipps", "Plattform-Neuerungen", "Benachrichtigungen", "Stream-Planung"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-playables-multitasking-und-3-minuten-shorts/", "/youtube-tipps-de/feiert-mit-uns-1000-abonnenten-und-youtube-shorts-updates/", "/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/"]
 image: "https://i.ytimg.com/vi/1xInnsGnSxM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1xInnsGnSxM"

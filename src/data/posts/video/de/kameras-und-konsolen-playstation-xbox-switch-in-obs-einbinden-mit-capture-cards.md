@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:MxTHgbSwjWE"
 category: "short-tutorial"
 tags: ["Capture Card", "OBS Integration", "Gaming-Kanal", "Kameratechnik", "Videoaufnahme-Tools", "Streaming-Ausrüstung", "DSLR-Kamera", "Facecam", "Konsolen-Streaming"]
+relatedPosts: ["/youtube-tipps-de/szenen-und-quellen-in-obs-nutzen/", "/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/", "/youtube-tipps-de/braucht-man-wirklich-eine-face-cam-um-zu-wachsen/"]
 image: "https://i.ytimg.com/vi/MxTHgbSwjWE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/MxTHgbSwjWE"

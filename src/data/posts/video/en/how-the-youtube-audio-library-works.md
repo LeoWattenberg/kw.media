@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:8xWKE5cgjbU"
 category: "short-tutorial"
 tags: ["YouTube Audio Library", "Music Licensing", "YouTube Studio", "Content Creator Tools", "Audio Production", "Monetization Options", "Legal Issues", "Creative Process"]
+relatedPosts: ["/youtube-tips-en/new-developments-in-creator-music/", "/youtube-tips-en/replace-song-update-youtube-suggests-10-suitable-tracks-for-you/", "/youtube-tips-en/youtube-hype-livestream-and-superchat-updates/"]
 image: "https://i.ytimg.com/vi/8xWKE5cgjbU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8xWKE5cgjbU"

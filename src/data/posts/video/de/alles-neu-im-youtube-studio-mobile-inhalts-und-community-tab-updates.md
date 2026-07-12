@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:1gcduEf8HXE"
 category: "news-video"
 tags: ["YouTube Studio", "Mobile App-Updates", "Inhaltsverwaltung", "Community-Tab", "Kommentare", "Zuschauerbindung", "KI-Integration", "Super Chat Goals", "Kanalmanagement"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-youtube-studio-app-youtube-app-kommentare-community-posts/", "/youtube-tipps-de/hdr-youtube-streams-jetzt-einfacher-denn-je-deine-wochentlichen-youtube-updates/", "/youtube-tipps-de/youtube-update-neue-analytics-card-und-bald-mentions-fur-mobile-chats/"]
 image: "https://i.ytimg.com/vi/1gcduEf8HXE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1gcduEf8HXE"

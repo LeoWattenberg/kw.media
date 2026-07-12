@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:eFpsYo_qJbM"
 category: "short-tutorial"
 tags: ["Community-Tab", "Bildumfragen", "Android-Funktionen", "Umfragen erstellen", "Video-Verlinkung", "Interaktion mit Zuschauern", "Mobile YouTube-Features"]
+relatedPosts: ["/youtube-tipps-de/neu-umfrage-sticker-fur-shorts/", "/youtube-tipps-de/erweitere-deine-reichweite-bleib-mit-deiner-community-in-kontakt/", "/youtube-tipps-de/alles-neu-im-youtube-studio-mobile-inhalts-und-community-tab-updates/"]
 image: "https://i.ytimg.com/vi/eFpsYo_qJbM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/eFpsYo_qJbM"

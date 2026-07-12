@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:dweBFb3ts3k"
 category: "short-tutorial"
 tags: ["YouTube-Funktionen", "Community-Interaktion", "Umfragen", "Creator-Strategien", "Plattform-Optimierung", "Neue Funktionen auf YouTube", "Zuschauer Engagement", "Interaktion mit Zuschauern", "YouTube Updates"]
+relatedPosts: ["/youtube-tipps-de/youtubes-losung-fur-fomo-koder-neue-kanal-filter-erklart-creator-news/", "/youtube-tipps-de/wie-funktioniert-der-youtube-hype-wirklich-wir-haben-die-daten/", "/youtube-tipps-de/a-b-testing-auf-youtube-und-playlist-abstimmung/"]
 image: "https://i.ytimg.com/vi/dweBFb3ts3k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/dweBFb3ts3k"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:rhThVpigPqY"
 category: "news-video"
 tags: ["YouTube Updates", "Thumbnails", "Datengrenze", "Super Chat Goals", "Live-Streaming", "Side by Side Ads", "Web-Anbindung", "Mehrsprachiges Audio", "KI-Übersetzung"]
+relatedPosts: ["/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/", "/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/", "/youtube-tipps-de/das-hochladen-von-50-mb-grossen-miniaturansichten-wird-dein-youtube-video-zerbrechen-creator-news/"]
 image: "https://i.ytimg.com/vi/rhThVpigPqY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=rhThVpigPqY"

@@ -1,0 +1,20 @@
+{
+	"/de/tools/loudness-mastering/": {
+		"content": [
+			"Loudness Mastering ist ein leistungsstarkes Tool, das es Ihnen ermöglicht, Ihre Audiodateien direkt in Ihrem Browser zu optimieren. Mit nur wenigen Klicks können Sie die Lautstärke Ihrer Musik oder Audioinhalte anpassen und so eine professionelle Klangqualität erreichen. Das Ziel ist es, einen ausgewogenen und hochwertigen Sound zu gewährleisten, ohne unerwünschte Verzerrungen zu verursachen.",
+			"Der Prozess ist einfach: Laden Sie Ihre Audiodatei hoch, wählen Sie die gewünschte Lautstärke aus einem intuitiven Regler aus und klicken Sie auf 'Masteren'. Unser Algorithmus passt dann die Datei an, um sie an den Standard -14 LUFS (Loudness Unit Relative to Full Scale) anzupassen. Dieser Schritt schützt Ihre Musik vor übermäßigen Lautstärken und gewährleistet einen konsistenten Klang über verschiedene Plattformen hinweg.",
+			"Unser Tool unterstützt eine Vielzahl von Audioformaten, darunter MP3, WAV, FLAC und AIFF. Egal, ob Sie eine [Podcast-Folge bearbeiten](/de/tools/podcast-cleaner/) oder Ihre eigene Musikproduktion abmischen möchten - Loudness Mastering ist für Ihre Bedürfnisse geeignet. Es bietet eine bequeme und effiziente Lösung für die Lautstärkeregelung ohne Kompromisse bei der Qualität.",
+			"Datenschutz und lokale Verarbeitung sind uns wichtig. Alle Vorgänge finden direkt in Ihrem Browser statt, sodass Ihre Dateien nicht verlassen müssen. Ihre Audioinhalte bleiben auf Ihrem Gerät, und wir garantieren keine Datenübertragung an Dritte. So können Sie sicher sein, dass Ihre Privatsphäre gewahrt bleibt."
+		],
+		"description": "Loudness Mastering: Browser-basiert, -14 LUFS erreichen und True Peaks vermeiden – lokale Verarbeitung für optimale Audioqualität."
+	},
+	"/en/tools/loudness-mastering/": {
+		"content": [
+			"Loudness Mastering is a powerful, intuitive tool designed to optimize your audio content for professional distribution. Aiming for a balanced and impactful listen across all devices, it ensures your tracks reach their full potential without distorting or overwhelming the human ear.",
+			"Our browser-based platform offers a seamless workflow: upload your audio file, adjust settings according to your desired loudness level and peak limit, then click 'Master'. The process is instantaneous, with real-time visualization of changes. You retain complete control throughout, making adjustments as needed until perfection is achieved.",
+			"Supported formats include [MP3, WAV, FLAC, and AIFF](/en/tools/converter/). This ensures compatibility with a wide range of audio players and platforms. Whether for [music streaming, podcasting, or video production](/en/youtube-tips/), Loudness Mastering provides the precision you need to [master your audio online](/en/tools/audio/).",
+			"All processing occurs locally within your browser, ensuring privacy and security. No data leaves your device unless explicitly uploaded. We prioritize your peace of mind, giving you full control over your [audio files](/en/tools/abx-tester/) and their confidential handling."
+		],
+		"description": "Loudness Mastering: Browser-based tool to optimize audio, aiming for -14 LUFS while ensuring peak safety for professional results."
+	}
+}

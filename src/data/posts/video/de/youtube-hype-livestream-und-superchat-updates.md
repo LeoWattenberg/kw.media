@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:t-36QlpRlEc"
 category: "news-video"
 tags: ["YouTube Updates", "Shorts-Funktionen", "Musik-Integration", "Affiliate-Marketing", "Super Chat Antworten", "KI-Zusammenfassungen", "Livestream-Werbung", "YouTube-Hype", "Add Yours-Sticker"]
+relatedPosts: ["/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/", "/youtube-tipps-de/youtube-updates-neue-untertitel-fur-shorts-und-erweiterung-der-hype-funktion/", "/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/"]
 image: "https://i.ytimg.com/vi/t-36QlpRlEc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=t-36QlpRlEc"

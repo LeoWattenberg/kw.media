@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:s05L2eJ4j7g"
 category: "short-tutorial"
 tags: ["YouTube Channel Management", "Channel Customization", "Highlight Videos", "Non-Subscribed Users", "Returning Subscribers", "YouTube Studio", "Customize Tab"]
+relatedPosts: ["/youtube-tips-en/reach-the-summit-with-featured-content/", "/youtube-tips-en/boost-your-channel-with-effective-branding/", "/youtube-tips-en/shorts-shelf-for-desktop-channel-pages/"]
 image: "https://i.ytimg.com/vi/s05L2eJ4j7g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/s05L2eJ4j7g"

@@ -1,0 +1,20 @@
+{
+	"/de/tools/converter/": {
+		"content": [
+			"Konverter ist ein mächtiges Tool, das es Benutzern ermöglicht, verschiedene Dateiformate [direkt im Browser](/de/tools/vtuber-preview/) umzuwandeln, ohne Software herunterladen zu müssen. Mit einer intuitiven Benutzeroberfläche können Sie Dokumente, Bilder, [Audio- und Videodateien](/de/tools/converter/video-audio-converter/) in Sekundenschnelle konvertieren und anpassen. Egal ob für die Arbeit oder den persönlichen Gebrauch – Konverter vereinfacht komplexe Prozesse.",
+			"Der Workflow ist einfach: Laden Sie Ihre Datei hoch, wählen Sie das gewünschte Zielformat aus und starten Sie den Konvertierungsprozess. Unser Tool übernimmt die restliche Arbeit und bietet Ihnen eine schnelle und effiziente Lösung. Alle Konvertierungen erfolgen [direkt im Browser](/de/tools/whisper-untertitel-generator/), ohne dass Ihre Daten das Gerät verlassen – Ihre Privatsphäre bleibt geschützt.",
+			"Unterstützte Formate umfassen PDF, DOCX, XLSX, JPG, PNG, MP3 und MP4. Diese Auswahl ermöglicht eine breite Palette an Anwendungsfällen, von der Dokumentenbearbeitung bis hin zur Medienbearbeitung. Konverter ist die perfekte Lösung für alle, die Flexibilität und Datensicherheit in einem benutzerfreundlichen Paket suchen.",
+			"Durch die lokale Verarbeitung Ihrer Daten im Browser bleibt Ihre Privatsphäre gewährleistet. Keine sensiblen Informationen verlassen Ihr Gerät – Sie haben die volle Kontrolle über Ihre Dateien. Konverter ist ein vertrauenswürdiger Begleiter für alle, die ihre digitalen Inhalte effizient und sicher verwalten möchten."
+		],
+		"description": "Konverter: Clientseitige Tools für schnelle Umwandlung von Dokumenten, Bildern, Audio & Video – direkt im Browser."
+	},
+	"/en/tools/converter/": {
+		"content": [
+			"Converters is a suite of browser-based tools designed to effortlessly transform various digital media types into compatible formats for seamless sharing and usage across platforms. Whether you need to [adjust document layouts](/en/tools/converter/document-converter/), [resize images](/en/tools/converter/image-format-converter/), [convert audio tracks](/en/tools/converter/video-audio-converter/), or transcode videos, our intuitive interface offers quick and efficient solutions without the need for downloads or external services.",
+			"Using Converters is simple. Upload your file via the browser interface, select the desired conversion type and settings, and watch as the process unfolds in real-time. All conversions are performed directly in your browser using cutting-edge HTML5 technologies, ensuring fast performance and minimal resource usage.",
+			"Our tools support a wide range of formats including common documents ([PDF, DOCX](/en/tools/converters/document-to-pdf/)), digital images ([JPEG, PNG, GIF](/en/tools/converters/image-to-jpeg/)), [audio files](/en/tools/abx-tester/) ([MP3, WAV](/en/tools/converters/media-to-mp3/)), and video codecs ([MP4, WebM](/en/tools/converters/media-to-mp4/)). We continually update our capabilities to keep up with the latest industry standards and user needs.",
+			"Privacy and security are paramount. All conversions occur locally on your device without any data leaving your browser or being stored server-side. This ensures that your files remain confidential and protected from external access."
+		],
+		"description": "Converters: Seamless client-side conversion for docs, images, audio & video. Fast, local processing for efficient multimedia transformations."
+	}
+}

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:s5_yhiar6UU"
 category: "short-tutorial"
 tags: ["OBS", "Twitch-Integration", "YouTube Live Streaming", "Stream Settings", "Account Connection", "Streaming Software", "Live Streaming Features", "Platform Enhancements"]
+relatedPosts: ["/youtube-tips-en/integrating-youtube-chat-into-obs/", "/youtube-tips-en/getting-started-with-obs-a-beginners-guide/", "/youtube-tips-en/profile-and-scene-collections-in-obs/"]
 image: "https://i.ytimg.com/vi/s5_yhiar6UU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/s5_yhiar6UU"

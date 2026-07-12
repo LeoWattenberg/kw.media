@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:D8AioV3AM6Y"
 category: "news-video"
 tags: ["YouTube Updates", "Abonnement-Funktionen", "Relevanz-Filter", "Nutzerverhalten", "Creator-Strategien", "Viewer Engagement", "Shorts-Funktionen", "Mitgliedschaften", "Einnahmen für Creator"]
+relatedPosts: ["/youtube-tipps-de/youtubes-losung-fur-fomo-koder-neue-kanal-filter-erklart-creator-news/", "/youtube-tipps-de/youtube-fuhrt-spannende-neuerungen-ein-clips-feed-update-und-mehr/", "/youtube-tipps-de/youtube-updates-abonnenten-liste-shorts-views-definitionen-und-take-a-break/"]
 image: "https://i.ytimg.com/vi/D8AioV3AM6Y/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=D8AioV3AM6Y"

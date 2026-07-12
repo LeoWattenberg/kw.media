@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:qmAgK0OzzlU"
 category: "short-tutorial"
 tags: ["Shorts-Strategien", "Langform-Videos", "Aufrufe steigern", "Video-Marketing", "Titeloptimierung", "Miniaturansichten", "Zielgruppenansprache", "Inhaltsstrategie", "YouTube-Wachstum"]
+relatedPosts: ["/youtube-tipps-de/deswegen-bekommen-deine-shorts-keine-aufrufe/", "/youtube-tipps-de/warum-dein-youtube-kanal-plotzlich-gestorben-ist/", "/youtube-tipps-de/feststecken-unter-100-aufrufen-verbessere-deine-auffindbarkeit-in-30-sekunden/"]
 image: "https://i.ytimg.com/vi/qmAgK0OzzlU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/qmAgK0OzzlU"

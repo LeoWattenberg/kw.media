@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:hqePaFc8fCA"
 category: "short-tutorial"
 tags: ["Benutzernamen-Änderung", "YouTube Studio", "Live-Chat", "Kurzvideo-Tools", "Desktop-Optimierung", "Plattform-Updates", "Kurze Tutorials"]
+relatedPosts: ["/youtube-tipps-de/wie-man-den-youtube-namen-andert-mobil/", "/youtube-tipps-de/was-sind-youtube-handles-aliasse/", "/youtube-tipps-de/youtube-update-handles-unterstutzen-mehr-sprachen-und-sonderzeichen/"]
 image: "https://i.ytimg.com/vi/hqePaFc8fCA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hqePaFc8fCA"

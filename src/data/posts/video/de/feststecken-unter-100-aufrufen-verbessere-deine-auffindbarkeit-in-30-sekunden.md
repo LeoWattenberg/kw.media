@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:-WgXyaoL1LI"
 category: "short-tutorial"
 tags: ["SEO für YouTube", "Titeloptimierung", "Miniaturansichten erstellen", "Video-Strukturierung", "Kanalmanagement", "Inhaltsplanung", "Zuschauerbindung", "YouTube-Strategie", "Auffindbarkeit verbessern"]
+relatedPosts: ["/youtube-tipps-de/warum-50-stunden-schnittarbeit-0-aufrufe-bringen/", "/youtube-tipps-de/wie-man-klicks-auf-youtube-miniaturansichten-bekommt-das-aida-modell/", "/youtube-tipps-de/einfache-youtube-seo-fur-gaming-kanale/"]
 image: "https://i.ytimg.com/vi/-WgXyaoL1LI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/-WgXyaoL1LI"

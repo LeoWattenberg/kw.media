@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:XuyGt9x2FYc"
 category: "news-video"
 tags: ["YouTube Updates", "KI-Integration", "Werbung auf YouTube", "Twitch-Funktionen", "Adobe-Tools", "Shorts-Strategien", "Desktop-Optimierung", "Mobile-Interaktion", "Creator-Monetarisierung", "Editoren-Software"]
+relatedPosts: ["/youtube-tipps-de/neues-von-youtube-qr-codes-fur-creator-und-premium-jump-ahead-rollout/", "/youtube-tipps-de/youtube-hat-den-dislike-button-wieder-einmal-abgeschafft-creator-news/", "/youtube-tipps-de/erstellt-youtube-ki-klonen-von-creatorn-youtube-creator-news/"]
 image: "https://i.ytimg.com/vi/XuyGt9x2FYc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=XuyGt9x2FYc"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:j6Ki4mps6nA"
 category: "news-video"
 tags: ["YouTube Updates", "Abonnentenliste", "Shorts-Ansichten", "Pausefunktion", "Live-Streaming", "App-Verbesserungen", "Analytics-Verbesserungen", "Werbeplätze", "Aufrufe-Definitionen", "Algorithmusänderungen"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-youtube-studio-app-youtube-app-kommentare-community-posts/", "/youtube-tipps-de/alles-neu-im-youtube-studio-mobile-inhalts-und-community-tab-updates/", "/youtube-tipps-de/youtube-update-neue-analytics-card-und-bald-mentions-fur-mobile-chats/"]
 image: "https://i.ytimg.com/vi/j6Ki4mps6nA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=j6Ki4mps6nA"

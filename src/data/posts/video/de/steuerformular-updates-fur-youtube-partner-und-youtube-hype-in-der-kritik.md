@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:SERd4-20rtI"
 category: "news-video"
 tags: ["YouTube Updates", "Steuerformulare", "Community-Richtlinien", "Hype-Funktion", "Monetarisierung", "YouTube-Partner", "Doppelbesteuerungsabkommen", "Ansässigkeitsbescheinigung", "Inhaltsmoderation"]
+relatedPosts: ["/youtube-tipps-de/wie-funktioniert-der-youtube-hype-wirklich-wir-haben-die-daten/", "/youtube-tipps-de/youtube-updates-youtube-studio-app-youtube-app-kommentare-community-posts/", "/youtube-tipps-de/youtube-erweitert-kostenloses-hype-in-die-eu-10-jahres-mitglieder-abzeichen/"]
 image: "https://i.ytimg.com/vi/SERd4-20rtI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=SERd4-20rtI"

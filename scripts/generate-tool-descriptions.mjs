@@ -56,7 +56,7 @@ if (dryRun) {
 }
 
 await writeGeneratedToolMetadata(metadata, root);
-console.log(`\nUpdated ${updated} page description(s) in ${path.relative(root, path.join(root, 'src/data/generated-tool-metadata.json'))}; ${skipped} skipped.`);
+console.log(`\nUpdated ${updated} page description(s) in ${path.relative(root, path.join(root, 'src/data/generated-tool-metadata'))}; ${skipped} skipped.`);
 
 async function generateDescription({ title, description, locale }) {
 	const language = locale === 'de' ? 'German' : 'English';

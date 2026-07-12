@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:Hy3CFCjHYog"
 category: "short-tutorial"
 tags: ["Live-Streaming", "YouTube Studio", "Community-Einstellungen", "Creator-Interaktion", "Livestream-Optimierung", "Umleitungen aktivieren", "YouTube-Funktionen", "Zuschauer Engagement"]
+relatedPosts: ["/youtube-tipps-de/live-redirect-von-einem-stream-zum-nachsten/", "/youtube-tipps-de/mache-dieses-um-youtube-live-umleitungen-youtube-raids-empfangen-zu-konnen/", "/youtube-tipps-de/wie-man-die-neue-kollaborationsfunktion-von-youtube-nutzt-in-30-sek/"]
 image: "https://i.ytimg.com/vi/Hy3CFCjHYog/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Hy3CFCjHYog"

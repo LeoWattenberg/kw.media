@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:5nJuWdclGkw"
 category: "audacity"
 tags: ["Audacity 4", "Audio Editing", "Software Update", "Dark Theme", "Light Theme", "Clip Visualization", "Multitrack Recording", "Editing Tools", "Non-Destructive Editing"]
+relatedPosts: ["/en/audacity/recording-desktop-audio-in-audacity-tutorial/", "/en/audacity/installing-ffmpeg-for-audacity-tutorial/", "/en/audacity/installing-ffmpeg-for-audacity-fast-tutorial/"]
 image: "https://i.ytimg.com/vi/5nJuWdclGkw/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=5nJuWdclGkw"

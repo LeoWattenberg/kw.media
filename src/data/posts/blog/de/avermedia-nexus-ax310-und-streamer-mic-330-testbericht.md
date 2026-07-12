@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "post:1638"
 category: "blog"
 tags: ["Audio-Ausrüstung", "Streaming-Mikrofon", "XLR-Interface", "AVerMedia NEXUS", "Streamer MIC 330", "Audio-Workflows", "Produktionswerkzeuge", "OBS Integration", "YouTube-Streaming"]
+relatedPosts: ["/youtube-tipps-de/der-audio-guide-zum-glucklichsein-oder-wie-du-deine-streams-und-videos-gut-klingen-lasst/", "/youtube-tipps-de/avermedia-streamer-cap4k-bu113-oder-elgato-camlink4k/", "/youtube-tipps-de/einen-gaming-kanal-mit-kleinem-budget-starten/"]
 image: "/assets/wp-content/uploads/2021/06/AM_NEXUS_BACK.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/avermedia-nexus-ax310-streamer-mic-330-review/"

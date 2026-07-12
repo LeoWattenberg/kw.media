@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:iVVTODHIeP4"
 category: "short-tutorial"
 tags: ["YouTube Studio", "AI Editing", "Video Customization", "Platform Settings", "Upscaling", "Super Resolution", "Short Tutorial"]
+relatedPosts: ["/youtube-tips-en/youtubes-new-ai-is-destroying-your-pacing-and-analytics-creator-news/", "/youtube-tips-en/youtube-updates-end-of-year-sprint-with-mla-and-superchat-goals/", "/youtube-tips-en/uploading-50mb-thumbnails-will-break-your-youtube-video-creator-news/"]
 image: "https://i.ytimg.com/vi/iVVTODHIeP4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iVVTODHIeP4"

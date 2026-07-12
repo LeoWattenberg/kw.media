@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:gs5hdwEO9gs"
 category: "short-tutorial"
 tags: ["Video Editing", "YouTube Video Optimization", "Content Creation", "Viewer Retention", "Pace in Videos", "Jump Cuts", "Editing Techniques"]
+relatedPosts: ["/youtube-tips-en/why-50-hours-of-editing-gets-0-views/", "/youtube-tips-en/engagement-analysis/", "/youtube-tips-en/youtubes-latest-experiment-jump-ahead-what-creators-need-to-know/"]
 image: "https://i.ytimg.com/vi/gs5hdwEO9gs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/gs5hdwEO9gs"

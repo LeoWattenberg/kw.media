@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:7dB5B_EKnYE"
 category: "news-video"
 tags: ["YouTube Updates", "Abonnieren Plus", "Automatische Untertitelung", "Mitgliedschaften", "Benutzeroberfläche", "Feedback", "YPP", "Mehrsprachige Inhalte", "Übersetzung", "Untertitel"]
+relatedPosts: ["/youtube-tipps-de/youtube-news-auto-synchronisation-bei-alten-videos-klarstellung-zu-kollaborationen-und-mehr/", "/youtube-tipps-de/youtubes-neue-ausdrucksstarke-sprache-ki-besser-als-menschliche-synchronisationen/", "/youtube-tipps-de/youtubes-ui-update-bringt-nutzer-und-creator-durcheinander/"]
 image: "https://i.ytimg.com/vi/7dB5B_EKnYE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=7dB5B_EKnYE"

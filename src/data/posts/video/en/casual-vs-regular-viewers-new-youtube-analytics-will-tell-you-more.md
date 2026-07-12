@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:gw2bfa-N8b8"
 category: "news-video"
 tags: ["YouTube Analytics", "Viewer Segmentation", "Casual Viewers", "Regular Viewers", "Platform Updates", "YouTube Studio", "Comment Filtering", "Most Relevant Comments", "Creator-Tools"]
+relatedPosts: ["/youtube-tips-en/new-in-youtube-analytics-impressions-for-new-and-returning-viewers/", "/youtube-tips-en/youtube-update-new-analytics-card-and-soon-mentions-for-mobile-chats/", "/youtube-tips-en/engagement-analysis/"]
 image: "https://i.ytimg.com/vi/gw2bfa-N8b8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gw2bfa-N8b8"

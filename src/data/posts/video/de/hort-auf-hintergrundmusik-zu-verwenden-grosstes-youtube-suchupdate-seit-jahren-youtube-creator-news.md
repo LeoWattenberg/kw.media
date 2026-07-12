@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:L0009GyER00"
 category: "news-video"
 tags: ["YouTube-Suchreform", "Suchmaschinenoptimierung (SEO) für YouTu", "Zuschauerzufriedenheit", "Audio-Strategie", "Hintergrundmusik", "Emotionale Gestaltung von Videos", "Musik für Videos", "Video-Optimierung", "Neuerungen auf YouTube", "Creator-Tipps"]
+relatedPosts: ["/youtube-tipps-de/neue-audioeinstellungen-vpn-umsatzwarnung-youtube-creator-news/", "/youtube-tipps-de/youtube-update-der-inspiration-tab-fruher-research-tab-und-seine-neuen-funktionen/", "/youtube-tipps-de/einfache-youtube-seo-fur-gaming-kanale/"]
 image: "https://i.ytimg.com/vi/L0009GyER00/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=L0009GyER00"

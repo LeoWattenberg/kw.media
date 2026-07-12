@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:KOx5J92udsw"
 category: "video-tutorial"
 tags: ["YouTube Channel Customization", "Profile Picture Optimization", "Channel Banner Design", "Video Watermarking", "Visual Branding", "YouTube Studio Settings", "Channel Aesthetics", "Professional Appearance"]
+relatedPosts: ["/youtube-tips-en/boost-your-channel-with-effective-branding/", "/youtube-tips-en/youtube-channel-banner-template-updated-2024/", "/youtube-tips-en/take-off-create-your-youtube-channel-in-2024-personal-and-company-channels/"]
 image: "https://i.ytimg.com/vi/KOx5J92udsw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=KOx5J92udsw"

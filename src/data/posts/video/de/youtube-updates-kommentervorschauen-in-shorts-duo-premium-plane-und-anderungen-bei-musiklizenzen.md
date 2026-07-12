@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:mwI9bSG6_dw"
 category: "news-video"
 tags: ["YouTube Updates", "Shorts-Kommentare", "Premium-Angebote", "Musiklizenzen", "Creator-Musik", "Inspiration-Tab", "Inhaltserstellung", "Engagement-Verbesserung"]
+relatedPosts: ["/youtube-tipps-de/ki-zusammenfassungen-fur-kommentare-und-warum-du-den-add-yours-sticker-nicht-siehst/", "/youtube-tipps-de/youtube-updates-voice-replies-shorts-promotions-und-anderungen-bei-mid-roll-ads/", "/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/"]
 image: "https://i.ytimg.com/vi/mwI9bSG6_dw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=mwI9bSG6_dw"

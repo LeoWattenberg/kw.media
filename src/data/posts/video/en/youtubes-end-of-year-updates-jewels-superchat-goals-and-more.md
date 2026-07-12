@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:AvwEC8I-7Vk"
 category: "news-video"
 tags: ["YouTube Updates", "Jewel Pricing", "Super Chat Goals", "Paid Hype", "Dreamscreen AI", "Gaming Recap", "AI Tools", "Monetization Features", "Creator Engagement", "Platform Announcements"]
+relatedPosts: ["/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/youtube-hype-livestream-and-superchat-updates/", "/youtube-tips-en/coming-soon-to-youtube-custom-thumbs-for-shorts-and-superchat-goals/"]
 image: "https://i.ytimg.com/vi/AvwEC8I-7Vk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=AvwEC8I-7Vk"

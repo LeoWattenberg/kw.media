@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:aIFl-V2c47o"
 category: "video-tutorial"
 tags: ["YouTube Live", "YouTube-Partnerprogramm", "Wiedergabestunden", "Live-Streaming-Monetarisierung", "Öffentliche Streams", "Archivierung von Livestreams", "YouTube-Richtlinien"]
+relatedPosts: ["/youtube-tipps-de/so-kommst-du-mit-youtube-shorts-ins-partner-programm/", "/youtube-tipps-de/verliere-ich-die-youtube-monetarisierung-wenn-ich-eine-pause-einlege/", "/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/"]
 image: "https://i.ytimg.com/vi/aIFl-V2c47o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=aIFl-V2c47o"

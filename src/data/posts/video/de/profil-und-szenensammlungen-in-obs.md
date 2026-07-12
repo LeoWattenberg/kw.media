@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:5jWzRRKKR2k"
 category: "short-tutorial"
 tags: ["OBS-Einstieg", "Streaming-Tipps", "Profil-Management", "Szenen-Organisation", "Voreinstellungen fürs Streaming", "Mehrere Geräte", "Export/Import", "Streaming-Optimierung"]
+relatedPosts: ["/youtube-tipps-de/szenen-und-quellen-in-obs-nutzen/", "/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/", "/youtube-tipps-de/obs-mit-twitch-und-youtube-verbinden/"]
 image: "https://i.ytimg.com/vi/5jWzRRKKR2k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5jWzRRKKR2k"

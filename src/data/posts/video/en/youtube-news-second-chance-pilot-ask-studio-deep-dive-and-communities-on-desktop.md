@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:vmze-TsKCYQ"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Creator Reinstatement", "Ask Studio AI", "Community Features", "Likeness Detection", "Desktop Enhancements", "AI Tools", "Content Moderation", "Channel Management"]
+relatedPosts: ["/youtube-tips-en/youtube-faq-multi-aspect-streams-fan-communities-on-desktop-and-veo-3-ai/", "/youtube-tips-en/youtube-updates-ai-age-verification-autodubbing-editor-and-community-post-limits-change/", "/youtube-tips-en/youtube-updates-youtube-studio-app-youtube-app-comments-community-posts/"]
 image: "https://i.ytimg.com/vi/vmze-TsKCYQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=vmze-TsKCYQ"

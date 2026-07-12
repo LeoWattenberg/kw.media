@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:JhAvOlIInDk"
 category: "news-video"
 tags: ["Twitch-Updates", "KI-Integration", "Sponsorships", "Creator-Monetarisierung", "YouTube KI-Funktionen", "KI-Avatare", "Inhaltsmoderation", "Organische Entdeckung", "Shorts-Strategien"]
+relatedPosts: ["/youtube-tipps-de/youtubes-neue-ask-studio-ki-lugt-dich-an-twitch-drama/", "/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/", "/youtube-tipps-de/warum-youtube-dir-im-shorts-feed-qr-codes-anzeigt-creator-news/"]
 image: "https://i.ytimg.com/vi/JhAvOlIInDk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JhAvOlIInDk"

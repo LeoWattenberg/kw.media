@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:J7MHBNgxp5w"
 category: "news-video"
 tags: ["YouTube Shorts", "Platform Updates", "Long Shorts", "YouTube Studio", "Feature Rollout", "Legal Issues", "Copyrighted Content", "Memberships", "Anniversary Badges"]
+relatedPosts: ["/youtube-tips-en/longer-shorts-and-add-yours-stickers-youtubes-latest-experiments/", "/youtube-tips-en/youtube-updates-playable-multitasking-and-3-minute-shorts/", "/youtube-tips-en/celebrate-with-us-1000-subscribers-and-youtube-shorts-updates/"]
 image: "https://i.ytimg.com/vi/J7MHBNgxp5w/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=J7MHBNgxp5w"

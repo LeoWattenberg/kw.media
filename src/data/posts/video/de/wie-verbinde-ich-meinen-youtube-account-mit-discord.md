@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:iN-yGbTd3z4"
 category: "short-tutorial"
 tags: ["Discord-Integration", "YouTube-Einstellungen", "Verbindungen", "Google Konto", "Rollenzuweisung", "Kanalmitgliedschaften"]
+relatedPosts: ["/youtube-tipps-de/obs-mit-twitch-und-youtube-verbinden/", "/youtube-tipps-de/youtube-chat-in-obs-einbinden/", "/youtube-tipps-de/einstieg-in-das-live-streaming-auf-youtube/"]
 image: "https://i.ytimg.com/vi/iN-yGbTd3z4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iN-yGbTd3z4"

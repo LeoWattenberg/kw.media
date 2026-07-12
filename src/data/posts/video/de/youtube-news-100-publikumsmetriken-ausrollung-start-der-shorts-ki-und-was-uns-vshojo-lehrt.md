@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:BR7qbvP5ceY"
 category: "news-video"
 tags: ["YouTube Shorts KI", "KI-Update", "Fotos zu Videos", "Publikumsmetriken", "Neue Zuschauer", "Gelegenheitszuschauer", "Regelmäßige Zuschauer", "VTuber Agenturen", "Genossenschaften für Creator", "YouTube Analytics"]
+relatedPosts: ["/youtube-tipps-de/a-b-testen-und-bearbeiten-mit-ki-ist-da-erstellt-auf-youtube-follow-up/", "/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/", "/youtube-tipps-de/youtube-faq-multi-aspekt-streams-fan-communities-auf-dem-desktop-und-veo-3-ai/"]
 image: "https://i.ytimg.com/vi/BR7qbvP5ceY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=BR7qbvP5ceY"

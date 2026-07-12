@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:kTWDA2-4MKI"
 category: "news-video"
 tags: ["YouTube Policy Changes", "Monetization Policies", "Advertiser-Friendly Guidelines", "Sensitive Topics", "Content Moderation", "Free Speech", "AI Updates", "Text-to-Video Prompts", "Ingredients to Video", "Ad Targeting"]
+relatedPosts: ["/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/youtube-update-strict-gambling-rules-and-changes-to-monetization-checks/", "/youtube-tips-en/stop-using-background-music-biggest-youtube-search-update-in-years-youtube-creator-news/"]
 image: "https://i.ytimg.com/vi/kTWDA2-4MKI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=kTWDA2-4MKI"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:EBJz7RhXxOA"
 category: "news-video"
 tags: ["YouTube Studio App", "Zahlungsansicht", "Belohnungskampagnen", "Mobile Live-Streams", "Community-Beiträge", "Kommentare", "Monetarisierung", "Neue Funktionen", "YouTube Updates"]
+relatedPosts: ["/youtube-tipps-de/alles-neu-im-youtube-studio-mobile-inhalts-und-community-tab-updates/", "/youtube-tipps-de/youtube-updates-youtube-fehler-loscht-werbeeinnahmen-einfuhrung-der-kollaborations-feed-funktion/", "/youtube-tipps-de/neue-audioeinstellungen-vpn-umsatzwarnung-youtube-creator-news/"]
 image: "https://i.ytimg.com/vi/EBJz7RhXxOA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EBJz7RhXxOA"

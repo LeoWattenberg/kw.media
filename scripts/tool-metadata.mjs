@@ -1,8 +1,8 @@
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-export const GENERATED_TOOL_METADATA_PATH = 'src/data/generated-tool-metadata.json';
+export const GENERATED_TOOL_METADATA_PATH = 'src/data/generated-tool-metadata';
 
 export async function loadToolCandidates(root = process.cwd()) {
 	const toolsDirectory = path.join(root, 'src/data/tools');
@@ -11,7 +11,10 @@ export async function loadToolCandidates(root = process.cwd()) {
 
 	for (const filePath of files) {
 		const source = await readFile(filePath, 'utf8');
-		candidates.push(...parseAstroToolCandidates(source, filePath));
+		const metadataFile = `${path.relative(toolsDirectory, filePath).replace(/\.astro$/, '')}.json`
+			.split(path.sep)
+			.join('/');
+		candidates.push(...parseAstroToolCandidates(source, filePath).map((candidate) => ({ ...candidate, metadataFile })));
 	}
 
 	const virtualModuleUrl = pathToFileURL(path.join(root, 'src/data/virtual-converters.ts'));
@@ -24,6 +27,7 @@ export async function loadToolCandidates(root = process.cwd()) {
 			description: page.description,
 			locale: page.locale,
 			filePath: path.join(root, 'src/data/virtual-converters.ts'),
+			metadataFile: 'converter/virtual-converters.json',
 			virtual: true,
 		});
 	}
@@ -56,18 +60,33 @@ export function parseAstroToolCandidates(source, filePath = '') {
 }
 
 export async function readGeneratedToolMetadata(root = process.cwd()) {
-	const filePath = path.join(root, GENERATED_TOOL_METADATA_PATH);
-	try {
-		return JSON.parse(await readFile(filePath, 'utf8'));
-	} catch (error) {
-		if (error?.code === 'ENOENT') return {};
+	const directory = path.join(root, GENERATED_TOOL_METADATA_PATH);
+	const files = await listJsonFiles(directory).catch((error) => {
+		if (error?.code === 'ENOENT') return [];
 		throw error;
-	}
+	});
+	const entries = await Promise.all(files.map(async (filePath) => JSON.parse(await readFile(filePath, 'utf8'))));
+	return Object.assign({}, ...entries);
 }
 
 export async function writeGeneratedToolMetadata(metadata, root = process.cwd()) {
-	const sorted = Object.fromEntries(Object.entries(metadata).sort(([left], [right]) => left.localeCompare(right)));
-	await writeFile(path.join(root, GENERATED_TOOL_METADATA_PATH), `${JSON.stringify(sorted, null, '\t')}\n`);
+	const candidates = await loadToolCandidates(root);
+	const metadataFileByPath = new Map(candidates.map((candidate) => [candidate.path, candidate.metadataFile]));
+	const grouped = new Map();
+
+	for (const [pagePath, value] of Object.entries(metadata)) {
+		const metadataFile = metadataFileByPath.get(pagePath);
+		if (!metadataFile) throw new Error(`Generated metadata has no tool candidate: ${pagePath}`);
+		if (!grouped.has(metadataFile)) grouped.set(metadataFile, {});
+		grouped.get(metadataFile)[pagePath] = value;
+	}
+
+	for (const [metadataFile, values] of grouped) {
+		const filePath = path.join(root, GENERATED_TOOL_METADATA_PATH, metadataFile);
+		const sorted = Object.fromEntries(Object.entries(values).sort(([left], [right]) => left.localeCompare(right)));
+		await mkdir(path.dirname(filePath), { recursive: true });
+		await writeFile(filePath, `${JSON.stringify(sorted, null, '\t')}\n`);
+	}
 }
 
 export function normalizeGeneratedText(value) {
@@ -168,6 +187,16 @@ async function listAstroFiles(directory) {
 		const entryPath = path.join(directory, entry.name);
 		if (entry.isDirectory()) return listAstroFiles(entryPath);
 		return entry.isFile() && entry.name.endsWith('.astro') ? [entryPath] : [];
+	}));
+	return nested.flat();
+}
+
+async function listJsonFiles(directory) {
+	const entries = await readdir(directory, { withFileTypes: true });
+	const nested = await Promise.all(entries.map(async (entry) => {
+		const entryPath = path.join(directory, entry.name);
+		if (entry.isDirectory()) return listJsonFiles(entryPath);
+		return entry.isFile() && entry.name.endsWith('.json') ? [entryPath] : [];
 	}));
 	return nested.flat();
 }

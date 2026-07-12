@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:hqePaFc8fCA"
 category: "short-tutorial"
 tags: ["YouTube Platform Updates", "Live Chat Interaction", "Channel Customization", "Desktop Features", "Short Tutorial"]
+relatedPosts: ["/youtube-tips-en/how-to-change-youtube-handle-mobile/", "/youtube-tips-en/what-are-youtube-handles-aliases/", "/youtube-tips-en/youtube-update-handles-now-support-more-languages-and-special-characters/"]
 image: "https://i.ytimg.com/vi/hqePaFc8fCA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hqePaFc8fCA"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:6KcwfJbEdDk"
 category: "short-tutorial"
 tags: ["YouTube-Kanalverwaltung", "Berechtigungen verwalten", "YouTube Studio", "Sicherheit auf YouTube", "Kontozugriff", "Nutzerrollen", "Passwort-Sicherheit"]
+relatedPosts: ["/youtube-tipps-de/rolle-bearbeiter-fur-untertitel/", "/youtube-tipps-de/vorsicht-phishing-emails-sind-auf-euren-youtube-kanal-aus/", "/youtube-tipps-de/passwortgeschutzte-dokumente-eindeutige-scam-warnung/"]
 image: "https://i.ytimg.com/vi/6KcwfJbEdDk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/6KcwfJbEdDk"

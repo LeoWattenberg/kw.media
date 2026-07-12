@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:aIFl-V2c47o"
 category: "video-tutorial"
 tags: ["YouTube Live Streaming", "YouTube Partner Program", "View Hours Requirements", "Public Streams", "Content Monetization", "Platform Policies", "Live Stream Archiving"]
+relatedPosts: ["/youtube-tips-en/how-to-get-into-the-partner-program-with-youtube-shorts/", "/youtube-tips-en/how-to-master-live-streams/", "/youtube-tips-en/getting-started-with-youtube-live-streaming/"]
 image: "https://i.ytimg.com/vi/aIFl-V2c47o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=aIFl-V2c47o"

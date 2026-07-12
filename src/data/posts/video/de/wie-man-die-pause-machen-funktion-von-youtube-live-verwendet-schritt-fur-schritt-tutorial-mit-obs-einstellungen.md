@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:bYTAbOg_qzE"
 category: "video-tutorial"
 tags: ["Live-Streaming", "YouTube Studio", "OBS-Einstellungen", "Pausefunktion", "Livestream-Optimierung", "Zuschauer-Interaktion", "Stream-Management", "Video-Produktion", "Creator-Tools"]
+relatedPosts: ["/youtube-tipps-de/youtube-chat-in-obs-einbinden/", "/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/", "/youtube-tipps-de/obs-mit-twitch-und-youtube-verbinden/"]
 image: "https://i.ytimg.com/vi/bYTAbOg_qzE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=bYTAbOg_qzE"

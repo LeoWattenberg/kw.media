@@ -1,0 +1,20 @@
+{
+	"/de/tools/face-object-redactor/": {
+		"content": [
+			"Face/Object Redactor ist ein leistungsstarkes Werkzeug, das es Ihnen ermöglicht, [Bilder lokal zu bearbeiten](/de/tools/) und dabei Gesichter oder spezifische Objekte zu erkennen und zu entfernen. Mit dieser Browser-basierten Lösung können Sie unerwünschte Inhalte aus Ihren [Fotos und Videos](/de/tools/video/) effizient und diskret gestalten.",
+			"Die Nutzung ist einfach: Laden Sie Ihr Bild hoch, wählen Sie die gewünschte Funktion aus, und das Tool identifiziert automatisch Gesichter oder Objekte. Anschließend können Sie diese nach Belieben bearbeiten oder entfernen. Die Änderungen werden in Echtzeit angezeigt, sodass Sie ein präzises Ergebnis erzielen.",
+			"Unterstützt werden gängige Bild- und Videiformate wie [JPEG, PNG, GIF und MP4](/de/tools/converter/). Das Tool nutzt moderne Algorithmen für die [Objekterkennung und -manipulation](/de/tools/bildobjekt-freistellen/), um eine hohe Genauigkeit zu gewährleisten. So können Sie Ihre visuellen Inhalte professionell und diskret anpassen.",
+			"Im Fokus steht die Privatsphäre: Alle Bearbeitungen erfolgen lokal auf Ihrem Gerät, ohne dass Daten in die Cloud übertragen werden. Ihre [Bilder und Videos](/de/tools/bild-video-wasserzeichen/) bleiben bei Ihnen, und Sie haben die volle Kontrolle über Ihre Daten."
+		],
+		"description": "Face/Object Redactor: Lokale Bildbearbeitung mit Gesichtserkennung. Bearbeite und retuschiere Bilder direkt im Browser, ohne Datenübertragung."
+	},
+	"/en/tools/face-object-redactor/": {
+		"content": [
+			"Face/Object Redactor is a powerful, user-friendly tool designed to help you maintain privacy by detecting and redacting faces or specific objects within your [local images](/en/tools/converters/image-to-avif/). It empowers you to take control of your visual data, ensuring sensitive information remains hidden.",
+			"Simply upload an image to the [browser-based platform](/en/tools/), and our advanced algorithms will automatically identify faces and selected objects. You can then choose to redact these elements, replacing them with a customizable overlay or pixelation effect, leaving your content safe yet visually altered.",
+			"Supported formats include [JPEG, PNG, and GIF images](/en/tools/converter/image-format-converter/). This tool is optimized for local processing, ensuring your data remains secure without any need for cloud uploads or external dependencies. Your privacy is our priority.",
+			"With its intuitive interface, Face/Object Redactor offers a quick and efficient way to redact faces and objects directly in your browser, providing both convenience and robust security for your visual assets."
+		],
+		"description": "Face/Object Redactor: Locally detect and redact faces/objects in images for seamless content modification, privacy protection, and creative control."
+	}
+}

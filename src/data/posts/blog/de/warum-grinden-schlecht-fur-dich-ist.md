@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "post:1430"
 category: "blog"
 tags: ["Inhaltsstrategie", "YouTube-Wachstum", "Creator-Autonomie", "Ideenfindung", "Content-Modellierung", "Erkundungsphase", "Entwicklungsphase", "Etablierte Kanäle", "Videoerstellung", "Kreativitätstechniken"]
+relatedPosts: ["/youtube-tipps-de/warum-50-stunden-schnittarbeit-0-aufrufe-bringen/", "/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/", "/youtube-tipps-de/tom-scott-hatte-recht-und-youtube-macht-es-schlimmer/"]
 image: "/assets/wp-content/uploads/2021/06/WHY-GRINDING-IS-BAD-FOR-YOU.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/"

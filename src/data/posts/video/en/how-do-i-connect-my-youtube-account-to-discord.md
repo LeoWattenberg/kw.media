@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:iN-yGbTd3z4"
 category: "short-tutorial"
 tags: ["Account Connection", "Discord Settings", "YouTube Integration", "Social Media Linking", "Platform Integrations", "Channel Management", "Member Roles", "Google Account Login"]
+relatedPosts: ["/youtube-tips-en/connecting-obs-to-twitch-and-youtube/", "/youtube-tips-en/integrating-youtube-chat-into-obs/", "/youtube-tips-en/expand-your-reach-stay-in-touch-with-your-community/"]
 image: "https://i.ytimg.com/vi/iN-yGbTd3z4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iN-yGbTd3z4"

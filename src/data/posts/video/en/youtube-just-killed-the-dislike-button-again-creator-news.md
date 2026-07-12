@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:PtwJQOyhdwU"
 category: "news-video"
 tags: ["Twitch Pre-roll Ads", "YouTube Shorts Updates", "Ad Length Changes", "Creator Monetization", "Platform Policies", "Community Sentiment", "EU Refund Laws", "Digital Goods", "Membership Pricing", "YouTube Studio Changes"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/", "/youtube-tips-en/long-shorts-are-not-displayed-correctly-in-youtube-studio-memberships-updates-and-more/", "/youtube-tips-en/youtube-update-new-clip-tools-shopping-sticker-upgrade-and-livestream-policy/"]
 image: "https://i.ytimg.com/vi/PtwJQOyhdwU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=PtwJQOyhdwU"

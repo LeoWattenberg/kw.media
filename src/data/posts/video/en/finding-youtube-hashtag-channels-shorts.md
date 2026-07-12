@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:CtyhveAZNRo"
 category: "short-tutorial"
 tags: ["YouTube Shorts", "Hashtag Channels", "Search Features", "Video Discovery", "Platform Navigation", "Short Tutorial", "Viewer Engagement", "Content Promotion Strategies"]
+relatedPosts: ["/youtube-tips-en/trending-tags-are-hashtags-still-relevant/", "/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts/", "/youtube-tips-en/shorts-shelf-for-desktop-channel-pages/"]
 image: "https://i.ytimg.com/vi/CtyhveAZNRo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CtyhveAZNRo"

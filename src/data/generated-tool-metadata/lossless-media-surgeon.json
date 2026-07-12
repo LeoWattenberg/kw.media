@@ -1,0 +1,20 @@
+{
+	"/de/tools/lossless-media-studio/": {
+		"content": [
+			"Lossless Media Studio ist ein leistungsstarkes Tool, das es Ihnen ermöglicht, [lokale Audios und Videos zu bearbeiten](/de/tools/video/) und zu optimieren, ohne die Qualität durch erneute Kodierung zu beeinträchtigen. Mit seiner [FFmpeg WASM](/de/tools/converter/video-to-gif/)-Technologie können Sie Ihre Mediendateien effizient [remuxen, schneiden oder umwandeln](/de/tools/converter/), während alle ursprünglichen Daten intakt bleiben.",
+			"Die Browser-basierte Oberfläche bietet eine intuitive Arbeitsweise: Laden Sie einfach Ihre Mediendateien hoch, wählen Sie die gewünschten Bearbeitungsoptionen aus und starten Sie den Prozess. Das Tool übernimmt dann die komplexe Arbeit der Manipulation mit modernster Codierungstechnologie, ohne dass Sie tiefe technische Kenntnisse benötigen.",
+			"Unterstützte Formate umfassen [MP3, AAC, FLAC für Audio sowie MP4, MKV, AVI für Video](/de/tools/converter/video-audio-converter/). Dies ermöglicht eine breite Palette an Anpassungen, von einfachen Schnitten bis hin zu fortgeschrittenen Konvertierungen, ohne Kompromisse bei der Qualität einzugehen.",
+			"Durch die [lokale Verarbeitung Ihrer Daten im Browser](/de/tools/) gewährleistet Lossless Media Studio Ihre Privatsphäre und Sicherheit. Keine sensiblen Informationen verlassen Ihren Gerät, und Sie haben die volle Kontrolle über Ihre Mediendateien."
+		],
+		"description": "Verfeinern Sie Ihre Medien lokal mit dem schnellen, browserbasierten Tool Lossless Media Studio. Bearbeiten Sie Audio & Video ohne Aufwändigem Kodieren"
+	},
+	"/en/tools/lossless-media-studio/": {
+		"content": [
+			"Lossless Media Studio is a powerful browser-based tool designed to meticulously manipulate [media files](/en/tools/media-delivery-checker/) without sacrificing quality. Its primary function is to enable users to [remux, trim, and modify local audio and video tracks](/en/tools/video/), all while utilizing the efficiency of [FFmpeg WASM](/en/tools/), ensuring no re-encoding takes place.",
+			"The workflow is straightforward: upload your desired media file, access the intuitive interface, and make the necessary adjustments. The tool processes the changes directly in your browser, providing real-time feedback and allowing for precise control over the final output.",
+			"Supported formats include popular video (MP4, MKV) and [audio (MP3, AAC, WAV) codecs](/en/tools/audio/), ensuring a wide range of file types can be manipulated. This versatility makes it an invaluable asset for content creators, editors, and anyone working with multimedia projects.",
+			"By leveraging local processing powered by [FFmpeg WASM](/en/tools/converter/video-audio-converter/), Lossless Media Studio guarantees privacy and security without compromising performance. Your media files remain on your device, ensuring sensitive data is protected during the editing process."
+		],
+		"description": "Lossless Media Studio: Effortlessly remux, trim, & edit media locally with FFmpeg WASM, avoiding re-encoding for optimal speed and quality."
+	}
+}

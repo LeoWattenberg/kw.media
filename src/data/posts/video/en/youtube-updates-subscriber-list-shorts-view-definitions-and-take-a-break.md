@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:j6Ki4mps6nA"
 category: "news-video"
 tags: ["YouTube Creator Tools", "YouTube Platform Updates", "Subscriber List", "Shorts View Changes", "Break Feature", "Analytics Updates", "Push Notifications Experiment"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-youtube-studio-app-youtube-app-comments-community-posts/", "/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/", "/youtube-tips-en/youtube-update-new-analytics-card-and-soon-mentions-for-mobile-chats/"]
 image: "https://i.ytimg.com/vi/j6Ki4mps6nA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=j6Ki4mps6nA"

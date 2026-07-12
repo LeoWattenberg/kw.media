@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:5P1Bw-qOnJM"
 category: "news-video"
 tags: ["YouTube Updates", "Q&A Stickers", "Larger Thumbnails", "YouTube Courses", "Mobile Livestreams", "Shorts Features", "YouTube Studio Improvements", "Platform Enhancements", "Content Creator Tools", "Monetization Options"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/", "/youtube-tips-en/coming-soon-to-youtube-custom-thumbs-for-shorts-and-superchat-goals/", "/youtube-tips-en/youtube-update-new-clip-tools-shopping-sticker-upgrade-and-livestream-policy/"]
 image: "https://i.ytimg.com/vi/5P1Bw-qOnJM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=5P1Bw-qOnJM"

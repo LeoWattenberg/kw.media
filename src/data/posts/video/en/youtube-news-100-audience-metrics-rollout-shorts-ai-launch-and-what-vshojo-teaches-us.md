@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:BR7qbvP5ceY"
 category: "news-video"
 tags: ["YouTube Shorts", "AI Content Generation", "Audience Metrics", "VTuber Agencies", "Cooperative Business Model", "Content Creator Autonomy", "Platform Updates", "Analytics", "Community Interaction"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/", "/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/", "/youtube-tips-en/a-b-testing-and-edit-with-ai-are-here-made-on-youtube-follow-up/"]
 image: "https://i.ytimg.com/vi/BR7qbvP5ceY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=BR7qbvP5ceY"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:tQ4Qxdz5diI"
 category: "news-video"
 tags: ["Twitch-Regeln", "IRL-Streaming", "Creator-Zusammenarbeit", "Matchmaking-System", "Plattform-Updates", "Inhaltsstrategie", "Community-Engagement", "Gaming-Creator", "Video-Ketten", "Geteilte Universen"]
+relatedPosts: ["/youtube-tipps-de/twitch-nutzt-ki-um-dich-zu-mikromanagen-creator-news/", "/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/", "/youtube-tipps-de/youtubes-neue-ask-studio-ki-lugt-dich-an-twitch-drama/"]
 image: "https://i.ytimg.com/vi/tQ4Qxdz5diI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=tQ4Qxdz5diI"

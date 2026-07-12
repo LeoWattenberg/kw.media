@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:CVIdTBgfJ4g"
 category: "short-tutorial"
 tags: ["OBS Integration", "Szenen-Organisation", "Quellen-Management", "Live-Streaming-Tutorial", "Video-Produktion", "Streaming-Optimierung", "Audioquellen", "Filter und Effekte", "Backup-Strategien"]
+relatedPosts: ["/youtube-tipps-de/profil-und-szenensammlungen-in-obs/", "/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/", "/youtube-tipps-de/kameras-und-konsolen-playstation-xbox-switch-in-obs-einbinden-mit-capture-cards/"]
 image: "https://i.ytimg.com/vi/CVIdTBgfJ4g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CVIdTBgfJ4g"

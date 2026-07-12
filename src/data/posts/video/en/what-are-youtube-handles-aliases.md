@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:jQdcFKeY1xA"
 category: "short-tutorial"
 tags: ["YouTube Channel Management", "Custom URLs", "Handle Customization", "YouTube Platform Updates", "Channel Navigation"]
+relatedPosts: ["/youtube-tips-en/how-to-change-youtube-handle-mobile/", "/youtube-tips-en/how-to-change-youtube-handle-desktop/", "/youtube-tips-en/youtube-update-handles-now-support-more-languages-and-special-characters/"]
 image: "https://i.ytimg.com/vi/jQdcFKeY1xA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/jQdcFKeY1xA"

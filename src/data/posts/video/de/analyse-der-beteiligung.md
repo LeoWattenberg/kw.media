@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:nhfBKX1ZYWc"
 category: "short-tutorial"
 tags: ["YouTube Studio", "Videoanalyse", "Zuschauerbindung", "Engagement-Daten", "Sehzeit", "Interaktionen", "Kanalmanagement", "Zuschaueranalyse", "YouTube-Tipps"]
+relatedPosts: ["/youtube-tipps-de/youtube-abc-schneller-einstieg-mit-youtube-analytics/", "/youtube-tipps-de/einblick-in-die-impressionen/", "/youtube-tipps-de/youtube-abc-dashboard-mit-untertiteln/"]
 image: "https://i.ytimg.com/vi/nhfBKX1ZYWc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nhfBKX1ZYWc"

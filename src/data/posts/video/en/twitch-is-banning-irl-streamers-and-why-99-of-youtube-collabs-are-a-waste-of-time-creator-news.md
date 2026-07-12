@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:tQ4Qxdz5diI"
 category: "news-video"
 tags: ["Twitch Policies", "IRL-Streaming", "Twitch Features", "Creator Collaboration", "Shared Universes", "Content Gamification", "YouTube Trends", "Platform Updates", "Creator Economy"]
+relatedPosts: ["/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/", "/youtube-tips-en/content-not-available-youtubes-ad-block-ramp-up-and-twitch-business-manager-role/", "/youtube-tips-en/youtubes-new-ask-studio-ai-is-lying-to-you-twitch-drama/"]
 image: "https://i.ytimg.com/vi/tQ4Qxdz5diI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=tQ4Qxdz5diI"

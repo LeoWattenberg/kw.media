@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:nTHIqtc2GyY"
 category: "short-tutorial"
 tags: ["YouTube Channel Updates", "YouTube Studio Navigation", "Desktop Features", "Shorts Shelf", "Channel Customization", "Platform Enhancements"]
+relatedPosts: ["/youtube-tips-en/editable-thumbnails-for-shorts/", "/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts/", "/youtube-tips-en/different-ways-to-create-shorts-shorts/"]
 image: "https://i.ytimg.com/vi/nTHIqtc2GyY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nTHIqtc2GyY"

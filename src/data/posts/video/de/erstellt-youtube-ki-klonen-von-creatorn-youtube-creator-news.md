@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:rhGWPkzn91o"
 category: "news-video"
 tags: ["YouTube KI-Funktionen", "KI-Klonen", "Community-Interaktion", "Streaming-Updates", "E-Commerce auf YouTube", "Automatisierte Kanalprüfung", "Cube Check", "YouTube-Tools", "Plattform-Neuerungen", "Creator-Monetarisierung"]
+relatedPosts: ["/youtube-tipps-de/twitch-nutzt-ki-um-dich-zu-mikromanagen-creator-news/", "/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/", "/youtube-tipps-de/youtubes-neue-ask-studio-ki-lugt-dich-an-twitch-drama/"]
 image: "https://i.ytimg.com/vi/rhGWPkzn91o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=rhGWPkzn91o"

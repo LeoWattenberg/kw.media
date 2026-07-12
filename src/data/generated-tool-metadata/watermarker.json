@@ -1,0 +1,20 @@
+{
+	"/de/tools/bild-video-wasserzeichen/": {
+		"content": [
+			"Bild- & Video-Wasserzeichen ist ein mächtiges, browserbasiertes Werkzeug, das es Benutzern ermöglicht, individuelle Text- oder Bildwasserzeichen direkt auf ihre [Bilder und Videos](/de/tools/video/) zu setzen. Mit nur wenigen Klicks können Sie Ihre Inhalte schützen und Ihre Marke oder Botschaft sichtbar machen. Ob für persönliche Projekte oder professionelle Zwecke – Bild- & Video-Wasserzeichen bietet eine einfache Lösung für die Markierung digitaler Medien.",
+			"Die Nutzung ist unkompliziert: Laden Sie einfach das Bild oder Video hoch, wählen Sie das gewünschte Wasserzeichen aus und passen Sie dessen Position und Größe an. Der Browser übernimmt den Rest. Die Wasserzeichen werden clientseitig generiert und angezeigt, was eine schnelle und effiziente Bearbeitung ermöglicht, ohne dass Daten an externe Server gesendet werden müssen.",
+			"Unterstützt werden gängige Bild- und Videoformate wie [JPEG, PNG, GIF, MP4 und WebM](/de/tools/converter/). Hiermit können Sie Ihre Fotos, Grafiken, Videos und animierten Dateien mit personalisierten Wasserzeichen versehen. Bild- & Video-Wasserzeichen ist die ideale Wahl für alle, die ihre digitalen Inhalte schützen und individualisieren möchten, ohne auf komplexe Software zurückgreifen zu müssen.",
+			"Datenschutz hat oberste Priorität: Alle Verarbeitungen erfolgen [lokal im Browser](/de/tools/), sodass Ihre Dateien und persönlichen Informationen nicht an externe Dienste übermittelt werden. Sie haben die volle Kontrolle über Ihre Daten und können sicher sein, dass Ihre Inhalte vertraulich bleiben."
+		],
+		"description": "Erstelle individuelle Wasserzeichen für Bilder und Videos direkt im Browser - einfach, schnell und lokal auf deinem Gerät."
+	},
+	"/en/tools/image-video-watermark/": {
+		"content": [
+			"Image & Video Watermark is a powerful yet simple tool designed to protect and personalize your digital media. It allows you to add custom text or image watermarks directly to [local images and videos](/en/tools/video/), ensuring your content remains recognizable [while keeping](/en/tools/loudness-mastering/) it safe from unauthorized use.",
+			"Using Image & Video Watermark is seamless; simply upload your image or video, select the desired watermark, adjust settings as needed, and click 'Apply'. The watermark will be integrated into your media file, ready for download or sharing. No complex installations or software downloads are required—it's all done within your browser.",
+			"This tool supports a wide range of formats, including [JPEG, PNG, GIF, MP4, and WebM](/en/tools/converter/). Whether you're marking personal photos or protecting a short video, Image & Video Watermark has you covered. It leverages your [browser's capabilities for efficient local processing](/en/tools/), ensuring your data remains private and secure.",
+			"Privacy is paramount; Image & Video Watermark processes all media locally on your device, meaning no files leave your computer unless you choose to download the modified content. This ensures that sensitive or personal media remains just that—yours and yours alone."
+		],
+		"description": "Image & Video Watermark: Easily add personalized watermarks to images and videos right in your browser, ensuring local privacy with client-side processing."
+	}
+}

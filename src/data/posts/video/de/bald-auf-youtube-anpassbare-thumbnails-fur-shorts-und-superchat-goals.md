@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:E8hipk1TNNc"
 category: "news-video"
 tags: ["YouTube Updates", "Shorts Thumbnails", "Super Chat Goals", "Creator QR Codes", "Video-Marketing", "Visuelle Gestaltung", "Miniaturansichten erstellen", "Interaktionen", "Community-Engagement", "Neue Funktionen"]
+relatedPosts: ["/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/", "/youtube-tipps-de/bearbeitbare-miniaturansichten-fur-shorts/", "/youtube-tipps-de/youtube-updates-dezember-endspurt-mit-mla-und-superchat-goals/"]
 image: "https://i.ytimg.com/vi/E8hipk1TNNc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=E8hipk1TNNc"

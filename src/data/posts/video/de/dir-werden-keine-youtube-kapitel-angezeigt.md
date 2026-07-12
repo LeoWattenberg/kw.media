@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:raKkureDLlA"
 category: "video-tutorial"
 tags: ["YouTube-Kapitel", "Video-Organisation", "Zeitstempel", "Videobeschreibung", "YouTube-Richtlinien", "Video-Strukturierung", "Inhaltsverwaltung auf YouTube"]
+relatedPosts: ["/youtube-tipps-de/youtube-video-kapitel-sind-awesome-und-das-ist-der-grund-shorts/", "/youtube-tipps-de/erreichen-sie-mit-highlight-inhalten-den-gipfel/", "/youtube-tipps-de/so-funktionieren-endcards/"]
 image: "https://i.ytimg.com/vi/raKkureDLlA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=raKkureDLlA"

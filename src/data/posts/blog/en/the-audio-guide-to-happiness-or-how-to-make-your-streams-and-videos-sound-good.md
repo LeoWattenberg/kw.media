@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1434"
 category: "blog"
 tags: ["Audio Setup", "Microphone Recommendations", "Streaming Equipment", "Beginner's Guide", "USB Microphones", "XLR Microphones", "Audio Quality", "Sound Treatment", "OBS", "Audio Production"]
+relatedPosts: ["/youtube-tips-en/getting-started-with-obs-a-beginners-guide/", "/youtube-tips-en/avermedia-nexus-ax310-streamer-mic-330-review/", "/youtube-tips-en/starting-a-gaming-channel-on-a-budget/"]
 image: "/assets/wp-content/uploads/2021/06/audioguide-FINAL.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/"

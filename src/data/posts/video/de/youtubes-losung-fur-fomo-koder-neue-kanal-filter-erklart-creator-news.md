@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:N4NERKAfs5k"
 category: "news-video"
 tags: ["YouTube Updates", "Kanal-Filter", "Hype-Funktion", "Mitgliedschafts-Inhalte", "Community-Tab", "Entdeckungsfunktionen", "Mobile Funktionen", "Desktop-Vs-Mobil", "Creator-Feedback"]
+relatedPosts: ["/youtube-tipps-de/wie-funktioniert-der-youtube-hype-wirklich-wir-haben-die-daten/", "/youtube-tipps-de/youtube-erweitert-kostenloses-hype-in-die-eu-10-jahres-mitglieder-abzeichen/", "/youtube-tipps-de/youtube-updates-neue-untertitel-fur-shorts-und-erweiterung-der-hype-funktion/"]
 image: "https://i.ytimg.com/vi/N4NERKAfs5k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=N4NERKAfs5k"

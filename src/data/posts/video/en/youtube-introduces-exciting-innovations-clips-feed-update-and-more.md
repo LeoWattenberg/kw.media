@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:K7CyD1EvaeE"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Clips Feed Update", "Collections in Subscriptions", "Fan Communities", "Community Tab Expansion", "YouTube Features", "User Interaction", "Creator-Tools", "Audience Engagement", "Moderation Considerations"]
+relatedPosts: ["/youtube-tips-en/youtube-fan-communities-everything-you-need-to-know/", "/youtube-tips-en/youtube-update-new-clip-tools-shopping-sticker-upgrade-and-livestream-policy/", "/youtube-tips-en/expand-your-reach-stay-in-touch-with-your-community/"]
 image: "https://i.ytimg.com/vi/K7CyD1EvaeE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=K7CyD1EvaeE"

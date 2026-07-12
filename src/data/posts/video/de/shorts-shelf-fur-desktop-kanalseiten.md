@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:nTHIqtc2GyY"
 category: "short-tutorial"
 tags: ["Shorts-Optimierung", "YouTube Studio Anpassungen", "Kanalseiten-Überarbeitung", "Desktop-Optimierung", "Kurzvideo-Erstellung", "YouTube-Funktionen", "Neue Funktionen auf YouTube", "Kurze Tutorials", "Kanalmanagement"]
+relatedPosts: ["/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts/", "/youtube-tipps-de/bearbeitbare-miniaturansichten-fur-shorts/", "/youtube-tipps-de/verschiedene-wege-shorts-zu-erstellen-shorts/"]
 image: "https://i.ytimg.com/vi/nTHIqtc2GyY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nTHIqtc2GyY"

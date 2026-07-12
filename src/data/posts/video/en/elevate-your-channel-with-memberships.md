@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:EWyU591a1JM"
 category: "short-tutorial"
 tags: ["YouTube Memberships", "Monetization Strategies", "Community-Engagement", "Revenue Generation", "Exclusive Content", "Recurring Subscriptions", "Gift Memberships", "Regional Pricing", "Channel Updates"]
+relatedPosts: ["/youtube-tips-en/how-it-works-youtube-membership-gifting/", "/youtube-tips-en/everything-important-about-the-new-youtube-fan-funding-partner-level/", "/youtube-tips-en/how-do-refunds-work-when-gifting-youtube-memberships/"]
 image: "https://i.ytimg.com/vi/EWyU591a1JM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/EWyU591a1JM"

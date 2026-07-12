@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:0g-IDgMvpRs"
 category: "news-video"
 tags: ["YouTube Studio", "Mobile App-Updates", "Benachrichtigungen", "Clips Bibliothek", "Abonnements", "Exklusive Inhalte", "HDR-Streaming", "RTMP/RTMPS", "Transcoding", "Q&A Stream"]
+relatedPosts: ["/youtube-tipps-de/youtube-fuhrt-spannende-neuerungen-ein-clips-feed-update-und-mehr/", "/youtube-tipps-de/youtube-updates-brandconnect-expansion-und-neue-streaming-features/", "/youtube-tipps-de/youtube-updates-youtube-studio-app-youtube-app-kommentare-community-posts/"]
 image: "https://i.ytimg.com/vi/0g-IDgMvpRs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=0g-IDgMvpRs"

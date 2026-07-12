@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:mKOsyRGYNyc"
 category: "video-tutorial"
 tags: ["YouTube Channel Creation", "Personal vs Brand Accounts", "Channel Management", "Google Account Login", "Brand Channel Setup", "Personal Channel Setup", "Channel Customization", "Channel Branding", "Collaborative Management"]
+relatedPosts: ["/youtube-tips-en/boost-your-channel-with-effective-branding/", "/youtube-tips-en/your-youtube-channel-guide-to-customizing-profile-picture-banner-and-watermark/", "/youtube-tips-en/what-are-youtube-handles-aliases/"]
 image: "https://i.ytimg.com/vi/mKOsyRGYNyc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=mKOsyRGYNyc"

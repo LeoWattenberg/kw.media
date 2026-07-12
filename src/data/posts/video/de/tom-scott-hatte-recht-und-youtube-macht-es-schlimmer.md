@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:qQOhV-QmOU4"
 category: "news-video"
 tags: ["YouTube Updates", "Creator-Burnout", "A/B-Testen für Videos", "Google Search Profile", "Twitch-Verbesserungen", "2K-Streaming", "Dual Format Streaming", "Währungsumrechnungsgebühren", "Tom Scott", "Content-Planung"]
+relatedPosts: ["/youtube-tipps-de/youtubes-neue-ki-zerstort-dein-pacing-und-analytics-creator-news/", "/youtube-tipps-de/erstellt-youtube-ki-klonen-von-creatorn-youtube-creator-news/", "/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/"]
 image: "https://i.ytimg.com/vi/qQOhV-QmOU4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=qQOhV-QmOU4"

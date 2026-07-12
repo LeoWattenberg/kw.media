@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:7K_1NHsygk0"
 category: "video-tutorial"
 tags: ["A/B-Testen für Thumbnails", "YouTube Studio", "Thumbnail-Optimierung", "Zuschauerbindung", "YouTube-Funktionen", "Video-Marketing", "Creator-Tipps", "Datenanalyse auf YouTube", "Wiedergabezeit"]
+relatedPosts: ["/youtube-tipps-de/wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt/", "/youtube-tipps-de/die-geheime-formel-fur-a-b-tests-auf-youtube/", "/youtube-tipps-de/a-b-testing-auf-youtube-alles-was-du-fur-den-launch-im-sommer-wissen-musst/"]
 image: "https://i.ytimg.com/vi/7K_1NHsygk0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=7K_1NHsygk0"

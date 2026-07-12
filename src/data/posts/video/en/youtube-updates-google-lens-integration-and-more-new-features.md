@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:Rl2fol2fqhg"
 category: "news-video"
 tags: ["YouTube Updates", "Google Lens Integration", "Android Features", "iOS Experiment", "AI Summaries", "Live Chat Analysis", "Content Policy Training", "YouTube Shopping", "Copyright Management", "Erase Song Feature"]
+relatedPosts: ["/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/", "/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/", "/youtube-tips-en/youtube-update-new-analytics-card-and-soon-mentions-for-mobile-chats/"]
 image: "https://i.ytimg.com/vi/Rl2fol2fqhg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=Rl2fol2fqhg"

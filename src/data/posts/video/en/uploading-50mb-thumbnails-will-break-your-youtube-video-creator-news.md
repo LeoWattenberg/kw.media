@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:IICk-BdIuXQ"
 category: "news-video"
 tags: ["YouTube-Thumbnails", "Twitch Auto Clips", "Monetization Features", "Multi-Language Audio", "File Size Limits", "Optimization Tips", "Discoverability Tools", "Gift Subscription Feature"]
+relatedPosts: ["/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/", "/youtube-tips-en/youtube-updates-end-of-year-sprint-with-mla-and-superchat-goals/", "/youtube-tips-en/membership-bonus-program-thumbnail-updates-and-ai-dubbing-on-the-horizon/"]
 image: "https://i.ytimg.com/vi/IICk-BdIuXQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=IICk-BdIuXQ"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:WTD5Zfk4pIY"
 category: "news-video"
 tags: ["YouTube Updates", "Playable Multitasking", "YouTube Shorts", "3-Minute Shorts", "Video Highlights Tool", "YouTube Studio", "Content Creator Tools", "Mobile Features", "Platform Enhancements"]
+relatedPosts: ["/youtube-tips-en/update-for-youtube-streamers-scheduled-streams-now-linked-in-all-shorts/", "/youtube-tips-en/celebrate-with-us-1000-subscribers-and-youtube-shorts-updates/", "/youtube-tips-en/longer-shorts-and-add-yours-stickers-youtubes-latest-experiments/"]
 image: "https://i.ytimg.com/vi/WTD5Zfk4pIY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=WTD5Zfk4pIY"

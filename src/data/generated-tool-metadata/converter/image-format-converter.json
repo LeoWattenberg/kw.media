@@ -1,0 +1,20 @@
+{
+	"/de/tools/converter/image-format-converter/": {
+		"content": [
+			"Der Bildformat-Konverter ist ein leistungsstarkes Tool, das es Ihnen ermöglicht, die Dateiformate Ihrer Bilder direkt in Ihrem Browser zu verändern. Mit dieser benutzerfreundlichen Anwendung können Sie Bilder zwischen verschiedenen Formaten umwandeln, ohne sie auf einem Server hochladen oder zusätzliche Software installieren zu müssen.",
+			"Der Prozess ist einfach: Laden Sie das Bild lokal hoch, wählen Sie das gewünschte Zielformat aus, und der Konverter verwendet die leistungsstarke Bibliothek [ImageMagick WASM](/de/tools/background-remover-checkerboard/), um die Umwandlung clientseitig durchzuführen. So können Sie sicher sein, dass Ihre Daten während der gesamten Bearbeitung auf Ihrem Gerät bleiben.",
+			"Unterstützte Formate umfassen [PNG, JPEG und WebP](/de/tools/image/), was eine breite Palette an Anwendungsfällen abdeckt. Ob Sie [Bilder für das Web optimieren](/de/tools/youtube-thumbnail-preview/) oder alte Dateien für moderne Plattformen kompatibel machen möchten – dieser Konverter erledigt es schnell und effizient. Hinzu kommen möglicherweise weitere gängige Formate, je nach verfügbaren ImageMagick-Implementierungen.",
+			"Datenschutz ist uns wichtig: Der Bildformat-Konverter verarbeitet alle Bilder lokal auf Ihrem Gerät, was bedeutet, dass Ihre Dateien nicht an externe Server übermittelt werden. Sie haben die volle Kontrolle über Ihre Daten und können sicher sein, dass keine sensiblen Informationen übertragen werden."
+		],
+		"description": "Konvertiere Bilder direkt im Browser mit ImageMagick WASM in PNG, JPEG, WebP und mehr - schnelle, lokale Bildumwandlung."
+	},
+	"/en/tools/converter/image-format-converter/": {
+		"content": [
+			"Image Format Converter is a powerful tool designed to help you effortlessly transform [image formats](/en/tools/converter/) right in your browser. It leverages the capabilities of [ImageMagick WASM](/en/tools/background-remover-checkerboard/), enabling seamless conversions without any need for server-side processing.",
+			"To use this tool, simply upload or select an image from your local storage. The converter will then utilize the latest WebAssembly technology to process and convert the image format as per your specified requirements, all within the security of your browser.",
+			"This utility supports a wide range of media types including [PNG, JPEG, WebP, BMP, TIFF](/en/tools/image/), and more. It ensures compatibility with various applications and platforms while maintaining optimal file sizes for efficient usage.",
+			"By processing [images locally](/en/tools/converters/png-to-svg/), we prioritize user privacy and data security. No sensitive information leaves your device, ensuring that your image conversions remain confidential and under your control."
+		],
+		"description": "Convert images locally using ImageMagick WASM to various formats like PNG, JPEG, WebP, and more, all within your browser."
+	}
+}

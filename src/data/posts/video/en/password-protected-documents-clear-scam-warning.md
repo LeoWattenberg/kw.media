@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:I26HIlgDa64"
 category: "news-video"
 tags: ["YouTube Scams", "Fake CEO Videos", "Monetization Updates", "Phishing Attempts", "Creator Security", "Private Video Sharing", "Encrypted Documents", "Official YouTube Channels", "Scam Awareness"]
+relatedPosts: ["/youtube-tips-en/warning-phishing-emails-are-targeting-your-youtube-channel/", "/youtube-tips-en/proving-you-are-human-on-youtube-now-costs-3-000-c2pa-creator-news/", "/youtube-tips-en/youtube-update-strict-gambling-rules-and-changes-to-monetization-checks/"]
 image: "https://i.ytimg.com/vi/I26HIlgDa64/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=I26HIlgDa64"

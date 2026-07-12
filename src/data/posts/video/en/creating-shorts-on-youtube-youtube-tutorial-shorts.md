@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:Ym4aBQ-W2BM"
 category: "short-tutorial"
 tags: ["YouTube Shorts", "Short Tutorial", "Mobile Production", "Video Creation", "Content Creator Tools", "YouTube Features", "Beginner's Guide"]
+relatedPosts: ["/youtube-tips-en/different-ways-to-create-shorts-shorts/", "/youtube-tips-en/editable-thumbnails-for-shorts/", "/youtube-tips-en/answering-comments-with-short-heres-how/"]
 image: "https://i.ytimg.com/vi/Ym4aBQ-W2BM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Ym4aBQ-W2BM"

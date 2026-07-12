@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:jQdcFKeY1xA"
 category: "short-tutorial"
 tags: ["YouTube-Handles", "Benutzerdefinierte URL", "Kanalverwaltung", "YouTube Studio", "Kanaloptimierung"]
+relatedPosts: ["/youtube-tipps-de/wie-man-den-youtube-namen-andert-mobil/", "/youtube-tipps-de/youtube-update-handles-unterstutzen-mehr-sprachen-und-sonderzeichen/", "/youtube-tipps-de/mentions-sind-klasse-zwar-deswegen/"]
 image: "https://i.ytimg.com/vi/jQdcFKeY1xA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/jQdcFKeY1xA"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:5P1Bw-qOnJM"
 category: "news-video"
 tags: ["YouTube Updates", "Creator Q&A Live Streams", "Q&A Sticker", "Shorts-Funktionen", "YouTube Studio Verbesserungen", "Thumbnail-Optimierung", "YouTube-Kurse", "Monetarisierungsstrategien", "Plattform-Neuerungen"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-brandconnect-expansion-und-neue-streaming-features/", "/youtube-tipps-de/langere-shorts-und-add-yours-sticker-youtubes-neueste-experimente/", "/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/"]
 image: "https://i.ytimg.com/vi/5P1Bw-qOnJM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=5P1Bw-qOnJM"

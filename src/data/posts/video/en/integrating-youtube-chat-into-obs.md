@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:E5BmjrCT1LE"
 category: "short-tutorial"
 tags: ["YouTube Live Streaming", "OBS", "Live Chat Features", "Free Tools", "Stream Setup", "Streaming Software", "Browser Source", "Customisation", "CSS Editing"]
+relatedPosts: ["/youtube-tips-en/how-to-use-youtube-lives-take-a-break-feature-step-by-step-tutorial-with-obs-setup/", "/youtube-tips-en/getting-started-with-youtube-live-streaming/", "/youtube-tips-en/connecting-obs-to-twitch-and-youtube/"]
 image: "https://i.ytimg.com/vi/E5BmjrCT1LE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/E5BmjrCT1LE"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:96EhAUHWTRY"
 category: "news-video"
 tags: ["YouTube Analytics", "Inspiration-Tab", "Neue Funktionen", "Inhaltsvorschläge", "KI-Integration", "Content Gap", "Video-Inspiration", "Breakout Videos", "Monetarisierungstipps"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/", "/youtube-tipps-de/youtube-live-stream-updates-hype-erweiterung-und-ki-inspirationswerkzeuge-fur-eu-creator/", "/youtube-tipps-de/youtubes-losung-fur-fomo-koder-neue-kanal-filter-erklart-creator-news/"]
 image: "https://i.ytimg.com/vi/96EhAUHWTRY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=96EhAUHWTRY"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:JXe3Pop5N3U"
 category: "short-tutorial"
 tags: ["YouTube Features", "YouTube Channel Management", "Video Linking", "Collaboration Strategies", "Platform Enhancements"]
+relatedPosts: ["/youtube-tips-en/what-are-youtube-handles-aliases/", "/youtube-tips-en/youtube-update-handles-now-support-more-languages-and-special-characters/", "/youtube-tips-en/how-to-change-youtube-handle-mobile/"]
 image: "https://i.ytimg.com/vi/JXe3Pop5N3U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/JXe3Pop5N3U"

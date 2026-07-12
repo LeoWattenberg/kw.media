@@ -1,0 +1,20 @@
+{
+	"/de/tools/whisper-untertitel-generator/": {
+		"content": [
+			"Der Whisper Untertitel-Generator ist ein leistungsstarkes Tool, das die Erstellung von Untertiteln für Videos und Audiodateien revolutioniert. Mit seiner Hilfe können Benutzer automatisch Untertitel in gängigen Formaten generieren, ohne komplexe Software installieren zu müssen. Dieser [Browser-basierte Generator](/de/tools/) nutzt die Kraft von whisper.cpp, um präzise und zeitgenaue Untertitel aus Ihren lokalen Dateien zu extrahieren.",
+			"Die Nutzung ist einfach: Laden Sie Ihre [Audio-](/de/tools/converter/video-audio-converter/) oder Videodatei hoch, wählen Sie das gewünschte Format ([SRT oder WebVTT](/de/tools/untertitel-editor-konverter/)) und starten Sie den Prozess. Der Generator verarbeitet die Datei im Browser und präsentiert Ihnen die generierten Untertitel in Echtzeit. So können Sie schnell und effizient Untertitel für Ihre Projekte erstellen, ohne auf externe Dienste angewiesen zu sein.",
+			"Dieses Tool unterstützt eine Vielzahl von Medienformaten, einschließlich MP3, WAV, MPEG-4 und mehr. Sowohl SRT (SubRip Subtitle) als auch WebVTT (Web Video Text Tracks), zwei gängige Untertitelformate, werden verarbeitet. Die Dateien können [direkt im Browser](/de/tools/vtuber-preview/) angezeigt und heruntergeladen werden, was eine nahtlose Integration in Ihre Workflows ermöglicht.",
+			"Datenschutz und lokale Verarbeitung sind ein wichtiger Fokus dieses Generators. Alle Prozesse finden [direkt im Browser](/de/tools/youtube-thumbnail-preview/) statt, ohne dass Daten an externe Server gesendet werden. Ihre Medien- und Untertiteldateien bleiben auf Ihrem Gerät, wodurch Sie die volle Kontrolle über Ihre Inhalte behalten."
+		],
+		"description": "Erstellen Sie automatisch Untertitel für Videos mit Whisper. Generieren Sie SRT- und WebVTT-Dateien direkt im Browser aus lokalen Audio- und Videodateien."
+	},
+	"/en/tools/whisper-subtitle-generator/": {
+		"content": [
+			"The Whisper Subtitle Generator is a powerful tool designed to create accurate subtitles for your [audio and video](/en/tools/converter/) content directly in your browser. It leverages the capabilities of whisper.cpp, an open-source library, to transcribe and translate speech into text, ensuring high-quality subtitle generation.",
+			"To use this tool, simply upload your [audio or video](/en/tools/converters/media-to-flac/) file, select the desired language, and initiate the transcription process. The advanced AI model will analyze the media, generating subtitles in real-time. You can then download the generated [SRT or WebVTT files](/en/tools/subtitle-editor-converter/) for seamless integration into your projects.",
+			"This generator supports a wide range of media formats, including MP3, WAV, and popular video codecs. It provides an efficient way to [add subtitles to your videos](/en/tools/subtitle-burner/), podcasts, or any other audio/video content without leaving your browser, ensuring privacy and convenience.",
+			"All processing is done locally within your browser, ensuring your data remains secure and private. No files are sent to external servers, giving you control over your media and its associated metadata."
+		],
+		"description": "Generate accurate SRT & WebVTT subtitles locally using Whisper.cpp within your browser, ensuring private and efficient subtitle creation for videos."
+	}
+}

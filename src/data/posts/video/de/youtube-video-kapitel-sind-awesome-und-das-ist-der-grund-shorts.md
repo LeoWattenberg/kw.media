@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:RfSTdOXEqhs"
 category: "short-tutorial"
 tags: ["YouTube-Kapitel", "Desktop-Funktionen", "App-Funktionen", "Video-Navigation", "Zuschauer-Erfahrung", "Kurzvideo-Strategien", "Interaktion mit Zuschauern", "Mobile Optimierung", "Benutzerfreundlichkeit"]
+relatedPosts: ["/youtube-tipps-de/dir-werden-keine-youtube-kapitel-angezeigt/", "/youtube-tipps-de/bearbeitbare-miniaturansichten-fur-shorts/", "/youtube-tipps-de/livestreams-sind-auf-youtube-jetzt-noch-einfacher-zu-finden-shorts/"]
 image: "https://i.ytimg.com/vi/RfSTdOXEqhs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/RfSTdOXEqhs"

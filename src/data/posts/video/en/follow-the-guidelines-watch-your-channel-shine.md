@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:OiALToW1vk8"
 category: "short-tutorial"
 tags: ["YouTube Guidelines", "Content Quality Improvement", "Community-Engagement", "Monetization Policies", "Platform Rules", "Creator Responsibilities", "Video-Moderation", "Spam Filtering", "Age Restrictions", "Monetization Strategies"]
+relatedPosts: ["/youtube-tips-en/how-to-set-up-youtube-channel-guidelines/", "/youtube-tips-en/new-feature-alert-channel-guidelines/", "/youtube-tips-en/how-the-new-strict-mode-works/"]
 image: "https://i.ytimg.com/vi/OiALToW1vk8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OiALToW1vk8"

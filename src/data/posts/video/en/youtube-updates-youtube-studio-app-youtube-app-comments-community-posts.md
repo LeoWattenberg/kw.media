@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:EBJz7RhXxOA"
 category: "news-video"
 tags: ["YouTube Studio Updates", "Mobile Live Streaming", "Community Posts Enhancements", "Payment View", "Creator Rewards", "YouTube Partner Program"]
+relatedPosts: ["/youtube-tips-en/everything-new-in-youtube-studio-mobile-content-and-community-tab-updates/", "/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/", "/youtube-tips-en/youtube-updates-ios-join-button-multi-format-live-streams-and-analytics-fix/"]
 image: "https://i.ytimg.com/vi/EBJz7RhXxOA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EBJz7RhXxOA"

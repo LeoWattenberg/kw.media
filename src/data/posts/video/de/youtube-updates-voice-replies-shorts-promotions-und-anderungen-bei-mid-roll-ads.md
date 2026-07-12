@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:KHAFS_SR8IQ"
 category: "news-video"
 tags: ["YouTube Updates", "Sprachnachrichten", "Shorts-Werbung", "Midroll-Anzeigen", "Livestreaming-Funktionen", "Werbeanzeigen-Strategien", "Monetarisierung", "Plattform-Neuerungen", "YouTube-Richtlinien"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-fehler-bei-mid-roll-anzeigen-und-kommende-bearbeitungseinschrankungen/", "/youtube-tipps-de/youtube-updates-kommentervorschauen-in-shorts-duo-premium-plane-und-anderungen-bei-musiklizenzen/", "/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/"]
 image: "https://i.ytimg.com/vi/KHAFS_SR8IQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=KHAFS_SR8IQ"

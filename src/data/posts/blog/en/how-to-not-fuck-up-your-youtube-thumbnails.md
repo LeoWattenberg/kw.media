@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1400"
 category: "blog"
 tags: ["YouTube-Thumbnails", "Video-Marketing", "Visual Design", "Content Presentation", "Click-Through Rate Optimization", "Thumbnail Best Practices", "Video Promotion Strategies", "Creator Resources", "Channel Growth", "Viewer Engagement"]
+relatedPosts: ["/youtube-tips-en/how-to-get-clicks-on-thumbnails-the-aida-model/", "/youtube-tips-en/how-to-use-youtubes-new-thumbnail-test-and-compare-feature-for-better-engagement/", "/youtube-tips-en/what-is-youtube-test-and-compare-or-thumbnail-a-b-testing/"]
 image: "https://preview.redd.it/kyowv0gqyjf51.png?width=871&format=png&auto=webp&s=3dd0d8ac5dcc28d8239a720c6d0e94aded380d63"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/"

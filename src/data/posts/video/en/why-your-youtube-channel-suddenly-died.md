@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:2JIHi4MVn9w"
 category: "short-tutorial"
 tags: ["YouTube Channel Growth", "Content Strategy", "Audience Reach", "Algorithm Optimization", "Content Repurposing", "Creator Monetization", "Monetization Strategies", "Video Optimization", "Viewer Retention"]
+relatedPosts: ["/youtube-tips-en/the-eee-model-how-to-break-out-of-the-small-youtuber-niche/", "/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/", "/youtube-tips-en/why-50-hours-of-editing-gets-0-views/"]
 image: "https://i.ytimg.com/vi/2JIHi4MVn9w/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/2JIHi4MVn9w"

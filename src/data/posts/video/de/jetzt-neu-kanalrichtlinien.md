@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:SI8OKrwxSu8"
 category: "short-tutorial"
 tags: ["Kanalmanagement", "Community-Richtlinien", "Zuschauer-Interaktion", "Chat-Einstellungen", "Kommentare verwalten", "YouTube-Einstellungen", "Neuerungen auf YouTube", "Community-Aufbau"]
+relatedPosts: ["/youtube-tipps-de/einrichtungshinweise-leitfaden-fur-youtube-kanale/", "/youtube-tipps-de/folge-den-richtlinien-und-lass-deinen-kanal-strahlen/", "/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/"]
 image: "https://i.ytimg.com/vi/SI8OKrwxSu8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/SI8OKrwxSu8"

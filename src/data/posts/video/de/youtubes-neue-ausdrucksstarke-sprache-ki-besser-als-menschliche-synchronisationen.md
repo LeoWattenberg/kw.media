@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:EUX5WpvVvB8"
 category: "news-video"
 tags: ["KI-Funktionen", "Automatische Untertitelung", "YouTube Updates", "Spracherkennung", "Sprachsynthese", "Untertitel-Qualität", "Zuschauerbindung", "Content-Monetarisierung", "Premium-Inhalte", "Automatisierung vs. Manuelle Produktion"]
+relatedPosts: ["/youtube-tipps-de/youtube-aktualisiert-automatische-synchronisation-mit-intonation-create-app-auf-ios-fur-1/", "/youtube-tipps-de/youtube-updates-verwirrung-um-abonnieren-und-autodubbing-vollstandig-ausgerollt/", "/youtube-tipps-de/youtube-autodubbing-enttauscht-und-youtube-fuhrt-jewels-fur-vertikale-livestreams-ein/"]
 image: "https://i.ytimg.com/vi/EUX5WpvVvB8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EUX5WpvVvB8"

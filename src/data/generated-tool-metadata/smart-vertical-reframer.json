@@ -1,0 +1,20 @@
+{
+	"/de/tools/vertikaler-video-reframer/": {
+		"content": [
+			"Der Vertikaler Video-Reframer ist ein leistungsstarkes Tool, das es dir ermöglicht, aus deinen [lokalen Videos](/de/tools/video/) [vertikale Shorts und Portrait-Versionen](/de/tools/short-form-safe-zone-previewer/) zu erstellen. Mit seiner fortschrittlichen face-aware Crop-Technologie passt er automatisch Gesichter an, um optimale Ergebnisse in kürzester Zeit zu liefern.",
+			"Die Nutzung ist einfach: Lade dein Video hoch, wähle den gewünschten Format (Short oder Portrait) und klicke auf 'Umwandeln'. Das Tool verarbeitet das Video lokal auf deinem Gerät, ohne sensible Daten zu verlassen. Du hast die volle Kontrolle über deine Inhalte.",
+			"Unterstützte Formate umfassen [MP4, MOV und WMV](/de/tools/converter/). Der Vertikaler Video-Reframer ist darauf ausgelegt, eine nahtlose Integration in deinen Workflow zu bieten, ohne Kompromisse bei der Qualität einzugehen. Erlebe die Flexibilität, deine Videos nach deinen Vorstellungen neu zu gestalten.",
+			"Durch den lokalen Verarbeitungsmodus gewährleistet das Tool maximale Privatsphäre und Datensicherheit. Deine Daten bleiben auf deinem Gerät, ohne an externe Server gesendet zu werden. So kannst du beruhigt kreative Entscheidungen treffen und deine Inhalte nach Belieben umgestalten."
+		],
+		"description": "Erstelle ansprechende vertikale Videos aus deinen lokalen Clips – schnell und einfach, mit intelligenter Gesichtsausrichtung."
+	},
+	"/en/tools/vertical-video-reframer/": {
+		"content": [
+			"The Vertical Video Reframer is a powerful browser-based tool designed to transform your existing videos into captivating [vertical formats](/en/tools/short-form-safe-zone-previewer/), perfect for social media and short-form content. Its primary function is to create vertical 'Shorts' or portrait versions of [local videos](/en/tools/black-bar-remover/) while ensuring key elements like faces remain centered and in focus.",
+			"Using this tool, you simply upload your video, select the desired output format, and adjust cropping preferences. The magic happens instantly as our algorithm intelligently reframing the video for vertical viewing, preserving important visual cues and maintaining the original quality. No coding or complex editing required!",
+			"Supported media types include [MP4 and MOV video formats](/en/tools/converter/video-audio-converter/). This tool is optimized for face-aware cropping, ensuring portraits and close-ups are accurately detected and highlighted during the reframe process. It's an ideal solution for content creators looking to adapt their footage swiftly and efficiently.",
+			"Privacy and local processing are at the core of this tool. Your videos remain on your device; we don't store or transmit any [media files](/en/tools/media-delivery-checker/). All processing happens directly in your browser, ensuring fast results while giving you control over your data."
+		],
+		"description": "Vertical Video Reframer: Create vertical shorts & portraits from local videos, using face-aware cropping for precise, local processing."
+	}
+}

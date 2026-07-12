@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:MxTHgbSwjWE"
 category: "short-tutorial"
 tags: ["Capture Cards", "OBS", "Gameplay Capture", "Facecam", "Streaming Equipment", "Video Capture", "Streaming Software", "Console Integration"]
+relatedPosts: ["/youtube-tips-en/avermedia-streamer-cap-4k-or-elgato-cam-link-4k/", "/youtube-tips-en/using-scenes-and-sources-in-obs/", "/youtube-tips-en/getting-started-with-obs-a-beginners-guide/"]
 image: "https://i.ytimg.com/vi/MxTHgbSwjWE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/MxTHgbSwjWE"

@@ -1,5 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { relative } from 'node:path';
 import { readAllPosts } from './content-ai.mjs';
 
 const args = process.argv.slice(2);
@@ -16,7 +15,7 @@ if (help) {
 node scripts/audit-inlinks.mjs [--json] [--threshold=2] [--locale=de|en] [--category=news-video] [--include-navigation] [--limit=80]
 
 Counts incoming internal post links from Markdown bodies, post CTA frontmatter, and
-src/data/related-posts.json. Generated previous/next post navigation is reported
+relatedPosts frontmatter. Generated previous/next post navigation is reported
 separately and included only with --include-navigation.`);
 	process.exit(0);
 }
@@ -33,7 +32,6 @@ const selectedPosts = allPosts.filter((post) => (
 const knownPostsByPath = new Map(allPosts.map((post) => [post.frontmatter.path, post]));
 const selectedPaths = new Set(selectedPosts.map((post) => post.frontmatter.path));
 const inlinksByPath = new Map(allPosts.map((post) => [post.frontmatter.path, []]));
-const relatedPosts = readRelatedPosts();
 
 addBodyInlinks();
 addPostCtaInlinks();
@@ -96,17 +94,18 @@ function addPostCtaInlinks() {
 }
 
 function addRelatedPostInlinks() {
-	for (const [sourcePath, targetPaths] of Object.entries(relatedPosts)) {
+	for (const source of allPosts) {
+		const sourcePath = source.frontmatter.path;
+		const targetPaths = source.frontmatter.relatedPosts;
 		if (!Array.isArray(targetPaths)) {
 			continue;
 		}
 
-		const source = knownPostsByPath.get(sourcePath);
 		for (const targetPath of targetPaths) {
 			addInlink(targetPath, {
 				sourcePath,
-				sourceFile: source?.filePath,
-				sourceTitle: source?.frontmatter.title,
+				sourceFile: source.filePath,
+				sourceTitle: source.frontmatter.title,
 				kind: 'related',
 			});
 		}
@@ -184,11 +183,6 @@ function normalizeInternalPath(value) {
 
 	const path = value.split(/[?#]/, 1)[0];
 	return path.endsWith('/') ? path : `${path}/`;
-}
-
-function readRelatedPosts() {
-	const relatedPath = join(process.cwd(), 'src/data/related-posts.json');
-	return existsSync(relatedPath) ? JSON.parse(readFileSync(relatedPath, 'utf8')) : {};
 }
 
 function reportForPost(post) {

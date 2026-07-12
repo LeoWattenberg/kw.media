@@ -1,0 +1,20 @@
+{
+	"/de/tools/bildobjekt-freistellen/": {
+		"content": [
+			"Der Bildobjekt freistellen ist ein einfaches, aber leistungsstarkes Tool, das es Ihnen ermöglicht, Objekte aus Bildern auszuwählen und zu extrahieren. Mit nur einem Klick können Sie ein Objekt in einem lokalen Bild identifizieren und es als [transparente PNG- oder WebP-Datei](/de/tools/converter/image-format-converter/) exportieren.",
+			"Die Nutzung ist kinderleicht: Laden Sie einfach das gewünschte Bild hoch, wählen Sie das Objekt aus, das Sie extrahieren möchten, und klicken Sie. Das Tool erzeugt dann eine präzise Umrisslinie um das Objekt herum. Anschließend können Sie die Datei in einem der unterstützten Formate speichern.",
+			"Dieser [Browser-basierte Extraktor](/de/tools/) unterstützt Bilder im PNG- und WebP-Format. Er funktioniert direkt in Ihrem Webbrowser, ohne dass zusätzliche Software erforderlich ist. Alle Verarbeitungsschritte erfolgen lokal auf Ihrem Gerät, um Ihre Privatsphäre zu schützen.",
+			"Durch die direkte Verarbeitung im Browser bleiben Ihre Daten auf Ihrem Gerät und es werden keine sensiblen Informationen an externe Server übermittelt. Dies gewährleistet eine sichere und diskrete Nutzung des Tools."
+		],
+		"description": "Klicken Sie ein Objekt in einem Bild aus und exportieren Sie es transparent als PNG oder WebP – lokaler, schneller Export."
+	},
+	"/en/tools/image-object-extractor/": {
+		"content": [
+			"The Image Object Extractor is a powerful, user-friendly tool designed to simplify the process of [object extraction from images](/en/tools/image/). With just a single click, you can select and isolate any object within an image, making it ideal for designers, developers, and anyone working with graphics who needs precise object cutting.",
+			"This browser-based application allows you to upload [local images](/en/tools/converters/image-to-avif/) or directly access them from your device's library. Once an object is selected, the tool automatically generates a [transparent background](/en/tools/background-remover/) around it, ensuring clean cuts. The extracted object can then be exported in high quality as either a [PNG or WebP file](/en/tools/converter/image-format-converter/), suitable for various design and development workflows.",
+			"Supported media types include JPEG, PNG, GIF, and WebP formats for images. The tool leverages your browser's capabilities for efficient local processing, ensuring fast extraction times without requiring any data to leave your device.",
+			"By utilizing browser technologies, the Image Object Extractor prioritizes user privacy. No image data is stored or shared externally, providing a secure and reliable solution for handling sensitive graphics."
+		],
+		"description": "Extract objects from images with a single click, saving them as transparent PNG or WebP files—all done locally on your browser."
+	}
+}

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:YSv_5uNMHds"
 category: "news-video"
 tags: ["YouTube Shorts", "Android Features", "Text-to-Speech", "Voiceover Technology", "Mobile Creation", "Content Creator Tools", "YouTube Platform Updates", "Shorts Editing"]
+relatedPosts: ["/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts/", "/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/", "/youtube-tips-en/different-ways-to-create-shorts-shorts/"]
 image: "https://i.ytimg.com/vi/YSv_5uNMHds/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=YSv_5uNMHds"

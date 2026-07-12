@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:KHAFS_SR8IQ"
 category: "news-video"
 tags: ["YouTube Updates", "Voice Replies", "Shorts Ads", "Mid-Roll Ad Changes", "Ad Placement Optimization", "Creator Monetization", "Live Streaming Features", "Community-Engagement", "Platform Announcements", "Monetization Strategies"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-comment-teasers-in-shorts-duo-premium-plans-and-music-license-changes/", "/youtube-tips-en/youtube-updates-playable-multitasking-and-3-minute-shorts/", "/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/"]
 image: "https://i.ytimg.com/vi/KHAFS_SR8IQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=KHAFS_SR8IQ"

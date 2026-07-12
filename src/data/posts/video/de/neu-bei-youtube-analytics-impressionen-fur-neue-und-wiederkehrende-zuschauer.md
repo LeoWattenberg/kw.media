@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:gw-LkDbK_R8"
 category: "news-video"
 tags: ["YouTube Analytics", "Live Reactions", "Super Chat-Funktionen", "Live-Streaming-Verbesserungen", "Zuschaueranalyse", "Impressionen", "Neue Funktionen auf YouTube"]
+relatedPosts: ["/youtube-tipps-de/gelegenheits-vs-regelmassige-zuschauer-neue-youtube-analytics-verraten-mehr/", "/youtube-tipps-de/youtube-update-neue-analytics-card-und-bald-mentions-fur-mobile-chats/", "/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/"]
 image: "https://i.ytimg.com/vi/gw-LkDbK_R8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gw-LkDbK_R8"

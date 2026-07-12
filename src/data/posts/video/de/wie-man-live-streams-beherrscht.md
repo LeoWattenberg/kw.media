@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:OcihdaM-hro"
 category: "short-tutorial"
 tags: ["Live-Streaming", "YouTube-Streaming", "Stream-Planung", "Mehrsprachige Inhalte", "Kanalmanagement", "Zuschauer-Interaktion", "Sichtbarkeit erhöhen"]
+relatedPosts: ["/youtube-tipps-de/einstieg-in-das-live-streaming-auf-youtube/", "/youtube-tipps-de/wie-man-die-pause-machen-funktion-von-youtube-live-verwendet-schritt-fur-schritt-tutorial-mit-obs-einstellungen/", "/youtube-tipps-de/wie-man-einen-hls-streamkey-erstellt/"]
 image: "https://i.ytimg.com/vi/OcihdaM-hro/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OcihdaM-hro"

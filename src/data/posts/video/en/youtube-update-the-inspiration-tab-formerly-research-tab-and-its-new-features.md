@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:96EhAUHWTRY"
 category: "news-video"
 tags: ["YouTube Analytics", "Inspiration-Tab", "Content Creation Ideas", "AI Content Generation", "Breakout Videos", "Content Gap Analysis", "Video Recommendations", "Creator-Tools", "Platform Updates"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-leaderboards-shorts-visual-guides-and-shorts-quiz-stickers/", "/youtube-tips-en/youtube-advanced-analytics-overhaul-inspiration-ai-now-in-eu/", "/youtube-tips-en/youtubeabc-dashboard-withsub/"]
 image: "https://i.ytimg.com/vi/96EhAUHWTRY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=96EhAUHWTRY"

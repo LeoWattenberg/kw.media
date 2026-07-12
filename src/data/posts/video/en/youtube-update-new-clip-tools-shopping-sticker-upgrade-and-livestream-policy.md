@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:EwZklcCUoO8"
 category: "news-video"
 tags: ["YouTube Shorts", "Shopping Stickers", "Multilingual Audio", "Thumbnail Experiments", "Clips from Transcripts", "Live Streaming Policies", "Age Restrictions", "YouTube Updates"]
+relatedPosts: ["/youtube-tips-en/expanded-shopping-options-on-youtube-whats-new-for-creators/", "/youtube-tips-en/update-for-youtube-streamers-scheduled-streams-now-linked-in-all-shorts/", "/youtube-tips-en/youtube-hype-livestream-and-superchat-updates/"]
 image: "https://i.ytimg.com/vi/EwZklcCUoO8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EwZklcCUoO8"

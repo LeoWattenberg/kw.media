@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:O6H6KRNoFsQ"
 category: "short-tutorial"
 tags: ["YouTube Shorts", "Video Editing", "Watermarks", "Content Optimization", "Monetization Strategies", "Free Software", "Ranking Factors", "Platform Policies", "Visual Branding"]
+relatedPosts: ["/youtube-tips-en/why-your-youtube-shorts-views-dont-convert-to-longform/", "/youtube-tips-en/how-to-get-into-the-partner-program-with-youtube-shorts/", "/youtube-tips-en/monetizing-old-shorts/"]
 image: "https://i.ytimg.com/vi/O6H6KRNoFsQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/O6H6KRNoFsQ"

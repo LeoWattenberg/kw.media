@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:SazJMCMxsQo"
 category: "short-tutorial"
 tags: ["YouTube-Kollaboration", "YouTube Studio", "Kurztutorial", "Creator-Zusammenarbeit", "Plattform-Updates", "Auffindbarkeit verbessern", "Video-Organisation", "Zugriffsrechte verwalten"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-youtube-fehler-loscht-werbeeinnahmen-einfuhrung-der-kollaborations-feed-funktion/", "/youtube-tipps-de/youtube-news-auto-synchronisation-bei-alten-videos-klarstellung-zu-kollaborationen-und-mehr/", "/youtube-tipps-de/mentions-sind-klasse-zwar-deswegen/"]
 image: "https://i.ytimg.com/vi/SazJMCMxsQo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/SazJMCMxsQo"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:jnVTl0DWVWs"
 category: "news-video"
 tags: ["YouTube Platform Updates", "YouTube Shorts Features", "Hype Button Expansion", "EU AI Act", "Monetization Policies", "Membership Badges", "Long-Term Support Recognition", "Community-Engagement", "YouTube Creator Tools"]
+relatedPosts: ["/youtube-tips-en/how-does-youtube-hype-actually-work-we-have-the-data/", "/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/youtube-hype-livestream-and-superchat-updates/"]
 image: "https://i.ytimg.com/vi/jnVTl0DWVWs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=jnVTl0DWVWs"

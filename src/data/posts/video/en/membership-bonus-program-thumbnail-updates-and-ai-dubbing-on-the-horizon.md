@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:XDdgidkQSUc"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Channel Memberships", "Bonus Program", "Shorts Editing", "Thumbnail-Updates", "AI Dubbing", "Multilingual Content", "YouTube Studio Navigation", "Content Creator Tools", "Video Promotion"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-subscribe-confusion-and-autodubbing-fully-rolled-out/", "/youtube-tips-en/elevate-your-channel-with-memberships/", "/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/"]
 image: "https://i.ytimg.com/vi/XDdgidkQSUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=XDdgidkQSUc"

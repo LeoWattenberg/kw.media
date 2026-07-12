@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:pGAgrTShuHc"
 category: "news-video"
 tags: ["YouTube Updates", "AI Inspiration Tab", "Community Leaderboards", "Shorts Visual Guides", "Quiz Stickers", "Live Stream Experiments", "Creator Q&A", "Shorts Creation Tools", "Sticker Updates"]
+relatedPosts: ["/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/", "/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/", "/youtube-tips-en/youtube-advanced-analytics-overhaul-inspiration-ai-now-in-eu/"]
 image: "https://i.ytimg.com/vi/pGAgrTShuHc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=pGAgrTShuHc"

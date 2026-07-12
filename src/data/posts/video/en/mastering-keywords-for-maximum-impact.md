@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:j1kZ_CuZOG8"
 category: "short-tutorial"
 tags: ["Keyword Bidding", "YouTube Ads", "Click-Through Rate Optimization", "Google Ads Keyword Planner", "Search Discoverability", "Audience Targeting", "Ad Strategy", "Google Trends", "Channel Promotion"]
+relatedPosts: ["/youtube-tips-en/simple-youtube-seo-for-gaming-channels/", "/youtube-tips-en/youtube-promotions-tab-is-it-really-worth-it/", "/youtube-tips-en/trending-tags-are-hashtags-still-relevant/"]
 image: "https://i.ytimg.com/vi/j1kZ_CuZOG8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/j1kZ_CuZOG8"

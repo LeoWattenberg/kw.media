@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1389"
 category: "blog"
 tags: ["YouTube News", "Platform Updates", "Creator Resources", "Channel Management", "Video Production", "Streaming Community", "Discord-Integration", "Content Delivery"]
+relatedPosts: ["/youtube-tips-en/new-audio-settings-vpn-revenue-warning-youtube-creator-news/", "/youtube-tips-en/youtube-news-second-chance-pilot-ask-studio-deep-dive-and-communities-on-desktop/", "/youtube-tips-en/youtube-updates-youtube-studio-app-youtube-app-comments-community-posts/"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/seht-die-neusten-youtube-news-in-unserem-patch-rundown-und-was-hier-noch-passiert/"

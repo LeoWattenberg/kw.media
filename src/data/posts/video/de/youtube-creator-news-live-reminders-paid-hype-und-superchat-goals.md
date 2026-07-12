@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:EA7skAF4qLA"
 category: "news-video"
 tags: ["YouTube Updates", "Live-Erinnerungen", "Bezahlter Hype", "Super Chat Ziele", "Shorts Feed", "Live-Streaming-Verbesserungen", "Monetarisierung für Creator", "Transaktions-Einnahmen", "YouTube Studio Mobile"]
+relatedPosts: ["/youtube-tipps-de/youtube-hype-livestream-und-superchat-updates/", "/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/", "/youtube-tipps-de/youtube-updates-neue-untertitel-fur-shorts-und-erweiterung-der-hype-funktion/"]
 image: "https://i.ytimg.com/vi/EA7skAF4qLA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EA7skAF4qLA"

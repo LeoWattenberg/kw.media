@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:xS8QSY5GC68"
 category: "short-tutorial"
 tags: ["YouTube-Richtlinien", "Community-Richtlinien", "YouTube Studio", "Kanalmanagement", "Zuschauer-Interaktion", "Chat-Einstellungen", "Neuerungen auf YouTube"]
+relatedPosts: ["/youtube-tipps-de/jetzt-neu-kanalrichtlinien/", "/youtube-tipps-de/folge-den-richtlinien-und-lass-deinen-kanal-strahlen/", "/youtube-tipps-de/bleib-auf-dem-laufenden-schalte-benachrichtigungen-ein/"]
 image: "https://i.ytimg.com/vi/xS8QSY5GC68/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/xS8QSY5GC68"
