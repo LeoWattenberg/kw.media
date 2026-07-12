@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:glHG5LA9-4E"
 category: "news-video"
 tags: ["YouTube Updates", "Geschenkfunktionen", "Vertikale Live-Streams", "YouTube-Hype", "KI-Tools", "Inspiration-Tab", "EU-Einführung", "Abonnenten-Engagement", "Monetarisierung"]
+relatedPosts: ["/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/", "/youtube-tipps-de/youtube-erweitert-kostenloses-hype-in-die-eu-10-jahres-mitglieder-abzeichen/", "/youtube-tipps-de/youtube-update-der-inspiration-tab-fruher-research-tab-und-seine-neuen-funktionen/"]
 image: "https://i.ytimg.com/vi/glHG5LA9-4E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=glHG5LA9-4E"

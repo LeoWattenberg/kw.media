@@ -1,6 +1,6 @@
 import type { Locale } from '../i18n';
 import type { ToolPage, ToolPageModule } from '../lib/tool-page-module';
-import generatedToolMetadata from './generated-tool-metadata.json';
+import { generatedToolMetadata } from './generated-tool-metadata';
 
 export type { ToolPage, ToolPageModule } from '../lib/tool-page-module';
 
@@ -14,10 +14,8 @@ const toolAstroModules = import.meta.glob<ToolPageAstroModule>('./tools/**/*.ast
 });
 
 const toolModules = Object.values(toolAstroModules);
-const generatedMetadata = generatedToolMetadata as Record<string, { description?: string; content?: string[] }>;
-
 export const toolPages: ToolPage[] = toolModules.flatMap((module) => module.toolModule.pages).map((page) => {
-	const generated = generatedMetadata[page.path];
+	const generated = generatedToolMetadata[page.path];
 	return generated ? { ...page, ...generated } : page;
 });
 

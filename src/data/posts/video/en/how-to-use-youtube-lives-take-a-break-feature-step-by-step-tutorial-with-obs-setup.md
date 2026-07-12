@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:bYTAbOg_qzE"
 category: "video-tutorial"
 tags: ["YouTube Live Streaming", "OBS", "Stream Setup", "Break Feature", "Livestream Management", "Streaming Protocols", "Video Production", "Tutorials", "Platform Features"]
+relatedPosts: ["/youtube-tips-en/integrating-youtube-chat-into-obs/", "/youtube-tips-en/getting-started-with-obs-a-beginners-guide/", "/youtube-tips-en/youtube-updates-subscriber-list-shorts-view-definitions-and-take-a-break/"]
 image: "https://i.ytimg.com/vi/bYTAbOg_qzE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=bYTAbOg_qzE"

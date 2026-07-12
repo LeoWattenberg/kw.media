@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:7K_1NHsygk0"
 category: "video-tutorial"
 tags: ["YouTube Test & Compare", "A/B Testing", "Thumbnail Optimization", "Video Engagement", "YouTube Studio", "Creator-Tools", "Watch Time Analysis", "Click-Through Rate", "Visual Design"]
+relatedPosts: ["/youtube-tips-en/how-to-use-youtubes-new-thumbnail-test-and-compare-feature-for-better-engagement/", "/youtube-tips-en/the-secret-formula-of-a-b-tests-on-youtube/", "/youtube-tips-en/a-b-testing-on-youtube-everything-you-need-to-know-for-the-summer-launch/"]
 image: "https://i.ytimg.com/vi/7K_1NHsygk0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=7K_1NHsygk0"

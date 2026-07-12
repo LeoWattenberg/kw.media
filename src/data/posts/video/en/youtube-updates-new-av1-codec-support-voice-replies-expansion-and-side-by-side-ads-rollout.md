@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:RHJcqSPlG_s"
 category: "news-video"
 tags: ["YouTube Platform Updates", "AV1 Codec Support", "Live Stream Ads", "Side by Side Ads", "Voice Replies Android", "Google Lens Shorts", "Codec Technology", "Advertising Strategies", "Mobile Features", "Creator-Tools"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-profanity-rule-changes-side-by-side-ads-and-livestream-community-leaderboard/", "/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/", "/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/"]
 image: "https://i.ytimg.com/vi/RHJcqSPlG_s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=RHJcqSPlG_s"

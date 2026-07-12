@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:DetnFFjfqKA"
 category: "news-video"
 tags: ["YouTube Updates", "Clips-Funktion", "Live-Streaming-Monetarisierung", "Werbefreie Fenster", "KI-Tools", "Inhaltsstrategie", "Zuschauerbindung", "Werbeeinnahmen", "Audio-Qualität", "Abonnenten-Benachrichtigungen"]
+relatedPosts: ["/youtube-tipps-de/youtube-fuhrt-spannende-neuerungen-ein-clips-feed-update-und-mehr/", "/youtube-tipps-de/youtube-killt-das-abonennten-wasserzeichen-neue-geschenkziele-und-mehr/", "/youtube-tipps-de/youtube-hat-den-dislike-button-wieder-einmal-abgeschafft-creator-news/"]
 image: "https://i.ytimg.com/vi/DetnFFjfqKA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=DetnFFjfqKA"

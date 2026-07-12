@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:JhqpnMVoupA"
 category: "news-video"
 tags: ["YouTube Updates", "Werbefehler", "Einnahmenverlust", "Kollaborationsfunktion", "YouTube Studio App", "Fan Communities", "Schimpfwörter-Richtlinien", "Monetarisierung auf YouTube"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-fehler-bei-mid-roll-anzeigen-und-kommende-bearbeitungseinschrankungen/", "/youtube-tipps-de/youtube-premium-bug-warum-dein-umsatz-im-marz-sinken-wird/", "/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/"]
 image: "https://i.ytimg.com/vi/JhqpnMVoupA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JhqpnMVoupA"

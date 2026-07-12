@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:1xInnsGnSxM"
 category: "news-video"
 tags: ["YouTube Shorts", "Long Shorts", "Stream Scheduling", "Monetization Strategies", "Creator Resources", "Platform Updates", "Live Streaming Features", "Audience Engagement", "Content Promotion", "YouTube Community"]
+relatedPosts: ["/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/youtube-updates-playable-multitasking-and-3-minute-shorts/", "/youtube-tips-en/celebrate-with-us-1000-subscribers-and-youtube-shorts-updates/"]
 image: "https://i.ytimg.com/vi/1xInnsGnSxM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1xInnsGnSxM"

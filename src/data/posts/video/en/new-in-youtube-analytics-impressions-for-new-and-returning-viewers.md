@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:gw-LkDbK_R8"
 category: "news-video"
 tags: ["YouTube Analytics", "Impressions Data", "Viewer Segmentation", "Live Reactions", "Super Chat Enhancements", "Latency Settings", "Platform Updates", "Streaming Features", "Engagement Metrics"]
+relatedPosts: ["/youtube-tips-en/casual-vs-regular-viewers-new-youtube-analytics-will-tell-you-more/", "/youtube-tips-en/insight-into-impressions/", "/youtube-tips-en/youtube-abc-quick-start-with-youtube-analytics/"]
 image: "https://i.ytimg.com/vi/gw-LkDbK_R8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gw-LkDbK_R8"

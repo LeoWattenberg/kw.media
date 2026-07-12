@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:OiALToW1vk8"
 category: "short-tutorial"
 tags: ["YouTube-Richtlinien", "Inhaltsqualität", "Community-Richtlinien", "Monetarisierungsrichtlinien", "Creator-Verantwortung", "Inhaltsmoderation", "Altersfreigabe", "Sanktionen", "Plattformregeln"]
+relatedPosts: ["/youtube-tipps-de/jetzt-neu-kanalrichtlinien/", "/youtube-tipps-de/die-neue-schutzbestimmung-von-youtube-ist-da-veo-3-update/", "/youtube-tipps-de/youtube-strike-was-nun/"]
 image: "https://i.ytimg.com/vi/OiALToW1vk8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OiALToW1vk8"

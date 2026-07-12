@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:LmvblX4XfXo"
 category: "short-tutorial"
 tags: ["Creator Resources", "Music Licensing", "Content Monetization", "YouTube Audio Library", "Licensing", "Monetization Strategies", "Video Production", "Audio Production", "Creative Process"]
+relatedPosts: ["/youtube-tips-en/how-the-youtube-audio-library-works/", "/youtube-tips-en/replace-song-update-youtube-suggests-10-suitable-tracks-for-you/", "/youtube-tips-en/reused-content-monetization-disabled-what-now/"]
 image: "https://i.ytimg.com/vi/LmvblX4XfXo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/LmvblX4XfXo"

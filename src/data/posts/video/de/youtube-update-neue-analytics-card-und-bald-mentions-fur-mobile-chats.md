@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:W_IFK4IqfHo"
 category: "news-video"
 tags: ["YouTube Updates", "Analytics-Karte", "Zuschaueranalyse", "Geräteverteilung", "Mobile Chats", "Autovervollständigung", "Live-Streaming-Verbesserungen", "YouTube Studio"]
+relatedPosts: ["/youtube-tipps-de/neu-bei-youtube-analytics-impressionen-fur-neue-und-wiederkehrende-zuschauer/", "/youtube-tipps-de/gelegenheits-vs-regelmassige-zuschauer-neue-youtube-analytics-verraten-mehr/", "/youtube-tipps-de/youtube-analytics-top-verdienst-content-nach-format-als-orientierung-fur-creator/"]
 image: "https://i.ytimg.com/vi/W_IFK4IqfHo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=W_IFK4IqfHo"

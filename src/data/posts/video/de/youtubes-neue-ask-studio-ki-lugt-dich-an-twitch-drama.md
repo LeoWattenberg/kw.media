@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:s01Iqj9HmdI"
 category: "news-video"
 tags: ["YouTube Updates", "KI-Tools", "Ask Studio", "Twitch-Drama", "View Botting", "Monetarisierung", "Plattformvergleich", "Creator-Strategien"]
+relatedPosts: ["/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/", "/youtube-tipps-de/twitch-nutzt-ki-um-dich-zu-mikromanagen-creator-news/", "/youtube-tipps-de/warum-youtube-dir-im-shorts-feed-qr-codes-anzeigt-creator-news/"]
 image: "https://i.ytimg.com/vi/s01Iqj9HmdI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=s01Iqj9HmdI"

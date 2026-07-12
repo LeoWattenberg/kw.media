@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:bJbym4s4auQ"
 category: "news-video"
 tags: ["YouTube Updates", "Voice Replies", "Multilingual Audio", "Fan Communities", "Sustainability", "Creator Responsibilities", "Environmental Awareness", "Platform Enhancements", "Google AdSense Verification", "Moderation Tools"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/", "/youtube-tips-en/youtube-updates-mla-improved-brand-connections-and-community-overhaul-in-studio-mobile/", "/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/"]
 image: "https://i.ytimg.com/vi/bJbym4s4auQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=bJbym4s4auQ"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:BIzqRnp_0cQ"
 category: "short-tutorial"
 tags: ["Umfragen", "YouTube Shorts", "Interaktion mit Zuschauern", "Community-Engagement", "Neue Funktionen auf YouTube", "Shorts-Updates", "Zuschaueranalyse"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/", "/youtube-tipps-de/youtubes-updates-q-und-a-sticker-und-10mb-thumbnails/", "/youtube-tipps-de/langere-shorts-und-add-yours-sticker-youtubes-neueste-experimente/"]
 image: "https://i.ytimg.com/vi/BIzqRnp_0cQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/BIzqRnp_0cQ"

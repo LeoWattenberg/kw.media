@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:RfSTdOXEqhs"
 category: "short-tutorial"
 tags: ["YouTube Chapters", "Desktop Features", "Mobile App Navigation", "Video-Navigation", "User Experience", "YouTube Mobile App", "YouTube Studio Updates", "Short Tutorial"]
+relatedPosts: ["/youtube-tips-en/no-youtube-chapters-displaying/", "/youtube-tips-en/different-ways-to-create-shorts-shorts/", "/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts/"]
 image: "https://i.ytimg.com/vi/RfSTdOXEqhs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/RfSTdOXEqhs"

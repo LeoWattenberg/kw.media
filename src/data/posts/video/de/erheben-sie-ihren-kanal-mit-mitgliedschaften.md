@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:EWyU591a1JM"
 category: "short-tutorial"
 tags: ["YouTube-Mitgliedschaften", "Community-Engagement", "Einnahmequellen", "Exklusive Inhalte", "Monetarisierungsstrategien", "Creator-Einnahmen", "Zuschauer-Interaktion", "Abonnements und Mitgliedschaften", "YouTube-Strategie"]
+relatedPosts: ["/youtube-tipps-de/so-funktioniert-youtube-membership-gifting/", "/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/", "/youtube-tipps-de/neu-auf-youtube-mitglied-werden-button-animation/"]
 image: "https://i.ytimg.com/vi/EWyU591a1JM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/EWyU591a1JM"

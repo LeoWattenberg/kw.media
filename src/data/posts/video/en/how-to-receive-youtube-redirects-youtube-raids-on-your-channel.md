@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:Hy3CFCjHYog"
 category: "short-tutorial"
 tags: ["YouTube Live Streaming", "Stream Settings", "Platform Settings", "Community-Engagement", "Creator-Tools", "Live Redirects", "YouTube Studio", "Channel Management"]
+relatedPosts: ["/youtube-tips-en/do-this-to-be-able-to-recieve-youtube-live-redirects-youtube-raids/", "/youtube-tips-en/live-redirect-from-one-stream-to-the-next/", "/youtube-tips-en/getting-started-with-youtube-live-streaming/"]
 image: "https://i.ytimg.com/vi/Hy3CFCjHYog/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Hy3CFCjHYog"

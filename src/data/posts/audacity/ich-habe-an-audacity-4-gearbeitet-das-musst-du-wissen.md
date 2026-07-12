@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:5nJuWdclGkw"
 category: "audacity"
 tags: ["Audacity 4", "Audio-Bearbeitung", "Neue Funktionen", "Dunkles Theme", "Clip-Visualisierungen", "Mehrspuraufnahme", "Bearbeitungsmodi", "Split-Werkzeug", "Ripple-Bearbeitung"]
+relatedPosts: ["/audacity/ffmpeg-fur-audacity-installieren-tutorial/", "/audacity/desktop-audio-in-audacity-aufnehmen-tutorial/", "/audacity/ffmpeg-fur-audacity-installieren-schnelltutorial/"]
 image: "https://i.ytimg.com/vi/5nJuWdclGkw/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=5nJuWdclGkw"

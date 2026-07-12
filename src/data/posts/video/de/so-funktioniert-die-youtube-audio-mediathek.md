@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:8xWKE5cgjbU"
 category: "short-tutorial"
 tags: ["YouTube Audio-Mediathek", "Musik für Videos", "Lizenzfreie Musik", "YouTube Studio", "Audio-Tools", "Monetarisierung", "Inhaltserstellung", "Kreativitätstechniken"]
+relatedPosts: ["/youtube-tipps-de/neues-zu-creator-music/", "/youtube-tipps-de/replace-song-update-youtube-schlagt-dir-10-passende-tracks-vor/", "/youtube-tipps-de/wie-du-musik-und-videos-legal-verwendest/"]
 image: "https://i.ytimg.com/vi/8xWKE5cgjbU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8xWKE5cgjbU"

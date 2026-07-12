@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:JIJbmewxJVk"
 category: "short-tutorial"
 tags: ["YouTube-Strategie", "Monetarisierung", "Community-Richtlinien", "Urheberrecht", "Kanalmanagement", "Kreativität und Geschäft", "Zukunftsmöglichkeiten", "Virale Inhalte"]
+relatedPosts: ["/youtube-tipps-de/warum-grinden-schlecht-fur-dich-ist/", "/youtube-tipps-de/7-wege-wie-creator-geld-verdienen-jenseits-von-youtube-anzeigen/", "/youtube-tipps-de/verliere-ich-die-youtube-monetarisierung-wenn-ich-eine-pause-einlege/"]
 image: "https://i.ytimg.com/vi/JIJbmewxJVk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/JIJbmewxJVk"

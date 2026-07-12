@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:nmWIRLz-2LA"
 category: "short-tutorial"
 tags: ["Live-Streaming", "YouTube Mobile Update", "Livestream-Indikator", "Zuschauer-Interaktion", "Entdeckungsseiten", "YouTube-Funktionen", "Mobile Funktionen", "Plattform-Updates"]
+relatedPosts: ["/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/", "/youtube-tipps-de/wie-man-live-streams-beherrscht/", "/youtube-tipps-de/einstieg-in-das-live-streaming-auf-youtube/"]
 image: "https://i.ytimg.com/vi/nmWIRLz-2LA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nmWIRLz-2LA"

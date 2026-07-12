@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:R7uZYO3UbB0"
 category: "video-tutorial"
 tags: ["A/B-Testen für Miniaturansichten", "YouTube Studio", "Miniaturansichten erstellen", "Engagement-Steigerung", "Zuschaueranalyse", "Video-Optimierung", "YouTube-Funktionen", "Clickbait-Prävention", "Watchtime Rate"]
+relatedPosts: ["/youtube-tipps-de/was-ist-youtube-test-und-compare-bzw-thumbnail-a-b-testing/", "/youtube-tipps-de/die-geheime-formel-fur-a-b-tests-auf-youtube/", "/youtube-tipps-de/wie-man-klicks-auf-youtube-miniaturansichten-bekommt-das-aida-modell/"]
 image: "https://i.ytimg.com/vi/R7uZYO3UbB0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=R7uZYO3UbB0"

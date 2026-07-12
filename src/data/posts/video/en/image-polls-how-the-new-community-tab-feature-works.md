@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:eFpsYo_qJbM"
 category: "short-tutorial"
 tags: ["YouTube Community", "Image Polls", "Android Features", "Mobile Optimization", "Community-Engagement", "Interactive Content", "Video Linking", "User Interaction", "Short Tutorial", "YouTube Updates"]
+relatedPosts: ["/youtube-tips-en/new-poll-stickers-for-shorts/", "/youtube-tips-en/expand-your-reach-stay-in-touch-with-your-community/", "/youtube-tips-en/youtube-fan-communities-everything-you-need-to-know/"]
 image: "https://i.ytimg.com/vi/eFpsYo_qJbM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/eFpsYo_qJbM"

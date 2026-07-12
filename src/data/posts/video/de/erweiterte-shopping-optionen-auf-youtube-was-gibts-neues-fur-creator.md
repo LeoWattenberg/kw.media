@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:FZw6pXiSETg"
 category: "news-video"
 tags: ["E-Commerce auf YouTube", "Shopping Collections", "Affiliate Hub", "Plattformintegrationen", "Creator-Monetarisierung", "Produktverlinkung", "Online-Shops", "Shopify Integration", "Spreadshirt/Spreadshop", "Spring"]
+relatedPosts: ["/youtube-tipps-de/youtube-update-neue-clip-tools-upgrade-des-einkaufsaufklebers-und-livestream-richtlinie/", "/youtube-tipps-de/youtube-fuhrt-spannende-neuerungen-ein-clips-feed-update-und-mehr/", "/youtube-tipps-de/youtube-updates-youtube-studio-app-youtube-app-kommentare-community-posts/"]
 image: "https://i.ytimg.com/vi/FZw6pXiSETg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=FZw6pXiSETg"

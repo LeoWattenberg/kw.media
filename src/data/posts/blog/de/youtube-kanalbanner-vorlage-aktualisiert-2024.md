@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "post:2325"
 category: "blog"
 tags: ["YouTube-Kanaldesign", "Banner-Vorlage", "Visuelle Markenidentität", "Grafikdesign", "Abmessungen und Sicherheitsbereiche", "Desktop- und Mobiloptimierung", "TV-App-Kompatibilität", "YouTube-Richtlinien", "Branding-Strategien"]
+relatedPosts: ["/youtube-tipps-de/dein-youtube-kanal-anleitung-zur-anpassung-von-profilbild-banner-und-wasserzeichen/", "/youtube-tipps-de/steigere-deinen-kanal-mit-effektivem-branding/", "/youtube-tipps-de/starte-durch-deinen-youtube-kanal-erstellen-in-2024-personliche-und-firmen-kanale/"]
 image: "/assets/wp-content/uploads/2023/08/YouTube-Channel-Banner-Template-by-kw.media_.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/youtube-channel-banner-template-updated-2024/"

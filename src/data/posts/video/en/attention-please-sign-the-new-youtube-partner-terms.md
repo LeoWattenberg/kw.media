@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:5vBlAeXG_uE"
 category: "short-tutorial"
 tags: ["YouTube Partner Program", "Contract Update", "Platform Policies", "Creator Agreements", "Legal Requirements", "YouTube Features Access", "Content Creator Rights", "July 2023 Deadline"]
+relatedPosts: ["/youtube-tips-en/tax-form-updates-for-youtube-partners-and-youtube-hype-under-fire/", "/youtube-tips-en/new-objection-right-in-the-youtube-partner-program-and-channel-page-overhauls/", "/youtube-tips-en/everything-important-about-the-new-youtube-fan-funding-partner-level/"]
 image: "https://i.ytimg.com/vi/5vBlAeXG_uE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5vBlAeXG_uE"

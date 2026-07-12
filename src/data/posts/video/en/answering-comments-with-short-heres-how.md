@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:hJLZbzvabYE"
 category: "short-tutorial"
 tags: ["YouTube Shorts", "Comment Replies", "Short Tutorial", "Video Responses", "Platform Updates", "YouTube Features", "Content Creator Tools", "Audience Engagement", "Creator Resources"]
+relatedPosts: ["/youtube-tips-en/different-ways-to-create-shorts-shorts/", "/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts/", "/youtube-tips-en/editable-thumbnails-for-shorts/"]
 image: "https://i.ytimg.com/vi/hJLZbzvabYE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hJLZbzvabYE"

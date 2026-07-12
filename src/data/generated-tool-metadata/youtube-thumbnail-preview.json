@@ -1,0 +1,20 @@
+{
+	"/de/tools/youtube-thumbnail-preview/": {
+		"content": [
+			"Mit der YouTube-Thumbnail-Vorschau kannst du dein YouTube-Video [direkt im Browser](/de/tools/vtuber-preview/) auf ein ansprechendes Thumbnail und einen passenden Titel optimieren. Diese kostenlose Online-Anwendung zeigt dir, wie deine Auswahl in verschiedenen Größen und Formaten auf Web und App aussieht, sodass du sichergehen kannst, dass dein Video sofort auffällt.",
+			"Lade einfach das gewünschte Thumbnail hoch oder verwende die integrierte Bildersuche. Anschließend passt die Software es automatisch an die [YouTube-Anforderungen](/de/youtube-tipps/) an und zeigt dir Vorschauen in verschiedenen Größen. So kannst du [direkt im Browser](/de/tools/whisper-untertitel-generator/) zwischen verschiedenen Varianten wählen, ohne zusätzliche Software installieren zu müssen.",
+			"Unterstützt werden alle gängigen Bildformate wie [JPEG, PNG und GIF](/de/tools/converter/image-format-converter/) sowie Videos für die Titelschau. Die Anwendung verarbeitet die Dateien lokal auf deinem Gerät, sodass deine Daten sicher bleiben und keine Serverbelastung entsteht.",
+			"Dein Video bleibt in deiner Hand: Die YouTube-Thumbnail-Vorschau bietet lokale Verarbeitung ohne Datenspeicherung oder -übertragung. Alle Änderungen und Entscheidungen treffen Sie direkt in Ihrem Browser, während Ihre Dateien geschützt auf Ihrem Gerät bleiben."
+		],
+		"description": "Überprüfe dein YouTube-Thumbnail und Titel in verschiedenen Größen direkt im Browser – lokale Vorschau ohne Download."
+	},
+	"/en/tools/youtube-thumbnail-preview/": {
+		"content": [
+			"YouTube Thumbnail Preview is a powerful tool designed to revolutionize the way you create [thumbnails for your YouTube videos](/en/tools/analyzers/). It allows you to visualize how your thumbnail and title will appear on both the web and mobile platforms, ensuring a consistent user experience across all devices. With this tool, you can make informed design decisions without leaving your browser.",
+			"The workflow is simple: upload your desired thumbnail image or use our built-in templates, input your video title, and select the platform (web or app). The tool then generates real-time previews, showing how your content will be displayed on YouTube. You can adjust settings, zoom in for detail, and ensure your thumbnail captures viewers' attention before publishing.",
+			"This utility supports a wide range of formats, including [JPEG, PNG, GIF, and SVG](/en/tools/converter/image-format-converter/) for thumbnails, and [plain text](/en/tools/converters/document-to-txt/) for titles. It's an all-in-one solution to streamline your [video editing process](/en/tools/video/), making it easy to create engaging thumbnails that resonate with your audience on both web and mobile YouTube interfaces.",
+			"By utilizing local browser processing, YouTube Thumbnail Preview ensures your data remains secure and private. No files are uploaded or shared; the tool processes and renders previews right within your browser, giving you control over your content and maintaining the highest level of confidentiality."
+		],
+		"description": "Instantly preview YouTube thumbnails and titles in real-time, right in your browser, without any downloads or uploads."
+	}
+}

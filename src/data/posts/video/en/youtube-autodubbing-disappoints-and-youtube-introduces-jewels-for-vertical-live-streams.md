@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:Ca2UQvh5p5Q"
 category: "news-video"
 tags: ["YouTube Updates", "Auto Dubbing", "Vertical Live Streaming", "Long Shorts", "YouTube Jewels", "Monetization Features", "AI Translation", "Live Stream Enhancements", "Platform Improvements"]
+relatedPosts: ["/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/", "/youtube-tips-en/youtube-updates-auto-dubbing-with-intonation-create-app-on-ios-for-1/", "/youtube-tips-en/youtube-updates-mla-improved-brand-connections-and-community-overhaul-in-studio-mobile/"]
 image: "https://i.ytimg.com/vi/Ca2UQvh5p5Q/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=Ca2UQvh5p5Q"

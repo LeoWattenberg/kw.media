@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:vbJb0uVty9o"
 category: "news-video"
 tags: ["YouTube Policy Changes", "Gaming Channel Restrictions", "Gambling and Violence Enforcement", "Age Restrictions", "Demonetization", "Advanced Analytics", "Paid vs Organic Metrics", "Audience Retention Analysis", "Google Lens Integration", "Content Monetization Strategies"]
+relatedPosts: ["/youtube-tips-en/youtube-advanced-analytics-overhaul-inspiration-ai-now-in-eu/", "/youtube-tips-en/youtube-updates-youtube-studio-app-youtube-app-comments-community-posts/", "/youtube-tips-en/content-not-available-youtubes-ad-block-ramp-up-and-twitch-business-manager-role/"]
 image: "https://i.ytimg.com/vi/vbJb0uVty9o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=vbJb0uVty9o"

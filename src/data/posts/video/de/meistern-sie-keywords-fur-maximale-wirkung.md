@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:j1kZ_CuZOG8"
 category: "short-tutorial"
 tags: ["YouTube-Werbung", "Schlüsselwort-Strategie", "Klickrate optimieren", "Suchmaschinenoptimierung (SEO) für YouTu", "Google Ads Schlüsselwortplaner", "Zielgruppenansprache", "Anzeigen-Strategien", "Sichtbarkeit erhöhen", "Zuschauerbindung"]
+relatedPosts: ["/youtube-tipps-de/einfache-youtube-seo-fur-gaming-kanale/", "/youtube-tipps-de/trendinge-hashtags-sind-hashtags-noch-relevant/", "/youtube-tipps-de/hort-auf-hintergrundmusik-zu-verwenden-grosstes-youtube-suchupdate-seit-jahren-youtube-creator-news/"]
 image: "https://i.ytimg.com/vi/j1kZ_CuZOG8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/j1kZ_CuZOG8"

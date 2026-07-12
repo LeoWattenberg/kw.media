@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:RHJcqSPlG_s"
 category: "news-video"
 tags: ["YouTube Updates", "AV1-Codec", "Live-Streaming", "Neben-an-Neben-Anzeigen", "Sprachantworten", "Android-Funktionen", "Werbeformate", "Google Lens", "Shorts-Funktionen"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-anderungen-bei-der-regel-zu-schimpfwortern-neben-an-neben-anzeigen-und-live-stream-community-bestenliste/", "/youtube-tipps-de/youtube-updates-voice-replies-shorts-promotions-und-anderungen-bei-mid-roll-ads/", "/youtube-tipps-de/youtube-updates-brandconnect-expansion-und-neue-streaming-features/"]
 image: "https://i.ytimg.com/vi/RHJcqSPlG_s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=RHJcqSPlG_s"

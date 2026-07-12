@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1430"
 category: "blog"
 tags: ["YouTube Channel Growth", "Content Creation", "Creator Resources", "Channel Management", "Video Ideas", "Audience Building", "Monetization Strategies", "Exploration Phase", "Development Phase", "Established Channel"]
+relatedPosts: ["/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/", "/youtube-tips-en/the-eee-model-how-to-break-out-of-the-small-youtuber-niche/", "/youtube-tips-en/why-50-hours-of-editing-gets-0-views/"]
 image: "/assets/wp-content/uploads/2021/06/WHY-GRINDING-IS-BAD-FOR-YOU.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/"

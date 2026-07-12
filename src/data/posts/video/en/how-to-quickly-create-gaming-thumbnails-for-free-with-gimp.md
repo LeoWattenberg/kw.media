@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:gdibcpbh45g"
 category: "video-tutorial"
 tags: ["Thumbnail Design", "GIMP", "Free Tools", "Gaming Channels", "Visual Branding", "Video Promotion", "YouTube-Thumbnails", "Graphic Design", "Non-Destructive Editing"]
+relatedPosts: ["/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/", "/youtube-tips-en/how-to-get-clicks-on-thumbnails-the-aida-model/", "/youtube-tips-en/how-to-use-youtubes-new-thumbnail-test-and-compare-feature-for-better-engagement/"]
 image: "https://i.ytimg.com/vi/gdibcpbh45g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=gdibcpbh45g"

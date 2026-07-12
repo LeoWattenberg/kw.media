@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:mZgmJ4ch5Mo"
 category: "short-tutorial"
 tags: ["YouTube Community", "Channel Growth", "Audience Engagement", "Community Support", "Content Creator Tools", "Platform Updates", "YouTube Features Access", "Short Tutorial"]
+relatedPosts: ["/youtube-tips-en/youtube-introduces-exciting-innovations-clips-feed-update-and-more/", "/youtube-tips-en/youtube-fan-communities-everything-you-need-to-know/", "/youtube-tips-en/how-to-set-up-youtube-channel-guidelines/"]
 image: "https://i.ytimg.com/vi/mZgmJ4ch5Mo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/mZgmJ4ch5Mo"

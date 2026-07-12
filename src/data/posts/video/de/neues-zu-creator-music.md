@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:LmvblX4XfXo"
 category: "short-tutorial"
 tags: ["Hintergrundmusik", "Musik für Videos", "Lizenzierung", "Monetarisierung", "YouTube-Tools", "Creator-Ressourcen", "Audio-Strategie", "Inhaltserstellung", "Plattform-Neuerungen"]
+relatedPosts: ["/youtube-tipps-de/so-funktioniert-die-youtube-audio-mediathek/", "/youtube-tipps-de/replace-song-update-youtube-schlagt-dir-10-passende-tracks-vor/", "/youtube-tipps-de/wie-du-musik-und-videos-legal-verwendest/"]
 image: "https://i.ytimg.com/vi/LmvblX4XfXo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/LmvblX4XfXo"

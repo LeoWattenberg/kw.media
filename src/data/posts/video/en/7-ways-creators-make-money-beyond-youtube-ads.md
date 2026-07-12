@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:c_wnvd3Ru0A"
 category: "short-tutorial"
 tags: ["Monetization Strategies", "Creator Resources", "YouTube Partner Program", "Patreon", "Digital Products", "Merchandise", "Affiliate-Marketing", "Sponsorships", "Coaching Services", "Community Support"]
+relatedPosts: ["/youtube-tips-en/everything-important-about-the-new-youtube-fan-funding-partner-level/", "/youtube-tips-en/elevate-your-channel-with-memberships/", "/youtube-tips-en/new-developments-in-creator-music/"]
 image: "https://i.ytimg.com/vi/c_wnvd3Ru0A/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/c_wnvd3Ru0A"

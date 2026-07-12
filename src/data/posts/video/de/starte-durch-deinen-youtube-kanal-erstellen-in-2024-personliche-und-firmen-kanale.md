@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:mKOsyRGYNyc"
 category: "video-tutorial"
 tags: ["YouTube-Kanal erstellen", "Persönlicher Kanal", "Brand Kanal", "Firmenkanal", "Google Konto", "Kanalverwaltung", "Rollen und Berechtigungen", "Kanaldesign", "Grundlegende Einstellungen", "Video-Veröffentlichung"]
+relatedPosts: ["/youtube-tipps-de/steigere-deinen-kanal-mit-effektivem-branding/", "/youtube-tipps-de/dein-youtube-kanal-anleitung-zur-anpassung-von-profilbild-banner-und-wasserzeichen/", "/youtube-tipps-de/youtube-kanalbanner-vorlage-aktualisiert-2024/"]
 image: "https://i.ytimg.com/vi/mKOsyRGYNyc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=mKOsyRGYNyc"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:PLZG4pTLp14"
 category: "news-video"
 tags: ["YouTube Updates", "Abonnement-Funktionen", "Livestreaming-Funktionen", "Fan Funding", "YouTube Studio", "Benutzeroberflächen-Anpassungen", "Creator-Kontrolle", "Mobile Optimierung"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-verwirrung-um-abonnieren-und-autodubbing-vollstandig-ausgerollt/", "/youtube-tipps-de/youtube-beendet-das-clip-feature-und-warum-das-tatsachlich-ein-gewinn-fur-deinen-kanal-ist/", "/youtube-tipps-de/youtube-updates-abonnenten-liste-shorts-views-definitionen-und-take-a-break/"]
 image: "https://i.ytimg.com/vi/PLZG4pTLp14/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=PLZG4pTLp14"

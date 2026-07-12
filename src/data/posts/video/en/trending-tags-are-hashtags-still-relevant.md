@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:b5xKbnpC8P4"
 category: "short-tutorial"
 tags: ["YouTube-Hashtags", "Content Discoverability", "Video Optimization", "Audience Targeting", "Search Engine Optimization", "YouTube Tips", "Short Tutorial", "Channel Growth Strategies"]
+relatedPosts: ["/youtube-tips-en/finding-youtube-hashtag-channels-shorts/", "/youtube-tips-en/simple-youtube-seo-for-gaming-channels/", "/youtube-tips-en/stop-using-background-music-biggest-youtube-search-update-in-years-youtube-creator-news/"]
 image: "https://i.ytimg.com/vi/b5xKbnpC8P4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/b5xKbnpC8P4"

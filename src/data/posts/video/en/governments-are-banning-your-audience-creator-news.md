@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:U4ZQqoBy7nU"
 category: "news-video"
 tags: ["Platform Policies", "Legal Issues", "Age Restrictions", "YouTube Community", "Twitch-Updates", "Monetization Strategies", "Live Streaming Features", "Channel Management", "Creator Resources", "Audience Targeting"]
+relatedPosts: ["/youtube-tips-en/youtube-bans-accounts-under-16-why-ctr-is-dead/", "/youtube-tips-en/they-want-you-to-automate-then-ban-your-channel-creator-news/", "/youtube-tips-en/youtube-update-strict-gambling-rules-and-changes-to-monetization-checks/"]
 image: "https://i.ytimg.com/vi/U4ZQqoBy7nU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=U4ZQqoBy7nU"

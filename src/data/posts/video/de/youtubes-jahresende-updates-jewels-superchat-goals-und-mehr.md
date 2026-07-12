@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:AvwEC8I-7Vk"
 category: "news-video"
 tags: ["YouTube-Funktionen", "Juwelen (YouTube)", "Super Chat Goals", "Monetarisierung", "KI-Integration", "Shorts-Updates", "Gaming-Rückblick", "Plattform-Neuerungen", "Creator-Einnahmen"]
+relatedPosts: ["/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/", "/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/", "/youtube-tipps-de/youtube-updates-dezember-endspurt-mit-mla-und-superchat-goals/"]
 image: "https://i.ytimg.com/vi/AvwEC8I-7Vk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=AvwEC8I-7Vk"

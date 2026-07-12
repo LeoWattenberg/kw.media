@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:5DBif93dBc4"
 category: "short-tutorial"
 tags: ["Shorts-Monetarisierung", "YouTube-Partnerprogramm", "Shorts-Strategien", "Einnahmen generieren", "Creator-Einnahmen", "YouTube Updates", "Plattform-Neuerungen", "Monetarisierungsmodelle"]
+relatedPosts: ["/youtube-tipps-de/so-kommst-du-mit-youtube-shorts-ins-partner-programm/", "/youtube-tipps-de/so-monetarisierst-du-alte-shorts/", "/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/"]
 image: "https://i.ytimg.com/vi/5DBif93dBc4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5DBif93dBc4"

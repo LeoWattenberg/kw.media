@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:FUEDT9dEIxQ"
 category: "video-tutorial"
 tags: ["YouTube-Hype", "Community-Interaktion", "Aufstrebende Creator", "Sichtbarkeit erhöhen", "Zuschauer Engagement", "YouTube-Funktionen", "Monetarisierungsstrategien", "Bezahlter Hype", "Kanalwachstum", "YouTube-Strategie"]
+relatedPosts: ["/youtube-tipps-de/youtube-erweitert-kostenloses-hype-in-die-eu-10-jahres-mitglieder-abzeichen/", "/youtube-tipps-de/youtubes-losung-fur-fomo-koder-neue-kanal-filter-erklart-creator-news/", "/youtube-tipps-de/youtube-live-stream-updates-hype-erweiterung-und-ki-inspirationswerkzeuge-fur-eu-creator/"]
 image: "https://i.ytimg.com/vi/FUEDT9dEIxQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=FUEDT9dEIxQ"

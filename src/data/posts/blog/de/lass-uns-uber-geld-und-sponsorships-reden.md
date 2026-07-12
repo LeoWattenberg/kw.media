@@ -9,6 +9,7 @@ modified: "2023-03-17T12:57:28"
 locale: "de"
 category: "blog"
 tags: ["Monetarisierung", "Sponsorships", "Preisgestaltung für Creator", "Produktionskosten", "Marktwert", "CPM-Werte", "Kooperationsmodelle", "Agenturmodelle", "Steuern und Abrechnung"]
+relatedPosts: ["/youtube-tipps-de/so-findest-du-den-richtigen-preis-fur-ein-sponsorship/", "/youtube-tipps-de/7-wege-wie-creator-geld-verdienen-jenseits-von-youtube-anzeigen/", "/youtube-tipps-de/darum-verdienst-du-mehr-auf-youtube-als-auf-twitch-einnahmen-vergleich/"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/lass-uns-uber-geld-und-sponsorships-reden/"

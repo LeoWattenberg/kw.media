@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:M_hmS22uI-8"
 category: "short-tutorial"
 tags: ["YouTube Shorts", "Kurzvideo-Erstellung", "Mobile Produktion", "Kurzvideo-Bearbeitung", "Creator-Tipps", "YouTube-Funktionen", "Kurze Tutorials"]
+relatedPosts: ["/youtube-tipps-de/verschiedene-wege-shorts-zu-erstellen-shorts/", "/youtube-tipps-de/bearbeitbare-miniaturansichten-fur-shorts/", "/youtube-tipps-de/kommentare-mit-short-beantworten-so-gehts/"]
 image: "https://i.ytimg.com/vi/M_hmS22uI-8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/M_hmS22uI-8"

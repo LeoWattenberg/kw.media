@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:CPUIzFT6wmM"
 category: "short-tutorial"
 tags: ["YouTube-Kanalverwaltung", "YouTube Studio", "Mitgliederfunktionen", "Kanalanpassung", "Monetarisierungsstrategien"]
+relatedPosts: ["/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/", "/youtube-tipps-de/so-funktioniert-youtube-membership-gifting/", "/youtube-tipps-de/wo-finde-ich-auf-youtube-meine-kaufe-und-mitgliedschaften/"]
 image: "https://i.ytimg.com/vi/CPUIzFT6wmM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CPUIzFT6wmM"

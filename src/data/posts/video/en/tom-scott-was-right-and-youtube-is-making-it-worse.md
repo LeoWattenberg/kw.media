@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:qQOhV-QmOU4"
 category: "news-video"
 tags: ["YouTube Platform Updates", "A/B Testing (Test and Compare)", "Creator-Burnout", "Content Optimization", "Video Editing Tools", "Twitch Features", "Streaming Quality", "Dual Format Streaming", "Creator-Support", "Capacity Planning"]
+relatedPosts: ["/youtube-tips-en/youtubes-new-ai-is-destroying-your-pacing-and-analytics-creator-news/", "/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/", "/youtube-tips-en/content-not-available-youtubes-ad-block-ramp-up-and-twitch-business-manager-role/"]
 image: "https://i.ytimg.com/vi/qQOhV-QmOU4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=qQOhV-QmOU4"

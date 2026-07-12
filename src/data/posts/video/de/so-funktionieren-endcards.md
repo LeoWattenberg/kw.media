@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:MESXE9-pLDc"
 category: "short-tutorial"
 tags: ["YouTube-Endkarten", "Kurzvideo-Bearbeitung", "YouTube Studio", "Elemente und Vorlagen", "Import/Export", "Kanalmanagement", "Zuschauer-Interaktion", "Video-Optimierung", "YouTube-Funktionen"]
+relatedPosts: ["/youtube-tipps-de/so-funktionieren-kanaltrailer/", "/youtube-tipps-de/youtube-video-kapitel-sind-awesome-und-das-ist-der-grund-shorts/", "/youtube-tipps-de/analyse-der-beteiligung/"]
 image: "https://i.ytimg.com/vi/MESXE9-pLDc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/MESXE9-pLDc"

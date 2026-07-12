@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:J8RN6vLmLh4"
 category: "news-video"
 tags: ["YouTube Updates", "Autodubbing", "Multilingual Audio", "Collapse Feature", "Revenue Sharing", "Voice Replies", "YouTube Live Experiments", "Creator Goals", "Moderation Tools"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-ai-age-verification-autodubbing-editor-and-community-post-limits-change/", "/youtube-tips-en/youtube-updates-auto-dubbing-with-intonation-create-app-on-ios-for-1/", "/youtube-tips-en/i-was-wrong-about-autodubbing-first-week-youtube-data-set-april-2025/"]
 image: "https://i.ytimg.com/vi/J8RN6vLmLh4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=J8RN6vLmLh4"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:FlH6HGVR82A"
 category: "short-tutorial"
 tags: ["Shorts", "Sampling-Einstellungen", "YouTube Studio", "Video-Berechtigungen", "Inhaltsnutzung", "Creator-Autonomie", "Shorts-Strategien", "Video-Sammlung"]
+relatedPosts: ["/youtube-tipps-de/verschiedene-wege-shorts-zu-erstellen-shorts/", "/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts-2/", "/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts/"]
 image: "https://i.ytimg.com/vi/FlH6HGVR82A/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/FlH6HGVR82A"

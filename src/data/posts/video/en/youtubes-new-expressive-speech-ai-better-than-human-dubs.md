@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:EUX5WpvVvB8"
 category: "news-video"
 tags: ["AI Tools", "YouTube AI", "Automatic Captions", "Expressive Speech", "Viewer Engagement", "Content Localization", "Subtitling", "Voiceover Technology", "Content Quality", "Platform Updates"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-auto-dubbing-with-intonation-create-app-on-ios-for-1/", "/youtube-tips-en/i-was-wrong-about-autodubbing-first-week-youtube-data-set-april-2025/", "/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/"]
 image: "https://i.ytimg.com/vi/EUX5WpvVvB8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EUX5WpvVvB8"

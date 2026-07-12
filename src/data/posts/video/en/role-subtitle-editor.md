@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:ejYerCk6F_k"
 category: "short-tutorial"
 tags: ["YouTube Platform Updates", "Caption Editor Role", "Video Accessibility", "Subtitle Editing", "Collaboration Tools", "Content Customization", "YouTube Community Engagement"]
+relatedPosts: ["/youtube-tips-en/channel-permissions-on-youtube-shorts/", "/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/", "/youtube-tips-en/the-power-of-jump-cuts/"]
 image: "https://i.ytimg.com/vi/ejYerCk6F_k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ejYerCk6F_k"

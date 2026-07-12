@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:BpTFWaLGDR4"
 category: "short-tutorial"
 tags: ["YouTube Monetization", "YouTube Shorts", "Monetization Features", "YouTube Studio", "Short Tutorial", "Content Monetization", "Revenue Generation", "Platform Features", "Video Promotion"]
+relatedPosts: ["/youtube-tips-en/when-is-the-short-monetization-coming/", "/youtube-tips-en/how-to-get-into-the-partner-program-with-youtube-shorts/", "/youtube-tips-en/reused-content-monetization-disabled-what-now/"]
 image: "https://i.ytimg.com/vi/BpTFWaLGDR4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/BpTFWaLGDR4"

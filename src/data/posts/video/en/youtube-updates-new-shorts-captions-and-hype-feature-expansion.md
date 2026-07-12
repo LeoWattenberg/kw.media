@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:pgpp8FB-Jwg"
 category: "news-video"
 tags: ["YouTube Updates", "Shorts Captions", "Hype Feature Expansion", "Accessibility Features", "YouTube Create App", "Video Templates", "Content Creator Tools", "Community Posts", "Content Discovery", "AI-Generated Summaries"]
+relatedPosts: ["/youtube-tips-en/youtube-hype-livestream-and-superchat-updates/", "/youtube-tips-en/youtube-updates-leaderboards-shorts-visual-guides-and-shorts-quiz-stickers/", "/youtube-tips-en/coming-soon-to-youtube-custom-thumbs-for-shorts-and-superchat-goals/"]
 image: "https://i.ytimg.com/vi/pgpp8FB-Jwg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=pgpp8FB-Jwg"

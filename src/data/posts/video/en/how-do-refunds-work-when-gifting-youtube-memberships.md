@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:dnT2t4c94kw"
 category: "short-tutorial"
 tags: ["YouTube Memberships", "Gift Memberships", "Revenue Generation", "Platform Policies", "Monetization Features", "Creator Resources", "Audience Engagement", "Live Streaming Features", "YouTube Community Engagement", "Payment Terms"]
+relatedPosts: ["/youtube-tips-en/how-it-works-youtube-membership-gifting/", "/youtube-tips-en/where-can-i-find-my-purchases-and-memberships-on-youtube/", "/youtube-tips-en/elevate-your-channel-with-memberships/"]
 image: "https://i.ytimg.com/vi/dnT2t4c94kw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/dnT2t4c94kw"

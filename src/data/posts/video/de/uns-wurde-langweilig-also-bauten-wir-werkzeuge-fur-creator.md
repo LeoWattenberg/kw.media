@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:YOyDmdKFKYg"
 category: "news-video"
 tags: ["Creator-Tools", "Datenschutz", "Workflow-Optimierung", "YouTube-Miniaturansichten", "Audio-ABX-Test", "MP3-Qualitätstest", "Bildformatkonverter", "Hintergrundentfernung", "Clientseitige Verarbeitung"]
+relatedPosts: ["/youtube-tipps-de/youtubes-neue-ki-zerstort-dein-pacing-und-analytics-creator-news/", "/youtube-tipps-de/youtube-news-second-chance-pilot-ask-studio-deep-dive-und-communities-auf-dem-desktop/", "/youtube-tipps-de/youtubes-neue-ask-studio-ki-lugt-dich-an-twitch-drama/"]
 image: "https://i.ytimg.com/vi/YOyDmdKFKYg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=YOyDmdKFKYg"

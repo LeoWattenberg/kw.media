@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:jkTohCOCLdg"
 category: "news-video"
 tags: ["YouTube Updates", "Ad Placement", "Mid-Roll Ads", "Video Editing Restrictions", "YouTube Studio Features", "Creator-Tools", "Ad Revenue Impact", "Google Takeout", "Data Management"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/", "/youtube-tips-en/youtube-updates-youtube-bug-wipes-ad-revenue-collab-feed-rollout/", "/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/"]
 image: "https://i.ytimg.com/vi/jkTohCOCLdg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=jkTohCOCLdg"

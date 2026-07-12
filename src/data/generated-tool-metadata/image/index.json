@@ -1,0 +1,20 @@
+{
+	"/de/tools/image/": {
+		"content": [
+			"Bild-Tools ist eine intuitive Browser-basierte Plattform, die Ihnen die Kontrolle über Ihre Bildbearbeitung gibt. Mit einfachen Schritten können Sie [Bilder freistellen](/de/tools/bildobjekt-freistellen/), Vorschauen anzeigen, [Wasserzeichen hinzufügen](/de/tools/bild-video-wasserzeichen/) oder das [Format ändern](/de/tools/converter/image-format-converter/) – alles ohne Softwareinstallation. Optimieren Sie Ihre Arbeitsabläufe und kreative Prozesse mit diesen leistungsstarken, aber benutzerfreundlichen Werkzeugen.",
+			"Die Nutzung ist einfach: Laden Sie Ihr Bild hoch, wählen Sie die gewünschte Funktion aus und passen Sie die Einstellungen an. Die Bearbeitungen erfolgen [direkt im Browser](/de/tools/vtuber-preview/), sodass keine Datenübertragung auf externe Server stattfindet. So bleiben Ihre Bilder und Bearbeitungspräferenzen lokal und sicher bei Ihnen.",
+			"Unterstützt werden Bildformate wie JPEG, PNG, GIF und SVG. Außerdem können Sie Wasserzeichen in verschiedenen Stilen und Größen anwenden. Ob für professionelle Projekte oder persönliche Zwecke – Bild-Tools bietet die notwendige Flexibilität und Qualität für Ihre Bildbearbeitungsanforderungen.",
+			"Datenschutz ist uns wichtig: Alle Vorgänge laufen lokal auf Ihrem Gerät ab, ohne dass sensible Daten an Dritte weitergegeben werden. Sie haben die volle Kontrolle über Ihre Bilder und können jederzeit den Bearbeitungsprozess abbrechen oder die Ergebnisse herunterladen."
+		],
+		"description": "Erstellen Sie Bilder direkt im Browser: Freistellen, Vorschauen, Wasserzeichen und Formatwechsel mit unseren leistungsstarken, clientseitigen Bild-Tools."
+	},
+	"/en/tools/image/": {
+		"content": [
+			"Image Tools is a suite of intuitive browser-based utilities designed to enhance your digital imaging workflow. This simple yet powerful collection of tools allows you to perform various operations directly in your web browser, ensuring accessibility and efficiency without the need for complex software installations.",
+			"The user experience is seamless; simply upload your images, and our tools become available instantly. From [precise cutouts](/en/tools/image-object-extractor/) and previews to the [addition of watermarks](/en/tools/image-video-watermark/) or [converting between formats](/en/tools/converter/), each feature is meticulously crafted to streamline your image manipulation process. All processing occurs within your browser, ensuring privacy and security without any data leaving your device.",
+			"Supported media types include JPEG, PNG, GIF, and BMP. Our tools are designed for versatility, catering to a wide range of user needs, from basic editing to more specialized tasks. Experience the convenience of professional-grade image manipulation right in your web browser.",
+			"We prioritize local processing, ensuring that your images remain secure and private. No data is stored or shared beyond what's necessary for the tools to function, giving you peace of mind while you work."
+		],
+		"description": "Powerful browser-based image tools for precise cuts, previews, watermarks, and format conversions—all done locally on your device."
+	}
+}

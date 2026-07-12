@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:KPkL5wj7NzI"
 category: "short-tutorial"
 tags: ["Live-Streaming", "YouTube Studio", "Stream-Einstellungen", "Community-Interaktion", "Creator-Kooperation", "Umleitungen aktivieren"]
+relatedPosts: ["/youtube-tipps-de/live-redirect-von-einem-stream-zum-nachsten/", "/youtube-tipps-de/so-kannst-du-auf-youtube-redirects-youtube-raids-empfangen/", "/youtube-tipps-de/wie-man-live-streams-beherrscht/"]
 image: "https://i.ytimg.com/vi/KPkL5wj7NzI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/KPkL5wj7NzI"

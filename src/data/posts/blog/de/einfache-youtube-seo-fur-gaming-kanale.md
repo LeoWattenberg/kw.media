@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "post:1366"
 category: "blog"
 tags: ["YouTube SEO", "Gaming-Kanal Optimierung", "Suchmaschinenoptimierung", "Schlüsselwörter Strategie", "Video Titel", "Beschreibung Optimierung", "Suchvolumen", "Klickrate Verbesserung", "Miniaturansichten", "Zuschauer Engagement"]
+relatedPosts: ["/youtube-tipps-de/einen-gaming-kanal-mit-kleinem-budget-starten/", "/youtube-tipps-de/feststecken-unter-100-aufrufen-verbessere-deine-auffindbarkeit-in-30-sekunden/", "/youtube-tipps-de/trendinge-hashtags-sind-hashtags-noch-relevant/"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/simple-youtube-seo-for-gaming-channels/"

@@ -1,5 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
-import { join, relative } from 'node:path';
+import { relative } from 'node:path';
 import { readAllPosts, readPostFile, suggestPostMetadataFile } from './content-ai.mjs';
 
 const args = process.argv.slice(2);
@@ -16,7 +15,7 @@ if (help) {
 node scripts/audit-posts.mjs [--json] [--summary] [--no-fail] [--ai] [--ai-limit=20] [post.md ...]
 
 Audits post frontmatter, language consistency, excerpts, brand casing, internal links,
-and generated related-post data. Add --ai to ask Ollama for metadata suggestions for
+and relatedPosts frontmatter. Add --ai to ask Ollama for metadata suggestions for
 posts with excerpt or language issues.`);
 	process.exit(0);
 }
@@ -218,28 +217,21 @@ function auditVideoMetadata(post, issues) {
 }
 
 function auditRelatedPosts(posts) {
-	const relatedPath = join(process.cwd(), 'src/data/related-posts.json');
-	if (!existsSync(relatedPath)) {
-		return [];
-	}
-
-	const related = JSON.parse(readFileSync(relatedPath, 'utf8'));
 	const knownPaths = new Set(posts.map((post) => post.frontmatter.path));
 	const issues = [];
 
-	for (const [path, links] of Object.entries(related)) {
-		if (!knownPaths.has(path)) {
-			issues.push(globalIssue('error', 'related-posts', `Related-post entry has unknown source path: ${path}`));
-		}
-
+	for (const post of posts) {
+		const path = post.frontmatter.path;
+		const links = post.frontmatter.relatedPosts;
+		if (links === undefined) continue;
 		if (!Array.isArray(links)) {
-			issues.push(globalIssue('error', 'related-posts', `Related-post entry is not an array: ${path}`));
+			addIssue(issues, post, 'error', 'related-posts', 'relatedPosts is not an array.');
 			continue;
 		}
 
 		for (const link of links) {
 			if (!knownPaths.has(link)) {
-				issues.push(globalIssue('error', 'related-posts', `Related-post entry points to unknown path: ${path} -> ${link}`));
+				addIssue(issues, post, 'error', 'related-posts', `relatedPosts points to unknown path: ${link}`);
 			}
 		}
 	}
@@ -255,16 +247,6 @@ function addIssue(issues, post, severity, code, message) {
 		path: post.frontmatter.path,
 		message,
 	});
-}
-
-function globalIssue(severity, code, message) {
-	return {
-		severity,
-		code,
-		filePath: 'src/data/related-posts.json',
-		path: undefined,
-		message,
-	};
 }
 
 function looksAllCaps(title = '') {

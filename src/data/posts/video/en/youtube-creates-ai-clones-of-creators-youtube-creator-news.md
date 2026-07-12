@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:rhGWPkzn91o"
 category: "news-video"
 tags: ["YouTube AI Avatars", "AI Tools", "AI Content Generation", "AI Suggestions", "Platform Updates", "Community Interaction", "Streaming Features", "Analytics", "E-commerce Integration", "Creator-Tools"]
+relatedPosts: ["/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/", "/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/"]
 image: "https://i.ytimg.com/vi/rhGWPkzn91o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=rhGWPkzn91o"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:YOyDmdKFKYg"
 category: "news-video"
 tags: ["Creator-Tools", "Free Software", "Privacy Focused", "Workflow Optimization", "YouTube Thumbnail Previewer", "Audio A/B Testing", "MP3 Quality Tester", "Image Format Converter", "Fake Alpha Background Remover", "Client-Side Processing"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-subscriber-list-shorts-view-definitions-and-take-a-break/", "/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/", "/youtube-tips-en/a-b-testing-and-edit-with-ai-are-here-made-on-youtube-follow-up/"]
 image: "https://i.ytimg.com/vi/YOyDmdKFKYg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=YOyDmdKFKYg"

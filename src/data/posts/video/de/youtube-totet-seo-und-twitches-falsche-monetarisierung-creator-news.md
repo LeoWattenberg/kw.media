@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:DSZHozupVlk"
 category: "news-video"
 tags: ["YouTube-Suchreform", "Gemini Omni", "Deepfakes", "Twitch-Monetarisierung", "Kleine Streamer", "Plattform-Einnahmen", "TikTok-Abonnement", "Werbefreie Fenster", "Audio-Bibliothek", "Shorts Feed"]
+relatedPosts: ["/youtube-tipps-de/youtubes-neue-ask-studio-ki-lugt-dich-an-twitch-drama/", "/youtube-tipps-de/twitch-nutzt-ki-um-dich-zu-mikromanagen-creator-news/", "/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/"]
 image: "https://i.ytimg.com/vi/DSZHozupVlk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=DSZHozupVlk"

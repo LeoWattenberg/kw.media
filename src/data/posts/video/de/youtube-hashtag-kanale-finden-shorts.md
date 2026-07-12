@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:CtyhveAZNRo"
 category: "short-tutorial"
 tags: ["YouTube-Hashtags", "Entdeckungsseiten", "Suchoptimierung", "YouTube-Strategie", "Kurzvideo-Strategien", "Kurztutorial", "YouTube-Funktionen", "YouTube-Kanalwachstum", "Engagement-Steigerung", "Zuschaueranalyse"]
+relatedPosts: ["/youtube-tipps-de/trendinge-hashtags-sind-hashtags-noch-relevant/", "/youtube-tipps-de/verschiedene-wege-shorts-zu-erstellen-shorts/", "/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts/"]
 image: "https://i.ytimg.com/vi/CtyhveAZNRo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CtyhveAZNRo"

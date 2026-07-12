@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:O6H6KRNoFsQ"
 category: "short-tutorial"
 tags: ["Wasserzeichen für Videos", "Videobearbeitung", "Ranking-Faktoren", "Investitionen in Ausrüstung", "YouTube-Strategie", "Shorts", "Video-Marketing", "Plattform-Optimierung", "Creator-Ressourcen", "Tipps und Tricks"]
+relatedPosts: ["/youtube-tipps-de/warum-sich-die-aufrufe-ihrer-youtube-shorts-nicht-in-langform-umwandeln/", "/youtube-tipps-de/warum-dein-youtube-kanal-plotzlich-gestorben-ist/", "/youtube-tipps-de/trendinge-hashtags-sind-hashtags-noch-relevant/"]
 image: "https://i.ytimg.com/vi/O6H6KRNoFsQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/O6H6KRNoFsQ"

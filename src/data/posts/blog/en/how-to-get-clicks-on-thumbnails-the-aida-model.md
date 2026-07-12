@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1676"
 category: "blog"
 tags: ["YouTube Strategy", "Channel Growth", "Viewer Engagement", "Content Creation", "Thumbnail Design", "AIDA Model", "Marketing Psychology", "Video Promotion", "Click-Through Rate", "Visual Attention"]
+relatedPosts: ["/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/", "/youtube-tips-en/how-to-use-youtubes-new-thumbnail-test-and-compare-feature-for-better-engagement/", "/youtube-tips-en/what-is-youtube-test-and-compare-or-thumbnail-a-b-testing/"]
 image: "/assets/wp-content/uploads/2021/07/Bildschirmfoto-von-2021-07-02-16-19-53.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-get-clicks-on-thumbnails-the-aida-model/"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1366"
 category: "blog"
 tags: ["YouTube SEO", "Gaming Channels", "Keywords", "Video Optimization", "Search Engine Optimization", "Content Strategy", "Channel Growth", "Video-Marketing", "Thumbnail Design", "Click-Through Rate Optimization"]
+relatedPosts: ["/youtube-tips-en/trending-tags-are-hashtags-still-relevant/", "/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/", "/youtube-tips-en/stop-using-background-music-biggest-youtube-search-update-in-years-youtube-creator-news/"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/simple-youtube-seo-for-gaming-channels/"

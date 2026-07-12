@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "post:1400"
 category: "blog"
 tags: ["YouTube-Thumbnails", "Video-Marketing", "Aufmerksamkeitsgewinnung", "Visuelle Gestaltung", "SEO für YouTube", "Miniaturansichten erstellen", "Inhaltsstrategie", "Klickrate optimieren"]
+relatedPosts: ["/youtube-tipps-de/wie-man-klicks-auf-youtube-miniaturansichten-bekommt-das-aida-modell/", "/youtube-tipps-de/wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt/", "/youtube-tipps-de/wie-man-schnell-kostenlose-gaming-miniaturansichten-mit-gimp-erstellt/"]
 image: "https://preview.redd.it/kyowv0gqyjf51.png?width=871&format=png&auto=webp&s=3dd0d8ac5dcc28d8239a720c6d0e94aded380d63"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-not-fuck-up-your-youtube-thumbnails/"

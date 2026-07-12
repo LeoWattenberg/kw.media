@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:vmze-TsKCYQ"
 category: "news-video"
 tags: ["YouTube Updates", "KI-Funktionen", "Community-Verbesserungen", "Desktop-Funktionen", "Creator-Zweite-Chance", "Ask Studio", "Ähnlichkeitserkennung", "YouTube-Sicherheit"]
+relatedPosts: ["/youtube-tipps-de/youtube-faq-multi-aspekt-streams-fan-communities-auf-dem-desktop-und-veo-3-ai/", "/youtube-tipps-de/youtubes-neue-ask-studio-ki-lugt-dich-an-twitch-drama/", "/youtube-tipps-de/youtube-updates-youtube-studio-app-youtube-app-kommentare-community-posts/"]
 image: "https://i.ytimg.com/vi/vmze-TsKCYQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=vmze-TsKCYQ"

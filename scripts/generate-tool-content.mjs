@@ -53,7 +53,7 @@ if (dryRun) {
 }
 
 await writeGeneratedToolMetadata(metadata, root);
-console.log(`\nUpdated long-form content for ${updated} page(s) in ${path.relative(root, path.join(root, 'src/data/generated-tool-metadata.json'))}; ${skipped} skipped.`);
+console.log(`\nUpdated long-form content for ${updated} page(s) in ${path.relative(root, path.join(root, 'src/data/generated-tool-metadata'))}; ${skipped} skipped.`);
 
 async function generateContent({ title, description, locale, path: pagePath }) {
 	const language = locale === 'de' ? 'German' : 'English';

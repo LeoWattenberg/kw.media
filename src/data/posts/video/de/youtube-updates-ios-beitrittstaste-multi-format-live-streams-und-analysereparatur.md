@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:ge8wm6W-EF0"
 category: "news-video"
 tags: ["YouTube Updates", "Mitgliedschaften", "Zahlungsinfrastruktur", "Apple-Gebühren", "Umsatzmaximierung", "YouTube Analytics-Änderungen", "Engagierte Ansichten-Metrik", "Mobile Side-by-Side-Anzeigen", "Multi-Format-Live-Streaming", "Vertikales Streaming"]
+relatedPosts: ["/youtube-tipps-de/neu-auf-youtube-mitglied-werden-button-animation/", "/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/", "/youtube-tipps-de/mitgliedschafts-bonusprogramm-thumbnail-updates-und-ki-dubbing-in-sicht/"]
 image: "https://i.ytimg.com/vi/ge8wm6W-EF0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=ge8wm6W-EF0"

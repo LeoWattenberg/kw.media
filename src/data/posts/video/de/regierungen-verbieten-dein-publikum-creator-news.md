@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:U4ZQqoBy7nU"
 category: "news-video"
 tags: ["Altersbeschränkungen für Inhalte", "Regierungsvorgaben", "Social Media Verbote", "YouTube-Richtlinien", "Live-Streaming-Monetarisierung", "Twitch-Updates", "Monetarisierungsstrategien", "Zielgruppenanalyse", "Inhaltsanpassung", "Plattform-Regulierung"]
+relatedPosts: ["/youtube-tipps-de/youtube-verbietet-konten-unter-16-jahren-warum-ctr-tot-ist/", "/youtube-tipps-de/sie-wollen-dass-du-automatisierst-und-dann-deinen-kanal-sperren-creator-news/", "/youtube-tipps-de/folge-den-richtlinien-und-lass-deinen-kanal-strahlen/"]
 image: "https://i.ytimg.com/vi/U4ZQqoBy7nU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=U4ZQqoBy7nU"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:OcihdaM-hro"
 category: "short-tutorial"
 tags: ["YouTube Live Streaming", "Stream Scheduling", "Channel Management", "Content Planning", "Visibility Settings", "Multilingual Content", "Live Stream Frequency"]
+relatedPosts: ["/youtube-tips-en/getting-started-with-youtube-live-streaming/", "/youtube-tips-en/how-to-use-youtube-lives-take-a-break-feature-step-by-step-tutorial-with-obs-setup/", "/youtube-tips-en/integrating-youtube-chat-into-obs/"]
 image: "https://i.ytimg.com/vi/OcihdaM-hro/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OcihdaM-hro"

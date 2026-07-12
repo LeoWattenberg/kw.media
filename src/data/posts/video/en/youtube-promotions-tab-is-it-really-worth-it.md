@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:TjSGf5YjMtI"
 category: "video-tutorial"
 tags: ["YouTube Ads", "Video Promotion", "Paid Reach", "Audience Targeting", "Ad Strategy", "Channel Growth Strategies", "Content Promotion", "Monetization Tools", "YouTube Platform Updates", "Creator Monetization"]
+relatedPosts: ["/youtube-tips-en/mastering-keywords-for-maximum-impact/", "/youtube-tips-en/how-does-youtube-hype-actually-work-we-have-the-data/", "/youtube-tips-en/youtube-abc-quick-start-with-youtube-analytics/"]
 image: "https://i.ytimg.com/vi/TjSGf5YjMtI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=TjSGf5YjMtI"

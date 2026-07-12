@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:1dTIcDQb0pY"
 category: "video-tutorial"
 tags: ["Einnahmenvergleich", "YouTube vs. Twitch", "Digitale Transaktionen", "Super Chat und Bits", "Abonnements und Mitgliedschaften", "Gebührenstruktur", "Nettoanteil für Creator", "Plattformvergleich", "Monetarisierungsstrategien"]
+relatedPosts: ["/youtube-tipps-de/youtube-analytics-top-verdienst-content-nach-format-als-orientierung-fur-creator/", "/youtube-tipps-de/7-wege-wie-creator-geld-verdienen-jenseits-von-youtube-anzeigen/", "/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/"]
 image: "https://i.ytimg.com/vi/1dTIcDQb0pY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1dTIcDQb0pY"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:JIJbmewxJVk"
 category: "short-tutorial"
 tags: ["YouTube Channel Management", "Content Monetization", "Creator Responsibilities", "Community Guidelines", "Copyright Management", "Channel Growth Strategies", "Creative Process", "Monetization Options", "Platform Policies"]
+relatedPosts: ["/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/", "/youtube-tips-en/7-ways-creators-make-money-beyond-youtube-ads/", "/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/"]
 image: "https://i.ytimg.com/vi/JIJbmewxJVk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/JIJbmewxJVk"

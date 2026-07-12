@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
-import { readAllPosts } from './content-ai.mjs';
+import { readAllPosts, writePostFile } from './content-ai.mjs';
 import { relatedPathsToRefresh } from './related-posts-utils.mjs';
 
 const ollamaUrl = process.env.OLLAMA_URL ?? process.env.OLLAMA_TRANSLATE_URL ?? 'http://172.20.208.1:11434';
@@ -15,11 +15,10 @@ const shouldRerank = !process.argv.includes('--no-rerank') && process.env.RELATE
 const dryRun = process.argv.includes('--dry') || process.argv.includes('--dry-run');
 const limit = Number(argumentValue('--limit') ?? process.env.RELATED_POST_LIMIT ?? 0);
 const targetArguments = process.argv.slice(2).filter((argument) => !argument.startsWith('-'));
-const outputPath = join(process.cwd(), 'src/data/related-posts.json');
 const cachePath = join(process.cwd(), '.cache', `related-post-embeddings-${slugify(embeddingModel)}.json`);
 
 if (limit > 0 && !dryRun) {
-	throw new Error('Use --limit only with --dry so the generated related-posts.json is not partial.');
+	throw new Error('Use --limit only with --dry so only a complete related-post update is written.');
 }
 
 if (limit > 0 && targetArguments.length) {
@@ -61,7 +60,11 @@ const selectedPosts = limit > 0
 	: refreshPaths
 		? posts.filter((post) => refreshPaths.has(post.frontmatter.path))
 		: posts;
-const relatedPosts = incremental ? readRelatedPosts() : {};
+const relatedPosts = Object.fromEntries(posts.flatMap((post) => (
+	Array.isArray(post.frontmatter.relatedPosts) && post.frontmatter.relatedPosts.length
+		? [[post.frontmatter.path, post.frontmatter.relatedPosts]]
+		: []
+)));
 
 console.log(`Reranking: ${selectedPosts.length}${incremental ? ` of ${posts.length}; unaffected entries stay unchanged` : ''}`);
 
@@ -79,6 +82,7 @@ for (const [index, post] of selectedPosts.entries()) {
 	} else {
 		delete relatedPosts[post.frontmatter.path];
 	}
+	post.frontmatter.relatedPosts = selectedPaths;
 
 	console.log(`${index + 1}/${selectedPosts.length} ${post.frontmatter.path} -> ${selectedPaths.join(', ')}`);
 }
@@ -100,8 +104,8 @@ function candidatesForPost(post) {
 if (dryRun) {
 	console.log(JSON.stringify(relatedPosts, null, '\t'));
 } else {
-	writeJson(outputPath, relatedPosts);
-	console.log(`Wrote ${outputPath}`);
+	for (const post of selectedPosts) writePostFile(post.filePath, post.frontmatter, post.body);
+	console.log(`Updated relatedPosts frontmatter in ${selectedPosts.length} post(s).`);
 }
 
 async function embeddingForPost(post) {
@@ -298,14 +302,6 @@ function readCache() {
 	}
 
 	return JSON.parse(readFileSync(cachePath, 'utf8'));
-}
-
-function readRelatedPosts() {
-	if (!existsSync(outputPath)) {
-		return {};
-	}
-
-	return JSON.parse(readFileSync(outputPath, 'utf8'));
 }
 
 function resolveTargetPaths(allPosts, argumentsList) {

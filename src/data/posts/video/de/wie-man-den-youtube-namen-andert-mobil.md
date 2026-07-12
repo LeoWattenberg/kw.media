@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:67GI43uGC4s"
 category: "short-tutorial"
 tags: ["YouTube-Handles", "Mobile App-Updates", "Live-Chat", "Benutzernamen-Änderung", "YouTube-Funktionen", "Kurzvideo-Strategien"]
+relatedPosts: ["/youtube-tipps-de/wie-man-den-youtube-namen-andert-desktop/", "/youtube-tipps-de/was-sind-youtube-handles-aliasse/", "/youtube-tipps-de/mentions-sind-klasse-zwar-deswegen/"]
 image: "https://i.ytimg.com/vi/67GI43uGC4s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/67GI43uGC4s"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:_KvD9yQ9YUo"
 category: "short-tutorial"
 tags: ["YouTube Platform Updates", "Comment Filtering", "Spam Filtering", "YouTube Community Engagement", "Community Settings", "Strict Mode", "YouTube Features Access", "Content Moderation"]
+relatedPosts: ["/youtube-tips-en/new-feature-alert-channel-guidelines/", "/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/", "/youtube-tips-en/follow-the-guidelines-watch-your-channel-shine/"]
 image: "https://i.ytimg.com/vi/_KvD9yQ9YUo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/_KvD9yQ9YUo"

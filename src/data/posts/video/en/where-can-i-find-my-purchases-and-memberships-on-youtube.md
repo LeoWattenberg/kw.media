@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:hOXK7RMR4Qk"
 category: "short-tutorial"
 tags: ["YouTube Account Management", "YouTube Purchases", "YouTube Memberships", "Premium Editions", "Refunds", "Account Overview", "Payment History"]
+relatedPosts: ["/youtube-tips-en/how-do-refunds-work-when-gifting-youtube-memberships/", "/youtube-tips-en/how-it-works-youtube-membership-gifting/", "/youtube-tips-en/enable-disable-membershelf-heres-how/"]
 image: "https://i.ytimg.com/vi/hOXK7RMR4Qk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hOXK7RMR4Qk"

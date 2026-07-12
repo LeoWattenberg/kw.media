@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:u_wzOQranLY"
 category: "news-video"
 tags: ["YouTube Premium", "Channel Memberships", "Mobile Optimization", "Live Streaming Features", "Super Chat Enhancements", "Monetization Strategies", "Platform Updates", "Gaming Channels", "YouTube Community Engagement"]
+relatedPosts: ["/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/super-chat-replies-youtube-rolling-out-new-features/", "/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/"]
 image: "https://i.ytimg.com/vi/u_wzOQranLY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=u_wzOQranLY"

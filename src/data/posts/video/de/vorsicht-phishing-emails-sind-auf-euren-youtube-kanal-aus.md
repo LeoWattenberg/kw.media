@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:8ADk4DxW_EA"
 category: "short-tutorial"
 tags: ["Sicherheit auf YouTube", "Phishing-E-Mails", "Kanal-Sicherheit", "Passwort-Sicherheit", "Zwei-Faktor-Authentifizierung", "Cyber-Bedrohungen", "Datenschutz", "E-Mail-Sicherheit"]
+relatedPosts: ["/youtube-tipps-de/passwortgeschutzte-dokumente-eindeutige-scam-warnung/", "/youtube-tipps-de/kanal-berechtigungen-auf-youtube-shorts/", "/youtube-tipps-de/youtube-strike-was-nun/"]
 image: "https://i.ytimg.com/vi/8ADk4DxW_EA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8ADk4DxW_EA"

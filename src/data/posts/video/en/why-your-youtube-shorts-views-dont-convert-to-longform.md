@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:qmAgK0OzzlU"
 category: "short-tutorial"
 tags: ["YouTube Shorts", "Longform Videos", "Audience Targeting", "Content Strategy", "Video Promotion", "Creator Mental Health", "Burnout Prevention", "Content Customization"]
+relatedPosts: ["/youtube-tips-en/thats-why-your-shorts-arent-getting-views/", "/youtube-tips-en/how-to-get-into-the-partner-program-with-youtube-shorts/", "/youtube-tips-en/why-50-hours-of-editing-gets-0-views/"]
 image: "https://i.ytimg.com/vi/qmAgK0OzzlU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/qmAgK0OzzlU"

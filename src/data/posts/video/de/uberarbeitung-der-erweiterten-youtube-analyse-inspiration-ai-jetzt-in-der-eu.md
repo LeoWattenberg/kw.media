@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:1TRWw2aQu2w"
 category: "news-video"
 tags: ["YouTube Updates", "Live-Streaming-Richtlinien", "Jugendschutz auf YouTube", "Erweiterte YouTube-Analyse", "Autodubbing", "Inspiration-Tab", "KI-basierte Videoideen"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/", "/youtube-tipps-de/das-bezahlte-vs-organische-analyse-tool-von-youtube-endlich-creator-news/", "/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/"]
 image: "https://i.ytimg.com/vi/1TRWw2aQu2w/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1TRWw2aQu2w"

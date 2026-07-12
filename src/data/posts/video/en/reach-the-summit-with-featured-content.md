@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:4i-aEErmV08"
 category: "short-tutorial"
 tags: ["YouTube Features", "Content Promotion", "Audience Reach", "Channel Growth Strategies", "Video Optimization", "Viewer Engagement", "Sponsored Posts", "Content Creation", "Regular Uploads"]
+relatedPosts: ["/youtube-tips-en/how-does-youtube-hype-actually-work-we-have-the-data/", "/youtube-tips-en/how-they-work-channel-trailers/", "/youtube-tips-en/expand-your-reach-stay-in-touch-with-your-community/"]
 image: "https://i.ytimg.com/vi/4i-aEErmV08/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/4i-aEErmV08"

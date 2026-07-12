@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:8ADk4DxW_EA"
 category: "short-tutorial"
 tags: ["Phishing Attempts", "YouTube Channel Management", "Account Security", "Scam Awareness", "Email Safety", "Cyber Security"]
+relatedPosts: ["/youtube-tips-en/password-protected-documents-clear-scam-warning/", "/youtube-tips-en/channel-permissions-on-youtube-shorts/", "/youtube-tips-en/proving-you-are-human-on-youtube-now-costs-3-000-c2pa-creator-news/"]
 image: "https://i.ytimg.com/vi/8ADk4DxW_EA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/8ADk4DxW_EA"

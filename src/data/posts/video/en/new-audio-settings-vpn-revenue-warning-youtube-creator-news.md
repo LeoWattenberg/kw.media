@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:N301RW3y69E"
 category: "news-video"
 tags: ["YouTube Platform Updates", "AI Editing", "Mobile Creation", "Community Features", "Monetization Changes", "Voice Replies", "Channel Guidelines", "Super Chat Goals", "VPN Ad Viewers", "Language Preferences"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-ai-age-verification-autodubbing-editor-and-community-post-limits-change/", "/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/", "/youtube-tips-en/youtube-updates-youtube-studio-app-youtube-app-comments-community-posts/"]
 image: "https://i.ytimg.com/vi/N301RW3y69E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=N301RW3y69E"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:4i-aEErmV08"
 category: "short-tutorial"
 tags: ["YouTube-Startseite", "Highlights", "Sichtbarkeit erhöhen", "Abonnenten gewinnen", "Inhaltsstrategie", "Video-Optimierung", "Publikumskreis erweitern", "Kanalwachstum", "Creator-Tipps", "YouTube-Marketing"]
+relatedPosts: ["/youtube-tipps-de/so-funktionieren-kanaltrailer/", "/youtube-tipps-de/erweitere-deine-reichweite-bleib-mit-deiner-community-in-kontakt/", "/youtube-tipps-de/feststecken-unter-100-aufrufen-verbessere-deine-auffindbarkeit-in-30-sekunden/"]
 image: "https://i.ytimg.com/vi/4i-aEErmV08/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/4i-aEErmV08"

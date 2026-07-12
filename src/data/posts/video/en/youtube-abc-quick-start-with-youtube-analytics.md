@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:R5ReoaOEaG0"
 category: "short-tutorial"
 tags: ["YouTube Analytics", "Metrics and Performance", "Channel Growth Strategies", "Beginner's Guide", "YouTube Studio", "Audience Engagement", "Video Optimization", "Content Strategy", "Discoverability Tools"]
+relatedPosts: ["/youtube-tips-en/engagement-analysis/", "/youtube-tips-en/insight-into-impressions/", "/youtube-tips-en/youtubeabc-dashboard-withsub/"]
 image: "https://i.ytimg.com/vi/R5ReoaOEaG0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/R5ReoaOEaG0"

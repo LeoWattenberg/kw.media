@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:iVVTODHIeP4"
 category: "short-tutorial"
 tags: ["YouTube Studio", "KI-Funktionen", "Video-Qualität", "Einstellungen", "Kurztutorial"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/", "/youtube-tipps-de/ki-zusammenfassungen-fur-kommentare-und-warum-du-den-add-yours-sticker-nicht-siehst/", "/youtube-tipps-de/erstellt-youtube-ki-klonen-von-creatorn-youtube-creator-news/"]
 image: "https://i.ytimg.com/vi/iVVTODHIeP4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iVVTODHIeP4"

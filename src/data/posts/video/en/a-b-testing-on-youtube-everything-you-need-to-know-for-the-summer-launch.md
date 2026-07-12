@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:WwNMa1XUVsg"
 category: "news-video"
 tags: ["YouTube Updates", "A/B Testing", "Thumbnail Optimization", "Super Chat", "Monetization Policies", "Content Creator Tools", "Live Streaming Features", "Platform Enhancements"]
+relatedPosts: ["/youtube-tips-en/how-to-use-youtubes-new-thumbnail-test-and-compare-feature-for-better-engagement/", "/youtube-tips-en/what-is-youtube-test-and-compare-or-thumbnail-a-b-testing/", "/youtube-tips-en/super-chat-replies-youtube-rolling-out-new-features/"]
 image: "https://i.ytimg.com/vi/WwNMa1XUVsg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=WwNMa1XUVsg"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:eUxLizKDC6M"
 category: "short-tutorial"
 tags: ["Live-Streaming", "YouTube Studio", "Kanalmanagement", "Zuschauerbindung", "Community-Interaktion", "Neue Funktionen", "YouTube Updates", "Plattform-Optimierung"]
+relatedPosts: ["/youtube-tipps-de/so-kannst-du-auf-youtube-redirects-youtube-raids-empfangen/", "/youtube-tipps-de/mache-dieses-um-youtube-live-umleitungen-youtube-raids-empfangen-zu-konnen/", "/youtube-tipps-de/wie-man-live-streams-beherrscht/"]
 image: "https://i.ytimg.com/vi/eUxLizKDC6M/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/eUxLizKDC6M"

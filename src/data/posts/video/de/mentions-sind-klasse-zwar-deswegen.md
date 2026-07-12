@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:JXe3Pop5N3U"
 category: "short-tutorial"
 tags: ["YouTube-Funktionen", "Video-Verlinkung", "Zusammenarbeit auf YouTube", "Kanalverknüpfung", "Mentions-Tags"]
+relatedPosts: ["/youtube-tipps-de/was-sind-youtube-handles-aliasse/", "/youtube-tipps-de/wie-man-den-youtube-namen-andert-mobil/", "/youtube-tipps-de/youtube-update-handles-unterstutzen-mehr-sprachen-und-sonderzeichen/"]
 image: "https://i.ytimg.com/vi/JXe3Pop5N3U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/JXe3Pop5N3U"

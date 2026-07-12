@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:mY9wBvDgnfQ"
 category: "audacity"
 tags: ["FFmpeg Installation", "Audacity Tutorial", "Audio-Tools", "Mediendateien", "Import/Export", "Windows-Installation", "Linux-Anleitung", "Manuelle Konfiguration"]
+relatedPosts: ["/audacity/ffmpeg-fur-audacity-installieren-schnelltutorial/", "/audacity/desktop-audio-in-audacity-aufnehmen-tutorial/", "/audacity/ich-habe-an-audacity-4-gearbeitet-das-musst-du-wissen/"]
 image: "https://i.ytimg.com/vi/mY9wBvDgnfQ/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=mY9wBvDgnfQ"

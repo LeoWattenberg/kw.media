@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:WwNMa1XUVsg"
 category: "news-video"
 tags: ["A/B-Testen", "YouTube Updates", "Thumbnails", "Sommer-Launch 2024", "Neue Funktionen", "Creator-Tools", "Monetarisierung", "Super Chat", "Live-Streaming"]
+relatedPosts: ["/youtube-tipps-de/wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt/", "/youtube-tipps-de/a-b-testen-und-bearbeiten-mit-ki-ist-da-erstellt-auf-youtube-follow-up/", "/youtube-tipps-de/was-ist-youtube-test-und-compare-bzw-thumbnail-a-b-testing/"]
 image: "https://i.ytimg.com/vi/WwNMa1XUVsg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=WwNMa1XUVsg"

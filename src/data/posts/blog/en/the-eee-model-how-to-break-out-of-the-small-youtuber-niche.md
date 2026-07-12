@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1419"
 category: "blog"
 tags: ["YouTube Channel Growth", "Content Strategy", "Beginner's Guide", "Channel Management", "Niche Finding", "Exploration Phase", "Audience Building", "Creator Resources", "YouTube Tips", "Video Optimization"]
+relatedPosts: ["/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/", "/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/", "/youtube-tips-en/the-wattenberg-indicator/"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/das-eee-modell-wie-du-aus-der-kleine-youtuber-ecke-rauskommst/"

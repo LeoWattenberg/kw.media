@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:CPUIzFT6wmM"
 category: "short-tutorial"
 tags: ["YouTube Channel Management", "YouTube Features Access", "Member Shelf", "YouTube Studio", "Monetization Options", "YouTube Memberships", "Channel Customization", "Platform Updates"]
+relatedPosts: ["/youtube-tips-en/elevate-your-channel-with-memberships/", "/youtube-tips-en/how-it-works-youtube-membership-gifting/", "/youtube-tips-en/how-to-activate-super-thanks/"]
 image: "https://i.ytimg.com/vi/CPUIzFT6wmM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/CPUIzFT6wmM"

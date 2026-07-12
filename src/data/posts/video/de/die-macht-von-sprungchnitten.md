@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:gs5hdwEO9gs"
 category: "short-tutorial"
 tags: ["Sprungbilder", "Video-Bearbeitungstechniken", "YouTube-Engagement", "Zuschauerbindung", "Video-Optimierung", "Content-Erstellung", "Creator-Strategien", "Video-Rhythmus", "Bearbeitungstipps"]
+relatedPosts: ["/youtube-tipps-de/warum-50-stunden-schnittarbeit-0-aufrufe-bringen/", "/youtube-tipps-de/analyse-der-beteiligung/", "/youtube-tipps-de/erreichen-sie-mit-highlight-inhalten-den-gipfel/"]
 image: "https://i.ytimg.com/vi/gs5hdwEO9gs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/gs5hdwEO9gs"

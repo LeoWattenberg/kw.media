@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:obiGGGDe-Uw"
 category: "news-video"
 tags: ["YouTube Updates", "Jump Ahead Experiment", "Premium-Funktionen", "Audience Retention", "Werbeeinblendungen", "Sponsor Content", "Shorts Remix Funktion", "Kapitel auf YouTube", "Erweiterte Funktionen"]
+relatedPosts: ["/youtube-tipps-de/neues-von-youtube-qr-codes-fur-creator-und-premium-jump-ahead-rollout/", "/youtube-tipps-de/sie-wollen-dass-du-automatisierst-und-dann-deinen-kanal-sperren-creator-news/", "/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/"]
 image: "https://i.ytimg.com/vi/obiGGGDe-Uw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=obiGGGDe-Uw"

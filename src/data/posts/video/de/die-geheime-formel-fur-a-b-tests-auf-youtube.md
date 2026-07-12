@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:ouFl0bkCWx4"
 category: "video-tutorial"
 tags: ["A/B-Testen", "YouTube-Strategie", "Miniaturansichten", "Statistische Analyse", "Klickrate (CTR)", "Betrachtungszeit", "Algorithmen auf YouTube", "Testmethodik", "Dateninterpretation"]
+relatedPosts: ["/youtube-tipps-de/wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt/", "/youtube-tipps-de/a-b-testen-und-bearbeiten-mit-ki-ist-da-erstellt-auf-youtube-follow-up/", "/youtube-tipps-de/was-ist-youtube-test-und-compare-bzw-thumbnail-a-b-testing/"]
 image: "https://i.ytimg.com/vi/ouFl0bkCWx4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=ouFl0bkCWx4"

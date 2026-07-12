@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:pGAgrTShuHc"
 category: "news-video"
 tags: ["YouTube Updates", "AI Inspiration-Registerkarte", "Community-Bestenlisten", "Live-Streams", "Shorts-Erstellungstool", "Visuelle Anleitungen", "Umfrage-Sticker", "Quiz-Funktion", "Creator Q&A Live Streams"]
+relatedPosts: ["/youtube-tipps-de/uberarbeitung-der-erweiterten-youtube-analyse-inspiration-ai-jetzt-in-der-eu/", "/youtube-tipps-de/youtube-update-der-inspiration-tab-fruher-research-tab-und-seine-neuen-funktionen/", "/youtube-tipps-de/ki-zusammenfassungen-fur-kommentare-und-warum-du-den-add-yours-sticker-nicht-siehst/"]
 image: "https://i.ytimg.com/vi/pGAgrTShuHc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=pGAgrTShuHc"

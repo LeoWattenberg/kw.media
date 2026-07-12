@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1847"
 category: "blog"
 tags: ["Capture Cards", "AVerMedia Streamer Cap 4K", "Elgato Cam Link 4K", "Streaming Equipment", "Camera Setups", "Video Capture", "OBS", "RECentral", "Price Comparison"]
+relatedPosts: ["/youtube-tips-en/avermedia-nexus-ax310-streamer-mic-330-review/", "/youtube-tips-en/integrating-cameras-and-consoles-playstation-xbox-switch-into-obs-with-capture-cards/"]
 image: "/assets/wp-content/uploads/2021/10/camlink_cap4k_vergleich.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/avermedia-streamer-cap4k-bu113-oder-elgato-camlink4k/"

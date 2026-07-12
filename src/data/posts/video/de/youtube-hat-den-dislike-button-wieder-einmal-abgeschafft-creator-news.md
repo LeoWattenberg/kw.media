@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:PtwJQOyhdwU"
 category: "news-video"
 tags: ["YouTube Updates", "Twitch-Anzeigen", "Dislike-Button", "Rückerstattungen", "Organische Entdeckung", "Monetarisierung", "Creator-Reaktionen", "Mitgliedschaftspreise", "Transparenz-Dashboard"]
+relatedPosts: ["/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/", "/youtube-tipps-de/langere-shorts-und-add-yours-sticker-youtubes-neueste-experimente/", "/youtube-tipps-de/feiert-mit-uns-1000-abonnenten-und-youtube-shorts-updates/"]
 image: "https://i.ytimg.com/vi/PtwJQOyhdwU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=PtwJQOyhdwU"

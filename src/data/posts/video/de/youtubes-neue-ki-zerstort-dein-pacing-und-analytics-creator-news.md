@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:S_Qwsk7CKB0"
 category: "news-video"
 tags: ["YouTube-KI", "Video-Rhythmus", "Analytics-Veränderungen", "Abonnement-Alternativen", "Open-Source-Tools", "Bildbearbeitung", "Photoshop-Alternativen", "GIMP-Plugins", "YouTube-Premium-Funktionen", "Wiedergabegeschwindigkeit"]
+relatedPosts: ["/youtube-tipps-de/youtubes-neuestes-experiment-jump-ahead-was-creator-wissen-mussen/", "/youtube-tipps-de/youtubes-neue-ask-studio-ki-lugt-dich-an-twitch-drama/", "/youtube-tipps-de/erstellt-youtube-ki-klonen-von-creatorn-youtube-creator-news/"]
 image: "https://i.ytimg.com/vi/S_Qwsk7CKB0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=S_Qwsk7CKB0"

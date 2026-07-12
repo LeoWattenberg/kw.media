@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:JvwkzUSuNFM"
 category: "news-video"
 tags: ["YouTube Studio Updates", "Autodubbing", "Community Posts Enhancements", "AI Age Verification", "US Rollout", "Creator Revenue Impact", "Vertical Live Streaming", "Content Moderation", "Audience Demographics", "YouTube Analytics"]
+relatedPosts: ["/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/", "/youtube-tips-en/youtube-updates-auto-dubbing-with-intonation-create-app-on-ios-for-1/", "/youtube-tips-en/youtube-updates-subscribe-confusion-and-autodubbing-fully-rolled-out/"]
 image: "https://i.ytimg.com/vi/JvwkzUSuNFM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JvwkzUSuNFM"

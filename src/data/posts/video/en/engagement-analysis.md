@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:nhfBKX1ZYWc"
 category: "short-tutorial"
 tags: ["YouTube Analytics", "Viewer Interactions", "Engagement Metrics", "Video Performance", "Click-Through Rate", "View Duration", "Audience Retention", "YouTube Studio", "Short Tutorial"]
+relatedPosts: ["/youtube-tips-en/youtube-abc-quick-start-with-youtube-analytics/", "/youtube-tips-en/insight-into-impressions/", "/youtube-tips-en/how-to-use-youtubes-new-thumbnail-test-and-compare-feature-for-better-engagement/"]
 image: "https://i.ytimg.com/vi/nhfBKX1ZYWc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nhfBKX1ZYWc"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:hsmHl_LDtxg"
 category: "news-video"
 tags: ["YouTube Features", "Mobile Optimization", "QR-Codes", "Audience Engagement", "Platform Updates", "YouTube Premium", "User Experience", "Content Sharing"]
+relatedPosts: ["/youtube-tips-en/youtubes-latest-experiment-jump-ahead-what-creators-need-to-know/", "/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/", "/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/"]
 image: "https://i.ytimg.com/vi/hsmHl_LDtxg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=hsmHl_LDtxg"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:OYppjzpPs8U"
 category: "short-tutorial"
 tags: ["YouTube Monetization", "Super Chat Enhancements", "Creator Revenue", "Platform Updates", "YouTube Partner Program", "Viewer Interactions", "Transaction Revenue"]
+relatedPosts: ["/youtube-tips-en/how-to-activate-super-thanks/", "/youtube-tips-en/everything-important-about-the-new-youtube-fan-funding-partner-level/", "/youtube-tips-en/super-chat-replies-youtube-rolling-out-new-features/"]
 image: "https://i.ytimg.com/vi/OYppjzpPs8U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/OYppjzpPs8U"

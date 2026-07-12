@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:s5_yhiar6UU"
 category: "short-tutorial"
 tags: ["OBS Integration", "Twitch-Funktionen", "YouTube-Streaming", "Live-Streaming-Tutorial", "Stream-Einstellungen", "Plattformintegrationen", "Kontozugriff", "Streaming-Tipps", "YouTube-Tools"]
+relatedPosts: ["/youtube-tipps-de/youtube-chat-in-obs-einbinden/", "/youtube-tipps-de/wie-man-die-pause-machen-funktion-von-youtube-live-verwendet-schritt-fur-schritt-tutorial-mit-obs-einstellungen/", "/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/"]
 image: "https://i.ytimg.com/vi/s5_yhiar6UU/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/s5_yhiar6UU"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:qzmGBdpLlDQ"
 category: "video-tutorial"
 tags: ["YouTube Partner Program", "Fan Funding", "Channel Memberships", "Super Chat", "Monetization Options", "Community Support", "Revenue Generation", "Platform Updates", "Creator Resources"]
+relatedPosts: ["/youtube-tips-en/new-feature-alert-superthanks/", "/youtube-tips-en/elevate-your-channel-with-memberships/", "/youtube-tips-en/how-to-activate-super-thanks/"]
 image: "https://i.ytimg.com/vi/qzmGBdpLlDQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=qzmGBdpLlDQ"

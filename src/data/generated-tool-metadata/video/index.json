@@ -1,0 +1,20 @@
+{
+	"/de/tools/video/": {
+		"content": [
+			"Video-Tools ist eine intuitive Browser-Anwendung, die Ihnen die vollständige Kontrolle über Ihre Videos gibt. Mit unserer Plattform können Sie Videos einfach bearbeiten, ohne komplexe Software herunterladen oder installieren zu müssen. Ob für persönliche Projekte oder professionelle Zwecke – mit nur wenigen Klicks erstellen und optimieren Sie Ihre Videokreationen.",
+			"Unser Workflow ist einfach: Laden Sie Ihr Video hoch, wählen Sie die gewünschten Bearbeitungsfunktionen aus und sehen Sie die Ergebnisse in Echtzeit. [Schneiden, zuschneiden, umrahmen](/de/tools/lossless-media-studio/) – alles kann [direkt im Browser](/de/tools/vtuber-preview/) erfolgen. So sparen Sie Zeit und Aufwand, ohne Kompromisse bei der Qualität einzugehen.",
+			"Unterstützt werden eine Vielzahl von [Videoformaten wie MP4, MOV, AVI](/de/tools/converter/video-audio-converter/) und viele mehr. Auch verschiedene [Bildformate für die Umrandung und Überlagerung](/de/tools/image/) sind im Format verfügbar. Mit Video-Tools können Sie Ihre Videos nahtlos in das gewünschte [Format konvertieren](/de/tools/converter/) und so für jede Plattform optimiert bereitstellen.",
+			"Wir verarbeiten alle Daten lokal auf Ihrem Gerät, um Ihre [Privatsphäre zu schützen](/impressumsservice/). Keine sensiblen Informationen verlassen Ihren Browser. Mit Video-Tools haben Sie die volle Kontrolle über Ihre Inhalte und können sicher sein, dass Ihre Videos nur für die von Ihnen gewünschten Bearbeitungen verwendet werden."
+		],
+		"description": "Erstellen Sie Videos direkt im Browser: Prüfen, schneiden, reframen, konvertieren und liefern – alles lokal und effizient."
+	},
+	"/en/tools/video/": {
+		"content": [
+			"Video Tools is a suite of intuitive browser-based utilities designed to streamline your video editing process. Whether you're a content creator, marketer, or enthusiast, our platform empowers you to efficiently manage and enhance your [video clips](/en/tools/converter/video-to-gif/) without downloading any software. All the power of professional tools now accessible directly from your web browser.",
+			"Our workflow is simple: upload your videos, access our array of tools, and edit directly in your browser. [Trim unwanted sections](/en/tools/lossless-media-studio/), [adjust framing](/en/tools/vertical-video-reframer/), [convert between formats](/en/tools/converter/)—all with a few clicks. No complex interfaces or installation required. Your editing experience is seamless and fast, ensuring you can focus on what matters most: your content.",
+			"We support a wide range of video formats, including MP4, MOV, AVI, and WMV. Our tools are optimized for modern web browsers, ensuring compatibility with the latest standards. From popular consumer cameras to professional-grade equipment, Video Tools caters to diverse needs without compromising quality or performance.",
+			"Privacy and local processing are at the core of our design. Your videos remain in your browser, and all editing is done locally—no data leaves your device unless you choose to export a modified clip. We prioritize your security and peace of mind, ensuring that your video content remains under your control."
+		],
+		"description": "Video Tools: Powerful browser-based solutions for video editing, including inspection, trimming, reframing, conversion, and delivery."
+	}
+}

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:2gVOJsKlUbo"
 category: "short-tutorial"
 tags: ["Channel Growth", "Facecam", "Streaming Equipment", "Audience Engagement", "Visual Branding", "Content Creation", "Personality-Driven Content", "Physical Comedy", "Streaming Community"]
+relatedPosts: ["/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/", "/youtube-tips-en/boost-your-channel-with-effective-branding/", "/youtube-tips-en/take-off-create-your-youtube-channel-in-2024-personal-and-company-channels/"]
 image: "https://i.ytimg.com/vi/2gVOJsKlUbo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/2gVOJsKlUbo"

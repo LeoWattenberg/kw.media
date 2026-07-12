@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:1gcduEf8HXE"
 category: "news-video"
 tags: ["YouTube Studio Mobile", "Content Tab Updates", "Community-Tab", "AI Comment Suggestions", "Super Chat Goals", "Mobile Optimization", "Platform Updates", "Creator-Tools", "Audience Engagement", "Monetization Features"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-youtube-studio-app-youtube-app-comments-community-posts/", "/youtube-tips-en/youtube-introduces-exciting-innovations-clips-feed-update-and-more/", "/youtube-tips-en/youtube-fan-communities-everything-you-need-to-know/"]
 image: "https://i.ytimg.com/vi/1gcduEf8HXE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=1gcduEf8HXE"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:bJbym4s4auQ"
 category: "news-video"
 tags: ["Nachhaltigkeit", "Umweltschutz", "Creator-Verantwortung", "YouTube Updates", "Voice Replies", "Multilinguales Audio", "Fan Communities", "Verifizierung", "Moderationswerkzeuge"]
+relatedPosts: ["/youtube-tipps-de/youtubes-updates-q-und-a-sticker-und-10mb-thumbnails/", "/youtube-tipps-de/youtube-faq-multi-aspekt-streams-fan-communities-auf-dem-desktop-und-veo-3-ai/", "/youtube-tipps-de/youtube-updates-leaderboards-visuelle-anleitungen-fur-shorts-und-quiz-sticker-fur-shorts/"]
 image: "https://i.ytimg.com/vi/bJbym4s4auQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=bJbym4s4auQ"

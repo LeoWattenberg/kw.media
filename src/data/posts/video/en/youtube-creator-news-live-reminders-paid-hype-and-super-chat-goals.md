@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:EA7skAF4qLA"
 category: "news-video"
 tags: ["YouTube Live Streaming", "Shorts Features", "Live Stream Reminders", "Paid Hype", "Super Chat Goals", "YouTube Studio Mobile", "Platform Updates", "Monetization Strategies", "Community-Engagement", "User Experience"]
+relatedPosts: ["/youtube-tips-en/youtube-hype-livestream-and-superchat-updates/", "/youtube-tips-en/coming-soon-to-youtube-custom-thumbs-for-shorts-and-superchat-goals/", "/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/"]
 image: "https://i.ytimg.com/vi/EA7skAF4qLA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EA7skAF4qLA"

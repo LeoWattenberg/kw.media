@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:2280"
 category: "blog"
 tags: ["YouTube Live Streaming", "Beginner's Guide", "Stream Setup", "OBS Integration", "Stream Key Management", "RTMP/RTMPS Protocols", "Latency Settings", "Live Chat Interaction", "Monetization Options", "YouTube Partner Program"]
+relatedPosts: ["/youtube-tips-en/getting-started-with-obs-a-beginners-guide/", "/youtube-tips-en/how-to-master-live-streams/", "/youtube-tips-en/connecting-obs-to-twitch-and-youtube/"]
 image: "https://lh6.googleusercontent.com/eWeMjTqNdIR4AOgH_aTWqYslVE3cj1h2iIxrAnWMUycTQgDXzGClDJ33m8xucehQ4q91mnw4q86QtQSGhiU3bbJZrIvUMlOFP-vZmb8FkcH7PJndZXYRrKxWKhxeL82GP9FvtvmwYkQB5NwoNL6uZlt5O-T0AdzpOJg7vL_eoHTWNtoaXBZkhD-SJFfuCA"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/getting-started-with-youtube-live-streaming/"

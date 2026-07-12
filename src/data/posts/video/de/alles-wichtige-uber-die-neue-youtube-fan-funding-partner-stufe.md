@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:qzmGBdpLlDQ"
 category: "video-tutorial"
 tags: ["YouTube-Partnerprogramm", "Fan Funding", "Kanalmitgliedschaften", "Super Chat", "Monetarisierung", "Community-Unterstützung", "Einnahmequellen", "Richtlinien und Anforderungen", "Creator-Strategien"]
+relatedPosts: ["/youtube-tipps-de/so-aktivierst-du-super-thanks/", "/youtube-tipps-de/jetzt-neu-superthanks/", "/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/"]
 image: "https://i.ytimg.com/vi/qzmGBdpLlDQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=qzmGBdpLlDQ"

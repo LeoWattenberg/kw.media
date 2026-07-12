@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:cZ3k13Ca0n8"
 category: "news-video"
 tags: ["YouTube Updates", "Sprachunterstützung", "Sonderzeichen", "A/B-Testen für Thumbnails", "Premium-Funktionen", "Android-Geräte", "Creator-Tools"]
+relatedPosts: ["/youtube-tipps-de/was-sind-youtube-handles-aliasse/", "/youtube-tipps-de/wie-man-den-youtube-namen-andert-mobil/", "/youtube-tipps-de/youtube-updates-neue-untertitel-fur-shorts-und-erweiterung-der-hype-funktion/"]
 image: "https://i.ytimg.com/vi/cZ3k13Ca0n8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=cZ3k13Ca0n8"

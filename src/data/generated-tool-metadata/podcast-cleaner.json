@@ -1,0 +1,20 @@
+{
+	"/de/tools/podcast-cleaner/": {
+		"content": [
+			"Podcast Cleaner ist ein leistungsstarkes Tool, das es Ihnen ermöglicht, Ihre lokalen Podcast-Aufnahmen zu optimieren und zu verbessern. Mit fortschrittlichen [FFmpeg-Filtern](/de/tools/converter/video-audio-converter/) können Sie unerwünschte Geräusche wie Rumpeln, Rauschen und Hintergrundgeräusche entfernen, um eine klare und professionelle Klangqualität zu erzielen.",
+			"Die Nutzung ist einfach: Laden Sie Ihre Audiodatei in den Browser hoch, wählen Sie die gewünschten Filter aus und starten Sie den Bearbeitungsprozess. Das Tool verarbeitet die Datei lokal auf Ihrem Gerät, ohne dass Ihre Daten das Internet verlassen, was Ihre Privatsphäre schützt.",
+			"Unterstützte Formate umfassen [MP3, WAV und FLAC](/de/tools/converter/). Diese gängigen Audioformate gewährleisten eine breite Kompatibilität und Flexibilität bei der Verwendung Ihrer bereinigten Podcasts auf verschiedenen Plattformen und Geräten.",
+			"Durch die lokale Verarbeitung behält Podcast Cleaner Ihre Daten in Ihren Händen. Keine Cloud-Speicherung oder Datenaustausch bedeutet, dass Ihre Privatsphäre gewahrt bleibt und Sie die volle Kontrolle über Ihre Inhalte haben."
+		],
+		"description": "Bereinige deine Podcasts mit lokalem FFmpeg-Tool: Reduziere Rumpeln, Rauschen, dynamische Schwankungen und reguliere Pausen & Lautstärke."
+	},
+	"/en/tools/podcast-cleaner/": {
+		"content": [
+			"Podcast Cleaner is a powerful tool designed to enhance the quality of your local podcast recordings. It leverages advanced [audio processing techniques](/en/tools/audio/) using [FFmpeg](/en/tools/converter/video-audio-converter/) to remove unwanted elements like rumble, noise, and dynamics, ensuring your podcasts sound their best. Whether you're a podcaster refining episodes or an audiophile improving personal recordings, this tool offers precise control over your audio's characteristics.",
+			"The browser-based interface makes it easy to use. Simply upload your [audio files](/en/tools/abx-tester/), select the desired filters, and adjust settings according to your preferences. The selected filters will then be applied [using FFmpeg](/en/tools/lossless-media-studio/), resulting in a cleaned version of your podcast ready for export or sharing.",
+			"Supported media types include [WAV, MP3, AAC, and FLAC formats](/en/tools/converter/). Podcast Cleaner optimizes these common audio file types, ensuring compatibility with various listening platforms and devices. For best results, ensure your files are encoded at a suitable [bitrate and sample rate](/en/tools/media-info/).",
+			"By processing audio locally within the browser, Podcast Cleaner prioritizes user privacy. No data leaves your device unless explicitly uploaded for processing. This commitment to local processing ensures that your podcast recordings remain secure and under your control."
+		],
+		"description": "Podcast Cleaner: Locally refine audio with FFmpeg, removing rumble, noise, and adjusting dynamics, pauses, and loudness."
+	}
+}

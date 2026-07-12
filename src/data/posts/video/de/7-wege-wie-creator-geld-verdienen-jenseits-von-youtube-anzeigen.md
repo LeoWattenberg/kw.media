@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:c_wnvd3Ru0A"
 category: "short-tutorial"
 tags: ["Monetarisierung", "Creator-Einnahmen", "Plattform-Einnahmen", "YouTube-Mitgliedschaften", "Super Chat", "Exklusive Inhalte", "Digitale Produkte", "Print on Demand", "Merch", "Affiliate-Marketing"]
+relatedPosts: ["/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/", "/youtube-tipps-de/lass-uns-uber-geld-und-sponsorships-reden/", "/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/"]
 image: "https://i.ytimg.com/vi/c_wnvd3Ru0A/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/c_wnvd3Ru0A"

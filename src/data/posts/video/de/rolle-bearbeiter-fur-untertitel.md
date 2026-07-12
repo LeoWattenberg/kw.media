@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:ejYerCk6F_k"
 category: "short-tutorial"
 tags: ["YouTube-Untertitel", "Rollenverwaltung", "Videobearbeitung", "Zusammenarbeit auf YouTube", "Neue Funktionen auf YouTube", "YouTube Updates", "Inhaltserstellung", "Zugriffsrechte", "E-Mail-Integration"]
+relatedPosts: ["/youtube-tipps-de/kanal-berechtigungen-auf-youtube-shorts/", "/youtube-tipps-de/youtube-news-auto-synchronisation-bei-alten-videos-klarstellung-zu-kollaborationen-und-mehr/", "/youtube-tipps-de/youtube-updates-verwirrung-um-abonnieren-und-autodubbing-vollstandig-ausgerollt/"]
 image: "https://i.ytimg.com/vi/ejYerCk6F_k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ejYerCk6F_k"

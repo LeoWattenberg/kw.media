@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:MNWt6hzVztI"
 category: "news-video"
 tags: ["YouTube-Funktionen", "Kommentarverwaltung", "Werbeeinnahmen", "Direktnachrichten", "Community-Kontrolle", "Werbeplatzierung", "Abonnenten-Interaktion", "Plattform-Updates"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-youtube-fehler-loscht-werbeeinnahmen-einfuhrung-der-kollaborations-feed-funktion/", "/youtube-tipps-de/neue-audioeinstellungen-vpn-umsatzwarnung-youtube-creator-news/", "/youtube-tipps-de/youtube-updates-voice-replies-shorts-promotions-und-anderungen-bei-mid-roll-ads/"]
 image: "https://i.ytimg.com/vi/MNWt6hzVztI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=MNWt6hzVztI"

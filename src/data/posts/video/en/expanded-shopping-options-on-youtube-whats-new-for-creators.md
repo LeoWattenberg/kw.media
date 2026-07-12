@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:FZw6pXiSETg"
 category: "news-video"
 tags: ["YouTube Shopping Updates", "Shopping Collections", "Affiliate Hub", "Monetization Features", "Platform Integrations", "Shopify Integration", "Spreadshirt/Spreadshop", "Spring Platform", "Forth Wall", "Online Store Linking"]
+relatedPosts: ["/youtube-tips-en/youtube-update-new-clip-tools-shopping-sticker-upgrade-and-livestream-policy/", "/youtube-tips-en/everything-important-about-the-new-youtube-fan-funding-partner-level/", "/youtube-tips-en/youtube-hype-livestream-and-superchat-updates/"]
 image: "https://i.ytimg.com/vi/FZw6pXiSETg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=FZw6pXiSETg"

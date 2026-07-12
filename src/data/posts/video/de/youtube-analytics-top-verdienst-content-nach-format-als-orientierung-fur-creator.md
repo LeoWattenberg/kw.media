@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:k67uRZ1mEw4"
 category: "news-video"
 tags: ["YouTube Analytics", "Einnahmenanalyse", "Inhaltsleistung", "Format-Vergleich", "Video-Monetarisierung", "Live-Streaming-Monetarisierung", "Shorts-Monetarisierung", "Creator-Strategien", "Dateninterpretation"]
+relatedPosts: ["/youtube-tipps-de/youtube-update-neue-analytics-card-und-bald-mentions-fur-mobile-chats/", "/youtube-tipps-de/neu-bei-youtube-analytics-impressionen-fur-neue-und-wiederkehrende-zuschauer/", "/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/"]
 image: "https://i.ytimg.com/vi/k67uRZ1mEw4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=k67uRZ1mEw4"

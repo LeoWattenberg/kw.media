@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:b5xKbnpC8P4"
 category: "short-tutorial"
 tags: ["Hashtags auf YouTube", "Video-Kategorisierung", "Zielgruppenansprache", "Suchoptimierung", "Inhaltsstrategie", "YouTube-Tipps", "Kurzvideo-Strategien", "SEO für YouTube", "Publikumskreis erweitern"]
+relatedPosts: ["/youtube-tipps-de/youtube-hashtag-kanale-finden-shorts/", "/youtube-tipps-de/meistern-sie-keywords-fur-maximale-wirkung/", "/youtube-tipps-de/mentions-sind-klasse-zwar-deswegen/"]
 image: "https://i.ytimg.com/vi/b5xKbnpC8P4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/b5xKbnpC8P4"

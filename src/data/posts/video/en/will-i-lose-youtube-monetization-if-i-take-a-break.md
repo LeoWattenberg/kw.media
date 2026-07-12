@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:Xtu2XYmDfy4"
 category: "short-tutorial"
 tags: ["YouTube Monetization", "Monetization Policies", "Creator Mental Health", "Burnout Prevention", "Watch Time Analysis", "Content Strategy", "Platform Policies", "Creator Well-being", "Metrics and Performance"]
+relatedPosts: ["/youtube-tips-en/reused-content-monetization-disabled-what-now/", "/youtube-tips-en/the-i-do-it-for-fun-youtube-trap/", "/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/"]
 image: "https://i.ytimg.com/vi/Xtu2XYmDfy4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Xtu2XYmDfy4"

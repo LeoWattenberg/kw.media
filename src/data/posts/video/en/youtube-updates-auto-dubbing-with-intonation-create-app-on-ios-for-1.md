@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:EY8-P89G3Js"
 category: "news-video"
 tags: ["YouTube Updates", "AI Dubbing", "Intonation Experiment", "English-Spanish Translation", "English-Portuguese Translation", "Multilingual Content", "YouTube Create App", "iOS Rollout", "Canadian Users", "Creator Subsidy Program"]
+relatedPosts: ["/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/", "/youtube-tips-en/i-was-wrong-about-autodubbing-first-week-youtube-data-set-april-2025/", "/youtube-tips-en/youtube-updates-ai-age-verification-autodubbing-editor-and-community-post-limits-change/"]
 image: "https://i.ytimg.com/vi/EY8-P89G3Js/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=EY8-P89G3Js"

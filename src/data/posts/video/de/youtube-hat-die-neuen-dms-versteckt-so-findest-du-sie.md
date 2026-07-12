@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:Q5OFnSBrn3U"
 category: "short-tutorial"
 tags: ["YouTube Direktnachrichten", "Mobile Funktionen", "Benachrichtigungen", "Chat-Funktionen", "Einladungslinks", "Europäische Einführung", "UX-Design", "Soziale Interaktion", "Neue Funktionen auf YouTube"]
+relatedPosts: ["/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/", "/youtube-tipps-de/youtube-fan-communities-alles-was-du-wissen-musst/", "/youtube-tipps-de/youtube-update-neue-analytics-card-und-bald-mentions-fur-mobile-chats/"]
 image: "https://i.ytimg.com/vi/Q5OFnSBrn3U/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Q5OFnSBrn3U"

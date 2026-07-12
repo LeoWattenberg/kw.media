@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:xIG7D8RdP2I"
 category: "short-tutorial"
 tags: ["Branding-Strategien", "Kanalmanagement", "YouTube Studio", "Kanaldesign", "Profilbild optimieren", "Miniaturansichten", "Visuelle Markenidentität", "Wiederverwendbare Assets", "Farben und Schriftarten"]
+relatedPosts: ["/youtube-tipps-de/dein-youtube-kanal-anleitung-zur-anpassung-von-profilbild-banner-und-wasserzeichen/", "/youtube-tipps-de/youtube-kanalbanner-vorlage-aktualisiert-2024/", "/youtube-tipps-de/starte-durch-deinen-youtube-kanal-erstellen-in-2024-personliche-und-firmen-kanale/"]
 image: "https://i.ytimg.com/vi/xIG7D8RdP2I/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/xIG7D8RdP2I"

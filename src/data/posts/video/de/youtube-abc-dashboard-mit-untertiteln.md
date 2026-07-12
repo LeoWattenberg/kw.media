@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:1prNYRTvh8Y"
 category: "short-tutorial"
 tags: ["YouTube Studio", "Dashboard-Übersicht", "Kanalmanagement", "Inhaltsstrategie", "Video-Statistiken", "Kommentare", "Kanaloptimierung", "Creator-Tools", "Plattform-Updates"]
+relatedPosts: ["/youtube-tipps-de/bleib-mit-dem-dashboard-auf-dem-laufenden/", "/youtube-tipps-de/analyse-der-beteiligung/", "/youtube-tipps-de/youtube-abc-schneller-einstieg-mit-youtube-analytics/"]
 image: "https://i.ytimg.com/vi/1prNYRTvh8Y/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/1prNYRTvh8Y"

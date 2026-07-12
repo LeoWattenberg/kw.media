@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:W_IFK4IqfHo"
 category: "news-video"
 tags: ["YouTube Analytics", "Audience Insights", "Device Type Distribution", "Mobile Chat Improvements", "Auto Completions", "Live Streaming Features", "YouTube Studio Updates", "Content Optimization", "Viewer Engagement", "Mobile Optimization"]
+relatedPosts: ["/youtube-tips-en/new-in-youtube-analytics-impressions-for-new-and-returning-viewers/", "/youtube-tips-en/youtube-analytics-top-earning-content-by-format-as-a-guide-for-creators/", "/youtube-tips-en/casual-vs-regular-viewers-new-youtube-analytics-will-tell-you-more/"]
 image: "https://i.ytimg.com/vi/W_IFK4IqfHo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=W_IFK4IqfHo"

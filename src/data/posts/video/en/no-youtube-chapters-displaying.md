@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:raKkureDLlA"
 category: "video-tutorial"
 tags: ["YouTube Chapter Requirements", "Video Description Formatting", "YouTube Guidelines", "Timestamps in Description", "Chapter Visibility", "YouTube Video Optimization"]
+relatedPosts: ["/youtube-tips-en/youtube-video-chapters-are-awesome-and-this-is-the-reason-shorts/", "/youtube-tips-en/long-shorts-are-not-displayed-correctly-in-youtube-studio-memberships-updates-and-more/", "/youtube-tips-en/how-they-work-end-cards/"]
 image: "https://i.ytimg.com/vi/raKkureDLlA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=raKkureDLlA"

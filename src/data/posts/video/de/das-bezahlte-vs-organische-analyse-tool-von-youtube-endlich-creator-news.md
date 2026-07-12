@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:vbJb0uVty9o"
 category: "news-video"
 tags: ["YouTube-Richtlinien", "Gaming-Kanal-Einschränkungen", "Glücksspiel und Gewalt", "Organische vs. bezahlte Analyse", "YouTube Analytics-Update", "Community-Richtlinien-Durchsetzung", "Altersbeschränkungen für Inhalte", "Metriken-Filterung", "Werbung und organisches Wachstum"]
+relatedPosts: ["/youtube-tipps-de/uberarbeitung-der-erweiterten-youtube-analyse-inspiration-ai-jetzt-in-der-eu/", "/youtube-tipps-de/youtube-update-strengere-glucksspiel-regeln-und-anderungen-bei-monetarisierungs-checks/", "/youtube-tipps-de/die-neue-schutzbestimmung-von-youtube-ist-da-veo-3-update/"]
 image: "https://i.ytimg.com/vi/vbJb0uVty9o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=vbJb0uVty9o"

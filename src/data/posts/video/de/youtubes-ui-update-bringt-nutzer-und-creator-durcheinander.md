@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:UtI-KzQha-M"
 category: "news-video"
 tags: ["YouTube Updates", "Benutzeroberflächen-Änderungen", "Design-Test", "Livestream-Optimierung", "Vertikale Live-Streams", "YouTube-Partnerprogramm", "Monetarisierung", "Richtlinien und Anforderungen", "Community-Interaktion"]
+relatedPosts: ["/youtube-tipps-de/alles-neu-im-youtube-studio-mobile-inhalts-und-community-tab-updates/", "/youtube-tipps-de/langere-shorts-und-add-yours-sticker-youtubes-neueste-experimente/", "/youtube-tipps-de/a-b-testing-auf-youtube-und-playlist-abstimmung/"]
 image: "https://i.ytimg.com/vi/UtI-KzQha-M/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=UtI-KzQha-M"

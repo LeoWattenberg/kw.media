@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:GSv_RD1b7b8"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Live Streaming Features", "AI Content Generation", "Community Features", "Desktop Features", "YouTube Studio", "Fan Communities", "Multi-Aspect Streams", "AI Disclosure", "Viewer Experience"]
+relatedPosts: ["/youtube-tips-en/youtube-fan-communities-everything-you-need-to-know/", "/youtube-tips-en/youtube-news-second-chance-pilot-ask-studio-deep-dive-and-communities-on-desktop/", "/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/"]
 image: "https://i.ytimg.com/vi/GSv_RD1b7b8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=GSv_RD1b7b8"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "post:1434"
 category: "blog"
 tags: ["Audio-Ausrüstung", "Mikrofon-Auswahl", "Streaming-Tipps", "Audio-Qualität", "XLR vs. USB", "Richtcharakteristiken", "Frequenzgang", "Audio-Tutorial", "Creator-Ressourcen", "Streaming-Technik"]
+relatedPosts: ["/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/", "/youtube-tipps-de/avermedia-nexus-ax310-und-streamer-mic-330-testbericht/", "/youtube-tipps-de/einen-gaming-kanal-mit-kleinem-budget-starten/"]
 image: "/assets/wp-content/uploads/2021/06/audioguide-FINAL.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/"

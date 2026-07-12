@@ -1,0 +1,20 @@
+{
+	"/de/tools/short-form-safe-zone-previewer/": {
+		"content": [
+			"Mit dem Tool „Shorts, TikTok & Reels Safe Zones“ kannst du deine [vertikalen Videos und Bilder](/de/tools/video/) [direkt im Browser](/de/tools/vtuber-preview/) überprüfen, um sicherzustellen, dass sie für [Untertitel, Text und wichtige Overlays](/de/tools/subtitle-burner/) geeignet sind. Es hilft dir, Inhalte zu erstellen, die sowohl auf [TikTok als auch auf Instagram Reels](/de/tools/vertikaler-video-reframer/) funktionieren, ohne dass du dich um Formatbeschränkungen sorgen musst.",
+			"Die Funktionsweise ist einfach: Lade dein [Hochkantvideo oder Bild hoch](/de/tools/converter/) und das Tool analysiert es. Es zeigt dir markante Bereiche an, in denen [Text und Untertitel](/de/tools/untertitel-studio/) platziert werden können, ohne dass sie abgeschnitten werden. So kannst du deine Videos optimieren und die Sichtbarkeit deiner Inhalte erhöhen.",
+			"Unterstützt werden alle gängigen [Video- und Bildformate](/de/tools/converter/image-format-converter/), die für soziale Medien verwendet werden. Egal ob [MP4, MOV oder JPEG](/de/tools/converter/video-audio-converter/) – das Tool erkennt automatisch die richtige Ausrichtung und gibt dir präzise Vorgaben für sichere Bereiche. So kannst du deine Kreativität entfalten, ohne Kompromisse bei der Qualität einzugehen.",
+			"Deine Daten bleiben lokal und werden nicht an externe Dienste übermittelt. Die Verarbeitung erfolgt [direkt im Browser](/de/tools/whisper-untertitel-generator/), um deine [Privatsphäre zu schützen](/impressum/). Wir garantieren keine spezifischen AI-Modelle oder Bibliotheken, sondern bieten lediglich eine präzise Analyse basierend auf den von dir hochgeladenen Medien."
+		],
+		"description": "Überprüfe deine Hochkantvideos & Bilder lokal auf sichere Zonen für Texte, Untertitel & Overlays - optimiert für Shorts, TikTok & Reels."
+	},
+	"/en/tools/short-form-safe-zone-previewer/": {
+		"content": [
+			"The 'Shorts, TikTok & Reels Safe Zones' tool empowers content creators to ensure their [vertical video and image compositions](/en/tools/vertical-video-reframer/) are optimized for various social media platforms. It addresses the common challenge of aligning captions, text overlays, and other important elements within safe areas, enhancing overall visual appeal and user experience.",
+			"This browser-based utility allows users to upload or integrate [local videos](/en/tools/black-bar-remover/) and images directly. Upon upload, the tool analyzes the content, identifying platform-specific safe zones for [TikTok Shorts, Reels](/en/tools/analyzers/), and similar vertical video formats. The process is seamless, providing real-time feedback on potential adjustments needed for optimal display.",
+			"Supported media types include [MP4 and JPEG files](/en/tools/converter/) for vertical videos and images, respectively. By utilizing local processing, creators can preview and refine their content without relying on external uploads or API integrations, ensuring privacy and control over sensitive assets.",
+			"The tool focuses on enabling creators to make informed decisions regarding composition and formatting within safe zones. It does not offer advanced editing features but provides a critical check for safe area compliance, enhancing the likelihood of successful platform distribution."
+		],
+		"description": "Ensure your Shorts, TikTok & Reels stay visible with our tool. Check local safe zones for captions, text, & overlays, all within your browser."
+	}
+}

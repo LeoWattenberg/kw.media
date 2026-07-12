@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:RSeROQWVAPk"
 category: "short-tutorial"
 tags: ["HDR-Streaming", "YouTube-Streaming", "Stream-Schlüssel", "HLS-Protokoll", "Live Control Room", "Stream-Einstellungen"]
+relatedPosts: ["/youtube-tipps-de/wie-man-live-streams-beherrscht/", "/youtube-tipps-de/einstieg-in-das-live-streaming-auf-youtube/", "/youtube-tipps-de/obs-mit-twitch-und-youtube-verbinden/"]
 image: "https://i.ytimg.com/vi/RSeROQWVAPk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/RSeROQWVAPk"

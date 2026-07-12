@@ -9,6 +9,7 @@ modified: "2023-03-17T12:57:27"
 locale: "de"
 category: "blog"
 tags: ["YouTube-Richtlinien", "Urheberrechtsverletzungen", "Strikes", "Einspruch", "Kanalmanagement", "Rechtliche Grundlagen", "Video-Veröffentlichung", "Inhaltsprüfung", "Community-Richtlinien"]
+relatedPosts: ["/youtube-tipps-de/folge-den-richtlinien-und-lass-deinen-kanal-strahlen/", "/youtube-tipps-de/wie-du-musik-und-videos-legal-verwendest/", "/youtube-tipps-de/neues-einspruchsrecht-im-youtube-partnerprogramm-und-kanalseiten-uberarbeitungen/"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tipps-de/youtube-strike-was-nun/"

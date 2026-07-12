@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:-WgXyaoL1LI"
 category: "short-tutorial"
 tags: ["Content Discoverability", "Video Optimization", "YouTube Channel Growth", "Thumbnail Design", "Video Engagement", "Consistency Strategies", "Session Time Improvement", "Playlist Management", "End Screens"]
+relatedPosts: ["/youtube-tips-en/trending-tags-are-hashtags-still-relevant/", "/youtube-tips-en/reach-the-summit-with-featured-content/", "/youtube-tips-en/why-50-hours-of-editing-gets-0-views/"]
 image: "https://i.ytimg.com/vi/-WgXyaoL1LI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/-WgXyaoL1LI"

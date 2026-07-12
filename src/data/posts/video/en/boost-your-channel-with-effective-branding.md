@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:xIG7D8RdP2I"
 category: "short-tutorial"
 tags: ["YouTube Channel Design", "Visual Branding", "Branding Elements", "Channel Aesthetics", "Profile Pictures", "Banner Templates", "Thumbnail Optimization", "Corporate Identity", "YouTube Studio"]
+relatedPosts: ["/youtube-tips-en/your-youtube-channel-guide-to-customizing-profile-picture-banner-and-watermark/", "/youtube-tips-en/take-off-create-your-youtube-channel-in-2024-personal-and-company-channels/", "/youtube-tips-en/how-to-use-social-media-to-grow-your-youtube-channel/"]
 image: "https://i.ytimg.com/vi/xIG7D8RdP2I/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/xIG7D8RdP2I"

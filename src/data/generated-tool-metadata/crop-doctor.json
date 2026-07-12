@@ -1,0 +1,20 @@
+{
+	"/de/tools/schwarze-balken-entfernen/": {
+		"content": [
+			"Schwarze Balken entfernen ist ein einfaches, aber leistungsstarkes Tool, das speziell für die Bearbeitung lokaler Videos entwickelt wurde. Es hilft dir, unerwünschte schwarze Balken aus deinen Videos zu entfernen und ermöglicht es dir, eine präzise, [gecropte Version](/de/tools/analyzers/) zu exportieren. Mit nur wenigen Klicks kannst du dein Video optimieren und die bestmögliche visuelle Erfahrung bieten.",
+			"Die Nutzung von Schwarze Balken entfernen ist kinderleicht: Lade einfach dein Video hoch, wähle den Bereich aus, den du behalten möchtest, und der Rest wird automatisch erledigt. Das Tool passt sich an verschiedene Bildverhältnisse an und stellt sicher, dass dein Video perfekt geschnitten ist, ohne Qualitätseinbußen.",
+			"Unterstützt werden [Videoformate wie MP4, MOV und AVI](/de/tools/converter/video-audio-converter/). Du kannst sowohl [vertikale als auch horizontale schwarze Balken entfernen](/de/tools/vertikaler-video-reframer/) und dein Video in verschiedenen Auflösungen exportieren, um es an verschiedene Plattformen anzupassen. Die Dateigröße bleibt dabei überschaubar, da die Bearbeitung [direkt im Browser erfolgt](/de/tools/).",
+			"Deine Daten bleiben lokal und werden nicht an Dritte übermittelt. Alle Verarbeitungsschritte finden auf deinem Gerät statt, was deine Privatsphäre schützt. Schwarze Balken entfernen ist ein vertrauenswürdiger Begleiter für alle, die ihre Videos schnell und diskret optimieren möchten."
+		],
+		"description": "Entferne unerwünschte Bereiche aus lokalen Videos mit unserem Browser-Tool und exportiere optimierte Crop-Versionen."
+	},
+	"/en/tools/black-bar-remover/": {
+		"content": [
+			"Black Bar Remover is a powerful, user-friendly tool designed to enhance your video editing experience by removing unwanted black bars from your [local videos](/en/tools/subtitle-burner/). It offers a simple and efficient solution for achieving perfect crops without the need for complex software.",
+			"Using our [browser-based platform](/en/tools/), you can easily upload your [video files](/en/tools/converters/media-to-flac/) and instantly visualize the results. Our advanced algorithms detect the black bars and provide you with options to customize the crop. The cropped video is then exported in high quality, ready for your next project.",
+			"This tool supports a wide range of [video formats](/en/tools/converter/), including MP4, MOV, AVI, and MKV. It ensures compatibility with various devices and editing software, making it accessible to all video creators.",
+			"Privacy and local processing are at the core of Black Bar Remover. Your videos remain on your device throughout the process, ensuring maximum security. No data is stored or shared, giving you full control over your media."
+		],
+		"description": "Black Bar Remover: Locally crop videos by removing black bars, preserving quality with browser-based, efficient processing."
+	}
+}

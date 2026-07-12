@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:k67uRZ1mEw4"
 category: "news-video"
 tags: ["YouTube Analytics", "Content Performance", "Top Earning Content", "Format-Based Insights", "Monetization Strategies", "Creator-Tools", "YouTube Studio Updates", "Mobile Studio App", "Vertical Live Streaming", "Streaming Innovations"]
+relatedPosts: ["/youtube-tips-en/youtube-update-new-analytics-card-and-soon-mentions-for-mobile-chats/", "/youtube-tips-en/youtube-abc-quick-start-with-youtube-analytics/", "/youtube-tips-en/new-in-youtube-analytics-impressions-for-new-and-returning-viewers/"]
 image: "https://i.ytimg.com/vi/k67uRZ1mEw4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=k67uRZ1mEw4"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:BpTFWaLGDR4"
 category: "short-tutorial"
 tags: ["Monetarisierung", "YouTube Shorts", "YouTube Studio", "Einnahmen generieren", "Inhaltsmonetarisierung", "Kurze Tutorials", "Video-Optimierung", "Plattform-Einnahmen"]
+relatedPosts: ["/youtube-tipps-de/wann-kommt-die-shorts-monetarisierung/", "/youtube-tipps-de/so-kommst-du-mit-youtube-shorts-ins-partner-programm/", "/youtube-tipps-de/wiedernutzung-von-inhalt-monetarisierung-deaktiviert-was-nun/"]
 image: "https://i.ytimg.com/vi/BpTFWaLGDR4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/BpTFWaLGDR4"

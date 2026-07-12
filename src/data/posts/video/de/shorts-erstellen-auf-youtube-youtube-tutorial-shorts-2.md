@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:Ym4aBQ-W2BM"
 category: "short-tutorial"
 tags: ["YouTube Shorts", "Kurze Tutorials", "Videoerstellung", "Mobile Produktion", "Musik für Videos", "Titeloptimierung", "Creator-Tipps", "YouTube-Funktionen", "Kurzvideo-Bearbeitung"]
+relatedPosts: ["/youtube-tipps-de/verschiedene-wege-shorts-zu-erstellen-shorts/", "/youtube-tipps-de/bearbeitbare-miniaturansichten-fur-shorts/", "/youtube-tipps-de/so-monetarisierst-du-alte-shorts/"]
 image: "https://i.ytimg.com/vi/Ym4aBQ-W2BM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Ym4aBQ-W2BM"

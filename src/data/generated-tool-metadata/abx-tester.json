@@ -1,0 +1,20 @@
+{
+	"/de/tools/abx-tester/": {
+		"content": [
+			"ABX-Audiotester ist ein leistungsstarkes Tool, das es Ihnen ermöglicht, die Audioqualität lokaler Dateien direkt in Ihrem Browser zu vergleichen und zu bewerten. Mit dieser webbasierten Anwendung können Sie die Unterschiede zwischen verschiedenen Audiodateiformaten subtil oder offensichtlich erkennen, was ideal für Entwickler, Audiophile und alle ist, die sich um die Klangqualität ihrer Medien sorgen.",
+			"Der Prozess ist einfach: Laden Sie Ihre Audiodateien hoch, wählen Sie ein Referenzformat aus und starten Sie den Test. Das Tool führt einen clientseitigen Vergleich durch, indem es die Dateien in Echtzeit analysiert und die Ergebnisse visuell darstellt. So erhalten Sie sofortiges Feedback zur Klangqualität und Komprimierungseffekte.",
+			"Unterstützte Formate umfassen MP3, WAV, FLAC und OGG. Diese Vielfalt ermöglicht es Ihnen, eine breite Palette von Audioinhalten zu testen und sicherzustellen, dass Ihre Dateien die beste mögliche Qualität haben. Die lokale Verarbeitung gewährleistet, dass Ihre Daten privat bleiben und keine sensiblen Informationen übermittelt werden.",
+			"Durch die direkte Analyse im Browser wird sichergestellt, dass keine Dateien das Gerät verlassen, was die Privatsphäre schützt und die Effizienz erhöht. Sie erhalten präzise Ergebnisse ohne die Notwendigkeit externer Dienste oder Serverinteraktionen."
+		],
+		"description": "Erstellen Sie mit dem ABX-Audiotester präzise Vergleiche lokaler Audiodateien – direkt im Browser, schnell und effizient."
+	},
+	"/en/tools/abx-tester/": {
+		"content": [
+			"ABX Audio Tester is a powerful, browser-based tool designed to help you compare and evaluate [audio files](/en/tools/audio/) side by side. Its primary purpose is to facilitate the [listening test process](/en/tools/mp3-quality-tester/) for audio professionals, researchers, and enthusiasts, ensuring accurate assessments of audio quality and fidelity.",
+			"Using your web browser, this tool allows you to upload and play multiple audio samples simultaneously. You can then engage in an ABX (A/B/X) listening test, where you identify which of the three options matches a reference file. The browser-based nature ensures accessibility and convenience without requiring any additional software installation.",
+			"The supported media types include [WAV, MP3, and FLAC formats](/en/tools/converter/), catering to various audio file standards. This tool is optimized for local processing, meaning your [audio files](/en/tools/converter/video-audio-converter/) remain on your device, ensuring privacy and security during the testing procedure.",
+			"By leveraging browser capabilities, ABX Audio Tester offers a streamlined, efficient solution for audio comparison without sacrificing control or privacy. It's an ideal choice for anyone needing a quick, accurate way to assess audio quality locally."
+		],
+		"description": "ABX Audio Tester: Perform powerful, client-side ABX listening tests on local audio files with precision and efficiency."
+	}
+}

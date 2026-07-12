@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:s05L2eJ4j7g"
 category: "short-tutorial"
 tags: ["YouTube Kanalmanagement", "Kanalanpassung", "Auffindbarkeit verbessern", "Zuschauerbindung", "Zielgruppenansprache", "Interaktion mit Zuschauern", "Kanaloptimierung", "YouTube Studio", "Kurzvideo-Erstellung"]
+relatedPosts: ["/youtube-tipps-de/erreichen-sie-mit-highlight-inhalten-den-gipfel/", "/youtube-tipps-de/dein-youtube-kanal-anleitung-zur-anpassung-von-profilbild-banner-und-wasserzeichen/", "/youtube-tipps-de/was-sind-youtube-handles-aliasse/"]
 image: "https://i.ytimg.com/vi/s05L2eJ4j7g/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/s05L2eJ4j7g"

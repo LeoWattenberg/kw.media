@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:nYCqLniFimk"
 category: "news-video"
 tags: ["YouTube Policy Changes", "Age Restrictions", "Australian Creators", "Click-Through Rate (CTR)", "Watch Time Optimization", "Title and Thumbnail A/B Testing", "YouTube Analytics", "Live-Streaming-Updates", "Creator Engagement", "Content Strategy"]
+relatedPosts: ["/youtube-tips-en/governments-are-banning-your-audience-creator-news/", "/youtube-tips-en/youtube-updates-ai-age-verification-autodubbing-editor-and-community-post-limits-change/", "/youtube-tips-en/youtube-update-strict-gambling-rules-and-changes-to-monetization-checks/"]
 image: "https://i.ytimg.com/vi/nYCqLniFimk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=nYCqLniFimk"

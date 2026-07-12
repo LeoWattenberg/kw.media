@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:ge8wm6W-EF0"
 category: "news-video"
 tags: ["YouTube Updates", "iOS Features", "Memberships Button", "Apple Payment Issues", "Revenue Optimization", "Analytics Changes", "Engaged Views Metric", "Mobile Ads", "Side by Side Ads", "Streaming Innovations"]
+relatedPosts: ["/youtube-tips-en/membership-bonus-program-thumbnail-updates-and-ai-dubbing-on-the-horizon/", "/youtube-tips-en/free-channel-memberships-for-youtube-premium-users-the-big-experiment-in-april-2024/", "/youtube-tips-en/youtube-updates-subscribe-confusion-and-autodubbing-fully-rolled-out/"]
 image: "https://i.ytimg.com/vi/ge8wm6W-EF0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=ge8wm6W-EF0"

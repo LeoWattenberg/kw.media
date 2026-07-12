@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:oYttE8RpUqQ"
 category: "news-video"
 tags: ["YouTube-Funktionen", "Kanalmitgliedschaften", "Benachrichtigungen", "Zuschauer-Interaktion", "Call to Action", "Spracherkennung", "Visuelle Effekte"]
+relatedPosts: ["/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/", "/youtube-tipps-de/youtube-updates-verwirrung-um-abonnieren-und-autodubbing-vollstandig-ausgerollt/", "/youtube-tipps-de/youtube-updates-ios-beitrittstaste-multi-format-live-streams-und-analysereparatur/"]
 image: "https://i.ytimg.com/vi/oYttE8RpUqQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=oYttE8RpUqQ"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:J8RN6vLmLh4"
 category: "news-video"
 tags: ["YouTube Updates", "Automatische Untertitelung", "Mehrsprachiges Audio", "Zusammenklapp-Funktion", "Sprachantworten", "YouTube Live-Experimente"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-verwirrung-um-abonnieren-und-autodubbing-vollstandig-ausgerollt/", "/youtube-tipps-de/youtubes-neue-ausdrucksstarke-sprache-ki-besser-als-menschliche-synchronisationen/", "/youtube-tipps-de/youtube-aktualisiert-automatische-synchronisation-mit-intonation-create-app-auf-ios-fur-1/"]
 image: "https://i.ytimg.com/vi/J8RN6vLmLh4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=J8RN6vLmLh4"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:t-36QlpRlEc"
 category: "news-video"
 tags: ["YouTube Shorts", "Music Library", "Chrome Extension", "Affiliate-Marketing", "Super Chat Replies", "AI Live Stream Summaries", "Live Stream Ads", "YouTube-Hype", "Stickers"]
+relatedPosts: ["/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/", "/youtube-tips-en/coming-soon-to-youtube-custom-thumbs-for-shorts-and-superchat-goals/"]
 image: "https://i.ytimg.com/vi/t-36QlpRlEc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=t-36QlpRlEc"

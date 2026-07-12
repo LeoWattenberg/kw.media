@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:YSv_5uNMHds"
 category: "news-video"
 tags: ["Text-zu-Sprache", "Android-Funktionen", "YouTube Shorts", "Spracherkennung", "Sprachübersetzung", "Audio-Tools", "Mobile Produktion", "Creator-Tools", "Neue Funktionen auf YouTube"]
+relatedPosts: ["/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts-2/", "/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts/", "/youtube-tipps-de/youtube-updates-voice-replies-shorts-promotions-und-anderungen-bei-mid-roll-ads/"]
 image: "https://i.ytimg.com/vi/YSv_5uNMHds/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=YSv_5uNMHds"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:u_wzOQranLY"
 category: "news-video"
 tags: ["YouTube Updates", "Mobile Funktionen", "Live-Streaming-Verbesserungen", "Shorts-Optimierung", "Mitgliedschaften und Abonnements", "Super Chat-Funktionen", "Gaming-Integration", "YouTube Premium"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-kommentervorschauen-in-shorts-duo-premium-plane-und-anderungen-bei-musiklizenzen/", "/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/", "/youtube-tipps-de/youtube-hype-livestream-und-superchat-updates/"]
 image: "https://i.ytimg.com/vi/u_wzOQranLY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=u_wzOQranLY"

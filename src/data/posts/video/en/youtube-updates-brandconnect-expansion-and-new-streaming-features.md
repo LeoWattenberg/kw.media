@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:yOHQeHV2iYk"
 category: "news-video"
 tags: ["YouTube Updates", "Creator-Tools", "Thumbnail Customization", "Live Streaming Features", "BrandConnect Expansion", "Mobile Optimization", "Ad Blocking Controls", "Super Chat Goals", "Platform Enhancements"]
+relatedPosts: ["/youtube-tips-en/editable-thumbnails-for-shorts/", "/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/", "/youtube-tips-en/coming-soon-to-youtube-custom-thumbs-for-shorts-and-superchat-goals/"]
 image: "https://i.ytimg.com/vi/yOHQeHV2iYk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=yOHQeHV2iYk"

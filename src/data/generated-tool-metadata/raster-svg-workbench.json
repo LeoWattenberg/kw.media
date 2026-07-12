@@ -1,0 +1,20 @@
+{
+	"/de/tools/raster-svg-studio/": {
+		"content": [
+			"Raster/SVG Studio ist ein leistungsstarkes, browserbasiertes Werkzeug, das Ihnen ermöglicht, [Rasterbilder in Vektorformate umzuwandeln](/de/tools/converters/png-to-svg/) und zu bearbeiten. Mit dieser Plattform können Sie Bilder optimieren, skalieren und anpassen, ohne Qualitätseinbußen hinnehmen zu müssen. Es ist die perfekte Lösung für Designer und Entwickler, die schnelle und präzise Vektorisierungen benötigen.",
+			"Die Benutzerfreundlichkeit steht im Mittelpunkt: Laden Sie einfach Ihr Rasterbild hoch, wählen Sie die gewünschten Einstellungen aus und klicken Sie auf 'Umwandeln'. Das Tool erzeugt dann ein [SVG-Bild](/de/tools/converters/svg-to-png/), das Sie in Echtzeit anpassen können. Durch die intuitive Browser-Oberfläche ist die Arbeit mit Vektoren so einfach wie nie zuvor.",
+			"Unterstützte Formate umfassen [Rasterbilder (JPEG, PNG)](/de/tools/image/) und Vektordarstellungen (SVG). Das Tool rendert SVGs lokal als PNG-Dateien, was eine schnelle Bearbeitung und Verwendung in verschiedenen Projekten ermöglicht. Keine Internetverbindung erforderlich – alle Verarbeitungen erfolgen [direkt im Browser](/de/tools/vtuber-preview/).",
+			"Datenschutz und lokale Verarbeitung sind uns wichtig. Ihr Bild wird nicht an externe Server übermittelt, und die Verarbeitung erfolgt vollständig im Browser. So können Sie Ihre Dateien sicher und vertraulich bearbeiten, ohne sich um Datensicherheit sorgen zu müssen."
+		],
+		"description": "Raster/SVG Studio: Konvertiere Bilder direkt im Browser, rendere lokale SVGs als PNG - schnelle, effiziente Vektorisierung ohne Server-Abhängigkeit."
+	},
+	"/en/tools/raster-svg-studio/": {
+		"content": [
+			"The Raster/SVG Studio is a powerful, browser-based tool designed for artists, designers, and developers who work with digital media. Its primary function is to facilitate the [conversion of raster images into scalable vector graphics (SVG)](/en/tools/converters/png-to-svg/), offering a versatile solution for creating and editing visual content.",
+			"Using this tool, users can upload [raster images](/en/tools/converter/image-format-converter/) directly from their devices or choose them from an online library. The browser-based workflow allows for real-time visualization and interaction with the image during the vectorization process. Users can adjust settings, preview results, and even animate SVGs before exporting.",
+			"Supported formats include PNG, JPEG, and GIF for input raster images, and the output is limited to SVG and PNG. This tool excels in creating high-quality, editable [vector graphics](/en/tools/image/) while ensuring a smooth user experience without requiring any downloads or plugins.",
+			"Privacy and local processing are at the core of this tool's design. All image processing occurs within the user's browser, guaranteeing that sensitive data remains secure and under the user's control. No files leave the user's device unless explicitly exported."
+		],
+		"description": "Raster/SVG Studio: Convert raster images to SVG, rendering them locally as PNG for fast, efficient vector graphics editing."
+	}
+}

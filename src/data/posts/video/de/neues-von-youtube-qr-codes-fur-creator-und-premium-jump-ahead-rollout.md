@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:hsmHl_LDtxg"
 category: "news-video"
 tags: ["Creator QR Codes", "YouTube Updates", "Premium Jump Ahead", "Mobile Funktionen", "Kanal-Teilen", "QR-Codes", "Benutzererfahrung", "Inhaltsstrategie", "Viewer-Interaktion"]
+relatedPosts: ["/youtube-tipps-de/youtubes-neuestes-experiment-jump-ahead-was-creator-wissen-mussen/", "/youtube-tipps-de/warum-youtube-dir-im-shorts-feed-qr-codes-anzeigt-creator-news/", "/youtube-tipps-de/youtubes-updates-q-und-a-sticker-und-10mb-thumbnails/"]
 image: "https://i.ytimg.com/vi/hsmHl_LDtxg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=hsmHl_LDtxg"

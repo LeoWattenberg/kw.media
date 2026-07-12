@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:xS8QSY5GC68"
 category: "short-tutorial"
 tags: ["YouTube Channel Management", "Community Settings", "Platform Rules", "Channel Customization", "YouTube Studio", "Custom Rules", "Viewer Engagement", "Chat Interaction", "Content Moderation"]
+relatedPosts: ["/youtube-tips-en/new-feature-alert-channel-guidelines/", "/youtube-tips-en/follow-the-guidelines-watch-your-channel-shine/", "/youtube-tips-en/take-off-create-your-youtube-channel-in-2024-personal-and-company-channels/"]
 image: "https://i.ytimg.com/vi/xS8QSY5GC68/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/xS8QSY5GC68"

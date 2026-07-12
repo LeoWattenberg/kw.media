@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:nmWIRLz-2LA"
 category: "short-tutorial"
 tags: ["YouTube Mobile App", "Live Streaming Features", "Platform Updates", "Discoverability", "User Interaction", "Viewer Engagement", "Short Tutorial"]
+relatedPosts: ["/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/youtube-updates-brandconnect-expansion-and-new-streaming-features/", "/youtube-tips-en/youtube-updates-youtube-studio-app-youtube-app-comments-community-posts/"]
 image: "https://i.ytimg.com/vi/nmWIRLz-2LA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nmWIRLz-2LA"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:ym_qnPaIiCk"
 category: "short-tutorial"
 tags: ["YouTube Channel Growth", "Content Strategy", "Video Editing", "Audience Engagement", "Algorithm Optimization", "Burnout Prevention", "Concept Development", "VODs (Video on Demand)", "Viral Content", "Creator Mental Health"]
+relatedPosts: ["/youtube-tips-en/why-grinding-videos-on-youtube-is-bad-for-you/", "/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/", "/youtube-tips-en/the-eee-model-how-to-break-out-of-the-small-youtuber-niche/"]
 image: "https://i.ytimg.com/vi/ym_qnPaIiCk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ym_qnPaIiCk"

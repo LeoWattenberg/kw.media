@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:nTyBDl2lbMg"
 category: "news-video"
 tags: ["Super Chat Antworten", "AFG-Verstöße", "YouTube-Funktionen", "Transparenz", "Monetarisierung", "A/B-Testen", "Thumbnails", "Richtlinienverstöße", "Video-Moderation"]
+relatedPosts: ["/youtube-tipps-de/youtube-hype-livestream-und-superchat-updates/", "/youtube-tipps-de/youtube-creator-news-live-reminders-paid-hype-und-superchat-goals/", "/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/"]
 image: "https://i.ytimg.com/vi/nTyBDl2lbMg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=nTyBDl2lbMg"

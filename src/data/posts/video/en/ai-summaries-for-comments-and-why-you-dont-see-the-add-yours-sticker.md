@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:HNKwk_tm1Vo"
 category: "news-video"
 tags: ["YouTube Platform Updates", "AI Comment Summaries", "YouTube Shorts Features", "Premium Membership Pricing", "Stickers in Shorts", "Q&A Livestream", "Creator Resources", "Platform Announcements", "Monetization Policies", "YouTube Community"]
+relatedPosts: ["/youtube-tips-en/longer-shorts-and-add-yours-stickers-youtubes-latest-experiments/", "/youtube-tips-en/youtube-updates-comment-teasers-in-shorts-duo-premium-plans-and-music-license-changes/", "/youtube-tips-en/youtube-updates-leaderboards-shorts-visual-guides-and-shorts-quiz-stickers/"]
 image: "https://i.ytimg.com/vi/HNKwk_tm1Vo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=HNKwk_tm1Vo"

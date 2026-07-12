@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:rhThVpigPqY"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Thumbnail Optimization", "Super Chat Goals", "Live Stream Ads", "Multilingual Audio", "Web Integration", "AI Translation"]
+relatedPosts: ["/youtube-tips-en/youtubes-end-of-year-updates-jewels-superchat-goals-and-more/", "/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/coming-soon-to-youtube-custom-thumbs-for-shorts-and-superchat-goals/"]
 image: "https://i.ytimg.com/vi/rhThVpigPqY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=rhThVpigPqY"

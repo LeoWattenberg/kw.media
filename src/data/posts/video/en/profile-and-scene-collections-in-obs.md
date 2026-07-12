@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:5jWzRRKKR2k"
 category: "short-tutorial"
 tags: ["OBS", "Streaming Software", "Stream Settings", "Presets", "Scene Management", "Bitrate Settings", "Backup and Transfer", "Stream Optimization"]
+relatedPosts: ["/youtube-tips-en/using-scenes-and-sources-in-obs/", "/youtube-tips-en/getting-started-with-obs-a-beginners-guide/", "/youtube-tips-en/connecting-obs-to-twitch-and-youtube/"]
 image: "https://i.ytimg.com/vi/5jWzRRKKR2k/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5jWzRRKKR2k"

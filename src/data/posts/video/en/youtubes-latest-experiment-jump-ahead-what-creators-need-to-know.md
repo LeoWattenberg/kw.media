@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:obiGGGDe-Uw"
 category: "news-video"
 tags: ["YouTube Updates", "Jump Ahead Experiment", "AI-Driven Features", "Ad Skipping", "Creator Monetization", "Audience Retention Analysis", "Shorts Remix Improvements", "Chapters as Advanced Feature", "Viewer Engagement Strategies"]
+relatedPosts: ["/youtube-tips-en/new-from-youtube-qr-codes-for-creators-and-premium-jump-ahead-rollout/", "/youtube-tips-en/youtube-updates-playable-multitasking-and-3-minute-shorts/", "/youtube-tips-en/youtube-updates-leaderboards-shorts-visual-guides-and-shorts-quiz-stickers/"]
 image: "https://i.ytimg.com/vi/obiGGGDe-Uw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=obiGGGDe-Uw"

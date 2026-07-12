@@ -1,0 +1,8 @@
+{
+	"/de/tools/untertitel-studio/": {
+		"description": "Lokal Untertitel erstellen & bearbeiten mit Subtitle Studio. Einfache Anwendung für Soft-Subs oder Hard-Subs, direkt im Browser. Keine Serveranforderungen."
+	},
+	"/en/tools/subtitle-studio/": {
+		"description": "Subtitle Studio: Create & edit subtitles offline, then seamlessly apply them to videos as customizable soft or hard subtitles."
+	}
+}

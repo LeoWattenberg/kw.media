@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:bXbIz9BKeUc"
 category: "news-video"
 tags: ["YouTube Updates", "Playlist Voting", "A/B Testing (Test and Compare)", "Content Customization", "Audience Engagement", "Community Features", "YouTube Mobile App", "YouTube Channel Updates", "YouTube Platform Updates"]
+relatedPosts: ["/youtube-tips-en/a-b-testing-on-youtube-everything-you-need-to-know-for-the-summer-launch/", "/youtube-tips-en/how-to-use-youtubes-new-thumbnail-test-and-compare-feature-for-better-engagement/", "/youtube-tips-en/what-is-youtube-test-and-compare-or-thumbnail-a-b-testing/"]
 image: "https://i.ytimg.com/vi/bXbIz9BKeUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=bXbIz9BKeUc"

@@ -1,0 +1,20 @@
+{
+	"/de/tools/text/": {
+		"content": [
+			"Text-Tools ist eine browserbasierte Plattform, die Ihnen mächtige Werkzeuge zur Verfügung stellt, um Text in digitalen Dokumenten zu verwalten und zu optimieren. Ob Sie [Untertitel für Videos erstellen](/de/tools/untertitel-studio/), Kapitel in E-Books strukturieren oder [Metadaten für Ihre Inhalte anpassen](/de/tools/metadaten-entfernen/) möchten – unsere intuitiven Tools erleichtern Ihnen diese Aufgaben.",
+			"Die Nutzung ist einfach: Laden Sie Ihr Dokument hoch, wählen Sie das gewünschte Tool aus und passen Sie den Text nach Ihren Anforderungen an. Alle Änderungen werden [direkt im Browser](/de/tools/vtuber-preview/) vorgenommen, sodass Sie sofortiges Feedback erhalten. Keine Installation erforderlich – Text-Tools ist jederzeit und überall zugänglich.",
+			"Unterstützt werden eine Vielzahl von Dateiformaten wie DOCX, PDF, SRT und mehr. So können Sie verschiedene Arten von Textdokumenten bearbeiten und dabei sicher sein, dass Ihre Daten lokal verarbeitet werden. Ihre Privatsphäre bleibt gewährleistet – keine Daten verlassen Ihren Browser ohne Ihre Zustimmung.",
+			"Mit Text-Tools haben Sie die Kontrolle über Ihre Inhalte und können diese effizient gestalten. Nutzen Sie unsere Tools, um Ihre Texte zu verbessern und professionell aussehen zu lassen, ohne komplexe Software installieren zu müssen."
+		],
+		"description": "Erstellen Sie effizient Textinhalte für Dokumente, Untertitel, Kapitel & Metadaten – leistungsstarke, browserbasierte Text-Tools lokal auf Ihrem Gerät."
+	},
+	"/en/tools/text/": {
+		"content": [
+			"Text Tools is a suite of browser-based utilities designed to enhance your textual content creation and editing experience. Whether you're working on documents, subtitles, chapters, or metadata, our tools streamline tasks with intuitive interfaces and powerful functionalities. No downloads required; simply access from any web browser.",
+			"The workflow is seamless: open Text Tools in your preferred browser, select the desired text format, and start customizing. Our tools operate directly in your browser, ensuring a fast and efficient process without the need for local installations or plugins. All processing happens on the client side, keeping your data secure and private within your browser environment.",
+			"Supported formats include [plain text](/en/tools/converters/document-to-txt/), HTML, Markdown, [SRT (subtitles)](/en/tools/subtitle-editor-converter/), and [CHM (help files)](/en/tools/converter/document-converter/). These tools are tailored to optimize your workflow across various text-based media types, enabling you to focus on content creation without technical hurdles.",
+			"Privacy is paramount. Text Tools processes data entirely within your browser, ensuring that sensitive information remains secure. No data leaves your device unless explicitly shared by you, maintaining the confidentiality of your work and adhering to strict privacy standards."
+		],
+		"description": "Effortlessly create & edit text content locally with Text Tools: powerful, browser-based solutions for documents, subtitles, chapters, & metadata."
+	}
+}

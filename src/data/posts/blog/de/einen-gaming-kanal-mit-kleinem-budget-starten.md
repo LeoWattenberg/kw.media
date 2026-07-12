@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "post:1425"
 category: "blog"
 tags: ["Gaming-Kanal", "Budget-Ausrüstung", "YouTube-Start", "Videoaufnahme-Tools", "Videobearbeitung", "Thumbnails", "Overlays", "PC-Konfiguration", "Capture Card", "Audio-Qualität"]
+relatedPosts: ["/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/", "/youtube-tipps-de/der-audio-guide-zum-glucklichsein-oder-wie-du-deine-streams-und-videos-gut-klingen-lasst/", "/youtube-tipps-de/einfache-youtube-seo-fur-gaming-kanale/"]
 image: "/assets/wp-content/uploads/2021/06/Starting-Gaming-Channel-on-a-Budget.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/starting-a-gaming-channel-on-a-budget/"

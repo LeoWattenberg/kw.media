@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:BIzqRnp_0cQ"
 category: "short-tutorial"
 tags: ["YouTube Shorts Features", "Interactive Content", "Community-Engagement", "Poll Creation", "User Interaction", "Shorts Camera", "Mobile Optimization", "Content Customization", "Platform Enhancements", "Viewer Interactions"]
+relatedPosts: ["/youtube-tips-en/longer-shorts-and-add-yours-stickers-youtubes-latest-experiments/", "/youtube-tips-en/youtube-updates-leaderboards-shorts-visual-guides-and-shorts-quiz-stickers/", "/youtube-tips-en/youtubes-updates-q-and-a-stickers-and-10mb-thumbnails/"]
 image: "https://i.ytimg.com/vi/BIzqRnp_0cQ/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/BIzqRnp_0cQ"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:XDdgidkQSUc"
 category: "news-video"
 tags: ["YouTube-Mitgliedschaften", "Bonusprogramm", "YouTube Studio", "Shorts-Bearbeitung", "Thumbnail-Updates", "KI-Dubbing", "Mehrsprachige Inhalte", "Creator-Einnahmen", "Plattform-Neuerungen", "Video-Optimierung"]
+relatedPosts: ["/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/", "/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/", "/youtube-tipps-de/youtube-updates-ios-beitrittstaste-multi-format-live-streams-und-analysereparatur/"]
 image: "https://i.ytimg.com/vi/XDdgidkQSUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=XDdgidkQSUc"

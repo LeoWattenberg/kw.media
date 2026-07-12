@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:UtI-KzQha-M"
 category: "news-video"
 tags: ["YouTube UI Update", "Interface Changes", "Recommended Videos", "Live-Streaming", "Vertical Live Streaming", "YouTube Shorts", "Community-Engagement", "Platform Policies", "Monetization Strategies", "Creator Resources"]
+relatedPosts: ["/youtube-tips-en/we-took-your-biggest-complaints-directly-to-youtube-live-creator-news/", "/youtube-tips-en/youtube-autodubbing-disappoints-and-youtube-introduces-jewels-for-vertical-live-streams/", "/youtube-tips-en/youtube-update-new-clip-tools-shopping-sticker-upgrade-and-livestream-policy/"]
 image: "https://i.ytimg.com/vi/UtI-KzQha-M/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=UtI-KzQha-M"

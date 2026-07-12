@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:HNKwk_tm1Vo"
 category: "news-video"
 tags: ["KI-Zusammenfassungen", "YouTube Updates", "Kommentare", "Premium-Mitgliedschaften", "Indien", "Add Yours-Sticker", "YouTube Shorts", "Q&A Stream", "Creator-Informationen"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-kommentervorschauen-in-shorts-duo-premium-plane-und-anderungen-bei-musiklizenzen/", "/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/", "/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/"]
 image: "https://i.ytimg.com/vi/HNKwk_tm1Vo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=HNKwk_tm1Vo"

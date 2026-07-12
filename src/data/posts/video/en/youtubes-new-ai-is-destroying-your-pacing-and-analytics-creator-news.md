@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:S_Qwsk7CKB0"
 category: "news-video"
 tags: ["YouTube AI", "AI-Driven Features", "Analytics Updates", "Content Pacing", "Creative Control", "Platform Announcements", "YouTube Premium", "Mobile Features", "Educational Content", "YouTube Courses"]
+relatedPosts: ["/youtube-tips-en/youtubes-latest-experiment-jump-ahead-what-creators-need-to-know/", "/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/", "/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/"]
 image: "https://i.ytimg.com/vi/S_Qwsk7CKB0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=S_Qwsk7CKB0"

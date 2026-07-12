@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:WWV1rfDxlcE"
 category: "news-video"
 tags: ["YouTube Updates", "A/B Testing", "Thumbnail Optimization", "AI Editing", "YouTube Shorts", "Voiceover Tools", "Creator-Tools", "Feature Rollout", "Platform Announcements"]
+relatedPosts: ["/youtube-tips-en/a-b-testing-on-youtube-everything-you-need-to-know-for-the-summer-launch/", "/youtube-tips-en/what-is-youtube-test-and-compare-or-thumbnail-a-b-testing/", "/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/"]
 image: "https://i.ytimg.com/vi/WWV1rfDxlcE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=WWV1rfDxlcE"

@@ -1,0 +1,20 @@
+{
+	"/de/tools/mp3-quality-tester/": {
+		"content": [
+			"Der MP3-Qualitätstester ist ein innovatives Tool, das es dir ermöglicht, die Audioqualität deiner MP3-Dateien [direkt im Browser](/de/tools/vtuber-preview/) zu überprüfen. Mit diesem Blindtest kannst du den Komprimierungsgrad und die Integrität deiner Musikdateien analysieren, indem du sie mit einer Referenzdatei vergleichst. So gewinnst du einen Einblick in die tatsächliche Klangqualität, ohne die Originaldatei zu verlassen.",
+			"Die Nutzung ist einfach: Lade deine MP3-Datei und die ursprüngliche, unkomprimierte Version hoch. Das Tool führt dann einen Vergleich durch und präsentiert dir ein Ergebnis, das die Unterschiede zwischen den beiden Dateien hervorhebt. Dieser Prozess geschieht vollständig in deinem Browser, ohne dass Daten an externe Server gesendet werden.",
+			"Unterstützt werden MP3-Dateien in verschiedenen Bitraten und Sampling-Frequenzen. Egal ob 128 kbps, 320 kbps oder höher – der Tester kann feine Unterschiede erkennen. Auch für professionelle Audioingenieure ist dieses Tool ein nützliches Hilfsmittel, um die Effektivität ihrer Komprimierungstechniken zu bewerten.",
+			"Datenschutz hat höchste Priorität: Alle Verarbeitungen erfolgen lokal auf deinem Gerät, ohne dass sensible Daten an Dritte übermittelt werden. Deine Audioinhalte bleiben bei dir und du hast die volle Kontrolle über ihre Nutzung."
+		],
+		"description": "Testen Sie die MP3-Qualität direkt im Browser - Vergleich mit Originaldateien, schnell und lokal auf Ihrem Gerät."
+	},
+	"/en/tools/mp3-quality-tester/": {
+		"content": [
+			"The MP3 Quality Tester is a powerful, browser-based tool designed to help you assess the audio quality of your MP3 files objectively. By comparing your [compressed MP3](/en/tools/converters/media-to-mp3/) against its original, lossless counterpart, it provides a [blind test](/en/tools/abx-tester/) that reveals the extent of any audible degradation caused by compression. This is crucial for ensuring high-fidelity audio in music distribution and archival purposes.",
+			"Using only your web browser, upload your original file and the compressed MP3 version. Our algorithm then performs a sophisticated analysis, focusing on key aspects like [bitrate, sampling rate](/en/tools/media-info/), and psychoacoustic models to detect any differences in sound quality. The results are presented clearly, allowing you to make informed decisions about your [audio files](/en/tools/converter/video-audio-converter/).",
+			"This tool supports a wide range of [MP3 formats](/en/tools/audio/), including those with bitrates from 8kbps to 320 kbps, ensuring comprehensive testing for various compression levels. It's compatible with standard MP3 players and streaming services, making it a versatile solution for professionals and enthusiasts alike.",
+			"All processing is done [locally in your browser](/en/tools/subtitle-editor-converter/), ensuring privacy and security without any file uploads to external servers. Your data remains confidential, as the test occurs entirely within your web session. This commitment to local processing empowers you to maintain control over your [audio files](/en/tools/loudness-mastering/) while still benefiting from advanced quality assessment technology."
+		],
+		"description": "Blindly compare MP3 quality to the original file with our browser tool, ensuring optimal audio fidelity without downloading."
+	}
+}

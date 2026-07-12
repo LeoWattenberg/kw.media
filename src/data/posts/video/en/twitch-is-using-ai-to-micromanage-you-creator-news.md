@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:JhAvOlIInDk"
 category: "news-video"
 tags: ["Twitch AI", "AI Tools", "Sponsorships", "YouTube AI Avatars", "Gemini Omni", "AI Content Generation", "AI-Curated Feeds", "Ask Studio Updates", "Top Fans Privacy Setting"]
+relatedPosts: ["/youtube-tips-en/youtube-kills-seo-and-twitchs-fake-monetization-creator-news/", "/youtube-tips-en/content-not-available-youtubes-ad-block-ramp-up-and-twitch-business-manager-role/", "/youtube-tips-en/why-youtube-is-showing-you-qr-codes-in-the-shorts-feed-creator-news/"]
 image: "https://i.ytimg.com/vi/JhAvOlIInDk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=JhAvOlIInDk"

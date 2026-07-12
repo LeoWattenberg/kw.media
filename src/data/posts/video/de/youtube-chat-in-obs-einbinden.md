@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:E5BmjrCT1LE"
 category: "short-tutorial"
 tags: ["Live-Streaming", "OBS-Einstellungen", "YouTube Live", "Chat-Integration", "Browserquelle", "CSS-Anpassung"]
+relatedPosts: ["/youtube-tipps-de/obs-mit-twitch-und-youtube-verbinden/", "/youtube-tipps-de/wie-man-die-pause-machen-funktion-von-youtube-live-verwendet-schritt-fur-schritt-tutorial-mit-obs-einstellungen/", "/youtube-tipps-de/einstieg-in-obs-ein-leitfaden-fur-anfanger/"]
 image: "https://i.ytimg.com/vi/E5BmjrCT1LE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/E5BmjrCT1LE"

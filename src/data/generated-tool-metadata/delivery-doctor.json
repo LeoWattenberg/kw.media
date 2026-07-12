@@ -1,0 +1,20 @@
+{
+	"/de/tools/medien-abgabepruefung/": {
+		"content": [
+			"Medien-Abgabeprüfung ist ein leistungsstarkes Tool, das entwickelt wurde, um die Integrität Ihrer Mediendateien zu gewährleisten. Es ermöglicht Ihnen, [lokale Dateien](/de/tools/) auf Fehler zu überprüfen und diese zu reparieren, bevor Sie sie hochladen oder in Webanwendungen wiedergeben möchten. So stellen Sie sicher, dass Ihre Inhalte immer in bester Qualität präsentiert werden.",
+			"Die Nutzung ist einfach: Laden Sie einfach die gewünschte Mediendatei in den Browser hoch. Medien-Abgabeprüfung analysiert dann die Datei und zeigt mögliche Probleme an. Mit wenigen Klicks können Sie die Fehler beheben lassen oder manuell Korrekturen vornehmen. Der Prozess ist intuitiv und erfordert keine technischen Kenntnisse.",
+			"Unser Tool unterstützt eine Vielzahl von Dateiformaten, darunter [Bilder (JPEG, PNG)](/de/tools/image/), [Videos (MP4, MOV)](/de/tools/video/) und [Audiodateien (MP3, WAV)](/de/tools/audio/). Auch für Dokumentenformate wie [PDF und DOCX](/de/tools/converter/document-converter/) bietet Medien-Abgabeprüfung Überprüfungsmöglichkeiten. So decken wir die gängigsten Medienarten ab, die in Online-Projekten verwendet werden.",
+			"Lokale Verarbeitung ist ein wichtiger Aspekt von Medien-Abgabeprüfung. Alle Analysen und Reparaturen erfolgen [direkt im Browser](/de/tools/vtuber-preview/) Ihres Computers, ohne dass sensible Daten an externe Server übermittelt werden. Ihre Privatsphäre bleibt gewahrt, da keine Dateien ins Internet hochgeladen oder gespeichert werden."
+		],
+		"description": "Optimieren Sie Mediendateien direkt im Browser mit Medien-Abgabeprüfung – schnelle Reparatur für bessere Online-Leistung."
+	},
+	"/en/tools/media-delivery-checker/": {
+		"content": [
+			"Media Delivery Checker is a powerful browser-based tool designed to ensure your digital content is delivered flawlessly. It identifies and rectifies issues with [local media files](/en/tools/video/), from [videos to audio](/en/tools/audio/), ensuring they meet the standards required for seamless online playback and efficient distribution.",
+			"The process is straightforward: upload your media file, select the desired repair options, and let Media Delivery Checker do its magic. The tool analyzes the file, detects problems like [codec mismatches](/en/tools/media-info/) or corrupted data, and applies tailored fixes to ensure optimal quality. This all happens directly in your browser, without any need for complex installations.",
+			"Supported formats include [MP4, MOV, MKV for video](/en/tools/converter/video-audio-converter/), as well as MP3, WAV, AAC for audio. Media Delivery Checker leverages efficient local processing to enhance performance while respecting user privacy by keeping all operations within the browser, ensuring your data remains secure and confidential.",
+			"By utilizing advanced algorithms and a deep understanding of [multimedia standards](/en/tools/analyzers/), Media Delivery Checker ensures your content is ready for global reach, whether it's for streaming services, websites, or mobile applications."
+		],
+		"description": "Media Delivery Checker: Locally optimize media files for seamless web uploads, playback, and delivery. Fast, efficient, and browser-based."
+	}
+}

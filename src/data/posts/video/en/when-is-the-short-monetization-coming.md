@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:5DBif93dBc4"
 category: "short-tutorial"
 tags: ["YouTube Monetization", "YouTube Shorts", "Monetization Strategies", "Creator Revenue", "Platform Updates", "Short Tutorial", "YouTube Partner Program", "Content Monetization", "Ad Strategy"]
+relatedPosts: ["/youtube-tips-en/monetizing-old-shorts/", "/youtube-tips-en/how-to-get-into-the-partner-program-with-youtube-shorts/", "/youtube-tips-en/everything-important-about-the-new-youtube-fan-funding-partner-level/"]
 image: "https://i.ytimg.com/vi/5DBif93dBc4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5DBif93dBc4"

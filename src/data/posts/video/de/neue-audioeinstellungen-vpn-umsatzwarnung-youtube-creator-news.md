@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:N301RW3y69E"
 category: "news-video"
 tags: ["YouTube-Funktionen", "KI-Tools", "Community-Verbesserungen", "Monetarisierung", "Mobile Creator", "YouTube Creator App", "KI-Bearbeitung", "Sprachantworten", "Kanalrichtlinien", "Super Chat Ziele"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-voice-replies-shorts-promotions-und-anderungen-bei-mid-roll-ads/", "/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/", "/youtube-tipps-de/youtube-updates-ki-altersverifizierung-autodubbing-editor-und-anderung-der-community-beitragslimits/"]
 image: "https://i.ytimg.com/vi/N301RW3y69E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=N301RW3y69E"

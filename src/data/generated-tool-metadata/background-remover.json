@@ -1,0 +1,20 @@
+{
+	"/de/tools/background-remover/": {
+		"content": [
+			"Mit 'Hintergrund entfernen' kannst du Bilder von einem einfarbigen Hintergrund befreien, ohne sie herunterzuladen oder auf einen Server zu senden. Diese browserbasierte Anwendung nutzt die Kraft von [ImageMagick WASM](/de/tools/background-remover-checkerboard/), um die Aufgabe schnell und effizient zu erledigen.",
+			"Lade einfach dein Bild hoch und wähle den Bereich aus, der den einfarbigen Hintergrund darstellt. Das Tool analysiert das Bild und entfernt den ausgewählten Hintergrund, sodass nur das gewünschte Motiv übrig bleibt. Diese Methode eignet sich besonders für [Produktfotos oder Screenshots](/de/tools/image/), bei denen der Hintergrund nicht relevant ist.",
+			"Unterstützte Formate: JPEG, PNG, GIF. Die Anwendung verarbeitet Bilder [direkt im Browser](/de/tools/vtuber-preview/), ohne dass diese von deinem Gerät verlassen müssen. So bleiben deine Daten lokal und werden nicht an Dritte weitergegeben.",
+			"Durch die Verwendung von WASM (WebAssembly) wird die Verarbeitung auf deinem Gerät durchgeführt, was schnelle Ergebnisse und eine verbesserte Privatsphäre garantiert. Keine Serveranforderungen, keine Cloud-Speicherung – nur reines, [lokales Bildbearbeiten](/de/tools/)."
+		],
+		"description": "Entferne einfarbige Hintergründe schnell und einfach direkt im Browser mit Hintergrund entfernen und ImageMagick WASM."
+	},
+	"/en/tools/background-remover/": {
+		"content": [
+			"[Background Remover](/en/tools/background-remover-checkerboard/) is a powerful, browser-based tool designed to effortlessly eliminate solid backgrounds from images, saving you time and effort. With its advanced client-side processing powered by ImageMagick WASM, this intuitive creator lets you achieve professional results without leaving your web browser.",
+			"Using our simple workflow, upload your image, select the background to remove, and adjust settings as needed. The tool then uses the latest WebAssembly technology to process your image directly in your browser, ensuring fast and efficient removal of solid backgrounds without any need for server-side processing or data sharing.",
+			"Supported formats include [JPEG, PNG, and GIF](/en/tools/converter/image-format-converter/). This tool is ideal for [web designers](/en/website-design-management/), photographers, and anyone needing to clean up images quickly and easily while maintaining privacy and control over their data, as all processing happens locally within your browser.",
+			"By utilizing WebAssembly, Background Remover offers seamless [local image manipulation](/en/tools/image/) without sacrificing performance or security. Your files remain private and are not uploaded or processed on external servers, ensuring a secure and efficient background removal experience."
+		],
+		"description": "Remove solid backgrounds instantly using ImageMagick WASM in your browser. Fast, local processing for seamless background removal."
+	}
+}

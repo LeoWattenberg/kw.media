@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:Xtu2XYmDfy4"
 category: "short-tutorial"
 tags: ["YouTube-Monetarisierung", "Zuschauerstunden", "Partnerprogramm", "Pause und Inaktivität", "Mentale Gesundheit", "Leidenschaft fürs Kreieren", "Kennzahlen und Stress"]
+relatedPosts: ["/youtube-tipps-de/zahlen-youtube-live-wiedergabestunden-zu-den-youtube-partner-anforderungen-youtube-myth-busting/", "/youtube-tipps-de/so-kommst-du-mit-youtube-shorts-ins-partner-programm/", "/youtube-tipps-de/wiedernutzung-von-inhalt-monetarisierung-deaktiviert-was-nun/"]
 image: "https://i.ytimg.com/vi/Xtu2XYmDfy4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/Xtu2XYmDfy4"

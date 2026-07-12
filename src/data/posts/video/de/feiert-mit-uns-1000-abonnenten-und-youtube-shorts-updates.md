@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:RaauubMlzic"
 category: "news-video"
 tags: ["YouTube Shorts", "Video-Format", "Neuerungen auf YouTube", "Laufzeitverlängerung", "Werbeeinnahmen", "Urheberrecht", "Content-Strategie", "Abonnenten-Engagement", "YouTube-Wachstum"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-playables-multitasking-und-3-minuten-shorts/", "/youtube-tipps-de/update-fur-youtube-streamer-geplante-streams-jetzt-in-allen-shorts-verlinkt/", "/youtube-tipps-de/lange-shorts-werden-nicht-richtig-im-youtube-studio-angezeigt-mitgliedschaften-updates-und-mehr/"]
 image: "https://i.ytimg.com/vi/RaauubMlzic/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=RaauubMlzic"

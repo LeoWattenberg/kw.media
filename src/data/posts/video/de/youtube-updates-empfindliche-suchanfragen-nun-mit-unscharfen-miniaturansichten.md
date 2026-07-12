@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:tvpXlghvKzo"
 category: "news-video"
 tags: ["YouTube Updates", "Miniaturansichten", "Sensible Suchanfragen", "Unscharfe Darstellung", "Suchergebnisse", "Benutzererfahrung", "Kontextabhängig"]
+relatedPosts: ["/youtube-tipps-de/wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt/", "/youtube-tipps-de/wie-man-seine-miniaturansichten-auf-youtube-nicht-vermasselt-ein-tutorial/", "/youtube-tipps-de/wie-man-klicks-auf-youtube-miniaturansichten-bekommt-das-aida-modell/"]
 image: "https://i.ytimg.com/vi/tvpXlghvKzo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=tvpXlghvKzo"

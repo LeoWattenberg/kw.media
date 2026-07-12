@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:hOXK7RMR4Qk"
 category: "short-tutorial"
 tags: ["YouTube-Mitgliedschaften", "YouTube-Käufe", "YouTube Premium", "Rückerstattungen", "Kontoübersicht", "Einkäufe verwalten"]
+relatedPosts: ["/youtube-tipps-de/wie-funktionieren-eigentlich-erstattungen-beim-verschenken-von-youtube-mitgliedschaften/", "/youtube-tipps-de/so-funktioniert-youtube-membership-gifting/", "/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/"]
 image: "https://i.ytimg.com/vi/hOXK7RMR4Qk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hOXK7RMR4Qk"

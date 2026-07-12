@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:s01Iqj9HmdI"
 category: "news-video"
 tags: ["YouTube Studio Updates", "Ask Studio AI", "AI Tools", "View Botting", "Twitch-Drama", "Twitch Policies", "Fake Engagement", "Creator Monetization", "Platform Dynamics", "Content Strategy"]
+relatedPosts: ["/youtube-tips-en/youtubes-new-ai-is-destroying-your-pacing-and-analytics-creator-news/", "/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/", "/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/"]
 image: "https://i.ytimg.com/vi/s01Iqj9HmdI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=s01Iqj9HmdI"

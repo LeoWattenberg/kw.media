@@ -1,0 +1,20 @@
+{
+	"/de/tools/background-remover-checkerboard/": {
+		"content": [
+			"Mit unserem Tool „Schachbrett-[Hintergrund entfernen](/de/tools/background-remover/)“ kannst du unerwünschte Schachbrettmuster aus Bildern [direkt im Browser](/de/tools/vtuber-preview/) entfernen. Diese Methode nutzt die leistungsstarke Bildbearbeitungssoftware ImageMagick in ihrer WASM-Version, um die Bearbeitung schnell und effizient zu gestalten. Keine lästige Installation oder komplexe Einstellungen erforderlich – einfach das Bild hochladen und den Vorgang starten.",
+			"Der Workflow ist einfach: Du lädst dein Bild mit einem Schachbretthintergrund hoch, wählst die betroffene Bereiche aus, und das Tool entfernt das Muster. Die Bearbeitung erfolgt vollständig in deinem Browser, sodass keine Datenübertragung zu externen Servern stattfindet. Deine Privatsphäre bleibt gewährleistet.",
+			"Unterstützt werden Bilder im [PNG-Format](/de/tools/converters/image-to-png/). Diese Dateiart ist ideal für [transparente Hintergründe](/de/tools/bildobjekt-freistellen/) und ermöglicht eine präzise Entfernung des Schachbrettmusters ohne Beeinträchtigung der Originalqualität. [ImageMagick WASM](/de/tools/converter/image-format-converter/) sorgt für eine reibungslose Verarbeitung, unabhängig von deiner Browserleistung.",
+			"Durch die lokale Verarbeitung im Browser bleiben deine Daten auf deinem Gerät. Wir garantieren keine Server-Speicherung oder Weitergabe an Dritte. Die Privatsphäre bleibt in deinen Händen und du behältst die volle Kontrolle über deine Bilder."
+		],
+		"description": "Entferne Schachbrett-Hintergründe schnell und einfach mit unserem Browser-Tool. Lokale Verarbeitung mit ImageMagick WASM für optimale Ergebnisse."
+	},
+	"/en/tools/background-remover-checkerboard/": {
+		"content": [
+			"The Checkerboard Background Remover is a powerful tool designed to eliminate artificial checkerboard patterns from images, specifically focusing on PNG formats. This browser-based utility leverages the capabilities of [ImageMagick WASM](/en/tools/), enabling efficient and precise [background removal](/en/tools/background-remover/) right in your web browser without any need for server-side processing.",
+			"Users simply upload their image, select the checkerboard area to be removed, and the tool does the rest. The workflow is seamless: upload an image, adjust selection if needed, click 'Remove Background', and download the resulting image with the fake background gone. It's that simple, all within your browser.",
+			"This tool supports PNG images exclusively, ensuring optimal performance and compatibility. While it doesn't support other media types or formats, its focus on PNGs makes it an ideal solution for [web designers, developers](/en/website-design-management/), and anyone dealing specifically with this image format who needs to remove checkerboard backgrounds quickly and effectively.",
+			"By utilizing local processing via [ImageMagick WASM](/en/tools/converter/image-format-converter/), the Checkerboard Background Remover guarantees privacy and security. No data leaves your browser, ensuring that sensitive image content remains confidential. This tool is entirely client-side, providing a secure and efficient solution for background removal without compromising on user privacy."
+		],
+		"description": "Remove checkerboard backgrounds instantly from PNGs using powerful, local ImageMagick WASM processing for clean, seamless results."
+	}
+}

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:nMgllfy0VUc"
 category: "short-tutorial"
 tags: ["YouTube Memberships", "Gift Memberships", "Live Chat Interaction", "Viewer Engagement", "Monetization Features", "Platform Updates", "Beta Features", "Payment Methods", "Subscriber Retention"]
+relatedPosts: ["/youtube-tips-en/elevate-your-channel-with-memberships/", "/youtube-tips-en/how-do-refunds-work-when-gifting-youtube-memberships/", "/youtube-tips-en/everything-important-about-the-new-youtube-fan-funding-partner-level/"]
 image: "https://i.ytimg.com/vi/nMgllfy0VUc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/nMgllfy0VUc"

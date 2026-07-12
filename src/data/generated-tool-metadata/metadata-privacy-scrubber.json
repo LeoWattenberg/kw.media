@@ -1,0 +1,20 @@
+{
+	"/de/tools/metadaten-entfernen/": {
+		"content": [
+			"Der Metadaten entfernen ist ein leistungsstarkes Werkzeug, das entwickelt wurde, um die [Privatsphäre von Benutzern zu schützen](/impressumsservice/), indem es unerwünschte Metadaten aus lokalen Mediendateien entfernt. Diese Metadaten, wie [EXIF-Daten](/de/tools/media-info/), XMP-Metadaten und Kapitelinformationen, können sensible Informationen über den Benutzer oder seine Gewohnheiten enthalten. Mit diesem Tool können Sie die Anonymität Ihrer Fotos, Videos und Dokumente gewährleisten.",
+			"Die Nutzung ist einfach: Laden Sie einfach Ihre Dateien in den Browser hoch, wählen Sie die gewünschten Metadatenarten aus, und der Scrubber übernimmt den Rest. Die ausgewählten Metadaten werden effizient entfernt, ohne die Integrität der ursprünglichen Datei zu beeinträchtigen. Dieser Prozess geschieht [direkt im Browser](/de/tools/vtuber-preview/), wodurch Ihre Daten [lokal verarbeitet werden](/de/tools/) und keine Übertragung an externe Server erforderlich ist.",
+			"Unterstützte Formate umfassen [JPEG, PNG, PDF, EPUB](/de/tools/converter/) und bestimmte Videoformate. Das Tool entfernt EXIF-Daten, XMP-Metadaten, Kapitelinformationen und Container-Metadaten, wodurch eine effektive Verschleierung Ihrer digitalen Spuren gewährleistet wird. Der Metadaten entfernen ist ein einfacher und direkter Weg, um die Privatsphäre Ihrer digitalen Inhalte zu schützen.",
+			"Durch die lokale Verarbeitung Ihrer Daten auf Ihrem Browser garantiert dieses Tool, dass Ihre Informationen sicher bleiben. Es bietet eine diskrete und effektive Lösung, um unerwünschte Metadaten zu entfernen, ohne Kompromisse bei der Qualität oder Funktionalität einzugehen. So können Sie Ihre Medien mit einem reinen Gewissen teilen oder archivieren."
+		],
+		"description": "Entferne sensible Metadaten wie EXIF, XMP und mehr aus deinen lokalen Dateien – schütze deine Privatsphäre mit dem Metadaten entfernen."
+	},
+	"/en/tools/metadata-remover/": {
+		"content": [
+			"The Metadata Remover is a powerful tool designed to protect your privacy by securely erasing sensitive data embedded within digital [media files](/en/tools/media-delivery-checker/). It's an easy-to-use browser-based solution for [removing potentially revealing metadata](/en/tools/media-info/), ensuring your photos, videos, and documents remain truly private.",
+			"After uploading your file, the tool analyzes it and identifies specific types of metadata: EXIF from images, XMP from PDFs and other formats, chapters in eBooks, and container metadata. It then provides you with an option to scrub this data, rendering it inaccessible without specialized tools.",
+			"Supported media types include [JPEG, PNG, GIF for images](/en/tools/converter/image-format-converter/); [PDF, EPUB for documents](/en/tools/converter/document-converter/); and [MP4, MKV for videos](/en/tools/converter/video-audio-converter/). The Scrubber is optimized for local processing, ensuring your files remain secure within your browser, without relying on external servers or sharing any data beyond the scrubbing process.",
+			"By using this tool, you gain control over your [digital privacy](/en/imprint-service/). It's a simple yet effective way to protect sensitive information from prying eyes, preserving the integrity of your media and maintaining your right to discretion."
+		],
+		"description": "Metadata Remover: Remove sensitive data like EXIF, XMP, and chapters from local media files with a browser-based, client-side tool."
+	}
+}

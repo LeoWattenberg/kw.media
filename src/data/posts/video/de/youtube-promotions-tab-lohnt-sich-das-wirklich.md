@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:TjSGf5YjMtI"
 category: "video-tutorial"
 tags: ["YouTube-Monetarisierung", "Werbung auf YouTube", "Bezahlte Promotion", "Zielgruppenansprache", "Video-Marketing", "Kanalwachstum", "Strategieoptimierung", "Zuschaueranalyse", "Zuschauerbindung"]
+relatedPosts: ["/youtube-tipps-de/wie-funktioniert-der-youtube-hype-wirklich-wir-haben-die-daten/", "/youtube-tipps-de/meistern-sie-keywords-fur-maximale-wirkung/", "/youtube-tipps-de/erreichen-sie-mit-highlight-inhalten-den-gipfel/"]
 image: "https://i.ytimg.com/vi/TjSGf5YjMtI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=TjSGf5YjMtI"

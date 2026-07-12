@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:RSeROQWVAPk"
 category: "short-tutorial"
 tags: ["YouTube Live Streaming", "HDR Streams", "HLS Stream Key", "Stream Settings", "Streaming Protocols", "Live Control Room", "Content Creation", "Video Production", "YouTube Features"]
+relatedPosts: ["/youtube-tips-en/hdr-youtube-streams-made-easier-than-ever-your-weekly-youtube-updates/", "/youtube-tips-en/connecting-obs-to-twitch-and-youtube/", "/youtube-tips-en/getting-started-with-youtube-live-streaming/"]
 image: "https://i.ytimg.com/vi/RSeROQWVAPk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/RSeROQWVAPk"

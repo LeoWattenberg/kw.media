@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:iKf9XHFUSos"
 category: "short-tutorial"
 tags: ["Super Thanks", "YouTube Studio", "Monetarisierung", "Creator-Einnahmen", "Neue Funktionen auf YouTube"]
+relatedPosts: ["/youtube-tipps-de/jetzt-neu-superthanks/", "/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/", "/youtube-tipps-de/superchat-antworten-youtube-rollt-neue-features-aus/"]
 image: "https://i.ytimg.com/vi/iKf9XHFUSos/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/iKf9XHFUSos"

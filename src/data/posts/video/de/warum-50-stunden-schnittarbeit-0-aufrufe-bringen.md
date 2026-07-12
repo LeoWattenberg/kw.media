@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:ym_qnPaIiCk"
 category: "short-tutorial"
 tags: ["YouTube-Strategie", "Video-Optimierung", "Algorithmus-Anpassung", "Aufrufe steigern", "Inhaltsstrategie", "Creator-Tipps", "Video-Marketing", "Zuschauer-Interaktion", "Kanalmanagement", "Erfolgsfaktoren auf YouTube"]
+relatedPosts: ["/youtube-tipps-de/warum-grinden-schlecht-fur-dich-ist/", "/youtube-tipps-de/feststecken-unter-100-aufrufen-verbessere-deine-auffindbarkeit-in-30-sekunden/", "/youtube-tipps-de/sei-ein-youtuber-kein-newtuber-mach-guten-content/"]
 image: "https://i.ytimg.com/vi/ym_qnPaIiCk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ym_qnPaIiCk"

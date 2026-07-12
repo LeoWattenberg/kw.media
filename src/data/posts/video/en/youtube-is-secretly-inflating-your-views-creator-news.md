@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:XKiJKhwk7vE"
 category: "news-video"
 tags: ["YouTube Platform Updates", "View Count Inflation", "AI Comment Suggestions", "Total Reach Metrics", "YouTube Shorts Remix Views", "Monetization Concerns", "Community Interaction Automation", "Channel Membership Pricing Changes", "Twitch Turbo Gift Button", "Ad Revenue Impact"]
+relatedPosts: ["/youtube-tips-en/youtubes-new-ask-studio-ai-is-lying-to-you-twitch-drama/", "/youtube-tips-en/they-want-you-to-automate-then-ban-your-channel-creator-news/", "/youtube-tips-en/youtube-kills-seo-and-twitchs-fake-monetization-creator-news/"]
 image: "https://i.ytimg.com/vi/XKiJKhwk7vE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=XKiJKhwk7vE"

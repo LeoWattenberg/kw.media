@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:L0009GyER00"
 category: "news-video"
 tags: ["YouTube Search Update", "Search Discoverability", "Audio Strategy", "Music Licensing", "Viewer Engagement", "Content Optimization", "Platform Announcements", "YouTube Features", "Video Promotion", "Creator Resources"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-sensitive-searches-now-with-blurred-thumbnails/", "/youtube-tips-en/youtube-policy-shift-free-speech-wins/", "/youtube-tips-en/youtube-advanced-analytics-overhaul-inspiration-ai-now-in-eu/"]
 image: "https://i.ytimg.com/vi/L0009GyER00/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=L0009GyER00"

@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:K7OVwIz48o8"
 category: "news-video"
 tags: ["YouTube Shorts", "User-Generated Content", "Add Yours-Sticker", "Longer Shorts", "Platform Updates", "Creator-Tools", "Community-Engagement", "Video Promotion", "Vertical Videos"]
+relatedPosts: ["/youtube-tips-en/new-poll-stickers-for-shorts/", "/youtube-tips-en/celebrate-with-us-1000-subscribers-and-youtube-shorts-updates/", "/youtube-tips-en/youtube-updates-playable-multitasking-and-3-minute-shorts/"]
 image: "https://i.ytimg.com/vi/K7OVwIz48o8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=K7OVwIz48o8"

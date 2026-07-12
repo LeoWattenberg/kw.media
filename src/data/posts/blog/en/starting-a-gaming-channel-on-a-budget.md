@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "post:1425"
 category: "blog"
 tags: ["Beginner's Guide", "Gaming Channels", "YouTube", "Budget Equipment", "Video Recording Software", "Free Tools", "PC Build", "Capture Cards", "Audio Quality", "Microphone Recommendations"]
+relatedPosts: ["/youtube-tips-en/getting-started-with-obs-a-beginners-guide/", "/youtube-tips-en/simple-youtube-seo-for-gaming-channels/", "/youtube-tips-en/the-audio-guide-to-happiness-or-how-to-make-your-streams-and-videos-sound-good/"]
 image: "/assets/wp-content/uploads/2021/06/Starting-Gaming-Channel-on-a-Budget.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/starting-a-gaming-channel-on-a-budget/"

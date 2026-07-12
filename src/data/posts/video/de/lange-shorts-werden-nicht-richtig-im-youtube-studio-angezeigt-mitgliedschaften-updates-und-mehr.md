@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:J7MHBNgxp5w"
 category: "news-video"
 tags: ["YouTube Studio", "Shorts-Updates", "Mitgliedschaften", "Umfragen", "Video-Klassifizierung", "Abonnement-Funktionen", "Creator-Tools", "App-Verbesserungen", "Rechtliche Aspekte", "Community-Interaktion"]
+relatedPosts: ["/youtube-tipps-de/feiert-mit-uns-1000-abonnenten-und-youtube-shorts-updates/", "/youtube-tipps-de/langere-shorts-und-add-yours-sticker-youtubes-neueste-experimente/", "/youtube-tipps-de/update-fur-youtube-streamer-geplante-streams-jetzt-in-allen-shorts-verlinkt/"]
 image: "https://i.ytimg.com/vi/J7MHBNgxp5w/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=J7MHBNgxp5w"

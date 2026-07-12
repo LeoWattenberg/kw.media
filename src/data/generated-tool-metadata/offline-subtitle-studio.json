@@ -1,0 +1,20 @@
+{
+	"/de/tools/untertitel-editor-konverter/": {
+		"content": [
+			"Untertitel-Editor & Konverter ist ein leistungsstarkes Tool, das es dir ermöglicht, [SRT- und WebVTT-Untertitel](/de/tools/untertitel-studio/) direkt in deinem Browser zu bearbeiten, zu verschieben, zu konvertieren und zu mischen. Egal ob du Videos für deinen [YouTube-Kanal](/de/creator/) vorbereitest oder Untertitel für persönliche Projekte benötigst – mit diesem Tool hast du die volle Kontrolle über deine Untertitel, ohne auf eine Internetverbindung angewiesen zu sein.",
+			"Die Nutzung ist einfach: Lade deine Untertiteldateien hoch, bearbeite sie nach Bedarf und speichere sie lokal. Alle Änderungen werden [direkt im Browser](/de/tools/vtuber-preview/) vorgenommen, sodass du jederzeit einen Überblick über deine Arbeit hast. Keine komplizierten Downloads oder Installationen erforderlich – alles, was du brauchst, ist in deinem Browser integriert.",
+			"Unterstützt werden die gängigen [Untertitelformate SRT und WebVTT](/de/tools/whisper-untertitel-generator/). So kannst du sicher sein, dass du mit den meisten [Video-](/de/tools/media-info/) und Untertitel-Plattformen kompatibel bist. Egal ob du [professionelle Untertitel für Filme](/de/video-synchronisation/) oder persönliche Videos erstellen möchtest – Untertitel-Editor & Konverter deckt deine Bedürfnisse ab.",
+			"Deine Daten bleiben lokal und werden nicht an Dritte weitergegeben. Alle Verarbeitungsschritte erfolgen [direkt im Browser](/de/tools/youtube-thumbnail-preview/), sodass keine Datenübertragung ins Internet erforderlich ist. Genieße die Freiheit, Untertitel ohne Online-Abhängigkeit zu erstellen und bearbeiten."
+		],
+		"description": "Bearbeite, verschiebe und konvertiere SRT- und WebVTT-Untertitel direkt im Browser – leistungsstark und offline."
+	},
+	"/en/tools/subtitle-editor-converter/": {
+		"content": [
+			"Subtitle Editor & Converter empowers you to take control of your subtitle editing process without relying on external servers. This browser-based tool allows you to easily create, modify, and manage subtitles for videos in popular formats right in your web browser, ensuring convenience and privacy.",
+			"The workflow is straightforward: upload your video or subtitle files, access the editing interface, make necessary adjustments such as timing and text changes, then export your updated subtitles in [SRT or WebVTT format](/en/tools/subtitle-burner/). All processing happens locally on your device, ensuring fast response times and secure handling of your media.",
+			"This tool supports [editing and conversion of SRT and WebVTT subtitles](/en/tools/subtitle-studio/). It enables you to offset subtitles for precise synchronization with video content, making it ideal for professionals and enthusiasts alike who need to create or refine subtitles without online constraints.",
+			"By utilizing local processing, Subtitle Editor & Converter guarantees that your video data remains confidential. No files are uploaded to the cloud, ensuring maximum privacy during subtitle creation and editing sessions. Experience seamless, offline subtitle management with this innovative [browser tool](/en/tools/)."
+		],
+		"description": "Subtitle Editor & Converter: Edit, convert, and manage SRT & WebVTT subtitles directly in your browser with local processing power."
+	}
+}

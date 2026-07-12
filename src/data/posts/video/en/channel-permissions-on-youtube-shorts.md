@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:6KcwfJbEdDk"
 category: "short-tutorial"
 tags: ["YouTube Channel Management", "Account Security", "Permission Settings", "YouTube Studio", "Multi-Account Management", "Platform Policies", "Content Creator Tools"]
+relatedPosts: ["/youtube-tips-en/role-subtitle-editor/", "/youtube-tips-en/take-off-create-your-youtube-channel-in-2024-personal-and-company-channels/", "/youtube-tips-en/how-to-set-up-youtube-channel-guidelines/"]
 image: "https://i.ytimg.com/vi/6KcwfJbEdDk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/6KcwfJbEdDk"

@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:mZgmJ4ch5Mo"
 category: "short-tutorial"
 tags: ["Community-Interaktion", "YouTube-Kanalwachstum", "Community-Beiträge", "YouTube-Funktionen", "Abonnenten-Engagement", "Interaktion mit Zuschauern", "Kanalmanagement", "Content-Strategie", "YouTube-Tipps"]
+relatedPosts: ["/youtube-tipps-de/erheben-sie-ihren-kanal-mit-mitgliedschaften/", "/youtube-tipps-de/analyse-der-beteiligung/", "/youtube-tipps-de/neu-umfrage-sticker-fur-shorts/"]
 image: "https://i.ytimg.com/vi/mZgmJ4ch5Mo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/mZgmJ4ch5Mo"

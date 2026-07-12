@@ -10,6 +10,7 @@ locale: "de"
 translationKey: "video:hJLZbzvabYE"
 category: "short-tutorial"
 tags: ["Kommentar-Antworten", "Shorts", "Mobile YouTube-Features", "Interaktion mit Zuschauern", "YouTube Updates", "Smartphone-Aufnahme", "Video-Verlinkung", "Zuschauer-Interaktion", "Content-Erstellung"]
+relatedPosts: ["/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts/", "/youtube-tipps-de/verschiedene-wege-shorts-zu-erstellen-shorts/", "/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts-2/"]
 image: "https://i.ytimg.com/vi/hJLZbzvabYE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/hJLZbzvabYE"

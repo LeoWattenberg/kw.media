@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:ncaW0WL9X9E"
 category: "short-tutorial"
 tags: ["YouTube Shorts", "Thumbnail Customization", "Mobile Optimization", "Short Tutorial", "YouTube Features Access", "Visual Branding", "Content Promotion Strategies", "Video Optimization"]
+relatedPosts: ["/youtube-tips-en/coming-soon-to-youtube-custom-thumbs-for-shorts-and-superchat-goals/", "/youtube-tips-en/creating-shorts-on-youtube-youtube-tutorial-shorts-2/", "/youtube-tips-en/different-ways-to-create-shorts-shorts/"]
 image: "https://i.ytimg.com/vi/ncaW0WL9X9E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ncaW0WL9X9E"

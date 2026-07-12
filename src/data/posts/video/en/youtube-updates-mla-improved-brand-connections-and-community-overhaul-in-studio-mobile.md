@@ -10,6 +10,7 @@ locale: "en"
 translationKey: "video:6AeC2WO3t_A"
 category: "news-video"
 tags: ["YouTube Updates", "Multilingual Audio", "Community Features", "YouTube Studio Mobile", "Gift Memberships", "Data Stories", "Community-Spotlight", "Brand Video Links", "AI Tools", "Monetization Strategies"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-auto-dubbing-with-intonation-create-app-on-ios-for-1/", "/youtube-tips-en/youtube-updates-subscribe-confusion-and-autodubbing-fully-rolled-out/", "/youtube-tips-en/youtube-autodubbing-disappoints-and-youtube-introduces-jewels-for-vertical-live-streams/"]
 image: "https://i.ytimg.com/vi/6AeC2WO3t_A/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=6AeC2WO3t_A"
