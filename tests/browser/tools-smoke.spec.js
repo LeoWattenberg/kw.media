@@ -136,6 +136,42 @@ test.describe('visual tool interactions', () => {
 		await expect(page.locator('[data-workspace]')).toBeVisible();
 		await expect(page.locator('[data-status]')).toHaveAttribute('data-state', 'success');
 		await expect(page.locator('[data-metric="peak"]')).not.toHaveText('—');
+		await expect(page.locator('[data-audio]')).toBeHidden();
+
+		const waveform = page.locator('[data-waveform]');
+		await waveform.scrollIntoViewIfNeeded();
+		const waveformBox = await waveform.boundingBox();
+		expect(waveformBox).not.toBeNull();
+		await page.mouse.click(waveformBox.x + waveformBox.width * 0.35, waveformBox.y + waveformBox.height * 0.5);
+		const playbackOrigin = await page.locator('[data-audio]').evaluate((audio) => audio.currentTime);
+
+		await page.locator('[data-play-pause]').click();
+		await expect(page.locator('[data-play-pause]')).toHaveAttribute('data-state', 'playing');
+		await page.waitForFunction((origin) => document.querySelector('[data-audio]').currentTime > origin + 0.05, playbackOrigin);
+		await page.locator('[data-play-pause]').click();
+		await expect(page.locator('[data-play-pause]')).toHaveAttribute('data-state', 'paused');
+		const pausedAt = await page.locator('[data-audio]').evaluate((audio) => audio.currentTime);
+		await page.locator('[data-play-pause]').click();
+		await page.waitForFunction((paused) => document.querySelector('[data-audio]').currentTime > paused + 0.03, pausedAt);
+		await page.locator('[data-play-pause]').click();
+		await page.locator('[data-stop]').click();
+		await expect(page.locator('[data-play-pause]')).toHaveAttribute('data-state', 'stopped');
+		const stoppedAt = await page.locator('[data-audio]').evaluate((audio) => audio.currentTime);
+		expect(stoppedAt).toBeCloseTo(playbackOrigin, 1);
+
+		await page.locator('[data-skip-start]').click();
+		await expect.poll(() => page.locator('[data-audio]').evaluate((audio) => audio.currentTime)).toBeCloseTo(0, 2);
+		const waveformPlayhead = Number(await waveform.getAttribute('data-playhead-time'));
+		const spectrogramPlayhead = Number(await page.locator('[data-spectrogram]').getAttribute('data-playhead-time'));
+		expect(waveformPlayhead).toBeCloseTo(spectrogramPlayhead, 5);
+
+		await page.evaluate(() => document.activeElement?.blur());
+		await page.keyboard.press('Space');
+		await expect(page.locator('[data-play-pause]')).toHaveAttribute('data-state', 'playing');
+		await page.keyboard.press('Space');
+		await expect(page.locator('[data-play-pause]')).toHaveAttribute('data-state', 'paused');
+		await page.keyboard.press('Control+Space');
+		await expect(page.locator('[data-play-pause]')).toHaveAttribute('data-state', 'stopped');
 
 		const canvas = page.locator('[data-spectrogram]');
 		await canvas.scrollIntoViewIfNeeded();
