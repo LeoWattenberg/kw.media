@@ -1,0 +1,119 @@
+---
+interface Props {
+	transportLabel: string;
+	playLabel: string;
+	pauseLabel: string;
+	skipStartLabel: string;
+	stopLabel: string;
+}
+
+const { transportLabel, playLabel, pauseLabel, skipStartLabel, stopLabel } = Astro.props;
+---
+
+<div class="playback-bar">
+	<div class="loaded-file">
+		<strong data-loaded-name></strong>
+		<span data-loaded-meta></span>
+	</div>
+	<div class="transport-toolbar" role="group" aria-label={transportLabel}>
+		<button class="button secondary transport-button" type="button" data-skip-start aria-label={skipStartLabel} title={skipStartLabel}>
+			<span aria-hidden="true">↤</span><span>{skipStartLabel}</span>
+		</button>
+		<button
+			class="button primary transport-button"
+			type="button"
+			data-play-pause
+			data-play-label={playLabel}
+			data-pause-label={pauseLabel}
+			aria-label={playLabel}
+			aria-pressed="false"
+		>
+			<span data-transport-icon aria-hidden="true">▶</span><span data-transport-label>{playLabel}</span>
+		</button>
+		<button class="button secondary transport-button" type="button" data-stop aria-label={stopLabel} title={stopLabel}>
+			<span aria-hidden="true">■</span><span>{stopLabel}</span>
+		</button>
+		<output class="transport-time" data-playback-time aria-live="off">0:00.000 / 0:00.000</output>
+	</div>
+</div>
+<audio preload="metadata" data-audio hidden></audio>
+
+<style>
+	.playback-bar {
+		display: flex;
+		gap: 14px;
+		align-items: center;
+		justify-content: space-between;
+		padding: 14px 16px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.loaded-file {
+		display: grid;
+		gap: 3px;
+		min-width: 0;
+	}
+
+	.loaded-file strong,
+	.loaded-file span {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.loaded-file span {
+		color: var(--color-muted);
+		font-size: 0.82rem;
+		font-weight: 750;
+	}
+
+	audio[hidden] {
+		display: none;
+	}
+
+	.transport-toolbar {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		align-items: center;
+		justify-content: flex-end;
+	}
+
+	.transport-button {
+		gap: 7px;
+		min-height: 42px;
+		padding-inline: 12px;
+	}
+
+	.transport-button > span:first-child {
+		font-size: 0.95rem;
+		line-height: 1;
+	}
+
+	.transport-time {
+		min-width: 148px;
+		color: var(--color-muted);
+		font-size: 0.82rem;
+		font-weight: 800;
+		font-variant-numeric: tabular-nums;
+		text-align: right;
+	}
+
+	@media (max-width: 760px) {
+		.playback-bar {
+			align-items: stretch;
+			flex-direction: column;
+		}
+
+		.transport-toolbar {
+			justify-content: flex-start;
+		}
+
+		.transport-time {
+			width: 100%;
+			text-align: left;
+		}
+	}
+</style>

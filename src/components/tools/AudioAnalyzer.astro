@@ -1,8 +1,10 @@
 ---
 import type { Locale } from '../../i18n';
-import FilePicker from './shared/FilePicker.astro';
 import ToolIntro from './shared/ToolIntro.astro';
-import ToolStatus from './shared/ToolStatus.astro';
+import AnalysisPanel from './audio-analyzer/AnalysisPanel.astro';
+import FileLoader from './audio-analyzer/FileLoader.astro';
+import TransportToolbar from './audio-analyzer/TransportToolbar.astro';
+import VisualizationPanel from './audio-analyzer/VisualizationPanel.astro';
 
 interface Props {
 	locale: Locale;
@@ -88,87 +90,34 @@ const copy = copyByLocale[locale];
 <section class="section audio-analyzer-section tool-workspace">
 	<div class="container analyzer-container">
 		<div class="audio-analyzer" data-audio-analyzer data-copy={JSON.stringify(copy)}>
-			<div class="analyzer-loader tool-panel">
-				<FilePicker
-					label={copy.choose}
-					name={copy.choose}
-					hint={copy.hint}
-					accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.webm"
-					nameAttrs={{ 'data-file-name': true }}
-					metaAttrs={{ 'data-file-meta': true }}
-					inputAttrs={{ 'data-file-input': true }}
-				/>
-				<ToolStatus data-status text={copy.waiting} />
-			</div>
+			<FileLoader chooseLabel={copy.choose} hint={copy.hint} waitingText={copy.waiting} />
 
 			<div class="analyzer-workspace" data-workspace hidden>
 				<div class="visualization-column">
-					<div class="playback-bar">
-						<div class="loaded-file">
-							<strong data-loaded-name></strong>
-							<span data-loaded-meta></span>
-						</div>
-						<div class="transport-toolbar" role="group" aria-label={copy.transport}>
-							<button class="button secondary transport-button" type="button" data-skip-start aria-label={copy.skipStart} title={copy.skipStart}>
-								<span aria-hidden="true">↤</span><span>{copy.skipStart}</span>
-							</button>
-							<button
-								class="button primary transport-button"
-								type="button"
-								data-play-pause
-								data-play-label={copy.play}
-								data-pause-label={copy.pause}
-								aria-label={copy.play}
-								aria-pressed="false"
-							>
-								<span data-transport-icon aria-hidden="true">▶</span><span data-transport-label>{copy.play}</span>
-							</button>
-							<button class="button secondary transport-button" type="button" data-stop aria-label={copy.stop} title={copy.stop}>
-								<span aria-hidden="true">■</span><span>{copy.stop}</span>
-							</button>
-							<output class="transport-time" data-playback-time aria-live="off">0:00.000 / 0:00.000</output>
-						</div>
-					</div>
-					<audio preload="metadata" data-audio hidden></audio>
-
-					<section class="visualization-card" aria-labelledby={`spectrogram-title-${locale}`}>
-						<div class="visualization-heading">
-							<h2 id={`spectrogram-title-${locale}`}>{copy.spectrogram}</h2>
-							<span data-spectrogram-readout></span>
-						</div>
-						<canvas class="spectrogram-canvas" width="1080" height="360" data-spectrogram aria-label={copy.spectrogram}></canvas>
-					</section>
-
-					<section class="visualization-card" aria-labelledby={`waveform-title-${locale}`}>
-						<div class="visualization-heading">
-							<h2 id={`waveform-title-${locale}`}>{copy.waveform}</h2>
-							<span data-time-readout></span>
-						</div>
-						<canvas class="waveform-canvas" width="1080" height="120" data-waveform aria-label={copy.waveform}></canvas>
-					</section>
+					<TransportToolbar
+						transportLabel={copy.transport}
+						playLabel={copy.play}
+						pauseLabel={copy.pause}
+						skipStartLabel={copy.skipStart}
+						stopLabel={copy.stop}
+					/>
+					<VisualizationPanel id={`spectrogram-title-${locale}`} title={copy.spectrogram} kind="spectrogram" />
+					<VisualizationPanel id={`waveform-title-${locale}`} title={copy.waveform} kind="waveform" />
 				</div>
 
-				<aside class="analysis-column" aria-labelledby={`analysis-title-${locale}`}>
-					<div class="analysis-heading">
-						<div>
-							<p class="eyebrow">{copy.selection}</p>
-							<h2 id={`analysis-title-${locale}`}>{copy.analysis}</h2>
-						</div>
-						<button class="button secondary" type="button" data-clear-selection disabled>{copy.clearSelection}</button>
-					</div>
-					<p class="selection-summary" data-selection-summary>{copy.entireFile}</p>
-					<div class="metric-grid">
-						<div class="metric-card"><span>{copy.peak}</span><strong data-metric="peak">—</strong><small>dBFS</small></div>
-						<div class="metric-card"><span>{copy.rms}</span><strong data-metric="rms">—</strong><small>dBFS</small></div>
-						<div class="metric-card"><span>{copy.momentary}</span><strong data-metric="momentary">—</strong><small>LUFS</small></div>
-						<div class="metric-card"><span>{copy.shortTerm}</span><strong data-metric="shortTerm">—</strong><small>LUFS</small></div>
-						<div class="metric-card metric-wide"><span>{copy.integrated}</span><strong data-metric="integrated">—</strong><small>LUFS</small></div>
-					</div>
-					<section class="spectrum-card" aria-labelledby={`spectrum-title-${locale}`}>
-						<h3 id={`spectrum-title-${locale}`}>{copy.spectrum}</h3>
-						<canvas width="520" height="300" data-spectrum aria-label={copy.spectrum}></canvas>
-					</section>
-				</aside>
+				<AnalysisPanel
+					id={`analysis-title-${locale}`}
+					selectionLabel={copy.selection}
+					analysisTitle={copy.analysis}
+					clearSelectionLabel={copy.clearSelection}
+					entireFileLabel={copy.entireFile}
+					peakLabel={copy.peak}
+					rmsLabel={copy.rms}
+					momentaryLabel={copy.momentary}
+					shortTermLabel={copy.shortTerm}
+					integratedLabel={copy.integrated}
+					spectrumTitle={copy.spectrum}
+				/>
 			</div>
 		</div>
 	</div>
@@ -216,11 +165,18 @@ const copy = copyByLocale[locale];
 			selection: null,
 			waveformBase: document.createElement('canvas'),
 			spectrogramBase: document.createElement('canvas'),
+			spectrogramData: null,
 			objectUrl: null,
 			drag: null,
+			verticalDrag: null,
 			animationFrame: 0,
+			redrawFrame: 0,
 			playbackOrigin: 0,
 			transportState: 'stopped',
+			viewStartTime: 0,
+			viewEndTime: 0,
+			viewLowFrequency: 0,
+			viewHighFrequency: 0,
 		};
 
 		fileInput.addEventListener('change', () => void loadFile(fileInput.files?.[0]));
@@ -231,6 +187,8 @@ const copy = copyByLocale[locale];
 		document.addEventListener('keydown', handleTransportShortcut);
 		bindSelectionCanvas(waveform, 'waveform');
 		bindSelectionCanvas(spectrogram, 'spectrogram');
+		bindViewportWheel(waveform, 'waveform');
+		bindViewportWheel(spectrogram, 'spectrogram');
 		audio.addEventListener('play', () => {
 			state.transportState = 'playing';
 			updateTransport();
@@ -268,6 +226,10 @@ const copy = copyByLocale[locale];
 				state.selection = null;
 				state.playbackOrigin = 0;
 				state.transportState = 'stopped';
+				state.viewStartTime = 0;
+				state.viewEndTime = buffer.duration;
+				state.viewLowFrequency = 0;
+				state.viewHighFrequency = buffer.sampleRate / 2;
 				await context.close();
 
 				if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
@@ -281,8 +243,8 @@ const copy = copyByLocale[locale];
 				});
 				workspace.hidden = false;
 				updateTransport();
-				drawWaveformBase();
-				drawSpectrogramBase(createSpectrogram(state.samples, state.sampleRate));
+				state.spectrogramData = createSpectrogram(state.samples, state.sampleRate);
+				redrawVisualizations();
 				setSelection(null);
 				setStatus(copy.ready, 'success');
 			} catch (error) {
@@ -396,6 +358,90 @@ const copy = copyByLocale[locale];
 			drawSpectrum(averageSpectrum(selectedSamples, state.sampleRate, selection));
 		}
 
+		function timeViewDuration() {
+			return state.viewEndTime - state.viewStartTime;
+		}
+
+		function frequencyViewSpan() {
+			return state.viewHighFrequency - state.viewLowFrequency;
+		}
+
+		function redrawVisualizations() {
+			if (!state.samples || !state.spectrogramData) return;
+			cancelAnimationFrame(state.redrawFrame);
+			drawWaveformBase();
+			drawSpectrogramBase();
+			waveform.dataset.viewStart = String(state.viewStartTime);
+			waveform.dataset.viewEnd = String(state.viewEndTime);
+			spectrogram.dataset.viewStart = String(state.viewStartTime);
+			spectrogram.dataset.viewEnd = String(state.viewEndTime);
+			spectrogram.dataset.viewLowFrequency = String(state.viewLowFrequency);
+			spectrogram.dataset.viewHighFrequency = String(state.viewHighFrequency);
+			renderOverlays();
+		}
+
+		function scheduleVisualizationRedraw() {
+			cancelAnimationFrame(state.redrawFrame);
+			state.redrawFrame = requestAnimationFrame(redrawVisualizations);
+		}
+
+		function setTimeViewport(startTime, endTime) {
+			const minimumSpan = Math.min(state.duration, Math.max(0.01, 32 / state.sampleRate));
+			const span = clamp(endTime - startTime, minimumSpan, state.duration);
+			let start = startTime;
+			if (start < 0) start = 0;
+			if (start + span > state.duration) start = state.duration - span;
+			state.viewStartTime = clamp(start, 0, Math.max(0, state.duration - span));
+			state.viewEndTime = state.viewStartTime + span;
+			scheduleVisualizationRedraw();
+		}
+
+		function setFrequencyViewport(lowFrequency, highFrequency) {
+			const minimumSpan = Math.min(state.nyquist, Math.max(20, state.nyquist / 1000));
+			const span = clamp(highFrequency - lowFrequency, minimumSpan, state.nyquist);
+			let low = lowFrequency;
+			if (low < 0) low = 0;
+			if (low + span > state.nyquist) low = state.nyquist - span;
+			state.viewLowFrequency = clamp(low, 0, Math.max(0, state.nyquist - span));
+			state.viewHighFrequency = state.viewLowFrequency + span;
+			scheduleVisualizationRedraw();
+		}
+
+		function resetFrequencyViewport() {
+			state.viewLowFrequency = 0;
+			state.viewHighFrequency = state.nyquist;
+			scheduleVisualizationRedraw();
+		}
+
+		function bindViewportWheel(canvas, kind) {
+			canvas.addEventListener('wheel', (event) => {
+				if (!state.samples) return;
+				const point = canvasPoint(canvas, event);
+				const bounds = plotBounds(canvas, kind);
+
+				if (event.ctrlKey) {
+					if (kind !== 'spectrogram') return;
+					event.preventDefault();
+					const shift = -event.deltaY * frequencyViewSpan() / 500;
+					setFrequencyViewport(state.viewLowFrequency + shift, state.viewHighFrequency + shift);
+					return;
+				}
+
+				event.preventDefault();
+				if (event.shiftKey) {
+					const delta = event.deltaX || event.deltaY;
+					const shift = delta * timeViewDuration() / 500;
+					setTimeViewport(state.viewStartTime + shift, state.viewEndTime + shift);
+					return;
+				}
+
+				const anchorRatio = clamp((point.x - bounds.left) / bounds.width, 0, 1);
+				const anchorTime = state.viewStartTime + anchorRatio * timeViewDuration();
+				const nextSpan = timeViewDuration() * Math.exp(event.deltaY * 0.0025);
+				setTimeViewport(anchorTime - anchorRatio * nextSpan, anchorTime + (1 - anchorRatio) * nextSpan);
+			}, { passive: false });
+		}
+
 		function drawWaveformBase() {
 			const canvas = state.waveformBase;
 			canvas.width = waveform.width;
@@ -407,13 +453,15 @@ const copy = copyByLocale[locale];
 			context.strokeStyle = cssColor('--color-accent', '#d54f70');
 			context.lineWidth = 1.4;
 			context.beginPath();
-			const samplesPerPixel = state.samples.length / bounds.width;
+			const visibleFirst = Math.floor(state.viewStartTime * state.sampleRate);
+			const visibleLast = Math.min(state.samples.length, Math.ceil(state.viewEndTime * state.sampleRate));
+			const samplesPerPixel = Math.max(1, visibleLast - visibleFirst) / bounds.width;
 			for (let x = 0; x < bounds.width; x += 1) {
-				const first = Math.floor(x * samplesPerPixel);
-				const last = Math.max(first + 1, Math.floor((x + 1) * samplesPerPixel));
+				const first = visibleFirst + Math.floor(x * samplesPerPixel);
+				const last = Math.max(first + 1, visibleFirst + Math.floor((x + 1) * samplesPerPixel));
 				let minimum = 1;
 				let maximum = -1;
-				for (let index = first; index < last && index < state.samples.length; index += 1) {
+				for (let index = first; index < last && index < visibleLast; index += 1) {
 					minimum = Math.min(minimum, state.samples[index]);
 					maximum = Math.max(maximum, state.samples[index]);
 				}
@@ -424,7 +472,8 @@ const copy = copyByLocale[locale];
 			context.stroke();
 		}
 
-		function drawSpectrogramBase(data) {
+		function drawSpectrogramBase() {
+			const data = state.spectrogramData;
 			const canvas = state.spectrogramBase;
 			canvas.width = spectrogram.width;
 			canvas.height = spectrogram.height;
@@ -433,9 +482,12 @@ const copy = copyByLocale[locale];
 			fillCanvas(context, canvas);
 			const image = context.createImageData(bounds.width, bounds.height);
 			for (let x = 0; x < bounds.width; x += 1) {
-				const frame = data.frames[Math.min(data.frames.length - 1, Math.floor(x / bounds.width * data.frames.length))];
+				const time = state.viewStartTime + x / bounds.width * timeViewDuration();
+				const frameIndex = Math.min(data.frames.length - 1, Math.floor(time / state.duration * data.frames.length));
+				const frame = data.frames[Math.max(0, frameIndex)];
 				for (let y = 0; y < bounds.height; y += 1) {
-					const bin = Math.min(frame.length - 1, Math.floor((1 - y / bounds.height) * frame.length));
+					const frequency = state.viewHighFrequency - y / bounds.height * frequencyViewSpan();
+					const bin = Math.min(frame.length - 1, Math.floor(frequency / state.nyquist * frame.length));
 					const color = roseusColor((frame[bin] + 100) / 100);
 					const offset = (y * bounds.width + x) * 4;
 					image.data[offset] = color[0];
@@ -463,46 +515,91 @@ const copy = copyByLocale[locale];
 			const selection = state.drag?.kind === kind ? state.drag.preview : state.selection;
 			if (selection) {
 				const normalized = normalizeSelection(selection, state.duration, state.nyquist);
-				const x = bounds.left + normalized.startTime / state.duration * bounds.width;
-				const width = Math.max(1, (normalized.endTime - normalized.startTime) / state.duration * bounds.width);
+				const x = bounds.left + (normalized.startTime - state.viewStartTime) / timeViewDuration() * bounds.width;
+				const width = Math.max(1, (normalized.endTime - normalized.startTime) / timeViewDuration() * bounds.width);
 				let y = bounds.top;
 				let height = bounds.height;
 				if (kind === 'spectrogram') {
-					y = bounds.top + (1 - normalized.highFrequency / state.nyquist) * bounds.height;
-					height = Math.max(1, (normalized.highFrequency - normalized.lowFrequency) / state.nyquist * bounds.height);
+					y = bounds.top + (state.viewHighFrequency - normalized.highFrequency) / frequencyViewSpan() * bounds.height;
+					height = Math.max(1, (normalized.highFrequency - normalized.lowFrequency) / frequencyViewSpan() * bounds.height);
 				}
+				context.save();
+				context.beginPath();
+				context.rect(bounds.left, bounds.top, bounds.width, bounds.height);
+				context.clip();
 				context.fillStyle = 'rgba(255, 255, 255, 0.17)';
 				context.fillRect(x, y, width, height);
 				context.strokeStyle = '#ffffff';
 				context.lineWidth = 2;
 				context.strokeRect(x, y, width, height);
+				context.restore();
 			}
-			const playhead = bounds.left + clamp(audio.currentTime / state.duration, 0, 1) * bounds.width;
 			canvas.dataset.playheadTime = String(audio.currentTime);
-			context.strokeStyle = '#4bf3d1';
-			context.lineWidth = 2;
-			context.beginPath();
-			context.moveTo(playhead, bounds.top);
-			context.lineTo(playhead, bounds.top + bounds.height);
-			context.stroke();
+			if (audio.currentTime >= state.viewStartTime && audio.currentTime <= state.viewEndTime) {
+				const playhead = bounds.left + (audio.currentTime - state.viewStartTime) / timeViewDuration() * bounds.width;
+				context.strokeStyle = '#4bf3d1';
+				context.lineWidth = 2;
+				context.beginPath();
+				context.moveTo(playhead, bounds.top);
+				context.lineTo(playhead, bounds.top + bounds.height);
+				context.stroke();
+			}
 		}
 
 		function bindSelectionCanvas(canvas, kind) {
 			canvas.addEventListener('pointerdown', (event) => {
 				if (!state.samples) return;
-				canvas.setPointerCapture(event.pointerId);
 				const point = canvasPoint(canvas, event);
+				const bounds = plotBounds(canvas, kind);
+				if (kind === 'spectrogram' && isFrequencyScale(point, bounds)) {
+					event.preventDefault();
+					if (event.ctrlKey) {
+						resetFrequencyViewport();
+						return;
+					}
+					canvas.setPointerCapture(event.pointerId);
+					state.verticalDrag = {
+						start: point,
+						lowFrequency: state.viewLowFrequency,
+						highFrequency: state.viewHighFrequency,
+					};
+					return;
+				}
+
+				canvas.setPointerCapture(event.pointerId);
 				state.drag = { kind, start: point, preview: selectionFromPoints(kind, point, point), moved: false };
 				renderOverlays();
 			});
 			canvas.addEventListener('pointermove', (event) => {
-				if (!state.drag || state.drag.kind !== kind) return;
 				const point = canvasPoint(canvas, event);
+				const bounds = plotBounds(canvas, kind);
+				if (kind === 'spectrogram' && state.verticalDrag) {
+					const drag = state.verticalDrag;
+					const startSpan = drag.highFrequency - drag.lowFrequency;
+					const anchorRatio = clamp((drag.start.y - bounds.top) / bounds.height, 0, 1);
+					const anchorFrequency = drag.highFrequency - anchorRatio * startSpan;
+					const nextSpan = startSpan * Math.exp((point.y - drag.start.y) * 0.012);
+					setFrequencyViewport(
+						anchorFrequency - (1 - anchorRatio) * nextSpan,
+						anchorFrequency + anchorRatio * nextSpan,
+					);
+					return;
+				}
+
+				if (kind === 'spectrogram' && !state.drag) {
+					canvas.style.cursor = isFrequencyScale(point, bounds) ? 'ns-resize' : 'crosshair';
+				}
+				if (!state.drag || state.drag.kind !== kind) return;
 				state.drag.moved ||= Math.hypot(point.x - state.drag.start.x, point.y - state.drag.start.y) > 4;
 				state.drag.preview = selectionFromPoints(kind, state.drag.start, point);
 				renderOverlays();
 			});
 			canvas.addEventListener('pointerup', (event) => {
+				if (kind === 'spectrogram' && state.verticalDrag) {
+					state.verticalDrag = null;
+					canvas.releasePointerCapture(event.pointerId);
+					return;
+				}
 				if (!state.drag || state.drag.kind !== kind) return;
 				const drag = state.drag;
 				state.drag = null;
@@ -517,17 +614,31 @@ const copy = copyByLocale[locale];
 				}
 				canvas.releasePointerCapture(event.pointerId);
 			});
+			canvas.addEventListener('dblclick', (event) => {
+				if (kind !== 'spectrogram') return;
+				const point = canvasPoint(canvas, event);
+				if (!isFrequencyScale(point, plotBounds(canvas, kind))) return;
+				event.preventDefault();
+				resetFrequencyViewport();
+			});
+			canvas.addEventListener('pointerleave', () => {
+				if (kind === 'spectrogram' && !state.verticalDrag) canvas.style.cursor = 'crosshair';
+			});
+		}
+
+		function isFrequencyScale(point, bounds) {
+			return point.x >= 0 && point.x < bounds.left && point.y >= bounds.top && point.y <= bounds.top + bounds.height;
 		}
 
 		function selectionFromPoints(kind, first, second) {
 			const bounds = plotBounds(kind === 'waveform' ? waveform : spectrogram, kind);
-			const startTime = clamp((Math.min(first.x, second.x) - bounds.left) / bounds.width, 0, 1) * state.duration;
-			const endTime = clamp((Math.max(first.x, second.x) - bounds.left) / bounds.width, 0, 1) * state.duration;
+			const startTime = state.viewStartTime + clamp((Math.min(first.x, second.x) - bounds.left) / bounds.width, 0, 1) * timeViewDuration();
+			const endTime = state.viewStartTime + clamp((Math.max(first.x, second.x) - bounds.left) / bounds.width, 0, 1) * timeViewDuration();
 			if (kind === 'waveform') {
 				return { startTime, endTime, lowFrequency: 0, highFrequency: state.nyquist };
 			}
-			const lowFrequency = (1 - clamp((Math.max(first.y, second.y) - bounds.top) / bounds.height, 0, 1)) * state.nyquist;
-			const highFrequency = (1 - clamp((Math.min(first.y, second.y) - bounds.top) / bounds.height, 0, 1)) * state.nyquist;
+			const lowFrequency = state.viewLowFrequency + (1 - clamp((Math.max(first.y, second.y) - bounds.top) / bounds.height, 0, 1)) * frequencyViewSpan();
+			const highFrequency = state.viewLowFrequency + (1 - clamp((Math.min(first.y, second.y) - bounds.top) / bounds.height, 0, 1)) * frequencyViewSpan();
 			return { startTime, endTime, lowFrequency, highFrequency };
 		}
 
@@ -591,7 +702,8 @@ const copy = copyByLocale[locale];
 			context.textAlign = 'center';
 			for (let index = 0; index <= 4; index += 1) {
 				const x = bounds.left + index / 4 * bounds.width;
-				context.fillText(formatAnalyzerTime(index / 4 * state.duration), x, bounds.top + bounds.height + 18);
+				const time = state.viewStartTime + index / 4 * timeViewDuration();
+				context.fillText(formatAnalyzerTime(time), x, bounds.top + bounds.height + 18);
 			}
 		}
 
@@ -600,7 +712,7 @@ const copy = copyByLocale[locale];
 			context.font = '12px sans-serif';
 			context.textAlign = 'right';
 			for (let index = 0; index <= 4; index += 1) {
-				const frequency = (1 - index / 4) * state.nyquist;
+				const frequency = state.viewHighFrequency - index / 4 * frequencyViewSpan();
 				context.fillText(formatFrequency(frequency), bounds.left - 7, bounds.top + index / 4 * bounds.height + 4);
 			}
 		}
@@ -668,17 +780,6 @@ const copy = copyByLocale[locale];
 		gap: 18px;
 	}
 
-	.analyzer-loader {
-		display: grid;
-		grid-template-columns: minmax(260px, 620px) minmax(280px, 1fr);
-		gap: 18px;
-		align-items: center;
-	}
-
-	.analyzer-loader :global(.tool-status) {
-		margin: 0;
-	}
-
 	.analyzer-workspace {
 		display: grid;
 		grid-template-columns: minmax(0, 2.2fr) minmax(340px, 0.9fr);
@@ -690,241 +791,15 @@ const copy = copyByLocale[locale];
 		display: none;
 	}
 
-	.visualization-column,
-	.analysis-column {
+	.visualization-column {
 		display: grid;
 		gap: 14px;
 		min-width: 0;
-	}
-
-	.playback-bar,
-	.analysis-heading,
-	.visualization-heading {
-		display: flex;
-		gap: 14px;
-		align-items: center;
-		justify-content: space-between;
-	}
-
-	.playback-bar {
-		padding: 14px 16px;
-		background: var(--color-surface-alt);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-	}
-
-	.loaded-file {
-		display: grid;
-		gap: 3px;
-		min-width: 0;
-	}
-
-	.playback-bar strong,
-	.playback-bar span {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-
-	.loaded-file span,
-	.visualization-heading span {
-		color: var(--color-muted);
-		font-size: 0.82rem;
-		font-weight: 750;
-	}
-
-	.audio-analyzer audio[hidden] {
-		display: none;
-	}
-
-	.transport-toolbar {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
-		align-items: center;
-		justify-content: flex-end;
-	}
-
-	.transport-button {
-		gap: 7px;
-		min-height: 42px;
-		padding-inline: 12px;
-	}
-
-	.transport-button > span:first-child {
-		font-size: 0.95rem;
-		line-height: 1;
-	}
-
-	.transport-time {
-		min-width: 148px;
-		color: var(--color-muted);
-		font-size: 0.82rem;
-		font-weight: 800;
-		font-variant-numeric: tabular-nums;
-		text-align: right;
-	}
-
-	.visualization-card,
-	.analysis-column,
-	.spectrum-card {
-		padding: 16px;
-		background: var(--color-surface-raised);
-		border: 1px solid var(--color-line);
-		border-radius: 8px;
-	}
-
-	.visualization-heading {
-		margin-bottom: 10px;
-	}
-
-	.visualization-heading h2,
-	.analysis-heading h2,
-	.spectrum-card h3 {
-		margin: 0;
-		font-size: 1.05rem;
-		letter-spacing: 0;
-	}
-
-	.spectrogram-canvas,
-	.waveform-canvas,
-	.spectrum-card canvas {
-		display: block;
-		width: 100%;
-		background: var(--color-surface-alt);
-		border: 1px solid var(--color-line);
-		border-radius: 5px;
-		touch-action: none;
-	}
-
-	.spectrogram-canvas,
-	.waveform-canvas {
-		cursor: crosshair;
-	}
-
-	.spectrogram-canvas {
-		aspect-ratio: 3 / 1;
-	}
-
-	.waveform-canvas {
-		aspect-ratio: 9 / 1;
-	}
-
-	.analysis-column {
-		position: sticky;
-		top: 18px;
-	}
-
-	.analysis-heading .eyebrow {
-		margin-bottom: 5px;
-	}
-
-	.selection-summary {
-		margin: 0;
-		padding: 11px 12px;
-		color: var(--color-muted);
-		background: var(--color-surface-alt);
-		border-radius: 6px;
-		font-size: 0.9rem;
-		font-weight: 750;
-	}
-
-	.metric-grid {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 10px;
-	}
-
-	.metric-card {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		gap: 5px 8px;
-		align-items: end;
-		padding: 13px;
-		background: var(--color-surface-alt);
-		border: 1px solid var(--color-line);
-		border-radius: 7px;
-	}
-
-	.metric-card span {
-		grid-column: 1 / -1;
-		min-height: 2.25em;
-		color: var(--color-muted);
-		font-size: 0.76rem;
-		font-weight: 800;
-		line-height: 1.15;
-		text-transform: uppercase;
-	}
-
-	.metric-card strong {
-		font-size: clamp(1.4rem, 2.5vw, 2rem);
-		line-height: 1;
-		font-variant-numeric: tabular-nums;
-	}
-
-	.metric-card small {
-		color: var(--color-muted);
-		font-weight: 750;
-	}
-
-	.metric-wide {
-		grid-column: 1 / -1;
-	}
-
-	.spectrum-card h3 {
-		margin-bottom: 12px;
-	}
-
-	.spectrum-card canvas {
-		aspect-ratio: 1.7 / 1;
 	}
 
 	@media (max-width: 1100px) {
 		.analyzer-workspace {
 			grid-template-columns: 1fr;
-		}
-
-		.analysis-column {
-			position: static;
-		}
-
-		.metric-grid {
-			grid-template-columns: repeat(5, minmax(0, 1fr));
-		}
-
-		.metric-wide {
-			grid-column: auto;
-		}
-	}
-
-	@media (max-width: 760px) {
-		.analyzer-loader,
-		.metric-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.metric-wide {
-			grid-column: auto;
-		}
-
-		.playback-bar,
-		.analysis-heading {
-			align-items: stretch;
-			flex-direction: column;
-		}
-
-		.transport-toolbar {
-			justify-content: flex-start;
-		}
-
-		.transport-time {
-			width: 100%;
-			text-align: left;
-		}
-
-		.spectrogram-canvas {
-			min-height: 220px;
-			aspect-ratio: auto;
 		}
 	}
 </style>

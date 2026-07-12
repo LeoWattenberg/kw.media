@@ -1,0 +1,44 @@
+---
+import FilePicker from '../shared/FilePicker.astro';
+import ToolStatus from '../shared/ToolStatus.astro';
+
+interface Props {
+	chooseLabel: string;
+	hint: string;
+	waitingText: string;
+}
+
+const { chooseLabel, hint, waitingText } = Astro.props;
+---
+
+<div class="analyzer-loader tool-panel">
+	<FilePicker
+		label={chooseLabel}
+		name={chooseLabel}
+		hint={hint}
+		accept="audio/*,.aac,.aif,.aiff,.flac,.m4a,.mp3,.oga,.ogg,.opus,.wav,.webm"
+		nameAttrs={{ 'data-file-name': true }}
+		metaAttrs={{ 'data-file-meta': true }}
+		inputAttrs={{ 'data-file-input': true }}
+	/>
+	<ToolStatus data-status text={waitingText} />
+</div>
+
+<style>
+	.analyzer-loader {
+		display: grid;
+		grid-template-columns: minmax(260px, 620px) minmax(280px, 1fr);
+		gap: 18px;
+		align-items: center;
+	}
+
+	.analyzer-loader :global(.tool-status) {
+		margin: 0;
+	}
+
+	@media (max-width: 760px) {
+		.analyzer-loader {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
