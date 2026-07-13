@@ -42,9 +42,10 @@ test('WAV encoder writes valid PCM and float headers and supports chunk emission
 	assert.equal(view.getInt16(46, true), 0);
 	assert.equal(view.getInt16(48, true), 32767);
 
-	const floating = encodeWav([Float32Array.of(0.25)], { float: true, dither: false });
+	const floating = encodeWav([Float32Array.of(0.25, 1.25)], { float: true, dither: false });
 	assert.equal(new DataView(floating.buffer).getUint16(20, true), 3);
 	assert.equal(new DataView(floating.buffer).getFloat32(44, true), 0.25);
+	assert.equal(new DataView(floating.buffer).getFloat32(48, true), 1.25);
 
 });
 

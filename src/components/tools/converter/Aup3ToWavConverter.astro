@@ -1,0 +1,448 @@
+---
+import type { Locale } from '../../../i18n';
+import FilePicker from '../shared/FilePicker.astro';
+import SelectControl from '../shared/SelectControl.astro';
+import ToolActions from '../shared/ToolActions.astro';
+import ToolIntro from '../shared/ToolIntro.astro';
+import ToolPanel from '../shared/ToolPanel.astro';
+import ToolResultCard from '../shared/ToolResultCard.astro';
+import ToolStatus from '../shared/ToolStatus.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copyByLocale = {
+	de: {
+		eyebrow: 'Audacity-Projekt-Tool',
+		title: 'AUP3 zu WAV',
+		intro: 'Erzeuge aus einem gespeicherten Audacity-AUP3-Projekt einen trockenen WAV-Mix direkt im Browser.',
+		privacy: 'Deine Projektdatei bleibt lokal. Speichere und schließe das Projekt vor dem Konvertieren.',
+		sourceTitle: 'Audacity-Projekt',
+		chooseFile: 'AUP3-Projekt auswählen',
+		fileHint: 'Gespeicherte und geschlossene .aup3-Datei · maximal 128 MB',
+		selectedFile: '{name} · {size}',
+		settingsTitle: 'WAV-Ausgabe',
+		formatLabel: 'Audioformat',
+		formatPcm16: '16-Bit PCM',
+		formatFloat32: '32-Bit Float',
+		convert: 'Trockenen WAV-Mix erzeugen',
+		reset: 'Zurücksetzen',
+		limitation: 'Echtzeit- und Plugin-Effekte aus Audacity werden nicht gerendert. Die Ausgabe ist ein trockener Mix der unterstützten Projektspuren.',
+		resultTitle: 'WAV-Ergebnis',
+		download: 'WAV-Datei herunterladen',
+		warningsTitle: 'Hinweise zur Konvertierung',
+		statusWaiting: 'Wähle ein gespeichertes AUP3-Projekt aus.',
+		statusSelected: '{name} ist bereit für die lokale Konvertierung.',
+		statusOpening: 'AUP3-Projekt wird lokal geöffnet…',
+		statusReading: 'Projektspuren und Audioblöcke werden gelesen…',
+		statusReadingProgress: 'Projektspuren und Audioblöcke werden gelesen… {progress} %',
+		statusEncoding: 'Der trockene Mix wird als WAV kodiert…',
+		statusReady: 'Der trockene WAV-Mix ist fertig.',
+		statusReadyWarnings: 'Der trockene WAV-Mix ist fertig. Beachte die Hinweise zur Konvertierung.',
+		statusError: 'Die AUP3-Konvertierung ist fehlgeschlagen: {message}',
+		statusGeneric: 'Unbekannter Fehler',
+		errorEmpty: 'Das Projekt enthält kein dekodierbares Audio.',
+		errorSampleRate: 'Das Projekt enthält eine ungültige Samplerate.',
+		errorChannelLengths: 'Die dekodierten Audiokanäle sind unterschiedlich lang.',
+		oneChannel: '1 Kanal',
+		manyChannels: '{count} Kanäle',
+		oneTrack: '1 Spur',
+		manyTracks: '{count} Spuren',
+		formatPcm16Meta: '16-Bit PCM',
+		formatFloat32Meta: '32-Bit Float',
+	},
+	en: {
+		eyebrow: 'Audacity project tool',
+		title: 'AUP3 to WAV',
+		intro: 'Create a dry WAV mix from a saved Audacity AUP3 project directly in your browser.',
+		privacy: 'Your project file stays local. Save and close the project before converting it.',
+		sourceTitle: 'Audacity project',
+		chooseFile: 'Choose AUP3 project',
+		fileHint: 'Saved and closed .aup3 file · up to 128 MB',
+		selectedFile: '{name} · {size}',
+		settingsTitle: 'WAV output',
+		formatLabel: 'Audio format',
+		formatPcm16: '16-bit PCM',
+		formatFloat32: '32-bit float',
+		convert: 'Create dry WAV mix',
+		reset: 'Reset',
+		limitation: 'Audacity realtime and plugin effects are not rendered. The output is a dry mix of the supported project tracks.',
+		resultTitle: 'WAV result',
+		download: 'Download WAV file',
+		warningsTitle: 'Conversion notes',
+		statusWaiting: 'Choose a saved AUP3 project.',
+		statusSelected: '{name} is ready for local conversion.',
+		statusOpening: 'Opening the AUP3 project locally…',
+		statusReading: 'Reading project tracks and audio blocks…',
+		statusReadingProgress: 'Reading project tracks and audio blocks… {progress}%',
+		statusEncoding: 'Encoding the dry mix as WAV…',
+		statusReady: 'The dry WAV mix is ready.',
+		statusReadyWarnings: 'The dry WAV mix is ready. Review the conversion notes.',
+		statusError: 'AUP3 conversion failed: {message}',
+		statusGeneric: 'Unknown error',
+		errorEmpty: 'The project contains no decodable audio.',
+		errorSampleRate: 'The project contains an invalid sample rate.',
+		errorChannelLengths: 'The decoded audio channels have different lengths.',
+		oneChannel: '1 channel',
+		manyChannels: '{count} channels',
+		oneTrack: '1 track',
+		manyTracks: '{count} tracks',
+		formatPcm16Meta: '16-bit PCM',
+		formatFloat32Meta: '32-bit float',
+	},
+} satisfies Record<Locale, Record<string, string>>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section aup3-converter-section tool-workspace">
+	<div class="container">
+		<div class="aup3-converter" data-aup3-wav-converter data-copy={copyJson}>
+			<div class="converter-workspace">
+				<ToolPanel class="converter-panel converter-stage" title={copy.sourceTitle}>
+					<FilePicker
+						label={copy.sourceTitle}
+						name={copy.chooseFile}
+						hint={copy.fileHint}
+						accept=".aup3"
+						nameAttrs={{ 'data-file-name': true }}
+						metaAttrs={{ 'data-file-meta': true }}
+						inputAttrs={{ 'data-file-input': true }}
+					/>
+
+					<div class="aup3-output" data-output hidden>
+						<ToolResultCard
+							title={copy.resultTitle}
+							meta="—"
+							downloadLabel={copy.download}
+							titleAttrs={{ 'data-result-title': true }}
+							metaAttrs={{ 'data-result-meta': true }}
+							downloadAttrs={{ 'data-download': true }}
+						/>
+						<audio data-output-audio controls preload="metadata" aria-label={copy.resultTitle} hidden></audio>
+						<div class="conversion-warnings" data-warnings hidden>
+							<strong>{copy.warningsTitle}</strong>
+							<ul data-warning-list></ul>
+						</div>
+					</div>
+				</ToolPanel>
+
+				<details class="converter-toolbar" open>
+					<summary>{copy.settingsTitle}</summary>
+					<ToolPanel class="converter-panel settings-panel" title={copy.settingsTitle}>
+						<SelectControl label={copy.formatLabel} selectAttrs={{ 'data-format': true }}>
+							<option value="pcm16">{copy.formatPcm16}</option>
+							<option value="float32">{copy.formatFloat32}</option>
+						</SelectControl>
+						<p class="converter-limit">{copy.limitation}</p>
+						<ToolActions>
+							<button class="button primary" data-convert type="button" disabled>{copy.convert}</button>
+							<button class="button secondary" data-reset type="button">{copy.reset}</button>
+						</ToolActions>
+						<ToolStatus data-status role="status" aria-live="polite" text={copy.statusWaiting} />
+					</ToolPanel>
+				</details>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { decodeAup3File } from '../../../lib/tools/aup3-browser';
+	import { createWavStreamEncoder } from '../../../lib/tools/audio-editor/wav';
+	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
+
+	(() => {
+		const roots = document.querySelectorAll('[data-aup3-wav-converter]:not([data-aup3-wav-converter-bound])');
+
+		for (const root of roots) {
+			root.dataset.aup3WavConverterBound = 'true';
+			initConverter(root);
+		}
+
+		function initConverter(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const fileInput = root.querySelector('[data-file-input]');
+			const fileName = root.querySelector('[data-file-name]');
+			const fileMeta = root.querySelector('[data-file-meta]');
+			const formatSelect = root.querySelector('[data-format]');
+			const convertButton = root.querySelector('[data-convert]');
+			const resetButton = root.querySelector('[data-reset]');
+			const status = root.querySelector('[data-status]');
+			const output = root.querySelector('[data-output]');
+			const resultTitle = root.querySelector('[data-result-title]');
+			const resultMeta = root.querySelector('[data-result-meta]');
+			const download = root.querySelector('[data-download]');
+			const outputAudio = root.querySelector('[data-output-audio]');
+			const warnings = root.querySelector('[data-warnings]');
+			const warningList = root.querySelector('[data-warning-list]');
+
+			if (
+				!fileInput || !fileName || !fileMeta || !formatSelect || !convertButton || !resetButton ||
+				!status || !output || !resultTitle || !resultMeta || !download || !outputAudio || !warnings || !warningList
+			) {
+				return;
+			}
+
+			const state = {
+				file: null,
+				outputUrl: null,
+				working: false,
+			};
+
+			fileInput.addEventListener('change', () => {
+				selectFile(fileInput.files?.[0] || null);
+			});
+			formatSelect.addEventListener('change', () => {
+				clearOutput();
+				if (state.file) setStatus(format(copy.statusSelected, { name: state.file.name }), 'success');
+			});
+			convertButton.addEventListener('click', () => void convertFile());
+			resetButton.addEventListener('click', reset);
+			window.addEventListener('pagehide', clearOutput, { once: true });
+
+			function selectFile(file) {
+				clearOutput();
+				state.file = file;
+				fileName.textContent = file?.name || copy.chooseFile;
+				fileMeta.textContent = file
+					? format(copy.selectedFile, { name: file.name, size: formatBytes(file.size) })
+					: copy.fileHint;
+				setStatus(file ? format(copy.statusSelected, { name: file.name }) : copy.statusWaiting, file ? 'success' : 'info');
+				updateControls();
+			}
+
+			async function convertFile() {
+				if (!state.file || state.working) return;
+				state.working = true;
+				clearOutput();
+				updateControls();
+				setStatus(copy.statusOpening, 'info');
+
+				try {
+					const decoded = await decodeAup3File(state.file, { onProgress: updateDecodeProgress });
+					validateDecodedAudio(decoded);
+					setStatus(copy.statusEncoding, 'info');
+					await nextPaint();
+
+					const floatOutput = formatSelect.value === 'float32';
+					const wavChunks = [];
+					const encoder = createWavStreamEncoder({
+						sampleRate: decoded.sampleRate,
+						channelCount: decoded.channels.length,
+						totalFrames: decoded.channels[0].length,
+						bitDepth: floatOutput ? 32 : 16,
+						float: floatOutput,
+						collect: false,
+						onChunk: (chunk) => wavChunks.push(chunk),
+					});
+					const chunkFrames = 1_048_576;
+					for (let offset = 0; offset < decoded.channels[0].length; offset += chunkFrames) {
+						const end = Math.min(decoded.channels[0].length, offset + chunkFrames);
+						encoder.write(decoded.channels.map((channel) => channel.subarray(offset, end)));
+						await nextPaint();
+					}
+					encoder.finalize();
+					const blob = new Blob(wavChunks, { type: 'audio/wav' });
+					const outputName = buildOutputName(state.file.name);
+					state.outputUrl = URL.createObjectURL(blob);
+
+					download.href = state.outputUrl;
+					download.download = outputName;
+					download.hidden = false;
+					outputAudio.src = state.outputUrl;
+					outputAudio.hidden = false;
+					resultTitle.textContent = decoded.metadata?.title || outputName;
+					resultMeta.textContent = buildResultMeta(decoded, blob.size, floatOutput);
+					renderWarnings(decoded.warnings);
+					output.hidden = false;
+					setStatus(decoded.warnings?.length ? copy.statusReadyWarnings : copy.statusReady, 'success');
+				} catch (error) {
+					setStatus(format(copy.statusError, { message: messageFromError(error) }), 'error');
+				} finally {
+					state.working = false;
+					updateControls();
+				}
+			}
+
+			function updateDecodeProgress(progress) {
+				const rawValue = typeof progress === 'number'
+					? progress
+					: Number(progress?.progress ?? progress?.value);
+				if (!Number.isFinite(rawValue)) {
+					setStatus(copy.statusReading, 'info');
+					return;
+				}
+				const normalized = rawValue <= 1 ? rawValue * 100 : rawValue;
+				const percentage = Math.max(0, Math.min(100, Math.round(normalized)));
+				setStatus(format(copy.statusReadingProgress, { progress: percentage }), 'info');
+			}
+
+			function validateDecodedAudio(decoded) {
+				if (!decoded || !Array.isArray(decoded.channels) || !decoded.channels.length || !decoded.channels[0]?.length) {
+					throw new Error(copy.errorEmpty);
+				}
+				if (!Number.isFinite(decoded.sampleRate) || decoded.sampleRate <= 0) {
+					throw new Error(copy.errorSampleRate);
+				}
+				const frameCount = decoded.channels[0].length;
+				if (decoded.channels.some((channel) => channel.length !== frameCount)) {
+					throw new Error(copy.errorChannelLengths);
+				}
+			}
+
+			function buildResultMeta(decoded, outputBytes, floatOutput) {
+				const channelCount = decoded.channels.length;
+				const trackCount = Number(decoded.metadata?.trackCount);
+				const duration = Number(decoded.metadata?.durationSeconds) || decoded.channels[0].length / decoded.sampleRate;
+				const details = [
+					formatDuration(duration),
+					`${Math.round(decoded.sampleRate).toLocaleString()} Hz`,
+					channelCount === 1 ? copy.oneChannel : format(copy.manyChannels, { count: channelCount }),
+				];
+				if (Number.isFinite(trackCount) && trackCount > 0) {
+					details.push(trackCount === 1 ? copy.oneTrack : format(copy.manyTracks, { count: trackCount }));
+				}
+				details.push(floatOutput ? copy.formatFloat32Meta : copy.formatPcm16Meta, formatBytes(outputBytes));
+				return details.join(' · ');
+			}
+
+			function renderWarnings(items) {
+				warningList.replaceChildren();
+				for (const item of Array.isArray(items) ? items : []) {
+					const entry = document.createElement('li');
+					entry.textContent = String(item);
+					warningList.appendChild(entry);
+				}
+				warnings.hidden = warningList.childElementCount === 0;
+			}
+
+			function reset() {
+				if (state.working) return;
+				clearOutput();
+				fileInput.value = '';
+				state.file = null;
+				fileName.textContent = copy.chooseFile;
+				fileMeta.textContent = copy.fileHint;
+				formatSelect.value = 'pcm16';
+				setStatus(copy.statusWaiting, 'info');
+				updateControls();
+			}
+
+			function clearOutput() {
+				if (state.outputUrl) URL.revokeObjectURL(state.outputUrl);
+				state.outputUrl = null;
+				outputAudio.pause();
+				outputAudio.removeAttribute('src');
+				outputAudio.load();
+				outputAudio.hidden = true;
+				download.hidden = true;
+				download.removeAttribute('href');
+				download.removeAttribute('download');
+				output.hidden = true;
+				renderWarnings([]);
+			}
+
+			function updateControls() {
+				fileInput.disabled = state.working;
+				formatSelect.disabled = state.working;
+				convertButton.disabled = state.working || !state.file;
+				resetButton.disabled = state.working;
+			}
+
+			function setStatus(message, type) {
+				status.textContent = message;
+				status.dataset.state = type;
+			}
+
+			function messageFromError(error) {
+				return error && typeof error === 'object' && 'message' in error
+					? String(error.message)
+					: String(error || copy.statusGeneric);
+			}
+		}
+
+		function buildOutputName(name) {
+			const baseName = String(name || '').replace(/\.[^.]+$/, '') || 'audacity-project';
+			return `${baseName}.wav`;
+		}
+
+		function formatDuration(seconds) {
+			const totalSeconds = Math.max(0, Number(seconds) || 0);
+			const hours = Math.floor(totalSeconds / 3600);
+			const minutes = Math.floor(totalSeconds % 3600 / 60);
+			const remaining = Math.floor(totalSeconds % 60);
+			return hours > 0
+				? `${hours}:${String(minutes).padStart(2, '0')}:${String(remaining).padStart(2, '0')}`
+				: `${minutes}:${String(remaining).padStart(2, '0')}`;
+		}
+
+		function nextPaint() {
+			return new Promise((resolve) => requestAnimationFrame(() => resolve()));
+		}
+	})();
+</script>
+
+<style>
+	.aup3-converter,
+	.converter-panel,
+	.aup3-output {
+		display: grid;
+		gap: 16px;
+	}
+
+	.aup3-converter [hidden] {
+		display: none !important;
+	}
+
+	.file-picker {
+		min-height: 160px;
+		margin-top: 18px;
+	}
+
+	.aup3-output {
+		margin-top: 2px;
+	}
+
+	.aup3-output audio {
+		width: min(100%, 620px);
+	}
+
+	.converter-limit {
+		margin: 18px 0 0;
+		padding: 12px 14px;
+		color: var(--color-muted);
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font-size: 0.92rem;
+		font-weight: 700;
+		line-height: 1.5;
+	}
+
+	.conversion-warnings {
+		padding: 14px 16px;
+		color: var(--color-muted);
+		background: var(--color-status-background);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.conversion-warnings strong {
+		color: var(--color-ink);
+	}
+
+	.conversion-warnings ul {
+		margin: 8px 0 0;
+		padding-left: 20px;
+	}
+
+	.conversion-warnings li + li {
+		margin-top: 6px;
+	}
+</style>

@@ -19,6 +19,7 @@ export const toolCategories: ToolCategory[] = [
 		id: 'converter',
 		slug: 'converter',
 		toolIds: [
+			'aup3-to-wav',
 			'document-converter',
 			'image-format-converter',
 			'raster-svg-workbench',
@@ -44,6 +45,7 @@ export const toolCategories: ToolCategory[] = [
 		slug: 'audio',
 		toolIds: [
 			'audio-editor',
+			'aup3-to-wav',
 			'audio-analyzer',
 			'subtitle-studio',
 			'abx-tester',
