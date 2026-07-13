@@ -1,13 +1,25 @@
 import { AUDIO_EDITOR_SAMPLE_RATE, createStableId } from './project.js';
+import {
+	AUDACITY_EFFECT_DEFINITIONS,
+	audacityEffectDefaults,
+	audacityEffectLabel,
+	normalizeAudacityEffectParams,
+} from './audacity-effects/manifest.js';
+import {
+	audacityLiveEffectCapability,
+	audacityLiveEffectTailFrames,
+} from './audacity-effects/live.js';
 
 const EQ_FREQUENCIES = [100, 500, 2_000, 8_000];
 
 /**
  * @typedef {Object} AudioEditorEffect
  * @property {string} id
- * @property {keyof AUDIO_EFFECT_DEFINITIONS} type
+ * @property {keyof AUDIO_RACK_EFFECT_DEFINITIONS} type
  * @property {boolean} enabled
  * @property {Record<string, *>} params
+ * @property {Record<string, *> | null} [context] JSON-safe routing/profile/range metadata
+ * @property {Record<string, *> | null} [state] JSON-safe persistent processor/cache metadata
  */
 
 export const AUDIO_EFFECT_DEFINITIONS = Object.freeze({
@@ -48,20 +60,100 @@ export const AUDIO_EFFECT_DEFINITIONS = Object.freeze({
 	},
 });
 
+const AUDIO_EFFECT_LABELS = Object.freeze({
+	highpass: Object.freeze({ en: 'High-pass filter', de: 'Hochpass' }),
+	lowpass: Object.freeze({ en: 'Low-pass filter', de: 'Tiefpass' }),
+	eq: Object.freeze({ en: 'Four-band parametric EQ', de: 'Parametrischer 4-Band-EQ' }),
+	compressor: Object.freeze({ en: 'Compressor', de: 'Kompressor' }),
+	limiter: Object.freeze({ en: 'Limiter', de: 'Limiter' }),
+	gate: Object.freeze({ en: 'Gate', de: 'Gate' }),
+	reverb: Object.freeze({ en: 'Reverb', de: 'Hall' }),
+	delay: Object.freeze({ en: 'Delay', de: 'Delay' }),
+});
+
+/** Audacity effects whose business logic has a bounded live-streaming form. */
+export const AUDACITY_RACK_EFFECT_TYPES = Object.freeze([
+	'audacity-auto-duck',
+	'audacity-bass-treble',
+	'audacity-click-removal',
+	'audacity-compressor',
+	'audacity-distortion',
+	'audacity-echo',
+	'audacity-filter-curve-eq',
+	'audacity-graphic-eq',
+	'audacity-invert',
+	'audacity-limiter',
+	'audacity-noise-reduction',
+	'audacity-phaser',
+	'audacity-classic-filters',
+	'audacity-wahwah',
+]);
+
+const AUDACITY_RACK_EFFECT_TYPE_SET = new Set(AUDACITY_RACK_EFFECT_TYPES);
+
+/** All definitions accepted in a track or master rack. */
+export const AUDIO_RACK_EFFECT_DEFINITIONS = Object.freeze({
+	...AUDIO_EFFECT_DEFINITIONS,
+	...Object.fromEntries(AUDACITY_RACK_EFFECT_TYPES.map((type) => [type, AUDACITY_EFFECT_DEFINITIONS[type]])),
+});
+
+export function audioEffectTypes() {
+	return Object.keys(AUDIO_RACK_EFFECT_DEFINITIONS);
+}
+
+export function isAudacityRackEffectType(type) {
+	return AUDACITY_RACK_EFFECT_TYPE_SET.has(type);
+}
+
+export function audioEffectLabel(type, locale = 'en') {
+	if (isAudacityRackEffectType(type)) return audacityEffectLabel(type, locale);
+	const labels = AUDIO_EFFECT_LABELS[type];
+	if (!labels) throw new RangeError(`Unsupported audio effect: ${type}.`);
+	return labels[locale === 'de' ? 'de' : 'en'];
+}
+
+export function audioEffectParamRange(type, name) {
+	if (isAudacityRackEffectType(type)) {
+		const liveRange = audacityLiveEffectCapability(type).paramRanges?.[name];
+		if (liveRange) return [...liveRange];
+		const descriptor = AUDACITY_EFFECT_DEFINITIONS[type]?.params?.[name];
+		return descriptor?.kind === 'number' ? [descriptor.minimum, descriptor.maximum] : null;
+	}
+	const range = AUDIO_EFFECT_DEFINITIONS[type]?.ranges?.[name];
+	return range ? [...range] : null;
+}
+
 /** @returns {AudioEditorEffect} */
 export function createEffect(type, options = {}) {
 	const definition = AUDIO_EFFECT_DEFINITIONS[type];
-	if (!definition) throw new RangeError(`Unsupported audio effect: ${type}.`);
-	const params = normalizeEffectParams(type, {
-		...clone(definition.defaults),
-		...(options.params || {}),
-	});
-	return {
+	const audacityDefinition = isAudacityRackEffectType(type) ? AUDACITY_EFFECT_DEFINITIONS[type] : null;
+	if (!definition && !audacityDefinition) throw new RangeError(`Unsupported audio effect: ${type}.`);
+	const params = audacityDefinition
+		? normalizeAudacityRackEffectParams(type, {
+			...audacityEffectDefaults(type),
+			...(options.params || {}),
+		})
+		: normalizeEffectParams(type, {
+			...clone(definition.defaults),
+			...(options.params || {}),
+		});
+	const effect = {
 		id: options.id || createStableId('effect'),
 		type,
 		enabled: options.enabled !== false,
 		params,
 	};
+	if (options.context !== undefined) effect.context = cloneEffectMetadata(options.context, 'effect.context');
+	if (options.state !== undefined) effect.state = cloneEffectMetadata(options.state, 'effect.state');
+	return effect;
+}
+
+function normalizeAudacityRackEffectParams(type, params) {
+	const normalized = normalizeAudacityEffectParams(type, params);
+	for (const [name, [minimum, maximum]] of Object.entries(audacityLiveEffectCapability(type).paramRanges || {})) {
+		range(normalized[name], minimum, maximum, `${type}.${name}`);
+	}
+	return normalized;
 }
 
 export function normalizeEffect(effect) {
@@ -76,11 +168,16 @@ export function validateEffect(effect) {
 }
 
 export function updateEffect(effect, changes = {}) {
-	return createEffect(changes.type || effect.type, {
+	const options = {
 		id: effect.id,
 		enabled: changes.enabled ?? effect.enabled,
 		params: { ...clone(effect.params), ...(changes.params || {}) },
-	});
+	};
+	const context = mergeEffectMetadata(effect.context, changes, 'context');
+	const state = mergeEffectMetadata(effect.state, changes, 'state');
+	if (context !== undefined) options.context = context;
+	if (state !== undefined) options.state = state;
+	return createEffect(changes.type || effect.type, options);
 }
 
 export function effectTailFrames(effect, sampleRate = AUDIO_EDITOR_SAMPLE_RATE) {
@@ -88,6 +185,9 @@ export function effectTailFrames(effect, sampleRate = AUDIO_EDITOR_SAMPLE_RATE) 
 		? normalizeEffect(effect)
 		: createEffect(effect?.type, { ...effect, id: `tail-${effect?.type || 'effect'}` });
 	if (!normalized.enabled) return 0;
+	if (isAudacityRackEffectType(normalized.type)) {
+		return Math.ceil(audacityLiveEffectTailFrames(normalized.type, sampleRate, normalized.params));
+	}
 	if (normalized.type === 'reverb') {
 		return Math.ceil((normalized.params.preDelay + normalized.params.decay) * sampleRate);
 	}
@@ -97,7 +197,6 @@ export function effectTailFrames(effect, sampleRate = AUDIO_EDITOR_SAMPLE_RATE) 
 			: 1;
 		return Math.ceil(normalized.params.time * Math.max(1, repeatsToMinus60Db) * sampleRate);
 	}
-	if (normalized.type === 'limiter') return Math.ceil(normalized.params.lookahead * sampleRate);
 	return 0;
 }
 
@@ -139,4 +238,58 @@ function range(value, minimum, maximum, name) {
 
 function clone(value) {
 	return JSON.parse(JSON.stringify(value));
+}
+
+function mergeEffectMetadata(current, changes, key) {
+	if (!Object.prototype.hasOwnProperty.call(changes, key)) {
+		return current === undefined ? undefined : cloneEffectMetadata(current, `effect.${key}`);
+	}
+	const next = changes[key];
+	if (next === null) return null;
+	if (!isPlainObject(next)) return cloneEffectMetadata(next, `effect.${key}`);
+	const base = isPlainObject(current) ? current : {};
+	return cloneEffectMetadata({ ...base, ...next }, `effect.${key}`);
+}
+
+function cloneEffectMetadata(value, name) {
+	if (value === null) return null;
+	if (!isPlainObject(value)) throw new TypeError(`${name} must be a JSON-safe object or null.`);
+	return cloneJsonValue(value, name, new Set());
+}
+
+function cloneJsonValue(value, name, ancestors) {
+	if (value === null || typeof value === 'string' || typeof value === 'boolean') return value;
+	if (typeof value === 'number') {
+		if (!Number.isFinite(value)) throw new RangeError(`${name} numbers must be finite.`);
+		return value;
+	}
+	if (typeof value !== 'object') throw new TypeError(`${name} must contain only JSON-safe values.`);
+	if (ancestors.has(value)) throw new TypeError(`${name} must not contain circular references.`);
+	if (!Array.isArray(value) && !isPlainObject(value)) {
+		throw new TypeError(`${name} must contain only plain objects and arrays.`);
+	}
+
+	ancestors.add(value);
+	let output;
+	if (Array.isArray(value)) {
+		output = Array.from(value, (item, index) => cloneJsonValue(item, `${name}[${index}]`, ancestors));
+	} else {
+		output = {};
+		for (const [key, item] of Object.entries(value)) {
+			Object.defineProperty(output, key, {
+				value: cloneJsonValue(item, `${name}.${key}`, ancestors),
+				enumerable: true,
+				configurable: true,
+				writable: true,
+			});
+		}
+	}
+	ancestors.delete(value);
+	return output;
+}
+
+function isPlainObject(value) {
+	if (!value || typeof value !== 'object') return false;
+	const prototype = Object.getPrototypeOf(value);
+	return prototype === Object.prototype || prototype === null;
 }

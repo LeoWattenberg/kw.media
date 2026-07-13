@@ -161,9 +161,15 @@ function removeSource(project, sourceId) {
 }
 
 function addTrack(project, value, requestedIndex) {
-	const track = createAudioTrack(value);
+	const effects = Array.isArray(value?.effects) ? value.effects.map(normalizeEffect) : [];
+	const track = createAudioTrack({ ...value, effects });
 	assertUnusedId(project.tracks, track.id, 'track');
 	if (track.clipIds.length) throw new RangeError('Add clips after adding a track.');
+	const effectIds = new Set(allEffects(project).map((effect) => effect.id));
+	for (const effect of track.effects) {
+		if (effectIds.has(effect.id)) throw new RangeError(`Duplicate effect ID: ${effect.id}.`);
+		effectIds.add(effect.id);
+	}
 	if (track.armed) for (const other of project.tracks) other.armed = false;
 	const index = requestedIndex == null ? project.tracks.length : insertionIndex(requestedIndex, project.tracks.length);
 	project.tracks.splice(index, 0, track);
@@ -175,6 +181,21 @@ function removeTrack(project, trackId) {
 	const clipIds = new Set(project.tracks[index].clipIds);
 	project.clips = project.clips.filter((clip) => !clipIds.has(clip.id));
 	project.tracks.splice(index, 1);
+	disableAutoDuckForRemovedControlTrack(project, trackId);
+}
+
+function disableAutoDuckForRemovedControlTrack(project, controlTrackId) {
+	const racks = [project.master.effects, ...project.tracks.map((track) => track.effects)];
+	for (const rack of racks) {
+		for (let index = 0; index < rack.length; index += 1) {
+			const effect = rack[index];
+			if (effect.type !== 'audacity-auto-duck' || effect.context?.controlTrackId !== controlTrackId) continue;
+			rack[index] = updateEffect(effect, {
+				enabled: false,
+				context: { controlTrackId: null },
+			});
+		}
+	}
 }
 
 function updateTrack(project, trackId, changes = {}) {

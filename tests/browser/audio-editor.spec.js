@@ -51,6 +51,19 @@ function createWavFixture({ name, frequency, duration = 0.8, sampleRate = 48_000
 const toneA = createWavFixture({ name: 'browser-tone-a.wav', frequency: 330 });
 const toneB = createWavFixture({ name: 'browser-tone-b.wav', frequency: 660 });
 const monoTone = createWavFixture({ name: 'browser-mono-tone.wav', frequency: 440, channelCount: 1 });
+const SELECTION_ONLY_AUDACITY_EFFECT_TYPES = [
+	'audacity-amplify',
+	'audacity-legacy-compressor',
+	'audacity-fade-in',
+	'audacity-fade-out',
+	'audacity-loudness-normalization',
+	'audacity-normalize',
+	'audacity-paulstretch',
+	'audacity-repair',
+	'audacity-repeat',
+	'audacity-reverse',
+	'audacity-truncate-silence',
+];
 
 test.describe('audio editor browser workflows', () => {
 	test('is listed on the audio tools overview', async ({ page }) => {
@@ -260,6 +273,130 @@ test.describe('audio editor browser workflows', () => {
 		await editor.locator('[data-export-action="start"]').click();
 		await expect(editor.locator('[data-export-download]')).toBeVisible({ timeout: 20_000 });
 		await expect(editor.locator('[data-status]')).toHaveAttribute('data-state', 'success');
+		expect(errors).toEqual([]);
+	});
+
+	test('renders an Audacity rack effect into the exported mix', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await editor.locator('[data-import-input]').setInputFiles(toneA);
+		await openInspectorTab(editor, 'effects');
+		await editor.locator('[data-effect-target]').selectOption('master');
+		await editor.locator('[data-effect-type]').selectOption('audacity-invert');
+		await editor.locator('[data-add-effect]').click();
+		await expect(editor.locator('[data-effect][data-effect-type="audacity-invert"]')).toHaveCount(1);
+
+		await openInspectorTab(editor, 'export');
+		await editor.locator('[data-export-field="format"]').selectOption('wav');
+		await editor.locator('[data-export-field="bitDepth"]').selectOption('16');
+		await editor.locator('[data-export-field="tails"]').uncheck();
+		await editor.locator('[data-export-action="start"]').click();
+		const download = editor.locator('[data-export-download]');
+		await expect(download).toBeVisible({ timeout: 20_000 });
+		const firstSignalSample = await download.evaluate(async (link) => {
+			const bytes = new Uint8Array(await (await fetch(link.href)).arrayBuffer());
+			const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+			for (let offset = 44; offset + 1 < bytes.length; offset += 2) {
+				const sample = view.getInt16(offset, true);
+				if (Math.abs(sample) > 100) return sample;
+			}
+			return 0;
+		});
+		expect(firstSignalSample).toBeLessThan(-100);
+		expect(errors).toEqual([]);
+	});
+
+	test('persists Audacity effects in track and master racks', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await openInspectorTab(editor, 'effects');
+
+		const picker = editor.locator('[data-effect-type]');
+		await expect(picker.locator('option')).toHaveCount(22);
+		await expect(picker.locator('optgroup[label="Audacity real-time effects"] option')).toHaveCount(14);
+		await expect(picker.locator('option[value="audacity-compressor"]')).toHaveText('Compressor (Audacity)');
+		await expect(picker.locator('option[value="audacity-limiter"]')).toHaveText('Limiter (Audacity)');
+		for (const type of SELECTION_ONLY_AUDACITY_EFFECT_TYPES) {
+			await expect(picker.locator(`option[value="${type}"]`)).toHaveCount(0);
+		}
+
+		await editor.locator('[data-effect-target]').selectOption('track');
+		await picker.selectOption('audacity-invert');
+		await editor.locator('[data-add-effect]').click();
+		const trackEffect = editor.locator('[data-effect][data-effect-type="audacity-invert"]');
+		await expect(trackEffect).toHaveCount(1);
+		await expect(trackEffect.locator('[data-effect-name]')).toHaveText('Invert');
+
+		await editor.locator('[data-effect-target]').selectOption('master');
+		await picker.selectOption('audacity-bass-treble');
+		await editor.locator('[data-add-effect]').click();
+		const masterEffect = editor.locator('[data-effect][data-effect-type="audacity-bass-treble"]');
+		await expect(masterEffect).toHaveCount(1);
+		const bass = masterEffect.locator('[data-effect-param="bassDb"]');
+		await bass.fill('7.5');
+		await bass.press('Tab');
+		await expect(masterEffect.locator('[data-effect-param="bassDb"]')).toHaveValue('7.5');
+
+		await expect(editor.locator('[data-save-state]')).toHaveAttribute('data-state', 'saved', { timeout: 10_000 });
+		await page.reload();
+		const restored = await waitForEditor(page);
+		await openInspectorTab(restored, 'effects');
+		await expect(restored.locator('[data-effect][data-effect-type="audacity-invert"]')).toHaveCount(1);
+		await restored.locator('[data-effect-target]').selectOption('master');
+		const restoredMasterEffect = restored.locator('[data-effect][data-effect-type="audacity-bass-treble"]');
+		await expect(restoredMasterEffect).toHaveCount(1);
+		await expect(restoredMasterEffect.locator('[data-effect-param="bassDb"]')).toHaveValue('7.5');
+		expect(errors).toEqual([]);
+	});
+
+	test('offers another track as the Auto Duck sidechain', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await editor.locator('[data-add-track]').first().click();
+		await expect(editor.locator('[data-track-row]')).toHaveCount(2);
+		await openInspectorTab(editor, 'effects');
+		await editor.locator('[data-effect-target]').selectOption('track');
+		await editor.locator('[data-effect-type]').selectOption('audacity-auto-duck');
+		await editor.locator('[data-add-effect]').click();
+
+		const autoDuck = editor.locator('[data-effect][data-effect-type="audacity-auto-duck"]');
+		await expect(autoDuck).toHaveCount(1);
+		const controlTrack = autoDuck.locator('[data-effect-context="controlTrackId"]');
+		await expect(controlTrack.locator('option')).toHaveCount(1);
+		await expect(controlTrack.locator('option')).toHaveText('Track 1');
+		await expect(controlTrack).not.toHaveValue('');
+		expect(errors).toEqual([]);
+	});
+
+	test('captures and restores a rack Noise Reduction profile', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await editor.locator('[data-import-input]').setInputFiles(toneA);
+		await editor.locator('[data-clip]').click();
+		await openInspectorTab(editor, 'effects');
+		await editor.locator('[data-effect-target]').selectOption('track');
+		await editor.locator('[data-effect-type]').selectOption('audacity-noise-reduction');
+		await editor.locator('[data-add-effect]').click();
+
+		let reduction = editor.locator('[data-effect][data-effect-type="audacity-noise-reduction"]');
+		await expect(reduction.locator('[data-effect-enabled]')).toBeDisabled();
+		await reduction.locator('[data-effect-noise-profile]').click();
+		await expect(editor.locator('[data-status]')).toHaveAttribute('data-state', 'success', { timeout: 20_000 });
+		await expect(reduction.locator('[data-effect-enabled]')).toBeEnabled();
+		await expect(reduction.locator('[data-effect-enabled]')).toBeChecked();
+		await expect(reduction.locator('[data-effect-noise-profile]')).toHaveText('Replace noise profile');
+
+		await expect(editor.locator('[data-save-state]')).toHaveAttribute('data-state', 'saved', { timeout: 10_000 });
+		await page.reload();
+		const restored = await waitForEditor(page);
+		await openInspectorTab(restored, 'effects');
+		reduction = restored.locator('[data-effect][data-effect-type="audacity-noise-reduction"]');
+		await expect(reduction.locator('[data-effect-enabled]')).toBeChecked();
+		await expect(reduction.locator('[data-effect-noise-profile]')).toHaveText('Replace noise profile');
+
+		await openInspectorTab(restored, 'export');
+		await restored.locator('[data-export-action="start"]').click();
+		await expect(restored.locator('[data-export-download]')).toBeVisible({ timeout: 20_000 });
 		expect(errors).toEqual([]);
 	});
 
