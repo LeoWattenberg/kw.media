@@ -216,7 +216,7 @@ function readAccessibilityProfile() {
 		if (ACCESSIBILITY_PROFILE_IDS.has(value)) return value;
 		if (value) localStorage.removeItem(ACCESSIBILITY_STORAGE_KEY);
 	} catch {
-		// The provider falls back to wcag-flat when storage is unavailable.
+		// The provider falls back to the Audacity tab-group profile below.
 	}
-	return 'wcag-flat';
+	return 'au4-tab-groups';
 }

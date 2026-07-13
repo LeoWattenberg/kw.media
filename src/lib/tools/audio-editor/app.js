@@ -30,6 +30,7 @@ import {
 	preparePunchCommand,
 	prepareRangeDeleteCommand,
 	prepareRangeReplacementCommand,
+	prepareOverwriteClipCommand,
 	prepareSplitCommand,
 	projectDurationFrames,
 	projectEnvelope,
@@ -382,6 +383,10 @@ export function createAudioEditorController(_root = null, options = {}) {
 				update: (clipId, changes) => commit({ type: 'clip/update', clipId, changes }, { selectClipId: clipId }),
 				move: (clipId, trackId, timelineStartFrame) => commit({ type: 'clip/move', clipId, trackId, timelineStartFrame }, { selectTrackId: trackId, selectClipId: clipId }),
 				trim: (clipId, changes) => commit({ type: 'clip/trim', clipId, ...changes }, { selectClipId: clipId }),
+				overwrite: (clipId, trackId, changes) => commit(
+					prepareOverwriteClipCommand(project, clipId, { trackId, changes }),
+					{ selectTrackId: trackId, selectClipId: clipId },
+				),
 				remove: (clipId) => commit({ type: 'clip/remove', clipId }),
 				reverse: (clipId) => handleClipAction('reverse', clipId),
 				normalizePeak: (clipId) => handleClipAction('normalize-peak', clipId),
@@ -1619,10 +1624,12 @@ export function createAudioEditorController(_root = null, options = {}) {
 		}
 	}
 
-	async function startRecording() {
+	async function startRecording(options = {}) {
 		if (state.readOnly || state.recordingStarting || state.recorder) return;
-		const track = project.tracks.find((item) => item.armed);
-		if (!track) throw new Error(locale === 'de' ? 'Aktiviere zuerst genau eine Spur für die Aufnahme.' : 'Arm one track before recording.');
+		const track = options.trackId
+			? findTrack(project, options.trackId)
+			: project.tracks.find((item) => item.armed);
+		if (!track) throw new Error(locale === 'de' ? 'Aktiviere zuerst eine Spur für die Aufnahme.' : 'Select or arm a track before recording.');
 		state.recordingStarting = true;
 		publishDocumentSnapshot();
 		let stream = null;

@@ -1,7 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+	Button,
 	ContextMenu,
 	ContextMenuItem,
+	Icon,
 	Menu,
 	PlayheadCursor,
 	TextInput,
@@ -9,6 +11,8 @@ import {
 	ToggleToolButton,
 	TrackControlPanel,
 	TrackNew,
+	useAccessibilityProfile,
+	useTabOrder,
 	VerticalRuler,
 } from '@dilsonspickles/components';
 
@@ -25,9 +29,10 @@ import {
 import { AUDIO_EDITOR_SAMPLE_RATE, projectDurationFrames } from '../../../lib/tools/audio-editor/project.js';
 import { useAudioEditorTelemetry, useElementSize } from './DesignSystemRuntime.jsx';
 
-const DESKTOP_TRACK_PANEL_WIDTH = 228;
+const DESKTOP_TRACK_PANEL_WIDTH = 268;
 const COMPACT_TRACK_PANEL_WIDTH = 164;
-const TRACK_HEIGHT = 144;
+const TRACK_HEIGHT = 114;
+const VERTICAL_RULER_WIDTH = 40;
 const MINIMUM_TIMELINE_SECONDS = 10;
 const MINIMUM_VISIBLE_CLIP_PIXELS = 48;
 
@@ -36,12 +41,15 @@ export default function AudioEditorTimeline({
 	snapshot,
 	copy,
 	mobile,
+	showArmControls,
 	onError,
 	onOpenEffects,
 	onOpenClipProperties,
+	onToggleArmControls,
 }) {
 	const project = snapshot.project;
 	const [timelineRef, timelineSize] = useElementSize();
+	const navigationRootRef = useRef(null);
 	const scrollRef = useRef(null);
 	const pointerSession = useRef(null);
 	const touchPointers = useRef(new Map());
@@ -51,8 +59,14 @@ export default function AudioEditorTimeline({
 	const [trackMenu, setTrackMenu] = useState(null);
 	const [clipMenu, setClipMenu] = useState(null);
 	const [draggingClipId, setDraggingClipId] = useState(null);
+	const [clipDragPreview, setClipDragPreview] = useState(null);
+	const { activeProfile } = useAccessibilityProfile();
+	const isFlatNavigation = activeProfile.config.tabNavigation === 'sequential';
+	const timelineRulerTabIndex = useTabOrder('timeline-ruler');
+	const trackBaseTabIndex = useTabOrder('tracks');
+	const addTrackTabIndex = useTabOrder('add-track');
 	const panelWidth = mobile ? COMPACT_TRACK_PANEL_WIDTH : DESKTOP_TRACK_PANEL_WIDTH;
-	const viewportWidth = Math.max(1, timelineSize.width - panelWidth);
+	const viewportWidth = Math.max(1, timelineSize.width - panelWidth - VERTICAL_RULER_WIDTH);
 	const pixelsPerSecond = snapshot.timeline?.pixelsPerSecond || 120;
 	const durationFrames = Math.max(
 		AUDIO_EDITOR_SAMPLE_RATE * MINIMUM_TIMELINE_SECONDS,
@@ -69,6 +83,38 @@ export default function AudioEditorTimeline({
 			endTime: framesToSeconds(documentSelection.endFrame),
 		}
 		: null;
+
+	const focusTimelineRuler = useCallback(() => {
+		return focusFirst(navigationRootRef.current?.querySelector('[data-ruler-focus]'));
+	}, []);
+	const focusTrackContainer = useCallback((trackIndex) => {
+		return focusFirst(trackNavigationRow(navigationRootRef.current, trackIndex)?.querySelector('.track'));
+	}, []);
+	const focusTrackPanelControl = useCallback((trackIndex, last = false) => {
+		const panel = trackNavigationRow(navigationRootRef.current, trackIndex)?.querySelector('.track-control-panel');
+		return focusPanelControl(panel, last);
+	}, []);
+	const focusTrackClip = useCallback((trackIndex, last = false, clipId = null) => {
+		const row = trackNavigationRow(navigationRootRef.current, trackIndex);
+		if (clipId !== null) {
+			const matchingClip = [...(row?.querySelectorAll('[data-clip-id][role="group"]') || [])]
+				.find((element) => String(element.dataset.clipId) === String(clipId));
+			if (matchingClip) return focusFirst(matchingClip);
+		}
+		return focusCandidate(row, '[data-clip-id][role="group"]', last);
+	}, []);
+	const focusTrackRuler = useCallback((trackIndex) => {
+		return focusFirst(trackNavigationRow(navigationRootRef.current, trackIndex)?.querySelector('[data-track-ruler]'));
+	}, []);
+	const focusSelectionToolbar = useCallback(() => {
+		const editor = navigationRootRef.current?.closest('#kw-audio-editor-design-system');
+		const selectionToolbar = editor?.querySelector('[data-selection-toolbar] .selection-toolbar');
+		return focusCandidate(selectionToolbar, '[role="group"], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])');
+	}, []);
+	const setTimelineNode = useCallback((node) => {
+		timelineRef(node);
+		navigationRootRef.current = node;
+	}, [timelineRef]);
 
 	useEffect(() => {
 		const element = scrollRef.current;
@@ -117,10 +163,20 @@ export default function AudioEditorTimeline({
 		});
 	}, [durationFrames, pixelsPerSecond, scrollX]);
 
+	const trackAtClientY = useCallback((clientY, fallbackTrackId) => {
+		for (const lane of document.querySelectorAll('[data-track-lane]')) {
+			const rect = lane.getBoundingClientRect();
+			if (clientY >= rect.top && clientY < rect.bottom) return lane.dataset.trackId || fallbackTrackId;
+		}
+		return fallbackTrackId;
+	}, []);
+
 	const finishPointerSession = useCallback((event, cancelled = false) => {
 		const session = pointerSession.current;
 		pointerSession.current = null;
 		setDraggingClipId(null);
+		const dragPreview = session?.preview;
+		setClipDragPreview(null);
 		if (!session || cancelled || pinchSession.current || !project) return;
 		const deltaFrames = secondsToFrames(
 			Math.abs(event.clientX - session.startX) / pixelsPerSecond,
@@ -139,12 +195,10 @@ export default function AudioEditorTimeline({
 		const clip = project.clips.find((item) => item.id === session.clipId);
 		if (!clip) return;
 		if (session.kind === 'move') {
-			const target = document.elementFromPoint(event.clientX, event.clientY)?.closest?.('[data-track-lane]');
-			const targetTrackId = target?.dataset.trackId || session.trackId;
-			run(() => controller.actions.clip.move(
+			run(() => controller.actions.clip.overwrite(
 				clip.id,
-				targetTrackId,
-				Math.max(0, session.original.timelineStartFrame + deltaFrames),
+				dragPreview?.trackId || trackAtClientY(event.clientY, session.trackId),
+				{ timelineStartFrame: dragPreview?.timelineStartFrame ?? Math.max(0, session.original.timelineStartFrame + deltaFrames) },
 			));
 		} else if (session.kind === 'trim-left') {
 			const source = project.sources.find((item) => item.id === clip.sourceId);
@@ -155,7 +209,7 @@ export default function AudioEditorTimeline({
 				-Math.min(session.original.timelineStartFrame, sourceExtension),
 				Math.min(session.original.durationFrames - 1, deltaFrames),
 			);
-			run(() => controller.actions.clip.trim(clip.id, {
+			run(() => controller.actions.clip.overwrite(clip.id, session.trackId, {
 				timelineStartFrame: session.original.timelineStartFrame + change,
 				sourceStartFrame: session.original.sourceStartFrame + (session.original.reversed ? 0 : change),
 				durationFrames: session.original.durationFrames - change,
@@ -166,14 +220,14 @@ export default function AudioEditorTimeline({
 				? session.original.sourceStartFrame + session.original.durationFrames
 				: source.frameCount - session.original.sourceStartFrame;
 			const nextDuration = Math.max(1, Math.min(maximum, session.original.durationFrames + deltaFrames));
-			run(() => controller.actions.clip.trim(clip.id, {
+			run(() => controller.actions.clip.overwrite(clip.id, session.trackId, {
 				sourceStartFrame: session.original.reversed
 					? session.original.sourceStartFrame + session.original.durationFrames - nextDuration
 					: session.original.sourceStartFrame,
 				durationFrames: nextDuration,
 			}));
 		}
-	}, [controller, frameAtClientX, pixelsPerSecond, project, run]);
+	}, [controller, frameAtClientX, pixelsPerSecond, project, run, trackAtClientY]);
 
 	const onPointerDown = useCallback((event) => {
 		if (event.pointerType === 'touch') {
@@ -244,8 +298,25 @@ export default function AudioEditorTimeline({
 				startFrame: Math.min(session.startFrame, endFrame),
 				endFrame: Math.max(session.startFrame, endFrame),
 			});
+		} else if (session?.kind === 'move') {
+			const deltaFrames = secondsToFrames(
+				Math.abs(event.clientX - session.startX) / pixelsPerSecond,
+			) * Math.sign(event.clientX - session.startX);
+			const preview = {
+				clipId: session.clipId,
+				trackId: trackAtClientY(event.clientY, session.trackId),
+				timelineStartFrame: Math.max(0, session.original.timelineStartFrame + deltaFrames),
+			};
+			session.preview = preview;
+			setClipDragPreview((current) => (
+				current?.clipId === preview.clipId
+				&& current.trackId === preview.trackId
+				&& current.timelineStartFrame === preview.timelineStartFrame
+					? current
+					: preview
+			));
 		}
-	}, [controller, frameAtClientX, panelWidth, run]);
+	}, [controller, frameAtClientX, panelWidth, pixelsPerSecond, run, trackAtClientY]);
 
 	const finishTouch = useCallback((event) => {
 		touchPointers.current.delete(event.pointerId);
@@ -268,8 +339,12 @@ export default function AudioEditorTimeline({
 		<section
 			className="audio-editor-timeline-panel"
 			aria-label={copy.timeline}
-			ref={timelineRef}
-			style={{ '--track-panel-width': `${panelWidth}px` }}
+			ref={setTimelineNode}
+			style={{
+				'--track-panel-width': `${panelWidth}px`,
+				'--timeline-viewport-width': `${viewportWidth}px`,
+				'--vertical-ruler-width': `${VERTICAL_RULER_WIDTH}px`,
+			}}
 		>
 			<div
 				className="audio-editor-timeline-scroll"
@@ -287,16 +362,40 @@ export default function AudioEditorTimeline({
 					if (files.length) run(() => controller.actions.project.importFiles(files));
 				}}
 			>
-				<div className="audio-editor-timeline-inner" style={{ width: panelWidth + timelineWidth }}>
+				<div className="audio-editor-timeline-inner" style={{ width: panelWidth + timelineWidth + VERTICAL_RULER_WIDTH }}>
 					<div className="audio-editor-ruler-row">
-						<div className="audio-editor-ruler-corner" style={{ width: panelWidth }}>{copy.tracks}</div>
+						<div className="audio-editor-ruler-corner" style={{ width: panelWidth }}>
+							<span>{copy.tracks}</span>
+							<Button
+								variant="secondary"
+								size="small"
+								icon={<Icon name="plus" size={14} />}
+								disabled={mutationsBlocked}
+								tabIndex={addTrackTabIndex}
+								onClick={() => run(() => controller.actions.track.add())}
+							>
+								{copy.addTrack}
+							</Button>
+						</div>
 						<div
 							className="audio-editor-ruler-viewport"
 							data-ruler
+							data-ruler-focus
 							data-ruler-interaction
 							data-track-lane
 							data-track-id={snapshot.selectedTrackId || project.tracks[0]?.id || ''}
+							role="region"
+							aria-label={copy.timeline}
+							tabIndex={timelineRulerTabIndex}
 							style={{ left: panelWidth, width: viewportWidth }}
+							onKeyDown={(event) => {
+								if (event.key === 'Tab' && !event.shiftKey && project.tracks.length) {
+									event.preventDefault();
+									focusTrackContainer(0);
+								} else if (event.key === 'Escape') {
+									event.currentTarget.blur();
+								}
+							}}
 						>
 							<TelemetryTimelineRuler
 								controller={controller}
@@ -312,6 +411,11 @@ export default function AudioEditorTimeline({
 								onLoopRegionEnabledToggle={() => run(() => controller.actions.transport.toggleLoop())}
 							/>
 						</div>
+						<div
+							className="audio-editor-ruler-scale-corner"
+							aria-hidden="true"
+							style={{ left: panelWidth + viewportWidth, width: VERTICAL_RULER_WIDTH }}
+						/>
 					</div>
 
 					<div className="audio-editor-track-list" data-track-list>
@@ -322,6 +426,9 @@ export default function AudioEditorTimeline({
 								project={project}
 								track={track}
 								trackIndex={trackIndex}
+								trackCount={project.tracks.length}
+								isFlatNavigation={isFlatNavigation}
+								trackBaseTabIndex={trackBaseTabIndex}
 								panelWidth={panelWidth}
 								viewportWidth={viewportWidth}
 								viewportStartFrame={viewportStartFrame}
@@ -333,12 +440,20 @@ export default function AudioEditorTimeline({
 								selectedClipId={snapshot.selectedClipId}
 								timelineView={snapshot.timeline?.view}
 								draggingClipId={draggingClipId}
+								clipDragPreview={clipDragPreview}
 								blocked={snapshot.readOnly || snapshot.importing || snapshot.recording || snapshot.recordingStarting || snapshot.exporting || snapshot.processingEffect}
+								showArmControls={showArmControls}
 								copy={copy}
 								run={run}
 								onMenu={(anchor) => setTrackMenu({ trackId: track.id, anchor })}
 								onOpenEffects={onOpenEffects}
 								onOpenClipMenu={openClipMenu}
+								onFocusTimelineRuler={focusTimelineRuler}
+								onFocusTrackContainer={focusTrackContainer}
+								onFocusTrackPanelControl={focusTrackPanelControl}
+								onFocusTrackClip={focusTrackClip}
+								onFocusTrackRuler={focusTrackRuler}
+								onFocusSelectionToolbar={focusSelectionToolbar}
 							/>
 						))}
 					</div>
@@ -368,7 +483,10 @@ export default function AudioEditorTimeline({
 				isOpen={Boolean(trackMenu && menuTrack)}
 				anchorEl={trackMenu?.anchor || null}
 				onClose={() => setTrackMenu(null)}
+				className="audio-editor-track-menu"
 				items={menuTrack ? [
+					{ label: copy.showArmControls, checked: showArmControls, onClick: onToggleArmControls },
+					{ divider: true, label: '' },
 					{ label: copy.duplicateTrack, disabled: snapshot.readOnly, onClick: () => run(() => controller.actions.track.duplicate(menuTrack.id)) },
 					{ divider: true, label: '' },
 					{ label: copy.deleteTrack, disabled: snapshot.readOnly, onClick: () => run(() => controller.actions.track.remove(menuTrack.id)) },
@@ -470,6 +588,7 @@ function TelemetryPlayhead({
 				pixelsPerSecond={pixelsPerSecond}
 				height={height}
 				showTopIcon
+				iconTopOffset={-17}
 				scrollX={scrollX}
 				minPosition={0}
 				onPositionChange={(seconds) => run(() => controller.actions.transport.seek(secondsToFrames(seconds, { maximumFrame: durationFrames })))}
@@ -483,6 +602,9 @@ function TrackRow({
 	project,
 	track,
 	trackIndex,
+	trackCount,
+	isFlatNavigation,
+	trackBaseTabIndex,
 	panelWidth,
 	viewportWidth,
 	viewportStartFrame,
@@ -494,16 +616,36 @@ function TrackRow({
 	selectedClipId,
 	timelineView,
 	draggingClipId,
+	clipDragPreview,
 	blocked,
+	showArmControls,
 	copy,
 	run,
 	onMenu,
 	onOpenEffects,
 	onOpenClipMenu,
+	onFocusTimelineRuler,
+	onFocusTrackContainer,
+	onFocusTrackPanelControl,
+	onFocusTrackClip,
+	onFocusTrackRuler,
+	onFocusSelectionToolbar,
 }) {
 	const trackWindowRef = useRef(null);
 	const clipLookup = useMemo(() => new Map(project.clips.map((clip) => [clip.id, clip])), [project.clips]);
-	const clips = track.clipIds.map((clipId) => clipLookup.get(clipId)).filter(Boolean);
+	const clips = useMemo(() => {
+		const trackClips = track.clipIds.map((clipId) => clipLookup.get(clipId)).filter(Boolean);
+		if (!clipDragPreview) return trackClips;
+		const draggedClip = clipLookup.get(clipDragPreview.clipId);
+		if (!draggedClip) return trackClips;
+		if (track.id === clipDragPreview.trackId) {
+			const previewClip = { ...draggedClip, timelineStartFrame: clipDragPreview.timelineStartFrame };
+			return trackClips.some((clip) => clip.id === draggedClip.id)
+				? trackClips.map((clip) => (clip.id === draggedClip.id ? previewClip : clip))
+				: [...trackClips, previewClip];
+		}
+		return trackClips.filter((clip) => clip.id !== draggedClip.id);
+	}, [clipDragPreview, clipLookup, track.clipIds, track.id]);
 	const projection = useMemo(() => projectClipsToViewport(clips, {
 		viewportStartFrame,
 		viewportDurationFrames,
@@ -516,41 +658,151 @@ function TrackRow({
 		startTime: selection.startTime - framesToSeconds(projection.overscanStartFrame),
 		endTime: selection.endTime - framesToSeconds(projection.overscanStartFrame),
 	} : null;
+	const tabIndexFor = (offset) => isFlatNavigation ? 0 : trackBaseTabIndex + trackIndex * 4 + offset;
 
 	useEffect(() => {
-		const windowElement = trackWindowRef.current;
-		if (!windowElement) return undefined;
-		const exposeClipGroups = () => {
-			for (const clipElement of windowElement.querySelectorAll('[data-clip-id][role="button"]')) {
-				// TrackNew's outer clip wrapper contains its own header, menu and trim
-				// controls. A group preserves the package keyboard handler without
-				// exposing invalid nested buttons to assistive technology.
-				clipElement.setAttribute('role', 'group');
-			}
-		};
-		exposeClipGroups();
-		const observer = new MutationObserver(exposeClipGroups);
-		observer.observe(windowElement, {
+		const root = trackWindowRef.current;
+		if (!root) return undefined;
+		const normalize = () => normalizeClipSemantics(root, {
+			flat: isFlatNavigation,
+			tabIndex: tabIndexFor(2),
+		});
+		normalize();
+		const observer = new MutationObserver(normalize);
+		observer.observe(root, {
+			attributes: true,
+			attributeFilter: ['role', 'tabindex'],
 			childList: true,
 			subtree: true,
-			attributes: true,
-			attributeFilter: ['role'],
 		});
 		return () => observer.disconnect();
-	}, [projectedClips]);
+	}, [isFlatNavigation, projectedClips, trackBaseTabIndex, trackIndex]);
+	const focusBeforeTrack = () => {
+		if (trackIndex === 0) return onFocusTimelineRuler();
+		const previousTrack = trackIndex - 1;
+		if (onFocusTrackRuler(previousTrack)) return true;
+		if (onFocusTrackClip(previousTrack, true)) return true;
+		if (onFocusTrackPanelControl(previousTrack, true)) return true;
+		return onFocusTrackContainer(previousTrack);
+	};
+	const focusAfterPanel = () => {
+		if (onFocusTrackClip(trackIndex)) return true;
+		return onFocusTrackRuler(trackIndex);
+	};
+	const focusBeforeRuler = () => {
+		if (onFocusTrackClip(trackIndex, true)) return true;
+		if (onFocusTrackPanelControl(trackIndex, true)) return true;
+		return onFocusTrackContainer(trackIndex);
+	};
+	const focusAfterRuler = () => {
+		if (trackIndex + 1 < trackCount) return onFocusTrackContainer(trackIndex + 1);
+		return onFocusSelectionToolbar();
+	};
+	const moveClipBySeconds = (clipId, deltaSeconds) => {
+		if (blocked) return;
+		const clip = clipLookup.get(String(clipId)) || clipLookup.get(clipId);
+		const deltaFrames = secondsDeltaToFrames(deltaSeconds);
+		if (!clip || !deltaFrames) return;
+		run(() => controller.actions.clip.move(
+			clip.id,
+			track.id,
+			Math.max(0, clip.timelineStartFrame + deltaFrames),
+		));
+	};
+	const moveClipToTrack = (clipId, direction) => {
+		if (blocked) return;
+		const clip = clipLookup.get(String(clipId)) || clipLookup.get(clipId);
+		const targetTrackIndex = trackIndex + direction;
+		const targetTrack = project.tracks[targetTrackIndex];
+		if (!clip || !targetTrack) return;
+		const moved = run(() => controller.actions.clip.move(clip.id, targetTrack.id, clip.timelineStartFrame));
+		if (!moved) return;
+		requestAnimationFrame(() => requestAnimationFrame(() => {
+			onFocusTrackClip(targetTrackIndex, false, clip.id);
+		}));
+	};
+	const navigateClipVertical = (clipId, direction) => {
+		const sourceClip = clipLookup.get(String(clipId)) || clipLookup.get(clipId);
+		if (!sourceClip || trackCount < 2) return;
+		for (let distance = 1; distance < trackCount; distance += 1) {
+			const candidateIndex = (trackIndex + direction * distance + trackCount) % trackCount;
+			const candidateClips = project.tracks[candidateIndex].clipIds
+				.map((candidateId) => clipLookup.get(candidateId))
+				.filter(Boolean);
+			if (!candidateClips.length) continue;
+			const closest = candidateClips.reduce((best, candidate) => (
+				Math.abs(candidate.timelineStartFrame - sourceClip.timelineStartFrame)
+					< Math.abs(best.timelineStartFrame - sourceClip.timelineStartFrame)
+					? candidate
+					: best
+			));
+			onFocusTrackClip(candidateIndex, false, closest.id);
+			return;
+		}
+	};
+	const trimClipBySeconds = (clipId, edge, deltaSeconds) => {
+		if (blocked) return;
+		const clip = clipLookup.get(String(clipId)) || clipLookup.get(clipId);
+		const source = clip ? project.sources.find((item) => item.id === clip.sourceId) : null;
+		const deltaFrames = secondsDeltaToFrames(deltaSeconds);
+		if (!clip || !source || !deltaFrames) return;
+		if (edge === 'left') {
+			const sourceExtension = clip.reversed
+				? source.frameCount - clip.sourceStartFrame - clip.durationFrames
+				: clip.sourceStartFrame;
+			const change = Math.max(
+				-Math.min(clip.timelineStartFrame, sourceExtension),
+				Math.min(clip.durationFrames - 1, deltaFrames),
+			);
+			if (!change) return;
+			run(() => controller.actions.clip.trim(clip.id, {
+				timelineStartFrame: clip.timelineStartFrame + change,
+				sourceStartFrame: clip.sourceStartFrame + (clip.reversed ? 0 : change),
+				durationFrames: clip.durationFrames - change,
+			}));
+			return;
+		}
+		const maximumDuration = clip.reversed
+			? clip.sourceStartFrame + clip.durationFrames
+			: source.frameCount - clip.sourceStartFrame;
+		const nextDuration = Math.max(1, Math.min(maximumDuration, clip.durationFrames - deltaFrames));
+		if (nextDuration === clip.durationFrames) return;
+		run(() => controller.actions.clip.trim(clip.id, {
+			sourceStartFrame: clip.reversed
+				? clip.sourceStartFrame + clip.durationFrames - nextDuration
+				: clip.sourceStartFrame,
+			durationFrames: nextDuration,
+		}));
+	};
 
 	return (
-		<div className="audio-editor-track-row" data-track-row data-track-id={track.id} style={{ height: TRACK_HEIGHT }}>
+		<div
+			className="audio-editor-track-row"
+			data-track-row
+			data-track-id={track.id}
+			data-track-index={trackIndex}
+			style={{ height: TRACK_HEIGHT }}
+		>
 			<TrackControls
 				controller={controller}
 				track={track}
 				panelWidth={panelWidth}
 				selected={selectedTrackId === track.id}
 				blocked={blocked}
+				showArmControls={showArmControls}
+				isFlatNavigation={isFlatNavigation}
 				copy={copy}
 				run={run}
 				onMenu={onMenu}
 				onOpenEffects={onOpenEffects}
+				onTabOut={focusAfterPanel}
+				onShiftTabOut={() => onFocusTrackContainer(trackIndex)}
+				onNavigateVertical={(direction) => {
+					const targetIndex = trackIndex + (direction === 'down' ? 1 : -1);
+					if (targetIndex >= 0 && targetIndex < trackCount) {
+						onFocusTrackPanelControl(targetIndex);
+					}
+				}}
 			/>
 			<div
 				className="audio-editor-track-lane"
@@ -558,16 +810,43 @@ function TrackRow({
 				data-track-id={track.id}
 				aria-label={track.name}
 				data-selected={selectedTrackId === track.id}
-				style={{ marginLeft: panelWidth, width: timelineWidth, height: TRACK_HEIGHT }}
+				style={{ marginLeft: panelWidth, width: timelineWidth + VERTICAL_RULER_WIDTH, height: TRACK_HEIGHT }}
 				onClick={(event) => {
 					if (event.target.closest('[data-clip-id]')) return;
 					run(() => controller.actions.timeline.selectTrack(track.id));
 				}}
 			>
-				<div className="audio-editor-vertical-ruler">
-					<VerticalRuler height={TRACK_HEIGHT} min={-1} max={1} majorDivisions={3} minorDivisions={1} width={30} />
-				</div>
-				<div ref={trackWindowRef} className="audio-editor-track-window" style={{ left: windowLeft, width: windowWidth }}>
+				<div
+					ref={trackWindowRef}
+					className="audio-editor-track-window"
+					style={{ left: windowLeft, width: windowWidth }}
+					onFocusCapture={(event) => {
+						if (isFlatNavigation || !event.target.matches?.('[data-clip-id][role="group"]')) return;
+						for (const clip of clipGroups(trackWindowRef.current)) clip.tabIndex = -1;
+						event.target.tabIndex = tabIndexFor(2);
+					}}
+					onKeyDownCapture={(event) => {
+						if (
+							!event.target.matches?.('[data-clip-id][role="group"]')
+							|| event.altKey
+							|| event.ctrlKey
+							|| event.metaKey
+							|| event.shiftKey
+							|| (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight')
+						) return;
+						const clips = clipGroups(trackWindowRef.current);
+						const currentIndex = clips.indexOf(event.target);
+						if (currentIndex < 0 || clips.length < 2) return;
+						event.preventDefault();
+						event.stopPropagation();
+						const direction = event.key === 'ArrowRight' ? 1 : -1;
+						const next = clips[(currentIndex + direction + clips.length) % clips.length];
+						if (!isFlatNavigation) {
+							for (const clip of clips) clip.tabIndex = clip === next ? tabIndexFor(2) : -1;
+						}
+						focusFirst(next);
+					}}
+				>
 					<TrackNew
 						clips={projectedClips}
 						height={TRACK_HEIGHT}
@@ -580,31 +859,94 @@ function TrackRow({
 						timeSelection={projectedSelection}
 						clipStyle="colourful"
 						draggingClipIds={draggingClipId ? new Set([draggingClipId]) : undefined}
-						tabIndex={0}
+						tabIndex={tabIndexFor(2)}
+						trackTabIndex={tabIndexFor(0)}
+						onTrackNavigateVertical={(direction) => {
+							const targetIndex = trackIndex + direction;
+							if (targetIndex >= 0 && targetIndex < trackCount) onFocusTrackContainer(targetIndex);
+						}}
+						onContainerFocusChange={(hasFocus) => {
+							if (hasFocus && selectedTrackId !== track.id) {
+								run(() => controller.actions.timeline.selectTrack(track.id));
+							}
+						}}
+						onEnterPanel={() => onFocusTrackPanelControl(trackIndex)}
+						onShiftTabOut={focusBeforeTrack}
+						onContainerEnter={() => run(() => controller.actions.timeline.selectTrack(track.id))}
+						onTabFromLastClip={() => onFocusTrackRuler(trackIndex)}
 						onClipClick={(clipId) => run(() => controller.actions.timeline.selectClip(String(clipId)))}
 						onClipHeaderClick={(clipId) => run(() => controller.actions.timeline.selectClip(String(clipId)))}
 						onClipMenuClick={onOpenClipMenu}
 						onClipTrimEdge={() => {
 							// Pointer geometry is committed by the frame-canonical adapter on pointer-up.
 						}}
-						onClipMove={() => {
-							// Pointer geometry is committed by the frame-canonical adapter on pointer-up.
-						}}
-						onClipTrim={() => {
-							// Pointer geometry is committed by the frame-canonical adapter on pointer-up.
-						}}
+						onClipMove={moveClipBySeconds}
+						onClipMoveToTrack={moveClipToTrack}
+						onClipNavigateVertical={navigateClipVertical}
+						onClipTrim={trimClipBySeconds}
 					/>
+				</div>
+				<div
+					className="audio-editor-vertical-ruler"
+					data-track-ruler
+					role="region"
+					aria-label={`${track.name}: ${timelineView === 'spectrogram' ? copy.spectrogramView : copy.waveformView}`}
+					tabIndex={tabIndexFor(3)}
+					onKeyDown={(event) => {
+						if (event.key === 'Tab') {
+							event.preventDefault();
+							if (event.shiftKey) focusBeforeRuler();
+							else focusAfterRuler();
+						} else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+							event.preventDefault();
+							const targetIndex = trackIndex + (event.key === 'ArrowDown' ? 1 : -1);
+							if (targetIndex >= 0 && targetIndex < trackCount) onFocusTrackRuler(targetIndex);
+						} else if (event.key === 'Escape') {
+							event.preventDefault();
+							onFocusTrackContainer(trackIndex);
+						}
+					}}
+				>
+					<VerticalRuler height={TRACK_HEIGHT} min={-1} max={1} majorDivisions={3} minorDivisions={1} width={VERTICAL_RULER_WIDTH} />
 				</div>
 			</div>
 		</div>
 	);
 }
 
-function TrackControls({ controller, track, panelWidth, selected, blocked, copy, run, onMenu, onOpenEffects }) {
+function TrackControls({
+	controller,
+	track,
+	panelWidth,
+	selected,
+	blocked,
+	showArmControls,
+	isFlatNavigation,
+	copy,
+	run,
+	onMenu,
+	onOpenEffects,
+	onTabOut,
+	onShiftTabOut,
+	onNavigateVertical,
+}) {
 	const telemetry = useAudioEditorTelemetry(controller);
 	const controlsRef = useRef(null);
 	const meter = telemetry.meters?.tracks?.[track.id];
 	const meterVolume = meterPercent(meter?.dbfs);
+	const focusAdapterControl = (last = false) => focusCandidate(
+		controlsRef.current?.querySelector('.audio-editor-track-adapters'),
+		'input:not([disabled]), button:not([disabled])',
+		last,
+	);
+
+	useEffect(() => {
+		const adapters = controlsRef.current?.querySelectorAll(
+			'.audio-editor-track-adapters input:not([disabled]), .audio-editor-track-adapters button:not([disabled])',
+		);
+		for (const adapter of adapters || []) adapter.tabIndex = isFlatNavigation ? 0 : -1;
+	}, [blocked, isFlatNavigation, track.id]);
+
 	return (
 		<div ref={controlsRef} className="audio-editor-track-controls" data-track-header style={{ width: panelWidth }}>
 			<TrackControlPanel
@@ -621,6 +963,12 @@ function TrackControls({ controller, track, panelWidth, selected, blocked, copy,
 				meterLevelRight={meterVolume}
 				meterClippedLeft={(meter?.peak || 0) >= 1}
 				meterClippedRight={(meter?.peak || 0) >= 1}
+				tabIndex={-1}
+				onTabOut={() => {
+					if (!focusAdapterControl()) onTabOut?.();
+				}}
+				onShiftTabOut={onShiftTabOut}
+				onNavigateVertical={onNavigateVertical}
 				onVolumeChange={(volume) => !blocked && run(() => controller.actions.track.update(track.id, {
 					gain: dbToLinear(designVolumeToGainDb(volume)),
 				}))}
@@ -634,17 +982,34 @@ function TrackControls({ controller, track, panelWidth, selected, blocked, copy,
 				onMenuClick={(event) => onMenu(event.currentTarget)}
 				onClick={() => !selected && run(() => controller.actions.timeline.selectTrack(track.id))}
 			/>
-			<div className="audio-editor-track-adapters">
+			<div className="audio-editor-track-adapters" onKeyDownCapture={(event) => {
+				if (event.key !== 'Tab') return;
+				const adapters = [...event.currentTarget.querySelectorAll('input:not([disabled]), button:not([disabled])')];
+				const currentIndex = adapters.indexOf(document.activeElement);
+				if (currentIndex < 0) return;
+				event.preventDefault();
+				event.stopPropagation();
+				if (event.shiftKey) {
+					if (currentIndex > 0) focusFirst(adapters[currentIndex - 1]);
+					else if (!focusPanelControl(controlsRef.current?.querySelector('.track-control-panel'), true)) onShiftTabOut?.();
+				} else if (currentIndex < adapters.length - 1) {
+					focusFirst(adapters[currentIndex + 1]);
+				} else {
+					onTabOut?.();
+				}
+			}}>
 				<TrackNameEditor track={track} label={copy.trackName} blocked={blocked} controller={controller} run={run} />
-				<span data-track-action="arm">
-					<ToggleToolButton
-						icon="record"
-						isActive={track.armed}
-						disabled={blocked}
-						ariaLabel={`${copy.arm}: ${track.name}`}
-						onClick={() => run(() => controller.actions.track.update(track.id, { armed: !track.armed }))}
-					/>
-				</span>
+				{showArmControls && (
+					<span data-track-action="arm">
+						<ToggleToolButton
+							icon="record"
+							isActive={track.armed}
+							disabled={blocked}
+							ariaLabel={`${copy.arm}: ${track.name}`}
+							onClick={() => run(() => controller.actions.track.update(track.id, { armed: !track.armed }))}
+						/>
+					</span>
+				)}
 			</div>
 		</div>
 	);
@@ -715,6 +1080,64 @@ function toDesignClip(controller, project, clip, overscanStartFrame, pixelsPerSe
 		// The source may still be loading. TrackNew renders a bounded placeholder.
 	}
 	return output;
+}
+
+function trackNavigationRow(root, trackIndex) {
+	return root?.querySelector(`.audio-editor-track-row[data-track-index="${trackIndex}"]`) || null;
+}
+
+function clipGroups(root) {
+	return [...(root?.querySelectorAll('[data-clip-id][role="group"]') || [])];
+}
+
+function normalizeClipSemantics(root, { flat, tabIndex }) {
+	const clips = [...root.querySelectorAll('[data-clip-id]')]
+		.filter((element) => element.parentElement?.closest('[data-clip-id]') === null);
+	const activeClip = clips.includes(document.activeElement) ? document.activeElement : null;
+	clips.forEach((clip, index) => {
+		if (clip.getAttribute('role') !== 'group') clip.setAttribute('role', 'group');
+		const nextTabIndex = flat ? 0 : clip === activeClip || (!activeClip && index === 0) ? tabIndex : -1;
+		if (clip.tabIndex !== nextTabIndex) clip.tabIndex = nextTabIndex;
+		for (const control of clip.querySelectorAll('button, input, select, textarea, [role="button"]')) {
+			if (control.tabIndex !== -1) control.tabIndex = -1;
+		}
+	});
+}
+
+function focusPanelControl(panel, last = false) {
+	return focusCandidate(
+		panel,
+		'button:not([disabled]):not([aria-label="Track icon"]), input:not([disabled]), [role="slider"]:not([aria-disabled="true"])',
+		last,
+	) || focusFirst(panel);
+}
+
+function focusCandidate(root, selector, last = false) {
+	const candidates = [...(root?.querySelectorAll(selector) || [])]
+		.filter((element) => element.getAttribute('aria-disabled') !== 'true');
+	if (last) candidates.reverse();
+	for (const candidate of candidates) {
+		if (focusFirst(candidate)) return true;
+	}
+	return false;
+}
+
+function focusFirst(element) {
+	if (!element || typeof element.focus !== 'function') return false;
+	try {
+		element.focus({ preventScroll: true });
+	} catch {
+		element.focus();
+	}
+	if (document.activeElement !== element) return false;
+	element.scrollIntoView?.({ block: 'nearest', inline: 'nearest' });
+	return true;
+}
+
+function secondsDeltaToFrames(seconds) {
+	const value = Number(seconds);
+	if (!Number.isFinite(value) || value === 0) return 0;
+	return secondsToFrames(Math.abs(value)) * Math.sign(value);
 }
 
 function linearToDb(value) {
