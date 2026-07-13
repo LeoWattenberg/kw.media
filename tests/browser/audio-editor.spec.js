@@ -9,6 +9,7 @@ const AUDIO_EDITOR_PATHS = [
 		trackName: 'Track 1',
 		status: 'Editor ready. Create a project or import audio.',
 		arm: 'Arm for recording',
+		fullscreen: 'Fullscreen',
 	},
 	{
 		path: '/de/tools/audio-editor/',
@@ -16,6 +17,7 @@ const AUDIO_EDITOR_PATHS = [
 		trackName: 'Spur 1',
 		status: 'Editor bereit. Erstelle ein Projekt oder importiere Audio.',
 		arm: 'Für Aufnahme aktivieren',
+		fullscreen: 'Vollbild',
 	},
 ];
 
@@ -73,7 +75,7 @@ test.describe('audio editor React/design-system workflows', () => {
 			await expect(editor.locator('[data-track-row]')).toHaveCount(1);
 			await expect(trackNameInput(editor).first()).toHaveValue(locale.trackName);
 			await expect(editor.getByRole('button', { name: new RegExp(`^${escapeRegex(locale.arm)}:`) })).toHaveAttribute('aria-pressed', 'true');
-			await expect(editor.locator('[data-save-state]')).toHaveAttribute('data-state', 'saved');
+			await expect(editor.getByRole('button', { name: locale.fullscreen, exact: true })).toBeVisible();
 			await expect(page.locator('body')).toHaveClass(/kw-audio-editor-design-system-mounted/);
 			expect(errors).toEqual([]);
 		});
@@ -94,21 +96,163 @@ test.describe('audio editor React/design-system workflows', () => {
 		await expect.poll(() => page.evaluate(() => localStorage.getItem('audacity-accessibility-profile'))).toBe('au4-tab-groups');
 	});
 
+	test('expands the editor to the full viewport from the application header', async ({ page }) => {
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await editor.getByRole('button', { name: 'Fullscreen', exact: true }).click();
+		await expect(editor).toHaveClass(/kw-audio-editor--viewport-fullscreen/);
+		expect(await editor.evaluate((element) => [element.clientWidth, element.clientHeight, innerWidth, innerHeight])).toEqual([
+			page.viewportSize().width,
+			page.viewportSize().height,
+			page.viewportSize().width,
+			page.viewportSize().height,
+		]);
+		const toolbar = editor.getByRole('toolbar', { name: 'Tool toolbar' });
+		await expect(toolbar).toBeVisible();
+		expect((await toolbar.boundingBox()).y).toBeGreaterThanOrEqual(56);
+		await editor.getByRole('button', { name: 'Fullscreen', exact: true }).click();
+		await expect(editor).not.toHaveClass(/kw-audio-editor--viewport-fullscreen/);
+	});
+
+	test('matches the Audacity menubar and AU4 keyboard navigation model', async ({ page }) => {
+		await page.addInitScript(() => {
+			localStorage.setItem('audacity-accessibility-profile', 'au4-tab-groups');
+		});
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		const menubar = editor.getByRole('menubar', { name: 'Application menu' });
+		const headings = menubar.getByRole('menuitem');
+		const expectedHeadings = [
+			'File',
+			'Edit',
+			'Select',
+			'View',
+			'Record',
+			'Tracks',
+			'Generate',
+			'Effect',
+			'Analyze',
+			'Tools',
+			'Extra',
+			'Help',
+		];
+
+		await expect(menubar).toBeVisible();
+		await expect(headings).toHaveCount(expectedHeadings.length);
+		expect(await headings.allTextContents()).toEqual(expectedHeadings);
+		for (const heading of await headings.all()) {
+			await expect(heading).toHaveAttribute('aria-haspopup', 'menu');
+			await expect(heading).toHaveAttribute('aria-expanded', 'false');
+		}
+		expect(await headings.evaluateAll((items) => items.filter((item) => item.tabIndex >= 0).length)).toBe(1);
+
+		const file = headings.filter({ hasText: /^File$/ });
+		const tracks = headings.filter({ hasText: /^Tracks$/ });
+		const help = headings.filter({ hasText: /^Help$/ });
+		await file.focus();
+		await page.keyboard.press('ArrowLeft');
+		await expect(help).toBeFocused();
+		await page.keyboard.press('Home');
+		await expect(file).toBeFocused();
+		await page.keyboard.press('End');
+		await expect(help).toBeFocused();
+		await page.keyboard.press('ArrowRight');
+		await expect(file).toBeFocused();
+
+		await page.keyboard.press('ArrowDown');
+		let menu = page.getByRole('menu', { name: 'File', exact: true });
+		await expect(menu).toBeVisible();
+		await expect(file).toHaveAttribute('aria-expanded', 'true');
+		const newProject = getMenuItem(menu, 'New project');
+		const clearData = getMenuItem(menu, 'Clear all local editor data');
+		await expect(newProject).toBeFocused();
+		await page.keyboard.press('ArrowUp');
+		await expect(clearData).toBeFocused();
+		await page.keyboard.press('Home');
+		await expect(newProject).toBeFocused();
+		await page.keyboard.press('End');
+		await expect(clearData).toBeFocused();
+		await page.keyboard.press('ArrowDown');
+		await expect(newProject).toBeFocused();
+		await page.keyboard.press('Escape');
+		await expect(menu).toBeHidden();
+		await expect(file).toBeFocused();
+		await expect(file).toHaveAttribute('aria-expanded', 'false');
+
+		await tracks.focus();
+		await page.keyboard.press('ArrowDown');
+		menu = page.getByRole('menu', { name: 'Tracks', exact: true });
+		const addNewTrack = getMenuItem(menu, 'Add new track');
+		await expect(addNewTrack).toBeFocused();
+		await page.keyboard.press('ArrowRight');
+		const trackSubmenu = addNewTrack.getByRole('menu');
+		const audioTrack = getMenuItem(trackSubmenu, 'Audio track');
+		await expect(trackSubmenu).toBeVisible();
+		await expect(audioTrack).toBeFocused();
+		await page.keyboard.press('ArrowLeft');
+		await expect(trackSubmenu).toBeHidden();
+		await expect(addNewTrack).toBeFocused();
+		await page.keyboard.press('Escape');
+		await expect(menu).toBeHidden();
+		await expect(tracks).toBeFocused();
+		await expect(tracks).toHaveAttribute('aria-expanded', 'false');
+
+		await file.focus();
+		await page.keyboard.press('ArrowDown');
+		await expect(newProject).toBeFocused();
+		await page.keyboard.press('Tab');
+		const toolToolbar = editor.locator('[data-editor-tool-toolbar]').getByRole('toolbar');
+		const play = toolToolbar.getByRole('button', { name: 'Play', exact: true });
+		await expect(page.getByRole('menu', { name: 'File', exact: true })).toBeHidden();
+		await expect(play).toBeFocused();
+
+		await expect(editor.getByRole('button', { name: 'Back five seconds', exact: true })).toHaveCount(0);
+		await expect(editor.getByRole('button', { name: 'Forward five seconds', exact: true })).toHaveCount(0);
+		const monitor = toolToolbar.getByRole('button', { name: 'Monitor input', exact: true });
+		await expect(monitor).toHaveAttribute('aria-pressed', 'false');
+		await monitor.click();
+		await expect(monitor).toHaveAttribute('aria-pressed', 'true');
+		await expect(editor.getByRole('alert')).toContainText('Use headphones while monitoring');
+		await monitor.click();
+		await expect(monitor).toHaveAttribute('aria-pressed', 'false');
+
+		const arm = editor.getByRole('button', { name: /^Arm for recording:/ });
+		await expect(arm).toHaveCount(0);
+		await chooseCommandAction(page, editor, 'View', 'Show arm buttons');
+		await expect(arm).toHaveCount(1);
+		await expect(arm).toHaveAttribute('aria-pressed', 'true');
+	});
+
+	test('omits unavailable project, view, track, and tool commands', async ({ page }) => {
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		const menubar = editor.getByRole('menubar', { name: 'Application menu' });
+		for (const [menuName, labels] of [
+			['File', ['Close project', 'Save project as…', 'Export selected audio…', 'Quit']],
+			['View', ['Show piano roll']],
+			['Tracks', ['Sync-lock tracks']],
+			['Tools', ['Screenshot tools…', 'Run benchmark…']],
+		]) {
+			await menubar.getByRole('menuitem', { name: menuName, exact: true }).click();
+			const menu = page.getByRole('menu', { name: menuName, exact: true });
+			await expect(menu).toBeVisible();
+			for (const label of labels) await expect(menu.getByRole('menuitem', { name: label, exact: true })).toHaveCount(0);
+			await page.keyboard.press('Escape');
+		}
+	});
+
 	test('hydrates once, dispatches one action, exposes the Audacity command surface, and follows live theme changes', async ({ page }) => {
 		const errors = collectClientErrors(page);
 		const editor = await bootEditor(page, '/en/tools/audio-editor/');
 
-		await expect(editor.getByRole('button', { name: 'Mixer (unavailable)' })).toBeDisabled();
-		await expect(editor.getByRole('button', { name: 'Share (unavailable)' })).toBeDisabled();
+		await expect(editor.getByRole('button', { name: 'Mixer (unavailable)' })).toHaveCount(0);
+		await expect(editor.getByRole('button', { name: 'Share (unavailable)' })).toHaveCount(0);
 		await expect(editor.getByRole('button', { name: 'Audio setup (unavailable)' })).toHaveCount(0);
 		await expect(editor.getByRole('toolbar', { name: 'Project toolbar' })).toHaveCount(0);
 		await expect(editor.getByRole('button', { name: 'Home', exact: true })).toHaveCount(0);
 		await expect(editor.getByRole('button', { name: 'Project', exact: true })).toHaveCount(0);
 		await expect(editor.getByRole('tab')).toHaveCount(0);
-		const commands = editor.getByRole('toolbar', { name: 'Application commands' });
-		await expect(commands).toBeVisible();
-		for (const menu of ['File', 'Edit', 'View', 'Tracks', 'Effect', 'Analyze']) {
-			await expect(commands.getByRole('button', { name: menu, exact: true })).toBeVisible();
+		const menubar = editor.getByRole('menubar', { name: 'Application menu' });
+		await expect(menubar).toBeVisible();
+		for (const menu of ['File', 'Edit', 'Select', 'View', 'Record', 'Tracks', 'Generate', 'Effect', 'Analyze', 'Tools', 'Extra', 'Help']) {
+			await expect(menubar.getByRole('menuitem', { name: menu, exact: true })).toBeVisible();
 		}
 		const selectionToolbar = editor.locator('[data-selection-toolbar]');
 		await expect(selectionToolbar.getByRole('toolbar', { name: 'Selection toolbar' })).toBeVisible();
@@ -119,19 +263,19 @@ test.describe('audio editor React/design-system workflows', () => {
 		await expect(projectsDialog).toBeVisible();
 		await projectsDialog.getByRole('button', { name: 'Close' }).click();
 
-		await editor.getByRole('button', { name: 'Add track' }).click();
+		await chooseNestedCommandAction(page, editor, 'Tracks', ['Add new track', 'Audio track']);
 		await expect(editor).toHaveAttribute('data-track-count', '2');
 		await expect(editor.locator('[data-track-row]')).toHaveCount(2);
-		await expect(editor.getByRole('button', { name: 'Add track' })).toHaveCount(1);
-		await chooseCommandAction(page, editor, 'Effect', 'Track and master effects…');
+		await chooseCommandAction(page, editor, 'Effect', 'Add realtime effects…');
 		const commandEffects = editor.locator('[data-effects-overlay]');
 		await expect(commandEffects.getByRole('region', { name: 'Effects panel', exact: true })).toBeVisible();
 		await closeEffectsPanel(commandEffects);
 
 		await setDocumentTheme(page, 'light');
-		const lightBackground = await editor.locator('.kw-audio-editor__titlebar').evaluate((element) => getComputedStyle(element).getPropertyValue('--toolbar-bg'));
+		const applicationHeader = editor.locator('.kw-audio-editor__application-header');
+		const lightBackground = await applicationHeader.evaluate((element) => getComputedStyle(element).getPropertyValue('--header-bg'));
 		await setDocumentTheme(page, 'dark');
-		const darkBackground = await editor.locator('.kw-audio-editor__titlebar').evaluate((element) => getComputedStyle(element).getPropertyValue('--toolbar-bg'));
+		const darkBackground = await applicationHeader.evaluate((element) => getComputedStyle(element).getPropertyValue('--header-bg'));
 		expect(darkBackground).not.toBe(lightBackground);
 
 		const exportDialog = await openExportDialog(page, editor);
@@ -174,6 +318,7 @@ test.describe('audio editor React/design-system workflows', () => {
 		const secondImportedTrack = editor.locator('[data-track-row]').nth(2);
 		await secondImportedTrack.getByRole('button', { name: 'Mute' }).click();
 		await secondImportedTrack.getByRole('button', { name: 'Solo' }).click();
+		await chooseCommandAction(page, editor, 'View', 'Show arm buttons');
 		await secondImportedTrack.getByRole('button', { name: /^Arm for recording:/ }).click();
 		await expect(secondImportedTrack.getByRole('button', { name: 'Mute' })).toHaveAttribute('aria-pressed', 'true');
 		await expect(secondImportedTrack.getByRole('button', { name: 'Solo' })).toHaveAttribute('aria-pressed', 'true');
@@ -201,6 +346,7 @@ test.describe('audio editor React/design-system workflows', () => {
 		const restoredSecondTrack = restored.locator('[data-track-row]').nth(2);
 		await expect(restoredSecondTrack.getByRole('button', { name: 'Mute' })).toHaveAttribute('aria-pressed', 'true');
 		await expect(restoredSecondTrack.getByRole('button', { name: 'Solo' })).toHaveAttribute('aria-pressed', 'true');
+		await chooseCommandAction(page, restored, 'View', 'Show arm buttons');
 		await expect(restoredSecondTrack.getByRole('button', { name: /^Arm for recording:/ })).toHaveAttribute('aria-pressed', 'true');
 		expect(errors).toEqual([]);
 	});
@@ -243,6 +389,7 @@ test.describe('audio editor React/design-system workflows', () => {
 		await page.mouse.move(box.x + 32, box.y + 10);
 		await page.mouse.down();
 		await page.mouse.move(box.x + 80, box.y + 10, { steps: 4 });
+		await expect.poll(async () => (await clip.boundingBox())?.x || 0).toBeGreaterThan(box.x + 20);
 		await page.mouse.up();
 		clipDialog = await openClipProperties(page, editor);
 		await expect.poll(async () => Number(await clipField(clipDialog, 'startFrame').inputValue())).toBeGreaterThan(0);
@@ -260,6 +407,62 @@ test.describe('audio editor React/design-system workflows', () => {
 		clipDialog = await openClipProperties(page, editor);
 		await expect.poll(async () => Number(await clipField(clipDialog, 'durationFrame').inputValue())).toBeLessThan(movedDuration);
 		await closeDialog(clipDialog);
+		expect(errors).toEqual([]);
+	});
+
+	test('previews clip moves continuously in time and snaps them to track rows', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		await page.setViewportSize({ width: 1440, height: 1200 });
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await importFiles(editor, [toneA]);
+		await chooseNestedCommandAction(page, editor, 'Tracks', ['Add new track', 'Audio track']);
+		await expect(editor.locator('[data-track-row]')).toHaveCount(3);
+
+		const sourceTrack = editor.locator('[data-track-row]').nth(1);
+		const targetTrack = editor.locator('[data-track-row]').nth(2);
+		const clip = sourceTrack.locator('[data-clip-id]');
+		const clipBox = await clip.boundingBox();
+		const targetLaneBox = await targetTrack.locator('[data-track-lane]').boundingBox();
+		expect(clipBox).not.toBeNull();
+		expect(targetLaneBox).not.toBeNull();
+
+		await page.mouse.move(clipBox.x + 28, clipBox.y + 12);
+		await page.mouse.down();
+		await page.mouse.move(clipBox.x + 76, targetLaneBox.y + 12, { steps: 5 });
+		const preview = targetTrack.locator('[data-clip-id]');
+		await expect(preview).toBeVisible();
+		await expect.poll(async () => (await preview.boundingBox())?.x || 0).toBeGreaterThan(clipBox.x + 20);
+		await expect(sourceTrack.locator('[data-clip-id]')).toHaveCount(0);
+		await page.mouse.up();
+
+		await expect(targetTrack.locator('[data-clip-id]')).toHaveCount(1);
+		expect(errors).toEqual([]);
+	});
+
+	test('lets pointer-moved clips overwrite and trim inactive clips on release', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		await page.setViewportSize({ width: 1440, height: 1200 });
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await importFiles(editor, [toneA, toneB]);
+		const targetTrack = editor.locator('[data-track-row]').nth(1);
+		const sourceTrack = editor.locator('[data-track-row]').nth(2);
+		const inactiveClip = clipByName(targetTrack, toneA.name);
+		const activeClip = clipByName(sourceTrack, toneB.name);
+		const inactiveBox = await inactiveClip.boundingBox();
+		const activeBox = await activeClip.boundingBox();
+		const targetLaneBox = await targetTrack.locator('[data-track-lane]').boundingBox();
+		expect(inactiveBox).not.toBeNull();
+		expect(activeBox).not.toBeNull();
+		expect(targetLaneBox).not.toBeNull();
+
+		await page.mouse.move(activeBox.x + 28, activeBox.y + 12);
+		await page.mouse.down();
+		await page.mouse.move(activeBox.x + 64, targetLaneBox.y + 12, { steps: 4 });
+		await page.mouse.up();
+
+		await expect(sourceTrack.locator('[data-clip-id]')).toHaveCount(0);
+		await expect(targetTrack.locator('[data-clip-id]')).toHaveCount(2);
+		await expect.poll(async () => (await inactiveClip.boundingBox())?.width || 0).toBeLessThan(inactiveBox.width);
 		expect(errors).toEqual([]);
 	});
 
@@ -293,7 +496,11 @@ test.describe('audio editor React/design-system workflows', () => {
 		await page.keyboard.press('Home');
 		const icon = editor.locator('[data-playhead] .playhead-cursor canvas');
 		const iconBox = await icon.boundingBox();
+		const currentRulerBox = await ruler.boundingBox();
 		expect(iconBox).not.toBeNull();
+		expect(currentRulerBox).not.toBeNull();
+		expect(iconBox.y).toBeGreaterThanOrEqual(currentRulerBox.y);
+		expect(iconBox.y + iconBox.height).toBeLessThanOrEqual(currentRulerBox.y + currentRulerBox.height + 1);
 		await page.mouse.move(iconBox.x + iconBox.width / 2, iconBox.y + iconBox.height / 2);
 		await page.mouse.down();
 		await page.mouse.move(iconBox.x + iconBox.width / 2 + 48, iconBox.y + iconBox.height / 2, { steps: 4 });
@@ -345,13 +552,27 @@ test.describe('audio editor React/design-system workflows', () => {
 
 		const effectsLauncher = editor.locator('[data-track-row]').nth(1).getByRole('button', { name: 'Effects', exact: true });
 		const effectsPanel = await openEffectsForTrack(editor, 1);
-		await expectSurfaceWithinViewport(effectsPanel, page);
+		await expectSurfaceWithinViewport(
+			effectsPanel.getByRole('region', { name: 'Effects panel', exact: true }),
+			page,
+		);
 		await page.keyboard.press('Escape');
 		await expect(effectsPanel).toBeHidden();
 		await expect(effectsLauncher).toBeFocused();
 
 		const firstTrack = editor.locator('[data-track-row]').first();
-		await firstTrack.getByRole('button', { name: 'Track menu' }).click();
+		const trackMenuButton = firstTrack.getByRole('button', { name: 'Track menu' });
+		await trackMenuButton.click();
+		const trackMenu = page.locator('.audio-editor-track-menu');
+		await expect(trackMenu).toBeVisible();
+		const [trackMenuButtonBox, trackMenuBox] = await Promise.all([trackMenuButton.boundingBox(), trackMenu.boundingBox()]);
+		expect(trackMenuButtonBox).not.toBeNull();
+		expect(trackMenuBox).not.toBeNull();
+		expect(Math.abs(trackMenuBox.x - trackMenuButtonBox.x)).toBeLessThanOrEqual(1);
+		expect(trackMenuBox.y).toBeGreaterThanOrEqual(trackMenuButtonBox.y + trackMenuButtonBox.height - 1);
+		await page.getByRole('button', { name: 'Show arm buttons' }).click();
+		await expect(firstTrack.getByRole('button', { name: /^Arm for recording:/ })).toBeVisible();
+		await trackMenuButton.click();
 		await page.getByRole('button', { name: 'Duplicate track' }).click();
 		await expect(editor).toHaveAttribute('data-track-count', '3');
 		expect(errors).toEqual([]);
@@ -556,7 +777,7 @@ test.describe('audio editor React/design-system workflows', () => {
 
 	test('opens the same project read-only in another tab', async ({ page, context }) => {
 		const first = await bootEditor(page, '/en/tools/audio-editor/');
-		await first.getByRole('button', { name: 'Add track' }).click();
+		await chooseNestedCommandAction(page, first, 'Tracks', ['Add new track', 'Audio track']);
 		await expect(first.locator('[data-save-state]')).toHaveAttribute('data-state', 'saved', { timeout: 10_000 });
 
 		const secondPage = await context.newPage();
@@ -564,11 +785,15 @@ test.describe('audio editor React/design-system workflows', () => {
 		const second = secondPage.locator('[data-audio-editor]');
 		await expect(second).toHaveAttribute('data-audio-editor-bound', 'true');
 		await expect(second.locator('[data-status]')).toContainText('already open in another tab');
-		await expect(second.getByRole('button', { name: 'Add track' })).toBeDisabled();
+		await second.getByRole('menubar', { name: 'Application menu' }).getByRole('menuitem', { name: 'Tracks', exact: true }).click();
+		const tracksMenu = secondPage.getByRole('menu', { name: 'Tracks', exact: true });
+		const addNewTrack = getMenuItem(tracksMenu, 'Add new track');
+		await addNewTrack.click();
+		await expect(getMenuItem(addNewTrack.getByRole('menu'), 'Audio track')).toHaveAttribute('aria-disabled', 'true');
 		await secondPage.close();
 	});
 
-	test('records a bounded AudioWorklet take onto the armed track', async ({ page }) => {
+	test('records a bounded AudioWorklet take onto the active track when arm controls are hidden', async ({ page }) => {
 		await page.addInitScript(() => {
 			Object.defineProperty(navigator, 'mediaDevices', {
 				configurable: true,
@@ -590,29 +815,46 @@ test.describe('audio editor React/design-system workflows', () => {
 		});
 		const errors = collectClientErrors(page);
 		const editor = await bootEditor(page, '/en/tools/audio-editor/');
-		const record = editor.getByRole('button', { name: 'Record onto the armed track' });
+		await chooseNestedCommandAction(page, editor, 'Tracks', ['Add new track', 'Audio track']);
+		const tracks = editor.locator('[data-track-row]');
+		await expect(tracks).toHaveCount(2);
+		await expect(editor.getByRole('button', { name: /^Arm for recording:/ })).toHaveCount(0);
+		const record = editor.getByRole('button', { name: 'Record onto the active track' });
 		await record.click();
 		await expect(record).toHaveAttribute('aria-pressed', 'true');
 		await page.waitForTimeout(350);
 		await record.click();
 		await expect(record).toHaveAttribute('aria-pressed', 'false', { timeout: 10_000 });
 		await expect(editor).toHaveAttribute('data-clip-count', '1');
+		await expect(tracks.nth(0).locator('[data-clip-id]')).toHaveCount(0);
+		await expect(tracks.nth(1).locator('[data-clip-id]')).toHaveCount(1);
 		await expect(editor.locator('[data-status]')).toHaveAttribute('data-state', 'success');
 		expect(errors).toEqual([]);
 	});
 
 	test('has named, keyboard-reachable controls in initial, populated, menu, effects, and dialog states', async ({ page }) => {
+		await page.addInitScript(() => {
+			localStorage.setItem('audacity-accessibility-profile', 'wcag-flat');
+		});
 		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		const flatHeadings = editor.getByRole('menubar', { name: 'Application menu' }).getByRole('menuitem');
+		expect(await flatHeadings.evaluateAll((items) => items.filter((item) => item.tabIndex === 0).length)).toBe(12);
+		await flatHeadings.filter({ hasText: /^File$/ }).focus();
+		await page.keyboard.press('ArrowDown');
+		await expect(getMenuItem(page.getByRole('menu', { name: 'File', exact: true }), 'New project')).toBeFocused();
+		await page.keyboard.press('Tab');
+		await expect(flatHeadings.filter({ hasText: /^Edit$/ })).toBeFocused();
+		await expect(page.getByRole('menu', { name: 'File', exact: true })).toBeHidden();
 		await assertAccessibleBasics(editor);
 		await assertNoSeriousAxeViolations(page);
 		await importFiles(editor, [toneA]);
 		await assertAccessibleBasics(editor);
 		await assertNoSeriousAxeViolations(page);
 
-		await editor.getByRole('button', { name: 'File' }).click();
+		await editor.getByRole('menubar', { name: 'Application menu' }).getByRole('menuitem', { name: 'File', exact: true }).click();
 		await assertAccessibleBasics(page.locator('body'));
 		await assertNoSeriousAxeViolations(page);
-		await page.getByRole('button', { name: 'Open projects' }).click();
+		await getMenuItem(page.getByRole('menu', { name: 'File', exact: true }), 'Open projects').click();
 		await assertAccessibleBasics(page.getByRole('dialog', { name: 'Local projects' }));
 		await assertNoSeriousAxeViolations(page);
 		await page.getByRole('dialog', { name: 'Local projects' }).getByRole('button', { name: 'Close' }).click();
@@ -742,7 +984,7 @@ async function openClipProperties(page, editor, clip) {
 		await clip.getByRole('button', { name: 'Clip menu' }).click();
 		await page.getByRole('menuitem', { name: 'Clip properties…', exact: true }).click();
 	} else {
-		await chooseCommandAction(page, editor, 'Edit', 'Clip properties…');
+		await chooseNestedCommandAction(page, editor, 'Edit', ['Audio clips', 'Clip properties…']);
 	}
 	const dialog = page.getByRole('dialog', { name: 'Clip properties', exact: true });
 	await expect(dialog).toBeVisible();
@@ -759,7 +1001,7 @@ async function openEffectsForTrack(editor, trackIndex) {
 }
 
 async function openSelectionEffectDialog(page, editor) {
-	await chooseCommandAction(page, editor, 'Effect', 'Apply effect…');
+	await chooseNestedCommandAction(page, editor, 'Effect', ['Special', 'Invert']);
 	const dialog = page.getByRole('dialog', { name: 'Apply effect', exact: true });
 	await expect(dialog).toBeVisible();
 	await expect(page.locator('[data-editor-surface="selection-effect"]')).toBeVisible();
@@ -809,9 +1051,32 @@ async function chooseFileAction(page, editor, action) {
 }
 
 async function chooseCommandAction(page, editor, menu, action) {
-	const commands = editor.getByRole('toolbar', { name: 'Application commands' });
-	await commands.getByRole('button', { name: menu, exact: true }).click();
-	await page.getByRole('button', { name: action, exact: true }).click();
+	const menubar = editor.getByRole('menubar', { name: 'Application menu' });
+	await menubar.getByRole('menuitem', { name: menu, exact: true }).click();
+	const commandMenu = page.getByRole('menu', { name: menu, exact: true });
+	await expect(commandMenu).toBeVisible();
+	await getMenuItem(commandMenu, action).click();
+}
+
+async function chooseNestedCommandAction(page, editor, menu, actions) {
+	const menubar = editor.getByRole('menubar', { name: 'Application menu' });
+	await menubar.getByRole('menuitem', { name: menu, exact: true }).click();
+	const commandMenu = page.getByRole('menu', { name: menu, exact: true });
+	await expect(commandMenu).toBeVisible();
+	let currentMenu = commandMenu;
+	for (const [index, action] of actions.entries()) {
+		const item = getMenuItem(currentMenu, action);
+		await item.click();
+		if (index < actions.length - 1) {
+			currentMenu = item.getByRole('menu');
+			await expect(currentMenu).toBeVisible();
+		}
+	}
+}
+
+function getMenuItem(menu, label) {
+	const escapedLabel = label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	return menu.getByRole('menuitem', { name: new RegExp(`^${escapedLabel}(?:\\s|$)`) }).first();
 }
 
 async function expectSurfaceWithinViewport(surface, page) {
@@ -869,7 +1134,7 @@ async function assertAccessibleBasics(root) {
 				.find(Boolean) || '';
 		};
 		const results = [];
-		for (const element of container.querySelectorAll('button, input, select, textarea, [role="button"], [role="slider"], [role="tab"], [role="dialog"]')) {
+		for (const element of container.querySelectorAll('button, input, select, textarea, [role="button"], [role="menuitem"], [role="slider"], [role="tab"], [role="dialog"]')) {
 			if (!visible(element) || element.disabled || element.getAttribute('aria-hidden') === 'true') continue;
 			if (!textAlternative(element)) results.push(`${element.tagName.toLowerCase()}${element.getAttribute('role') ? `[role=${element.getAttribute('role')}]` : ''} has no accessible name`);
 		}

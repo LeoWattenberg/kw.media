@@ -24,6 +24,7 @@ import {
 	loadAudioEditorProject,
 	preparePasteCommand,
 	preparePunchCommand,
+	prepareOverwriteClipCommand,
 	prepareRangeDeleteCommand,
 	prepareRangeReplacementCommand,
 	prepareSplitCommand,
@@ -98,6 +99,40 @@ test('clip commands reject collisions and preserve source bounds while moving an
 	assert.throws(() => apply(project, {
 		type: 'clip/trim', clipId: 'clip-1', sourceStartFrame: 4_700, durationFrames: 300,
 	}), /source bounds/);
+});
+
+test('overwrite clip placement trims, splits, and removes inactive clips', () => {
+	let project = createFixture();
+	project = apply(project, { type: 'clip/add', trackId: 'track-1', clip: {
+		id: 'backing', sourceId: 'source-1', timelineStartFrame: 100, sourceStartFrame: 0, durationFrames: 800,
+	} });
+	project = apply(project, { type: 'clip/add', trackId: 'track-1', clip: {
+		id: 'active', sourceId: 'source-1', timelineStartFrame: 1_100, sourceStartFrame: 1_000, durationFrames: 200,
+	} });
+	const overwrite = prepareOverwriteClipCommand(project, 'active', {
+		trackId: 'track-1',
+		changes: { timelineStartFrame: 300 },
+	}, () => 'backing-right');
+	assert.deepEqual(overwrite.splitClipIds, { backing: 'backing-right' });
+	project = apply(project, overwrite);
+	assert.deepEqual(project.tracks[0].clipIds, ['backing', 'active', 'backing-right']);
+	assert.deepEqual(findClip(project, 'backing'), {
+		id: 'backing', sourceId: 'source-1', timelineStartFrame: 100, sourceStartFrame: 0, durationFrames: 200,
+		gain: 1, fadeInFrames: 0, fadeOutFrames: 0, reversed: false,
+	});
+	assert.deepEqual(findClip(project, 'backing-right'), {
+		id: 'backing-right', sourceId: 'source-1', timelineStartFrame: 500, sourceStartFrame: 400, durationFrames: 400,
+		gain: 1, fadeInFrames: 0, fadeOutFrames: 0, reversed: false,
+	});
+
+	project = apply(project, { type: 'clip/overwrite', clipId: 'active', trackId: 'track-1', changes: {
+		timelineStartFrame: 0,
+		durationFrames: 1_000,
+	} });
+	assert.deepEqual(project.tracks[0].clipIds, ['active']);
+	assert.equal(findClip(project, 'backing'), null);
+	assert.equal(findClip(project, 'backing-right'), null);
+	assert.equal(validateAudioEditorProject(project), true);
 });
 
 test('splits preserve forward and reversed source regions with stable replay IDs', () => {

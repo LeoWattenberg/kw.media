@@ -92,6 +92,9 @@ function mutateCommand(project, command) {
 		case 'clip/move':
 			moveClip(project, command);
 			break;
+		case 'clip/overwrite':
+			overwriteClip(project, command);
+			break;
 		case 'clip/trim':
 			trimClip(project, command);
 			break;
@@ -259,6 +262,81 @@ function moveClip(project, command) {
 	}
 	sortTrack(project, oldTrack);
 	sortTrack(project, targetTrack);
+}
+
+function overwriteClip(project, command) {
+	const clip = requireClip(project, command.clipId);
+	const oldTrack = requireClipTrack(project, clip.id);
+	const targetTrack = requireTrack(project, command.trackId || oldTrack.id);
+	const updated = createAudioClip({
+		...clip,
+		...(command.changes || {}),
+		id: clip.id,
+	});
+	assertClipSourceBounds(project, updated);
+
+	const replacements = [];
+	const removedIds = new Set();
+	for (const clipId of targetTrack.clipIds) {
+		if (clipId === clip.id) continue;
+		const inactiveClip = requireClip(project, clipId);
+		if (!clipsOverlap(inactiveClip, updated)) {
+			replacements.push(inactiveClip);
+			continue;
+		}
+		removedIds.add(inactiveClip.id);
+		const inactiveStart = inactiveClip.timelineStartFrame;
+		const inactiveEnd = clipEndFrame(inactiveClip);
+		const activeStart = updated.timelineStartFrame;
+		const activeEnd = clipEndFrame(updated);
+		const hasLeadingSegment = inactiveStart < activeStart;
+		const hasTrailingSegment = inactiveEnd > activeEnd;
+		if (hasLeadingSegment) {
+			replacements.push(segmentOfClip(inactiveClip, inactiveStart, activeStart, inactiveStart, inactiveClip.id));
+		}
+		if (hasTrailingSegment) {
+			const id = hasLeadingSegment ? command.splitClipIds?.[inactiveClip.id] : inactiveClip.id;
+			if (!id) throw new TypeError(`A stable split clip ID is required for ${inactiveClip.id}.`);
+			if (hasLeadingSegment) assertUnusedId(project.clips, id, 'clip');
+			replacements.push(segmentOfClip(inactiveClip, activeEnd, inactiveEnd, activeEnd, id));
+		}
+	}
+
+	project.clips = project.clips.filter((item) => item.id !== updated.id && !removedIds.has(item.id));
+	project.clips.push(updated, ...replacements);
+	if (targetTrack.id !== oldTrack.id) {
+		oldTrack.clipIds = oldTrack.clipIds.filter((clipId) => clipId !== clip.id);
+	}
+	targetTrack.clipIds = [...replacements.map((item) => item.id), updated.id];
+	sortTrack(project, oldTrack);
+	sortTrack(project, targetTrack);
+}
+
+export function prepareOverwriteClipCommand(project, clipId, options = {}, idFactory = createStableId) {
+	const clip = findClip(project, clipId);
+	if (!clip) throw new ReferenceError(`Unknown clip ${clipId}.`);
+	const targetTrack = findTrack(project, options.trackId) || findClipTrack(project, clipId);
+	if (!targetTrack) throw new ReferenceError(`Unknown target track for clip ${clipId}.`);
+	const candidate = createAudioClip({ ...clip, ...(options.changes || {}), id: clip.id });
+	const splitClipIds = {};
+	for (const targetClipId of targetTrack.clipIds) {
+		if (targetClipId === clip.id) continue;
+		const inactiveClip = requireClip(project, targetClipId);
+		if (
+			clipsOverlap(inactiveClip, candidate)
+			&& inactiveClip.timelineStartFrame < candidate.timelineStartFrame
+			&& clipEndFrame(inactiveClip) > clipEndFrame(candidate)
+		) {
+			splitClipIds[inactiveClip.id] = idFactory('clip');
+		}
+	}
+	return {
+		type: 'clip/overwrite',
+		clipId,
+		trackId: targetTrack.id,
+		changes: { ...(options.changes || {}) },
+		splitClipIds,
+	};
 }
 
 function trimClip(project, command) {
