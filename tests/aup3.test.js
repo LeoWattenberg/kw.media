@@ -10,6 +10,7 @@ import {
 	decodeAup3Bytes,
 	getAup3MemoryLimits,
 	isAup3FileName,
+	requiresAup3LargeProjectConfirmation,
 } from '../src/lib/tools/aup3-browser.js';
 import {
 	AUP3_SAMPLE_FORMAT,
@@ -39,6 +40,11 @@ test('selects adaptive AUP3 memory limits and an explicit large-project profile'
 		decodedAudioBytes: 512 * MEBIBYTE,
 		mixBytes: 768 * MEBIBYTE,
 	});
+});
+
+test('requires confirmation only for AUP3 files larger than 256 MB', () => {
+	assert.equal(requiresAup3LargeProjectConfirmation(256 * MEBIBYTE), false);
+	assert.equal(requiresAup3LargeProjectConfirmation(256 * MEBIBYTE + 1), true);
 });
 
 test('decodes all Audacity sample block formats', () => {

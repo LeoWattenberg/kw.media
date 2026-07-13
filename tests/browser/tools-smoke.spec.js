@@ -136,14 +136,7 @@ test.describe('visual tool interactions', () => {
 		const fixture = await createAup3Fixture();
 		await page.goto('/en/tools/converter/aup3-to-wav/');
 		const converter = page.locator('[data-aup3-wav-converter]');
-		const largeMode = converter.locator('[data-large-mode]');
-		const largeWarning = converter.locator('[data-large-warning]');
-		await expect(largeWarning).toBeHidden();
-		await largeMode.check();
-		await expect(largeWarning).toBeVisible();
-		await expect(largeWarning).toContainText('512 MB');
-		await largeMode.uncheck();
-		await expect(largeWarning).toBeHidden();
+		await expect(converter.locator('[data-large-mode]')).toHaveCount(0);
 
 		await converter.locator('[data-file-input]').setInputFiles({
 			name: 'Browser project.aup3',
@@ -189,6 +182,28 @@ test.describe('visual tool interactions', () => {
 			byteLength: 52,
 		});
 		expect(errors).toEqual([]);
+	});
+
+	test('asks before converting an AUP3 file larger than 256 MB', async ({ page }) => {
+		await page.goto('/en/tools/converter/aup3-to-wav/');
+		const converter = page.locator('[data-aup3-wav-converter]');
+		await converter.locator('[data-file-input]').evaluate((input) => {
+			const file = new File([''], 'large-project.aup3', { type: 'application/octet-stream' });
+			Object.defineProperty(file, 'size', { value: 257 * 1024 * 1024 });
+			const transfer = new DataTransfer();
+			transfer.items.add(file);
+			input.files = transfer.files;
+			input.dispatchEvent(new Event('change', { bubbles: true }));
+		});
+		await expect(converter.locator('[data-convert]')).toBeEnabled();
+
+		const dialogPromise = page.waitForEvent('dialog').then(async (dialog) => {
+			expect(dialog.type()).toBe('confirm');
+			expect(dialog.message()).toContain('exceeds 256 MB');
+			await dialog.dismiss();
+		});
+		await Promise.all([dialogPromise, converter.locator('[data-convert]').click()]);
+		await expect(converter.locator('[data-status]')).toHaveText('Conversion cancelled.');
 	});
 
 	test('Audio Analyzer renders local audio and updates a time-frequency selection', async ({ page }) => {
