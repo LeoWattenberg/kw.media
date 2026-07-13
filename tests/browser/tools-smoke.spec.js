@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { fileURLToPath } from 'node:url';
+import { createAup3Fixture } from '../aup3-fixture.js';
 
 const referenceFile = (name) => fileURLToPath(new URL(`../../reference/${name}`, import.meta.url));
 
@@ -49,6 +50,7 @@ const toolPages = [
 	['/en/tools/background-remover-checkerboard/', 'Checkerboard Background Remover', '[data-background-remover]'],
 	['/en/tools/image-object-extractor/', 'Image Object Extractor', '[data-object-extractor]'],
 	['/en/tools/converter/', 'Converter Tools', '.tool-category-grid'],
+	['/en/tools/converter/aup3-to-wav/', 'AUP3 to WAV', '[data-aup3-wav-converter]'],
 	['/en/tools/converter/document-converter/', 'Document Converter', '[data-document-converter]'],
 	['/en/tools/converter/image-format-converter/', 'Image Format Converter', '[data-image-converter]'],
 	['/en/tools/converter/video-audio-converter/', 'Audio and Video Converter', '[data-video-audio-converter]'],
@@ -129,6 +131,58 @@ test.describe('tool pages browser smoke', () => {
 });
 
 test.describe('visual tool interactions', () => {
+	test('AUP3 to WAV creates a local 16-bit dry mix', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const fixture = await createAup3Fixture();
+		await page.goto('/en/tools/converter/aup3-to-wav/');
+		const converter = page.locator('[data-aup3-wav-converter]');
+
+		await converter.locator('[data-file-input]').setInputFiles({
+			name: 'Browser project.aup3',
+			mimeType: 'application/octet-stream',
+			buffer: Buffer.from(fixture),
+		});
+		await expect(converter.locator('[data-convert]')).toBeEnabled();
+		await converter.locator('[data-convert]').click();
+
+		await expect(converter.locator('[data-status]')).toHaveAttribute('data-state', 'success', { timeout: 15_000 });
+		await expect(converter.locator('[data-status]')).toHaveText('The dry WAV mix is ready.');
+		await expect(converter.locator('[data-output]')).toBeVisible();
+		await expect(converter.locator('[data-result-title]')).toHaveText('Browser project');
+		await expect(converter.locator('[data-result-meta]')).toContainText('48,000 Hz');
+		await expect(converter.locator('[data-result-meta]')).toContainText('1 channel');
+		await expect(converter.locator('[data-result-meta]')).toContainText('1 track');
+		await expect(converter.locator('[data-result-meta]')).toContainText('16-bit PCM');
+		await expect(converter.locator('[data-output-audio]')).toBeVisible();
+
+		const download = converter.locator('[data-download]');
+		await expect(download).toBeVisible();
+		await expect(download).toHaveAttribute('download', 'Browser project.wav');
+		const wav = await download.evaluate(async (link) => {
+			const bytes = new Uint8Array(await (await fetch(link.href)).arrayBuffer());
+			const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+			return {
+				riff: new TextDecoder().decode(bytes.subarray(0, 4)),
+				wave: new TextDecoder().decode(bytes.subarray(8, 12)),
+				format: view.getUint16(20, true),
+				channels: view.getUint16(22, true),
+				sampleRate: view.getUint32(24, true),
+				bitDepth: view.getUint16(34, true),
+				byteLength: bytes.byteLength,
+			};
+		});
+		expect(wav).toEqual({
+			riff: 'RIFF',
+			wave: 'WAVE',
+			format: 1,
+			channels: 1,
+			sampleRate: 48_000,
+			bitDepth: 16,
+			byteLength: 52,
+		});
+		expect(errors).toEqual([]);
+	});
+
 	test('Audio Analyzer renders local audio and updates a time-frequency selection', async ({ page }) => {
 		const errors = collectClientErrors(page);
 		await page.goto('/en/tools/audio-analyzer/');

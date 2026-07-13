@@ -90,7 +90,8 @@ export function createWavStreamEncoder(options) {
 		let byteOffset = 0;
 		for (let frame = 0; frame < frameLength; frame += 1) {
 			for (let channel = 0; channel < channelCount; channel += 1) {
-				const sample = clampSample(sourceChannels[channel][frame] || 0);
+				const original = sourceChannels[channel][frame];
+				const sample = float ? finiteSample(original) : clampSample(original);
 				byteOffset = writeSample(view, byteOffset, sample, bitDepth, float, dither, random);
 			}
 		}
@@ -212,4 +213,8 @@ function nonNegativeInteger(value, fallback) {
 function clampSample(value) {
 	if (!Number.isFinite(value)) return 0;
 	return Math.max(-1, Math.min(1, value));
+}
+
+function finiteSample(value) {
+	return Number.isFinite(value) ? value : 0;
 }

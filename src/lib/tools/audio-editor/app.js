@@ -40,6 +40,7 @@ import { createEditorFfmpeg } from './ffmpeg.js';
 import { acquireProjectLock } from './project-lock.js';
 import { createProjectStore } from './storage.js';
 import { createWavStreamEncoder, encodeWav } from './wav.js';
+import { decodeAup3File } from '../aup3-browser.js';
 
 const controllers = new WeakMap();
 const MIN_TIMELINE_SECONDS = 10;
@@ -422,9 +423,11 @@ export function createAudioEditorController(root, options = {}) {
 		setStatus(copy.importing);
 		let failures = 0;
 		let successes = 0;
+		const notices = [];
 		for (const file of files) {
 			try {
-				await importFile(file);
+				const result = await importFile(file);
+				if (result?.notice) notices.push(result.notice);
 				successes += 1;
 			} catch (error) {
 				failures += 1;
@@ -433,7 +436,7 @@ export function createAudioEditorController(root, options = {}) {
 		}
 		try {
 			if (nodes.importInput) nodes.importInput.value = '';
-			if (!failures) setStatus(copy.done, 'success');
+			if (!failures) setStatus(notices.length ? notices.join(' ') : copy.done, 'success');
 			else setStatus(locale === 'de'
 				? `${successes} Datei(en) importiert, ${failures} fehlgeschlagen.`
 				: `${successes} file(s) imported, ${failures} failed.`, 'error');
@@ -445,19 +448,32 @@ export function createAudioEditorController(root, options = {}) {
 
 	async function importFile(file) {
 		await preflightStorage(Math.max(file.size * 8, 8 * 1024 * 1024), 'import');
+		const context = await engine.getAudioContext({ resume: false });
+		const aup3 = isAup3File(file);
 		let decoded;
-		try {
-			decoded = await engine.decodeAudioData(await file.arrayBuffer());
-		} catch {
-			const fallback = await ffmpeg.decode(file);
-			decoded = await bufferFromChannels(fallback.channels, fallback.sampleRate, await engine.getAudioContext({ resume: false }));
+		let warnings = [];
+		if (aup3) {
+			setStatus(copy.aup3Importing);
+			const result = await decodeAup3File(file, { onProgress: updateAup3ImportProgress });
+			decoded = await bufferFromAup3Channels(result.channels, result.sampleRate, context);
+			warnings = Array.isArray(result.warnings) ? result.warnings : [];
+		} else {
+			try {
+				decoded = await engine.decodeAudioData(await file.arrayBuffer());
+			} catch {
+				const fallback = await ffmpeg.decode(file);
+				decoded = await bufferFromChannels(fallback.channels, fallback.sampleRate, context);
+			}
 		}
-		const canonical = await canonicalizeBuffer(decoded, await engine.getAudioContext({ resume: false }));
+		const canonical = await canonicalizeBuffer(decoded, context);
 		await preflightStorage(canonical.length * canonical.numberOfChannels * Float32Array.BYTES_PER_ELEMENT, 'import');
 		const sourceId = createStableId('source');
 		const trackId = createStableId('track');
 		const clipId = createStableId('clip');
-		const writer = await store.beginSourceWrite(sourceId, { name: file.name, mimeType: file.type || 'audio/wav' });
+		const trackName = stripExtension(file.name) || `${copy.track} ${project.tracks.length + 1}`;
+		const sourceName = aup3 ? `${trackName}.wav` : file.name;
+		const mimeType = aup3 ? 'audio/wav' : file.type || 'audio/wav';
+		const writer = await store.beginSourceWrite(sourceId, { name: sourceName, mimeType });
 		try {
 			await writeBuffer(writer, canonical);
 			await writer.commit({ sampleRate: AUDIO_EDITOR_SAMPLE_RATE, channelCount: canonical.numberOfChannels });
@@ -469,8 +485,8 @@ export function createAudioEditorController(root, options = {}) {
 		const command = {
 			type: 'batch',
 			commands: [
-				createAddSourceCommand({ id: sourceId, storageKey: sourceId, name: file.name, mimeType: file.type || 'audio/wav', frameCount: canonical.length, channelCount: canonical.numberOfChannels, originalSampleRate: decoded.sampleRate }),
-				createAddTrackCommand({ id: trackId, name: stripExtension(file.name) || `${copy.track} ${project.tracks.length + 1}` }),
+				createAddSourceCommand({ id: sourceId, storageKey: sourceId, name: sourceName, mimeType, frameCount: canonical.length, channelCount: canonical.numberOfChannels, originalSampleRate: decoded.sampleRate }),
+				createAddTrackCommand({ id: trackId, name: trackName }),
 				createAddClipCommand(trackId, { id: clipId, sourceId, timelineStartFrame: 0, sourceStartFrame: 0, durationFrames: canonical.length }),
 			],
 		};
@@ -487,6 +503,20 @@ export function createAudioEditorController(root, options = {}) {
 			throw error;
 		}
 		warnEnvelope();
+		if (aup3) {
+			const detail = warnings.map(formatAup3Warning).filter(Boolean).join(' ');
+			return { notice: detail ? `${copy.aup3Imported} ${detail}` : copy.aup3Imported };
+		}
+		return null;
+	}
+
+	function updateAup3ImportProgress(progress) {
+		const rawValue = typeof progress === 'number'
+			? progress
+			: Number(progress?.progress ?? progress?.value);
+		if (!Number.isFinite(rawValue)) return;
+		const percentage = rawValue <= 1 ? rawValue * 100 : rawValue;
+		setStatus(`${copy.aup3Importing} ${Math.max(0, Math.min(100, Math.round(percentage)))}%`);
 	}
 
 	function addTrack() {
@@ -2023,6 +2053,26 @@ async function bufferFromChannels(channels, sampleRate, context) {
 	return buffer;
 }
 
+async function bufferFromAup3Channels(channels, sampleRate, context) {
+	const outputLength = Math.max(1, Math.round(channels[0].length * AUDIO_EDITOR_SAMPLE_RATE / sampleRate));
+	if (outputLength * channels.length * Float32Array.BYTES_PER_ELEMENT > 384 * 1024 * 1024) {
+		throw new Error('The Audacity project is too long to resample safely in this browser.');
+	}
+	if (sampleRate >= 8000 && sampleRate <= 96000) return bufferFromChannels(channels, sampleRate, context);
+	const resampled = channels.map((source) => {
+		const output = new Float32Array(outputLength);
+		for (let frame = 0; frame < outputLength; frame += 1) {
+			const position = frame * sampleRate / AUDIO_EDITOR_SAMPLE_RATE;
+			const first = Math.min(source.length - 1, Math.floor(position));
+			const second = Math.min(source.length - 1, first + 1);
+			const fraction = position - first;
+			output[frame] = source[first] + (source[second] - source[first]) * fraction;
+		}
+		return output;
+	});
+	return bufferFromChannels(resampled, AUDIO_EDITOR_SAMPLE_RATE, context);
+}
+
 async function resampleBuffer(input, sampleRate, context) {
 	if (input.sampleRate === sampleRate) return input;
 	const length = Math.max(1, Math.round(input.length * sampleRate / input.sampleRate));
@@ -2415,6 +2465,13 @@ function roseus(amount) {
 	const fraction = position - lower;
 	const color = stops[lower].map((value, index) => Math.round(value + (stops[upper][index] - value) * fraction));
 	return `rgb(${color.join(' ')})`;
+}
+function isAup3File(file) { return /\.aup3$/i.test(String(file?.name || '').trim()); }
+function formatAup3Warning(warning) {
+	if (typeof warning === 'string') return warning.trim();
+	if (warning?.message) return String(warning.message).trim();
+	if (warning?.code) return String(warning.code).trim();
+	return '';
 }
 function stripExtension(name) { return String(name || '').replace(/\.[^.]+$/, ''); }
 function effectLabel(type, copy) { return ({ highpass: copy.highPass, lowpass: copy.lowPass, eq: copy.parametricEq, compressor: copy.compressor, limiter: copy.limiter, gate: copy.gate, reverb: copy.reverb, delay: copy.delay })[type] || type; }

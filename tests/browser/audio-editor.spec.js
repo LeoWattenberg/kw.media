@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { createAup3Fixture } from '../aup3-fixture.js';
 
 const AUDIO_EDITOR_PATHS = [
 	{
@@ -138,6 +139,31 @@ test.describe('audio editor browser workflows', () => {
 		await expect(restoredSecondTrack.locator('[data-track-action="solo"]')).toHaveAttribute('aria-pressed', 'true');
 		await expect(restoredSecondTrack.locator('[data-track-action="arm"]')).toHaveAttribute('aria-pressed', 'true');
 
+		expect(errors).toEqual([]);
+	});
+
+	test('imports an uppercase AUP3 project as a named dry mix', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		const fixture = await createAup3Fixture();
+
+		await editor.locator('[data-import-input]').setInputFiles({
+			name: 'Browser project.AUP3',
+			mimeType: 'application/octet-stream',
+			buffer: Buffer.from(fixture),
+		});
+
+		await expect(editor.locator('[data-status]')).toHaveAttribute('data-state', 'success', { timeout: 15_000 });
+		await expect(editor.locator('[data-status]')).toContainText('best-effort dry mix');
+		await expect(editor.locator('[data-track-row]')).toHaveCount(2);
+		const importedTrack = editor.locator('[data-track-row]').filter({ hasText: 'Browser project.wav' });
+		await expect(importedTrack).toHaveCount(1);
+		await expect(importedTrack.locator('[data-track-name]')).toHaveValue('Browser project');
+		await expect(importedTrack.locator('[data-clip-label]')).toHaveText('Browser project.wav');
+
+		await importedTrack.locator('[data-clip]').click();
+		await openInspectorTab(editor, 'clip');
+		await expect(editor.locator('[data-clip-field="durationFrame"]')).toHaveValue('4');
 		expect(errors).toEqual([]);
 	});
 
