@@ -1,11 +1,35 @@
 import coreURL from '@ffmpeg/core?url';
 import wasmURL from '@ffmpeg/core/wasm?url';
+import {
+	assertMediaExportAvailable,
+	buildMediaFfmpegDecoderArgs,
+	buildMediaFfmpegEncoderArgs,
+	canonicalMediaExportFormat,
+	createMediaExportCapabilities,
+	getMediaExportFormat,
+	normalizeMediaDecodeSampleRate,
+	normalizeMediaExportSettings,
+} from './media-export.js';
 
-const MIME_TYPES = {
-	mp3: 'audio/mpeg',
-	flac: 'audio/flac',
-	opus: 'audio/ogg; codecs=opus',
-};
+export class FfmpegCoreUnavailableError extends Error {
+	constructor(cause) {
+		super('The browser FFmpeg core could not be loaded; compressed media export is unavailable.', { cause });
+		this.name = 'FfmpegCoreUnavailableError';
+		this.code = 'FFMPEG_CORE_UNAVAILABLE';
+	}
+}
+
+export class FfmpegEncodingError extends Error {
+	constructor(format, exitCode) {
+		const descriptor = getMediaExportFormat(format);
+		super(`${descriptor.label} encoding failed because FFmpeg codec ${descriptor.codec} is unavailable or rejected the export settings (exit code ${exitCode}).`);
+		this.name = 'FfmpegEncodingError';
+		this.code = 'FFMPEG_ENCODING_FAILED';
+		this.format = descriptor.id;
+		this.codec = descriptor.codec;
+		this.exitCode = exitCode;
+	}
+}
 
 /**
  * Lazy, single-thread FFmpeg runtime used only for editor decode and encoding.
@@ -16,6 +40,9 @@ export function createEditorFfmpeg(options = {}) {
 	let module = null;
 	let loading = null;
 	let queue = Promise.resolve();
+	const capabilities = options.capabilities?.formats
+		? options.capabilities
+		: createMediaExportCapabilities(options.capabilities || {});
 
 	const handleProgress = ({ progress = 0, time = 0 }) => {
 		options.onProgress?.(Math.max(0, Math.min(1, progress)), time);
@@ -36,7 +63,7 @@ export function createEditorFfmpeg(options = {}) {
 			return instance;
 		}).catch((error) => {
 			loading = null;
-			throw error;
+			throw error instanceof FfmpegCoreUnavailableError ? error : new FfmpegCoreUnavailableError(error);
 		});
 
 		return loading;
@@ -50,26 +77,35 @@ export function createEditorFfmpeg(options = {}) {
 	}
 
 	async function encode(wav, format, settings = {}) {
-		if (!MIME_TYPES[format]) throw new Error(`Unsupported encoded format: ${format}`);
+		const normalizedFormat = canonicalMediaExportFormat(format);
+		const descriptor = getMediaExportFormat(normalizedFormat);
+		if (descriptor.backend !== 'ffmpeg' && descriptor.backend !== 'custom-ffmpeg') {
+			throw new Error(`${descriptor.label} uses a native encoder.`);
+		}
+		assertMediaExportAvailable(normalizedFormat, settings.capabilities || capabilities);
+		const normalized = normalizeMediaExportSettings(normalizedFormat, { ...settings, capabilities: settings.capabilities || capabilities });
 		const signal = settings.signal;
 		if (signal?.aborted) throw abortError();
 
 		return run(async (instance) => {
 			const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 			const input = `editor-${stamp}.wav`;
-			const output = `editor-${stamp}.${format === 'opus' ? 'opus' : format}`;
+			const output = `editor-${stamp}.${normalized.extension}`;
 			const onAbort = () => dispose();
 			signal?.addEventListener('abort', onAbort, { once: true });
 
 			try {
 				await instance.writeFile(input, toUint8Array(wav), { signal });
-				const code = await instance.exec(encoderArgs(input, output, format, settings), -1, { signal });
-				if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
+				const code = await instance.exec(encoderArgs(input, output, normalizedFormat, {
+					...normalized,
+					applyDither: settings.applyDither === true,
+				}), -1, { signal });
+				if (code !== 0) throw new FfmpegEncodingError(normalizedFormat, code);
 				const data = await instance.readFile(output, undefined, { signal });
 				return {
 					bytes: data instanceof Uint8Array ? data : new TextEncoder().encode(String(data)),
-					extension: `.${format === 'opus' ? 'opus' : format}`,
-					mimeType: MIME_TYPES[format],
+					extension: `.${normalized.extension}`,
+					mimeType: normalized.mimeType,
 				};
 			} finally {
 				signal?.removeEventListener('abort', onAbort);
@@ -80,30 +116,41 @@ export function createEditorFfmpeg(options = {}) {
 	}
 
 	async function encodeFile(file, format, settings = {}) {
-		if (!MIME_TYPES[format]) throw new Error(`Unsupported encoded format: ${format}`);
+		const normalizedFormat = canonicalMediaExportFormat(format);
+		const descriptor = getMediaExportFormat(normalizedFormat);
+		if (descriptor.backend !== 'ffmpeg' && descriptor.backend !== 'custom-ffmpeg') {
+			throw new Error(`${descriptor.label} uses a native encoder.`);
+		}
+		assertMediaExportAvailable(normalizedFormat, settings.capabilities || capabilities);
+		const normalized = normalizeMediaExportSettings(normalizedFormat, { ...settings, capabilities: settings.capabilities || capabilities });
 		if (!(file instanceof Blob)) throw new TypeError('Expected a staged WAV Blob.');
 		const signal = settings.signal;
 		if (signal?.aborted) throw abortError();
 		return run(async (instance) => {
 			const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 			const mountPoint = `/editor-encode-${stamp}`;
-			const inputName = file instanceof File ? file.name : `editor-${stamp}.wav`;
-			const output = `editor-${stamp}.${format}`;
+			const inputName = typeof File !== 'undefined' && file instanceof File
+				? file.name.replace(/[\\/\u0000]/g, '-')
+				: `editor-${stamp}.wav`;
+			const output = `editor-${stamp}.${normalized.extension}`;
 			const onAbort = () => dispose();
 			signal?.addEventListener('abort', onAbort, { once: true });
 			await instance.createDir(mountPoint);
 			try {
-				const mountOptions = file instanceof File
+				const mountOptions = typeof File !== 'undefined' && file instanceof File
 					? { files: [file] }
 					: { blobs: [{ name: inputName, data: file }] };
 				await instance.mount(module.FFFSType.WORKERFS, mountOptions, mountPoint);
-				const code = await instance.exec(encoderArgs(`${mountPoint}/${inputName}`, output, format, settings), -1, { signal });
-				if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
+				const code = await instance.exec(encoderArgs(`${mountPoint}/${inputName}`, output, normalizedFormat, {
+					...normalized,
+					applyDither: settings.applyDither === true,
+				}), -1, { signal });
+				if (code !== 0) throw new FfmpegEncodingError(normalizedFormat, code);
 				const data = await instance.readFile(output, undefined, { signal });
 				return {
 					bytes: data instanceof Uint8Array ? data : new TextEncoder().encode(String(data)),
-					extension: `.${format}`,
-					mimeType: MIME_TYPES[format],
+					extension: `.${normalized.extension}`,
+					mimeType: normalized.mimeType,
 				};
 			} finally {
 				signal?.removeEventListener('abort', onAbort);
@@ -116,6 +163,7 @@ export function createEditorFfmpeg(options = {}) {
 
 	async function decode(file, settings = {}) {
 		const signal = settings.signal;
+		const sampleRate = normalizeMediaDecodeSampleRate(settings.sampleRate);
 		return run(async (instance) => {
 			const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 			const mountPoint = `/editor-input-${stamp}`;
@@ -133,14 +181,15 @@ export function createEditorFfmpeg(options = {}) {
 					await instance.writeFile(input, new Uint8Array(await file.arrayBuffer()), { signal });
 				}
 
-				const code = await instance.exec([
-					'-i', input, '-vn', '-map', '0:a:0', '-ac', '2', '-ar', '48000',
-					'-c:a', 'pcm_f32le', '-f', 'f32le', output,
-				], -1, { signal });
+				const code = await instance.exec(
+					buildMediaFfmpegDecoderArgs(input, output, { sampleRate, channelCount: 2 }),
+					-1,
+					{ signal },
+				);
 				if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
 				const raw = await instance.readFile(output, undefined, { signal });
 				if (!(raw instanceof Uint8Array)) throw new Error('FFmpeg returned invalid PCM data');
-				return deinterleaveStereo(raw);
+				return deinterleaveStereo(raw, sampleRate);
 			} finally {
 				await instance.deleteFile(output).catch(() => undefined);
 				if (mounted) {
@@ -163,26 +212,11 @@ export function createEditorFfmpeg(options = {}) {
 		queue = Promise.resolve();
 	}
 
-	return { load, encode, encodeFile, decode, dispose };
+	return { load, encode, encodeFile, decode, dispose, capabilities: () => capabilities };
 }
 
 export function encoderArgs(input, output, format, settings = {}) {
-	const sampleRate = settings.sampleRate === 44100 ? '44100' : '48000';
-	const args = ['-i', input, '-vn', '-ar', sampleRate];
-	if (format === 'mp3') {
-		args.push('-c:a', 'libmp3lame', '-b:a', `${allowed(settings.bitRate, [128, 192, 256, 320], 192)}k`);
-	} else if (format === 'flac') {
-		args.push('-c:a', 'flac', '-sample_fmt', settings.bitDepth === 16 ? 's16' : 's32', '-compression_level', String(allowed(settings.compressionLevel, [0, 1, 2, 3, 4, 5, 6, 7, 8], 5)));
-	} else if (format === 'opus') {
-		args.push('-c:a', 'libopus', '-b:a', `${allowed(settings.bitRate, [96, 128, 160, 192, 256], 160)}k`, '-vbr', 'on');
-	}
-	args.push('-y', output);
-	return args;
-}
-
-function allowed(value, values, fallback) {
-	const number = Number(value);
-	return values.includes(number) ? number : fallback;
+	return buildMediaFfmpegEncoderArgs(input, output, format, settings);
 }
 
 function toUint8Array(value) {
@@ -192,7 +226,7 @@ function toUint8Array(value) {
 	throw new TypeError('Expected WAV bytes');
 }
 
-function deinterleaveStereo(bytes) {
+function deinterleaveStereo(bytes, sampleRate) {
 	const frames = Math.floor(bytes.byteLength / 8);
 	const view = new DataView(bytes.buffer, bytes.byteOffset, frames * 8);
 	const left = new Float32Array(frames);
@@ -201,7 +235,7 @@ function deinterleaveStereo(bytes) {
 		left[frame] = view.getFloat32(frame * 8, true);
 		right[frame] = view.getFloat32(frame * 8 + 4, true);
 	}
-	return { sampleRate: 48000, channels: [left, right], frameCount: frames };
+	return { sampleRate, channels: [left, right], frameCount: frames };
 }
 
 function abortError() {

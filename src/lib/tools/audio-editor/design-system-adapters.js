@@ -15,9 +15,10 @@ const MAXIMUM_FRAME = Number.MAX_SAFE_INTEGER;
  */
 export function secondsToFrames(seconds, options = {}) {
 	const { minimumFrame, maximumFrame } = frameBounds(options);
+	const sampleRate = normalizeSampleRate(options.sampleRate);
 	const value = finiteNumber(seconds, 'seconds');
-	const boundedSeconds = clamp(value, minimumFrame / AUDIO_EDITOR_SAMPLE_RATE, maximumFrame / AUDIO_EDITOR_SAMPLE_RATE);
-	return clamp(Math.round(boundedSeconds * AUDIO_EDITOR_SAMPLE_RATE), minimumFrame, maximumFrame);
+	const boundedSeconds = clamp(value, minimumFrame / sampleRate, maximumFrame / sampleRate);
+	return clamp(Math.round(boundedSeconds * sampleRate), minimumFrame, maximumFrame);
 }
 
 /**
@@ -26,9 +27,10 @@ export function secondsToFrames(seconds, options = {}) {
  */
 export function framesToSeconds(frames, options = {}) {
 	const { minimumFrame, maximumFrame } = frameBounds(options);
+	const sampleRate = normalizeSampleRate(options.sampleRate);
 	const value = finiteNumber(frames, 'frames');
 	const boundedFrame = clamp(Math.round(value), minimumFrame, maximumFrame);
-	return boundedFrame / AUDIO_EDITOR_SAMPLE_RATE;
+	return boundedFrame / sampleRate;
 }
 
 /** Map an editor gain in dB to the design-system's linear 0..100 control. */
@@ -114,7 +116,8 @@ export function projectClipsToViewport(clips, options = {}) {
 	const viewportEndFrame = addFrames(viewportStartFrame, viewportDurationFrames, 'viewport');
 	const overscanStartFrame = Math.max(0, viewportStartFrame - viewportDurationFrames);
 	const overscanEndFrame = Math.min(MAXIMUM_FRAME, viewportEndFrame + viewportDurationFrames);
-	const viewportDurationSeconds = viewportDurationFrames / AUDIO_EDITOR_SAMPLE_RATE;
+	const sampleRate = normalizeSampleRate(options.sampleRate);
+	const viewportDurationSeconds = viewportDurationFrames / sampleRate;
 
 	const projectedClips = [];
 	for (const clip of clips) {
@@ -126,16 +129,16 @@ export function projectClipsToViewport(clips, options = {}) {
 
 		const projectedStartFrame = Math.max(clipStartFrame, overscanStartFrame);
 		const projectedEndFrame = Math.min(clipEndFrame, overscanEndFrame);
-		const start = (projectedStartFrame - viewportStartFrame) / AUDIO_EDITOR_SAMPLE_RATE;
-		const end = (projectedEndFrame - viewportStartFrame) / AUDIO_EDITOR_SAMPLE_RATE;
+		const start = (projectedStartFrame - viewportStartFrame) / sampleRate;
+		const end = (projectedEndFrame - viewportStartFrame) / sampleRate;
 		projectedClips.push({
 			...clip,
 			start,
-			duration: (projectedEndFrame - projectedStartFrame) / AUDIO_EDITOR_SAMPLE_RATE,
-			timelineStartSeconds: clipStartFrame / AUDIO_EDITOR_SAMPLE_RATE,
-			timelineDurationSeconds: clipDurationFrames / AUDIO_EDITOR_SAMPLE_RATE,
-			clipStartSeconds: (clipStartFrame - viewportStartFrame) / AUDIO_EDITOR_SAMPLE_RATE,
-			clipEndSeconds: (clipEndFrame - viewportStartFrame) / AUDIO_EDITOR_SAMPLE_RATE,
+			duration: (projectedEndFrame - projectedStartFrame) / sampleRate,
+			timelineStartSeconds: clipStartFrame / sampleRate,
+			timelineDurationSeconds: clipDurationFrames / sampleRate,
+			clipStartSeconds: (clipStartFrame - viewportStartFrame) / sampleRate,
+			clipEndSeconds: (clipEndFrame - viewportStartFrame) / sampleRate,
 			viewportStartSeconds: start,
 			viewportEndSeconds: end,
 			waveformStartFrame: projectedStartFrame - clipStartFrame,
@@ -152,7 +155,7 @@ export function projectClipsToViewport(clips, options = {}) {
 		viewportStartFrame,
 		viewportEndFrame,
 		viewportDurationFrames,
-		viewportStartSeconds: viewportStartFrame / AUDIO_EDITOR_SAMPLE_RATE,
+		viewportStartSeconds: viewportStartFrame / sampleRate,
 		viewportDurationSeconds,
 		overscanStartFrame,
 		overscanEndFrame,
@@ -251,7 +254,8 @@ export function prepareBoundedWaveformWindow(sourceChannels, clip, options = {})
 	if (!clip || typeof clip !== 'object') throw new TypeError('clip must be an object.');
 	const sourceStartFrame = nonNegativeSafeInteger(clip.sourceStartFrame, 'clip.sourceStartFrame');
 	const durationFrames = positiveSafeInteger(clip.durationFrames, 'clip.durationFrames');
-	const sourceEndFrame = addFrames(sourceStartFrame, durationFrames, 'clip source range');
+	const sourceDurationFrames = positiveSafeInteger(clip.sourceDurationFrames ?? durationFrames, 'clip.sourceDurationFrames');
+	const sourceEndFrame = addFrames(sourceStartFrame, sourceDurationFrames, 'clip source range');
 	if (sourceEndFrame > sourceLength) throw new RangeError('The clip exceeds the supplied source channels.');
 
 	const startFrame = clampedLocalFrame(options.startFrame ?? 0, durationFrames, 'startFrame');
@@ -279,7 +283,8 @@ export function prepareBoundedWaveformWindow(sourceChannels, clip, options = {})
 	const fadeOutFrames = clampedLocalFrame(clip.fadeOutFrames ?? 0, durationFrames, 'clip.fadeOutFrames');
 	const reversed = Boolean(clip.reversed);
 	const transformSample = (channel, localFrame) => {
-		const sourceLocalFrame = reversed ? durationFrames - localFrame - 1 : localFrame;
+		const mappedFrame = Math.min(sourceDurationFrames - 1, Math.floor(localFrame * sourceDurationFrames / durationFrames));
+		const sourceLocalFrame = reversed ? sourceDurationFrames - mappedFrame - 1 : mappedFrame;
 		const sourceFrame = sourceStartFrame + sourceLocalFrame;
 		const sample = Number(sourceChannels[channel][sourceFrame]);
 		return (Number.isFinite(sample) ? sample : 0)
@@ -376,6 +381,12 @@ function frameBounds(options) {
 	const maximumFrame = nonNegativeSafeInteger(options.maximumFrame ?? MAXIMUM_FRAME, 'maximumFrame');
 	if (maximumFrame < minimumFrame) throw new RangeError('maximumFrame must not be below minimumFrame.');
 	return { minimumFrame, maximumFrame };
+}
+
+function normalizeSampleRate(value) {
+	const sampleRate = Number(value ?? AUDIO_EDITOR_SAMPLE_RATE);
+	if (!Number.isSafeInteger(sampleRate) || sampleRate <= 0) throw new RangeError('sampleRate must be a positive safe integer.');
+	return sampleRate;
 }
 
 function validateSourceChannels(channels) {

@@ -99,7 +99,7 @@ export async function decodeAup3Database(database, options = {}) {
 	const project = parseAup3BinaryXml(row.dictionary, row.document);
 	const blockStatement = database.prepare('SELECT sampleformat, samples FROM sampleblocks WHERE blockid = ? LIMIT 1');
 	try {
-		const result = await renderAup3Project(project, (blockId) => {
+		const result = await (options.structured ? decodeAup3ProjectStructure : renderAup3Project)(project, (blockId) => {
 			blockStatement.reset();
 			blockStatement.bind([blockId]);
 			if (!blockStatement.step()) return null;
@@ -118,6 +118,141 @@ export async function decodeAup3Database(database, options = {}) {
 	} finally {
 		blockStatement.free();
 	}
+}
+
+/**
+ * Decode AUP3 into materialized tracks and clips without flattening the project
+ * to a dry stereo mix. Unsupported nodes remain attached as opaque plain data.
+ */
+export async function decodeAup3ProjectStructure(root, loadBlock, options = {}) {
+	const project = findProjectNode(root);
+	if (!project) throw new Aup3Error('The AUP3 document has no project element.', 'INVALID_PROJECT_XML');
+	const warnings = [];
+	const warn = (message) => { if (!warnings.includes(message)) warnings.push(message); };
+	const projectRate = sampleRate(attributeNumber(project, 'rate', 44_100));
+	const projectTempo = firstFiniteAttribute(project, ['time_signature_tempo', 'tempo'], 120);
+	const maxDecodedAudioBytes = positiveInteger(options.maxDecodedAudioBytes, DEFAULT_MAX_DECODED_AUDIO_BYTES);
+	const maxAudioFrames = Math.floor(maxDecodedAudioBytes / Float32Array.BYTES_PER_ELEMENT);
+	const trackNodes = findTrackNodes(project);
+	const labelNodes = directChildren(project, 'labeltrack');
+	if (!trackNodes.length && !labelNodes.length) throw new Aup3Error('The Audacity project contains no tracks.', 'NO_AUDIO');
+	warnForUnsupportedProjectFeatures(project, warn);
+	const routes = buildTrackRoutes(trackNodes, warn);
+	const totalBlocks = trackNodes.reduce((total, track) => total + directChildren(track, 'waveclip')
+		.reduce((clipTotal, clip) => clipTotal + directChildren(clip, 'sequence')
+			.reduce((sequenceTotal, sequence) => sequenceTotal + directChildren(sequence, 'waveblock').length, 0), 0), 0);
+	let completedBlocks = 0;
+	let decodedSampleCount = 0;
+	progress(options.onProgress, 0, 'reading');
+	const physicalTracks = [];
+	for (let trackIndex = 0; trackIndex < trackNodes.length; trackIndex += 1) {
+		const node = trackNodes[trackIndex];
+		const rate = sampleRate(attributeNumber(node, 'rate', projectRate));
+		const track = {
+			type: 'audio',
+			name: attributeString(node, 'name', `Track ${trackIndex + 1}`),
+			rate,
+			route: routes[trackIndex].route,
+			joinsPrevious: routes[trackIndex].joinsPrevious,
+			gain: finiteAttribute(node, 'gain', 1),
+			pan: clamp(finiteAttribute(node, 'pan', 0), -1, 1),
+			mute: attributeBoolean(node, 'mute', false),
+			solo: attributeBoolean(node, 'solo', false),
+			sampleFormat: integerAttribute(node, 'sampleformat', SAMPLE_FORMAT.FLOAT32),
+			displayMode: readLegacyDisplayMode(node),
+			spectrogram: readLegacySpectrogram(node, rate),
+			clips: [],
+			opaqueExtensions: { aup3Track: clonePlain(node) },
+		};
+		for (const [clipIndex, clipNode] of directChildren(node, 'waveclip').entries()) {
+			const sequenceNode = directChildren(clipNode, 'sequence')[0];
+			if (!sequenceNode) continue;
+			const stretch = clipStretch(clipNode, projectTempo);
+			const samples = await decodeSequence(sequenceNode, loadBlock, {
+				maxSamples: maxAudioFrames - decodedSampleCount,
+				onBlock() {
+					completedBlocks += 1;
+					progress(options.onProgress, totalBlocks ? completedBlocks / totalBlocks : 1, 'reading');
+				},
+				warn,
+			});
+			decodedSampleCount += samples.length;
+			if (!samples.length) continue;
+			const trimLeftSeconds = nonNegativeFiniteAttribute(clipNode, 'trimleft', 0);
+			const trimRightSeconds = nonNegativeFiniteAttribute(clipNode, 'trimright', 0);
+			const sourceStart = Math.min(samples.length, Math.round(trimLeftSeconds * rate / stretch));
+			const sourceEnd = Math.max(sourceStart, samples.length - Math.round(trimRightSeconds * rate / stretch));
+			if (sourceEnd <= sourceStart) continue;
+			track.clips.push({
+				name: attributeString(clipNode, 'name', `Audio ${clipIndex + 1}`),
+				channels: [samples],
+				sourceStart,
+				sourceEnd,
+				startSeconds: finiteAttribute(clipNode, 'offset', 0) + trimLeftSeconds,
+				trimLeftSeconds,
+				trimRightSeconds,
+				stretch,
+				pitchCents: clamp(firstFiniteAttribute(clipNode, ['centshift', 'pitch', 'pitchshift'], 0), -1_200, 1_200),
+				speedRatio: positiveFiniteAttribute(clipNode, ['speed', 'playatx'], 1),
+				groupId: readLegacyGroupId(clipNode),
+				color: attributeString(clipNode, 'colorindex', attributeString(clipNode, 'color', 'auto')) || 'auto',
+				envelope: readLegacyEnvelope(clipNode, rate),
+				opaqueExtensions: { aup3WaveClip: clonePlain(clipNode) },
+			});
+		}
+		physicalTracks.push(track);
+	}
+
+	const tracks = [];
+	for (let index = 0; index < physicalTracks.length; index += 1) {
+		const left = physicalTracks[index];
+		const right = physicalTracks[index + 1];
+		if (left.route === 'left' && right?.joinsPrevious) {
+			tracks.push(linkLegacyStereoTracks(left, right, warn));
+			index += 1;
+		} else tracks.push({ ...left, channelCount: 1, channelLayout: 'mono' });
+	}
+	for (const [trackIndex, node] of labelNodes.entries()) {
+		tracks.push({
+			type: 'label',
+			name: attributeString(node, 'name', `Labels ${trackIndex + 1}`),
+			labels: directChildren(node, 'label').map((label, labelIndex) => ({
+				title: attributeString(label, 'title', attributeString(label, 'text', `Label ${labelIndex + 1}`)),
+				startSeconds: Math.max(0, finiteAttribute(label, 't', 0)),
+				endSeconds: Math.max(0, finiteAttribute(label, 't1', finiteAttribute(label, 't', 0))),
+				opaqueExtensions: { aup3Label: clonePlain(label) },
+			})),
+			opaqueExtensions: { aup3LabelTrack: clonePlain(node) },
+		});
+	}
+	progress(options.onProgress, 1, 'complete');
+	return {
+		sampleRate: projectRate,
+		tempo: {
+			bpm: Number.isFinite(projectTempo) && projectTempo > 0 ? projectTempo : 120,
+			timeSignature: {
+				numerator: Math.max(1, integerAttribute(project, 'time_signature_upper', 4)),
+				denominator: legacyTimeSignatureDenominator(project),
+			},
+		},
+		selection: {
+			startSeconds: Math.max(0, finiteAttribute(project, 'sel0', 0)),
+			endSeconds: Math.max(0, finiteAttribute(project, 'sel1', 0)),
+		},
+		view: {
+			zoom: positiveFiniteAttribute(project, ['zoom', 'viewstate_zoom'], 100),
+			horizontalPosition: Math.max(0, firstFiniteAttribute(project, ['h', 'viewstate_hpos'], 0)),
+			verticalPosition: Math.max(0, Math.round(firstFiniteAttribute(project, ['vpos', 'viewstate_vpos'], 0))),
+		},
+		tracks,
+		metadata: {
+			title: attributeString(project, 'projname', '') || attributeString(project, 'name', '') || undefined,
+			trackCount: tracks.length,
+			durationSeconds: structuredDurationSeconds(tracks, projectRate),
+		},
+		warnings,
+		opaqueExtensions: { aup3Project: clonePlain(project) },
+	};
 }
 
 /**
@@ -534,6 +669,116 @@ function buildTrackRoutes(trackNodes, warn) {
 		}
 	}
 	return routes;
+}
+
+function linkLegacyStereoTracks(left, right, warn) {
+	const clipCount = Math.max(left.clips.length, right.clips.length);
+	const clips = [];
+	for (let index = 0; index < clipCount; index += 1) {
+		const leftClip = left.clips[index];
+		const rightClip = right.clips[index];
+		if (!leftClip && !rightClip) continue;
+		const basis = leftClip || rightClip;
+		if (leftClip && rightClip && (
+			Math.abs(leftClip.startSeconds - rightClip.startSeconds) > 1e-9
+			|| leftClip.sourceStart !== rightClip.sourceStart
+			|| leftClip.sourceEnd !== rightClip.sourceEnd
+		)) warn(`Linked stereo clip ${index + 1} had mismatched channel timing and was padded without flattening.`);
+		const frameCount = Math.max(leftClip?.channels[0].length || 0, rightClip?.channels[0].length || 0);
+		clips.push({
+			...basis,
+			channels: [padLegacyChannel(leftClip?.channels[0], frameCount), padLegacyChannel(rightClip?.channels[0], frameCount)],
+			sourceStart: Math.min(leftClip?.sourceStart ?? basis.sourceStart, rightClip?.sourceStart ?? basis.sourceStart),
+			sourceEnd: Math.max(leftClip?.sourceEnd ?? basis.sourceEnd, rightClip?.sourceEnd ?? basis.sourceEnd),
+			opaqueExtensions: {
+				...basis.opaqueExtensions,
+				aup3StereoWaveClips: [leftClip?.opaqueExtensions?.aup3WaveClip, rightClip?.opaqueExtensions?.aup3WaveClip].filter(Boolean),
+			},
+		});
+	}
+	return {
+		...left,
+		name: left.name === right.name ? left.name : `${left.name} / ${right.name}`,
+		channelCount: 2,
+		channelLayout: 'stereo',
+		clips,
+		opaqueExtensions: {
+			...left.opaqueExtensions,
+			aup3LinkedTracks: [left.opaqueExtensions.aup3Track, right.opaqueExtensions.aup3Track],
+		},
+	};
+}
+
+function padLegacyChannel(channel, frameCount) {
+	if (channel?.length === frameCount) return channel;
+	const output = new Float32Array(frameCount);
+	if (channel) output.set(channel.subarray(0, frameCount));
+	return output;
+}
+
+function readLegacyEnvelope(clipNode, sampleRate) {
+	const envelope = directChildren(clipNode, 'envelope')[0];
+	if (!envelope) return [];
+	return directChildren(envelope, 'controlpoint')
+		.map((point) => ({
+			frame: Math.max(0, Math.round(finiteAttribute(point, 't', 0) * sampleRate)),
+			value: clamp(finiteAttribute(point, 'val', 1), 0, 16),
+		}))
+		.sort((first, second) => first.frame - second.frame)
+		.filter((point, index, points) => !index || point.frame > points[index - 1].frame);
+}
+
+function readLegacyDisplayMode(node) {
+	const value = integerAttribute(node, 'trackviewtype', integerAttribute(node, 'display', 0));
+	return value === 1 ? 'spectrogram' : value === 2 ? 'multiview' : 'waveform';
+}
+
+function readLegacySpectrogram(node, sampleRate) {
+	let minimumFrequency = clamp(firstFiniteAttribute(node, ['minfreq', 'spectrummin'], 0), 0, sampleRate / 2);
+	let maximumFrequency = clamp(firstFiniteAttribute(node, ['maxfreq', 'spectrummax'], Math.min(20_000, sampleRate / 2)), 0, sampleRate / 2);
+	if (maximumFrequency <= minimumFrequency) { minimumFrequency = 0; maximumFrequency = Math.max(1, Math.min(20_000, sampleRate / 2)); }
+	return {
+		scale: 'mel',
+		minimumFrequency,
+		maximumFrequency,
+		windowSize: legacyPowerOfTwo(integerAttribute(node, 'windowsize', 2_048), 2_048),
+		windowType: 'hann',
+		gain: clamp(finiteAttribute(node, 'spectrumgain', 20), -120, 120),
+		range: clamp(finiteAttribute(node, 'spectrumrange', 80), 1, 240),
+	};
+}
+
+function readLegacyGroupId(node) {
+	const value = firstFiniteAttribute(node, ['groupid', 'group'], -1);
+	return Number.isSafeInteger(value) && value >= 0 ? `aup3-group-${value}` : null;
+}
+
+function legacyTimeSignatureDenominator(project) {
+	return legacyPowerOfTwo(integerAttribute(project, 'time_signature_lower', 4), 4);
+}
+
+function legacyPowerOfTwo(value, fallback) {
+	return Number.isSafeInteger(value) && value > 0 && (value & (value - 1)) === 0 ? value : fallback;
+}
+
+function structuredDurationSeconds(tracks, projectRate) {
+	let duration = 0;
+	for (const track of tracks) {
+		if (track.type === 'label') {
+			for (const label of track.labels) duration = Math.max(duration, label.endSeconds);
+			continue;
+		}
+		for (const clip of track.clips) {
+			const sourceFrames = Math.max(0, clip.sourceEnd - clip.sourceStart);
+			duration = Math.max(duration, clip.startSeconds + sourceFrames / track.rate * clip.stretch);
+		}
+	}
+	return duration || 1 / projectRate;
+}
+
+function clonePlain(value) {
+	if (typeof structuredClone === 'function') return structuredClone(value);
+	return JSON.parse(JSON.stringify(value));
 }
 
 function findProjectNode(root) {

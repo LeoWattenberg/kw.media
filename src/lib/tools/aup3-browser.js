@@ -31,7 +31,13 @@ export async function decodeAup3File(file, options = {}) {
 	progress(options.onProgress, 0, 'opening');
 	const buffer = await file.arrayBuffer();
 	if (typeof Worker === 'function' && !options.SQL) {
-		return decodeInWorker(buffer, { fileName: file.name, memoryLimits, onProgress: options.onProgress, signal: options.signal });
+		return decodeInWorker(buffer, {
+			fileName: file.name,
+			memoryLimits,
+			onProgress: options.onProgress,
+			signal: options.signal,
+			structured: Boolean(options.structured),
+		});
 	}
 	return decodeAup3Bytes(new Uint8Array(buffer), { ...options, fileName: file.name, memoryLimits });
 }
@@ -62,6 +68,7 @@ export async function decodeAup3Bytes(input, options = {}) {
 	try {
 		return await decodeAup3Database(database, {
 			fileName: options.fileName,
+			structured: Boolean(options.structured),
 			maxDecodedAudioBytes: memoryLimits.decodedAudioBytes,
 			maxMixBytes: memoryLimits.mixBytes,
 			onProgress: options.onProgress,
@@ -109,7 +116,7 @@ async function loadSqlJs() {
 	}
 }
 
-function decodeInWorker(buffer, { fileName, memoryLimits, onProgress, signal }) {
+function decodeInWorker(buffer, { fileName, memoryLimits, onProgress, signal, structured }) {
 	return new Promise((resolve, reject) => {
 		const worker = new Worker(new URL('./aup3-worker.js', import.meta.url), { type: 'module' });
 		let settled = false;
@@ -127,10 +134,12 @@ function decodeInWorker(buffer, { fileName, memoryLimits, onProgress, signal }) 
 				return;
 			}
 			if (event.data?.type === 'result') {
-				finish(resolve, {
-					...event.data.result,
-					channels: event.data.result.channels.map((channel) => new Float32Array(channel)),
-				});
+				const result = event.data.result;
+				if (result.channels) result.channels = result.channels.map((channel) => new Float32Array(channel));
+				for (const track of result.tracks || []) for (const clip of track.clips || []) {
+					clip.channels = (clip.channels || []).map((channel) => new Float32Array(channel));
+				}
+				finish(resolve, result);
 				return;
 			}
 			if (event.data?.type === 'error') {
@@ -143,7 +152,7 @@ function decodeInWorker(buffer, { fileName, memoryLimits, onProgress, signal }) 
 			return;
 		}
 		signal?.addEventListener('abort', abort, { once: true });
-		worker.postMessage({ type: 'decode', buffer, fileName, memoryLimits }, [buffer]);
+		worker.postMessage({ type: 'decode', buffer, fileName, memoryLimits, structured }, [buffer]);
 	});
 }
 

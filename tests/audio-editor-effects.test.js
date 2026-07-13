@@ -45,6 +45,10 @@ const EXPECTED_AUDACITY_RACK_TYPES = [
 
 const EXPECTED_SELECTION_ONLY_TYPES = [
 	'audacity-amplify',
+	'audacity-change-pitch',
+	'audacity-change-tempo',
+	'audacity-change-speed-pitch',
+	'audacity-sliding-stretch',
 	'audacity-legacy-compressor',
 	'audacity-fade-in',
 	'audacity-fade-out',
@@ -52,6 +56,8 @@ const EXPECTED_SELECTION_ONLY_TYPES = [
 	'audacity-normalize',
 	'audacity-paulstretch',
 	'audacity-repair',
+	'audacity-remove-dc-offset',
+	'audacity-reverb',
 	'audacity-repeat',
 	'audacity-reverse',
 	'audacity-truncate-silence',

@@ -278,6 +278,18 @@ export function applyAudacityNormalize(channels, sampleRate = 48_000, params = {
 	});
 }
 
+/** Dedicated Audacity Remove DC Offset action without peak normalization. */
+export function applyAudacityRemoveDcOffset(channels, sampleRate = 48_000) {
+	validateAudio(channels, sampleRate);
+	return channels.map((channel) => {
+		if (!channel.length) return new Float32Array(channel);
+		let sum = 0;
+		for (const sample of channel) sum += sample;
+		const offset = Math.fround(-sum / channel.length);
+		return Float32Array.from(channel, (sample) => sample + offset);
+	});
+}
+
 /** Audacity Repeat: count is the number of appended copies. */
 export function applyAudacityRepeat(channels, sampleRate = 48_000, params = {}) {
 	validateAudio(channels, sampleRate);

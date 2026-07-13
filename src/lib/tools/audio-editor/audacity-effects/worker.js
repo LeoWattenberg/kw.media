@@ -1,8 +1,8 @@
 /* Audacity-derived DSP worker. SPDX-License-Identifier: GPL-3.0-only */
 
-import { applyAudacityEffect, captureAudacityNoiseProfile } from './index.js';
+import { applyAudacityEffectAsync, captureAudacityNoiseProfile } from './index.js';
 
-globalThis.onmessage = ({ data }) => {
+globalThis.onmessage = async ({ data }) => {
 	try {
 		const channels = (data.channels || []).map(asFloat32Array);
 		if (data.operation === 'capture-noise-profile') {
@@ -11,10 +11,15 @@ globalThis.onmessage = ({ data }) => {
 			return;
 		}
 		const context = normalizeContext(data.context || {});
-		const output = applyAudacityEffect(data.effectType, channels, data.sampleRate, data.params || {}, context);
+		const output = await applyAudacityEffectAsync(data.effectType, channels, data.sampleRate, data.params || {}, context);
 		globalThis.postMessage({ type: 'result', channels: output }, output.map((channel) => channel.buffer));
 	} catch (error) {
-		globalThis.postMessage({ type: 'error', message: error instanceof Error ? error.message : String(error) });
+		globalThis.postMessage({
+			type: 'error',
+			name: error instanceof Error ? error.name : 'Error',
+			code: typeof error?.code === 'string' ? error.code : null,
+			message: error instanceof Error ? error.message : String(error),
+		});
 	}
 };
 

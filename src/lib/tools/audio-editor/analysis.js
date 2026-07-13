@@ -190,6 +190,199 @@ export function analyzeAudioChannels(channels, sampleRate, options = {}) {
 		.finish();
 }
 
+/** Audacity-style Find Clipping report with linked-channel frame regions. */
+export function findAudioClippingRegions(channels, options = {}) {
+	validateAnalysisChannels(channels);
+	const threshold = Number(options.threshold ?? 1);
+	const minimumConsecutiveSamples = Number(options.minimumConsecutiveSamples ?? 3);
+	if (!Number.isFinite(threshold) || threshold <= 0) throw new RangeError('Clipping threshold must be positive.');
+	if (!Number.isSafeInteger(minimumConsecutiveSamples) || minimumConsecutiveSamples <= 0) {
+		throw new RangeError('Minimum consecutive clipping samples must be positive.');
+	}
+	const regions = [];
+	let startFrame = null;
+	let peakAmplitude = 0;
+	let clippedSamples = 0;
+	for (let frame = 0; frame <= channels[0].length; frame += 1) {
+		let framePeak = 0;
+		let frameClippedSamples = 0;
+		if (frame < channels[0].length) {
+			for (const channel of channels) {
+				const amplitude = Math.abs(channel[frame]);
+				framePeak = Math.max(framePeak, amplitude);
+				if (amplitude >= threshold) frameClippedSamples += 1;
+			}
+		}
+		if (frameClippedSamples) {
+			if (startFrame == null) startFrame = frame;
+			peakAmplitude = Math.max(peakAmplitude, framePeak);
+			clippedSamples += frameClippedSamples;
+			continue;
+		}
+		if (startFrame == null) continue;
+		const endFrame = frame;
+		if (endFrame - startFrame >= minimumConsecutiveSamples) {
+			regions.push(Object.freeze({ startFrame, endFrame, frameCount: endFrame - startFrame, clippedSamples, peakAmplitude }));
+		}
+		startFrame = null;
+		peakAmplitude = 0;
+		clippedSamples = 0;
+	}
+	return Object.freeze(regions);
+}
+
+/** Audacity Contrast report comparing foreground and background RMS levels. */
+export function analyzeAudioContrast(foregroundChannels, backgroundChannels, options = {}) {
+	validateAnalysisChannels(foregroundChannels);
+	validateAnalysisChannels(backgroundChannels);
+	const minimumDifferenceDb = Number(options.minimumDifferenceDb ?? 20);
+	if (!Number.isFinite(minimumDifferenceDb) || minimumDifferenceDb < 0) throw new RangeError('Minimum contrast must be non-negative.');
+	const foregroundRmsDb = rmsDb(foregroundChannels);
+	const backgroundRmsDb = rmsDb(backgroundChannels);
+	const differenceDb = foregroundRmsDb - backgroundRmsDb;
+	return Object.freeze({
+		foregroundRmsDb,
+		backgroundRmsDb,
+		differenceDb,
+		minimumDifferenceDb,
+		passes: differenceDb >= minimumDifferenceDb,
+	});
+}
+
+/** Windowed radix-2 spectrum for Plot Spectrum and spectral panels. */
+export function calculateAudioSpectrum(channels, sampleRate, options = {}) {
+	validateAnalysisChannels(channels);
+	if (!Number.isFinite(sampleRate) || sampleRate <= 0) throw new RangeError('Spectrum sample rate must be positive.');
+	const requestedSize = Number(options.size ?? 2_048);
+	if (!Number.isSafeInteger(requestedSize) || requestedSize < 32 || requestedSize > 65_536 || (requestedSize & (requestedSize - 1))) {
+		throw new RangeError('Spectrum size must be a power of two from 32 through 65536.');
+	}
+	const offset = Math.max(0, Math.min(channels[0].length, Number(options.offsetFrame) || 0));
+	const real = new Float64Array(requestedSize);
+	const imaginary = new Float64Array(requestedSize);
+	for (let index = 0; index < requestedSize; index += 1) {
+		const frame = offset + index;
+		let sample = 0;
+		if (frame < channels[0].length) for (const channel of channels) sample += channel[frame] / channels.length;
+		const window = 0.5 - 0.5 * Math.cos(2 * Math.PI * index / (requestedSize - 1));
+		real[index] = sample * window;
+	}
+	fftInPlace(real, imaginary);
+	const bins = Array.from({ length: requestedSize / 2 + 1 }, (_, index) => {
+		const amplitude = Math.hypot(real[index], imaginary[index]) * 2 / requestedSize;
+		return Object.freeze({
+			frequency: index * sampleRate / requestedSize,
+			amplitude,
+			db: amplitudeToDb(amplitude),
+		});
+	});
+	return Object.freeze({ sampleRate, size: requestedSize, bins: Object.freeze(bins) });
+}
+
+/**
+ * Find the nearest linked-channel zero crossing. Exact zero samples and sign
+ * changes are preferred by distance, then by the lowest summed amplitude.
+ * If a window has no crossing, its quietest frame is returned.
+ */
+export function findNearestAudioZeroCrossing(channels, targetFrame, options = {}) {
+	validateAnalysisChannels(channels);
+	if (!channels[0].length) return 0;
+	const target = Math.max(0, Math.min(channels[0].length - 1, Math.round(Number(targetFrame) || 0)));
+	const maximumDistance = Math.max(0, Math.min(
+		channels[0].length - 1,
+		Number.isSafeInteger(Number(options.maximumDistance))
+			? Number(options.maximumDistance)
+			: channels[0].length - 1,
+	));
+	let quietestFrame = target;
+	let quietestScore = linkedAmplitude(channels, target);
+	for (let distance = 0; distance <= maximumDistance; distance += 1) {
+		const candidates = distance === 0 ? [target] : [target - distance, target + distance];
+		let crossing = null;
+		let crossingScore = Infinity;
+		for (const frame of candidates) {
+			if (frame < 0 || frame >= channels[0].length) continue;
+			const score = linkedAmplitude(channels, frame);
+			if (score < quietestScore) {
+				quietestFrame = frame;
+				quietestScore = score;
+			}
+			if (isLinkedZeroCrossing(channels, frame) && score < crossingScore) {
+				crossing = frame;
+				crossingScore = score;
+			}
+		}
+		if (crossing != null) return crossing;
+	}
+	return quietestFrame;
+}
+
+function isLinkedZeroCrossing(channels, frame) {
+	for (const channel of channels) {
+		const current = Number(channel[frame]) || 0;
+		if (current === 0) return true;
+		if (frame > 0) {
+			const previous = Number(channel[frame - 1]) || 0;
+			if (previous === 0 || (previous < 0 && current > 0) || (previous > 0 && current < 0)) return true;
+		}
+	}
+	return false;
+}
+
+function linkedAmplitude(channels, frame) {
+	let amplitude = 0;
+	for (const channel of channels) amplitude += Math.abs(Number(channel[frame]) || 0);
+	return amplitude;
+}
+
+function fftInPlace(real, imaginary) {
+	const length = real.length;
+	for (let index = 1, reversed = 0; index < length; index += 1) {
+		let bit = length >> 1;
+		while (reversed & bit) { reversed ^= bit; bit >>= 1; }
+		reversed ^= bit;
+		if (index >= reversed) continue;
+		[real[index], real[reversed]] = [real[reversed], real[index]];
+		[imaginary[index], imaginary[reversed]] = [imaginary[reversed], imaginary[index]];
+	}
+	for (let size = 2; size <= length; size <<= 1) {
+		const angle = -2 * Math.PI / size;
+		const stepReal = Math.cos(angle);
+		const stepImaginary = Math.sin(angle);
+		for (let start = 0; start < length; start += size) {
+			let weightReal = 1;
+			let weightImaginary = 0;
+			for (let index = 0; index < size / 2; index += 1) {
+				const even = start + index;
+				const odd = even + size / 2;
+				const oddReal = real[odd] * weightReal - imaginary[odd] * weightImaginary;
+				const oddImaginary = real[odd] * weightImaginary + imaginary[odd] * weightReal;
+				real[odd] = real[even] - oddReal;
+				imaginary[odd] = imaginary[even] - oddImaginary;
+				real[even] += oddReal;
+				imaginary[even] += oddImaginary;
+				const nextWeightReal = weightReal * stepReal - weightImaginary * stepImaginary;
+				weightImaginary = weightReal * stepImaginary + weightImaginary * stepReal;
+				weightReal = nextWeightReal;
+			}
+		}
+	}
+}
+
+function validateAnalysisChannels(channels) {
+	if (!Array.isArray(channels) || !channels.length || channels.some((channel) => !(channel instanceof Float32Array))) {
+		throw new TypeError('Planar Float32 audio channels are required.');
+	}
+	if (channels.some((channel) => channel.length !== channels[0].length)) throw new RangeError('Audio channels must have equal lengths.');
+}
+
+function rmsDb(channels) {
+	let squares = 0;
+	let count = 0;
+	for (const channel of channels) for (const sample of channel) { squares += sample * sample; count += 1; }
+	return amplitudeToDb(count ? Math.sqrt(squares / count) : 0);
+}
+
 export function calculateIntegratedLufs(blockEnergies) {
 	const absoluteGated = blockEnergies.filter((energy) => {
 		const loudness = energyToLufs(energy);

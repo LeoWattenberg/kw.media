@@ -458,6 +458,29 @@ test('duration, aggregate stereo minutes, and supported envelopes do not count c
 	assert.equal(projectEnvelope(project, { mobile: true }).limits.trackCount, 4);
 });
 
+test('capacity envelopes accept the documented desktop and mobile boundaries and reject one step beyond them', () => {
+	const atLimit = ({ stereoMinutes, trackCount, mobile }) => {
+		const frameCount = AUDIO_EDITOR_SAMPLE_RATE * 60 * stereoMinutes;
+		let project = createFixture({ frameCount });
+		project = apply(project, { type: 'clip/add', trackId: 'track-1', clip: {
+			id: `capacity-${stereoMinutes}`, sourceId: 'source-1', timelineStartFrame: 0,
+			sourceStartFrame: 0, durationFrames: frameCount,
+		} });
+		for (let index = 3; index <= trackCount; index += 1) {
+			project = apply(project, { type: 'track/add', track: { id: `track-${index}`, name: `Track ${index}` } });
+		}
+		const envelope = projectEnvelope(project, { mobile });
+		assert.equal(envelope.actual.trackCount, trackCount);
+		assert.equal(envelope.actual.stereoMinutes, stereoMinutes);
+		assert.equal(envelope.supported, true);
+		project = apply(project, { type: 'track/add', track: { id: 'over-limit', name: 'Over limit' } });
+		assert.equal(projectEnvelope(project, { mobile }).exceeded.tracks, true);
+	};
+
+	atLimit({ stereoMinutes: 30, trackCount: 8, mobile: false });
+	atLimit({ stereoMinutes: 10, trackCount: 4, mobile: true });
+});
+
 test('export plans define mix/stem policy, encoding defaults, tails, names, and memory strategy', () => {
 	let project = createFixture({ frameCount: 96_000 });
 	project = apply(project, { type: 'clip/add', trackId: 'track-1', clip: {

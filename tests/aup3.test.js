@@ -177,6 +177,44 @@ test('mixes linked stereo tracks, skips muted tracks, and counts logical tracks'
 	assert.equal(decoded.metadata.trackCount, 2);
 });
 
+test('structured AUP3 decoding preserves tracks, clips, trims, pitch, stretch, envelopes, and source channels', async () => {
+	const fixture = await createAup3Fixture({
+		SQL,
+		projectName: 'Structured session',
+		projectTempo: 120,
+		tracks: [
+			{
+				name: 'Music', channel: 0, linked: true, gain: 0.75,
+				clips: [{
+					samples: [0, 0.25, 0.5, 0.75, 1], trimLeft: 1 / 48_000,
+					stretchRatio: 1.5, rawAudioTempo: 60, centShift: 300, envelope: true,
+				}],
+			},
+			{
+				name: 'Music', channel: 1,
+				clips: [{
+					samples: [1, 0.75, 0.5, 0.25, 0], trimLeft: 1 / 48_000,
+					stretchRatio: 1.5, rawAudioTempo: 60, centShift: 300, envelope: true,
+				}],
+			},
+		],
+	});
+	const decoded = await decodeAup3Bytes(fixture, { SQL, structured: true });
+	assert.equal(decoded.channels, undefined);
+	assert.equal(decoded.sampleRate, 48_000);
+	assert.equal(decoded.tempo.bpm, 120);
+	assert.equal(decoded.tracks.length, 1);
+	assert.equal(decoded.tracks[0].channelLayout, 'stereo');
+	assert.equal(decoded.tracks[0].gain, 0.75);
+	assert.equal(decoded.tracks[0].clips.length, 1);
+	assert.equal(decoded.tracks[0].clips[0].channels.length, 2);
+	assert.equal(decoded.tracks[0].clips[0].pitchCents, 300);
+	assert.equal(decoded.tracks[0].clips[0].stretch, 0.75);
+	assert.equal(decoded.tracks[0].clips[0].sourceStart, 1);
+	assert.deepEqual(decoded.tracks[0].clips[0].envelope, [{ frame: 0, value: 0.5 }]);
+	assert.ok(decoded.opaqueExtensions.aup3Project);
+});
+
 test('treats current Audacity channel-zero tracks as mono unless they are linked', async () => {
 	const fixture = await createAup3Fixture({
 		SQL,

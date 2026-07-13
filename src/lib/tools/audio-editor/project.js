@@ -219,7 +219,7 @@ export function findClip(project, clipId) {
 }
 
 export function findClipTrack(project, clipId) {
-	return project.tracks.find((track) => track.clipIds.includes(clipId)) || null;
+	return project.tracks.find((track) => Array.isArray(track.clipIds) && track.clipIds.includes(clipId)) || null;
 }
 
 export function clipEndFrame(clip) {
@@ -233,16 +233,24 @@ export function clipsOverlap(first, second) {
 
 /** @param {AudioEditorProjectV1} project @returns {number} */
 export function projectDurationFrames(project) {
-	return project.clips.reduce((endFrame, clip) => Math.max(endFrame, clipEndFrame(clip)), 0);
+	let endFrame = project.clips.reduce((maximum, clip) => Math.max(maximum, clipEndFrame(clip)), 0);
+	for (const track of project.tracks || []) {
+		if (track.type !== 'label') continue;
+		for (const label of track.labels || []) endFrame = Math.max(endFrame, label.endFrame);
+	}
+	return endFrame;
 }
 
 /** @param {AudioEditorProjectV1} project @returns {number} */
 export function aggregateStereoMinutes(project) {
 	const usedSourceIds = new Set(project.clips.map((clip) => clip.sourceId));
 	const uniqueSources = new Map(project.sources.filter((source) => usedSourceIds.has(source.id)).map((source) => [source.id, source]));
-	let channelFrames = 0;
-	for (const source of uniqueSources.values()) channelFrames += source.frameCount * source.channelCount;
-	return channelFrames / (AUDIO_EDITOR_SAMPLE_RATE * AUDIO_EDITOR_MASTER_CHANNELS * 60);
+	let channelSeconds = 0;
+	for (const source of uniqueSources.values()) {
+		const sourceRate = Number(source.sampleRate) || Number(project.sampleRate) || AUDIO_EDITOR_SAMPLE_RATE;
+		channelSeconds += source.frameCount / sourceRate * source.channelCount;
+	}
+	return channelSeconds / ((project.masterChannels || AUDIO_EDITOR_MASTER_CHANNELS) * 60);
 }
 
 export function projectEnvelope(project, options = {}) {
@@ -251,7 +259,7 @@ export function projectEnvelope(project, options = {}) {
 		? { trackCount: 4, stereoMinutes: 10 }
 		: { trackCount: 8, stereoMinutes: 30 };
 	const actual = {
-		trackCount: project.tracks.length,
+		trackCount: project.tracks.filter((track) => track.type !== 'label').length,
 		stereoMinutes: aggregateStereoMinutes(project),
 	};
 	const exceeded = {
@@ -280,6 +288,7 @@ export function commitProject(project, mutate, options = {}) {
 /** @param {AudioEditorProjectV1} project @returns {true} */
 export function validateAudioEditorProject(project) {
 	if (!project || typeof project !== 'object') throw new TypeError('An audio editor project is required.');
+	if (project.schemaVersion === 2) return validateProjectV2Shape(project);
 	if (project.schemaVersion !== AUDIO_EDITOR_SCHEMA_VERSION) {
 		throw new RangeError(`Unsupported audio editor schema version: ${project.schemaVersion}.`);
 	}
@@ -346,9 +355,78 @@ function assertUniqueIds(items, type) {
 
 export function loadAudioEditorProject(value) {
 	if (!value || typeof value !== 'object') throw new TypeError('A saved project is required.');
-	if (Number(value.schemaVersion) > AUDIO_EDITOR_SCHEMA_VERSION) {
+	if (Number(value.schemaVersion) > 2) {
+		return { project: plainClone(value), readOnly: true, reason: 'newer-schema' };
+	}
+	if (Number(value.schemaVersion) === 2 && value.tracks?.some((track) => !track?.type)) {
 		return { project: plainClone(value), readOnly: true, reason: 'newer-schema' };
 	}
 	validateAudioEditorProject(value);
 	return { project: cloneProject(value), readOnly: false, reason: null };
+}
+
+// Kept local rather than importing project-v2.js so the V2 factories can keep
+// using createStableId() without introducing a project-module import cycle.
+// Full normalization remains in project-v2.js; this validator protects the
+// shared history/command boundary and deliberately accepts opaque extensions.
+function validateProjectV2Shape(project) {
+	if (!Number.isSafeInteger(project.revision) || project.revision < 0) throw new RangeError('project.revision must be a non-negative safe integer.');
+	if (!Number.isSafeInteger(project.sampleRate) || project.sampleRate <= 0) throw new RangeError('project.sampleRate must be a positive safe integer.');
+	if (!Number.isSafeInteger(project.masterChannels) || project.masterChannels <= 0) throw new RangeError('project.masterChannels must be a positive safe integer.');
+	if (!Array.isArray(project.sources) || !Array.isArray(project.clips) || !Array.isArray(project.tracks)) {
+		throw new TypeError('Project sources, clips, and tracks must be arrays.');
+	}
+	assertUniqueIds(project.sources, 'source');
+	assertUniqueIds(project.clips, 'clip');
+	assertUniqueIds(project.tracks, 'track');
+	const sourceIds = new Set(project.sources.map((source) => source.id));
+	const clipIds = new Set(project.clips.map((clip) => clip.id));
+	const assignedClipIds = new Set();
+	let armedTracks = 0;
+	for (const source of project.sources) {
+		assertPositiveFrame(source.frameCount, `source ${source.id}.frameCount`);
+		assertPositiveFrame(source.sampleRate, `source ${source.id}.sampleRate`);
+		assertPositiveFrame(source.channelCount, `source ${source.id}.channelCount`);
+	}
+	for (const clip of project.clips) {
+		if (!sourceIds.has(clip.sourceId)) throw new ReferenceError(`Clip ${clip.id} references a missing source.`);
+		assertFrame(clip.timelineStartFrame, `clip ${clip.id}.timelineStartFrame`);
+		assertFrame(clip.sourceStartFrame, `clip ${clip.id}.sourceStartFrame`);
+		assertPositiveFrame(clip.durationFrames, `clip ${clip.id}.durationFrames`);
+		const sourceDurationFrames = clip.sourceDurationFrames ?? clip.durationFrames;
+		assertPositiveFrame(sourceDurationFrames, `clip ${clip.id}.sourceDurationFrames`);
+		const source = project.sources.find((candidate) => candidate.id === clip.sourceId);
+		if (clip.sourceStartFrame + sourceDurationFrames > source.frameCount) throw new RangeError(`Clip ${clip.id} exceeds its source bounds.`);
+	}
+	for (const track of project.tracks) {
+		if (track.type === 'label') {
+			if (!Array.isArray(track.labels)) throw new TypeError(`Label track ${track.id} must contain labels.`);
+			assertUniqueIds(track.labels, 'label');
+			for (const label of track.labels) {
+				assertFrame(label.startFrame, `label ${label.id}.startFrame`);
+				assertFrame(label.endFrame, `label ${label.id}.endFrame`);
+				if (label.endFrame < label.startFrame) throw new RangeError(`Label ${label.id} ends before it starts.`);
+			}
+			continue;
+		}
+		if (track.type !== 'audio') throw new RangeError(`Unsupported track type: ${track.type}.`);
+		if (!Array.isArray(track.clipIds)) throw new TypeError(`Track ${track.id} must contain clip IDs.`);
+		if (track.armed) armedTracks += 1;
+		const trackClips = [];
+		for (const clipId of track.clipIds) {
+			if (!clipIds.has(clipId)) throw new ReferenceError(`Track ${track.id} references a missing clip.`);
+			if (assignedClipIds.has(clipId)) throw new RangeError(`Clip ${clipId} is assigned to more than one track.`);
+			assignedClipIds.add(clipId);
+			trackClips.push(project.clips.find((clip) => clip.id === clipId));
+		}
+		trackClips.sort((left, right) => left.timelineStartFrame - right.timelineStartFrame);
+		for (let index = 1; index < trackClips.length; index += 1) {
+			if (clipsOverlap(trackClips[index - 1], trackClips[index])) throw new RangeError(`Clips overlap on track ${track.id}.`);
+		}
+	}
+	if (assignedClipIds.size !== project.clips.length) throw new RangeError('Every clip must belong to exactly one audio track.');
+	if (armedTracks > 1) throw new RangeError('Only one audio track can be armed at a time.');
+	finiteInRange(project.master?.gain, 0, 4, 'master.gain');
+	if (!Array.isArray(project.master?.effects)) throw new TypeError('Master effects must be an array.');
+	return true;
 }

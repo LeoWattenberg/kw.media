@@ -3,6 +3,7 @@ import {
 	Button,
 	ContextMenu,
 	ContextMenuItem,
+	FrequencyRuler,
 	Icon,
 	Menu,
 	PlayheadCursor,
@@ -26,12 +27,19 @@ import {
 	projectClipsToViewport,
 	secondsToFrames,
 } from '../../../lib/tools/audio-editor/design-system-adapters.js';
-import { AUDIO_EDITOR_SAMPLE_RATE, projectDurationFrames } from '../../../lib/tools/audio-editor/project.js';
+import {
+	AUDACITY_CLIP_CONTEXT_ACTION_IDS,
+	AUDACITY_TRACK_CONTEXT_ACTION_IDS,
+	audacityContextMenuAction,
+} from '../../../lib/tools/audio-editor/audacity-context-menu.js';
+import { projectDurationFrames } from '../../../lib/tools/audio-editor/project.js';
 import { useAudioEditorTelemetry, useElementSize } from './DesignSystemRuntime.jsx';
+import AudioEditorSampleTools from './AudioEditorSampleTools.jsx';
 
 const DESKTOP_TRACK_PANEL_WIDTH = 268;
 const COMPACT_TRACK_PANEL_WIDTH = 164;
 const TRACK_HEIGHT = 114;
+const COLLAPSED_TRACK_HEIGHT = 54;
 const VERTICAL_RULER_WIDTH = 40;
 const MINIMUM_TIMELINE_SECONDS = 10;
 const MINIMUM_VISIBLE_CLIP_PIXELS = 48;
@@ -42,9 +50,12 @@ export default function AudioEditorTimeline({
 	copy,
 	mobile,
 	showArmControls,
+	splitToolEnabled = false,
+	onToggleSplitTool,
 	onError,
 	onOpenEffects,
 	onOpenClipProperties,
+	onExportClip,
 	onToggleArmControls,
 }) {
 	const project = snapshot.project;
@@ -54,35 +65,103 @@ export default function AudioEditorTimeline({
 	const pointerSession = useRef(null);
 	const touchPointers = useRef(new Map());
 	const pinchSession = useRef(null);
+	const splitToolTimer = useRef(0);
+	const splitToolPress = useRef(null);
+	const splitToolHeldRef = useRef(false);
+	const [splitToolHeld, setSplitToolHeld] = useState(false);
 	const [scrollX, setScrollX] = useState(0);
 	const [selectionPreview, setSelectionPreview] = useState(null);
 	const [trackMenu, setTrackMenu] = useState(null);
 	const [clipMenu, setClipMenu] = useState(null);
 	const [draggingClipId, setDraggingClipId] = useState(null);
 	const [clipDragPreview, setClipDragPreview] = useState(null);
+	const telemetry = useAudioEditorTelemetry(controller);
 	const { activeProfile } = useAccessibilityProfile();
 	const isFlatNavigation = activeProfile.config.tabNavigation === 'sequential';
 	const timelineRulerTabIndex = useTabOrder('timeline-ruler');
 	const trackBaseTabIndex = useTabOrder('tracks');
 	const addTrackTabIndex = useTabOrder('add-track');
 	const panelWidth = mobile ? COMPACT_TRACK_PANEL_WIDTH : DESKTOP_TRACK_PANEL_WIDTH;
-	const viewportWidth = Math.max(1, timelineSize.width - panelWidth - VERTICAL_RULER_WIDTH);
+	const verticalRulerWidth = snapshot.timeline?.showVerticalRulers === false ? 0 : VERTICAL_RULER_WIDTH;
+	const viewportWidth = Math.max(1, timelineSize.width - panelWidth - verticalRulerWidth);
 	const pixelsPerSecond = snapshot.timeline?.pixelsPerSecond || 120;
+	const sampleRate = project?.sampleRate || 48_000;
 	const durationFrames = Math.max(
-		AUDIO_EDITOR_SAMPLE_RATE * MINIMUM_TIMELINE_SECONDS,
+		sampleRate * MINIMUM_TIMELINE_SECONDS,
 		project ? projectDurationFrames(project) : 0,
 	);
-	const durationSeconds = framesToSeconds(durationFrames);
+	const durationSeconds = framesToSeconds(durationFrames, { sampleRate });
 	const timelineWidth = Math.max(viewportWidth, Math.ceil(durationSeconds * pixelsPerSecond));
-	const viewportStartFrame = Math.max(0, secondsToFrames(scrollX / pixelsPerSecond));
-	const viewportDurationFrames = Math.max(1, secondsToFrames(viewportWidth / pixelsPerSecond));
+	const viewportStartFrame = Math.max(0, secondsToFrames(scrollX / pixelsPerSecond, { sampleRate }));
+	const viewportDurationFrames = Math.max(1, secondsToFrames(viewportWidth / pixelsPerSecond, { sampleRate }));
 	const documentSelection = selectionPreview || snapshot.selection;
 	const timeSelection = documentSelection && documentSelection.endFrame > documentSelection.startFrame
 		? {
-			startTime: framesToSeconds(documentSelection.startFrame),
-			endTime: framesToSeconds(documentSelection.endFrame),
+			startTime: framesToSeconds(documentSelection.startFrame, { sampleRate }),
+			endTime: framesToSeconds(documentSelection.endFrame, { sampleRate }),
 		}
 		: null;
+	const totalTrackHeight = project?.tracks.reduce((total, track) => total + trackVisualHeight(track), 0) || TRACK_HEIGHT;
+	const splitToolActive = Boolean(splitToolEnabled || splitToolHeld);
+
+	useEffect(() => {
+		const editableTarget = (target) => target instanceof Element && Boolean(target.closest(
+			'input, textarea, select, [contenteditable="true"], [role="dialog"], [role="menu"]',
+		));
+		const clearTimer = () => {
+			globalThis.clearTimeout(splitToolTimer.current);
+			splitToolTimer.current = 0;
+		};
+		const keyDown = (event) => {
+			if (event.repeat || event.key.toLowerCase() !== 's' || event.altKey || event.ctrlKey || event.metaKey || editableTarget(event.target)) return;
+			event.preventDefault();
+			splitToolPress.current = { persistentBefore: Boolean(splitToolEnabled), held: false };
+			splitToolHeldRef.current = true;
+			setSplitToolHeld(true);
+			clearTimer();
+			splitToolTimer.current = globalThis.setTimeout(() => {
+				if (splitToolPress.current) splitToolPress.current.held = true;
+			}, 300);
+		};
+		const keyUp = (event) => {
+			if (event.key.toLowerCase() !== 's' || !splitToolPress.current) return;
+			event.preventDefault();
+			const press = splitToolPress.current;
+			splitToolPress.current = null;
+			clearTimer();
+			splitToolHeldRef.current = false;
+			setSplitToolHeld(false);
+			if (!press.held || press.persistentBefore) onToggleSplitTool?.();
+		};
+		const blur = () => {
+			const press = splitToolPress.current;
+			splitToolPress.current = null;
+			clearTimer();
+			splitToolHeldRef.current = false;
+			setSplitToolHeld(false);
+			if (press?.persistentBefore) onToggleSplitTool?.();
+		};
+		const escape = (event) => {
+			if (event.key !== 'Escape' || (!splitToolEnabled && !splitToolHeldRef.current)) return;
+			event.preventDefault();
+			splitToolPress.current = null;
+			clearTimer();
+			splitToolHeldRef.current = false;
+			setSplitToolHeld(false);
+			if (splitToolEnabled) onToggleSplitTool?.();
+		};
+		globalThis.addEventListener('keydown', keyDown, true);
+		globalThis.addEventListener('keyup', keyUp, true);
+		globalThis.addEventListener('blur', blur);
+		globalThis.addEventListener('keydown', escape);
+		return () => {
+			clearTimer();
+			globalThis.removeEventListener('keydown', keyDown, true);
+			globalThis.removeEventListener('keyup', keyUp, true);
+			globalThis.removeEventListener('blur', blur);
+			globalThis.removeEventListener('keydown', escape);
+		};
+	}, [onToggleSplitTool, splitToolEnabled]);
 
 	const focusTimelineRuler = useCallback(() => {
 		return focusFirst(navigationRootRef.current?.querySelector('[data-ruler-focus]'));
@@ -125,6 +204,20 @@ export default function AudioEditorTimeline({
 		return () => element.removeEventListener('scroll', update);
 	}, []);
 
+	useEffect(() => {
+		const element = scrollRef.current;
+		if (
+			!element
+			|| !snapshot.timeline?.pinnedPlayhead
+			|| snapshot.timeline?.updateDisplayWhilePlaying === false
+			|| telemetry.transportState !== 'playing'
+		) return;
+		const positionPixels = framesToSeconds(telemetry.positionFrame || 0, { sampleRate }) * pixelsPerSecond;
+		const maximumScroll = Math.max(0, timelineWidth - viewportWidth);
+		const nextScroll = Math.max(0, Math.min(maximumScroll, positionPixels - viewportWidth / 2));
+		if (Math.abs(element.scrollLeft - nextScroll) > 1) element.scrollLeft = nextScroll;
+	}, [pixelsPerSecond, sampleRate, snapshot.timeline?.pinnedPlayhead, snapshot.timeline?.updateDisplayWhilePlaying, telemetry.positionFrame, telemetry.transportState, timelineWidth, viewportWidth]);
+
 	const run = useCallback((action) => {
 		try {
 			const value = action();
@@ -160,11 +253,13 @@ export default function AudioEditorTimeline({
 		const rect = lane.getBoundingClientRect();
 		return secondsToFrames(Math.max(0, (scrollX + clientX - rect.left) / pixelsPerSecond), {
 			maximumFrame: durationFrames,
+			sampleRate,
 		});
-	}, [durationFrames, pixelsPerSecond, scrollX]);
+	}, [durationFrames, pixelsPerSecond, sampleRate, scrollX]);
 
 	const trackAtClientY = useCallback((clientY, fallbackTrackId) => {
 		for (const lane of document.querySelectorAll('[data-track-lane]')) {
+			if (lane.closest('[data-label-track]')) continue;
 			const rect = lane.getBoundingClientRect();
 			if (clientY >= rect.top && clientY < rect.bottom) return lane.dataset.trackId || fallbackTrackId;
 		}
@@ -178,20 +273,39 @@ export default function AudioEditorTimeline({
 		const dragPreview = session?.preview;
 		setClipDragPreview(null);
 		if (!session || cancelled || pinchSession.current || !project) return;
-		const deltaFrames = secondsToFrames(
-			Math.abs(event.clientX - session.startX) / pixelsPerSecond,
-		) * Math.sign(event.clientX - session.startX);
+		if (session.kind === 'sample-pencil') {
+			if (session.points.length) run(() => controller.actions.sampleEdit.pencil({
+				clipId: session.clipId,
+				channel: session.channel,
+				points: session.points,
+			}));
+			return;
+		}
 		if (session.kind === 'selection') {
 			const endFrame = frameAtClientX(event.clientX, session.lane);
 			setSelectionPreview(null);
-			if (Math.abs(endFrame - session.startFrame) < Math.max(1, secondsToFrames(3 / pixelsPerSecond))) {
+			if (Math.abs(endFrame - session.startFrame) < Math.max(1, secondsToFrames(3 / pixelsPerSecond, { sampleRate }))) {
 				run(() => controller.actions.transport.seek(endFrame));
 				run(() => controller.actions.timeline.clearSelection());
+				if (snapshot.timeline?.playbackOnRulerClick !== false && telemetry.transportState === 'stopped') {
+					run(() => controller.actions.transport.playPause());
+				}
 			} else {
 				run(() => controller.actions.timeline.setSelection(session.startFrame, endFrame));
 			}
 			return;
 		}
+		if (session.kind === 'split') {
+			const endFrame = frameAtClientX(event.clientX, session.lane);
+			if (Math.abs(endFrame - session.startFrame) >= Math.max(1, secondsToFrames(3 / pixelsPerSecond, { sampleRate }))) {
+				run(() => controller.actions.edit.splitAt(endFrame, session.trackIds));
+			}
+			return;
+		}
+		const deltaFrames = secondsToFrames(
+			Math.abs(event.clientX - session.startX) / pixelsPerSecond,
+			{ sampleRate },
+		) * Math.sign(event.clientX - session.startX);
 		const clip = project.clips.find((item) => item.id === session.clipId);
 		if (!clip) return;
 		if (session.kind === 'move') {
@@ -200,6 +314,19 @@ export default function AudioEditorTimeline({
 				dragPreview?.trackId || trackAtClientY(event.clientY, session.trackId),
 				{ timelineStartFrame: dragPreview?.timelineStartFrame ?? Math.max(0, session.original.timelineStartFrame + deltaFrames) },
 			));
+		} else if (session.kind === 'stretch-left') {
+			const change = Math.max(
+				-session.original.timelineStartFrame,
+				Math.min(session.original.durationFrames - 1, deltaFrames),
+			);
+			run(() => controller.actions.clip.stretch(clip.id, {
+				timelineStartFrame: session.original.timelineStartFrame + change,
+				durationFrames: session.original.durationFrames - change,
+			}));
+		} else if (session.kind === 'stretch-right') {
+			run(() => controller.actions.clip.stretch(clip.id, {
+				durationFrames: Math.max(1, session.original.durationFrames + deltaFrames),
+			}));
 		} else if (session.kind === 'trim-left') {
 			const source = project.sources.find((item) => item.id === clip.sourceId);
 			const sourceExtension = session.original.reversed
@@ -227,7 +354,7 @@ export default function AudioEditorTimeline({
 				durationFrames: nextDuration,
 			}));
 		}
-	}, [controller, frameAtClientX, pixelsPerSecond, project, run, trackAtClientY]);
+	}, [controller, frameAtClientX, pixelsPerSecond, project, run, sampleRate, snapshot.timeline?.playbackOnRulerClick, telemetry.transportState, trackAtClientY]);
 
 	const onPointerDown = useCallback((event) => {
 		if (event.pointerType === 'touch') {
@@ -262,15 +389,50 @@ export default function AudioEditorTimeline({
 		const clip = project?.clips.find((item) => String(item.id) === clipId);
 		const trackId = lane.dataset.trackId;
 		if (!clip || !trackId) return;
+		if (splitToolActive) {
+			const startFrame = frameAtClientX(event.clientX, lane);
+			const trackIds = event.shiftKey
+				? project.tracks.filter((track) => Array.isArray(track.clipIds)).map((track) => track.id)
+				: [trackId];
+			pointerSession.current = { kind: 'split', startFrame, trackIds, lane };
+			run(() => controller.actions.edit.splitAt(startFrame, trackIds));
+			event.preventDefault();
+			event.currentTarget.setPointerCapture?.(event.pointerId);
+			return;
+		}
+		if (snapshot.sampleEdit?.available && snapshot.sampleEdit.mode === 'pencil') {
+			const source = project.sources.find((item) => item.id === clip.sourceId);
+			if (!source) return;
+			const point = samplePointAtPointer(event, lane, clip, source, frameAtClientX);
+			pointerSession.current = {
+				kind: 'sample-pencil',
+				clipId: clip.id,
+				trackId,
+				channel: point.channel,
+				points: [{ timelineFrame: point.timelineFrame, value: point.value }],
+				lane,
+			};
+			run(() => controller.actions.timeline.selectClip(clip.id));
+			if (event.pointerType !== 'mouse') event.preventDefault();
+			// Firefox's synthesized mouse pointer uses id 0 and may cancel it
+			// when capture is requested. A mouse pencil stroke stays within this
+			// lane; touch/pen pointers retain capture so releasing outside the
+			// clip still finalizes the stroke.
+			if (event.pointerId > 0) event.currentTarget.setPointerCapture?.(event.pointerId);
+			return;
+		}
 		let kind = 'move';
 		if (event.target.closest('.clip-display__handle--trim-left')) kind = 'trim-left';
 		if (event.target.closest('.clip-display__handle--trim-right')) kind = 'trim-right';
-		if (event.target.closest('.clip-display__handle--stretch-left, .clip-display__handle--stretch-right')) return;
+		if (event.target.closest('.clip-display__handle--stretch-left')) kind = 'stretch-left';
+		if (event.target.closest('.clip-display__handle--stretch-right')) kind = 'stretch-right';
 		pointerSession.current = { kind, clipId: clip.id, trackId, original: { ...clip }, startX: event.clientX, lane };
 		setDraggingClipId(clip.id);
-		run(() => controller.actions.timeline.selectClip(clip.id));
+		if (!event.shiftKey && !event.metaKey && !event.ctrlKey) {
+			run(() => controller.actions.timeline.selectClip(clip.id));
+		}
 		event.currentTarget.setPointerCapture?.(event.pointerId);
-	}, [controller, frameAtClientX, pixelsPerSecond, project, run, snapshot.readOnly, snapshot.recording, snapshot.recordingStarting]);
+	}, [controller, frameAtClientX, pixelsPerSecond, project, run, snapshot.readOnly, snapshot.recording, snapshot.recordingStarting, snapshot.sampleEdit?.available, snapshot.sampleEdit?.mode, splitToolActive]);
 
 	const onPointerMove = useCallback((event) => {
 		if (touchPointers.current.has(event.pointerId)) {
@@ -292,7 +454,17 @@ export default function AudioEditorTimeline({
 			return;
 		}
 		const session = pointerSession.current;
-		if (session?.kind === 'selection') {
+		if (session?.kind === 'sample-pencil') {
+			const clip = project?.clips.find((item) => item.id === session.clipId);
+			const source = clip ? project.sources.find((item) => item.id === clip.sourceId) : null;
+			if (!clip || !source) return;
+			const point = samplePointAtPointer(event, session.lane, clip, source, frameAtClientX, session.channel);
+			const previous = session.points.at(-1);
+			if (previous?.timelineFrame === point.timelineFrame && previous.value === point.value) return;
+			if (session.points.length >= 4_096) session.points.splice(1, 1);
+			session.points.push({ timelineFrame: point.timelineFrame, value: point.value });
+			event.preventDefault();
+		} else if (session?.kind === 'selection') {
 			const endFrame = frameAtClientX(event.clientX, session.lane);
 			setSelectionPreview({
 				startFrame: Math.min(session.startFrame, endFrame),
@@ -301,6 +473,7 @@ export default function AudioEditorTimeline({
 		} else if (session?.kind === 'move') {
 			const deltaFrames = secondsToFrames(
 				Math.abs(event.clientX - session.startX) / pixelsPerSecond,
+				{ sampleRate },
 			) * Math.sign(event.clientX - session.startX);
 			const preview = {
 				clipId: session.clipId,
@@ -315,13 +488,53 @@ export default function AudioEditorTimeline({
 					? current
 					: preview
 			));
+		} else if (session?.kind === 'stretch-left' || session?.kind === 'stretch-right') {
+			const deltaFrames = secondsToFrames(
+				Math.abs(event.clientX - session.startX) / pixelsPerSecond,
+				{ sampleRate },
+			) * Math.sign(event.clientX - session.startX);
+			const change = session.kind === 'stretch-left'
+				? Math.max(-session.original.timelineStartFrame, Math.min(session.original.durationFrames - 1, deltaFrames))
+				: 0;
+			const preview = {
+				clipId: session.clipId,
+				trackId: session.trackId,
+				timelineStartFrame: session.original.timelineStartFrame + change,
+				durationFrames: session.kind === 'stretch-left'
+					? session.original.durationFrames - change
+					: Math.max(1, session.original.durationFrames + deltaFrames),
+			};
+			session.preview = preview;
+			setClipDragPreview(preview);
 		}
-	}, [controller, frameAtClientX, panelWidth, pixelsPerSecond, run, trackAtClientY]);
+	}, [controller, frameAtClientX, panelWidth, pixelsPerSecond, project, run, sampleRate, trackAtClientY]);
 
 	const finishTouch = useCallback((event) => {
 		touchPointers.current.delete(event.pointerId);
 		if (touchPointers.current.size < 2) pinchSession.current = null;
 	}, []);
+
+	useEffect(() => {
+		const finishOutsideTimeline = (event) => {
+			if (!pointerSession.current) return;
+			finishTouch(event);
+			finishPointerSession(event);
+		};
+		const cancelOutsideTimeline = (event) => {
+			const session = pointerSession.current;
+			if (!session) return;
+			finishTouch(event);
+			const publishMousePencil = session.kind === 'sample-pencil'
+				&& (event.pointerType === 'mouse' || event.pointerId === 0);
+			finishPointerSession(event, !publishMousePencil);
+		};
+		globalThis.addEventListener('pointerup', finishOutsideTimeline, true);
+		globalThis.addEventListener('pointercancel', cancelOutsideTimeline, true);
+		return () => {
+			globalThis.removeEventListener('pointerup', finishOutsideTimeline, true);
+			globalThis.removeEventListener('pointercancel', cancelOutsideTimeline, true);
+		};
+	}, [finishPointerSession, finishTouch]);
 
 	if (!project) {
 		return <div className="audio-editor-timeline-loading" role="status">{copy.loading}</div>;
@@ -335,15 +548,70 @@ export default function AudioEditorTimeline({
 		|| snapshot.recordingStarting
 		|| snapshot.exporting
 		|| snapshot.processingEffect;
+	const contextLocale = copy.fileMenu === 'Datei' ? 'de' : 'en';
+	const unavailableReason = copy.unavailable || (contextLocale === 'de' ? 'nicht verfügbar' : 'unavailable');
+	const trackMenuItems = menuTrack ? [
+		manifestMenuItem(AUDACITY_TRACK_CONTEXT_ACTION_IDS.showArmControls, copy.showArmControls, {
+			checked: showArmControls,
+			onClick: onToggleArmControls,
+		}, contextLocale, unavailableReason),
+		{ divider: true, label: '' },
+		manifestMenuItem(AUDACITY_TRACK_CONTEXT_ACTION_IDS.duplicate, copy.duplicateTrack, {
+			disabled: snapshot.readOnly || menuTrack.type === 'label',
+			onClick: () => run(() => controller.actions.track.duplicate(menuTrack.id)),
+		}, contextLocale, unavailableReason),
+		manifestMenuItem(AUDACITY_TRACK_CONTEXT_ACTION_IDS.moveTop, copy.moveTrackTop, {
+			disabled: snapshot.readOnly || project.tracks[0]?.id === menuTrack.id,
+			onClick: () => run(() => controller.actions.track.moveTop(menuTrack.id)),
+		}, contextLocale, unavailableReason),
+		manifestMenuItem(AUDACITY_TRACK_CONTEXT_ACTION_IDS.moveUp, copy.moveTrackUp, {
+			disabled: snapshot.readOnly || project.tracks[0]?.id === menuTrack.id,
+			onClick: () => run(() => controller.actions.track.moveUp(menuTrack.id)),
+		}, contextLocale, unavailableReason),
+		manifestMenuItem(AUDACITY_TRACK_CONTEXT_ACTION_IDS.moveDown, copy.moveTrackDown, {
+			disabled: snapshot.readOnly || project.tracks.at(-1)?.id === menuTrack.id,
+			onClick: () => run(() => controller.actions.track.moveDown(menuTrack.id)),
+		}, contextLocale, unavailableReason),
+		manifestMenuItem(AUDACITY_TRACK_CONTEXT_ACTION_IDS.moveBottom, copy.moveTrackBottom, {
+			disabled: snapshot.readOnly || project.tracks.at(-1)?.id === menuTrack.id,
+			onClick: () => run(() => controller.actions.track.moveBottom(menuTrack.id)),
+		}, contextLocale, unavailableReason),
+		...(menuTrack.type === 'label' ? [] : [
+			{ divider: true, label: '' },
+			manifestMenuItem(AUDACITY_TRACK_CONTEXT_ACTION_IDS.waveform, copy.waveformView, {
+				checked: menuTrack.displayMode === 'waveform',
+				onClick: () => run(() => controller.actions.track.setWaveformView(menuTrack.id)),
+			}, contextLocale, unavailableReason),
+			manifestMenuItem(AUDACITY_TRACK_CONTEXT_ACTION_IDS.spectrogram, copy.spectrogramView, {
+				checked: menuTrack.displayMode === 'spectrogram',
+				onClick: () => run(() => controller.actions.track.setSpectrogramView(menuTrack.id)),
+			}, contextLocale, unavailableReason),
+			manifestMenuItem(AUDACITY_TRACK_CONTEXT_ACTION_IDS.multiview, copy.multiview, {
+				checked: menuTrack.displayMode === 'multiview',
+				onClick: () => run(() => controller.actions.track.setMultiView(menuTrack.id)),
+			}, contextLocale, unavailableReason),
+		]),
+		manifestMenuItem(AUDACITY_TRACK_CONTEXT_ACTION_IDS.toggleCollapsed, menuTrack.collapsed ? copy.expandTrack : copy.collapseTrack, {
+			disabled: snapshot.readOnly,
+			onClick: () => run(() => controller.actions.track.update(menuTrack.id, { collapsed: !menuTrack.collapsed })),
+		}, contextLocale, unavailableReason),
+		{ divider: true, label: '' },
+		manifestMenuItem(AUDACITY_TRACK_CONTEXT_ACTION_IDS.remove, copy.deleteTrack, {
+			disabled: snapshot.readOnly,
+			onClick: () => run(() => controller.actions.track.remove(menuTrack.id)),
+		}, contextLocale, unavailableReason),
+	].filter(Boolean) : [];
 	return (
 		<section
 			className="audio-editor-timeline-panel"
 			aria-label={copy.timeline}
 			ref={setTimelineNode}
+			data-sample-pencil={snapshot.sampleEdit?.mode === 'pencil' ? 'true' : 'false'}
+			data-split-tool={splitToolActive ? 'true' : 'false'}
 			style={{
 				'--track-panel-width': `${panelWidth}px`,
 				'--timeline-viewport-width': `${viewportWidth}px`,
-				'--vertical-ruler-width': `${VERTICAL_RULER_WIDTH}px`,
+				'--vertical-ruler-width': `${verticalRulerWidth}px`,
 			}}
 		>
 			<div
@@ -353,7 +621,14 @@ export default function AudioEditorTimeline({
 				onPointerDownCapture={onPointerDown}
 				onPointerMove={onPointerMove}
 				onPointerUp={(event) => { finishTouch(event); finishPointerSession(event); }}
-				onPointerCancel={(event) => { finishTouch(event); finishPointerSession(event, true); }}
+				onPointerCancel={(event) => {
+					finishTouch(event);
+					// Firefox can cancel its id-0 mouse pointer after a valid drawn
+					// segment. Publish that partial pencil stroke; true touch/pen
+					// cancellations remain transactional rollbacks.
+					const mouseCancellation = event.pointerType === 'mouse' || event.pointerId === 0;
+					finishPointerSession(event, !mouseCancellation);
+				}}
 				onContextMenu={onClipContextMenu}
 				onDragOver={(event) => { event.preventDefault(); event.dataTransfer.dropEffect = 'copy'; }}
 				onDrop={(event) => {
@@ -362,7 +637,7 @@ export default function AudioEditorTimeline({
 					if (files.length) run(() => controller.actions.project.importFiles(files));
 				}}
 			>
-				<div className="audio-editor-timeline-inner" style={{ width: panelWidth + timelineWidth + VERTICAL_RULER_WIDTH }}>
+				<div className="audio-editor-timeline-inner" style={{ width: panelWidth + timelineWidth + verticalRulerWidth }}>
 					<div className="audio-editor-ruler-row">
 						<div className="audio-editor-ruler-corner" style={{ width: panelWidth }}>
 							<span>{copy.tracks}</span>
@@ -405,21 +680,40 @@ export default function AudioEditorTimeline({
 								width={timelineWidth}
 								viewportWidth={viewportWidth}
 								timeSelection={timeSelection}
+								sampleRate={sampleRate}
 								loopRegionEnabled={Boolean(project.loop?.enabled)}
-								loopRegionStart={framesToSeconds(project.loop?.startFrame || 0)}
-								loopRegionEnd={framesToSeconds(project.loop?.endFrame || 0)}
+								loopRegionStart={framesToSeconds(project.loop?.startFrame || 0, { sampleRate })}
+								loopRegionEnd={framesToSeconds(project.loop?.endFrame || 0, { sampleRate })}
 								onLoopRegionEnabledToggle={() => run(() => controller.actions.transport.toggleLoop())}
 							/>
 						</div>
-						<div
+						{verticalRulerWidth > 0 && <div
 							className="audio-editor-ruler-scale-corner"
 							aria-hidden="true"
-							style={{ left: panelWidth + viewportWidth, width: VERTICAL_RULER_WIDTH }}
-						/>
+							style={{ left: panelWidth + viewportWidth, width: verticalRulerWidth }}
+						/>}
 					</div>
 
 					<div className="audio-editor-track-list" data-track-list>
-						{project.tracks.map((track, trackIndex) => (
+						{project.tracks.map((track, trackIndex) => track.type === 'label' ? (
+							<LabelTrackRow
+								key={track.id}
+								controller={controller}
+								track={track}
+								trackIndex={trackIndex}
+								panelWidth={panelWidth}
+								timelineWidth={timelineWidth}
+								verticalRulerWidth={verticalRulerWidth}
+								pixelsPerSecond={pixelsPerSecond}
+								sampleRate={sampleRate}
+								selection={documentSelection}
+								selected={snapshot.selectedTrackId === track.id}
+								blocked={snapshot.readOnly || snapshot.importing || snapshot.recording || snapshot.recordingStarting || snapshot.exporting || snapshot.processingEffect}
+								copy={copy}
+								run={run}
+								onMenu={(anchor) => setTrackMenu({ trackId: track.id, anchor })}
+							/>
+						) : (
 							<TrackRow
 								key={track.id}
 								controller={controller}
@@ -434,11 +728,17 @@ export default function AudioEditorTimeline({
 								viewportStartFrame={viewportStartFrame}
 								viewportDurationFrames={viewportDurationFrames}
 								pixelsPerSecond={pixelsPerSecond}
+								sampleRate={sampleRate}
 								timelineWidth={timelineWidth}
+								verticalRulerWidth={verticalRulerWidth}
 								selection={timeSelection}
+								spectralSelection={documentSelection?.frequencyRange ? documentSelection : null}
 								selectedTrackId={snapshot.selectedTrackId}
 								selectedClipId={snapshot.selectedClipId}
+								selectedClipIds={project.selection?.clipIds || []}
 								timelineView={snapshot.timeline?.view}
+								showRms={Boolean(snapshot.timeline?.showRms)}
+								clipStyle={snapshot.preferences?.appearance?.clipStyle}
 								draggingClipId={draggingClipId}
 								clipDragPreview={clipDragPreview}
 								blocked={snapshot.readOnly || snapshot.importing || snapshot.recording || snapshot.recordingStarting || snapshot.exporting || snapshot.processingEffect}
@@ -472,25 +772,22 @@ export default function AudioEditorTimeline({
 						panelWidth={panelWidth}
 						viewportWidth={viewportWidth}
 						pixelsPerSecond={pixelsPerSecond}
-						height={Math.max(TRACK_HEIGHT, project.tracks.length * TRACK_HEIGHT)}
+						sampleRate={sampleRate}
+						height={Math.max(TRACK_HEIGHT, totalTrackHeight)}
 						scrollX={scrollX}
 						run={run}
 					/>
 				</div>
 			</div>
 
+			<AudioEditorSampleTools controller={controller} snapshot={snapshot} copy={copy} run={run} />
+
 			<Menu
 				isOpen={Boolean(trackMenu && menuTrack)}
 				anchorEl={trackMenu?.anchor || null}
 				onClose={() => setTrackMenu(null)}
 				className="audio-editor-track-menu"
-				items={menuTrack ? [
-					{ label: copy.showArmControls, checked: showArmControls, onClick: onToggleArmControls },
-					{ divider: true, label: '' },
-					{ label: copy.duplicateTrack, disabled: snapshot.readOnly, onClick: () => run(() => controller.actions.track.duplicate(menuTrack.id)) },
-					{ divider: true, label: '' },
-					{ label: copy.deleteTrack, disabled: snapshot.readOnly, onClick: () => run(() => controller.actions.track.remove(menuTrack.id)) },
-				] : []}
+				items={trackMenuItems}
 			/>
 
 			<ContextMenu
@@ -501,9 +798,12 @@ export default function AudioEditorTimeline({
 				onClose={() => setClipMenu(null)}
 				className="audio-editor-clip-context-menu"
 			>
-				<ContextMenuItem
+				<ManifestContextMenuItem
+					actionId={AUDACITY_CLIP_CONTEXT_ACTION_IDS.properties}
 					label={copy.clipPropertiesCommand || (copy.fileMenu === 'Datei' ? 'Clip-Eigenschaften…' : 'Clip properties…')}
 					disabled={!menuClip}
+					disabledReason={unavailableReason}
+					locale={contextLocale}
 					onClick={() => {
 						if (!menuClip) return;
 						run(() => controller.actions.timeline.selectClip(menuClip.id));
@@ -514,28 +814,77 @@ export default function AudioEditorTimeline({
 					onClose={() => setClipMenu(null)}
 				/>
 				<ContextMenuItem isDivider />
-				<ContextMenuItem
+				<ManifestContextMenuItem
+					actionId={AUDACITY_CLIP_CONTEXT_ACTION_IDS.split}
 					label={copy.split}
 					disabled={mutationsBlocked || !menuClip}
+					disabledReason={unavailableReason}
+					locale={contextLocale}
 					onClick={() => menuClip && run(() => controller.actions.edit.split())}
 					onClose={() => setClipMenu(null)}
 				/>
-				<ContextMenuItem
+				<ManifestContextMenuItem
+					actionId={AUDACITY_CLIP_CONTEXT_ACTION_IDS.reverse}
 					label={copy.reverse}
 					disabled={mutationsBlocked || !menuClip}
+					disabledReason={unavailableReason}
+					locale={contextLocale}
 					onClick={() => menuClip && run(() => controller.actions.clip.reverse(menuClip.id))}
 					onClose={() => setClipMenu(null)}
 				/>
-				<ContextMenuItem
+				<ManifestContextMenuItem
+					actionId={AUDACITY_CLIP_CONTEXT_ACTION_IDS.normalizePeak}
 					label={copy.normalizePeak}
 					disabled={mutationsBlocked || !menuClip}
+					disabledReason={unavailableReason}
+					locale={contextLocale}
 					onClick={() => menuClip && run(() => controller.actions.clip.normalizePeak(menuClip.id))}
 					onClose={() => setClipMenu(null)}
 				/>
+				<ManifestContextMenuItem
+					actionId={AUDACITY_CLIP_CONTEXT_ACTION_IDS.renderPitchSpeed}
+					label={copy.renderPitchSpeed}
+					disabled={mutationsBlocked || !menuClip || (menuClip.pitchCents === 0 && menuClip.speedRatio === 1)}
+					disabledReason={unavailableReason}
+					locale={contextLocale}
+					onClick={() => menuClip && run(() => controller.actions.clip.renderPitchSpeed(menuClip.id))}
+					onClose={() => setClipMenu(null)}
+				/>
+				<ManifestContextMenuItem
+					actionId={AUDACITY_CLIP_CONTEXT_ACTION_IDS.resetPitchSpeed}
+					label={copy.resetPitchSpeed}
+					disabled={mutationsBlocked || !menuClip || (menuClip.pitchCents === 0 && menuClip.speedRatio === 1)}
+					disabledReason={unavailableReason}
+					locale={contextLocale}
+					onClick={() => menuClip && run(() => controller.actions.clip.resetPitchSpeed(menuClip.id))}
+					onClose={() => setClipMenu(null)}
+				/>
+				<ManifestContextMenuItem
+					actionId={AUDACITY_CLIP_CONTEXT_ACTION_IDS.stretchToTempo}
+					label={copy.stretchToTempo}
+					checked={Boolean(menuClip?.stretchToTempo)}
+					disabled={mutationsBlocked || !menuClip}
+					disabledReason={unavailableReason}
+					locale={contextLocale}
+					onClick={() => menuClip && run(() => controller.actions.clip.toggleStretchToTempo(menuClip.id))}
+					onClose={() => setClipMenu(null)}
+				/>
 				<ContextMenuItem isDivider />
-				<ContextMenuItem
+				<ManifestContextMenuItem
+					actionId={AUDACITY_CLIP_CONTEXT_ACTION_IDS.export}
+					label={copy.exportClip}
+					disabled={!menuClip}
+					disabledReason={unavailableReason}
+					locale={contextLocale}
+					onClick={() => menuClip && onExportClip?.(menuClip.id)}
+					onClose={() => setClipMenu(null)}
+				/>
+				<ManifestContextMenuItem
+					actionId={AUDACITY_CLIP_CONTEXT_ACTION_IDS.remove}
 					label={copy.deleteClip || copy.liftDelete}
 					disabled={mutationsBlocked || !menuClip}
+					disabledReason={unavailableReason}
+					locale={contextLocale}
 					onClick={() => menuClip && run(() => controller.actions.clip.remove(menuClip.id))}
 					onClose={() => setClipMenu(null)}
 				/>
@@ -544,9 +893,57 @@ export default function AudioEditorTimeline({
 	);
 }
 
-function TelemetryTimelineRuler({ controller, ...props }) {
+function manifestMenuItem(actionId, label, item, locale, disabledReason) {
+	const action = audacityContextMenuAction(actionId, {
+		locale,
+		label,
+		disabled: item.disabled,
+		disabledReason,
+		shortcut: item.shortcut,
+	});
+	if (action.hidden) return null;
+	return {
+		...item,
+		label: <ContextActionLabel action={action} />,
+		shortcut: action.shortcut || undefined,
+		disabled: action.disabled,
+		onClick: action.disabled ? undefined : item.onClick,
+	};
+}
+
+function ManifestContextMenuItem({ actionId, label, disabled, disabledReason, locale, onClick, ...props }) {
+	const action = audacityContextMenuAction(actionId, { locale, label, disabled, disabledReason });
+	if (action.hidden) return null;
+	return (
+		<ContextMenuItem
+			{...props}
+			label={<ContextActionLabel action={action} />}
+			shortcut={action.shortcut || undefined}
+			disabled={action.disabled}
+			onClick={action.disabled ? undefined : onClick}
+		/>
+	);
+}
+
+function ContextActionLabel({ action }) {
+	return (
+		<span
+			data-action-id={action.actionId}
+			data-parity-status={action.parityStatus}
+			data-action-origin={action.origin}
+			data-enable-when={action.enableWhen || undefined}
+			data-upstream-action={action.upstreamAction || undefined}
+			data-disabled-reason={action.disabledReason || undefined}
+			title={action.disabledReason || undefined}
+		>
+			{action.label}
+		</span>
+	);
+}
+
+function TelemetryTimelineRuler({ controller, sampleRate, ...props }) {
 	const telemetry = useAudioEditorTelemetry(controller);
-	return <TimelineRuler {...props} cursorPosition={framesToSeconds(telemetry.positionFrame || 0)} />;
+	return <TimelineRuler {...props} cursorPosition={framesToSeconds(telemetry.positionFrame || 0, { sampleRate })} />;
 }
 
 function TelemetryPlayhead({
@@ -556,6 +953,7 @@ function TelemetryPlayhead({
 	panelWidth,
 	viewportWidth,
 	pixelsPerSecond,
+	sampleRate,
 	height,
 	scrollX,
 	run,
@@ -573,7 +971,7 @@ function TelemetryPlayhead({
 			aria-valuenow={telemetry.positionFrame || 0}
 			style={{ left: panelWidth, width: viewportWidth }}
 			onKeyDown={(event) => {
-				const amount = event.shiftKey ? Math.round(AUDIO_EDITOR_SAMPLE_RATE / 10) : 1;
+				const amount = event.shiftKey ? Math.round(sampleRate / 10) : 1;
 				if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
 					event.preventDefault();
 					run(() => controller.actions.transport.seek((telemetry.positionFrame || 0) + (event.key === 'ArrowLeft' ? -amount : amount)));
@@ -584,14 +982,14 @@ function TelemetryPlayhead({
 			}}
 		>
 			<PlayheadCursor
-				position={framesToSeconds(telemetry.positionFrame || 0)}
+				position={framesToSeconds(telemetry.positionFrame || 0, { sampleRate })}
 				pixelsPerSecond={pixelsPerSecond}
 				height={height}
 				showTopIcon
 				iconTopOffset={-17}
 				scrollX={scrollX}
 				minPosition={0}
-				onPositionChange={(seconds) => run(() => controller.actions.transport.seek(secondsToFrames(seconds, { maximumFrame: durationFrames })))}
+				onPositionChange={(seconds) => run(() => controller.actions.transport.seek(secondsToFrames(seconds, { maximumFrame: durationFrames, sampleRate })))}
 			/>
 		</div>
 	);
@@ -610,11 +1008,17 @@ function TrackRow({
 	viewportStartFrame,
 	viewportDurationFrames,
 	pixelsPerSecond,
+	sampleRate,
 	timelineWidth,
+	verticalRulerWidth,
 	selection,
+	spectralSelection,
 	selectedTrackId,
 	selectedClipId,
+	selectedClipIds,
 	timelineView,
+	showRms,
+	clipStyle,
 	draggingClipId,
 	clipDragPreview,
 	blocked,
@@ -632,14 +1036,18 @@ function TrackRow({
 	onFocusSelectionToolbar,
 }) {
 	const trackWindowRef = useRef(null);
+	const trackHeight = trackVisualHeight(track);
+	const displayMode = track.displayMode && track.displayMode !== 'waveform' ? track.displayMode : timelineView;
+	const spectrogramScale = normalizeSpectrogramScale(track.spectrogram?.scale);
 	const clipLookup = useMemo(() => new Map(project.clips.map((clip) => [clip.id, clip])), [project.clips]);
+	const selectedClipIdSet = useMemo(() => new Set(selectedClipIds || []), [selectedClipIds]);
 	const clips = useMemo(() => {
 		const trackClips = track.clipIds.map((clipId) => clipLookup.get(clipId)).filter(Boolean);
 		if (!clipDragPreview) return trackClips;
 		const draggedClip = clipLookup.get(clipDragPreview.clipId);
 		if (!draggedClip) return trackClips;
 		if (track.id === clipDragPreview.trackId) {
-			const previewClip = { ...draggedClip, timelineStartFrame: clipDragPreview.timelineStartFrame };
+			const previewClip = { ...draggedClip, ...clipDragPreview };
 			return trackClips.some((clip) => clip.id === draggedClip.id)
 				? trackClips.map((clip) => (clip.id === draggedClip.id ? previewClip : clip))
 				: [...trackClips, previewClip];
@@ -649,15 +1057,29 @@ function TrackRow({
 	const projection = useMemo(() => projectClipsToViewport(clips, {
 		viewportStartFrame,
 		viewportDurationFrames,
-	}), [clips, viewportDurationFrames, viewportStartFrame]);
-	const windowLeft = framesToSeconds(projection.overscanStartFrame) * pixelsPerSecond;
+		sampleRate,
+	}), [clips, sampleRate, viewportDurationFrames, viewportStartFrame]);
+	const windowLeft = framesToSeconds(projection.overscanStartFrame, { sampleRate }) * pixelsPerSecond;
 	const windowFrames = Math.max(1, projection.overscanEndFrame - projection.overscanStartFrame);
-	const windowWidth = Math.max(1, framesToSeconds(windowFrames) * pixelsPerSecond);
-	const projectedClips = projection.clips.map((clip) => toDesignClip(controller, project, clip, projection.overscanStartFrame, pixelsPerSecond, selectedClipId));
+	const windowWidth = Math.max(1, framesToSeconds(windowFrames, { sampleRate }) * pixelsPerSecond);
+	const projectedClips = projection.clips.map((clip) => toDesignClip(
+		controller,
+		project,
+		clip,
+		projection.overscanStartFrame,
+		pixelsPerSecond,
+		selectedClipIdSet.size ? selectedClipIdSet : selectedClipId,
+		sampleRate,
+		showRms,
+		displayMode === 'half-wave',
+	));
 	const projectedSelection = selection ? {
-		startTime: selection.startTime - framesToSeconds(projection.overscanStartFrame),
-		endTime: selection.endTime - framesToSeconds(projection.overscanStartFrame),
+		startTime: selection.startTime - framesToSeconds(projection.overscanStartFrame, { sampleRate }),
+		endTime: selection.endTime - framesToSeconds(projection.overscanStartFrame, { sampleRate }),
 	} : null;
+	const activeSpectralSelection = spectralSelection?.frequencyRange && selectedTrackId === track.id
+		? spectralSelection
+		: null;
 	const tabIndexFor = (offset) => isFlatNavigation ? 0 : trackBaseTabIndex + trackIndex * 4 + offset;
 
 	useEffect(() => {
@@ -701,7 +1123,7 @@ function TrackRow({
 	const moveClipBySeconds = (clipId, deltaSeconds) => {
 		if (blocked) return;
 		const clip = clipLookup.get(String(clipId)) || clipLookup.get(clipId);
-		const deltaFrames = secondsDeltaToFrames(deltaSeconds);
+		const deltaFrames = secondsDeltaToFrames(deltaSeconds, sampleRate);
 		if (!clip || !deltaFrames) return;
 		run(() => controller.actions.clip.move(
 			clip.id,
@@ -714,7 +1136,7 @@ function TrackRow({
 		const clip = clipLookup.get(String(clipId)) || clipLookup.get(clipId);
 		const targetTrackIndex = trackIndex + direction;
 		const targetTrack = project.tracks[targetTrackIndex];
-		if (!clip || !targetTrack) return;
+		if (!clip || !targetTrack || targetTrack.type === 'label') return;
 		const moved = run(() => controller.actions.clip.move(clip.id, targetTrack.id, clip.timelineStartFrame));
 		if (!moved) return;
 		requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -726,7 +1148,9 @@ function TrackRow({
 		if (!sourceClip || trackCount < 2) return;
 		for (let distance = 1; distance < trackCount; distance += 1) {
 			const candidateIndex = (trackIndex + direction * distance + trackCount) % trackCount;
-			const candidateClips = project.tracks[candidateIndex].clipIds
+			const candidateTrack = project.tracks[candidateIndex];
+			if (!Array.isArray(candidateTrack.clipIds)) continue;
+			const candidateClips = candidateTrack.clipIds
 				.map((candidateId) => clipLookup.get(candidateId))
 				.filter(Boolean);
 			if (!candidateClips.length) continue;
@@ -744,7 +1168,7 @@ function TrackRow({
 		if (blocked) return;
 		const clip = clipLookup.get(String(clipId)) || clipLookup.get(clipId);
 		const source = clip ? project.sources.find((item) => item.id === clip.sourceId) : null;
-		const deltaFrames = secondsDeltaToFrames(deltaSeconds);
+		const deltaFrames = secondsDeltaToFrames(deltaSeconds, sampleRate);
 		if (!clip || !source || !deltaFrames) return;
 		if (edge === 'left') {
 			const sourceExtension = clip.reversed
@@ -774,6 +1198,24 @@ function TrackRow({
 			durationFrames: nextDuration,
 		}));
 	};
+	const stretchClipBySeconds = (clipId, edge, deltaSeconds) => {
+		if (blocked) return;
+		const clip = clipLookup.get(String(clipId)) || clipLookup.get(clipId);
+		const deltaFrames = secondsDeltaToFrames(deltaSeconds, sampleRate);
+		if (!clip || !deltaFrames) return;
+		if (edge === 'left') {
+			const change = Math.max(-clip.timelineStartFrame, Math.min(clip.durationFrames - 1, deltaFrames));
+			if (!change) return;
+			run(() => controller.actions.clip.stretch(clip.id, {
+				timelineStartFrame: clip.timelineStartFrame + change,
+				durationFrames: clip.durationFrames - change,
+			}));
+			return;
+		}
+		const durationFrames = Math.max(1, clip.durationFrames + deltaFrames);
+		if (durationFrames === clip.durationFrames) return;
+		run(() => controller.actions.clip.stretch(clip.id, { durationFrames }));
+	};
 
 	return (
 		<div
@@ -781,11 +1223,14 @@ function TrackRow({
 			data-track-row
 			data-track-id={track.id}
 			data-track-index={trackIndex}
-			style={{ height: TRACK_HEIGHT }}
+			data-collapsed={track.collapsed ? 'true' : 'false'}
+			data-display-mode={displayMode || 'waveform'}
+			style={{ height: trackHeight }}
 		>
 			<TrackControls
 				controller={controller}
 				track={track}
+				trackHeight={trackHeight}
 				panelWidth={panelWidth}
 				selected={selectedTrackId === track.id}
 				blocked={blocked}
@@ -808,9 +1253,14 @@ function TrackRow({
 				className="audio-editor-track-lane"
 				data-track-lane
 				data-track-id={track.id}
+				data-spectrogram-scale={track.spectrogram?.scale || 'mel'}
+				data-spectrogram-minimum-frequency={track.spectrogram?.minimumFrequency ?? 0}
+				data-spectrogram-maximum-frequency={track.spectrogram?.maximumFrequency ?? sampleRate / 2}
+				data-spectrogram-window-size={track.spectrogram?.windowSize ?? 2048}
+				data-spectrogram-range={track.spectrogram?.range ?? 80}
 				aria-label={track.name}
 				data-selected={selectedTrackId === track.id}
-				style={{ marginLeft: panelWidth, width: timelineWidth + VERTICAL_RULER_WIDTH, height: TRACK_HEIGHT }}
+				style={{ marginLeft: panelWidth, width: timelineWidth + verticalRulerWidth, height: trackHeight }}
 				onClick={(event) => {
 					if (event.target.closest('[data-clip-id]')) return;
 					run(() => controller.actions.timeline.selectTrack(track.id));
@@ -826,9 +1276,18 @@ function TrackRow({
 						event.target.tabIndex = tabIndexFor(2);
 					}}
 					onKeyDownCapture={(event) => {
+						if (!event.target.matches?.('[data-clip-id][role="group"]')) return;
+						if (event.key === 'Enter') {
+							event.preventDefault();
+							event.stopPropagation();
+							run(() => controller.actions.timeline.selectClip(String(event.target.dataset.clipId), {
+								additive: event.shiftKey,
+								toggle: event.metaKey || event.ctrlKey,
+							}));
+							return;
+						}
 						if (
-							!event.target.matches?.('[data-clip-id][role="group"]')
-							|| event.altKey
+							event.altKey
 							|| event.ctrlKey
 							|| event.metaKey
 							|| event.shiftKey
@@ -849,15 +1308,17 @@ function TrackRow({
 				>
 					<TrackNew
 						clips={projectedClips}
-						height={TRACK_HEIGHT}
+						height={trackHeight}
 						trackIndex={trackIndex}
 						isSelected={selectedTrackId === track.id}
 						isMuted={track.mute}
 						pixelsPerSecond={pixelsPerSecond}
 						width={windowWidth}
-						spectrogramMode={timelineView === 'spectrogram'}
+						spectrogramMode={displayMode === 'spectrogram'}
+						splitView={displayMode === 'multiview'}
+						spectrogramScale={spectrogramScale}
 						timeSelection={projectedSelection}
-						clipStyle="colourful"
+						clipStyle={clipStyle === 'classic' ? 'classic' : 'colourful'}
 						draggingClipIds={draggingClipId ? new Set([draggingClipId]) : undefined}
 						tabIndex={tabIndexFor(2)}
 						trackTabIndex={tabIndexFor(0)}
@@ -874,8 +1335,20 @@ function TrackRow({
 						onShiftTabOut={focusBeforeTrack}
 						onContainerEnter={() => run(() => controller.actions.timeline.selectTrack(track.id))}
 						onTabFromLastClip={() => onFocusTrackRuler(trackIndex)}
-						onClipClick={(clipId) => run(() => controller.actions.timeline.selectClip(String(clipId)))}
-						onClipHeaderClick={(clipId) => run(() => controller.actions.timeline.selectClip(String(clipId)))}
+						onClipClick={(clipId, shiftKey, metaKey) => {
+							if (!shiftKey && !metaKey) return;
+							run(() => controller.actions.timeline.selectClip(String(clipId), {
+								additive: Boolean(shiftKey),
+								toggle: Boolean(metaKey),
+							}));
+						}}
+						onClipHeaderClick={(clipId, _clipStartTime, shiftKey, metaKey) => {
+							if (!shiftKey && !metaKey) return;
+							run(() => controller.actions.timeline.selectClip(String(clipId), {
+								additive: Boolean(shiftKey),
+								toggle: Boolean(metaKey),
+							}));
+						}}
 						onClipMenuClick={onOpenClipMenu}
 						onClipTrimEdge={() => {
 							// Pointer geometry is committed by the frame-canonical adapter on pointer-up.
@@ -884,13 +1357,36 @@ function TrackRow({
 						onClipMoveToTrack={moveClipToTrack}
 						onClipNavigateVertical={navigateClipVertical}
 						onClipTrim={trimClipBySeconds}
+							onClipStretch={stretchClipBySeconds}
 					/>
+					{activeSpectralSelection && ['spectrogram', 'multiview'].includes(displayMode) && (
+						<SpectralSelectionOverlay
+							selection={activeSpectralSelection}
+							track={track}
+							displayMode={displayMode}
+							trackHeight={trackHeight}
+							windowWidth={windowWidth}
+							overscanStartFrame={projection.overscanStartFrame}
+							pixelsPerSecond={pixelsPerSecond}
+							sampleRate={sampleRate}
+							maximumFrame={Math.max(projectDurationFrames(project), activeSpectralSelection.endFrame)}
+							disabled={blocked}
+							copy={copy}
+							onCommit={(next) => run(() => {
+								controller.actions.timeline.setSelection(next.startFrame, next.endFrame);
+								controller.actions.spectral.boxSelect({
+									minimumFrequency: next.minimumFrequency,
+									maximumFrequency: next.maximumFrequency,
+								});
+							})}
+						/>
+					)}
 				</div>
-				<div
+				{verticalRulerWidth > 0 && <div
 					className="audio-editor-vertical-ruler"
 					data-track-ruler
 					role="region"
-					aria-label={`${track.name}: ${timelineView === 'spectrogram' ? copy.spectrogramView : copy.waveformView}`}
+					aria-label={`${track.name}: ${displayMode === 'spectrogram' ? copy.spectrogramView : displayMode === 'multiview' ? copy.multiview : copy.waveformView}`}
 					tabIndex={tabIndexFor(3)}
 					onKeyDown={(event) => {
 						if (event.key === 'Tab') {
@@ -907,8 +1403,355 @@ function TrackRow({
 						}
 					}}
 				>
-					<VerticalRuler height={TRACK_HEIGHT} min={-1} max={1} majorDivisions={3} minorDivisions={1} width={VERTICAL_RULER_WIDTH} />
+					{displayMode === 'spectrogram' ? (
+						<FrequencyRuler
+							height={trackHeight}
+							minFreq={track.spectrogram?.minimumFrequency || 0}
+							maxFreq={track.spectrogram?.maximumFrequency || sampleRate / 2}
+							scale={spectrogramScale}
+							width={verticalRulerWidth}
+						/>
+					) : displayMode === 'multiview' ? (
+						<>
+							<FrequencyRuler
+								height={Math.floor(trackHeight / 2)}
+								minFreq={track.spectrogram?.minimumFrequency || 0}
+								maxFreq={track.spectrogram?.maximumFrequency || sampleRate / 2}
+								scale={spectrogramScale}
+								width={verticalRulerWidth}
+							/>
+							<VerticalRuler height={Math.ceil(trackHeight / 2)} min={-1} max={1} majorDivisions={2} minorDivisions={1} width={verticalRulerWidth} />
+						</>
+					) : (
+						<VerticalRuler
+							height={trackHeight}
+							min={displayMode === 'half-wave' ? 0 : -1}
+							max={1}
+							majorDivisions={displayMode === 'half-wave' ? 2 : 3}
+							minorDivisions={1}
+							width={verticalRulerWidth}
+						/>
+					)}
+				</div>}
+			</div>
+		</div>
+	);
+}
+
+function SpectralSelectionOverlay({
+	selection,
+	track,
+	displayMode,
+	trackHeight,
+	windowWidth,
+	overscanStartFrame,
+	pixelsPerSecond,
+	sampleRate,
+	maximumFrame,
+	disabled,
+	copy,
+	onCommit,
+}) {
+	const dragRef = useRef(null);
+	const initial = spectralSelectionState(selection);
+	const previewRef = useRef(initial);
+	const [preview, setPreview] = useState(initial);
+	const displayMinimum = Math.max(0, Number(track.spectrogram?.minimumFrequency) || 0);
+	const displayMaximum = Math.max(
+		displayMinimum + 1,
+		Math.min(sampleRate / 2, Number(track.spectrogram?.maximumFrequency) || sampleRate / 2),
+	);
+	const scale = normalizeSpectrogramScale(track.spectrogram?.scale);
+	const spectralHeight = displayMode === 'multiview' ? Math.max(1, Math.floor(trackHeight / 2)) : trackHeight;
+
+	useEffect(() => {
+		if (dragRef.current) return;
+		const next = spectralSelectionState(selection);
+		previewRef.current = next;
+		setPreview(next);
+	}, [
+		selection.endFrame,
+		selection.frequencyRange.maximumFrequency,
+		selection.frequencyRange.minimumFrequency,
+		selection.startFrame,
+	]);
+
+	const setPreviewState = (next) => {
+		previewRef.current = next;
+		setPreview(next);
+	};
+	const publish = (next) => {
+		setPreviewState(next);
+		onCommit(next);
+	};
+	const stopClick = (event) => {
+		event.preventDefault();
+		event.stopPropagation();
+	};
+	const beginDrag = (kind, event) => {
+		if (disabled) return;
+		stopClick(event);
+		dragRef.current = {
+			kind,
+			pointerId: event.pointerId,
+			windowRect: event.currentTarget.closest('.audio-editor-track-window')?.getBoundingClientRect(),
+			laneRect: event.currentTarget.closest('[data-track-lane]')?.getBoundingClientRect(),
+		};
+		event.currentTarget.setPointerCapture?.(event.pointerId);
+	};
+	const moveDrag = (event) => {
+		const drag = dragRef.current;
+		if (!drag || drag.pointerId !== event.pointerId) return;
+		stopClick(event);
+		const next = { ...previewRef.current };
+		if (drag.kind === 'start-time' || drag.kind === 'end-time') {
+			if (!drag.windowRect) return;
+			const frame = Math.round(overscanStartFrame + Math.max(0, event.clientX - drag.windowRect.left) / pixelsPerSecond * sampleRate);
+			if (drag.kind === 'start-time') next.startFrame = clamp(frame, 0, next.endFrame - 1);
+			else next.endFrame = clamp(frame, next.startFrame + 1, maximumFrame);
+		} else {
+			if (!drag.laneRect) return;
+			const verticalFraction = 1 - clamp((event.clientY - drag.laneRect.top) / spectralHeight, 0, 1);
+			const frequency = Math.round(spectrogramFrequencyAtFraction(verticalFraction, scale, displayMinimum, displayMaximum));
+			if (drag.kind === 'minimum-frequency') {
+				next.minimumFrequency = clamp(frequency, 0, next.maximumFrequency - 1);
+			} else next.maximumFrequency = clamp(frequency, next.minimumFrequency + 1, sampleRate / 2);
+		}
+		setPreviewState(next);
+	};
+	const endDrag = (event, cancelled = false) => {
+		const drag = dragRef.current;
+		if (!drag || drag.pointerId !== event.pointerId) return;
+		stopClick(event);
+		dragRef.current = null;
+		if (cancelled) {
+			setPreviewState(spectralSelectionState(selection));
+			return;
+		}
+		publish(previewRef.current);
+	};
+	const adjustTime = (edge, event) => {
+		if (disabled) return;
+		let requested = null;
+		const amount = event.shiftKey ? Math.max(1, Math.round(sampleRate / 10)) : 1;
+		if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') requested = preview[`${edge}Frame`] - amount;
+		else if (event.key === 'ArrowRight' || event.key === 'ArrowUp') requested = preview[`${edge}Frame`] + amount;
+		else if (event.key === 'PageDown') requested = preview[`${edge}Frame`] - sampleRate;
+		else if (event.key === 'PageUp') requested = preview[`${edge}Frame`] + sampleRate;
+		else if (event.key === 'Home') requested = edge === 'start' ? 0 : preview.startFrame + 1;
+		else if (event.key === 'End') requested = edge === 'start' ? preview.endFrame - 1 : maximumFrame;
+		if (requested == null) return;
+		stopClick(event);
+		publish({
+			...preview,
+			[`${edge}Frame`]: edge === 'start'
+				? clamp(requested, 0, preview.endFrame - 1)
+				: clamp(requested, preview.startFrame + 1, maximumFrame),
+		});
+	};
+	const adjustFrequency = (edge, event) => {
+		if (disabled) return;
+		let requested = null;
+		const amount = event.shiftKey ? 100 : 10;
+		const name = edge === 'minimum' ? 'minimumFrequency' : 'maximumFrequency';
+		if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') requested = preview[name] - amount;
+		else if (event.key === 'ArrowRight' || event.key === 'ArrowUp') requested = preview[name] + amount;
+		else if (event.key === 'PageDown') requested = preview[name] - 1_000;
+		else if (event.key === 'PageUp') requested = preview[name] + 1_000;
+		else if (event.key === 'Home') requested = edge === 'minimum' ? 0 : preview.minimumFrequency + 1;
+		else if (event.key === 'End') requested = edge === 'minimum' ? preview.maximumFrequency - 1 : sampleRate / 2;
+		if (requested == null) return;
+		stopClick(event);
+		publish({
+			...preview,
+			[name]: edge === 'minimum'
+				? clamp(requested, 0, preview.maximumFrequency - 1)
+				: clamp(requested, preview.minimumFrequency + 1, sampleRate / 2),
+		});
+	};
+
+	const startPixels = framesToSeconds(preview.startFrame - overscanStartFrame, { sampleRate }) * pixelsPerSecond;
+	const endPixels = framesToSeconds(preview.endFrame - overscanStartFrame, { sampleRate }) * pixelsPerSecond;
+	const left = clamp(startPixels, 0, windowWidth);
+	const right = clamp(endPixels, 0, windowWidth);
+	if (right <= left) return null;
+	const lowFraction = spectrogramFrequencyFraction(preview.minimumFrequency, scale, displayMinimum, displayMaximum);
+	const highFraction = spectrogramFrequencyFraction(preview.maximumFrequency, scale, displayMinimum, displayMaximum);
+	const top = (1 - highFraction) * spectralHeight;
+	const height = Math.max(2, (highFraction - lowFraction) * spectralHeight);
+	const timeMaximumSeconds = framesToSeconds(maximumFrame, { sampleRate });
+	const handleProps = (kind) => ({
+		type: 'button',
+		disabled,
+		onClick: stopClick,
+		onPointerDown: (event) => beginDrag(kind, event),
+		onPointerMove: moveDrag,
+		onPointerUp: endDrag,
+		onPointerCancel: (event) => endDrag(event, true),
+	});
+
+	return (
+		<div
+			className="audio-editor-spectral-selection"
+			data-spectral-selection
+			style={{ left, top, width: Math.max(2, right - left), height }}
+		>
+			<button
+				{...handleProps('start-time')}
+				className="audio-editor-spectral-selection__handle audio-editor-spectral-selection__handle--time-start"
+				role="slider"
+				aria-orientation="horizontal"
+				aria-label={copy.spectralTimeStartHandle}
+				aria-valuemin={0}
+				aria-valuemax={framesToSeconds(preview.endFrame - 1, { sampleRate })}
+				aria-valuenow={framesToSeconds(preview.startFrame, { sampleRate })}
+				aria-valuetext={`${framesToSeconds(preview.startFrame, { sampleRate }).toFixed(3)} s`}
+				onKeyDown={(event) => adjustTime('start', event)}
+			/>
+			<button
+				{...handleProps('end-time')}
+				className="audio-editor-spectral-selection__handle audio-editor-spectral-selection__handle--time-end"
+				role="slider"
+				aria-orientation="horizontal"
+				aria-label={copy.spectralTimeEndHandle}
+				aria-valuemin={framesToSeconds(preview.startFrame + 1, { sampleRate })}
+				aria-valuemax={timeMaximumSeconds}
+				aria-valuenow={framesToSeconds(preview.endFrame, { sampleRate })}
+				aria-valuetext={`${framesToSeconds(preview.endFrame, { sampleRate }).toFixed(3)} s`}
+				onKeyDown={(event) => adjustTime('end', event)}
+			/>
+			<button
+				{...handleProps('maximum-frequency')}
+				className="audio-editor-spectral-selection__handle audio-editor-spectral-selection__handle--frequency-maximum"
+				role="slider"
+				aria-orientation="vertical"
+				aria-label={copy.spectralMaximumHandle}
+				aria-valuemin={preview.minimumFrequency + 1}
+				aria-valuemax={sampleRate / 2}
+				aria-valuenow={preview.maximumFrequency}
+				aria-valuetext={`${Math.round(preview.maximumFrequency)} Hz`}
+				onKeyDown={(event) => adjustFrequency('maximum', event)}
+			/>
+			<button
+				{...handleProps('minimum-frequency')}
+				className="audio-editor-spectral-selection__handle audio-editor-spectral-selection__handle--frequency-minimum"
+				role="slider"
+				aria-orientation="vertical"
+				aria-label={copy.spectralMinimumHandle}
+				aria-valuemin={0}
+				aria-valuemax={preview.maximumFrequency - 1}
+				aria-valuenow={preview.minimumFrequency}
+				aria-valuetext={`${Math.round(preview.minimumFrequency)} Hz`}
+				onKeyDown={(event) => adjustFrequency('minimum', event)}
+			/>
+		</div>
+	);
+}
+
+function LabelTrackRow({
+	controller,
+	track,
+	trackIndex,
+	panelWidth,
+	timelineWidth,
+	verticalRulerWidth,
+	pixelsPerSecond,
+	sampleRate,
+	selection,
+	selected,
+	blocked,
+	copy,
+	run,
+	onMenu,
+}) {
+	const trackHeight = trackVisualHeight(track);
+	const addLabel = () => {
+		if (blocked) return;
+		const startFrame = selection?.startFrame ?? 0;
+		const endFrame = selection?.endFrame ?? startFrame;
+		run(() => controller.actions.labels.add(track.id, {
+			title: copy.newLabel || (copy.fileMenu === 'Datei' ? 'Neue Beschriftung' : 'New label'),
+			startFrame,
+			endFrame,
+		}));
+	};
+	return (
+		<div
+			className="audio-editor-track-row audio-editor-label-track-row"
+			data-track-row
+			data-label-track
+			data-track-id={track.id}
+			data-track-index={trackIndex}
+			data-collapsed={track.collapsed ? 'true' : 'false'}
+			style={{ height: trackHeight }}
+		>
+			<div className="audio-editor-label-track-controls" style={{ width: panelWidth }}>
+				<div className="audio-editor-label-track-title">
+					<span aria-hidden="true">T</span>
+					<TrackNameEditor track={track} label={copy.trackName} blocked={blocked} controller={controller} run={run} />
 				</div>
+				<div className="audio-editor-label-track-actions">
+					<Button variant="secondary" disabled={blocked} onClick={addLabel}>{copy.addLabel || '+'}</Button>
+					<Button variant="tertiary" aria-label={copy.trackMenu || copy.tracksMenu} onClick={(event) => onMenu(event.currentTarget)}>⋯</Button>
+				</div>
+			</div>
+			<div
+				className="audio-editor-track-lane audio-editor-label-lane"
+				data-track-lane
+				data-track-id={track.id}
+				data-selected={selected}
+				role="region"
+				aria-label={track.name}
+				style={{ marginLeft: panelWidth, width: timelineWidth + verticalRulerWidth, height: trackHeight }}
+				onClick={(event) => {
+					if (!event.target.closest('[data-label-id]')) run(() => controller.actions.timeline.selectTrack(track.id));
+				}}
+				onDoubleClick={addLabel}
+			>
+				{track.labels.map((label) => {
+					const startSeconds = framesToSeconds(label.startFrame, { sampleRate });
+					const endSeconds = framesToSeconds(label.endFrame, { sampleRate });
+					const width = Math.max(18, (endSeconds - startSeconds) * pixelsPerSecond);
+					return (
+						<div
+							key={label.id}
+							className="audio-editor-label"
+							data-label-id={label.id}
+							data-point-label={label.startFrame === label.endFrame ? 'true' : 'false'}
+							style={{ left: startSeconds * pixelsPerSecond, width }}
+							onClick={(event) => {
+								event.stopPropagation();
+								run(() => controller.actions.timeline.selectTrack(track.id));
+								run(() => controller.actions.timeline.setSelection(label.startFrame, label.endFrame));
+							}}
+						>
+							<input
+								key={`${label.id}-${label.title}`}
+								aria-label={`${copy.editLabels || 'Label'}: ${label.title}`}
+								defaultValue={label.title}
+								disabled={blocked}
+								onBlur={(event) => {
+									const title = event.currentTarget.value;
+									if (title !== label.title) run(() => controller.actions.labels.update(track.id, label.id, { title }));
+								}}
+								onKeyDown={(event) => {
+									if (event.key === 'Enter') event.currentTarget.blur();
+									if (event.key === 'Delete' && (event.metaKey || event.ctrlKey)) run(() => controller.actions.labels.remove(track.id, label.id));
+								}}
+							/>
+							<button
+								type="button"
+								className="audio-editor-label-remove"
+								aria-label={`${copy.deleteLabel || copy.deleteTrack}: ${label.title}`}
+								disabled={blocked}
+								onClick={(event) => {
+									event.stopPropagation();
+									run(() => controller.actions.labels.remove(track.id, label.id));
+								}}
+							>×</button>
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);
@@ -917,6 +1760,7 @@ function TrackRow({
 function TrackControls({
 	controller,
 	track,
+	trackHeight,
 	panelWidth,
 	selected,
 	blocked,
@@ -958,7 +1802,7 @@ function TrackControls({
 				isSolo={track.solo}
 				isFocused={selected}
 				height={panelWidth <= COMPACT_TRACK_PANEL_WIDTH ? 'truncated' : 'default'}
-				trackHeight={TRACK_HEIGHT}
+				trackHeight={trackHeight}
 				meterLevelLeft={meterVolume}
 				meterLevelRight={meterVolume}
 				meterClippedLeft={(meter?.peak || 0) >= 1}
@@ -1043,20 +1887,54 @@ function TrackNameEditor({ track, label, blocked, controller, run }) {
 	);
 }
 
-function toDesignClip(controller, project, clip, overscanStartFrame, pixelsPerSecond, selectedClipId) {
+function samplePointAtPointer(event, lane, clip, source, frameAtClientX, lockedChannel = null) {
+	const rect = lane.getBoundingClientRect();
+	const channelCount = Math.max(1, Number(source.channelCount) || 1);
+	const localY = Math.max(0, Math.min(Math.max(1, rect.height) - Number.EPSILON, event.clientY - rect.top));
+	const channelHeight = Math.max(1, rect.height / channelCount);
+	const channel = lockedChannel == null
+		? Math.max(0, Math.min(channelCount - 1, Math.floor(localY / channelHeight)))
+		: Math.max(0, Math.min(channelCount - 1, Number(lockedChannel) || 0));
+	const channelY = Math.max(0, Math.min(channelHeight, localY - channel * channelHeight));
+	const timelineFrame = Math.max(
+		clip.timelineStartFrame,
+		Math.min(clip.timelineStartFrame + clip.durationFrames - 1, frameAtClientX(event.clientX, lane)),
+	);
+	return {
+		channel,
+		timelineFrame,
+		value: Math.max(-1, Math.min(1, 1 - 2 * channelY / channelHeight)),
+	};
+}
+
+function toDesignClip(
+	controller,
+	project,
+	clip,
+	overscanStartFrame,
+	pixelsPerSecond,
+	selectedClipIds,
+	sampleRate,
+	showRms = false,
+	halfWave = false,
+) {
 	const visual = controller.getClipVisualData(clip.id);
 	const source = visual?.source || project.sources.find((item) => item.id === clip.sourceId);
+	const selected = selectedClipIds instanceof Set
+		? selectedClipIds.has(clip.id)
+		: selectedClipIds === clip.id;
 	const output = {
 		id: clip.id,
 		name: source?.name || 'Clip',
-		start: framesToSeconds(Math.max(0, Math.max(clip.timelineStartFrame, overscanStartFrame) - overscanStartFrame)),
+		start: framesToSeconds(Math.max(0, Math.max(clip.timelineStartFrame, overscanStartFrame) - overscanStartFrame), { sampleRate }),
 		duration: Math.max(
-			framesToSeconds(clip.waveformEndFrame - clip.waveformStartFrame),
+			framesToSeconds(clip.waveformEndFrame - clip.waveformStartFrame, { sampleRate }),
 			MINIMUM_VISIBLE_CLIP_PIXELS / pixelsPerSecond,
 		),
-		selected: selectedClipId === clip.id,
-		trimStart: framesToSeconds(clip.waveformStartFrame),
-		fullDuration: framesToSeconds(clip.durationFrames),
+		selected,
+		trimStart: framesToSeconds(clip.waveformStartFrame, { sampleRate }),
+		fullDuration: framesToSeconds(clip.sourceDurationFrames || clip.durationFrames, { sampleRate }),
+		stretchFactor: clip.durationFrames / Math.max(1, clip.sourceDurationFrames || clip.durationFrames),
 	};
 	if (!visual?.buffer || !clip.isVisible) return output;
 	try {
@@ -1070,16 +1948,89 @@ function toDesignClip(controller, project, clip, overscanStartFrame, pixelsPerSe
 			endFrame: clip.waveformEndFrame,
 			maxSamples: maximumSamples,
 		});
-		if (waveform.channels.length > 1) {
-			output.waveformLeft = [...waveform.channels[0]];
-			output.waveformRight = [...waveform.channels[1]];
+		const visualChannels = halfWave
+			? waveform.channels.map((channel) => channel.map((sample) => Math.max(0, sample)))
+			: waveform.channels;
+		if (visualChannels.length > 1) {
+			output.waveformLeft = [...visualChannels[0]];
+			output.waveformRight = [...visualChannels[1]];
+			if (showRms) {
+				output.waveformLeftRms = rmsEnvelope(visualChannels[0]);
+				output.waveformRightRms = rmsEnvelope(visualChannels[1]);
+			}
 		} else {
-			output.waveform = [...waveform.channels[0]];
+			output.waveform = [...visualChannels[0]];
+			if (showRms) output.waveformRms = rmsEnvelope(visualChannels[0]);
 		}
 	} catch {
 		// The source may still be loading. TrackNew renders a bounded placeholder.
 	}
 	return output;
+}
+
+function rmsEnvelope(samples, radius = 8) {
+	const output = new Array(samples.length);
+	let sum = 0;
+	let start = 0;
+	for (let index = 0; index < samples.length; index += 1) {
+		const sample = Number(samples[index]) || 0;
+		sum += sample * sample;
+		while (start < index - radius * 2) {
+			const removed = Number(samples[start]) || 0;
+			sum -= removed * removed;
+			start += 1;
+		}
+		output[index] = Math.sqrt(Math.max(0, sum) / (index - start + 1));
+	}
+	return output;
+}
+
+function normalizeSpectrogramScale(value) {
+	const scale = String(value || 'mel').toLowerCase();
+	if (scale === 'log') return 'logarithmic';
+	return ['linear', 'logarithmic', 'mel', 'bark', 'erb', 'period'].includes(scale) ? scale : 'mel';
+}
+
+function spectralSelectionState(selection) {
+	return {
+		startFrame: selection.startFrame,
+		endFrame: selection.endFrame,
+		minimumFrequency: selection.frequencyRange.minimumFrequency,
+		maximumFrequency: selection.frequencyRange.maximumFrequency,
+	};
+}
+
+function spectrogramFrequencyFraction(frequency, scale, minimumFrequency, maximumFrequency) {
+	const minimum = spectrogramScaleValue(minimumFrequency, scale);
+	const maximum = spectrogramScaleValue(maximumFrequency, scale);
+	const value = spectrogramScaleValue(clamp(frequency, minimumFrequency, maximumFrequency), scale);
+	return maximum > minimum ? clamp((value - minimum) / (maximum - minimum), 0, 1) : 0;
+}
+
+function spectrogramFrequencyAtFraction(fraction, scale, minimumFrequency, maximumFrequency) {
+	const target = clamp(fraction, 0, 1);
+	let low = minimumFrequency;
+	let high = maximumFrequency;
+	for (let iteration = 0; iteration < 32; iteration += 1) {
+		const midpoint = (low + high) / 2;
+		if (spectrogramFrequencyFraction(midpoint, scale, minimumFrequency, maximumFrequency) < target) low = midpoint;
+		else high = midpoint;
+	}
+	return (low + high) / 2;
+}
+
+function spectrogramScaleValue(frequency, scale) {
+	const value = Math.max(0, Number(frequency) || 0);
+	if (scale === 'linear') return value;
+	if (scale === 'logarithmic') return Math.log1p(value);
+	if (scale === 'bark') return 13 * Math.atan(0.00076 * value) + 3.5 * Math.atan((value / 7_500) ** 2);
+	if (scale === 'erb') return 21.4 * Math.log10(1 + 0.00437 * value);
+	if (scale === 'period') return value / (value + 1_000);
+	return 2_595 * Math.log10(1 + value / 700);
+}
+
+function clamp(value, minimum, maximum) {
+	return Math.max(minimum, Math.min(maximum, value));
 }
 
 function trackNavigationRow(root, trackIndex) {
@@ -1134,10 +2085,14 @@ function focusFirst(element) {
 	return true;
 }
 
-function secondsDeltaToFrames(seconds) {
+function secondsDeltaToFrames(seconds, sampleRate = 48_000) {
 	const value = Number(seconds);
 	if (!Number.isFinite(value) || value === 0) return 0;
-	return secondsToFrames(Math.abs(value)) * Math.sign(value);
+	return secondsToFrames(Math.abs(value), { sampleRate }) * Math.sign(value);
+}
+
+function trackVisualHeight(track) {
+	return track?.collapsed ? COLLAPSED_TRACK_HEIGHT : TRACK_HEIGHT;
 }
 
 function linearToDb(value) {

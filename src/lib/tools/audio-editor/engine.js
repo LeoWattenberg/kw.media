@@ -3,11 +3,17 @@ import {
 	audacityLiveEffectCapability,
 	isAudacityLiveEffect,
 } from './audacity-effects/live.js';
+import {
+	ChunkStreamClient,
+	createChunkStreamAudioNode,
+} from './chunk-stream-client.js';
+import { AUDIO_EDITOR_STORAGE_CHUNK_FRAMES } from './chunk-stream.js';
 export { createRecordingController, requestMicrophone } from './recording.js';
 
 const DEFAULT_SAMPLE_RATE = 48000;
 const DEFAULT_METER_INTERVAL = 50;
 const MAX_EFFECT_TAIL_SECONDS = 10;
+const STREAM_RESAMPLE_RADIUS = 24;
 const dynamicsWorkletContexts = new WeakSet();
 const audacityWorkletContexts = new WeakSet();
 
@@ -29,6 +35,10 @@ export class WebAudioEditorEngine {
 		audioContextFactory,
 		offlineAudioContextFactory,
 		softwareRenderer,
+		sourceResolver,
+		chunkStreamClient,
+		chunkStreamClientFactory,
+		chunkAudioNodeFactory,
 		onPosition,
 		onMeter,
 		onState,
@@ -37,8 +47,13 @@ export class WebAudioEditorEngine {
 		this.audioContextFactory = audioContextFactory || getAudioContextConstructor();
 		this.offlineAudioContextFactory = offlineAudioContextFactory || getOfflineAudioContextConstructor();
 		this.softwareRenderer = softwareRenderer;
+		this.sourceResolver = normalizeSourceResolver(sourceResolver);
+		this.chunkStreamClient = chunkStreamClient || null;
+		this.chunkStreamClientFactory = chunkStreamClientFactory || (() => new ChunkStreamClient());
+		this.chunkAudioNodeFactory = chunkAudioNodeFactory || createChunkStreamAudioNode;
 		this.project = null;
 		this.sources = new Map();
+		this.chunkSources = new Map();
 		this.context = null;
 		this.positionFrame = 0;
 		this.playbackStartFrame = 0;
@@ -57,10 +72,11 @@ export class WebAudioEditorEngine {
 		this.stateListeners = new Set(onState ? [onState] : []);
 	}
 
-	loadProject(project, sourceBuffers = new Map()) {
+	loadProject(project, sourceBuffers = new Map(), options = {}) {
 		this.#haltGraph();
 		this.project = project || null;
 		this.sources = sourceBuffers instanceof Map ? new Map(sourceBuffers) : new Map(Object.entries(sourceBuffers || {}));
+		if (options.chunkSources !== undefined) this.setChunkSources(options.chunkSources);
 		this.durationFrames = getProjectDurationFrames(project);
 		this.positionFrame = Math.min(this.positionFrame, this.durationFrames);
 		this.playEndFrame = this.durationFrames;
@@ -70,14 +86,27 @@ export class WebAudioEditorEngine {
 		return this;
 	}
 
-	applyProject(project, sourceBuffers = this.sources) {
+	applyProject(project, sourceBuffers = this.sources, options = {}) {
 		const wasPlaying = this.state === 'playing';
 		const position = this.getPositionFrames();
-		this.loadProject(project, sourceBuffers);
+		this.loadProject(project, sourceBuffers, options);
 		this.positionFrame = Math.min(position, this.durationFrames);
 		if (wasPlaying) return this.play();
 		this.#emitPosition();
 		return Promise.resolve();
+	}
+
+	/** Install a synchronous committed-cache resolver without changing source maps. */
+	setSourceResolver(sourceResolver = null) {
+		this.sourceResolver = normalizeSourceResolver(sourceResolver);
+		return this;
+	}
+
+	/** Install immutable long-source providers without materializing AudioBuffers. */
+	setChunkSources(chunkSources = new Map()) {
+		const entries = chunkSources instanceof Map ? chunkSources : new Map(Object.entries(chunkSources || {}));
+		this.chunkSources = new Map([...entries].map(([sourceId, source]) => [String(sourceId), normalizeChunkSource(source)]));
+		return this;
 	}
 
 	async decodeAudioData(data) {
@@ -101,7 +130,7 @@ export class WebAudioEditorEngine {
 		await ensureProjectWorklets(context, this.project);
 		if (this.positionFrame >= this.durationFrames) this.positionFrame = 0;
 		if (this.loop.enabled && (this.positionFrame < this.loop.startFrame || this.positionFrame >= this.loop.endFrame)) this.positionFrame = this.loop.startFrame;
-		this.#schedulePlayback(this.positionFrame, context.currentTime);
+		await this.#schedulePlayback(this.positionFrame, context.currentTime);
 	}
 
 	/** Schedule transport against an exact AudioContext time (used by punch recording). */
@@ -111,7 +140,7 @@ export class WebAudioEditorEngine {
 		await ensureProjectWorklets(context, this.project);
 		const scheduledTime = Math.max(context.currentTime, Number(contextTime) || context.currentTime);
 		this.positionFrame = clampFrame(fromFrame, 0, this.durationFrames);
-		this.#schedulePlayback(this.positionFrame, scheduledTime);
+		await this.#schedulePlayback(this.positionFrame, scheduledTime);
 	}
 
 	pause() {
@@ -134,7 +163,7 @@ export class WebAudioEditorEngine {
 		const wasPlaying = this.state === 'playing';
 		this.#haltGraph();
 		this.positionFrame = nextFrame;
-		if (wasPlaying && nextFrame < this.durationFrames) this.#schedulePlayback(nextFrame);
+		if (wasPlaying && nextFrame < this.durationFrames) void this.#schedulePlayback(nextFrame).catch((error) => this.#handleSchedulingError(error));
 		else {
 			this.#setState(this.project ? 'paused' : 'empty');
 			this.#emitPosition();
@@ -154,7 +183,7 @@ export class WebAudioEditorEngine {
 			} else {
 				this.#haltGraph();
 				this.positionFrame = position;
-				this.#schedulePlayback(position);
+				void this.#schedulePlayback(position).catch((error) => this.#handleSchedulingError(error));
 			}
 		}
 		return { ...this.loop };
@@ -199,7 +228,7 @@ export class WebAudioEditorEngine {
 		if (needsMeterGraph) {
 			const position = this.getPositionFrames();
 			this.positionFrame = position;
-			this.#schedulePlayback(position);
+			void this.#schedulePlayback(position).catch((error) => this.#handleSchedulingError(error));
 		}
 		return () => this.meterListeners.delete(listener);
 	}
@@ -224,8 +253,11 @@ export class WebAudioEditorEngine {
 		respectMuteSolo = true,
 		outputFrames: requestedOutputFrames = null,
 		preRollFrames = 0,
+		signal = null,
+		onProgress = null,
 	} = {}) {
 		if (!this.project) throw new Error('Load an audio editor project before rendering.');
+		throwIfAborted(signal);
 		const fromFrame = clampFrame(startFrame, 0, this.durationFrames);
 		const toFrame = clampFrame(endFrame, fromFrame, this.durationFrames);
 		const renderFromFrame = Math.max(0, fromFrame - clampFrame(preRollFrames, 0, fromFrame));
@@ -246,6 +278,7 @@ export class WebAudioEditorEngine {
 				return this.softwareRenderer({
 					project: this.project,
 					sources: this.sources,
+					sourceResolver: this.sourceResolver,
 					startFrame: renderFromFrame,
 					endFrame: toFrame,
 					captureStartFrame: fromFrame,
@@ -269,21 +302,27 @@ export class WebAudioEditorEngine {
 			includeMaster,
 			includeTrackPan,
 		});
-		scheduleProjectClips({
-			context,
-			project: this.project,
-			sources: this.sources,
-			trackInputs: graph.trackInputs,
-			fromFrame: renderFromFrame,
-			toFrame,
-			contextStartTime: 0,
-			sampleRate: this.sampleRate,
-			reversedBuffers: this.reversedBuffers,
-			activeSources: graph.sources,
-			allNodes: graph.nodes,
-		});
 		try {
-			const rendered = await context.startRendering();
+			await scheduleProjectClips({
+				context,
+				project: this.project,
+				sources: this.sources,
+				trackInputs: graph.trackInputs,
+				fromFrame: renderFromFrame,
+				toFrame,
+				contextStartTime: 0,
+				sampleRate: this.sampleRate,
+				reversedBuffers: this.reversedBuffers,
+				sourceResolver: this.sourceResolver,
+				chunkSources: this.chunkSources,
+				activeSources: graph.sources,
+				allNodes: graph.nodes,
+				mode: 'offline',
+				signal,
+				onProgress,
+			});
+			throwIfAborted(signal);
+			const rendered = await abortable(context.startRendering(), signal);
 			const captureOffset = warmupFrames + processingLatencyFrames;
 			return captureOffset || rendered.length !== requestedLength
 				? sliceAudioBuffer(context, rendered, captureOffset, requestedLength)
@@ -352,19 +391,36 @@ export class WebAudioEditorEngine {
 		capture.connect(silent);
 		silent.connect(context.destination);
 		const graph = buildProjectGraph(context, capture, this.project, { metering: false, respectMuteSolo, trackId, includeMaster });
-		scheduleProjectClips({
-			context,
-			project: this.project,
-			sources: this.sources,
-			trackInputs: graph.trackInputs,
-			fromFrame: renderFromFrame,
-			toFrame,
-			contextStartTime: startTime,
-			sampleRate: this.sampleRate,
-			reversedBuffers: this.reversedBuffers,
-			activeSources: graph.sources,
-			allNodes: graph.nodes,
-		});
+		const abortGraph = () => graph.abortController.abort();
+		signal?.addEventListener('abort', abortGraph, { once: true });
+		try {
+			await scheduleProjectClips({
+				context,
+				project: this.project,
+				sources: this.sources,
+				trackInputs: graph.trackInputs,
+				fromFrame: renderFromFrame,
+				toFrame,
+				contextStartTime: startTime,
+				sampleRate: this.sampleRate,
+				reversedBuffers: this.reversedBuffers,
+				sourceResolver: this.sourceResolver,
+				chunkSources: this.chunkSources,
+				activeSources: graph.sources,
+				allNodes: graph.nodes,
+				mode: 'live',
+				chunkStreamClient: this.#getChunkStreamClient(),
+				chunkAudioNodeFactory: this.chunkAudioNodeFactory,
+				signal: graph.abortController.signal,
+			});
+		} catch (error) {
+			signal?.removeEventListener('abort', abortGraph);
+			disposeGraph(graph, true);
+			try { capture.disconnect(); } catch { /* Already disconnected. */ }
+			try { silent.disconnect(); } catch { /* Already disconnected. */ }
+			if (context.state !== 'closed') await context.close?.();
+			throw error;
+		}
 
 		let writeQueue = Promise.resolve();
 		let pendingChunks = 0;
@@ -397,6 +453,7 @@ export class WebAudioEditorEngine {
 			return { sampleRate: context.sampleRate, channelCount: 2, frameCount: renderedFrames };
 		} finally {
 			signal?.removeEventListener('abort', abort);
+			signal?.removeEventListener('abort', abortGraph);
 			capture.port.onmessage = null;
 			capture.onprocessorerror = null;
 			disposeGraph(graph, true);
@@ -422,6 +479,7 @@ export class WebAudioEditorEngine {
 		this.#haltGraph();
 		this.project = null;
 		this.sources.clear();
+		this.chunkSources.clear();
 		this.positionListeners.clear();
 		this.meterListeners.clear();
 		this.stateListeners.clear();
@@ -429,6 +487,8 @@ export class WebAudioEditorEngine {
 		const context = this.context;
 		this.context = null;
 		if (context?.state !== 'closed') await context?.close?.();
+		this.chunkStreamClient?.dispose?.();
+		this.chunkStreamClient = null;
 		this.state = 'disposed';
 	}
 
@@ -439,7 +499,7 @@ export class WebAudioEditorEngine {
 		return this.context;
 	}
 
-	#schedulePlayback(fromFrame, scheduledTime = this.context?.currentTime || 0) {
+	async #schedulePlayback(fromFrame, scheduledTime = this.context?.currentTime || 0) {
 		const context = this.context;
 		if (!context || !this.project) return;
 		this.#haltGraph();
@@ -452,19 +512,36 @@ export class WebAudioEditorEngine {
 			respectMuteSolo: true,
 		});
 		this.playbackStartTime = scheduledTime + (this.graph.latencyFrames || 0) / this.sampleRate;
-		scheduleProjectClips({
-			context,
-			project: this.project,
-			sources: this.sources,
-			trackInputs: this.graph.trackInputs,
-			fromFrame,
-			toFrame: this.playEndFrame,
-			contextStartTime: scheduledTime,
-			sampleRate: this.sampleRate,
-			reversedBuffers: this.reversedBuffers,
-			activeSources: this.graph.sources,
-			allNodes: this.graph.nodes,
-		});
+		const graph = this.graph;
+		let schedule;
+		try {
+			schedule = await scheduleProjectClips({
+				context,
+				project: this.project,
+				sources: this.sources,
+				trackInputs: this.graph.trackInputs,
+				fromFrame,
+				toFrame: this.playEndFrame,
+				contextStartTime: scheduledTime,
+				sampleRate: this.sampleRate,
+				reversedBuffers: this.reversedBuffers,
+				sourceResolver: this.sourceResolver,
+				chunkSources: this.chunkSources,
+				activeSources: this.graph.sources,
+				allNodes: this.graph.nodes,
+				mode: 'live',
+				chunkStreamClient: this.#getChunkStreamClient(),
+				chunkAudioNodeFactory: this.chunkAudioNodeFactory,
+				signal: graph.abortController.signal,
+				deferStartUntilPrimed: true,
+			});
+		} catch (error) {
+			if (this.graph === graph) this.#haltGraph();
+			throw error;
+		}
+		if (this.graph !== graph) return;
+		scheduledTime = schedule.contextStartTime;
+		this.playbackStartTime = scheduledTime + (this.graph.latencyFrames || 0) / this.sampleRate;
 		if (this.loop.enabled && this.loop.endFrame > this.loop.startFrame) {
 			this.loopScheduleTime = scheduledTime + (this.loop.endFrame - fromFrame) / this.sampleRate;
 			this.#scheduleLoopAhead();
@@ -472,6 +549,19 @@ export class WebAudioEditorEngine {
 		this.#setState('playing');
 		this.#startTicker();
 		this.#emitPosition();
+	}
+
+	#getChunkStreamClient() {
+		if (!this.chunkSources.size) return null;
+		if (!this.chunkStreamClient) this.chunkStreamClient = this.chunkStreamClientFactory();
+		return this.chunkStreamClient;
+	}
+
+	#handleSchedulingError(error) {
+		if (error?.name === 'AbortError') return;
+		this.#haltGraph();
+		this.#setState(this.project ? 'stopped' : 'empty');
+		globalThis.console?.error?.(error);
 	}
 
 	#startTicker() {
@@ -500,7 +590,8 @@ export class WebAudioEditorEngine {
 		const horizon = this.context.currentTime + Math.max(0.25, this.meterInterval / 1000 * 4);
 		let scheduledIterations = 0;
 		while (this.loopScheduleTime < horizon && scheduledIterations < 1_024) {
-			scheduleProjectClips({
+			const graph = this.graph;
+			void scheduleProjectClips({
 				context: this.context,
 				project: this.project,
 				sources: this.sources,
@@ -510,9 +601,15 @@ export class WebAudioEditorEngine {
 				contextStartTime: this.loopScheduleTime,
 				sampleRate: this.sampleRate,
 				reversedBuffers: this.reversedBuffers,
+				sourceResolver: this.sourceResolver,
+				chunkSources: this.chunkSources,
 				activeSources: this.graph.sources,
 				allNodes: this.graph.nodes,
-			});
+				mode: 'live',
+				chunkStreamClient: this.#getChunkStreamClient(),
+				chunkAudioNodeFactory: this.chunkAudioNodeFactory,
+				signal: graph.abortController.signal,
+			}).catch((error) => this.#handleSchedulingError(error));
 			this.loopScheduleTime += durationSeconds;
 			scheduledIterations += 1;
 		}
@@ -566,7 +663,7 @@ export function projectGraphLatencyFrames(project, {
 	sampleRate = project?.sampleRate || DEFAULT_SAMPLE_RATE,
 } = {}) {
 	const tracks = (project?.tracks || []).filter((track) => (
-		trackId == null || String(track.id) === String(trackId)
+		track.type !== 'label' && (trackId == null || String(track.id) === String(trackId))
 	));
 	const trackLatency = tracks.reduce((maximum, track) => Math.max(
 		maximum,
@@ -590,7 +687,7 @@ export function buildProjectGraph(context, destination, project, {
 	const sources = new Set();
 	const trackInputs = new Map();
 	const trackAnalysers = new Map();
-	const tracks = Array.isArray(project?.tracks) ? project.tracks : [];
+	const tracks = Array.isArray(project?.tracks) ? project.tracks.filter((track) => track.type !== 'label') : [];
 	// Every dry input exists before a rack is built so Auto Duck can route any
 	// other track into its second AudioWorklet input without graph-order races.
 	for (const [index, track] of tracks.entries()) {
@@ -663,6 +760,7 @@ export function buildProjectGraph(context, destination, project, {
 	return {
 		nodes,
 		sources,
+		abortController: new AbortController(),
 		trackInputs,
 		trackAnalysers,
 		masterAnalyser,
@@ -850,9 +948,97 @@ function connectReverb(context, input, params, nodes) {
 	return output;
 }
 
-function scheduleProjectClips({ context, project, sources, trackInputs, fromFrame, toFrame, contextStartTime, sampleRate, reversedBuffers, activeSources, allNodes }) {
+function normalizeSourceResolver(value) {
+	if (value == null) return null;
+	if (typeof value !== 'function') throw new TypeError('sourceResolver must be a function or null.');
+	return value;
+}
+
+function normalizeChunkSource(value) {
+	if (!value || typeof value !== 'object') throw new TypeError('A long-source chunk provider is required.');
+	const descriptor = value.descriptor && typeof value.descriptor === 'object' ? value.descriptor : value;
+	const channelCount = positiveInteger(descriptor.channelCount, 0);
+	const frameCount = positiveInteger(descriptor.frameCount ?? descriptor.frameLength, 0);
+	const chunkFrames = positiveInteger(descriptor.chunkFrames, 0);
+	const sampleRate = positiveInteger(descriptor.sampleRate, 0);
+	if (!channelCount || channelCount > 64 || !frameCount || !sampleRate) throw new TypeError('Long-source metadata is invalid.');
+	if (chunkFrames !== AUDIO_EDITOR_STORAGE_CHUNK_FRAMES) {
+		throw new RangeError(`Long sources must use ${AUDIO_EDITOR_STORAGE_CHUNK_FRAMES}-frame immutable chunks.`);
+	}
+	const readStorageChunk = value.readStorageChunk || value.readChunk;
+	if (typeof readStorageChunk !== 'function') throw new TypeError('A long source must provide readStorageChunk().');
+	return Object.freeze({
+		channelCount,
+		frameCount,
+		chunkFrames,
+		sampleRate,
+		readStorageChunk: readStorageChunk.bind(value),
+	});
+}
+
+function resolveClipSource(clip, project, sources, sourceResolver, chunkSources = new Map()) {
+	const fallback = {
+		buffer: sources.get(clip.sourceId) || null,
+		chunkSource: chunkSources.get(String(clip.sourceId)) || chunkSources.get(clip.sourceId) || null,
+		sourceStartFrame: nonNegativeInteger(clip.sourceStartFrame, 0),
+		sourceDurationFrames: null,
+		reversed: Boolean(clip.reversed),
+	};
+	if (!sourceResolver) return fallback;
+	const value = sourceResolver(clip, {
+		project,
+		sources,
+		defaultBuffer: fallback.buffer,
+	});
+	if (value == null) return fallback;
+	const resolved = typeof value?.getChannelData === 'function' ? { buffer: value } : value;
+	if (!resolved || typeof resolved !== 'object') {
+		throw new TypeError('sourceResolver must return an AudioBuffer, a source descriptor, or null.');
+	}
+	const buffer = resolved.buffer ?? fallback.buffer;
+	if (buffer != null && (typeof buffer.getChannelData !== 'function'
+		|| !Number.isFinite(buffer.sampleRate) || !Number.isSafeInteger(buffer.length) || buffer.length <= 0)) {
+		throw new TypeError('sourceResolver returned an invalid AudioBuffer.');
+	}
+	return {
+		buffer,
+		chunkSource: resolved.chunkSource ?? fallback.chunkSource,
+		sourceStartFrame: resolved.sourceStartFrame == null
+			? fallback.sourceStartFrame
+			: nonNegativeInteger(resolved.sourceStartFrame, fallback.sourceStartFrame),
+		sourceDurationFrames: resolved.sourceDurationFrames == null
+			? null
+			: Math.max(1, nonNegativeInteger(resolved.sourceDurationFrames, 1)),
+		reversed: resolved.reversed == null ? fallback.reversed : Boolean(resolved.reversed),
+	};
+}
+
+async function scheduleProjectClips({
+	context,
+	project,
+	sources,
+	chunkSources = new Map(),
+	trackInputs,
+	fromFrame,
+	toFrame,
+	contextStartTime,
+	sampleRate,
+	reversedBuffers,
+	sourceResolver,
+	activeSources,
+	allNodes,
+	mode = 'live',
+	chunkStreamClient = null,
+	chunkAudioNodeFactory = createChunkStreamAudioNode,
+	signal = null,
+	onProgress = null,
+	deferStartUntilPrimed = false,
+}) {
+	throwIfAborted(signal);
 	const clipsById = new Map(getProjectClips(project).map((clip) => [String(clip.id), clip]));
+	const plans = [];
 	for (const [trackIndex, track] of (project.tracks || []).entries()) {
+		if (track.type === 'label') continue;
 		const trackInput = trackInputs.get(String(track.id ?? trackIndex));
 		if (!trackInput) continue;
 		for (const clip of getTrackClips(track, clipsById)) {
@@ -862,44 +1048,302 @@ function scheduleProjectClips({ context, project, sources, trackInputs, fromFram
 			const segmentStart = Math.max(start, fromFrame);
 			const segmentEnd = Math.min(end, toFrame);
 			if (segmentEnd <= segmentStart) continue;
-			const originalBuffer = sources.get(clip.sourceId);
-			if (!originalBuffer) continue;
-			const source = addNode(allNodes, context.createBufferSource());
-			const fadeInGain = addNode(allNodes, context.createGain());
-			const fadeOutGain = addNode(allNodes, context.createGain());
-			const clipGain = addNode(allNodes, context.createGain());
-			const reversed = Boolean(clip.reversed);
-			const buffer = reversed ? getReversedBuffer(context, originalBuffer, reversedBuffers) : originalBuffer;
-			source.buffer = buffer;
-			connect(source, fadeInGain);
-			connect(fadeInGain, fadeOutGain);
-			connect(fadeOutGain, clipGain);
-			connect(clipGain, trackInput);
+			const resolvedSource = resolveClipSource(clip, project, sources, sourceResolver, chunkSources);
+			const originalBuffer = resolvedSource.buffer;
+			const chunkSource = resolvedSource.chunkSource;
+			if (!originalBuffer && !chunkSource) continue;
 			const relativeStart = segmentStart - start;
-			const sourceStart = nonNegativeInteger(clip.sourceStartFrame, 0);
+			const sourceStart = resolvedSource.sourceStartFrame;
+			const sourceDuration = resolvedSource.sourceDurationFrames ?? Math.max(1, nonNegativeInteger(clip.sourceDurationFrames, duration));
+			const sourceFramesPerTimelineFrame = sourceDuration / Math.max(1, duration);
+			const relativeSourceStart = relativeStart * sourceFramesPerTimelineFrame;
+			const sourceFrameCount = originalBuffer?.length ?? chunkSource.frameCount;
+			const reversed = resolvedSource.reversed;
 			const offsetFrame = reversed
-				? Math.max(0, buffer.length - (sourceStart + duration) + relativeStart)
-				: sourceStart + relativeStart;
-			const startTime = contextStartTime + (segmentStart - fromFrame) / sampleRate;
+				? Math.max(0, sourceFrameCount - (sourceStart + sourceDuration) + relativeSourceStart)
+				: sourceStart + relativeSourceStart;
 			const segmentDuration = (segmentEnd - segmentStart) / sampleRate;
-			scheduleClipGain(fadeInGain.gain, fadeOutGain.gain, clipGain.gain, clip, relativeStart, segmentEnd - start, duration, startTime, sampleRate);
-			try {
-				source.start(startTime, offsetFrame / sampleRate, segmentDuration);
-				activeSources.add(source);
-				const clipNodes = [source, fadeInGain, fadeOutGain, clipGain];
-				source.onended = () => {
-					activeSources.delete(source);
-					for (const node of clipNodes) {
-						try { node.disconnect(); } catch { /* Already disconnected. */ }
-						const index = allNodes.indexOf(node);
-						if (index >= 0) allNodes.splice(index, 1);
-					}
-				};
-			} catch {
-				// A malformed or out-of-range clip is skipped without stopping the mix.
-			}
+			const sourceSampleRate = originalBuffer?.sampleRate ?? chunkSource.sampleRate;
+			const playbackRate = sourceDuration * sampleRate / Math.max(1, duration * sourceSampleRate);
+			plans.push({
+				clip,
+				trackInput,
+				originalBuffer,
+				chunkSource,
+				reversed,
+				offsetFrame,
+				sourceSampleRate,
+				playbackRate,
+				segmentDuration,
+				segmentStart,
+				segmentEnd,
+				relativeStart,
+				duration,
+			});
 		}
 	}
+
+	const streamed = [];
+	let loadedChunkFrames = 0;
+	const totalChunkFrames = plans.reduce((total, plan) => total + (plan.originalBuffer ? 0 : Math.ceil(plan.segmentDuration * plan.playbackRate * plan.sourceSampleRate)), 0);
+	for (const plan of plans) {
+		throwIfAborted(signal);
+		if (plan.originalBuffer) continue;
+		if (mode === 'offline') {
+			await scheduleOfflineChunkPlan({
+				...plan,
+				context,
+				contextStartTime,
+				fromFrame,
+				sampleRate,
+				activeSources,
+				allNodes,
+				signal,
+				onChunkLoaded: (frames) => {
+					loadedChunkFrames += frames;
+					onProgress?.({
+						frames: loadedChunkFrames,
+						totalFrames: totalChunkFrames,
+						progress: totalChunkFrames ? Math.min(1, loadedChunkFrames / totalChunkFrames) : 1,
+					});
+				},
+			});
+		} else {
+			if (!chunkStreamClient) throw longSourceError('The long-source playback worker is unavailable.');
+			streamed.push(await prepareLiveChunkPlan({
+				...plan,
+				context,
+				chunkStreamClient,
+				chunkAudioNodeFactory,
+				activeSources,
+				allNodes,
+				signal,
+			}));
+		}
+	}
+
+	const actualContextStartTime = streamed.length && deferStartUntilPrimed
+		? Math.max(contextStartTime, (context.currentTime || 0) + 0.02)
+		: contextStartTime;
+	for (const plan of plans) {
+		if (!plan.originalBuffer) continue;
+		scheduleBufferPlan({
+			...plan,
+			context,
+			contextStartTime: actualContextStartTime,
+			fromFrame,
+			sampleRate,
+			reversedBuffers,
+			activeSources,
+			allNodes,
+		});
+	}
+	for (const prepared of streamed) prepared.start(actualContextStartTime, fromFrame, sampleRate);
+	if (totalChunkFrames && mode === 'offline') onProgress?.({ frames: totalChunkFrames, totalFrames: totalChunkFrames, progress: 1 });
+	return { contextStartTime: actualContextStartTime, streamedClips: streamed.length };
+}
+
+function scheduleBufferPlan({
+	context,
+	contextStartTime,
+	fromFrame,
+	sampleRate,
+	reversedBuffers,
+	activeSources,
+	allNodes,
+	...plan
+}) {
+	const source = addNode(allNodes, context.createBufferSource());
+	const chain = createClipGainChain(context, plan.trackInput, allNodes);
+	const buffer = plan.reversed ? getReversedBuffer(context, plan.originalBuffer, reversedBuffers) : plan.originalBuffer;
+	source.buffer = buffer;
+	connect(source, chain.input);
+	const startTime = contextStartTime + (plan.segmentStart - fromFrame) / sampleRate;
+	setParam(source.playbackRate, plan.playbackRate, startTime);
+	scheduleClipGain(chain.fadeInGain.gain, chain.fadeOutGain.gain, chain.clipGain.gain, plan.clip, plan.relativeStart, plan.segmentEnd - clipStart(plan.clip), plan.duration, startTime, sampleRate);
+	try {
+		source.start(startTime, plan.offsetFrame / buffer.sampleRate, plan.segmentDuration * plan.playbackRate);
+		activeSources.add(source);
+	} catch {
+		// A malformed or out-of-range clip is skipped without stopping the mix.
+	}
+}
+
+async function prepareLiveChunkPlan({
+	context,
+	chunkStreamClient,
+	chunkAudioNodeFactory,
+	activeSources,
+	allNodes,
+	signal,
+	...plan
+}) {
+	const requestedInputFrames = plan.segmentDuration * plan.playbackRate * plan.sourceSampleRate;
+	const outputFrameCount = Math.round(plan.segmentDuration * context.sampleRate);
+	if (!Number.isFinite(plan.offsetFrame) || plan.offsetFrame < 0 || !Number.isFinite(requestedInputFrames)
+		|| requestedInputFrames <= 0 || outputFrameCount <= 0) {
+		throw longSourceError('The long-source clip range is invalid.');
+	}
+	const provider = plan.reversed ? createReversedChunkSource(plan.chunkSource) : plan.chunkSource;
+	if (plan.offsetFrame >= provider.frameCount) throw longSourceError('The long-source clip range is empty.');
+	const node = addNode(allNodes, await chunkAudioNodeFactory(context, { channelCount: provider.channelCount }));
+	const chain = createClipGainChain(context, plan.trackInput, allNodes);
+	connect(node, chain.input);
+	const roundedStart = Math.round(plan.offsetFrame);
+	const roundedInputFrames = Math.round(requestedInputFrames);
+	const direct = Math.abs(roundedStart - plan.offsetFrame) <= 1e-9
+		&& Math.abs(roundedInputFrames - requestedInputFrames) <= 1e-9
+		&& roundedInputFrames === outputFrameCount;
+	let streamRange;
+	if (direct) {
+		const endFrame = Math.min(provider.frameCount, roundedStart + roundedInputFrames);
+		if (endFrame <= roundedStart) throw longSourceError('The long-source clip range is empty.');
+		streamRange = { startFrame: roundedStart, endFrame };
+	} else {
+		const sourceStartFrame = Math.max(0, Math.floor(plan.offsetFrame) - STREAM_RESAMPLE_RADIUS);
+		const sourceEndFrame = Math.min(
+			provider.frameCount,
+			Math.ceil(plan.offsetFrame + requestedInputFrames) + STREAM_RESAMPLE_RADIUS,
+		);
+		if (sourceEndFrame <= sourceStartFrame) throw longSourceError('The long-source clip range is empty.');
+		streamRange = {
+			sourceStartFrame,
+			sourceEndFrame,
+			outputFrameCount,
+			resampleInputFrames: requestedInputFrames,
+			resampleInputOffset: plan.offsetFrame - sourceStartFrame,
+		};
+	}
+	const handle = chunkStreamClient.open({
+		source: provider,
+		...streamRange,
+		outputPort: node.port,
+		signal,
+	});
+	void handle.ready.catch(() => undefined);
+	void handle.primed.catch(() => undefined);
+	void handle.done.catch(() => undefined);
+	await handle.primed;
+	const sourceControl = {
+		stop() { handle.cancel(); },
+		disconnect() { node.disconnect?.(); },
+	};
+	activeSources.add(sourceControl);
+	handle.done.then(
+		() => activeSources.delete(sourceControl),
+		() => activeSources.delete(sourceControl),
+	);
+	return {
+		start(contextStartTime, fromFrame, sampleRate) {
+			const startTime = contextStartTime + (plan.segmentStart - fromFrame) / sampleRate;
+			scheduleClipGain(chain.fadeInGain.gain, chain.fadeOutGain.gain, chain.clipGain.gain, plan.clip, plan.relativeStart, plan.segmentEnd - clipStart(plan.clip), plan.duration, startTime, sampleRate);
+			void handle.play({ contextStartFrame: Math.max(0, Math.round(startTime * context.sampleRate)) });
+		},
+	};
+}
+
+async function scheduleOfflineChunkPlan({
+	context,
+	contextStartTime,
+	fromFrame,
+	sampleRate,
+	activeSources,
+	allNodes,
+	signal,
+	onChunkLoaded,
+	...plan
+}) {
+	const provider = plan.reversed ? createReversedChunkSource(plan.chunkSource) : plan.chunkSource;
+	const sourceEndFrame = Math.min(
+		provider.frameCount,
+		plan.offsetFrame + plan.segmentDuration * plan.playbackRate * plan.sourceSampleRate,
+	);
+	const firstChunk = Math.floor(plan.offsetFrame / provider.chunkFrames);
+	const lastChunk = Math.max(firstChunk, Math.ceil(sourceEndFrame / provider.chunkFrames) - 1);
+	const chain = createClipGainChain(context, plan.trackInput, allNodes);
+	const clipStartTime = contextStartTime + (plan.segmentStart - fromFrame) / sampleRate;
+	scheduleClipGain(chain.fadeInGain.gain, chain.fadeOutGain.gain, chain.clipGain.gain, plan.clip, plan.relativeStart, plan.segmentEnd - clipStart(plan.clip), plan.duration, clipStartTime, sampleRate);
+	for (let chunkIndex = firstChunk; chunkIndex <= lastChunk; chunkIndex += 1) {
+		throwIfAborted(signal);
+		const chunk = await provider.readStorageChunk(chunkIndex, { signal });
+		const channels = chunk?.channels || chunk;
+		const chunkStart = chunkIndex * provider.chunkFrames;
+		const chunkFrames = channels[0]?.length || 0;
+		const rangeStart = Math.max(plan.offsetFrame, chunkStart);
+		const rangeEnd = Math.min(sourceEndFrame, chunkStart + chunkFrames);
+		if (rangeEnd <= rangeStart) continue;
+		const buffer = context.createBuffer(provider.channelCount, chunkFrames, provider.sampleRate);
+		for (let channel = 0; channel < provider.channelCount; channel += 1) {
+			if (typeof buffer.copyToChannel === 'function') buffer.copyToChannel(channels[channel], channel);
+			else buffer.getChannelData(channel).set(channels[channel]);
+		}
+		const source = addNode(allNodes, context.createBufferSource());
+		source.buffer = buffer;
+		connect(source, chain.input);
+		const when = clipStartTime + (rangeStart - plan.offsetFrame) / (provider.sampleRate * plan.playbackRate);
+		setParam(source.playbackRate, plan.playbackRate, when);
+		try {
+			source.start(
+				when,
+				(rangeStart - chunkStart) / provider.sampleRate,
+				(rangeEnd - rangeStart) / provider.sampleRate,
+			);
+			activeSources.add(source);
+		} catch {
+			// A corrupt chunk is reported by the provider; Web Audio range errors only skip this segment.
+		}
+		onChunkLoaded?.(rangeEnd - rangeStart);
+	}
+}
+
+function createClipGainChain(context, trackInput, allNodes) {
+	const fadeInGain = addNode(allNodes, context.createGain());
+	const fadeOutGain = addNode(allNodes, context.createGain());
+	const clipGain = addNode(allNodes, context.createGain());
+	connect(fadeInGain, fadeOutGain);
+	connect(fadeOutGain, clipGain);
+	connect(clipGain, trackInput);
+	return { input: fadeInGain, fadeInGain, fadeOutGain, clipGain };
+}
+
+function createReversedChunkSource(source) {
+	return Object.freeze({
+		channelCount: source.channelCount,
+		frameCount: source.frameCount,
+		chunkFrames: source.chunkFrames,
+		sampleRate: source.sampleRate,
+		async readStorageChunk(chunkIndex, context = {}) {
+			const startFrame = chunkIndex * source.chunkFrames;
+			const endFrame = Math.min(source.frameCount, startFrame + source.chunkFrames);
+			if (startFrame >= endFrame) throw new RangeError(`Source storage chunk ${chunkIndex} does not exist.`);
+			const physicalStart = source.frameCount - endFrame;
+			const physicalEnd = source.frameCount - startFrame;
+			const channels = await readChunkSourceRange(source, physicalStart, physicalEnd, context.signal);
+			for (const channel of channels) channel.reverse();
+			return channels;
+		},
+	});
+}
+
+async function readChunkSourceRange(source, startFrame, endFrame, signal) {
+	const output = Array.from({ length: source.channelCount }, () => new Float32Array(endFrame - startFrame));
+	let outputOffset = 0;
+	const firstChunk = Math.floor(startFrame / source.chunkFrames);
+	const lastChunk = Math.ceil(endFrame / source.chunkFrames) - 1;
+	for (let chunkIndex = firstChunk; chunkIndex <= lastChunk; chunkIndex += 1) {
+		throwIfAborted(signal);
+		const value = await source.readStorageChunk(chunkIndex, { signal });
+		const channels = value?.channels || value;
+		const chunkStart = chunkIndex * source.chunkFrames;
+		const from = Math.max(startFrame, chunkStart) - chunkStart;
+		const to = Math.min(endFrame, chunkStart + channels[0].length) - chunkStart;
+		for (let channel = 0; channel < source.channelCount; channel += 1) {
+			output[channel].set(channels[channel].subarray(from, to), outputOffset);
+		}
+		outputOffset += to - from;
+	}
+	if (outputOffset !== endFrame - startFrame) throw new Error('A long-source range is incomplete.');
+	return output;
 }
 
 function scheduleClipGain(fadeInParam, fadeOutParam, clipGainParam, clip, segmentStart, segmentEnd, duration, startTime, sampleRate) {
@@ -996,6 +1440,7 @@ function readMeter(analyser) {
 }
 
 function disposeGraph(graph, stopSources) {
+	graph.abortController?.abort?.();
 	if (stopSources) {
 		for (const source of graph.sources || []) {
 			try { source.stop(); } catch { /* It may already have ended. */ }
@@ -1005,6 +1450,36 @@ function disposeGraph(graph, stopSources) {
 		try { node.disconnect(); } catch { /* It may already be disconnected. */ }
 	}
 	graph.sources?.clear?.();
+}
+
+function longSourceError(message) {
+	const error = new Error(message);
+	error.code = 'LONG_SOURCE_RENDER_REQUIRED';
+	return error;
+}
+
+function throwIfAborted(signal) {
+	if (!signal?.aborted) return;
+	throw createAbortError();
+}
+
+function abortable(promise, signal) {
+	if (!signal) return promise;
+	if (signal.aborted) return Promise.reject(createAbortError());
+	return new Promise((resolve, reject) => {
+		const abort = () => reject(createAbortError());
+		signal.addEventListener('abort', abort, { once: true });
+		Promise.resolve(promise).then(
+			(value) => {
+				signal.removeEventListener('abort', abort);
+				resolve(value);
+			},
+			(error) => {
+				signal.removeEventListener('abort', abort);
+				reject(error);
+			},
+		);
+	});
 }
 
 function getProjectClips(project) {
@@ -1041,9 +1516,10 @@ function normalizeLoop(value, durationFrames) {
 function resolveTailSeconds(project, includeTail, { trackId = null, includeMaster = true } = {}) {
 	if (!includeTail) return 0;
 	if (Number.isFinite(includeTail)) return clamp(includeTail, 0, MAX_EFFECT_TAIL_SECONDS);
-	const tracks = trackId == null
+	const tracks = (trackId == null
 		? project?.tracks || []
-		: (project?.tracks || []).filter((track) => String(track.id) === String(trackId));
+		: (project?.tracks || []).filter((track) => String(track.id) === String(trackId)))
+		.filter((track) => track.type !== 'label');
 	const trackTailFrames = tracks.reduce(
 		(longest, track) => Math.max(longest, rackTailFrames(track.effects || [], project?.sampleRate || DEFAULT_SAMPLE_RATE, MAX_EFFECT_TAIL_SECONDS)),
 		0,

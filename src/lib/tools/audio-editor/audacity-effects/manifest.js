@@ -1,8 +1,10 @@
 /*
  * SPDX-License-Identifier: GPL-3.0-only
  *
- * Audacity 3.7.7 native effect inventory and parameter contract.
- * Based on Audacity commit 5ef610ed23260d6d648175735bb16b32536eb30b.
+ * Audacity native effect inventory and parameter contract.
+ * The original inventory is based on Audacity 3.7.7 commit
+ * 5ef610ed23260d6d648175735bb16b32536eb30b; StaffPad pitch-and-tempo
+ * effects are pinned separately to current Audacity 4 development sources.
  * Audacity is GPL-3.0; individual effect files are GPL-2.0-or-later unless
  * otherwise noted. This JavaScript adaptation was created for kw.media in 2026.
  */
@@ -11,6 +13,12 @@ export const AUDACITY_EFFECT_SOURCE = Object.freeze({
 	version: '3.7.7',
 	commit: '5ef610ed23260d6d648175735bb16b32536eb30b',
 	url: 'https://github.com/audacity/audacity/tree/Audacity-3.7.7',
+});
+
+export const AUDACITY_STAFFPAD_SOURCE = Object.freeze({
+	version: '4-current',
+	commit: '908ad0a526e5bfdab68de780e893cebe172d27eb',
+	url: 'https://github.com/audacity/audacity/tree/908ad0a526e5bfdab68de780e893cebe172d27eb',
 });
 
 const FLOAT_MAX = 3.4028234663852886e38;
@@ -23,6 +31,24 @@ export const AUDACITY_EFFECT_UPSTREAM_FILES = deepFreeze({
 	'audacity-auto-duck': ['libraries/lib-builtin-effects/AutoDuckBase.cpp'],
 	'audacity-bass-treble': ['libraries/lib-builtin-effects/BassTrebleBase.cpp'],
 	'audacity-click-removal': ['libraries/lib-builtin-effects/ClickRemovalBase.cpp'],
+	'audacity-change-pitch': [
+		'src/effects/builtin_collection/changepitch/changepitcheffect.cpp',
+		'au3/libraries/au3-time-and-pitch/StaffPad/TimeAndPitch.cpp',
+		'au3/libraries/au3-time-and-pitch/FormantShifter.cpp',
+	],
+	'audacity-change-tempo': [
+		'au3/libraries/au3-builtin-effects/ChangeTempoBase.cpp',
+		'au3/libraries/au3-time-and-pitch/StaffPad/TimeAndPitch.cpp',
+	],
+	'audacity-change-speed-pitch': [
+		'au3/libraries/au3-builtin-effects/ChangeSpeedBase.cpp',
+		'au3/libraries/au3-time-and-pitch/StaffPad/TimeAndPitch.cpp',
+	],
+	'audacity-sliding-stretch': [
+		'src/effects/builtin_collection/slidingstretch/slidingstretcheffect.cpp',
+		'au3/libraries/au3-time-and-pitch/StaffPad/TimeAndPitch.cpp',
+		'au3/libraries/au3-time-and-pitch/FormantShifter.cpp',
+	],
 	'audacity-compressor': [
 		'src/effects/Compressor.cpp',
 		'libraries/lib-dynamic-range-processor/CompressorProcessor.cpp',
@@ -62,6 +88,8 @@ export const AUDACITY_EFFECT_UPSTREAM_FILES = deepFreeze({
 		'libraries/lib-builtin-effects/Repair.cpp',
 		'libraries/lib-math/InterpolateAudio.cpp',
 	],
+	'audacity-remove-dc-offset': ['libraries/lib-builtin-effects/NormalizeBase.cpp'],
+	'audacity-reverb': ['au3/libraries/au3-builtin-effects/ReverbBase.cpp'],
 	'audacity-repeat': ['libraries/lib-builtin-effects/RepeatBase.cpp'],
 	'audacity-reverse': ['libraries/lib-builtin-effects/Reverse.cpp'],
 	'audacity-classic-filters': ['libraries/lib-builtin-effects/ScienFilterBase.cpp'],
@@ -125,6 +153,46 @@ const definitions = {
 		params: {
 			threshold: number('Threshold', 'Schwellwert', 200, 0, 900, { integer: true, step: 1 }),
 			maximumWidth: number('Maximum spike width', 'Maximale Klickbreite', 20, 0, 40, { unit: 'samples', integer: true, step: 1 }),
+		},
+	},
+	'audacity-change-pitch': {
+		label: label('Change Pitch', 'Tonhöhe ändern'),
+		category: 'pitch-tempo',
+		requiresStaffPad: true,
+		params: {
+			semitones: number('Semitones', 'Halbtöne', 0, -12, 12, { unit: 'st', step: 0.01 }),
+			preserveFormants: checkbox('Preserve formants', 'Formanten beibehalten', true),
+		},
+	},
+	'audacity-change-tempo': {
+		label: label('Change Tempo', 'Tempo ändern'),
+		category: 'pitch-tempo',
+		lengthChanging: true,
+		requiresStaffPad: true,
+		params: {
+			tempoPercent: number('Percent change', 'Änderung in Prozent', 0, -50, 100, { unit: '%', step: 0.1 }),
+		},
+	},
+	'audacity-change-speed-pitch': {
+		label: label('Change Speed and Pitch', 'Geschwindigkeit und Tonhöhe ändern'),
+		category: 'pitch-tempo',
+		lengthChanging: true,
+		requiresStaffPad: true,
+		params: {
+			speedPercent: number('Speed change', 'Geschwindigkeitsänderung', 0, -50, 100, { unit: '%', step: 0.1 }),
+		},
+	},
+	'audacity-sliding-stretch': {
+		label: label('Sliding Stretch', 'Gleitende Dehnung'),
+		category: 'pitch-tempo',
+		lengthChanging: true,
+		requiresStaffPad: true,
+		params: {
+			startTempoPercent: number('Initial tempo change', 'Anfängliche Tempoänderung', 0, -50, 100, { unit: '%', step: 0.1 }),
+			endTempoPercent: number('Final tempo change', 'Abschließende Tempoänderung', 0, -50, 100, { unit: '%', step: 0.1 }),
+			startPitchSemitones: number('Initial pitch shift', 'Anfängliche Tonhöhenänderung', 0, -12, 12, { unit: 'st', step: 0.01 }),
+			endPitchSemitones: number('Final pitch shift', 'Abschließende Tonhöhenänderung', 0, -12, 12, { unit: 'st', step: 0.01 }),
+			preserveFormants: checkbox('Preserve formants', 'Formanten beibehalten', true),
 		},
 	},
 	'audacity-compressor': {
@@ -280,6 +348,21 @@ const definitions = {
 		},
 	},
 	'audacity-repair': { label: label('Repair', 'Reparieren'), category: 'repair', requiresContext: true, params: {} },
+	'audacity-remove-dc-offset': { label: label('Remove DC Offset', 'Gleichspannungsversatz entfernen'), category: 'repair', params: {} },
+	'audacity-reverb': {
+		label: label('Reverb', 'Hall'),
+		category: 'delay',
+		browserAdaptation: 'schroeder',
+		params: {
+			roomSize: number('Room size', 'Raumgröße', 75, 0, 100, { unit: '%', step: 1 }),
+			reverberance: number('Reverberance', 'Halligkeit', 50, 0, 100, { unit: '%', step: 1 }),
+			damping: number('Damping', 'Dämpfung', 50, 0, 100, { unit: '%', step: 1 }),
+			wetGainDb: number('Wet gain', 'Effektpegel', -6, -60, 12, { unit: 'dB', step: 0.1 }),
+			dryGainDb: number('Dry gain', 'Direktpegel', 0, -60, 12, { unit: 'dB', step: 0.1 }),
+			stereoWidth: number('Stereo width', 'Stereobreite', 100, 0, 100, { unit: '%', step: 1 }),
+			wetOnly: checkbox('Wet only', 'Nur Effekt'),
+		},
+	},
 	'audacity-repeat': {
 		label: label('Repeat', 'Wiederholen'), category: 'special', lengthChanging: true,
 		params: { count: number('Number of repeats', 'Anzahl Wiederholungen', 1, 1, 2_147_483_647, { integer: true, step: 1 }) },
@@ -327,13 +410,7 @@ const definitions = {
 
 export const AUDACITY_EFFECT_DEFINITIONS = deepFreeze(definitions);
 
-export const AUDACITY_EFFECT_EXCLUSIONS = deepFreeze([
-	{ name: 'Change Pitch', dependencies: ['SoundTouch', 'SBSMS'] },
-	{ name: 'Change Tempo', dependencies: ['SoundTouch', 'SBSMS'] },
-	{ name: 'Sliding Stretch', dependencies: ['SBSMS'] },
-	{ name: 'Reverb', dependencies: ['SoX reverb'] },
-	{ name: 'Change Speed and Pitch', dependencies: ['libsoxr (SoX Resampler)'] },
-]);
+export const AUDACITY_EFFECT_EXCLUSIONS = deepFreeze([]);
 
 // Native Audacity modules which are deliberately outside the menu-visible
 // processing-effect inventory: generators and analyzers are different editor
