@@ -5,6 +5,7 @@ const SQLITE_HEADER = Uint8Array.from([
 	0x6f, 0x72, 0x6d, 0x61, 0x74, 0x20, 0x33, 0x00,
 ]);
 const MEBIBYTE = 1024 * 1024;
+export const AUP3_LARGE_PROJECT_THRESHOLD_BYTES = 256 * MEBIBYTE;
 const MEMORY_PROFILES = Object.freeze({
 	constrained: Object.freeze({ databaseBytes: 128 * MEBIBYTE, decodedAudioBytes: 256 * MEBIBYTE, mixBytes: 384 * MEBIBYTE }),
 	standard: Object.freeze({ databaseBytes: 256 * MEBIBYTE, decodedAudioBytes: 384 * MEBIBYTE, mixBytes: 512 * MEBIBYTE }),
@@ -77,6 +78,10 @@ export function isAup3FileName(name) {
 export function aup3OutputName(name) {
 	const base = String(name || '').trim().replace(/\.aup3$/i, '') || 'audacity-project';
 	return `${base}.wav`;
+}
+
+export function requiresAup3LargeProjectConfirmation(fileSize) {
+	return Number(fileSize) > AUP3_LARGE_PROJECT_THRESHOLD_BYTES;
 }
 
 export function getAup3MemoryLimits(options = {}) {
