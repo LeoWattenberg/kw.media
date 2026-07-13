@@ -26,9 +26,9 @@ const SAMPLE_FORMAT = Object.freeze({
 const AUDACITY_APPLICATION_ID = 0x41554459;
 const MAX_XML_DEPTH = 512;
 const MAX_XML_FIELDS = 5_000_000;
-const MAX_DECODED_AUDIO_BYTES = 256 * 1024 * 1024;
-const MAX_MIX_BYTES = 384 * 1024 * 1024;
-const MAX_AUDIO_FRAMES = MAX_DECODED_AUDIO_BYTES / Float32Array.BYTES_PER_ELEMENT;
+const DEFAULT_MAX_DECODED_AUDIO_BYTES = 256 * 1024 * 1024;
+const DEFAULT_MAX_MIX_BYTES = 384 * 1024 * 1024;
+const DEFAULT_MAX_AUDIO_FRAMES = DEFAULT_MAX_DECODED_AUDIO_BYTES / Float32Array.BYTES_PER_ELEMENT;
 
 export class Aup3Error extends Error {
 	constructor(message, code = 'AUP3_ERROR', options) {
@@ -69,7 +69,7 @@ export function parseAup3BinaryXml(dictionary, document) {
  * Convert an sql.js AUP3 database into channel-aligned floating-point audio.
  *
  * @param {{ prepare: Function, exec: Function }} database
- * @param {{ fileName?: string, onProgress?: Function }} [options]
+ * @param {{ fileName?: string, onProgress?: Function, maxDecodedAudioBytes?: number, maxMixBytes?: number }} [options]
  */
 export async function decodeAup3Database(database, options = {}) {
 	if (!database || typeof database.prepare !== 'function') {
@@ -126,7 +126,7 @@ export async function decodeAup3Database(database, options = {}) {
  *
  * @param {Aup3Node} root
  * @param {(blockId: number) => { sampleFormat: number, samples: Uint8Array } | null} loadBlock
- * @param {{ onProgress?: Function }} [options]
+ * @param {{ onProgress?: Function, maxDecodedAudioBytes?: number, maxMixBytes?: number }} [options]
  */
 export async function renderAup3Project(root, loadBlock, options = {}) {
 	const project = findProjectNode(root);
@@ -137,6 +137,9 @@ export async function renderAup3Project(root, loadBlock, options = {}) {
 		if (!warnings.includes(message)) warnings.push(message);
 	};
 	const projectRate = sampleRate(attributeNumber(project, 'rate', 44100));
+	const maxDecodedAudioBytes = positiveInteger(options.maxDecodedAudioBytes, DEFAULT_MAX_DECODED_AUDIO_BYTES);
+	const maxMixBytes = positiveInteger(options.maxMixBytes, DEFAULT_MAX_MIX_BYTES);
+	const maxAudioFrames = Math.floor(maxDecodedAudioBytes / Float32Array.BYTES_PER_ELEMENT);
 	const trackNodes = findTrackNodes(project);
 	if (!trackNodes.length) {
 		throw new Aup3Error('The Audacity project contains no audio tracks.', 'NO_AUDIO');
@@ -178,7 +181,7 @@ export async function renderAup3Project(root, loadBlock, options = {}) {
 			const stretch = clipStretch(clipNode, projectTempo);
 			warnForUnsupportedClipFeatures(clipNode, stretch, warn);
 			const sequence = await decodeSequence(sequences[0], loadBlock, {
-				maxSamples: MAX_AUDIO_FRAMES - decodedSampleCount,
+				maxSamples: maxAudioFrames - decodedSampleCount,
 				onBlock() {
 					completedBlocks += 1;
 					progress(options.onProgress, totalBlocks ? completedBlocks / totalBlocks : 1, 'reading');
@@ -221,13 +224,13 @@ export async function renderAup3Project(root, loadBlock, options = {}) {
 	const outputChannelCount = stereo ? 2 : 1;
 	if (
 		!Number.isSafeInteger(frameCount) ||
-		frameCount > MAX_AUDIO_FRAMES ||
-		frameCount * outputChannelCount * Float32Array.BYTES_PER_ELEMENT > MAX_MIX_BYTES
+		frameCount * outputChannelCount * Float32Array.BYTES_PER_ELEMENT > maxMixBytes
 	) {
 		throw new Aup3Error('The Audacity project is too long to mix safely in this browser.', 'PROJECT_TOO_LARGE');
 	}
 
-	const channels = Array.from({ length: outputChannelCount }, () => allocateSamples(frameCount, 'The Audacity project is too large to mix in this browser.'));
+	const maxOutputFrames = Math.floor(maxMixBytes / outputChannelCount / Float32Array.BYTES_PER_ELEMENT);
+	const channels = Array.from({ length: outputChannelCount }, () => allocateSamples(frameCount, 'The Audacity project is too large to mix in this browser.', maxOutputFrames));
 	const anySolo = decodedTracks.some((track) => track.solo);
 	for (const track of decodedTracks) {
 		if (track.mute || (anySolo && !track.solo)) continue;
@@ -378,7 +381,7 @@ async function decodeSequence(sequenceNode, loadBlock, { maxSamples, onBlock, wa
 	if (declaredSamples > maxSamples) {
 		throw new Aup3Error('The Audacity project contains too much decoded audio for this browser.', 'PROJECT_TOO_LARGE');
 	}
-	let result = allocateSamples(declaredSamples, 'An Audacity sequence is too large to decode in this browser.');
+	let result = allocateSamples(declaredSamples, 'An Audacity sequence is too large to decode in this browser.', maxSamples);
 	let sampleCount = 0;
 	const blockNodes = directChildren(sequenceNode, 'waveblock');
 	for (let blockIndex = 0; blockIndex < blockNodes.length; blockIndex += 1) {
@@ -408,7 +411,7 @@ async function decodeSequence(sequenceNode, loadBlock, { maxSamples, onBlock, wa
 			throw new Aup3Error('The Audacity project contains too much decoded audio for this browser.', 'PROJECT_TOO_LARGE');
 		}
 		if (sampleCount + blockLength > result.length) {
-			result = growSamples(result, Math.max(sampleCount + blockLength, Math.min(maxSamples, Math.max(1, result.length * 2))));
+			result = growSamples(result, Math.max(sampleCount + blockLength, Math.min(maxSamples, Math.max(1, result.length * 2))), maxSamples);
 		}
 		if (samples) result.set(samples, sampleCount);
 		sampleCount += blockLength;
@@ -657,6 +660,10 @@ function clamp(value, minimum, maximum) {
 	return Math.max(minimum, Math.min(maximum, value));
 }
 
+function positiveInteger(value, fallback) {
+	return Number.isFinite(value) && value > 0 ? Math.floor(value) : fallback;
+}
+
 function stripAup3Extension(name) {
 	return String(name || '').trim().replace(/\.aup3$/i, '');
 }
@@ -774,8 +781,8 @@ function yieldToEventLoop() {
 	return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
-function allocateSamples(length, message) {
-	if (!Number.isSafeInteger(length) || length < 0 || length > MAX_AUDIO_FRAMES) {
+function allocateSamples(length, message, maxFrames = DEFAULT_MAX_AUDIO_FRAMES) {
+	if (!Number.isSafeInteger(length) || length < 0 || length > maxFrames) {
 		throw new Aup3Error(message, 'PROJECT_TOO_LARGE');
 	}
 	try {
@@ -785,8 +792,8 @@ function allocateSamples(length, message) {
 	}
 }
 
-function growSamples(previous, length) {
-	const next = allocateSamples(length, 'An Audacity sequence is too large to decode in this browser.');
+function growSamples(previous, length, maxFrames) {
+	const next = allocateSamples(length, 'An Audacity sequence is too large to decode in this browser.', maxFrames);
 	next.set(previous);
 	return next;
 }

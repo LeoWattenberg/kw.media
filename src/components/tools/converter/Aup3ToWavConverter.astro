@@ -7,6 +7,7 @@ import ToolIntro from '../shared/ToolIntro.astro';
 import ToolPanel from '../shared/ToolPanel.astro';
 import ToolResultCard from '../shared/ToolResultCard.astro';
 import ToolStatus from '../shared/ToolStatus.astro';
+import ToggleControl from '../shared/ToggleControl.astro';
 
 interface Props {
 	locale: Locale;
@@ -21,12 +22,14 @@ const copyByLocale = {
 		privacy: 'Deine Projektdatei bleibt lokal. Speichere und schließe das Projekt vor dem Konvertieren.',
 		sourceTitle: 'Audacity-Projekt',
 		chooseFile: 'AUP3-Projekt auswählen',
-		fileHint: 'Gespeicherte und geschlossene .aup3-Datei · maximal 128 MB',
+		fileHint: 'Gespeicherte und geschlossene .aup3-Datei · adaptives Limit: 128–256 MB',
 		selectedFile: '{name} · {size}',
 		settingsTitle: 'WAV-Ausgabe',
 		formatLabel: 'Audioformat',
 		formatPcm16: '16-Bit PCM',
 		formatFloat32: '32-Bit Float',
+		largeMode: 'Große Projekte bis 512 MB erlauben',
+		largeWarning: 'Dieser Modus benötigt viel Arbeitsspeicher und kann bei komplexen Projekten den Browser-Tab beenden. Schließe andere speicherintensive Anwendungen, bevor du fortfährst.',
 		convert: 'Trockenen WAV-Mix erzeugen',
 		reset: 'Zurücksetzen',
 		limitation: 'Echtzeit- und Plugin-Effekte aus Audacity werden nicht gerendert. Die Ausgabe ist ein trockener Mix der unterstützten Projektspuren.',
@@ -60,12 +63,14 @@ const copyByLocale = {
 		privacy: 'Your project file stays local. Save and close the project before converting it.',
 		sourceTitle: 'Audacity project',
 		chooseFile: 'Choose AUP3 project',
-		fileHint: 'Saved and closed .aup3 file · up to 128 MB',
+		fileHint: 'Saved and closed .aup3 file · adaptive 128–256 MB limit',
 		selectedFile: '{name} · {size}',
 		settingsTitle: 'WAV output',
 		formatLabel: 'Audio format',
 		formatPcm16: '16-bit PCM',
 		formatFloat32: '32-bit float',
+		largeMode: 'Allow large projects up to 512 MB',
+		largeWarning: 'This mode uses substantial memory and complex projects may terminate the browser tab. Close other memory-intensive applications before continuing.',
 		convert: 'Create dry WAV mix',
 		reset: 'Reset',
 		limitation: 'Audacity realtime and plugin effects are not rendered. The output is a dry mix of the supported project tracks.',
@@ -139,6 +144,8 @@ const copyJson = JSON.stringify(copy);
 							<option value="pcm16">{copy.formatPcm16}</option>
 							<option value="float32">{copy.formatFloat32}</option>
 						</SelectControl>
+						<ToggleControl label={copy.largeMode} inputAttrs={{ 'data-large-mode': true }} />
+						<p class="converter-limit large-project-warning" data-large-warning hidden>{copy.largeWarning}</p>
 						<p class="converter-limit">{copy.limitation}</p>
 						<ToolActions>
 							<button class="button primary" data-convert type="button" disabled>{copy.convert}</button>
@@ -171,6 +178,8 @@ const copyJson = JSON.stringify(copy);
 			const fileName = root.querySelector('[data-file-name]');
 			const fileMeta = root.querySelector('[data-file-meta]');
 			const formatSelect = root.querySelector('[data-format]');
+			const largeMode = root.querySelector('[data-large-mode]');
+			const largeWarning = root.querySelector('[data-large-warning]');
 			const convertButton = root.querySelector('[data-convert]');
 			const resetButton = root.querySelector('[data-reset]');
 			const status = root.querySelector('[data-status]');
@@ -183,7 +192,7 @@ const copyJson = JSON.stringify(copy);
 			const warningList = root.querySelector('[data-warning-list]');
 
 			if (
-				!fileInput || !fileName || !fileMeta || !formatSelect || !convertButton || !resetButton ||
+				!fileInput || !fileName || !fileMeta || !formatSelect || !largeMode || !largeWarning || !convertButton || !resetButton ||
 				!status || !output || !resultTitle || !resultMeta || !download || !outputAudio || !warnings || !warningList
 			) {
 				return;
@@ -200,6 +209,11 @@ const copyJson = JSON.stringify(copy);
 			});
 			formatSelect.addEventListener('change', () => {
 				clearOutput();
+				if (state.file) setStatus(format(copy.statusSelected, { name: state.file.name }), 'success');
+			});
+			largeMode.addEventListener('change', () => {
+				clearOutput();
+				largeWarning.hidden = !largeMode.checked;
 				if (state.file) setStatus(format(copy.statusSelected, { name: state.file.name }), 'success');
 			});
 			convertButton.addEventListener('click', () => void convertFile());
@@ -225,7 +239,10 @@ const copyJson = JSON.stringify(copy);
 				setStatus(copy.statusOpening, 'info');
 
 				try {
-					const decoded = await decodeAup3File(state.file, { onProgress: updateDecodeProgress });
+					const decoded = await decodeAup3File(state.file, {
+						allowLargeProject: largeMode.checked,
+						onProgress: updateDecodeProgress,
+					});
 					validateDecodedAudio(decoded);
 					setStatus(copy.statusEncoding, 'info');
 					await nextPaint();
@@ -330,6 +347,8 @@ const copyJson = JSON.stringify(copy);
 				fileName.textContent = copy.chooseFile;
 				fileMeta.textContent = copy.fileHint;
 				formatSelect.value = 'pcm16';
+				largeMode.checked = false;
+				largeWarning.hidden = true;
 				setStatus(copy.statusWaiting, 'info');
 				updateControls();
 			}
@@ -351,6 +370,7 @@ const copyJson = JSON.stringify(copy);
 			function updateControls() {
 				fileInput.disabled = state.working;
 				formatSelect.disabled = state.working;
+				largeMode.disabled = state.working;
 				convertButton.disabled = state.working || !state.file;
 				resetButton.disabled = state.working;
 			}

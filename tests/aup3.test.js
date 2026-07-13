@@ -8,6 +8,7 @@ import {
 import {
 	aup3OutputName,
 	decodeAup3Bytes,
+	getAup3MemoryLimits,
 	isAup3FileName,
 } from '../src/lib/tools/aup3-browser.js';
 import {
@@ -16,6 +17,29 @@ import {
 } from './aup3-fixture.js';
 
 const SQL = await initSqlJs();
+const MEBIBYTE = 1024 * 1024;
+
+test('selects adaptive AUP3 memory limits and an explicit large-project profile', () => {
+	assert.deepEqual(getAup3MemoryLimits({ navigator: { deviceMemory: 4, userAgent: 'Desktop' } }), {
+		databaseBytes: 128 * MEBIBYTE,
+		decodedAudioBytes: 256 * MEBIBYTE,
+		mixBytes: 384 * MEBIBYTE,
+	});
+	assert.equal(
+		getAup3MemoryLimits({ navigator: { deviceMemory: 8, userAgent: 'Android' } }).databaseBytes,
+		128 * MEBIBYTE,
+	);
+	assert.deepEqual(getAup3MemoryLimits({ navigator: { deviceMemory: 8, userAgent: 'Desktop' } }), {
+		databaseBytes: 256 * MEBIBYTE,
+		decodedAudioBytes: 384 * MEBIBYTE,
+		mixBytes: 512 * MEBIBYTE,
+	});
+	assert.deepEqual(getAup3MemoryLimits({ allowLargeProject: true }), {
+		databaseBytes: 512 * MEBIBYTE,
+		decodedAudioBytes: 512 * MEBIBYTE,
+		mixBytes: 768 * MEBIBYTE,
+	});
+});
 
 test('decodes all Audacity sample block formats', () => {
 	const int16 = new Uint8Array(6);
@@ -232,7 +256,14 @@ test('rejects hostile silent-block sizes before allocating them', async () => {
 		tracks: [{ clips: [{ blocks: [{ id: -(67_108_864 + 1) }] }] }],
 	});
 	await assert.rejects(
-		decodeAup3Bytes(fixture, { SQL }),
+		decodeAup3Bytes(fixture, {
+			SQL,
+			memoryLimits: {
+				databaseBytes: 128 * MEBIBYTE,
+				decodedAudioBytes: 256 * MEBIBYTE,
+				mixBytes: 384 * MEBIBYTE,
+			},
+		}),
 		(error) => error.code === 'PROJECT_TOO_LARGE',
 	);
 });
