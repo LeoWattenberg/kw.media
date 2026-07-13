@@ -2,6 +2,9 @@ import {
 	AUDIO_EDITOR_SAMPLE_RATE,
 	AUDIO_EFFECT_DEFINITIONS,
 	analyzeAudioChannels,
+	audioEffectLabel,
+	audioEffectParamRange,
+	audioEffectTypes,
 	canRedo,
 	canUndo,
 	cloneProject,
@@ -23,6 +26,7 @@ import {
 	findClipTrack,
 	findSource,
 	findTrack,
+	isAudacityRackEffectType,
 	loadAudioEditorProject,
 	prepareCut,
 	preparePasteCommand,
@@ -198,6 +202,7 @@ export function createAudioEditorController(root, options = {}) {
 	}
 
 	function bindStaticControls() {
+		populateEffectPicker();
 		for (const button of root.querySelectorAll('[data-project-action]')) {
 			button.addEventListener('click', () => void handleProjectAction(button.dataset.projectAction).catch(handleError));
 		}
@@ -957,7 +962,8 @@ export function createAudioEditorController(root, options = {}) {
 	function duplicateTrack(track) {
 		if (editingBlocked()) return;
 		const trackId = createStableId('track');
-		const commands = [createAddTrackCommand({ ...track, id: trackId, name: `${track.name} ${locale === 'de' ? 'Kopie' : 'copy'}`, armed: false, clipIds: [] })];
+		const effects = track.effects.map((effect) => ({ ...effect, id: createStableId('effect') }));
+		const commands = [createAddTrackCommand({ ...track, id: trackId, name: `${track.name} ${locale === 'de' ? 'Kopie' : 'copy'}`, armed: false, effects, clipIds: [] })];
 		let selectedClipId = null;
 		for (const clipId of track.clipIds) {
 			const clip = findClip(project, clipId);
@@ -1187,12 +1193,50 @@ export function createAudioEditorController(root, options = {}) {
 		commit({ type: 'clip/update', clipId: clip.id, changes: { gain: Math.max(0, Math.min(16, gain)) } }, { selectClipId: clip.id });
 	}
 
+	function populateEffectPicker() {
+		if (!nodes.effectType) return;
+		const standardGroup = document.createElement('optgroup');
+		standardGroup.label = locale === 'de' ? 'Studioeffekte' : 'Studio effects';
+		const audacityGroup = document.createElement('optgroup');
+		audacityGroup.label = locale === 'de' ? 'Audacity-Echtzeiteffekte' : 'Audacity real-time effects';
+		for (const type of audioEffectTypes()) {
+			const option = document.createElement('option');
+			option.value = type;
+			option.textContent = audioEffectLabel(type, locale);
+			(isAudacityRackEffectType(type) ? audacityGroup : standardGroup).append(option);
+		}
+		nodes.effectType.replaceChildren(standardGroup, audacityGroup);
+	}
+
 	function addEffect() {
 		if (editingBlocked()) return;
 		const scope = nodes.effectTarget.value;
 		const trackId = state.selectedTrackId;
 		if (scope === 'track' && !trackId) return handleError(new Error(locale === 'de' ? 'Wähle zuerst eine Spur.' : 'Select a track first.'));
-		commit({ type: 'effect/add', scope, trackId, effect: createEffect(nodes.effectType.value) });
+		const type = nodes.effectType.value;
+		const options = {};
+		if (type === 'audacity-auto-duck') {
+			const candidates = project.tracks.filter((track) => scope === 'master' || track.id !== trackId);
+			const controlTrackId = candidates.some((track) => track.id === state.audacityControlTrackId)
+				? state.audacityControlTrackId
+				: candidates[0]?.id;
+			if (!controlTrackId) {
+				return handleError(new Error(locale === 'de'
+					? 'Auto-Duck benötigt eine andere Steuerspur.'
+					: 'Auto Duck requires another control track.'));
+			}
+			options.context = { controlTrackId };
+		}
+		if (type === 'audacity-noise-reduction') {
+			options.context = { noiseProfile: serializeAudacityNoiseProfile(state.audacityNoiseProfile) };
+			if (!state.audacityNoiseProfile) options.enabled = false;
+		}
+		commit({ type: 'effect/add', scope, trackId, effect: createEffect(type, options) });
+		if (type === 'audacity-noise-reduction' && !state.audacityNoiseProfile) {
+			setStatus(locale === 'de'
+				? 'Rauschverminderung wurde deaktiviert hinzugefügt. Erfasse im Effekt ein Rauschprofil.'
+				: 'Noise Reduction was added disabled. Capture a noise profile in the effect to enable it.');
+		}
 	}
 
 	function renderEffects() {
@@ -1206,10 +1250,17 @@ export function createAudioEditorController(root, options = {}) {
 		for (const [index, effect] of rack.entries()) {
 			const card = cloneTemplate(nodes.effectTemplate);
 			card.dataset.effectId = effect.id;
-			card.querySelector('[data-effect-name]').textContent = effectLabel(effect.type, copy);
+			card.dataset.effectType = effect.type;
+			card.querySelector('[data-effect-name]').textContent = audioEffectLabel(effect.type, locale);
 			const enabled = card.querySelector('[data-effect-enabled]');
 			enabled.checked = effect.enabled;
-			enabled.disabled = editingBlocked();
+			const effectUnavailable = (effect.type === 'audacity-noise-reduction' && !effect.context?.noiseProfile)
+				|| (effect.type === 'audacity-auto-duck' && (
+					!findTrack(project, effect.context?.controlTrackId)
+					|| (scope === 'track' && effect.context?.controlTrackId === state.selectedTrackId)
+				));
+			enabled.dataset.effectUnavailable = String(effectUnavailable);
+			enabled.disabled = editingBlocked() || effectUnavailable;
 			enabled.addEventListener('change', () => commit({ type: 'effect/update', scope, trackId: state.selectedTrackId, effectId: effect.id, changes: { enabled: enabled.checked } }));
 			for (const button of card.querySelectorAll('[data-effect-action]')) {
 				button.disabled = editingBlocked();
@@ -1227,6 +1278,11 @@ export function createAudioEditorController(root, options = {}) {
 
 	function renderEffectParameters(container, effect, scope) {
 		container.replaceChildren();
+		container.classList.toggle('audacity-effect-parameters', isAudacityRackEffectType(effect.type));
+		if (isAudacityRackEffectType(effect.type)) {
+			renderAudacityRackParameters(container, effect, scope);
+			return;
+		}
 		const addParameter = (label, value, path, range) => {
 			const wrapper = document.createElement('label');
 			wrapper.className = 'field';
@@ -1255,6 +1311,155 @@ export function createAudioEditorController(root, options = {}) {
 		} else {
 			const ranges = AUDIO_EFFECT_DEFINITIONS[effect.type]?.ranges || {};
 			for (const [key, value] of Object.entries(effect.params)) if (typeof value === 'number') addParameter(key, value, [key], ranges[key]);
+		}
+	}
+
+	function renderAudacityRackParameters(container, effect, scope) {
+		const definition = AUDACITY_EFFECT_DEFINITIONS[effect.type];
+		const update = (changes) => {
+			try {
+				return commit({
+					type: 'effect/update',
+					scope,
+					trackId: state.selectedTrackId,
+					effectId: effect.id,
+					changes,
+				});
+			} catch (error) {
+				handleError(error);
+				renderEffects();
+				return null;
+			}
+		};
+
+		if (effect.type === 'audacity-auto-duck') {
+			const targetTrackId = scope === 'track' ? state.selectedTrackId : null;
+			const candidates = project.tracks.filter((track) => track.id !== targetTrackId);
+			const wrapper = document.createElement('label');
+			wrapper.className = 'field wide';
+			const caption = document.createElement('span');
+			caption.textContent = locale === 'de' ? 'Steuerspur' : 'Control track';
+			const select = document.createElement('select');
+			select.dataset.effectContext = 'controlTrackId';
+			select.replaceChildren(...candidates.map((track) => {
+				const option = document.createElement('option');
+				option.value = track.id;
+				option.textContent = track.name;
+				return option;
+			}));
+			select.value = effect.context?.controlTrackId || '';
+			select.dataset.effectUnavailable = String(candidates.length === 0);
+			select.disabled = editingBlocked() || candidates.length === 0;
+			select.addEventListener('change', () => update({ context: { controlTrackId: select.value || null } }));
+			wrapper.append(caption, select);
+			container.append(wrapper);
+		}
+
+		for (const [name, descriptor] of Object.entries(definition.params)) {
+			if (descriptor.kind === 'bands') {
+				const fieldset = document.createElement('fieldset');
+				fieldset.className = 'audacity-band-grid wide';
+				const legend = document.createElement('legend');
+				legend.textContent = localized(descriptor.label, locale);
+				fieldset.append(legend);
+				descriptor.frequencies.forEach((frequency, index) => {
+					const wrapper = document.createElement('label');
+					wrapper.className = 'field';
+					const caption = document.createElement('span');
+					caption.textContent = `${frequency} Hz`;
+					const input = document.createElement('input');
+					input.type = 'number';
+					input.min = String(descriptor.minimum);
+					input.max = String(descriptor.maximum);
+					input.step = String(descriptor.step);
+					input.value = String(effect.params[name][index]);
+					input.dataset.effectParam = `${name}.${index}`;
+					input.disabled = editingBlocked();
+					input.addEventListener('change', () => {
+						const values = [...effect.params[name]];
+						values[index] = Number(input.value);
+						update({ params: { [name]: values } });
+					});
+					wrapper.append(caption, input);
+					fieldset.append(wrapper);
+				});
+				container.append(fieldset);
+				continue;
+			}
+
+			const wrapper = document.createElement('label');
+			wrapper.className = descriptor.kind === 'curve' ? 'field wide' : descriptor.kind === 'boolean' ? 'check-field wide' : 'field';
+			const caption = document.createElement('span');
+			caption.textContent = localized(descriptor.label, locale);
+			let input;
+			if (descriptor.kind === 'boolean') {
+				input = document.createElement('input');
+				input.type = 'checkbox';
+				input.checked = Boolean(effect.params[name]);
+				wrapper.append(input, caption);
+			} else if (descriptor.kind === 'enum') {
+				input = document.createElement('select');
+				input.replaceChildren(...descriptor.options.map((item) => {
+					const option = document.createElement('option');
+					option.value = String(item.value);
+					option.textContent = localized(item.label, locale);
+					return option;
+				}));
+				input.value = String(effect.params[name]);
+				wrapper.append(caption, input);
+			} else if (descriptor.kind === 'curve') {
+				input = document.createElement('textarea');
+				input.value = formatAudacityCurve(effect.params[name]);
+				wrapper.append(caption, input);
+			} else {
+				input = document.createElement('input');
+				input.type = 'number';
+				input.value = String(effect.params[name]);
+				const [minimum, maximum] = audioEffectParamRange(effect.type, name)
+					|| [descriptor.minimum, descriptor.maximum];
+				input.min = String(minimum);
+				input.max = String(maximum);
+				input.step = String(descriptor.step ?? 'any');
+				wrapper.append(caption, input);
+				if (descriptor.unit) {
+					const unit = document.createElement('small');
+					unit.textContent = descriptor.unit;
+					wrapper.append(unit);
+				}
+			}
+			input.dataset.effectParam = name;
+			input.disabled = editingBlocked();
+			input.addEventListener('change', () => {
+				try {
+					const value = descriptor.kind === 'boolean'
+						? input.checked
+						: descriptor.kind === 'curve'
+							? parseAudacityCurve(input.value)
+							: descriptor.kind === 'number'
+								? Number(input.value)
+								: input.value;
+					update({ params: { [name]: value } });
+				} catch (error) {
+					handleError(error);
+					renderEffects();
+				}
+			});
+			container.append(wrapper);
+		}
+
+		if (effect.type === 'audacity-noise-reduction') {
+			const actions = document.createElement('div');
+			actions.className = 'panel-actions wide';
+			const button = document.createElement('button');
+			button.type = 'button';
+			button.dataset.effectNoiseProfile = '';
+			button.textContent = effect.context?.noiseProfile
+				? (locale === 'de' ? 'Rauschprofil ersetzen' : 'Replace noise profile')
+				: (locale === 'de' ? 'Rauschprofil erfassen' : 'Capture noise profile');
+			button.disabled = editingBlocked();
+			button.addEventListener('click', () => void captureRackNoiseProfile(effect, scope).catch(handleError));
+			actions.append(button);
+			container.append(actions);
 		}
 	}
 
@@ -1463,6 +1668,116 @@ export function createAudioEditorController(root, options = {}) {
 			state.audacityEffectProcessing = false;
 			renderAudacityEffectPanel();
 			renderControls();
+		}
+	}
+
+	async function captureRackNoiseProfile(effect, scope) {
+		if (editingBlocked()) return;
+		const selectionTarget = audacityEffectTarget();
+		const selection = activeSelection();
+		const selectedClip = state.selectedClipId ? findClip(project, state.selectedClipId) : null;
+		const startFrame = selection?.startFrame ?? selectedClip?.timelineStartFrame;
+		const endFrame = selection?.endFrame ?? (selectedClip
+			? selectedClip.timelineStartFrame + selectedClip.durationFrames
+			: null);
+		if (!Number.isSafeInteger(startFrame) || !Number.isSafeInteger(endFrame) || endFrame <= startFrame) {
+			throw new Error(copy.audacitySelectionHint);
+		}
+		const durationFrames = endFrame - startFrame;
+		if (durationFrames < 2_048) {
+			throw new Error(locale === 'de'
+				? 'Ein Rauschprofil benötigt mindestens 2048 Samples.'
+				: 'A noise profile requires at least 2048 samples.');
+		}
+		const trackId = state.selectedTrackId;
+		if (scope === 'track' && (!selectionTarget || selectionTarget.track.id !== trackId)) {
+			throw new Error(copy.audacitySelectionHint);
+		}
+		const estimatedPeakBytes = estimateAudacityEffectPeakBytes(
+			'audacity-noise-reduction',
+			durationFrames,
+			effect.params,
+			{
+				channelCount: scope === 'track' ? selectionTarget.channelCount : 2,
+				sampleRate: AUDIO_EDITOR_SAMPLE_RATE,
+			},
+		);
+		if (estimatedPeakBytes > AUDACITY_EFFECT_PEAK_MEMORY_LIMIT_BYTES) throw audacityEffectMemoryError(locale);
+		state.audacityEffectProcessing = true;
+		setStatus(copy.audacityProfileProcessing);
+		renderControls();
+		try {
+			const channels = await renderRackPrefixRange(
+				effect,
+				scope,
+				startFrame,
+				endFrame,
+				scope === 'track' ? selectionTarget.channelCount : 2,
+			);
+			const result = await runAudacityEffectWorker({
+				operation: 'capture-noise-profile',
+				channels,
+				sampleRate: AUDIO_EDITOR_SAMPLE_RATE,
+				params: effect.params,
+			});
+			state.audacityNoiseProfile = result.profile;
+			commit({
+				type: 'effect/update',
+				scope,
+				trackId,
+				effectId: effect.id,
+				changes: {
+					enabled: effect.context?.noiseProfile ? effect.enabled : true,
+					context: { noiseProfile: serializeAudacityNoiseProfile(result.profile) },
+				},
+			});
+			setStatus(copy.noiseProfileReady, 'success');
+		} finally {
+			state.audacityEffectProcessing = false;
+			renderEffects();
+			renderControls();
+		}
+	}
+
+	async function renderRackPrefixRange(effect, scope, startFrame, endFrame, channelCount) {
+		const snapshot = cloneProject(project);
+		let trackId = null;
+		if (scope === 'track') {
+			trackId = state.selectedTrackId;
+			const track = findTrack(snapshot, trackId);
+			if (!track) throw new Error(locale === 'de' ? 'Die Audiospur wurde nicht gefunden.' : 'The audio track could not be found.');
+			const effectIndex = track.effects.findIndex((candidate) => candidate.id === effect.id);
+			if (effectIndex < 0) throw new Error('The rack effect could not be found.');
+			track.effects = track.effects.slice(0, effectIndex);
+			track.gain = 1;
+			track.pan = 0;
+			track.mute = false;
+			track.solo = false;
+		} else {
+			const effectIndex = snapshot.master.effects.findIndex((candidate) => candidate.id === effect.id);
+			if (effectIndex < 0) throw new Error('The rack effect could not be found.');
+			snapshot.master.effects = snapshot.master.effects.slice(0, effectIndex);
+			snapshot.master.gain = 1;
+		}
+
+		const prefixEngine = createAudioEditorEngine();
+		prefixEngine.loadProject(snapshot, sourceBuffers);
+		try {
+			const rendered = scope === 'track'
+				? await prefixEngine.renderTrack(trackId, {
+					startFrame,
+					endFrame,
+					includeTrackPan: false,
+				})
+				: await prefixEngine.renderMix({
+					startFrame,
+					endFrame,
+					includeMaster: true,
+					respectMuteSolo: true,
+				});
+			return matchAudacitySelectionChannels(audioBufferChannels(rendered), channelCount);
+		} finally {
+			await prefixEngine.dispose();
 		}
 	}
 
@@ -2021,7 +2336,9 @@ export function createAudioEditorController(root, options = {}) {
 		const exportButton = root.querySelector('[data-export-action="start"]');
 		if (exportButton) exportButton.disabled = state.importing || state.recordingStarting || Boolean(state.recorder) || Boolean(state.exportAbort) || state.missingSourceIds.size > 0;
 		for (const element of root.querySelectorAll('[data-effect-target], [data-effect-type], [data-master-gain]')) element.disabled = blocked;
-		for (const element of root.querySelectorAll('[data-track-name], [data-track-gain], [data-track-pan], [data-track-action], [data-track-menu-action], [data-effect] input, [data-effect] button')) element.disabled = blocked;
+		for (const element of root.querySelectorAll('[data-track-name], [data-track-gain], [data-track-pan], [data-track-action], [data-track-menu-action], [data-effect] input, [data-effect] select, [data-effect] textarea, [data-effect] button')) {
+			element.disabled = blocked || element.dataset.effectUnavailable === 'true';
+		}
 		for (const element of root.querySelectorAll('[data-audacity-effect-type], [data-audacity-control-track], [data-audacity-effect-parameters] input, [data-audacity-effect-parameters] select, [data-audacity-effect-parameters] textarea')) element.disabled = blocked;
 		const audacityTarget = audacityEffectTarget();
 		const audacityDefinition = AUDACITY_EFFECT_DEFINITIONS[state.audacityEffectType];
@@ -2624,6 +2941,13 @@ async function createAudioBuffer(channelCount, length, sampleRate, context) {
 	return buffer;
 }
 function audioBufferChannels(buffer) { return Array.from({ length: buffer.numberOfChannels }, (_, channel) => buffer.getChannelData(channel)); }
+function serializeAudacityNoiseProfile(profile) {
+	if (!profile) return null;
+	return {
+		...profile,
+		meanPowers: Array.from(profile.meanPowers || []),
+	};
+}
 async function analyzeChannelsInWorker(channels, sampleRate, chunkFrames = 65_536) {
 	if (typeof Worker !== 'function') return analyzeAudioChannels(channels, sampleRate);
 	const worker = new Worker(new URL('./analysis-worker.js', import.meta.url), { type: 'module' });
@@ -2983,7 +3307,6 @@ function formatAup3Warning(warning) {
 	return '';
 }
 function stripExtension(name) { return String(name || '').replace(/\.[^.]+$/, ''); }
-function effectLabel(type, copy) { return ({ highpass: copy.highPass, lowpass: copy.lowPass, eq: copy.parametricEq, compressor: copy.compressor, limiter: copy.limiter, gate: copy.gate, reverb: copy.reverb, delay: copy.delay })[type] || type; }
 function setPath(target, path, value) { let current = target; for (let index = 0; index < path.length - 1; index += 1) current = current[path[index]]; current[path.at(-1)] = value; }
 function cssEscape(value) { return globalThis.CSS?.escape ? CSS.escape(value) : String(value).replace(/[^a-z0-9_-]/gi, '\\$&'); }
 function abortError() { return typeof DOMException === 'function' ? new DOMException('Aborted', 'AbortError') : Object.assign(new Error('Aborted'), { name: 'AbortError' }); }

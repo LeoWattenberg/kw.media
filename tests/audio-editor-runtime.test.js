@@ -5,6 +5,7 @@ import {
 	buildProjectGraph,
 	createAudioEditorEngine,
 	getProjectDurationFrames,
+	projectGraphLatencyFrames,
 } from '../src/lib/tools/audio-editor/engine.js';
 import { createRecordingController } from '../src/lib/tools/audio-editor/recording.js';
 import { StreamingRecorderProcessor } from '../src/lib/tools/audio-editor/recording-worklet.js';
@@ -448,6 +449,264 @@ test('project graph meters pre-mute tracks and applies master processing', () =>
 	assert.equal(dryGraph.trackInputs.size, 1);
 });
 
+test('engine loads and inserts Audacity worklets in track and master racks without bypassing them', async () => {
+	const previousWorkletNode = globalThis.AudioWorkletNode;
+	globalThis.AudioWorkletNode = MockAudioWorkletNode;
+	const realtime = new MockAudioContext();
+	const offlineContexts = [];
+	const project = createRackProject({
+		tracks: [{
+			id: 'track-1',
+			effects: [{ type: 'audacity-invert', enabled: true, params: {} }],
+		}],
+		masterEffects: [{
+			type: 'audacity-bass-treble',
+			enabled: true,
+			params: { bassDb: 3, trebleDb: -2, volumeDb: 0 },
+		}],
+	});
+	const source = new MockAudioBuffer(2, 4_800, 48_000);
+	const engine = createAudioEditorEngine({
+		audioContextFactory: () => realtime,
+		offlineAudioContextFactory: (options) => {
+			const context = new MockOfflineAudioContext(options);
+			offlineContexts.push(context);
+			return context;
+		},
+		meterInterval: 1_000,
+	});
+
+	try {
+		engine.loadProject(project, new Map([['source-1', source]]));
+		await engine.play();
+		assert.equal(realtime.audioWorkletModules.filter((url) => url.endsWith('/audacity-effects/live-worklet.js')).length, 1);
+		const worklets = realtime.workletNodes.filter((node) => node.name === 'kw-audacity-live-effect');
+		assert.deepEqual(worklets.map((node) => node.options.processorOptions.effectType), [
+			'audacity-invert',
+			'audacity-bass-treble',
+		]);
+		for (const worklet of worklets) {
+			assert.ok(incomingConnections(engine.graph.nodes, worklet, 0).length > 0, `${worklet.options.processorOptions.effectType} input`);
+			assert.ok(worklet.connectionDetails.length > 0, `${worklet.options.processorOptions.effectType} output`);
+		}
+
+		engine.stop();
+		await engine.renderMix({ startFrame: 0, endFrame: 2_400 });
+		assert.equal(offlineContexts.length, 1);
+		assert.equal(offlineContexts[0].audioWorkletModules.filter((url) => url.endsWith('/audacity-effects/live-worklet.js')).length, 1);
+		assert.deepEqual(
+			offlineContexts[0].workletNodes.map((node) => node.options.processorOptions.effectType),
+			['audacity-invert', 'audacity-bass-treble'],
+		);
+	} finally {
+		await engine.dispose();
+		if (previousWorkletNode === undefined) delete globalThis.AudioWorkletNode;
+		else globalThis.AudioWorkletNode = previousWorkletNode;
+	}
+});
+
+test('Auto Duck receives its selected control track from the dry second input', async () => {
+	const previousWorkletNode = globalThis.AudioWorkletNode;
+	globalThis.AudioWorkletNode = MockAudioWorkletNode;
+	const context = new MockAudioContext();
+	const project = createRackProject({
+		tracks: [
+			{
+				id: 'target',
+				effects: [{
+					type: 'audacity-auto-duck',
+					enabled: true,
+					params: {},
+					context: { controlTrackId: 'control' },
+				}],
+			},
+			{
+				id: 'control',
+				effects: [{ type: 'audacity-invert', enabled: true, params: {} }],
+			},
+		],
+	});
+	const source = new MockAudioBuffer(1, 4_800, 48_000);
+	const engine = createAudioEditorEngine({
+		audioContextFactory: () => context,
+		meterInterval: 1_000,
+	});
+
+	try {
+		engine.loadProject(project, new Map([['source-1', source]]));
+		await engine.play();
+		const autoDuck = context.workletNodes.find((node) => (
+			node.options.processorOptions.effectType === 'audacity-auto-duck'
+		));
+		assert.ok(autoDuck);
+		assert.equal(autoDuck.options.numberOfInputs, 2);
+		const dryControl = engine.graph.trackInputs.get('control');
+		assert.ok(dryControl.connectionDetails.some(({ node, output, input }) => (
+			node === autoDuck && output === 0 && input === 1
+		)));
+		const processedControl = context.workletNodes.find((node) => (
+			node.options.processorOptions.effectType === 'audacity-invert'
+		));
+		assert.equal(processedControl.connectionDetails.some(({ node }) => node === autoDuck), false);
+	} finally {
+		await engine.dispose();
+		if (previousWorkletNode === undefined) delete globalThis.AudioWorkletNode;
+		else globalThis.AudioWorkletNode = previousWorkletNode;
+	}
+});
+
+test('project graph reports rack latency and delays lower-latency tracks to match', async () => {
+	const previousWorkletNode = globalThis.AudioWorkletNode;
+	globalThis.AudioWorkletNode = MockAudioWorkletNode;
+	const context = new MockAudioContext();
+	const project = createRackProject({
+		tracks: [
+			{
+				id: 'limited',
+				effects: [{
+					type: 'audacity-limiter',
+					enabled: true,
+					params: { lookaheadMs: 10 },
+				}],
+			},
+			{ id: 'dry', effects: [] },
+		],
+		masterEffects: [{
+			type: 'audacity-compressor',
+			enabled: true,
+			params: { lookaheadMs: 5 },
+		}],
+	});
+	const source = new MockAudioBuffer(1, 4_800, 48_000);
+	const engine = createAudioEditorEngine({
+		audioContextFactory: () => context,
+		meterInterval: 1_000,
+	});
+
+	try {
+		engine.loadProject(project, new Map([['source-1', source]]));
+		await engine.play();
+		assert.equal(projectGraphLatencyFrames(project), 720);
+		assert.equal(engine.graph.latencyFrames, 720);
+		assert.equal(engine.playbackStartTime, 720 / 48_000);
+		const compensation = context.createdDelays.find((delay) => Math.abs(delay.delayTime.value - 0.01) < 1e-12);
+		assert.ok(compensation, 'the dry track receives the limiter lookahead as compensation');
+		assert.ok(incomingConnections(engine.graph.nodes, compensation, 0).length > 0);
+		assert.ok(compensation.connectionDetails.length > 0);
+	} finally {
+		await engine.dispose();
+		if (previousWorkletNode === undefined) delete globalThis.AudioWorkletNode;
+		else globalThis.AudioWorkletNode = previousWorkletNode;
+	}
+});
+
+test('offline rendering crops live latency while retaining the requested effect tail', async () => {
+	const previousWorkletNode = globalThis.AudioWorkletNode;
+	globalThis.AudioWorkletNode = MockAudioWorkletNode;
+	const offlineContexts = [];
+	const project = createRackProject({
+		tracks: [{
+			id: 'limited',
+			effects: [{
+				type: 'audacity-limiter',
+				enabled: true,
+				params: { lookaheadMs: 10 },
+			}],
+		}],
+		masterEffects: [{
+			type: 'audacity-echo',
+			enabled: true,
+			params: { delaySeconds: 0.1, decay: 0.5 },
+		}],
+	});
+	const source = new MockAudioBuffer(1, 4_800, 48_000);
+	const engine = createAudioEditorEngine({
+		offlineAudioContextFactory: (options) => {
+			const context = new MockRampOfflineAudioContext(options);
+			offlineContexts.push(context);
+			return context;
+		},
+	});
+
+	try {
+		engine.loadProject(project, new Map([['source-1', source]]));
+		const rendered = await engine.renderMix({ startFrame: 0, endFrame: 2_400, includeTail: true });
+		const expectedTailFrames = 48_000;
+		const expectedLatencyFrames = 480;
+		assert.equal(offlineContexts.length, 1);
+		assert.equal(offlineContexts[0].length, 2_400 + expectedTailFrames + expectedLatencyFrames);
+		assert.equal(rendered.length, 2_400 + expectedTailFrames);
+		assert.equal(rendered.getChannelData(0)[0], expectedLatencyFrames);
+		assert.equal(rendered.getChannelData(0).at(-1), offlineContexts[0].length - 1);
+	} finally {
+		await engine.dispose();
+		if (previousWorkletNode === undefined) delete globalThis.AudioWorkletNode;
+		else globalThis.AudioWorkletNode = previousWorkletNode;
+	}
+});
+
+test('Audacity worklet load failures reject playback instead of bypassing the rack', async () => {
+	const previousWorkletNode = globalThis.AudioWorkletNode;
+	globalThis.AudioWorkletNode = MockAudioWorkletNode;
+	const context = new MockAudioContext();
+	context.audioWorklet.addModule = async () => { throw new Error('mock Audacity module load failed'); };
+	const project = createRackProject({
+		tracks: [{ id: 'track-1', effects: [{ type: 'audacity-invert', enabled: true, params: {} }] }],
+	});
+	const source = new MockAudioBuffer(1, 4_800, 48_000);
+	const engine = createAudioEditorEngine({ audioContextFactory: () => context });
+
+	try {
+		engine.loadProject(project, new Map([['source-1', source]]));
+		await assert.rejects(() => engine.play(), /mock Audacity module load failed/);
+		assert.equal(engine.graph, null);
+		assert.equal(context.workletNodes.length, 0);
+		assert.equal(context.bufferSources.length, 0);
+		assert.equal(engine.getState().state, 'stopped');
+	} finally {
+		await engine.dispose();
+		if (previousWorkletNode === undefined) delete globalThis.AudioWorkletNode;
+		else globalThis.AudioWorkletNode = previousWorkletNode;
+	}
+});
+
+test('rebuilding a playing rack disconnects its old worklet graph and reuses the loaded module', async () => {
+	const previousWorkletNode = globalThis.AudioWorkletNode;
+	globalThis.AudioWorkletNode = MockAudioWorkletNode;
+	const context = new MockAudioContext();
+	const project = createRackProject({
+		tracks: [{ id: 'track-1', effects: [{ type: 'audacity-invert', enabled: true, params: {} }] }],
+	});
+	const source = new MockAudioBuffer(1, 4_800, 48_000);
+	const sources = new Map([['source-1', source]]);
+	const engine = createAudioEditorEngine({ audioContextFactory: () => context, meterInterval: 1_000 });
+
+	try {
+		engine.loadProject(project, sources);
+		await engine.play();
+		const oldWorklet = context.workletNodes[0];
+		const updated = structuredClone(project);
+		updated.master.effects.push({
+			type: 'audacity-bass-treble',
+			enabled: true,
+			params: { bassDb: 2, trebleDb: 0, volumeDb: 0 },
+		});
+		await engine.applyProject(updated, sources);
+
+		assert.equal(oldWorklet.disconnected, true);
+		assert.equal(context.audioWorkletModules.filter((url) => url.endsWith('/audacity-effects/live-worklet.js')).length, 1);
+		assert.deepEqual(
+			context.workletNodes.slice(1).map((node) => node.options.processorOptions.effectType),
+			['audacity-invert', 'audacity-bass-treble'],
+		);
+		assert.equal(engine.getState().state, 'playing');
+	} finally {
+		await engine.dispose();
+		if (previousWorkletNode === undefined) delete globalThis.AudioWorkletNode;
+		else globalThis.AudioWorkletNode = previousWorkletNode;
+	}
+});
+
 function createProject() {
 	return {
 		id: 'project-1',
@@ -483,6 +742,41 @@ function createProject() {
 	};
 }
 
+function createRackProject({ tracks, masterEffects = [] }) {
+	const clips = tracks.map((track, index) => ({
+		id: `clip-${index + 1}`,
+		sourceId: 'source-1',
+		timelineStartFrame: 0,
+		sourceStartFrame: 0,
+		durationFrames: 4_800,
+		gain: 1,
+		fadeInFrames: 0,
+		fadeOutFrames: 0,
+		reversed: false,
+	}));
+	return {
+		id: 'rack-project',
+		sampleRate: 48_000,
+		clips,
+		tracks: tracks.map((track, index) => ({
+			id: track.id,
+			clipIds: [clips[index].id],
+			gain: 1,
+			pan: 0,
+			mute: false,
+			solo: false,
+			effects: track.effects,
+		})),
+		master: { gain: 1, effects: masterEffects },
+	};
+}
+
+function incomingConnections(nodes, target, input) {
+	return nodes.flatMap((node) => node.connectionDetails || []).filter((connection) => (
+		connection.node === target && connection.input === input
+	));
+}
+
 class MockParam {
 	constructor(value = 0) { this.value = value; this.events = []; }
 	setValueAtTime(value, time) { this.value = value; this.events.push(['set', value, time]); }
@@ -490,9 +784,34 @@ class MockParam {
 }
 
 class MockNode {
-	constructor(kind = 'node') { this.kind = kind; this.connections = []; this.disconnected = false; }
-	connect(node) { this.connections.push(node); return node; }
-	disconnect() { this.disconnected = true; this.connections = []; }
+	constructor(kind = 'node') {
+		this.kind = kind;
+		this.connections = [];
+		this.connectionDetails = [];
+		this.disconnected = false;
+	}
+	connect(node, output = 0, input = 0) {
+		this.connections.push(node);
+		this.connectionDetails.push({ node, output, input });
+		return node;
+	}
+	disconnect() {
+		this.disconnected = true;
+		this.connections = [];
+		this.connectionDetails = [];
+	}
+}
+
+class MockAudioWorkletNode extends MockNode {
+	constructor(context, name, options = {}) {
+		super('audio-worklet');
+		this.context = context;
+		this.name = name;
+		this.options = options;
+		this.port = { onmessage: null, postMessage() {}, start() {} };
+		context.workletNodes.push(this);
+		context.nodeKinds.push(`audio-worklet:${name}`);
+	}
 }
 
 class MockAudioBuffer {
@@ -513,6 +832,12 @@ class MockAudioContext {
 		this.destination = new MockNode('destination');
 		this.bufferSources = [];
 		this.nodeKinds = [];
+		this.workletNodes = [];
+		this.audioWorkletModules = [];
+		this.createdDelays = [];
+		this.audioWorklet = {
+			addModule: async (url) => { this.audioWorkletModules.push(String(url)); },
+		};
 		this.state = 'running';
 	}
 	make(kind, properties = {}) {
@@ -528,7 +853,11 @@ class MockAudioContext {
 			threshold: new MockParam(), knee: new MockParam(), ratio: new MockParam(), attack: new MockParam(), release: new MockParam(),
 		});
 	}
-	createDelay() { return this.make('delay', { delayTime: new MockParam() }); }
+	createDelay(maximumDelayTime) {
+		const delay = this.make('delay', { delayTime: new MockParam(), maximumDelayTime });
+		this.createdDelays.push(delay);
+		return delay;
+	}
 	createConvolver() { return this.make('convolver', { buffer: null }); }
 	createWaveShaper() { return this.make('waveshaper', { curve: null }); }
 	createAnalyser() {
@@ -558,6 +887,16 @@ class MockOfflineAudioContext extends MockAudioContext {
 		this.numberOfChannels = options.numberOfChannels;
 	}
 	async startRendering() { return new MockAudioBuffer(this.numberOfChannels, this.length, this.sampleRate); }
+}
+
+class MockRampOfflineAudioContext extends MockOfflineAudioContext {
+	async startRendering() {
+		const buffer = new MockAudioBuffer(this.numberOfChannels, this.length, this.sampleRate);
+		for (const channel of buffer.channels) {
+			for (let frame = 0; frame < channel.length; frame += 1) channel[frame] = frame;
+		}
+		return buffer;
+	}
 }
 
 function textAt(bytes, offset, length) {

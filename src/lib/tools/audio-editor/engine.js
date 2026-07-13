@@ -1,10 +1,15 @@
 import { rackTailFrames } from './effects.js';
+import {
+	audacityLiveEffectCapability,
+	isAudacityLiveEffect,
+} from './audacity-effects/live.js';
 export { createRecordingController, requestMicrophone } from './recording.js';
 
 const DEFAULT_SAMPLE_RATE = 48000;
 const DEFAULT_METER_INTERVAL = 50;
 const MAX_EFFECT_TAIL_SECONDS = 10;
 const dynamicsWorkletContexts = new WeakSet();
+const audacityWorkletContexts = new WeakSet();
 
 export function isAudioEditorEngineSupported() {
 	return Boolean(getAudioContextConstructor());
@@ -226,10 +231,15 @@ export class WebAudioEditorEngine {
 		const renderFromFrame = Math.max(0, fromFrame - clampFrame(preRollFrames, 0, fromFrame));
 		const warmupFrames = fromFrame - renderFromFrame;
 		const tailFrames = Math.round(resolveTailSeconds(this.project, includeTail, { trackId, includeMaster }) * this.sampleRate);
+		const processingLatencyFrames = projectGraphLatencyFrames(this.project, {
+			trackId,
+			includeMaster,
+			sampleRate: this.sampleRate,
+		});
 		const requestedLength = requestedOutputFrames == null
 			? Math.max(1, toFrame - fromFrame + tailFrames)
 			: positiveInteger(requestedOutputFrames, 1);
-		const outputLength = warmupFrames + requestedLength;
+		const outputLength = warmupFrames + processingLatencyFrames + requestedLength;
 
 		if (!this.offlineAudioContextFactory) {
 			if (typeof this.softwareRenderer === 'function') {
@@ -274,7 +284,10 @@ export class WebAudioEditorEngine {
 		});
 		try {
 			const rendered = await context.startRendering();
-			return warmupFrames ? sliceAudioBuffer(context, rendered, warmupFrames, requestedLength) : rendered;
+			const captureOffset = warmupFrames + processingLatencyFrames;
+			return captureOffset || rendered.length !== requestedLength
+				? sliceAudioBuffer(context, rendered, captureOffset, requestedLength)
+				: rendered;
 		} finally {
 			disposeGraph(graph, false);
 		}
@@ -319,12 +332,17 @@ export class WebAudioEditorEngine {
 			: positiveInteger(requestedOutputFrames, 1);
 		const startTime = context.currentTime + 0.08;
 		const warmupContextFrames = Math.round(warmupProjectFrames / this.sampleRate * context.sampleRate);
+		const processingLatencyFrames = projectGraphLatencyFrames(this.project, {
+			trackId,
+			includeMaster,
+			sampleRate: context.sampleRate,
+		});
 		const capture = new globalThis.AudioWorkletNode(context, 'kw-audio-render-capture', {
 			numberOfInputs: 1,
 			numberOfOutputs: 1,
 			outputChannelCount: [2],
 			processorOptions: {
-				startFrame: Math.ceil(startTime * context.sampleRate) + warmupContextFrames,
+				startFrame: Math.ceil(startTime * context.sampleRate) + warmupContextFrames + processingLatencyFrames,
 				totalFrames: outputFrames,
 				chunkFrames: Math.max(128, Math.min(16_384, Math.floor(chunkFrames))),
 			},
@@ -428,12 +446,12 @@ export class WebAudioEditorEngine {
 		const loopEnd = this.loop.enabled ? this.loop.endFrame : this.durationFrames;
 		this.playEndFrame = Math.max(fromFrame, loopEnd);
 		this.playbackStartFrame = fromFrame;
-		this.playbackStartTime = scheduledTime;
 		this.positionFrame = fromFrame;
 		this.graph = buildProjectGraph(context, context.destination, this.project, {
 			metering: this.meterListeners.size > 0,
 			respectMuteSolo: true,
 		});
+		this.playbackStartTime = scheduledTime + (this.graph.latencyFrames || 0) / this.sampleRate;
 		scheduleProjectClips({
 			context,
 			project: this.project,
@@ -441,14 +459,14 @@ export class WebAudioEditorEngine {
 			trackInputs: this.graph.trackInputs,
 			fromFrame,
 			toFrame: this.playEndFrame,
-			contextStartTime: this.playbackStartTime,
+			contextStartTime: scheduledTime,
 			sampleRate: this.sampleRate,
 			reversedBuffers: this.reversedBuffers,
 			activeSources: this.graph.sources,
 			allNodes: this.graph.nodes,
 		});
 		if (this.loop.enabled && this.loop.endFrame > this.loop.startFrame) {
-			this.loopScheduleTime = this.playbackStartTime + (this.loop.endFrame - fromFrame) / this.sampleRate;
+			this.loopScheduleTime = scheduledTime + (this.loop.endFrame - fromFrame) / this.sampleRate;
 			this.#scheduleLoopAhead();
 		}
 		this.#setState('playing');
@@ -542,6 +560,24 @@ export function getProjectDurationFrames(project) {
 	return duration;
 }
 
+export function projectGraphLatencyFrames(project, {
+	trackId = null,
+	includeMaster = true,
+	sampleRate = project?.sampleRate || DEFAULT_SAMPLE_RATE,
+} = {}) {
+	const tracks = (project?.tracks || []).filter((track) => (
+		trackId == null || String(track.id) === String(trackId)
+	));
+	const trackLatency = tracks.reduce((maximum, track) => Math.max(
+		maximum,
+		effectRackLatencyFrames(track.effects || [], sampleRate),
+	), 0);
+	const masterLatency = includeMaster
+		? effectRackLatencyFrames(project?.master?.effects || [], sampleRate)
+		: 0;
+	return trackLatency + masterLatency;
+}
+
 /** Build track/master nodes and return the per-track clip inputs. */
 export function buildProjectGraph(context, destination, project, {
 	metering = true,
@@ -554,24 +590,27 @@ export function buildProjectGraph(context, destination, project, {
 	const sources = new Set();
 	const trackInputs = new Map();
 	const trackAnalysers = new Map();
-	const masterInput = addNode(nodes, context.createGain());
-	const masterOutput = applyEffectRack(context, masterInput, includeMaster ? project?.master?.effects || [] : [], nodes);
-	const masterGain = addNode(nodes, context.createGain());
-	setParam(masterGain.gain, includeMaster ? finite(project?.master?.gain, 1) : 1, context.currentTime);
-	connect(masterOutput, masterGain);
-	const masterAnalyser = metering ? createAnalyser(context, nodes) : null;
-	if (masterAnalyser) {
-		connect(masterGain, masterAnalyser);
-		connect(masterAnalyser, destination);
-	} else connect(masterGain, destination);
-
 	const tracks = Array.isArray(project?.tracks) ? project.tracks : [];
+	// Every dry input exists before a rack is built so Auto Duck can route any
+	// other track into its second AudioWorklet input without graph-order races.
+	for (const [index, track] of tracks.entries()) {
+		trackInputs.set(String(track.id ?? index), addNode(nodes, context.createGain()));
+	}
+	const renderedTracks = tracks.filter((track, index) => (
+		onlyTrackId == null || String(onlyTrackId) === String(track.id ?? index)
+	));
+	const maximumTrackLatency = renderedTracks.reduce((maximum, track) => Math.max(
+		maximum,
+		effectRackLatencyFrames(track.effects || [], context.sampleRate || DEFAULT_SAMPLE_RATE),
+	), 0);
+	const masterInput = addNode(nodes, context.createGain());
 	const anySolo = respectMuteSolo && tracks.some((track) => track.solo);
 	for (const [index, track] of tracks.entries()) {
 		const trackId = String(track.id ?? index);
 		if (onlyTrackId != null && String(onlyTrackId) !== trackId) continue;
-		const input = addNode(nodes, context.createGain());
-		let output = applyEffectRack(context, input, track.effects || [], nodes);
+		const input = trackInputs.get(trackId);
+		const trackLatency = effectRackLatencyFrames(track.effects || [], context.sampleRate || DEFAULT_SAMPLE_RATE);
+		let output = applyEffectRack(context, input, track.effects || [], nodes, { sidechainInputs: trackInputs });
 		const gain = addNode(nodes, context.createGain());
 		setParam(gain.gain, finite(track.gain, 1), context.currentTime);
 		connect(output, gain);
@@ -581,6 +620,17 @@ export function buildProjectGraph(context, destination, project, {
 			setParam(panner.pan, clamp(finite(track.pan, 0), -1, 1), context.currentTime);
 			connect(output, panner);
 			output = panner;
+		}
+		const compensationFrames = maximumTrackLatency - trackLatency;
+		if (compensationFrames > 0) {
+			if (typeof context.createDelay !== 'function') {
+				throw new Error('This browser cannot compensate live effect latency between tracks.');
+			}
+			const compensationSeconds = compensationFrames / (context.sampleRate || DEFAULT_SAMPLE_RATE);
+			const delay = addNode(nodes, context.createDelay(Math.max(1, compensationSeconds)));
+			setParam(delay.delayTime, compensationSeconds, context.currentTime);
+			connect(output, delay);
+			output = delay;
 		}
 		const analyser = metering ? createAnalyser(context, nodes) : null;
 		if (analyser) {
@@ -593,24 +643,110 @@ export function buildProjectGraph(context, destination, project, {
 		setParam(mute.gain, audible ? 1 : 0, context.currentTime);
 		connect(output, mute);
 		connect(mute, masterInput);
-		trackInputs.set(trackId, input);
 	}
 
-	return { nodes, sources, trackInputs, trackAnalysers, masterAnalyser };
+	const masterEffects = includeMaster ? project?.master?.effects || [] : [];
+	const masterLatency = effectRackLatencyFrames(masterEffects, context.sampleRate || DEFAULT_SAMPLE_RATE);
+	const masterOutput = applyEffectRack(context, masterInput, masterEffects, nodes, {
+		sidechainInputs: trackInputs,
+		baseSidechainDelayFrames: maximumTrackLatency,
+	});
+	const masterGain = addNode(nodes, context.createGain());
+	setParam(masterGain.gain, includeMaster ? finite(project?.master?.gain, 1) : 1, context.currentTime);
+	connect(masterOutput, masterGain);
+	const masterAnalyser = metering ? createAnalyser(context, nodes) : null;
+	if (masterAnalyser) {
+		connect(masterGain, masterAnalyser);
+		connect(masterAnalyser, destination);
+	} else connect(masterGain, destination);
+
+	return {
+		nodes,
+		sources,
+		trackInputs,
+		trackAnalysers,
+		masterAnalyser,
+		latencyFrames: maximumTrackLatency + masterLatency,
+	};
 }
 
-export function applyEffectRack(context, input, effects, nodes = []) {
+export function applyEffectRack(context, input, effects, nodes = [], options = {}) {
 	let output = input;
+	let upstreamLatencyFrames = 0;
 	for (const effect of Array.isArray(effects) ? effects : []) {
 		if (!effect || effect.enabled === false || effect.bypassed === true) continue;
-		output = applyEffect(context, output, effect, nodes);
+		output = applyEffect(context, output, effect, nodes, {
+			...options,
+			sidechainDelayFrames: nonNegativeInteger(options.baseSidechainDelayFrames, 0) + upstreamLatencyFrames,
+		});
+		upstreamLatencyFrames += effectLatencyFrames(effect, context.sampleRate || DEFAULT_SAMPLE_RATE);
 	}
 	return output;
 }
 
-function applyEffect(context, input, effect, nodes) {
+export function effectRackLatencyFrames(effects, sampleRate = DEFAULT_SAMPLE_RATE) {
+	return (Array.isArray(effects) ? effects : []).reduce((total, effect) => (
+		total + ((!effect || effect.enabled === false || effect.bypassed === true)
+			? 0
+			: effectLatencyFrames(effect, sampleRate))
+	), 0);
+}
+
+function effectLatencyFrames(effect, sampleRate) {
+	if (effect.type === 'limiter') {
+		return Math.max(0, Math.ceil(finite(effect.params?.lookahead, 0) * sampleRate));
+	}
+	if (!isAudacityLiveEffect(effect.type)) return 0;
+	const capability = audacityLiveEffectCapability(effect.type);
+	const latency = typeof capability?.latencyFrames === 'function'
+		? capability.latencyFrames(sampleRate, effect.params || {})
+		: capability?.latencyFrames;
+	return Math.max(0, nonNegativeInteger(latency, 0));
+}
+
+function applyEffect(context, input, effect, nodes, options = {}) {
 	const type = String(effect.type || effect.kind || '').toLowerCase();
 	const params = effect.params || effect;
+	if (isAudacityLiveEffect(type)) {
+		if (!audacityWorkletContexts.has(context)) {
+			throw new Error(`The Audacity real-time processor was not loaded for ${type}.`);
+		}
+		const WorkletNode = globalThis.AudioWorkletNode || globalThis.window?.AudioWorkletNode;
+		if (typeof WorkletNode !== 'function') {
+			throw new Error('This browser cannot run Audacity real-time effects.');
+		}
+		const sidechain = type === 'audacity-auto-duck';
+		const controlTrackId = sidechain ? effect.context?.controlTrackId : null;
+		const controlInput = sidechain ? options.sidechainInputs?.get(String(controlTrackId)) : null;
+		if (sidechain && (!controlTrackId || !controlInput)) {
+			throw new Error('Auto Duck requires a valid control track.');
+		}
+		const processor = addNode(nodes, new WorkletNode(context, 'kw-audacity-live-effect', {
+			numberOfInputs: sidechain ? 2 : 1,
+			numberOfOutputs: 1,
+			outputChannelCount: [2],
+			processorOptions: {
+				effectType: type,
+				params,
+				noiseProfile: effect.context?.noiseProfile || null,
+			},
+		}));
+		connect(input, processor);
+		if (sidechain) {
+			const delayFrames = nonNegativeInteger(options.sidechainDelayFrames, 0);
+			if (delayFrames > 0) {
+				if (typeof context.createDelay !== 'function') {
+					throw new Error('This browser cannot align the Auto Duck control track.');
+				}
+				const delaySeconds = delayFrames / (context.sampleRate || DEFAULT_SAMPLE_RATE);
+				const delay = addNode(nodes, context.createDelay(Math.max(1, delaySeconds)));
+				setParam(delay.delayTime, delaySeconds, context.currentTime);
+				connect(controlInput, delay);
+				connect(delay, processor, 0, 1);
+			} else connect(controlInput, processor, 0, 1);
+		}
+		return processor;
+	}
 	if ((type === 'limiter' || type === 'gate') && dynamicsWorkletContexts.has(context)) {
 		const WorkletNode = globalThis.AudioWorkletNode || globalThis.window?.AudioWorkletNode;
 		if (typeof WorkletNode === 'function') {
@@ -923,17 +1059,44 @@ function getAudioContextConstructor() {
 }
 
 async function ensureProjectWorklets(context, project) {
-	if (!projectUsesDynamicsWorklet(project) || dynamicsWorkletContexts.has(context)) return;
+	const needsDynamics = projectUsesDynamicsWorklet(project) && !dynamicsWorkletContexts.has(context);
+	const needsAudacity = projectUsesAudacityWorklet(project) && !audacityWorkletContexts.has(context);
+	if (!needsDynamics && !needsAudacity) return;
 	if (!context?.audioWorklet?.addModule || typeof (globalThis.AudioWorkletNode || globalThis.window?.AudioWorkletNode) !== 'function') {
-		throw new Error('This browser cannot run the limiter or gate without bypassing it.');
+		throw new Error(needsAudacity
+			? 'This browser cannot run Audacity real-time effects without bypassing them.'
+			: 'This browser cannot run the limiter or gate without bypassing it.');
 	}
-	await context.audioWorklet.addModule(new URL('./dynamics-worklet.js', import.meta.url));
-	dynamicsWorkletContexts.add(context);
+	if (needsDynamics) {
+		await context.audioWorklet.addModule(new URL('./dynamics-worklet.js', import.meta.url));
+		dynamicsWorkletContexts.add(context);
+	}
+	if (needsAudacity) {
+		await context.audioWorklet.addModule(await audacityWorkletModuleUrl());
+		audacityWorkletContexts.add(context);
+	}
+}
+
+async function audacityWorkletModuleUrl() {
+	// Vite's generic `new URL(..., import.meta.url)` asset handling copies the
+	// entry module without bundling its relative imports. The worker URL query
+	// emits a self-contained chunk that AudioWorklet.addModule can evaluate.
+	if (import.meta.env?.DEV || import.meta.env?.PROD) {
+		const module = await import('./audacity-effects/live-worklet.js?worker&url');
+		return module.default;
+	}
+	// Node's engine tests do not run through Vite and use a mocked module loader.
+	return new URL('./audacity-effects/live-worklet.js', import.meta.url);
 }
 
 function projectUsesDynamicsWorklet(project) {
 	const effects = [project?.master?.effects || [], ...(project?.tracks || []).map((track) => track.effects || [])].flat();
 	return effects.some((effect) => effect?.enabled !== false && (effect?.type === 'limiter' || effect?.type === 'gate'));
+}
+
+function projectUsesAudacityWorklet(project) {
+	const effects = [project?.master?.effects || [], ...(project?.tracks || []).map((track) => track.effects || [])].flat();
+	return effects.some((effect) => effect?.enabled !== false && isAudacityLiveEffect(effect?.type));
 }
 
 function getOfflineAudioContextConstructor() {
@@ -957,8 +1120,9 @@ function addNode(nodes, node) {
 	return node;
 }
 
-function connect(source, target) {
-	source?.connect?.(target);
+function connect(source, target, output = undefined, input = undefined) {
+	if (output === undefined) source?.connect?.(target);
+	else source?.connect?.(target, output, input);
 }
 
 function setParam(param, value, time) {

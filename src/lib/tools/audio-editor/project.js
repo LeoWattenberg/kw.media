@@ -35,6 +35,8 @@ const ID_FALLBACK_RANDOM_LENGTH = 10;
  * @property {string} type
  * @property {boolean} enabled
  * @property {Record<string, *>} params
+ * @property {Record<string, *> | null} [context]
+ * @property {Record<string, *> | null} [state]
  */
 
 /**
