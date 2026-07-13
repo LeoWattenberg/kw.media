@@ -1,4 +1,5 @@
 export * from './analysis.js';
+export * from './audacity-effects/index.js';
 export * from './commands.js';
 export * from './effects.js';
 export * from './export.js';
@@ -7,5 +8,6 @@ export * from './project.js';
 export * from './resample.js';
 export * from './engine.js';
 export * from './recording.js';
+export * from './retention.js';
 export * from './storage.js';
 export * from './wav.js';

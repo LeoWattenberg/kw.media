@@ -10,6 +10,8 @@ import {
 	canRedo,
 	canUndo,
 	chooseRenderStrategy,
+	collectHistorySourceIds,
+	compactEditorHistorySourceMetadata,
 	createAudioEditorProject,
 	createClipboardDescriptor,
 	createEditorHistory,
@@ -17,11 +19,13 @@ import {
 	createExportPlan,
 	createStreamingAudioAnalyzer,
 	executeEditorCommand,
+	evictUnreferencedSourceCaches,
 	findClip,
 	loadAudioEditorProject,
 	preparePasteCommand,
 	preparePunchCommand,
 	prepareRangeDeleteCommand,
+	prepareRangeReplacementCommand,
 	prepareSplitCommand,
 	projectDurationFrames,
 	projectEnvelope,
@@ -195,6 +199,140 @@ test('clipboard descriptors paste atomically and punch-in replaces only the sele
 	);
 });
 
+test('range replacements preserve surrounding segments, ripple one track, and replay stable IDs', () => {
+	let project = createFixture({ frameCount: 4_000 });
+	project = apply(project, { type: 'clip/add', trackId: 'track-1', clip: {
+		id: 'main', sourceId: 'source-1', timelineStartFrame: 100, sourceStartFrame: 200,
+		durationFrames: 1_000, fadeInFrames: 50, fadeOutFrames: 60,
+	} });
+	project = apply(project, { type: 'clip/add', trackId: 'track-1', clip: {
+		id: 'later', sourceId: 'source-1', timelineStartFrame: 1_400, sourceStartFrame: 1_500,
+		durationFrames: 200,
+	} });
+	project = apply(project, { type: 'clip/add', trackId: 'track-2', clip: {
+		id: 'other-track', sourceId: 'source-1', timelineStartFrame: 500, sourceStartFrame: 2_000,
+		durationFrames: 200,
+	} });
+
+	const generated = ['processed-source', 'processed-clip', 'main-right'];
+	const prefixes = [];
+	const command = prepareRangeReplacementCommand(project, {
+		trackId: 'track-1',
+		startFrame: 400,
+		endFrame: 700,
+		source: { name: 'processed.wav', storageKey: 'pcm/processed', frameCount: 500, channelCount: 2 },
+	}, (prefix) => {
+		prefixes.push(prefix);
+		return generated.shift();
+	});
+	assert.deepEqual(prefixes, ['source', 'clip', 'clip']);
+	assert.deepEqual(JSON.parse(JSON.stringify(command)), command);
+	assert.equal(command.source.id, 'processed-source');
+	assert.equal(command.clipId, 'processed-clip');
+	assert.deepEqual(command.splitClipIds, { main: 'main-right' });
+
+	const before = project;
+	let history = executeEditorCommand(createEditorHistory(project), command, { now: NOW });
+	project = history.present;
+	assert.deepEqual(
+		project.tracks[0].clipIds.map((id) => {
+			const clip = findClip(project, id);
+			return [id, clip.timelineStartFrame, clip.sourceStartFrame, clip.durationFrames, clip.fadeInFrames, clip.fadeOutFrames];
+		}),
+		[
+			['main', 100, 200, 300, 50, 0],
+			['processed-clip', 400, 0, 500, 0, 0],
+			['main-right', 900, 800, 400, 0, 60],
+			['later', 1_600, 1_500, 200, 0, 0],
+		],
+	);
+	assert.deepEqual(project.tracks[1].clipIds, ['other-track']);
+	assert.equal(findClip(project, 'other-track').timelineStartFrame, 500);
+	assert.equal(project.sources.at(-1).id, 'processed-source');
+	assert.equal(project.sources.at(-1).frameCount, 500);
+
+	history = undoEditorCommand(history, { now: NOW });
+	assert.deepEqual(history.present.sources.map((source) => source.id), before.sources.map((source) => source.id));
+	assert.deepEqual(history.present.tracks[0].clipIds, ['main', 'later']);
+	assert.equal(findClip(history.present, 'main').durationFrames, 1_000);
+	assert.equal(findClip(history.present, 'later').timelineStartFrame, 1_400);
+	history = redoEditorCommand(history, { now: NOW });
+	assert.deepEqual(history.present.tracks[0].clipIds, ['main', 'processed-clip', 'main-right', 'later']);
+	assert.equal(findClip(history.present, 'processed-clip').sourceId, 'processed-source');
+	assert.equal(findClip(history.present, 'later').timelineStartFrame, 1_600);
+});
+
+test('shorter range replacements preserve reversed source regions and close later gaps', () => {
+	let project = createFixture({ frameCount: 3_000 });
+	project = apply(project, { type: 'clip/add', trackId: 'track-1', clip: {
+		id: 'reverse', sourceId: 'source-1', timelineStartFrame: 100, sourceStartFrame: 50,
+		durationFrames: 800, fadeInFrames: 20, fadeOutFrames: 30, reversed: true,
+	} });
+	project = apply(project, { type: 'clip/add', trackId: 'track-1', clip: {
+		id: 'later', sourceId: 'source-1', timelineStartFrame: 1_100, sourceStartFrame: 1_000,
+		durationFrames: 100,
+	} });
+	const command = prepareRangeReplacementCommand(project, {
+		trackId: 'track-1', startFrame: 300, endFrame: 700,
+		source: { id: 'short-source', name: 'short.wav', storageKey: 'pcm/short', frameCount: 100, channelCount: 1 },
+		clipId: 'short-clip',
+	}, () => 'reverse-right');
+	project = apply(project, command);
+
+	assert.deepEqual(
+		project.tracks[0].clipIds.map((id) => {
+			const clip = findClip(project, id);
+			return [id, clip.timelineStartFrame, clip.sourceStartFrame, clip.durationFrames, clip.reversed];
+		}),
+		[
+			['reverse', 100, 650, 200, true],
+			['short-clip', 300, 0, 100, false],
+			['reverse-right', 400, 50, 200, true],
+			['later', 800, 1_000, 100, false],
+		],
+	);
+	assert.equal(findClip(project, 'reverse').fadeInFrames, 20);
+	assert.equal(findClip(project, 'reverse').fadeOutFrames, 0);
+	assert.equal(findClip(project, 'reverse-right').fadeInFrames, 0);
+	assert.equal(findClip(project, 'reverse-right').fadeOutFrames, 30);
+});
+
+test('range replacements reject zero output, reused IDs, and incomplete replay commands atomically', () => {
+	let project = createFixture({ frameCount: 2_000 });
+	project = apply(project, { type: 'clip/add', trackId: 'track-1', clip: {
+		id: 'spanning', sourceId: 'source-1', timelineStartFrame: 0, sourceStartFrame: 0, durationFrames: 1_000,
+	} });
+	const before = structuredClone(project);
+	const source = { id: 'replacement-source', name: 'replacement.wav', storageKey: 'pcm/replacement', frameCount: 200, channelCount: 1 };
+
+	assert.throws(() => prepareRangeReplacementCommand(project, {
+		trackId: 'track-1', startFrame: 300, endFrame: 600,
+		source: { ...source, id: 'empty-source', frameCount: 0 }, clipId: 'replacement-clip',
+	}), /at least one frame/);
+	assert.throws(() => prepareRangeReplacementCommand(project, {
+		trackId: 'track-1', startFrame: 300, endFrame: 600,
+		source: { ...source, id: 'source-1' }, clipId: 'replacement-clip',
+	}), /Duplicate source ID/);
+	assert.throws(() => prepareRangeReplacementCommand(project, {
+		trackId: 'track-1', startFrame: 300, endFrame: 600,
+		source, clipId: 'spanning',
+	}), /Duplicate clip ID/);
+
+	assert.throws(() => apply(project, {
+		type: 'range/replace', trackId: 'track-1', startFrame: 300, endFrame: 600,
+		source: { ...source, id: '' }, clipId: 'replacement-clip', splitClipIds: { spanning: 'right' },
+	}), /stable replacement source ID/);
+	assert.throws(() => apply(project, {
+		type: 'range/replace', trackId: 'track-1', startFrame: 300, endFrame: 600,
+		source, splitClipIds: { spanning: 'right' },
+	}), /stable replacement clip ID/);
+	assert.throws(() => apply(project, {
+		type: 'range/replace', trackId: 'track-1', startFrame: 300, endFrame: 600,
+		source, clipId: 'replacement-clip', splitClipIds: {},
+	}), /stable right segment for spanning ID/);
+	assert.deepEqual(project, before);
+});
+
 test('effect racks validate their core studio parameters and track arming is exclusive', () => {
 	let project = createFixture();
 	const compressor = createEffect('compressor', { id: 'compressor-1' });
@@ -230,6 +368,44 @@ test('session history caps snapshots, clears redo on edits, and keeps revisions 
 	assert.equal(history.present.revision, revision + 2);
 	history = executeEditorCommand(history, { type: 'project/rename', title: 'New branch' }, { now: NOW });
 	assert.equal(canRedo(history), false);
+});
+
+test('source retention follows present, undo, and redo clip roots and evicts only unreachable caches', () => {
+	let project = createFixture({ frameCount: 1_000 });
+	project = apply(project, { type: 'clip/add', trackId: 'track-1', clip: {
+		id: 'original-clip', sourceId: 'source-1', timelineStartFrame: 0, sourceStartFrame: 0, durationFrames: 1_000,
+	} });
+	let history = createEditorHistory(project);
+	const replacement = prepareRangeReplacementCommand(project, {
+		trackId: 'track-1', startFrame: 0, endFrame: 1_000,
+		source: {
+			id: 'processed-source', storageKey: 'processed-source', name: 'processed.wav', mimeType: 'audio/wav',
+			frameCount: 1_000, channelCount: 2,
+		},
+		clipId: 'processed-clip',
+	});
+	history = compactEditorHistorySourceMetadata(executeEditorCommand(history, replacement, { now: NOW }));
+	assert.deepEqual(history.present.sources.map((source) => source.id), ['processed-source']);
+	assert.deepEqual(history.undoStack[0].project.sources.map((source) => source.id), ['source-1']);
+	assert.deepEqual([...collectHistorySourceIds(history)].sort(), ['processed-source', 'source-1']);
+
+	const buffers = new Map([['source-1', {}], ['processed-source', {}], ['stale-source', {}]]);
+	const peaks = new Map([['source-1', {}], ['processed-source', {}], ['stale-source', {}]]);
+	assert.deepEqual(evictUnreferencedSourceCaches(buffers, peaks, collectHistorySourceIds(history)), ['stale-source']);
+	assert.deepEqual([...buffers.keys()].sort(), ['processed-source', 'source-1']);
+
+	history = compactEditorHistorySourceMetadata(undoEditorCommand(history, { now: NOW }));
+	assert.deepEqual(history.present.sources.map((source) => source.id), ['source-1']);
+	assert.deepEqual(history.redoStack[0].project.sources.map((source) => source.id), ['processed-source']);
+	history = compactEditorHistorySourceMetadata(redoEditorCommand(history, { now: NOW }));
+	assert.equal(findClip(history.present, 'processed-clip').sourceId, 'processed-source');
+	assert.equal(validateAudioEditorProject(history.present), true);
+
+	history = compactEditorHistorySourceMetadata(undoEditorCommand(history, { now: NOW }));
+	history = compactEditorHistorySourceMetadata(executeEditorCommand(history, { type: 'project/rename', title: 'Branched' }, { now: NOW }));
+	assert.deepEqual([...collectHistorySourceIds(history)], ['source-1']);
+	assert.equal(history.redoStack.length, 0);
+	assert.deepEqual(evictUnreferencedSourceCaches(buffers, peaks, collectHistorySourceIds(history)), ['processed-source']);
 });
 
 test('duration, aggregate stereo minutes, and supported envelopes do not count clip reuse twice', () => {

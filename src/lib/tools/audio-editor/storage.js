@@ -1,5 +1,8 @@
+import { collectProjectSourceIds, compactProjectSourceMetadata } from './retention.js';
+
 const DATABASE_VERSION = 1;
 const DEFAULT_DATABASE_NAME = 'kw-media-audio-editor';
+const PENDING_SOURCE_RETENTION_MS = 24 * 60 * 60 * 1000;
 const memoryDatabases = new Map();
 
 /**
@@ -32,6 +35,7 @@ export class AudioEditorProjectStore {
 		this.backend = indexedDB ? 'indexeddb' : 'memory';
 		this.databasePromise = null;
 		this.memory = getMemoryDatabase(databaseName);
+		this.sourcePrunePromise = Promise.resolve();
 	}
 
 	async ready() {
@@ -43,7 +47,7 @@ export class AudioEditorProjectStore {
 		if (!project || typeof project.id !== 'string' || !project.id) {
 			throw new Error('A project with a stable string id is required.');
 		}
-		const snapshot = clone(project);
+		const snapshot = compactProjectSourceMetadata(clone(project));
 		const revision = nonNegativeInteger(snapshot.revision, 0);
 		const revisionRecord = {
 			key: revisionKey(snapshot.id, revision),
@@ -55,13 +59,21 @@ export class AudioEditorProjectStore {
 		if (!database) {
 			this.memory.projects.set(snapshot.id, snapshot);
 			this.memory.revisions.set(revisionRecord.key, revisionRecord);
+			for (const sourceId of collectProjectSourceIds(snapshot)) {
+				const source = this.memory.sources.get(sourceId);
+				if (source?.pendingProjectUntil) this.memory.sources.set(sourceId, publishSource(source));
+			}
 			await this.#pruneProjectRevisions(snapshot.id);
 			return clone(snapshot);
 		}
 
-		await transact(database, ['projects', 'revisions'], 'readwrite', ({ projects, revisions }) => {
+		await transact(database, ['projects', 'revisions', 'sources'], 'readwrite', async ({ projects, revisions, sources }) => {
 			projects.put(snapshot);
 			revisions.put(revisionRecord);
+			for (const sourceId of collectProjectSourceIds(snapshot)) {
+				const source = await request(sources.get(sourceId));
+				if (source?.pendingProjectUntil) sources.put(publishSource(source));
+			}
 		});
 		await this.#pruneProjectRevisions(snapshot.id);
 		return clone(snapshot);
@@ -73,22 +85,22 @@ export class AudioEditorProjectStore {
 			const value = revision === undefined
 				? this.memory.projects.get(projectId)
 				: this.memory.revisions.get(revisionKey(projectId, revision))?.project;
-			return value ? clone(value) : null;
+			return value ? clone(compactProjectSourceMetadata(value)) : null;
 		}
 
 		const storeName = revision === undefined ? 'projects' : 'revisions';
 		const key = revision === undefined ? projectId : revisionKey(projectId, revision);
 		const value = await transact(database, storeName, 'readonly', (stores) => request(stores[storeName].get(key)));
-		return value ? clone(value.project || value) : null;
+		return value ? clone(compactProjectSourceMetadata(value.project || value)) : null;
 	}
 
 	async listProjects() {
 		const database = await this.#database();
 		if (!database) {
-			return [...this.memory.projects.values()].map(clone).sort(sortProjects);
+			return [...this.memory.projects.values()].map((project) => clone(compactProjectSourceMetadata(project))).sort(sortProjects);
 		}
 		const projects = await transact(database, 'projects', 'readonly', ({ projects }) => request(projects.getAll()));
-		return projects.map(clone).sort(sortProjects);
+		return projects.map((project) => clone(compactProjectSourceMetadata(project))).sort(sortProjects);
 	}
 
 	async listProjectRevisions(projectId) {
@@ -103,7 +115,7 @@ export class AudioEditorProjectStore {
 		}
 		return records.sort((left, right) => right.revision - left.revision).map((record) => ({
 			revision: record.revision,
-			project: clone(record.project),
+			project: clone(compactProjectSourceMetadata(record.project)),
 		}));
 	}
 
@@ -217,6 +229,7 @@ export class AudioEditorProjectStore {
 					frameCount: totalFrames,
 					chunkCount: chunkIndex,
 					committedAt: new Date().toISOString(),
+					pendingProjectUntil: new Date(Date.now() + PENDING_SOURCE_RETENTION_MS).toISOString(),
 				};
 				try {
 					await store.#putSourceMetadata(record);
@@ -337,6 +350,18 @@ export class AudioEditorProjectStore {
 		await this.deleteAnalysis(`audio-editor-peaks-v1:${sourceId}`);
 	}
 
+	/**
+	 * Delete immutable source data that no live or durable snapshot can reach.
+	 * Durable roots and deletions share one IndexedDB transaction, preventing a
+	 * concurrent autosave from racing the reachability check. Callers pass
+	 * unsaved undo/redo snapshots and other live-only roots explicitly.
+	 */
+	pruneUnreferencedSources(options = {}) {
+		const operation = this.sourcePrunePromise.then(() => this.#pruneUnreferencedSources(options));
+		this.sourcePrunePromise = operation.catch(() => undefined);
+		return operation;
+	}
+
 	/** Remove only old, uncommitted chunks/files so active tabs keep their writes. */
 	async cleanupTemporaryAssets({ maximumAgeMs = 24 * 60 * 60 * 1000 } = {}) {
 		const sources = await this.listSources();
@@ -416,6 +441,98 @@ export class AudioEditorProjectStore {
 		if (!database) this.memory[storeName].set(key, record);
 		else await transact(database, storeName, 'readwrite', (stores) => { stores[storeName].put(record); });
 		return clone(value);
+	}
+
+	async #pruneUnreferencedSources({
+		protectedProjects = [],
+		protectedSourceIds = [],
+		minimumAgeMs = 60_000,
+		now = Date.now(),
+	} = {}) {
+		const protectedIds = new Set(protectedSourceIds || []);
+		for (const project of protectedProjects || []) collectProjectSourceIds(project, protectedIds);
+		const maximumAge = Math.max(0, Number(minimumAgeMs) || 0);
+		const currentTime = Number.isFinite(Number(now)) ? Number(now) : Date.now();
+		const deletedSources = [];
+		const deferredSourceIds = [];
+		let nextEligibleAt = null;
+		const database = await this.#database();
+
+		if (!database) {
+			for (const [id, project] of this.memory.projects) {
+				const compacted = compactProjectSourceMetadata(project);
+				if (compacted !== project) this.memory.projects.set(id, compacted);
+				collectProjectSourceIds(compacted, protectedIds);
+			}
+			for (const [key, record] of this.memory.revisions) {
+				const compacted = compactProjectSourceMetadata(record.project);
+				if (compacted !== record.project) this.memory.revisions.set(key, { ...record, project: compacted });
+				collectProjectSourceIds(compacted, protectedIds);
+			}
+			for (const [sourceId, source] of this.memory.sources) {
+				if (protectedIds.has(sourceId)) continue;
+				const eligibleAt = sourceEligibleAt(source, maximumAge);
+				if (eligibleAt > currentTime) {
+					deferredSourceIds.push(sourceId);
+					nextEligibleAt = nextEligibleAt === null ? eligibleAt : Math.min(nextEligibleAt, eligibleAt);
+					continue;
+				}
+				deletedSources.push(source);
+				this.memory.sources.delete(sourceId);
+				this.memory.analysis.delete(`audio-editor-peaks-v1:${sourceId}`);
+				for (const [key, chunk] of this.memory.sourceChunks) {
+					if (chunk.sourceToken === source.sourceToken) this.memory.sourceChunks.delete(key);
+				}
+			}
+		} else {
+			const result = await transact(
+				database,
+				['projects', 'revisions', 'analysis', 'sources', 'sourceChunks'],
+				'readwrite',
+				async ({ projects, revisions, analysis, sources, sourceChunks }) => {
+					const savedProjects = await request(projects.getAll());
+					const savedRevisions = await request(revisions.getAll());
+					for (const saved of savedProjects) {
+						const compacted = compactProjectSourceMetadata(saved);
+						if (compacted !== saved) projects.put(compacted);
+						collectProjectSourceIds(compacted, protectedIds);
+					}
+					for (const record of savedRevisions) {
+						const compacted = compactProjectSourceMetadata(record.project);
+						if (compacted !== record.project) revisions.put({ ...record, project: compacted });
+						collectProjectSourceIds(compacted, protectedIds);
+					}
+
+					const storedSources = await request(sources.getAll());
+					const removed = [];
+					for (const source of storedSources) {
+						if (protectedIds.has(source.id)) continue;
+						const eligibleAt = sourceEligibleAt(source, maximumAge);
+						if (eligibleAt > currentTime) {
+							deferredSourceIds.push(source.id);
+							nextEligibleAt = nextEligibleAt === null ? eligibleAt : Math.min(nextEligibleAt, eligibleAt);
+							continue;
+						}
+						removed.push(source);
+						sources.delete(source.id);
+						analysis.delete(`audio-editor-peaks-v1:${source.id}`);
+						if (source.sourceToken) await deleteByIndex(sourceChunks.index('sourceToken'), source.sourceToken);
+					}
+					return removed;
+				},
+			);
+			deletedSources.push(...result);
+		}
+
+		for (const source of deletedSources) {
+			if (source.storage === 'opfs') await this.#deleteStoredSource(source);
+		}
+		return {
+			deletedSourceIds: deletedSources.map((source) => source.id),
+			deferredSourceIds,
+			retainedSourceIds: [...protectedIds],
+			nextEligibleAt,
+		};
 	}
 
 	async #pruneProjectRevisions(projectId) {
@@ -674,6 +791,20 @@ function getMemoryDatabase(name) {
 function normalizeChannels(input) {
 	if (!input || typeof input.length !== 'number') return [];
 	return Array.from(input, (channel) => channel instanceof Float32Array ? channel : Float32Array.from(channel || []));
+}
+
+function sourceEligibleAt(source, minimumAgeMs) {
+	const committedAt = Date.parse(source?.committedAt || '');
+	const pendingProjectUntil = Date.parse(source?.pendingProjectUntil || '');
+	return Math.max(
+		Number.isFinite(committedAt) ? committedAt + minimumAgeMs : 0,
+		Number.isFinite(pendingProjectUntil) ? pendingProjectUntil : 0,
+	);
+}
+
+function publishSource(source) {
+	const { pendingProjectUntil: _pendingProjectUntil, ...published } = source;
+	return published;
 }
 
 function cloneChunk(record) {

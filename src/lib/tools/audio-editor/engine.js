@@ -215,6 +215,7 @@ export class WebAudioEditorEngine {
 		includeTail = false,
 		trackId = null,
 		includeMaster = true,
+		includeTrackPan = true,
 		respectMuteSolo = true,
 		outputFrames: requestedOutputFrames = null,
 		preRollFrames = 0,
@@ -242,6 +243,7 @@ export class WebAudioEditorEngine {
 					sampleRate: this.sampleRate,
 					trackId,
 					includeMaster,
+					includeTrackPan,
 					respectMuteSolo,
 				});
 			}
@@ -255,6 +257,7 @@ export class WebAudioEditorEngine {
 			respectMuteSolo,
 			trackId,
 			includeMaster,
+			includeTrackPan,
 		});
 		scheduleProjectClips({
 			context,
@@ -545,6 +548,7 @@ export function buildProjectGraph(context, destination, project, {
 	respectMuteSolo = true,
 	trackId: onlyTrackId = null,
 	includeMaster = true,
+	includeTrackPan = true,
 } = {}) {
 	const nodes = [];
 	const sources = new Set();
@@ -572,7 +576,7 @@ export function buildProjectGraph(context, destination, project, {
 		setParam(gain.gain, finite(track.gain, 1), context.currentTime);
 		connect(output, gain);
 		output = gain;
-		if (typeof context.createStereoPanner === 'function') {
+		if (includeTrackPan && typeof context.createStereoPanner === 'function') {
 			const panner = addNode(nodes, context.createStereoPanner());
 			setParam(panner.pan, clamp(finite(track.pan, 0), -1, 1), context.currentTime);
 			connect(output, panner);

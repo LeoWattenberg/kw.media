@@ -117,6 +117,18 @@ const copyByLocale = {
 		moveEffectUp: 'Effekt nach oben',
 		moveEffectDown: 'Effekt nach unten',
 		removeEffect: 'Effekt entfernen',
+		audacityEffectsTitle: 'Audacity-Auswahleffekte',
+		audacityEffectsDescription: 'Wendet die native Audacity-Signalverarbeitung auf die Zeitauswahl der gewählten Spur an. Ohne Zeitauswahl wird der ausgewählte Clip verarbeitet. Das Original bleibt für Rückgängig erhalten.',
+		chooseAudacityEffect: 'Audacity-Effekt',
+		controlTrack: 'Steuerspur',
+		getNoiseProfile: 'Rauschprofil ermitteln',
+		applyAudacityEffect: 'Auf Auswahl anwenden',
+		noiseProfileMissing: 'Ermittle zuerst ein Rauschprofil aus einer Auswahl, die nur Rauschen enthält.',
+		noiseProfileReady: 'Rauschprofil ist bereit.',
+		audacitySelectionHint: 'Wähle eine Spur und einen Zeitbereich oder Clip aus.',
+		audacityProcessing: 'Audacity-Effekt wird lokal berechnet…',
+		audacityProfileProcessing: 'Rauschprofil wird lokal analysiert…',
+		audacityApplied: 'Audacity-Effekt wurde angewendet.',
 		metering: 'Live-Metering',
 		peak: 'Peak',
 		truePeak: 'True Peak (Schätzung)',
@@ -277,6 +289,18 @@ const copyByLocale = {
 		moveEffectUp: 'Move effect up',
 		moveEffectDown: 'Move effect down',
 		removeEffect: 'Remove effect',
+		audacityEffectsTitle: 'Audacity selection effects',
+		audacityEffectsDescription: 'Applies Audacity’s native signal processing to the selected track’s time selection. With no time selection, the selected clip is processed. The original remains available to undo.',
+		chooseAudacityEffect: 'Audacity effect',
+		controlTrack: 'Control track',
+		getNoiseProfile: 'Get noise profile',
+		applyAudacityEffect: 'Apply to selection',
+		noiseProfileMissing: 'First capture a noise profile from a selection containing only noise.',
+		noiseProfileReady: 'Noise profile is ready.',
+		audacitySelectionHint: 'Select a track and a time range or clip.',
+		audacityProcessing: 'Processing the Audacity effect locally…',
+		audacityProfileProcessing: 'Analyzing a noise profile locally…',
+		audacityApplied: 'Applied the Audacity effect.',
 		metering: 'Live metering',
 		peak: 'Peak',
 		truePeak: 'True peak (estimated)',
@@ -510,6 +534,20 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 							<div class="effect-rack" data-effect-rack>
 								<p class="panel-hint" data-effect-empty>{copy.effectRackEmpty}</p>
 							</div>
+							<section class="audacity-effect-panel" data-audacity-effect-panel>
+								<div>
+									<h3>{copy.audacityEffectsTitle}</h3>
+									<p class="panel-hint">{copy.audacityEffectsDescription}</p>
+								</div>
+								<label class="field wide"><span>{copy.chooseAudacityEffect}</span><select data-audacity-effect-type></select></label>
+								<label class="field wide" data-audacity-control-field hidden><span>{copy.controlTrack}</span><select data-audacity-control-track></select></label>
+								<div class="audacity-effect-parameters" data-audacity-effect-parameters></div>
+								<p class="panel-hint" data-audacity-effect-hint>{copy.audacitySelectionHint}</p>
+								<div class="panel-actions">
+									<button type="button" data-audacity-noise-profile hidden>{copy.getNoiseProfile}</button>
+									<button class="editor-button primary" type="button" data-apply-audacity-effect>{copy.applyAudacityEffect}</button>
+								</div>
+							</section>
 						</section>
 
 						<section class="inspector-panel" role="tabpanel" id={`inspector-panel-analysis-${locale}`} aria-labelledby={`inspector-tab-analysis-${locale}`} data-inspector-panel="analysis" hidden>
@@ -761,7 +799,8 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 	.clip-fields, .export-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 	.field { position: relative; display: grid; min-width: 0; gap: 5px; color: var(--color-accent-dark); font-size: 0.7rem; font-weight: 850; text-transform: uppercase; }
 	.field.wide { grid-column: 1 / -1; }
-	.field input, .field select { box-sizing: border-box; width: 100%; min-height: 44px; padding: 0 10px; color: var(--color-ink); background: var(--color-control-surface); border: 1px solid var(--color-line); border-radius: 6px; font-weight: 700; text-transform: none; }
+	.field input, .field select, .field textarea { box-sizing: border-box; width: 100%; min-height: 44px; padding: 0 10px; color: var(--color-ink); background: var(--color-control-surface); border: 1px solid var(--color-line); border-radius: 6px; font-weight: 700; text-transform: none; }
+	.field textarea { min-height: 76px; padding-block: 9px; resize: vertical; }
 	.field input:disabled { opacity: 0.6; }
 	.field small { position: absolute; right: 9px; bottom: 14px; color: var(--color-muted); font-size: 0.65rem; text-transform: none; pointer-events: none; }
 	.field input + small { padding-right: 26px; }
@@ -776,6 +815,12 @@ const tabIds = ['clip', 'effects', 'analysis', 'export'] as const;
 	.effect-card header input { accent-color: var(--color-accent); }
 	.effect-card header button { min-width: 38px; min-height: 38px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); cursor: pointer; }
 	.effect-parameters { padding: 10px; border-top: 1px solid var(--color-line); }
+	.audacity-effect-panel { display: grid; gap: 12px; padding-top: 16px; border-top: 1px solid var(--color-line); }
+	.audacity-effect-panel > div:first-child { display: grid; gap: 6px; }
+	.audacity-effect-parameters { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+	.audacity-effect-parameters .wide { grid-column: 1 / -1; }
+	.audacity-band-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 260px; gap: 7px; overflow-y: auto; padding: 8px; background: var(--color-surface-alt); border: 1px solid var(--color-line); border-radius: 6px; }
+	.audacity-band-grid .field input { min-height: 38px; }
 	.analysis-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
 	.analysis-grid > div { display: grid; gap: 4px; padding: 9px; background: var(--color-surface-alt); border: 1px solid var(--color-line); border-radius: 6px; }
 	.analysis-grid span { color: var(--color-muted); font-size: 0.62rem; font-weight: 800; text-transform: uppercase; }
