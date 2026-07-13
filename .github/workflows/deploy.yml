@@ -49,6 +49,7 @@ jobs:
         env:
           ASTRO_SITE: https://kw.media
           ASTRO_BASE: /
+          PUBLIC_AUDIO_EDITOR_V2: 'false'
 
       - name: Setup IndexNow
         run: echo ${{ secrets.INDEXNOW_KEY }} > dist/${{ secrets.INDEXNOW_KEY }}.txt

@@ -11,7 +11,10 @@ import { createRecordingController } from '../src/lib/tools/audio-editor/recordi
 import { StreamingRecorderProcessor } from '../src/lib/tools/audio-editor/recording-worklet.js';
 import { RenderCaptureProcessor } from '../src/lib/tools/audio-editor/render-capture-worklet.js';
 import { DynamicsProcessor } from '../src/lib/tools/audio-editor/dynamics-worklet.js';
-import { createStreamingLinearResampler } from '../src/lib/tools/audio-editor/resample.js';
+import {
+	createStreamingLinearResampler,
+	createStreamingWindowedSincResampler,
+} from '../src/lib/tools/audio-editor/resample.js';
 import { createProjectStore } from '../src/lib/tools/audio-editor/storage.js';
 import { createWavStreamEncoder, encodeWav } from '../src/lib/tools/audio-editor/wav.js';
 
@@ -89,6 +92,35 @@ test('streaming resampler is chunk-stable and pads requested tails with silence'
 	assert.equal(actual.at(-20), 0);
 });
 
+test('windowed-sinc resampler is deterministic across chunk boundaries and rejects alias energy', () => {
+	const input = Float32Array.from({ length: 4_800 }, (_, index) => (
+		0.6 * Math.sin(2 * Math.PI * 1_000 * index / 48_000)
+		+ 0.4 * Math.sin(2 * Math.PI * 20_000 * index / 48_000)
+	));
+	const oneShot = createStreamingWindowedSincResampler(48_000, 16_000, 1);
+	const expected = concatenateFloat32([oneShot.push([input])[0], oneShot.finish()[0]]);
+	const chunked = createStreamingWindowedSincResampler(48_000, 16_000, 1);
+	const actual = concatenateFloat32([
+		chunked.push([input.subarray(0, 777)])[0],
+		chunked.push([input.subarray(777, 3_211)])[0],
+		chunked.push([input.subarray(3_211)])[0],
+		chunked.finish()[0],
+	]);
+	assert.equal(actual.length, 1_600);
+	assert.equal(chunked.inputFrames, 4_800);
+	assert.equal(chunked.outputFrames, 1_600);
+	for (let index = 0; index < actual.length; index += 1) {
+		assert.ok(Math.abs(actual[index] - expected[index]) < 1e-6);
+	}
+	const rms = Math.sqrt(actual.reduce((sum, sample) => sum + sample * sample, 0) / actual.length);
+	assert.ok(rms > 0.35 && rms < 0.5, `unexpected band-limited RMS ${rms}`);
+
+	const padded = createStreamingWindowedSincResampler(48_000, 16_000, 1);
+	const paddedOutput = concatenateFloat32([padded.push([input])[0], padded.finish(1_650)[0]]);
+	assert.equal(paddedOutput.length, 1_650);
+	assert.deepEqual([...paddedOutput.slice(-50)], [...new Float32Array(50)]);
+});
+
 test('memory project store retains revisions and streams immutable source chunks', async () => {
 	const store = createProjectStore({ indexedDB: null, databaseName: `test-${Date.now()}-${Math.random()}` });
 	assert.equal(store.backend, 'memory');
@@ -134,6 +166,51 @@ test('memory project store retains revisions and streams immutable source chunks
 	}, /could not be found/);
 	await store.clear();
 	assert.deepEqual(await store.listProjects(), []);
+});
+
+test('copy-on-write sources share untouched chunks and retain base dependencies through garbage collection', async () => {
+	const store = createProjectStore({
+		indexedDB: null,
+		preferOpfs: false,
+		databaseName: `copy-on-write-${Date.now()}-${Math.random()}`,
+	});
+	const writer = await store.beginSourceWrite('cow-base', {
+		sampleRate: 48_000,
+		channelCount: 1,
+		chunkFrames: 65_536,
+	});
+	await writer.write([Float32Array.from({ length: 65_536 }, (_, frame) => frame / 65_536)]);
+	await writer.write([Float32Array.of(0.25, 0.5)]);
+	await writer.commit({ chunkFrames: 65_536 });
+
+	const replacement = Float32Array.from({ length: 65_536 }, () => -0.5);
+	const derived = await store.writeDerivedSource('cow-derived', 'cow-base', [
+		{ index: 0, channels: [replacement] },
+	], { sampleRate: 48_000, channelCount: 1, chunkFrames: 65_536 });
+	assert.equal(derived.storage, 'copy-on-write');
+	assert.equal(derived.overrideChunkCount, 1);
+	assert.equal(derived.baseSourceId, 'cow-base');
+
+	const chunks = [];
+	for await (const chunk of store.readSourceChunks('cow-derived')) chunks.push(chunk);
+	assert.deepEqual(chunks.map((chunk) => chunk.frames), [65_536, 2]);
+	assert.equal(chunks[0].channels[0][100], -0.5);
+	assert.deepEqual([...chunks[1].channels[0]], [0.25, 0.5]);
+	await assert.rejects(() => store.deleteSource('cow-base'), /retained by derived source cow-derived/);
+
+	const future = Date.now() + 2 * 24 * 60 * 60 * 1000;
+	let result = await store.pruneUnreferencedSources({
+		protectedProjects: [{ clips: [{ sourceId: 'cow-derived' }] }],
+		minimumAgeMs: 0,
+		now: future,
+	});
+	assert.deepEqual(result.deletedSourceIds, []);
+	assert.deepEqual(new Set(result.retainedSourceIds), new Set(['cow-base', 'cow-derived']));
+
+	result = await store.pruneUnreferencedSources({ minimumAgeMs: 0, now: future });
+	assert.deepEqual(new Set(result.deletedSourceIds), new Set(['cow-base', 'cow-derived']));
+	assert.equal(await store.getSourceMetadata('cow-base'), null);
+	assert.equal(await store.getSourceMetadata('cow-derived'), null);
 });
 
 test('project store bounds durable manifest revisions while retaining recovery history', async () => {
@@ -285,6 +362,22 @@ test('project store writes AudioBuffers in bounded source chunks', async () => {
 	assert.deepEqual(frames, [2, 2, 1]);
 });
 
+test('project store demand-loads one immutable chunk and records its fixed layout', async () => {
+	const store = createProjectStore({ indexedDB: null, databaseName: `runtime-random-chunk-${Date.now()}` });
+	const writer = await store.beginSourceWrite('stream-source', { sampleRate: 48_000, channelCount: 1 });
+	await writer.write([new Float32Array(65_536).fill(0.25)]);
+	await writer.write([Float32Array.of(0.5, 0.75)]);
+	const metadata = await writer.commit();
+	assert.equal(metadata.chunkFrames, 65_536);
+	assert.equal(metadata.chunkCount, 2);
+	const second = await store.readSourceChunk('stream-source', 1);
+	assert.equal(second.index, 1);
+	assert.equal(second.frames, 2);
+	assert.deepEqual([...second.channels[0]], [0.5, 0.75]);
+	assert.notEqual(second.channels[0].buffer, (await store.readSourceChunk('stream-source', 1)).channels[0].buffer);
+	await assert.rejects(store.readSourceChunk('stream-source', 2), /does not exist/);
+});
+
 test('recording worklet emits bounded transferable chunks and monitor output', () => {
 	const processor = new StreamingRecorderProcessor({ processorOptions: { channelCount: 1, chunkFrames: 128, monitor: true } });
 	const messages = [];
@@ -299,6 +392,36 @@ test('recording worklet emits bounded transferable chunks and monitor output', (
 	assert.equal(chunk.message.channels[0].length, 128);
 	assert.equal(chunk.transfer.length, 1);
 	assert.equal(messages.at(-1).message.type, 'stopped');
+});
+
+test('recording worklet pause omits paused input and extends a bounded punch stop', () => {
+	const previousFrame = globalThis.currentFrame;
+	globalThis.currentFrame = 0;
+	try {
+		const processor = new StreamingRecorderProcessor({ processorOptions: { channelCount: 1, chunkFrames: 128 } });
+		const messages = [];
+		processor.port.postMessage = (message) => messages.push(message);
+		processor.port.onmessage({ data: { type: 'start', startFrame: 0, stopFrame: 384 } });
+		const block = new Float32Array(128).fill(0.5);
+		processor.process([[block]], [[new Float32Array(128)]]);
+		processor.port.onmessage({ data: { type: 'pause' } });
+		globalThis.currentFrame = 128;
+		processor.process([[new Float32Array(128).fill(1)]], [[new Float32Array(128)]]);
+		processor.port.onmessage({ data: { type: 'resume' } });
+		globalThis.currentFrame = 256;
+		processor.process([[block]], [[new Float32Array(128)]]);
+		globalThis.currentFrame = 384;
+		processor.process([[block]], [[new Float32Array(128)]]);
+		const chunks = messages.filter((message) => message.type === 'audio-chunk');
+		assert.deepEqual(chunks.map((message) => message.frames), [128, 128, 128]);
+		assert.ok(chunks.every((message) => message.channels[0].every((sample) => sample === 0.5)));
+		assert.equal(messages.some((message) => message.type === 'paused'), true);
+		assert.equal(messages.some((message) => message.type === 'resumed'), true);
+		assert.equal(messages.at(-1).type, 'stopped');
+	} finally {
+		if (previousFrame === undefined) delete globalThis.currentFrame;
+		else globalThis.currentFrame = previousFrame;
+	}
 });
 
 test('dynamics worklet gates quiet input and look-ahead limits overshoot', () => {
@@ -375,11 +498,17 @@ test('recording controller serializes writes and releases microphone resources',
 	assert.equal(moduleUrl, '/recorder.js');
 	controller.start({ startFrame: 10, stopFrame: 20 });
 	node.port.onmessage({ data: { type: 'audio-chunk', frameStart: 10, frames: 2, channels: [Float32Array.of(0.5, -0.5)] } });
+	assert.equal(controller.pause(), true);
+	assert.equal(controller.state, 'paused');
+	node.port.onmessage({ data: { type: 'paused', frame: 12 } });
+	assert.equal(controller.resume(), true);
+	assert.equal(controller.state, 'recording');
+	node.port.onmessage({ data: { type: 'resumed', frame: 14 } });
 	const stopped = controller.stop();
 	node.port.onmessage({ data: { type: 'stopped', frame: 20 } });
 	assert.deepEqual(await stopped, { frame: 20 });
 	assert.deepEqual(writes, [[0.5, -0.5]]);
-	assert.deepEqual(posted.map((message) => message.type), ['start', 'stop']);
+	assert.deepEqual(posted.map((message) => message.type), ['start', 'pause', 'resume', 'stop']);
 	await controller.dispose();
 	assert.equal(trackStopped, true);
 	assert.equal(mediaSource.disconnected, true);
@@ -429,6 +558,139 @@ test('Web Audio engine schedules canonical clips, transport, reverse, loop, and 
 	assert.ok(states.includes('playing'));
 	await engine.dispose();
 	assert.equal(realtime.closed, true);
+});
+
+test('engine streams persisted long sources live and schedules bounded chunks through the same offline graph', async () => {
+	const realtime = new MockAudioContext();
+	const offlineContexts = [];
+	const streamClient = new MockChunkStreamClient();
+	const project = createProject();
+	project.sources = [{ id: 'source-1', frameCount: 70_000, sampleRate: 48_000, channelCount: 1, chunkFrames: 65_536 }];
+	project.clips[0].durationFrames = 70_000;
+	project.clips[0].sourceDurationFrames = 70_000;
+	const reads = [];
+	const provider = {
+		channelCount: 1,
+		frameCount: 70_000,
+		chunkFrames: 65_536,
+		sampleRate: 48_000,
+		async readStorageChunk(index) {
+			reads.push(index);
+			const frames = index === 0 ? 65_536 : 4_464;
+			return [new Float32Array(frames).fill(index ? 0.75 : 0.25)];
+		},
+	};
+	const engine = createAudioEditorEngine({
+		audioContextFactory: () => realtime,
+		offlineAudioContextFactory: (options) => {
+			const context = new MockOfflineAudioContext(options);
+			offlineContexts.push(context);
+			return context;
+		},
+		chunkStreamClient: streamClient,
+		chunkAudioNodeFactory: async (context) => context.make('chunk-stream', {
+			port: { postMessage() {}, addEventListener() {}, removeEventListener() {}, start() {} },
+		}),
+		meterInterval: 1_000,
+	});
+	engine.loadProject(project, new Map(), { chunkSources: new Map([['source-1', provider]]) });
+	await engine.play();
+	assert.equal(realtime.bufferSources.length, 0, 'live playback never creates a full-source AudioBufferSource');
+	assert.equal(streamClient.opens.length, 1);
+	assert.deepEqual(
+		[streamClient.opens[0].startFrame, streamClient.opens[0].endFrame],
+		[0, 70_000],
+	);
+	assert.equal(streamClient.handles[0].plays[0].contextStartFrame, 960);
+	assert.ok(realtime.nodeKinds.includes('biquad'));
+	assert.ok(realtime.nodeKinds.includes('compressor'));
+	assert.ok(realtime.nodeKinds.includes('delay'));
+	engine.stop();
+	assert.equal(streamClient.handles[0].cancelled, true);
+
+	const progress = [];
+	await engine.renderMix({
+		startFrame: 0,
+		endFrame: 70_000,
+		onProgress: (value) => progress.push(value.progress),
+	});
+	assert.deepEqual(reads, [0, 1]);
+	assert.equal(offlineContexts.length, 1);
+	assert.deepEqual(offlineContexts[0].bufferSources.map((source) => source.buffer.length), [65_536, 4_464]);
+	assert.equal(offlineContexts[0].bufferSources.some((source) => source.buffer.length === 70_000), false);
+	assert.ok(offlineContexts[0].nodeKinds.includes('biquad'));
+	assert.ok(offlineContexts[0].nodeKinds.includes('compressor'));
+	assert.ok(offlineContexts[0].nodeKinds.includes('delay'));
+	assert.equal(progress.at(-1), 1);
+	await engine.dispose();
+});
+
+test('engine requests worker-side windowed-sinc conversion for arbitrary long-source rates', async () => {
+	const context = new MockAudioContext({ sampleRate: 48_000 });
+	const streamClient = new MockChunkStreamClient();
+	const project = createProject();
+	project.sources = [{ id: 'source-1', frameCount: 44_100, sampleRate: 44_100, channelCount: 1, chunkFrames: 65_536 }];
+	project.clips[0].durationFrames = 48_000;
+	project.clips[0].sourceDurationFrames = 44_100;
+	const provider = {
+		channelCount: 1,
+		frameCount: 44_100,
+		chunkFrames: 65_536,
+		sampleRate: 44_100,
+		async readStorageChunk() { return [new Float32Array(44_100)]; },
+	};
+	const engine = createAudioEditorEngine({
+		audioContextFactory: () => context,
+		chunkStreamClient: streamClient,
+		chunkAudioNodeFactory: async (audioContext) => audioContext.make('chunk-stream', {
+			port: { postMessage() {}, addEventListener() {}, removeEventListener() {}, start() {} },
+		}),
+		meterInterval: 1_000,
+	});
+	engine.loadProject(project, new Map(), { chunkSources: new Map([['source-1', provider]]) });
+	engine.seek(1);
+	await engine.play();
+	assert.equal(streamClient.opens.length, 1);
+	assert.deepEqual({
+		sourceStartFrame: streamClient.opens[0].sourceStartFrame,
+		sourceEndFrame: streamClient.opens[0].sourceEndFrame,
+		outputFrameCount: streamClient.opens[0].outputFrameCount,
+	}, { sourceStartFrame: 0, sourceEndFrame: 44_100, outputFrameCount: 47_999 });
+	assert.ok(Math.abs(streamClient.opens[0].resampleInputFrames - 44_099.08125) < 1e-6);
+	assert.ok(Math.abs(streamClient.opens[0].resampleInputOffset - 0.91875) < 1e-6);
+	assert.equal(context.bufferSources.length, 0);
+	engine.stop();
+	await engine.dispose();
+});
+
+test('engine source resolver can schedule a committed nondestructive clip cache without changing callers', async () => {
+	const context = new MockAudioContext();
+	const project = createProject();
+	project.clips[0].reversed = true;
+	const original = new MockAudioBuffer(1, 48_000, 48_000);
+	const committed = new MockAudioBuffer(1, 24_000, 48_000);
+	const engine = createAudioEditorEngine({
+		audioContextFactory: () => context,
+		sourceResolver: (clip, { defaultBuffer }) => {
+			assert.equal(clip.id, 'clip-1');
+			assert.equal(defaultBuffer, original);
+			return {
+				buffer: committed,
+				sourceStartFrame: 0,
+				sourceDurationFrames: committed.length,
+				reversed: false,
+			};
+		},
+		meterInterval: 1_000,
+	});
+	engine.loadProject(project, new Map([['source-1', original]]));
+	await engine.play();
+	assert.equal(context.bufferSources.length, 1);
+	assert.equal(context.bufferSources[0].buffer, committed);
+	assert.deepEqual(context.bufferSources[0].started, [0, 0, 0.5]);
+	assert.equal(engine.setSourceResolver(null), engine);
+	engine.stop();
+	await engine.dispose();
 });
 
 test('project graph meters pre-mute tracks and applies master processing', () => {
@@ -812,6 +1074,33 @@ class MockAudioWorkletNode extends MockNode {
 		context.workletNodes.push(this);
 		context.nodeKinds.push(`audio-worklet:${name}`);
 	}
+}
+
+class MockChunkStreamClient {
+	constructor() {
+		this.opens = [];
+		this.handles = [];
+		this.disposed = false;
+	}
+	open(options) {
+		this.opens.push(options);
+		let resolveDone;
+		const handle = {
+			ready: Promise.resolve({ channelCount: options.source.channelCount }),
+			primed: Promise.resolve({ packets: 4, frames: 4_096 }),
+			done: new Promise((resolve) => { resolveDone = resolve; }),
+			plays: [],
+			cancelled: false,
+			async play(value) { this.plays.push(value); },
+			cancel() {
+				this.cancelled = true;
+				resolveDone({ cancelled: true });
+			},
+		};
+		this.handles.push(handle);
+		return handle;
+	}
+	dispose() { this.disposed = true; }
 }
 
 class MockAudioBuffer {

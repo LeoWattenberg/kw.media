@@ -256,15 +256,21 @@ export default function AudioEditorMenuBar({
 function renderMenuItem(item, key, closeMenu) {
 	if (item.divider) return <ContextMenuItem key={key} isDivider />;
 	const children = item.items?.map((child, index) => renderMenuItem(child, `${key}-${index}`, closeMenu));
+	const label = item.disabledReason ? (
+		<span title={item.disabledReason} data-disabled-reason={item.disabledReason}>
+			{item.label}
+			<span className="kw-audio-editor-sr-only"> — {item.disabledReason}</span>
+		</span>
+	) : item.label;
 	return (
 		<ContextMenuItem
 			key={item.id || key}
-			label={item.label}
+			label={label}
 			shortcut={item.shortcut}
 			disabled={item.disabled}
 			checked={item.checked}
 			hasSubmenu={Boolean(children?.length)}
-			onClick={item.onClick}
+			onClick={item.disabled ? undefined : item.onClick}
 			onClose={() => closeMenu()}
 		>
 			{children}

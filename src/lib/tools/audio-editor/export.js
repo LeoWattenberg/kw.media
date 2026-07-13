@@ -6,12 +6,23 @@ import {
 	projectDurationFrames,
 	normalizeFrameRange,
 } from './project.js';
+import {
+	canonicalMediaExportFormat,
+	getMediaExportFormat,
+	normalizeMediaExportSettings,
+} from './media-export.js';
 
 export const EXPORT_FORMAT_DEFAULTS = Object.freeze({
 	wav: { bitDepth: 24 },
+	aiff: { bitDepth: 24 },
 	flac: { bitDepth: 24, compressionLevel: 5 },
 	mp3: { bitRate: 192 },
+	'ogg-vorbis': { quality: 5 },
 	opus: { bitRate: 160 },
+	wavpack: { bitDepth: 24, compressionLevel: 2 },
+	mp2: { bitRate: 256 },
+	'aac-m4a': { bitRate: 192 },
+	'custom-ffmpeg': {},
 });
 
 export const FAST_RENDER_THRESHOLDS = Object.freeze({
@@ -19,13 +30,10 @@ export const FAST_RENDER_THRESHOLDS = Object.freeze({
 	desktop: { outputBytes: 384 * 1024 ** 2, totalBytes: 1024 * 1024 ** 2 },
 });
 
-const MP3_BIT_RATES = new Set([128, 192, 256, 320]);
-const OPUS_BIT_RATES = new Set([96, 128, 160, 192, 256]);
-
 /**
  * @typedef {Object} AudioExportPlan
  * @property {'mix' | 'stems'} mode
- * @property {'wav' | 'flac' | 'mp3' | 'opus'} format
+ * @property {import('./media-export.js').MediaExportFormatId} format
  * @property {number} sampleRate
  * @property {number} outputFrames
  * @property {number} outputBytesPerRender
@@ -72,7 +80,7 @@ export function sanitizeExportName(value, fallback = 'audio-project') {
 }
 
 export function createExportFileName(project, options = {}) {
-	const extension = exportExtension(options.format || 'wav');
+	const extension = options.extension || exportExtension(options.format || 'wav');
 	if (options.mode === 'stem') {
 		const index = Number(options.trackIndex ?? 0) + 1;
 		return `${String(index).padStart(2, '0')}-${sanitizeExportName(options.trackName, 'track')}.${extension}`;
@@ -85,18 +93,19 @@ export function createExportFileName(project, options = {}) {
 export function createExportPlan(project, options = {}) {
 	const mode = options.mode || 'mix';
 	if (mode !== 'mix' && mode !== 'stems') throw new RangeError('Export mode must be mix or stems.');
-	const format = options.format || 'wav';
-	const encoding = normalizeEncoding(format, options);
-	const sampleRate = Number(options.sampleRate ?? AUDIO_EDITOR_SAMPLE_RATE);
-	if (sampleRate !== 44_100 && sampleRate !== AUDIO_EDITOR_SAMPLE_RATE) {
-		throw new RangeError('Export sample rate must be 44.1 or 48 kHz.');
-	}
+	const format = canonicalMediaExportFormat(options.format || 'wav');
+	const encoding = normalizeMediaExportSettings(format, {
+		...options,
+		sampleRate: options.sampleRate ?? project.sampleRate ?? AUDIO_EDITOR_SAMPLE_RATE,
+		inputChannelCount: options.inputChannelCount ?? project.masterChannels ?? AUDIO_EDITOR_MASTER_CHANNELS,
+	});
+	const sampleRate = encoding.sampleRate;
 	const range = resolveExportRange(project, options.range || 'project');
 	const tailFrames = determineTailFrames(project, mode, options.includeTail !== false);
 	const rangeOutputFrames = Math.ceil(range.durationFrames * sampleRate / project.sampleRate);
 	const tailOutputFrames = Math.ceil(tailFrames * sampleRate / project.sampleRate);
 	const outputFrames = rangeOutputFrames + tailOutputFrames;
-	const outputBytes = estimatePcmBytes(outputFrames);
+	const outputBytes = estimatePcmBytes(outputFrames, encoding.channelCount);
 	const render = chooseRenderStrategy({
 		mobile: Boolean(options.mobile),
 		outputBytes,
@@ -105,14 +114,14 @@ export function createExportPlan(project, options = {}) {
 	const outputs = mode === 'mix'
 		? [{
 			kind: 'mix',
-			fileName: createExportFileName(project, { format, date: options.date }),
+			fileName: createExportFileName(project, { format, extension: encoding.extension, date: options.date }),
 			trackId: null,
 			includeMaster: true,
 			respectMuteSolo: true,
 		}]
-		: project.tracks.map((track, trackIndex) => ({
+		: project.tracks.filter((track) => track.type !== 'label').map((track, trackIndex) => ({
 			kind: 'stem',
-			fileName: createExportFileName(project, { format, mode: 'stem', trackIndex, trackName: track.name }),
+			fileName: createExportFileName(project, { format, extension: encoding.extension, mode: 'stem', trackIndex, trackName: track.name }),
 			trackId: track.id,
 			includeMaster: false,
 			respectMuteSolo: false,
@@ -121,11 +130,14 @@ export function createExportPlan(project, options = {}) {
 	return {
 		mode,
 		format,
-		mimeType: exportMimeType(format),
+		mimeType: encoding.mimeType,
 		sampleRate,
-		channelCount: AUDIO_EDITOR_MASTER_CHANNELS,
+		channelCount: encoding.channelCount,
+		channelMapping: encoding.channelMapping,
 		encoding,
-		dither: (format === 'wav' || format === 'flac') && encoding.bitDepth !== 32,
+		dither: encoding.dither !== 'none',
+		ditherMode: encoding.dither,
+		metadata: encoding.metadata,
 		range,
 		tailFrames,
 		outputFrames,
@@ -144,6 +156,10 @@ function resolveExportRange(project, requestedRange) {
 	if (requestedRange === 'selection') {
 		return normalizeFrameRange(project.selection.startFrame, project.selection.endFrame, 'export selection');
 	}
+	if (requestedRange === 'loop') {
+		if (!project.loop?.enabled) throw new RangeError('The project loop is not enabled.');
+		return normalizeFrameRange(project.loop.startFrame, project.loop.endFrame, 'export loop');
+	}
 	if (requestedRange && typeof requestedRange === 'object') {
 		return normalizeFrameRange(requestedRange.startFrame, requestedRange.endFrame, 'export range');
 	}
@@ -152,51 +168,18 @@ function resolveExportRange(project, requestedRange) {
 
 function determineTailFrames(project, mode, includeTail) {
 	if (!includeTail) return 0;
-	const trackTail = project.tracks.reduce(
-		(longest, track) => Math.max(longest, rackTailFrames(track.effects, project.sampleRate, 10)),
+	const trackTail = project.tracks.filter((track) => track.type !== 'label').reduce(
+		(longest, track) => Math.max(longest, rackTailFrames(track.effects || [], project.sampleRate, 10)),
 		0,
 	);
 	const masterTail = mode === 'mix' ? rackTailFrames(project.master.effects, project.sampleRate, 10) : 0;
 	return Math.min(project.sampleRate * 10, trackTail + masterTail);
 }
 
-function normalizeEncoding(format, options) {
-	if (!EXPORT_FORMAT_DEFAULTS[format]) throw new RangeError(`Unsupported export format: ${format}.`);
-	if (format === 'wav') {
-		const bitDepth = Number(options.bitDepth ?? EXPORT_FORMAT_DEFAULTS.wav.bitDepth);
-		if (![16, 24, 32].includes(bitDepth)) throw new RangeError('WAV bit depth must be 16, 24, or 32-bit float.');
-		return { bitDepth, floatingPoint: bitDepth === 32 };
-	}
-	if (format === 'flac') {
-		const bitDepth = Number(options.bitDepth ?? EXPORT_FORMAT_DEFAULTS.flac.bitDepth);
-		const compressionLevel = Number(options.compressionLevel ?? EXPORT_FORMAT_DEFAULTS.flac.compressionLevel);
-		if (![16, 24].includes(bitDepth)) throw new RangeError('FLAC bit depth must be 16 or 24.');
-		if (!Number.isInteger(compressionLevel) || compressionLevel < 0 || compressionLevel > 8) {
-			throw new RangeError('FLAC compression level must be from 0 to 8.');
-		}
-		return { bitDepth, compressionLevel };
-	}
-	if (format === 'mp3') {
-		const bitRate = Number(options.bitRate ?? EXPORT_FORMAT_DEFAULTS.mp3.bitRate);
-		if (!MP3_BIT_RATES.has(bitRate)) throw new RangeError('Unsupported MP3 bitrate.');
-		return { bitRate };
-	}
-	const bitRate = Number(options.bitRate ?? EXPORT_FORMAT_DEFAULTS.opus.bitRate);
-	if (!OPUS_BIT_RATES.has(bitRate)) throw new RangeError('Unsupported Opus bitrate.');
-	return { bitRate };
-}
-
 function exportExtension(format) {
-	return format;
-}
-
-function exportMimeType(format) {
-	return {
-		wav: 'audio/wav',
-		flac: 'audio/flac',
-		mp3: 'audio/mpeg',
-		opus: 'audio/opus',
-	}[format];
+	const descriptor = getMediaExportFormat(format);
+	if (!descriptor.extension) throw new RangeError('Custom FFmpeg exports require an output extension.');
+	return descriptor.extension;
 }
 
 function isoDate(value = new Date()) {

@@ -184,6 +184,9 @@ export class AudioEditorProjectStore {
 		let chunkIndex = 0;
 		let totalFrames = 0;
 		let channelCount = null;
+		let nominalChunkFrames = null;
+		let previousChunkFrames = null;
+		let regularChunkLayout = true;
 		let closed = false;
 		const store = this;
 
@@ -199,6 +202,9 @@ export class AudioEditorProjectStore {
 				}
 				if (channelCount === null) channelCount = channels.length;
 				if (channels.length !== channelCount) throw new Error('Source channel count changed during a write.');
+				if (nominalChunkFrames === null) nominalChunkFrames = frameLength;
+				else if (previousChunkFrames !== nominalChunkFrames || frameLength > nominalChunkFrames) regularChunkLayout = false;
+				previousChunkFrames = frameLength;
 				const record = {
 					key: `${token}:${String(chunkIndex).padStart(10, '0')}`,
 					sourceToken: token,
@@ -227,6 +233,9 @@ export class AudioEditorProjectStore {
 					channelCount: channelCount || nonNegativeInteger(metadata.channelCount, 0),
 					frameLength: totalFrames,
 					frameCount: totalFrames,
+					chunkFrames: extraMetadata.chunkFrames
+						?? metadata.chunkFrames
+						?? (regularChunkLayout ? nominalChunkFrames : null),
 					chunkCount: chunkIndex,
 					committedAt: new Date().toISOString(),
 					pendingProjectUntil: new Date(Date.now() + PENDING_SOURCE_RETENTION_MS).toISOString(),
@@ -248,6 +257,68 @@ export class AudioEditorProjectStore {
 				else await store.#deleteSourceChunks(token);
 			},
 		};
+	}
+
+	/**
+	 * Atomically publish a sparse copy-on-write source. Replacement chunks are
+	 * immutable overlays; every untouched chunk remains owned by `baseSourceId`.
+	 */
+	async writeDerivedSource(sourceId, baseSourceId, replacementChunks, metadata = {}) {
+		if (!sourceId || !baseSourceId || sourceId === baseSourceId) throw new Error('Distinct source and base source ids are required.');
+		if (!Array.isArray(replacementChunks) || !replacementChunks.length) throw new Error('At least one replacement source chunk is required.');
+		const base = await this.getSourceMetadata(baseSourceId);
+		if (!base) throw new Error('The immutable base source could not be found.');
+		if (await this.getSourceMetadata(sourceId)) throw new Error('Immutable source ids cannot be overwritten.');
+		const channelCount = positiveInteger(base.channelCount, 64);
+		const frameCount = positiveInteger(base.frameCount ?? base.frameLength, Number.MAX_SAFE_INTEGER);
+		const chunkFrames = positiveInteger(metadata.chunkFrames ?? base.chunkFrames ?? 65_536, 65_536);
+		const expectedChunkCount = Math.ceil(frameCount / chunkFrames);
+		const token = `${sourceId}:cow:${createId('write')}`;
+		const seenIndices = new Set();
+		const chunks = replacementChunks.map((input, replacementIndex) => {
+			const index = nonNegativeInteger(input?.index, -1);
+			if (index < 0 || index >= expectedChunkCount || seenIndices.has(index)) throw new Error('A derived source contains an invalid replacement chunk index.');
+			seenIndices.add(index);
+			const channels = normalizeChannels(input.channels);
+			if (channels.length !== channelCount) throw new Error('A derived source replacement has the wrong channel count.');
+			const expectedFrames = index === expectedChunkCount - 1 ? frameCount - index * chunkFrames : chunkFrames;
+			if (channels[0]?.length !== expectedFrames) throw new Error('A derived source replacement has the wrong frame count.');
+			return {
+				key: `${token}:${String(index).padStart(10, '0')}`,
+				sourceToken: token,
+				index,
+				frames: expectedFrames,
+				channels: channels.map((channel) => channel.slice().buffer),
+				createdAt: Date.now() + replacementIndex,
+			};
+		});
+		const record = {
+			...clone(metadata),
+			id: sourceId,
+			storage: 'copy-on-write',
+			baseSourceId,
+			sourceToken: token,
+			channelCount,
+			frameLength: frameCount,
+			frameCount,
+			chunkFrames,
+			chunkCount: expectedChunkCount,
+			overrideChunkCount: chunks.length,
+			sampleRate: metadata.sampleRate ?? base.sampleRate,
+			committedAt: new Date().toISOString(),
+			pendingProjectUntil: new Date(Date.now() + PENDING_SOURCE_RETENTION_MS).toISOString(),
+		};
+		const database = await this.#database();
+		if (!database) {
+			for (const chunk of chunks) this.memory.sourceChunks.set(chunk.key, cloneChunk(chunk));
+			this.memory.sources.set(sourceId, clone(record));
+			return clone(record);
+		}
+		await transact(database, ['sources', 'sourceChunks'], 'readwrite', ({ sources, sourceChunks }) => {
+			for (const chunk of chunks) sourceChunks.put(chunk);
+			sources.put(record);
+		});
+		return clone(record);
 	}
 
 	/** Persist an AudioBuffer in bounded chunks without an intermediate copy. */
@@ -293,21 +364,69 @@ export class AudioEditorProjectStore {
 	}
 
 	async *readSourceChunks(sourceId) {
+		yield* this.#readSourceChunks(sourceId, new Set());
+	}
+
+	/**
+	 * Demand-load one immutable storage chunk. This is the random-access bridge
+	 * used by the long-source worker, so playback does not scan or materialize
+	 * every earlier chunk before satisfying a request.
+	 */
+	async readSourceChunk(sourceId, chunkIndex, { signal } = {}) {
+		const index = nonNegativeInteger(chunkIndex, -1);
+		if (index < 0) throw new RangeError('Source chunk index must be a non-negative integer.');
+		throwIfAborted(signal);
+		const result = await this.#readSourceChunk(sourceId, index, new Set(), signal);
+		throwIfAborted(signal);
+		return result;
+	}
+
+	async #readSourceChunk(sourceId, chunkIndex, ancestors, signal) {
 		const source = await this.getSourceMetadata(sourceId);
 		if (!source) throw new Error('The requested audio source could not be found.');
+		if (ancestors.has(sourceId)) throw new Error('The immutable source dependency graph contains a cycle.');
+		if (chunkIndex >= nonNegativeInteger(source.chunkCount, 0)) throw new RangeError(`Source storage chunk ${chunkIndex} does not exist.`);
+		const nextAncestors = new Set(ancestors).add(sourceId);
+		throwIfAborted(signal);
+		if (source.storage === 'copy-on-write') {
+			const replacement = await this.#sourceChunkRecord(source.sourceToken, chunkIndex);
+			if (!replacement) return this.#readSourceChunk(source.baseSourceId, chunkIndex, nextAncestors, signal);
+			return sourceChunkFromRecord(replacement);
+		}
+		if (source.storage === 'opfs') return this.#readOpfsSourceChunk(source, chunkIndex, signal);
+		const record = await this.#sourceChunkRecord(source.sourceToken, chunkIndex);
+		if (!record) throw new Error(`Source storage chunk ${chunkIndex} is missing.`);
+		return sourceChunkFromRecord(record);
+	}
+
+	async *#readSourceChunks(sourceId, ancestors) {
+		const source = await this.getSourceMetadata(sourceId);
+		if (!source) throw new Error('The requested audio source could not be found.');
+		if (ancestors.has(sourceId)) throw new Error('The immutable source dependency graph contains a cycle.');
+		const nextAncestors = new Set(ancestors).add(sourceId);
+		if (source.storage === 'copy-on-write') {
+			const replacements = new Map((await this.#sourceChunkRecords(source.sourceToken)).map((record) => [record.index, record]));
+			for await (const baseChunk of this.#readSourceChunks(source.baseSourceId, nextAncestors)) {
+				const replacement = replacements.get(baseChunk.index);
+				if (!replacement) {
+					yield baseChunk;
+					continue;
+				}
+				replacements.delete(baseChunk.index);
+				yield {
+					index: replacement.index,
+					frames: replacement.frames,
+					channels: replacement.channels.map((buffer) => new Float32Array(buffer.slice(0))),
+				};
+			}
+			if (replacements.size) throw new Error('A derived source replacement points beyond its base source.');
+			return;
+		}
 		if (source.storage === 'opfs') {
 			yield* this.#readOpfsSourceChunks(source);
 			return;
 		}
-		const database = await this.#database();
-		let records;
-		if (!database) {
-			records = [...this.memory.sourceChunks.values()].filter((record) => record.sourceToken === source.sourceToken);
-		} else {
-			records = await transact(database, 'sourceChunks', 'readonly', ({ sourceChunks }) => {
-				return request(sourceChunks.index('sourceToken').getAll(source.sourceToken));
-			});
-		}
+		const records = await this.#sourceChunkRecords(source.sourceToken);
 		records.sort((left, right) => left.index - right.index);
 		for (const record of records) {
 			yield {
@@ -343,6 +462,8 @@ export class AudioEditorProjectStore {
 	async deleteSource(sourceId) {
 		const source = await this.getSourceMetadata(sourceId);
 		if (!source) return;
+		const dependent = (await this.listSources()).find((candidate) => candidate.baseSourceId === sourceId);
+		if (dependent) throw new Error(`Source ${sourceId} is retained by derived source ${dependent.id}.`);
 		const database = await this.#database();
 		if (!database) this.memory.sources.delete(sourceId);
 		else await transact(database, 'sources', 'readwrite', ({ sources }) => { sources.delete(sourceId); });
@@ -469,6 +590,7 @@ export class AudioEditorProjectStore {
 				if (compacted !== record.project) this.memory.revisions.set(key, { ...record, project: compacted });
 				collectProjectSourceIds(compacted, protectedIds);
 			}
+			protectSourceDependencies(protectedIds, [...this.memory.sources.values()]);
 			for (const [sourceId, source] of this.memory.sources) {
 				if (protectedIds.has(sourceId)) continue;
 				const eligibleAt = sourceEligibleAt(source, maximumAge);
@@ -504,6 +626,7 @@ export class AudioEditorProjectStore {
 					}
 
 					const storedSources = await request(sources.getAll());
+					protectSourceDependencies(protectedIds, storedSources);
 					const removed = [];
 					for (const source of storedSources) {
 						if (protectedIds.has(source.id)) continue;
@@ -564,6 +687,23 @@ export class AudioEditorProjectStore {
 		const database = await this.#database();
 		if (!database) this.memory.sourceChunks.set(record.key, cloneChunk(record));
 		else await transact(database, 'sourceChunks', 'readwrite', ({ sourceChunks }) => { sourceChunks.put(record); });
+	}
+
+	async #sourceChunkRecords(token) {
+		const database = await this.#database();
+		if (!database) return [...this.memory.sourceChunks.values()].filter((record) => record.sourceToken === token);
+		return transact(database, 'sourceChunks', 'readonly', ({ sourceChunks }) => {
+			return request(sourceChunks.index('sourceToken').getAll(token));
+		});
+	}
+
+	async #sourceChunkRecord(token, index) {
+		const key = `${token}:${String(index).padStart(10, '0')}`;
+		const database = await this.#database();
+		const record = !database
+			? this.memory.sourceChunks.get(key)
+			: await transact(database, 'sourceChunks', 'readonly', ({ sourceChunks }) => request(sourceChunks.get(key)));
+		return record || null;
 	}
 
 	async #putSourceMetadata(record) {
@@ -664,6 +804,47 @@ export class AudioEditorProjectStore {
 			yield { index, frames, channels };
 			index += 1;
 		}
+	}
+
+	async #readOpfsSourceChunk(source, chunkIndex, signal) {
+		const chunkFrames = nonNegativeInteger(source.chunkFrames, 0);
+		const channelCount = nonNegativeInteger(source.channelCount, 0);
+		if (!chunkFrames || !channelCount) {
+			for await (const chunk of this.#readOpfsSourceChunks(source)) {
+				throwIfAborted(signal);
+				if (chunk.index === chunkIndex) return chunk;
+			}
+			throw new RangeError(`Source storage chunk ${chunkIndex} does not exist.`);
+		}
+		const directory = await this.#opfsDirectory();
+		if (!directory) throw new Error('Origin-private audio storage is unavailable.');
+		let file;
+		try {
+			const handle = await directory.getFileHandle(source.path);
+			file = await handle.getFile();
+		} catch {
+			throw new Error('The requested local audio source is missing.');
+		}
+		throwIfAborted(signal);
+		const fullChunkBytes = 8 + chunkFrames * channelCount * Float32Array.BYTES_PER_ELEMENT;
+		let offset = chunkIndex * fullChunkBytes;
+		if (file.size - offset < 8) throw new Error('The local audio source is truncated.');
+		const header = new DataView(await file.slice(offset, offset + 8).arrayBuffer());
+		const frames = header.getUint32(0, true);
+		const storedChannelCount = header.getUint16(4, true);
+		if (!frames || frames > chunkFrames || storedChannelCount !== channelCount) {
+			throw new Error('The local audio source contains an invalid chunk.');
+		}
+		offset += 8;
+		const channelBytes = frames * Float32Array.BYTES_PER_ELEMENT;
+		if (offset + channelBytes * channelCount > file.size) throw new Error('The local audio source is truncated.');
+		const channels = [];
+		for (let channel = 0; channel < channelCount; channel += 1) {
+			throwIfAborted(signal);
+			channels.push(new Float32Array(await file.slice(offset, offset + channelBytes).arrayBuffer()));
+			offset += channelBytes;
+		}
+		return { index: chunkIndex, frames, channels };
 	}
 
 	async #opfsDirectory() {
@@ -793,6 +974,18 @@ function normalizeChannels(input) {
 	return Array.from(input, (channel) => channel instanceof Float32Array ? channel : Float32Array.from(channel || []));
 }
 
+function protectSourceDependencies(protectedIds, sources) {
+	const byId = new Map((sources || []).map((source) => [source.id, source]));
+	const pending = [...protectedIds];
+	while (pending.length) {
+		const source = byId.get(pending.pop());
+		if (!source?.baseSourceId || protectedIds.has(source.baseSourceId)) continue;
+		protectedIds.add(source.baseSourceId);
+		pending.push(source.baseSourceId);
+	}
+	return protectedIds;
+}
+
 function sourceEligibleAt(source, minimumAgeMs) {
 	const committedAt = Date.parse(source?.committedAt || '');
 	const pendingProjectUntil = Date.parse(source?.pendingProjectUntil || '');
@@ -812,6 +1005,21 @@ function cloneChunk(record) {
 		...record,
 		channels: record.channels.map((buffer) => buffer.slice(0)),
 	};
+}
+
+function sourceChunkFromRecord(record) {
+	return {
+		index: record.index,
+		frames: record.frames,
+		channels: record.channels.map((buffer) => new Float32Array(buffer.slice(0))),
+	};
+}
+
+function throwIfAborted(signal) {
+	if (!signal?.aborted) return;
+	const error = new Error('Audio source loading was cancelled.');
+	error.name = 'AbortError';
+	throw error;
 }
 
 function clone(value) {

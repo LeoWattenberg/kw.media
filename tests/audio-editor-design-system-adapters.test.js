@@ -26,6 +26,7 @@ function clip(options = {}) {
 		timelineStartFrame: options.timelineStartFrame ?? 0,
 		sourceStartFrame: options.sourceStartFrame ?? 0,
 		durationFrames: options.durationFrames ?? 48_000,
+		...(options.sourceDurationFrames == null ? {} : { sourceDurationFrames: options.sourceDurationFrames }),
 		gain: options.gain ?? 1,
 		fadeInFrames: options.fadeInFrames ?? 0,
 		fadeOutFrames: options.fadeOutFrames ?? 0,
@@ -49,6 +50,23 @@ test('design-system time conversion rounds and clamps at canonical 48 kHz frame 
 	assert.throws(() => secondsToFrames(Number.NaN), /seconds must be finite/);
 	assert.throws(() => framesToSeconds(Number.POSITIVE_INFINITY), /frames must be finite/);
 	assert.throws(() => secondsToFrames(0, { minimumFrame: 2, maximumFrame: 1 }), /maximumFrame/);
+});
+
+test('time and viewport adapters honor arbitrary V2 project rates', () => {
+	assert.equal(secondsToFrames(1, { sampleRate: 44_100 }), 44_100);
+	assert.equal(framesToSeconds(96_000, { sampleRate: 96_000 }), 1);
+	const projection = projectClipsToViewport([
+		clip({ timelineStartFrame: 44_100, durationFrames: 44_100 }),
+	], {
+		viewportStartFrame: 44_100,
+		viewportDurationFrames: 44_100,
+		sampleRate: 44_100,
+	});
+	assert.equal(projection.viewportStartSeconds, 1);
+	assert.equal(projection.viewportDurationSeconds, 1);
+	assert.equal(projection.clips[0].timelineStartSeconds, 1);
+	assert.equal(projection.clips[0].timelineDurationSeconds, 1);
+	assert.throws(() => secondsToFrames(1, { sampleRate: 0 }), /sampleRate/);
 });
 
 test('gain, pan, and progress adapters preserve their endpoints and clamp external values', () => {
@@ -229,6 +247,15 @@ test('bounded waveform preprocessing handles source offsets, stereo windows, and
 	assert.equal(result.startFrame, 1);
 	assert.equal(result.endFrame, 3);
 	assert.equal(result.frameCount, 2);
+});
+
+test('bounded waveform preprocessing maps stretched timeline frames onto source frames', () => {
+	const source = Float32Array.of(1, 2, 3, 4);
+	const result = prepareBoundedWaveformWindow([source], clip({
+		durationFrames: 8,
+		sourceDurationFrames: 4,
+	}), { maxSamples: 16 });
+	assert.deepEqual([...result.channels[0]], [1, 1, 2, 2, 3, 3, 4, 4]);
 });
 
 test('bounded waveform downsampling retains ordered bucket extrema within the sample cap', () => {

@@ -1,10 +1,12 @@
+import { createRiffId3Chunk } from './id3-metadata.js';
+
 const WAV_HEADER_BYTES = 44;
 
 /**
  * Encode channel-aligned PCM samples as a complete WAV file.
  *
  * @param {ArrayLike<Float32Array> | AudioBuffer} input
- * @param {{ sampleRate?: number, bitDepth?: 16 | 24 | 32, float?: boolean, dither?: boolean, random?: () => number }} [options]
+ * @param {{ sampleRate?: number, bitDepth?: 16 | 24 | 32, float?: boolean, dither?: boolean|string, metadata?: Record<string, *>, random?: () => number }} [options]
  * @returns {Uint8Array}
  */
 export function encodeWav(input, options = {}) {
@@ -31,7 +33,8 @@ export function encodeWav(input, options = {}) {
  *   totalFrames: number,
  *   bitDepth?: 16 | 24 | 32,
  *   float?: boolean,
- *   dither?: boolean,
+ *   dither?: boolean | 'none' | 'triangular' | 'triangular-highpass',
+ *   metadata?: Record<string, *>,
  *   random?: () => number,
  *   collect?: boolean,
  *   onChunk?: (chunk: Uint8Array, info: { header: boolean, frameOffset: number }) => void | Promise<void>,
@@ -46,9 +49,12 @@ export function createWavStreamEncoder(options) {
 	const bytesPerSample = bitDepth / 8;
 	const collect = options?.collect ?? !options?.onChunk;
 	const onChunk = typeof options?.onChunk === 'function' ? options.onChunk : null;
-	const dither = !float && options?.dither !== false;
+	const dither = float ? 'none' : normalizeDither(options?.dither);
+	const ditherState = new Float64Array(channelCount);
 	const random = typeof options?.random === 'function' ? options.random : Math.random;
-	const header = createWavHeader({ sampleRate, channelCount, totalFrames, bitDepth, float });
+	const metadataChunk = createRiffId3Chunk(options?.metadata);
+	const header = createWavHeader({ sampleRate, channelCount, totalFrames, bitDepth, float, trailingByteLength: metadataChunk.byteLength });
+	const totalByteLength = WAV_HEADER_BYTES + totalFrames * channelCount * bytesPerSample + metadataChunk.byteLength;
 	/** @type {Uint8Array[]} */
 	const chunks = collect ? [header] : [];
 	/** @type {Promise<void>[]} */
@@ -63,7 +69,7 @@ export function createWavStreamEncoder(options) {
 		get channelCount() { return channelCount; },
 		get bitDepth() { return bitDepth; },
 		get writtenFrames() { return writtenFrames; },
-		get byteLength() { return WAV_HEADER_BYTES + writtenFrames * channelCount * bytesPerSample; },
+		get byteLength() { return WAV_HEADER_BYTES + writtenFrames * channelCount * bytesPerSample + (finalized ? metadataChunk.byteLength : 0); },
 		write,
 		finalize,
 		async settled() { await Promise.all(pending); },
@@ -92,7 +98,7 @@ export function createWavStreamEncoder(options) {
 			for (let channel = 0; channel < channelCount; channel += 1) {
 				const original = sourceChannels[channel][frame];
 				const sample = float ? finiteSample(original) : clampSample(original);
-				byteOffset = writeSample(view, byteOffset, sample, bitDepth, float, dither, random);
+				byteOffset = writeSample(view, byteOffset, sample, bitDepth, float, dither, random, channel, ditherState);
 			}
 		}
 
@@ -111,15 +117,20 @@ export function createWavStreamEncoder(options) {
 			throw new Error(`Expected ${totalFrames} WAV frames, received ${writtenFrames}.`);
 		}
 		finalized = true;
+		if (metadataChunk.byteLength) {
+			if (collect) chunks.push(metadataChunk);
+			emit(metadataChunk, { header: false, metadata: true, frameOffset: writtenFrames });
+		}
 		if (!collect) {
 			return {
 				header,
-				byteLength: WAV_HEADER_BYTES + writtenFrames * channelCount * bytesPerSample,
+				byteLength: totalByteLength,
 				frames: writtenFrames,
+				...(metadataChunk.byteLength ? { metadataBytes: metadataChunk.byteLength } : {}),
 			};
 		}
 
-		const result = new Uint8Array(WAV_HEADER_BYTES + writtenFrames * channelCount * bytesPerSample);
+		const result = new Uint8Array(totalByteLength);
 		let offset = 0;
 		for (const chunk of chunks) {
 			result.set(chunk, offset);
@@ -137,20 +148,21 @@ export function createWavStreamEncoder(options) {
 	}
 }
 
-export function createWavHeader({ sampleRate = 48000, channelCount = 2, totalFrames = 0, bitDepth = 24, float = false } = {}) {
+export function createWavHeader({ sampleRate = 48000, channelCount = 2, totalFrames = 0, bitDepth = 24, float = false, trailingByteLength = 0 } = {}) {
 	const normalizedRate = positiveInteger(sampleRate, 48000);
 	const normalizedChannels = positiveInteger(channelCount, 2);
 	const normalizedDepth = float ? 32 : normalizeBitDepth(bitDepth);
 	const bytesPerSample = normalizedDepth / 8;
 	const dataSize = nonNegativeInteger(totalFrames, 0) * normalizedChannels * bytesPerSample;
-	if (dataSize > 0xffffffff - 36) {
+	const trailingSize = nonNegativeInteger(trailingByteLength, 0);
+	if (dataSize + trailingSize > 0xffffffff - 36) {
 		throw new Error('Classic WAV output cannot exceed 4 GiB.');
 	}
 
 	const header = new Uint8Array(WAV_HEADER_BYTES);
 	const view = new DataView(header.buffer);
 	writeAscii(view, 0, 'RIFF');
-	view.setUint32(4, 36 + dataSize, true);
+	view.setUint32(4, 36 + dataSize + trailingSize, true);
 	writeAscii(view, 8, 'WAVE');
 	writeAscii(view, 12, 'fmt ');
 	view.setUint32(16, 16, true);
@@ -173,23 +185,42 @@ function getChannels(input) {
 	return Array.from(input);
 }
 
-function writeSample(view, byteOffset, original, bitDepth, float, dither, random) {
+function writeSample(view, byteOffset, original, bitDepth, float, dither, random, channel, ditherState) {
 	if (float) {
 		view.setFloat32(byteOffset, original, true);
 		return byteOffset + 4;
 	}
 
 	const scale = 2 ** (bitDepth - 1);
-	const noise = dither ? random() - random() : 0;
+	const noise = ditherNoise(dither, random, channel, ditherState);
 	const quantized = Math.max(-scale, Math.min(scale - 1, Math.round(original * scale + noise)));
 	if (bitDepth === 16) {
 		view.setInt16(byteOffset, quantized, true);
 		return byteOffset + 2;
 	}
+	if (bitDepth === 32) {
+		view.setInt32(byteOffset, quantized, true);
+		return byteOffset + 4;
+	}
 	view.setUint8(byteOffset, quantized & 0xff);
 	view.setUint8(byteOffset + 1, (quantized >> 8) & 0xff);
 	view.setUint8(byteOffset + 2, (quantized >> 16) & 0xff);
 	return byteOffset + 3;
+}
+
+function normalizeDither(value) {
+	if (value === false || value === 'none') return 'none';
+	if (value === 'triangular-highpass') return value;
+	return 'triangular';
+}
+
+function ditherNoise(mode, random, channel, state) {
+	if (mode === 'none') return 0;
+	const current = random() - random();
+	if (mode !== 'triangular-highpass') return current;
+	const noise = (current - state[channel]) * 0.5;
+	state[channel] = current;
+	return noise;
 }
 
 function writeAscii(view, offset, value) {

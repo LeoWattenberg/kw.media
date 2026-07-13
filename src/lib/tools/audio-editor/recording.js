@@ -1,4 +1,7 @@
 const DEFAULT_PROCESSOR_NAME = 'kw-audio-recorder';
+export const RECORDING_INPUT_GAIN_MINIMUM = 0;
+export const RECORDING_INPUT_GAIN_MAXIMUM = 2;
+export const RECORDING_INPUT_GAIN_DEFAULT = 1;
 
 export async function requestMicrophone(constraints = { audio: true }) {
 	const mediaDevices = globalThis.navigator?.mediaDevices;
@@ -21,6 +24,7 @@ export async function createRecordingController({
 	channelCount = 1,
 	chunkFrames = 4096,
 	monitor = false,
+	inputGain = RECORDING_INPUT_GAIN_DEFAULT,
 	onChunk,
 	onState,
 	onError,
@@ -31,6 +35,7 @@ export async function createRecordingController({
 		throw new Error('AudioWorklet recording is not supported by this AudioContext.');
 	}
 	if (!stream) throw new Error('A microphone MediaStream is required.');
+	let currentInputGain = normalizeRecordingInputGain(inputGain);
 	await context.audioWorklet.addModule(String(workletUrl));
 
 	const createNode = nodeFactory || ((audioContext, name, options) => {
@@ -44,7 +49,7 @@ export async function createRecordingController({
 		numberOfInputs: 1,
 		numberOfOutputs: 1,
 		outputChannelCount: [Math.max(1, Math.min(2, channelCount))],
-		processorOptions: { channelCount, chunkFrames, monitor },
+		processorOptions: { channelCount, chunkFrames, monitor, inputGain: currentInputGain },
 	});
 	source.connect(node);
 	node.connect(context.destination);
@@ -64,13 +69,22 @@ export async function createRecordingController({
 		get state() { return state; },
 		get pendingChunks() { return pendingChunks; },
 		start,
+		pause,
+		resume,
 		stop,
 		setMonitoring(enabled) {
 			node.port.postMessage({ type: 'monitor', enabled: Boolean(enabled) });
 		},
+		get inputGain() { return currentInputGain; },
+		setInputGain(value) {
+			if (disposed) throw new Error('The recording controller has been disposed.');
+			currentInputGain = normalizeRecordingInputGain(value);
+			node.port.postMessage({ type: 'input-gain', value: currentInputGain });
+			return currentInputGain;
+		},
 		async dispose({ stopTracks = true } = {}) {
 			if (disposed) return;
-			if (state === 'recording' || state === 'stopping') await stop().catch(() => {});
+			if (state === 'recording' || state === 'paused' || state === 'stopping') await stop().catch(() => {});
 			disposed = true;
 			state = 'disposed';
 			node.port.onmessage = null;
@@ -91,6 +105,24 @@ export async function createRecordingController({
 		state = 'recording';
 		node.port.postMessage({ type: 'start', startFrame, stopFrame });
 		onState?.(state);
+	}
+
+	function pause() {
+		if (disposed) throw new Error('The recording controller has been disposed.');
+		if (state !== 'recording') return false;
+		state = 'paused';
+		node.port.postMessage({ type: 'pause' });
+		onState?.(state);
+		return true;
+	}
+
+	function resume() {
+		if (disposed) throw new Error('The recording controller has been disposed.');
+		if (state !== 'paused') return false;
+		state = 'recording';
+		node.port.postMessage({ type: 'resume' });
+		onState?.(state);
+		return true;
 	}
 
 	function stop() {
@@ -147,6 +179,24 @@ export async function createRecordingController({
 				stopResolver = null;
 				stopRejecter = null;
 			});
+		} else if (message.type === 'paused') {
+			state = 'paused';
+			onState?.(state);
+		} else if (message.type === 'resumed') {
+			state = 'recording';
+			onState?.(state);
 		}
 	}
+}
+
+/**
+ * Normalize the browser's software recording gain. Values are linear: 1 is
+ * unity, 0 is silence, and 2 is approximately +6 dB. Keeping the range small
+ * limits accidental monitor blasts while still allowing a modest boost.
+ */
+export function normalizeRecordingInputGain(value) {
+	if (typeof value !== 'number' || !Number.isFinite(value)) {
+		throw new TypeError('Recording input gain must be a finite number.');
+	}
+	return Math.max(RECORDING_INPUT_GAIN_MINIMUM, Math.min(RECORDING_INPUT_GAIN_MAXIMUM, value));
 }

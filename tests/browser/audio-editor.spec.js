@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { readFile } from 'node:fs/promises';
 import { createAup3Fixture } from '../aup3-fixture.js';
+import { aup4NativeRichFixture } from '../fixtures/aup4-native-rich.js';
 
 const AUDIO_EDITOR_PATHS = [
 	{
@@ -74,7 +76,7 @@ test.describe('audio editor React/design-system workflows', () => {
 			await expect(editor.locator('[data-status]')).toHaveText(locale.status);
 			await expect(editor.locator('[data-track-row]')).toHaveCount(1);
 			await expect(trackNameInput(editor).first()).toHaveValue(locale.trackName);
-			await expect(editor.getByRole('button', { name: new RegExp(`^${escapeRegex(locale.arm)}:`) })).toHaveAttribute('aria-pressed', 'true');
+			await expect(editor.getByRole('button', { name: new RegExp(`^${escapeRegex(locale.arm)}:`) })).toHaveCount(0);
 			await expect(editor.getByRole('button', { name: locale.fullscreen, exact: true })).toBeVisible();
 			await expect(page.locator('body')).toHaveClass(/kw-audio-editor-design-system-mounted/);
 			expect(errors).toEqual([]);
@@ -131,7 +133,6 @@ test.describe('audio editor React/design-system workflows', () => {
 			'Effect',
 			'Analyze',
 			'Tools',
-			'Extra',
 			'Help',
 		];
 
@@ -227,8 +228,12 @@ test.describe('audio editor React/design-system workflows', () => {
 		for (const [menuName, labels] of [
 			['File', ['Close project', 'Save project as…', 'Export selected audio…', 'Quit']],
 			['View', ['Show piano roll']],
-			['Tracks', ['Sync-lock tracks']],
-			['Tools', ['Screenshot tools…', 'Run benchmark…']],
+			['Tracks', ['Sync-lock tracks', 'MIDI track']],
+			['Generate', ['Plugin manager…']],
+			['Effect', ['Plugin manager…']],
+			['Analyze', ['Plugin manager…']],
+			['Tools', ['Plugin manager…', 'Nyquist prompt…', 'Screenshot tools…', 'Run benchmark…']],
+			['Help', ['Diagnostics', 'Check for updates…']],
 		]) {
 			await menubar.getByRole('menuitem', { name: menuName, exact: true }).click();
 			const menu = page.getByRole('menu', { name: menuName, exact: true });
@@ -236,6 +241,12 @@ test.describe('audio editor React/design-system workflows', () => {
 			for (const label of labels) await expect(menu.getByRole('menuitem', { name: label, exact: true })).toHaveCount(0);
 			await page.keyboard.press('Escape');
 		}
+
+		await menubar.getByRole('menuitem', { name: 'File', exact: true }).click();
+		const fileMenu = page.getByRole('menu', { name: 'File', exact: true });
+		const backup = getMenuItem(fileMenu, 'Backup project…');
+		await expect(backup).toHaveAttribute('aria-disabled', 'true');
+		await expect(backup.locator('[data-disabled-reason]')).toHaveAttribute('title', /disabled placeholder/);
 	});
 
 	test('hydrates once, dispatches one action, exposes the Audacity command surface, and follows live theme changes', async ({ page }) => {
@@ -248,12 +259,14 @@ test.describe('audio editor React/design-system workflows', () => {
 		await expect(editor.getByRole('toolbar', { name: 'Project toolbar' })).toHaveCount(0);
 		await expect(editor.getByRole('button', { name: 'Home', exact: true })).toHaveCount(0);
 		await expect(editor.getByRole('button', { name: 'Project', exact: true })).toHaveCount(0);
-		await expect(editor.getByRole('tab')).toHaveCount(0);
+		await expect(editor.getByRole('tablist', { name: 'Project tabs' })).toBeVisible();
+		await expect(editor.getByRole('tab', { name: 'Untitled project' })).toHaveAttribute('aria-selected', 'true');
 		const menubar = editor.getByRole('menubar', { name: 'Application menu' });
 		await expect(menubar).toBeVisible();
-		for (const menu of ['File', 'Edit', 'Select', 'View', 'Record', 'Tracks', 'Generate', 'Effect', 'Analyze', 'Tools', 'Extra', 'Help']) {
+		for (const menu of ['File', 'Edit', 'Select', 'View', 'Record', 'Tracks', 'Generate', 'Effect', 'Analyze', 'Tools', 'Help']) {
 			await expect(menubar.getByRole('menuitem', { name: menu, exact: true })).toBeVisible();
 		}
+		await expect(menubar.getByRole('menuitem', { name: 'Extra', exact: true })).toHaveCount(0);
 		const selectionToolbar = editor.locator('[data-selection-toolbar]');
 		await expect(selectionToolbar.getByRole('toolbar', { name: 'Selection toolbar' })).toBeVisible();
 		await expect(selectionToolbar.locator('[data-status]')).toHaveText('Editor ready. Create a project or import audio.');
@@ -285,6 +298,195 @@ test.describe('audio editor React/design-system workflows', () => {
 		await expect(portal).toHaveCSS('--dropdown-menu-bg', '#202126');
 		await page.keyboard.press('Escape');
 		await closeDialog(exportDialog);
+		expect(errors).toEqual([]);
+	});
+
+	test('routes manifest visibility commands to the live workspace and preserves the status-only surface', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		const selectionSurface = editor.locator('[data-selection-toolbar]');
+
+		await chooseNestedCommandAction(page, editor, 'View', ['Toolbars', 'Selection toolbar']);
+		await expect(selectionSurface).toHaveCount(1);
+		await expect(selectionSurface).toHaveClass(/status-only/);
+		await expect(selectionSurface.getByRole('toolbar', { name: 'Selection toolbar' })).toHaveCount(0);
+		await expect(selectionSurface.locator('[data-status]')).toHaveText('Editor ready. Create a project or import audio.');
+
+		await chooseCommandAction(page, editor, 'View', 'Status bar');
+		await expect(selectionSurface).toHaveCount(0);
+		await chooseNestedCommandAction(page, editor, 'View', ['Toolbars', 'Selection toolbar']);
+		await expect(selectionSurface.getByRole('toolbar', { name: 'Selection toolbar' })).toBeVisible();
+		await expect(selectionSurface.locator('[data-status]')).toHaveText('');
+		await chooseCommandAction(page, editor, 'View', 'Status bar');
+		await expect(selectionSurface.locator('[data-status]')).toHaveText('Editor ready. Create a project or import audio.');
+
+		await chooseNestedCommandAction(page, editor, 'View', ['Panels', 'Tracks panel']);
+		await expect(editor.locator('.audio-editor-timeline-panel')).toHaveCount(0);
+		await chooseNestedCommandAction(page, editor, 'View', ['Panels', 'Tracks panel']);
+		await expect(editor.locator('.audio-editor-timeline-panel')).toBeVisible();
+		expect(errors).toEqual([]);
+	});
+
+	test('supports split-tool tap and press-and-hold interaction', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await importFiles(editor, [toneA]);
+		const timeline = editor.locator('.audio-editor-timeline-panel');
+		const splitButton = editor.getByRole('button', { name: 'Split tool', exact: true });
+		await editor.locator('.kw-audio-editor__keyboard-help').focus();
+
+		await page.keyboard.press('s');
+		await expect(timeline).toHaveAttribute('data-split-tool', 'true');
+		await expect(splitButton).toHaveAttribute('aria-pressed', 'true');
+		await clickClipInterior(page, clipByName(editor, toneA.name), 0.35);
+		await expect(editor).toHaveAttribute('data-clip-count', '2');
+
+		await page.keyboard.press('s');
+		await expect(timeline).toHaveAttribute('data-split-tool', 'false');
+		await expect(splitButton).toHaveAttribute('aria-pressed', 'false');
+		await editor.getByRole('button', { name: 'Undo', exact: true }).click();
+		await expect(editor).toHaveAttribute('data-clip-count', '1');
+		await editor.locator('.kw-audio-editor__keyboard-help').focus();
+
+		await page.keyboard.down('s');
+		await expect(timeline).toHaveAttribute('data-split-tool', 'true');
+		await page.waitForTimeout(350);
+		await clickClipInterior(page, clipByName(editor, toneA.name), 0.65);
+		await expect(editor).toHaveAttribute('data-clip-count', '2');
+		await page.keyboard.up('s');
+		await expect(timeline).toHaveAttribute('data-split-tool', 'false');
+		await expect(splitButton).toHaveAttribute('aria-pressed', 'false');
+		expect(errors).toEqual([]);
+	});
+
+	for (const locale of [
+		{
+			path: '/en/tools/audio-editor/',
+			label: 'Spectral brush',
+			reason: /does not provide a usable handler yet/,
+		},
+		{
+			path: '/de/tools/audio-editor/',
+			label: 'Spektralpinsel',
+			reason: /noch keine nutzbare Aktion bereit/,
+		},
+	]) {
+		test(`${locale.path} keeps the upstream spectral brush visible and inert`, async ({ page }) => {
+			const editor = await bootEditor(page, locale.path);
+			const entry = editor.locator('[data-action-id="spectral-brush"]');
+			await expect(entry).toBeVisible();
+			await expect(entry).toHaveAttribute('aria-disabled', 'true');
+			await expect(entry).toHaveAttribute('title', locale.reason);
+			await expect(entry).toHaveAttribute('data-disabled-reason', locale.reason);
+			await expect(entry.getByRole('button', { name: new RegExp(`^${escapeRegex(locale.label)}:`) })).toBeDisabled();
+		});
+	}
+
+	test('builds the shortcut command inventory from manifest actions and keeps disabled commands inert', async ({ page }) => {
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await chooseCommandAction(page, editor, 'Edit', 'Preferences…');
+		const preferences = page.getByRole('dialog', { name: 'Editor preferences', exact: true });
+		const search = preferences.getByRole('searchbox', { name: 'Search commands', exact: true });
+
+		await search.fill('Insert');
+		const insert = preferences.locator('[data-shortcut-action="insert"]');
+		const reason = /does not provide a usable handler yet/;
+		await expect(insert).toBeVisible();
+		await expect(insert).toHaveAttribute('aria-disabled', 'true');
+		await expect(insert).toHaveAttribute('title', reason);
+		await expect(insert).toHaveAttribute('data-disabled-reason', reason);
+		await expect(insert.locator('input')).toBeDisabled();
+		await expect(insert.getByRole('button', { name: 'Assign', exact: true })).toBeDisabled();
+		await expect(insert.locator('[data-shortcut-disabled-reason]')).toHaveText(reason);
+
+		await search.fill('Zoom normal');
+		await expect(preferences.locator('[data-shortcut-action="zoom-default"]')).toBeVisible();
+		await expect(preferences.locator('[data-shortcut-action="plugin-manager"]')).toHaveCount(0);
+	});
+
+	test('exposes the complete zoom menu and executes custom shortcuts through the action registry', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await importFiles(editor, [toneA]);
+		const timeline = editor.locator('[data-timeline]');
+		const normalWidth = await timeline.evaluate((element) => element.scrollWidth);
+
+		const menubar = editor.getByRole('menubar', { name: 'Application menu' });
+		await menubar.getByRole('menuitem', { name: 'View', exact: true }).click();
+		const viewMenu = page.getByRole('menu', { name: 'View', exact: true });
+		const zoomItem = getMenuItem(viewMenu, 'Zoom');
+		await zoomItem.click();
+		const zoomMenu = zoomItem.getByRole('menu');
+		await expect(zoomMenu).toBeVisible();
+		for (const label of ['Zoom normal', 'Zoom to selection', 'Zoom toggle', 'Center view on playhead']) {
+			await expect(getMenuItem(zoomMenu, label)).toBeVisible();
+		}
+		await page.keyboard.press('Escape');
+		await page.keyboard.press('Escape');
+
+		await chooseCommandAction(page, editor, 'Select', 'All');
+		await expect(editor.getByRole('button', { name: 'Loop selection', exact: true })).toBeEnabled();
+		await chooseNestedCommandAction(page, editor, 'View', ['Zoom', 'Zoom to selection']);
+		await expect.poll(() => timeline.evaluate((element) => element.scrollWidth)).toBeGreaterThan(normalWidth);
+		await chooseNestedCommandAction(page, editor, 'View', ['Zoom', 'Zoom normal']);
+		await expect.poll(() => timeline.evaluate((element) => element.scrollWidth)).toBe(normalWidth);
+
+		await chooseCommandAction(page, editor, 'Edit', 'Preferences…');
+		const preferences = page.getByRole('dialog', { name: 'Editor preferences', exact: true });
+		const search = preferences.getByRole('searchbox', { name: 'Search commands', exact: true });
+		await search.fill('Zoom toggle');
+		const row = preferences.locator('[data-shortcut-action="zoom-toggle"]');
+		await expect(row).toBeVisible();
+		await row.locator('input').fill('K');
+		await row.getByRole('button', { name: 'Assign', exact: true }).click();
+		await page.keyboard.press('Escape');
+		await expect(preferences).toBeHidden();
+
+		const timelinePanel = editor.locator('.audio-editor-timeline-panel');
+		await timelinePanel.evaluate((element) => { element.tabIndex = -1; element.focus(); });
+		await page.keyboard.press('k');
+		await expect.poll(() => timeline.evaluate((element) => element.scrollWidth)).toBeGreaterThan(normalWidth);
+		await page.keyboard.press('Control+2');
+		await expect.poll(() => timeline.evaluate((element) => element.scrollWidth)).toBe(normalWidth);
+		expect(errors).toEqual([]);
+	});
+
+	test('edits recording level, project metadata, and labels through the manifest surfaces', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		const recordingLevel = editor.getByRole('slider', { name: 'Record level', exact: true });
+		await recordingLevel.fill('1.37');
+		await expect(recordingLevel).toHaveValue('1.37');
+		await chooseNestedCommandAction(page, editor, 'View', ['Toolbars', 'Show microphone metering']);
+		await expect(recordingLevel).toHaveCount(0);
+		await chooseNestedCommandAction(page, editor, 'View', ['Toolbars', 'Show microphone metering']);
+		await expect(recordingLevel).toHaveValue('1.37');
+
+		await chooseNestedCommandAction(page, editor, 'Tracks', ['Add new track', 'Label track']);
+		await chooseCommandAction(page, editor, 'Edit', 'Edit labels…');
+		const labelsPanel = editor.locator('[data-workspace-panel="labels"]');
+		await expect(labelsPanel).toBeVisible();
+		await labelsPanel.getByRole('button', { name: 'New label', exact: true }).click();
+		const labelRow = labelsPanel.locator('[data-labels-panel-list] [data-label-id]');
+		await expect(labelRow).toHaveCount(1);
+		await commitInput(labelRow.getByRole('textbox', { name: /^Label title:/ }), 'Verse');
+		const rangeInputs = labelRow.getByRole('spinbutton');
+		await commitInput(rangeInputs.nth(1), '0.500');
+		await commitInput(rangeInputs.nth(0), '0.125');
+		await expect(rangeInputs.nth(0)).toHaveValue('0.125');
+		await expect(rangeInputs.nth(1)).toHaveValue('0.500');
+		await expect(editor.locator('[data-label-track] [data-label-id] input')).toHaveValue('Verse');
+
+		await chooseCommandAction(page, editor, 'Edit', 'Metadata…');
+		const metadataPanel = editor.locator('[data-workspace-panel="metadata"]');
+		await expect(metadataPanel).toBeVisible();
+		await commitInput(metadataPanel.locator('input[name="title"]'), 'Browser parity project');
+		await commitInput(metadataPanel.locator('input[name="artist"]'), 'Audacity tester');
+		await metadataPanel.getByRole('button', { name: 'Close: Metadata', exact: true }).click();
+		await expect(metadataPanel).toHaveCount(0);
+		await chooseCommandAction(page, editor, 'Edit', 'Metadata…');
+		await expect(editor.locator('[data-workspace-panel="metadata"] input[name="title"]')).toHaveValue('Browser parity project');
+		await expect(editor.locator('[data-workspace-panel="metadata"] input[name="artist"]')).toHaveValue('Audacity tester');
 		expect(errors).toEqual([]);
 	});
 
@@ -351,7 +553,7 @@ test.describe('audio editor React/design-system workflows', () => {
 		expect(errors).toEqual([]);
 	});
 
-	test('imports an uppercase AUP3 project as a named dry mix', async ({ page }) => {
+	test('imports an uppercase AUP3 project as structured tracks and clips', async ({ page }) => {
 		const errors = collectClientErrors(page);
 		const editor = await bootEditor(page, '/en/tools/audio-editor/');
 		const fixture = await createAup3Fixture();
@@ -361,13 +563,47 @@ test.describe('audio editor React/design-system workflows', () => {
 			mimeType: 'application/octet-stream',
 			buffer: Buffer.from(fixture),
 		}]);
-		await expect(editor.locator('[data-status]')).toContainText('best-effort dry mix');
-		await expect(editor).toHaveAttribute('data-track-count', '2');
-		await expect(trackNameInput(editor).nth(1)).toHaveValue('Browser project');
-		await expect(clipByName(editor, 'Browser project.wav')).toHaveCount(1);
-		const clipDialog = await openClipProperties(page, editor, clipByName(editor, 'Browser project.wav'));
+		await expect(editor.locator('[data-status]')).toContainText('Imported AUP3 tracks, clips, labels, and settings.');
+		await expect(editor).toHaveAttribute('data-track-count', '1');
+		await expect(trackNameInput(editor).nth(0)).toHaveValue('Fixture track');
+		await expect(clipByName(editor, 'Audio 1')).toHaveCount(1);
+		const clipDialog = await openClipProperties(page, editor, clipByName(editor, 'Audio 1'));
 		await expect(clipField(clipDialog, 'durationFrame')).toHaveValue('4');
 		await closeDialog(clipDialog);
+		expect(errors).toEqual([]);
+	});
+
+	test('opens an Audacity-created AUP4, saves it, and reopens the browser snapshot', async ({ page }) => {
+		test.setTimeout(60_000);
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await editor.locator('[data-aup4-input]').setInputFiles({
+			name: 'audacity-native-rich.aup4',
+			mimeType: 'application/x-audacity-project',
+			buffer: Buffer.from(aup4NativeRichFixture()),
+		});
+		await expect(editor.locator('[data-status]')).toHaveAttribute('data-state', 'success', { timeout: 30_000 });
+		await expect(editor).toHaveAttribute('data-track-count', '2');
+		await expect(editor).toHaveAttribute('data-clip-count', '5');
+
+		await page.evaluate(() => Object.defineProperty(globalThis, 'showSaveFilePicker', {
+			configurable: true,
+			value: undefined,
+		}));
+		const downloadPromise = page.waitForEvent('download');
+		await chooseFileAction(page, editor, 'Save as native AUP4…');
+		const download = await downloadPromise;
+		expect(download.suggestedFilename()).toMatch(/\.aup4$/i);
+		const snapshotPath = await download.path();
+		expect(snapshotPath).toBeTruthy();
+		await editor.locator('[data-aup4-input]').setInputFiles({
+			name: download.suggestedFilename(),
+			mimeType: 'application/x-audacity-project',
+			buffer: await readFile(snapshotPath),
+		});
+		await expect(editor.locator('[data-status]')).toHaveAttribute('data-state', 'success', { timeout: 30_000 });
+		await expect(editor).toHaveAttribute('data-track-count', '2');
+		await expect(editor).toHaveAttribute('data-clip-count', '5');
 		expect(errors).toEqual([]);
 	});
 
@@ -407,6 +643,47 @@ test.describe('audio editor React/design-system workflows', () => {
 		clipDialog = await openClipProperties(page, editor);
 		await expect.poll(async () => Number(await clipField(clipDialog, 'durationFrame').inputValue())).toBeLessThan(movedDuration);
 		await closeDialog(clipDialog);
+		expect(errors).toEqual([]);
+	});
+
+	test('reveals sample tools only at sample zoom and applies an undoable pencil stroke', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await importFiles(editor, [monoTone]);
+		const clip = clipByName(editor, monoTone.name);
+		await clip.click({ position: { x: 24, y: 10 } });
+		await expect(editor.locator('[data-sample-edit-tools]')).toHaveCount(0);
+		const zoomIn = editor.getByRole('button', { name: 'Zoom in', exact: true });
+		for (let step = 0; step < 9; step += 1) await zoomIn.click();
+		const sampleTools = editor.getByRole('toolbar', { name: 'Sample tools', exact: true });
+		await expect(sampleTools).toBeVisible();
+		const pencil = sampleTools.getByRole('button', { name: 'Sample pencil', exact: true });
+		await pencil.click();
+		await expect(pencil).toHaveAttribute('aria-pressed', 'true');
+		await expect(editor.locator('.audio-editor-timeline-panel')).toHaveAttribute('data-sample-pencil', 'true');
+
+		await clip.scrollIntoViewIfNeeded();
+		const box = await clip.boundingBox();
+		expect(box).not.toBeNull();
+		const start = { x: box.x + 80, y: box.y + Math.min(70, box.height - 8) };
+		const end = { x: box.x + 86, y: box.y + Math.min(82, box.height - 5) };
+		await clip.dispatchEvent('pointerdown', {
+			pointerId: 0, pointerType: 'mouse', button: 0, buttons: 1,
+			clientX: start.x, clientY: start.y,
+		});
+		await clip.dispatchEvent('pointermove', {
+			pointerId: 0, pointerType: 'mouse', button: 0, buttons: 1,
+			clientX: end.x, clientY: end.y,
+		});
+		await clip.dispatchEvent('pointerup', {
+			pointerId: 0, pointerType: 'mouse', button: 0, buttons: 0,
+			clientX: end.x, clientY: end.y,
+		});
+		await expect(editor.locator('[data-status]')).toHaveText('Edited samples.', { timeout: 20_000 });
+		await expect(editor.getByRole('button', { name: 'Undo', exact: true })).toBeEnabled();
+		await editor.getByRole('button', { name: 'Undo', exact: true }).click();
+		await editor.getByRole('button', { name: 'Zoom out', exact: true }).click();
+		await expect(editor.locator('[data-sample-edit-tools]')).toHaveCount(0);
 		expect(errors).toEqual([]);
 	});
 
@@ -541,7 +818,8 @@ test.describe('audio editor React/design-system workflows', () => {
 		await dispatchPinch(timeline);
 		await expect.poll(() => timeline.evaluate((element) => element.scrollWidth)).toBeGreaterThan(beforeWidth);
 		await expect(editor.locator('[data-inspector]')).toHaveCount(0);
-		await expect(editor.getByRole('tab')).toHaveCount(0);
+		await expect(editor.getByRole('tablist', { name: 'Project tabs' })).toBeVisible();
+		await expect(editor.getByRole('tab')).toHaveCount(1);
 
 		const mobileClip = clipByName(editor, toneA.name);
 		const clipDialog = await openClipProperties(page, editor, mobileClip);
@@ -575,6 +853,112 @@ test.describe('audio editor React/design-system workflows', () => {
 		await trackMenuButton.click();
 		await page.getByRole('button', { name: 'Duplicate track' }).click();
 		await expect(editor).toHaveAttribute('data-track-count', '3');
+		expect(errors).toEqual([]);
+	});
+
+	test('binds track and clip context entries to Audacity parity metadata', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await importFiles(editor, [toneA]);
+
+		const firstTrack = editor.locator('[data-track-row]').first();
+		await firstTrack.getByRole('button', { name: 'Track menu', exact: true }).click();
+		const trackMenu = page.locator('.audio-editor-track-menu');
+		const duplicateTrack = trackMenu.locator('[data-action-id="duplicate-track"]');
+		await expect(duplicateTrack).toHaveAttribute('data-parity-status', 'implemented');
+		await expect(duplicateTrack).toHaveAttribute('data-action-origin', 'upstream');
+		await expect(duplicateTrack).toHaveAttribute('data-enable-when', 'editable-audio-track-selected');
+		await expect(trackMenu.locator('[data-action-id="local://show-arm-controls"]')).toHaveAttribute(
+			'data-parity-status',
+			'supplemental',
+		);
+		await trackMenu.getByRole('button', { name: 'Show arm buttons', exact: true }).click();
+		await expect(firstTrack.getByRole('button', { name: /^Arm for recording:/ })).toBeVisible();
+
+		const clip = clipByName(editor, toneA.name);
+		await clip.click({ position: { x: 24, y: 10 } });
+		await clip.getByRole('button', { name: 'Clip menu', exact: true }).click();
+		const clipMenu = page.locator('.audio-editor-clip-context-menu');
+		const split = clipMenu.locator('[data-action-id="split"]');
+		await expect(split).toHaveAttribute('data-parity-status', 'implemented');
+		await expect(split).toHaveAttribute('data-enable-when', 'editable-selection-or-clip');
+		await expect(split.locator('xpath=ancestor::div[@role="menuitem"]')).toContainText('S');
+		await expect(clipMenu.locator('[data-action-id="local://reverse-clip"]')).toHaveAttribute(
+			'data-parity-status',
+			'supplemental',
+		);
+		const renderPitchSpeed = clipMenu.locator('[data-action-id="clip-render-pitch-speed"]');
+		await expect(renderPitchSpeed.locator('xpath=ancestor::div[@role="menuitem"]')).toHaveAttribute('aria-disabled', 'true');
+		await expect(renderPitchSpeed).toHaveAttribute('data-disabled-reason', 'unavailable');
+
+		await clipMenu.locator('[data-action-id="clip-properties"]').click();
+		const clipDialog = page.getByRole('dialog', { name: 'Clip properties', exact: true });
+		await expect(clipDialog).toBeVisible();
+		await closeDialog(clipDialog);
+		expect(errors).toEqual([]);
+	});
+
+	test('edits per-track spectrogram settings and exposes adjustable spectral selection handles', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await importFiles(editor, [toneA]);
+		await editor.getByRole('button', { name: 'Spectrogram', exact: true }).click();
+		await chooseNestedCommandAction(page, editor, 'View', ['Panels', 'Spectrogram']);
+
+		const panel = editor.locator('[data-workspace-panel="spectrogram"]');
+		const settings = panel.locator('[data-spectrogram-settings]');
+		await expect(settings).toBeVisible();
+		const targetTrackId = await settings.getAttribute('data-spectrogram-target');
+		expect(targetTrackId).not.toBe('defaults');
+		const targetLane = editor.locator(`.audio-editor-track-row [data-track-lane][data-track-id="${targetTrackId}"]`).first();
+		await settings.getByLabel('Scale', { exact: true }).selectOption('linear');
+		await settings.getByLabel('Minimum frequency (Hz)', { exact: true }).fill('1000');
+		await settings.getByLabel('Maximum frequency (Hz)', { exact: true }).fill('8000');
+		await settings.getByLabel('Dynamic range (dB)', { exact: true }).fill('96');
+		await settings.getByLabel('Window size', { exact: true }).selectOption('4096');
+		await settings.getByLabel('Window type', { exact: true }).selectOption('blackman');
+		await expect(targetLane).toHaveAttribute('data-spectrogram-scale', 'linear');
+		await expect(targetLane).toHaveAttribute('data-spectrogram-minimum-frequency', '1000');
+		await expect(targetLane).toHaveAttribute('data-spectrogram-maximum-frequency', '8000');
+		await expect(targetLane).toHaveAttribute('data-spectrogram-window-size', '4096');
+		await expect(targetLane).toHaveAttribute('data-spectrogram-range', '96');
+
+		const defaultTrackLane = editor.locator('.audio-editor-track-row [data-track-lane]').filter({ hasNot: editor.locator('[data-clip-id]') }).first();
+		await defaultTrackLane.click({ position: { x: 8, y: 54 } });
+		await expect(settings).toHaveAttribute('data-spectrogram-target', /^(?!defaults$).+/);
+		await expect(settings.getByLabel('Scale', { exact: true })).toHaveValue('mel');
+		await clipByName(editor, toneA.name).click({ position: { x: 24, y: 10 } });
+		await expect(settings).toHaveAttribute('data-spectrogram-target', targetTrackId);
+		await expect(settings.getByLabel('Scale', { exact: true })).toHaveValue('linear');
+
+		const ruler = editor.locator('[data-ruler]');
+		const rulerBox = await ruler.boundingBox();
+		expect(rulerBox).not.toBeNull();
+		await page.mouse.move(rulerBox.x + 30, rulerBox.y + 24);
+		await page.mouse.down();
+		await page.mouse.move(rulerBox.x + 110, rulerBox.y + 24, { steps: 4 });
+		await page.mouse.up();
+		await editor.getByRole('button', { name: 'Select spectral frequency range…', exact: true }).click();
+		const spectralDialog = page.getByRole('dialog', { name: 'Spectral selection', exact: true });
+		await expect(spectralDialog).toBeVisible();
+		await spectralDialog.getByRole('button', { name: 'Select range', exact: true }).click();
+
+		const overlay = targetLane.locator('[data-spectral-selection]');
+		await expect(overlay).toBeVisible();
+		const minimumHandle = overlay.getByRole('slider', { name: 'Spectral selection minimum-frequency handle' });
+		const maximumHandle = overlay.getByRole('slider', { name: 'Spectral selection maximum-frequency handle' });
+		const startHandle = overlay.getByRole('slider', { name: 'Spectral selection start-time handle' });
+		const endHandle = overlay.getByRole('slider', { name: 'Spectral selection end-time handle' });
+		await expect(minimumHandle).toHaveAttribute('aria-valuenow', '1000');
+		await expect(maximumHandle).toHaveAttribute('aria-valuenow', '8000');
+		await maximumHandle.focus();
+		await page.keyboard.press('ArrowDown');
+		await expect(maximumHandle).toHaveAttribute('aria-valuenow', '7990');
+		const startBefore = Number(await startHandle.getAttribute('aria-valuenow'));
+		await startHandle.focus();
+		await page.keyboard.press('ArrowRight');
+		await expect.poll(async () => Number(await startHandle.getAttribute('aria-valuenow'))).toBeGreaterThan(startBefore);
+		await expect(endHandle).toBeVisible();
 		expect(errors).toEqual([]);
 	});
 
@@ -683,6 +1067,11 @@ test.describe('audio editor React/design-system workflows', () => {
 		await importFiles(editor, [toneA]);
 		const effectDialog = await openSelectionEffectDialog(page, editor);
 		await chooseDropdown(page, effectDialog.locator('[data-audacity-effect-type]'), 'Invert');
+		await effectDialog.getByRole('button', { name: 'Preview', exact: true }).click();
+		await expect(editor.locator('[data-status]')).toHaveText('Playing effect preview.', { timeout: 20_000 });
+		await effectDialog.getByRole('button', { name: 'Stop preview' }).click();
+		await expect(editor.locator('[data-status]')).toHaveText('Effect preview cancelled.');
+		await expect(clipByName(editor, toneA.name)).toHaveCount(1);
 		await effectDialog.getByRole('button', { name: 'Apply to selection' }).click();
 
 		await expect(editor.locator('[data-status]')).toHaveText('Applied the Audacity effect.', { timeout: 20_000 });
@@ -693,6 +1082,61 @@ test.describe('audio editor React/design-system workflows', () => {
 		await expect(clipByName(editor, toneA.name)).toHaveCount(1);
 		await editor.getByRole('button', { name: 'Redo' }).click();
 		await expect(editor.locator('[data-clip-id]')).toContainText('Invert');
+		expect(errors).toEqual([]);
+	});
+
+	test('completes an import, effect, and undo workflow in German', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/de/tools/audio-editor/');
+		await importFiles(editor, [monoTone]);
+		await chooseNestedCommandAction(page, editor, 'Effekt', ['Spezial', 'Invertieren']);
+		const effectDialog = page.getByRole('dialog', { name: 'Effekt anwenden', exact: true });
+		await expect(effectDialog).toBeVisible();
+		await effectDialog.getByRole('button', { name: 'Auf Auswahl anwenden', exact: true }).click();
+		await expect(editor.locator('[data-status]')).toHaveAttribute('data-state', 'success', { timeout: 20_000 });
+		await expect(editor.locator('[data-clip-id]')).toContainText('Invertieren');
+		await editor.getByRole('button', { name: 'Rückgängig', exact: true }).click();
+		await expect(clipByName(editor, monoTone.name)).toHaveCount(1);
+		expect(errors).toEqual([]);
+	});
+
+	test('copies audio between project tabs through the shared session clipboard', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await importFiles(editor, [toneA]);
+		await chooseCommandAction(page, editor, 'Select', 'All');
+		await editor.getByRole('button', { name: 'Copy', exact: true }).click();
+		await editor.getByRole('button', { name: 'New project', exact: true }).click();
+		await expect(editor.getByRole('tablist', { name: 'Project tabs' }).getByRole('tab')).toHaveCount(2);
+		await expect(editor).toHaveAttribute('data-clip-count', '0');
+		await editor.getByRole('button', { name: 'Paste', exact: true }).click();
+		await expect(editor).toHaveAttribute('data-clip-count', '1');
+		await expect(clipByName(editor, toneA.name)).toHaveCount(1);
+		expect(errors).toEqual([]);
+	});
+
+	test('keeps playback free of main-thread long tasks over 50 ms', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await importFiles(editor, [toneA]);
+		test.skip(!await page.evaluate(() => PerformanceObserver.supportedEntryTypes?.includes('longtask')), 'The Long Task API is unavailable in this browser.');
+		await page.evaluate(() => {
+			globalThis.__audioEditorLongTasks = [];
+			globalThis.__audioEditorLongTaskObserver = new PerformanceObserver((list) => {
+				for (const entry of list.getEntries()) globalThis.__audioEditorLongTasks.push(entry.duration);
+			});
+			globalThis.__audioEditorLongTaskObserver.observe({ type: 'longtask', buffered: false });
+		});
+
+		await editor.getByRole('button', { name: 'Play', exact: true }).click();
+		await expect(editor.getByRole('button', { name: 'Pause', exact: true })).toBeVisible();
+		await page.waitForTimeout(700);
+		await editor.getByRole('button', { name: 'Stop', exact: true }).click();
+		const longestTask = await page.evaluate(() => {
+			globalThis.__audioEditorLongTaskObserver.disconnect();
+			return Math.max(0, ...globalThis.__audioEditorLongTasks);
+		});
+		expect(longestTask).toBeLessThanOrEqual(50);
 		expect(errors).toEqual([]);
 	});
 
@@ -838,7 +1282,7 @@ test.describe('audio editor React/design-system workflows', () => {
 		});
 		const editor = await bootEditor(page, '/en/tools/audio-editor/');
 		const flatHeadings = editor.getByRole('menubar', { name: 'Application menu' }).getByRole('menuitem');
-		expect(await flatHeadings.evaluateAll((items) => items.filter((item) => item.tabIndex === 0).length)).toBe(12);
+		expect(await flatHeadings.evaluateAll((items) => items.filter((item) => item.tabIndex === 0).length)).toBe(await flatHeadings.count());
 		await flatHeadings.filter({ hasText: /^File$/ }).focus();
 		await page.keyboard.press('ArrowDown');
 		await expect(getMenuItem(page.getByRole('menu', { name: 'File', exact: true }), 'New project')).toBeFocused();
@@ -851,6 +1295,7 @@ test.describe('audio editor React/design-system workflows', () => {
 		await assertAccessibleBasics(editor);
 		await assertNoSeriousAxeViolations(page);
 
+		await setDocumentTheme(page, 'dark');
 		await editor.getByRole('menubar', { name: 'Application menu' }).getByRole('menuitem', { name: 'File', exact: true }).click();
 		await assertAccessibleBasics(page.locator('body'));
 		await assertNoSeriousAxeViolations(page);
@@ -889,7 +1334,8 @@ test.describe('audio editor React/design-system workflows', () => {
 		await closeDialog(exportDialog);
 	});
 
-	test('matches the desktop, tablet, and mobile editor shells in light and dark themes', async ({ page }) => {
+	test('matches the desktop, tablet, and mobile editor shells in light and dark themes', async ({ page }, testInfo) => {
+		test.skip(testInfo.project.name !== 'chromium', 'The canonical visual baselines use desktop Chromium.');
 		test.setTimeout(60_000);
 		const editor = await bootEditor(page, '/en/tools/audio-editor/');
 		await importFiles(editor, [toneA]);
@@ -978,6 +1424,16 @@ async function seekOnRuler(editor, x) {
 	await editor.locator('[data-ruler]').click({ position: { x, y: 28 } });
 }
 
+async function clickClipInterior(page, clip, position = 0.5) {
+	await clip.scrollIntoViewIfNeeded();
+	const box = await clip.boundingBox();
+	expect(box).not.toBeNull();
+	await page.mouse.click(
+		box.x + Math.max(12, Math.min(box.width - 12, box.width * position)),
+		box.y + Math.max(12, box.height * 0.55),
+	);
+}
+
 async function openClipProperties(page, editor, clip) {
 	if (clip) {
 		await clip.click({ position: { x: 24, y: 10 } });
@@ -1051,25 +1507,38 @@ async function chooseFileAction(page, editor, action) {
 }
 
 async function chooseCommandAction(page, editor, menu, action) {
-	const menubar = editor.getByRole('menubar', { name: 'Application menu' });
+	const menubar = editor.getByRole('menubar', { name: /^(Application menu|Anwendungsmenü)$/ });
 	await menubar.getByRole('menuitem', { name: menu, exact: true }).click();
 	const commandMenu = page.getByRole('menu', { name: menu, exact: true });
 	await expect(commandMenu).toBeVisible();
-	await getMenuItem(commandMenu, action).click();
+	const item = getMenuItem(commandMenu, action);
+	await item.focus();
+	await page.keyboard.press('Enter');
 }
 
 async function chooseNestedCommandAction(page, editor, menu, actions) {
-	const menubar = editor.getByRole('menubar', { name: 'Application menu' });
+	const menubar = editor.getByRole('menubar', { name: /^(Application menu|Anwendungsmenü)$/ });
 	await menubar.getByRole('menuitem', { name: menu, exact: true }).click();
 	const commandMenu = page.getByRole('menu', { name: menu, exact: true });
 	await expect(commandMenu).toBeVisible();
 	let currentMenu = commandMenu;
 	for (const [index, action] of actions.entries()) {
 		const item = getMenuItem(currentMenu, action);
-		await item.click();
 		if (index < actions.length - 1) {
+			// Use the component's ARIA menu-keyboard contract for flyouts. Firefox
+			// can deliver mouseleave while a newly positioned submenu crosses the
+			// pointer, which closes the flyout before its leaf receives a click.
+			await item.focus();
+			await page.keyboard.press('ArrowRight');
 			currentMenu = item.getByRole('menu');
 			await expect(currentMenu).toBeVisible();
+		} else {
+			// Do not move the pointer across the flyout boundary for the leaf: in
+			// Firefox that can deliver mouseleave before click and detach the nested
+			// menu. Activating the already-visible item by keyboard also verifies the
+			// required accessible command path.
+			await item.focus();
+			await page.keyboard.press('Enter');
 		}
 	}
 }

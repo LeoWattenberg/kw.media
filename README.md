@@ -41,21 +41,33 @@ Run commands from the project root:
 
 The local-first multitrack editor is available at `/de/tools/audio-editor/` and `/en/tools/audio-editor/`. Its canonical project model, Web Audio engine, worklets, OPFS/IndexedDB storage, analysis, and export helpers live in `src/lib/tools/audio-editor/`. The existing single-file Audio Analyzer remains independent.
 
-- Audio sources are converted to immutable 48 kHz mono/stereo PCM and stored in bounded chunks. OPFS is preferred, with IndexedDB and memory fallbacks.
-- Playback, recording, effects, mixing, analysis, and WAV bounce run in the browser. Large or unsupported offline renders fall back to a bounded 1× AudioWorklet render.
-- The pinned single-thread FFmpeg core is emitted as a same-origin lazy build asset and is used only for decoder fallback and MP3, FLAC, or Opus encoding.
-- The direct routes remain out of category listings until the Firefox/WebKit, physical mobile-device, loudness-reference, performance, and FFmpeg release-license gates are complete.
+- V2 preserves arbitrary project/source sample rates and channel layouts. Immutable PCM is stored in 65,536-frame chunks with copy-on-write sample editing; OPFS is preferred, with IndexedDB and memory fallbacks.
+- Playback, recording, effects, mixing, analysis, and native WAV/AIFF bounce run in the browser. Native PCM exports support integer/Float32 sample formats, arbitrary 8–384 kHz rates, mono/stereo/custom channel matrices, selectable dither, and embedded UTF-8 metadata. Large or unsupported offline renders fall back to a bounded 1× AudioWorklet render.
+- Native `.aup4` open/save uses the pinned Audacity 4 profile and official SQLite WASM in a dedicated worker. Newer profiles open read-only; unknown binary-XML nodes round-trip opaquely.
+- StaffPad time/pitch processing is a lazy scalar WebAssembly module. It replaces SoundTouch/SBSMS paths; SoX is not bundled.
+- The pinned single-thread `@ffmpeg/core` 0.12.10 asset is lazy-loaded for decoder fallback and FLAC, MP3, Ogg Vorbis, Opus, WavPack, MP2, AAC/M4A, or bounded custom FFmpeg output. Its exact upstream configuration, artifact hashes, enabled libraries, source, and GPL notice are recorded in `THIRD_PARTY_LICENSES.md`; no SBSMS, SoundTouch, SoX, or other time-stretch library is present.
+- V2 remains opt-in while its release gates are pending. Set `PUBLIC_AUDIO_EDITOR_V2=true` for an explicit preview build; normal and GitHub Pages builds retain the V1 model/reader.
+
+AUP4 interoperability has two deliberately separate gates. `npm run audit:aup4-interop` verifies the SHA-256 of Audacity's pinned `testClipboard.aup4` fixture, decodes it with the browser codec, writes a browser AUP4 snapshot, and reopens that snapshot with exact clip, PCM, and summary hashes. It executes no compiled Audacity code. The required compiled-loader/writer cycle is still pending because no executable built from the pinned Audacity revision is available in this repository or CI; `npm run audit:aup4-interop:release` therefore fails closed with exit code 2. The machine-readable state and required evidence are checked in at `tests/fixtures/aup4-interop-gate.json`.
+
+Known preview limitations remain release-blocking. AUP4 files above the in-memory tier cannot yet open for extraction when OPFS is unavailable; that needs a bounded random-read File/Blob SQLite VFS and chunked extraction API. First-time long-media import and recording finalization can still materialize a complete browser `AudioBuffer`, and offline rate conversion does not yet use the same windowed-sinc path as live playback. The retained non-StaffPad DSP translations remain explicitly pinned to Audacity 3.7.7 and are treated as legacy/supplemental processors until their behavior and source paths are reconciled with the pinned Audacity 4 revision. GitHub Pages deployment therefore keeps V2 disabled.
 
 Focused checks:
 
 ```sh
 node --test tests/audio-editor-model.test.js tests/audio-editor-runtime.test.js tests/audio-editor-lock.test.js
+npm run audit:aup4-interop
+PUBLIC_AUDIO_EDITOR_V2=true npm run build
 npx playwright test tests/browser/audio-editor.spec.js --project=chromium
 PLAYWRIGHT_CROSS_BROWSER=1 npx playwright test tests/browser/audio-editor.spec.js --project=mobile-chromium
 AUDIO_EDITOR_FFMPEG_BROWSER=1 npx playwright test tests/browser/audio-editor.spec.js --project=chromium --grep='self-hosted FFmpeg'
 ```
 
+The quality workflow enables the FFmpeg integration check, opens/saves/reopens the Audacity-created AUP4 fixture through the browser worker, exercises German editing and cross-project clipboard workflows, and enforces the Chromium playback long-task ceiling.
+
 See `THIRD_PARTY_LICENSES.md` before deploying the bundled FFmpeg core.
+
+The Audacity 4 V2 route remains a release preview until the checked-in parity, compiled-native AUP4 interoperability, cross-browser, accessibility, and performance gates are all green. In particular, passing the fixture-codec audit above does not satisfy the compiled-native gate. The V1 reader and transactional migration path remain available for rollback through `PUBLIC_AUDIO_EDITOR_V2=false` for one release after V2 promotion.
 
 ## AI Cleanup And Translation
 

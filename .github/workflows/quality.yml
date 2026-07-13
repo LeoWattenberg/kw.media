@@ -1,0 +1,64 @@
+name: Quality
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Unit, build, and browser checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN || github.token }}
+
+      - name: Run unit tests with coverage
+        run: npm run test:coverage
+
+      - name: Audit pinned StaffPad sources and WebAssembly
+        run: npm run audit:staffpad
+
+      - name: Audit Audacity-created AUP4 fixture codec interop
+        run: npm run audit:aup4-interop
+
+      - name: Build site
+        run: npm run build
+        env:
+          ASTRO_SITE: https://kw.media
+          ASTRO_BASE: /
+          PUBLIC_AUDIO_EDITOR_V2: 'true'
+
+      - name: Install browser engines
+        run: npx playwright install --with-deps chromium firefox webkit
+
+      - name: Run complete Chromium browser tests
+        run: npx playwright test --project=chromium
+        env:
+          AUDIO_EDITOR_FFMPEG_BROWSER: '1'
+
+      - name: Run audio-editor cross-browser and mobile gates
+        run: npx playwright test tests/browser/audio-editor.spec.js --project=firefox --project=webkit --project=mobile-chromium
+        env:
+          PLAYWRIGHT_CROSS_BROWSER: '1'

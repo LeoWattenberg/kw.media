@@ -6,6 +6,7 @@ self.onmessage = async (event) => {
 		const decoded = await decodeAup3Bytes(event.data.buffer, {
 			fileName: event.data.fileName,
 			memoryLimits: event.data.memoryLimits,
+			structured: Boolean(event.data.structured),
 			onProgress(update) {
 				self.postMessage({
 					type: 'progress',
@@ -14,11 +15,28 @@ self.onmessage = async (event) => {
 				});
 			},
 		});
-		const channels = decoded.channels.map((channel) => channel.buffer);
+		const transfer = [];
+		const result = { ...decoded };
+		if (decoded.channels) {
+			result.channels = decoded.channels.map((channel) => {
+				transfer.push(channel.buffer);
+				return channel.buffer;
+			});
+		}
+		if (decoded.tracks) result.tracks = decoded.tracks.map((track) => ({
+			...track,
+			clips: track.clips?.map((clip) => ({
+				...clip,
+				channels: clip.channels.map((channel) => {
+					transfer.push(channel.buffer);
+					return channel.buffer;
+				}),
+			})),
+		}));
 		self.postMessage({
 			type: 'result',
-			result: { ...decoded, channels },
-		}, channels);
+			result,
+		}, transfer);
 	} catch (error) {
 		self.postMessage({
 			type: 'error',

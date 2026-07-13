@@ -6,6 +6,7 @@ import {
 	AUDACITY_EFFECT_EXCLUSIONS,
 	AUDACITY_NON_PROCESS_MODULES,
 	AUDACITY_EFFECT_SOURCE,
+	AUDACITY_STAFFPAD_SOURCE,
 	AUDACITY_EFFECT_UPSTREAM_FILES,
 	audacityEffectDefaults,
 	audacityEffectLabel,
@@ -20,6 +21,10 @@ const INCLUDED_EFFECTS = [
 	'audacity-auto-duck',
 	'audacity-bass-treble',
 	'audacity-click-removal',
+	'audacity-change-pitch',
+	'audacity-change-tempo',
+	'audacity-change-speed-pitch',
+	'audacity-sliding-stretch',
 	'audacity-compressor',
 	'audacity-legacy-compressor',
 	'audacity-distortion',
@@ -36,6 +41,8 @@ const INCLUDED_EFFECTS = [
 	'audacity-paulstretch',
 	'audacity-phaser',
 	'audacity-repair',
+	'audacity-remove-dc-offset',
+	'audacity-reverb',
 	'audacity-repeat',
 	'audacity-reverse',
 	'audacity-classic-filters',
@@ -43,11 +50,12 @@ const INCLUDED_EFFECTS = [
 	'audacity-wahwah',
 ];
 
-test('Audacity manifest pins every supported menu-visible 3.7.7 native processing effect', () => {
+test('Audacity manifest pins the legacy inventory and current StaffPad processing effects', () => {
 	assert.equal(AUDACITY_EFFECT_SOURCE.version, '3.7.7');
 	assert.equal(AUDACITY_EFFECT_SOURCE.commit, '5ef610ed23260d6d648175735bb16b32536eb30b');
+	assert.equal(AUDACITY_STAFFPAD_SOURCE.commit, '908ad0a526e5bfdab68de780e893cebe172d27eb');
 	assert.deepEqual(audacityEffectTypes(), INCLUDED_EFFECTS);
-	assert.equal(Object.keys(AUDACITY_EFFECT_DEFINITIONS).length, 25);
+	assert.equal(Object.keys(AUDACITY_EFFECT_DEFINITIONS).length, 31);
 	assert.deepEqual(Object.keys(AUDACITY_EFFECT_UPSTREAM_FILES), INCLUDED_EFFECTS);
 	assert.ok(Object.values(AUDACITY_EFFECT_UPSTREAM_FILES).every((paths) => paths.length > 0 && paths.every((path) => path.endsWith('.cpp'))));
 	assert.ok(Object.isFrozen(AUDACITY_EFFECT_DEFINITIONS));
@@ -67,16 +75,15 @@ test('native modules which are not menu-visible processing effects stay explicit
 	assert.ok(Object.isFrozen(AUDACITY_NON_PROCESS_MODULES));
 });
 
-test('Audacity dependency exclusions remain explicit and cannot enter the supported registry', () => {
-	assert.deepEqual(AUDACITY_EFFECT_EXCLUSIONS.map(({ name }) => name), [
-		'Change Pitch', 'Change Tempo', 'Sliding Stretch', 'Reverb', 'Change Speed and Pitch',
-	]);
-	assert.match(JSON.stringify(AUDACITY_EFFECT_EXCLUSIONS), /SoundTouch/);
-	assert.match(JSON.stringify(AUDACITY_EFFECT_EXCLUSIONS), /SBSMS/);
-	assert.match(JSON.stringify(AUDACITY_EFFECT_EXCLUSIONS), /SoX/);
-	for (const exclusion of AUDACITY_EFFECT_EXCLUSIONS) {
-		assert.equal(audacityEffectTypes().some((type) => audacityEffectLabel(type) === exclusion.name), false);
+test('browser Reverb avoids SoX while StaffPad replaces SoundTouch and SBSMS effects', () => {
+	assert.deepEqual(AUDACITY_EFFECT_EXCLUSIONS, []);
+	assert.equal(AUDACITY_EFFECT_DEFINITIONS['audacity-reverb'].browserAdaptation, 'schroeder');
+	assert.equal(audacityEffectTypes().includes('audacity-remove-dc-offset'), true);
+	for (const type of ['audacity-change-pitch', 'audacity-change-tempo', 'audacity-change-speed-pitch', 'audacity-sliding-stretch']) {
+		assert.equal(AUDACITY_EFFECT_DEFINITIONS[type].requiresStaffPad, true);
+		assert.match(AUDACITY_EFFECT_UPSTREAM_FILES[type].join(' '), /StaffPad\/TimeAndPitch\.cpp/);
 	}
+	assert.doesNotMatch(JSON.stringify(AUDACITY_EFFECT_UPSTREAM_FILES), /SoundTouch|SBSMSBase/);
 });
 
 test('Audacity labels suffix only collisions and provide German names', () => {

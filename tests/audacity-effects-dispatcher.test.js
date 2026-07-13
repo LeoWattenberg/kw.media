@@ -4,6 +4,7 @@ import test from 'node:test';
 import {
 	AUDACITY_EFFECT_PEAK_MEMORY_LIMIT_BYTES,
 	applyAudacityEffect,
+	applyAudacityEffectAsync,
 	assertAudacityEffectOutput,
 	audacityEffectDefaults,
 	audacityEffectTypes,
@@ -14,9 +15,9 @@ import {
 
 const SAMPLE_RATE = 8_000;
 
-test('the worker dispatcher applies every registered Audacity effect without mutating its input', () => {
+test('the worker dispatcher applies every registered Audacity effect without mutating its input', async () => {
 	const types = audacityEffectTypes();
-	assert.equal(types.length, 25);
+	assert.equal(types.length, 31);
 	const noise = testSignal(4_096, 0.01);
 	const noiseProfile = captureAudacityNoiseProfile(noise, SAMPLE_RATE, audacityEffectDefaults('audacity-noise-reduction'));
 
@@ -38,7 +39,7 @@ test('the worker dispatcher applies every registered Audacity effect without mut
 						? { seed: 1234 }
 						: {};
 		const params = audacityEffectDefaults(type);
-		const output = applyAudacityEffect(type, channels, SAMPLE_RATE, params, context);
+		const output = await applyAudacityEffectAsync(type, channels, SAMPLE_RATE, params, context);
 
 		assert.equal(output.length, channels.length, `${type} channel count`);
 		assert.equal(output[0].length, estimateAudacityEffectOutputFrames(type, frameCount, params), `${type} frame count`);

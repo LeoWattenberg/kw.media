@@ -15,6 +15,7 @@ import {
 	applyAudacityLimiter,
 	applyAudacityLoudnessNormalization,
 	applyAudacityNormalize,
+	applyAudacityRemoveDcOffset,
 	applyAudacityRepeat,
 	applyAudacityReverse,
 	applyAudacityTruncateSilence,
@@ -36,16 +37,45 @@ import {
 	applyAudacityRepair,
 	captureAudacityNoiseProfile as captureNoiseProfile,
 } from './spectral.js';
+import { applyAudacityBrowserReverb } from './reverb.js';
 import {
 	AUDACITY_EFFECT_DEFINITIONS,
 	audacityEffectDefaults,
 	normalizeAudacityEffectParams,
 } from './manifest.js';
+import {
+	createStaffPadChangePitchTransform,
+	createStaffPadChangeSpeedTransform,
+	createStaffPadChangeTempoTransform,
+	createStaffPadSlidingStretchTransform,
+	isStaffPadPassThrough,
+	loadStaffPadWasm,
+	renderStaffPad,
+	staffPadTransformOutputFrames,
+} from '../staffpad/index.js';
 
 const FLOAT32_BYTES = Float32Array.BYTES_PER_ELEMENT;
 const FLOAT64_BYTES = Float64Array.BYTES_PER_ELEMENT;
 const MEMORY_ESTIMATE_OVERHEAD_BYTES = 2 * 1024 ** 2;
+const STAFFPAD_WASM_WORKING_SET_BYTES = 16 * 1024 ** 2;
 export const AUDACITY_EFFECT_PEAK_MEMORY_LIMIT_BYTES = 256 * 1024 ** 2;
+export const AUDACITY_STAFFPAD_EFFECT_TYPES = Object.freeze([
+	'audacity-change-pitch',
+	'audacity-change-tempo',
+	'audacity-change-speed-pitch',
+	'audacity-sliding-stretch',
+]);
+
+const AUDACITY_STAFFPAD_EFFECT_TYPE_SET = new Set(AUDACITY_STAFFPAD_EFFECT_TYPES);
+let defaultStaffPadRuntimePromise;
+
+export class AudacityStaffPadError extends Error {
+	constructor(code, message, options) {
+		super(message, options);
+		this.name = 'AudacityStaffPadError';
+		this.code = code;
+	}
+}
 
 export * from './manifest.js';
 export { captureNoiseProfile as captureAudacityNoiseProfile };
@@ -57,6 +87,12 @@ export { captureNoiseProfile as captureAudacityNoiseProfile };
  */
 export function applyAudacityEffect(type, channels, sampleRate, params = {}, context = {}) {
 	const normalized = normalizeAudacityEffectParams(type, params);
+	if (isAudacityStaffPadEffect(type)) {
+		throw new AudacityStaffPadError(
+			'STAFFPAD_ASYNC_REQUIRED',
+			`${AUDACITY_EFFECT_DEFINITIONS[type].label.en} requires the asynchronous StaffPad WebAssembly dispatcher.`,
+		);
+	}
 	let output;
 	switch (type) {
 		case 'audacity-amplify': output = applyAudacityAmplify(channels, sampleRate, normalized); break;
@@ -79,6 +115,8 @@ export function applyAudacityEffect(type, channels, sampleRate, params = {}, con
 		case 'audacity-paulstretch': output = applyAudacityPaulstretch(channels, sampleRate, normalized, context); break;
 		case 'audacity-phaser': output = applyAudacityPhaser(channels, sampleRate, normalized); break;
 		case 'audacity-repair': output = applyAudacityRepair(channels, sampleRate, normalized, context); break;
+		case 'audacity-remove-dc-offset': output = applyAudacityRemoveDcOffset(channels, sampleRate); break;
+		case 'audacity-reverb': output = applyAudacityBrowserReverb(channels, sampleRate, normalized); break;
 		case 'audacity-repeat': output = applyAudacityRepeat(channels, sampleRate, normalized); break;
 		case 'audacity-reverse': output = applyAudacityReverse(channels, sampleRate, normalized); break;
 		case 'audacity-classic-filters': output = applyAudacityClassicFilter(channels, sampleRate, normalized); break;
@@ -89,10 +127,85 @@ export function applyAudacityEffect(type, channels, sampleRate, params = {}, con
 	return assertAudacityEffectOutput(output);
 }
 
+export function isAudacityStaffPadEffect(type) {
+	return AUDACITY_STAFFPAD_EFFECT_TYPE_SET.has(type);
+}
+
+export function audacityStaffPadTransform(type, params = {}) {
+	const normalized = normalizeAudacityEffectParams(type, params);
+	switch (type) {
+		case 'audacity-change-pitch':
+			return createStaffPadChangePitchTransform({
+				cents: normalized.semitones * 100,
+				preserveFormants: normalized.preserveFormants,
+			});
+		case 'audacity-change-tempo':
+			return createStaffPadChangeTempoTransform({ percent: normalized.tempoPercent });
+		case 'audacity-change-speed-pitch':
+			return createStaffPadChangeSpeedTransform({ rate: 1 + normalized.speedPercent / 100 });
+		case 'audacity-sliding-stretch':
+			return createStaffPadSlidingStretchTransform({
+				startTempoPercent: normalized.startTempoPercent,
+				endTempoPercent: normalized.endTempoPercent,
+				startPitchCents: normalized.startPitchSemitones * 100,
+				endPitchCents: normalized.endPitchSemitones * 100,
+				preserveFormants: normalized.preserveFormants,
+			});
+		default:
+			throw new RangeError(`Unsupported StaffPad Audacity effect: ${type}.`);
+	}
+}
+
+export async function applyAudacityEffectAsync(type, channels, sampleRate, params = {}, context = {}) {
+	if (!isAudacityStaffPadEffect(type)) return applyAudacityEffect(type, channels, sampleRate, params, context);
+	const normalizedChannels = assertAudacityEffectOutput(channels);
+	if (normalizedChannels[0].length === 0) throw new RangeError('StaffPad input must contain at least one frame.');
+	const transform = audacityStaffPadTransform(type, params);
+	if (isStaffPadPassThrough(transform)) return normalizedChannels.map((channel) => new Float32Array(channel));
+	const contextual = staffPadContextChannels(normalizedChannels, context);
+	let runtime = context.staffPadRuntime;
+	if (!runtime) {
+		try {
+			runtime = context.staffPadWasmSource == null
+				? await loadDefaultStaffPadRuntime()
+				: await loadStaffPadWasm(context.staffPadWasmSource);
+		} catch (cause) {
+			throw new AudacityStaffPadError(
+				'STAFFPAD_WASM_UNAVAILABLE',
+				'StaffPad WebAssembly is unavailable; the effect was not applied.',
+				{ cause },
+			);
+		}
+	}
+	const outputFrames = staffPadTransformOutputFrames(normalizedChannels[0].length, transform);
+	const output = Array.from({ length: normalizedChannels.length }, () => new Float32Array(outputFrames));
+	let nextFrame = 0;
+	await renderStaffPad({
+		channels: contextual.channels,
+		sampleRate,
+		selection: {
+			startFrame: contextual.beforeFrames,
+			frameCount: normalizedChannels[0].length,
+		},
+		transform,
+	}, runtime, {
+		isCancelled: typeof context.isCancelled === 'function' ? context.isCancelled : undefined,
+		onProgress: typeof context.onProgress === 'function' ? context.onProgress : undefined,
+		onChunk(chunk, frameOffset) {
+			if (frameOffset !== nextFrame) throw new Error('StaffPad returned non-contiguous output.');
+			for (let channel = 0; channel < output.length; channel += 1) output[channel].set(chunk[channel], frameOffset);
+			nextFrame += chunk[0].length;
+		},
+	});
+	if (nextFrame !== outputFrames) throw new Error(`StaffPad returned ${nextFrame} of ${outputFrames} frames.`);
+	return assertAudacityEffectOutput(output);
+}
+
 export function estimateAudacityEffectOutputFrames(type, inputFrames, params = {}) {
 	const frames = Number(inputFrames);
 	if (!Number.isSafeInteger(frames) || frames <= 0) throw new RangeError('inputFrames must be a positive safe integer.');
 	const normalized = normalizeAudacityEffectParams(type, params);
+	if (isAudacityStaffPadEffect(type)) return safeFrames(staffPadTransformOutputFrames(frames, audacityStaffPadTransform(type, normalized)));
 	if (type === 'audacity-repeat') return safeFrames(frames * (normalized.count + 1));
 	if (type === 'audacity-paulstretch') return safeFrames(Math.ceil(frames * normalized.stretchFactor));
 	return frames;
@@ -118,6 +231,15 @@ export function estimateAudacityEffectPeakBytes(type, inputFrames, params = {}, 
 	let scratchBytes = 0;
 
 	switch (type) {
+		case 'audacity-change-pitch':
+		case 'audacity-change-tempo':
+		case 'audacity-change-speed-pitch':
+		case 'audacity-sliding-stretch':
+			contextBytes += (nonNegativeInteger(options.beforeFrames ?? 0, 'beforeFrames')
+				+ nonNegativeInteger(options.afterFrames ?? 0, 'afterFrames'))
+				* channelCount * FLOAT32_BYTES * 2;
+			scratchBytes += STAFFPAD_WASM_WORKING_SET_BYTES;
+			break;
 		case 'audacity-auto-duck': {
 			// The dry-rendered control track and its transferred worker clone.
 			const controlChannelCount = positiveInteger(
@@ -193,6 +315,42 @@ export function estimateAudacityEffectPeakBytes(type, inputFrames, params = {}, 
 		inputBytes + outputBytes * 2 + persistenceScratch + MEMORY_ESTIMATE_OVERHEAD_BYTES,
 	);
 	return Math.max(renderPeak, workerPeak, persistencePeak);
+}
+
+function loadDefaultStaffPadRuntime() {
+	defaultStaffPadRuntimePromise ||= loadStaffPadWasm();
+	return defaultStaffPadRuntimePromise;
+}
+
+function staffPadContextChannels(channels, context) {
+	const before = normalizeOptionalContextChannels(context.beforeChannels, channels.length, 'beforeChannels');
+	const after = normalizeOptionalContextChannels(context.afterChannels, channels.length, 'afterChannels');
+	const beforeFrames = before?.[0].length ?? 0;
+	const afterFrames = after?.[0].length ?? 0;
+	return {
+		beforeFrames,
+		channels: channels.map((channel, index) => {
+			const combined = new Float32Array(beforeFrames + channel.length + afterFrames);
+			if (before) combined.set(before[index], 0);
+			combined.set(channel, beforeFrames);
+			if (after) combined.set(after[index], beforeFrames + channel.length);
+			return combined;
+		}),
+	};
+}
+
+function normalizeOptionalContextChannels(value, channelCount, name) {
+	if (value == null) return null;
+	if (!Array.isArray(value) || value.length !== channelCount) {
+		throw new RangeError(`${name} must match the StaffPad channel count.`);
+	}
+	let frameCount = null;
+	return value.map((channel, channelIndex) => {
+		if (!(channel instanceof Float32Array)) throw new TypeError(`${name}[${channelIndex}] must be a Float32Array.`);
+		if (frameCount == null) frameCount = channel.length;
+		else if (channel.length !== frameCount) throw new RangeError(`${name} channels must have matching lengths.`);
+		return channel;
+	});
 }
 
 /** Validate the shape and every PCM value returned by an effect. */
