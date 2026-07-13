@@ -136,6 +136,14 @@ test.describe('visual tool interactions', () => {
 		const fixture = await createAup3Fixture();
 		await page.goto('/en/tools/converter/aup3-to-wav/');
 		const converter = page.locator('[data-aup3-wav-converter]');
+		const largeMode = converter.locator('[data-large-mode]');
+		const largeWarning = converter.locator('[data-large-warning]');
+		await expect(largeWarning).toBeHidden();
+		await largeMode.check();
+		await expect(largeWarning).toBeVisible();
+		await expect(largeWarning).toContainText('512 MB');
+		await largeMode.uncheck();
+		await expect(largeWarning).toBeHidden();
 
 		await converter.locator('[data-file-input]').setInputFiles({
 			name: 'Browser project.aup3',

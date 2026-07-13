@@ -5,6 +5,7 @@ self.onmessage = async (event) => {
 	try {
 		const decoded = await decodeAup3Bytes(event.data.buffer, {
 			fileName: event.data.fileName,
+			memoryLimits: event.data.memoryLimits,
 			onProgress(update) {
 				self.postMessage({
 					type: 'progress',
