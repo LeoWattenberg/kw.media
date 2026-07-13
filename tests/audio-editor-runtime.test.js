@@ -143,6 +143,93 @@ test('project store bounds durable manifest revisions while retaining recovery h
 	assert.deepEqual((await store.listProjectRevisions('bounded')).map((entry) => entry.revision), [6, 5, 4, 3]);
 });
 
+test('source pruning preserves live history and retained revisions before removing metadata, peaks, and chunks', async () => {
+	const store = createProjectStore({
+		indexedDB: null,
+		preferOpfs: false,
+		databaseName: `source-retention-${Date.now()}-${Math.random()}`,
+		revisionLimit: 2,
+	});
+	const sourceIds = ['original', 'effect-1', 'effect-2', 'abandoned'];
+	for (const sourceId of sourceIds) {
+		const writer = await store.beginSourceWrite(sourceId, { sampleRate: 48_000, name: `${sourceId}.wav` });
+		await writer.write([Float32Array.of(0.1, 0.2)]);
+		await writer.commit();
+		await store.saveAnalysis(`audio-editor-peaks-v1:${sourceId}`, { levels: [sourceId] });
+	}
+	const project = (revision, sourceId, extraSources = []) => ({
+		id: 'retained-project',
+		revision,
+		updatedAt: `2026-07-13T00:00:0${revision}.000Z`,
+		sources: [sourceId, ...extraSources].map((id) => ({ id, frameCount: 2, channelCount: 1 })),
+		clips: [{ id: `clip-${revision}`, sourceId }],
+	});
+	const pruneNow = Date.now() + 2 * 24 * 60 * 60 * 1000;
+
+	await store.saveProject(project(1, 'original', ['abandoned']));
+	await store.saveProject(project(2, 'effect-1'));
+	assert.equal((await store.getSourceMetadata('original')).pendingProjectUntil, undefined);
+	assert.equal((await store.getSourceMetadata('effect-1')).pendingProjectUntil, undefined);
+	assert.equal(typeof (await store.getSourceMetadata('effect-2')).pendingProjectUntil, 'string');
+	let result = await store.pruneUnreferencedSources({
+		protectedProjects: [project(3, 'effect-2')],
+		minimumAgeMs: 0,
+		now: pruneNow,
+	});
+	assert.deepEqual(result.deletedSourceIds, ['abandoned']);
+	assert.equal(await store.getSourceMetadata('original') != null, true);
+	assert.equal(await store.getSourceMetadata('effect-1') != null, true);
+	assert.equal(await store.getSourceMetadata('effect-2') != null, true);
+	assert.equal(await store.getSourceMetadata('abandoned'), null);
+	assert.equal(await store.loadAnalysis('audio-editor-peaks-v1:abandoned'), null);
+	assert.deepEqual((await store.loadProject('retained-project', { revision: 1 })).sources.map((source) => source.id), ['original']);
+
+	await store.saveProject(project(3, 'effect-2'));
+	assert.deepEqual((await store.listProjectRevisions('retained-project')).map((entry) => entry.revision), [3, 2]);
+	result = await store.pruneUnreferencedSources({ minimumAgeMs: 0, now: pruneNow });
+	assert.deepEqual(result.deletedSourceIds, ['original']);
+	assert.equal(await store.getSourceMetadata('original'), null);
+	assert.equal(await store.loadAnalysis('audio-editor-peaks-v1:original'), null);
+	await assert.rejects(async () => {
+		for await (const _chunk of store.readSourceChunks('original')) { /* consume */ }
+	}, /could not be found/);
+	const retainedRevision = await store.loadProject('retained-project', { revision: 2 });
+	assert.deepEqual(retainedRevision.sources.map((source) => source.id), ['effect-1']);
+	const retainedAudio = await store.loadSourceAudioBuffer('effect-1', {
+		createBuffer: (channelCount, frameCount, sampleRate) => new MockAudioBuffer(channelCount, frameCount, sampleRate),
+	});
+	assert.equal(retainedAudio.length, 2);
+
+	await store.saveProject(project(4, 'effect-2'));
+	result = await store.pruneUnreferencedSources({ minimumAgeMs: 0, now: pruneNow });
+	assert.deepEqual(result.deletedSourceIds, ['effect-1']);
+	assert.equal(await store.getSourceMetadata('effect-1'), null);
+	assert.equal(await store.getSourceMetadata('effect-2') != null, true);
+	assert.deepEqual((await store.loadProject('retained-project', { revision: 3 })).sources.map((source) => source.id), ['effect-2']);
+});
+
+test('source pruning durably protects unpublished sources and reports when abandoned writes become eligible', async () => {
+	const store = createProjectStore({
+		indexedDB: null,
+		preferOpfs: false,
+		databaseName: `source-grace-${Date.now()}-${Math.random()}`,
+	});
+	const writer = await store.beginSourceWrite('fresh-orphan', { sampleRate: 48_000 });
+	await writer.write([Float32Array.of(0.25)]);
+	const metadata = await writer.commit();
+	const pendingProjectUntil = Date.parse(metadata.pendingProjectUntil);
+	let result = await store.pruneUnreferencedSources({ minimumAgeMs: 5_000, now: pendingProjectUntil - 1 });
+	assert.deepEqual(result.deletedSourceIds, []);
+	assert.deepEqual(result.deferredSourceIds, ['fresh-orphan']);
+	assert.equal(result.nextEligibleAt, pendingProjectUntil);
+	assert.equal(await store.getSourceMetadata('fresh-orphan') != null, true);
+
+	result = await store.pruneUnreferencedSources({ minimumAgeMs: 5_000, now: pendingProjectUntil });
+	assert.deepEqual(result.deletedSourceIds, ['fresh-orphan']);
+	assert.equal(result.nextEligibleAt, null);
+	assert.equal(await store.getSourceMetadata('fresh-orphan'), null);
+});
+
 test('project store prefers OPFS for bounded source writes when it is available', async () => {
 	const files = new Map();
 	const sourceDirectory = {
@@ -351,6 +438,14 @@ test('project graph meters pre-mute tracks and applies master processing', () =>
 	assert.ok(graph.masterAnalyser);
 	assert.ok(context.nodeKinds.includes('stereo-panner'));
 	assert.ok(context.nodeKinds.includes('convolver'));
+
+	const dryContext = new MockAudioContext();
+	const dryGraph = buildProjectGraph(dryContext, dryContext.destination, createProject(), {
+		metering: false,
+		includeTrackPan: false,
+	});
+	assert.equal(dryContext.nodeKinds.includes('stereo-panner'), false);
+	assert.equal(dryGraph.trackInputs.size, 1);
 });
 
 function createProject() {

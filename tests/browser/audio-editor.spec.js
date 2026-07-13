@@ -50,6 +50,7 @@ function createWavFixture({ name, frequency, duration = 0.8, sampleRate = 48_000
 
 const toneA = createWavFixture({ name: 'browser-tone-a.wav', frequency: 330 });
 const toneB = createWavFixture({ name: 'browser-tone-b.wav', frequency: 660 });
+const monoTone = createWavFixture({ name: 'browser-mono-tone.wav', frequency: 440, channelCount: 1 });
 
 test.describe('audio editor browser workflows', () => {
 	test('is listed on the audio tools overview', async ({ page }) => {
@@ -262,6 +263,55 @@ test.describe('audio editor browser workflows', () => {
 		expect(errors).toEqual([]);
 	});
 
+	test('applies an Audacity selection effect with undo and redo', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await editor.locator('[data-import-input]').setInputFiles(toneA);
+		await editor.locator('[data-clip]').click();
+		await openInspectorTab(editor, 'effects');
+
+		const effectPicker = editor.locator('[data-audacity-effect-type]');
+		await expect(effectPicker.locator('option')).toHaveCount(25);
+		await expect(effectPicker.locator('option[value="audacity-compressor"]')).toHaveText('Compressor (Audacity)');
+		await expect(effectPicker.locator('option[value="audacity-limiter"]')).toHaveText('Limiter (Audacity)');
+		await effectPicker.selectOption('audacity-invert');
+		await expect(editor.locator('[data-apply-audacity-effect]')).toBeEnabled();
+		await editor.locator('[data-apply-audacity-effect]').click();
+
+		await expect(editor.locator('[data-status]')).toHaveAttribute('data-state', 'success', { timeout: 20_000 });
+		await expect(editor.locator('[data-status]')).toHaveText('Applied the Audacity effect.');
+		await expect(editor.locator('[data-clip]')).toHaveCount(1);
+		await expect(editor.locator('[data-clip-label]')).toContainText('Invert');
+		await expect.poll(async () => (await effectSourceMetadata(page)).find((source) => source.name.includes('Invert'))?.channelCount).toBe(2);
+
+		await editor.locator('[data-edit="undo"]').click();
+		await expect(editor.locator('[data-clip-label]')).toHaveText(toneA.name);
+		await editor.locator('[data-edit="redo"]').click();
+		await expect(editor.locator('[data-clip-label]')).toContainText('Invert');
+		expect(errors).toEqual([]);
+	});
+
+	test('keeps mono selections mono when applying an Audacity effect', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const editor = await bootEditor(page, '/en/tools/audio-editor/');
+		await editor.locator('[data-import-input]').setInputFiles(monoTone);
+		await editor.locator('[data-clip]').click();
+		await openInspectorTab(editor, 'effects');
+		await editor.locator('[data-audacity-effect-type]').selectOption('audacity-invert');
+		await editor.locator('[data-apply-audacity-effect]').click();
+
+		await expect(editor.locator('[data-status]')).toHaveAttribute('data-state', 'success', { timeout: 20_000 });
+		await expect.poll(async () => (await effectSourceMetadata(page)).find((source) => source.name.includes('Invert'))?.channelCount).toBe(1);
+		await expect.poll(async () => effectSourcePeak(page, 'Invert')).toBeGreaterThan(0.33);
+
+		await editor.locator('[data-audacity-effect-type]').selectOption('audacity-amplify');
+		await editor.locator('[data-apply-audacity-effect]').click();
+		await expect(editor.locator('[data-status]')).toHaveAttribute('data-state', 'success', { timeout: 20_000 });
+		await expect.poll(async () => effectSourcePeak(page, 'Amplify')).toBeGreaterThan(0.98);
+		await expect.poll(async () => (await effectSourceMetadata(page)).find((source) => source.name.includes('Amplify'))?.channelCount).toBe(1);
+		expect(errors).toEqual([]);
+	});
+
 	test('renders a local WAV mix when OfflineAudioContext is available', async ({ page }) => {
 		const errors = collectClientErrors(page);
 		const editor = await bootEditor(page, '/en/tools/audio-editor/');
@@ -390,6 +440,73 @@ async function openInspectorTab(editor, name) {
 	if (!await tab.isVisible()) await editor.locator('[data-inspector-toggle]').click();
 	await tab.click();
 	await expect(tab).toHaveAttribute('aria-selected', 'true');
+}
+
+async function effectSourceMetadata(page) {
+	return page.evaluate(() => new Promise((resolve, reject) => {
+		const openRequest = indexedDB.open('kw-media-audio-editor', 1);
+		openRequest.onerror = () => reject(openRequest.error);
+		openRequest.onsuccess = () => {
+			const database = openRequest.result;
+			const request = database.transaction('sources', 'readonly').objectStore('sources').getAll();
+			request.onerror = () => {
+				database.close();
+				reject(request.error);
+			};
+			request.onsuccess = () => {
+				database.close();
+				resolve(request.result.filter((source) => source.id?.startsWith('audacity-effect-')));
+			};
+		};
+	}));
+}
+
+async function effectSourcePeak(page, name) {
+	return page.evaluate(async (effectName) => {
+		const sources = await new Promise((resolve, reject) => {
+			const openRequest = indexedDB.open('kw-media-audio-editor', 1);
+			openRequest.onerror = () => reject(openRequest.error);
+			openRequest.onsuccess = () => {
+				const database = openRequest.result;
+				const request = database.transaction('sources', 'readonly').objectStore('sources').getAll();
+				request.onerror = () => reject(request.error);
+				request.onsuccess = () => {
+					database.close();
+					resolve(request.result);
+				};
+			};
+		});
+		const source = sources.find((candidate) => candidate.name?.includes(effectName));
+		if (!source) return 0;
+		let samples;
+		if (source.storage === 'opfs') {
+			const root = await navigator.storage.getDirectory();
+			const directory = await root.getDirectoryHandle('audio-editor-sources');
+			const file = await (await directory.getFileHandle(source.path)).getFile();
+			const header = new DataView(await file.slice(0, 8).arrayBuffer());
+			const frames = header.getUint32(0, true);
+			samples = new Float32Array(await file.slice(8, 8 + frames * Float32Array.BYTES_PER_ELEMENT).arrayBuffer());
+		} else {
+			samples = await new Promise((resolve, reject) => {
+				const openRequest = indexedDB.open('kw-media-audio-editor', 1);
+				openRequest.onerror = () => reject(openRequest.error);
+				openRequest.onsuccess = () => {
+					const database = openRequest.result;
+					const request = database.transaction('sourceChunks', 'readonly')
+						.objectStore('sourceChunks').index('sourceToken').getAll(source.sourceToken);
+					request.onerror = () => reject(request.error);
+					request.onsuccess = () => {
+						database.close();
+						const first = request.result.sort((left, right) => left.index - right.index)[0];
+						resolve(first ? new Float32Array(first.channels[0]) : new Float32Array(0));
+					};
+				};
+			});
+		}
+		let peak = 0;
+		for (const sample of samples) peak = Math.max(peak, Math.abs(sample));
+		return peak;
+	}, name);
 }
 
 function collectClientErrors(page) {

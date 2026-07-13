@@ -104,6 +104,9 @@ function mutateCommand(project, command) {
 		case 'range/ripple-delete':
 			deleteRange(project, command, true);
 			break;
+		case 'range/replace':
+			replaceRange(project, command);
+			break;
 		case 'clipboard/paste':
 			pasteClipboard(project, command);
 			break;
@@ -435,6 +438,102 @@ export function preparePunchCommand(project, options = {}, idFactory = createSta
 	};
 }
 
+/**
+ * Prepare an Audacity-style replacement of one track range with an immutable
+ * source. The source's complete frame range becomes the replacement clip, and
+ * later material on that track ripples by outputFrames - inputFrames.
+ */
+export function prepareRangeReplacementCommand(project, options = {}, idFactory = createStableId) {
+	const range = normalizeFrameRange(options.startFrame, options.endFrame, 'replacement range');
+	const track = requireTrack(project, options.trackId);
+	const sourceId = options.source?.id || idFactory('source');
+	const source = normalizeRangeReplacementSource({ ...(options.source || {}), id: sourceId });
+	assertUnusedId(project.sources, source.id, 'source');
+	const clipId = requireStableCommandId(options.clipId || idFactory('clip'), 'replacement clip');
+	const generatedClipIds = new Set();
+	reserveReplacementClipId(project, clipId, generatedClipIds);
+	const splitClipIds = {};
+	for (const existingClipId of track.clipIds) {
+		const clip = requireClip(project, existingClipId);
+		if (clip.timelineStartFrame < range.startFrame && clipEndFrame(clip) > range.endFrame) {
+			const rightId = requireStableCommandId(idFactory('clip'), `right segment for ${clip.id}`);
+			reserveReplacementClipId(project, rightId, generatedClipIds);
+			splitClipIds[clip.id] = rightId;
+		}
+	}
+	return {
+		type: 'range/replace',
+		trackId: track.id,
+		...range,
+		source,
+		clipId,
+		splitClipIds,
+	};
+}
+
+function replaceRange(project, command) {
+	const range = normalizeFrameRange(command.startFrame, command.endFrame, 'replacement range');
+	const track = requireTrack(project, command.trackId);
+	const source = normalizeRangeReplacementSource(command.source);
+	const clipId = requireStableCommandId(command.clipId, 'replacement clip');
+	assertUnusedId(project.sources, source.id, 'source');
+	const generatedClipIds = new Set();
+	reserveReplacementClipId(project, clipId, generatedClipIds);
+
+	const originals = track.clipIds.map((id) => requireClip(project, id));
+	const deletedIds = new Set(track.clipIds);
+	const replacements = [];
+	const timelineDelta = source.frameCount - range.durationFrames;
+	for (const clip of originals) {
+		const startFrame = clip.timelineStartFrame;
+		const endFrame = clipEndFrame(clip);
+		if (endFrame <= range.startFrame) {
+			replacements.push(clip);
+			continue;
+		}
+		if (startFrame >= range.endFrame) {
+			replacements.push(createAudioClip({
+				...clip,
+				timelineStartFrame: startFrame + timelineDelta,
+				id: clip.id,
+			}));
+			continue;
+		}
+
+		const hasLeft = startFrame < range.startFrame;
+		const hasRight = endFrame > range.endFrame;
+		if (hasLeft) replacements.push(segmentOfClip(clip, startFrame, range.startFrame, startFrame, clip.id));
+		if (hasRight) {
+			const rightId = hasLeft
+				? requireStableCommandId(command.splitClipIds?.[clip.id], `right segment for ${clip.id}`)
+				: clip.id;
+			if (hasLeft) reserveReplacementClipId(project, rightId, generatedClipIds);
+			replacements.push(segmentOfClip(
+				clip,
+				range.endFrame,
+				endFrame,
+				range.startFrame + source.frameCount,
+				rightId,
+			));
+		}
+	}
+
+	const replacement = createAudioClip({
+		id: clipId,
+		sourceId: source.id,
+		timelineStartFrame: range.startFrame,
+		sourceStartFrame: 0,
+		durationFrames: source.frameCount,
+	});
+	const nextTrackClips = [...replacements, replacement]
+		.sort((first, second) => first.timelineStartFrame - second.timelineStartFrame || first.id.localeCompare(second.id));
+	project.sources.push(source);
+	validateTrackReplacement(project, track, deletedIds, nextTrackClips);
+	project.clips = project.clips.filter((clip) => !deletedIds.has(clip.id));
+	project.clips.push(...nextTrackClips);
+	track.clipIds = nextTrackClips.map((clip) => clip.id);
+}
+
 function punchReplace(project, command) {
 	const range = normalizeFrameRange(command.startFrame, command.endFrame, 'punch range');
 	const track = requireTrack(project, command.trackId);
@@ -520,6 +619,41 @@ function assertClipSpace(project, track, candidate, excludedClipId = null, addit
 	if ([...clips, ...additionalClips].some((clip) => clipsOverlap(clip, candidate))) {
 		throw new RangeError(`Clip overlaps existing material on track ${track.id}.`);
 	}
+}
+
+function validateTrackReplacement(project, track, deletedIds, clips) {
+	const ids = new Set(project.clips.filter((clip) => !deletedIds.has(clip.id)).map((clip) => clip.id));
+	for (const clip of clips) {
+		if (ids.has(clip.id)) throw new RangeError(`Duplicate clip ID: ${clip.id}.`);
+		ids.add(clip.id);
+		assertClipSourceBounds(project, clip);
+	}
+	for (let index = 1; index < clips.length; index += 1) {
+		if (clipsOverlap(clips[index - 1], clips[index])) {
+			throw new RangeError(`Range replacement overlaps existing material on track ${track.id}.`);
+		}
+	}
+}
+
+function normalizeRangeReplacementSource(value) {
+	if (!value || typeof value.id !== 'string' || !value.id) {
+		throw new TypeError('A stable replacement source ID is required.');
+	}
+	if (!Number.isSafeInteger(value.frameCount) || value.frameCount <= 0) {
+		throw new RangeError('Range replacement output must contain at least one frame.');
+	}
+	return createAudioSource(value);
+}
+
+function requireStableCommandId(value, name) {
+	if (typeof value !== 'string' || !value) throw new TypeError(`A stable ${name} ID is required.`);
+	return value;
+}
+
+function reserveReplacementClipId(project, id, reservedIds) {
+	assertUnusedId(project.clips, id, 'clip');
+	if (reservedIds.has(id)) throw new RangeError(`Duplicate replacement clip ID: ${id}.`);
+	reservedIds.add(id);
 }
 
 function sortTrack(project, track) {

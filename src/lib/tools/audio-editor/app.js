@@ -14,6 +14,10 @@ import {
 	createEffect,
 	createExportPlan,
 	createStableId,
+	collectHistorySourceIds,
+	compactEditorHistorySourceMetadata,
+	editorHistoryProjects,
+	evictUnreferencedSourceCaches,
 	executeEditorCommand,
 	findClip,
 	findClipTrack,
@@ -24,6 +28,7 @@ import {
 	preparePasteCommand,
 	preparePunchCommand,
 	prepareRangeDeleteCommand,
+	prepareRangeReplacementCommand,
 	prepareSplitCommand,
 	projectDurationFrames,
 	projectEnvelope,
@@ -31,6 +36,26 @@ import {
 	redoEditorCommand,
 	undoEditorCommand,
 } from './index.js';
+import {
+	AUDACITY_EFFECT_PEAK_MEMORY_LIMIT_BYTES,
+	AUDACITY_EFFECT_DEFINITIONS,
+	applyAudacityEffect,
+	assertAudacityEffectOutput,
+	audacityEffectDefaults,
+	audacityEffectLabel,
+	audacityEffectTypes,
+	captureAudacityNoiseProfile,
+	estimateAudacityEffectOutputFrames,
+	estimateAudacityEffectPeakBytes,
+	formatAudacityCurve,
+	localized,
+	normalizeAudacityEffectParams,
+	parseAudacityCurve,
+} from './audacity-effects/index.js';
+import {
+	audacitySelectionChannelCount,
+	matchAudacitySelectionChannels,
+} from './audacity-selection.js';
 import {
 	createAudioEditorEngine,
 	createRecordingController,
@@ -88,7 +113,9 @@ export function createAudioEditorController(root, options = {}) {
 		readOnly: false,
 		projectLock: null,
 		autosaveTimer: 0,
+		sourceGcTimer: 0,
 		saveGeneration: 0,
+		pendingSaveSnapshots: new Set(),
 		recorder: null,
 		recordingWriter: null,
 		recordingStream: null,
@@ -108,6 +135,13 @@ export function createAudioEditorController(root, options = {}) {
 		outputCleanup: null,
 		projectQueue: Promise.resolve(),
 		missingSourceIds: new Set(),
+		audacityEffectType: audacityEffectTypes()[0],
+		audacityEffectParams: {},
+		audacityEffectTouchedParams: new Map(),
+		audacityControlTrackId: null,
+		audacityNoiseProfile: null,
+		audacityEffectProcessing: false,
+		audacityEffectWorker: null,
 		touchPointers: new Map(),
 		pinch: null,
 		disposed: false,
@@ -125,8 +159,11 @@ export function createAudioEditorController(root, options = {}) {
 			if (state.disposed) return;
 			state.disposed = true;
 			window.clearTimeout(state.autosaveTimer);
+			window.clearTimeout(state.sourceGcTimer);
 			if (state.timelineDrawFrame) cancelAnimationFrame(state.timelineDrawFrame);
 			state.resizeObserver?.disconnect();
+			state.audacityEffectWorker?.terminate();
+			state.audacityEffectWorker = null;
 			document.removeEventListener('keydown', handleKeyboard);
 			document.removeEventListener('pointerdown', handleDocumentPointerDown);
 			await stopRecording().catch(() => undefined);
@@ -206,6 +243,17 @@ export function createAudioEditorController(root, options = {}) {
 		for (const button of root.querySelectorAll('[data-clip-action]')) button.addEventListener('click', () => void handleClipAction(button.dataset.clipAction));
 		nodes.addEffect?.addEventListener('click', addEffect);
 		nodes.effectTarget?.addEventListener('change', renderEffects);
+		nodes.audacityEffectType?.addEventListener('change', () => {
+			state.audacityEffectType = nodes.audacityEffectType.value;
+			renderAudacityEffectPanel();
+			renderControls();
+		});
+		nodes.audacityControlTrack?.addEventListener('change', () => {
+			state.audacityControlTrackId = nodes.audacityControlTrack.value || null;
+			renderControls();
+		});
+		nodes.applyAudacityEffect?.addEventListener('click', () => void applySelectedAudacityEffect().catch(handleError));
+		nodes.audacityNoiseProfile?.addEventListener('click', () => void captureSelectedNoiseProfile().catch(handleError));
 		nodes.masterGain?.addEventListener('input', () => { nodes.masterGainValue.textContent = `${Number(nodes.masterGain.value).toFixed(1)} dB`; });
 		nodes.masterGain?.addEventListener('change', () => {
 			if (!editingBlocked()) commit({ type: 'master/update', changes: { gain: Math.min(4, dbToLinear(nodes.masterGain.value)) } });
@@ -269,11 +317,13 @@ export function createAudioEditorController(root, options = {}) {
 		state.projectLock?.release();
 		state.projectLock = await acquireProjectLock(nextProject.id);
 		state.readOnly = Boolean(options.readOnly || state.projectLock.readOnly);
-		state.history = createEditorHistory(nextProject);
+		state.history = compactEditorHistorySourceMetadata(createEditorHistory(nextProject));
 		project = state.history.present;
 		state.selectedTrackId = nextProject.tracks[0]?.id ?? null;
 		state.selectedClipId = null;
 		state.clipboard = null;
+		state.audacityNoiseProfile = null;
+		state.audacityControlTrackId = null;
 		if (state.outputUrl) URL.revokeObjectURL(state.outputUrl);
 		state.outputUrl = null;
 		await state.outputCleanup?.();
@@ -283,18 +333,20 @@ export function createAudioEditorController(root, options = {}) {
 		sourceBuffers.clear();
 		sourcePeaks.clear();
 		state.missingSourceIds.clear();
-		await loadProjectSources(nextProject);
-		engine.loadProject(nextProject, sourceBuffers);
+		await loadProjectSources(project);
+		engine.loadProject(project, sourceBuffers);
 		await store.saveSetting('last-project-id', nextProject.id);
 		if (options.save && !state.readOnly) await store.saveProject(nextProject);
 		render();
+		await garbageCollectSources();
 		if (state.readOnly) setStatus(locale === 'de' ? 'Das Projekt ist bereits in einem anderen Tab geöffnet.' : 'This project is already open in another tab.', 'error');
 	}
 
 	async function loadProjectSources(project) {
-		if (!project.sources.length) return;
+		const usedSourceIds = new Set((project.clips || []).map((clip) => clip.sourceId));
+		if (!usedSourceIds.size) return;
 		const context = await engine.getAudioContext?.({ resume: false });
-		for (const source of project.sources) {
+		for (const source of project.sources.filter((candidate) => usedSourceIds.has(candidate.id))) {
 			try {
 				const buffer = await readStoredAudioBuffer(store, source, context);
 				if (buffer) {
@@ -353,23 +405,40 @@ export function createAudioEditorController(root, options = {}) {
 		state.projectLock?.release();
 		state.projectLock = null;
 		await store.deleteProject(id);
-		await garbageCollectSources();
 		state.history = null;
 		project = null;
+		sourceBuffers.clear();
+		sourcePeaks.clear();
+		state.missingSourceIds.clear();
+		await garbageCollectSources();
 		await newProject({ skipFlush: true });
 	}
 
 	async function garbageCollectSources() {
-		const projects = await store.listProjects();
-		const referenced = new Set(projects.flatMap((saved) => (saved.sources || []).map((source) => source.id)));
-		for (const saved of projects) {
-			for (const revision of await store.listProjectRevisions(saved.id)) {
-				for (const source of revision.project.sources || []) referenced.add(source.id);
-			}
+		if (!store.pruneUnreferencedSources) return;
+		window.clearTimeout(state.sourceGcTimer);
+		state.sourceGcTimer = 0;
+		const protectedSourceIds = liveSessionSourceIds();
+		for (const sourceId of sourceBuffers.keys()) protectedSourceIds.add(sourceId);
+		for (const sourceId of sourcePeaks.keys()) protectedSourceIds.add(sourceId);
+		const result = await store.pruneUnreferencedSources({
+			protectedProjects: [
+				...editorHistoryProjects(state.history),
+				...state.pendingSaveSnapshots,
+			],
+			protectedSourceIds,
+		});
+		for (const sourceId of result.deletedSourceIds || []) {
+			sourceBuffers.delete(sourceId);
+			sourcePeaks.delete(sourceId);
+			state.missingSourceIds.delete(sourceId);
 		}
-		for (const source of await store.listSources()) {
-			const age = Date.now() - Date.parse(source.committedAt || 0);
-			if (!referenced.has(source.id) && (!Number.isFinite(age) || age > 60_000)) await store.deleteSource(source.id);
+		if (result.nextEligibleAt != null && !state.disposed) {
+			const delay = Math.max(1_000, Math.min(2_147_000_000, result.nextEligibleAt - Date.now() + 50));
+			state.sourceGcTimer = window.setTimeout(() => {
+				state.sourceGcTimer = 0;
+				void garbageCollectSources().catch(handleError);
+			}, delay);
 		}
 	}
 
@@ -542,7 +611,11 @@ export function createAudioEditorController(root, options = {}) {
 			const trackIds = state.selectedTrackId ? [state.selectedTrackId] : project.tracks.map((track) => track.id);
 			if (action === 'copy' || action === 'cut') {
 				if (!selection) throw new Error(locale === 'de' ? 'Erstelle zuerst eine Zeitauswahl.' : 'Create a time selection first.');
-				if (action === 'copy') state.clipboard = createClipboardDescriptor(project, { ...selection, trackIds });
+				if (action === 'copy') {
+					state.clipboard = createClipboardDescriptor(project, { ...selection, trackIds });
+					compactLiveSourceState();
+					void garbageCollectSources().catch(handleError);
+				}
 				else {
 					const prepared = prepareCut(project, { ...selection, trackIds });
 					state.clipboard = prepared.clipboard;
@@ -607,7 +680,7 @@ export function createAudioEditorController(root, options = {}) {
 	}
 
 	function projectChanged() {
-		project = state.history.present;
+		compactLiveSourceState();
 		const selectedClipExists = state.selectedClipId && findClip(project, state.selectedClipId);
 		if (!selectedClipExists) state.selectedClipId = null;
 		if (state.selectedTrackId && !findTrack(project, state.selectedTrackId)) state.selectedTrackId = project.tracks[0]?.id ?? null;
@@ -639,19 +712,47 @@ export function createAudioEditorController(root, options = {}) {
 	}
 
 	async function saveSnapshot(snapshot, generation) {
+		state.pendingSaveSnapshots.add(snapshot);
 		try {
 			await store.saveProject(snapshot);
+			state.pendingSaveSnapshots.delete(snapshot);
 			if (project?.id === snapshot.id) await store.saveSetting('last-project-id', snapshot.id);
 			if (project?.id === snapshot.id && generation === state.saveGeneration) {
 				nodes.saveState.textContent = copy.projectSaved;
 				nodes.saveState.dataset.state = 'saved';
 			}
+			await garbageCollectSources();
 			await refreshStorageUsage();
 		} catch (error) {
 			nodes.saveState.textContent = copy.projectDirty;
 			nodes.saveState.dataset.state = 'dirty';
 			handleError(error);
+		} finally {
+			state.pendingSaveSnapshots.delete(snapshot);
 		}
+	}
+
+	function clipboardSourceIds() {
+		const ids = new Set();
+		for (const clipboardTrack of state.clipboard?.tracks || []) {
+			for (const clip of clipboardTrack.clips || []) if (clip.sourceId) ids.add(clip.sourceId);
+		}
+		return ids;
+	}
+
+	function compactLiveSourceState() {
+		state.history = compactEditorHistorySourceMetadata(state.history, {
+			preservePresentSourceIds: clipboardSourceIds(),
+		});
+		project = state.history?.present ?? null;
+		evictUnreferencedSourceCaches(sourceBuffers, sourcePeaks, liveSessionSourceIds());
+	}
+
+	function liveSessionSourceIds() {
+		const ids = collectHistorySourceIds(state.history);
+		for (const sourceId of clipboardSourceIds()) ids.add(sourceId);
+		if (state.recordingSourceId) ids.add(state.recordingSourceId);
+		return ids;
 	}
 
 	function render() {
@@ -1121,6 +1222,7 @@ export function createAudioEditorController(root, options = {}) {
 			renderEffectParameters(card.querySelector('[data-effect-parameters]'), effect, scope);
 			nodes.effectRack.append(card);
 		}
+		renderAudacityEffectPanel();
 	}
 
 	function renderEffectParameters(container, effect, scope) {
@@ -1153,6 +1255,371 @@ export function createAudioEditorController(root, options = {}) {
 		} else {
 			const ranges = AUDIO_EFFECT_DEFINITIONS[effect.type]?.ranges || {};
 			for (const [key, value] of Object.entries(effect.params)) if (typeof value === 'number') addParameter(key, value, [key], ranges[key]);
+		}
+	}
+
+	function renderAudacityEffectPanel() {
+		if (!nodes.audacityEffectType || !nodes.audacityEffectParameters) return;
+		const types = audacityEffectTypes();
+		if (!AUDACITY_EFFECT_DEFINITIONS[state.audacityEffectType]) state.audacityEffectType = types[0];
+		nodes.audacityEffectType.replaceChildren(...types.map((type) => {
+			const option = document.createElement('option');
+			option.value = type;
+			option.textContent = audacityEffectLabel(type, locale);
+			return option;
+		}));
+		nodes.audacityEffectType.value = state.audacityEffectType;
+		const definition = AUDACITY_EFFECT_DEFINITIONS[state.audacityEffectType];
+		const params = currentAudacityEffectParams();
+		nodes.audacityEffectParameters.replaceChildren();
+		for (const [name, descriptor] of Object.entries(definition.params)) {
+			if (descriptor.kind === 'bands') renderAudacityBands(name, descriptor, params);
+			else renderAudacityParameter(name, descriptor, params);
+		}
+
+		const controlTracks = project.tracks.filter((track) => track.id !== state.selectedTrackId);
+		if (!controlTracks.some((track) => track.id === state.audacityControlTrackId)) {
+			state.audacityControlTrackId = controlTracks[0]?.id ?? null;
+		}
+		nodes.audacityControlTrack.replaceChildren(...controlTracks.map((track) => {
+			const option = document.createElement('option');
+			option.value = track.id;
+			option.textContent = track.name;
+			return option;
+		}));
+		nodes.audacityControlTrack.value = state.audacityControlTrackId || '';
+		nodes.audacityControlField.hidden = !definition.requiresControlTrack;
+		nodes.audacityNoiseProfile.hidden = !definition.requiresNoiseProfile;
+		const target = audacityEffectTarget();
+		if (definition.requiresNoiseProfile) {
+			nodes.audacityEffectHint.textContent = state.audacityNoiseProfile ? copy.noiseProfileReady : copy.noiseProfileMissing;
+		} else nodes.audacityEffectHint.textContent = target ? formatAudacityTargetHint(target, locale) : copy.audacitySelectionHint;
+	}
+
+	function renderAudacityParameter(name, descriptor, params) {
+		const wrapper = document.createElement('label');
+		wrapper.className = descriptor.kind === 'curve' ? 'field wide' : descriptor.kind === 'boolean' ? 'check-field wide' : 'field';
+		const caption = document.createElement('span');
+		caption.textContent = localized(descriptor.label, locale);
+		let input;
+		if (descriptor.kind === 'boolean') {
+			input = document.createElement('input');
+			input.type = 'checkbox';
+			input.checked = Boolean(params[name]);
+			wrapper.append(input, caption);
+		} else if (descriptor.kind === 'enum') {
+			input = document.createElement('select');
+			input.replaceChildren(...descriptor.options.map((item) => {
+				const option = document.createElement('option');
+				option.value = String(item.value);
+				option.textContent = localized(item.label, locale);
+				return option;
+			}));
+			input.value = String(params[name]);
+			wrapper.append(caption, input);
+		} else if (descriptor.kind === 'curve') {
+			input = document.createElement('textarea');
+			input.value = formatAudacityCurve(params[name]);
+			wrapper.append(caption, input);
+		} else {
+			input = document.createElement('input');
+			input.type = 'number';
+			input.value = String(params[name]);
+			input.min = String(descriptor.minimum);
+			input.max = String(descriptor.maximum);
+			input.step = String(descriptor.step ?? 'any');
+			wrapper.append(caption, input);
+			if (descriptor.unit) {
+				const unit = document.createElement('small');
+				unit.textContent = descriptor.unit;
+				wrapper.append(unit);
+			}
+		}
+		input.dataset.audacityParam = name;
+		input.disabled = editingBlocked();
+		input.addEventListener('change', () => updateAudacityParameter(name, descriptor, input));
+		nodes.audacityEffectParameters.append(wrapper);
+	}
+
+	function renderAudacityBands(name, descriptor, params) {
+		const container = document.createElement('fieldset');
+		container.className = 'audacity-band-grid wide';
+		const legend = document.createElement('legend');
+		legend.textContent = localized(descriptor.label, locale);
+		container.append(legend);
+		descriptor.frequencies.forEach((frequency, index) => {
+			const wrapper = document.createElement('label');
+			wrapper.className = 'field';
+			const caption = document.createElement('span');
+			caption.textContent = `${frequency} Hz`;
+			const input = document.createElement('input');
+			input.type = 'number';
+			input.min = String(descriptor.minimum);
+			input.max = String(descriptor.maximum);
+			input.step = String(descriptor.step);
+			input.value = String(params[name][index]);
+			input.disabled = editingBlocked();
+			input.addEventListener('change', () => {
+				const values = [...currentAudacityEffectParams()[name]];
+				values[index] = Number(input.value);
+				setAudacityEffectParams({ [name]: values });
+				renderAudacityEffectPanel();
+			});
+			wrapper.append(caption, input);
+			container.append(wrapper);
+		});
+		nodes.audacityEffectParameters.append(container);
+	}
+
+	function updateAudacityParameter(name, descriptor, input) {
+		try {
+			const value = descriptor.kind === 'boolean'
+				? input.checked
+				: descriptor.kind === 'curve'
+					? parseAudacityCurve(input.value)
+					: descriptor.kind === 'number'
+						? Number(input.value)
+						: input.value;
+			setAudacityEffectParams({ [name]: value });
+			renderAudacityEffectPanel();
+			renderControls();
+		} catch (error) {
+			handleError(error);
+			renderAudacityEffectPanel();
+		}
+	}
+
+	function currentAudacityEffectParams(type = state.audacityEffectType) {
+		if (!state.audacityEffectParams[type]) state.audacityEffectParams[type] = audacityEffectDefaults(type);
+		return state.audacityEffectParams[type];
+	}
+
+	function setAudacityEffectParams(changes, { markTouched = true } = {}) {
+		state.audacityEffectParams[state.audacityEffectType] = normalizeAudacityEffectParams(state.audacityEffectType, {
+			...currentAudacityEffectParams(),
+			...changes,
+		});
+		if (markTouched) {
+			if (!state.audacityEffectTouchedParams.has(state.audacityEffectType)) {
+				state.audacityEffectTouchedParams.set(state.audacityEffectType, new Set());
+			}
+			const touched = state.audacityEffectTouchedParams.get(state.audacityEffectType);
+			for (const name of Object.keys(changes)) touched.add(name);
+		}
+	}
+
+	function resolveInteractiveAudacityParams(type, params, channels) {
+		if (type !== 'audacity-amplify' || state.audacityEffectTouchedParams.get(type)?.has('gainDb')) return params;
+		let peak = 0;
+		for (const channel of channels) {
+			for (const sample of channel) peak = Math.max(peak, Math.abs(sample));
+		}
+		const gainDb = peak > 0
+			? Math.max(-50, Math.min(50, 20 * Math.log10(1 / peak)))
+			: 0;
+		const resolved = normalizeAudacityEffectParams(type, { ...params, gainDb });
+		state.audacityEffectParams[type] = resolved;
+		return resolved;
+	}
+
+	function audacityEffectTarget() {
+		const selectedClip = state.selectedClipId ? findClip(project, state.selectedClipId) : null;
+		const selectedClipTrack = selectedClip ? findClipTrack(project, selectedClip.id) : null;
+		const track = findTrack(project, state.selectedTrackId) || selectedClipTrack;
+		if (!track) return null;
+		const selection = activeSelection();
+		const startFrame = selection?.startFrame ?? selectedClip?.timelineStartFrame;
+		const endFrame = selection?.endFrame ?? (selectedClip ? selectedClip.timelineStartFrame + selectedClip.durationFrames : null);
+		if (!Number.isSafeInteger(startFrame) || !Number.isSafeInteger(endFrame) || endFrame <= startFrame) return null;
+		const channelCount = audacitySelectionChannelCount(project, track.id, startFrame, endFrame);
+		return channelCount ? { track, startFrame, endFrame, durationFrames: endFrame - startFrame, channelCount } : null;
+	}
+
+	async function captureSelectedNoiseProfile() {
+		if (editingBlocked()) return;
+		const target = audacityEffectTarget();
+		if (!target) throw new Error(copy.audacitySelectionHint);
+		const estimatedPeakBytes = estimateAudacityEffectPeakBytes(
+			'audacity-noise-reduction',
+			target.durationFrames,
+			currentAudacityEffectParams('audacity-noise-reduction'),
+			{ channelCount: target.channelCount, sampleRate: AUDIO_EDITOR_SAMPLE_RATE },
+		);
+		if (estimatedPeakBytes > AUDACITY_EFFECT_PEAK_MEMORY_LIMIT_BYTES) throw audacityEffectMemoryError(locale);
+		state.audacityEffectProcessing = true;
+		setStatus(copy.audacityProfileProcessing);
+		renderControls();
+		try {
+			const channels = await renderDryTrackRange(target.track.id, target.startFrame, target.endFrame, target.channelCount);
+			const result = await runAudacityEffectWorker({
+				operation: 'capture-noise-profile',
+				channels,
+				sampleRate: AUDIO_EDITOR_SAMPLE_RATE,
+				params: currentAudacityEffectParams('audacity-noise-reduction'),
+			});
+			state.audacityNoiseProfile = result.profile;
+			setStatus(copy.noiseProfileReady, 'success');
+		} finally {
+			state.audacityEffectProcessing = false;
+			renderAudacityEffectPanel();
+			renderControls();
+		}
+	}
+
+	async function applySelectedAudacityEffect() {
+		if (editingBlocked()) return;
+		const target = audacityEffectTarget();
+		if (!target) throw new Error(copy.audacitySelectionHint);
+		const type = state.audacityEffectType;
+		const definition = AUDACITY_EFFECT_DEFINITIONS[type];
+		let params = normalizeAudacityEffectParams(type, currentAudacityEffectParams());
+		if (definition.requiresNoiseProfile && !state.audacityNoiseProfile) throw new Error(copy.noiseProfileMissing);
+		if (definition.requiresControlTrack && !state.audacityControlTrackId) throw new Error(locale === 'de' ? 'Auto-Duck benötigt eine Steuerspur.' : 'Auto Duck requires a control track.');
+		const estimatedFrames = estimateAudacityEffectOutputFrames(type, target.durationFrames, params);
+		const estimatedOutputBytes = estimatedFrames * target.channelCount * Float32Array.BYTES_PER_ELEMENT;
+		const estimatedPeakBytes = estimateAudacityEffectPeakBytes(type, target.durationFrames, params, {
+			channelCount: target.channelCount,
+			controlChannelCount: definition.requiresControlTrack ? 2 : undefined,
+			sampleRate: AUDIO_EDITOR_SAMPLE_RATE,
+			beforeFrames: definition.requiresContext ? 128 : 0,
+			afterFrames: definition.requiresContext ? 128 : 0,
+		});
+		if (estimatedPeakBytes > AUDACITY_EFFECT_PEAK_MEMORY_LIMIT_BYTES) throw audacityEffectMemoryError(locale);
+		await preflightStorage(estimatedOutputBytes, 'effect');
+		state.audacityEffectProcessing = true;
+		setStatus(copy.audacityProcessing);
+		renderControls();
+		try {
+			const channels = await renderDryTrackRange(target.track.id, target.startFrame, target.endFrame, target.channelCount);
+			params = resolveInteractiveAudacityParams(type, params, channels);
+			const effectContext = {};
+			if (definition.requiresControlTrack) {
+				effectContext.controlChannels = await renderDryTrackRange(state.audacityControlTrackId, target.startFrame, target.endFrame);
+			}
+			if (definition.requiresNoiseProfile) effectContext.noiseProfile = state.audacityNoiseProfile;
+			if (definition.requiresContext) {
+				const beforeStart = Math.max(0, target.startFrame - 128);
+				const afterEnd = Math.min(projectDurationFrames(project), target.endFrame + 128);
+				effectContext.beforeChannels = beforeStart < target.startFrame
+					? await renderDryTrackRange(target.track.id, beforeStart, target.startFrame, target.channelCount)
+					: channels.map(() => new Float32Array(0));
+				effectContext.afterChannels = target.endFrame < afterEnd
+					? await renderDryTrackRange(target.track.id, target.endFrame, afterEnd, target.channelCount)
+					: channels.map(() => new Float32Array(0));
+			}
+			const result = await runAudacityEffectWorker({
+				operation: 'apply', effectType: type, channels, sampleRate: AUDIO_EDITOR_SAMPLE_RATE, params, context: effectContext,
+			});
+			await persistAudacityEffectResult(target, type, result.channels);
+			setStatus(copy.audacityApplied, 'success');
+		} finally {
+			state.audacityEffectProcessing = false;
+			renderAudacityEffectPanel();
+			renderControls();
+		}
+	}
+
+	async function renderDryTrackRange(trackId, startFrame, endFrame, requestedChannelCount = null) {
+		const track = findTrack(project, trackId);
+		if (!track) throw new Error(locale === 'de' ? 'Die Audiospur wurde nicht gefunden.' : 'The audio track could not be found.');
+		const channelCount = requestedChannelCount ?? (audacitySelectionChannelCount(project, trackId, startFrame, endFrame) || 1);
+		const snapshot = cloneProject(project);
+		snapshot.tracks = snapshot.tracks
+			.filter((candidate) => candidate.id === trackId)
+			.map((candidate) => ({ ...candidate, gain: 1, pan: 0, mute: false, solo: false, effects: [] }));
+		snapshot.master = { gain: 1, effects: [] };
+		const rendered = await renderSnapshot(snapshot, {
+			startFrame,
+			endFrame,
+			trackId,
+			includeMaster: false,
+			includeTrackPan: false,
+			respectMuteSolo: false,
+			outputFrames: endFrame - startFrame,
+		});
+		return matchAudacitySelectionChannels(audioBufferChannels(rendered), channelCount);
+	}
+
+	async function persistAudacityEffectResult(target, type, channels) {
+		if (!Array.isArray(channels) || !channels.length || channels.length > 2 || !channels[0]?.length) {
+			throw new Error(locale === 'de' ? 'Der Effekt hat kein gültiges Audiosignal erzeugt.' : 'The effect did not produce valid audio.');
+		}
+		const frameCount = channels[0].length;
+		if (!channels.every((channel) => channel instanceof Float32Array && channel.length === frameCount)) {
+			throw new Error(locale === 'de' ? 'Die Effektkanäle haben unterschiedliche Längen.' : 'The effect channels have mismatched lengths.');
+		}
+		assertAudacityEffectOutput(channels);
+		if (channels.length !== target.channelCount) {
+			throw new Error(locale === 'de' ? 'Der Effekt hat die Kanalbelegung der Auswahl verändert.' : 'The effect changed the selection channel layout.');
+		}
+		const context = await engine.getAudioContext({ resume: false });
+		const buffer = await bufferFromChannels(channels, AUDIO_EDITOR_SAMPLE_RATE, context);
+		const sourceId = createStableId('audacity-effect');
+		const effectName = audacityEffectLabel(type, locale);
+		const sourceName = `${target.track.name} — ${effectName}.wav`;
+		const writer = await store.beginSourceWrite(sourceId, { name: sourceName, mimeType: 'audio/wav' });
+		try {
+			await writeBuffer(writer, buffer);
+			await writer.commit({ sampleRate: AUDIO_EDITOR_SAMPLE_RATE, channelCount: buffer.numberOfChannels });
+		} catch (error) {
+			await writer.abort();
+			throw error;
+		}
+
+		const replacement = prepareRangeReplacementCommand(project, {
+			trackId: target.track.id,
+			startFrame: target.startFrame,
+			endFrame: target.endFrame,
+			source: {
+				id: sourceId,
+				storageKey: sourceId,
+				name: sourceName,
+				mimeType: 'audio/wav',
+				frameCount,
+				channelCount: buffer.numberOfChannels,
+				originalSampleRate: AUDIO_EDITOR_SAMPLE_RATE,
+			},
+		});
+		sourceBuffers.set(sourceId, buffer);
+		try {
+			const peaks = await generateWaveformPeaks(channels);
+			sourcePeaks.set(sourceId, peaks);
+			await store.saveAnalysis(peakCacheKey(sourceId), peaks);
+			commit({
+				type: 'batch',
+				commands: [replacement, { type: 'selection/set', startFrame: target.startFrame, endFrame: target.startFrame + frameCount }],
+			}, { selectTrackId: target.track.id, selectClipId: replacement.clipId });
+		} catch (error) {
+			sourceBuffers.delete(sourceId);
+			sourcePeaks.delete(sourceId);
+			await store.deleteSource(sourceId);
+			throw error;
+		}
+	}
+
+	async function runAudacityEffectWorker(payload) {
+		if (typeof Worker !== 'function') {
+			if (payload.operation === 'capture-noise-profile') {
+				return { profile: captureAudacityNoiseProfile(payload.channels, payload.sampleRate, payload.params) };
+			}
+			return { channels: applyAudacityEffect(payload.effectType, payload.channels, payload.sampleRate, payload.params, payload.context) };
+		}
+		const worker = new Worker(new URL('./audacity-effects/worker.js', import.meta.url), { type: 'module' });
+		state.audacityEffectWorker = worker;
+		const transfer = [];
+		const message = cloneAudacityWorkerPayload(payload, transfer);
+		try {
+			return await new Promise((resolve, reject) => {
+				worker.onmessage = ({ data }) => {
+					if (data.type === 'error') reject(new Error(data.message || 'Audacity effect processing failed.'));
+					else resolve(data);
+				};
+				worker.onerror = (event) => reject(event.error || new Error(event.message || 'Audacity effect processing failed.'));
+				worker.postMessage(message, transfer);
+			});
+		} finally {
+			worker.terminate();
+			if (state.audacityEffectWorker === worker) state.audacityEffectWorker = null;
 		}
 	}
 
@@ -1547,7 +2014,7 @@ export function createAudioEditorController(root, options = {}) {
 		}
 		for (const element of root.querySelectorAll('[data-project-action], [data-add-track], [data-import-input], [data-add-effect]')) {
 			const safeReadOnlyProjectAction = element.matches('[data-project-action="new"], [data-project-action="open"], [data-project-action="duplicate"]');
-			element.disabled = Boolean(state.importing || state.recordingStarting || state.recorder || state.exportAbort || (state.readOnly && !safeReadOnlyProjectAction));
+			element.disabled = Boolean(state.importing || state.recordingStarting || state.recorder || state.exportAbort || state.audacityEffectProcessing || (state.readOnly && !safeReadOnlyProjectAction));
 		}
 		const recordButton = root.querySelector('[data-transport="record"]');
 		if (recordButton) recordButton.disabled = state.readOnly || state.importing || state.recordingStarting || Boolean(state.exportAbort);
@@ -1555,13 +2022,18 @@ export function createAudioEditorController(root, options = {}) {
 		if (exportButton) exportButton.disabled = state.importing || state.recordingStarting || Boolean(state.recorder) || Boolean(state.exportAbort) || state.missingSourceIds.size > 0;
 		for (const element of root.querySelectorAll('[data-effect-target], [data-effect-type], [data-master-gain]')) element.disabled = blocked;
 		for (const element of root.querySelectorAll('[data-track-name], [data-track-gain], [data-track-pan], [data-track-action], [data-track-menu-action], [data-effect] input, [data-effect] button')) element.disabled = blocked;
+		for (const element of root.querySelectorAll('[data-audacity-effect-type], [data-audacity-control-track], [data-audacity-effect-parameters] input, [data-audacity-effect-parameters] select, [data-audacity-effect-parameters] textarea')) element.disabled = blocked;
+		const audacityTarget = audacityEffectTarget();
+		const audacityDefinition = AUDACITY_EFFECT_DEFINITIONS[state.audacityEffectType];
+		if (nodes.applyAudacityEffect) nodes.applyAudacityEffect.disabled = blocked || !audacityTarget || (audacityDefinition?.requiresControlTrack && !state.audacityControlTrackId) || (audacityDefinition?.requiresNoiseProfile && !state.audacityNoiseProfile);
+		if (nodes.audacityNoiseProfile) nodes.audacityNoiseProfile.disabled = blocked || !audacityTarget;
 		for (const element of root.querySelectorAll('[data-clip-field], [data-clip-action]')) element.disabled = blocked || !hasClip;
 		const loopButton = root.querySelector('[data-transport="loop"]');
 		loopButton?.setAttribute('aria-pressed', String(Boolean(project.loop.enabled)));
 	}
 
 	function editingBlocked() {
-		return Boolean(state.readOnly || state.importing || state.recordingStarting || state.recorder || state.exportAbort);
+		return Boolean(state.readOnly || state.importing || state.recordingStarting || state.recorder || state.exportAbort || state.audacityEffectProcessing);
 	}
 
 	function updatePlayhead(frame = 0, duration = project ? projectDurationFrames(project) : 0) {
@@ -1836,6 +2308,8 @@ export function createAudioEditorController(root, options = {}) {
 				? (locale === 'de' ? 'die Aufnahme' : 'recording')
 				: operation === 'export'
 					? (locale === 'de' ? 'den Export' : 'export')
+					: operation === 'effect'
+						? (locale === 'de' ? 'den Effekt' : 'effect processing')
 					: (locale === 'de' ? 'den Import' : 'import');
 			throw new Error(locale === 'de'
 				? `Nicht genügend lokaler Speicher für ${label}. Benötigt werden ungefähr ${formatBytes(required)}.`
@@ -1856,6 +2330,40 @@ export function createAudioEditorController(root, options = {}) {
 	function setClipField(name, value) { const field = root.querySelector(`[data-clip-field="${name}"]`); if (field) field.value = value; }
 }
 
+function cloneAudacityWorkerPayload(payload, transfer) {
+	const cloneChannels = (channels) => (channels || []).map((channel) => {
+		const copy = Float32Array.from(channel);
+		transfer.push(copy.buffer);
+		return copy;
+	});
+	const message = {
+		...payload,
+		channels: cloneChannels(payload.channels),
+		params: structuredClone(payload.params || {}),
+	};
+	if (payload.context) {
+		message.context = { ...payload.context };
+		for (const key of ['controlChannels', 'beforeChannels', 'afterChannels']) {
+			if (Array.isArray(payload.context[key])) message.context[key] = cloneChannels(payload.context[key]);
+		}
+	}
+	return message;
+}
+
+function audacityEffectMemoryError(locale) {
+	return new Error(locale === 'de'
+		? 'Der geschätzte Spitzenspeicherbedarf des Effekts ist für die sichere Verarbeitung im Browser zu groß.'
+		: 'The effect\'s estimated peak memory use is too large to process safely in this browser.');
+}
+
+function formatAudacityTargetHint(target, locale) {
+	const start = formatTime(target.startFrame / AUDIO_EDITOR_SAMPLE_RATE);
+	const end = formatTime(target.endFrame / AUDIO_EDITOR_SAMPLE_RATE);
+	return locale === 'de'
+		? `${target.track.name}: ${start} bis ${end}`
+		: `${target.track.name}: ${start} to ${end}`;
+}
+
 function collectNodes(root) {
 	const query = (selector) => root.querySelector(selector);
 	return {
@@ -1867,6 +2375,7 @@ function collectNodes(root) {
 		trackTemplate: query('[data-track-template]'), clipTemplate: query('[data-clip-template]'), effectTemplate: query('[data-effect-template]'), projectTemplate: query('[data-project-template]'),
 		inspector: query('[data-inspector]'), inspectorToggle: query('[data-inspector-toggle]'), inspectorClose: query('[data-inspector-close]'), noClip: query('[data-no-clip]'),
 		effectTarget: query('[data-effect-target]'), effectType: query('[data-effect-type]'), addEffect: query('[data-add-effect]'), effectRack: query('[data-effect-rack]'), effectEmpty: query('[data-effect-empty]'), masterGain: query('[data-master-gain]'), masterGainValue: query('[data-master-gain-value]'),
+		audacityEffectType: query('[data-audacity-effect-type]'), audacityEffectParameters: query('[data-audacity-effect-parameters]'), audacityControlField: query('[data-audacity-control-field]'), audacityControlTrack: query('[data-audacity-control-track]'), audacityEffectHint: query('[data-audacity-effect-hint]'), audacityNoiseProfile: query('[data-audacity-noise-profile]'), applyAudacityEffect: query('[data-apply-audacity-effect]'),
 		analysisSpectrum: query('[data-analysis-spectrum]'), analysisSpectrogram: query('[data-analysis-spectrogram]'),
 		bitDepthField: query('[data-bit-depth-field]'), qualityField: query('[data-quality-field]'), exportProgress: query('[data-export-progress]'), exportDownload: query('[data-export-download]'),
 		projectDialog: query('[data-project-dialog]'), projectList: query('[data-project-list]'), projectListEmpty: query('[data-project-list-empty]'),
