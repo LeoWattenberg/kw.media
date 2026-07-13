@@ -1,9 +1,7 @@
 import {
 	AUDIO_EDITOR_SAMPLE_RATE,
-	AUDIO_EFFECT_DEFINITIONS,
 	analyzeAudioChannels,
 	audioEffectLabel,
-	audioEffectParamRange,
 	audioEffectTypes,
 	canRedo,
 	canUndo,
@@ -26,7 +24,6 @@ import {
 	findClipTrack,
 	findSource,
 	findTrack,
-	isAudacityRackEffectType,
 	loadAudioEditorProject,
 	prepareCut,
 	preparePasteCommand,
@@ -51,10 +48,7 @@ import {
 	captureAudacityNoiseProfile,
 	estimateAudacityEffectOutputFrames,
 	estimateAudacityEffectPeakBytes,
-	formatAudacityCurve,
-	localized,
 	normalizeAudacityEffectParams,
-	parseAudacityCurve,
 } from './audacity-effects/index.js';
 import {
 	audacitySelectionChannelCount,
@@ -71,25 +65,19 @@ import { createProjectStore } from './storage.js';
 import { createWavStreamEncoder, encodeWav } from './wav.js';
 import { decodeAup3File } from '../aup3-browser.js';
 
-const controllers = new WeakMap();
 const MIN_TIMELINE_SECONDS = 10;
 const DEFAULT_PIXELS_PER_SECOND = 120;
 const MAX_PIXELS_PER_SECOND = AUDIO_EDITOR_SAMPLE_RATE;
 const MAX_TIMELINE_PIXELS = 16_000_000;
 const SOURCE_CHUNK_FRAMES = 65_536;
 
-export function initAudioEditors(root) {
-	if (!(root instanceof HTMLElement)) return null;
-	if (controllers.has(root)) return controllers.get(root);
-	const controller = createAudioEditorController(root);
-	controllers.set(root, controller);
-	void controller.ready;
-	return controller;
-}
-
-export function createAudioEditorController(root, options = {}) {
-	const copy = parseJson(root.dataset.copy, {});
-	const locale = root.dataset.locale === 'de' ? 'de' : 'en';
+export function createAudioEditorController(_root = null, options = {}) {
+	const copy = options.copy || {};
+	const locale = options.locale === 'de' ? 'de' : 'en';
+	const documentListeners = new Set();
+	const telemetryListeners = new Set();
+	let documentSnapshot = null;
+	let telemetrySnapshot = null;
 	const store = options.store || createProjectStore();
 	const sourceBuffers = new Map();
 	const sourcePeaks = new Map();
@@ -102,7 +90,6 @@ export function createAudioEditorController(root, options = {}) {
 		onLoading: () => setStatus(locale === 'de' ? 'FFmpeg wird lokal geladen…' : 'Loading local FFmpeg…'),
 		onProgress: (progress) => updateExportProgress(progress),
 	});
-	const nodes = collectNodes(root);
 	const state = {
 		history: null,
 		selectedTrackId: null,
@@ -112,8 +99,6 @@ export function createAudioEditorController(root, options = {}) {
 		mobile: classifyMobile(),
 		timelineWidth: MIN_TIMELINE_SECONDS * DEFAULT_PIXELS_PER_SECOND,
 		timelineView: 'waveform',
-		timelineDrawFrame: 0,
-		resizeObserver: null,
 		readOnly: false,
 		projectLock: null,
 		autosaveTimer: 0,
@@ -146,30 +131,60 @@ export function createAudioEditorController(root, options = {}) {
 		audacityNoiseProfile: null,
 		audacityEffectProcessing: false,
 		audacityEffectWorker: null,
-		touchPointers: new Map(),
-		pinch: null,
+		phase: 'loading',
+		projects: [],
+		status: { message: copy.ready || '', state: 'info' },
+		saveState: 'saved',
+		storageEstimate: { usage: null, quota: null },
+		analysisResult: null,
+		analysisVisuals: null,
+		exportProgress: 0,
+		exportOutput: null,
+		monitoring: false,
+		latencyOffsetMs: 0,
+		positionFrame: 0,
+		durationFrames: 0,
+		transportState: 'stopped',
+		meters: { tracks: {}, master: null },
+		inputMeterDb: -60,
 		disposed: false,
 	};
 	let project = null;
 
-	bindStaticControls();
-	const ready = bootstrap().catch(handleError);
+	const ready = bootstrap()
+		.then(() => {
+			state.phase = 'ready';
+			publishDocumentSnapshot();
+			return getSnapshot();
+		})
+		.catch((error) => {
+			state.phase = 'error';
+			handleError(error);
+			publishDocumentSnapshot();
+			return getSnapshot();
+		});
+	const actions = createControllerActions();
 
 	return {
 		ready,
 		get project() { return state.history?.present ?? null; },
 		get engine() { return engine; },
+		get headless() { return true; },
+		getSnapshot,
+		subscribe: (listener) => subscribeTo(documentListeners, listener),
+		getTelemetrySnapshot,
+		subscribeTelemetry: (listener) => subscribeTo(telemetryListeners, listener),
+		getClipVisualData,
+		actions,
 		async dispose() {
 			if (state.disposed) return;
 			state.disposed = true;
-			window.clearTimeout(state.autosaveTimer);
-			window.clearTimeout(state.sourceGcTimer);
-			if (state.timelineDrawFrame) cancelAnimationFrame(state.timelineDrawFrame);
-			state.resizeObserver?.disconnect();
+			state.phase = 'disposed';
+			publishDocumentSnapshot();
+			globalThis.clearTimeout(state.autosaveTimer);
+			globalThis.clearTimeout(state.sourceGcTimer);
 			state.audacityEffectWorker?.terminate();
 			state.audacityEffectWorker = null;
-			document.removeEventListener('keydown', handleKeyboard);
-			document.removeEventListener('pointerdown', handleDocumentPointerDown);
 			await stopRecording().catch(() => undefined);
 			state.projectLock?.release();
 			state.projectLock = null;
@@ -178,122 +193,243 @@ export function createAudioEditorController(root, options = {}) {
 			ffmpeg.dispose();
 			await engine.dispose();
 			await store.close?.();
+			documentListeners.clear();
+			telemetryListeners.clear();
 		},
 	};
+
+	function subscribeTo(listeners, listener) {
+		if (typeof listener !== 'function') throw new TypeError('Audio editor subscribers must be functions.');
+		listeners.add(listener);
+		return () => listeners.delete(listener);
+	}
+
+	function getSnapshot() {
+		if (!documentSnapshot) documentSnapshot = buildDocumentSnapshot();
+		return documentSnapshot;
+	}
+
+	function getTelemetrySnapshot() {
+		if (!telemetrySnapshot) telemetrySnapshot = buildTelemetrySnapshot();
+		return telemetrySnapshot;
+	}
+
+	function publishDocumentSnapshot() {
+		documentSnapshot = buildDocumentSnapshot();
+		for (const listener of [...documentListeners]) listener();
+	}
+
+	function publishTelemetrySnapshot() {
+		telemetrySnapshot = buildTelemetrySnapshot();
+		for (const listener of [...telemetryListeners]) listener();
+	}
+
+	function buildDocumentSnapshot() {
+		const currentProject = state.history?.present ?? null;
+		const selection = currentProject?.selection && currentProject.selection.endFrame > currentProject.selection.startFrame
+			? currentProject.selection
+			: null;
+		return Object.freeze({
+			ready: state.phase === 'ready',
+			phase: state.phase,
+			headless: true,
+			locale,
+			project: currentProject,
+			projects: state.projects,
+			selectedTrackId: state.selectedTrackId,
+			selectedClipId: state.selectedClipId,
+			selection,
+			readOnly: state.readOnly,
+			importing: state.importing,
+			recordingStarting: state.recordingStarting,
+			recording: Boolean(state.recorder),
+			processingEffect: state.audacityEffectProcessing,
+			exporting: Boolean(state.exportAbort),
+			timeline: Object.freeze({
+				view: state.timelineView,
+				pixelsPerSecond: state.pixelsPerSecond,
+				width: state.timelineWidth,
+			}),
+			history: Object.freeze({
+				canUndo: Boolean(state.history && canUndo(state.history)),
+				canRedo: Boolean(state.history && canRedo(state.history)),
+				hasClipboard: Boolean(state.clipboard),
+			}),
+			status: Object.freeze({ ...state.status }),
+			save: Object.freeze({ state: state.saveState }),
+			storage: Object.freeze({ ...state.storageEstimate }),
+			analysis: state.analysisResult,
+			analysisVisuals: state.analysisVisuals,
+			export: Object.freeze({ progress: state.exportProgress, output: state.exportOutput }),
+			effects: Object.freeze({
+				rackTypes: Object.freeze(audioEffectTypes().map((type) => Object.freeze({ type, label: audioEffectLabel(type, locale) }))),
+				selectionTypes: Object.freeze(audacityEffectTypes().map((type) => Object.freeze({ type, label: audacityEffectLabel(type, locale) }))),
+				selectionType: state.audacityEffectType,
+				selectionParams: currentAudacityEffectParams(),
+				selectionDefinition: AUDACITY_EFFECT_DEFINITIONS[state.audacityEffectType] || null,
+				controlTrackId: state.audacityControlTrackId,
+				noiseProfileReady: Boolean(state.audacityNoiseProfile),
+			}),
+			monitor: Object.freeze({ enabled: state.monitoring, latencyOffsetMs: state.latencyOffsetMs }),
+			missingSourceIds: Object.freeze([...state.missingSourceIds]),
+			disposed: state.disposed,
+		});
+	}
+
+	function buildTelemetrySnapshot() {
+		return Object.freeze({
+			positionFrame: state.positionFrame,
+			durationFrames: state.durationFrames,
+			transportState: state.transportState,
+			recording: Boolean(state.recorder),
+			meters: state.meters,
+			inputMeterDb: state.inputMeterDb,
+			exportProgress: state.exportProgress,
+		});
+	}
+
+	function getClipVisualData(clipId) {
+		const clip = project ? findClip(project, clipId) : null;
+		if (!clip) return null;
+		return Object.freeze({
+			clip,
+			track: findClipTrack(project, clip.id),
+			source: findSource(project, clip.sourceId),
+			buffer: sourceBuffers.get(clip.sourceId) || null,
+			peaks: sourcePeaks.get(clip.sourceId) || null,
+		});
+	}
+
+	function getVisibleClips(options = {}) {
+		if (!project) return [];
+		const startFrame = Math.max(0, Number.isSafeInteger(options.startFrame) ? options.startFrame : 0);
+		const defaultEndFrame = Math.max(startFrame, projectDurationFrames(project));
+		const endFrame = Math.max(startFrame, Number.isSafeInteger(options.endFrame) ? options.endFrame : defaultEndFrame);
+		const overscanFrames = Math.max(0, Number.isSafeInteger(options.overscanFrames) ? options.overscanFrames : endFrame - startFrame);
+		const visibleStart = Math.max(0, startFrame - overscanFrames);
+		const visibleEnd = endFrame + overscanFrames;
+		return project.clips
+			.filter((clip) => clip.timelineStartFrame < visibleEnd && clip.timelineStartFrame + clip.durationFrames > visibleStart)
+			.map((clip) => getClipVisualData(clip.id));
+	}
+
+	function createControllerActions() {
+		return Object.freeze({
+			project: Object.freeze({
+				create: (projectOptions) => newProject(projectOptions),
+				open: (value) => openProject(value),
+				openById: async (projectId) => {
+					const saved = await store.loadProject(projectId);
+					if (!saved) throw new Error(locale === 'de' ? 'Das Projekt wurde nicht gefunden.' : 'The project was not found.');
+					return openProject(saved);
+				},
+				list: listProjects,
+				save: saveNow,
+				rename: (title) => renameProject(title),
+				duplicate: (title) => duplicateProject(title),
+				remove: deleteProject,
+				clear: clearLocalData,
+				importFiles,
+			}),
+			edit: Object.freeze({
+				execute: handleEdit,
+				commit,
+				undo: () => handleEdit('undo'),
+				redo: () => handleEdit('redo'),
+				copy: () => handleEdit('copy'),
+				cut: () => handleEdit('cut'),
+				paste: () => handleEdit('paste'),
+				split: () => handleEdit('split'),
+				delete: () => handleEdit('delete'),
+				rippleDelete: () => handleEdit('ripple-delete'),
+			}),
+			transport: Object.freeze({
+				playPause: () => handleTransport('play'),
+				stop: () => handleTransport('stop'),
+				seek: (frame) => engine.seek(normalizeTimelineFrame(frame)),
+				jumpStart: () => handleTransport('jump-start'),
+				jumpEnd: () => handleTransport('jump-end'),
+				rewind: () => handleTransport('rewind'),
+				forward: () => handleTransport('forward'),
+				toggleLoop: () => handleTransport('loop'),
+			}),
+			recording: Object.freeze({
+				start: startRecording,
+				stop: stopRecording,
+				setMonitoring,
+				setLatencyOffset,
+			}),
+			timeline: Object.freeze({
+				selectTrack,
+				selectClip,
+				setSelection,
+				clearSelection: () => setSelection(0, 0),
+				setView: setTimelineView,
+				setZoom,
+				zoomIn: () => updateZoom('in'),
+				zoomOut: () => updateZoom('out'),
+				zoomFit: (viewportWidth) => updateZoom('fit', viewportWidth),
+				getClipVisualData,
+				getVisibleClips,
+			}),
+			track: Object.freeze({
+				add: addTrack,
+				update: (trackId, changes) => commit({ type: 'track/update', trackId, changes }, { selectTrackId: trackId }),
+				duplicate: (trackId) => duplicateTrack(findTrack(project, trackId)),
+				remove: (trackId) => commit({ type: 'track/remove', trackId }),
+			}),
+			clip: Object.freeze({
+				update: (clipId, changes) => commit({ type: 'clip/update', clipId, changes }, { selectClipId: clipId }),
+				move: (clipId, trackId, timelineStartFrame) => commit({ type: 'clip/move', clipId, trackId, timelineStartFrame }, { selectTrackId: trackId, selectClipId: clipId }),
+				trim: (clipId, changes) => commit({ type: 'clip/trim', clipId, ...changes }, { selectClipId: clipId }),
+				remove: (clipId) => commit({ type: 'clip/remove', clipId }),
+				reverse: (clipId) => handleClipAction('reverse', clipId),
+				normalizePeak: (clipId) => handleClipAction('normalize-peak', clipId),
+				normalizeLoudness: (clipId) => handleClipAction('normalize-lufs', clipId),
+			}),
+			effects: Object.freeze({
+				add: addEffect,
+				update: (scope, trackId, effectId, changes) => commit({ type: 'effect/update', scope, trackId, effectId, changes }),
+				remove: (scope, trackId, effectId) => commit({ type: 'effect/remove', scope, trackId, effectId }),
+				reorder: (scope, trackId, effectId, toIndex) => commit({ type: 'effect/reorder', scope, trackId, effectId, toIndex }),
+				setMasterGain: (gain) => commit({ type: 'master/update', changes: { gain: Math.max(0, Math.min(4, Number(gain))) } }),
+				setSelectionType: setAudacityEffectType,
+				setSelectionParams: setAudacityEffectParamsFromController,
+				setControlTrack: setAudacityControlTrack,
+				captureNoiseProfile: captureSelectedNoiseProfile,
+				captureRackNoiseProfile: captureRackNoiseProfileFromController,
+				applySelection: applyAudacityEffectFromController,
+			}),
+			analysis: Object.freeze({ run: runAnalysis }),
+			export: Object.freeze({
+				start: (settings) => handleExportAction('start', settings),
+				cancel: () => handleExportAction('cancel'),
+			}),
+		});
+	}
 
 	async function bootstrap() {
 		if (!engine || typeof engine.loadProject !== 'function') throw new Error('Web Audio is not supported in this browser.');
 		await store.ready();
 		await store.cleanupTemporaryAssets?.();
 		void store.requestPersistentStorage();
-		nodes.monitor.checked = Boolean(await store.loadSetting('input-monitor', false));
-		nodes.latencyOffset.value = String(await store.loadSetting('recording-latency-offset-ms', 0));
+		state.monitoring = Boolean(await store.loadSetting('input-monitor', false));
+		state.latencyOffsetMs = normalizeLatencyOffset(await store.loadSetting('recording-latency-offset-ms', 0));
 		const lastProjectId = await store.loadSetting('last-project-id', null);
 		const saved = lastProjectId ? await store.loadProject(lastProjectId) : null;
 		if (saved) await openProject(saved);
 		else await newProject();
-		render();
+		publishProjectState();
 		if (!state.readOnly) await saveNow();
 		await refreshStorageUsage();
 		if (state.missingSourceIds.size) setStatus(locale === 'de'
 			? 'Einige lokale Audioquellen fehlen. Wiedergabe, Analyse und Export sind gesperrt, bis die betroffenen Clips entfernt werden.'
 			: 'Some local audio sources are missing. Playback, analysis, and export are blocked until affected clips are removed.', 'error');
-		else setStatus(copy.ready, 'success');
-	}
-
-	function bindStaticControls() {
-		populateEffectPicker();
-		for (const button of root.querySelectorAll('[data-project-action]')) {
-			button.addEventListener('click', () => void handleProjectAction(button.dataset.projectAction).catch(handleError));
-		}
-		nodes.importInput?.addEventListener('change', () => void importFiles(nodes.importInput.files));
-		for (const button of root.querySelectorAll('[data-import-button]')) {
-			button.addEventListener('click', () => nodes.importInput?.click());
-		}
-		for (const button of root.querySelectorAll('[data-add-track]')) {
-			button.addEventListener('click', () => addTrack());
-		}
-		for (const button of root.querySelectorAll('[data-edit]')) {
-			button.addEventListener('click', () => handleEdit(button.dataset.edit));
-		}
-		for (const button of root.querySelectorAll('[data-transport]')) {
-			button.addEventListener('click', () => void handleTransport(button.dataset.transport).catch(handleError));
-		}
-		for (const button of root.querySelectorAll('[data-zoom]')) {
-			button.addEventListener('click', () => updateZoom(button.dataset.zoom));
-		}
-		for (const button of root.querySelectorAll('[data-timeline-view]')) {
-			button.addEventListener('click', () => setTimelineView(button.dataset.timelineView));
-		}
-		nodes.fileMenuToggle?.addEventListener('click', (event) => {
-			event.stopPropagation();
-			toggleMenu(nodes.fileMenuPanel, nodes.fileMenuToggle);
-		});
-		nodes.monitor?.addEventListener('change', () => {
-			nodes.monitorWarning.hidden = !nodes.monitor.checked;
-			state.recorder?.setMonitoring(nodes.monitor.checked);
-			void store.saveSetting('input-monitor', nodes.monitor.checked);
-		});
-		nodes.latencyOffset?.addEventListener('change', () => {
-			nodes.latencyOffset.value = String(Math.max(-500, Math.min(500, Number(nodes.latencyOffset.value) || 0)));
-			void store.saveSetting('recording-latency-offset-ms', Number(nodes.latencyOffset.value));
-		});
-		for (const tab of root.querySelectorAll('[data-inspector-tab]')) {
-			tab.addEventListener('click', () => selectInspectorTab(tab.dataset.inspectorTab));
-			tab.addEventListener('keydown', handleInspectorTabKey);
-		}
-		nodes.inspectorToggle?.addEventListener('click', () => setInspectorOpen(true));
-		nodes.inspectorClose?.addEventListener('click', () => setInspectorOpen(false));
-		for (const field of root.querySelectorAll('[data-clip-field]')) field.addEventListener('change', () => updateClipField(field));
-		for (const button of root.querySelectorAll('[data-clip-action]')) button.addEventListener('click', () => void handleClipAction(button.dataset.clipAction));
-		nodes.addEffect?.addEventListener('click', addEffect);
-		nodes.effectTarget?.addEventListener('change', renderEffects);
-		nodes.audacityEffectType?.addEventListener('change', () => {
-			state.audacityEffectType = nodes.audacityEffectType.value;
-			renderAudacityEffectPanel();
-			renderControls();
-		});
-		nodes.audacityControlTrack?.addEventListener('change', () => {
-			state.audacityControlTrackId = nodes.audacityControlTrack.value || null;
-			renderControls();
-		});
-		nodes.applyAudacityEffect?.addEventListener('click', () => void applySelectedAudacityEffect().catch(handleError));
-		nodes.audacityNoiseProfile?.addEventListener('click', () => void captureSelectedNoiseProfile().catch(handleError));
-		nodes.masterGain?.addEventListener('input', () => { nodes.masterGainValue.textContent = `${Number(nodes.masterGain.value).toFixed(1)} dB`; });
-		nodes.masterGain?.addEventListener('change', () => {
-			if (!editingBlocked()) commit({ type: 'master/update', changes: { gain: Math.min(4, dbToLinear(nodes.masterGain.value)) } });
-		});
-		for (const button of root.querySelectorAll('[data-analyze]')) button.addEventListener('click', () => void runAnalysis(button.dataset.analyze).catch(handleError));
-		for (const field of root.querySelectorAll('[data-export-field]')) field.addEventListener('change', updateExportFields);
-		for (const button of root.querySelectorAll('[data-export-action]')) button.addEventListener('click', () => void handleExportAction(button.dataset.exportAction));
-		bindRulerSelection();
-		bindPlayhead();
-		bindTimelineGestures();
-		updateExportFields();
-		nodes.timeline.addEventListener('scroll', scheduleTimelineRedraw, { passive: true });
-		state.resizeObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(scheduleTimelineRedraw) : null;
-		state.resizeObserver?.observe(nodes.timeline);
-		document.addEventListener('keydown', handleKeyboard);
-		document.addEventListener('pointerdown', handleDocumentPointerDown);
-		window.addEventListener('pagehide', handlePageHide, { once: true });
-		document.addEventListener('visibilitychange', handleVisibility);
-	}
-
-	async function handleProjectAction(action) {
-		closeMenu(nodes.fileMenuPanel, nodes.fileMenuToggle);
-		if (action === 'new') {
-			if (nodes.projectDialog?.open) nodes.projectDialog.close();
-			return newProject();
-		}
-		if (action === 'open') return showProjects();
-		if (action === 'rename') return renameProject();
-		if (action === 'duplicate') return duplicateProject();
-		if (action === 'delete') return deleteProject();
-		if (action === 'clear') return clearLocalData();
+		else if (!state.readOnly) setStatus(copy.ready, 'success');
 	}
 
 	async function newProject(options = {}) {
-		const nextProject = createAudioEditorProject({ title: copy.untitledProject });
+		const nextProject = createAudioEditorProject({ title: String(options.title || copy.untitledProject).trim() || copy.untitledProject });
 		const track = createAddTrackCommand({ name: `${copy.track} 1`, armed: true });
 		const history = executeEditorCommand(createEditorHistory(nextProject), track);
 		await switchProject(history.present, { save: true, skipFlush: options.skipFlush });
@@ -316,7 +452,7 @@ export function createAudioEditorController(root, options = {}) {
 		state.exportAbort = null;
 		await stopRecording().catch(() => undefined);
 		if (!options.skipFlush && project && project.id !== nextProject.id && !state.readOnly) await saveNow();
-		window.clearTimeout(state.autosaveTimer);
+		globalThis.clearTimeout(state.autosaveTimer);
 		state.autosaveTimer = 0;
 		engine.stop();
 		state.projectLock?.release();
@@ -329,12 +465,13 @@ export function createAudioEditorController(root, options = {}) {
 		state.clipboard = null;
 		state.audacityNoiseProfile = null;
 		state.audacityControlTrackId = null;
+		state.analysisResult = null;
+		state.analysisVisuals = null;
 		if (state.outputUrl) URL.revokeObjectURL(state.outputUrl);
 		state.outputUrl = null;
 		await state.outputCleanup?.();
 		state.outputCleanup = null;
-		nodes.exportDownload.hidden = true;
-		for (const [key, value] of Object.entries({ peak: '−∞ dBFS', truePeak: '−∞ dBTP', rms: '−∞ dBFS', momentary: '—', shortTerm: '—', integrated: '—', lra: '—', correlation: '—', clipping: '0' })) setAnalysisValue(key, value);
+		state.exportOutput = null;
 		sourceBuffers.clear();
 		sourcePeaks.clear();
 		state.missingSourceIds.clear();
@@ -342,7 +479,7 @@ export function createAudioEditorController(root, options = {}) {
 		engine.loadProject(project, sourceBuffers);
 		await store.saveSetting('last-project-id', nextProject.id);
 		if (options.save && !state.readOnly) await store.saveProject(nextProject);
-		render();
+		publishProjectState();
 		await garbageCollectSources();
 		if (state.readOnly) setStatus(locale === 'de' ? 'Das Projekt ist bereits in einem anderen Tab geöffnet.' : 'This project is already open in another tab.', 'error');
 	}
@@ -370,41 +507,31 @@ export function createAudioEditorController(root, options = {}) {
 		}
 	}
 
-	async function showProjects() {
+	async function listProjects() {
 		await saveNow();
-		const projects = await store.listProjects();
-		nodes.projectList.replaceChildren();
-		nodes.projectListEmpty.hidden = projects.length > 0;
-		for (const project of projects) {
-			const item = cloneTemplate(nodes.projectTemplate);
-			item.querySelector('[data-project-item-name]').textContent = project.title;
-			item.querySelector('[data-project-item-date]').textContent = new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(project.updatedAt));
-			item.querySelector('[data-project-open]').addEventListener('click', async () => {
-				nodes.projectDialog.close();
-				await openProject(project);
-			});
-			nodes.projectList.append(item);
-		}
-		nodes.projectDialog.showModal();
+		state.projects = Object.freeze(await store.listProjects());
+		publishDocumentSnapshot();
+		return state.projects;
 	}
 
-	async function renameProject() {
+	async function renameProject(requestedTitle) {
 		if (state.readOnly) return;
-		const title = await requestProjectName(project.title);
+		if (requestedTitle == null) throw new TypeError('A project title is required.');
+		const title = String(requestedTitle).trim();
 		if (title) commit({ type: 'project/rename', title });
 	}
 
-	async function duplicateProject() {
+	async function duplicateProject(requestedTitle) {
 		if (!project) return;
 		await saveNow();
-		const duplicated = await store.duplicateProject(project.id, { title: `${project.title} ${locale === 'de' ? 'Kopie' : 'copy'}` });
+		const title = String(requestedTitle || `${project.title} ${locale === 'de' ? 'Kopie' : 'copy'}`).trim();
+		const duplicated = await store.duplicateProject(project.id, { title });
 		await openProject(duplicated);
+		return duplicated;
 	}
 
 	async function deleteProject() {
 		if (!project || state.readOnly) return;
-		const confirmed = await confirmDeletion();
-		if (!confirmed) return;
 		await stopRecording();
 		const id = project.id;
 		state.projectLock?.release();
@@ -417,11 +544,12 @@ export function createAudioEditorController(root, options = {}) {
 		state.missingSourceIds.clear();
 		await garbageCollectSources();
 		await newProject({ skipFlush: true });
+		await listProjects();
 	}
 
 	async function garbageCollectSources() {
 		if (!store.pruneUnreferencedSources) return;
-		window.clearTimeout(state.sourceGcTimer);
+		globalThis.clearTimeout(state.sourceGcTimer);
 		state.sourceGcTimer = 0;
 		const protectedSourceIds = liveSessionSourceIds();
 		for (const sourceId of sourceBuffers.keys()) protectedSourceIds.add(sourceId);
@@ -440,7 +568,7 @@ export function createAudioEditorController(root, options = {}) {
 		}
 		if (result.nextEligibleAt != null && !state.disposed) {
 			const delay = Math.max(1_000, Math.min(2_147_000_000, result.nextEligibleAt - Date.now() + 50));
-			state.sourceGcTimer = window.setTimeout(() => {
+			state.sourceGcTimer = globalThis.setTimeout(() => {
 				state.sourceGcTimer = 0;
 				void garbageCollectSources().catch(handleError);
 			}, delay);
@@ -448,12 +576,7 @@ export function createAudioEditorController(root, options = {}) {
 	}
 
 	async function clearLocalData() {
-		const confirmed = window.confirm(locale === 'de'
-			? 'Alle lokalen Audio-Editor-Projekte und Aufnahmen endgültig löschen?'
-			: 'Permanently delete every local audio-editor project and recording?');
-		if (!confirmed) return;
 		await stopRecording();
-		nodes.projectDialog.close();
 		state.projectLock?.release();
 		state.projectLock = null;
 		engine.stop();
@@ -463,37 +586,15 @@ export function createAudioEditorController(root, options = {}) {
 		state.history = null;
 		project = null;
 		await newProject({ skipFlush: true });
-	}
-
-	function requestProjectName(current) {
-		return new Promise((resolve) => {
-			nodes.projectNameInput.value = current;
-			const close = () => {
-				nodes.nameDialog.removeEventListener('close', close);
-				resolve(nodes.nameDialog.returnValue === 'save' ? nodes.projectNameInput.value.trim() : null);
-			};
-			nodes.nameDialog.addEventListener('close', close);
-			nodes.nameDialog.showModal();
-			nodes.projectNameInput.select();
-		});
-	}
-
-	function confirmDeletion() {
-		return new Promise((resolve) => {
-			const close = () => {
-				nodes.confirmDialog.removeEventListener('close', close);
-				resolve(nodes.confirmDialog.returnValue === 'confirm');
-			};
-			nodes.confirmDialog.addEventListener('close', close);
-			nodes.confirmDialog.showModal();
-		});
+		state.projects = Object.freeze([]);
+		publishDocumentSnapshot();
 	}
 
 	async function importFiles(fileList) {
 		const files = [...(fileList || [])];
 		if (!files.length || editingBlocked()) return;
 		state.importing = true;
-		renderControls();
+		publishDocumentSnapshot();
 		setStatus(copy.importing);
 		let failures = 0;
 		let successes = 0;
@@ -509,14 +610,13 @@ export function createAudioEditorController(root, options = {}) {
 			}
 		}
 		try {
-			if (nodes.importInput) nodes.importInput.value = '';
 			if (!failures) setStatus(notices.length ? notices.join(' ') : copy.done, 'success');
 			else setStatus(locale === 'de'
 				? `${successes} Datei(en) importiert, ${failures} fehlgeschlagen.`
 				: `${successes} file(s) imported, ${failures} failed.`, 'error');
 		} finally {
 			state.importing = false;
-			renderControls();
+			publishDocumentSnapshot();
 		}
 	}
 
@@ -593,10 +693,17 @@ export function createAudioEditorController(root, options = {}) {
 		setStatus(`${copy.aup3Importing} ${Math.max(0, Math.min(100, Math.round(percentage)))}%`);
 	}
 
-	function addTrack() {
+	function addTrack(options = {}) {
 		if (editingBlocked()) return;
-		const trackId = createStableId('track');
-		commit(createAddTrackCommand({ id: trackId, name: `${copy.track} ${project.tracks.length + 1}`, armed: project.tracks.length === 0 }), { selectTrackId: trackId });
+		const trackId = options.id || createStableId('track');
+		const track = createAddTrackCommand({
+			...options,
+			id: trackId,
+			name: String(options.name || `${copy.track} ${project.tracks.length + 1}`).trim() || copy.track,
+			armed: options.armed ?? project.tracks.length === 0,
+		});
+		commit(track, { selectTrackId: trackId });
+		return trackId;
 	}
 
 	function handleEdit(action) {
@@ -626,7 +733,7 @@ export function createAudioEditorController(root, options = {}) {
 					state.clipboard = prepared.clipboard;
 					commit(prepared.command);
 				}
-				renderControls();
+				publishDocumentSnapshot();
 				return;
 			}
 			if (action === 'paste') {
@@ -674,6 +781,68 @@ export function createAudioEditorController(root, options = {}) {
 		if (action === 'record') return state.recorder ? stopRecording() : startRecording();
 	}
 
+	function normalizeTimelineFrame(value) {
+		const maximum = project ? projectDurationFrames(project) : 0;
+		const frame = Number(value);
+		if (!Number.isFinite(frame)) throw new TypeError('Timeline frames must be finite numbers.');
+		return Math.max(0, Math.min(maximum, Math.round(frame)));
+	}
+
+	function selectTrack(trackId) {
+		if (trackId != null && !findTrack(project, trackId)) throw new Error('The audio track could not be found.');
+		state.selectedTrackId = trackId || null;
+		state.selectedClipId = null;
+		publishProjectState();
+	}
+
+	function selectClip(clipId) {
+		if (clipId == null) {
+			state.selectedClipId = null;
+			publishProjectState();
+			return;
+		}
+		const clip = findClip(project, clipId);
+		const track = clip ? findClipTrack(project, clip.id) : null;
+		if (!clip || !track) throw new Error('The audio clip could not be found.');
+		state.selectedTrackId = track.id;
+		state.selectedClipId = clip.id;
+		publishProjectState();
+	}
+
+	function setSelection(startFrame, endFrame) {
+		if (!Number.isFinite(Number(startFrame)) || !Number.isFinite(Number(endFrame))) {
+			throw new TypeError('Selection frames must be finite numbers.');
+		}
+		const start = normalizeTimelineFrame(Math.min(Number(startFrame), Number(endFrame)));
+		const end = normalizeTimelineFrame(Math.max(Number(startFrame), Number(endFrame)));
+		return commit({ type: 'selection/set', startFrame: start, endFrame: end });
+	}
+
+	function setZoom(pixelsPerSecond) {
+		const durationSeconds = Math.max(MIN_TIMELINE_SECONDS, projectDurationFrames(project) / AUDIO_EDITOR_SAMPLE_RATE);
+		const maximum = Math.min(MAX_PIXELS_PER_SECOND, MAX_TIMELINE_PIXELS / durationSeconds);
+		state.pixelsPerSecond = Math.max(1, Math.min(maximum, Number(pixelsPerSecond) || DEFAULT_PIXELS_PER_SECOND));
+		renderTimeline();
+		updatePlayhead(engine.getPositionFrames());
+		publishDocumentSnapshot();
+		return state.pixelsPerSecond;
+	}
+
+	function setMonitoring(enabled) {
+		state.monitoring = Boolean(enabled);
+		state.recorder?.setMonitoring(state.monitoring);
+		void store.saveSetting('input-monitor', state.monitoring);
+		publishDocumentSnapshot();
+		return state.monitoring;
+	}
+
+	function setLatencyOffset(value) {
+		state.latencyOffsetMs = normalizeLatencyOffset(value);
+		void store.saveSetting('recording-latency-offset-ms', state.latencyOffsetMs);
+		publishDocumentSnapshot();
+		return state.latencyOffsetMs;
+	}
+
 	function commit(command, selection = {}) {
 		if (state.readOnly) throw new Error(locale === 'de' ? 'Dieses Projekt ist schreibgeschützt.' : 'This project is read-only.');
 		state.history = executeEditorCommand(state.history, command);
@@ -690,19 +859,19 @@ export function createAudioEditorController(root, options = {}) {
 		if (!selectedClipExists) state.selectedClipId = null;
 		if (state.selectedTrackId && !findTrack(project, state.selectedTrackId)) state.selectedTrackId = project.tracks[0]?.id ?? null;
 		void engine.applyProject(project, sourceBuffers).catch(handleError);
-		render();
+		publishProjectState();
 		scheduleAutosave();
 	}
 
 	function scheduleAutosave() {
 		if (state.readOnly) return;
-		window.clearTimeout(state.autosaveTimer);
+		globalThis.clearTimeout(state.autosaveTimer);
 		state.saveGeneration += 1;
 		const generation = state.saveGeneration;
 		const snapshot = cloneProject(project);
-		nodes.saveState.textContent = copy.projectSaving;
-		nodes.saveState.dataset.state = 'saving';
-		state.autosaveTimer = window.setTimeout(() => {
+		state.saveState = 'saving';
+		publishDocumentSnapshot();
+		state.autosaveTimer = globalThis.setTimeout(() => {
 			state.autosaveTimer = 0;
 			void saveSnapshot(snapshot, generation);
 		}, 500);
@@ -710,7 +879,7 @@ export function createAudioEditorController(root, options = {}) {
 
 	async function saveNow() {
 		if (!state.history || state.readOnly) return;
-		window.clearTimeout(state.autosaveTimer);
+		globalThis.clearTimeout(state.autosaveTimer);
 		state.autosaveTimer = 0;
 		const generation = state.saveGeneration;
 		return saveSnapshot(cloneProject(project), generation);
@@ -723,14 +892,14 @@ export function createAudioEditorController(root, options = {}) {
 			state.pendingSaveSnapshots.delete(snapshot);
 			if (project?.id === snapshot.id) await store.saveSetting('last-project-id', snapshot.id);
 			if (project?.id === snapshot.id && generation === state.saveGeneration) {
-				nodes.saveState.textContent = copy.projectSaved;
-				nodes.saveState.dataset.state = 'saved';
+				state.saveState = 'saved';
+				publishDocumentSnapshot();
 			}
 			await garbageCollectSources();
 			await refreshStorageUsage();
 		} catch (error) {
-			nodes.saveState.textContent = copy.projectDirty;
-			nodes.saveState.dataset.state = 'dirty';
+			state.saveState = 'dirty';
+			publishDocumentSnapshot();
 			handleError(error);
 		} finally {
 			state.pendingSaveSnapshots.delete(snapshot);
@@ -760,207 +929,27 @@ export function createAudioEditorController(root, options = {}) {
 		return ids;
 	}
 
-	function render() {
-		if (!project) return;
-		root.dataset.projectId = project.id;
-		root.dataset.trackCount = String(project.tracks.length);
-		root.dataset.clipCount = String(project.clips.length);
-		nodes.projectName.textContent = project.title;
-		renderTimeline();
-		renderInspector();
-		renderControls();
-		updatePlayhead(engine.getPositionFrames(), projectDurationFrames(project));
-	}
-
-	function renderTimeline() {
-		const durationSeconds = Math.max(MIN_TIMELINE_SECONDS, projectDurationFrames(project) / AUDIO_EDITOR_SAMPLE_RATE);
+	function publishProjectState() {
+		if (!project) {
+			publishDocumentSnapshot();
+			return;
+		}
+		const duration = projectDurationFrames(project);
+		const durationSeconds = Math.max(MIN_TIMELINE_SECONDS, duration / AUDIO_EDITOR_SAMPLE_RATE);
 		state.pixelsPerSecond = Math.min(state.pixelsPerSecond, MAX_TIMELINE_PIXELS / durationSeconds);
 		state.timelineWidth = Math.max(1, Math.round(durationSeconds * state.pixelsPerSecond));
-		root.style.setProperty('--timeline-width', `${state.timelineWidth}px`);
-		root.dataset.timelineView = state.timelineView;
-		nodes.trackList.replaceChildren();
-		nodes.emptyState.hidden = project.tracks.length > 0 || project.clips.length > 0;
-		for (const track of project.tracks) nodes.trackList.append(renderTrack(track));
-		updateSelectionOverlay();
-		redrawTimelineCanvases();
+		updatePlayhead(engine.getPositionFrames(), duration);
+		publishDocumentSnapshot();
 	}
 
 	function setTimelineView(view) {
 		state.timelineView = view === 'spectrogram' ? 'spectrogram' : 'waveform';
-		root.dataset.timelineView = state.timelineView;
-		for (const button of root.querySelectorAll('[data-timeline-view]')) button.setAttribute('aria-pressed', String(button.dataset.timelineView === state.timelineView));
-		redrawTimelineCanvases();
-	}
-
-	function scheduleTimelineRedraw() {
-		if (state.timelineDrawFrame) return;
-		state.timelineDrawFrame = requestAnimationFrame(() => {
-			state.timelineDrawFrame = 0;
-			redrawTimelineCanvases();
-		});
-	}
-
-	function redrawTimelineCanvases() {
-		if (!project || !nodes.timeline?.isConnected) return;
-		const headerWidth = Number.parseFloat(getComputedStyle(root).getPropertyValue('--track-header-width')) || 0;
-		const viewportWidth = Math.max(1, nodes.timeline.clientWidth - headerWidth);
-		const scrollOffset = Math.max(0, nodes.timeline.scrollLeft);
-		const durationSeconds = Math.max(MIN_TIMELINE_SECONDS, projectDurationFrames(project) / AUDIO_EDITOR_SAMPLE_RATE);
-		drawRuler(nodes.rulerCanvas, durationSeconds, state.pixelsPerSecond, viewportWidth, scrollOffset);
-		for (const canvas of nodes.trackList.querySelectorAll('[data-clip-waveform]')) {
-			const clip = findClip(project, canvas.closest('[data-clip]')?.dataset.clipId);
-			if (clip) drawClipVisual(canvas, clip, sourceBuffers.get(clip.sourceId), sourcePeaks.get(clip.sourceId), { viewportWidth, scrollOffset });
-		}
-	}
-
-	function drawClipVisual(canvas, clip, buffer, peaks, viewport = {}) {
-		if (!canvas || !buffer) return;
-		const headerWidth = Number.parseFloat(getComputedStyle(root).getPropertyValue('--track-header-width')) || 0;
-		const viewportWidth = viewport.viewportWidth || Math.max(1, nodes.timeline.clientWidth - headerWidth);
-		const scrollOffset = viewport.scrollOffset ?? Math.max(0, nodes.timeline.scrollLeft);
-		const fullWidth = Math.max(12, framesToPixels(clip.durationFrames));
-		const clipLeft = framesToPixels(clip.timelineStartFrame);
-		const overscan = 48;
-		const visibleStartPx = Math.max(0, scrollOffset - clipLeft - overscan);
-		const visibleEndPx = Math.min(fullWidth, scrollOffset + viewportWidth - clipLeft + overscan);
-		if (visibleEndPx <= visibleStartPx) {
-			canvas.hidden = true;
-			return;
-		}
-		canvas.hidden = false;
-		canvas.style.left = `${visibleStartPx}px`;
-		const options = { fullWidth, visibleStartPx, visibleWidth: visibleEndPx - visibleStartPx };
-		if (state.timelineView === 'spectrogram') drawClipSpectrogram(canvas, clip, buffer, options);
-		else drawClipWaveform(canvas, clip, buffer, peaks, options);
-	}
-
-	function renderTrack(track) {
-		const row = cloneTemplate(nodes.trackTemplate);
-		const blocked = editingBlocked();
-		row.dataset.trackId = track.id;
-		const header = row.querySelector('[data-track-header]');
-		const lane = row.querySelector('[data-track-lane]');
-		const name = row.querySelector('[data-track-name]');
-		name.value = track.name;
-		name.disabled = blocked;
-		name.addEventListener('change', () => commit({ type: 'track/update', trackId: track.id, changes: { name: name.value.trim() || copy.track } }));
-		lane.dataset.trackId = track.id;
-		lane.setAttribute('aria-label', track.name);
-		lane.setAttribute('aria-selected', String(state.selectedTrackId === track.id));
-		lane.addEventListener('pointerdown', (event) => {
-			if (event.target.closest('[data-clip]') || state.recordingStarting || state.recorder) return;
-			state.selectedTrackId = track.id;
-			state.selectedClipId = null;
-			engine.seek(frameAtPointer(event, lane));
-			render();
-		});
-		lane.addEventListener('keydown', (event) => {
-			if (event.key === 'Enter' || event.key === ' ') {
-				event.preventDefault();
-				state.selectedTrackId = track.id;
-				state.selectedClipId = null;
-				render();
-			} else if (!state.recorder && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
-				event.preventDefault();
-				const amount = event.shiftKey ? Math.round(AUDIO_EDITOR_SAMPLE_RATE / 10) : 1;
-				engine.seek(engine.getPositionFrames() + (event.key === 'ArrowLeft' ? -amount : amount));
-			}
-		});
-		for (const button of row.querySelectorAll('[data-track-action]')) {
-			button.disabled = blocked;
-			const action = button.dataset.trackAction;
-			if (action === 'mute' || action === 'solo' || action === 'arm') {
-				button.setAttribute('aria-pressed', String(Boolean(track[action === 'arm' ? 'armed' : action])));
-				button.addEventListener('click', () => commit({ type: 'track/update', trackId: track.id, changes: { [action === 'arm' ? 'armed' : action]: !track[action === 'arm' ? 'armed' : action] } }, { selectTrackId: track.id }));
-			} else if (action === 'menu') {
-				const menu = row.querySelector('[data-track-menu]');
-				button.addEventListener('click', (event) => {
-					event.stopPropagation();
-					toggleMenu(menu, button);
-				});
-				header.addEventListener('contextmenu', (event) => {
-					event.preventDefault();
-					closeAllMenus();
-					menu.hidden = false;
-					button.setAttribute('aria-expanded', 'true');
-				});
-			}
-		}
-		for (const item of row.querySelectorAll('[data-track-menu-action]')) {
-			item.disabled = blocked;
-			item.addEventListener('click', () => {
-				closeAllMenus();
-				const action = item.dataset.trackMenuAction;
-				if (action === 'rename') {
-					name.focus();
-					name.select();
-				} else if (action === 'duplicate') duplicateTrack(track);
-				else if (action === 'delete' && window.confirm(locale === 'de' ? `Spur „${track.name}“ löschen?` : `Delete track “${track.name}”?`)) {
-					commit({ type: 'track/remove', trackId: track.id });
-				}
-			});
-		}
-		bindTrackSlider(row, track, 'gain');
-		bindTrackSlider(row, track, 'pan');
-		const clipLayer = row.querySelector('[data-clip-layer]');
-		for (const clipId of track.clipIds) {
-			const clip = findClip(project, clipId);
-			if (clip) clipLayer.append(renderClip(clip, track));
-		}
-		return row;
-	}
-
-	function bindTrackSlider(row, track, property) {
-		const input = row.querySelector(`[data-track-${property}]`);
-		const output = row.querySelector(`[data-track-${property}-value]`);
-		input.disabled = editingBlocked();
-		if (property === 'gain') {
-			input.value = String(linearToDb(track.gain));
-			output.textContent = `${Number(input.value).toFixed(1)} dB`;
-		} else {
-			input.value = String(track.pan);
-			output.textContent = panLabel(track.pan, copy.center);
-		}
-		input.addEventListener('input', () => {
-			output.textContent = property === 'gain' ? `${Number(input.value).toFixed(1)} dB` : panLabel(Number(input.value), copy.center);
-		});
-		input.addEventListener('change', () => commit({ type: 'track/update', trackId: track.id, changes: { [property]: property === 'gain' ? dbToLinear(input.value) : Number(input.value) } }, { selectTrackId: track.id }));
-	}
-
-	function renderClip(clip, track) {
-		const element = cloneTemplate(nodes.clipTemplate);
-		const source = findSource(project, clip.sourceId);
-		const left = framesToPixels(clip.timelineStartFrame);
-		const width = Math.max(12, framesToPixels(clip.durationFrames));
-		element.dataset.clipId = clip.id;
-		element.dataset.trackId = track.id;
-		element.style.left = `${left}px`;
-		element.style.width = `${width}px`;
-		element.setAttribute('aria-pressed', String(state.selectedClipId === clip.id));
-		element.querySelector('[data-clip-label]').textContent = source?.name || copy.clip;
-		element.querySelector('[data-clip-fade="in"]').style.setProperty('--fade-width', `${Math.min(width, framesToPixels(clip.fadeInFrames))}px`);
-		element.querySelector('[data-clip-fade="out"]').style.setProperty('--fade-width', `${Math.min(width, framesToPixels(clip.fadeOutFrames))}px`);
-		element.addEventListener('click', (event) => {
-			event.stopPropagation();
-			state.selectedTrackId = track.id;
-			state.selectedClipId = clip.id;
-			render();
-		});
-		element.addEventListener('keydown', (event) => {
-			if (event.key === 'Enter' || event.key === ' ') {
-				event.preventDefault();
-				state.selectedTrackId = track.id;
-				state.selectedClipId = clip.id;
-				render();
-			}
-		});
-		bindClipDrag(element, clip, track);
-		drawClipVisual(element.querySelector('[data-clip-waveform]'), clip, sourceBuffers.get(clip.sourceId), sourcePeaks.get(clip.sourceId));
-		return element;
+		publishDocumentSnapshot();
+		return state.timelineView;
 	}
 
 	function duplicateTrack(track) {
-		if (editingBlocked()) return;
+		if (editingBlocked() || !track) return;
 		const trackId = createStableId('track');
 		const effects = track.effects.map((effect) => ({ ...effect, id: createStableId('effect') }));
 		const commands = [createAddTrackCommand({ ...track, id: trackId, name: `${track.name} ${locale === 'de' ? 'Kopie' : 'copy'}`, armed: false, effects, clipIds: [] })];
@@ -975,212 +964,9 @@ export function createAudioEditorController(root, options = {}) {
 		commit({ type: 'batch', commands }, { selectTrackId: trackId, selectClipId: selectedClipId });
 	}
 
-	function bindClipDrag(element, clip, track) {
-		element.addEventListener('pointerdown', (event) => {
-			if (editingBlocked() || event.button !== 0) return;
-			event.stopPropagation();
-			const handle = event.target.closest('[data-clip-handle]')?.dataset.clipHandle || 'move';
-			const startX = event.clientX;
-			const original = { ...clip };
-			element.setPointerCapture(event.pointerId);
-			const move = (nextEvent) => {
-				const delta = pixelsToFrames(nextEvent.clientX - startX);
-				if (handle === 'move') element.style.transform = `translateX(${framesToPixels(Math.max(-original.timelineStartFrame, delta))}px)`;
-				else if (handle === 'start') {
-					const clamped = Math.max(-original.timelineStartFrame, Math.min(original.durationFrames - 1, delta));
-					element.style.transform = `translateX(${framesToPixels(clamped)}px)`;
-					element.style.width = `${Math.max(12, framesToPixels(original.durationFrames - clamped))}px`;
-				} else {
-					const duration = Math.max(1, original.durationFrames + delta);
-					element.style.width = `${Math.max(12, framesToPixels(duration))}px`;
-				}
-			};
-			const up = (nextEvent) => {
-				element.removeEventListener('pointermove', move);
-				element.removeEventListener('pointerup', up);
-				element.removeEventListener('pointercancel', cancel);
-				if (root.dataset.pinching === 'true') { render(); return; }
-				const delta = pixelsToFrames(nextEvent.clientX - startX);
-				try {
-					if (handle === 'move') {
-						const targetLane = document.elementFromPoint(nextEvent.clientX, nextEvent.clientY)?.closest?.('[data-track-lane]');
-						const targetTrackId = targetLane?.dataset.trackId || track.id;
-						commit({ type: 'clip/move', clipId: clip.id, trackId: targetTrackId, timelineStartFrame: Math.max(0, original.timelineStartFrame + delta) }, { selectTrackId: targetTrackId, selectClipId: clip.id });
-					}
-					else if (handle === 'start') {
-						const source = findSource(project, clip.sourceId);
-						const sourceExtension = original.reversed
-							? source.frameCount - original.sourceStartFrame - original.durationFrames
-							: original.sourceStartFrame;
-						const change = Math.max(-Math.min(original.timelineStartFrame, sourceExtension), Math.min(original.durationFrames - 1, delta));
-						commit({ type: 'clip/trim', clipId: clip.id, timelineStartFrame: original.timelineStartFrame + change, sourceStartFrame: original.sourceStartFrame + (original.reversed ? 0 : change), durationFrames: original.durationFrames - change }, { selectTrackId: track.id, selectClipId: clip.id });
-					} else {
-						const source = findSource(project, clip.sourceId);
-						const maximum = original.reversed
-							? original.sourceStartFrame + original.durationFrames
-							: source.frameCount - original.sourceStartFrame;
-						const durationFrames = Math.max(1, Math.min(maximum, original.durationFrames + delta));
-						const sourceStartFrame = original.reversed
-							? original.sourceStartFrame + original.durationFrames - durationFrames
-							: original.sourceStartFrame;
-						commit({ type: 'clip/trim', clipId: clip.id, sourceStartFrame, durationFrames }, { selectTrackId: track.id, selectClipId: clip.id });
-					}
-				} catch (error) { handleError(error); render(); }
-			};
-			const cancel = () => { element.removeEventListener('pointermove', move); render(); };
-			element.addEventListener('pointermove', move);
-			element.addEventListener('pointerup', up);
-			element.addEventListener('pointercancel', cancel);
-		});
-	}
-
-	function bindRulerSelection() {
-		nodes.ruler.addEventListener('pointerdown', (event) => {
-			if (event.button !== 0 || state.recordingStarting || state.recorder) return;
-			const startFrame = frameAtPointer(event, nodes.ruler);
-			nodes.ruler.setPointerCapture(event.pointerId);
-			const move = (nextEvent) => previewSelection(startFrame, frameAtPointer(nextEvent, nodes.ruler));
-			const finish = (nextEvent) => {
-				nodes.ruler.removeEventListener('pointermove', move);
-				nodes.ruler.removeEventListener('pointerup', finish);
-				const endFrame = frameAtPointer(nextEvent, nodes.ruler);
-				if (Math.abs(endFrame - startFrame) < pixelsToFrames(3)) {
-					engine.seek(endFrame);
-					commit({ type: 'selection/set', startFrame: endFrame, endFrame });
-				} else commit({ type: 'selection/set', startFrame, endFrame });
-			};
-			nodes.ruler.addEventListener('pointermove', move);
-			nodes.ruler.addEventListener('pointerup', finish);
-		});
-	}
-
-	function bindPlayhead() {
-		const seekAt = (event) => engine.seek(frameAtPointer(event, nodes.ruler));
-		nodes.playhead?.addEventListener('pointerdown', (event) => {
-			if (state.recorder) return;
-			event.preventDefault();
-			event.stopPropagation();
-			nodes.playhead.setPointerCapture(event.pointerId);
-			seekAt(event);
-			const move = (nextEvent) => seekAt(nextEvent);
-			const finish = () => {
-				nodes.playhead.removeEventListener('pointermove', move);
-				nodes.playhead.removeEventListener('pointerup', finish);
-				nodes.playhead.removeEventListener('pointercancel', finish);
-			};
-			nodes.playhead.addEventListener('pointermove', move);
-			nodes.playhead.addEventListener('pointerup', finish);
-			nodes.playhead.addEventListener('pointercancel', finish);
-		});
-		nodes.playhead?.addEventListener('keydown', (event) => {
-			if (state.recorder) return;
-			const amount = event.shiftKey ? Math.round(AUDIO_EDITOR_SAMPLE_RATE / 10) : 1;
-			if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-				event.preventDefault();
-				engine.seek(engine.getPositionFrames() + (event.key === 'ArrowLeft' ? -amount : amount));
-			} else if (event.key === 'Home' || event.key === 'End') {
-				event.preventDefault();
-				engine.seek(event.key === 'Home' ? 0 : projectDurationFrames(project));
-			}
-		});
-	}
-
-	function bindTimelineGestures() {
-		const updatePinch = () => {
-			if (state.touchPointers.size !== 2) return;
-			const points = [...state.touchPointers.values()];
-			const distance = Math.max(1, Math.hypot(points[1].x - points[0].x, points[1].y - points[0].y));
-			const midpoint = (points[0].x + points[1].x) / 2;
-			if (!state.pinch) {
-				state.pinch = { distance, pixelsPerSecond: state.pixelsPerSecond, midpoint, scrollLeft: nodes.timeline.scrollLeft };
-				root.dataset.pinching = 'true';
-				return;
-			}
-			const rect = nodes.timeline.getBoundingClientRect();
-			const anchorSeconds = (state.pinch.scrollLeft + state.pinch.midpoint - rect.left) / state.pinch.pixelsPerSecond;
-			state.pixelsPerSecond = Math.max(1, Math.min(MAX_PIXELS_PER_SECOND, state.pinch.pixelsPerSecond * distance / state.pinch.distance));
-			renderTimeline();
-			nodes.timeline.scrollLeft = Math.max(0, anchorSeconds * state.pixelsPerSecond - (midpoint - rect.left));
-		};
-		nodes.timeline.addEventListener('pointerdown', (event) => {
-			if (event.pointerType !== 'touch') return;
-			state.touchPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
-			updatePinch();
-		}, { capture: true });
-		nodes.timeline.addEventListener('pointermove', (event) => {
-			if (!state.touchPointers.has(event.pointerId)) return;
-			state.touchPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
-			if (state.touchPointers.size === 2) {
-				event.preventDefault();
-				updatePinch();
-			}
-		}, { capture: true });
-		const finish = (event) => {
-			state.touchPointers.delete(event.pointerId);
-			if (state.touchPointers.size < 2) {
-				state.pinch = null;
-				queueMicrotask(() => { delete root.dataset.pinching; });
-			}
-		};
-		nodes.timeline.addEventListener('pointerup', finish, { capture: true });
-		nodes.timeline.addEventListener('pointercancel', finish, { capture: true });
-	}
-
-	function renderInspector() {
-		renderClipInspector();
-		renderEffects();
-	}
-
-	function renderClipInspector() {
-		const clip = state.selectedClipId ? findClip(project, state.selectedClipId) : null;
-		const source = clip ? findSource(project, clip.sourceId) : null;
-		nodes.noClip.hidden = Boolean(clip);
-		const blocked = editingBlocked();
-		root.querySelector('[data-clip-fields]')?.setAttribute('aria-disabled', String(!clip || blocked));
-		for (const field of root.querySelectorAll('[data-clip-field]')) field.disabled = !clip || blocked;
-		for (const button of root.querySelectorAll('[data-clip-action]')) button.disabled = !clip || blocked;
-		if (!clip) return;
-		setClipField('name', source?.name || copy.clip);
-		root.querySelector('[data-clip-field="name"]').readOnly = true;
-		setClipField('start', formatEditableTime(clip.timelineStartFrame));
-		setClipField('sourceIn', formatEditableTime(clip.sourceStartFrame));
-		setClipField('duration', formatEditableTime(clip.durationFrames));
-		setClipField('startFrame', String(clip.timelineStartFrame));
-		setClipField('sourceInFrame', String(clip.sourceStartFrame));
-		setClipField('durationFrame', String(clip.durationFrames));
-		setClipField('gain', linearToDb(clip.gain).toFixed(1));
-		setClipField('fadeIn', (clip.fadeInFrames / AUDIO_EDITOR_SAMPLE_RATE).toFixed(3));
-		setClipField('fadeOut', (clip.fadeOutFrames / AUDIO_EDITOR_SAMPLE_RATE).toFixed(3));
-	}
-
-	function updateClipField(field) {
+	async function handleClipAction(action, clipId = state.selectedClipId) {
 		if (editingBlocked()) return;
-		const clip = state.selectedClipId ? findClip(project, state.selectedClipId) : null;
-		if (!clip || field.dataset.clipField === 'name') return;
-		try {
-			const name = field.dataset.clipField;
-			if (name === 'start') commit({ type: 'clip/move', clipId: clip.id, trackId: findClipTrack(project, clip.id).id, timelineStartFrame: parseTimeFrames(field.value) }, { selectClipId: clip.id });
-			else if (name === 'sourceIn') commit({ type: 'clip/trim', clipId: clip.id, sourceStartFrame: parseTimeFrames(field.value) }, { selectClipId: clip.id });
-			else if (name === 'startFrame') commit({ type: 'clip/move', clipId: clip.id, trackId: findClipTrack(project, clip.id).id, timelineStartFrame: parseFrameInput(field.value) }, { selectClipId: clip.id });
-			else if (name === 'sourceInFrame') commit({ type: 'clip/trim', clipId: clip.id, sourceStartFrame: parseFrameInput(field.value) }, { selectClipId: clip.id });
-			else if (name === 'duration') {
-				const durationFrames = Math.max(1, parseTimeFrames(field.value));
-				const sourceStartFrame = clip.reversed ? clip.sourceStartFrame + clip.durationFrames - durationFrames : clip.sourceStartFrame;
-				commit({ type: 'clip/trim', clipId: clip.id, sourceStartFrame, durationFrames }, { selectClipId: clip.id });
-			}
-			else if (name === 'durationFrame') {
-				const durationFrames = Math.max(1, parseFrameInput(field.value));
-				const sourceStartFrame = clip.reversed ? clip.sourceStartFrame + clip.durationFrames - durationFrames : clip.sourceStartFrame;
-				commit({ type: 'clip/trim', clipId: clip.id, sourceStartFrame, durationFrames }, { selectClipId: clip.id });
-			}
-			else if (name === 'gain') commit({ type: 'clip/update', clipId: clip.id, changes: { gain: dbToLinear(field.value) } }, { selectClipId: clip.id });
-			else if (name === 'fadeIn' || name === 'fadeOut') commit({ type: 'clip/update', clipId: clip.id, changes: { [`${name}Frames`]: Math.min(clip.durationFrames, Math.max(0, Math.round(Number(field.value) * AUDIO_EDITOR_SAMPLE_RATE))) } }, { selectClipId: clip.id });
-		} catch (error) { handleError(error); renderClipInspector(); }
-	}
-
-	async function handleClipAction(action) {
-		if (editingBlocked()) return;
-		const clip = state.selectedClipId ? findClip(project, state.selectedClipId) : null;
+		const clip = clipId ? findClip(project, clipId) : null;
 		if (!clip) return;
 		if (action === 'reverse') return commit({ type: 'clip/update', clipId: clip.id, changes: { reversed: !clip.reversed } }, { selectClipId: clip.id });
 		const buffer = sourceBuffers.get(clip.sourceId);
@@ -1193,405 +979,43 @@ export function createAudioEditorController(root, options = {}) {
 		commit({ type: 'clip/update', clipId: clip.id, changes: { gain: Math.max(0, Math.min(16, gain)) } }, { selectClipId: clip.id });
 	}
 
-	function populateEffectPicker() {
-		if (!nodes.effectType) return;
-		const standardGroup = document.createElement('optgroup');
-		standardGroup.label = locale === 'de' ? 'Studioeffekte' : 'Studio effects';
-		const audacityGroup = document.createElement('optgroup');
-		audacityGroup.label = locale === 'de' ? 'Audacity-Echtzeiteffekte' : 'Audacity real-time effects';
-		for (const type of audioEffectTypes()) {
-			const option = document.createElement('option');
-			option.value = type;
-			option.textContent = audioEffectLabel(type, locale);
-			(isAudacityRackEffectType(type) ? audacityGroup : standardGroup).append(option);
-		}
-		nodes.effectType.replaceChildren(standardGroup, audacityGroup);
-	}
-
-	function addEffect() {
+	function addEffect(request = {}) {
 		if (editingBlocked()) return;
-		const scope = nodes.effectTarget.value;
-		const trackId = state.selectedTrackId;
+		if (!request.type) throw new TypeError('An effect type is required.');
+		const scope = request.scope === 'master' ? 'master' : 'track';
+		const trackId = request.trackId ?? state.selectedTrackId;
 		if (scope === 'track' && !trackId) return handleError(new Error(locale === 'de' ? 'Wähle zuerst eine Spur.' : 'Select a track first.'));
-		const type = nodes.effectType.value;
-		const options = {};
+		const type = request.type;
+		if (!audioEffectTypes().includes(type)) throw new Error(locale === 'de' ? 'Dieser Effekt wird nicht unterstützt.' : 'This effect is not supported.');
+		const effectOptions = { ...(request.options || {}) };
 		if (type === 'audacity-auto-duck') {
 			const candidates = project.tracks.filter((track) => scope === 'master' || track.id !== trackId);
-			const controlTrackId = candidates.some((track) => track.id === state.audacityControlTrackId)
-				? state.audacityControlTrackId
+			const requestedControlTrackId = effectOptions.context?.controlTrackId || state.audacityControlTrackId;
+			const controlTrackId = candidates.some((track) => track.id === requestedControlTrackId)
+				? requestedControlTrackId
 				: candidates[0]?.id;
 			if (!controlTrackId) {
 				return handleError(new Error(locale === 'de'
 					? 'Auto-Duck benötigt eine andere Steuerspur.'
 					: 'Auto Duck requires another control track.'));
 			}
-			options.context = { controlTrackId };
+			effectOptions.context = { ...effectOptions.context, controlTrackId };
 		}
 		if (type === 'audacity-noise-reduction') {
-			options.context = { noiseProfile: serializeAudacityNoiseProfile(state.audacityNoiseProfile) };
-			if (!state.audacityNoiseProfile) options.enabled = false;
+			effectOptions.context = {
+				...effectOptions.context,
+				noiseProfile: effectOptions.context?.noiseProfile || serializeAudacityNoiseProfile(state.audacityNoiseProfile),
+			};
+			if (!effectOptions.context.noiseProfile) effectOptions.enabled = false;
 		}
-		commit({ type: 'effect/add', scope, trackId, effect: createEffect(type, options) });
-		if (type === 'audacity-noise-reduction' && !state.audacityNoiseProfile) {
+		const effect = createEffect(type, effectOptions);
+		commit({ type: 'effect/add', scope, trackId, effect });
+		if (type === 'audacity-noise-reduction' && !effectOptions.context.noiseProfile) {
 			setStatus(locale === 'de'
 				? 'Rauschverminderung wurde deaktiviert hinzugefügt. Erfasse im Effekt ein Rauschprofil.'
 				: 'Noise Reduction was added disabled. Capture a noise profile in the effect to enable it.');
 		}
-	}
-
-	function renderEffects() {
-		if (!state.history) return;
-		nodes.masterGain.value = String(linearToDb(project.master.gain));
-		nodes.masterGainValue.textContent = `${Number(nodes.masterGain.value).toFixed(1)} dB`;
-		const scope = nodes.effectTarget.value;
-		const rack = scope === 'master' ? project.master.effects : findTrack(project, state.selectedTrackId)?.effects || [];
-		nodes.effectRack.querySelectorAll('[data-effect]').forEach((node) => node.remove());
-		nodes.effectEmpty.hidden = rack.length > 0;
-		for (const [index, effect] of rack.entries()) {
-			const card = cloneTemplate(nodes.effectTemplate);
-			card.dataset.effectId = effect.id;
-			card.dataset.effectType = effect.type;
-			card.querySelector('[data-effect-name]').textContent = audioEffectLabel(effect.type, locale);
-			const enabled = card.querySelector('[data-effect-enabled]');
-			enabled.checked = effect.enabled;
-			const effectUnavailable = (effect.type === 'audacity-noise-reduction' && !effect.context?.noiseProfile)
-				|| (effect.type === 'audacity-auto-duck' && (
-					!findTrack(project, effect.context?.controlTrackId)
-					|| (scope === 'track' && effect.context?.controlTrackId === state.selectedTrackId)
-				));
-			enabled.dataset.effectUnavailable = String(effectUnavailable);
-			enabled.disabled = editingBlocked() || effectUnavailable;
-			enabled.addEventListener('change', () => commit({ type: 'effect/update', scope, trackId: state.selectedTrackId, effectId: effect.id, changes: { enabled: enabled.checked } }));
-			for (const button of card.querySelectorAll('[data-effect-action]')) {
-				button.disabled = editingBlocked();
-				button.addEventListener('click', () => {
-					const action = button.dataset.effectAction;
-					if (action === 'remove') commit({ type: 'effect/remove', scope, trackId: state.selectedTrackId, effectId: effect.id });
-					else commit({ type: 'effect/reorder', scope, trackId: state.selectedTrackId, effectId: effect.id, toIndex: Math.max(0, Math.min(rack.length - 1, index + (action === 'up' ? -1 : 1))) });
-				});
-			}
-			renderEffectParameters(card.querySelector('[data-effect-parameters]'), effect, scope);
-			nodes.effectRack.append(card);
-		}
-		renderAudacityEffectPanel();
-	}
-
-	function renderEffectParameters(container, effect, scope) {
-		container.replaceChildren();
-		container.classList.toggle('audacity-effect-parameters', isAudacityRackEffectType(effect.type));
-		if (isAudacityRackEffectType(effect.type)) {
-			renderAudacityRackParameters(container, effect, scope);
-			return;
-		}
-		const addParameter = (label, value, path, range) => {
-			const wrapper = document.createElement('label');
-			wrapper.className = 'field';
-			const caption = document.createElement('span');
-			caption.textContent = label;
-			const input = document.createElement('input');
-			input.type = 'number';
-			input.value = String(value);
-			input.step = 'any';
-			if (range) [input.min, input.max] = range.map(String);
-			input.disabled = editingBlocked();
-			input.addEventListener('change', () => {
-				const params = structuredClone(effect.params);
-				setPath(params, path, Number(input.value));
-				commit({ type: 'effect/update', scope, trackId: state.selectedTrackId, effectId: effect.id, changes: { params } });
-			});
-			wrapper.append(caption, input);
-			container.append(wrapper);
-		};
-		if (effect.type === 'eq') {
-			effect.params.bands.forEach((band, index) => {
-				addParameter(`B${index + 1} Hz`, band.frequency, ['bands', index, 'frequency'], [10, 24000]);
-				addParameter(`B${index + 1} dB`, band.gain, ['bands', index, 'gain'], [-24, 24]);
-				addParameter(`B${index + 1} Q`, band.q, ['bands', index, 'q'], [0.1, 30]);
-			});
-		} else {
-			const ranges = AUDIO_EFFECT_DEFINITIONS[effect.type]?.ranges || {};
-			for (const [key, value] of Object.entries(effect.params)) if (typeof value === 'number') addParameter(key, value, [key], ranges[key]);
-		}
-	}
-
-	function renderAudacityRackParameters(container, effect, scope) {
-		const definition = AUDACITY_EFFECT_DEFINITIONS[effect.type];
-		const update = (changes) => {
-			try {
-				return commit({
-					type: 'effect/update',
-					scope,
-					trackId: state.selectedTrackId,
-					effectId: effect.id,
-					changes,
-				});
-			} catch (error) {
-				handleError(error);
-				renderEffects();
-				return null;
-			}
-		};
-
-		if (effect.type === 'audacity-auto-duck') {
-			const targetTrackId = scope === 'track' ? state.selectedTrackId : null;
-			const candidates = project.tracks.filter((track) => track.id !== targetTrackId);
-			const wrapper = document.createElement('label');
-			wrapper.className = 'field wide';
-			const caption = document.createElement('span');
-			caption.textContent = locale === 'de' ? 'Steuerspur' : 'Control track';
-			const select = document.createElement('select');
-			select.dataset.effectContext = 'controlTrackId';
-			select.replaceChildren(...candidates.map((track) => {
-				const option = document.createElement('option');
-				option.value = track.id;
-				option.textContent = track.name;
-				return option;
-			}));
-			select.value = effect.context?.controlTrackId || '';
-			select.dataset.effectUnavailable = String(candidates.length === 0);
-			select.disabled = editingBlocked() || candidates.length === 0;
-			select.addEventListener('change', () => update({ context: { controlTrackId: select.value || null } }));
-			wrapper.append(caption, select);
-			container.append(wrapper);
-		}
-
-		for (const [name, descriptor] of Object.entries(definition.params)) {
-			if (descriptor.kind === 'bands') {
-				const fieldset = document.createElement('fieldset');
-				fieldset.className = 'audacity-band-grid wide';
-				const legend = document.createElement('legend');
-				legend.textContent = localized(descriptor.label, locale);
-				fieldset.append(legend);
-				descriptor.frequencies.forEach((frequency, index) => {
-					const wrapper = document.createElement('label');
-					wrapper.className = 'field';
-					const caption = document.createElement('span');
-					caption.textContent = `${frequency} Hz`;
-					const input = document.createElement('input');
-					input.type = 'number';
-					input.min = String(descriptor.minimum);
-					input.max = String(descriptor.maximum);
-					input.step = String(descriptor.step);
-					input.value = String(effect.params[name][index]);
-					input.dataset.effectParam = `${name}.${index}`;
-					input.disabled = editingBlocked();
-					input.addEventListener('change', () => {
-						const values = [...effect.params[name]];
-						values[index] = Number(input.value);
-						update({ params: { [name]: values } });
-					});
-					wrapper.append(caption, input);
-					fieldset.append(wrapper);
-				});
-				container.append(fieldset);
-				continue;
-			}
-
-			const wrapper = document.createElement('label');
-			wrapper.className = descriptor.kind === 'curve' ? 'field wide' : descriptor.kind === 'boolean' ? 'check-field wide' : 'field';
-			const caption = document.createElement('span');
-			caption.textContent = localized(descriptor.label, locale);
-			let input;
-			if (descriptor.kind === 'boolean') {
-				input = document.createElement('input');
-				input.type = 'checkbox';
-				input.checked = Boolean(effect.params[name]);
-				wrapper.append(input, caption);
-			} else if (descriptor.kind === 'enum') {
-				input = document.createElement('select');
-				input.replaceChildren(...descriptor.options.map((item) => {
-					const option = document.createElement('option');
-					option.value = String(item.value);
-					option.textContent = localized(item.label, locale);
-					return option;
-				}));
-				input.value = String(effect.params[name]);
-				wrapper.append(caption, input);
-			} else if (descriptor.kind === 'curve') {
-				input = document.createElement('textarea');
-				input.value = formatAudacityCurve(effect.params[name]);
-				wrapper.append(caption, input);
-			} else {
-				input = document.createElement('input');
-				input.type = 'number';
-				input.value = String(effect.params[name]);
-				const [minimum, maximum] = audioEffectParamRange(effect.type, name)
-					|| [descriptor.minimum, descriptor.maximum];
-				input.min = String(minimum);
-				input.max = String(maximum);
-				input.step = String(descriptor.step ?? 'any');
-				wrapper.append(caption, input);
-				if (descriptor.unit) {
-					const unit = document.createElement('small');
-					unit.textContent = descriptor.unit;
-					wrapper.append(unit);
-				}
-			}
-			input.dataset.effectParam = name;
-			input.disabled = editingBlocked();
-			input.addEventListener('change', () => {
-				try {
-					const value = descriptor.kind === 'boolean'
-						? input.checked
-						: descriptor.kind === 'curve'
-							? parseAudacityCurve(input.value)
-							: descriptor.kind === 'number'
-								? Number(input.value)
-								: input.value;
-					update({ params: { [name]: value } });
-				} catch (error) {
-					handleError(error);
-					renderEffects();
-				}
-			});
-			container.append(wrapper);
-		}
-
-		if (effect.type === 'audacity-noise-reduction') {
-			const actions = document.createElement('div');
-			actions.className = 'panel-actions wide';
-			const button = document.createElement('button');
-			button.type = 'button';
-			button.dataset.effectNoiseProfile = '';
-			button.textContent = effect.context?.noiseProfile
-				? (locale === 'de' ? 'Rauschprofil ersetzen' : 'Replace noise profile')
-				: (locale === 'de' ? 'Rauschprofil erfassen' : 'Capture noise profile');
-			button.disabled = editingBlocked();
-			button.addEventListener('click', () => void captureRackNoiseProfile(effect, scope).catch(handleError));
-			actions.append(button);
-			container.append(actions);
-		}
-	}
-
-	function renderAudacityEffectPanel() {
-		if (!nodes.audacityEffectType || !nodes.audacityEffectParameters) return;
-		const types = audacityEffectTypes();
-		if (!AUDACITY_EFFECT_DEFINITIONS[state.audacityEffectType]) state.audacityEffectType = types[0];
-		nodes.audacityEffectType.replaceChildren(...types.map((type) => {
-			const option = document.createElement('option');
-			option.value = type;
-			option.textContent = audacityEffectLabel(type, locale);
-			return option;
-		}));
-		nodes.audacityEffectType.value = state.audacityEffectType;
-		const definition = AUDACITY_EFFECT_DEFINITIONS[state.audacityEffectType];
-		const params = currentAudacityEffectParams();
-		nodes.audacityEffectParameters.replaceChildren();
-		for (const [name, descriptor] of Object.entries(definition.params)) {
-			if (descriptor.kind === 'bands') renderAudacityBands(name, descriptor, params);
-			else renderAudacityParameter(name, descriptor, params);
-		}
-
-		const controlTracks = project.tracks.filter((track) => track.id !== state.selectedTrackId);
-		if (!controlTracks.some((track) => track.id === state.audacityControlTrackId)) {
-			state.audacityControlTrackId = controlTracks[0]?.id ?? null;
-		}
-		nodes.audacityControlTrack.replaceChildren(...controlTracks.map((track) => {
-			const option = document.createElement('option');
-			option.value = track.id;
-			option.textContent = track.name;
-			return option;
-		}));
-		nodes.audacityControlTrack.value = state.audacityControlTrackId || '';
-		nodes.audacityControlField.hidden = !definition.requiresControlTrack;
-		nodes.audacityNoiseProfile.hidden = !definition.requiresNoiseProfile;
-		const target = audacityEffectTarget();
-		if (definition.requiresNoiseProfile) {
-			nodes.audacityEffectHint.textContent = state.audacityNoiseProfile ? copy.noiseProfileReady : copy.noiseProfileMissing;
-		} else nodes.audacityEffectHint.textContent = target ? formatAudacityTargetHint(target, locale) : copy.audacitySelectionHint;
-	}
-
-	function renderAudacityParameter(name, descriptor, params) {
-		const wrapper = document.createElement('label');
-		wrapper.className = descriptor.kind === 'curve' ? 'field wide' : descriptor.kind === 'boolean' ? 'check-field wide' : 'field';
-		const caption = document.createElement('span');
-		caption.textContent = localized(descriptor.label, locale);
-		let input;
-		if (descriptor.kind === 'boolean') {
-			input = document.createElement('input');
-			input.type = 'checkbox';
-			input.checked = Boolean(params[name]);
-			wrapper.append(input, caption);
-		} else if (descriptor.kind === 'enum') {
-			input = document.createElement('select');
-			input.replaceChildren(...descriptor.options.map((item) => {
-				const option = document.createElement('option');
-				option.value = String(item.value);
-				option.textContent = localized(item.label, locale);
-				return option;
-			}));
-			input.value = String(params[name]);
-			wrapper.append(caption, input);
-		} else if (descriptor.kind === 'curve') {
-			input = document.createElement('textarea');
-			input.value = formatAudacityCurve(params[name]);
-			wrapper.append(caption, input);
-		} else {
-			input = document.createElement('input');
-			input.type = 'number';
-			input.value = String(params[name]);
-			input.min = String(descriptor.minimum);
-			input.max = String(descriptor.maximum);
-			input.step = String(descriptor.step ?? 'any');
-			wrapper.append(caption, input);
-			if (descriptor.unit) {
-				const unit = document.createElement('small');
-				unit.textContent = descriptor.unit;
-				wrapper.append(unit);
-			}
-		}
-		input.dataset.audacityParam = name;
-		input.disabled = editingBlocked();
-		input.addEventListener('change', () => updateAudacityParameter(name, descriptor, input));
-		nodes.audacityEffectParameters.append(wrapper);
-	}
-
-	function renderAudacityBands(name, descriptor, params) {
-		const container = document.createElement('fieldset');
-		container.className = 'audacity-band-grid wide';
-		const legend = document.createElement('legend');
-		legend.textContent = localized(descriptor.label, locale);
-		container.append(legend);
-		descriptor.frequencies.forEach((frequency, index) => {
-			const wrapper = document.createElement('label');
-			wrapper.className = 'field';
-			const caption = document.createElement('span');
-			caption.textContent = `${frequency} Hz`;
-			const input = document.createElement('input');
-			input.type = 'number';
-			input.min = String(descriptor.minimum);
-			input.max = String(descriptor.maximum);
-			input.step = String(descriptor.step);
-			input.value = String(params[name][index]);
-			input.disabled = editingBlocked();
-			input.addEventListener('change', () => {
-				const values = [...currentAudacityEffectParams()[name]];
-				values[index] = Number(input.value);
-				setAudacityEffectParams({ [name]: values });
-				renderAudacityEffectPanel();
-			});
-			wrapper.append(caption, input);
-			container.append(wrapper);
-		});
-		nodes.audacityEffectParameters.append(container);
-	}
-
-	function updateAudacityParameter(name, descriptor, input) {
-		try {
-			const value = descriptor.kind === 'boolean'
-				? input.checked
-				: descriptor.kind === 'curve'
-					? parseAudacityCurve(input.value)
-					: descriptor.kind === 'number'
-						? Number(input.value)
-						: input.value;
-			setAudacityEffectParams({ [name]: value });
-			renderAudacityEffectPanel();
-			renderControls();
-		} catch (error) {
-			handleError(error);
-			renderAudacityEffectPanel();
-		}
+		return effect.id;
 	}
 
 	function currentAudacityEffectParams(type = state.audacityEffectType) {
@@ -1613,6 +1037,41 @@ export function createAudioEditorController(root, options = {}) {
 		}
 	}
 
+	function setAudacityEffectType(type) {
+		if (!AUDACITY_EFFECT_DEFINITIONS[type]) throw new Error(locale === 'de' ? 'Dieser Auswahleffekt wird nicht unterstützt.' : 'This selection effect is not supported.');
+		state.audacityEffectType = type;
+		publishDocumentSnapshot();
+		return currentAudacityEffectParams(type);
+	}
+
+	function setAudacityEffectParamsFromController(changes, options) {
+		setAudacityEffectParams(changes, options);
+		publishDocumentSnapshot();
+		return currentAudacityEffectParams();
+	}
+
+	function setAudacityControlTrack(trackId) {
+		if (trackId != null && !findTrack(project, trackId)) throw new Error(locale === 'de' ? 'Die Steuerspur wurde nicht gefunden.' : 'The control track was not found.');
+		state.audacityControlTrackId = trackId || null;
+		publishDocumentSnapshot();
+		return state.audacityControlTrackId;
+	}
+
+	async function applyAudacityEffectFromController(request = {}) {
+		if (request.type) setAudacityEffectType(request.type);
+		if (request.params) setAudacityEffectParamsFromController(request.params);
+		if ('controlTrackId' in request) setAudacityControlTrack(request.controlTrackId);
+		return applySelectedAudacityEffect();
+	}
+
+	function captureRackNoiseProfileFromController(scope, trackId, effectId) {
+		const normalizedScope = scope === 'master' ? 'master' : 'track';
+		const rack = normalizedScope === 'master' ? project?.master?.effects : findTrack(project, trackId)?.effects;
+		const effect = rack?.find((candidate) => candidate.id === effectId);
+		if (!effect) throw new Error(locale === 'de' ? 'Der Rack-Effekt wurde nicht gefunden.' : 'The rack effect could not be found.');
+		return captureRackNoiseProfile(effect, normalizedScope, trackId || null);
+	}
+
 	function resolveInteractiveAudacityParams(type, params, channels) {
 		if (type !== 'audacity-amplify' || state.audacityEffectTouchedParams.get(type)?.has('gainDb')) return params;
 		let peak = 0;
@@ -1627,14 +1086,15 @@ export function createAudioEditorController(root, options = {}) {
 		return resolved;
 	}
 
-	function audacityEffectTarget() {
+	function audacityEffectTarget(requestedTrackId = state.selectedTrackId) {
 		const selectedClip = state.selectedClipId ? findClip(project, state.selectedClipId) : null;
 		const selectedClipTrack = selectedClip ? findClipTrack(project, selectedClip.id) : null;
-		const track = findTrack(project, state.selectedTrackId) || selectedClipTrack;
+		const track = findTrack(project, requestedTrackId) || selectedClipTrack;
 		if (!track) return null;
 		const selection = activeSelection();
-		const startFrame = selection?.startFrame ?? selectedClip?.timelineStartFrame;
-		const endFrame = selection?.endFrame ?? (selectedClip ? selectedClip.timelineStartFrame + selectedClip.durationFrames : null);
+		const trackClip = selectedClipTrack?.id === track.id ? selectedClip : null;
+		const startFrame = selection?.startFrame ?? trackClip?.timelineStartFrame;
+		const endFrame = selection?.endFrame ?? (trackClip ? trackClip.timelineStartFrame + trackClip.durationFrames : null);
 		if (!Number.isSafeInteger(startFrame) || !Number.isSafeInteger(endFrame) || endFrame <= startFrame) return null;
 		const channelCount = audacitySelectionChannelCount(project, track.id, startFrame, endFrame);
 		return channelCount ? { track, startFrame, endFrame, durationFrames: endFrame - startFrame, channelCount } : null;
@@ -1653,7 +1113,7 @@ export function createAudioEditorController(root, options = {}) {
 		if (estimatedPeakBytes > AUDACITY_EFFECT_PEAK_MEMORY_LIMIT_BYTES) throw audacityEffectMemoryError(locale);
 		state.audacityEffectProcessing = true;
 		setStatus(copy.audacityProfileProcessing);
-		renderControls();
+		publishDocumentSnapshot();
 		try {
 			const channels = await renderDryTrackRange(target.track.id, target.startFrame, target.endFrame, target.channelCount);
 			const result = await runAudacityEffectWorker({
@@ -1666,14 +1126,13 @@ export function createAudioEditorController(root, options = {}) {
 			setStatus(copy.noiseProfileReady, 'success');
 		} finally {
 			state.audacityEffectProcessing = false;
-			renderAudacityEffectPanel();
-			renderControls();
+			publishDocumentSnapshot();
 		}
 	}
 
-	async function captureRackNoiseProfile(effect, scope) {
+	async function captureRackNoiseProfile(effect, scope, requestedTrackId = state.selectedTrackId) {
 		if (editingBlocked()) return;
-		const selectionTarget = audacityEffectTarget();
+		const selectionTarget = audacityEffectTarget(requestedTrackId);
 		const selection = activeSelection();
 		const selectedClip = state.selectedClipId ? findClip(project, state.selectedClipId) : null;
 		const startFrame = selection?.startFrame ?? selectedClip?.timelineStartFrame;
@@ -1689,7 +1148,7 @@ export function createAudioEditorController(root, options = {}) {
 				? 'Ein Rauschprofil benötigt mindestens 2048 Samples.'
 				: 'A noise profile requires at least 2048 samples.');
 		}
-		const trackId = state.selectedTrackId;
+		const trackId = requestedTrackId;
 		if (scope === 'track' && (!selectionTarget || selectionTarget.track.id !== trackId)) {
 			throw new Error(copy.audacitySelectionHint);
 		}
@@ -1705,7 +1164,7 @@ export function createAudioEditorController(root, options = {}) {
 		if (estimatedPeakBytes > AUDACITY_EFFECT_PEAK_MEMORY_LIMIT_BYTES) throw audacityEffectMemoryError(locale);
 		state.audacityEffectProcessing = true;
 		setStatus(copy.audacityProfileProcessing);
-		renderControls();
+		publishDocumentSnapshot();
 		try {
 			const channels = await renderRackPrefixRange(
 				effect,
@@ -1713,6 +1172,7 @@ export function createAudioEditorController(root, options = {}) {
 				startFrame,
 				endFrame,
 				scope === 'track' ? selectionTarget.channelCount : 2,
+				trackId,
 			);
 			const result = await runAudacityEffectWorker({
 				operation: 'capture-noise-profile',
@@ -1734,16 +1194,14 @@ export function createAudioEditorController(root, options = {}) {
 			setStatus(copy.noiseProfileReady, 'success');
 		} finally {
 			state.audacityEffectProcessing = false;
-			renderEffects();
-			renderControls();
+			publishDocumentSnapshot();
 		}
 	}
 
-	async function renderRackPrefixRange(effect, scope, startFrame, endFrame, channelCount) {
+	async function renderRackPrefixRange(effect, scope, startFrame, endFrame, channelCount, requestedTrackId = state.selectedTrackId) {
 		const snapshot = cloneProject(project);
-		let trackId = null;
+		let trackId = requestedTrackId;
 		if (scope === 'track') {
-			trackId = state.selectedTrackId;
 			const track = findTrack(snapshot, trackId);
 			if (!track) throw new Error(locale === 'de' ? 'Die Audiospur wurde nicht gefunden.' : 'The audio track could not be found.');
 			const effectIndex = track.effects.findIndex((candidate) => candidate.id === effect.id);
@@ -1803,7 +1261,7 @@ export function createAudioEditorController(root, options = {}) {
 		await preflightStorage(estimatedOutputBytes, 'effect');
 		state.audacityEffectProcessing = true;
 		setStatus(copy.audacityProcessing);
-		renderControls();
+		publishDocumentSnapshot();
 		try {
 			const channels = await renderDryTrackRange(target.track.id, target.startFrame, target.endFrame, target.channelCount);
 			params = resolveInteractiveAudacityParams(type, params, channels);
@@ -1829,8 +1287,7 @@ export function createAudioEditorController(root, options = {}) {
 			setStatus(copy.audacityApplied, 'success');
 		} finally {
 			state.audacityEffectProcessing = false;
-			renderAudacityEffectPanel();
-			renderControls();
+			publishDocumentSnapshot();
 		}
 	}
 
@@ -1948,7 +1405,7 @@ export function createAudioEditorController(root, options = {}) {
 		const analysisKey = ['audio-editor-analysis-v1', project.id, project.revision, scope, scope === 'track' ? state.selectedTrackId : 'master', startFrame, endFrame].join(':');
 		const cached = await store.loadAnalysis(analysisKey);
 		if (cached?.result) {
-			showAnalysis(cached.result);
+			showAnalysis(cached.result, cached.visuals || null);
 			setStatus(locale === 'de' ? 'Gespeicherte Analyse geladen.' : 'Loaded cached analysis.', 'success');
 			return;
 		}
@@ -1963,20 +1420,21 @@ export function createAudioEditorController(root, options = {}) {
 			const rendered = await renderSnapshot(snapshot, { startFrame, endFrame, includeTail: false, preRollFrames: Math.min(startFrame, AUDIO_EDITOR_SAMPLE_RATE * 10) });
 			const channels = audioBufferChannels(rendered);
 			const result = await analyzeChannelsInWorker(channels, rendered.sampleRate);
-			await store.saveAnalysis(analysisKey, { result, createdAt: new Date().toISOString() });
-			showAnalysis(result);
-			drawAnalysisVisuals(channels, rendered.sampleRate);
+			const visuals = createAnalysisVisuals(channels, rendered.sampleRate);
+			await store.saveAnalysis(analysisKey, { result, visuals, createdAt: new Date().toISOString() });
+			showAnalysis(result, visuals);
 			setStatus(copy.done, 'success');
 		} catch (error) { handleError(error); }
 	}
 
-	async function handleExportAction(action) {
+	async function handleExportAction(action, requestedSettings = null) {
 		if (action === 'cancel') {
 			state.exportGeneration += 1;
 			state.exportAbort?.abort();
 			state.exportAbort = null;
 			ffmpeg.dispose();
 			toggleExport(false);
+			publishDocumentSnapshot();
 			return;
 		}
 		if (!project.clips.length || state.exportAbort) return;
@@ -1989,7 +1447,7 @@ export function createAudioEditorController(root, options = {}) {
 		const exportSources = new Map(sourceBuffers);
 		let pendingCleanup = null;
 		try {
-			const settings = exportSettings();
+			const settings = normalizeExportSettings(requestedSettings || {});
 			const plan = createExportPlan(exportProject, { ...settings, mobile: state.mobile, livePcmBytes: undefined });
 			await preflightStorage(plan.outputBytesPerRender * Math.max(1, plan.outputs.length), 'export');
 			setStatus(copy.rendering);
@@ -2034,11 +1492,15 @@ export function createAudioEditorController(root, options = {}) {
 			state.outputCleanup = outputCleanup;
 			pendingCleanup = null;
 			state.outputUrl = URL.createObjectURL(blob);
-			nodes.exportDownload.href = state.outputUrl;
-			nodes.exportDownload.download = fileName;
-			nodes.exportDownload.textContent = fileName;
-			nodes.exportDownload.hidden = false;
+			state.exportOutput = Object.freeze({
+				url: state.outputUrl,
+				fileName,
+				mimeType: blob.type || 'application/octet-stream',
+				size: blob.size,
+			});
 			setStatus(copy.done, 'success');
+			publishDocumentSnapshot();
+			return state.exportOutput;
 		} catch (error) {
 			await pendingCleanup?.().catch(() => undefined);
 			if (error?.name !== 'AbortError') handleError(error);
@@ -2162,7 +1624,7 @@ export function createAudioEditorController(root, options = {}) {
 		const track = project.tracks.find((item) => item.armed);
 		if (!track) throw new Error(locale === 'de' ? 'Aktiviere zuerst genau eine Spur für die Aufnahme.' : 'Arm one track before recording.');
 		state.recordingStarting = true;
-		renderControls();
+		publishDocumentSnapshot();
 		let stream = null;
 		let writer = null;
 		let recorder = null;
@@ -2181,7 +1643,7 @@ export function createAudioEditorController(root, options = {}) {
 			const selection = activeSelection();
 			const requestedStartFrame = selection?.startFrame ?? engine.getPositionFrames();
 			const automaticLatency = (context.baseLatency || 0) + (context.outputLatency || 0) + (Number(trackSettings.latency) || 0);
-			const manualLatency = Number(nodes.latencyOffset?.value || 0) / 1000;
+			const manualLatency = state.latencyOffsetMs / 1000;
 			const latencyFrames = Math.max(0, Math.round((automaticLatency + manualLatency) * AUDIO_EDITOR_SAMPLE_RATE));
 			state.recordingStartFrame = selection ? requestedStartFrame : Math.max(0, requestedStartFrame - latencyFrames);
 			state.recordingSourceOffsetFrames = selection ? latencyFrames : Math.max(0, latencyFrames - requestedStartFrame);
@@ -2189,15 +1651,15 @@ export function createAudioEditorController(root, options = {}) {
 				context,
 				stream,
 				channelCount,
-				monitor: Boolean(nodes.monitor?.checked),
-					onChunk: async ({ channels }) => {
+				monitor: state.monitoring,
+				onChunk: async ({ channels }) => {
 					const canonicalChannels = resampler.push(channels);
 					if (canonicalChannels[0]?.length) await writer.write(canonicalChannels);
 					let peak = 0;
 					for (const channel of channels) for (const sample of channel) peak = Math.max(peak, Math.abs(sample));
 					const db = peak > 0 ? 20 * Math.log10(peak) : -60;
-					nodes.inputMeterFill.style.setProperty('--meter', `${meterPercent(db)}%`);
-					nodes.inputMeter.setAttribute('aria-valuenow', String(Math.max(-60, db).toFixed(1)));
+					state.inputMeterDb = Math.max(-60, db);
+					publishTelemetrySnapshot();
 				},
 				onError: handleError,
 				onState: (recordingState) => {
@@ -2229,7 +1691,6 @@ export function createAudioEditorController(root, options = {}) {
 			engine.seek(requestedStartFrame);
 			await engine.playAt(scheduledTime, requestedStartFrame);
 			recorder.start({ startFrame: currentContextFrame, stopFrame });
-			nodes.monitorWarning.hidden = !nodes.monitor.checked;
 			setStatus(copy.recording);
 			updateTransportState('recording');
 		} catch (error) {
@@ -2245,7 +1706,7 @@ export function createAudioEditorController(root, options = {}) {
 			throw error;
 		} finally {
 			state.recordingStarting = false;
-			renderControls();
+			publishDocumentSnapshot();
 		}
 	}
 
@@ -2312,41 +1773,11 @@ export function createAudioEditorController(root, options = {}) {
 			state.recordingResampler = null;
 			state.recordingSourceOffsetFrames = 0;
 			state.recordingFinishing = false;
-			nodes.inputMeterFill.style.setProperty('--meter', '0%');
-			nodes.inputMeter.setAttribute('aria-valuenow', '-60');
+			state.inputMeterDb = -60;
+			publishTelemetrySnapshot();
 			updateTransportState(engine.getState().state);
-			renderControls();
+			publishDocumentSnapshot();
 		}
-	}
-
-	function renderControls() {
-		const hasSelection = Boolean(activeSelection());
-		const hasClip = Boolean(state.selectedClipId && findClip(project, state.selectedClipId));
-		const blocked = editingBlocked();
-		for (const button of root.querySelectorAll('[data-edit]')) {
-			const action = button.dataset.edit;
-			button.disabled = blocked || (action === 'undo' ? !canUndo(state.history) : action === 'redo' ? !canRedo(state.history) : action === 'paste' ? !state.clipboard : action === 'split' ? !hasClip : !hasSelection && !(action === 'delete' && hasClip));
-		}
-		for (const element of root.querySelectorAll('[data-project-action], [data-add-track], [data-import-input], [data-add-effect]')) {
-			const safeReadOnlyProjectAction = element.matches('[data-project-action="new"], [data-project-action="open"], [data-project-action="duplicate"]');
-			element.disabled = Boolean(state.importing || state.recordingStarting || state.recorder || state.exportAbort || state.audacityEffectProcessing || (state.readOnly && !safeReadOnlyProjectAction));
-		}
-		const recordButton = root.querySelector('[data-transport="record"]');
-		if (recordButton) recordButton.disabled = state.readOnly || state.importing || state.recordingStarting || Boolean(state.exportAbort);
-		const exportButton = root.querySelector('[data-export-action="start"]');
-		if (exportButton) exportButton.disabled = state.importing || state.recordingStarting || Boolean(state.recorder) || Boolean(state.exportAbort) || state.missingSourceIds.size > 0;
-		for (const element of root.querySelectorAll('[data-effect-target], [data-effect-type], [data-master-gain]')) element.disabled = blocked;
-		for (const element of root.querySelectorAll('[data-track-name], [data-track-gain], [data-track-pan], [data-track-action], [data-track-menu-action], [data-effect] input, [data-effect] select, [data-effect] textarea, [data-effect] button')) {
-			element.disabled = blocked || element.dataset.effectUnavailable === 'true';
-		}
-		for (const element of root.querySelectorAll('[data-audacity-effect-type], [data-audacity-control-track], [data-audacity-effect-parameters] input, [data-audacity-effect-parameters] select, [data-audacity-effect-parameters] textarea')) element.disabled = blocked;
-		const audacityTarget = audacityEffectTarget();
-		const audacityDefinition = AUDACITY_EFFECT_DEFINITIONS[state.audacityEffectType];
-		if (nodes.applyAudacityEffect) nodes.applyAudacityEffect.disabled = blocked || !audacityTarget || (audacityDefinition?.requiresControlTrack && !state.audacityControlTrackId) || (audacityDefinition?.requiresNoiseProfile && !state.audacityNoiseProfile);
-		if (nodes.audacityNoiseProfile) nodes.audacityNoiseProfile.disabled = blocked || !audacityTarget;
-		for (const element of root.querySelectorAll('[data-clip-field], [data-clip-action]')) element.disabled = blocked || !hasClip;
-		const loopButton = root.querySelector('[data-transport="loop"]');
-		loopButton?.setAttribute('aria-pressed', String(Boolean(project.loop.enabled)));
 	}
 
 	function editingBlocked() {
@@ -2354,159 +1785,64 @@ export function createAudioEditorController(root, options = {}) {
 	}
 
 	function updatePlayhead(frame = 0, duration = project ? projectDurationFrames(project) : 0) {
-		if (!nodes.playhead || !nodes.timeDisplay) return;
-		nodes.timeDisplay.value = formatTime(frame / AUDIO_EDITOR_SAMPLE_RATE);
-		nodes.playhead.style.setProperty('--playhead-x', `${framesToPixels(frame)}px`);
-		nodes.playhead.setAttribute('aria-valuenow', String(frame));
-		nodes.playhead.setAttribute('aria-valuemax', String(duration));
-		nodes.playhead.dataset.duration = String(duration);
+		state.positionFrame = Math.max(0, Math.round(Number(frame) || 0));
+		state.durationFrames = Math.max(0, Math.round(Number(duration) || 0));
+		publishTelemetrySnapshot();
 	}
 
 	function updateTransportState(value) {
-		const playing = value === 'playing';
-		const recording = value === 'recording' || Boolean(state.recorder);
-		const playButton = root.querySelector('[data-transport="play"]');
-		const icon = playButton?.querySelector('[data-play-icon]');
-		const label = playButton?.querySelector('[data-play-label]');
-		if (icon) icon.textContent = playing ? 'Ⅱ' : '▶';
-		if (label) label.textContent = playing ? copy.pause : copy.play;
-		playButton?.setAttribute('aria-label', playing ? copy.pause : copy.play);
-		root.querySelector('[data-transport="record"]')?.setAttribute('aria-pressed', String(recording));
+		state.transportState = value || 'stopped';
+		publishTelemetrySnapshot();
 	}
 
 	function updateMeters(meters) {
-		for (const [trackId, meter] of Object.entries(meters.tracks || {})) {
-			const row = nodes.trackList.querySelector(`[data-track-id="${cssEscape(trackId)}"]`);
-			for (const bar of row?.querySelectorAll('[data-track-meter-left], [data-track-meter-right]') || []) bar.style.setProperty('--meter', `${meterPercent(meter.dbfs)}%`);
-			row?.querySelector('[data-track-meter]')?.setAttribute('aria-valuenow', String(Math.max(-60, Number.isFinite(meter.dbfs) ? meter.dbfs : -60).toFixed(1)));
-		}
-		if (meters.master) {
-			setAnalysisValue('peak', formatDb(meters.master.dbfs, 'dBFS'));
-			setAnalysisValue('rms', formatDb(meters.master.rms > 0 ? 20 * Math.log10(meters.master.rms) : -Infinity, 'dBFS'));
-		}
+		state.meters = meters || { tracks: {}, master: null };
+		publishTelemetrySnapshot();
 	}
 
-	function updateZoom(action) {
+	function updateZoom(action, requestedViewportWidth) {
 		if (action === 'fit') {
-			const viewport = Math.max(320, nodes.timeline.clientWidth - 248);
+			const viewport = Math.max(320, Number(requestedViewportWidth) || 960);
 			state.pixelsPerSecond = Math.max(1, viewport / Math.max(MIN_TIMELINE_SECONDS, projectDurationFrames(project) / AUDIO_EDITOR_SAMPLE_RATE));
 		} else state.pixelsPerSecond = Math.max(1, Math.min(MAX_PIXELS_PER_SECOND, state.pixelsPerSecond * (action === 'in' ? 2 : 0.5)));
-		renderTimeline();
-		updatePlayhead(engine.getPositionFrames());
+		publishProjectState();
 	}
 
-	function updateSelectionOverlay() {
-		const selection = activeSelection();
-		for (const overlay of root.querySelectorAll('[data-selection-overlay], [data-track-selection]')) {
-			overlay.hidden = !selection;
-			if (selection) {
-				overlay.style.left = `${framesToPixels(selection.startFrame)}px`;
-				overlay.style.width = `${Math.max(1, framesToPixels(selection.endFrame - selection.startFrame))}px`;
-			}
-		}
-	}
-
-	function previewSelection(startFrame, endFrame) {
-		const selection = { startFrame: Math.min(startFrame, endFrame), endFrame: Math.max(startFrame, endFrame) };
-		for (const overlay of root.querySelectorAll('[data-selection-overlay], [data-track-selection]')) {
-			overlay.hidden = false;
-			overlay.style.left = `${framesToPixels(selection.startFrame)}px`;
-			overlay.style.width = `${Math.max(1, framesToPixels(selection.endFrame - selection.startFrame))}px`;
-		}
-	}
-
-	function selectInspectorTab(name) {
-		for (const tab of root.querySelectorAll('[data-inspector-tab]')) {
-			const selected = tab.dataset.inspectorTab === name;
-			tab.setAttribute('aria-selected', String(selected));
-			tab.tabIndex = selected ? 0 : -1;
-		}
-		for (const panel of root.querySelectorAll('[data-inspector-panel]')) panel.hidden = panel.dataset.inspectorPanel !== name;
-		setInspectorOpen(true);
-	}
-
-	function handleInspectorTabKey(event) {
-		if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-		event.preventDefault();
-		const tabs = [...root.querySelectorAll('[data-inspector-tab]')];
-		const current = tabs.indexOf(event.currentTarget);
-		const next = event.key === 'Home'
-			? 0
-			: event.key === 'End'
-				? tabs.length - 1
-				: (current + (event.key === 'ArrowLeft' ? -1 : 1) + tabs.length) % tabs.length;
-		selectInspectorTab(tabs[next].dataset.inspectorTab);
-		tabs[next].focus();
-	}
-
-	function setInspectorOpen(open) {
-		nodes.inspector.dataset.open = String(open);
-		nodes.inspectorToggle?.setAttribute('aria-expanded', String(open));
-	}
-
-	function updateExportFields() {
-		const format = root.querySelector('[data-export-field="format"]').value;
-		nodes.bitDepthField.hidden = format === 'mp3' || format === 'opus';
-		nodes.qualityField.hidden = format === 'wav';
-		const quality = root.querySelector('[data-export-field="quality"]');
-		quality.replaceChildren();
-		const bitDepth = root.querySelector('[data-export-field="bitDepth"]');
-		for (const option of bitDepth.options) option.disabled = format === 'flac' && option.value === '32f';
-		if (format === 'flac' && bitDepth.value === '32f') bitDepth.value = '24';
-		const values = format === 'mp3' ? [128, 192, 256, 320] : format === 'opus' ? [96, 128, 160, 192, 256] : format === 'flac' ? [0, 1, 2, 3, 4, 5, 6, 7, 8] : [];
-		for (const value of values) {
-			const option = document.createElement('option');
-			option.value = String(value);
-			option.textContent = format === 'flac' ? `${locale === 'de' ? 'Stufe' : 'Level'} ${value}` : `${value} kbps`;
-			if ((format === 'mp3' && value === 192) || (format === 'opus' && value === 160) || (format === 'flac' && value === 5)) option.selected = true;
-			quality.append(option);
-		}
-	}
-
-	function exportSettings() {
-		const value = (name) => root.querySelector(`[data-export-field="${name}"]`)?.value;
-		const format = value('format');
-		const quality = Number(value('quality'));
+	function normalizeExportSettings(value = {}) {
+		const format = ['wav', 'flac', 'mp3', 'opus'].includes(value.format) ? value.format : 'wav';
+		const defaultQuality = format === 'mp3' ? 192 : format === 'opus' ? 160 : format === 'flac' ? 5 : undefined;
 		return {
-			mode: value('mode'), range: value('range'), format,
-			bitDepth: value('bitDepth') === '32f' ? 32 : Number(value('bitDepth')),
-			bitRate: format === 'mp3' || format === 'opus' ? quality : undefined,
-			compressionLevel: format === 'flac' ? quality : undefined,
-			sampleRate: Number(value('sampleRate')),
-			includeTail: root.querySelector('[data-export-field="tails"]').checked,
+			mode: value.mode === 'stems' ? 'stems' : 'mix',
+			range: value.range === 'selection' ? 'selection' : 'project',
+			format,
+			bitDepth: [16, 24, 32].includes(Number(value.bitDepth)) ? Number(value.bitDepth) : 24,
+			bitRate: format === 'mp3' || format === 'opus' ? Number(value.bitRate) || defaultQuality : undefined,
+			compressionLevel: format === 'flac' ? Number.isFinite(Number(value.compressionLevel)) ? Number(value.compressionLevel) : defaultQuality : undefined,
+			sampleRate: [44_100, 48_000].includes(Number(value.sampleRate)) ? Number(value.sampleRate) : AUDIO_EDITOR_SAMPLE_RATE,
+			includeTail: value.includeTail !== false,
 		};
 	}
 
 	function toggleExport(active) {
-		root.querySelector('[data-export-action="start"]').hidden = active;
-		root.querySelector('[data-export-action="cancel"]').hidden = !active;
-		nodes.exportProgress.hidden = !active;
-		if (!active) nodes.exportProgress.value = 0;
-		renderControls();
+		if (!active) {
+			state.exportProgress = 0;
+			publishTelemetrySnapshot();
+		}
+		publishDocumentSnapshot();
 	}
 
 	function updateExportProgress(progress) {
-		nodes.exportProgress.value = Math.max(0, Math.min(1, progress));
+		state.exportProgress = Math.max(0, Math.min(1, Number(progress) || 0));
+		publishTelemetrySnapshot();
 	}
 
-	function showAnalysis(result) {
-		setAnalysisValue('peak', formatDb(result.peakDbfs, 'dBFS'));
-		setAnalysisValue('truePeak', formatDb(result.truePeakDbtp, 'dBTP'));
-		setAnalysisValue('rms', formatDb(result.rmsDbfs, 'dBFS'));
-		setAnalysisValue('momentary', formatLufs(result.momentaryLufs));
-		setAnalysisValue('shortTerm', formatLufs(result.shortTermLufs));
-		setAnalysisValue('integrated', formatLufs(result.integratedLufs));
-		setAnalysisValue('lra', Number.isFinite(result.loudnessRangeLufs) ? `${result.loudnessRangeLufs.toFixed(1)} LU` : '—');
-		setAnalysisValue('correlation', Number.isFinite(result.stereoCorrelation) ? result.stereoCorrelation.toFixed(3) : '—');
-		setAnalysisValue('clipping', String(result.clippedSamples));
+	function showAnalysis(result, visuals = null) {
+		state.analysisResult = result || null;
+		state.analysisVisuals = visuals;
+		publishDocumentSnapshot();
 	}
 
-	function setAnalysisValue(key, value) {
-		const node = root.querySelector(`[data-analysis-value="${key}"]`);
-		if (node) node.textContent = value;
-	}
-
-	function drawAnalysisVisuals(channels, sampleRate) {
+	function createAnalysisVisuals(channels, sampleRate) {
 		const length = channels[0]?.length || 0;
 		const spectrumFrames = Math.min(length, 16_384);
 		const spectrumStart = Math.max(0, Math.floor((length - spectrumFrames) / 2));
@@ -2517,89 +1853,21 @@ export function createAudioEditorController(root, options = {}) {
 			const frame = Math.min(length - 1, index * step);
 			for (const channel of channels) overview[index] += (channel[frame] || 0) / channels.length;
 		}
-		drawSpectrum(nodes.analysisSpectrum, spectrum, sampleRate);
-		drawSpectrogram(nodes.analysisSpectrogram, overview, sampleRate / step);
-	}
-
-	function handleKeyboard(event) {
-		if (event.key === 'Escape') {
-			closeAllMenus();
-			return;
-		}
-		if (event.target instanceof Element && event.target.closest('[role="menu"]')) return;
-		if (event.target !== document.body && event.target !== document.documentElement && !root.contains(event.target)) return;
-		if (event.target.matches('input, select, textarea') || event.target.isContentEditable) return;
-		const modifier = event.ctrlKey || event.metaKey;
-		if (event.code === 'Space') { event.preventDefault(); void handleTransport('play'); }
-		else if (event.key.toLowerCase() === 'r' && !modifier) { event.preventDefault(); void handleTransport('record').catch(handleError); }
-		else if (event.key.toLowerCase() === 's' && !modifier) { event.preventDefault(); handleEdit('split'); }
-		else if (event.key === 'Delete' || event.key === 'Backspace') { event.preventDefault(); handleEdit('delete'); }
-		else if (modifier && event.key.toLowerCase() === 'z') { event.preventDefault(); handleEdit(event.shiftKey ? 'redo' : 'undo'); }
-		else if (modifier && event.key.toLowerCase() === 'y') { event.preventDefault(); handleEdit('redo'); }
-		else if (modifier && event.key.toLowerCase() === 'x') { event.preventDefault(); handleEdit('cut'); }
-		else if (modifier && event.key.toLowerCase() === 'c') { event.preventDefault(); handleEdit('copy'); }
-		else if (modifier && event.key.toLowerCase() === 'v') { event.preventDefault(); handleEdit('paste'); }
-		else if (event.key === '+' || event.key === '=') { event.preventDefault(); updateZoom('in'); }
-		else if (event.key === '-') { event.preventDefault(); updateZoom('out'); }
-		else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-			event.preventDefault();
-			const current = Math.max(0, project.tracks.findIndex((track) => track.id === state.selectedTrackId));
-			const next = Math.max(0, Math.min(project.tracks.length - 1, current + (event.key === 'ArrowUp' ? -1 : 1)));
-			const track = project.tracks[next];
-			if (track) {
-				state.selectedTrackId = track.id;
-				state.selectedClipId = null;
-				render();
-				nodes.trackList.querySelector(`[data-track-id="${cssEscape(track.id)}"] [data-track-lane]`)?.focus();
-			}
-		}
-	}
-
-	function handleDocumentPointerDown(event) {
-		if (!event.target.closest?.('.menu-shell')) closeAllMenus();
-	}
-
-	function toggleMenu(menu, toggle) {
-		const open = Boolean(menu?.hidden);
-		closeAllMenus();
-		if (!menu || !open) return;
-		menu.hidden = false;
-		toggle?.setAttribute('aria-expanded', 'true');
-		menu.querySelector('[role="menuitem"]:not(:disabled)')?.focus({ preventScroll: true });
-	}
-
-	function closeMenu(menu, toggle) {
-		if (menu) menu.hidden = true;
-		toggle?.setAttribute('aria-expanded', 'false');
-	}
-
-	function closeAllMenus() {
-		for (const menu of root.querySelectorAll('.editor-menu')) {
-			menu.hidden = true;
-			menu.closest('.menu-shell')?.querySelector('[aria-haspopup="menu"]')?.setAttribute('aria-expanded', 'false');
-		}
-	}
-
-	function handleVisibility() {
-		if (document.visibilityState === 'hidden' && state.recorder) void stopRecording();
-	}
-
-	function handlePageHide() {
-		void (async () => {
-			if (state.recorder) await stopRecording().catch(() => undefined);
-			await saveNow();
-		})();
+		return Object.freeze({
+			spectrum: Object.freeze({ samples: spectrum, sampleRate, startFrame: spectrumStart }),
+			overview: Object.freeze({ samples: overview, sampleRate: sampleRate / step, step }),
+		});
 	}
 
 	function setStatus(message, status = 'info') {
-		nodes.status.textContent = message || copy.ready;
-		nodes.status.dataset.state = status;
-		nodes.live.textContent = message || '';
+		const resolvedMessage = message || copy.ready;
+		state.status = { message: resolvedMessage, state: status };
+		publishDocumentSnapshot();
 	}
 
 	function handleError(error) {
 		const message = error?.message || String(error) || (locale === 'de' ? 'Unbekannter Fehler' : 'Unknown error');
-		setStatus(copy.genericError.replace('{message}', message), 'error');
+		setStatus((copy.genericError || (locale === 'de' ? 'Fehler: {message}' : 'Error: {message}')).replace('{message}', message), 'error');
 		return null;
 	}
 
@@ -2612,7 +1880,8 @@ export function createAudioEditorController(root, options = {}) {
 
 	async function refreshStorageUsage() {
 		const estimate = await store.estimateStorage();
-		nodes.storageUsage.textContent = estimate.usage == null ? `${copy.storage}: —` : `${copy.storage}: ${formatBytes(estimate.usage)} / ${formatBytes(estimate.quota)}`;
+		state.storageEstimate = { usage: estimate.usage ?? null, quota: estimate.quota ?? null };
+		publishDocumentSnapshot();
 	}
 
 	async function preflightStorage(requiredBytes, operation) {
@@ -2638,13 +1907,6 @@ export function createAudioEditorController(root, options = {}) {
 		const selection = project?.selection;
 		return selection && selection.endFrame > selection.startFrame ? selection : null;
 	}
-	function framesToPixels(frames) { return frames / AUDIO_EDITOR_SAMPLE_RATE * state.pixelsPerSecond; }
-	function pixelsToFrames(pixels) { return Math.round(pixels / state.pixelsPerSecond * AUDIO_EDITOR_SAMPLE_RATE); }
-	function frameAtPointer(event, element) {
-		const rect = element.getBoundingClientRect();
-		return Math.max(0, Math.min(projectDurationFrames(project), pixelsToFrames(event.clientX - rect.left)));
-	}
-	function setClipField(name, value) { const field = root.querySelector(`[data-clip-field="${name}"]`); if (field) field.value = value; }
 }
 
 function cloneAudacityWorkerPayload(payload, transfer) {
@@ -2673,37 +1935,6 @@ function audacityEffectMemoryError(locale) {
 		: 'The effect\'s estimated peak memory use is too large to process safely in this browser.');
 }
 
-function formatAudacityTargetHint(target, locale) {
-	const start = formatTime(target.startFrame / AUDIO_EDITOR_SAMPLE_RATE);
-	const end = formatTime(target.endFrame / AUDIO_EDITOR_SAMPLE_RATE);
-	return locale === 'de'
-		? `${target.track.name}: ${start} bis ${end}`
-		: `${target.track.name}: ${start} to ${end}`;
-}
-
-function collectNodes(root) {
-	const query = (selector) => root.querySelector(selector);
-	return {
-		projectName: query('[data-project-name]'), saveState: query('[data-save-state]'), storageUsage: query('[data-storage-usage]'),
-		fileMenuToggle: query('[data-file-menu-toggle]'), fileMenuPanel: query('[data-file-menu-panel]'),
-		importInput: query('[data-import-input]'), status: query('[data-status]'), live: query('[data-live]'),
-		timeline: query('[data-timeline]'), ruler: query('[data-ruler]'), rulerCanvas: query('[data-ruler-canvas]'), trackList: query('[data-track-list]'), emptyState: query('[data-empty-state]'),
-		playhead: query('[data-playhead]'), timeDisplay: query('[data-time-display]'), monitor: query('[data-monitor]'), latencyOffset: query('[data-latency-offset]'), monitorWarning: query('[data-monitor-warning]'), inputMeter: query('[data-input-meter]'), inputMeterFill: query('[data-input-meter-fill]'),
-		trackTemplate: query('[data-track-template]'), clipTemplate: query('[data-clip-template]'), effectTemplate: query('[data-effect-template]'), projectTemplate: query('[data-project-template]'),
-		inspector: query('[data-inspector]'), inspectorToggle: query('[data-inspector-toggle]'), inspectorClose: query('[data-inspector-close]'), noClip: query('[data-no-clip]'),
-		effectTarget: query('[data-effect-target]'), effectType: query('[data-effect-type]'), addEffect: query('[data-add-effect]'), effectRack: query('[data-effect-rack]'), effectEmpty: query('[data-effect-empty]'), masterGain: query('[data-master-gain]'), masterGainValue: query('[data-master-gain-value]'),
-		audacityEffectType: query('[data-audacity-effect-type]'), audacityEffectParameters: query('[data-audacity-effect-parameters]'), audacityControlField: query('[data-audacity-control-field]'), audacityControlTrack: query('[data-audacity-control-track]'), audacityEffectHint: query('[data-audacity-effect-hint]'), audacityNoiseProfile: query('[data-audacity-noise-profile]'), applyAudacityEffect: query('[data-apply-audacity-effect]'),
-		analysisSpectrum: query('[data-analysis-spectrum]'), analysisSpectrogram: query('[data-analysis-spectrogram]'),
-		bitDepthField: query('[data-bit-depth-field]'), qualityField: query('[data-quality-field]'), exportProgress: query('[data-export-progress]'), exportDownload: query('[data-export-download]'),
-		projectDialog: query('[data-project-dialog]'), projectList: query('[data-project-list]'), projectListEmpty: query('[data-project-list-empty]'),
-		nameDialog: query('[data-name-dialog]'), projectNameInput: query('[data-project-name-input]'), confirmDialog: query('[data-confirm-dialog]'),
-	};
-}
-
-function cloneTemplate(template) {
-	return template.content.firstElementChild.cloneNode(true);
-}
-
 async function writeBuffer(writer, buffer) {
 	for (let start = 0; start < buffer.length; start += SOURCE_CHUNK_FRAMES) {
 		const end = Math.min(buffer.length, start + SOURCE_CHUNK_FRAMES);
@@ -2714,131 +1945,6 @@ async function writeBuffer(writer, buffer) {
 async function readStoredAudioBuffer(store, source, context) {
 	if (!context?.createBuffer) return null;
 	return store.loadSourceAudioBuffer(source.id, context);
-}
-
-function drawRuler(canvas, durationSeconds, pixelsPerSecond, viewportWidth, scrollOffset = 0) {
-	if (!canvas) return;
-	const cssHeight = 38;
-	const width = Math.max(1, Math.round(viewportWidth));
-	const dpr = Math.min(2, globalThis.devicePixelRatio || 1);
-	canvas.style.width = `${width}px`;
-	canvas.style.height = `${cssHeight}px`;
-	canvas.width = Math.round(width * dpr);
-	canvas.height = Math.round(cssHeight * dpr);
-	const context = canvas.getContext('2d');
-	if (!context) return;
-	context.scale(dpr, dpr);
-	context.clearRect(0, 0, width, cssHeight);
-	context.fillStyle = 'rgba(255,255,255,.62)';
-	context.strokeStyle = 'rgba(255,255,255,.28)';
-	context.font = '10px ui-monospace, monospace';
-	const candidates = [0.001, 0.002, 0.005, 0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 30, 60, 120, 300, 600];
-	const majorStep = candidates.find((step) => step * pixelsPerSecond >= 70) || 600;
-	const minorStep = majorStep / 5;
-	const firstTick = Math.max(0, Math.floor(scrollOffset / pixelsPerSecond / minorStep) * minorStep);
-	const lastTick = Math.min(durationSeconds + minorStep / 2, (scrollOffset + width) / pixelsPerSecond + minorStep);
-	for (let seconds = firstTick; seconds <= lastTick; seconds += minorStep) {
-		const x = seconds * pixelsPerSecond - scrollOffset;
-		const major = Math.abs(seconds / majorStep - Math.round(seconds / majorStep)) < 1e-5;
-		context.beginPath();
-		context.moveTo(x + 0.5, major ? 12 : 25);
-		context.lineTo(x + 0.5, cssHeight);
-		context.stroke();
-		if (major) context.fillText(formatRulerTime(seconds, majorStep), x + 4, 11);
-	}
-}
-
-function drawClipWaveform(canvas, clip, buffer, peaks, options = {}) {
-	if (!canvas || !buffer) return;
-	const fullWidth = Math.max(1, options.fullWidth || Number.parseFloat(canvas.parentElement?.style.width) || 300);
-	const visibleStartPx = Math.max(0, options.visibleStartPx || 0);
-	const cssWidth = Math.max(1, Math.round(options.visibleWidth || fullWidth));
-	const cssHeight = 124;
-	const dpr = Math.min(2, globalThis.devicePixelRatio || 1);
-	canvas.style.width = `${cssWidth}px`;
-	canvas.style.height = '100%';
-	canvas.width = Math.round(cssWidth * dpr);
-	canvas.height = Math.round(cssHeight * dpr);
-	const context = canvas.getContext('2d');
-	if (!context) return;
-	context.scale(dpr, dpr);
-	context.clearRect(0, 0, cssWidth, cssHeight);
-	context.strokeStyle = 'rgba(255,255,255,.88)';
-	context.lineWidth = 1;
-	context.beginPath();
-	const channels = Array.from({ length: buffer.numberOfChannels }, (_, channel) => buffer.getChannelData(channel));
-	const framesPerPixel = clip.durationFrames / fullWidth;
-	const peakLevel = (peaks?.levels || [])
-		.filter((level) => level.blockSize <= framesPerPixel)
-		.sort((first, second) => first.blockSize - second.blockSize)
-		.at(-1);
-	for (let x = 0; x < cssWidth; x += 1) {
-		const localStart = Math.max(0, Math.floor((visibleStartPx + x) * framesPerPixel));
-		const localEnd = Math.min(clip.durationFrames, Math.max(localStart + 1, Math.ceil((visibleStartPx + x + 1) * framesPerPixel)));
-		let minimum = 1;
-		let maximum = -1;
-		if (peakLevel) {
-			const sourceStart = clip.sourceStartFrame + (clip.reversed ? clip.durationFrames - localEnd : localStart);
-			const sourceEnd = clip.sourceStartFrame + (clip.reversed ? clip.durationFrames - localStart : localEnd);
-			const firstBlock = Math.max(0, Math.floor(sourceStart / peakLevel.blockSize));
-			const lastBlock = Math.min(peakLevel.minimums.length, Math.ceil(sourceEnd / peakLevel.blockSize));
-			for (let block = firstBlock; block < lastBlock; block += 1) {
-				minimum = Math.min(minimum, peakLevel.minimums[block]);
-				maximum = Math.max(maximum, peakLevel.maximums[block]);
-			}
-			const center = (localStart + localEnd) / 2;
-			let envelope = 1;
-			if (clip.fadeInFrames > 0 && center < clip.fadeInFrames) envelope *= center / clip.fadeInFrames;
-			if (clip.fadeOutFrames > 0 && center > clip.durationFrames - clip.fadeOutFrames) envelope *= (clip.durationFrames - center) / clip.fadeOutFrames;
-			const scale = clip.gain * Math.max(0, envelope);
-			minimum *= scale;
-			maximum *= scale;
-		} else {
-			for (let local = localStart; local < localEnd; local += 1) {
-				const sourceLocal = clip.reversed ? clip.durationFrames - local - 1 : local;
-				const sourceFrame = clip.sourceStartFrame + sourceLocal;
-				let sample = 0;
-				for (const channel of channels) sample += (channel[sourceFrame] || 0) / channels.length;
-				let envelope = 1;
-				if (clip.fadeInFrames > 0 && local < clip.fadeInFrames) envelope *= local / clip.fadeInFrames;
-				if (clip.fadeOutFrames > 0 && local > clip.durationFrames - clip.fadeOutFrames) envelope *= (clip.durationFrames - local) / clip.fadeOutFrames;
-				sample *= clip.gain * Math.max(0, envelope);
-				minimum = Math.min(minimum, sample);
-				maximum = Math.max(maximum, sample);
-			}
-		}
-		if (maximum < minimum) minimum = maximum = 0;
-		context.moveTo(x + 0.5, (1 - maximum) * cssHeight / 2);
-		context.lineTo(x + 0.5, (1 - minimum) * cssHeight / 2);
-	}
-	context.stroke();
-}
-
-function drawClipSpectrogram(canvas, clip, buffer, options = {}) {
-	if (!canvas || !buffer) return;
-	const fullWidth = Math.max(1, options.fullWidth || Number.parseFloat(canvas.parentElement?.style.width) || 300);
-	const visibleStartPx = Math.max(0, options.visibleStartPx || 0);
-	const visibleWidth = Math.max(1, Math.round(options.visibleWidth || fullWidth));
-	const firstLocalFrame = Math.max(0, Math.floor(visibleStartPx / fullWidth * clip.durationFrames));
-	const lastLocalFrame = Math.min(clip.durationFrames, Math.ceil((visibleStartPx + visibleWidth) / fullWidth * clip.durationFrames));
-	const sourceLength = Math.max(1, lastLocalFrame - firstLocalFrame);
-	const stride = Math.max(1, Math.ceil(sourceLength / 65_536));
-	const samples = new Float32Array(Math.ceil(sourceLength / stride));
-	const channels = Array.from({ length: buffer.numberOfChannels }, (_, channel) => buffer.getChannelData(channel));
-	for (let index = 0; index < samples.length; index += 1) {
-		const local = Math.min(lastLocalFrame - 1, firstLocalFrame + index * stride);
-		const sourceLocal = clip.reversed ? clip.durationFrames - local - 1 : local;
-		const sourceFrame = clip.sourceStartFrame + sourceLocal;
-		let sample = 0;
-		for (const channel of channels) sample += (channel[sourceFrame] || 0) / channels.length;
-		let envelope = 1;
-		if (clip.fadeInFrames > 0 && local < clip.fadeInFrames) envelope *= local / clip.fadeInFrames;
-		if (clip.fadeOutFrames > 0 && local > clip.durationFrames - clip.fadeOutFrames) envelope *= (clip.durationFrames - local) / clip.fadeOutFrames;
-		samples[index] = sample * clip.gain * Math.max(0, envelope);
-	}
-	canvas.style.width = `${visibleWidth}px`;
-	canvas.style.height = '100%';
-	drawSpectrogram(canvas, samples, buffer.sampleRate / stride);
 }
 
 async function canonicalizeBuffer(input, context) {
@@ -3025,74 +2131,6 @@ function mixToMono(channels) {
 	for (const channel of channels) for (let index = 0; index < length; index += 1) mono[index] += channel[index] / channels.length;
 	return mono;
 }
-function drawSpectrum(canvas, samples, sampleRate) {
-	if (!canvas || !samples.length) return;
-	const { context, width, height } = prepareCanvas(canvas, 360, 120);
-	if (!context) return;
-	context.fillStyle = '#17120f';
-	context.fillRect(0, 0, width, height);
-	context.strokeStyle = 'rgba(255,255,255,.12)';
-	for (let row = 1; row < 4; row += 1) { context.beginPath(); context.moveTo(0, row * height / 4); context.lineTo(width, row * height / 4); context.stroke(); }
-	const size = Math.min(2048, highestPowerOfTwo(samples.length));
-	if (size < 32) return;
-	const start = Math.max(0, Math.floor((samples.length - size) / 2));
-	const bins = Math.min(160, Math.floor(size / 2));
-	context.strokeStyle = '#f49a49';
-	context.lineWidth = 1.5;
-	context.beginPath();
-	for (let bin = 0; bin < bins; bin += 1) {
-		const frequency = 20 * ((sampleRate / 2) / 20) ** (bin / Math.max(1, bins - 1));
-		const omega = 2 * Math.PI * frequency / sampleRate;
-		let real = 0;
-		let imaginary = 0;
-		for (let index = 0; index < size; index += 1) {
-			const window = 0.5 - 0.5 * Math.cos(2 * Math.PI * index / (size - 1));
-			const sample = samples[start + index] * window;
-			real += sample * Math.cos(omega * index);
-			imaginary -= sample * Math.sin(omega * index);
-		}
-		const db = Math.max(-100, 20 * Math.log10(Math.hypot(real, imaginary) / Math.max(1, size) + 1e-9));
-		const x = bin / (bins - 1) * width;
-		const y = (1 - (db + 100) / 100) * height;
-		if (bin === 0) context.moveTo(x, y); else context.lineTo(x, y);
-	}
-	context.stroke();
-}
-
-function drawSpectrogram(canvas, samples, sampleRate) {
-	if (!canvas || !samples.length) return;
-	const { context, width, height } = prepareCanvas(canvas, 360, 120);
-	if (!context) return;
-	context.fillStyle = '#17120f';
-	context.fillRect(0, 0, width, height);
-	const columns = Math.min(96, width);
-	const bins = Math.min(64, height);
-	const windowSize = Math.min(512, highestPowerOfTwo(samples.length));
-	if (windowSize < 32) return;
-	for (let column = 0; column < columns; column += 1) {
-		const start = Math.min(samples.length - windowSize, Math.max(0, Math.round(column / Math.max(1, columns - 1) * (samples.length - windowSize))));
-		for (let bin = 0; bin < bins; bin += 1) {
-			const frequency = bin / bins * sampleRate / 2;
-			const omega = 2 * Math.PI * frequency / sampleRate;
-			let real = 0;
-			let imaginary = 0;
-			for (let index = 0; index < windowSize; index += 1) {
-				const sample = samples[start + index] * (0.5 - 0.5 * Math.cos(2 * Math.PI * index / (windowSize - 1)));
-				real += sample * Math.cos(omega * index);
-				imaginary -= sample * Math.sin(omega * index);
-			}
-			const db = Math.max(-90, 20 * Math.log10(Math.hypot(real, imaginary) / windowSize + 1e-8));
-			const amount = Math.max(0, Math.min(1, (db + 90) / 90));
-			context.fillStyle = roseus(amount);
-			const x0 = Math.floor(column * width / columns);
-			const x1 = Math.ceil((column + 1) * width / columns);
-			const y0 = Math.floor(height - (bin + 1) * height / bins);
-			const y1 = Math.ceil(height - bin * height / bins);
-			context.fillRect(x0, y0, x1 - x0, y1 - y0);
-		}
-	}
-}
-
 async function createTemporaryFileSink(name) {
 	let directory = null;
 	let handle = null;
@@ -3232,33 +2270,10 @@ function classifyMobile() {
 	return Boolean(globalThis.navigator?.maxTouchPoints > 0 && globalThis.matchMedia?.('(pointer: coarse)').matches && Math.min(globalThis.innerWidth || 9999, globalThis.innerHeight || 9999) < 900);
 }
 
-function parseJson(value, fallback) { try { return JSON.parse(value || '') || fallback; } catch { return fallback; } }
-function parseTimeFrames(value) {
-	const parts = String(value).trim().split(':').map(Number);
-	if (parts.some((part) => !Number.isFinite(part) || part < 0)) throw new Error('Invalid time value.');
-	const seconds = parts.reduce((total, part) => total * 60 + part, 0);
-	return Math.round(seconds * AUDIO_EDITOR_SAMPLE_RATE);
+function normalizeLatencyOffset(value) {
+	return Math.max(-500, Math.min(500, Number(value) || 0));
 }
-function parseFrameInput(value) {
-	const frame = Number(value);
-	if (!Number.isSafeInteger(frame) || frame < 0) throw new Error('Invalid frame value.');
-	return frame;
-}
-function formatEditableTime(frames) { return (frames / AUDIO_EDITOR_SAMPLE_RATE).toFixed(3); }
-function formatTime(seconds) {
-	const safe = Math.max(0, Number(seconds) || 0);
-	const hours = Math.floor(safe / 3600);
-	const minutes = Math.floor(safe % 3600 / 60);
-	const whole = Math.floor(safe % 60);
-	const milliseconds = Math.floor((safe % 1) * 1000);
-	return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(whole).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
-}
-function linearToDb(value) { return value > 0 ? 20 * Math.log10(value) : -60; }
-function dbToLinear(value) { return Math.max(0, Math.min(16, 10 ** (Math.max(-60, Number(value) || -60) / 20))); }
-function panLabel(value, center) { return Math.abs(value) < 0.01 ? center : `${Math.abs(Math.round(value * 100))}${value < 0 ? 'L' : 'R'}`; }
-function meterPercent(db) { return Math.max(0, Math.min(100, (Number.isFinite(db) ? db + 60 : 0) / 60 * 100)); }
-function formatDb(value, unit) { return Number.isFinite(value) ? `${value.toFixed(1)} ${unit}` : `−∞ ${unit}`; }
-function formatLufs(value) { return Number.isFinite(value) ? `${value.toFixed(1)} LUFS` : '—'; }
+
 function formatBytes(value) {
 	if (!Number.isFinite(value)) return '—';
 	const units = ['B', 'KB', 'MB', 'GB'];
@@ -3266,38 +2281,6 @@ function formatBytes(value) {
 	let unit = 0;
 	while (size >= 1024 && unit < units.length - 1) { size /= 1024; unit += 1; }
 	return `${size.toFixed(unit ? 1 : 0)} ${units[unit]}`;
-}
-function formatRulerTime(seconds, step) {
-	if (step < 1) return `${seconds.toFixed(step < 0.01 ? 3 : 2)}s`;
-	const minutes = Math.floor(seconds / 60);
-	const remainder = Math.floor(seconds % 60);
-	return minutes ? `${minutes}:${String(remainder).padStart(2, '0')}` : `${remainder}s`;
-}
-function prepareCanvas(canvas, fallbackWidth, fallbackHeight) {
-	const width = Math.max(1, Math.round(canvas.clientWidth || fallbackWidth));
-	const height = Math.max(1, Math.round(canvas.clientHeight || fallbackHeight));
-	const dpr = Math.min(2, globalThis.devicePixelRatio || 1);
-	canvas.width = Math.round(width * dpr);
-	canvas.height = Math.round(height * dpr);
-	const context = canvas.getContext('2d');
-	context?.scale(dpr, dpr);
-	return { context, width, height };
-}
-function highestPowerOfTwo(value) {
-	if (value < 1) return 0;
-	return 2 ** Math.floor(Math.log2(value));
-}
-function roseus(amount) {
-	const stops = [
-		[0, 0, 0], [26, 14, 52], [71, 28, 88], [122, 44, 93],
-		[174, 67, 82], [220, 105, 66], [246, 167, 89], [252, 235, 166],
-	];
-	const position = Math.max(0, Math.min(1, amount)) * (stops.length - 1);
-	const lower = Math.floor(position);
-	const upper = Math.min(stops.length - 1, lower + 1);
-	const fraction = position - lower;
-	const color = stops[lower].map((value, index) => Math.round(value + (stops[upper][index] - value) * fraction));
-	return `rgb(${color.join(' ')})`;
 }
 function isAup3File(file) { return /\.aup3$/i.test(String(file?.name || '').trim()); }
 function formatAup3Warning(warning) {
@@ -3307,7 +2290,5 @@ function formatAup3Warning(warning) {
 	return '';
 }
 function stripExtension(name) { return String(name || '').replace(/\.[^.]+$/, ''); }
-function setPath(target, path, value) { let current = target; for (let index = 0; index < path.length - 1; index += 1) current = current[path[index]]; current[path.at(-1)] = value; }
-function cssEscape(value) { return globalThis.CSS?.escape ? CSS.escape(value) : String(value).replace(/[^a-z0-9_-]/gi, '\\$&'); }
 function abortError() { return typeof DOMException === 'function' ? new DOMException('Aborted', 'AbortError') : Object.assign(new Error('Aborted'), { name: 'AbortError' }); }
 function throwIfAborted(signal) { if (signal?.aborted) throw abortError(); }

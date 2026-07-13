@@ -28,10 +28,18 @@ Audacity is a registered trademark. This project is not affiliated with or endor
 
 The browser tools can distribute the following pinned browser-side packages as part of the site build:
 
+- `@dilsonspickles/components` 0.9.0 — declared MIT; tag `components-v0.9.0`, commit `8cb38db62436db0783cb3a7624306ab3bce19e0b`; source: <https://github.com/DilsonsPickles/audacity-design-system/tree/components-v0.9.0/packages/components>
 - `@ffmpeg/ffmpeg` 0.12.15 — MIT; source: <https://github.com/ffmpegwasm/ffmpeg.wasm>
 - `@ffmpeg/util` 0.12.2 — MIT; source: <https://github.com/ffmpegwasm/ffmpeg.wasm>
 - `@ffmpeg/core` 0.12.10 — GPL-2.0-or-later; corresponding source and build scripts: <https://github.com/ffmpegwasm/ffmpeg.wasm/tree/v0.12.10>
 - `fflate` 0.8.3 — MIT; source: <https://github.com/101arrowz/fflate>
 - `sql.js` 1.14.1 — MIT; source: <https://github.com/sql-js/sql.js>
+
+`@dilsonspickles/components` bundles `MusescoreIcon.ttf` from
+`packages/components/src/assets/fonts/MusescoreIcon.ttf` in the tagged source
+(SHA-256 `c96e13ba511bea3b12e809db0def48163a690f9e9439097d7867ae6bf04e8620`).
+Upstream does not provide separate font license metadata at that tag, so it is
+covered here by the package's declared MIT metadata under the project's chosen
+license-review policy.
 
 Except for identified third-party portions under compatible licenses, the repository is distributed under AGPL-3.0-only. Before deploying the FFmpeg core, the release process must archive the exact corresponding source and build configuration alongside the deployed version and verify the enabled codec libraries and their notices.

@@ -3,7 +3,9 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { defineConfig } from 'astro/config';
 
+import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
+import scopeAudacityDesignSystemCss from './scripts/postcss-audacity-design-system.mjs';
 
 const site = process.env.ASTRO_SITE ?? 'https://kw.media';
 const base = process.env.ASTRO_BASE ?? '/';
@@ -110,7 +112,7 @@ export default defineConfig({
 
   redirects,
 
-  integrations: [sitemap({
+  integrations: [react(), sitemap({
     filter: (page) => !redirectSourceUrls.has(page),
     serialize: (item) => {
       const lastmod = postLastmodByUrl.get(item.url);
@@ -123,4 +125,12 @@ export default defineConfig({
       video: false,
     },
   })],
+
+  vite: {
+    css: {
+      postcss: {
+        plugins: [scopeAudacityDesignSystemCss()],
+      },
+    },
+  },
 });
