@@ -25,7 +25,7 @@ Run commands from the repository root.
 ### Browser Tests
 
 - Browser tests live in `tests/browser/` and use `playwright.config.mjs`.
-- Agents can run them directly from the repository shell; they do not need access to an IDE browser, a graphical session, or an already-running development server. Playwright runs Chromium headlessly by default.
+- Agents can run them from the repository shell; they do not need access to an IDE browser, a graphical session, or an already-running development server. Playwright runs Chromium headlessly by default. In sandboxed agent environments, binding the loopback preview server may fail with `listen EPERM`; request permission to rerun `npm run test:browser` outside the sandbox when that happens.
 - Run the complete suite with `npm run test:browser`. The npm pretest hook builds the site first, and Playwright starts `npm run preview` itself at `http://127.0.0.1:4322` for the test run.
 - Run a focused file with `npx playwright test tests/browser/tools-smoke.spec.js --project=chromium`, or add `--grep='test name'` to select a test. When using `npx playwright test` directly, run `npm run build` first if `dist/` may be stale because this bypasses the npm pretest hook.
 - If the Chromium executable is missing after `npm install`, install it with `npx playwright install chromium`. Installing browsers may require network access or sandbox approval. Do not use `--with-deps` unless system packages are actually missing, because it changes host-level dependencies.
