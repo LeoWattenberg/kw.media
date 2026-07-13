@@ -48,7 +48,7 @@ const copyJson = JSON.stringify(copy);
 	<div class="container">
 		<div class="safe-zone-tool" data-safe-zone-tool data-copy={copyJson}>
 			<ToolPanel class="safe-zone-preview-panel" title={copy.preview}>
-				<div class="vertical-preview" data-preview style="--top-zone: 14%; --bottom-zone: 24%; --right-zone: 22%;">
+				<div class="vertical-preview" data-preview style="--top-zone: 13%; --bottom-zone: 16%; --right-zone: 14%;">
 					<div class="preview-placeholder" data-placeholder>9:16</div>
 					<img data-image-preview alt="" hidden />
 					<video data-video-preview controls playsinline muted hidden></video>
@@ -78,9 +78,9 @@ const copyJson = JSON.stringify(copy);
 						<option value="custom">Custom</option>
 					</SelectControl>
 					<p class="platform-hint">{copy.platformHint}</p>
-					<RangeControl label={copy.top} value="14%" valueAttrs={{ 'data-top-label': true }} inputAttrs={{ 'data-top': true, min: 0, max: 30, step: 1, value: 14 }} />
-					<RangeControl label={copy.bottom} value="24%" valueAttrs={{ 'data-bottom-label': true }} inputAttrs={{ 'data-bottom': true, min: 0, max: 40, step: 1, value: 24 }} />
-					<RangeControl label={copy.right} value="22%" valueAttrs={{ 'data-right-label': true }} inputAttrs={{ 'data-right': true, min: 0, max: 35, step: 1, value: 22 }} />
+					<RangeControl label={copy.top} value="13%" valueAttrs={{ 'data-top-label': true }} inputAttrs={{ 'data-top': true, min: 0, max: 30, step: 1, value: 13 }} />
+					<RangeControl label={copy.bottom} value="16%" valueAttrs={{ 'data-bottom-label': true }} inputAttrs={{ 'data-bottom': true, min: 0, max: 40, step: 1, value: 16 }} />
+					<RangeControl label={copy.right} value="14%" valueAttrs={{ 'data-right-label': true }} inputAttrs={{ 'data-right': true, min: 0, max: 35, step: 1, value: 14 }} />
 					<ToolActions><button class="button secondary" data-reset type="button">{copy.reset}</button></ToolActions>
 					<ToolStatus data-status text={copy.waiting} />
 				</ToolPanel>
@@ -114,9 +114,9 @@ const copyJson = JSON.stringify(copy);
 		let sourceUrl = null;
 
 		const presets = {
-			shorts: { top: 14, bottom: 24, right: 22 },
-			tiktok: { top: 12, bottom: 27, right: 24 },
-			reels: { top: 14, bottom: 25, right: 23 },
+			shorts: { top: 13, bottom: 16, right: 14 },
+			tiktok: { top: 7, bottom: 7, right: 15 },
+			reels: { top: 5, bottom: 13, right: 14 },
 		};
 
 		fileInput.addEventListener('change', showFile);
