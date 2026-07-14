@@ -1,4 +1,5 @@
-import { normalizeMediaMetadata } from './media-export.js';
+const MAX_METADATA_FIELDS = 32;
+const MAX_METADATA_VALUE_LENGTH = 4_096;
 
 const TEXT_FRAME_IDS = Object.freeze({
 	title: 'TIT2',
@@ -11,6 +12,23 @@ const TEXT_FRAME_IDS = Object.freeze({
 	genre: 'TCON',
 	copyright: 'TCOP',
 });
+
+function normalizeMediaMetadata(value = {}) {
+	if (value == null) return Object.freeze({});
+	if (typeof value !== 'object' || Array.isArray(value)) throw new TypeError('Export metadata must be an object.');
+	const entries = Object.entries(value).filter(([, item]) => item != null && String(item) !== '');
+	if (entries.length > MAX_METADATA_FIELDS) throw new RangeError(`Export metadata supports at most ${MAX_METADATA_FIELDS} fields.`);
+	const result = {};
+	for (const [rawKey, rawValue] of entries) {
+		const key = String(rawKey).trim();
+		if (!/^[A-Za-z0-9_.-]{1,64}$/.test(key)) throw new RangeError(`Invalid metadata field name: ${rawKey}.`);
+		const text = String(rawValue);
+		if (/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(text)) throw new RangeError(`Metadata field ${key} contains control characters.`);
+		if (text.length > MAX_METADATA_VALUE_LENGTH) throw new RangeError(`Metadata field ${key} is too long.`);
+		result[key] = text;
+	}
+	return Object.freeze(result);
+}
 
 /**
  * Creates a compact ID3v2.4 tag for native WAV/AIFF exports. UTF-8 text and
