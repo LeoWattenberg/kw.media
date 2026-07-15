@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "date": "2026-07-15",
+  "generatedAt": "2026-07-15T05:09:48.920Z",
+  "duration": 30,
+  "source": {
+    "provider": "Wikimedia Commons",
+    "title": "HPR-h4ck3rm1k3-2013-09-22-Whatsinmybag2",
+    "creator": "Mdupont",
+    "license": "CC BY-SA 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3AHPR-h4ck3rm1k3-2013-09-22-Whatsinmybag2.flac",
+    "downloadUrl": "https://commons.wikimedia.org/wiki/File:HPR-h4ck3rm1k3-2013-09-22-Whatsinmybag2.flac",
+    "duration": 239.351293,
+    "format": "FLAC"
+  },
+  "levels": [
+    {
+      "id": "v9",
+      "label": "LAME V9 VBR (~65 kbps)",
+      "lameQuality": 9,
+      "options": [
+        {
+          "id": "v9-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-15/original.wav"
+        },
+        {
+          "id": "v9-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-15/v9-1.mp3"
+        },
+        {
+          "id": "v9-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-15/v9-2.mp3"
+        }
+      ]
+    },
+    {
+      "id": "v7",
+      "label": "LAME V7 VBR (~100 kbps)",
+      "lameQuality": 7,
+      "options": [
+        {
+          "id": "v7-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-15/v7-1.mp3"
+        },
+        {
+          "id": "v7-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-15/v7-2.mp3"
+        },
+        {
+          "id": "v7-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-15/original.wav"
+        }
+      ]
+    },
+    {
+      "id": "v5",
+      "label": "LAME V5 VBR (~130 kbps)",
+      "lameQuality": 5,
+      "options": [
+        {
+          "id": "v5-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-15/original.wav"
+        },
+        {
+          "id": "v5-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-15/v5-1.mp3"
+        },
+        {
+          "id": "v5-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-15/v5-2.mp3"
+        }
+      ]
+    },
+    {
+      "id": "v3",
+      "label": "LAME V3 VBR (~175 kbps)",
+      "lameQuality": 3,
+      "options": [
+        {
+          "id": "v3-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-15/v3-2.mp3"
+        },
+        {
+          "id": "v3-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-15/original.wav"
+        },
+        {
+          "id": "v3-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-15/v3-1.mp3"
+        }
+      ]
+    },
+    {
+      "id": "v0",
+      "label": "LAME V0 VBR (~245 kbps)",
+      "lameQuality": 0,
+      "options": [
+        {
+          "id": "v0-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-15/v0-1.mp3"
+        },
+        {
+          "id": "v0-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-15/v0-2.mp3"
+        },
+        {
+          "id": "v0-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-15/original.wav"
+        }
+      ]
+    }
+  ]
+}
