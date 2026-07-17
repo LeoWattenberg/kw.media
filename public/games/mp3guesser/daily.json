@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "date": "2026-07-16",
-  "generatedAt": "2026-07-16T05:19:54.174Z",
+  "date": "2026-07-17",
+  "generatedAt": "2026-07-17T05:22:46.829Z",
   "duration": 30,
   "source": {
     "provider": "Wikimedia Commons",
-    "title": "Snowmelt flowing into lake at Okanagan Mountain Provincial Park",
-    "creator": "Extemporalist",
-    "license": "CC0",
-    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3ASnowmelt_flowing_into_lake_at_Okanagan_Mountain_Provincial_Park.flac",
-    "downloadUrl": "https://commons.wikimedia.org/wiki/File:Snowmelt_flowing_into_lake_at_Okanagan_Mountain_Provincial_Park.flac",
-    "duration": 1960.125,
+    "title": "4 Depuis le dessin rappel du texte RECORD20210615165246",
+    "creator": "RP87",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3A4_Depuis_le_dessin_rappel_du_texte_RECORD20210615165246.flac",
+    "downloadUrl": "https://commons.wikimedia.org/wiki/File:4_Depuis_le_dessin_rappel_du_texte_RECORD20210615165246.flac",
+    "duration": 107.812245,
     "format": "FLAC"
   },
   "levels": [
@@ -21,19 +21,19 @@
       "lameQuality": 9,
       "options": [
         {
+          "id": "v9-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-17/v9-1.mp3"
+        },
+        {
           "id": "v9-encode-2",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-16/v9-2.mp3"
+          "url": "/games/mp3guesser/2026-07-17/v9-2.mp3"
         },
         {
           "id": "v9-original",
           "kind": "original",
-          "url": "/games/mp3guesser/2026-07-16/original.wav"
-        },
-        {
-          "id": "v9-encode-1",
-          "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-16/v9-1.mp3"
+          "url": "/games/mp3guesser/2026-07-17/original.wav"
         }
       ]
     },
@@ -43,19 +43,19 @@
       "lameQuality": 7,
       "options": [
         {
-          "id": "v7-original",
-          "kind": "original",
-          "url": "/games/mp3guesser/2026-07-16/original.wav"
+          "id": "v7-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-17/v7-2.mp3"
         },
         {
           "id": "v7-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-16/v7-1.mp3"
+          "url": "/games/mp3guesser/2026-07-17/v7-1.mp3"
         },
         {
-          "id": "v7-encode-2",
-          "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-16/v7-2.mp3"
+          "id": "v7-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-17/original.wav"
         }
       ]
     },
@@ -67,17 +67,17 @@
         {
           "id": "v5-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-16/v5-1.mp3"
+          "url": "/games/mp3guesser/2026-07-17/v5-1.mp3"
         },
         {
           "id": "v5-encode-2",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-16/v5-2.mp3"
+          "url": "/games/mp3guesser/2026-07-17/v5-2.mp3"
         },
         {
           "id": "v5-original",
           "kind": "original",
-          "url": "/games/mp3guesser/2026-07-16/original.wav"
+          "url": "/games/mp3guesser/2026-07-17/original.wav"
         }
       ]
     },
@@ -87,19 +87,19 @@
       "lameQuality": 3,
       "options": [
         {
-          "id": "v3-encode-2",
-          "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-16/v3-2.mp3"
-        },
-        {
           "id": "v3-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-16/v3-1.mp3"
+          "url": "/games/mp3guesser/2026-07-17/v3-1.mp3"
+        },
+        {
+          "id": "v3-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-17/v3-2.mp3"
         },
         {
           "id": "v3-original",
           "kind": "original",
-          "url": "/games/mp3guesser/2026-07-16/original.wav"
+          "url": "/games/mp3guesser/2026-07-17/original.wav"
         }
       ]
     },
@@ -111,17 +111,17 @@
         {
           "id": "v0-original",
           "kind": "original",
-          "url": "/games/mp3guesser/2026-07-16/original.wav"
-        },
-        {
-          "id": "v0-encode-2",
-          "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-16/v0-2.mp3"
+          "url": "/games/mp3guesser/2026-07-17/original.wav"
         },
         {
           "id": "v0-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-16/v0-1.mp3"
+          "url": "/games/mp3guesser/2026-07-17/v0-1.mp3"
+        },
+        {
+          "id": "v0-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-17/v0-2.mp3"
         }
       ]
     }
