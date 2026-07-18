@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:mnMu7iY7i7E"
 category: "video-tutorial"
 tags: ["Content Monetization", "YouTube Policies", "Reused Content", "Original Value", "Video Editing", "Creative Process", "Monetization Strategies", "Appealing Strikes", "Content Transformation", "Viewer Engagement"]
-relatedPosts: ["/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/youtube-news-new-ypp-suspensions-for-clickbait-misleading-metadata/", "/youtube-tips-en/youtube-policy-shift-free-speech-wins/"]
+relatedPosts: ["/youtube-tips-en/youtube-news-new-ypp-suspensions-for-clickbait-misleading-metadata/", "/youtube-tips-en/youtube-update-strict-gambling-rules-and-changes-to-monetization-checks/", "/youtube-tips-en/unsatisfying-or-off-putting-content-policy-update-creator-news/"]
 image: "https://i.ytimg.com/vi/mnMu7iY7i7E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=mnMu7iY7i7E"

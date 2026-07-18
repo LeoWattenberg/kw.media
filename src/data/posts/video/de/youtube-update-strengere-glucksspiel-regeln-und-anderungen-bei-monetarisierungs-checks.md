@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:4vqgeulXPO8"
 category: "news-video"
 tags: ["Glücksspielrichtlinien", "YouTube-Richtlinien", "Monetarisierungs-Check", "Shopping for Creators", "Urheberrechtsprüfung", "Warteschlange für Überprüfungen"]
-relatedPosts: ["/youtube-tipps-de/youtube-news-neue-ypp-sperrungen-wegen-klickkoder-irrefuhrende-metadaten/", "/youtube-tipps-de/youtube-politikwechsel-siegt-die-freie-meinungsausserung/", "/youtube-tipps-de/folge-den-richtlinien-und-lass-deinen-kanal-strahlen/"]
+relatedPosts: ["/youtube-tipps-de/richtlinienaktualisierung-unbefriedigende-oder-abstossende-inhalte-creator-news/", "/youtube-tipps-de/youtube-politikwechsel-siegt-die-freie-meinungsausserung/", "/youtube-tipps-de/youtube-news-neue-ypp-sperrungen-wegen-klickkoder-irrefuhrende-metadaten/"]
 image: "https://i.ytimg.com/vi/4vqgeulXPO8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=4vqgeulXPO8"

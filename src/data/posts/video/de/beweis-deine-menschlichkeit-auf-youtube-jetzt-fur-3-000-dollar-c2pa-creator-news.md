@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:j2al3ouHxz4"
 category: "news-video"
 tags: ["Deepfakes", "KI-Betrug", "C2PA-Zertifizierung", "Authentizität auf YouTube", "Kameratechnik", "EU KI-Verordnung", "Rechtliche Fragen zu Deepfakes", "YouTube-Funktionen", "YouTube Stations", "YouTube Direktnachrichten"]
-relatedPosts: ["/youtube-tipps-de/erstellt-youtube-ki-klonen-von-creatorn-youtube-creator-news/", "/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/", "/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/"]
+relatedPosts: ["/youtube-tipps-de/erstellt-youtube-ki-klonen-von-creatorn-youtube-creator-news/", "/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/", "/youtube-tipps-de/richtlinienaktualisierung-unbefriedigende-oder-abstossende-inhalte-creator-news/"]
 image: "https://i.ytimg.com/vi/j2al3ouHxz4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=j2al3ouHxz4"

@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:TRS0NIOahBM"
 category: "news-video"
 tags: ["YouTube Updates", "Twitch-Updates", "KI-Tools", "Automatisierung", "Monetarisierung", "Einnahmen", "Plattform-Optimierung", "Creator-Strategien", "Streaming-Tipps", "Community-Interaktion"]
-relatedPosts: ["/youtube-tipps-de/youtubes-neue-ask-studio-ki-lugt-dich-an-twitch-drama/", "/youtube-tipps-de/twitch-nutzt-ki-um-dich-zu-mikromanagen-creator-news/", "/youtube-tipps-de/erstellt-youtube-ki-klonen-von-creatorn-youtube-creator-news/"]
+relatedPosts: ["/youtube-tipps-de/richtlinienaktualisierung-unbefriedigende-oder-abstossende-inhalte-creator-news/", "/youtube-tipps-de/youtubes-neue-ask-studio-ki-lugt-dich-an-twitch-drama/", "/youtube-tipps-de/twitch-nutzt-ki-um-dich-zu-mikromanagen-creator-news/"]
 image: "https://i.ytimg.com/vi/TRS0NIOahBM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=TRS0NIOahBM"

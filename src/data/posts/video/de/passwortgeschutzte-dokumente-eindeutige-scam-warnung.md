@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:I26HIlgDa64"
 category: "news-video"
 tags: ["YouTube-Sicherheit", "Betrug auf YouTube", "Gefälschte Videos", "Passwortgeschützte Dokumente", "Scam-Warnung", "Creator-Vorsicht", "YouTube-Richtlinienverstöße", "Impersonation", "Plattform-Sicherheit"]
-relatedPosts: ["/youtube-tipps-de/vorsicht-phishing-emails-sind-auf-euren-youtube-kanal-aus/", "/youtube-tipps-de/beweis-deine-menschlichkeit-auf-youtube-jetzt-fur-3-000-dollar-c2pa-creator-news/", "/youtube-tipps-de/die-neue-schutzbestimmung-von-youtube-ist-da-veo-3-update/"]
+relatedPosts: ["/youtube-tipps-de/vorsicht-phishing-emails-sind-auf-euren-youtube-kanal-aus/", "/youtube-tipps-de/beweis-deine-menschlichkeit-auf-youtube-jetzt-fur-3-000-dollar-c2pa-creator-news/", "/youtube-tipps-de/kanal-berechtigungen-auf-youtube-shorts/"]
 image: "https://i.ytimg.com/vi/I26HIlgDa64/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=I26HIlgDa64"

@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:pjUSbdGlmvs"
 category: "news-video"
 tags: ["YouTube-Richtlinien", "Clickbait-Prävention", "Metadaten-Durchsetzung", "YouTube-Partnerprogramm", "Miniaturansichten-Upload", "AI Upscaling", "Video-Auflösung", "Creator-Einstellungen"]
-relatedPosts: ["/youtube-tipps-de/neues-einspruchsrecht-im-youtube-partnerprogramm-und-kanalseiten-uberarbeitungen/", "/youtube-tipps-de/youtube-update-strengere-glucksspiel-regeln-und-anderungen-bei-monetarisierungs-checks/", "/youtube-tipps-de/die-neue-schutzbestimmung-von-youtube-ist-da-veo-3-update/"]
+relatedPosts: ["/youtube-tipps-de/neues-einspruchsrecht-im-youtube-partnerprogramm-und-kanalseiten-uberarbeitungen/", "/youtube-tipps-de/richtlinienaktualisierung-unbefriedigende-oder-abstossende-inhalte-creator-news/", "/youtube-tipps-de/youtube-update-strengere-glucksspiel-regeln-und-anderungen-bei-monetarisierungs-checks/"]
 image: "https://i.ytimg.com/vi/pjUSbdGlmvs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=pjUSbdGlmvs"

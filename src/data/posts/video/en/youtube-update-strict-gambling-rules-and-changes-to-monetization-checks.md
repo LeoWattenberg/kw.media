@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:4vqgeulXPO8"
 category: "news-video"
 tags: ["YouTube Policy Changes", "Gambling Restrictions", "Age Restrictions", "Monetization Check Updates", "Shopping for Creators", "Content Monetization", "Community Guidelines", "Copyright Management", "Ad Suitability Review"]
-relatedPosts: ["/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/youtube-policy-shift-free-speech-wins/", "/youtube-tips-en/reused-content-monetization-disabled-what-now/"]
+relatedPosts: ["/youtube-tips-en/youtube-policy-shift-free-speech-wins/", "/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/unsatisfying-or-off-putting-content-policy-update-creator-news/"]
 image: "https://i.ytimg.com/vi/4vqgeulXPO8/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=4vqgeulXPO8"

@@ -111,8 +111,18 @@ export function cleanupModelForCategory(category) {
 export async function cleanupPostFile(filePath, options = {}) {
 	const post = readPostFile(filePath);
 	const model = options.model ?? cleanupModelForCategory(post.frontmatter.category);
-	const cleanedBody = await cleanupMarkdown(post.body, post.frontmatter, model);
-	assertTextLocale(cleanedBody, post.frontmatter.locale, `Cleaned post ${post.frontmatter.path}`);
+	let cleanedBody = await cleanupMarkdown(post.body, post.frontmatter, model);
+	let cleanupSkipped = false;
+
+	try {
+		assertTextLocale(cleanedBody, post.frontmatter.locale, `Cleaned post ${post.frontmatter.path}`);
+	} catch (error) {
+		assertTextLocale(post.body, post.frontmatter.locale, `Original post ${post.frontmatter.path}`);
+		console.warn(`${error.message} Keeping the original text instead.`);
+		cleanedBody = post.body;
+		cleanupSkipped = true;
+	}
+
 	const frontmatter = {
 		...post.frontmatter,
 		excerpt: excerptFromBody(cleanedBody, post.frontmatter.locale),
@@ -124,6 +134,7 @@ export async function cleanupPostFile(filePath, options = {}) {
 		filePath,
 		model,
 		category: post.frontmatter.category,
+		cleanupSkipped,
 	};
 }
 
