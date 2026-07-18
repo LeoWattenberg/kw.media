@@ -3,6 +3,13 @@ on:
   schedule:
     # Set the schedule time
     - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      lastmod_required:
+        description: 'Require a <lastmod> value for submitted URLs'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   check-and-submit:
@@ -13,3 +20,4 @@ jobs:
         with:
           sitemap-location: 'https://kw.media/sitemap-index.xml'
           key: ${{ secrets.INDEXNOW_KEY }}
+          lastmod-required: ${{ github.event_name == 'workflow_dispatch' && inputs.lastmod_required == false && 'false' || 'true' }}
