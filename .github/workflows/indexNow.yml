@@ -20,4 +20,5 @@ jobs:
         with:
           sitemap-location: 'https://kw.media/sitemap-index.xml'
           key: ${{ secrets.INDEXNOW_KEY }}
+          limit: 10000
           lastmod-required: ${{ github.event_name == 'workflow_dispatch' && inputs.lastmod_required == false && 'false' || 'true' }}
