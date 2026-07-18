@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:DSZHozupVlk"
 category: "news-video"
 tags: ["YouTube SEO", "AI-Driven Content", "Gemini Omni", "Deepfakes", "Twitch Monetization", "Small Streamer Challenges", "Content Repurposing", "Platform Priorities", "Creator Rights", "Ad-Free Subscriptions"]
-relatedPosts: ["/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/", "/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/content-not-available-youtubes-ad-block-ramp-up-and-twitch-business-manager-role/"]
+relatedPosts: ["/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/", "/youtube-tips-en/content-not-available-youtubes-ad-block-ramp-up-and-twitch-business-manager-role/", "/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/"]
 image: "https://i.ytimg.com/vi/DSZHozupVlk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=DSZHozupVlk"

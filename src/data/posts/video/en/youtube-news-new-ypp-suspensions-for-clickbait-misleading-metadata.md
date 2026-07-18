@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:pjUSbdGlmvs"
 category: "news-video"
 tags: ["YouTube Policy Changes", "Misleading Metadata", "Clickbait Titles", "YouTube Partner Program Suspensions", "Thumbnail Upload Size Increase", "AI Upscaling", "Super Resolution", "Opt-Out Features", "Content Creator Autonomy"]
-relatedPosts: ["/youtube-tips-en/reused-content-monetization-disabled-what-now/", "/youtube-tips-en/new-objection-right-in-the-youtube-partner-program-and-channel-page-overhauls/", "/youtube-tips-en/youtubes-new-strike-protection-is-here-veo-3-update/"]
+relatedPosts: ["/youtube-tips-en/new-objection-right-in-the-youtube-partner-program-and-channel-page-overhauls/", "/youtube-tips-en/reused-content-monetization-disabled-what-now/", "/youtube-tips-en/unsatisfying-or-off-putting-content-policy-update-creator-news/"]
 image: "https://i.ytimg.com/vi/pjUSbdGlmvs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=pjUSbdGlmvs"

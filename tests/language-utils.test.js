@@ -15,6 +15,15 @@ test('detectTextLocale identifies an English transcript', () => {
 	assert.equal(detectTextLocale(transcript), 'en');
 });
 
+test('detectTextLocale identifies creator-news copy with product names as English', () => {
+	const transcript = `YouTube has updated their monetization policies to further crack down on lazy generative AI.
+	If you use AI to stitch together unrelated clips to surprise viewers, you will be kicked out of the partner program.
+	YouTube Studio is also testing a redesigned analytics tab with new insights for creators.`;
+
+	assert.equal(detectTextLocale(transcript), 'en');
+	assert.equal(languageScores(transcript).de, 0);
+});
+
 test('detectTextLocale leaves short or ambiguous copy undecided', () => {
 	assert.equal(detectTextLocale('YouTube Creator Music'), undefined);
 });

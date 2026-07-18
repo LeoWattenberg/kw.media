@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:kTWDA2-4MKI"
 category: "news-video"
 tags: ["YouTube-Monetarisierung", "Inhaltsrichtlinien", "Werbefreundliche Themen", "Sensiblere Inhalte", "Reproduktive Rechte", "KI-Update", "Text-zu-Video-Funktion", "Zielgerichtete Werbung", "Interessengruppen-Zielsetzung"]
-relatedPosts: ["/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/", "/youtube-tipps-de/youtube-update-strengere-glucksspiel-regeln-und-anderungen-bei-monetarisierungs-checks/", "/youtube-tipps-de/neue-audioeinstellungen-vpn-umsatzwarnung-youtube-creator-news/"]
+relatedPosts: ["/youtube-tipps-de/richtlinienaktualisierung-unbefriedigende-oder-abstossende-inhalte-creator-news/", "/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/", "/youtube-tipps-de/youtube-update-strengere-glucksspiel-regeln-und-anderungen-bei-monetarisierungs-checks/"]
 image: "https://i.ytimg.com/vi/kTWDA2-4MKI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=kTWDA2-4MKI"

@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:j2al3ouHxz4"
 category: "news-video"
 tags: ["YouTube Scams", "Deepfakes", "AI Detection", "C2PA Certification", "Content Authenticity", "Creator Security", "Legal Requirements", "EU AI Act", "YouTube Features", "Platform Updates"]
-relatedPosts: ["/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/", "/youtube-tips-en/youtube-kills-seo-and-twitchs-fake-monetization-creator-news/"]
+relatedPosts: ["/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/", "/youtube-tips-en/unsatisfying-or-off-putting-content-policy-update-creator-news/"]
 image: "https://i.ytimg.com/vi/j2al3ouHxz4/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=j2al3ouHxz4"

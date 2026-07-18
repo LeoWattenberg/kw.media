@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:TRS0NIOahBM"
 category: "news-video"
 tags: ["Platform Policies", "YouTube Premium", "AI Tools", "Creator Revenue", "Price Increases", "Twitch AI", "Stream Optimization", "Creator Responsibilities", "Automation Risks", "Platform Control"]
-relatedPosts: ["/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/", "/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/"]
+relatedPosts: ["/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/unsatisfying-or-off-putting-content-policy-update-creator-news/", "/youtube-tips-en/youtube-creates-ai-clones-of-creators-youtube-creator-news/"]
 image: "https://i.ytimg.com/vi/TRS0NIOahBM/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=TRS0NIOahBM"

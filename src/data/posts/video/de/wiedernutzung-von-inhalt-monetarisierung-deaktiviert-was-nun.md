@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:mnMu7iY7i7E"
 category: "video-tutorial"
 tags: ["Monetarisierung auf YouTube", "Wiederverwendeter Inhalt", "Creator-Richtlinien", "Video-Optimierung", "Originalität", "Inhaltsstrategie", "Einspruchsmöglichkeit", "Kanalmanagement", "YouTube-Richtlinienverstöße", "Video-Produktion"]
-relatedPosts: ["/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/", "/youtube-tipps-de/youtube-politikwechsel-siegt-die-freie-meinungsausserung/", "/youtube-tipps-de/verliere-ich-die-youtube-monetarisierung-wenn-ich-eine-pause-einlege/"]
+relatedPosts: ["/youtube-tipps-de/richtlinienaktualisierung-unbefriedigende-oder-abstossende-inhalte-creator-news/", "/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/", "/youtube-tipps-de/verliere-ich-die-youtube-monetarisierung-wenn-ich-eine-pause-einlege/"]
 image: "https://i.ytimg.com/vi/mnMu7iY7i7E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=mnMu7iY7i7E"
