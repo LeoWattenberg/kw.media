@@ -50,6 +50,7 @@ const copyByLocale = {
 			noFile: 'Wähle zuerst eine Bilddatei.',
 			noFrames: 'ImageMagick konnte kein Bild in dieser Datei finden.',
 			noSeed: 'Klicke zuerst auf das Bild, um die Hintergrund-Stelle zu wählen.',
+			selectBackgroundInstruction: 'Klicke, um den Bildhintergrund auszuwählen',
 			previewUnavailable: 'Für dieses Format ist keine Browser-Vorschau verfügbar. Der Download ist trotzdem bereit.',
 			seedInstruction: 'Klicke auf das Bild, wo der Hintergrund ist. Er wird ab dieser Stelle sofort entfernt.',
 			seeded: 'Farbe {color} übernommen.',
@@ -91,6 +92,7 @@ const copyByLocale = {
 			noFile: 'Choose an image file first.',
 			noFrames: 'ImageMagick could not find an image in this file.',
 			noSeed: 'Click the image first to pick the background spot.',
+			selectBackgroundInstruction: 'click to select image background',
 			previewUnavailable: 'This format cannot be previewed by the browser. The download is ready.',
 			seedInstruction: 'Click the image where the background is. It is removed from that spot right away.',
 			seeded: 'Picked {color}.',
@@ -171,6 +173,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 						<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
 					</div>
 					<ToolStatus class="remover-status" data-status role="status" text={copy.client.waiting} />
+					<p class="remover-instruction">{copy.client.selectBackgroundInstruction}</p>
 				</ToolPanel>
 			</div>
 		</div>
