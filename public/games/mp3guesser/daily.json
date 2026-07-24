@@ -1,17 +1,17 @@
 {
   "version": 1,
-  "date": "2026-07-23",
-  "generatedAt": "2026-07-23T05:36:42.749Z",
-  "duration": 20.304667,
+  "date": "2026-07-24",
+  "generatedAt": "2026-07-24T05:30:02.087Z",
+  "duration": 30,
   "source": {
-    "provider": "Internet Archive",
-    "title": "yilbasi",
-    "creator": "",
-    "license": "",
+    "provider": "Wikimedia Commons",
+    "title": "23 - Die Nebensonnen (BL 4401-1, ER 276)",
+    "creator": "Schubert, 1827",
+    "license": "Public domain",
     "licenseUrl": "",
-    "sourceUrl": "https://archive.org/details/yilbasi",
-    "downloadUrl": "https://archive.org/details/yilbasi",
-    "duration": 20.304667,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3A23_-_Die_Nebensonnen_(BL_4401-1%2C_ER_276).flac",
+    "downloadUrl": "https://commons.wikimedia.org/wiki/File:23_-_Die_Nebensonnen_(BL_4401-1,_ER_276).flac",
+    "duration": 177.946122,
     "format": "FLAC"
   },
   "levels": [
@@ -21,19 +21,19 @@
       "lameQuality": 9,
       "options": [
         {
+          "id": "v9-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-24/original.wav"
+        },
+        {
           "id": "v9-encode-2",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-23/v9-2.mp3"
+          "url": "/games/mp3guesser/2026-07-24/v9-2.mp3"
         },
         {
           "id": "v9-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-23/v9-1.mp3"
-        },
-        {
-          "id": "v9-original",
-          "kind": "original",
-          "url": "/games/mp3guesser/2026-07-23/original.wav"
+          "url": "/games/mp3guesser/2026-07-24/v9-1.mp3"
         }
       ]
     },
@@ -45,17 +45,17 @@
         {
           "id": "v7-original",
           "kind": "original",
-          "url": "/games/mp3guesser/2026-07-23/original.wav"
+          "url": "/games/mp3guesser/2026-07-24/original.wav"
         },
         {
           "id": "v7-encode-2",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-23/v7-2.mp3"
+          "url": "/games/mp3guesser/2026-07-24/v7-2.mp3"
         },
         {
           "id": "v7-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-23/v7-1.mp3"
+          "url": "/games/mp3guesser/2026-07-24/v7-1.mp3"
         }
       ]
     },
@@ -67,17 +67,17 @@
         {
           "id": "v5-original",
           "kind": "original",
-          "url": "/games/mp3guesser/2026-07-23/original.wav"
-        },
-        {
-          "id": "v5-encode-2",
-          "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-23/v5-2.mp3"
+          "url": "/games/mp3guesser/2026-07-24/original.wav"
         },
         {
           "id": "v5-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-23/v5-1.mp3"
+          "url": "/games/mp3guesser/2026-07-24/v5-1.mp3"
+        },
+        {
+          "id": "v5-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-24/v5-2.mp3"
         }
       ]
     },
@@ -89,17 +89,17 @@
         {
           "id": "v3-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-23/v3-1.mp3"
-        },
-        {
-          "id": "v3-original",
-          "kind": "original",
-          "url": "/games/mp3guesser/2026-07-23/original.wav"
+          "url": "/games/mp3guesser/2026-07-24/v3-1.mp3"
         },
         {
           "id": "v3-encode-2",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-23/v3-2.mp3"
+          "url": "/games/mp3guesser/2026-07-24/v3-2.mp3"
+        },
+        {
+          "id": "v3-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-24/original.wav"
         }
       ]
     },
@@ -109,19 +109,19 @@
       "lameQuality": 0,
       "options": [
         {
+          "id": "v0-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-24/original.wav"
+        },
+        {
           "id": "v0-encode-2",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-23/v0-2.mp3"
+          "url": "/games/mp3guesser/2026-07-24/v0-2.mp3"
         },
         {
           "id": "v0-encode-1",
           "kind": "encode",
-          "url": "/games/mp3guesser/2026-07-23/v0-1.mp3"
-        },
-        {
-          "id": "v0-original",
-          "kind": "original",
-          "url": "/games/mp3guesser/2026-07-23/original.wav"
+          "url": "/games/mp3guesser/2026-07-24/v0-1.mp3"
         }
       ]
     }

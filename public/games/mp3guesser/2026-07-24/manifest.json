@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "date": "2026-07-24",
+  "generatedAt": "2026-07-24T05:30:02.087Z",
+  "duration": 30,
+  "source": {
+    "provider": "Wikimedia Commons",
+    "title": "23 - Die Nebensonnen (BL 4401-1, ER 276)",
+    "creator": "Schubert, 1827",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File%3A23_-_Die_Nebensonnen_(BL_4401-1%2C_ER_276).flac",
+    "downloadUrl": "https://commons.wikimedia.org/wiki/File:23_-_Die_Nebensonnen_(BL_4401-1,_ER_276).flac",
+    "duration": 177.946122,
+    "format": "FLAC"
+  },
+  "levels": [
+    {
+      "id": "v9",
+      "label": "LAME V9 VBR (~65 kbps)",
+      "lameQuality": 9,
+      "options": [
+        {
+          "id": "v9-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-24/original.wav"
+        },
+        {
+          "id": "v9-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-24/v9-2.mp3"
+        },
+        {
+          "id": "v9-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-24/v9-1.mp3"
+        }
+      ]
+    },
+    {
+      "id": "v7",
+      "label": "LAME V7 VBR (~100 kbps)",
+      "lameQuality": 7,
+      "options": [
+        {
+          "id": "v7-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-24/original.wav"
+        },
+        {
+          "id": "v7-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-24/v7-2.mp3"
+        },
+        {
+          "id": "v7-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-24/v7-1.mp3"
+        }
+      ]
+    },
+    {
+      "id": "v5",
+      "label": "LAME V5 VBR (~130 kbps)",
+      "lameQuality": 5,
+      "options": [
+        {
+          "id": "v5-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-24/original.wav"
+        },
+        {
+          "id": "v5-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-24/v5-1.mp3"
+        },
+        {
+          "id": "v5-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-24/v5-2.mp3"
+        }
+      ]
+    },
+    {
+      "id": "v3",
+      "label": "LAME V3 VBR (~175 kbps)",
+      "lameQuality": 3,
+      "options": [
+        {
+          "id": "v3-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-24/v3-1.mp3"
+        },
+        {
+          "id": "v3-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-24/v3-2.mp3"
+        },
+        {
+          "id": "v3-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-24/original.wav"
+        }
+      ]
+    },
+    {
+      "id": "v0",
+      "label": "LAME V0 VBR (~245 kbps)",
+      "lameQuality": 0,
+      "options": [
+        {
+          "id": "v0-original",
+          "kind": "original",
+          "url": "/games/mp3guesser/2026-07-24/original.wav"
+        },
+        {
+          "id": "v0-encode-2",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-24/v0-2.mp3"
+        },
+        {
+          "id": "v0-encode-1",
+          "kind": "encode",
+          "url": "/games/mp3guesser/2026-07-24/v0-1.mp3"
+        }
+      ]
+    }
+  ]
+}
