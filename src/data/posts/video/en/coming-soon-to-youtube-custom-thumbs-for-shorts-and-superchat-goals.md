@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:E8hipk1TNNc"
 category: "news-video"
 tags: ["YouTube Platform Updates", "YouTube Shorts Features", "Thumbnail Customization", "Super Chat Enhancements", "Creator-Tools", "Mobile Optimization", "Desktop Features", "Animation in Chat", "Goal Setting", "YouTube Community Engagement"]
-relatedPosts: ["/youtube-tips-en/editable-thumbnails-for-shorts/", "/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/youtube-updates-end-of-year-sprint-with-mla-and-superchat-goals/"]
+relatedPosts: ["/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/editable-thumbnails-for-shorts/", "/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/"]
 image: "https://i.ytimg.com/vi/E8hipk1TNNc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=E8hipk1TNNc"

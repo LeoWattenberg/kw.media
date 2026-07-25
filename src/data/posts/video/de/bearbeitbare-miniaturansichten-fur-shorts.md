@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:ncaW0WL9X9E"
 category: "short-tutorial"
 tags: ["Shorts Thumbnails bearbeiten", "YouTube App-Updates", "Miniaturansichten erstellen", "Videobearbeitung", "YouTube-Tipps", "Mobile Produktion", "Neue Funktionen", "YouTube Updates"]
-relatedPosts: ["/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/", "/youtube-tipps-de/shorts-erstellen-auf-youtube-youtube-tutorial-shorts/", "/youtube-tipps-de/wie-man-seine-miniaturansichten-auf-youtube-nicht-vermasselt-ein-tutorial/"]
+relatedPosts: ["/youtube-tipps-de/bald-auf-youtube-anpassbare-thumbnails-fur-shorts-und-superchat-goals/", "/youtube-tipps-de/miniaturansichten-fur-shorts-auf-dem-desktop-und-twitch-startet-neuen-scroll-feed-creator-news/", "/youtube-tipps-de/wie-man-seine-miniaturansichten-auf-youtube-nicht-vermasselt-ein-tutorial/"]
 image: "https://i.ytimg.com/vi/ncaW0WL9X9E/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/ncaW0WL9X9E"
