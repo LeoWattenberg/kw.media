@@ -2,6 +2,79 @@
 
 Astro site for kw.media pages and post content.
 
+## Installation
+
+Linux (including WSL on Windows) is recommended, although native Windows also works.
+
+### First-time setup
+
+1. Install [Git](https://git-scm.com/downloads) and [Node.js with npm](https://nodejs.org/), and make sure both `git` and `npm` are available on your `PATH`.
+2. Open a terminal in the directory where you keep your Git projects, then clone and install the project:
+
+   ```sh
+   git clone https://github.com/LeoWattenberg/kw.media.git
+   cd kw.media
+   npm install
+   ```
+
+3. Install [Ollama](https://ollama.com/download). If the site runs in WSL while Ollama runs on Windows, configure Ollama to listen on the network, for example by setting `OLLAMA_HOST=0.0.0.0:11434`, and restart Ollama. Only expose this port on a trusted network and restrict it with your firewall.
+4. Verify the Ollama address from the environment where you will run the npm commands. WSL may need the Windows host IP instead. The following request should return Ollama's version information:
+
+   ```sh
+   curl http://127.0.0.1:11434/api/version
+   ```
+
+5. Install the Ollama models configured in [AI Cleanup And Translation](#ai-cleanup-and-translation). At minimum, the default configuration currently needs:
+
+   ```sh
+   ollama pull aya-expanse:32b
+   ollama pull aya-expanse:8b
+   ollama pull gemma4:31b
+   ```
+
+6. Import the latest YouTube content:
+
+   ```sh
+   npm run import:youtube
+   ```
+
+   If Ollama runs at a different address, pass the complete URL to the importer and the other AI-assisted commands:
+
+   ```sh
+   OLLAMA_URL=http://192.168.1.100:11434 npm run import:youtube
+   ```
+
+   In native Windows PowerShell, set the variable for the current terminal session first:
+
+   ```powershell
+   $env:OLLAMA_URL = "http://192.168.1.100:11434"
+   npm run import:youtube
+   ```
+
+7. Review the generated changes, then stage, commit, and push them. Pushing to the configured branch triggers the site's deployment workflow:
+
+   ```sh
+   git status
+   git diff
+   git add .
+   git commit -m "Add new posts"
+   git push
+   ```
+
+### Later updates
+
+The installation steps only need to be completed once. For later imports, update your local checkout before running the importer:
+
+```sh
+git pull
+npm run import:youtube
+git status
+git diff
+git add .
+git commit -m "Add new posts"
+git push
+```
+
 ## Commands
 
 Run commands from the project root:
