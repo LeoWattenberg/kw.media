@@ -37,7 +37,7 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^7.0.7",
+    "astro": "^7.1.4",
     "jspdf": "^4.2.1",
     "pandoc-wasm": "^1.1.0",
     "sql.js": "1.14.1"
@@ -46,5 +46,9 @@
     "@axe-core/playwright": "4.12.1",
     "@playwright/test": "^1.61.1",
     "postcss": "8.5.19"
+  },
+  "allowScripts": {
+    "core-js@3.49.0": true,
+    "esbuild@0.28.1": true
   }
 }
