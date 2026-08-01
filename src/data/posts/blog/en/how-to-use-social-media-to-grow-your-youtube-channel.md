@@ -9,7 +9,7 @@ modified: "2023-03-17T12:57:29"
 locale: "en"
 category: "blog"
 tags: ["Social Media Marketing", "YouTube Channel Growth", "Content Promotion Strategies", "Community-Engagement", "Reddit/Discord/Facebook Promotion", "Audience Targeting", "Content Repurposing", "Video Sharing", "Online Collaboration"]
-relatedPosts: ["/youtube-tips-en/expand-your-reach-stay-in-touch-with-your-community/", "/youtube-tips-en/trending-tags-are-hashtags-still-relevant/", "/youtube-tips-en/youtube-promotions-tab-is-it-really-worth-it/"]
+relatedPosts: ["/youtube-tips-en/expand-your-reach-stay-in-touch-with-your-community/", "/youtube-tips-en/how-to-actually-collaborate-on-youtube/", "/youtube-tips-en/youtube-promotions-tab-is-it-really-worth-it/"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/youtube-tips-en/how-to-use-social-media-to-grow-your-youtube-channel/"
