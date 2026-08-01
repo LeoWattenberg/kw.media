@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:5Wev7kFqnZg"
 category: "short-tutorial"
 tags: ["Zusammenarbeit auf YouTube", "Creator-Kooperation", "Kanalwachstum", "Zuschauerbindung", "Community-Aufbau", "Konkurrenzdenken vermeiden", "Gemeinsame Zielgruppenansprache"]
-relatedPosts: ["/youtube-tipps-de/wie-man-die-neue-kollaborationsfunktion-von-youtube-nutzt-in-30-sek/", "/youtube-tipps-de/erweitere-deine-reichweite-bleib-mit-deiner-community-in-kontakt/", "/youtube-tipps-de/folge-den-richtlinien-und-lass-deinen-kanal-strahlen/"]
+relatedPosts: ["/youtube-tipps-de/wie-man-tatsachlich-auf-youtube-zusammenarbeitet/", "/youtube-tipps-de/wie-man-die-neue-kollaborationsfunktion-von-youtube-nutzt-in-30-sek/", "/youtube-tipps-de/folge-den-richtlinien-und-lass-deinen-kanal-strahlen/"]
 image: "https://i.ytimg.com/vi/5Wev7kFqnZg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5Wev7kFqnZg"

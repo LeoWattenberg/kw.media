@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:5Wev7kFqnZg"
 category: "short-tutorial"
 tags: ["Collaboration Strategies", "YouTube Channel Growth", "Audience Reach", "Content Promotion", "Creator Agreements", "Online Collaboration", "Platform Dynamics", "Competitor Analysis", "Growth Hacking"]
-relatedPosts: ["/youtube-tips-en/how-to-use-youtubes-new-collabs-feature-in-30s/", "/youtube-tips-en/twitch-is-banning-irl-streamers-and-why-99-of-youtube-collabs-are-a-waste-of-time-creator-news/", "/youtube-tips-en/be-a-youtuber-not-a-newtuber-make-great-content/"]
+relatedPosts: ["/youtube-tips-en/how-to-actually-collaborate-on-youtube/", "/youtube-tips-en/how-to-use-youtubes-new-collabs-feature-in-30s/", "/youtube-tips-en/twitch-is-banning-irl-streamers-and-why-99-of-youtube-collabs-are-a-waste-of-time-creator-news/"]
 image: "https://i.ytimg.com/vi/5Wev7kFqnZg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5Wev7kFqnZg"

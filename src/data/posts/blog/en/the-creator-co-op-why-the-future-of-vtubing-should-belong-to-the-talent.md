@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "post:2389"
 category: "blog"
 tags: ["VTubing", "Creator-Owned Cooperation", "Agency Models", "Content Creator Autonomy", "Cooperative Business Model", "SCE (Societas Cooperativa Europaea)", "Platform Dynamics", "Talent Management", "Legal Structures", "Creative Industry Trends"]
-relatedPosts: ["/youtube-tips-en/stop-treating-other-youtubers-as-enemies/", "/youtube-tips-en/youtube-kills-seo-and-twitchs-fake-monetization-creator-news/", "/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/"]
+relatedPosts: ["/youtube-tips-en/how-to-actually-collaborate-on-youtube/", "/youtube-tips-en/stop-treating-other-youtubers-as-enemies/", "/youtube-tips-en/twitch-is-using-ai-to-micromanage-you-creator-news/"]
 image: "/assets/wp-content/uploads/2021/04/yt-banner.png"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/blog/the-creator-co-op-why-the-future-of-vtubing-should-belong-to-the-talent/"

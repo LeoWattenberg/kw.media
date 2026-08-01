@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:A95WfCKuuYo"
 category: "short-tutorial"
 tags: ["Sponsorships", "Preisgestaltung für Creator", "Produktionskosten", "Reichweitenanalyse", "Steuern und Abrechnung"]
-relatedPosts: ["/youtube-tipps-de/lass-uns-uber-geld-und-sponsorships-reden/", "/youtube-tipps-de/7-wege-wie-creator-geld-verdienen-jenseits-von-youtube-anzeigen/", "/youtube-tipps-de/youtube-promotions-tab-lohnt-sich-das-wirklich/"]
+relatedPosts: ["/youtube-tipps-de/lass-uns-uber-geld-und-sponsorships-reden/", "/youtube-tipps-de/7-wege-wie-creator-geld-verdienen-jenseits-von-youtube-anzeigen/", "/youtube-tipps-de/darum-verdienst-du-mehr-auf-youtube-als-auf-twitch-einnahmen-vergleich/"]
 image: "https://i.ytimg.com/vi/A95WfCKuuYo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/A95WfCKuuYo"
