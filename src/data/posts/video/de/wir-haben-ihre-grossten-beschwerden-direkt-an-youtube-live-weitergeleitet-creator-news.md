@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:K5t4DGO_J2I"
 category: "news-video"
 tags: ["YouTube Live", "TikTok Live", "Twitch", "Streaming-Plattformen", "Monetarisierung", "Bildkarussells", "Shorts Feed", "Engagement-Strategien", "Creator-Tools", "Plattform-Updates"]
-relatedPosts: ["/youtube-tipps-de/youtube-updates-anderungen-bei-der-regel-zu-schimpfwortern-neben-an-neben-anzeigen-und-live-stream-community-bestenliste/", "/youtube-tipps-de/neu-bei-youtube-analytics-impressionen-fur-neue-und-wiederkehrende-zuschauer/", "/youtube-tipps-de/youtube-hat-den-dislike-button-wieder-einmal-abgeschafft-creator-news/"]
+relatedPosts: ["/youtube-tipps-de/stop-multiformat-streaming-bis-dies-behoben-ist-creator-news/", "/youtube-tipps-de/youtube-updates-anderungen-bei-der-regel-zu-schimpfwortern-neben-an-neben-anzeigen-und-live-stream-community-bestenliste/", "/youtube-tipps-de/neu-bei-youtube-analytics-impressionen-fur-neue-und-wiederkehrende-zuschauer/"]
 image: "https://i.ytimg.com/vi/K5t4DGO_J2I/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=K5t4DGO_J2I"

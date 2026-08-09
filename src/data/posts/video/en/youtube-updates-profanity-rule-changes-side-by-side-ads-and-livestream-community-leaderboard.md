@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:9SP8lXBW-wk"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Live Stream Ads", "Ad Placement", "Community Leaderboards", "Profanity Policy Changes", "Monetization Policies", "YouTube Premium Features", "Audience Engagement Metrics"]
-relatedPosts: ["/youtube-tips-en/youtube-updates-new-av1-codec-support-voice-replies-expansion-and-side-by-side-ads-rollout/", "/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/youtube-faq-multi-aspect-streams-fan-communities-on-desktop-and-veo-3-ai/"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-new-av1-codec-support-voice-replies-expansion-and-side-by-side-ads-rollout/", "/youtube-tips-en/youtube-faq-multi-aspect-streams-fan-communities-on-desktop-and-veo-3-ai/", "/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/"]
 image: "https://i.ytimg.com/vi/9SP8lXBW-wk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=9SP8lXBW-wk"

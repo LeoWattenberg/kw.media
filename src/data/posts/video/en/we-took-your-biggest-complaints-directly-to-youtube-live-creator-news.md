@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:K5t4DGO_J2I"
 category: "news-video"
 tags: ["YouTube Live", "Twitch", "TikTok Live", "Image Carousels", "Shorts-Updates", "Streaming Platforms", "Creator Economy", "Platform Enhancements", "Monetization Tools", "Vertical Videos"]
-relatedPosts: ["/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/update-for-youtube-streamers-scheduled-streams-now-linked-in-all-shorts/", "/youtube-tips-en/youtube-updates-leaderboards-shorts-visual-guides-and-shorts-quiz-stickers/"]
+relatedPosts: ["/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/update-for-youtube-streamers-scheduled-streams-now-linked-in-all-shorts/", "/youtube-tips-en/youtube-hype-livestream-and-superchat-updates/"]
 image: "https://i.ytimg.com/vi/K5t4DGO_J2I/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=K5t4DGO_J2I"
