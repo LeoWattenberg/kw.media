@@ -1,0 +1,439 @@
+---
+import type { Locale } from '../../i18n';
+import SelectControl from './shared/SelectControl.astro';
+import ToggleControl from './shared/ToggleControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+import { withBase } from '../../lib/url';
+import { COMMIT_GRAPH_DAYS, COMMIT_GRAPH_REPO, COMMIT_GRAPH_SNAPSHOT_PATH } from '../../lib/tools/commit-graph.js';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Commit-Rhythmus', title: 'Soundscaper Commit-Graph',
+		intro: `Zeigt, zu welcher Stunde die Commits der letzten ${COMMIT_GRAPH_DAYS} Tage in ${COMMIT_GRAPH_REPO} entstanden sind.`,
+		privacy: 'Die Seite liefert einen Snapshot mit, den ein GitHub-Actions-Job regelmäßig neu erzeugt. Erst beim Neuladen fragt dein Browser die öffentliche GitHub-API selbst an: ohne Token sind das 60 Anfragen pro Stunde, ein voller Ladevorgang kostet eine Anfrage pro 100 Commits.',
+		settings: 'Ansicht', repoLabel: 'Repository', windowLabel: 'Zeitraum', windowValue: `Letzte ${COMMIT_GRAPH_DAYS} Tage`,
+		timezone: 'Zeitzone', timezoneCommit: 'Commit-Zeit (wie gespeichert)', timezoneViewer: 'Deine Zeitzone',
+		merges: 'Merge-Commits einbeziehen', reload: 'Neu von GitHub laden',
+		tokenSummary: 'Rate-Limit erreicht?',
+		tokenHint: 'Ein GitHub-Token mit Lesezugriff hebt das Limit von 60 auf 5.000 Anfragen pro Stunde. Es bleibt in diesem Tab und geht ausschließlich an api.github.com.',
+		tokenLabel: 'GitHub-Token (optional)', tokenApply: 'Token übernehmen', tokenSaved: 'Token gilt für diesen Tab.',
+		summaryTitle: 'Überblick', statTotal: 'Commits', statActiveDays: 'Aktive Tage', statBusiestHour: 'Stärkste Stunde', statBusiestDay: 'Stärkster Tag',
+		statPerDay: '{value} pro Tag im Schnitt', statOfDays: 'von {days} Tagen',
+		hoursTitle: 'Commits pro Tagesstunde', hoursCaption: '{total} aus den letzten {days} Tagen, nach Stunde gebündelt.',
+		heatTitle: 'Tag mal Stunde', heatCaption: 'Eine Zeile pro Tag, der neueste unten.',
+		legendLess: 'weniger', legendMore: 'mehr',
+		tableToggle: 'Als Tabelle anzeigen', tableHour: 'Stunde', tableCommits: 'Commits', tableShare: 'Anteil',
+		loading: 'Commits werden von GitHub geladen…', loadingPages: 'Seite {loaded} von {total} — bisher {commits} Commits…',
+		loaded: '{total} über {requests} live von GitHub geladen.', cached: '{total} aus dem Cache dieses Tabs.',
+		snapshot: '{total} aus dem Snapshot der Seite ({age} alt). Für Live-Daten neu laden.',
+		snapshotPlain: '{total} aus dem Snapshot der Seite. Für Live-Daten neu laden.',
+		requestOne: '1 Anfrage', requestMany: '{count} Anfragen',
+		empty: 'Keine Commits in den letzten {days} Tagen.',
+		truncated: 'Nach {pages} Seiten gestoppt, ältere Commits im Zeitraum fehlen.',
+		rateLimited: 'GitHub-Rate-Limit erreicht. In {minutes} Minuten erneut versuchen oder unten ein Token hinterlegen.',
+		error: 'Commits konnten nicht geladen werden: {message}', generic: 'Unbekannter Fehler',
+		countOne: '1 Commit', countMany: '{count} Commits',
+		barTitle: '{range}: {count} ({share} %)', cellTitle: '{day}, {range}: {count}',
+		hoursAria: 'Balkendiagramm der Commits pro Tagesstunde. Spitze um {range} mit {count}.',
+		heatAria: 'Heatmap der Commits pro Tag und Stunde der letzten {days} Tage.',
+	},
+	en: {
+		eyebrow: 'Commit rhythm', title: 'Soundscaper Commit Graph',
+		intro: `See what hour the last ${COMMIT_GRAPH_DAYS} days of commits to ${COMMIT_GRAPH_REPO} were actually made.`,
+		privacy: 'The page ships a snapshot that a GitHub Actions job regenerates on a schedule. Only a reload asks the public GitHub API from your browser: anonymous access allows 60 requests per hour, and one full load costs one request per 100 commits.',
+		settings: 'View', repoLabel: 'Repository', windowLabel: 'Window', windowValue: `Last ${COMMIT_GRAPH_DAYS} days`,
+		timezone: 'Time zone', timezoneCommit: 'Commit time (as recorded)', timezoneViewer: 'Your time zone',
+		merges: 'Include merge commits', reload: 'Reload from GitHub',
+		tokenSummary: 'Hit the rate limit?',
+		tokenHint: 'A read-only GitHub token raises the limit from 60 to 5,000 requests per hour. It stays in this tab and is sent to api.github.com only.',
+		tokenLabel: 'GitHub token (optional)', tokenApply: 'Apply token', tokenSaved: 'Token applied for this tab.',
+		summaryTitle: 'Summary', statTotal: 'Commits', statActiveDays: 'Active days', statBusiestHour: 'Busiest hour', statBusiestDay: 'Busiest day',
+		statPerDay: '{value} per day on average', statOfDays: 'of {days} days',
+		hoursTitle: 'Commits per hour of day', hoursCaption: '{total} from the last {days} days, bucketed by hour.',
+		heatTitle: 'Day by hour', heatCaption: 'One row per day, newest at the bottom.',
+		legendLess: 'less', legendMore: 'more',
+		tableToggle: 'Show as table', tableHour: 'Hour', tableCommits: 'Commits', tableShare: 'Share',
+		loading: 'Loading commits from GitHub…', loadingPages: 'Page {loaded} of {total} — {commits} commits so far…',
+		loaded: '{total} loaded live from GitHub across {requests}.', cached: '{total} loaded from this tab’s cache.',
+		snapshot: '{total} from the site snapshot ({age} old). Reload for live data.',
+		snapshotPlain: '{total} from the site snapshot. Reload for live data.',
+		requestOne: '1 request', requestMany: '{count} requests',
+		empty: 'No commits in the last {days} days.',
+		truncated: 'Stopped after {pages} pages, so older commits in the window are missing.',
+		rateLimited: 'GitHub rate limit reached. Try again in {minutes} minutes, or add a token below.',
+		error: 'Could not load commits: {message}', generic: 'Unknown error',
+		countOne: '1 commit', countMany: '{count} commits',
+		barTitle: '{range}: {count} ({share}%)', cellTitle: '{day}, {range}: {count}',
+		hoursAria: 'Bar chart of commits per hour of day. Peak at {range} with {count}.',
+		heatAria: 'Heatmap of commits per day and hour over the last {days} days.',
+	},
+}[locale];
+const copyJson = JSON.stringify(copy);
+const repoUrl = `https://github.com/${COMMIT_GRAPH_REPO}`;
+const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+<section class="section commit-graph-section tool-workspace">
+	<div class="container">
+		<div class="commit-graph" data-commit-graph data-copy={copyJson} data-locale={locale} data-snapshot-url={snapshotUrl}>
+			<ToolPanel title={copy.settings}>
+				<dl class="commit-graph-meta">
+					<dt>{copy.repoLabel}</dt>
+					<dd><a href={repoUrl} rel="noopener noreferrer" target="_blank">{COMMIT_GRAPH_REPO}</a></dd>
+					<dt>{copy.windowLabel}</dt>
+					<dd>{copy.windowValue}</dd>
+				</dl>
+				<SelectControl label={copy.timezone} selectAttrs={{ 'data-timezone': true }}>
+					<option value="commit">{copy.timezoneCommit}</option>
+					<option value="viewer">{copy.timezoneViewer}</option>
+				</SelectControl>
+				<ToggleControl label={copy.merges} inputAttrs={{ 'data-merges': true, checked: true }} />
+				<ToolActions><button class="button secondary" data-reload type="button">{copy.reload}</button></ToolActions>
+				<ToolStatus data-status text={copy.loading} />
+				<details class="commit-graph-token">
+					<summary>{copy.tokenSummary}</summary>
+					<p>{copy.tokenHint}</p>
+					<label class="commit-graph-token-field">
+						<span>{copy.tokenLabel}</span>
+						<input type="password" data-token autocomplete="off" spellcheck="false" />
+					</label>
+					<ToolActions><button class="button secondary" data-token-apply type="button">{copy.tokenApply}</button></ToolActions>
+				</details>
+			</ToolPanel>
+			<ToolPanel title={copy.summaryTitle} data-summary-panel hidden>
+				<ul class="commit-graph-stats">
+					<li><span class="stat-label">{copy.statTotal}</span><strong data-stat-total>–</strong><span class="stat-note" data-stat-total-note></span></li>
+					<li><span class="stat-label">{copy.statActiveDays}</span><strong data-stat-days>–</strong><span class="stat-note" data-stat-days-note></span></li>
+					<li><span class="stat-label">{copy.statBusiestHour}</span><strong data-stat-hour>–</strong><span class="stat-note" data-stat-hour-note></span></li>
+					<li><span class="stat-label">{copy.statBusiestDay}</span><strong data-stat-day>–</strong><span class="stat-note" data-stat-day-note></span></li>
+				</ul>
+			</ToolPanel>
+			<ToolPanel class="commit-graph-wide" title={copy.hoursTitle} data-hours-panel hidden>
+				<p class="commit-graph-caption" data-hours-caption></p>
+				<div class="chart-frame">
+					<div class="chart-axis" data-hours-axis></div>
+					<div class="chart-plot" data-bars role="img" aria-label={copy.hoursTitle}></div>
+				</div>
+				<details class="commit-graph-table">
+					<summary>{copy.tableToggle}</summary>
+					<table>
+						<thead><tr><th scope="col">{copy.tableHour}</th><th scope="col">{copy.tableCommits}</th><th scope="col">{copy.tableShare}</th></tr></thead>
+						<tbody data-hours-table></tbody>
+					</table>
+				</details>
+			</ToolPanel>
+			<ToolPanel class="commit-graph-wide" title={copy.heatTitle} data-heat-panel hidden>
+				<p class="commit-graph-caption" data-heat-caption></p>
+				<div class="heat-scroll">
+					<table class="heat-table" data-heatmap></table>
+				</div>
+				<p class="heat-legend">
+					<span>{copy.legendLess}</span>
+					<span class="heat-swatch" data-level="0"></span>
+					<span class="heat-swatch" data-level="1"></span>
+					<span class="heat-swatch" data-level="2"></span>
+					<span class="heat-swatch" data-level="3"></span>
+					<span class="heat-swatch" data-level="4"></span>
+					<span class="heat-swatch" data-level="5"></span>
+					<span>{copy.legendMore}</span>
+				</p>
+			</ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script>
+	import {
+		COMMIT_GRAPH_DAYS,
+		COMMIT_GRAPH_HEAT_STEPS,
+		COMMIT_GRAPH_MAX_PAGES,
+		COMMIT_GRAPH_REPO,
+		COMMIT_GRAPH_SNAPSHOT_PATH,
+		buildCommitGrid,
+		dayKey,
+		fetchCommitWindow,
+		filterCommits,
+		formatAge,
+		formatDayLabel,
+		formatHourLabel,
+		formatHourRange,
+		formatResetDelay,
+		heatLevel,
+		isWeekend,
+		parseCommitSnapshot,
+		readCommitCache,
+		summarizeGrid,
+		utcMsToDayKey,
+		windowStartIso,
+		writeCommitCache,
+	} from '../../lib/tools/commit-graph.js';
+
+	const CACHE_KEY = `kwm-commit-graph:${COMMIT_GRAPH_REPO}`;
+	const TOKEN_KEY = 'kwm-commit-graph-token';
+
+	for (const root of document.querySelectorAll('[data-commit-graph]:not([data-bound])')) {
+		root.dataset.bound = 'true';
+		const copy = JSON.parse(root.dataset.copy || '{}');
+		const locale = root.dataset.locale || 'en';
+		const snapshotUrl = root.dataset.snapshotUrl || COMMIT_GRAPH_SNAPSHOT_PATH;
+		const timezone = root.querySelector('[data-timezone]');
+		const merges = root.querySelector('[data-merges]');
+		const reload = root.querySelector('[data-reload]');
+		const tokenInput = root.querySelector('[data-token]');
+		const tokenApply = root.querySelector('[data-token-apply]');
+		const status = root.querySelector('[data-status]');
+		const summaryPanel = root.querySelector('[data-summary-panel]');
+		const hoursPanel = root.querySelector('[data-hours-panel]');
+		const heatPanel = root.querySelector('[data-heat-panel]');
+		const hoursCaption = root.querySelector('[data-hours-caption]');
+		const heatCaption = root.querySelector('[data-heat-caption]');
+		const axis = root.querySelector('[data-hours-axis]');
+		const bars = root.querySelector('[data-bars]');
+		const hoursTable = root.querySelector('[data-hours-table]');
+		const heatmap = root.querySelector('[data-heatmap]');
+		let commits = [];
+		let charted = 0;
+		let loading = false;
+
+		tokenInput.value = readStorage(TOKEN_KEY) || '';
+		timezone.addEventListener('change', render);
+		merges.addEventListener('change', render);
+		reload.addEventListener('click', () => void load({ force: true }));
+		tokenApply.addEventListener('click', () => {
+			writeStorage(TOKEN_KEY, tokenInput.value.trim());
+			setStatus(copy.tokenSaved, 'success');
+			void load({ force: true });
+		});
+		void load();
+
+		async function load({ force = false } = {}) {
+			if (loading) return;
+			loading = true;
+			reload.disabled = true;
+			try {
+				const now = Date.now();
+				if (!force) {
+					const cached = readCommitCache(sessionStorage, CACHE_KEY, { nowMs: now });
+					if (cached) {
+						commits = cached.commits;
+						render();
+						setStatus(format(copy.cached, { total: countText(charted) }), 'success');
+						return;
+					}
+
+					const snapshot = await loadSnapshot();
+					if (snapshot) {
+						commits = snapshot.commits;
+						render();
+						setStatus(snapshotStatus(snapshot, now), 'success');
+						return;
+					}
+				}
+
+				setStatus(copy.loading, 'info');
+				const result = await fetchCommitWindow({
+					sinceIso: windowStartIso(now, COMMIT_GRAPH_DAYS),
+					token: readStorage(TOKEN_KEY) || '',
+					maxPages: COMMIT_GRAPH_MAX_PAGES,
+					onProgress: ({ loaded, total, commits: count }) => {
+						if (total > 1) setStatus(format(copy.loadingPages, { loaded, total, commits: count }), 'info');
+					},
+				});
+				commits = result.commits;
+				writeCommitCache(sessionStorage, CACHE_KEY, { fetchedAt: now, commits });
+				render();
+				const loadedText = format(copy.loaded, { total: countText(charted), requests: requestText(result.pages) });
+				setStatus(result.truncated ? `${loadedText} ${format(copy.truncated, { pages: result.pages })}` : loadedText, result.truncated ? 'info' : 'success');
+			} catch (error) {
+				setStatus(errorMessage(error), 'error');
+			} finally {
+				loading = false;
+				reload.disabled = false;
+			}
+		}
+
+		async function loadSnapshot() {
+			try {
+				const response = await fetch(snapshotUrl, { cache: 'no-cache' });
+				return response.ok ? parseCommitSnapshot(await response.json()) : null;
+			} catch {
+				return null;
+			}
+		}
+
+		function snapshotStatus(snapshot, nowMs) {
+			const total = countText(charted);
+			const generatedAt = Date.parse(snapshot.generatedAt);
+			return Number.isFinite(generatedAt)
+				? format(copy.snapshot, { total, age: formatAge(nowMs - generatedAt, locale) })
+				: format(copy.snapshotPlain, { total });
+		}
+
+		function render() {
+			const mode = timezone.value;
+			const grid = buildCommitGrid(filterCommits(commits, { includeMerges: merges.checked }), {
+				mode,
+				days: COMMIT_GRAPH_DAYS,
+				endDayKey: todayKey(mode),
+			});
+			const summary = summarizeGrid(grid);
+			charted = grid.total;
+
+			summaryPanel.hidden = false;
+			hoursPanel.hidden = false;
+			heatPanel.hidden = false;
+			renderSummary(summary);
+			renderBars(grid, summary);
+			renderHeatmap(grid);
+			hoursCaption.textContent = format(copy.hoursCaption, { total: countText(grid.total), days: COMMIT_GRAPH_DAYS });
+			heatCaption.textContent = copy.heatCaption;
+			if (!grid.total) setStatus(format(copy.empty, { days: COMMIT_GRAPH_DAYS }), 'info');
+		}
+
+		function renderSummary(summary) {
+			setStat('total', String(summary.total), format(copy.statPerDay, { value: summary.dailyAverage.toFixed(1) }));
+			setStat('days', String(summary.activeDays), format(copy.statOfDays, { days: summary.trackedDays }));
+			setStat('hour', summary.busiestHourTotal ? formatHourRange(summary.busiestHour) : '–', summary.busiestHourTotal ? countText(summary.busiestHourTotal) : '');
+			setStat('day', summary.busiestDayTotal ? formatDayLabel(summary.busiestDayKey, locale) : '–', summary.busiestDayTotal ? countText(summary.busiestDayTotal) : '');
+		}
+
+		function setStat(name, value, note) {
+			root.querySelector(`[data-stat-${name}]`).textContent = value;
+			root.querySelector(`[data-stat-${name}-note]`).textContent = note;
+		}
+
+		function renderBars(grid, summary) {
+			const max = grid.maxHour;
+			axis.replaceChildren(...[max, Math.round(max / 2), 0].map((value) => element('span', { textContent: String(value) })));
+			bars.setAttribute('aria-label', `${copy.hoursTitle}. ${format(copy.hoursAria, { range: formatHourRange(summary.busiestHour), count: countText(summary.busiestHourTotal) })}`);
+			bars.replaceChildren(...grid.hours.map((count, hour) => {
+				const share = grid.total ? Math.round((count / grid.total) * 1000) / 10 : 0;
+				return element('div', { className: 'chart-bar', title: format(copy.barTitle, { range: formatHourRange(hour), count: countText(count), share }) }, [
+					element('span', { className: 'chart-bar-fill', style: `height: ${max ? (count / max) * 100 : 0}%` }),
+					element('span', { className: 'chart-bar-label', textContent: hour % 3 === 0 ? String(hour).padStart(2, '0') : '' }),
+				]);
+			}));
+			hoursTable.replaceChildren(...grid.hours.map((count, hour) => element('tr', {}, [
+				element('th', { scope: 'row', textContent: formatHourRange(hour) }),
+				element('td', { textContent: String(count) }),
+				element('td', { textContent: `${grid.total ? ((count / grid.total) * 100).toFixed(1) : '0.0'}%` }),
+			])));
+		}
+
+		function renderHeatmap(grid) {
+			const headerCells = [element('th', { scope: 'col', className: 'heat-corner' })];
+			for (let hour = 0; hour < 24; hour += 1) {
+				headerCells.push(element('th', { scope: 'col', className: 'heat-hour', textContent: hour % 3 === 0 ? formatHourLabel(hour).slice(0, 2) : '' }));
+			}
+
+			const rows = grid.days.map((day) => element('tr', { className: isWeekend(day.dayKey) ? 'heat-row weekend' : 'heat-row' }, [
+				element('th', { scope: 'row', className: 'heat-day', textContent: formatDayLabel(day.dayKey, locale) }),
+				...day.hours.map((count, hour) => {
+					const cell = element('td', { className: 'heat-cell', title: format(copy.cellTitle, { day: formatDayLabel(day.dayKey, locale), range: formatHourRange(hour), count: countText(count) }) });
+					cell.dataset.level = String(heatLevel(count, grid.heatScale));
+					if (count > 0) cell.append(element('span', { className: 'visually-hidden', textContent: String(count) }));
+					return cell;
+				}),
+			]));
+
+			heatmap.replaceChildren(
+				element('caption', { className: 'visually-hidden', textContent: format(copy.heatAria, { days: COMMIT_GRAPH_DAYS }) }),
+				element('thead', {}, [element('tr', {}, headerCells)]),
+				element('tbody', {}, rows),
+			);
+		}
+
+		function todayKey(mode) {
+			const now = new Date();
+			return mode === 'viewer' ? dayKey(now.getFullYear(), now.getMonth() + 1, now.getDate()) : utcMsToDayKey(now.getTime());
+		}
+
+		function errorMessage(error) {
+			if (error?.rateLimited) return format(copy.rateLimited, { minutes: formatResetDelay(error.rateLimit?.resetMs, Date.now()) });
+			return format(copy.error, { message: error?.message || copy.generic });
+		}
+
+		function countText(count) {
+			return count === 1 ? copy.countOne : format(copy.countMany, { count });
+		}
+
+		function requestText(count) {
+			return count === 1 ? copy.requestOne : format(copy.requestMany, { count });
+		}
+
+		function element(tag, props = {}, children = []) {
+			const node = Object.assign(document.createElement(tag), props);
+			if (props.style) node.setAttribute('style', props.style);
+			if (props.scope) node.setAttribute('scope', props.scope);
+			node.append(...children);
+			return node;
+		}
+
+		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replaceAll(`{${key}}`, String(value)), String(template)); }
+		function readStorage(key) { try { return sessionStorage.getItem(key); } catch { return ''; } }
+		function writeStorage(key, value) { try { sessionStorage.setItem(key, value); } catch { /* storage unavailable */ } }
+	}
+</script>
+
+<style>
+	.commit-graph { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+	.commit-graph [hidden] { display: none !important; }
+	.commit-graph .commit-graph-wide { grid-column: 1 / -1; }
+	.commit-graph-meta { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0 0 14px; font-size: 0.92rem; }
+	.commit-graph-meta dt { color: var(--color-muted); }
+	.commit-graph-meta dd { margin: 0; }
+	.commit-graph-token { margin-top: 14px; font-size: 0.9rem; }
+	.commit-graph-token summary { cursor: pointer; color: var(--color-muted); }
+	.commit-graph-token p { margin: 8px 0; color: var(--color-muted); }
+	.commit-graph-token-field { display: grid; gap: 4px; }
+	.commit-graph-token-field input { width: 100%; padding: 8px 10px; border: 1px solid var(--color-line); border-radius: 6px; background: var(--color-control-surface); color: var(--color-text); }
+	.commit-graph-caption { margin: 0 0 14px; color: var(--color-muted); font-size: 0.92rem; }
+	.commit-graph-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
+	.commit-graph-stats li { display: grid; gap: 2px; }
+	.commit-graph-stats .stat-label { color: var(--color-muted); font-size: 0.85rem; }
+	.commit-graph-stats strong { font-size: 1.5rem; line-height: 1.2; }
+	.commit-graph-stats .stat-note { color: var(--color-muted); font-size: 0.82rem; }
+
+	.chart-frame { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; }
+	.chart-axis { display: flex; flex-direction: column; justify-content: space-between; height: 182px; color: var(--color-muted); font-size: 0.75rem; text-align: right; }
+	.chart-plot { display: flex; align-items: flex-end; gap: 2px; height: 200px; padding-bottom: 18px; background-image: linear-gradient(var(--color-line), var(--color-line)), linear-gradient(var(--color-line), var(--color-line)), linear-gradient(var(--color-line), var(--color-line)); background-size: 100% 1px; background-position: 0 0, 0 calc(50% - 9px), 0 calc(100% - 18px); background-repeat: no-repeat; }
+	/* Charts are built in the client script, so their marks need global selectors under the scoped root. */
+	.commit-graph :global(.chart-bar) { position: relative; display: flex; flex: 1 1 0; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
+	.commit-graph :global(.chart-bar-fill) { width: 100%; max-width: 24px; border-radius: 4px 4px 0 0; background: var(--color-accent); }
+	.commit-graph :global(.chart-bar-label) { position: absolute; bottom: -18px; color: var(--color-muted); font-size: 0.72rem; font-variant-numeric: tabular-nums; }
+
+	.heat-scroll { overflow-x: auto; }
+	.heat-table { border-collapse: separate; border-spacing: 2px; width: 100%; min-width: 560px; table-layout: fixed; }
+	.heat-table :global(th) { font-weight: 400; color: var(--color-muted); font-size: 0.72rem; }
+	/* table-layout: fixed takes column widths from the header row, so the corner cell has to carry it too. */
+	.heat-table :global(.heat-corner), .heat-table :global(.heat-day) { width: 6.5rem; }
+	.heat-table :global(.heat-day) { text-align: right; white-space: nowrap; padding-right: 8px; font-variant-numeric: tabular-nums; }
+	.heat-table :global(.heat-row.weekend .heat-day) { color: var(--color-accent-dark); }
+	.heat-table :global(.heat-hour) { font-variant-numeric: tabular-nums; }
+	.heat-table :global(.heat-cell) { height: 15px; border-radius: 3px; }
+	.commit-graph :global(.heat-cell[data-level='0']), .commit-graph :global(.heat-swatch[data-level='0']) { background: var(--color-surface-alt); }
+	.commit-graph :global(.heat-cell[data-level='1']), .commit-graph :global(.heat-swatch[data-level='1']) { background: color-mix(in srgb, var(--color-accent) 20%, var(--color-surface-raised)); }
+	.commit-graph :global(.heat-cell[data-level='2']), .commit-graph :global(.heat-swatch[data-level='2']) { background: color-mix(in srgb, var(--color-accent) 40%, var(--color-surface-raised)); }
+	.commit-graph :global(.heat-cell[data-level='3']), .commit-graph :global(.heat-swatch[data-level='3']) { background: color-mix(in srgb, var(--color-accent) 60%, var(--color-surface-raised)); }
+	.commit-graph :global(.heat-cell[data-level='4']), .commit-graph :global(.heat-swatch[data-level='4']) { background: color-mix(in srgb, var(--color-accent) 80%, var(--color-surface-raised)); }
+	.commit-graph :global(.heat-cell[data-level='5']), .commit-graph :global(.heat-swatch[data-level='5']) { background: var(--color-accent); }
+	.heat-legend { display: flex; align-items: center; gap: 4px; margin: 12px 0 0; color: var(--color-muted); font-size: 0.8rem; }
+	.heat-swatch { width: 15px; height: 15px; border-radius: 3px; }
+
+	.commit-graph-table { margin-top: 16px; font-size: 0.9rem; }
+	.commit-graph-table summary { cursor: pointer; color: var(--color-muted); }
+	.commit-graph-table table { width: 100%; margin-top: 10px; border-collapse: collapse; }
+	.commit-graph-table :global(th), .commit-graph-table :global(td) { padding: 4px 8px; border-bottom: 1px solid var(--color-line); text-align: left; font-variant-numeric: tabular-nums; }
+	.commit-graph-table thead th { color: var(--color-muted); font-weight: 400; }
+
+	.commit-graph :global(.visually-hidden) { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+	@media (max-width: 860px) { .commit-graph { grid-template-columns: 1fr; } }
+</style>

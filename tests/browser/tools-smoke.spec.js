@@ -78,10 +78,50 @@ const toolPages = [
 	['/en/tools/video/', 'Video Tools', '.tool-category-grid'],
 	['/en/tools/image-video-watermark/', 'Image & Video Watermark', '[data-watermarker]'],
 	['/en/tools/youtube-thumbnail-preview/', 'YouTube Thumbnail Preview', '[data-thumbnail-preview]'],
+	['/en/tools/soundscaper-commit-graph/', 'Soundscaper Commit Graph', '[data-commit-graph]'],
 	['/en/tools/analyzers/', 'Analyzers', '.tool-category-grid'],
 ];
 
+const stubGitHubCommits = async (page, commits) => {
+	const body = JSON.stringify(commits.map(({ date, merge = false }, index) => ({
+		sha: `${index}`.padStart(40, 'a'),
+		commit: { author: { date } },
+		parents: merge ? [{ sha: 'first' }, { sha: 'second' }] : [{ sha: 'first' }],
+	})));
+
+	await page.route('https://api.github.com/**', (route) => route.fulfill({
+		status: 200,
+		contentType: 'application/json',
+		headers: { 'access-control-allow-origin': '*', 'x-ratelimit-remaining': '59', 'x-ratelimit-limit': '60' },
+		body,
+	}));
+};
+
+const stubCommitSnapshot = async (page, commits, generatedAt) => {
+	const merges = commits.flatMap(({ merge = false }, index) => merge ? [index] : []);
+	const body = JSON.stringify({
+		repo: 'LeoWattenberg/Soundscaper',
+		windowDays: 30,
+		truncated: false,
+		generatedAt,
+		timestamps: commits.map(({ date }) => date),
+		merges,
+	});
+
+	await page.route('**/data/soundscaper-commits.json', (route) => route.fulfill({
+		status: 200,
+		contentType: 'application/json',
+		body,
+	}));
+};
+
 test.describe('tool pages browser smoke', () => {
+	test.beforeEach(async ({ page }) => {
+		const recent = [{ date: new Date(Date.now() - 3_600_000).toISOString() }];
+		await stubCommitSnapshot(page, recent, new Date(Date.now() - 60_000).toISOString());
+		await stubGitHubCommits(page, recent);
+	});
+
 	for (const [path, title, selector] of toolPages) {
 		test(`${title} boots without client errors`, async ({ page }) => {
 			const errors = collectClientErrors(page);
@@ -506,6 +546,54 @@ test.describe('visual tool interactions', () => {
 
 		await expect(page.locator('[data-preview]')).toBeVisible();
 		await expect(page.locator('[data-download-png]')).toBeVisible();
+		expect(errors).toEqual([]);
+	});
+
+	test('Soundscaper commit graph charts the CI snapshot and reloads live data on demand', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const peak = new Date(Date.now() - 3 * 60 * 60 * 1000);
+		peak.setUTCMinutes(0, 0, 0);
+		const peakIso = peak.toISOString();
+		const earlierIso = new Date(peak.getTime() - 25 * 60 * 60 * 1000).toISOString();
+		const hourLabel = (date) => `${String(date.getUTCHours()).padStart(2, '0')}:00`;
+		const nextHour = new Date(peak.getTime() + 60 * 60 * 1000);
+
+		await stubCommitSnapshot(page, [
+			{ date: peakIso },
+			{ date: peakIso },
+			{ date: peakIso, merge: true },
+			{ date: earlierIso },
+		], new Date(Date.now() - 90 * 60 * 1000).toISOString());
+		await stubGitHubCommits(page, [
+			{ date: peakIso },
+			{ date: peakIso },
+			{ date: peakIso, merge: true },
+			{ date: earlierIso },
+			{ date: earlierIso },
+		]);
+		await page.goto('/en/tools/soundscaper-commit-graph/');
+		const tool = page.locator('[data-commit-graph]');
+
+		await expect(tool.locator('[data-status]')).toHaveAttribute('data-state', 'success');
+		await expect(tool.locator('[data-status]')).toHaveText('4 commits from the site snapshot (1 hour old). Reload for live data.');
+		await expect(tool.locator('[data-stat-total]')).toHaveText('4');
+		await expect(tool.locator('[data-stat-hour]')).toHaveText(`${hourLabel(peak)}–${hourLabel(nextHour)}`);
+		await expect(tool.locator('[data-stat-hour-note]')).toHaveText('3 commits');
+		await expect(tool.locator('.chart-bar')).toHaveCount(24);
+		await expect(tool.locator('.heat-cell')).toHaveCount(30 * 24);
+
+		const filledCells = tool.locator('.heat-cell:not([data-level="0"])');
+		await expect(filledCells).toHaveCount(2);
+		const levels = await filledCells.evaluateAll((cells) => cells.map((cell) => Number(cell.dataset.level)));
+		expect(Math.max(...levels)).toBeGreaterThan(Math.min(...levels));
+
+		await tool.locator('[data-reload]').click();
+		await expect(tool.locator('[data-status]')).toHaveText('5 commits loaded live from GitHub across 1 request.');
+		await expect(tool.locator('[data-stat-total]')).toHaveText('5');
+
+		await tool.locator('[data-merges]').uncheck();
+		await expect(tool.locator('[data-stat-total]')).toHaveText('4');
+		await expect(tool.locator('[data-stat-hour-note]')).toHaveText('2 commits');
 		expect(errors).toEqual([]);
 	});
 

@@ -106,6 +106,7 @@ Run commands from the project root:
 | `npm run links:posts -- src/data/posts/.../post.md` | Apply inline post links, then review the Markdown changes in git |
 | `npm run translate:post -- src/data/posts/.../post.md` | Translate one or more posts into the other locale |
 | `npm run translate:all-missing` | Create missing translations for all posts |
+| `npm run graph:soundscaper-commits` | Refresh `public/data/soundscaper-commits.json` for the Soundscaper commit graph tool; set `GITHUB_TOKEN` to avoid the 60-requests-per-hour anonymous limit |
 | `npm run astro -- --help` | Show Astro CLI help |
 | `npx @astrojs/upgrade` | Update Astro (fixes security issues but may break the site)|
 | `npm audit fix` | Fixes security updates without updating Astro|

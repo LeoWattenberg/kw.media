@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import SoundscaperCommitGraph from '../../components/tools/SoundscaperCommitGraph.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('soundscaper-commit-graph', {
+	id: 'soundscaper-commit-graph',
+	translations: {
+		de: {
+			id: 'soundscaper-commit-graph-de',
+			path: '/de/tools/soundscaper-commit-graph/',
+			title: 'Soundscaper Commit-Graph',
+			description: 'Zeigt, wann Commits in LeoWattenberg/Soundscaper entstehen: Stundenbalken und eine Tag-Stunde-Heatmap der letzten 30 Tage direkt von GitHub.',
+		},
+		en: {
+			id: 'soundscaper-commit-graph-en',
+			path: '/en/tools/soundscaper-commit-graph/',
+			title: 'Soundscaper Commit Graph',
+			description: 'Track when commits land in LeoWattenberg/Soundscaper: an hourly bar chart and a day-by-hour heatmap of the last 30 days, straight from GitHub.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<SoundscaperCommitGraph locale={tool.locale} />
+</ToolPageShell>

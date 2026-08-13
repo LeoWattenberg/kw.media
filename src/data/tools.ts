@@ -62,6 +62,7 @@ const toolEyebrows: Record<string, Record<Locale, string>> = {
 	'raster-svg-workbench': { de: 'Vektorisieren & rendern', en: 'Vectorize & render' },
 	'short-form-safe-zone-previewer': { de: 'Overlays sicher platzieren', en: 'Place overlays safely' },
 	'smart-vertical-reframer': { de: 'Face-aware Hochkant-Crops', en: 'Face-aware vertical crops' },
+	'soundscaper-commit-graph': { de: 'Commit-Stunden aus GitHub', en: 'Commit hours from GitHub' },
 	'subtitle-burner': { de: 'Untertitel fest einbrennen', en: 'Burn in captions' },
 	'subtitle-studio': { de: 'Erstellen, bearbeiten & anwenden', en: 'Create, edit & apply captions' },
 	'video-audio-converter': { de: 'Audio- & Videoformate wechseln', en: 'Change audio & video formats' },

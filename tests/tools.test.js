@@ -98,6 +98,32 @@ import {
 } from '../src/lib/tools/media-info.js';
 import { getMediaInfoFactory } from '../src/lib/tools/media-info-browser.js';
 import {
+	buildCommitGrid,
+	buildCommitSnapshot,
+	buildHeatScale,
+	commitCell,
+	commitsApiUrl,
+	dayKey,
+	dayKeysEndingAt,
+	fetchCommitWindow,
+	filterCommits,
+	formatAge,
+	formatDayLabel,
+	formatHourRange,
+	formatResetDelay,
+	heatLevel,
+	isWeekend,
+	normalizeCommits,
+	parseCommitSnapshot,
+	parseIsoParts,
+	parseLastPage,
+	readCommitCache,
+	snapshotIsEquivalent,
+	summarizeGrid,
+	windowStartIso,
+	writeCommitCache,
+} from '../src/lib/tools/commit-graph.js';
+import {
 	amplitudeToDbfs,
 	analyzeLevels,
 	averageSpectrum,
@@ -415,6 +441,243 @@ test('image converter and metadata scrubber helpers preserve output naming and s
 	assert.deepEqual(metadataOutputProfile({ name: 'recording', type: 'audio/mpeg' }), { isImage: false, extension: 'mp3', mimeType: 'audio/mpeg' });
 	assert.deepEqual(metadataOutputProfile({ name: 'unknown', type: '' }), { isImage: false, extension: 'bin', mimeType: 'application/octet-stream' });
 	assert.deepEqual(buildScrubMediaArgs('in.mov', 'out.mp4', 'mp4'), ['-i', 'in.mov', '-map', '0', '-map_metadata', '-1', '-map_chapters', '-1', '-c', 'copy', '-movflags', '+faststart', '-y', 'out.mp4']);
+});
+
+test('commit graph reads GitHub timestamps in commit and viewer time zones', () => {
+	assert.deepEqual(parseIsoParts('2026-08-13T21:27:05Z'), { year: 2026, month: 8, day: 13, hour: 21, minute: 27, second: 5, offsetMinutes: 0 });
+	assert.equal(parseIsoParts('2026-08-13T21:27:05+02:00').offsetMinutes, 120);
+	assert.equal(parseIsoParts('2026-08-13T21:27:05-0530').offsetMinutes, -330);
+	assert.equal(parseIsoParts('not a date'), null);
+	assert.deepEqual(commitCell('2026-08-13T21:27:05+02:00'), { dayKey: '2026-08-13', hour: 21 });
+	assert.equal(commitCell('nope', 'commit'), null);
+	assert.equal(commitCell('nope', 'viewer'), null);
+
+	const viewerReference = new Date('2026-08-13T21:27:05+02:00');
+	assert.deepEqual(commitCell('2026-08-13T21:27:05+02:00', 'viewer'), {
+		dayKey: dayKey(viewerReference.getFullYear(), viewerReference.getMonth() + 1, viewerReference.getDate()),
+		hour: viewerReference.getHours(),
+	});
+});
+
+test('commit graph normalizes API payloads and skips merge commits on request', () => {
+	const payload = [
+		{ sha: 'abcdef1234567', commit: { author: { date: '2026-08-13T10:00:00Z' } }, parents: [{}] },
+		{ sha: 'fedcba7654321', commit: { committer: { date: '2026-08-13T11:00:00Z' } }, parents: [{}, {}] },
+		{ sha: 'nodatehere000', commit: {}, parents: [] },
+	];
+	const commits = normalizeCommits(payload);
+
+	assert.deepEqual(commits, [
+		{ sha: 'abcdef1', iso: '2026-08-13T10:00:00Z', isMerge: false },
+		{ sha: 'fedcba7', iso: '2026-08-13T11:00:00Z', isMerge: true },
+	]);
+	assert.deepEqual(normalizeCommits(null), []);
+	assert.equal(filterCommits(commits, { includeMerges: false }).length, 1);
+	assert.equal(filterCommits(commits).length, 2);
+});
+
+test('commit graph builds a day-by-hour grid limited to the tracked window', () => {
+	const commits = [
+		{ iso: '2026-08-13T10:15:00Z' },
+		{ iso: '2026-08-13T10:45:00Z' },
+		{ iso: '2026-08-13T23:00:00Z' },
+		{ iso: '2026-08-12T10:05:00Z' },
+		{ iso: '2026-08-01T10:05:00Z' },
+		{ iso: 'broken' },
+	];
+	const grid = buildCommitGrid(commits, { days: 3, endDayKey: '2026-08-13' });
+
+	assert.deepEqual(grid.days.map((day) => day.dayKey), ['2026-08-11', '2026-08-12', '2026-08-13']);
+	assert.deepEqual(grid.days.map((day) => day.total), [0, 1, 3]);
+	assert.equal(grid.days[2].hours[10], 2);
+	assert.equal(grid.days[2].hours[23], 1);
+	assert.equal(grid.hours[10], 3);
+	assert.equal(grid.total, 4);
+	assert.equal(grid.skipped, 2);
+	assert.equal(grid.maxHour, 3);
+	assert.equal(grid.maxCell, 2);
+	assert.deepEqual(dayKeysEndingAt('2026-03-01', 3), ['2026-02-27', '2026-02-28', '2026-03-01']);
+	assert.deepEqual(dayKeysEndingAt('nope', 3), []);
+
+	assert.deepEqual(summarizeGrid(grid), {
+		total: 4,
+		activeDays: 2,
+		trackedDays: 3,
+		busiestHour: 10,
+		busiestHourTotal: 3,
+		busiestDayKey: '2026-08-13',
+		busiestDayTotal: 3,
+		dailyAverage: 4 / 3,
+	});
+});
+
+test('commit graph formats axis labels, heat levels, and weekends', () => {
+	assert.equal(formatHourRange(23), '23:00–00:00');
+	assert.equal(formatHourRange('bad'), '00:00–01:00');
+	assert.equal(formatDayLabel('2026-08-13', 'en'), 'Thu 13 Aug');
+	assert.equal(formatDayLabel('2026-08-13', 'de'), 'Do 13. Aug');
+	assert.equal(formatDayLabel('nope', 'en'), '');
+	assert.equal(isWeekend('2026-08-15'), true);
+	assert.equal(isWeekend('2026-08-13'), false);
+	assert.equal(formatResetDelay(Date.now() + 5 * 60_000, Date.now()), 5);
+	assert.equal(formatResetDelay(null, Date.now()), 1);
+});
+
+test('commit graph heat levels follow quantiles so one busy day cannot flatten the ramp', () => {
+	const evenValues = Array.from({ length: 100 }, (_, index) => index + 1);
+	const evenScale = buildHeatScale(evenValues);
+
+	assert.deepEqual(evenScale, [21, 41, 61, 81]);
+	assert.equal(heatLevel(0, evenScale), 0);
+	assert.equal(heatLevel(1, evenScale), 1);
+	assert.equal(heatLevel(21, evenScale), 1);
+	assert.equal(heatLevel(22, evenScale), 2);
+	assert.equal(heatLevel(81, evenScale), 4);
+	assert.equal(heatLevel(100, evenScale), 5);
+
+	// A single 300-commit day used to push every ordinary hour into the palest step.
+	const skewedScale = buildHeatScale([...Array.from({ length: 40 }, () => 1), ...Array.from({ length: 10 }, () => 4), 300, 0, 0]);
+	assert.deepEqual(skewedScale, [1, 1, 1, 4]);
+	assert.equal(heatLevel(1, skewedScale), 1);
+	assert.equal(heatLevel(4, skewedScale), 4);
+	assert.equal(heatLevel(300, skewedScale), 5);
+
+	assert.deepEqual(buildHeatScale([]), []);
+	assert.deepEqual(buildHeatScale([0, 0]), []);
+	assert.equal(heatLevel(3, []), 1);
+	assert.equal(heatLevel(3, null), 1);
+});
+
+test('commit graph pages through the GitHub API and caps the request count', async () => {
+	const requested = [];
+	const page = (start) => Array.from({ length: 2 }, (_, index) => ({
+		sha: `${start}${index}`.padEnd(7, '0'),
+		commit: { author: { date: `2026-08-1${start}T0${index}:00:00Z` } },
+		parents: [{}],
+	}));
+	const fetchImpl = async (url, options) => {
+		requested.push({ url, headers: options.headers });
+		const requestedPage = Number(new URL(url).searchParams.get('page'));
+		return {
+			ok: true,
+			status: 200,
+			headers: new Headers(requestedPage === 1
+				? { link: '<https://api.github.com/repositories/1/commits?page=2>; rel="next", <https://api.github.com/repositories/1/commits?page=4>; rel="last"', 'x-ratelimit-remaining': '57', 'x-ratelimit-limit': '60' }
+				: {}),
+			json: async () => page(requestedPage),
+		};
+	};
+
+	const progress = [];
+	const result = await fetchCommitWindow({ sinceIso: '2026-07-14T00:00:00.000Z', fetchImpl, token: 'secret', maxPages: 3, onProgress: (entry) => progress.push(entry.loaded) });
+
+	assert.equal(result.commits.length, 6);
+	assert.equal(result.pages, 3);
+	assert.equal(result.truncated, true);
+	assert.deepEqual(result.rateLimit, { limit: 60, remaining: 57, resetMs: null });
+	assert.deepEqual(requested.map(({ url }) => Number(new URL(url).searchParams.get('page'))).sort(), [1, 2, 3]);
+	assert.equal(requested[0].headers.authorization, 'Bearer secret');
+	assert.equal(new URL(requested[0].url).searchParams.get('since'), '2026-07-14T00:00:00.000Z');
+	assert.deepEqual(progress.sort(), [1, 2, 3]);
+	assert.equal(commitsApiUrl('owner/repo', { sinceIso: '2026-07-14T00:00:00.000Z', page: 2 }), 'https://api.github.com/repos/owner/repo/commits?since=2026-07-14T00%3A00%3A00.000Z&per_page=100&page=2');
+	assert.equal(parseLastPage('<https://api.github.com/x?page=9>; rel="last"'), 9);
+	assert.equal(parseLastPage(undefined), 1);
+	assert.equal(windowStartIso(Date.UTC(2026, 7, 13), 30), '2026-07-13T00:00:00.000Z');
+});
+
+test('commit graph reports GitHub rate limiting as a recoverable error', async () => {
+	const resetSeconds = Math.floor(Date.now() / 1000) + 600;
+	const fetchImpl = async () => ({
+		ok: false,
+		status: 403,
+		headers: new Headers({ 'x-ratelimit-remaining': '0', 'x-ratelimit-reset': String(resetSeconds) }),
+		json: async () => ({}),
+	});
+
+	await assert.rejects(fetchCommitWindow({ fetchImpl }), (error) => {
+		assert.equal(error.rateLimited, true);
+		assert.equal(error.status, 403);
+		assert.equal(error.rateLimit.resetMs, resetSeconds * 1000);
+		return true;
+	});
+
+	await assert.rejects(
+		fetchCommitWindow({ fetchImpl: async () => ({ ok: false, status: 404, headers: new Headers(), json: async () => ({}) }) }),
+		(error) => error.rateLimited === false && /status 404/.test(error.message),
+	);
+	const originalFetch = globalThis.fetch;
+	try {
+		delete globalThis.fetch;
+		await assert.rejects(fetchCommitWindow({}), /Fetch is not available/);
+	} finally {
+		globalThis.fetch = originalFetch;
+	}
+});
+
+test('commit graph snapshots round-trip newest-first with merge indexes', () => {
+	const commits = [
+		{ sha: 'aaa', iso: '2026-08-11T08:00:00Z', isMerge: false },
+		{ sha: 'bbb', iso: '2026-08-13T10:00:00Z', isMerge: true },
+		{ sha: 'ccc', iso: '2026-08-12T09:00:00Z', isMerge: false },
+	];
+	const snapshot = buildCommitSnapshot(commits, { repo: 'owner/repo', days: 30, truncated: false, generatedAt: '2026-08-13T12:00:00Z' });
+
+	assert.deepEqual(snapshot, {
+		repo: 'owner/repo',
+		windowDays: 30,
+		truncated: false,
+		generatedAt: '2026-08-13T12:00:00Z',
+		timestamps: ['2026-08-13T10:00:00Z', '2026-08-12T09:00:00Z', '2026-08-11T08:00:00Z'],
+		merges: [0],
+	});
+
+	const parsed = parseCommitSnapshot(snapshot);
+	assert.equal(parsed.repo, 'owner/repo');
+	assert.equal(parsed.windowDays, 30);
+	assert.equal(parsed.generatedAt, '2026-08-13T12:00:00Z');
+	assert.deepEqual(parsed.commits, [
+		{ iso: '2026-08-13T10:00:00Z', isMerge: true },
+		{ iso: '2026-08-12T09:00:00Z', isMerge: false },
+		{ iso: '2026-08-11T08:00:00Z', isMerge: false },
+	]);
+	assert.equal(parseCommitSnapshot(null), null);
+	assert.equal(parseCommitSnapshot({ timestamps: 'nope' }), null);
+	assert.deepEqual(buildCommitSnapshot(null).timestamps, []);
+});
+
+test('commit graph snapshot comparison ignores the generation timestamp', () => {
+	const first = buildCommitSnapshot([{ iso: '2026-08-13T10:00:00Z', isMerge: false }], { generatedAt: '2026-08-13T12:00:00Z' });
+	const second = buildCommitSnapshot([{ iso: '2026-08-13T10:00:00Z', isMerge: false }], { generatedAt: '2026-08-13T18:00:00Z' });
+	const third = buildCommitSnapshot([{ iso: '2026-08-13T11:00:00Z', isMerge: false }], { generatedAt: '2026-08-13T18:00:00Z' });
+
+	assert.equal(snapshotIsEquivalent(first, second), true);
+	assert.equal(snapshotIsEquivalent(first, third), false);
+	assert.equal(snapshotIsEquivalent(null, second), false);
+});
+
+test('commit graph describes snapshot age in both locales', () => {
+	assert.equal(formatAge(30 * 1000, 'en'), 'under 1 minute');
+	assert.equal(formatAge(30 * 1000, 'de'), 'unter 1 Minute');
+	assert.equal(formatAge(60 * 1000, 'en'), '1 minute');
+	assert.equal(formatAge(45 * 60 * 1000, 'de'), '45 Minuten');
+	assert.equal(formatAge(60 * 60 * 1000, 'en'), '1 hour');
+	assert.equal(formatAge(5 * 60 * 60 * 1000, 'de'), '5 Stunden');
+	assert.equal(formatAge(26 * 60 * 60 * 1000, 'en'), '1 day');
+	assert.equal(formatAge(72 * 60 * 60 * 1000, 'de'), '3 Tage');
+	assert.equal(formatAge(Number.NaN, 'en'), 'under 1 minute');
+});
+
+test('commit graph caches commits per tab and expires them', () => {
+	const store = new Map();
+	const storage = { getItem: (key) => store.get(key) ?? null, setItem: (key, value) => store.set(key, value) };
+	const commits = [{ sha: 'abcdef1', iso: '2026-08-13T10:00:00Z', isMerge: false }];
+
+	assert.equal(writeCommitCache(storage, 'key', { fetchedAt: 1000, commits }), true);
+	assert.deepEqual(readCommitCache(storage, 'key', { nowMs: 2000, ttl: 5000 }), { fetchedAt: 1000, commits });
+	assert.equal(readCommitCache(storage, 'key', { nowMs: 60_000, ttl: 5000 }), null);
+	assert.equal(readCommitCache(storage, 'missing', { nowMs: 2000 }), null);
+	assert.equal(readCommitCache({ getItem: () => 'not json' }, 'key', { nowMs: 0 }), null);
+	assert.equal(writeCommitCache({ setItem: () => { throw new Error('quota'); } }, 'key', {}), false);
 });
 
 test('media info formatting helpers normalize analysis output for display', () => {
