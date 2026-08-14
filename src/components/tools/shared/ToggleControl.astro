@@ -18,3 +18,21 @@ const mergedInputAttrs = {
 	<input {...mergedInputAttrs} />
 	<span>{label}</span>
 </label>
+
+<style>
+	/* Lives here rather than in a consumer: the input and span only carry this
+	   component's scope, so a parent's `.toggle-control input` rule never matches. */
+	.toggle-control {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		color: var(--color-ink);
+		font-weight: 800;
+	}
+
+	.toggle-control input {
+		width: 18px;
+		height: 18px;
+		accent-color: var(--color-accent);
+	}
+</style>

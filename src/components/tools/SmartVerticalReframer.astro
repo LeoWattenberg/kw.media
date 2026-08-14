@@ -63,6 +63,7 @@ const copyJson = JSON.stringify(copy);
 
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+	import { formatBytes } from '../../lib/tools/format';
 
 	for (const root of document.querySelectorAll('[data-smart-reframer]:not([data-bound])')) {
 		root.dataset.bound = 'true';
@@ -186,7 +187,6 @@ const copyJson = JSON.stringify(copy);
 		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
 		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
 		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'video'; }
-		function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
 	}
 </script>
 

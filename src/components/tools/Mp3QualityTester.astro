@@ -258,6 +258,13 @@ const copyJson = JSON.stringify(copy.client);
 <script>
 	import { AudioTransport, formatAudioTime } from '../../lib/audio-transport';
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+	import {
+		chanceProbability,
+		fileExtension,
+		formatProbability,
+		formatTime,
+	} from '../../lib/tools/abx-tester';
+	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
 
 	(() => {
 		const roots = document.querySelectorAll('[data-mp3-quality-tester]:not([data-mp3-bound])');
@@ -835,67 +842,6 @@ const copyJson = JSON.stringify(copy.client);
 			function setStatus(message, type) {
 				status.textContent = message;
 				status.dataset.state = type;
-			}
-
-			function format(template, values) {
-				return String(template).replace(/\{(\w+)\}/g, (_match, key) => {
-					return values && key in values ? String(values[key]) : '';
-				});
-			}
-
-			function formatTime(seconds) {
-				if (!Number.isFinite(seconds) || seconds <= 0) {
-					return '0:00';
-				}
-
-				const minutes = Math.floor(seconds / 60);
-				const wholeSeconds = Math.floor(seconds % 60);
-				return `${minutes}:${String(wholeSeconds).padStart(2, '0')}`;
-			}
-
-			function formatBytes(bytes) {
-				if (!Number.isFinite(bytes) || bytes <= 0) {
-					return '0 B';
-				}
-
-				const units = ['B', 'KB', 'MB', 'GB'];
-				const power = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
-				const value = bytes / (1024 ** power);
-				return `${value.toFixed(value >= 10 || power === 0 ? 0 : 1)} ${units[power]}`;
-			}
-
-			function formatProbability(value) {
-				if (value < 0.1 && value > 0) {
-					return '<0.1';
-				}
-
-				return value.toFixed(value >= 10 ? 1 : 2);
-			}
-
-			function chanceProbability(correct, total) {
-				let probability = 0;
-
-				for (let successes = correct; successes <= total; successes += 1) {
-					probability += combination(total, successes) * (0.5 ** total);
-				}
-
-				return probability;
-			}
-
-			function combination(total, successes) {
-				const k = Math.min(successes, total - successes);
-				let result = 1;
-
-				for (let index = 1; index <= k; index += 1) {
-					result = result * (total - k + index) / index;
-				}
-
-				return result;
-			}
-
-			function fileExtension(name) {
-				const match = name.toLowerCase().match(/\.[a-z0-9]+$/);
-				return match ? match[0] : '.audio';
 			}
 
 			function messageFromError(error) {

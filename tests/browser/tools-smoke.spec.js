@@ -1,8 +1,28 @@
 import { expect, test } from '@playwright/test';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { createAup3Fixture } from '../aup3-fixture.js';
 
-const referenceFile = (name) => fileURLToPath(new URL(`../../reference/${name}`, import.meta.url));
+// Committed fixtures live in tests/fixtures/. The heavy media fixtures are still
+// local-only under the gitignored reference/, so tests that need them skip in CI
+// rather than failing the whole suite.
+const findFixture = (name) => [
+	fileURLToPath(new URL(`../fixtures/${name}`, import.meta.url)),
+	fileURLToPath(new URL(`../../reference/${name}`, import.meta.url)),
+].find((candidate) => existsSync(candidate));
+
+const referenceFile = (name) => {
+	const found = findFixture(name);
+	test.skip(!found, `missing fixture ${name} (expected in tests/fixtures/ or reference/)`);
+	return found;
+};
+
+// Uploaded under its original spaced name so the generated download keeps it.
+const odtUpload = () => ({
+	name: 'legal document.odt',
+	mimeType: 'application/vnd.oasis.opendocument.text',
+	buffer: readFileSync(referenceFile('legal-document.odt')),
+});
 
 const imageFixture = {
 	name: 'fixture.png',
@@ -384,7 +404,7 @@ test.describe('visual tool interactions', () => {
 	test('Document converter converts the real ODT fixture in the browser', async ({ page }) => {
 		const errors = collectClientErrors(page);
 		await page.goto('/en/tools/converter/document-converter/');
-		await page.locator('[data-file-input]').setInputFiles(referenceFile('legal document.odt'));
+		await page.locator('[data-file-input]').setInputFiles(odtUpload());
 		await page.locator('[data-profile-select]').selectOption('html');
 		await page.locator('[data-process]').click();
 

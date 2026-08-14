@@ -41,8 +41,10 @@ test('every document-converter target produces a non-empty output', async () => 
 });
 
 test('the real ODT fixture converts to HTML when Pandoc receives its input filename', async () => {
+	// The virtual name keeps the space: the point of this test is that a filename
+	// Pandoc has to quote still round-trips through buildPandocInputOptions.
 	const fileName = 'legal document.odt';
-	const source = new Blob([await readFile(new URL(`../reference/${fileName}`, import.meta.url))]);
+	const source = new Blob([await readFile(new URL('./fixtures/legal-document.odt', import.meta.url))]);
 	const result = await convert({
 		from: 'odt',
 		...buildPandocInputOptions('odt', fileName),

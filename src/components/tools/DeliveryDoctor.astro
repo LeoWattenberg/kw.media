@@ -71,6 +71,7 @@ const copyJson = JSON.stringify(copy);
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
 	import { analyzeMediaFile, loadMediaInfo } from '../../lib/tools/media-info-browser';
+	import { formatBytes } from '../../lib/tools/format';
 
 	for (const root of document.querySelectorAll('[data-delivery-doctor]:not([data-bound])')) {
 		root.dataset.bound = 'true';
@@ -206,7 +207,6 @@ const copyJson = JSON.stringify(copy);
 		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
 		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'media'; }
 		function mime(ext) { return ({ mp4: 'video/mp4', mov: 'video/quicktime', webm: 'video/webm', mkv: 'video/x-matroska' })[ext] || 'application/octet-stream'; }
-		function formatBytes(bytes) { const units = ['B','KB','MB','GB']; const i = Math.min(units.length - 1, Math.floor(Math.log(Math.max(bytes,1))/Math.log(1024))); return `${(bytes/1024**i).toFixed(i ? 1 : 0)} ${units[i]}`; }
 	}
 </script>
 
