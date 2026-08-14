@@ -111,10 +111,13 @@ const copyJson = JSON.stringify(copy);
 
 		async function analyze() {
 			setStatus(copy.analyzing, 'info');
-			await waitForMetadata(video);
-			video.currentTime = Math.min(Math.max(video.duration * 0.2, 0), 3);
-			await new Promise((resolve) => video.addEventListener('seeked', resolve, { once: true }));
-			const canvas = drawFrame();
+			let canvas;
+			try {
+				await waitForMetadata(video);
+				video.currentTime = Math.min(Math.max(video.duration * 0.2, 0), 3);
+				await new Promise((resolve) => video.addEventListener('seeked', resolve, { once: true }));
+				canvas = drawFrame();
+			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); return; }
 			try {
 				const detector = await loadFaceDetector();
 				const detections = detector.detect(canvas).detections || [];
@@ -134,9 +137,9 @@ const copyJson = JSON.stringify(copy);
 		async function render() {
 			const file = fileInput.files?.[0];
 			if (!file) return;
-			if (!video.videoWidth) await waitForMetadata(video);
-			setStatus(copy.processing, 'info');
 			try {
+				if (!video.videoWidth) await waitForMetadata(video);
+				setStatus(copy.processing, 'info');
 				const [rw, rh] = preset.value.split(':').map(Number);
 				const targetRatio = rw / rh;
 				let cropW = video.videoWidth;
@@ -181,7 +184,14 @@ const copyJson = JSON.stringify(copy);
 			})();
 			return detectorPromise;
 		}
-		function waitForMetadata(media) { return media.readyState >= 1 ? Promise.resolve() : new Promise((resolve) => media.addEventListener('loadedmetadata', resolve, { once: true })); }
+		function waitForMetadata(media) {
+			if (media.readyState >= 1) return Promise.resolve();
+			if (media.error) return Promise.reject(new Error(media.error.message || copy.generic));
+			return new Promise((resolve, reject) => {
+				media.addEventListener('loadedmetadata', resolve, { once: true });
+				media.addEventListener('error', () => reject(new Error(media.error?.message || copy.generic)), { once: true });
+			});
+		}
 		function reset() { fileInput.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; video.hidden = true; video.removeAttribute('src'); preview.hidden = true; download.hidden = true; analyzeButton.disabled = true; renderButton.disabled = true; resultMeta.textContent = copy.waiting; for (const url of [inputUrl, outputUrl]) if (url) URL.revokeObjectURL(url); inputUrl = outputUrl = null; cropCenter = 0.5; setStatus(copy.waiting, 'info'); }
 		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
 		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }

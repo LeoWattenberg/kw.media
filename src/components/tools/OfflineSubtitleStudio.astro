@@ -165,7 +165,7 @@ const copyJson = JSON.stringify(copy);
 		}
 
 		function updateCueStatus() {
-			const cues = parseCues(text.value, inputFormat.value);
+			const cues = offsetCues(parseCues(text.value, inputFormat.value), offset.value);
 			setStatus(cues.length ? format(copy.ready, { count: cues.length }) : copy.waiting, cues.length ? 'success' : 'info');
 		}
 
@@ -190,17 +190,18 @@ const copyJson = JSON.stringify(copy);
 			if (!media) { setStatus(copy.noMedia, 'error'); return; }
 			try {
 				const subtitles = renderSubtitles('srt');
+				const outputContainer = container.value;
 				setStatus(copy.muxing, 'info');
 				const bytes = await runtime.run(async (ffmpeg) => {
 					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 					const mediaFile = `media-${stamp}${extension(media.name)}`;
 					const subtitleFile = `subtitles-${stamp}.srt`;
-					const outputFile = `subtitled-${stamp}.${container.value}`;
+					const outputFile = `subtitled-${stamp}.${outputContainer}`;
 					await ffmpeg.writeFile(mediaFile, new Uint8Array(await media.arrayBuffer()));
 					await ffmpeg.writeFile(subtitleFile, new TextEncoder().encode(subtitles));
 					try {
 						const args = ['-i', mediaFile, '-i', subtitleFile, '-map', '0', '-map', '1:0', '-c', 'copy'];
-						if (container.value === 'mp4') args.push('-c:s', 'mov_text', '-movflags', '+faststart');
+						if (outputContainer === 'mp4') args.push('-c:s', 'mov_text', '-movflags', '+faststart');
 						else args.push('-c:s', 'srt');
 						args.push('-metadata:s:s:0', 'language=und', '-y', outputFile);
 						const code = await ffmpeg.exec(args);
@@ -213,9 +214,9 @@ const copyJson = JSON.stringify(copy);
 						await ffmpeg.deleteFile(outputFile).catch(() => {});
 					}
 				});
-				const name = `${baseName(media.name, 'media')}-subtitled.${container.value}`;
+				const name = `${baseName(media.name, 'media')}-subtitled.${outputContainer}`;
 				if (muxUrl) URL.revokeObjectURL(muxUrl);
-				muxUrl = URL.createObjectURL(new Blob([bytes], { type: container.value === 'mp4' ? 'video/mp4' : 'video/x-matroska' }));
+				muxUrl = URL.createObjectURL(new Blob([bytes], { type: outputContainer === 'mp4' ? 'video/mp4' : 'video/x-matroska' }));
 				downloadMedia.href = muxUrl;
 				downloadMedia.download = name;
 				downloadMedia.hidden = false;

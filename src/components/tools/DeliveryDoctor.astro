@@ -22,6 +22,10 @@ const copy = {
 		ready: 'Diagnose abgeschlossen.', repairing: 'FFmpeg erstellt die Reparatur…', loading: 'FFmpeg WASM wird geladen…', ffmpegReady: 'FFmpeg WASM ist bereit.',
 		progress: 'FFmpeg arbeitet… {progress}%', done: 'Reparatur abgeschlossen.', timeout: 'WASM-Engine hat nicht innerhalb von 90 Sekunden geladen.',
 		error: 'Aktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', none: 'Keine offensichtlichen Probleme gefunden.',
+		videoCodec: 'Video-Codec muss für die Web-Auslieferung eventuell transkodiert werden: {format}.',
+		audioCodec: 'Audio-Codec kann auf Plattformen für Überraschungen sorgen: {format}.',
+		oddDimensions: 'Die Videomaße sind ungerade; manche Encoder und Plattformen bevorzugen gerade Maße.',
+		mp4Brand: 'Die MP4-Marke wirkt ungewöhnlich; ein Remux mit faststart kann die Wiedergabe verbessern.',
 	},
 	en: {
 		eyebrow: 'Upload & playback checks', title: 'Media Delivery Checker',
@@ -35,6 +39,10 @@ const copy = {
 		ready: 'Diagnosis complete.', repairing: 'FFmpeg is creating the repair…', loading: 'Loading FFmpeg WASM…', ffmpegReady: 'FFmpeg WASM is ready.',
 		progress: 'FFmpeg is working… {progress}%', done: 'Repair complete.', timeout: 'WASM engine did not load within 90 seconds.',
 		error: 'Action failed: {message}', generic: 'Unknown error', none: 'No obvious delivery issues found.',
+		videoCodec: 'Video codec may need transcoding for web delivery: {format}.',
+		audioCodec: 'Audio codec may surprise platforms: {format}.',
+		oddDimensions: 'Video dimensions are odd; some encoders and platforms prefer even dimensions.',
+		mp4Brand: 'MP4 brand looks unusual; remuxing with faststart may help playback.',
 	},
 }[locale];
 const copyJson = JSON.stringify(copy);
@@ -174,11 +182,11 @@ const copyJson = JSON.stringify(copy);
 			const audio = tracks.find((track) => track['@type'] === 'Audio') || {};
 			const notes = [];
 			notes.push(`${file.name}: ${general.Format || file.type || 'media'} · ${formatBytes(file.size)}`);
-			if (video.Format && !/AVC|HEVC|VP9|AV1/i.test(video.Format)) notes.push(`Video codec may need transcoding for web delivery: ${video.Format}.`);
-			if (audio.Format && !/AAC|Opus|MPEG Audio|FLAC|PCM/i.test(audio.Format)) notes.push(`Audio codec may surprise platforms: ${audio.Format}.`);
-			if (Number(video.Width) % 2 || Number(video.Height) % 2) notes.push('Video dimensions are odd; some encoders and platforms prefer even dimensions.');
-			if (general.Format === 'MPEG-4' && !/isom|mp4/i.test(general.CodecID || '')) notes.push('MP4 brand looks unusual; remuxing with faststart may help playback.');
-			if (!notes.length) notes.push(copy.none);
+			if (video.Format && !/AVC|HEVC|VP9|AV1/i.test(video.Format)) notes.push(format(copy.videoCodec, { format: video.Format }));
+			if (audio.Format && !/AAC|Opus|MPEG Audio|FLAC|PCM/i.test(audio.Format)) notes.push(format(copy.audioCodec, { format: audio.Format }));
+			if (Number(video.Width) % 2 || Number(video.Height) % 2) notes.push(copy.oddDimensions);
+			if (general.Format === 'MPEG-4' && !/isom|mp4/i.test(general.CodecID || '')) notes.push(copy.mp4Brand);
+			if (notes.length === 1) notes.push(copy.none);
 			report.replaceChildren(...notes.map((note) => { const li = document.createElement('li'); li.textContent = note; return li; }));
 		}
 

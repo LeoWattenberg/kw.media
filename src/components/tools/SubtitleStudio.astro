@@ -112,7 +112,7 @@ const copyJson = JSON.stringify(copy);
 		const applyMode = root.querySelector('[data-apply-mode]'); const softSettings = root.querySelector('[data-soft-settings]'); const hardSettings = root.querySelector('[data-hard-settings]'); const container = root.querySelector('[data-container]');
 		const display = root.querySelector('[data-display]'); const position = root.querySelector('[data-position]'); const fontSize = root.querySelector('[data-font-size]'); const fontSizeLabel = root.querySelector('[data-font-size-label]'); const margin = root.querySelector('[data-margin]'); const marginLabel = root.querySelector('[data-margin-label]');
 		const apply = root.querySelector('[data-apply]'); const reset = root.querySelector('[data-reset]'); const status = root.querySelector('[data-status]'); const result = root.querySelector('[data-result]'); const downloadSubtitles = root.querySelector('[data-download-subtitles]'); const downloadMedia = root.querySelector('[data-download-media]');
-		let mediaUrl = null; let subtitleUrl = null; let outputUrl = null; let whisper = null;
+		let mediaUrl = null; let subtitleUrl = null; let outputUrl = null; let whisper = null; let isolationSupported = true;
 		const ffmpegRuntime = createFfmpegRuntime({ timeoutMessage: copy.timeout, onLoading: () => setStatus(copy.loading, 'info'), onReady: () => setStatus(copy.ffmpegReady, 'success'), onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info') });
 
 		mediaInput.addEventListener('change', selectMedia); subtitleInput.addEventListener('change', () => void selectSubtitles()); text.addEventListener('input', updateCues); inputFormat.addEventListener('change', updateCues);
@@ -125,7 +125,9 @@ const copyJson = JSON.stringify(copy);
 			const file = mediaInput.files?.[0]; if (mediaUrl) URL.revokeObjectURL(mediaUrl); mediaUrl = file ? URL.createObjectURL(file) : null;
 			mediaPreview.hidden = !file; if (file) mediaPreview.src = mediaUrl; else mediaPreview.removeAttribute('src');
 			mediaName.textContent = file?.name || copy.chooseMedia; mediaMeta.textContent = file ? format(copy.selected, { name: file.type || 'media', size: formatBytes(file.size) }) : copy.mediaHint;
-			generate.disabled = !file || !globalThis.crossOriginIsolated; setStatus(file ? format(copy.selected, { name: file.name, size: formatBytes(file.size) }) : copy.waiting, file ? 'success' : 'info');
+			generate.disabled = !file || !globalThis.crossOriginIsolated;
+			if (file && !isolationSupported) setStatus(copy.unsupported, 'error');
+			else setStatus(file ? format(copy.selected, { name: file.name, size: formatBytes(file.size) }) : copy.waiting, file ? 'success' : 'info');
 		}
 
 		async function selectSubtitles() { const file = subtitleInput.files?.[0]; if (!file) return; text.value = await file.text(); subtitleName.textContent = file.name; subtitleMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'text'}`; updateCues(); }
@@ -135,8 +137,11 @@ const copyJson = JSON.stringify(copy);
 		function updateMode() { const hard = applyMode.value === 'hard'; softSettings.hidden = hard; hardSettings.hidden = !hard; }
 
 		async function prepareIsolation() {
-			if (!('serviceWorker' in navigator) || !globalThis.isSecureContext) { setStatus(copy.unsupported, 'error'); return; }
-			setStatus(copy.isolation, 'info'); if (!await ensureWhisperIsolation(import.meta.env.BASE_URL)) location.reload();
+			if (!('serviceWorker' in navigator) || !globalThis.isSecureContext) { isolationSupported = false; setStatus(copy.unsupported, 'error'); return; }
+			const alreadyIsolated = globalThis.crossOriginIsolated && typeof SharedArrayBuffer !== 'undefined';
+			if (!alreadyIsolated) setStatus(copy.isolation, 'info');
+			if (!await ensureWhisperIsolation(import.meta.env.BASE_URL)) location.reload();
+			else if (!mediaInput.files?.[0] && !text.value) setStatus(copy.waiting, 'info');
 		}
 
 		async function generateSubtitles() {

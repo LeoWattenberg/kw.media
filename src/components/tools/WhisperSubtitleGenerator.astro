@@ -117,6 +117,7 @@ const copyJson = JSON.stringify(copy);
 		let srtUrl = null;
 		let vttUrl = null;
 		let transcriber = null;
+		let isolationSupported = true;
 
 		fileInput.addEventListener('change', onFile);
 		generate.addEventListener('click', () => void generateSubtitles());
@@ -135,12 +136,14 @@ const copyJson = JSON.stringify(copy);
 			hideDownloads();
 			fileMeta.textContent = file ? format(copy.selected, { name: file.type || 'media', size: formatBytes(file.size) }) : copy.hint;
 			generate.disabled = !file || !globalThis.crossOriginIsolated;
-			setStatus(file ? format(copy.selected, { name: file.name, size: formatBytes(file.size) }) : copy.waiting, file ? 'success' : 'info');
+			if (file && !isolationSupported) setStatus(copy.unsupported, 'error');
+			else setStatus(file ? format(copy.selected, { name: file.name, size: formatBytes(file.size) }) : copy.waiting, file ? 'success' : 'info');
 		}
 
 		async function prepareIsolation() {
 			const alreadyIsolated = globalThis.crossOriginIsolated && typeof SharedArrayBuffer !== 'undefined';
 			if (!('serviceWorker' in navigator) || !globalThis.isSecureContext) {
+				isolationSupported = false;
 				setStatus(copy.unsupported, 'error');
 				return;
 			}
