@@ -584,10 +584,11 @@ test.describe('visual tool interactions', () => {
 		const hourLabel = (date) => `${String(date.getUTCHours()).padStart(2, '0')}:00`;
 		const nextHour = new Date(peak.getTime() + 60 * 60 * 1000);
 
+		/* The merge commit alone runs far past the rest, which is what puts the line axis into its clipped mode. */
 		await stubCommitSnapshot(page, [
 			{ date: peakIso, added: 40, removed: 5 },
 			{ date: peakIso, added: 2, removed: 60 },
-			{ date: peakIso, added: 100, removed: 100, merge: true },
+			{ date: peakIso, added: 100_000, removed: 100, merge: true },
 			{ date: earlierIso, added: 7, removed: 1 },
 		], new Date(Date.now() - 90 * 60 * 1000).toISOString());
 		await stubGitHubCommits(page, [
@@ -609,16 +610,20 @@ test.describe('visual tool interactions', () => {
 		await expect(tool.locator('[data-bars] .time-day')).toHaveCount(30);
 		await expect(tool.locator('[data-hours-table] tr')).toHaveCount(30);
 		await expect(tool.locator('.heat-cell')).toHaveCount(30 * 24);
-		await expect(tool.locator('[data-stat-added]')).toHaveText('+149');
+		await expect(tool.locator('[data-stat-added]')).toHaveText('+100,049');
 		await expect(tool.locator('[data-stat-removed]')).toHaveText('−166');
-		await expect(tool.locator('[data-stat-removed-note]')).toHaveText('net −17 lines');
-		await expect(tool.locator('[data-lines-caption]')).toHaveText('149 lines added and 166 removed, one bar per hour.');
+		await expect(tool.locator('[data-stat-removed-note]')).toHaveText('net +99,883 lines');
+		await expect(tool.locator('[data-lines-caption]')).toHaveText('100,049 lines added and 166 removed, one bar per hour. Bars past 200 lines are cut off — 1 of 720 hours.');
 		await expect(tool.locator('[data-lines] .lines-bar')).toHaveCount(30 * 24);
 
 		/* Both series are bucketed to the same hour of the same day, so one column carries them all. */
 		const peakColumn = tool.locator(`[data-lines] .lines-bar[title*="${hourLabel(peak)}–${hourLabel(nextHour)}"]:not([title*="0 added, 0 removed"])`);
 		await expect(peakColumn).toHaveCount(1);
-		await expect(peakColumn).toHaveAttribute('title', /142 added, 165 removed$/);
+		await expect(peakColumn).toHaveAttribute('title', /100,042 added, 165 removed$/);
+		/* Only the hour past the ceiling breaks; the 165 removed lines below it stay a whole bar. */
+		await expect(tool.locator('[data-lines] .clipped')).toHaveCount(1);
+		await expect(peakColumn.locator('.added')).toHaveClass(/clipped/);
+		await expect(peakColumn.locator('.added')).toHaveCSS('height', '90px');
 
 		const filledCells = tool.locator('.heat-cell:not([data-level="0"])');
 		await expect(filledCells).toHaveCount(2);
@@ -629,13 +634,16 @@ test.describe('visual tool interactions', () => {
 		await expect(tool.locator('[data-status]')).toHaveText('5 commits loaded live from GitHub across 1 request.');
 		await expect(tool.locator('[data-stat-total]')).toHaveText('5');
 		/* The live list carries no line counts, so the commit the snapshot never saw stays uncounted. */
-		await expect(tool.locator('[data-lines-caption]')).toHaveText('149 lines added and 166 removed, one bar per hour. Line counts are available for 4 of 5 commits.');
+		await expect(tool.locator('[data-lines-caption]')).toHaveText('100,049 lines added and 166 removed, one bar per hour. Line counts are available for 4 of 5 commits. Bars past 200 lines are cut off — 1 of 720 hours.');
 
 		await tool.locator('[data-merges]').uncheck();
 		await expect(tool.locator('[data-stat-total]')).toHaveText('4');
 		await expect(tool.locator('[data-stat-hour-note]')).toHaveText('2 commits');
 		await expect(tool.locator('[data-stat-added]')).toHaveText('+49');
 		await expect(tool.locator('[data-stat-removed]')).toHaveText('−66');
+		/* Without the merge commit nothing dwarfs the rest, so the axis goes back to an exact ceiling. */
+		await expect(tool.locator('[data-lines-caption]')).toHaveText('49 lines added and 66 removed, one bar per hour. Line counts are available for 3 of 4 commits.');
+		await expect(tool.locator('[data-lines] .clipped')).toHaveCount(0);
 		expect(errors).toEqual([]);
 	});
 

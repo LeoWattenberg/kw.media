@@ -3,6 +3,14 @@ export const COMMIT_GRAPH_DAYS = 30;
 export const COMMIT_GRAPH_PAGE_SIZE = 100;
 export const COMMIT_GRAPH_MAX_PAGES = 30;
 export const COMMIT_GRAPH_HEAT_STEPS = 5;
+/*
+ * A single vendored-dependency commit can change a hundred times as many lines as an ordinary hour,
+ * and scaling against it leaves every real hour a hairline. The line chart therefore tops out at a
+ * quantile of its non-empty cells and marks the bars that run past it — but only when the peak is
+ * genuinely far beyond that cut, so an evenly spread window keeps an exact axis.
+ */
+export const COMMIT_GRAPH_CLIP_QUANTILE = 0.95;
+export const COMMIT_GRAPH_CLIP_RATIO = 3;
 export const COMMIT_GRAPH_CACHE_TTL = 30 * 60 * 1000;
 /*
  * Line counts are not part of the commit list response, so they cost one request per commit. The
@@ -212,7 +220,7 @@ export function buildCommitGrid(commits, { mode = 'commit', days = COMMIT_GRAPH_
 		removed,
 		maxHour: Math.max(0, ...hours),
 		maxCell: Math.max(0, ...cells),
-		maxCellLines: Math.max(0, ...lineCells),
+		lineScale: clipScale(lineCells),
 		heatScale: buildHeatScale(cells),
 	};
 }
@@ -276,6 +284,24 @@ export function buildHeatScale(values, steps = COMMIT_GRAPH_HEAT_STEPS) {
 
 	return Array.from({ length: Math.max(1, steps) - 1 }, (_, index) =>
 		positives[Math.min(positives.length - 1, Math.floor((positives.length * (index + 1)) / steps))]);
+}
+
+export function clipScale(values, { quantile = COMMIT_GRAPH_CLIP_QUANTILE, ratio = COMMIT_GRAPH_CLIP_RATIO } = {}) {
+	const positives = (Array.isArray(values) ? values : []).filter((value) => value > 0).sort((first, second) => first - second);
+	const max = positives.length ? positives[positives.length - 1] : 0;
+	const cut = positives.length ? positives[Math.floor((positives.length - 1) * quantile)] : 0;
+	if (!positives.length || max <= cut * ratio) return { ceiling: max, max, clipped: 0, cells: positives.length };
+
+	const ceiling = roundUpToTick(cut);
+	return { ceiling, max, clipped: positives.filter((value) => value > ceiling).length, cells: positives.length };
+}
+
+/* Axis ends read as ticks, so they land on a half-magnitude step: 5,881 becomes 6,000. */
+export function roundUpToTick(value) {
+	const amount = Number(value) || 0;
+	if (amount <= 0) return 0;
+	const step = 10 ** Math.floor(Math.log10(amount)) / 2;
+	return Math.ceil(amount / step) * step;
 }
 
 export function heatLevel(count, scale) {

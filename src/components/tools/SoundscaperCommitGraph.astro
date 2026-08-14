@@ -28,6 +28,7 @@ const copy = {
 		linesTitle: 'Zeilen im Zeitverlauf',
 		linesCaption: '{added} hinzugefügte und {removed} entfernte Zeilen, ein Balken pro Stunde.',
 		linesCoverage: 'Zeilenzahlen liegen für {counted} von {total} Commits vor.',
+		linesClipped: 'Balken über {ceiling} Zeilen sind gekappt — {count} von {total} Stunden.',
 		linesPending: 'Für dieses Fenster liegen noch keine Zeilenzahlen vor. Der Snapshot-Job holt sie schrittweise nach.',
 		legendAdded: 'hinzugefügt', legendRemoved: 'entfernt',
 		tableAdded: 'Hinzugefügt', tableRemoved: 'Entfernt', tableNet: 'Netto',
@@ -67,6 +68,7 @@ const copy = {
 		linesTitle: 'Lines changed over time',
 		linesCaption: '{added} lines added and {removed} removed, one bar per hour.',
 		linesCoverage: 'Line counts are available for {counted} of {total} commits.',
+		linesClipped: 'Bars past {ceiling} lines are cut off — {count} of {total} hours.',
 		linesPending: 'No line counts for this window yet. The snapshot job backfills them run by run.',
 		legendAdded: 'added', legendRemoved: 'removed',
 		tableAdded: 'Added', tableRemoved: 'Removed', tableNet: 'Net',
@@ -406,6 +408,15 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 			])));
 		}
 
+		/* Anything past the clipped ceiling stops at full height and carries a break at its open end. */
+		function fillProps(series, value, max) {
+			const clipped = value > max;
+			return {
+				className: `lines-bar-fill ${series}${clipped ? ' clipped' : ''}`,
+				style: `height: ${max ? Math.min(100, (value / max) * 100) : 0}%`,
+			};
+		}
+
 		/* The plot is one equal-width group per day, so the label row mirrors that to stay aligned. */
 		function renderDayLabels(target, grid) {
 			const step = Math.max(1, Math.ceil(grid.days.length / 6));
@@ -418,10 +429,17 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 
 		function renderLines(grid, summary) {
 			const covered = summary.statCommits > 0;
+			const scale = grid.lineScale;
 			linesBody.hidden = !covered;
-			linesCaption.textContent = covered
-				? `${format(copy.linesCaption, { added: formatLineCount(grid.added, locale), removed: formatLineCount(grid.removed, locale) })}${summary.statMissing ? ` ${format(copy.linesCoverage, { counted: formatLineCount(summary.statCommits, locale), total: formatLineCount(summary.total, locale) })}` : ''}`
-				: copy.linesPending;
+			linesCaption.textContent = covered ? [
+				format(copy.linesCaption, { added: formatLineCount(grid.added, locale), removed: formatLineCount(grid.removed, locale) }),
+				summary.statMissing && format(copy.linesCoverage, { counted: formatLineCount(summary.statCommits, locale), total: formatLineCount(summary.total, locale) }),
+				scale.clipped && format(copy.linesClipped, {
+					ceiling: formatLineCount(scale.ceiling, locale),
+					count: formatLineCount(scale.clipped, locale),
+					total: formatLineCount(grid.days.length * 24, locale),
+				}),
+			].filter(Boolean).join(' ') : copy.linesPending;
 			if (!covered) {
 				linesBars.replaceChildren();
 				linesDays.replaceChildren();
@@ -429,7 +447,7 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 				return;
 			}
 
-			const max = grid.maxCellLines;
+			const max = scale.ceiling;
 			linesAxis.replaceChildren(...[formatSignedLines(max, locale), '0', formatSignedLines(-max, locale)].map((value) => element('span', { textContent: value })));
 			linesBars.setAttribute('aria-label', `${copy.linesTitle}. ${format(copy.linesAria, {
 				days: COMMIT_GRAPH_DAYS,
@@ -448,8 +466,8 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 						removed: formatLineCount(removed, locale),
 					}),
 				}, [
-					element('span', { className: 'lines-bar-fill added', style: `height: ${max ? (added / max) * 100 : 0}%` }),
-					element('span', { className: 'lines-bar-fill removed', style: `height: ${max ? (removed / max) * 100 : 0}%` }),
+					element('span', fillProps('added', added, max)),
+					element('span', fillProps('removed', removed, max)),
 				]);
 			}))));
 			renderDayLabels(linesDays, grid);
@@ -566,12 +584,18 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 	.lines-swatch[data-series='added'] { background: var(--commit-graph-added); }
 	.lines-swatch[data-series='removed'] { background: var(--commit-graph-removed); }
 	/* The plot's middle gridline is the zero line, so each column splits into equal halves around it. */
-	/* The column needs a definite track, or the fills resolve their width against an auto track and vanish. */
-	.commit-graph :global(.lines-bar) { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr 1fr; }
+	/*
+	 * The column needs a definite track, or the fills resolve their width against an auto track and
+	 * vanish. The row gap straddles the zero line, so it stays visible where both series run tall in
+	 * the same hour, and a full-height bar still ends exactly on the axis.
+	 */
+	.commit-graph :global(.lines-bar) { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr 1fr; row-gap: 2px; }
 	.commit-graph :global(.lines-bar-fill) { width: 100%; }
-	/* A pixel either side keeps the zero line visible where both series run tall in the same hour. */
-	.commit-graph :global(.lines-bar-fill.added) { align-self: end; margin-bottom: 1px; background: var(--commit-graph-added); }
-	.commit-graph :global(.lines-bar-fill.removed) { align-self: start; margin-top: 1px; background: var(--commit-graph-removed); }
+	.commit-graph :global(.lines-bar-fill.added) { align-self: end; background: var(--commit-graph-added); }
+	.commit-graph :global(.lines-bar-fill.removed) { align-self: start; background: var(--commit-graph-removed); }
+	/* A bar that runs past the ceiling breaks near its open end: a gap, then a stub that keeps going. */
+	.commit-graph :global(.lines-bar-fill.added.clipped) { background: linear-gradient(to top, var(--commit-graph-added) calc(100% - 6px), transparent calc(100% - 6px), transparent calc(100% - 3px), var(--commit-graph-added) calc(100% - 3px)); }
+	.commit-graph :global(.lines-bar-fill.removed.clipped) { background: linear-gradient(to bottom, var(--commit-graph-removed) calc(100% - 6px), transparent calc(100% - 6px), transparent calc(100% - 3px), var(--commit-graph-removed) calc(100% - 3px)); }
 
 	.heat-scroll { overflow-x: auto; }
 	.heat-table { border-collapse: separate; border-spacing: 2px; width: 100%; min-width: 560px; table-layout: fixed; }

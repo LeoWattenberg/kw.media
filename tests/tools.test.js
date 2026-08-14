@@ -101,6 +101,7 @@ import {
 	buildCommitGrid,
 	buildCommitSnapshot,
 	buildHeatScale,
+	clipScale,
 	commitCell,
 	commitStatsBySha,
 	commitStatsUrl,
@@ -125,6 +126,7 @@ import {
 	parseIsoParts,
 	parseLastPage,
 	readCommitCache,
+	roundUpToTick,
 	snapshotIsEquivalent,
 	summarizeGrid,
 	windowStartIso,
@@ -546,7 +548,7 @@ test('commit graph buckets added and removed lines per hour and reports partial 
 	assert.equal(newest.additions[23], 7);
 	assert.equal(grid.added, 49);
 	assert.equal(grid.removed, 66);
-	assert.equal(grid.maxCellLines, 65);
+	assert.deepEqual(grid.lineScale, { ceiling: 65, max: 65, clipped: 0, cells: 4 });
 	assert.equal(grid.statCommits, 3);
 	assert.deepEqual([older.added, older.removed], [0, 0]);
 	assert.deepEqual([newest.added, newest.removed], [49, 66]);
@@ -561,6 +563,29 @@ test('commit graph buckets added and removed lines per hour and reports partial 
 	assert.equal(summary.dailyRemovedAverage, 33);
 	assert.deepEqual([summary.peakLinesDayKey, summary.peakLinesHour, summary.peakLinesTotal], ['2026-08-13', 10, 107]);
 	assert.deepEqual([summary.peakDayKey, summary.peakHour, summary.peakTotal], ['2026-08-13', 10, 2]);
+});
+
+test('commit graph clips the line axis only when one hour dwarfs the rest', () => {
+	const ordinary = Array.from({ length: 100 }, (_, index) => index + 1);
+	assert.deepEqual(clipScale(ordinary), { ceiling: 100, max: 100, clipped: 0, cells: 100 });
+
+	/* p95 of 1…100 is 96, and the 40,000 outlier is far past three times that, so the axis cuts. */
+	const spiked = clipScale([...ordinary, 40_000]);
+	assert.equal(spiked.ceiling, 100);
+	assert.equal(spiked.max, 40_000);
+	assert.equal(spiked.clipped, 1);
+
+	assert.deepEqual(clipScale([]), { ceiling: 0, max: 0, clipped: 0, cells: 0 });
+	assert.deepEqual(clipScale(null), { ceiling: 0, max: 0, clipped: 0, cells: 0 });
+	assert.deepEqual(clipScale([0, 0]), { ceiling: 0, max: 0, clipped: 0, cells: 0 });
+	assert.equal(clipScale([5, 5, 5, 900]).clipped, 1);
+
+	assert.equal(roundUpToTick(5881), 6000);
+	assert.equal(roundUpToTick(17150), 20000);
+	assert.equal(roundUpToTick(45), 45);
+	assert.equal(roundUpToTick(41), 45);
+	assert.equal(roundUpToTick(0), 0);
+	assert.equal(roundUpToTick(-3), 0);
 });
 
 test('commit graph reads line counts from single-commit payloads and grafts them on by sha', () => {
