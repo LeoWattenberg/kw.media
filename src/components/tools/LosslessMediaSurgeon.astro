@@ -88,7 +88,11 @@ const copyJson = JSON.stringify(copy);
 		root.dataset.bound = 'true';
 		const copy = JSON.parse(root.dataset.copy || '{}');
 		const sourceInput = root.querySelector('[data-source]');
+		const sourceName = root.querySelector('[data-source-name]');
+		const sourceMeta = root.querySelector('[data-source-meta]');
 		const audioInput = root.querySelector('[data-audio]');
+		const audioName = root.querySelector('[data-audio-name]');
+		const audioMeta = root.querySelector('[data-audio-meta]');
 		const operation = root.querySelector('[data-operation]');
 		const container = root.querySelector('[data-container]');
 		const replacementWrap = root.querySelector('[data-replacement-wrap]');
@@ -129,8 +133,19 @@ const copyJson = JSON.stringify(copy);
 
 		function update() {
 			const file = sourceInput.files?.[0];
-			processButton.disabled = !file || (operation.value === 'replace' && !audioInput.files?.[0]);
+			const audio = audioInput.files?.[0];
+			sourceName.textContent = file ? file.name : copy.choose;
+			sourceMeta.textContent = file ? formatBytes(file.size) : copy.hint;
+			audioName.textContent = audio ? audio.name : copy.chooseAudio;
+			audioMeta.textContent = audio ? formatBytes(audio.size) : copy.audioHint;
+			updateProcessButton();
 			setStatus(file ? format(copy.selected, { name: file.name }) : copy.waiting, file ? 'success' : 'info');
+		}
+
+		/* Runs after process() so the button recovers without overwriting the done or error status. */
+		function updateProcessButton() {
+			const file = sourceInput.files?.[0];
+			processButton.disabled = !file || (operation.value === 'replace' && !audioInput.files?.[0]);
 		}
 
 		async function process() {
@@ -169,7 +184,7 @@ const copyJson = JSON.stringify(copy);
 				setStatus(copy.done, 'success');
 			} catch (error) {
 				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
-			} finally { update(); }
+			} finally { updateProcessButton(); }
 		}
 
 		function buildArgs(inputName, audioName, outputName) {

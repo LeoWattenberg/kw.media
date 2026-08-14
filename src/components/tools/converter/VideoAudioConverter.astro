@@ -7,6 +7,7 @@ import ToolIntro from '../shared/ToolIntro.astro';
 import ToolPanel from '../shared/ToolPanel.astro';
 import ToolResultCard from '../shared/ToolResultCard.astro';
 import ToolStatus from '../shared/ToolStatus.astro';
+import { CONVERSION_PROFILES } from '../../../lib/tools/video-audio-converter.js';
 
 interface Props {
 	locale: Locale;
@@ -16,17 +17,6 @@ interface Props {
 }
 
 const { locale, defaultProfile = '', title, eyebrow } = Astro.props;
-
-const profileDefinitions = [
-	{ value: 'wav', label: 'WAV', extension: '.wav', mimeType: 'audio/wav', kind: 'audio', codec: 'pcm_s16le', args: ['-ar', '48000'] },
-	{ value: 'mp3', label: 'MP3', extension: '.mp3', mimeType: 'audio/mpeg', kind: 'audio', codec: 'libmp3lame', args: ['-b:a', '192k'] },
-	{ value: 'ogg', label: 'OGG', extension: '.ogg', mimeType: 'audio/ogg', kind: 'audio', codec: 'libopus', args: ['-b:a', '192k', '-ar', '48000'] },
-	{ value: 'm4a', label: 'M4A', extension: '.m4a', mimeType: 'audio/mp4', kind: 'audio', codec: 'aac', args: ['-b:a', '192k'] },
-	{ value: 'flac', label: 'FLAC', extension: '.flac', mimeType: 'audio/flac', kind: 'audio', codec: 'flac', args: ['-ar', '48000'] },
-	{ value: 'mp4', label: 'MP4', extension: '.mp4', mimeType: 'video/mp4', kind: 'video', codec: 'libx264', videoArgs: ['-crf', '23', '-preset', 'veryfast', '-pix_fmt', 'yuv420p'], audioCodec: 'aac', audioArgs: ['-b:a', '192k'] },
-	{ value: 'webm', label: 'WebM', extension: '.webm', mimeType: 'video/webm', kind: 'video', codec: 'libvpx', videoArgs: ['-deadline', 'realtime', '-cpu-used', '8', '-threads', '2', '-lag-in-frames', '0', '-b:v', '2M'], audioCodec: 'libopus', audioArgs: ['-b:a', '160k', '-ar', '48000'] },
-	{ value: 'mov', label: 'MOV', extension: '.mov', mimeType: 'video/quicktime', kind: 'video', codec: 'libx264', videoArgs: ['-crf', '20', '-preset', 'veryfast', '-pix_fmt', 'yuv420p'], audioCodec: 'aac', audioArgs: ['-b:a', '192k'] },
-];
 
 const copyByLocale = {
 	de: {
@@ -98,8 +88,8 @@ const copy = {
 	eyebrow: eyebrow || defaultCopy.eyebrow,
 };
 const copyJson = JSON.stringify(copy);
-const profilesJson = JSON.stringify(profileDefinitions);
-const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.value === defaultProfile) ? defaultProfile : '';
+const profilesJson = JSON.stringify(CONVERSION_PROFILES);
+const normalizedDefaultProfile = CONVERSION_PROFILES.some((profile) => profile.value === defaultProfile) ? defaultProfile : '';
 ---
 
 <ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
@@ -216,7 +206,14 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 				void selectFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
 			});
 			profileSelect.addEventListener('change', () => {
+				// The finished output belongs to the format the select no longer names,
+				// so its download, preview and success status cannot stay on screen.
+				clearOutput();
+				showMediaPreview('source');
 				updateSelectionUi();
+				if (state.selectedFile) {
+					setStatus(copy.statusPreparing, 'info');
+				}
 			});
 			processButton.addEventListener('click', () => {
 				void convertFile();
@@ -257,12 +254,18 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 					return;
 				}
 
+				// The run belongs to the file that started it: FFmpeg takes minutes on a long video,
+				// and re-reading state afterwards would name the download after whatever was picked
+				// in the meantime, or throw once Reset cleared it.
+				const sourceFile = state.selectedFile;
 				processButton.disabled = true;
+				fileInput.disabled = true;
+				clearButton.disabled = true;
 				setStatus(copy.statusProcessing, 'info');
 
 				try {
 					const outputProfile = getSelectedProfile();
-					const output = await convertFileWithFfmpeg(state.selectedFile, outputProfile);
+					const output = await convertFileWithFfmpeg(sourceFile, outputProfile);
 					const blob = new Blob([output], { type: outputProfile.mimeType });
 					const url = URL.createObjectURL(blob);
 
@@ -273,10 +276,10 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 					state.downloadUrl = url;
 					state.outputKind = outputProfile.kind;
 					downloadLink.href = url;
-					downloadLink.download = buildOutputName(state.selectedFile.name, outputProfile.extension);
+					downloadLink.download = buildOutputName(sourceFile.name, outputProfile.extension);
 					downloadLink.hidden = false;
 					downloadLink.textContent = copy.download;
-					resultTitle.textContent = format(copy.selectedFile, { name: state.selectedFile.name });
+					resultTitle.textContent = format(copy.selectedFile, { name: sourceFile.name });
 					resultMeta.textContent = format(copy.selectedMeta, {
 						size: formatBytes(blob.size),
 						type: outputProfile.label,
@@ -287,6 +290,8 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 				} catch (error) {
 					setStatus(format(copy.statusError, { message: messageFromError(error) }), 'error');
 				} finally {
+					fileInput.disabled = false;
+					clearButton.disabled = false;
 					processButton.disabled = !state.selectedFile || !profileSelect.value;
 				}
 			}

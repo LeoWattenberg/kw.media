@@ -98,7 +98,8 @@ const copyByLocale = {
 } satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
 
 const copy = copyByLocale[locale];
-const copyJson = JSON.stringify(copy.client);
+/* The preview toggle relabels itself at runtime, so its two labels ship with the client copy. */
+const copyJson = JSON.stringify({ ...copy.client, showSource: copy.showSource, showOutput: copy.showOutput });
 ---
 
 <ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
@@ -130,8 +131,9 @@ const copyJson = JSON.stringify(copy.client);
 							<img data-output-image alt="" />
 						</div>
 						<small data-output-meta></small>
-						<a class="button primary" data-download href="#" download hidden>{copy.download}</a>
 					</div>
+					<!-- Outside [data-result] so switching the preview back to the original keeps the finished GIF downloadable. -->
+					<a class="button primary gif-download" data-download href="#" download hidden>{copy.download}</a>
 				</ToolPanel>
 
 				<details class="converter-toolbar" open>
@@ -341,6 +343,9 @@ const copyJson = JSON.stringify(copy.client);
 
 				setWorking(true);
 				resetOutput();
+				/* resetOutput() takes the previous GIF away, so the source has to come back
+				   instead of leaving an empty panel for the length of the run. */
+				showPreview('source');
 				setStatus(copy.converting, 'info');
 
 				try {
@@ -545,8 +550,9 @@ const copyJson = JSON.stringify(copy.client);
 		margin: 0;
 	}
 
-	.converted-preview .button {
+	.gif-download {
 		justify-self: start;
+		margin-top: 18px;
 	}
 
 	.preview-frame {
