@@ -208,7 +208,11 @@ const copyJson = JSON.stringify(copy);
 			});
 			convertButton.addEventListener('click', () => void convertFile());
 			resetButton.addEventListener('click', reset);
-			window.addEventListener('pagehide', clearOutput, { once: true });
+			// A persisted pagehide means the page is entering the back-forward cache and will
+			// come back with this DOM, so the finished mix has to survive it.
+			window.addEventListener('pagehide', (event) => {
+				if (!event.persisted) clearOutput();
+			});
 
 			function selectFile(file) {
 				clearOutput();

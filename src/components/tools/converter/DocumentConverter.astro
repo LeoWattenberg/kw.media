@@ -291,12 +291,18 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 					return;
 				}
 
+				// The running conversion owns the file it started with: the picker and the
+				// reset button stay locked so the download can never be named after a file
+				// whose bytes it does not contain.
+				const sourceFile = state.selectedFile;
 				processButton.disabled = true;
+				fileInput.disabled = true;
+				clearButton.disabled = true;
 				setStatus(copy.statusProcessing, 'info');
 
 				try {
 					const outputProfile = getSelectedProfile();
-					const output = await convertFileWithPandoc(state.selectedFile, outputProfile);
+					const output = await convertFileWithPandoc(sourceFile, outputProfile);
 					const blob = output.blob;
 					const url = URL.createObjectURL(blob);
 
@@ -306,10 +312,10 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 
 					state.downloadUrl = url;
 					downloadLink.href = url;
-					downloadLink.download = buildOutputName(state.selectedFile.name, outputProfile.extension);
+					downloadLink.download = buildOutputName(sourceFile.name, outputProfile.extension);
 					downloadLink.hidden = false;
 					downloadLink.textContent = copy.download;
-					resultTitle.textContent = format(copy.selectedFile, { name: state.selectedFile.name });
+					resultTitle.textContent = format(copy.selectedFile, { name: sourceFile.name });
 					resultMeta.textContent = format(copy.selectedMeta, {
 						size: formatBytes(blob.size),
 						type: outputProfile.label,
@@ -319,6 +325,8 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 				} catch (error) {
 					setStatus(format(copy.statusError, { message: messageFromError(error) }), 'error');
 				} finally {
+					fileInput.disabled = false;
+					clearButton.disabled = false;
 					processButton.disabled = !state.selectedFile || !profileSelect.value;
 				}
 			}
@@ -362,8 +370,14 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 						return { blob: new Blob([outputFile], { type: profile.mimeType }), previewHtml };
 					}
 
-					throw new Error(copy.statusGeneric);
+					throw new Error(pandocErrorMessage(result) || copy.statusGeneric);
 				});
+			}
+
+			function pandocErrorMessage(result) {
+				const lines = String((result && result.stderr) || '').split('\n');
+				const reported = lines.map((line) => line.trim()).filter(Boolean);
+				return reported.length ? reported[0] : '';
 			}
 
 			async function createHtmlPreview(pandoc, inputFormat, stdin, files) {
