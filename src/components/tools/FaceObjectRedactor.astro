@@ -77,7 +77,7 @@ const copyJson = JSON.stringify(copy);
 			const status = root.querySelector('[data-status]');
 			const download = root.querySelector('[data-download]');
 			const resultPanel = root.querySelector('[data-result-panel]');
-			const image = new Image();
+			let image = new Image();
 			let inputUrl = null;
 			let outputUrl = null;
 			let boxes = [];
@@ -98,15 +98,19 @@ const copyJson = JSON.stringify(copy);
 				if (outputUrl) URL.revokeObjectURL(outputUrl);
 				outputUrl = null; download.hidden = true; resultPanel.hidden = true;
 				inputUrl = URL.createObjectURL(file);
-				image.onload = () => {
-					const scale = Math.min(1, 1600 / Math.max(image.naturalWidth, image.naturalHeight));
-					canvas.width = Math.round(image.naturalWidth * scale);
-					canvas.height = Math.round(image.naturalHeight * scale);
-					ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+				/* Reset swaps `image` for a fresh one, so a load that lands afterwards belongs to a
+				   picture the tool no longer holds and must not re-arm the canvas. */
+				const loading = image;
+				loading.onload = () => {
+					if (loading !== image) return;
+					const scale = Math.min(1, 1600 / Math.max(loading.naturalWidth, loading.naturalHeight));
+					canvas.width = Math.round(loading.naturalWidth * scale);
+					canvas.height = Math.round(loading.naturalHeight * scale);
+					ctx.drawImage(loading, 0, 0, canvas.width, canvas.height);
 					canvas.hidden = false; detectButton.disabled = false; applyButton.disabled = true; boxes = [];
 					void detect();
 				};
-				image.src = inputUrl;
+				loading.src = inputUrl;
 				fileName.textContent = file.name; fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'image'}`;
 				setStatus(format(copy.selected, { name: file.name }), 'success');
 			}
@@ -124,7 +128,7 @@ const copyJson = JSON.stringify(copy);
 					drawBoxes();
 					applyButton.disabled = !boxes.length;
 					setStatus(boxes.length ? format(copy.detected, { count: boxes.length }) : copy.none, boxes.length ? 'success' : 'info');
-				} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
+				} catch (error) { boxes = []; applyButton.disabled = true; setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
 				finally { detectButton.disabled = !image.naturalWidth; }
 			}
 
@@ -174,7 +178,8 @@ const copyJson = JSON.stringify(copy);
 				return promise.catch((error) => { detectorPromise = null; throw error; });
 			}
 
-			function reset() { fileInput.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; canvas.hidden = true; download.hidden = true; resultPanel.hidden = true; detectButton.disabled = true; applyButton.disabled = true; boxes = []; for (const url of [inputUrl, outputUrl]) if (url) URL.revokeObjectURL(url); inputUrl = outputUrl = null; setStatus(copy.waiting, 'info'); }
+			/* A fresh Image drops the decoded picture too, so nothing can re-detect on it. */
+			function reset() { fileInput.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; canvas.hidden = true; download.hidden = true; resultPanel.hidden = true; detectButton.disabled = true; applyButton.disabled = true; boxes = []; image = new Image(); for (const url of [inputUrl, outputUrl]) if (url) URL.revokeObjectURL(url); inputUrl = outputUrl = null; setStatus(copy.waiting, 'info'); }
 			function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
 			function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
 			function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'image'; }

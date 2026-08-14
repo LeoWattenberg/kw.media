@@ -232,18 +232,29 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				seedPoint: null,
 				seedColor: null,
 				originalName: null,
+				/*
+				 * A decoded copy of the chosen file, kept only so the seed swatch reports the colour
+				 * the flood fill will actually see. The visible preview becomes the cutout after a
+				 * run, and sampling that would announce transparent pixels the fill never reads.
+				 */
+				seedSource: null,
 			};
 
 			fileInput.addEventListener('change', () => {
 				setSourceFile(fileInput.files && fileInput.files[0] ? fileInput.files[0] : null);
 			});
-			formatSelect.addEventListener('change', updateQualityControl);
+			formatSelect.addEventListener('change', () => {
+				updateQualityControl();
+				rerunWithCurrentSettings();
+			});
 			fuzzInput.addEventListener('input', () => {
 				fuzzLabel.textContent = `${fuzzInput.value}%`;
 			});
+			fuzzInput.addEventListener('change', rerunWithCurrentSettings);
 			qualityInput.addEventListener('input', () => {
 				qualityLabel.textContent = qualityInput.value;
 			});
+			qualityInput.addEventListener('change', rerunWithCurrentSettings);
 			clearButton.addEventListener('click', clearFile);
 			sourceImage.addEventListener('click', setSeedFromClick);
 			sourceImage.addEventListener('load', () => {
@@ -280,6 +291,8 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				}
 
 				state.inputUrl = URL.createObjectURL(file);
+				state.seedSource = new Image();
+				state.seedSource.src = state.inputUrl;
 				fileName.textContent = file.name;
 				fileMeta.textContent = format(copy.fileMeta, {
 					size: formatBytes(file.size),
@@ -314,7 +327,13 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				const outputName = createOutputName(baseName, selectedFormat.extension);
 
 				setWorking(true);
-				resetOutput();
+				/*
+				 * The finished cutout is still on screen and still downloadable while the next run
+				 * works, so its blob URL is only released once a replacement exists (or the run fails).
+				 */
+				const previousUrl = state.outputUrl;
+				downloadLink.hidden = true;
+				downloadLink.removeAttribute('href');
 
 				try {
 					const magick = await loadMagick();
@@ -329,12 +348,11 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 					});
 					const outputBlob = new Blob([cutout.bytes], { type: selectedFormat.mime });
 					const nextUrl = URL.createObjectURL(outputBlob);
-					const nextFile = new File([outputBlob], outputName, { type: selectedFormat.mime });
 
-					revokeUrl('inputUrl');
-					state.file = nextFile;
-					state.inputUrl = nextUrl;
+					/* The cutout is only the preview and the download: every run starts from the chosen file again. */
+					state.outputUrl = nextUrl;
 					sourceImage.src = nextUrl;
+					if (previousUrl) URL.revokeObjectURL(previousUrl);
 					sourceMeta.textContent = format(copy.imageMeta, {
 						width: cutout.width || '?',
 						height: cutout.height || '?',
@@ -347,9 +365,19 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 					setStatus(format(copy.converted, { name: outputName }), 'success');
 				} catch (error) {
 					setStatus(messageFromError(error), 'error');
-					resetOutput();
+					/* Nothing replaced the previous cutout, so put it back rather than leaving a dead preview. */
+					if (previousUrl) {
+						downloadLink.href = previousUrl;
+						downloadLink.hidden = false;
+					}
 				} finally {
 					setWorking(false);
+				}
+			}
+
+			function rerunWithCurrentSettings() {
+				if (state.file && state.seedPoint && !state.isWorking) {
+					void removeBackground();
 				}
 			}
 
@@ -466,7 +494,11 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 					return;
 				}
 
-				context.drawImage(sourceImage, 0, 0);
+				/* Read the colour off the chosen file, which is what removeWithMagick seeds from. */
+				const seedSource = state.seedSource?.complete && state.seedSource.naturalWidth
+					? state.seedSource
+					: sourceImage;
+				context.drawImage(seedSource, 0, 0);
 				const [red, green, blue] = context.getImageData(x, y, 1, 1).data;
 				const color = rgbToHex(red, green, blue);
 

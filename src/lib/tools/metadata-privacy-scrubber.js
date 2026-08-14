@@ -19,12 +19,19 @@ export function mediaContainerMime(extension) {
 	})[extension] || 'application/octet-stream';
 }
 
+/* The scrub re-renders images through a canvas, and canvas.toBlob only encodes these. */
+const canvasImageTypes = new Set(['image/png', 'image/jpeg', 'image/webp']);
+
 export function metadataOutputProfile(file) {
 	const type = String(file?.type || '').toLowerCase();
 	const name = String(file?.name || '');
 	const match = name.toLowerCase().match(/\.([a-z0-9]+)$/);
 	let extension = match?.[1] || extensionForMime(type);
-	const isImage = type.startsWith('image/') && type !== 'image/svg+xml';
+	const isImage = type.startsWith('image/');
+	/* Everything else (GIF, AVIF, BMP, TIFF, SVG) comes back out of the canvas as PNG. */
+	if (isImage && !canvasImageTypes.has(type)) {
+		return { isImage: true, extension: 'png', mimeType: 'image/png' };
+	}
 	if (isImage && extension === 'jpeg') extension = 'jpg';
 	return {
 		isImage,

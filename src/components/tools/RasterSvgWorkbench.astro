@@ -159,6 +159,12 @@ const copyJson = JSON.stringify(copy);
 				rasterPane.hidden = !rasterMode;
 				svgPane.hidden = rasterMode;
 				runButton.textContent = rasterMode ? copy.vectorize : copy.rasterize;
+				/* The other direction's result must not stay downloadable next to "Choose a file." */
+				resultPanel.hidden = true;
+				preview.innerHTML = '';
+				preview.hidden = true;
+				downloadSvg.hidden = true;
+				downloadPng.hidden = true;
 				setStatus(copy.waiting, 'info');
 			}
 
@@ -204,6 +210,7 @@ const copyJson = JSON.stringify(copy);
 				context.drawImage(image, 0, 0, canvas.width, canvas.height);
 				const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
 				let svg;
+				let usedFallback = false;
 				try {
 					const tracer = await loadTracer();
 					svg = tracer.imagedataToSVG(imageData, {
@@ -216,12 +223,13 @@ const copyJson = JSON.stringify(copy);
 					});
 				} catch {
 					svg = pixelVectorFallback(imageData, Number(colors.value));
-					setStatus(copy.tracerFallback, 'info');
+					usedFallback = true;
 				}
 				showSvg(svg);
 				const name = `${baseName(file.name)}.svg`;
 				downloadSvg.download = name;
-				setStatus(copy.doneSvg, 'success');
+				/* The fallback notice has to survive the run, otherwise a rect grid passes for a trace. */
+				setStatus(usedFallback ? copy.tracerFallback : copy.doneSvg, usedFallback ? 'info' : 'success');
 			}
 
 			async function rasterize() {

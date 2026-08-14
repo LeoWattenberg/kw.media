@@ -159,8 +159,8 @@ const copyJson = JSON.stringify(copy);
 			async function cutObject() {
 				if (!point) { setStatus(copy.noPoint, 'error'); return; }
 				try {
-					setStatus(copy.processing, 'info');
 					const segmenter = await loadSegmenter();
+					setStatus(copy.processing, 'info');
 					const result = await new Promise((resolve, reject) => {
 						try {
 							segmenter.segment(image, { keypoint: point }, resolve);
@@ -260,7 +260,8 @@ const copyJson = JSON.stringify(copy);
 						values: Array.from(data, (value) => value > 0 ? 1 : 0),
 					};
 				}
-				const confidenceMask = result.confidenceMasks?.[0];
+				/* confidenceMasks[0] scores the background, [1] the object under the click. */
+				const confidenceMask = result.confidenceMasks?.[1] || result.confidenceMasks?.[0];
 				if (confidenceMask) {
 					return {
 						width: confidenceMask.width || canvas.width,

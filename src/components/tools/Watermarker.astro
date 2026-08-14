@@ -369,9 +369,9 @@ const copyJson = JSON.stringify(copy.client);
 			function setWatermarkFile(file) {
 				revokeUrl('watermarkUrl');
 				state.watermarkFile = file;
-				watermarkInput.value = file ? watermarkInput.value : '';
 
 				if (!file) {
+					watermarkInput.value = '';
 					watermarkName.textContent = defaults.watermarkName;
 					updateReadyState();
 					return;
