@@ -30,12 +30,10 @@ export default defineConfig({
 		timeout: 5000,
 	},
 	fullyParallel: true,
-	webServer: {
-		command: `npm run preview -- --host 127.0.0.1 --port ${port}`,
-		url: baseURL,
-		reuseExistingServer: false,
-		timeout: 30000,
-	},
+	// `astro preview` daemonizes, so Playwright's webServer helper cannot own it:
+	// tests/browser/global-setup.mjs starts and waits for the daemon instead.
+	globalSetup: './tests/browser/global-setup.mjs',
+	globalTeardown: './tests/browser/global-teardown.mjs',
 	use: {
 		baseURL,
 		trace: 'on-first-retry',
