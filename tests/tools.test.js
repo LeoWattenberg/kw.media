@@ -520,10 +520,14 @@ test('commit graph builds a day-by-hour grid limited to the tracked window', () 
 		net: 0,
 		statCommits: 0,
 		statMissing: 4,
-		busiestLinesHour: 0,
-		busiestLinesHourTotal: 0,
 		dailyAddedAverage: 0,
 		dailyRemovedAverage: 0,
+		peakDayKey: '2026-08-13',
+		peakHour: 10,
+		peakTotal: 2,
+		peakLinesDayKey: '',
+		peakLinesHour: 0,
+		peakLinesTotal: 0,
 	});
 });
 
@@ -535,15 +539,17 @@ test('commit graph buckets added and removed lines per hour and reports partial 
 		{ sha: 'ddd', iso: '2026-08-12T10:05:00Z' },
 	];
 	const grid = buildCommitGrid(commits, { days: 2, endDayKey: '2026-08-13' });
+	const [older, newest] = grid.days;
 
-	assert.equal(grid.additions[10], 42);
-	assert.equal(grid.deletions[10], 65);
-	assert.equal(grid.additions[23], 7);
+	assert.equal(newest.additions[10], 42);
+	assert.equal(newest.deletions[10], 65);
+	assert.equal(newest.additions[23], 7);
 	assert.equal(grid.added, 49);
 	assert.equal(grid.removed, 66);
-	assert.equal(grid.maxHourLines, 65);
+	assert.equal(grid.maxCellLines, 65);
 	assert.equal(grid.statCommits, 3);
-	assert.deepEqual(grid.days.map((day) => [day.additions, day.deletions]), [[0, 0], [49, 66]]);
+	assert.deepEqual([older.added, older.removed], [0, 0]);
+	assert.deepEqual([newest.added, newest.removed], [49, 66]);
 
 	const summary = summarizeGrid(grid);
 	assert.equal(summary.added, 49);
@@ -551,10 +557,10 @@ test('commit graph buckets added and removed lines per hour and reports partial 
 	assert.equal(summary.net, -17);
 	assert.equal(summary.statCommits, 3);
 	assert.equal(summary.statMissing, 1);
-	assert.equal(summary.busiestLinesHour, 10);
-	assert.equal(summary.busiestLinesHourTotal, 107);
 	assert.equal(summary.dailyAddedAverage, 24.5);
 	assert.equal(summary.dailyRemovedAverage, 33);
+	assert.deepEqual([summary.peakLinesDayKey, summary.peakLinesHour, summary.peakLinesTotal], ['2026-08-13', 10, 107]);
+	assert.deepEqual([summary.peakDayKey, summary.peakHour, summary.peakTotal], ['2026-08-13', 10, 2]);
 });
 
 test('commit graph reads line counts from single-commit payloads and grafts them on by sha', () => {

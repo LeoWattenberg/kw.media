@@ -161,14 +161,22 @@ export function mergeCommitStats(commits, stats) {
 
 export function buildCommitGrid(commits, { mode = 'commit', days = COMMIT_GRAPH_DAYS, endDayKey } = {}) {
 	const keys = dayKeysEndingAt(endDayKey, days);
-	const rows = keys.map((key) => ({ dayKey: key, hours: new Array(24).fill(0), total: 0, additions: 0, deletions: 0 }));
+	const rows = keys.map((key) => ({
+		dayKey: key,
+		hours: new Array(24).fill(0),
+		additions: new Array(24).fill(0),
+		deletions: new Array(24).fill(0),
+		total: 0,
+		added: 0,
+		removed: 0,
+	}));
 	const rowsByKey = new Map(rows.map((row) => [row.dayKey, row]));
 	const hours = new Array(24).fill(0);
-	const additions = new Array(24).fill(0);
-	const deletions = new Array(24).fill(0);
 	let total = 0;
 	let skipped = 0;
 	let statCommits = 0;
+	let added = 0;
+	let removed = 0;
 
 	for (const commit of Array.isArray(commits) ? commits : []) {
 		const cell = commitCell(commit?.iso, mode);
@@ -182,28 +190,29 @@ export function buildCommitGrid(commits, { mode = 'commit', days = COMMIT_GRAPH_
 		hours[cell.hour] += 1;
 		total += 1;
 		if (!hasCommitStats(commit)) continue;
-		row.additions += commit.additions;
-		row.deletions += commit.deletions;
-		additions[cell.hour] += commit.additions;
-		deletions[cell.hour] += commit.deletions;
+		row.additions[cell.hour] += commit.additions;
+		row.deletions[cell.hour] += commit.deletions;
+		row.added += commit.additions;
+		row.removed += commit.deletions;
+		added += commit.additions;
+		removed += commit.deletions;
 		statCommits += 1;
 	}
 
 	const cells = rows.flatMap((row) => row.hours);
+	const lineCells = rows.flatMap((row) => [...row.additions, ...row.deletions]);
 
 	return {
 		days: rows,
 		hours,
-		additions,
-		deletions,
 		total,
 		skipped,
 		statCommits,
-		added: additions.reduce((sum, value) => sum + value, 0),
-		removed: deletions.reduce((sum, value) => sum + value, 0),
+		added,
+		removed,
 		maxHour: Math.max(0, ...hours),
-		maxHourLines: Math.max(0, ...additions, ...deletions),
 		maxCell: Math.max(0, ...cells),
+		maxCellLines: Math.max(0, ...lineCells),
 		heatScale: buildHeatScale(cells),
 	};
 }
@@ -211,15 +220,13 @@ export function buildCommitGrid(commits, { mode = 'commit', days = COMMIT_GRAPH_
 export function summarizeGrid(grid) {
 	const rows = grid?.days ?? [];
 	const hours = grid?.hours ?? new Array(24).fill(0);
-	const additions = grid?.additions ?? new Array(24).fill(0);
-	const deletions = grid?.deletions ?? new Array(24).fill(0);
-	const changed = additions.map((count, hour) => count + (deletions[hour] ?? 0));
 	const busiestHour = hours.reduce((best, count, hour) => (count > hours[best] ? hour : best), 0);
-	const busiestLinesHour = changed.reduce((best, count, hour) => (count > changed[best] ? hour : best), 0);
 	const busiestDay = rows.reduce((best, row) => (best && best.total >= row.total ? best : row), rows[0] ?? null);
 	const total = grid?.total ?? 0;
 	const added = grid?.added ?? 0;
 	const removed = grid?.removed ?? 0;
+	const peak = peakCell(rows, (row, hour) => row.hours[hour]);
+	const peakLines = peakCell(rows, (row, hour) => row.additions[hour] + row.deletions[hour]);
 
 	return {
 		total,
@@ -235,11 +242,27 @@ export function summarizeGrid(grid) {
 		net: added - removed,
 		statCommits: grid?.statCommits ?? 0,
 		statMissing: Math.max(0, total - (grid?.statCommits ?? 0)),
-		busiestLinesHour,
-		busiestLinesHourTotal: changed[busiestLinesHour] ?? 0,
 		dailyAddedAverage: rows.length ? added / rows.length : 0,
 		dailyRemovedAverage: rows.length ? removed / rows.length : 0,
+		peakDayKey: peak.dayKey,
+		peakHour: peak.hour,
+		peakTotal: peak.total,
+		peakLinesDayKey: peakLines.dayKey,
+		peakLinesHour: peakLines.hour,
+		peakLinesTotal: peakLines.total,
 	};
+}
+
+/* The busiest single hour of the window, which is what the time series peaks at. */
+function peakCell(rows, valueOf) {
+	let best = { dayKey: '', hour: 0, total: 0 };
+	for (const row of rows) {
+		for (let hour = 0; hour < 24; hour += 1) {
+			const value = valueOf(row, hour);
+			if (value > best.total) best = { dayKey: row.dayKey, hour, total: value };
+		}
+	}
+	return best;
 }
 
 /*

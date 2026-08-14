@@ -605,13 +605,20 @@ test.describe('visual tool interactions', () => {
 		await expect(tool.locator('[data-stat-total]')).toHaveText('4');
 		await expect(tool.locator('[data-stat-hour]')).toHaveText(`${hourLabel(peak)}–${hourLabel(nextHour)}`);
 		await expect(tool.locator('[data-stat-hour-note]')).toHaveText('3 commits');
-		await expect(tool.locator('.chart-bar')).toHaveCount(24);
+		await expect(tool.locator('[data-bars] .time-bar')).toHaveCount(30 * 24);
+		await expect(tool.locator('[data-bars] .time-day')).toHaveCount(30);
+		await expect(tool.locator('[data-hours-table] tr')).toHaveCount(30);
 		await expect(tool.locator('.heat-cell')).toHaveCount(30 * 24);
 		await expect(tool.locator('[data-stat-added]')).toHaveText('+149');
 		await expect(tool.locator('[data-stat-removed]')).toHaveText('−166');
 		await expect(tool.locator('[data-stat-removed-note]')).toHaveText('net −17 lines');
-		await expect(tool.locator('[data-lines-caption]')).toHaveText('149 lines added and 166 removed, bucketed by hour.');
-		await expect(tool.locator('.lines-bar')).toHaveCount(24);
+		await expect(tool.locator('[data-lines-caption]')).toHaveText('149 lines added and 166 removed, one bar per hour.');
+		await expect(tool.locator('[data-lines] .lines-bar')).toHaveCount(30 * 24);
+
+		/* Both series are bucketed to the same hour of the same day, so one column carries them all. */
+		const peakColumn = tool.locator(`[data-lines] .lines-bar[title*="${hourLabel(peak)}–${hourLabel(nextHour)}"]:not([title*="0 added, 0 removed"])`);
+		await expect(peakColumn).toHaveCount(1);
+		await expect(peakColumn).toHaveAttribute('title', /142 added, 165 removed$/);
 
 		const filledCells = tool.locator('.heat-cell:not([data-level="0"])');
 		await expect(filledCells).toHaveCount(2);
@@ -622,7 +629,7 @@ test.describe('visual tool interactions', () => {
 		await expect(tool.locator('[data-status]')).toHaveText('5 commits loaded live from GitHub across 1 request.');
 		await expect(tool.locator('[data-stat-total]')).toHaveText('5');
 		/* The live list carries no line counts, so the commit the snapshot never saw stays uncounted. */
-		await expect(tool.locator('[data-lines-caption]')).toHaveText('149 lines added and 166 removed, bucketed by hour. Line counts are available for 4 of 5 commits.');
+		await expect(tool.locator('[data-lines-caption]')).toHaveText('149 lines added and 166 removed, one bar per hour. Line counts are available for 4 of 5 commits.');
 
 		await tool.locator('[data-merges]').uncheck();
 		await expect(tool.locator('[data-stat-total]')).toHaveText('4');

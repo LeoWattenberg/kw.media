@@ -25,18 +25,18 @@ const copy = {
 		summaryTitle: 'Überblick', statTotal: 'Commits', statActiveDays: 'Aktive Tage', statBusiestHour: 'Stärkste Stunde', statBusiestDay: 'Stärkster Tag',
 		statAdded: 'Zeilen hinzugefügt', statRemoved: 'Zeilen entfernt',
 		statPerDay: '{value} pro Tag im Schnitt', statOfDays: 'von {days} Tagen', statNet: 'Netto {value} Zeilen',
-		linesTitle: 'Zeilen pro Tagesstunde',
-		linesCaption: '{added} hinzugefügte und {removed} entfernte Zeilen, nach Stunde gebündelt.',
+		linesTitle: 'Zeilen im Zeitverlauf',
+		linesCaption: '{added} hinzugefügte und {removed} entfernte Zeilen, ein Balken pro Stunde.',
 		linesCoverage: 'Zeilenzahlen liegen für {counted} von {total} Commits vor.',
 		linesPending: 'Für dieses Fenster liegen noch keine Zeilenzahlen vor. Der Snapshot-Job holt sie schrittweise nach.',
 		legendAdded: 'hinzugefügt', legendRemoved: 'entfernt',
 		tableAdded: 'Hinzugefügt', tableRemoved: 'Entfernt', tableNet: 'Netto',
-		linesBarTitle: '{range}: {added} hinzugefügt, {removed} entfernt',
-		linesAria: 'Balkendiagramm der hinzugefügten Zeilen über und der entfernten Zeilen unter der Nulllinie, je Tagesstunde. Spitze um {range} mit {count} geänderten Zeilen.',
-		hoursTitle: 'Commits pro Tagesstunde', hoursCaption: '{total} aus den letzten {days} Tagen, nach Stunde gebündelt.',
+		linesCellTitle: '{day}, {range}: {added} hinzugefügt, {removed} entfernt',
+		linesAria: 'Balkendiagramm der hinzugefügten Zeilen über und der entfernten Zeilen unter der Nulllinie, ein Balken pro Stunde der letzten {days} Tage. Spitze am {day} um {range} mit {count} geänderten Zeilen.',
+		hoursTitle: 'Commits im Zeitverlauf', hoursCaption: '{total} aus den letzten {days} Tagen, ein Balken pro Stunde.',
 		heatTitle: 'Tag mal Stunde', heatCaption: 'Eine Zeile pro Tag, der neueste unten.',
 		legendLess: 'weniger', legendMore: 'mehr',
-		tableToggle: 'Als Tabelle anzeigen', tableHour: 'Stunde', tableCommits: 'Commits', tableShare: 'Anteil',
+		tableToggle: 'Tageswerte als Tabelle anzeigen', tableDay: 'Tag', tableCommits: 'Commits', tableShare: 'Anteil',
 		loading: 'Commits werden von GitHub geladen…', loadingPages: 'Seite {loaded} von {total} — bisher {commits} Commits…',
 		loaded: '{total} über {requests} live von GitHub geladen.', cached: '{total} aus dem Cache dieses Tabs.',
 		snapshot: '{total} aus dem Snapshot der Seite ({age} alt). Für Live-Daten neu laden.',
@@ -47,8 +47,8 @@ const copy = {
 		rateLimited: 'GitHub-Rate-Limit erreicht. In {minutes} Minuten erneut versuchen oder unten ein Token hinterlegen.',
 		error: 'Commits konnten nicht geladen werden: {message}', generic: 'Unbekannter Fehler',
 		countOne: '1 Commit', countMany: '{count} Commits',
-		barTitle: '{range}: {count} ({share} %)', cellTitle: '{day}, {range}: {count}',
-		hoursAria: 'Balkendiagramm der Commits pro Tagesstunde. Spitze um {range} mit {count}.',
+		cellTitle: '{day}, {range}: {count}',
+		hoursAria: 'Balkendiagramm der Commits, ein Balken pro Stunde der letzten {days} Tage. Spitze am {day} um {range} mit {count}.',
 		heatAria: 'Heatmap der Commits pro Tag und Stunde der letzten {days} Tage.',
 	},
 	en: {
@@ -64,18 +64,18 @@ const copy = {
 		summaryTitle: 'Summary', statTotal: 'Commits', statActiveDays: 'Active days', statBusiestHour: 'Busiest hour', statBusiestDay: 'Busiest day',
 		statAdded: 'Lines added', statRemoved: 'Lines removed',
 		statPerDay: '{value} per day on average', statOfDays: 'of {days} days', statNet: 'net {value} lines',
-		linesTitle: 'Lines changed per hour of day',
-		linesCaption: '{added} lines added and {removed} removed, bucketed by hour.',
+		linesTitle: 'Lines changed over time',
+		linesCaption: '{added} lines added and {removed} removed, one bar per hour.',
 		linesCoverage: 'Line counts are available for {counted} of {total} commits.',
 		linesPending: 'No line counts for this window yet. The snapshot job backfills them run by run.',
 		legendAdded: 'added', legendRemoved: 'removed',
 		tableAdded: 'Added', tableRemoved: 'Removed', tableNet: 'Net',
-		linesBarTitle: '{range}: {added} added, {removed} removed',
-		linesAria: 'Bar chart of lines added above and lines removed below the zero line, per hour of day. Peak at {range} with {count} lines changed.',
-		hoursTitle: 'Commits per hour of day', hoursCaption: '{total} from the last {days} days, bucketed by hour.',
+		linesCellTitle: '{day}, {range}: {added} added, {removed} removed',
+		linesAria: 'Bar chart of lines added above and lines removed below the zero line, one bar per hour across the last {days} days. Peak on {day} at {range} with {count} lines changed.',
+		hoursTitle: 'Commits over time', hoursCaption: '{total} from the last {days} days, one bar per hour.',
 		heatTitle: 'Day by hour', heatCaption: 'One row per day, newest at the bottom.',
 		legendLess: 'less', legendMore: 'more',
-		tableToggle: 'Show as table', tableHour: 'Hour', tableCommits: 'Commits', tableShare: 'Share',
+		tableToggle: 'Show daily totals as a table', tableDay: 'Day', tableCommits: 'Commits', tableShare: 'Share',
 		loading: 'Loading commits from GitHub…', loadingPages: 'Page {loaded} of {total} — {commits} commits so far…',
 		loaded: '{total} loaded live from GitHub across {requests}.', cached: '{total} loaded from this tab’s cache.',
 		snapshot: '{total} from the site snapshot ({age} old). Reload for live data.',
@@ -86,8 +86,8 @@ const copy = {
 		rateLimited: 'GitHub rate limit reached. Try again in {minutes} minutes, or add a token below.',
 		error: 'Could not load commits: {message}', generic: 'Unknown error',
 		countOne: '1 commit', countMany: '{count} commits',
-		barTitle: '{range}: {count} ({share}%)', cellTitle: '{day}, {range}: {count}',
-		hoursAria: 'Bar chart of commits per hour of day. Peak at {range} with {count}.',
+		cellTitle: '{day}, {range}: {count}',
+		hoursAria: 'Bar chart of commits, one bar per hour across the last {days} days. Peak on {day} at {range} with {count}.',
 		heatAria: 'Heatmap of commits per day and hour over the last {days} days.',
 	},
 }[locale];
@@ -136,14 +136,18 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 			</ToolPanel>
 			<ToolPanel class="commit-graph-wide" title={copy.hoursTitle} data-hours-panel hidden>
 				<p class="commit-graph-caption" data-hours-caption></p>
-				<div class="chart-frame">
-					<div class="chart-axis" data-hours-axis></div>
-					<div class="chart-plot" data-bars role="img" aria-label={copy.hoursTitle}></div>
+				<div class="time-scroll">
+					<div class="chart-frame time-frame">
+						<div class="chart-axis time-axis" data-hours-axis></div>
+						<div class="time-plot" data-bars role="img" aria-label={copy.hoursTitle}></div>
+						<div></div>
+						<div class="time-days" data-hours-days></div>
+					</div>
 				</div>
 				<details class="commit-graph-table">
 					<summary>{copy.tableToggle}</summary>
 					<table>
-						<thead><tr><th scope="col">{copy.tableHour}</th><th scope="col">{copy.tableCommits}</th><th scope="col">{copy.tableShare}</th></tr></thead>
+						<thead><tr><th scope="col">{copy.tableDay}</th><th scope="col">{copy.tableCommits}</th><th scope="col">{copy.tableShare}</th></tr></thead>
 						<tbody data-hours-table></tbody>
 					</table>
 				</details>
@@ -155,14 +159,18 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 						<span class="lines-key"><span class="lines-swatch" data-series="added"></span>{copy.legendAdded}</span>
 						<span class="lines-key"><span class="lines-swatch" data-series="removed"></span>{copy.legendRemoved}</span>
 					</p>
-					<div class="chart-frame">
-						<div class="chart-axis" data-lines-axis></div>
-						<div class="chart-plot lines-plot" data-lines role="img" aria-label={copy.linesTitle}></div>
+					<div class="time-scroll">
+						<div class="chart-frame time-frame">
+							<div class="chart-axis time-axis" data-lines-axis></div>
+							<div class="time-plot lines-plot" data-lines role="img" aria-label={copy.linesTitle}></div>
+							<div></div>
+							<div class="time-days" data-lines-days></div>
+						</div>
 					</div>
 					<details class="commit-graph-table">
 						<summary>{copy.tableToggle}</summary>
 						<table>
-							<thead><tr><th scope="col">{copy.tableHour}</th><th scope="col">{copy.tableAdded}</th><th scope="col">{copy.tableRemoved}</th><th scope="col">{copy.tableNet}</th></tr></thead>
+							<thead><tr><th scope="col">{copy.tableDay}</th><th scope="col">{copy.tableAdded}</th><th scope="col">{copy.tableRemoved}</th><th scope="col">{copy.tableNet}</th></tr></thead>
 							<tbody data-lines-table></tbody>
 						</table>
 					</details>
@@ -243,9 +251,11 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 		const axis = root.querySelector('[data-hours-axis]');
 		const bars = root.querySelector('[data-bars]');
 		const hoursTable = root.querySelector('[data-hours-table]');
+		const hoursDays = root.querySelector('[data-hours-days]');
 		const linesAxis = root.querySelector('[data-lines-axis]');
 		const linesBars = root.querySelector('[data-lines]');
 		const linesTable = root.querySelector('[data-lines-table]');
+		const linesDays = root.querySelector('[data-lines-days]');
 		const heatmap = root.querySelector('[data-heatmap]');
 		let commits = [];
 		let charted = 0;
@@ -375,21 +385,35 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 		}
 
 		function renderBars(grid, summary) {
-			const max = grid.maxHour;
+			const max = grid.maxCell;
 			axis.replaceChildren(...[max, Math.round(max / 2), 0].map((value) => element('span', { textContent: String(value) })));
-			bars.setAttribute('aria-label', `${copy.hoursTitle}. ${format(copy.hoursAria, { range: formatHourRange(summary.busiestHour), count: countText(summary.busiestHourTotal) })}`);
-			bars.replaceChildren(...grid.hours.map((count, hour) => {
-				const share = grid.total ? Math.round((count / grid.total) * 1000) / 10 : 0;
-				return element('div', { className: 'chart-bar', title: format(copy.barTitle, { range: formatHourRange(hour), count: countText(count), share }) }, [
-					element('span', { className: 'chart-bar-fill', style: `height: ${max ? (count / max) * 100 : 0}%` }),
-					element('span', { className: 'chart-bar-label', textContent: hour % 3 === 0 ? String(hour).padStart(2, '0') : '' }),
-				]);
-			}));
-			hoursTable.replaceChildren(...grid.hours.map((count, hour) => element('tr', {}, [
-				element('th', { scope: 'row', textContent: formatHourRange(hour) }),
-				element('td', { textContent: String(count) }),
-				element('td', { textContent: `${grid.total ? ((count / grid.total) * 100).toFixed(1) : '0.0'}%` }),
+			bars.setAttribute('aria-label', `${copy.hoursTitle}. ${format(copy.hoursAria, {
+				days: COMMIT_GRAPH_DAYS,
+				day: formatDayLabel(summary.peakDayKey, locale),
+				range: formatHourRange(summary.peakHour),
+				count: countText(summary.peakTotal),
+			})}`);
+			bars.replaceChildren(...grid.days.map((day) => element('div', { className: 'time-day' }, day.hours.map((count, hour) =>
+				element('div', {
+					className: 'time-bar',
+					title: format(copy.cellTitle, { day: formatDayLabel(day.dayKey, locale), range: formatHourRange(hour), count: countText(count) }),
+				}, [element('span', { className: 'time-bar-fill', style: `height: ${max ? (count / max) * 100 : 0}%` })])))));
+			renderDayLabels(hoursDays, grid);
+			hoursTable.replaceChildren(...grid.days.map((day) => element('tr', {}, [
+				element('th', { scope: 'row', textContent: formatDayLabel(day.dayKey, locale) }),
+				element('td', { textContent: String(day.total) }),
+				element('td', { textContent: `${grid.total ? ((day.total / grid.total) * 100).toFixed(1) : '0.0'}%` }),
 			])));
+		}
+
+		/* The plot is one equal-width group per day, so the label row mirrors that to stay aligned. */
+		function renderDayLabels(target, grid) {
+			const step = Math.max(1, Math.ceil(grid.days.length / 6));
+			const newest = grid.days.length - 1;
+			target.replaceChildren(...grid.days.map((day, index) => element('span', {
+				className: 'time-day-label',
+				textContent: (newest - index) % step === 0 ? formatDayLabel(day.dayKey, locale).replace(/^\S+\s/, '') : '',
+			})));
 		}
 
 		function renderLines(grid, summary) {
@@ -400,29 +424,40 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 				: copy.linesPending;
 			if (!covered) {
 				linesBars.replaceChildren();
+				linesDays.replaceChildren();
 				linesTable.replaceChildren();
 				return;
 			}
 
-			const max = grid.maxHourLines;
+			const max = grid.maxCellLines;
 			linesAxis.replaceChildren(...[formatSignedLines(max, locale), '0', formatSignedLines(-max, locale)].map((value) => element('span', { textContent: value })));
-			linesBars.setAttribute('aria-label', `${copy.linesTitle}. ${format(copy.linesAria, { range: formatHourRange(summary.busiestLinesHour), count: formatLineCount(summary.busiestLinesHourTotal, locale) })}`);
-			linesBars.replaceChildren(...grid.additions.map((added, hour) => {
-				const removed = grid.deletions[hour];
+			linesBars.setAttribute('aria-label', `${copy.linesTitle}. ${format(copy.linesAria, {
+				days: COMMIT_GRAPH_DAYS,
+				day: formatDayLabel(summary.peakLinesDayKey, locale),
+				range: formatHourRange(summary.peakLinesHour),
+				count: formatLineCount(summary.peakLinesTotal, locale),
+			})}`);
+			linesBars.replaceChildren(...grid.days.map((day) => element('div', { className: 'time-day' }, day.additions.map((added, hour) => {
+				const removed = day.deletions[hour];
 				return element('div', {
-					className: 'lines-bar',
-					title: format(copy.linesBarTitle, { range: formatHourRange(hour), added: formatLineCount(added, locale), removed: formatLineCount(removed, locale) }),
+					className: 'time-bar lines-bar',
+					title: format(copy.linesCellTitle, {
+						day: formatDayLabel(day.dayKey, locale),
+						range: formatHourRange(hour),
+						added: formatLineCount(added, locale),
+						removed: formatLineCount(removed, locale),
+					}),
 				}, [
 					element('span', { className: 'lines-bar-fill added', style: `height: ${max ? (added / max) * 100 : 0}%` }),
 					element('span', { className: 'lines-bar-fill removed', style: `height: ${max ? (removed / max) * 100 : 0}%` }),
-					element('span', { className: 'chart-bar-label', textContent: hour % 3 === 0 ? String(hour).padStart(2, '0') : '' }),
 				]);
-			}));
-			linesTable.replaceChildren(...grid.additions.map((added, hour) => element('tr', {}, [
-				element('th', { scope: 'row', textContent: formatHourRange(hour) }),
-				element('td', { textContent: formatLineCount(added, locale) }),
-				element('td', { textContent: formatLineCount(grid.deletions[hour], locale) }),
-				element('td', { textContent: formatSignedLines(added - grid.deletions[hour], locale) }),
+			}))));
+			renderDayLabels(linesDays, grid);
+			linesTable.replaceChildren(...grid.days.map((day) => element('tr', {}, [
+				element('th', { scope: 'row', textContent: formatDayLabel(day.dayKey, locale) }),
+				element('td', { textContent: formatLineCount(day.added, locale) }),
+				element('td', { textContent: formatLineCount(day.removed, locale) }),
+				element('td', { textContent: formatSignedLines(day.added - day.removed, locale) }),
 			])));
 		}
 
@@ -493,7 +528,8 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 
 	.commit-graph { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 	.commit-graph [hidden] { display: none !important; }
-	.commit-graph .commit-graph-wide { grid-column: 1 / -1; }
+	/* Grid items default to min-width: auto, which would widen the page instead of scrolling the chart. */
+	.commit-graph .commit-graph-wide { grid-column: 1 / -1; min-width: 0; }
 	.commit-graph-meta { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0 0 14px; font-size: 0.92rem; }
 	.commit-graph-meta dt { color: var(--color-muted); }
 	.commit-graph-meta dd { margin: 0; }
@@ -509,13 +545,20 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 	.commit-graph-stats strong { font-size: 1.5rem; line-height: 1.2; }
 	.commit-graph-stats .stat-note { color: var(--color-muted); font-size: 0.82rem; }
 
+	/* One bar per hour over 30 days is 720 marks, so the frame scrolls rather than smearing them sub-pixel. */
+	.time-scroll { overflow-x: auto; }
 	.chart-frame { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; }
+	.time-frame { min-width: 780px; row-gap: 4px; }
 	.chart-axis { display: flex; flex-direction: column; justify-content: space-between; height: 182px; color: var(--color-muted); font-size: 0.75rem; text-align: right; }
-	.chart-plot { display: flex; align-items: flex-end; gap: 2px; height: 200px; padding-bottom: 18px; background-image: linear-gradient(var(--color-line), var(--color-line)), linear-gradient(var(--color-line), var(--color-line)), linear-gradient(var(--color-line), var(--color-line)); background-size: 100% 1px; background-position: 0 0, 0 calc(50% - 9px), 0 calc(100% - 18px); background-repeat: no-repeat; }
+	.time-axis { font-variant-numeric: tabular-nums; }
+	.time-plot { display: flex; align-items: flex-end; height: 182px; background-image: linear-gradient(var(--color-line), var(--color-line)), linear-gradient(var(--color-line), var(--color-line)), linear-gradient(var(--color-line), var(--color-line)); background-size: 100% 1px; background-position: 0 0, 0 calc(50% - 0.5px), 0 calc(100% - 1px); background-repeat: no-repeat; }
+	.time-days { display: flex; color: var(--color-muted); font-size: 0.72rem; font-variant-numeric: tabular-nums; }
 	/* Charts are built in the client script, so their marks need global selectors under the scoped root. */
-	.commit-graph :global(.chart-bar) { position: relative; display: flex; flex: 1 1 0; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
-	.commit-graph :global(.chart-bar-fill) { width: 100%; max-width: 24px; border-radius: 4px 4px 0 0; background: var(--color-accent); }
-	.commit-graph :global(.chart-bar-label) { position: absolute; bottom: -18px; color: var(--color-muted); font-size: 0.72rem; font-variant-numeric: tabular-nums; }
+	.commit-graph :global(.time-day) { display: flex; flex: 1 1 0; align-items: flex-end; min-width: 0; height: 100%; }
+	.commit-graph :global(.time-bar) { display: flex; flex: 1 1 0; flex-direction: column; justify-content: flex-end; min-width: 0; height: 100%; }
+	.commit-graph :global(.time-bar-fill) { width: 100%; background: var(--color-accent); }
+	/* Day labels sit in their own equal-width cells, so each one centres on the day it names. */
+	.commit-graph :global(.time-day-label) { flex: 1 1 0; min-width: 0; overflow: visible; text-align: center; white-space: nowrap; }
 
 	.lines-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 0 14px; color: var(--color-muted); font-size: 0.85rem; }
 	.lines-key { display: inline-flex; align-items: center; gap: 6px; }
@@ -523,11 +566,12 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 	.lines-swatch[data-series='added'] { background: var(--commit-graph-added); }
 	.lines-swatch[data-series='removed'] { background: var(--commit-graph-removed); }
 	/* The plot's middle gridline is the zero line, so each column splits into equal halves around it. */
-	.lines-plot { align-items: stretch; }
-	.commit-graph :global(.lines-bar) { position: relative; display: grid; grid-template-rows: 1fr 1fr; flex: 1 1 0; justify-items: center; height: 100%; }
-	.commit-graph :global(.lines-bar-fill) { width: 100%; max-width: 24px; }
-	.commit-graph :global(.lines-bar-fill.added) { align-self: end; margin-bottom: 1px; border-radius: 4px 4px 0 0; background: var(--commit-graph-added); }
-	.commit-graph :global(.lines-bar-fill.removed) { align-self: start; margin-top: 1px; border-radius: 0 0 4px 4px; background: var(--commit-graph-removed); }
+	/* The column needs a definite track, or the fills resolve their width against an auto track and vanish. */
+	.commit-graph :global(.lines-bar) { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr 1fr; }
+	.commit-graph :global(.lines-bar-fill) { width: 100%; }
+	/* A pixel either side keeps the zero line visible where both series run tall in the same hour. */
+	.commit-graph :global(.lines-bar-fill.added) { align-self: end; margin-bottom: 1px; background: var(--commit-graph-added); }
+	.commit-graph :global(.lines-bar-fill.removed) { align-self: start; margin-top: 1px; background: var(--commit-graph-removed); }
 
 	.heat-scroll { overflow-x: auto; }
 	.heat-table { border-collapse: separate; border-spacing: 2px; width: 100%; min-width: 560px; table-layout: fixed; }
