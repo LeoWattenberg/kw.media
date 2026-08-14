@@ -158,6 +158,7 @@ const copy = copyByLocale[locale];
 		const stopButton = root.querySelector('[data-stop]');
 		const playbackTime = root.querySelector('[data-playback-time]');
 		const state = {
+			loadToken: 0,
 			samples: null,
 			sampleRate: 0,
 			duration: 0,
@@ -208,16 +209,24 @@ const copy = copyByLocale[locale];
 
 		async function loadFile(file) {
 			if (!file) return;
+			/*
+			 * Decoding is slow enough that a visitor can pick a second file first. Only the newest
+			 * load may write to the workspace: without this a late failure would tear down the file
+			 * that already loaded successfully.
+			 */
+			const load = ++state.loadToken;
 			setStatus(copy.decoding, 'info');
 			fileName.textContent = file.name;
 			fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'audio'}`;
 			workspace.hidden = true;
+			let context = null;
 
 			try {
 				const AudioContextClass = window.AudioContext || window.webkitAudioContext;
 				if (!AudioContextClass) throw new Error('Web Audio API is not supported by this browser.');
-				const context = new AudioContextClass();
+				context = new AudioContextClass();
 				const buffer = await context.decodeAudioData((await file.arrayBuffer()).slice(0));
+				if (load !== state.loadToken) return;
 				const channels = Array.from({ length: buffer.numberOfChannels }, (_, index) => buffer.getChannelData(index));
 				state.samples = downmixChannels(channels);
 				state.sampleRate = buffer.sampleRate;
@@ -230,7 +239,6 @@ const copy = copyByLocale[locale];
 				state.viewEndTime = buffer.duration;
 				state.viewLowFrequency = 0;
 				state.viewHighFrequency = buffer.sampleRate / 2;
-				await context.close();
 
 				if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
 				state.objectUrl = URL.createObjectURL(file);
@@ -248,9 +256,31 @@ const copy = copyByLocale[locale];
 				setSelection(null);
 				setStatus(copy.ready, 'success');
 			} catch (error) {
+				if (load !== state.loadToken) return;
+				/* The workspace is gone, so the file before this one must not stay playable either. */
+				unloadAudio();
 				const message = error instanceof Error ? error.message : String(error);
 				setStatus(formatTemplate(copy.error, { message }), 'error');
+			} finally {
+				if (context) await context.close().catch(() => {});
 			}
+		}
+
+		function unloadAudio() {
+			workspace.hidden = true;
+			audio.pause();
+			audio.removeAttribute('src');
+			audio.load();
+			if (state.objectUrl) URL.revokeObjectURL(state.objectUrl);
+			state.objectUrl = null;
+			state.samples = null;
+			state.spectrogramData = null;
+			state.sampleRate = 0;
+			state.duration = 0;
+			state.nyquist = 0;
+			state.selection = null;
+			state.playbackOrigin = 0;
+			state.transportState = 'stopped';
 		}
 
 		function setSelection(selection) {

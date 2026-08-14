@@ -170,6 +170,7 @@ const copyJson = JSON.stringify(copy);
 
 			function selectFile(file) {
 				state.selectedFile = file || null;
+				clearDownload();
 				updateSelectionUi();
 				processButton.disabled = !state.selectedFile;
 
@@ -259,15 +260,20 @@ const copyJson = JSON.stringify(copy);
 			}
 
 			function resetTool() {
+				fileInput.value = '';
+				state.selectedFile = null;
+				processButton.disabled = true;
+				clearDownload();
+				updateSelectionUi();
+				setStatus(copy.statusWaiting, 'info');
+			}
+
+			/* The mastered blob belongs to one source file, so a new selection has to retire it. */
+			function clearDownload() {
 				if (state.downloadUrl) {
 					URL.revokeObjectURL(state.downloadUrl);
 					state.downloadUrl = null;
 				}
-				fileInput.value = '';
-				state.selectedFile = null;
-				processButton.disabled = true;
-				updateSelectionUi();
-				setStatus(copy.statusWaiting, 'info');
 				downloadLink.hidden = true;
 				downloadLink.removeAttribute('href');
 				downloadLink.removeAttribute('download');

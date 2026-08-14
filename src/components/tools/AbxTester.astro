@@ -352,7 +352,10 @@ const copyJson = JSON.stringify(copy.client);
 			seek.addEventListener('input', () => {
 				seekTo(Number(seek.value) / 1000);
 			});
-			newRunButton.addEventListener('click', resetRun);
+			/* "Run again" starts a fresh run on the same two files, the way the sibling blind test does. */
+			newRunButton.addEventListener('click', () => {
+				void startTest();
+			});
 
 			for (const button of slotButtons) {
 				button.addEventListener('click', () => {

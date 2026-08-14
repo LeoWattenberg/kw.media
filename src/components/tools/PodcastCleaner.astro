@@ -141,6 +141,7 @@ const copyJson = JSON.stringify(copy);
 			inputUrl = URL.createObjectURL(file);
 			originalAudio.src = inputUrl;
 			originalWrap.hidden = false;
+			clearResult();
 			fileName.textContent = file.name;
 			fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'media'}`;
 			processButton.disabled = false;
@@ -152,11 +153,13 @@ const copyJson = JSON.stringify(copy);
 			if (!file) return;
 			processButton.disabled = true;
 			setStatus(copy.processing, 'info');
+			/* Read once, before the run: the select stays live, and a second read afterwards
+			   would label the finished bytes with whatever format the user switched to. */
+			const outputInfo = outputFormat(formatSelect.value);
 			try {
 				const output = await runtime.run(async (ffmpeg) => {
 					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 						const inputName = `podcast-${stamp}${extension(file.name)}`;
-					const outputInfo = outputFormat(formatSelect.value);
 					const outputName = `cleaned-${stamp}.${outputInfo.extension}`;
 					await ffmpeg.writeFile(inputName, new Uint8Array(await file.arrayBuffer()));
 					try {
@@ -169,14 +172,13 @@ const copyJson = JSON.stringify(copy);
 						await ffmpeg.deleteFile(outputName).catch(() => {});
 					}
 				});
-				const info = outputFormat(formatSelect.value);
-				const blob = new Blob([output], { type: info.mime });
+				const blob = new Blob([output], { type: outputInfo.mime });
 				if (outputUrl) URL.revokeObjectURL(outputUrl);
 				outputUrl = URL.createObjectURL(blob);
 				cleanedAudio.src = outputUrl;
 				cleanedWrap.hidden = false;
 				download.href = outputUrl;
-				download.download = `${baseName(file.name, 'podcast')}-cleaned.${info.extension}`;
+				download.download = `${baseName(file.name, 'podcast')}-cleaned.${outputInfo.extension}`;
 				download.hidden = false;
 				setStatus(copy.done, 'success');
 			} catch (error) {
@@ -204,18 +206,28 @@ const copyJson = JSON.stringify(copy);
 			return root.querySelector(`[data-${name}]`)?.checked;
 		}
 
+		/* The cleaned preview and its download belong to the file they were made from,
+		   so a new source has to retire them instead of leaving the old result on show. */
+		function clearResult() {
+			if (outputUrl) URL.revokeObjectURL(outputUrl);
+			outputUrl = null;
+			cleanedWrap.hidden = true;
+			cleanedAudio.removeAttribute('src');
+			download.hidden = true;
+			download.removeAttribute('href');
+			download.removeAttribute('download');
+		}
+
 		function reset() {
 			fileInput.value = '';
 			fileName.textContent = copy.choose;
 			fileMeta.textContent = copy.hint;
 			processButton.disabled = true;
 			originalWrap.hidden = true;
-			cleanedWrap.hidden = true;
-			download.hidden = true;
 			originalAudio.removeAttribute('src');
-			cleanedAudio.removeAttribute('src');
-			for (const url of [inputUrl, outputUrl]) if (url) URL.revokeObjectURL(url);
-			inputUrl = outputUrl = null;
+			clearResult();
+			if (inputUrl) URL.revokeObjectURL(inputUrl);
+			inputUrl = null;
 			setStatus(copy.waiting, 'info');
 		}
 

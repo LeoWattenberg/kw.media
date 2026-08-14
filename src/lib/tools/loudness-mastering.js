@@ -15,7 +15,9 @@ export function selectOutputProfile(file, kind = detectMediaKind(file)) {
 	const type = String(file && file.type ? file.type : '').toLowerCase();
 	const profiles = {
 		'audio/wav': { extension: '.wav', displayName: 'WAV', mimeType: 'audio/wav' },
+		'audio/x-wav': { extension: '.wav', displayName: 'WAV', mimeType: 'audio/wav' },
 		'audio/mpeg': { extension: '.mp3', displayName: 'MP3', mimeType: 'audio/mpeg' },
+		'audio/mp3': { extension: '.mp3', displayName: 'MP3', mimeType: 'audio/mpeg' },
 		'audio/flac': { extension: '.flac', displayName: 'FLAC', mimeType: 'audio/flac' },
 		'audio/ogg': { extension: '.ogg', displayName: 'OGG', mimeType: 'audio/ogg' },
 		'audio/opus': { extension: '.opus', displayName: 'OPUS', mimeType: 'audio/opus' },
