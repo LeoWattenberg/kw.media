@@ -47,5 +47,17 @@ jobs:
       - name: Install browser engines
         run: npx playwright install --with-deps chromium firefox webkit
 
+      # The tools fetch their WebAssembly engines (ffmpeg, ImageMagick, MediaPipe, three.js)
+      # from public CDNs at runtime. tests/browser/cdn-cache.mjs replays them from this
+      # directory, so keeping it between runs saves well over a hundred megabytes of
+      # third-party traffic per job and removes a CDN outage as a source of red builds.
+      - name: Cache browser CDN payloads
+        uses: actions/cache@v4
+        with:
+          path: .cache/browser-cdn
+          key: browser-cdn-${{ runner.os }}-${{ hashFiles('src/lib/ffmpeg-runtime.ts', 'src/components/tools/**/*.astro') }}
+          restore-keys: |
+            browser-cdn-${{ runner.os }}-
+
       - name: Run complete Chromium browser tests
         run: npx playwright test --project=chromium
