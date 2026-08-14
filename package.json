@@ -12,6 +12,7 @@
     "test:browser": "playwright test",
     "preview": "astro preview",
     "astro": "astro",
+    "fixtures:test": "node scripts/generate-test-fixtures.mjs",
     "import:youtube": "node scripts/manual-import.js",
     "import:missing-sources": "node scripts/import-missing-sources.mjs",
     "cleanup:post": "node scripts/cleanup-post.mjs",

@@ -85,6 +85,9 @@ Run commands from the project root:
 | `npm run dev` | Start the local dev server at `localhost:4321` |
 | `npm run build` | Build the production site to `./dist/` |
 | `npm run preview` | Preview the production build locally |
+| `npm test` | Run the Node test suite |
+| `npm run test:browser` | Build, then run the Playwright browser tests |
+| `npm run fixtures:test` | Regenerate the binary media fixtures in `tests/fixtures/` |
 | `npm run import:youtube` | Import new YouTube posts, clean transcripts, create translations, refresh related posts, and add inline links |
 | `IMPORT_AI=0 npm run import:youtube` | Import new YouTube posts without Ollama cleanup, translation, related posts, or inline links |
 | `npm run import:missing-sources -- --dry` | Preview source-link imports for current video posts that do not have `sources` frontmatter |
