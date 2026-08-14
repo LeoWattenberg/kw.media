@@ -11,7 +11,6 @@ export const COMMIT_GRAPH_HEAT_STEPS = 5;
  */
 export const COMMIT_GRAPH_CLIP_QUANTILE = 0.95;
 export const COMMIT_GRAPH_CLIP_RATIO = 3;
-export const COMMIT_GRAPH_CACHE_TTL = 30 * 60 * 1000;
 /*
  * Line counts are not part of the commit list response, so they cost one request per commit. The
  * snapshot job therefore reuses every stat it already knows and tops up at most this many per run,
@@ -368,11 +367,6 @@ export function describeRateLimit(headers) {
 	};
 }
 
-export function formatResetDelay(resetMs, nowMs) {
-	const minutes = Math.ceil((Number(resetMs) - Number(nowMs)) / 60000);
-	return Math.max(1, Number.isFinite(minutes) ? minutes : 1);
-}
-
 export async function fetchCommitWindow({
 	repo = COMMIT_GRAPH_REPO,
 	sinceIso,
@@ -547,26 +541,4 @@ export function formatAge(ageMs, locale = 'en') {
 	}
 
 	return locale === 'de' ? 'unter 1 Minute' : 'under 1 minute';
-}
-
-export function readCommitCache(storage, key, { nowMs, ttl = COMMIT_GRAPH_CACHE_TTL } = {}) {
-	try {
-		const raw = storage?.getItem?.(key);
-		if (!raw) return null;
-		const cached = JSON.parse(raw);
-		if (!Array.isArray(cached?.commits)) return null;
-		if (Number(nowMs) - Number(cached.fetchedAt) > ttl) return null;
-		return cached;
-	} catch {
-		return null;
-	}
-}
-
-export function writeCommitCache(storage, key, payload) {
-	try {
-		storage?.setItem?.(key, JSON.stringify(payload));
-		return true;
-	} catch {
-		return false;
-	}
 }

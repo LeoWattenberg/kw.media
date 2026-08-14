@@ -102,22 +102,17 @@ const toolPages = [
 	['/en/tools/analyzers/', 'Analyzers', '.tool-category-grid'],
 ];
 
-/* The tool keys line counts by the short sha, so stubs need shas that stay distinct once truncated. */
-const commitSha = (index) => `${index}`.padEnd(40, 'f');
+/* The snapshot keys line counts by the short sha, so stubs need shas that stay distinct once truncated. */
+const commitSha = (index) => `${index}`.padEnd(40, 'f').slice(0, 7);
 
-const stubGitHubCommits = async (page, commits) => {
-	const body = JSON.stringify(commits.map(({ date, merge = false }, index) => ({
-		sha: commitSha(index),
-		commit: { author: { date } },
-		parents: merge ? [{ sha: 'first' }, { sha: 'second' }] : [{ sha: 'first' }],
-	})));
-
-	await page.route('https://api.github.com/**', (route) => route.fulfill({
-		status: 200,
-		contentType: 'application/json',
-		headers: { 'access-control-allow-origin': '*', 'x-ratelimit-remaining': '59', 'x-ratelimit-limit': '60' },
-		body,
-	}));
+/* The tool reads the shipped snapshot and nothing else; a call to GitHub is a regression. */
+const failOnGitHubCalls = async (page) => {
+	const calls = [];
+	await page.route('https://api.github.com/**', (route) => {
+		calls.push(route.request().url());
+		return route.abort();
+	});
+	return calls;
 };
 
 const stubCommitSnapshot = async (page, commits, generatedAt) => {
@@ -128,7 +123,7 @@ const stubCommitSnapshot = async (page, commits, generatedAt) => {
 		truncated: false,
 		generatedAt,
 		timestamps: commits.map(({ date }) => date),
-		shas: commits.map((_, index) => commitSha(index).slice(0, 7)),
+		shas: commits.map((_, index) => commitSha(index)),
 		merges,
 		additions: commits.map(({ added = null }) => added),
 		deletions: commits.map(({ removed = null }) => removed),
@@ -145,7 +140,6 @@ test.describe('tool pages browser smoke', () => {
 	test.beforeEach(async ({ page }) => {
 		const recent = [{ date: new Date(Date.now() - 3_600_000).toISOString() }];
 		await stubCommitSnapshot(page, recent, new Date(Date.now() - 60_000).toISOString());
-		await stubGitHubCommits(page, recent);
 	});
 
 	for (const [path, title, selector] of toolPages) {
@@ -575,8 +569,9 @@ test.describe('visual tool interactions', () => {
 		expect(errors).toEqual([]);
 	});
 
-	test('Soundscaper commit graph charts the CI snapshot and reloads live data on demand', async ({ page }) => {
+	test('Soundscaper commit graph charts the shipped snapshot without calling GitHub', async ({ page }) => {
 		const errors = collectClientErrors(page);
+		const githubCalls = await failOnGitHubCalls(page);
 		const peak = new Date(Date.now() - 3 * 60 * 60 * 1000);
 		peak.setUTCMinutes(0, 0, 0);
 		const peakIso = peak.toISOString();
@@ -584,25 +579,21 @@ test.describe('visual tool interactions', () => {
 		const hourLabel = (date) => `${String(date.getUTCHours()).padStart(2, '0')}:00`;
 		const nextHour = new Date(peak.getTime() + 60 * 60 * 1000);
 
-		/* The merge commit alone runs far past the rest, which is what puts the line axis into its clipped mode. */
+		/*
+		 * The merge commit alone runs far past the rest, which is what puts the line axis into its
+		 * clipped mode, and the oldest commit is still waiting on the snapshot job for its counts.
+		 */
 		await stubCommitSnapshot(page, [
 			{ date: peakIso, added: 40, removed: 5 },
 			{ date: peakIso, added: 2, removed: 60 },
 			{ date: peakIso, added: 100_000, removed: 100, merge: true },
-			{ date: earlierIso, added: 7, removed: 1 },
+			{ date: earlierIso },
 		], new Date(Date.now() - 90 * 60 * 1000).toISOString());
-		await stubGitHubCommits(page, [
-			{ date: peakIso },
-			{ date: peakIso },
-			{ date: peakIso, merge: true },
-			{ date: earlierIso },
-			{ date: earlierIso },
-		]);
 		await page.goto('/en/tools/soundscaper-commit-graph/');
 		const tool = page.locator('[data-commit-graph]');
 
 		await expect(tool.locator('[data-status]')).toHaveAttribute('data-state', 'success');
-		await expect(tool.locator('[data-status]')).toHaveText('4 commits from the site snapshot (1 hour old). Reload for live data.');
+		await expect(tool.locator('[data-status]')).toHaveText('4 commits from the site snapshot (1 hour old).');
 		await expect(tool.locator('[data-stat-total]')).toHaveText('4');
 		await expect(tool.locator('[data-stat-hour]')).toHaveText(`${hourLabel(peak)}–${hourLabel(nextHour)}`);
 		await expect(tool.locator('[data-stat-hour-note]')).toHaveText('3 commits');
@@ -610,10 +601,10 @@ test.describe('visual tool interactions', () => {
 		await expect(tool.locator('[data-bars] .time-day')).toHaveCount(30);
 		await expect(tool.locator('[data-hours-table] tr')).toHaveCount(30);
 		await expect(tool.locator('.heat-cell')).toHaveCount(30 * 24);
-		await expect(tool.locator('[data-stat-added]')).toHaveText('+100,049');
-		await expect(tool.locator('[data-stat-removed]')).toHaveText('−166');
-		await expect(tool.locator('[data-stat-removed-note]')).toHaveText('net +99,883 lines');
-		await expect(tool.locator('[data-lines-caption]')).toHaveText('100,049 lines added and 166 removed, one bar per hour. Bars past 200 lines are cut off — 1 of 720 hours.');
+		await expect(tool.locator('[data-stat-added]')).toHaveText('+100,042');
+		await expect(tool.locator('[data-stat-removed]')).toHaveText('−165');
+		await expect(tool.locator('[data-stat-removed-note]')).toHaveText('net +99,877 lines');
+		await expect(tool.locator('[data-lines-caption]')).toHaveText('100,042 lines added and 165 removed, one bar per hour. Line counts are available for 3 of 4 commits. Bars past 200 lines are cut off — 1 of 720 hours.');
 		await expect(tool.locator('[data-lines] .lines-bar')).toHaveCount(30 * 24);
 
 		/* Both series are bucketed to the same hour of the same day, so one column carries them all. */
@@ -630,20 +621,17 @@ test.describe('visual tool interactions', () => {
 		const levels = await filledCells.evaluateAll((cells) => cells.map((cell) => Number(cell.dataset.level)));
 		expect(Math.max(...levels)).toBeGreaterThan(Math.min(...levels));
 
-		await tool.locator('[data-reload]').click();
-		await expect(tool.locator('[data-status]')).toHaveText('5 commits loaded live from GitHub across 1 request.');
-		await expect(tool.locator('[data-stat-total]')).toHaveText('5');
-		/* The live list carries no line counts, so the commit the snapshot never saw stays uncounted. */
-		await expect(tool.locator('[data-lines-caption]')).toHaveText('100,049 lines added and 166 removed, one bar per hour. Line counts are available for 4 of 5 commits. Bars past 200 lines are cut off — 1 of 720 hours.');
-
 		await tool.locator('[data-merges]').uncheck();
-		await expect(tool.locator('[data-stat-total]')).toHaveText('4');
+		await expect(tool.locator('[data-stat-total]')).toHaveText('3');
 		await expect(tool.locator('[data-stat-hour-note]')).toHaveText('2 commits');
-		await expect(tool.locator('[data-stat-added]')).toHaveText('+49');
-		await expect(tool.locator('[data-stat-removed]')).toHaveText('−66');
+		await expect(tool.locator('[data-stat-added]')).toHaveText('+42');
+		await expect(tool.locator('[data-stat-removed]')).toHaveText('−65');
 		/* Without the merge commit nothing dwarfs the rest, so the axis goes back to an exact ceiling. */
-		await expect(tool.locator('[data-lines-caption]')).toHaveText('49 lines added and 66 removed, one bar per hour. Line counts are available for 3 of 4 commits.');
+		await expect(tool.locator('[data-lines-caption]')).toHaveText('42 lines added and 65 removed, one bar per hour. Line counts are available for 2 of 3 commits.');
 		await expect(tool.locator('[data-lines] .clipped')).toHaveCount(0);
+
+		await expect(tool.locator('[data-reload]')).toHaveCount(0);
+		expect(githubCalls).toEqual([]);
 		expect(errors).toEqual([]);
 	});
 

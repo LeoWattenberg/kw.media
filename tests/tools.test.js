@@ -115,7 +115,6 @@ import {
 	formatDayLabel,
 	formatHourRange,
 	formatLineCount,
-	formatResetDelay,
 	formatSignedLines,
 	heatLevel,
 	isWeekend,
@@ -125,12 +124,10 @@ import {
 	parseCommitSnapshot,
 	parseIsoParts,
 	parseLastPage,
-	readCommitCache,
 	roundUpToTick,
 	snapshotIsEquivalent,
 	summarizeGrid,
 	windowStartIso,
-	writeCommitCache,
 } from '../src/lib/tools/commit-graph.js';
 import {
 	amplitudeToDbfs,
@@ -627,8 +624,6 @@ test('commit graph formats axis labels, heat levels, and weekends', () => {
 	assert.equal(formatSignedLines(0, 'en'), '±0');
 	assert.equal(isWeekend('2026-08-15'), true);
 	assert.equal(isWeekend('2026-08-13'), false);
-	assert.equal(formatResetDelay(Date.now() + 5 * 60_000, Date.now()), 5);
-	assert.equal(formatResetDelay(null, Date.now()), 1);
 });
 
 test('commit graph heat levels follow quantiles so one busy day cannot flatten the ramp', () => {
@@ -822,18 +817,6 @@ test('commit graph describes snapshot age in both locales', () => {
 	assert.equal(formatAge(Number.NaN, 'en'), 'under 1 minute');
 });
 
-test('commit graph caches commits per tab and expires them', () => {
-	const store = new Map();
-	const storage = { getItem: (key) => store.get(key) ?? null, setItem: (key, value) => store.set(key, value) };
-	const commits = [{ sha: 'abcdef1', iso: '2026-08-13T10:00:00Z', isMerge: false }];
-
-	assert.equal(writeCommitCache(storage, 'key', { fetchedAt: 1000, commits }), true);
-	assert.deepEqual(readCommitCache(storage, 'key', { nowMs: 2000, ttl: 5000 }), { fetchedAt: 1000, commits });
-	assert.equal(readCommitCache(storage, 'key', { nowMs: 60_000, ttl: 5000 }), null);
-	assert.equal(readCommitCache(storage, 'missing', { nowMs: 2000 }), null);
-	assert.equal(readCommitCache({ getItem: () => 'not json' }, 'key', { nowMs: 0 }), null);
-	assert.equal(writeCommitCache({ setItem: () => { throw new Error('quota'); } }, 'key', {}), false);
-});
 
 test('media info formatting helpers normalize analysis output for display', () => {
 	assert.deepEqual(normalizeResult('{"media":{"track":[]}}'), { media: { track: [] } });
