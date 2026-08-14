@@ -102,17 +102,24 @@ import {
 	buildCommitSnapshot,
 	buildHeatScale,
 	commitCell,
+	commitStatsBySha,
+	commitStatsUrl,
 	commitsApiUrl,
 	dayKey,
 	dayKeysEndingAt,
+	fetchCommitStats,
 	fetchCommitWindow,
 	filterCommits,
 	formatAge,
 	formatDayLabel,
 	formatHourRange,
+	formatLineCount,
 	formatResetDelay,
+	formatSignedLines,
 	heatLevel,
 	isWeekend,
+	mergeCommitStats,
+	normalizeCommitStats,
 	normalizeCommits,
 	parseCommitSnapshot,
 	parseIsoParts,
@@ -508,7 +515,71 @@ test('commit graph builds a day-by-hour grid limited to the tracked window', () 
 		busiestDayKey: '2026-08-13',
 		busiestDayTotal: 3,
 		dailyAverage: 4 / 3,
+		added: 0,
+		removed: 0,
+		net: 0,
+		statCommits: 0,
+		statMissing: 4,
+		busiestLinesHour: 0,
+		busiestLinesHourTotal: 0,
+		dailyAddedAverage: 0,
+		dailyRemovedAverage: 0,
 	});
+});
+
+test('commit graph buckets added and removed lines per hour and reports partial coverage', () => {
+	const commits = [
+		{ sha: 'aaa', iso: '2026-08-13T10:15:00Z', additions: 40, deletions: 5 },
+		{ sha: 'bbb', iso: '2026-08-13T10:45:00Z', additions: 2, deletions: 60 },
+		{ sha: 'ccc', iso: '2026-08-13T23:00:00Z', additions: 7, deletions: 1 },
+		{ sha: 'ddd', iso: '2026-08-12T10:05:00Z' },
+	];
+	const grid = buildCommitGrid(commits, { days: 2, endDayKey: '2026-08-13' });
+
+	assert.equal(grid.additions[10], 42);
+	assert.equal(grid.deletions[10], 65);
+	assert.equal(grid.additions[23], 7);
+	assert.equal(grid.added, 49);
+	assert.equal(grid.removed, 66);
+	assert.equal(grid.maxHourLines, 65);
+	assert.equal(grid.statCommits, 3);
+	assert.deepEqual(grid.days.map((day) => [day.additions, day.deletions]), [[0, 0], [49, 66]]);
+
+	const summary = summarizeGrid(grid);
+	assert.equal(summary.added, 49);
+	assert.equal(summary.removed, 66);
+	assert.equal(summary.net, -17);
+	assert.equal(summary.statCommits, 3);
+	assert.equal(summary.statMissing, 1);
+	assert.equal(summary.busiestLinesHour, 10);
+	assert.equal(summary.busiestLinesHourTotal, 107);
+	assert.equal(summary.dailyAddedAverage, 24.5);
+	assert.equal(summary.dailyRemovedAverage, 33);
+});
+
+test('commit graph reads line counts from single-commit payloads and grafts them on by sha', () => {
+	assert.deepEqual(normalizeCommitStats({ stats: { additions: 12, deletions: 3 } }), { additions: 12, deletions: 3 });
+	assert.deepEqual(normalizeCommitStats({ stats: { additions: -4, deletions: 2 } }), { additions: 0, deletions: 2 });
+	assert.equal(normalizeCommitStats({ stats: { additions: 12 } }), null);
+	assert.equal(normalizeCommitStats(null), null);
+
+	const known = commitStatsBySha([
+		{ sha: 'aaa', iso: '2026-08-13T10:00:00Z', additions: 12, deletions: 3 },
+		{ sha: 'bbb', iso: '2026-08-13T11:00:00Z' },
+	]);
+	assert.deepEqual([...known.keys()], ['aaa']);
+
+	const merged = mergeCommitStats([
+		{ sha: 'aaa', iso: '2026-08-13T10:00:00Z', isMerge: false },
+		{ sha: 'bbb', iso: '2026-08-13T11:00:00Z', isMerge: false },
+		{ sha: 'ccc', iso: '2026-08-13T12:00:00Z', isMerge: false, additions: 1, deletions: 1 },
+	], known);
+	assert.deepEqual(merged, [
+		{ sha: 'aaa', iso: '2026-08-13T10:00:00Z', isMerge: false, additions: 12, deletions: 3 },
+		{ sha: 'bbb', iso: '2026-08-13T11:00:00Z', isMerge: false },
+		{ sha: 'ccc', iso: '2026-08-13T12:00:00Z', isMerge: false, additions: 1, deletions: 1 },
+	]);
+	assert.deepEqual(mergeCommitStats(null, known), []);
 });
 
 test('commit graph formats axis labels, heat levels, and weekends', () => {
@@ -517,6 +588,12 @@ test('commit graph formats axis labels, heat levels, and weekends', () => {
 	assert.equal(formatDayLabel('2026-08-13', 'en'), 'Thu 13 Aug');
 	assert.equal(formatDayLabel('2026-08-13', 'de'), 'Do 13. Aug');
 	assert.equal(formatDayLabel('nope', 'en'), '');
+	assert.equal(formatLineCount(12345, 'en'), '12,345');
+	assert.equal(formatLineCount(12345, 'de'), '12.345');
+	assert.equal(formatLineCount('nope', 'en'), '0');
+	assert.equal(formatSignedLines(1200, 'en'), '+1,200');
+	assert.equal(formatSignedLines(-1200, 'de'), '−1.200');
+	assert.equal(formatSignedLines(0, 'en'), '±0');
 	assert.equal(isWeekend('2026-08-15'), true);
 	assert.equal(isWeekend('2026-08-13'), false);
 	assert.equal(formatResetDelay(Date.now() + 5 * 60_000, Date.now()), 5);
@@ -628,6 +705,7 @@ test('commit graph snapshots round-trip newest-first with merge indexes', () => 
 		truncated: false,
 		generatedAt: '2026-08-13T12:00:00Z',
 		timestamps: ['2026-08-13T10:00:00Z', '2026-08-12T09:00:00Z', '2026-08-11T08:00:00Z'],
+		shas: ['bbb', 'ccc', 'aaa'],
 		merges: [0],
 	});
 
@@ -636,13 +714,59 @@ test('commit graph snapshots round-trip newest-first with merge indexes', () => 
 	assert.equal(parsed.windowDays, 30);
 	assert.equal(parsed.generatedAt, '2026-08-13T12:00:00Z');
 	assert.deepEqual(parsed.commits, [
-		{ iso: '2026-08-13T10:00:00Z', isMerge: true },
-		{ iso: '2026-08-12T09:00:00Z', isMerge: false },
-		{ iso: '2026-08-11T08:00:00Z', isMerge: false },
+		{ sha: 'bbb', iso: '2026-08-13T10:00:00Z', isMerge: true },
+		{ sha: 'ccc', iso: '2026-08-12T09:00:00Z', isMerge: false },
+		{ sha: 'aaa', iso: '2026-08-11T08:00:00Z', isMerge: false },
 	]);
 	assert.equal(parseCommitSnapshot(null), null);
 	assert.equal(parseCommitSnapshot({ timestamps: 'nope' }), null);
 	assert.deepEqual(buildCommitSnapshot(null).timestamps, []);
+});
+
+test('commit graph snapshots carry line counts once any commit has them', () => {
+	const commits = [
+		{ sha: 'aaa', iso: '2026-08-11T08:00:00Z', isMerge: false, additions: 10, deletions: 4 },
+		{ sha: 'bbb', iso: '2026-08-13T10:00:00Z', isMerge: false },
+	];
+	const snapshot = buildCommitSnapshot(commits, { repo: 'owner/repo', generatedAt: '2026-08-13T12:00:00Z' });
+
+	assert.deepEqual(snapshot.additions, [null, 10]);
+	assert.deepEqual(snapshot.deletions, [null, 4]);
+	assert.deepEqual(parseCommitSnapshot(snapshot).commits, [
+		{ sha: 'bbb', iso: '2026-08-13T10:00:00Z', isMerge: false },
+		{ sha: 'aaa', iso: '2026-08-11T08:00:00Z', isMerge: false, additions: 10, deletions: 4 },
+	]);
+
+	const pending = buildCommitSnapshot([{ sha: 'bbb', iso: '2026-08-13T10:00:00Z', isMerge: false }], { generatedAt: '2026-08-13T12:00:00Z' });
+	assert.equal('additions' in pending, false);
+	assert.equal(snapshotIsEquivalent(snapshot, pending), false);
+});
+
+test('commit graph reads commit line counts one request at a time and survives a rate limit', async () => {
+	const seen = [];
+	const fetchImpl = async (url) => {
+		seen.push(url);
+		const sha = url.split('/').pop();
+		if (sha === 'ccc') return { ok: false, status: 404, headers: new Headers(), json: async () => ({}) };
+		return { ok: true, status: 200, headers: new Headers(), json: async () => ({ stats: { additions: sha.length, deletions: 1 } }) };
+	};
+
+	assert.equal(commitStatsUrl('owner/repo', 'aaa'), 'https://api.github.com/repos/owner/repo/commits/aaa');
+	const result = await fetchCommitStats({ repo: 'owner/repo', shas: ['aaa', 'bbbb', 'ccc'], token: 'secret', concurrency: 1, fetchImpl });
+	assert.deepEqual(result.stats, { aaa: { additions: 3, deletions: 1 }, bbbb: { additions: 4, deletions: 1 } });
+	assert.equal(result.requests, 3);
+	assert.equal(result.rateLimited, false);
+	assert.equal(seen.length, 3);
+
+	const limited = await fetchCommitStats({
+		shas: ['aaa', 'bbb'],
+		concurrency: 1,
+		fetchImpl: async () => ({ ok: false, status: 403, headers: new Headers({ 'x-ratelimit-remaining': '0' }), json: async () => ({}) }),
+	});
+	assert.equal(limited.rateLimited, true);
+	assert.equal(limited.requests, 1);
+	assert.deepEqual(limited.stats, {});
+	assert.deepEqual(await fetchCommitStats({ shas: [], fetchImpl }), { stats: {}, requests: 0, rateLimited: false, rateLimit: null });
 });
 
 test('commit graph snapshot comparison ignores the generation timestamp', () => {

@@ -102,9 +102,12 @@ const toolPages = [
 	['/en/tools/analyzers/', 'Analyzers', '.tool-category-grid'],
 ];
 
+/* The tool keys line counts by the short sha, so stubs need shas that stay distinct once truncated. */
+const commitSha = (index) => `${index}`.padEnd(40, 'f');
+
 const stubGitHubCommits = async (page, commits) => {
 	const body = JSON.stringify(commits.map(({ date, merge = false }, index) => ({
-		sha: `${index}`.padStart(40, 'a'),
+		sha: commitSha(index),
 		commit: { author: { date } },
 		parents: merge ? [{ sha: 'first' }, { sha: 'second' }] : [{ sha: 'first' }],
 	})));
@@ -125,7 +128,10 @@ const stubCommitSnapshot = async (page, commits, generatedAt) => {
 		truncated: false,
 		generatedAt,
 		timestamps: commits.map(({ date }) => date),
+		shas: commits.map((_, index) => commitSha(index).slice(0, 7)),
 		merges,
+		additions: commits.map(({ added = null }) => added),
+		deletions: commits.map(({ removed = null }) => removed),
 	});
 
 	await page.route('**/data/soundscaper-commits.json', (route) => route.fulfill({
@@ -579,10 +585,10 @@ test.describe('visual tool interactions', () => {
 		const nextHour = new Date(peak.getTime() + 60 * 60 * 1000);
 
 		await stubCommitSnapshot(page, [
-			{ date: peakIso },
-			{ date: peakIso },
-			{ date: peakIso, merge: true },
-			{ date: earlierIso },
+			{ date: peakIso, added: 40, removed: 5 },
+			{ date: peakIso, added: 2, removed: 60 },
+			{ date: peakIso, added: 100, removed: 100, merge: true },
+			{ date: earlierIso, added: 7, removed: 1 },
 		], new Date(Date.now() - 90 * 60 * 1000).toISOString());
 		await stubGitHubCommits(page, [
 			{ date: peakIso },
@@ -601,6 +607,11 @@ test.describe('visual tool interactions', () => {
 		await expect(tool.locator('[data-stat-hour-note]')).toHaveText('3 commits');
 		await expect(tool.locator('.chart-bar')).toHaveCount(24);
 		await expect(tool.locator('.heat-cell')).toHaveCount(30 * 24);
+		await expect(tool.locator('[data-stat-added]')).toHaveText('+149');
+		await expect(tool.locator('[data-stat-removed]')).toHaveText('−166');
+		await expect(tool.locator('[data-stat-removed-note]')).toHaveText('net −17 lines');
+		await expect(tool.locator('[data-lines-caption]')).toHaveText('149 lines added and 166 removed, bucketed by hour.');
+		await expect(tool.locator('.lines-bar')).toHaveCount(24);
 
 		const filledCells = tool.locator('.heat-cell:not([data-level="0"])');
 		await expect(filledCells).toHaveCount(2);
@@ -610,10 +621,14 @@ test.describe('visual tool interactions', () => {
 		await tool.locator('[data-reload]').click();
 		await expect(tool.locator('[data-status]')).toHaveText('5 commits loaded live from GitHub across 1 request.');
 		await expect(tool.locator('[data-stat-total]')).toHaveText('5');
+		/* The live list carries no line counts, so the commit the snapshot never saw stays uncounted. */
+		await expect(tool.locator('[data-lines-caption]')).toHaveText('149 lines added and 166 removed, bucketed by hour. Line counts are available for 4 of 5 commits.');
 
 		await tool.locator('[data-merges]').uncheck();
 		await expect(tool.locator('[data-stat-total]')).toHaveText('4');
 		await expect(tool.locator('[data-stat-hour-note]')).toHaveText('2 commits');
+		await expect(tool.locator('[data-stat-added]')).toHaveText('+49');
+		await expect(tool.locator('[data-stat-removed]')).toHaveText('−66');
 		expect(errors).toEqual([]);
 	});
 

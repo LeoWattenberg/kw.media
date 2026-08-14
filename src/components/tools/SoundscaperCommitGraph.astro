@@ -23,7 +23,16 @@ const copy = {
 		tokenHint: 'Ein GitHub-Token mit Lesezugriff hebt das Limit von 60 auf 5.000 Anfragen pro Stunde. Es bleibt in diesem Tab und geht ausschließlich an api.github.com.',
 		tokenLabel: 'GitHub-Token (optional)', tokenApply: 'Token übernehmen', tokenSaved: 'Token gilt für diesen Tab.',
 		summaryTitle: 'Überblick', statTotal: 'Commits', statActiveDays: 'Aktive Tage', statBusiestHour: 'Stärkste Stunde', statBusiestDay: 'Stärkster Tag',
-		statPerDay: '{value} pro Tag im Schnitt', statOfDays: 'von {days} Tagen',
+		statAdded: 'Zeilen hinzugefügt', statRemoved: 'Zeilen entfernt',
+		statPerDay: '{value} pro Tag im Schnitt', statOfDays: 'von {days} Tagen', statNet: 'Netto {value} Zeilen',
+		linesTitle: 'Zeilen pro Tagesstunde',
+		linesCaption: '{added} hinzugefügte und {removed} entfernte Zeilen, nach Stunde gebündelt.',
+		linesCoverage: 'Zeilenzahlen liegen für {counted} von {total} Commits vor.',
+		linesPending: 'Für dieses Fenster liegen noch keine Zeilenzahlen vor. Der Snapshot-Job holt sie schrittweise nach.',
+		legendAdded: 'hinzugefügt', legendRemoved: 'entfernt',
+		tableAdded: 'Hinzugefügt', tableRemoved: 'Entfernt', tableNet: 'Netto',
+		linesBarTitle: '{range}: {added} hinzugefügt, {removed} entfernt',
+		linesAria: 'Balkendiagramm der hinzugefügten Zeilen über und der entfernten Zeilen unter der Nulllinie, je Tagesstunde. Spitze um {range} mit {count} geänderten Zeilen.',
 		hoursTitle: 'Commits pro Tagesstunde', hoursCaption: '{total} aus den letzten {days} Tagen, nach Stunde gebündelt.',
 		heatTitle: 'Tag mal Stunde', heatCaption: 'Eine Zeile pro Tag, der neueste unten.',
 		legendLess: 'weniger', legendMore: 'mehr',
@@ -53,7 +62,16 @@ const copy = {
 		tokenHint: 'A read-only GitHub token raises the limit from 60 to 5,000 requests per hour. It stays in this tab and is sent to api.github.com only.',
 		tokenLabel: 'GitHub token (optional)', tokenApply: 'Apply token', tokenSaved: 'Token applied for this tab.',
 		summaryTitle: 'Summary', statTotal: 'Commits', statActiveDays: 'Active days', statBusiestHour: 'Busiest hour', statBusiestDay: 'Busiest day',
-		statPerDay: '{value} per day on average', statOfDays: 'of {days} days',
+		statAdded: 'Lines added', statRemoved: 'Lines removed',
+		statPerDay: '{value} per day on average', statOfDays: 'of {days} days', statNet: 'net {value} lines',
+		linesTitle: 'Lines changed per hour of day',
+		linesCaption: '{added} lines added and {removed} removed, bucketed by hour.',
+		linesCoverage: 'Line counts are available for {counted} of {total} commits.',
+		linesPending: 'No line counts for this window yet. The snapshot job backfills them run by run.',
+		legendAdded: 'added', legendRemoved: 'removed',
+		tableAdded: 'Added', tableRemoved: 'Removed', tableNet: 'Net',
+		linesBarTitle: '{range}: {added} added, {removed} removed',
+		linesAria: 'Bar chart of lines added above and lines removed below the zero line, per hour of day. Peak at {range} with {count} lines changed.',
 		hoursTitle: 'Commits per hour of day', hoursCaption: '{total} from the last {days} days, bucketed by hour.',
 		heatTitle: 'Day by hour', heatCaption: 'One row per day, newest at the bottom.',
 		legendLess: 'less', legendMore: 'more',
@@ -112,6 +130,8 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 					<li><span class="stat-label">{copy.statActiveDays}</span><strong data-stat-days>–</strong><span class="stat-note" data-stat-days-note></span></li>
 					<li><span class="stat-label">{copy.statBusiestHour}</span><strong data-stat-hour>–</strong><span class="stat-note" data-stat-hour-note></span></li>
 					<li><span class="stat-label">{copy.statBusiestDay}</span><strong data-stat-day>–</strong><span class="stat-note" data-stat-day-note></span></li>
+					<li><span class="stat-label">{copy.statAdded}</span><strong data-stat-added>–</strong><span class="stat-note" data-stat-added-note></span></li>
+					<li><span class="stat-label">{copy.statRemoved}</span><strong data-stat-removed>–</strong><span class="stat-note" data-stat-removed-note></span></li>
 				</ul>
 			</ToolPanel>
 			<ToolPanel class="commit-graph-wide" title={copy.hoursTitle} data-hours-panel hidden>
@@ -127,6 +147,26 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 						<tbody data-hours-table></tbody>
 					</table>
 				</details>
+			</ToolPanel>
+			<ToolPanel class="commit-graph-wide" title={copy.linesTitle} data-lines-panel hidden>
+				<p class="commit-graph-caption" data-lines-caption></p>
+				<div data-lines-body hidden>
+					<p class="lines-legend">
+						<span class="lines-key"><span class="lines-swatch" data-series="added"></span>{copy.legendAdded}</span>
+						<span class="lines-key"><span class="lines-swatch" data-series="removed"></span>{copy.legendRemoved}</span>
+					</p>
+					<div class="chart-frame">
+						<div class="chart-axis" data-lines-axis></div>
+						<div class="chart-plot lines-plot" data-lines role="img" aria-label={copy.linesTitle}></div>
+					</div>
+					<details class="commit-graph-table">
+						<summary>{copy.tableToggle}</summary>
+						<table>
+							<thead><tr><th scope="col">{copy.tableHour}</th><th scope="col">{copy.tableAdded}</th><th scope="col">{copy.tableRemoved}</th><th scope="col">{copy.tableNet}</th></tr></thead>
+							<tbody data-lines-table></tbody>
+						</table>
+					</details>
+				</div>
 			</ToolPanel>
 			<ToolPanel class="commit-graph-wide" title={copy.heatTitle} data-heat-panel hidden>
 				<p class="commit-graph-caption" data-heat-caption></p>
@@ -156,6 +196,7 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 		COMMIT_GRAPH_REPO,
 		COMMIT_GRAPH_SNAPSHOT_PATH,
 		buildCommitGrid,
+		commitStatsBySha,
 		dayKey,
 		fetchCommitWindow,
 		filterCommits,
@@ -163,9 +204,12 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 		formatDayLabel,
 		formatHourLabel,
 		formatHourRange,
+		formatLineCount,
 		formatResetDelay,
+		formatSignedLines,
 		heatLevel,
 		isWeekend,
+		mergeCommitStats,
 		parseCommitSnapshot,
 		readCommitCache,
 		summarizeGrid,
@@ -190,16 +234,23 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 		const status = root.querySelector('[data-status]');
 		const summaryPanel = root.querySelector('[data-summary-panel]');
 		const hoursPanel = root.querySelector('[data-hours-panel]');
+		const linesPanel = root.querySelector('[data-lines-panel]');
 		const heatPanel = root.querySelector('[data-heat-panel]');
 		const hoursCaption = root.querySelector('[data-hours-caption]');
+		const linesCaption = root.querySelector('[data-lines-caption]');
+		const linesBody = root.querySelector('[data-lines-body]');
 		const heatCaption = root.querySelector('[data-heat-caption]');
 		const axis = root.querySelector('[data-hours-axis]');
 		const bars = root.querySelector('[data-bars]');
 		const hoursTable = root.querySelector('[data-hours-table]');
+		const linesAxis = root.querySelector('[data-lines-axis]');
+		const linesBars = root.querySelector('[data-lines]');
+		const linesTable = root.querySelector('[data-lines-table]');
 		const heatmap = root.querySelector('[data-heatmap]');
 		let commits = [];
 		let charted = 0;
 		let loading = false;
+		let snapshotStats = new Map();
 
 		tokenInput.value = readStorage(TOKEN_KEY) || '';
 		timezone.addEventListener('change', render);
@@ -237,6 +288,8 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 				}
 
 				setStatus(copy.loading, 'info');
+				/* The commit list carries no line counts, so the snapshot's stay the only source for them. */
+				const stats = await loadSnapshotStats();
 				const result = await fetchCommitWindow({
 					sinceIso: windowStartIso(now, COMMIT_GRAPH_DAYS),
 					token: readStorage(TOKEN_KEY) || '',
@@ -245,7 +298,7 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 						if (total > 1) setStatus(format(copy.loadingPages, { loaded, total, commits: count }), 'info');
 					},
 				});
-				commits = result.commits;
+				commits = mergeCommitStats(result.commits, stats);
 				writeCommitCache(sessionStorage, CACHE_KEY, { fetchedAt: now, commits });
 				render();
 				const loadedText = format(copy.loaded, { total: countText(charted), requests: requestText(result.pages) });
@@ -261,10 +314,17 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 		async function loadSnapshot() {
 			try {
 				const response = await fetch(snapshotUrl, { cache: 'no-cache' });
-				return response.ok ? parseCommitSnapshot(await response.json()) : null;
+				const snapshot = response.ok ? parseCommitSnapshot(await response.json()) : null;
+				if (snapshot) snapshotStats = commitStatsBySha(snapshot.commits);
+				return snapshot;
 			} catch {
 				return null;
 			}
+		}
+
+		async function loadSnapshotStats() {
+			if (!snapshotStats.size) await loadSnapshot();
+			return snapshotStats;
 		}
 
 		function snapshotStatus(snapshot, nowMs) {
@@ -287,9 +347,11 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 
 			summaryPanel.hidden = false;
 			hoursPanel.hidden = false;
+			linesPanel.hidden = false;
 			heatPanel.hidden = false;
 			renderSummary(summary);
 			renderBars(grid, summary);
+			renderLines(grid, summary);
 			renderHeatmap(grid);
 			hoursCaption.textContent = format(copy.hoursCaption, { total: countText(grid.total), days: COMMIT_GRAPH_DAYS });
 			heatCaption.textContent = copy.heatCaption;
@@ -301,6 +363,10 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 			setStat('days', String(summary.activeDays), format(copy.statOfDays, { days: summary.trackedDays }));
 			setStat('hour', summary.busiestHourTotal ? formatHourRange(summary.busiestHour) : '–', summary.busiestHourTotal ? countText(summary.busiestHourTotal) : '');
 			setStat('day', summary.busiestDayTotal ? formatDayLabel(summary.busiestDayKey, locale) : '–', summary.busiestDayTotal ? countText(summary.busiestDayTotal) : '');
+			setStat('added', summary.statCommits ? formatSignedLines(summary.added, locale) : '–',
+				summary.statCommits ? format(copy.statPerDay, { value: formatLineCount(Math.round(summary.dailyAddedAverage), locale) }) : '');
+			setStat('removed', summary.statCommits ? formatSignedLines(-summary.removed, locale) : '–',
+				summary.statCommits ? format(copy.statNet, { value: formatSignedLines(summary.net, locale) }) : '');
 		}
 
 		function setStat(name, value, note) {
@@ -323,6 +389,40 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 				element('th', { scope: 'row', textContent: formatHourRange(hour) }),
 				element('td', { textContent: String(count) }),
 				element('td', { textContent: `${grid.total ? ((count / grid.total) * 100).toFixed(1) : '0.0'}%` }),
+			])));
+		}
+
+		function renderLines(grid, summary) {
+			const covered = summary.statCommits > 0;
+			linesBody.hidden = !covered;
+			linesCaption.textContent = covered
+				? `${format(copy.linesCaption, { added: formatLineCount(grid.added, locale), removed: formatLineCount(grid.removed, locale) })}${summary.statMissing ? ` ${format(copy.linesCoverage, { counted: formatLineCount(summary.statCommits, locale), total: formatLineCount(summary.total, locale) })}` : ''}`
+				: copy.linesPending;
+			if (!covered) {
+				linesBars.replaceChildren();
+				linesTable.replaceChildren();
+				return;
+			}
+
+			const max = grid.maxHourLines;
+			linesAxis.replaceChildren(...[formatSignedLines(max, locale), '0', formatSignedLines(-max, locale)].map((value) => element('span', { textContent: value })));
+			linesBars.setAttribute('aria-label', `${copy.linesTitle}. ${format(copy.linesAria, { range: formatHourRange(summary.busiestLinesHour), count: formatLineCount(summary.busiestLinesHourTotal, locale) })}`);
+			linesBars.replaceChildren(...grid.additions.map((added, hour) => {
+				const removed = grid.deletions[hour];
+				return element('div', {
+					className: 'lines-bar',
+					title: format(copy.linesBarTitle, { range: formatHourRange(hour), added: formatLineCount(added, locale), removed: formatLineCount(removed, locale) }),
+				}, [
+					element('span', { className: 'lines-bar-fill added', style: `height: ${max ? (added / max) * 100 : 0}%` }),
+					element('span', { className: 'lines-bar-fill removed', style: `height: ${max ? (removed / max) * 100 : 0}%` }),
+					element('span', { className: 'chart-bar-label', textContent: hour % 3 === 0 ? String(hour).padStart(2, '0') : '' }),
+				]);
+			}));
+			linesTable.replaceChildren(...grid.additions.map((added, hour) => element('tr', {}, [
+				element('th', { scope: 'row', textContent: formatHourRange(hour) }),
+				element('td', { textContent: formatLineCount(added, locale) }),
+				element('td', { textContent: formatLineCount(grid.deletions[hour], locale) }),
+				element('td', { textContent: formatSignedLines(added - grid.deletions[hour], locale) }),
 			])));
 		}
 
@@ -383,6 +483,14 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 </script>
 
 <style>
+	/*
+	 * Added and removed lines sit on opposite sides of the zero line, so position already carries the
+	 * distinction; these two steps only reinforce it. They are lightness-separated rather than the
+	 * site's status green/red, which collapse to the same tone for red-green colour blindness.
+	 */
+	.commit-graph { --commit-graph-added: #4f9e57; --commit-graph-removed: #a8301f; }
+	:global(:root[data-theme='dark']) .commit-graph { --commit-graph-added: #74c47f; --commit-graph-removed: #e2593f; }
+
 	.commit-graph { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 	.commit-graph [hidden] { display: none !important; }
 	.commit-graph .commit-graph-wide { grid-column: 1 / -1; }
@@ -408,6 +516,18 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 	.commit-graph :global(.chart-bar) { position: relative; display: flex; flex: 1 1 0; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
 	.commit-graph :global(.chart-bar-fill) { width: 100%; max-width: 24px; border-radius: 4px 4px 0 0; background: var(--color-accent); }
 	.commit-graph :global(.chart-bar-label) { position: absolute; bottom: -18px; color: var(--color-muted); font-size: 0.72rem; font-variant-numeric: tabular-nums; }
+
+	.lines-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 0 14px; color: var(--color-muted); font-size: 0.85rem; }
+	.lines-key { display: inline-flex; align-items: center; gap: 6px; }
+	.lines-swatch { width: 12px; height: 12px; border-radius: 3px; }
+	.lines-swatch[data-series='added'] { background: var(--commit-graph-added); }
+	.lines-swatch[data-series='removed'] { background: var(--commit-graph-removed); }
+	/* The plot's middle gridline is the zero line, so each column splits into equal halves around it. */
+	.lines-plot { align-items: stretch; }
+	.commit-graph :global(.lines-bar) { position: relative; display: grid; grid-template-rows: 1fr 1fr; flex: 1 1 0; justify-items: center; height: 100%; }
+	.commit-graph :global(.lines-bar-fill) { width: 100%; max-width: 24px; }
+	.commit-graph :global(.lines-bar-fill.added) { align-self: end; margin-bottom: 1px; border-radius: 4px 4px 0 0; background: var(--commit-graph-added); }
+	.commit-graph :global(.lines-bar-fill.removed) { align-self: start; margin-top: 1px; border-radius: 0 0 4px 4px; background: var(--commit-graph-removed); }
 
 	.heat-scroll { overflow-x: auto; }
 	.heat-table { border-collapse: separate; border-spacing: 2px; width: 100%; min-width: 560px; table-layout: fixed; }
