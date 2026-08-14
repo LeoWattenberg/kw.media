@@ -244,6 +244,7 @@ const copyJson = JSON.stringify(copy.client);
 			let model = null;
 			let resizeObserver = null;
 			let sceneReady = false;
+			let sceneFailed = false;
 			let trackerReady = false;
 			let lastVideoTime = -1;
 
@@ -302,6 +303,7 @@ const copyJson = JSON.stringify(copy.client);
 					renderLoop();
 				} catch (error) {
 					const message = error instanceof Error ? error.message : copy.unknownError;
+					sceneFailed = true;
 					sceneLabel.textContent = format(copy.renderError, { message });
 					renderBadge.textContent = copy.sceneMissing;
 					setStatus(format(copy.renderError, { message }), 'error');
@@ -318,7 +320,11 @@ const copyJson = JSON.stringify(copy.client);
 						createFaceLandmarker(FaceLandmarker, vision, 'CPU'),
 					);
 					trackerReady = true;
-					setStatus(sceneReady ? copy.ready : copy.loadingScene, sceneReady ? 'success' : '');
+					/* A dead 3D scene is the headline: the tracker finishing later must not bury it
+					   under a "loading the scene" line that will never resolve. */
+					if (!sceneFailed) {
+						setStatus(sceneReady ? copy.ready : copy.loadingScene, sceneReady ? 'success' : '');
+					}
 				} catch (error) {
 					const message = error instanceof Error ? error.message : copy.unknownError;
 					setStatus(format(copy.trackerError, { message }), 'error');

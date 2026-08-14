@@ -222,9 +222,10 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 		const heatmap = root.querySelector('[data-heatmap]');
 		let commits = [];
 		let charted = 0;
+		let loadedSnapshot = null;
 
-		timezone.addEventListener('change', render);
-		merges.addEventListener('change', render);
+		timezone.addEventListener('change', renderAndReport);
+		merges.addEventListener('change', renderAndReport);
 		void load();
 
 		/*
@@ -237,12 +238,23 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 				if (!response.ok) throw new Error(`HTTP ${response.status}`);
 				const snapshot = parseCommitSnapshot(await response.json());
 				if (!snapshot) throw new Error(copy.generic);
+				loadedSnapshot = snapshot;
 				commits = snapshot.commits;
-				render();
-				setStatus(snapshotStatus(snapshot, Date.now()), snapshot.truncated ? 'info' : 'success');
+				renderAndReport();
 			} catch (error) {
 				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
 			}
+		}
+
+		/*
+		 * The status counts what the chart currently shows, so it has to be rewritten whenever the
+		 * time zone or the merge filter changes the total. Without a snapshot there is nothing to
+		 * report and the failure message stays on screen.
+		 */
+		function renderAndReport() {
+			render();
+			if (!loadedSnapshot || !charted) return;
+			setStatus(snapshotStatus(loadedSnapshot, Date.now()), loadedSnapshot.truncated ? 'info' : 'success');
 		}
 
 		function snapshotStatus(snapshot, nowMs) {
@@ -274,7 +286,7 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 			renderHeatmap(grid);
 			hoursCaption.textContent = format(copy.hoursCaption, { total: countText(grid.total), days: COMMIT_GRAPH_DAYS });
 			heatCaption.textContent = copy.heatCaption;
-			if (!grid.total) setStatus(format(copy.empty, { days: COMMIT_GRAPH_DAYS }), 'info');
+			if (!grid.total && loadedSnapshot) setStatus(format(copy.empty, { days: COMMIT_GRAPH_DAYS }), 'info');
 		}
 
 		function renderSummary(summary) {

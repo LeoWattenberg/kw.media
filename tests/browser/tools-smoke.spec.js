@@ -622,6 +622,8 @@ test.describe('visual tool interactions', () => {
 		expect(Math.max(...levels)).toBeGreaterThan(Math.min(...levels));
 
 		await tool.locator('[data-merges]').uncheck();
+		/* The status counts what the chart shows, so dropping the merge commit has to move it too. */
+		await expect(tool.locator('[data-status]')).toHaveText('3 commits from the site snapshot (1 hour old).');
 		await expect(tool.locator('[data-stat-total]')).toHaveText('3');
 		await expect(tool.locator('[data-stat-hour-note]')).toHaveText('2 commits');
 		await expect(tool.locator('[data-stat-added]')).toHaveText('+42');
@@ -633,6 +635,43 @@ test.describe('visual tool interactions', () => {
 		await expect(tool.locator('[data-reload]')).toHaveCount(0);
 		expect(githubCalls).toEqual([]);
 		expect(errors).toEqual([]);
+	});
+
+	test('VTuber preview keeps a dead 3D scene as the headline once the tracker loads', async ({ page }) => {
+		test.setTimeout(120_000);
+		/* Only the renderer is broken; the face tracker still loads and used to overwrite the reason. */
+		await page.route('https://cdn.jsdelivr.net/npm/three@**', (route) => route.abort());
+		const modelLoaded = page.waitForResponse(
+			(response) => response.url().includes('face_landmarker.task'),
+			{ timeout: 90_000 },
+		);
+
+		await page.goto('/en/tools/vtuber-preview/');
+		const status = page.locator('[data-vtuber-preview] [data-status]');
+		await expect(status).toHaveAttribute('data-state', 'error');
+		await expect(status).toContainText('The 3D scene could not start');
+		await expect(page.locator('[data-render-badge]')).toHaveText('The 3D scene is not ready yet.');
+
+		/* The tracker finishes its own load seconds later: the fatal error has to survive that. */
+		await modelLoaded;
+		await expect(status).toHaveAttribute('data-state', 'error');
+		await expect(status).toContainText('The 3D scene could not start');
+	});
+
+	test('Soundscaper commit graph keeps a failed snapshot load on screen', async ({ page }) => {
+		const githubCalls = await failOnGitHubCalls(page);
+		await page.route('**/data/soundscaper-commits.json', (route) => route.fulfill({ status: 503, body: 'unavailable' }));
+
+		await page.goto('/en/tools/soundscaper-commit-graph/');
+		const status = page.locator('[data-commit-graph] [data-status]');
+		await expect(status).toHaveAttribute('data-state', 'error');
+		await expect(status).toHaveText('Could not load the snapshot: HTTP 503');
+
+		/* Redrawing an empty chart must not replace the reason with "no commits in the window". */
+		await page.locator('[data-merges]').uncheck();
+		await expect(status).toHaveAttribute('data-state', 'error');
+		await expect(status).toHaveText('Could not load the snapshot: HTTP 503');
+		expect(githubCalls).toEqual([]);
 	});
 
 	test('Background remover previews an uploaded image before CDN-backed removal', async ({ page }) => {
