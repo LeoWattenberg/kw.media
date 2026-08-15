@@ -21,13 +21,21 @@ const collectPageErrors = (page) => {
  * `title` adds a LIST/INFO chunk, which is how a source file carries tags that
  * muxing is supposed to preserve.
  */
-const createWavFixture = ({ name = 'tone.wav', seconds = 1, sampleRate = 44_100, frequency = 440, title = '' } = {}) => {
+// `noise: true` writes deterministic broadband material instead of a tone. A sine is
+// periodic, so shifting it by whole periods is indistinguishable and no encoder delay can
+// be measured from it; noise has a single unmistakable correlation peak.
+const createWavFixture = ({ name = 'tone.wav', seconds = 1, sampleRate = 44_100, frequency = 440, title = '', noise = false } = {}) => {
 	const sampleCount = Math.round(seconds * sampleRate);
 	const data = Buffer.alloc(8 + sampleCount * 2);
 	data.write('data', 0);
 	data.writeUInt32LE(sampleCount * 2, 4);
+	let seed = 1;
 	for (let index = 0; index < sampleCount; index += 1) {
-		data.writeInt16LE(Math.round(Math.sin(2 * Math.PI * frequency * index / sampleRate) * 16_000), 8 + index * 2);
+		seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+		const sample = noise
+			? (seed / 2 ** 32) * 2 - 1
+			: Math.sin(2 * Math.PI * frequency * index / sampleRate);
+		data.writeInt16LE(Math.round(sample * 16_000), 8 + index * 2);
 	}
 
 	const fmt = Buffer.alloc(24);
@@ -95,6 +103,9 @@ const inspectDownload = (link) => link.evaluate(async (node) => {
 	return result;
 });
 
+/* A last chapter has no successor to end at, so without a media duration the tool has to own up to guessing. */
+const assumedEndStatus = 'Chapter files created. Without a known media duration the last chapter is assumed to be 60 seconds long.';
+
 /* Latin-1 keeps every byte addressable, so binary containers can be searched for their embedded strings. */
 const downloadText = (link) => link.evaluate(async (node) => new TextDecoder('latin1')
 	.decode(new Uint8Array(await (await fetch(node.href)).arrayBuffer())));
@@ -107,6 +118,8 @@ test.describe('audio tool outputs', () => {
 		const youtube = tool.locator('[data-youtube]');
 		const meta = tool.locator('[data-meta]');
 
+		/* Nothing has been muxed yet, so no container is ruled out. */
+		await expect(tool.locator('[data-output] option')).toHaveText(['M4A', 'MP3', 'MP4', 'MKV']);
 		await expect(tool.locator('[data-status]')).toHaveText('4 chapters detected.');
 		await expect(tool.locator('[data-preview] li')).toHaveCount(4);
 		await expect(tool.locator('[data-preview] li').first()).toHaveText('0:00 Intro');
@@ -125,7 +138,8 @@ test.describe('audio tool outputs', () => {
 		await expect(tool.locator('[data-preview] li')).toHaveText(['0:00 Intro', '2:30 Main topic', '1:05:00 Deep dive']);
 
 		await tool.locator('[data-make]').click();
-		await expect(tool.locator('[data-status]')).toHaveText('Chapter files created.');
+		/* No media file, so the last chapter's end is a guess and has to be named as one. */
+		await expect(tool.locator('[data-status]')).toHaveText(assumedEndStatus);
 		await expect(youtube).toBeVisible();
 		await expect(youtube).toHaveAttribute('download', 'youtube-chapters.txt');
 		await expect(meta).toHaveAttribute('download', 'chapters.ffmetadata');
@@ -150,7 +164,7 @@ test.describe('audio tool outputs', () => {
 		/* FFmetadata reserves = ; # and \, so the title has to reach the file escaped. */
 		await tool.locator('[data-chapters]').fill(`00:00 ${String.raw`AC\DC live; take #2 = final`}`);
 		await tool.locator('[data-make]').click();
-		await expect(tool.locator('[data-status]')).toHaveText('Chapter files created.');
+		await expect(tool.locator('[data-status]')).toHaveText(assumedEndStatus);
 		expect(await downloadText(meta)).toContain(String.raw`title=AC\\DC live\; take \#2 \= final`);
 		expect(await downloadText(youtube)).toBe(`0:00 ${String.raw`AC\DC live; take #2 = final`}\n`);
 
@@ -168,6 +182,60 @@ test.describe('audio tool outputs', () => {
 		await expect(tool.locator('[data-preview] li')).toHaveCount(0);
 		await expect(tool.locator('[data-file-name]')).toHaveText('Choose audio or video');
 		await expect(tool.locator('[data-status]')).toHaveText('Paste chapters. Format: 00:00 Title');
+		expect(errors).toEqual([]);
+	});
+
+	test('Podcast Chapter Editor takes its containers and last chapter end from the media file', async ({ page }) => {
+		const errors = collectPageErrors(page);
+		await page.goto('/en/tools/podcast-chapter-editor/');
+		const tool = page.locator('[data-chapterizer]');
+		const output = tool.locator('[data-output]');
+		const meta = tool.locator('[data-meta]');
+
+		await expect(output.locator('option')).toHaveText(['M4A', 'MP3', 'MP4', 'MKV']);
+		await expect(output).toHaveValue('m4a');
+
+		/* An MP3 can be copied into MP3 or Matroska, so the M4A default has to give way. */
+		await tool.locator('[data-file]').setInputFiles({
+			name: 'episode.mp3',
+			mimeType: 'audio/mpeg',
+			buffer: Buffer.from('not a decodable mp3'),
+		});
+		await expect(output.locator('option')).toHaveText(['MP3', 'MKV']);
+		await expect(output).toHaveValue('mp3');
+
+		/* The browser cannot read a duration out of that file, so the guess still applies. */
+		await tool.locator('[data-chapters]').fill('00:00 Intro\n05:00 Outro');
+		await expect(tool.locator('[data-status]')).toHaveText('2 chapters detected.');
+		await tool.locator('[data-make]').click();
+		await expect(tool.locator('[data-status]')).toHaveText(assumedEndStatus);
+		expect(await downloadText(meta)).toContain('START=300000\nEND=359999\n');
+
+		/* PCM cannot be stream-copied into any of MP3, M4A or MP4, so only Matroska is left. */
+		await tool.locator('[data-file]').setInputFiles(createWavFixture({ name: 'episode.wav', seconds: 1 }));
+		await expect(output.locator('option')).toHaveText(['MKV']);
+		await expect(output).toHaveValue('mkv');
+
+		/* The player is the thing that knows the episode length, so wait for it to report one. */
+		await expect
+			.poll(() => tool.locator('[data-audio]').evaluate((node) => node.duration), { timeout: 15_000 })
+			.toBeGreaterThan(0.9);
+
+		await tool.locator('[data-chapters]').fill('00:00 Intro\n00:00.400 Chorus');
+		await expect(tool.locator('[data-status]')).toHaveText('2 chapters detected.');
+		await tool.locator('[data-make]').click();
+		await expect(tool.locator('[data-status]')).toHaveText('Chapter files created.');
+
+		const withMedia = await downloadText(meta);
+		expect(withMedia).toContain('START=0\nEND=399\n');
+		/* The last chapter ends with the one-second file, not 60 seconds after it started. */
+		const lastEnd = Number(withMedia.match(/START=400\nEND=(\d+)\n/)[1]);
+		expect(lastEnd).toBeGreaterThan(900);
+		expect(lastEnd).toBeLessThan(1100);
+
+		await tool.locator('[data-clear]').click();
+		await expect(output.locator('option')).toHaveText(['M4A', 'MP3', 'MP4', 'MKV']);
+		await expect(output).toHaveValue('m4a');
 		expect(errors).toEqual([]);
 	});
 
@@ -462,7 +530,7 @@ test.describe('audio tool outputs', () => {
 		await page.goto('/en/tools/mp3-quality-tester/');
 		const tool = page.locator('[data-mp3-quality-tester]');
 
-		await tool.locator('[data-file]').setInputFiles(createWavFixture({ name: 'master.wav', seconds: 1 }));
+		await tool.locator('[data-file]').setInputFiles(createWavFixture({ name: 'master.wav', seconds: 1, noise: true }));
 		for (const value of ['mp3-v0', 'mp3-v3', 'mp3-v6']) {
 			await tool.locator(`[data-preset][value="${value}"]`).uncheck();
 		}
@@ -471,6 +539,17 @@ test.describe('audio tool outputs', () => {
 
 		await tool.locator('[data-start]').click();
 		await expect(tool.locator('[data-stage]')).toBeVisible({ timeout: 150_000 });
+		/*
+		 * An MP3 starts behind its source by the encoder's delay, and a blind test that does
+		 * not correct for that measures timing rather than quality. Chromium turns out to
+		 * strip it already: decodeAudioData honours libmp3lame's gapless header, and a
+		 * measured 320 kbps encode of this fixture comes back with exactly as many samples as
+		 * the source and a correlation peak at offset 0. So the honest report here is that
+		 * nothing needed moving — and the tool has to say that rather than claim a
+		 * compensation it never applied. estimateAlignmentOffset and shiftSamples are proven
+		 * on known offsets in tests/audio-tool-helpers.test.js.
+		 */
+		await expect(tool.locator('[data-status]')).toContainText('No measurable encoder delay was found, so the samples play unchanged.');
 		await expect(tool.locator('[data-round-label]')).toHaveText('Trial 1 of 1 · 320 kbps CBR');
 		await expect(tool.locator('[data-duration]')).toHaveText(/^0:0[01]$/);
 

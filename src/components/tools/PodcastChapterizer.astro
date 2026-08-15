@@ -20,6 +20,8 @@ const copy = {
 		waiting: 'Füge Kapitel ein. Format: 00:00 Titel', ready: '{count} Kapitel erkannt.', noChapters: 'Keine gültigen Kapitel gefunden.',
 		loading: 'FFmpeg WASM wird geladen…', ffmpegReady: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%', muxing: 'Kapitel werden eingebettet…',
 		done: 'Kapitel wurden erstellt.', muxed: 'Mediendatei mit Kapiteln erstellt.', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.',
+		assumedEnd: 'Kapitel wurden erstellt. Ohne bekannte Mediendauer wird für das letzte Kapitel eine Länge von 60 Sekunden angenommen.',
+		muxedAssumedEnd: 'Mediendatei mit Kapiteln erstellt. Ohne bekannte Mediendauer wurde für das letzte Kapitel eine Länge von 60 Sekunden angenommen.',
 		error: 'Kapitelverarbeitung fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', noMedia: 'Wähle zuerst eine Mediendatei.',
 	},
 	en: {
@@ -32,6 +34,8 @@ const copy = {
 		waiting: 'Paste chapters. Format: 00:00 Title', ready: '{count} chapters detected.', noChapters: 'No valid chapters found.',
 		loading: 'Loading FFmpeg WASM…', ffmpegReady: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%', muxing: 'Embedding chapters…',
 		done: 'Chapter files created.', muxed: 'Media file with chapters created.', timeout: 'FFmpeg WASM did not load within 90 seconds.',
+		assumedEnd: 'Chapter files created. Without a known media duration the last chapter is assumed to be 60 seconds long.',
+		muxedAssumedEnd: 'Media file with chapters created. Without a known media duration the last chapter was assumed to be 60 seconds long.',
 		error: 'Chapter processing failed: {message}', generic: 'Unknown error', noMedia: 'Choose a media file first.',
 	},
 }[locale];
@@ -66,6 +70,7 @@ const copyJson = JSON.stringify(copy);
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
 	import { formatBytes } from '../../lib/tools/format';
+	import { buildFfmetadata, defaultMuxContainer, muxContainerOptions, usesAssumedEnd } from '../../lib/tools/podcast-chapters';
 
 	for (const root of document.querySelectorAll('[data-chapterizer]:not([data-bound])')) {
 		root.dataset.bound = 'true';
@@ -88,9 +93,12 @@ const copyJson = JSON.stringify(copy);
 		let youtubeUrl = null;
 		let metaUrl = null;
 		let mediaUrl = null;
+		let mediaDuration = Number.NaN;
 		const runtime = createFfmpegRuntime({ timeoutMessage: copy.timeout, onLoading: () => setStatus(copy.loading, 'info'), onReady: () => setStatus(copy.ffmpegReady, 'success'), onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info') });
 
 		fileInput.addEventListener('change', onFile);
+		/* The player is the only thing here that knows how long the episode really is. */
+		audio.addEventListener('loadedmetadata', () => { mediaDuration = audio.duration; });
 		chaptersText.addEventListener('input', updatePreview);
 		makeButton.addEventListener('click', makeFiles);
 		muxButton.addEventListener('click', () => void mux());
@@ -101,20 +109,33 @@ const copyJson = JSON.stringify(copy);
 			const file = fileInput.files?.[0];
 			if (!file) return;
 			if (inputUrl) URL.revokeObjectURL(inputUrl);
+			mediaDuration = Number.NaN;
 			inputUrl = URL.createObjectURL(file);
 			audio.src = inputUrl; audio.hidden = false;
 			clearMediaDownload();
+			updateContainers(file);
 			fileName.textContent = file.name; fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'media'}`;
+		}
+
+		/* A stream copy can only be poured into a container that takes the source's streams. */
+		function updateContainers(file, preferred = output.value) {
+			output.replaceChildren(...muxContainerOptions(file).map(({ value, label }) => {
+				const option = document.createElement('option');
+				option.value = value; option.textContent = label;
+				return option;
+			}));
+			output.value = defaultMuxContainer(file, preferred);
 		}
 
 		function makeFiles() {
 			try {
 				const chapters = getChapters();
 				const youtube = toYoutube(chapters);
-				const meta = toMetadata(chapters);
+				const meta = buildFfmetadata(chapters, mediaDuration);
 				setTextDownload(youtubeLink, youtube, 'youtube-chapters.txt', 'text/plain', 'youtube');
 				setTextDownload(metaLink, meta, 'chapters.ffmetadata', 'text/plain', 'meta');
-				setStatus(copy.done, 'success');
+				/* The last chapter has no successor, so say when its end is a guess rather than the media length. */
+				setStatus(usesAssumedEnd(chapters, mediaDuration) ? copy.assumedEnd : copy.done, 'success');
 			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
 		}
 
@@ -122,7 +143,8 @@ const copyJson = JSON.stringify(copy);
 			const file = fileInput.files?.[0];
 			if (!file) { setStatus(copy.noMedia, 'error'); return; }
 			try {
-				const metadata = toMetadata(getChapters());
+				const chapters = getChapters();
+				const metadata = buildFfmetadata(chapters, mediaDuration);
 				setStatus(copy.muxing, 'info');
 				const ext = output.value;
 				const bytes = await runtime.run(async (ffmpeg) => {
@@ -146,7 +168,8 @@ const copyJson = JSON.stringify(copy);
 				if (mediaUrl) URL.revokeObjectURL(mediaUrl);
 				mediaUrl = URL.createObjectURL(new Blob([bytes], { type: mime(ext) }));
 				mediaLink.href = mediaUrl; mediaLink.download = `${baseName(file.name)}-chapters.${ext}`; mediaLink.hidden = false;
-				setStatus(copy.muxed, 'success');
+				/* The embedded chapters carry the guessed end too, so the mux path has to admit it as well. */
+				setStatus(usesAssumedEnd(chapters, mediaDuration) ? copy.muxedAssumedEnd : copy.muxed, 'success');
 			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
 		}
 
@@ -182,17 +205,6 @@ const copyJson = JSON.stringify(copy);
 			}).filter((chapter) => chapter && Number.isFinite(chapter.start)).sort((a, b) => a.start - b.start);
 		}
 		function toYoutube(chapters) { return chapters.map((chapter) => `${formatTime(chapter.start)} ${chapter.title}`).join('\n') + '\n'; }
-		function toMetadata(chapters) {
-			const lines = [';FFMETADATA1'];
-			for (let i = 0; i < chapters.length; i++) {
-				const start = Math.round(chapters[i].start * 1000);
-				const end = Math.round(((chapters[i + 1]?.start ?? chapters[i].start + 60) * 1000) - 1);
-				lines.push('[CHAPTER]', 'TIMEBASE=1/1000', `START=${start}`, `END=${Math.max(start + 1, end)}`, `title=${escapeMetadata(chapters[i].title)}`);
-			}
-			return lines.join('\n') + '\n';
-		}
-		/* FFmetadata treats =, ;, # and \ as special, so a raw title loses those characters when read back. */
-		function escapeMetadata(title) { return String(title).replace(/([=;#\\])/g, '\\$1').replace(/\n/g, ' '); }
 		function setTextDownload(link, text, name, type, kind) {
 			if (kind === 'youtube' && youtubeUrl) URL.revokeObjectURL(youtubeUrl);
 			if (kind === 'meta' && metaUrl) URL.revokeObjectURL(metaUrl);
@@ -202,7 +214,7 @@ const copyJson = JSON.stringify(copy);
 		}
 		function parseTime(value) { const parts = value.replace(',', '.').split(':').map(Number); const seconds = parts.pop() || 0; const minutes = parts.pop() || 0; const hours = parts.pop() || 0; return hours * 3600 + minutes * 60 + seconds; }
 		function formatTime(seconds) { const h = Math.floor(seconds / 3600); const m = Math.floor((seconds % 3600) / 60); const s = Math.floor(seconds % 60); return h ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`; }
-		function reset() { fileInput.value = ''; chaptersText.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; audio.hidden = true; audio.removeAttribute('src'); for (const link of [youtubeLink, metaLink, mediaLink]) link.hidden = true; for (const url of [inputUrl, youtubeUrl, metaUrl, mediaUrl]) if (url) URL.revokeObjectURL(url); inputUrl = youtubeUrl = metaUrl = mediaUrl = null; updatePreview(); }
+		function reset() { fileInput.value = ''; chaptersText.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; audio.hidden = true; audio.removeAttribute('src'); mediaDuration = Number.NaN; updateContainers(null, ''); for (const link of [youtubeLink, metaLink, mediaLink]) link.hidden = true; for (const url of [inputUrl, youtubeUrl, metaUrl, mediaUrl]) if (url) URL.revokeObjectURL(url); inputUrl = youtubeUrl = metaUrl = mediaUrl = null; updatePreview(); }
 		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
 		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
 		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }

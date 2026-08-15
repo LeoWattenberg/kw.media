@@ -25,6 +25,16 @@ import {
 	formatProbability,
 	formatTime,
 } from '../src/lib/tools/abx-tester.js';
+import { estimateAlignmentOffset, shiftSamples } from '../src/lib/tools/audio-alignment.js';
+import {
+	ASSUMED_LAST_CHAPTER_SECONDS,
+	buildFfmetadata,
+	defaultMuxContainer,
+	lastChapterEnd,
+	muxContainerOptions,
+	muxContainers,
+	usesAssumedEnd,
+} from '../src/lib/tools/podcast-chapters.js';
 import {
 	buildMasteringArgs,
 	buildOutputInfo,
@@ -70,6 +80,22 @@ const sineSamples = (amplitude, { sampleRate = 8000, seconds = 2, frequency = 10
 	{ length: Math.round(sampleRate * seconds) },
 	(_, index) => amplitude * Math.sin(2 * Math.PI * frequency * index / sampleRate),
 );
+
+/* Broadband, deterministic material: a correlation peak on noise is unambiguous where a tone's is not. */
+const noiseSamples = (length, seed = 1) => {
+	let state = seed >>> 0;
+	return Float32Array.from({ length }, () => {
+		state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+		return (state / 2 ** 32) * 2 - 1;
+	});
+};
+
+/* An encoder delay looks exactly like this: the same samples, pushed back behind silence. */
+const withLeadingSilence = (samples, delay) => {
+	const delayed = new Float32Array(samples.length + delay);
+	delayed.set(samples, delay);
+	return delayed;
+};
 
 test('mastering profiles only ever pick a container that can hold the chosen codec', () => {
 	for (const type of MASTERING_TYPES) {
@@ -210,6 +236,145 @@ test('abx statistics stay exact at the edges of the binomial table', () => {
 	assert.equal(fileExtension('take 2.OggOpus'), '.oggopus');
 });
 
+test('alignment finds an injected encoder delay in either direction', () => {
+	const reference = noiseSamples(20000);
+	const options = { maxOffset: 400, analysisLength: 4000 };
+
+	for (const delay of [1, 17, 137, 400]) {
+		// A prepended delay makes the copy lag, which is the positive direction.
+		assert.equal(estimateAlignmentOffset(reference, withLeadingSilence(reference, delay), options), delay);
+		// A copy that lost its head start leads instead, and has to come back negative.
+		assert.equal(estimateAlignmentOffset(reference, reference.subarray(delay), options), -delay);
+	}
+
+	// The coarse grid is only there to keep the search cheap; it must not change the answer.
+	const delayed = withLeadingSilence(reference, 137);
+	assert.equal(estimateAlignmentOffset(reference, delayed, { ...options, coarseStep: 1 }), 137);
+	assert.equal(estimateAlignmentOffset(reference, delayed, { ...options, coarseStep: 32 }), 137);
+});
+
+test('alignment leaves matched and silent material exactly where it is', () => {
+	const reference = noiseSamples(20000, 5);
+	const silence = new Float32Array(20000);
+
+	assert.equal(estimateAlignmentOffset(reference, reference.slice(), { maxOffset: 400 }), 0);
+	assert.equal(estimateAlignmentOffset(silence, silence.slice(), { maxOffset: 400 }), 0);
+	assert.equal(estimateAlignmentOffset(silence, reference, { maxOffset: 400 }), 0);
+	assert.equal(estimateAlignmentOffset(reference, silence, { maxOffset: 400 }), 0);
+	// Silence correlates equally well at every shift, so nothing may be trimmed off a real sample.
+	assert.equal(estimateAlignmentOffset(reference, withLeadingSilence(silence, 137), { maxOffset: 400 }), 0);
+});
+
+test('alignment answers inside its window even when the real offset is outside it', () => {
+	const reference = noiseSamples(20000, 9);
+	const far = withLeadingSilence(reference, 3000);
+	const bounded = estimateAlignmentOffset(reference, far, { maxOffset: 120, analysisLength: 4000 });
+
+	assert.ok(Number.isInteger(bounded), `expected a whole sample offset, got ${bounded}`);
+	assert.ok(Math.abs(bounded) <= 120, `expected an answer within +-120 samples, got ${bounded}`);
+	assert.notEqual(bounded, 3000);
+	// Given room to look, the same pair gives up the offset it was hiding.
+	assert.equal(estimateAlignmentOffset(reference, far, { maxOffset: 4000, analysisLength: 4000 }), 3000);
+});
+
+test('alignment sizes its window from the sample rate and survives useless input', () => {
+	const reference = noiseSamples(40000, 3);
+	const delayed = withLeadingSilence(reference, 1105);
+
+	// 100 ms of room at 44.1 kHz is 4410 samples, which covers any encoder delay.
+	assert.equal(estimateAlignmentOffset(reference, delayed, { sampleRate: 44100 }), 1105);
+	assert.equal(estimateAlignmentOffset([...reference], [...delayed], { sampleRate: 44100 }), 1105);
+	// 100 ms at 8 kHz is only 800 samples, so the same pair can no longer reach it.
+	const tooNarrow = estimateAlignmentOffset(reference, delayed, { sampleRate: 8000 });
+	assert.ok(Math.abs(tooNarrow) <= 800, `expected an answer within +-800 samples, got ${tooNarrow}`);
+	assert.notEqual(tooNarrow, 1105);
+
+	assert.equal(estimateAlignmentOffset(reference, delayed, { maxOffset: 0 }), 0);
+	assert.equal(estimateAlignmentOffset(reference, []), 0);
+	assert.equal(estimateAlignmentOffset([], []), 0);
+	assert.equal(estimateAlignmentOffset(null, undefined), 0);
+	// Nothing to correlate once the guard band eats the whole candidate.
+	assert.equal(estimateAlignmentOffset(reference, delayed.subarray(0, 5000), { sampleRate: 44100 }), 0);
+});
+
+test('chapter mux containers only offer what a stream copy can actually write', () => {
+	// Nothing is muxed before a file is picked, so nothing is ruled out yet.
+	assert.deepEqual(muxContainers(null), ['m4a', 'mp3', 'mp4', 'mkv']);
+	assert.deepEqual(muxContainerOptions(null), [
+		{ value: 'm4a', label: 'M4A' },
+		{ value: 'mp3', label: 'MP3' },
+		{ value: 'mp4', label: 'MP4' },
+		{ value: 'mkv', label: 'MKV' },
+	]);
+
+	// PCM, FLAC, Vorbis and Matroska itself only survive a copy into Matroska.
+	for (const file of [
+		{ name: 'episode.wav', type: 'audio/wav' },
+		{ name: 'episode.flac', type: 'audio/flac' },
+		{ name: 'episode.ogg', type: 'audio/ogg' },
+		{ name: 'episode.mkv', type: 'video/x-matroska' },
+		{ name: 'episode.webm', type: 'video/webm' },
+		{ name: 'episode', type: '' },
+	]) {
+		assert.deepEqual(muxContainers(file), ['mkv'], `${file.name} must not offer more than MKV`);
+		assert.deepEqual(muxContainerOptions(file), [{ value: 'mkv', label: 'MKV' }]);
+		// M4A is the markup default, and it is exactly the one a WAV cannot be copied into.
+		assert.equal(defaultMuxContainer(file, 'm4a'), 'mkv');
+	}
+
+	assert.deepEqual(muxContainers({ name: 'episode.mp3', type: 'audio/mpeg' }), ['mp3', 'mkv']);
+	assert.deepEqual(muxContainers({ name: 'episode.m4a', type: 'audio/mp4' }), ['m4a', 'mp4', 'mkv']);
+	assert.deepEqual(muxContainers({ name: 'episode.mp4', type: 'video/mp4' }), ['mp4', 'mkv']);
+	assert.deepEqual(muxContainers({ name: 'episode.mov', type: 'video/quicktime' }), ['mp4', 'mkv']);
+
+	// A missing or unhelpful MIME type still leaves the extension to go on.
+	assert.deepEqual(muxContainers({ name: 'episode.mp3', type: '' }), ['mp3', 'mkv']);
+	assert.deepEqual(muxContainers({ name: 'EPISODE.M4A', type: 'application/octet-stream' }), ['m4a', 'mp4', 'mkv']);
+	assert.deepEqual(muxContainers({ name: 'episode.mp4' }), ['mp4', 'mkv']);
+	assert.deepEqual(muxContainers({ type: 'audio/mpeg' }), ['mp3', 'mkv']);
+
+	// A choice that stays legal survives the next file; an illegal one falls back to the first that works.
+	assert.equal(defaultMuxContainer({ name: 'a.mp4', type: 'video/mp4' }, 'mkv'), 'mkv');
+	assert.equal(defaultMuxContainer({ name: 'a.mp4', type: 'video/mp4' }, 'm4a'), 'mp4');
+	assert.equal(defaultMuxContainer({ name: 'a.mp3', type: 'audio/mpeg' }, undefined), 'mp3');
+	assert.equal(defaultMuxContainer(null, ''), 'm4a');
+});
+
+test('the last chapter ends at the media duration instead of a flat minute', () => {
+	const chapters = [{ start: 0, title: 'Intro' }, { start: 150, title: 'Main topic' }];
+
+	// Nothing loaded: the guess stands, and the tool has to be able to say so.
+	assert.equal(usesAssumedEnd(chapters, Number.NaN), true);
+	assert.equal(usesAssumedEnd(chapters, undefined), true);
+	assert.equal(lastChapterEnd(chapters, Number.NaN), 150 + ASSUMED_LAST_CHAPTER_SECONDS);
+	assert.equal(buildFfmetadata(chapters, Number.NaN), [
+		';FFMETADATA1',
+		'[CHAPTER]', 'TIMEBASE=1/1000', 'START=0', 'END=149999', 'title=Intro',
+		'[CHAPTER]', 'TIMEBASE=1/1000', 'START=150000', 'END=209999', 'title=Main topic',
+		'',
+	].join('\n'));
+
+	// A loaded episode ends its last chapter where the episode ends, however long that is.
+	assert.equal(usesAssumedEnd(chapters, 1875.5), false);
+	assert.equal(lastChapterEnd(chapters, 1875.5), 1875.5);
+	assert.ok(buildFfmetadata(chapters, 1875.5).includes('START=150000\nEND=1875499\n'));
+	assert.ok(buildFfmetadata(chapters, 30.25).includes('START=0\nEND=149999\n'));
+
+	// A duration that runs out before the last chapter starts is no duration at all.
+	assert.equal(usesAssumedEnd(chapters, 150), true);
+	assert.equal(usesAssumedEnd(chapters, 0), true);
+	assert.equal(usesAssumedEnd(chapters, Infinity), true);
+	assert.equal(lastChapterEnd(chapters, 90), 210);
+
+	// Every chapter keeps a non-zero span, and titles still reach the file escaped.
+	assert.equal(buildFfmetadata([], 60), ';FFMETADATA1\n');
+	assert.equal(buildFfmetadata([{ start: 5, title: 'Solo' }], 5), [
+		';FFMETADATA1', '[CHAPTER]', 'TIMEBASE=1/1000', 'START=5000', 'END=64999', 'title=Solo', '',
+	].join('\n'));
+	assert.ok(buildFfmetadata([{ start: 0, title: String.raw`AC\DC; take #2 = final` }], 30)
+		.includes(String.raw`title=AC\\DC\; take \#2 \= final`));
+});
+
 test('analyzer level helpers clamp their ranges instead of reading past the samples', () => {
 	const samples = Float32Array.from([0.5, -0.5, 0.25, -0.25]);
 	assert.equal(clamp(Number.NaN, 2, 8), 2);
@@ -322,4 +487,29 @@ test('analyzer Roseus ramp interpolates between stops and clamps outside 0..1', 
 	assert.deepEqual(roseusColor(2), [255, 255, 255]);
 	assert.deepEqual(roseusColor(0.5), [174, 52, 77]);
 	assert.deepEqual(roseusColor(0.55), [191, 66, 70]);
+});
+
+test('shifting a channel by the measured offset is what removes the encoder delay', () => {
+	const reference = noiseSamples(6000, 21);
+	const delayed = withLeadingSilence(reference, 240);
+	const offset = estimateAlignmentOffset(reference, delayed, { maxOffset: 400 });
+	const aligned = shiftSamples(delayed, offset);
+
+	assert.equal(offset, 240);
+	assert.equal(aligned.length, delayed.length - 240);
+	/* Sample for sample, the shifted copy now starts where the reference starts. */
+	for (let index = 0; index < 200; index += 1) {
+		assert.equal(aligned[index], reference[index]);
+	}
+
+	/* A candidate that runs ahead shifts the other way and is padded, never truncated into nonsense. */
+	const ahead = shiftSamples(reference, -3);
+	assert.equal(ahead.length, reference.length + 3);
+	assert.deepEqual([...ahead.subarray(0, 3)], [0, 0, 0]);
+	assert.equal(ahead[3], reference[0]);
+
+	/* Nothing measured, nothing moved. */
+	assert.equal(shiftSamples(reference, 0), reference);
+	assert.equal(shiftSamples(reference, Number.NaN), reference);
+	assert.equal(shiftSamples(reference, reference.length + 10).length, reference.length);
 });

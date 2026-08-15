@@ -43,6 +43,8 @@ const copyByLocale = {
 		resultsTitle: 'Ergebnis',
 		newRun: 'Noch einmal',
 		client: {
+			aligned: 'Beide Proben starten am selben Punkt; die Encoder-Verzögerung ist ausgeglichen.',
+			notAligned: 'Es war keine messbare Encoder-Verzögerung zu finden, die Proben laufen unverändert.',
 			answerCorrect: 'richtig',
 			answerWrong: 'falsch',
 			chance: 'Wahrscheinlichkeit für dieses Ergebnis oder besser durch Raten: {probability}%.',
@@ -109,6 +111,8 @@ const copyByLocale = {
 		resultsTitle: 'Results',
 		newRun: 'Run again',
 		client: {
+			aligned: 'Both samples start at the same point; encoder delay is compensated.',
+			notAligned: 'No measurable encoder delay was found, so the samples play unchanged.',
 			answerCorrect: 'correct',
 			answerWrong: 'wrong',
 			chance: 'Chance probability for this score or better: {probability}%.',
@@ -264,6 +268,7 @@ const copyJson = JSON.stringify(copy.client);
 		formatProbability,
 		formatTime,
 	} from '../../lib/tools/abx-tester';
+	import { estimateAlignmentOffset, shiftSamples } from '../../lib/tools/audio-alignment';
 	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
 
 	(() => {
@@ -516,14 +521,53 @@ const copyJson = JSON.stringify(copy.client);
 
 				try {
 					const output = await ffmpeg.readFile(outputName);
+					const aligned = alignToOriginal(await decodeAudioBytes(output));
 
 					return {
-						buffer: await decodeAudioBytes(output),
+						buffer: aligned.buffer,
+						offset: aligned.offset,
 						label: preset.label,
 					};
 				} finally {
 					await ffmpeg.deleteFile(outputName).catch(() => {});
 				}
+			}
+
+			/*
+			 * MP3 encoders prepend their decoder delay, so the encoded copy starts later
+			 * than the original. Left alone that head start is a timing cue the listener
+			 * hears instead of a quality difference, so the delay is measured against the
+			 * original and cut off the front of the sample that carries it.
+			 */
+			function alignToOriginal(buffer) {
+				const original = state.originalBuffer;
+
+				if (!original || original.sampleRate !== buffer.sampleRate) {
+					return { buffer, offset: 0 };
+				}
+
+				const offset = estimateAlignmentOffset(original.getChannelData(0), buffer.getChannelData(0), {
+					sampleRate: buffer.sampleRate,
+				});
+
+				return offset ? { buffer: shiftBuffer(buffer, offset), offset } : { buffer, offset: 0 };
+			}
+
+			function shiftBuffer(buffer, offset) {
+				const context = transport.getContext();
+				const length = buffer.length - offset;
+
+				if (!context || length < 1) {
+					return buffer;
+				}
+
+				const shifted = context.createBuffer(buffer.numberOfChannels, length, buffer.sampleRate);
+
+				for (let channel = 0; channel < buffer.numberOfChannels; channel += 1) {
+					shifted.getChannelData(channel).set(shiftSamples(buffer.getChannelData(channel), offset));
+				}
+
+				return shifted;
 			}
 
 			async function decodeAudioBytes(data) {
@@ -571,7 +615,10 @@ const copyJson = JSON.stringify(copy.client);
 							count: selected.length,
 							duration: formatTime(state.commonDuration),
 						});
-				setStatus(message, 'success');
+				/* Only claim the compensation that actually happened: a source starting on digital
+				   silence gives the correlator nothing to lock onto and no shift is applied. */
+				const shifted = selected.every((preset) => state.converted[preset.id].offset);
+				setStatus(`${message} ${shifted ? copy.aligned : copy.notAligned}`, 'success');
 			}
 
 			function createTrials(presets, repeats) {
