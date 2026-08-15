@@ -22,7 +22,11 @@ import {
 	subtitleStudioOutputName,
 } from '../src/lib/tools/subtitle-studio.js';
 import { detectCrop } from '../src/lib/tools/crop-doctor.js';
-import { repairModeSupported } from '../src/lib/tools/delivery-doctor.js';
+import {
+	REPAIR_CONTAINERS,
+	REPAIR_MODES,
+	buildRepairAttempts,
+} from '../src/lib/tools/delivery-doctor.js';
 import { verticalCropRect } from '../src/lib/tools/vertical-reframer.js';
 import {
 	mixAndResampleAudio,
@@ -306,20 +310,95 @@ test('crop detection reports an unmeasurable frame instead of a crop at the midp
 	assert.equal(full.h, 120);
 });
 
-test('delivery repair refuses the container and mode combinations FFmpeg cannot write', () => {
-	/* WebM holds VP8/VP9/AV1 with Vorbis or Opus, and both of these modes write
-	   H.264 or AAC, so the run could only end as "FFmpeg exited with code 1". */
-	assert.equal(repairModeSupported('webm', 'web'), false);
-	assert.equal(repairModeSupported('webm', 'audio'), false);
-	/* A stream copy into WebM is the one mode a WebM source can still use. */
-	assert.equal(repairModeSupported('webm', 'copy'), true);
-	for (const container of ['mp4', 'mov', 'mkv']) {
-		for (const mode of ['copy', 'audio', 'web']) {
-			assert.equal(repairModeSupported(container, mode), true);
+test('a WebM repair is written with the codecs WebM accepts instead of being refused', () => {
+	const names = { input: 'source.mp4', output: 'delivery.webm' };
+	const map = ['-map', '0:v?', '-map', '0:a?', '-map_metadata', '0'];
+	const vp9 = ['-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '34', '-deadline', 'good', '-cpu-used', '5', '-pix_fmt', 'yuv420p'];
+	const opus = ['-c:a', 'libopus', '-b:a', '160k', '-ar', '48000'];
+
+	/* The web mode used to write H.264 with AAC and was turned away at the panel.
+	   The container is what was asked for, so the codecs move instead. */
+	assert.deepEqual(buildRepairAttempts('webm', 'web', names), [
+		['-i', 'source.mp4', ...map, ...vp9, ...opus, '-y', 'delivery.webm'],
+	]);
+
+	/* The audio mode re-encodes the sound to Opus and keeps the picture as long as
+	   WebM can hold it; the encode is only there for the sources it cannot. */
+	assert.deepEqual(buildRepairAttempts('webm', 'audio', names), [
+		['-i', 'source.mp4', ...map, '-c:v', 'copy', ...opus, '-y', 'delivery.webm'],
+		['-i', 'source.mp4', ...map, ...vp9, ...opus, '-y', 'delivery.webm'],
+	]);
+
+	/* The remux stays the first thing tried, because a VP9 or VP8 source needs no
+	   encoding at all to become a WebM. */
+	assert.deepEqual(buildRepairAttempts('webm', 'copy', names), [
+		['-i', 'source.mp4', ...map, '-c', 'copy', '-y', 'delivery.webm'],
+		['-i', 'source.mp4', ...map, ...vp9, ...opus, '-y', 'delivery.webm'],
+	]);
+
+	/* WebM carries no subtitle or data streams, so the repair maps picture and
+	   sound rather than handing the muxer something it has to reject. */
+	assert.equal(buildRepairAttempts('WebM ', 'web', names)[0].includes('-c:s'), false);
+	assert.deepEqual(buildRepairAttempts('WebM ', 'web', names), buildRepairAttempts('webm', 'web', names));
+});
+
+test('MP4, MOV, and MKV repairs keep H.264 with AAC and the faststart the container needs', () => {
+	const map = ['-map', '0', '-map_metadata', '0'];
+	const h264 = ['-c:v', 'libx264', '-pix_fmt', 'yuv420p'];
+	const aac = ['-c:a', 'aac', '-b:a', '160k'];
+
+	assert.deepEqual(buildRepairAttempts('mp4', 'web', { input: 'in.mkv', output: 'out.mp4' }), [
+		['-i', 'in.mkv', ...map, ...h264, ...aac, '-movflags', '+faststart', '-y', 'out.mp4'],
+	]);
+	assert.deepEqual(buildRepairAttempts('mkv', 'audio', { input: 'in.mp4', output: 'out.mkv' }), [
+		['-i', 'in.mp4', ...map, '-c:v', 'copy', ...aac, '-c:s', 'copy', '-y', 'out.mkv'],
+		['-i', 'in.mp4', ...map, ...h264, ...aac, '-y', 'out.mkv'],
+	]);
+	assert.deepEqual(buildRepairAttempts('mov', 'copy', { input: 'in.mp4', output: 'out.mov' }), [
+		['-i', 'in.mp4', ...map, '-c', 'copy', '-movflags', '+faststart', '-y', 'out.mov'],
+		['-i', 'in.mp4', ...map, ...h264, ...aac, '-movflags', '+faststart', '-y', 'out.mov'],
+	]);
+	/* Matroska needs no faststart; only the two ISO base media containers get it. */
+	assert.equal(buildRepairAttempts('mkv', 'copy', { input: 'in.mp4', output: 'out.mkv' })[0].includes('-movflags'), false);
+	/* A container the panel never offers still gets the widely supported plan. */
+	assert.deepEqual(buildRepairAttempts('m2ts', 'web', { input: 'in.mp4', output: 'out.m2ts' }), [
+		['-i', 'in.mp4', ...map, ...h264, ...aac, '-y', 'out.m2ts'],
+	]);
+});
+
+test('every container and repair mode the delivery panel offers ends in a file', () => {
+	assert.deepEqual(REPAIR_CONTAINERS.map((container) => container.value), ['mp4', 'mkv', 'mov', 'webm']);
+	assert.deepEqual(REPAIR_MODES, ['copy', 'audio', 'web']);
+	const valueAfter = (args, flag) => args[args.indexOf(flag) + 1];
+
+	for (const { value: container } of REPAIR_CONTAINERS) {
+		for (const mode of REPAIR_MODES) {
+			const attempts = buildRepairAttempts(container, mode, { input: 'in.bin', output: `out.${container}` });
+			assert.ok(attempts.length >= 1, `${container}/${mode} has no plan`);
+			for (const args of attempts) {
+				assert.deepEqual(args.slice(0, 2), ['-i', 'in.bin']);
+				assert.deepEqual(args.slice(-2), ['-y', `out.${container}`]);
+			}
+
+			/* Whatever the source turns out to hold, the last attempt encodes both
+			   streams, so the requested container is always the one that comes back. */
+			const last = attempts.at(-1);
+			assert.notEqual(valueAfter(last, '-c:v'), 'copy');
+			assert.notEqual(valueAfter(last, '-c:a'), 'copy');
+			assert.equal(last.includes('-c'), false);
+
+			/* And nothing asks a muxer for a codec family it cannot hold. */
+			const flat = attempts.flat().join(' ');
+			if (container === 'webm') {
+				assert.equal(/libx264|aac/.test(flat), false, `${mode} writes an MP4 codec into WebM`);
+				assert.match(flat, /libvpx-vp9/);
+				assert.match(flat, /libopus/);
+			} else {
+				assert.equal(/libvpx|libopus/.test(flat), false, `${mode} writes a WebM codec into ${container}`);
+				assert.match(flat, /libx264/);
+			}
 		}
 	}
-	assert.equal(repairModeSupported('WebM', 'web'), false);
-	assert.equal(repairModeSupported(undefined, undefined), true);
 });
 
 test('vertical crop rects fit the preset and reject streams without dimensions', () => {

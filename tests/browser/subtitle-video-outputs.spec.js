@@ -645,6 +645,44 @@ test.describe('vertical video reframer', () => {
 });
 
 test.describe('media delivery checker', () => {
+	/* Matroska writes every track's CodecID as plain ASCII, so a produced WebM can be
+	   asked what it really holds without demuxing it. */
+	const webmCodecIds = (link) => link.evaluate(async (node) => {
+		const bytes = new Uint8Array(await (await fetch(node.href)).arrayBuffer());
+		const text = new TextDecoder('latin1').decode(bytes);
+		return ['V_VP8', 'V_VP9', 'V_AV1', 'V_MPEG4/ISO/AVC', 'A_OPUS', 'A_VORBIS', 'A_AAC'].filter((id) => text.includes(id));
+	});
+
+	/* The sample entry inside an MP4 carries the codec and the stored frame size. */
+	const mp4SampleEntry = (link) => link.evaluate(async (node) => {
+		const bytes = new Uint8Array(await (await fetch(node.href)).arrayBuffer());
+		const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+		const boxes = new TextDecoder('latin1').decode(bytes);
+		const stsd = boxes.indexOf('stsd');
+		if (stsd < 0) return { codec: 'no stsd box in the repaired MP4' };
+		const entry = stsd + 16;
+		return { codec: boxes.slice(entry, entry + 4), width: view.getUint16(entry + 28), height: view.getUint16(entry + 30) };
+	});
+
+	/* Decodes the repair the way a viewer would, so the size comes from the bytes. */
+	const decodeVideoSize = (page, href) => page.evaluate((url) => new Promise((resolve, reject) => {
+		const video = document.createElement('video');
+		video.preload = 'metadata';
+		video.muted = true;
+		video.onloadedmetadata = () => resolve({ width: video.videoWidth, height: video.videoHeight });
+		video.onerror = () => reject(new Error('the repaired file did not decode'));
+		video.src = url;
+	}), href);
+
+	/* Every repair mints a fresh object URL, so a second run is only finished once the
+	   link points somewhere new; the status still carries the first run's sentence. */
+	const waitForNewRepair = async (link, previous) => {
+		await expect.poll(async () => {
+			const next = await link.getAttribute('href');
+			return Boolean(next && next !== previous);
+		}, { timeout: 150_000 }).toBe(true);
+	};
+
 	test('diagnoses real containers and writes every note in the page language', async ({ page }) => {
 		test.setTimeout(180_000);
 		await cacheCdnAssets(page);
@@ -675,6 +713,8 @@ test.describe('media delivery checker', () => {
 		await expect(notes.last()).toHaveText('No obvious delivery issues found.');
 
 		await page.goto('/de/tools/medien-abgabepruefung/');
+		/* The modes are named for what they do, not for the codecs one container wants. */
+		await expect(tool.locator('[data-mode] option')).toHaveText(['Stream Copy / Remux', 'Audio neu codieren', 'Web-Fassung erstellen']);
 		await tool.locator('[data-file]').setInputFiles(fixture('tiny-clip.webm'));
 		await tool.locator('[data-analyze]').click();
 		await expect(status).toHaveText('Diagnose abgeschlossen.', { timeout: 120_000 });
@@ -683,39 +723,76 @@ test.describe('media delivery checker', () => {
 		await expect(tool.locator('[data-report]')).not.toContainText('Video codec may need transcoding');
 	});
 
-	test('names the container and mode it cannot combine instead of failing inside FFmpeg', async ({ page }) => {
-		const errors = collectClientErrors(page);
+	test('writes a real WebM for the repair modes that used to be refused', async ({ page }) => {
+		test.setTimeout(180_000);
+		await cacheCdnAssets(page);
 		await page.goto('/en/tools/media-delivery-checker/');
 		const tool = page.locator('[data-delivery-doctor]');
 		const status = tool.locator('[data-status]');
 		const download = tool.locator('[data-download]');
 
-		await tool.locator('[data-file]').setInputFiles(fixture('tiny-clip.webm'));
+		/* No mode is missing from the panel and none of them promises one container. */
+		await expect(tool.locator('[data-mode] option')).toHaveText(['Stream copy / remux', 'Re-encode audio', 'Create web-ready video']);
+		await expect(tool.locator('[data-output] option')).toHaveText(['MP4', 'MKV', 'MOV', 'WebM']);
+
+		await tool.locator('[data-file]').setInputFiles(fixture('tiny-clip.mp4'));
 		await tool.locator('[data-output]').selectOption('webm');
 		await tool.locator('[data-mode]').selectOption('web');
 		await expect(tool.locator('[data-repair]')).toBeEnabled();
 		await tool.locator('[data-repair]').click();
 
-		/* WebM holds VP8/VP9/AV1 with Vorbis or Opus; this mode writes H.264 and AAC. */
-		await expect(status).toHaveText('Create web MP4 cannot be written into WebM. Choose MP4, MKV, or MOV, or pick another repair mode.');
-		await expect(status).toHaveAttribute('data-state', 'error');
-		await expect(download).toBeHidden();
+		await expect(status).toHaveText('Repair complete.', { timeout: 150_000 });
+		await expect(status).toHaveAttribute('data-state', 'success');
+		await expect(download).toBeVisible();
+		await expect(download).toHaveAttribute('download', 'tiny-clip-delivery.webm');
 
+		/* An EBML header, not an MP4 handed over under a WebM name. */
+		const encoded = await downloadBinary(download);
+		expect(encoded.magic).toBe('1a45dfa3');
+		expect(encoded.type).toBe('video/webm');
+		expect(encoded.byteLength).toBeGreaterThan(500);
+		/* The web mode reaches the encoder the container accepts instead of H.264. */
+		expect(await webmCodecIds(download)).toEqual(['V_VP9']);
+		expect(await decodeVideoSize(page, await download.getAttribute('href'))).toEqual({ width: 160, height: 120 });
+
+		/* The audio mode into the same container: the VP9 picture is copied through it,
+		   which is the lossless path the pair still has. */
+		const previous = await download.getAttribute('href');
 		await tool.locator('[data-mode]').selectOption('audio');
 		await tool.locator('[data-repair]').click();
-		await expect(status).toHaveText('Convert audio to AAC cannot be written into WebM. Choose MP4, MKV, or MOV, or pick another repair mode.');
-		await expect(status).toHaveAttribute('data-state', 'error');
-		await expect(download).toBeHidden();
+		await waitForNewRepair(download, previous);
+		await expect(status).toHaveText('Repair complete.');
+		await expect(download).toHaveAttribute('download', 'tiny-clip-delivery.webm');
+		const remuxed = await downloadBinary(download);
+		expect(remuxed.magic).toBe('1a45dfa3');
+		expect(remuxed.type).toBe('video/webm');
+		expect(await webmCodecIds(download)).toEqual(['V_VP9']);
+		expect(await decodeVideoSize(page, await download.getAttribute('href'))).toEqual({ width: 160, height: 120 });
+	});
 
-		await page.goto('/de/tools/medien-abgabepruefung/');
+	test('encodes into the chosen container when the source streams cannot be copied', async ({ page }) => {
+		test.setTimeout(180_000);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/media-delivery-checker/');
+		const tool = page.locator('[data-delivery-doctor]');
+		const download = tool.locator('[data-download]');
+
+		/* The fixture is VP8, which no MP4 muxer takes: the stream copy attempt fails
+		   and the encode still has to hand back the MP4 that was asked for. */
 		await tool.locator('[data-file]').setInputFiles(fixture('tiny-clip.webm'));
-		await tool.locator('[data-output]').selectOption('webm');
-		await tool.locator('[data-mode]').selectOption('web');
+		await tool.locator('[data-output]').selectOption('mp4');
+		await tool.locator('[data-mode]').selectOption('copy');
+		await expect(tool.locator('[data-repair]')).toBeEnabled();
 		await tool.locator('[data-repair]').click();
-		await expect(status).toHaveText('Web-MP4 erstellen lässt sich nicht in WebM schreiben. Wähle MP4, MKV oder MOV oder einen anderen Reparaturmodus.');
-		await expect(status).toHaveAttribute('data-state', 'error');
-		await expect(download).toBeHidden();
-		expect(errors).toEqual([]);
+
+		await expect(tool.locator('[data-status]')).toHaveText('Repair complete.', { timeout: 150_000 });
+		await expect(download).toBeVisible();
+		await expect(download).toHaveAttribute('download', 'tiny-clip-delivery.mp4');
+		const repaired = await downloadBinary(download);
+		expect(repaired.boxType).toBe('ftyp');
+		expect(repaired.type).toBe('video/mp4');
+		expect(await mp4SampleEntry(download)).toEqual({ codec: 'avc1', width: 160, height: 120 });
+		expect(await decodeVideoSize(page, await download.getAttribute('href'))).toEqual({ width: 160, height: 120 });
 	});
 
 	test('repairs into the selected container', async ({ page }) => {

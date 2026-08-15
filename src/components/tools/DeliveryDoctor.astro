@@ -6,6 +6,7 @@ import ToolActions from './shared/ToolActions.astro';
 import ToolIntro from './shared/ToolIntro.astro';
 import ToolPanel from './shared/ToolPanel.astro';
 import ToolStatus from './shared/ToolStatus.astro';
+import { REPAIR_CONTAINERS, REPAIR_MODES } from '../../lib/tools/delivery-doctor.js';
 
 interface Props { locale: Locale }
 const { locale } = Astro.props;
@@ -16,13 +17,12 @@ const copy = {
 		privacy: 'Analyse und Reparatur laufen lokal. Dateien werden nicht hochgeladen.',
 		source: 'Quelldatei', choose: 'Media-Datei auswählen', hint: 'MP4, MOV, MKV, WebM, MP3, WAV, M4A und mehr',
 		settings: 'Reparatur', output: 'Zielcontainer', mode: 'Reparaturmodus', analyze: 'Diagnose starten', repair: 'Reparatur erstellen', clear: 'Zurücksetzen',
-		modes: { copy: 'Stream Copy / Remux', audio: 'Audio nach AAC wandeln', web: 'Web-MP4 erstellen' },
+		modes: { copy: 'Stream Copy / Remux', audio: 'Audio neu codieren', web: 'Web-Fassung erstellen' },
 		report: 'Diagnose', result: 'Reparatur', download: 'Reparierte Datei herunterladen',
 		waiting: 'Wähle eine Datei für die Diagnose.', analyzing: 'MediaInfo analysiert die Datei…', loadingInfo: 'MediaInfo wird geladen…',
 		ready: 'Diagnose abgeschlossen.', repairing: 'FFmpeg erstellt die Reparatur…', loading: 'FFmpeg WASM wird geladen…', ffmpegReady: 'FFmpeg WASM ist bereit.',
 		progress: 'FFmpeg arbeitet… {progress}%', done: 'Reparatur abgeschlossen.', timeout: 'WASM-Engine hat nicht innerhalb von 90 Sekunden geladen.',
 		error: 'Aktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', none: 'Keine offensichtlichen Probleme gefunden.',
-		unsupported: '{mode} lässt sich nicht in {container} schreiben. Wähle MP4, MKV oder MOV oder einen anderen Reparaturmodus.',
 		videoCodec: 'Video-Codec muss für die Web-Auslieferung eventuell transkodiert werden: {format}.',
 		audioCodec: 'Audio-Codec kann auf Plattformen für Überraschungen sorgen: {format}.',
 		oddDimensions: 'Die Videomaße sind ungerade; manche Encoder und Plattformen bevorzugen gerade Maße.',
@@ -34,19 +34,19 @@ const copy = {
 		privacy: 'Analysis and repair run locally. Files are not uploaded.',
 		source: 'Source file', choose: 'Choose media file', hint: 'MP4, MOV, MKV, WebM, MP3, WAV, M4A, and more',
 		settings: 'Repair', output: 'Target container', mode: 'Repair mode', analyze: 'Run diagnosis', repair: 'Create repair', clear: 'Reset',
-		modes: { copy: 'Stream copy / remux', audio: 'Convert audio to AAC', web: 'Create web MP4' },
+		modes: { copy: 'Stream copy / remux', audio: 'Re-encode audio', web: 'Create web-ready video' },
 		report: 'Diagnosis', result: 'Repair', download: 'Download repaired file',
 		waiting: 'Choose a file for diagnosis.', analyzing: 'MediaInfo is analyzing the file…', loadingInfo: 'Loading MediaInfo…',
 		ready: 'Diagnosis complete.', repairing: 'FFmpeg is creating the repair…', loading: 'Loading FFmpeg WASM…', ffmpegReady: 'FFmpeg WASM is ready.',
 		progress: 'FFmpeg is working… {progress}%', done: 'Repair complete.', timeout: 'WASM engine did not load within 90 seconds.',
 		error: 'Action failed: {message}', generic: 'Unknown error', none: 'No obvious delivery issues found.',
-		unsupported: '{mode} cannot be written into {container}. Choose MP4, MKV, or MOV, or pick another repair mode.',
 		videoCodec: 'Video codec may need transcoding for web delivery: {format}.',
 		audioCodec: 'Audio codec may surprise platforms: {format}.',
 		oddDimensions: 'Video dimensions are odd; some encoders and platforms prefer even dimensions.',
 		mp4Brand: 'MP4 brand looks unusual; remuxing with faststart may help playback.',
 	},
 }[locale];
+const modeLabels: Record<string, string> = copy.modes;
 const copyJson = JSON.stringify(copy);
 ---
 
@@ -64,10 +64,10 @@ const copyJson = JSON.stringify(copy);
 			</ToolPanel>
 			<ToolPanel title={copy.settings}>
 				<SelectControl label={copy.output} selectAttrs={{ 'data-output': true }}>
-					<option value="mp4">MP4</option><option value="mkv">MKV</option><option value="mov">MOV</option><option value="webm">WebM</option>
+					{REPAIR_CONTAINERS.map(({ value, label }) => <option value={value}>{label}</option>)}
 				</SelectControl>
 				<SelectControl label={copy.mode} selectAttrs={{ 'data-mode': true }}>
-					{Object.entries(copy.modes).map(([value, label]) => <option value={value}>{label}</option>)}
+					{REPAIR_MODES.map((value) => <option value={value}>{modeLabels[value]}</option>)}
 				</SelectControl>
 				<ToolActions><button class="button primary" data-repair type="button" disabled>{copy.repair}</button></ToolActions>
 				<ToolStatus data-status text={copy.waiting} />
@@ -81,7 +81,7 @@ const copyJson = JSON.stringify(copy);
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
 	import { analyzeMediaFile, loadMediaInfo } from '../../lib/tools/media-info-browser';
-	import { repairModeSupported } from '../../lib/tools/delivery-doctor';
+	import { buildRepairAttempts } from '../../lib/tools/delivery-doctor';
 	import { formatBytes } from '../../lib/tools/format';
 
 	for (const root of document.querySelectorAll('[data-delivery-doctor]:not([data-bound])')) {
@@ -144,12 +144,6 @@ const copyJson = JSON.stringify(copy);
 			if (!file) return;
 			const container = output.value;
 			const repairMode = mode.value;
-			/* The pipeline cannot write these streams into this container, so say which
-			   pair is impossible instead of letting FFmpeg exit with code 1. */
-			if (!repairModeSupported(container, repairMode)) {
-				setStatus(format(copy.unsupported, { mode: copy.modes?.[repairMode] || repairMode, container: containerLabel() }), 'error');
-				return;
-			}
 			setStatus(copy.repairing, 'info');
 			try {
 				const bytes = await runtime.run(async (ffmpeg) => {
@@ -158,13 +152,14 @@ const copyJson = JSON.stringify(copy);
 					const out = `delivery-${stamp}.${container}`;
 					await ffmpeg.writeFile(input, new Uint8Array(await file.arrayBuffer()));
 					try {
-						const args = ['-i', input, '-map', '0', '-map_metadata', '0'];
-						if (repairMode === 'web') args.push('-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k');
-						else if (repairMode === 'audio') args.push('-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k', '-c:s', 'copy');
-						else args.push('-c', 'copy');
-						if (container === 'mp4' || container === 'mov') args.push('-movflags', '+faststart');
-						args.push('-y', out);
-						const code = await ffmpeg.exec(args);
+						/* The container the visitor picked decides the codecs, so the run starts
+						   with the lossless attempt and falls back to the encode that container
+						   accepts when the source streams do not fit into it. */
+						let code = 1;
+						for (const args of buildRepairAttempts(container, repairMode, { input, output: out })) {
+							code = await ffmpeg.exec(args);
+							if (code === 0) break;
+						}
 						if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
 						const result = await ffmpeg.readFile(out);
 						return result instanceof Uint8Array ? result : new TextEncoder().encode(String(result));
@@ -222,7 +217,6 @@ const copyJson = JSON.stringify(copy);
 			if (outputUrl) URL.revokeObjectURL(outputUrl); outputUrl = null; setStatus(copy.waiting, 'info');
 		}
 		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
-		function containerLabel() { return output.selectedOptions?.[0]?.textContent?.trim() || output.value; }
 		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
 		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
 		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'media'; }
