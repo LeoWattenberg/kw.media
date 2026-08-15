@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:9SP8lXBW-wk"
 category: "news-video"
 tags: ["YouTube Updates", "Seiten-an-Seiten-Anzeigen", "Live-Streaming", "Community-Leaderboard", "Schimpfwörter-Richtlinien", "Monetarisierung", "Werbeanzeigen", "Interaktionen", "Chat-Funktionen"]
-relatedPosts: ["/youtube-tipps-de/youtube-updates-fehler-bei-mid-roll-anzeigen-und-kommende-bearbeitungseinschrankungen/", "/youtube-tipps-de/youtube-update-neue-clip-tools-upgrade-des-einkaufsaufklebers-und-livestream-richtlinie/", "/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/"]
+relatedPosts: ["/youtube-tipps-de/youtube-updates-fehler-bei-mid-roll-anzeigen-und-kommende-bearbeitungseinschrankungen/", "/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/", "/youtube-tipps-de/youtube-updates-youtube-fehler-loscht-werbeeinnahmen-einfuhrung-der-kollaborations-feed-funktion/"]
 image: "https://i.ytimg.com/vi/9SP8lXBW-wk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=9SP8lXBW-wk"

@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:7dB5B_EKnYE"
 category: "news-video"
 tags: ["YouTube Platform Updates", "Subscribe Plus Experiment", "Autodubbing Release", "YPP Features", "Interface Changes", "User Experience", "Creator-Feedback", "Translation Tools"]
-relatedPosts: ["/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/", "/youtube-tips-en/youtube-updates-auto-dubbing-with-intonation-create-app-on-ios-for-1/", "/youtube-tips-en/youtube-updates-ai-age-verification-autodubbing-editor-and-community-post-limits-change/"]
+relatedPosts: ["/youtube-tips-en/youtube-news-autodubbing-on-old-videos-collabs-clarification-and-more/", "/youtube-tips-en/youtube-updates-ai-age-verification-autodubbing-editor-and-community-post-limits-change/", "/youtube-tips-en/youtube-updates-auto-dubbing-with-intonation-create-app-on-ios-for-1/"]
 image: "https://i.ytimg.com/vi/7dB5B_EKnYE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=7dB5B_EKnYE"

@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:nYCqLniFimk"
 category: "news-video"
 tags: ["Altersbeschränkungen für Inhalte", "YouTube-Richtlinien", "A/B-Testen für Titel und Miniaturansicht", "Engagement-Strategien", "Watch Time Optimierung", "YouTube 2025 Rückblick", "Live-Streaming-Updates", "Chat-Einstellungen", "Australische Gesetzgebung für soziale Me"]
-relatedPosts: ["/youtube-tipps-de/regierungen-verbieten-dein-publikum-creator-news/", "/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/", "/youtube-tipps-de/uberarbeitung-der-erweiterten-youtube-analyse-inspiration-ai-jetzt-in-der-eu/"]
+relatedPosts: ["/youtube-tipps-de/regierungen-verbieten-dein-publikum-creator-news/", "/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/", "/youtube-tipps-de/youtube-monetarisierungsanforderungen-verdoppelt-creator-news/"]
 image: "https://i.ytimg.com/vi/nYCqLniFimk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=nYCqLniFimk"

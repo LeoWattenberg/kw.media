@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:jnVTl0DWVWs"
 category: "news-video"
 tags: ["YouTube-Hype", "Kostenlose Funktionen", "EU-Erweiterung", "Mitgliedschafts-Abzeichen", "10-Jahres-Jubiläum", "Community-Engagement", "YouTube Updates", "Neuerungen auf YouTube"]
-relatedPosts: ["/youtube-tipps-de/wie-funktioniert-der-youtube-hype-wirklich-wir-haben-die-daten/", "/youtube-tipps-de/youtube-live-stream-updates-hype-erweiterung-und-ki-inspirationswerkzeuge-fur-eu-creator/", "/youtube-tipps-de/youtubes-losung-fur-fomo-koder-neue-kanal-filter-erklart-creator-news/"]
+relatedPosts: ["/youtube-tipps-de/wie-funktioniert-der-youtube-hype-wirklich-wir-haben-die-daten/", "/youtube-tipps-de/youtubes-losung-fur-fomo-koder-neue-kanal-filter-erklart-creator-news/", "/youtube-tipps-de/youtube-live-stream-updates-hype-erweiterung-und-ki-inspirationswerkzeuge-fur-eu-creator/"]
 image: "https://i.ytimg.com/vi/jnVTl0DWVWs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=jnVTl0DWVWs"

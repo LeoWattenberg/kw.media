@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:5vBlAeXG_uE"
 category: "short-tutorial"
 tags: ["YouTube-Partnerprogramm", "Vertragsaktualisierung", "Creator-Richtlinien", "YouTube Updates", "Rechtliche Grundlagen", "YouTube-Strategie", "Kanalmanagement", "Plattform-Einnahmen", "Monetarisierung"]
-relatedPosts: ["/youtube-tipps-de/neues-einspruchsrecht-im-youtube-partnerprogramm-und-kanalseiten-uberarbeitungen/", "/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/", "/youtube-tipps-de/verliere-ich-die-youtube-monetarisierung-wenn-ich-eine-pause-einlege/"]
+relatedPosts: ["/youtube-tipps-de/neues-einspruchsrecht-im-youtube-partnerprogramm-und-kanalseiten-uberarbeitungen/", "/youtube-tipps-de/youtube-monetarisierungsanforderungen-verdoppelt-creator-news/", "/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/"]
 image: "https://i.ytimg.com/vi/5vBlAeXG_uE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/5vBlAeXG_uE"
