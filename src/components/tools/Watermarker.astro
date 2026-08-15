@@ -28,6 +28,7 @@ const copyByLocale = {
 		sourceTitle: 'Quelldatei',
 		chooseSource: 'Bild oder Video auswählen',
 		sourceHint: 'PNG, JPEG, WebP, GIF, MP4, WebM, MOV und weitere Browser-/FFmpeg-kompatible Formate',
+		animatedGif: 'Animierte GIFs werden als Einzelbild exportiert. Die Ausgabe enthält nur das erste Bild.',
 		watermarkTitle: 'Wasserzeichen',
 		modeLabel: 'Art',
 		textMode: 'Text',
@@ -79,6 +80,7 @@ const copyByLocale = {
 		sourceTitle: 'Source file',
 		chooseSource: 'Choose image or video',
 		sourceHint: 'PNG, JPEG, WebP, GIF, MP4, WebM, MOV, and other browser/FFmpeg-compatible formats',
+		animatedGif: 'Animated GIFs are exported as a single frame. The output contains only the first frame.',
 		watermarkTitle: 'Watermark',
 		modeLabel: 'Type',
 		textMode: 'Text',
@@ -149,6 +151,7 @@ const copyJson = JSON.stringify(copy.client);
 						<small data-source-meta>{copy.sourceHint}</small>
 						<input data-source-file type="file" accept="image/*,video/*,.mkv,.mov,.mp4,.webm,.avi,.m4v" />
 					</label>
+					<p class="source-note" data-animated-notice hidden>{copy.animatedGif}</p>
 					<div class="preview-card" data-output-preview hidden>
 						<div class="result-heading">
 							<p>{copy.outputPreview}</p>
@@ -222,6 +225,7 @@ const copyJson = JSON.stringify(copy.client);
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
 	import { formatBytes } from '../../lib/tools/format';
+	import { isAnimatedGif, readPngSize } from '../../lib/tools/watermarker';
 
 	(() => {
 		const roots = document.querySelectorAll('[data-watermarker]:not([data-watermarker-bound])');
@@ -236,6 +240,7 @@ const copyJson = JSON.stringify(copy.client);
 			const sourceInput = root.querySelector('[data-source-file]');
 			const sourceName = root.querySelector('[data-source-name]');
 			const sourceMeta = root.querySelector('[data-source-meta]');
+			const animatedNotice = root.querySelector('[data-animated-notice]');
 			const outputPreview = root.querySelector('[data-output-preview]');
 			const modeSelect = root.querySelector('[data-mode]');
 			const textGroup = root.querySelector('[data-text-group]');
@@ -262,7 +267,7 @@ const copyJson = JSON.stringify(copy.client);
 			const outputDetails = root.querySelector('[data-output-details]');
 
 			if (
-				!sourceInput || !sourceName || !sourceMeta || !outputPreview || !modeSelect ||
+				!sourceInput || !sourceName || !sourceMeta || !animatedNotice || !outputPreview || !modeSelect ||
 				!textGroup || !colorGroup || !imageGroup || !textInput ||
 				!colorInput || !watermarkInput || !watermarkName || !positionSelect || !opacityInput ||
 				!opacityLabel || !sizeInput || !sizeLabel || !marginInput || !marginLabel || !tileInput ||
@@ -278,6 +283,7 @@ const copyJson = JSON.stringify(copy.client);
 				sourceKind: null,
 				sourceWidth: 0,
 				sourceHeight: 0,
+				sizeUnknown: false,
 				watermarkFile: null,
 				watermarkUrl: null,
 				outputUrl: null,
@@ -329,6 +335,7 @@ const copyJson = JSON.stringify(copy.client);
 					sourceInput.value = '';
 					sourceName.textContent = defaults.sourceName;
 					sourceMeta.textContent = defaults.sourceMeta;
+					animatedNotice.hidden = true;
 					setStatus(copy.waiting, 'info');
 					updateReadyState();
 					return;
@@ -341,21 +348,36 @@ const copyJson = JSON.stringify(copy.client);
 					size: formatBytes(file.size),
 					type: file.type || state.sourceKind,
 				});
+				animatedNotice.hidden = !(await isAnimatedGifFile(file));
 
 				try {
 					if (state.sourceKind === 'video') {
-						const metadata = await loadVideoMetadata(state.sourceUrl);
-						state.sourceWidth = metadata.width;
-						state.sourceHeight = metadata.height;
+						/*
+						 * AVI, WMV and some MOV files never report a size here. FFmpeg still renders them,
+						 * so a failed metadata read only means the size is read from the decoded frame later.
+						 */
+						const metadata = await loadVideoMetadata(state.sourceUrl).catch(() => null);
+						state.sourceWidth = metadata?.width || 0;
+						state.sourceHeight = metadata?.height || 0;
+						/*
+						 * A read that fails leaves the size unknown and FFmpeg is given the file anyway.
+						 * A read that succeeds while reporting no picture is a different answer: the file
+						 * carries no video track, and no amount of FFmpeg work will produce a frame.
+						 */
+						state.sizeUnknown = !metadata;
+
+						if (metadata && !(metadata.width && metadata.height)) {
+							throw new Error(copy.metadataMissing);
+						}
 					} else {
 						const image = await loadImage(state.sourceUrl);
 						state.sourceKind = 'image';
 						state.sourceWidth = image.naturalWidth;
 						state.sourceHeight = image.naturalHeight;
-					}
 
-					if (!state.sourceWidth || !state.sourceHeight) {
-						throw new Error(copy.metadataMissing);
+						if (!state.sourceWidth || !state.sourceHeight) {
+							throw new Error(copy.metadataMissing);
+						}
 					}
 
 					setStatus(format(copy.sourceReady, { name: file.name, size: formatBytes(file.size) }), 'success');
@@ -363,6 +385,18 @@ const copyJson = JSON.stringify(copy.client);
 					setStatus(messageFromError(error), 'error');
 				} finally {
 					updateReadyState();
+				}
+			}
+
+			async function isAnimatedGifFile(file) {
+				if (String(file.type || '').toLowerCase() !== 'image/gif' && inputExtension(file.name) !== '.gif') {
+					return false;
+				}
+
+				try {
+					return isAnimatedGif(new Uint8Array(await file.arrayBuffer()));
+				} catch {
+					return false;
 				}
 			}
 
@@ -440,6 +474,13 @@ const copyJson = JSON.stringify(copy.client);
 
 			async function processVideo() {
 				setStatus(copy.processingVideo, 'info');
+
+				if (!state.sourceWidth || !state.sourceHeight) {
+					const size = await probeVideoSize(state.sourceFile);
+					state.sourceWidth = size.width;
+					state.sourceHeight = size.height;
+				}
+
 				const overlayCanvas = document.createElement('canvas');
 				overlayCanvas.width = state.sourceWidth;
 				overlayCanvas.height = state.sourceHeight;
@@ -463,6 +504,38 @@ const copyJson = JSON.stringify(copy.client);
 				});
 				outputPreview.hidden = false;
 				setStatus(copy.videoReady, 'success');
+			}
+
+			/* FFmpeg decodes the containers the browser refuses, so the first frame it writes reports the size. */
+			async function probeVideoSize(file) {
+				const frame = await ffmpegRuntime.run(async (ffmpeg) => {
+					const stamp = Date.now();
+					const inputName = `probe-${stamp}${inputExtension(file.name)}`;
+					const frameName = `probe-${stamp}.png`;
+
+					await ffmpeg.writeFile(inputName, new Uint8Array(await file.arrayBuffer()));
+
+					try {
+						const resultCode = await ffmpeg.exec(['-i', inputName, '-frames:v', '1', '-an', '-y', frameName]);
+
+						if (resultCode !== 0) {
+							throw new Error(copy.metadataMissing);
+						}
+
+						const output = await ffmpeg.readFile(frameName);
+						return output instanceof Uint8Array ? output : null;
+					} finally {
+						await ffmpeg.deleteFile(inputName).catch(() => {});
+						await ffmpeg.deleteFile(frameName).catch(() => {});
+					}
+				});
+				const size = readPngSize(frame);
+
+				if (!size) {
+					throw new Error(copy.metadataMissing);
+				}
+
+				return size;
 			}
 
 			async function renderVideoWithOverlay(file, overlayBlob) {
@@ -634,7 +707,9 @@ const copyJson = JSON.stringify(copy.client);
 			}
 
 			function updateReadyState() {
-				const ready = Boolean(state.sourceFile && state.sourceWidth && state.sourceHeight && hasWatermark());
+				/* Video sizes may only arrive from FFmpeg at render time, so they cannot gate the button. */
+				const hasSize = state.sizeUnknown || Boolean(state.sourceWidth && state.sourceHeight);
+				const ready = Boolean(state.sourceFile && hasSize && hasWatermark());
 				processButton.disabled = state.isWorking || !ready;
 				sourceInput.disabled = state.isWorking;
 				watermarkInput.disabled = state.isWorking;
@@ -676,6 +751,7 @@ const copyJson = JSON.stringify(copy.client);
 				sourceName.textContent = defaults.sourceName;
 				sourceMeta.textContent = defaults.sourceMeta;
 				watermarkName.textContent = defaults.watermarkName;
+				animatedNotice.hidden = true;
 				setStatus(copy.reset, 'info');
 				updateReadyState();
 			}
@@ -888,6 +964,13 @@ const copyJson = JSON.stringify(copy.client);
 	.result-panel small {
 		color: var(--color-muted);
 		font-size: 0.88rem;
+	}
+
+	.source-note {
+		margin: 12px 0 0;
+		color: var(--color-muted);
+		font-size: 0.88rem;
+		font-weight: 750;
 	}
 
 	.file-picker input[type='file'] {

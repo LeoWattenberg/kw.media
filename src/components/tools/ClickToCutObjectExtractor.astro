@@ -19,6 +19,7 @@ const copy = {
 		source: 'Quelle', choose: 'Bild auswählen', hint: 'PNG, JPEG, WebP und weitere Browser-Bildformate',
 		settings: 'Extraktion', threshold: 'Masken-Schwelle', feather: 'Kanten weichzeichnen', format: 'Ausgabeformat',
 		cut: 'Objekt ausschneiden', clear: 'Zurücksetzen', result: 'Ergebnis', download: 'Objekt herunterladen',
+		exportSize: 'Ausgabe: {width} x {height}px', exportScaled: 'Ausgabe: {width} x {height}px, verkleinert von {sourceWidth} x {sourceHeight}px',
 		waiting: 'Wähle ein Bild und klicke auf das Objekt.', loading: 'MediaPipe-Modell wird geladen…', ready: 'Modell bereit. Klicke auf das Objekt.',
 		selected: 'Punkt gewählt. Starte Extraktion.', processing: 'Objekt wird segmentiert…', done: 'Objekt wurde ausgeschnitten.',
 		noPoint: 'Klicke zuerst auf das Objekt im Bild.', loadError: 'MediaPipe konnte nicht geladen werden: {message}', error: 'Extraktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
@@ -30,6 +31,7 @@ const copy = {
 		source: 'Source', choose: 'Choose image', hint: 'PNG, JPEG, WebP, and other browser image formats',
 		settings: 'Extraction', threshold: 'Mask threshold', feather: 'Edge feather', format: 'Output format',
 		cut: 'Cut object', clear: 'Reset', result: 'Result', download: 'Download object',
+		exportSize: 'Export: {width} x {height}px', exportScaled: 'Export: {width} x {height}px, scaled down from {sourceWidth} x {sourceHeight}px',
 		waiting: 'Choose an image, then click the object.', loading: 'Loading MediaPipe model…', ready: 'Model ready. Click the object.',
 		selected: 'Point selected. Ready to extract.', processing: 'Segmenting object…', done: 'Object extracted.',
 		noPoint: 'Click the object in the image first.', loadError: 'Could not load MediaPipe: {message}', error: 'Extraction failed: {message}', generic: 'Unknown error',
@@ -66,6 +68,7 @@ const copyJson = JSON.stringify(copy);
 
 			<ToolPanel class="result-panel" data-result-panel title={copy.result} hidden>
 				<div class="result-frame" data-result-frame hidden><img data-result-image alt="" /></div>
+				<p class="result-size" data-result-size hidden></p>
 				<a class="tool-download-link" data-download href="#" download hidden>{copy.download}</a>
 			</ToolPanel>
 		</div>
@@ -99,6 +102,7 @@ const copyJson = JSON.stringify(copy);
 			const resultFrame = root.querySelector('[data-result-frame]');
 			const resultPanel = root.querySelector('[data-result-panel]');
 			const resultImage = root.querySelector('[data-result-image]');
+			const resultSize = root.querySelector('[data-result-size]');
 			const download = root.querySelector('[data-download]');
 			const context = canvas.getContext('2d');
 			const image = new Image();
@@ -139,6 +143,7 @@ const copyJson = JSON.stringify(copy);
 				fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'image'}`;
 				resultFrame.hidden = true;
 				resultPanel.hidden = true;
+				resultSize.hidden = true;
 				download.hidden = true;
 			}
 
@@ -174,6 +179,11 @@ const copyJson = JSON.stringify(copy);
 					if (outputUrl) URL.revokeObjectURL(outputUrl);
 					outputUrl = URL.createObjectURL(blob);
 					resultImage.src = outputUrl;
+					/* Segmentation runs on a canvas capped at 1200px wide, so the export can be smaller than the source. */
+					resultSize.textContent = outputCanvas.width < image.naturalWidth || outputCanvas.height < image.naturalHeight
+						? format(copy.exportScaled, { width: outputCanvas.width, height: outputCanvas.height, sourceWidth: image.naturalWidth, sourceHeight: image.naturalHeight })
+						: format(copy.exportSize, { width: outputCanvas.width, height: outputCanvas.height });
+					resultSize.hidden = false;
 					resultPanel.hidden = false;
 					resultFrame.hidden = false;
 					download.href = outputUrl;
@@ -280,6 +290,7 @@ const copyJson = JSON.stringify(copy);
 				target.hidden = true;
 				resultFrame.hidden = true;
 				resultPanel.hidden = true;
+				resultSize.hidden = true;
 				download.hidden = true;
 				cutButton.disabled = true;
 				point = null;
@@ -307,5 +318,6 @@ const copyJson = JSON.stringify(copy);
 	.target-dot { position: absolute; width: 18px; height: 18px; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 0 2px var(--color-accent), 0 8px 18px rgba(0,0,0,.28); transform: translate(-50%, -50%); pointer-events: none; }
 	.result-frame { display: grid; place-items: center; min-height: 220px; border: 1px solid var(--color-line); border-radius: 6px; background-image: linear-gradient(45deg, rgba(127,127,127,.18) 25%, transparent 25%), linear-gradient(-45deg, rgba(127,127,127,.18) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(127,127,127,.18) 75%), linear-gradient(-45deg, transparent 75%, rgba(127,127,127,.18) 75%); background-size: 24px 24px; background-position: 0 0, 0 12px, 12px -12px, -12px 0; }
 	.result-frame img { display: block; max-width: 100%; height: auto; }
+	.result-size { margin: 12px 0 0; color: var(--color-muted); font-size: 0.9rem; }
 	@media (max-width: 860px) { .object-extractor { grid-template-columns: 1fr; } }
 </style>

@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { cacheCdnAssets } from './cdn-cache.mjs';
+import { createAviUpload } from './media-fixtures.mjs';
 
 // Tools that pull ImageMagick WASM, MediaPipe or ImageTracer replay those bundles
 // from .cache/ through cacheCdnAssets(), but a cold cache still has to fetch and
@@ -48,6 +49,65 @@ const paintFile = (locator, spec) => locator.evaluate(async (input, options) => 
 	input.files = transfer.files;
 	input.dispatchEvent(new Event('change', { bubbles: true }));
 }, spec);
+
+/*
+ * Hands a picker a File built from real bytes, optionally without a MIME type at all: a download or
+ * an unknown source arrives with an empty `file.type`, and setInputFiles always supplies one.
+ */
+const dropFile = (locator, spec) => locator.evaluate((input, options) => {
+	const bytes = Uint8Array.from(atob(options.base64), (character) => character.charCodeAt(0));
+	const file = options.type
+		? new File([bytes], options.name, { type: options.type })
+		: new File([bytes], options.name);
+	const transfer = new DataTransfer();
+	transfer.items.add(file);
+	input.files = transfer.files;
+	input.dispatchEvent(new Event('change', { bubbles: true }));
+}, spec);
+
+/*
+ * A real GIF built here instead of committed: one 1x1 frame per image descriptor, each carrying the
+ * LZW stream a decoder expects (clear code, one pixel, end of information).
+ */
+const gifFixture = ({ frames = 1, name = 'loop.gif' } = {}) => {
+	const bytes = [
+		0x47, 0x49, 0x46, 0x38, 0x39, 0x61,
+		0x01, 0x00, 0x01, 0x00,
+		0x80, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0xff, 0xff, 0xff,
+	];
+
+	for (let index = 0; index < frames; index += 1) {
+		bytes.push(0x21, 0xf9, 0x04, 0x00, 0x0a, 0x00, 0x00, 0x00);
+		bytes.push(0x2c, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00);
+		bytes.push(0x01, 0x02, 0xc2, 0x00, 0x00);
+	}
+
+	bytes.push(0x3b);
+	return { name, mimeType: 'image/gif', buffer: Buffer.from(bytes) };
+};
+
+
+
+/* Container bytes of anything a tool produced, for outputs that are not still images. */
+const readOutput = (page, href) => page.evaluate(async (url) => {
+	const bytes = new Uint8Array(await (await fetch(url)).arrayBuffer());
+	return {
+		byteLength: bytes.byteLength,
+		head: [...bytes.subarray(0, 12)].map((byte) => byte.toString(16).padStart(2, '0')).join(''),
+		ascii: String.fromCharCode(...bytes.subarray(0, 12)),
+	};
+}, href);
+
+/* Decodes a produced video the way a viewer would, so the size comes from the file and not the UI. */
+const videoSize = (page, href) => page.evaluate((url) => new Promise((resolve, reject) => {
+	const video = document.createElement('video');
+	video.preload = 'metadata';
+	video.muted = true;
+	video.onloadedmetadata = () => resolve({ width: video.videoWidth, height: video.videoHeight });
+	video.onerror = () => reject(new Error('the produced video did not decode'));
+	video.src = url;
+}), href);
 
 /* Range and color inputs are driven through the events the tools listen for. */
 const setValue = (locator, value) => locator.evaluate((input, next) => {
@@ -266,6 +326,73 @@ test.describe('image tool outputs', () => {
 		expect(errors).toEqual([]);
 	});
 
+	test('Watermarker renders a video whose dimensions the browser cannot read', async ({ page }) => {
+		test.setTimeout(CDN_TIMEOUT);
+		const errors = collectPageErrors(page);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/image-video-watermark/');
+		const tool = page.locator('[data-watermarker]');
+		const status = tool.locator('[data-status]');
+
+		/* A real MJPEG AVI: Chromium has no demuxer for it, so the size can only come from FFmpeg. */
+		await tool.locator('[data-source-file]').setInputFiles(createAviUpload());
+		await expect(tool.locator('[data-source-name]')).toHaveText('mjpeg-clip.avi');
+		/* AVI, WMV and some MOV files report no size here, and the tool used to stay armed at nothing. */
+		await expect(status).toContainText('mjpeg-clip.avi is selected');
+		await expect(status).toHaveAttribute('data-state', 'success');
+		await expect(tool.locator('[data-process]')).toBeEnabled();
+
+		await setValue(tool.locator('[data-opacity]'), 100);
+		await tool.locator('[data-position]').selectOption('center');
+		await tool.locator('[data-process]').click();
+		await expect(status).toHaveText('The watermarked video is ready.', { timeout: RUN_TIMEOUT });
+		await expect(tool.locator('[data-output-video]')).toBeVisible();
+		await expect(tool.locator('[data-output-image]')).toBeHidden();
+		/* The AVI is 96x64, a geometry no committed fixture shares: only FFmpeg could have reported it. */
+		await expect(tool.locator('[data-output-details]')).toContainText('96 x 64px');
+
+		const download = tool.locator('[data-download]');
+		await expect(download).toHaveAttribute('download', 'mjpeg-clip.mp4');
+		const href = await download.getAttribute('href');
+		const output = await readOutput(page, href);
+
+		expect(output.ascii.slice(4, 8)).toBe('ftyp');
+		expect(output.byteLength).toBeGreaterThan(1000);
+		expect(await videoSize(page, href)).toEqual({ width: 96, height: 64 });
+
+		expect(errors).toEqual([]);
+	});
+
+	test('Watermarker says an animated GIF leaves as a single frame', async ({ page }) => {
+		const errors = collectPageErrors(page);
+		await page.goto('/en/tools/image-video-watermark/');
+		const tool = page.locator('[data-watermarker]');
+		const notice = tool.locator('[data-animated-notice]');
+
+		await expect(notice).toBeHidden();
+
+		await tool.locator('[data-source-file]').setInputFiles(gifFixture({ frames: 3 }));
+		await expect(tool.locator('[data-source-name]')).toHaveText('loop.gif');
+		await expect(notice).toBeVisible();
+		await expect(notice).toHaveText('Animated GIFs are exported as a single frame. The output contains only the first frame.');
+
+		/* A still GIF loses nothing on export, so the notice must not follow the next file. */
+		await tool.locator('[data-source-file]').setInputFiles(gifFixture({ name: 'still.gif' }));
+		await expect(tool.locator('[data-source-name]')).toHaveText('still.gif');
+		await expect(notice).toBeHidden();
+
+		await tool.locator('[data-source-file]').setInputFiles(photoFixture());
+		await expect(tool.locator('[data-source-name]')).toHaveText('tiny-photo.png');
+		await expect(notice).toBeHidden();
+
+		await tool.locator('[data-source-file]').setInputFiles(gifFixture({ frames: 3 }));
+		await expect(notice).toBeVisible();
+		await tool.locator('[data-clear]').click();
+		await expect(notice).toBeHidden();
+
+		expect(errors).toEqual([]);
+	});
+
 	test('Object extractor keeps the clicked object and drops the background', async ({ page }) => {
 		test.setTimeout(CDN_TIMEOUT);
 		const errors = collectPageErrors(page);
@@ -300,6 +427,8 @@ test.describe('image tool outputs', () => {
 
 		const download = tool.locator('[data-download]');
 		await expect(download).toHaveAttribute('download', 'cut-object.png');
+		/* 512px stays under the cap, so nothing was resized and the panel must not claim otherwise. */
+		await expect(tool.locator('[data-result-size]')).toHaveText('Export: 512 x 512px');
 		const pngHref = await download.getAttribute('href');
 		/* The clicked disc must survive and the far corners must be cut away, not the reverse. */
 		const png = await inspectImage(page, { href: pngHref }, { points: [[256, 256], [6, 6], [505, 505]] });
@@ -325,7 +454,42 @@ test.describe('image tool outputs', () => {
 		await expect(tool.locator('[data-status]')).toHaveText('Choose an image, then click the object.');
 		await expect(tool.locator('[data-canvas-wrap]')).toBeHidden();
 		await expect(tool.locator('[data-result-panel]')).toBeHidden();
+		await expect(tool.locator('[data-result-size]')).toBeHidden();
 		await expect(tool.locator('[data-cut]')).toBeDisabled();
+
+		expect(errors).toEqual([]);
+	});
+
+	test('Object extractor reports the size it exported after the 1200px cap', async ({ page }) => {
+		test.setTimeout(CDN_TIMEOUT);
+		const errors = collectPageErrors(page);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/image-object-extractor/');
+		const tool = page.locator('[data-object-extractor]');
+
+		await paintFile(tool.locator('[data-file]'), {
+			name: 'wide.png',
+			width: 1600,
+			height: 400,
+			background: '#ffffff',
+			shapes: [{ type: 'circle', x: 800, y: 200, radius: 150, color: '#d62828' }],
+		});
+		await expect(tool.locator('[data-canvas-wrap]')).toBeVisible();
+		await expect(tool.locator('[data-status]')).toHaveText('Model ready. Click the object.', { timeout: RUN_TIMEOUT });
+
+		await tool.locator('[data-canvas]').click();
+		await expect(tool.locator('[data-cut]')).toBeEnabled();
+		await tool.locator('[data-cut]').click();
+		await expect(tool.locator('[data-status]')).toHaveText('Object extracted.', { timeout: RUN_TIMEOUT });
+
+		/* The cap is kept, so the visitor has to be told the export is not the size they handed in. */
+		await expect(tool.locator('[data-result-size]')).toHaveText('Export: 1200 x 300px, scaled down from 1600 x 400px');
+
+		const href = await tool.locator('[data-download]').getAttribute('href');
+		const output = await inspectImage(page, { href });
+
+		expect(output.head.startsWith('89504e47')).toBe(true);
+		expect({ width: output.width, height: output.height }).toEqual({ width: 1200, height: 300 });
 
 		expect(errors).toEqual([]);
 	});
@@ -426,6 +590,51 @@ test.describe('image tool outputs', () => {
 		await expect(tool.locator('[data-result-panel]')).toBeHidden();
 		await expect(tool.locator('[data-metadata-panel]')).toBeHidden();
 		await expect(download).toBeHidden();
+	});
+
+	/* GIF, AVIF, BMP, TIFF and SVG leave the canvas as PNG, so the note may not promise every format back. */
+	test('Metadata Remover names the formats it keeps and the ones it turns into PNG', async ({ page }) => {
+		await page.goto('/en/tools/metadata-remover/');
+		await expect(page.locator('[data-preserve-note]')).toHaveText(
+			'The detected image format or media container is kept where possible. Formats the browser can display but not re-encode are saved as PNG.',
+		);
+
+		await page.goto('/de/tools/metadaten-entfernen/');
+		await expect(page.locator('[data-preserve-note]')).toHaveText(
+			'Das erkannte Bildformat oder der erkannte Mediencontainer bleibt erhalten, soweit möglich. Formate, die der Browser zwar anzeigen, aber nicht neu kodieren kann, werden als PNG gespeichert.',
+		);
+	});
+
+	test('Metadata Remover scrubs an image that arrives without a MIME type', async ({ page }) => {
+		test.setTimeout(CDN_TIMEOUT);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/metadata-remover/');
+		const tool = page.locator('[data-metadata-scrubber]');
+		const download = tool.locator('[data-download]');
+
+		/* An empty file.type used to send the image to FFmpeg, which cannot scrub a still picture. */
+		await dropFile(tool.locator('[data-file]'), {
+			name: 'tiny-photo.webp',
+			base64: fixtureFile('tiny-photo.webp', 'image/webp').buffer.toString('base64'),
+		});
+		await expect(tool.locator('[data-file-name]')).toHaveText('tiny-photo.webp');
+		await expect(tool.locator('[data-file-meta]')).toContainText('· file');
+		await expect(tool.locator('[data-scrub]')).toBeEnabled();
+
+		await tool.locator('[data-scrub]').click();
+		await expect(tool.locator('[data-status]')).toHaveText('Metadata removed.', { timeout: RUN_TIMEOUT });
+		await expect(download).toHaveAttribute('download', 'tiny-photo-scrubbed.webp');
+
+		const href = await download.getAttribute('href');
+		const webp = await inspectImage(page, { href }, { points: [[48, 32]] });
+
+		/* The name is only honest if the bytes under it really are a WebP of the same picture. */
+		expect(webp.ascii.startsWith('RIFF')).toBe(true);
+		expect(webp.ascii.slice(8, 12)).toBe('WEBP');
+		expect({ width: webp.width, height: webp.height }).toEqual({ width: 96, height: 64 });
+		/* The white circle in the middle of the fixture survives the re-encode. */
+		expect(webp.pixels[0][3]).toBe(255);
+		expect(Math.min(...webp.pixels[0].slice(0, 3))).toBeGreaterThan(230);
 	});
 
 	test('Raster/SVG Studio reports its fallback and drops the other direction on a mode switch', async ({ page }) => {
@@ -595,6 +804,62 @@ test.describe('image tool outputs', () => {
 		await expect(tool.locator('[data-seed-display]')).toBeHidden();
 		await expect(download).toBeHidden();
 		await expect(tool.locator('[data-clear]')).toBeDisabled();
+	});
+
+	test('Background remover runs from the corner when the preview cannot show the file', async ({ page }) => {
+		test.setTimeout(CDN_TIMEOUT);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/background-remover/');
+		const tool = page.locator('[data-background-remover]');
+		const cornerButton = tool.locator('[data-corner-run]');
+		const download = tool.locator('[data-download]');
+		const sourceImage = tool.locator('[data-source-image]');
+		const status = tool.locator('[data-status]');
+
+		await expect(cornerButton).toBeDisabled();
+		await paintFile(tool.locator('[data-file]'), {
+			name: 'badge.png',
+			width: 120,
+			height: 90,
+			background: '#ffffff',
+			shapes: [{ type: 'rect', x: 40, y: 30, width: 40, height: 30, color: '#d62828' }],
+		});
+		await expect(cornerButton).toBeEnabled();
+
+		/*
+		 * TIFF, PSD and HEIC end up in this state: the browser cannot display them, so clicking the
+		 * preview — the only way to start a run — is impossible even though ImageMagick reads them.
+		 */
+		await sourceImage.evaluate((image) => image.dispatchEvent(new Event('error')));
+		await expect(sourceImage).toBeHidden();
+		await expect(tool.locator('[data-source-preview-note]')).toBeVisible();
+		await expect(tool.locator('[data-seed-display]')).toBeHidden();
+		await expect(download).toBeHidden();
+
+		await cornerButton.click();
+		await expect(status).toHaveText('badge-no-bg.png was created.', { timeout: RUN_TIMEOUT });
+		await expect(tool.locator('[data-seed-display]')).toBeVisible();
+		await expect(tool.locator('[data-seed-value]')).toHaveText('Top-left corner');
+		/* No colour was sampled in the browser, so the swatch must not claim one. */
+		await expect(tool.locator('[data-seed-swatch]')).toBeHidden();
+		await expect(download).toHaveAttribute('download', 'badge-no-bg.png');
+		await expect(tool.locator('[data-source-meta]')).toContainText('120 x 90px');
+
+		const href = await download.getAttribute('href');
+		const cutout = await inspectImage(page, { href }, { points: [[2, 2], [60, 45]] });
+
+		expect(cutout.head.startsWith('89504e47')).toBe(true);
+		expect({ width: cutout.width, height: cutout.height }).toEqual({ width: 120, height: 90 });
+		/* The corner pixel seeded the fill: the white ground is gone and the badge is untouched. */
+		expect(cutout.pixels[0][3]).toBe(0);
+		expect(cutout.pixels[1][3]).toBe(255);
+		expect(cutout.pixels[1][0]).toBeGreaterThan(180);
+		expect(cutout.pixels[1][1]).toBeLessThan(80);
+
+		await tool.locator('[data-clear]').click();
+		await expect(status).toHaveText('The file has been cleared.');
+		await expect(cornerButton).toBeDisabled();
+		await expect(tool.locator('[data-seed-display]')).toBeHidden();
 	});
 
 	test('YouTube thumbnail preview drives every card, the device frames and the clear button', async ({ page }) => {

@@ -32,6 +32,7 @@ const copyByLocale = {
 		tolerance: 'Toleranz',
 		outputFormat: 'Ausgabeformat',
 		quality: 'Qualität',
+		cornerRun: 'Hintergrund ab Ecke entfernen',
 		clear: 'Datei entfernen',
 		sourcePreview: 'Quelle',
 		download: 'Bild herunterladen',
@@ -39,6 +40,7 @@ const copyByLocale = {
 			chooseFile: 'Bilddatei wählen',
 			cleared: 'Die Datei wurde entfernt.',
 			converted: '{name} wurde erzeugt.',
+			cornerSeed: 'Ecke oben links',
 			converting: 'Hintergrund wird entfernt...',
 			fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC und mehr',
 			fileMeta: '{size} | {type}',
@@ -52,7 +54,7 @@ const copyByLocale = {
 			noSeed: 'Klicke zuerst auf das Bild, um die Hintergrund-Stelle zu wählen.',
 			selectBackgroundInstruction: 'Klicke, um den Bildhintergrund auszuwählen',
 			previewUnavailable: 'Für dieses Format ist keine Browser-Vorschau verfügbar. Der Download ist trotzdem bereit.',
-			seedInstruction: 'Klicke auf das Bild, wo der Hintergrund ist. Er wird ab dieser Stelle sofort entfernt.',
+			seedInstruction: 'Klicke auf das Bild, wo der Hintergrund ist. Er wird ab dieser Stelle sofort entfernt. Lässt sich die Datei nicht anzeigen, starte den Lauf ab der oberen linken Ecke.',
 			seeded: 'Farbe {color} übernommen.',
 			sourcePreviewUnavailable: 'Die Browser-Vorschau kann dieses Quellformat nicht anzeigen. Die Entfernung kann trotzdem funktionieren.',
 			singleFrame: '1 Frame',
@@ -74,6 +76,7 @@ const copyByLocale = {
 		tolerance: 'Tolerance',
 		outputFormat: 'Output format',
 		quality: 'Quality',
+		cornerRun: 'Remove background from corner',
 		clear: 'Clear file',
 		sourcePreview: 'Source',
 		download: 'Download image',
@@ -81,6 +84,7 @@ const copyByLocale = {
 			chooseFile: 'Choose image file',
 			cleared: 'The file has been cleared.',
 			converted: '{name} was created.',
+			cornerSeed: 'Top-left corner',
 			converting: 'Removing background...',
 			fileHint: 'PNG, JPEG, WebP, AVIF, GIF, TIFF, BMP, ICO, SVG, HEIC and more',
 			fileMeta: '{size} | {type}',
@@ -94,7 +98,7 @@ const copyByLocale = {
 			noSeed: 'Click the image first to pick the background spot.',
 			selectBackgroundInstruction: 'click to select image background',
 			previewUnavailable: 'This format cannot be previewed by the browser. The download is ready.',
-			seedInstruction: 'Click the image where the background is. It is removed from that spot right away.',
+			seedInstruction: 'Click the image where the background is. It is removed from that spot right away. If the file cannot be displayed, start the run from the top-left corner instead.',
 			seeded: 'Picked {color}.',
 			sourcePreviewUnavailable: 'The browser cannot preview this source format. Removal may still work.',
 			singleFrame: '1 frame',
@@ -170,6 +174,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 						inputAttrs={{ 'data-quality': true, min: 1, max: 100, step: 1, value: 90 }}
 					/>
 				<div class="remover-actions">
+						<button class="button primary" data-corner-run type="button" disabled>{copy.cornerRun}</button>
 						<button class="button secondary" data-clear type="button" disabled>{copy.clear}</button>
 					</div>
 					<ToolStatus class="remover-status" data-status role="status" text={copy.client.waiting} />
@@ -201,6 +206,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			const qualityControl = root.querySelector('[data-quality-control]');
 			const qualityInput = root.querySelector('[data-quality]');
 			const qualityLabel = root.querySelector('[data-quality-label]');
+			const cornerButton = root.querySelector('[data-corner-run]');
 			const clearButton = root.querySelector('[data-clear]');
 			const status = root.querySelector('[data-status]');
 			const sourcePreview = root.querySelector('[data-source-preview]');
@@ -215,7 +221,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 
 			if (
 				!fileInput || !fileName || !fileMeta || !fuzzInput || !fuzzLabel || !formatSelect ||
-				!qualityControl || !qualityInput || !qualityLabel ||
+				!qualityControl || !qualityInput || !qualityLabel || !cornerButton ||
 				!clearButton || !status || !sourcePreview || !sourceImage || !sourcePreviewNote ||
 				!selectBackgroundInstruction || !sourceMeta || !seedDisplay || !seedSwatch || !seedValue || !downloadLink
 			) {
@@ -255,6 +261,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				qualityLabel.textContent = qualityInput.value;
 			});
 			qualityInput.addEventListener('change', rerunWithCurrentSettings);
+			cornerButton.addEventListener('click', () => void removeFromCorner());
 			clearButton.addEventListener('click', clearFile);
 			sourceImage.addEventListener('click', setSeedFromClick);
 			sourceImage.addEventListener('load', () => {
@@ -423,10 +430,27 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 					return images.write(settings.format.value, (data) => new Uint8Array(data));
 				});
 
+				/*
+				 * The panel describes the file that was written, not the one that was read: a
+				 * multi-frame source written as PNG comes out as a single frame, and saying
+				 * otherwise next to the output's own byte size would be the same lie the
+				 * sibling converter just stopped telling.
+				 */
 				return {
 					bytes,
-					...metadata,
+					...(describeWrittenImage(magick, bytes, settings.format) || metadata),
 				};
+			}
+
+			function describeWrittenImage(magick, bytes, format) {
+				try {
+					return magick.ImageMagick.readCollection(bytes, format.value, (images) => images.length
+						? { width: images[0].width, height: images[0].height, frames: images.length }
+						: null);
+				} catch {
+					/* An output this build cannot read back leaves the source figures in place. */
+					return null;
+				}
 			}
 
 			async function loadMagick() {
@@ -505,16 +529,42 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 				state.seedPoint = { x, y };
 				state.seedColor = color;
 				seedDisplay.hidden = false;
+				seedSwatch.hidden = false;
 				seedSwatch.style.backgroundColor = color;
 				seedValue.textContent = color;
 				setStatus(format(copy.seeded, { color }), 'success');
 				void removeBackground();
 			}
 
+			/*
+			 * The preview cannot show every format ImageMagick reads (TIFF, PSD, HEIC), and clicking it was
+			 * the only way to start a run. The top-left pixel gives those files a seed of their own; the
+			 * colour behind it is read by ImageMagick inside removeWithMagick, not by the browser.
+			 */
+			function removeFromCorner() {
+				if (state.isWorking) {
+					return;
+				}
+
+				if (!state.file) {
+					setStatus(copy.noFile, 'error');
+					return;
+				}
+
+				state.seedPoint = { x: 0, y: 0 };
+				state.seedColor = null;
+				seedDisplay.hidden = false;
+				seedSwatch.hidden = true;
+				seedSwatch.style.backgroundColor = '';
+				seedValue.textContent = copy.cornerSeed;
+				return removeBackground();
+			}
+
 			function resetSeed() {
 				state.seedPoint = null;
 				state.seedColor = null;
 				seedDisplay.hidden = true;
+				seedSwatch.hidden = false;
 				seedSwatch.style.backgroundColor = '';
 				seedValue.textContent = '';
 			}
@@ -530,6 +580,7 @@ const outputFormatsJson = JSON.stringify(outputFormats);
 			}
 
 			function updateReadyState() {
+				cornerButton.disabled = state.isWorking || !state.file;
 				clearButton.disabled = state.isWorking || !state.file;
 				formatSelect.disabled = state.isWorking;
 				fuzzInput.disabled = state.isWorking;

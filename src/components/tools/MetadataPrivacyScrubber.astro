@@ -14,7 +14,7 @@ const copy = {
 		intro: 'Entferne EXIF, XMP, Kapitel, Container-Tags und eingebettete Metadaten aus lokalen Medien.',
 		privacy: 'Alles bleibt im Browser. Bilder werden neu gerendert, Audio/Video per FFmpeg ohne Metadaten remuxt.',
 		source: 'Datei', choose: 'Datei auswählen', hint: 'Bilder, Audio und Video',
-		settings: 'Bereinigung', preserve: 'Das erkannte Bildformat oder der erkannte Mediencontainer wird automatisch beibehalten.',
+		settings: 'Bereinigung', preserve: 'Das erkannte Bildformat oder der erkannte Mediencontainer bleibt erhalten, soweit möglich. Formate, die der Browser zwar anzeigen, aber nicht neu kodieren kann, werden als PNG gespeichert.',
 		metadata: 'MediaInfo-Metadaten', before: 'Vor der Bereinigung', after: 'Nach der Bereinigung', inspecting: 'Metadaten werden analysiert…', notYet: 'Nach der Bereinigung verfügbar.',
 		scrub: 'Metadaten entfernen', clear: 'Zurücksetzen', result: 'Ergebnis', download: 'Bereinigte Datei herunterladen',
 		waiting: 'Wähle eine Datei.', selected: '{name} ist bereit.', processing: 'Metadaten werden entfernt…',
@@ -27,7 +27,7 @@ const copy = {
 		intro: 'Remove EXIF, XMP, chapters, container tags, and embedded metadata from local media.',
 		privacy: 'Everything stays in the browser. Images are re-rendered; audio/video is remuxed without metadata via FFmpeg.',
 		source: 'File', choose: 'Choose file', hint: 'Images, audio, and video',
-		settings: 'Scrubbing', preserve: 'The detected image format or media container is preserved automatically.',
+		settings: 'Scrubbing', preserve: 'The detected image format or media container is kept where possible. Formats the browser can display but not re-encode are saved as PNG.',
 		metadata: 'MediaInfo metadata', before: 'Before scrubbing', after: 'After scrubbing', inspecting: 'Analyzing metadata…', notYet: 'Available after scrubbing.',
 		scrub: 'Remove metadata', clear: 'Reset', result: 'Result', download: 'Download scrubbed file',
 		waiting: 'Choose a file.', selected: '{name} is ready.', processing: 'Removing metadata…',
@@ -48,7 +48,7 @@ const copyJson = JSON.stringify(copy);
 				<FilePicker label={copy.choose} name={copy.choose} hint={copy.hint} accept="image/*,audio/*,video/*,.mkv,.mov,.mp4,.webm,.wav,.m4a,.mp3,.png,.jpg,.jpeg,.webp" nameAttrs={{ 'data-file-name': true }} metaAttrs={{ 'data-file-meta': true }} inputAttrs={{ 'data-file': true }} />
 			</ToolPanel>
 			<ToolPanel title={copy.settings}>
-				<p class="preserve-note">{copy.preserve}</p>
+				<p class="preserve-note" data-preserve-note>{copy.preserve}</p>
 				<ToolActions><button class="button primary" data-scrub type="button" disabled>{copy.scrub}</button><button class="button secondary" data-clear type="button">{copy.clear}</button></ToolActions>
 				<ToolStatus data-status text={copy.waiting} />
 			</ToolPanel>
