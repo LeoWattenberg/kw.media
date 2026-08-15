@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { basename, join } from 'node:path';
+import { basename, join, relative, sep } from 'node:path';
 import {
 	cleanupPostFile,
 	expandTranscriptPostFile,
@@ -9,6 +9,7 @@ import {
 	translateTranscriptMarkdown,
 	translatePostFile,
 } from './content-ai.mjs';
+import { parseStatusPaths } from './git-utils.mjs';
 import { detectTextLocale } from './language-utils.mjs';
 
 const playlists = [
@@ -442,6 +443,83 @@ function downloadTranscript(videoId, locale, tempDir) {
 	return parseVtt(join(tempDir, fileName));
 }
 
+function repositoryRoot() {
+	try {
+		return execFileSync('git', ['rev-parse', '--show-toplevel'], {
+			encoding: 'utf8',
+			stdio: ['ignore', 'pipe', 'pipe'],
+		}).trim();
+	} catch {
+		return undefined;
+	}
+}
+
+function runGit(args) {
+	return execFileSync('git', args, {
+		cwd: gitRoot,
+		encoding: 'utf8',
+		maxBuffer: 1024 * 1024 * 64,
+		stdio: ['ignore', 'pipe', 'pipe'],
+	});
+}
+
+function repositoryPath(absolutePath) {
+	return relative(gitRoot, absolutePath).split(sep).join('/');
+}
+
+function repositoryChanges() {
+	return parseStatusPaths(runGit(['status', '--porcelain=v1', '-z', '--untracked-files=all']));
+}
+
+function commitMessage() {
+	const subject = created.length === 1
+		? 'Import 1 new YouTube video'
+		: `Import ${created.length} new YouTube videos`;
+	const lines = [subject, '', ...created.map((item) => `- ${item}`)];
+
+	if (translated.length) {
+		lines.push('', `Includes ${translated.length} generated translation(s).`);
+	}
+
+	return lines.join('\n');
+}
+
+function commitImportedPosts(changesBeforeImport) {
+	const postsPathPrefix = `${repositoryPath(postsDir)}/`;
+	const importChanges = [...repositoryChanges()]
+		.filter((path) => !changesBeforeImport.has(path))
+		.sort();
+	const postChanges = importChanges.filter((path) => path.startsWith(postsPathPrefix));
+	const otherChanges = importChanges.filter((path) => !path.startsWith(postsPathPrefix));
+
+	if (!postChanges.length) {
+		console.log('No new post file changes to commit.');
+		return;
+	}
+
+	try {
+		// Committing with a pathspec keeps anything else that was already staged out of the commit.
+		runGit(['add', '--', ...postChanges]);
+		runGit(['commit', '--message', commitMessage(), '--', ...postChanges]);
+	} catch (error) {
+		process.exitCode = 1;
+		console.error(`Could not commit the imported post(s): ${String(error.stderr || error.message).trim()}`);
+		return;
+	}
+
+	console.log(`Committed ${postChanges.length} post file(s) as ${runGit(['rev-parse', '--short', 'HEAD']).trim()}:`);
+	for (const path of postChanges) {
+		console.log(`- ${path}`);
+	}
+
+	if (otherChanges.length) {
+		console.log(`Left ${otherChanges.length} other changed file(s) uncommitted:`);
+		for (const path of otherChanges) {
+			console.log(`- ${path}`);
+		}
+	}
+}
+
 const posts = readPosts();
 const existingVideoIds = extractExistingVideoIds(posts);
 const existingSlugs = extractExistingSlugs(posts);
@@ -452,6 +530,10 @@ const createdPostPaths = [];
 const translated = [];
 const skipped = [];
 const runAiPostProcessing = process.env.IMPORT_AI !== '0';
+const shouldCommit = process.env.IMPORT_COMMIT !== '0';
+const gitRoot = shouldCommit ? repositoryRoot() : undefined;
+// Files that were already modified before the import stay out of the commit.
+const changesBeforeImport = gitRoot ? repositoryChanges() : new Set();
 
 try {
 	for (const playlist of playlists) {
@@ -582,6 +664,14 @@ if (skipped.length) {
 	console.warn(`Skipped ${skipped.length} video(s):`);
 	for (const item of skipped) {
 		console.warn(`- ${item}`);
+	}
+}
+
+if (shouldCommit && created.length) {
+	if (gitRoot) {
+		commitImportedPosts(changesBeforeImport);
+	} else {
+		console.warn('Skipping the commit: this directory is not part of a git repository.');
 	}
 }
 

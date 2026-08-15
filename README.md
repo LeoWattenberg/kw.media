@@ -51,13 +51,13 @@ Linux (including WSL on Windows) is recommended, although native Windows also wo
    npm run import:youtube
    ```
 
-7. Review the generated changes, then stage, commit, and push them. Pushing to the configured branch triggers the site's deployment workflow:
+   A successful import commits the post files it changed on its own. Videos it skipped, for example because they have no transcript yet, do not prevent that commit; an import that ends with an error commits nothing and leaves everything for review. The commit covers only files under `src/data/posts/`, and only those the import itself changed: files that were already modified before the run stay out of it, as does anything the import touched elsewhere, such as `src/data/generated-tool-metadata/`. The importer lists those leftovers so they can be reviewed and committed separately. Add `IMPORT_COMMIT=0` to import without committing.
+
+7. Review the import commit and the remaining changes, then push. Pushing to the configured branch triggers the site's deployment workflow:
 
    ```sh
+   git show
    git status
-   git diff
-   git add .
-   git commit -m "Add new posts"
    git push
    ```
 
@@ -68,10 +68,8 @@ The installation steps only need to be completed once. For later imports, update
 ```sh
 git pull
 npm run import:youtube
+git show
 git status
-git diff
-git add .
-git commit -m "Add new posts"
 git push
 ```
 
@@ -88,8 +86,9 @@ Run commands from the project root:
 | `npm test` | Run the Node test suite |
 | `npm run test:browser` | Build, then run the Playwright browser tests |
 | `npm run fixtures:test` | Regenerate the binary media fixtures in `tests/fixtures/` |
-| `npm run import:youtube` | Import new YouTube posts, clean transcripts, create translations, refresh related posts, and add inline links |
+| `npm run import:youtube` | Import new YouTube posts, clean transcripts, create translations, refresh related posts, add inline links, and commit the changed posts |
 | `IMPORT_AI=0 npm run import:youtube` | Import new YouTube posts without Ollama cleanup, translation, related posts, or inline links |
+| `IMPORT_COMMIT=0 npm run import:youtube` | Import new YouTube posts without committing the changed posts |
 | `npm run import:missing-sources -- --dry` | Preview source-link imports for current video posts that do not have `sources` frontmatter |
 | `npm run cleanup:post -- src/data/posts/.../post.md` | Clean one or more existing posts |
 | `npm run cleanup:last-commit` | Clean markdown posts touched by the latest commit |
