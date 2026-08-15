@@ -34,9 +34,13 @@ const copy = tag.locale === 'de'
 	<div class="container">
 		{tag.posts.length ? (
 			<div class="tag-grid">
-				{tag.posts.map((post) => (
+				{tag.posts.map((post, index) => (
 					<article>
-						{post.image && <img src={withBase(post.image)} alt="" loading="lazy" />}
+						{post.image && (
+							index === 0
+								? <img src={withBase(post.image)} alt="" loading="eager" fetchpriority="high" decoding="async" />
+								: <img src={withBase(post.image)} alt="" loading="lazy" decoding="async" />
+						)}
 						<div>
 							<time datetime={post.date}>{new Date(post.date).toLocaleDateString(copy.dateLocale)}</time>
 							<h2><a href={withBase(post.path)}>{post.title}</a></h2>

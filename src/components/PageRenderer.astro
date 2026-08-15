@@ -19,13 +19,16 @@ interface Props {
 }
 
 const { page } = Astro.props;
+// Hub pages are a bare post list with no hero, which would otherwise leave them without an
+// H1. The leading block owns the page heading whenever no hero block supplies one.
+const headingBlock = page.blocks.some((block) => block.type === 'hero') ? undefined : page.blocks[0];
 ---
 
 {
 	page.blocks.map((block: PageBlock) => (
 		block.type === 'hero' ? <Hero block={block} /> :
 		block.type === 'html' ? <ContentHtml html={block.html} locale={page.locale} /> :
-		block.type === 'credentials' ? <Credentials block={block} /> :
+		block.type === 'credentials' ? <Credentials block={block} locale={page.locale} /> :
 		block.type === 'services' ? <ServiceGrid block={block} /> :
 		block.type === 'stats' ? <StatsBand block={block} /> :
 		block.type === 'text' ? <TextPanel block={block} /> :
@@ -33,7 +36,7 @@ const { page } = Astro.props;
 		block.type === 'faq' ? <FaqList block={block} /> :
 		block.type === 'pricing' ? <Pricing block={block} /> :
 		block.type === 'person' ? <PersonSpotlight block={block} /> :
-		block.type === 'posts' ? <PostList block={block} locale={page.locale} /> :
+		block.type === 'posts' ? <PostList block={block} locale={page.locale} primaryHeading={block === headingBlock} /> :
 		block.type === 'youtubePlaylist' ? <YouTubePlaylist block={block} locale={page.locale} /> :
 		block.type === 'cta' ? <CallToAction block={block} /> :
 		null

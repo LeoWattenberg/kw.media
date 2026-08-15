@@ -78,7 +78,7 @@ const sidebarPages = sitePages
 	.sort((first, second) => pageOrder.indexOf(pageGroup(first.id)) - pageOrder.indexOf(pageGroup(second.id)));
 ---
 
-<aside class="site-sidebar" aria-label="Site navigation">
+<aside class="site-sidebar" aria-label={t('a11y.siteNavigation')}>
 	<a class="brand" href={withBase(routeFor('home', locale))} aria-label={t('siteName')}>
 		<img class="logo-light" src={withBase('/logo/logo-schwarz.svg')} alt="" width="230" height="91" />
 		<img class="logo-dark" src={withBase('/logo/logo-weiß.svg')} alt="" width="230" height="91" />
@@ -86,7 +86,7 @@ const sidebarPages = sitePages
 		<img class="logo-dark logo-small" src={withBase('/logo/logo-klein-weiß.svg')} alt="" width="48" height="48" />
 	</a>
 
-	<nav class="sidebar-nav" aria-label="Main navigation">
+	<nav class="sidebar-nav" aria-label={t('a11y.mainNavigation')}>
 		<div class="nav-links">
 			{
 				sidebarPages.map((page) => {
@@ -132,7 +132,7 @@ const sidebarPages = sitePages
 			class="sidebar-collapse-toggle" 
 			type="button" 
 			data-sidebar-collapse-toggle 
-			aria-label="Toggle sidebar width"
+			aria-label={t('a11y.toggleSidebar')}
 		>
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
 		</button>

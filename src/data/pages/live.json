@@ -4,8 +4,8 @@
 		"de": {
 			"id": "live-de",
 			"path": "/de/live/",
-			"title": "Live",
-			"description": "Professionelle Livestreams und Eventvideos.",
+			"title": "Livestream-Produktion & Events",
+			"description": "Professionelle Livestreams und Eventvideos: Planung, Technik, Regie und Aufzeichnung für Konzerte, Konferenzen und Unternehmensveranstaltungen.",
 			"blocks": [
 				{
 					"type": "hero",
@@ -63,8 +63,8 @@
 		"en": {
 			"id": "live-en",
 			"path": "/en/live/",
-			"title": "Live",
-			"description": "Professional livestreams and event recordings.",
+			"title": "Livestream Production & Events",
+			"description": "Professional livestreams and event recordings: planning, technology, direction and capture for concerts, conferences and corporate events.",
 			"blocks": [
 				{
 					"type": "hero",

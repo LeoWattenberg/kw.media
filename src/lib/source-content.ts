@@ -4,6 +4,11 @@ export interface SourcePost {
 	slug: string;
 	path: string;
 	title: string;
+	/**
+	 * Overrides the <title> element only; the on-page H1 always uses `title`. Set this when
+	 * the headline is too long or too shouty to work as a search result.
+	 */
+	seoTitle?: string;
 	excerpt: string;
 	contentHtml: string;
 	date: string;

@@ -1,5 +1,6 @@
 ---
 import type { Locale } from '../../i18n';
+import { markAffiliateLinks } from '../../lib/affiliate-links';
 import { gateYouTubeEmbedsInHtml } from '../../lib/youtube-consent';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 
 const { html, locale } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-let contentHtml = gateYouTubeEmbedsInHtml(html, locale);
+let contentHtml = markAffiliateLinks(gateYouTubeEmbedsInHtml(html, locale));
 
 if (base) {
 	const baseSegment = base.replace(/^\//, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

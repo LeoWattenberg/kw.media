@@ -26,6 +26,14 @@ export const ui = {
 			about: 'Persönliche Beratung zu Web Content und Web Events',
 			legal: 'Impressum und Datenschutzerklärung',
 		},
+		a11y: {
+			siteNavigation: 'Seitennavigation',
+			mainNavigation: 'Hauptnavigation',
+			breadcrumb: 'Brotkrümelnavigation',
+			toggleSidebar: 'Seitenleiste ein- oder ausklappen',
+			credentials: 'Qualifikationen',
+			skipToContent: 'Zum Inhalt springen',
+		},
 		review: {
 			kicker: 'Strukturentwurf',
 			title: 'Astro-Migration zur Review',
@@ -58,6 +66,14 @@ export const ui = {
 			availability: 'First reply within 24h.',
 			about: 'Personal consulting for web content and web events',
 			legal: 'Imprint and privacy policy',
+		},
+		a11y: {
+			siteNavigation: 'Site navigation',
+			mainNavigation: 'Main navigation',
+			breadcrumb: 'Breadcrumb',
+			toggleSidebar: 'Toggle sidebar width',
+			credentials: 'Credentials',
+			skipToContent: 'Skip to content',
 		},
 		review: {
 			kicker: 'Structure draft',

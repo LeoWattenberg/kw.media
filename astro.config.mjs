@@ -24,6 +24,9 @@ const redirects = {
   '/new/creator/': '/en/creator/',
   '/new/': '/en/',
 
+  '/de/games/mp3guesser/': '/de/games/mp3-guesser/',
+  '/en/games/mp3guesser/': '/en/games/mp3-guesser/',
+
   '/blog/': '/en/youtube-tips/',
   '/category/': '/en/youtube-tips/',
   '/category/blog/': '/en/youtube-tips/',

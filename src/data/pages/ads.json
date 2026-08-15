@@ -4,8 +4,8 @@
 		"de": {
 			"id": "ads-de",
 			"path": "/de/werbung/",
-			"title": "Werbung",
-			"description": "Online-Werbung für YouTuber, KMU und mehr.",
+			"title": "Online-Werbung für Creator & KMU",
+			"description": "Online-Werbung für YouTuber, KMU und Marken: Kampagnen planen, Anzeigen gestalten und Budgets sinnvoll einsetzen – ohne Agentur-Overhead.",
 			"blocks": [
 				{
 					"type": "hero",
@@ -88,8 +88,8 @@
 		"en": {
 			"id": "ads-en",
 			"path": "/en/ads/",
-			"title": "Ads",
-			"description": "Easy online ads for YouTubers, SMBs and more.",
+			"title": "Online Ads for Creators & SMBs",
+			"description": "Online advertising for YouTubers, SMBs and brands: plan campaigns, design the ads and spend the budget where it works, without agency overhead.",
 			"blocks": [
 				{
 					"type": "hero",

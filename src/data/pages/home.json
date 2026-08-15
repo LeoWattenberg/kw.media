@@ -4,8 +4,8 @@
 		"de": {
 			"id": "home-de",
 			"path": "/",
-			"title": "Koytek Wattenberg Media",
-			"description": "Strategien für YouTube, Liveübertragungen und Online-Marketing.",
+			"title": "YouTube-Beratung & Livestreams",
+			"description": "YouTube-Beratung, Livestream-Produktion, Online-Werbung und Creator-Support aus einer Hand. Koytek Wattenberg Media begleitet Kanäle, Marken und Schulen.",
 			"blocks": [
 				{
 					"type": "hero",
@@ -179,8 +179,8 @@
 		"en": {
 			"id": "home-en",
 			"path": "/en/",
-			"title": "YouTube Consulting, Live Stream Production, Ads and SEO",
-			"description": "YouTube consulting, live streaming, ads and creator support.",
+			"title": "YouTube Consulting & Livestreams",
+			"description": "YouTube consulting, live stream production, online ads and creator support from one team. Koytek Wattenberg Media works with channels, brands and schools.",
 			"blocks": [
 				{
 					"type": "hero",

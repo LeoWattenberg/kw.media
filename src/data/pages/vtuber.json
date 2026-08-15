@@ -4,8 +4,8 @@
 		"de": {
 			"id": "vtuber-de",
 			"path": "/de/vtuber/",
-			"title": "VTuber",
-			"description": "VTuber-Modelle, Rigging und Creator-Support.",
+			"title": "VTuber-Modelle & Rigging",
+			"description": "VTuber-Modelle, Rigging und technischer Creator-Support: vom ersten Design über Live2D-Rigging bis zum fertigen Setup für Streams und Videos.",
 			"blocks": [
 				{
 					"type": "hero",
@@ -162,8 +162,8 @@
 		"en": {
 			"id": "vtuber-en",
 			"path": "/en/vtuber/",
-			"title": "VTubers",
-			"description": "VTuber model creation, rigging and creator support.",
+			"title": "VTuber Models & Rigging",
+			"description": "VTuber model creation, rigging and technical creator support: from first design through Live2D rigging to a finished setup for streams and videos.",
 			"blocks": [
 				{
 					"type": "hero",

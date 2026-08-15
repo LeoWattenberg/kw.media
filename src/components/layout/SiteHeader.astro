@@ -23,7 +23,7 @@ const alternatePath = alternatePaths[alternateLocale] ?? routeFor('home', altern
 			<img class="logo-light" src={withBase('/logo/logo-schwarz.svg')} alt="" width="230" height="91" />
 			<img class="logo-dark" src={withBase('/logo/logo-weiß.svg')} alt="" width="230" height="91" />
 		</a>
-		<nav class="nav" aria-label="Main navigation">
+		<nav class="nav" aria-label={t('a11y.mainNavigation')}>
 			{
 				navigation.map((item) => (
 					<a href={withBase(item.href)}>{t(item.labelKey)}</a>

@@ -1,5 +1,6 @@
 ---
 import type { HeroBlock } from '../data/pages';
+import { heroImage } from '../lib/images';
 import { localizeMediaUrl } from '../lib/media';
 import { withBase } from '../lib/url';
 
@@ -8,12 +9,19 @@ interface Props {
 }
 
 const { block } = Astro.props;
-const heroImage = block.image ? localizeMediaUrl(block.image) : undefined;
-const heroImageUrl = heroImage ? withBase(heroImage) : undefined;
-const heroStyle = heroImageUrl ? `--hero-image: url(${encodeURI(heroImageUrl)})` : undefined;
+const heroSource = block.image ? localizeMediaUrl(block.image) : undefined;
+const processed = await heroImage(heroSource);
+// Bundled assets get resized variants; legacy uploads fall back to the original file.
+const fallbackUrl = processed?.fallbackSrc ?? (heroSource ? encodeURI(withBase(heroSource)) : undefined);
+const heroStyle = fallbackUrl
+	? [
+		`--hero-image: url("${fallbackUrl}")`,
+		processed && `--hero-image-set: image-set(${processed.imageSet})`,
+	].filter(Boolean).join('; ')
+	: undefined;
 ---
 
-<section class:list={['hero', heroImageUrl && 'has-image']} style={heroStyle}>
+<section class:list={['hero', fallbackUrl && 'has-image']} style={heroStyle}>
 	<div class="container hero-inner">
 		<div class="hero-copy">
 			{block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
@@ -52,6 +60,12 @@ const heroStyle = heroImageUrl ? `--hero-image: url(${encodeURI(heroImageUrl)})`
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
+	}
+
+	/* Where image-set is supported, let the browser pick a width-appropriate variant
+	   instead of always downloading the widest one. */
+	.hero.has-image {
+		background-image: var(--hero-image-set, var(--hero-image));
 	}
 
 	.hero-inner {

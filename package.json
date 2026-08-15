@@ -19,6 +19,7 @@
     "cleanup:last-commit": "node scripts/cleanup-last-commit-posts.mjs",
     "expand:transcripts": "node scripts/expand-transcripts.mjs",
     "audit:posts": "node scripts/audit-posts.mjs",
+    "audit:titles": "node scripts/audit-titles.mjs",
     "audit:inlinks": "node scripts/audit-inlinks.mjs",
     "check:links": "node scripts/check-content-links.mjs",
     "fix:posts": "node scripts/fix-post-issues.mjs",

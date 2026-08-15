@@ -5,6 +5,7 @@ import { getSitePageAlternatePaths, getSitePageComponent, sitePages } from '../d
 import { getGamePageAlternatePaths, getGamePageComponent, gamePages } from '../data/games';
 import { getToolPageAlternatePaths, getToolPageComponent, toolPages } from '../data/tools';
 import { routeFor } from '../i18n';
+import { normalizeSeoTitle } from '../lib/seo-title';
 import { getAllPosts, getPostAlternatePaths } from '../lib/source-content';
 
 export function getStaticPaths() {
@@ -80,15 +81,20 @@ const postBreadcrumbs = post && postOverviewPath
 			},
 		]
 	: undefined;
+// Video posts render the consent placeholder instead of the hero image, so preloading that
+// image would fetch a thumbnail at the highest priority that the page never paints.
+const heroPreloadImage = post && !post.video ? post.image : undefined;
+// The H1 keeps the imported headline; only the <title> is trimmed for the SERP.
+const postSeoTitle = post ? post.seoTitle ?? normalizeSeoTitle(post.title) : undefined;
 ---
 
 {
 	kind === 'post' ? (
 		<BaseLayout
 			locale={post.locale}
-			title={post.title}
+			title={postSeoTitle!}
 			description={post.excerpt}
-			preloadImage={post.image}
+			preloadImage={heroPreloadImage}
 			canonicalPath={post.path}
 			alternatePaths={getPostAlternatePaths(post)}
 			image={post.image}

@@ -1,12 +1,12 @@
 ---
 import BaseLayout from '../../../components/layout/BaseLayout.astro';
 import TagPage from '../../../components/TagPage.astro';
-import { getAllTags, getTagAlternatePaths, type TagPageData } from '../../../data/tags';
+import { getIndexableTags, getTagAlternatePaths, type TagPageData } from '../../../data/tags';
 import { locales, type Locale } from '../../../i18n';
 
 export function getStaticPaths() {
 	return locales.flatMap((locale) =>
-		getAllTags(locale).map((tag) => ({
+		getIndexableTags(locale).map((tag) => ({
 			params: { locale, slug: tag.slug },
 			props: { tag },
 		})),

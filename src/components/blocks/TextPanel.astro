@@ -1,5 +1,6 @@
 ---
 import type { TextBlock } from '../../data/pages';
+import { contentImage } from '../../lib/images';
 import { localizeMediaUrl } from '../../lib/media';
 import { withBase } from '../../lib/url';
 
@@ -9,6 +10,7 @@ interface Props {
 
 const { block } = Astro.props;
 const image = block.image ? localizeMediaUrl(block.image) : undefined;
+const responsive = await contentImage(image);
 ---
 
 <section class="section text-panel">
@@ -29,7 +31,20 @@ const image = block.image ? localizeMediaUrl(block.image) : undefined;
 		</div>
 		{
 			image && (
-				<img src={withBase(image)} alt={block.imageAlt ?? ''} loading="lazy" />
+				responsive ? (
+					<img
+						src={responsive.src}
+						srcset={responsive.srcset}
+						sizes="(max-width: 820px) 100vw, 45vw"
+						width={responsive.width}
+						height={responsive.height}
+						alt={block.imageAlt ?? ''}
+						loading="lazy"
+						decoding="async"
+					/>
+				) : (
+					<img src={withBase(image)} alt={block.imageAlt ?? ''} loading="lazy" decoding="async" />
+				)
 			)
 		}
 	</div>

@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { routeFor } from '../i18n';
+import { withBase } from '../lib/url';
+
+// A static host serves one 404 document for every unknown URL, in both language trees, so
+// this page cannot know the visitor's locale. It leads with German, matching the default
+// locale at the site root, and offers the English equivalents alongside.
+const links = [
+	{ label: 'Startseite', href: routeFor('home', 'de') },
+	{ label: 'YouTube Tipps', href: routeFor('tips', 'de') },
+	{ label: 'Tools', href: '/de/tools/' },
+	{ label: 'Home', href: routeFor('home', 'en') },
+	{ label: 'YouTube Tips', href: routeFor('tips', 'en') },
+	{ label: 'Tools (English)', href: '/en/tools/' },
+];
+---
+
+<BaseLayout
+	locale="de"
+	title="Seite nicht gefunden"
+	description="Diese Seite existiert nicht mehr oder die Adresse enthält einen Tippfehler."
+	canonicalPath="/404.html"
+>
+	<section class="section not-found">
+		<div class="container">
+			<p class="eyebrow">404</p>
+			<h1>Seite nicht gefunden</h1>
+			<p class="lead">
+				Diese Seite existiert nicht mehr oder die Adresse enthält einen Tippfehler.
+				<span lang="en">This page does not exist or the address contains a typo.</span>
+			</p>
+			<ul>
+				{links.map((link) => (
+					<li><a href={withBase(link.href)}>{link.label}</a></li>
+				))}
+			</ul>
+		</div>
+	</section>
+</BaseLayout>
+
+<style>
+	.not-found {
+		background: var(--color-surface-raised);
+	}
+
+	h1 {
+		margin: 0;
+		font-size: clamp(2.4rem, 6vw, 4.6rem);
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.lead {
+		display: grid;
+		gap: 6px;
+		max-width: 640px;
+		margin: 20px 0 32px;
+		color: var(--color-muted);
+		font-size: 1.12rem;
+	}
+
+	.lead span {
+		color: var(--color-muted);
+	}
+
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px 26px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	a {
+		font-weight: 850;
+		color: var(--color-accent-dark);
+	}
+</style>

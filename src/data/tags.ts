@@ -15,6 +15,16 @@ const tagPrefix: Record<Locale, string> = {
 	en: '/en/tag/',
 };
 
+/**
+ * Minimum number of posts a tag needs before it gets its own page.
+ *
+ * A tag page that lists one or two posts carries no information the posts do not
+ * already carry, so it is not worth an indexable URL: it competes with the very
+ * posts it links to and dilutes crawl budget across the site. Tags below the
+ * threshold still render on articles, just as plain text rather than links.
+ */
+export const MIN_POSTS_FOR_TAG_PAGE = 3;
+
 export function tagSlug(tag: string): string {
 	return String(tag ?? '')
 		.normalize('NFKD')
@@ -115,6 +125,17 @@ export function getAllTags(locale?: Locale): TagPageData[] {
 	return tags.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 }
 
+/** Tags that get their own page, i.e. those at or above {@link MIN_POSTS_FOR_TAG_PAGE}. */
+export function getIndexableTags(locale?: Locale): TagPageData[] {
+	return getAllTags(locale).filter((tag) => tag.count >= MIN_POSTS_FOR_TAG_PAGE);
+}
+
+/** Whether a tag page was built for this slug, and so whether it is safe to link to. */
+export function hasTagPage(locale: Locale, slug: string): boolean {
+	const bucket = tagIndex.get(locale)?.get(slug);
+	return bucket ? bucket.posts.length >= MIN_POSTS_FOR_TAG_PAGE : false;
+}
+
 export function getTag(locale: Locale, slug: string): TagPageData | undefined {
 	const bucket = tagIndex.get(locale)?.get(slug);
 	return bucket ? toTagPage(locale, slug, bucket) : undefined;
@@ -124,7 +145,7 @@ export function getTagAlternatePaths(locale: Locale, slug: string): Partial<Reco
 	const paths: Partial<Record<Locale, string>> = { [locale]: getTagPath(locale, slug) };
 	const otherLocale: Locale = locale === 'de' ? 'en' : 'de';
 
-	if (tagIndex.get(otherLocale)?.has(slug)) {
+	if (hasTagPage(otherLocale, slug)) {
 		paths[otherLocale] = getTagPath(otherLocale, slug);
 	}
 

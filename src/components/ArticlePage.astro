@@ -5,7 +5,7 @@ import { getAuthorByName, getAuthorPath } from '../data/authors';
 import { routeFor } from '../i18n';
 import ContentHtml from './blocks/ContentHtml.astro';
 import YouTubeConsentEmbed from './YouTubeConsentEmbed.astro';
-import { getTagPath, tagSlug } from '../data/tags';
+import { getTagPath, hasTagPage, tagSlug } from '../data/tags';
 
 interface Props {
 	post: SourcePost;
@@ -14,8 +14,15 @@ interface Props {
 const { post } = Astro.props;
 const authorProfile = getAuthorByName(post.authorName);
 const authorPath = getAuthorPath(post.authorName, post.locale);
+// Tags below the page threshold have no page to link to, so they render as plain text.
 const tags = Array.isArray(post.tags)
-	? post.tags.map((name) => ({ name, path: getTagPath(post.locale, tagSlug(name)) }))
+	? post.tags.map((name) => {
+		const slug = tagSlug(name);
+		return {
+			name,
+			path: hasTagPage(post.locale, slug) ? getTagPath(post.locale, slug) : undefined,
+		};
+	})
 	: [];
 const isShortVideo = post.video?.watchUrl.includes('/shorts/');
 const videoClass = `container hero-video ${isShortVideo ? 'hero-video--short' : 'hero-video--wide'}`;
@@ -232,7 +239,9 @@ function escapeAttribute(value: string): string {
 				{tags.length > 0 && (
 					<div class="article-tags">
 						{tags.map((tag) => (
-							<a class="eyebrow article-tag" href={withBase(tag.path)}>{tag.name}</a>
+							tag.path
+								? <a class="eyebrow article-tag" href={withBase(tag.path)}>{tag.name}</a>
+								: <span class="eyebrow article-tag">{tag.name}</span>
 						))}
 					</div>
 				)}
@@ -244,7 +253,7 @@ function escapeAttribute(value: string): string {
 			post.video ? (
 				<YouTubeConsentEmbed class={videoClass} locale={post.locale} title={post.title} src={post.video.embedUrl} loading="eager" />
 			) : (
-				post.image && <img src={withBase(post.image)} alt="" loading="eager" />
+				post.image && <img src={withBase(post.image)} alt="" loading="eager" fetchpriority="high" decoding="async" />
 			)
 		}
 	</header>

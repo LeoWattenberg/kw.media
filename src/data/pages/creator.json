@@ -5,7 +5,7 @@
 			"id": "creator-de",
 			"path": "/de/creator/",
 			"title": "Creator Support und Beratung",
-			"description": "YouTube Support, Kanalberatung, Monetarisierung und Backups für Creator.",
+			"description": "YouTube Support für Creator: Kanalanalyse, Monetarisierung, Backups und praktische Beratung von einem Team, das eigene Kanäle betreibt.",
 			"blocks": [
 				{
 					"type": "hero",
@@ -172,8 +172,8 @@
 		"en": {
 			"id": "creator-en",
 			"path": "/en/creator/",
-			"title": "Creator Services",
-			"description": "YouTube support, channel analytics, monetization and creator consulting.",
+			"title": "YouTube Creator Support",
+			"description": "YouTube support for creators: channel analytics, monetization questions, backups and hands-on consulting from a team that runs its own channels.",
 			"blocks": [
 				{
 					"type": "hero",

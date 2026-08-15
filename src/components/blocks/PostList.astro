@@ -8,9 +8,11 @@ import { withBase } from '../../lib/url';
 interface Props {
 	block: PostListBlock;
 	locale: Locale;
+	/** Set when this list is the page's leading block, so its title becomes the H1. */
+	primaryHeading?: boolean;
 }
 
-const { block, locale } = Astro.props;
+const { block, locale, primaryHeading = false } = Astro.props;
 const includedCategories = block.categories ? new Set<Category>(block.categories) : undefined;
 const posts = getAllPosts()
 	.filter((post) => post.locale === locale)
@@ -53,7 +55,7 @@ const searchId = `post-search-${locale}-${block.title.toLowerCase().replace(/[^a
 <section class="section posts" data-post-list>
 	<div class="container">
 		<div class="section-head">
-			<h2>{block.title}</h2>
+			{primaryHeading ? <h1>{block.title}</h1> : <h2>{block.title}</h2>}
 			{block.moreHref && <a href={withBase(block.moreHref)}>{block.moreLabel ?? 'More'}</a>}
 		</div>
 		{
@@ -82,9 +84,13 @@ const searchId = `post-search-${locale}-${block.title.toLowerCase().replace(/[^a
 		}
 		<div class="post-grid">
 			{
-				posts.map((post) => (
+				posts.map((post, index) => (
 					<article data-post-category={post.category}>
-						{post.image && <img src={withBase(post.image)} alt="" loading="lazy" />}
+						{post.image && (
+							index === 0
+								? <img src={withBase(post.image)} alt="" loading="eager" fetchpriority="high" decoding="async" />
+								: <img src={withBase(post.image)} alt="" loading="lazy" decoding="async" />
+						)}
 						<div>
 							<time datetime={post.date}>{new Date(post.date).toLocaleDateString(post.locale === 'de' ? 'de-DE' : 'en-US')}</time>
 							<h3><a href={withBase(post.path)}>{post.title}</a></h3>
@@ -191,6 +197,7 @@ const searchId = `post-search-${locale}-${block.title.toLowerCase().replace(/[^a
 		margin-bottom: 30px;
 	}
 
+	h1,
 	h2 {
 		margin: 0;
 		font-size: clamp(2rem, 5vw, 4rem);
