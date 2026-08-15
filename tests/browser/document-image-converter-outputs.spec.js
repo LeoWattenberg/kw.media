@@ -12,6 +12,9 @@ const fixtureBuffer = (name) => readFileSync(fileURLToPath(new URL(`../fixtures/
 const photoUpload = { name: 'tiny-photo.jpg', mimeType: 'image/jpeg', buffer: fixtureBuffer('tiny-photo.jpg') };
 const markdownUpload = (name, body) => ({ name, mimeType: 'text/markdown', buffer: Buffer.from(body) });
 const documentUpload = markdownUpload('conversion-test.md', '# Conversion test\n\nA paragraph with **bold text** and math $x^2 + y^2$.\n');
+// DOCX embeds its images, so the missing chart survives only as its alt text; the
+// HTML profile links the same reference and loses nothing.
+const illustratedUpload = markdownUpload('quarterly-report.md', '# Report\n\nText before the chart.\n\n![Quarterly chart](chart.png)\n');
 // A zip local-file header followed by junk: pandoc opens it as a DOCX container and fails inside it.
 const corruptDocxUpload = {
 	name: 'corrupt.docx',
@@ -26,7 +29,8 @@ const documentOutputs = [
 	{ value: 'pdf', download: 'conversion-test.pdf', type: 'application/pdf', header: '255044462d', includes: '%PDF-' },
 	{ value: 'docx', download: 'conversion-test.docx', header: '504b0304', includes: 'word/document.xml' },
 	{ value: 'odt', download: 'conversion-test.odt', header: '504b0304', includes: 'application/vnd.oasis.opendocument.text' },
-	{ value: 'epub', download: 'conversion-test.epub', header: '504b0304', includes: 'application/epub+zip' },
+	// Pandoc warns about the empty EPUB title for this fixture, and the tool now repeats that.
+	{ value: 'epub', download: 'conversion-test.epub', header: '504b0304', includes: 'application/epub+zip', warns: true },
 	{ value: 'latex', download: 'conversion-test.tex', type: 'text/x-tex', includes: '\\textbf{bold text}' },
 	{ value: 'rtf', download: 'conversion-test.rtf', type: 'text/rtf', includes: '\\pard' },
 ];
@@ -87,6 +91,68 @@ const decodeWav = (link) => link.evaluate(async (node) => {
 
 const hexAt = (header, offset) => header.slice(offset * 2);
 
+const occurrences = (text, needle) => text.split(needle).length - 1;
+
+// A hand-built animated GIF: every frame is a single colour, and the LZW stream
+// resets before each pixel so the code width never grows. It decodes to one frame
+// per entry in `frames`, which no committed fixture provides.
+const buildAnimatedGif = ({ width, height, frames }) => {
+	const bytes = [];
+	const pushUint16 = (value) => bytes.push(value & 0xff, (value >> 8) & 0xff);
+	const pushAscii = (text) => bytes.push(...[...text].map((character) => character.charCodeAt(0)));
+
+	pushAscii('GIF89a');
+	pushUint16(width);
+	pushUint16(height);
+	bytes.push(0x80, 0x00, 0x00);
+	bytes.push(0x00, 0x00, 0x00, 0xff, 0xff, 0xff);
+	bytes.push(0x21, 0xff, 0x0b);
+	pushAscii('NETSCAPE2.0');
+	bytes.push(0x03, 0x01, 0x00, 0x00, 0x00);
+
+	for (const colourIndex of frames) {
+		bytes.push(0x21, 0xf9, 0x04, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x2c);
+		pushUint16(0);
+		pushUint16(0);
+		pushUint16(width);
+		pushUint16(height);
+		bytes.push(0x00, 0x02);
+
+		const codes = [];
+		for (let pixel = 0; pixel < width * height; pixel += 1) codes.push(4, colourIndex);
+		codes.push(5);
+
+		const data = [];
+		let bitBuffer = 0;
+		let bitCount = 0;
+		for (const code of codes) {
+			bitBuffer |= code << bitCount;
+			bitCount += 3;
+			while (bitCount >= 8) {
+				data.push(bitBuffer & 0xff);
+				bitBuffer >>= 8;
+				bitCount -= 8;
+			}
+		}
+		if (bitCount > 0) data.push(bitBuffer & 0xff);
+
+		for (let offset = 0; offset < data.length; offset += 255) {
+			const block = data.slice(offset, offset + 255);
+			bytes.push(block.length, ...block);
+		}
+		bytes.push(0x00);
+	}
+
+	bytes.push(0x3b);
+	return Buffer.from(bytes);
+};
+
+const animatedGifUpload = {
+	name: 'animated-loop.gif',
+	mimeType: 'image/gif',
+	buffer: buildAnimatedGif({ width: 12, height: 10, frames: [0, 1, 0, 1] }),
+};
+
 const collectPageErrors = (page) => {
 	const errors = [];
 	page.on('pageerror', (error) => errors.push(error.message));
@@ -116,7 +182,9 @@ test.describe('document converter artifacts', () => {
 			await profileSelect.selectOption(output.value);
 			await converter.locator('[data-process]').click();
 			await expect(download).toHaveAttribute('download', output.download, { timeout: 90_000 });
-			await expect(status).toHaveText('The document was converted successfully.');
+			await expect(status).toHaveText(
+				output.warns ? /^The document was converted, but Pandoc reported: .+/ : 'The document was converted successfully.',
+			);
 			await expect(download).toBeVisible();
 
 			const produced = await readDownload(download);
@@ -197,6 +265,88 @@ test.describe('document converter artifacts', () => {
 		expect(pageErrors).toEqual([]);
 	});
 
+	test('a conversion that dropped an image says so instead of reporting a clean run', async ({ page }) => {
+		test.setTimeout(180_000);
+		const pageErrors = collectPageErrors(page);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/converter/document-converter/');
+
+		const converter = page.locator('[data-document-converter]');
+		const status = converter.locator('[data-status]');
+		const download = converter.locator('[data-download]');
+		const profileSelect = converter.locator('[data-profile-select]');
+
+		await converter.locator('[data-file-input]').setInputFiles(illustratedUpload);
+		await profileSelect.selectOption('docx');
+		await converter.locator('[data-process]').click();
+
+		// Pandoc writes the DOCX either way, so the status line is the only place the
+		// replaced image can be reported.
+		await expect(download).toHaveAttribute('download', 'quarterly-report.docx', { timeout: 90_000 });
+		await expect(status).toHaveText(
+			'The document was converted, but Pandoc reported: Could not fetch resource chart.png: replacing image with description',
+			{ timeout: 30_000 },
+		);
+		await expect(status).toHaveAttribute('data-state', 'info');
+		await expect(download).toBeVisible();
+
+		const docx = await readDownload(download);
+		expect(hexAt(docx.header, 0).startsWith('504b0304')).toBe(true);
+		expect(docx.text.includes('word/document.xml')).toBe(true);
+
+		// The same file loses nothing on the way to HTML, and that run still reads as a
+		// plain success.
+		await profileSelect.selectOption('html');
+		await converter.locator('[data-process]').click();
+		await expect(download).toHaveAttribute('download', 'quarterly-report.html', { timeout: 90_000 });
+		await expect(status).toHaveText('The document was converted successfully.', { timeout: 30_000 });
+		await expect(status).toHaveAttribute('data-state', 'success');
+		expect((await readDownload(download)).text).toContain('<img src="chart.png"');
+
+		expect(pageErrors).toEqual([]);
+	});
+
+	test('the PDF result points at its download instead of an embed the sandbox blocks', async ({ page }) => {
+		test.setTimeout(180_000);
+		const pageErrors = collectPageErrors(page);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/converter/document-converter/');
+
+		const converter = page.locator('[data-document-converter]');
+		const download = converter.locator('[data-download]');
+		const htmlPreview = converter.locator('[data-html-preview]');
+		const pdfNote = converter.locator('[data-pdf-preview-note]');
+
+		await converter.locator('[data-file-input]').setInputFiles(documentUpload);
+		await converter.locator('[data-profile-select]').selectOption('pdf');
+		await converter.locator('[data-process]').click();
+		await expect(download).toHaveAttribute('download', 'conversion-test.pdf', { timeout: 90_000 });
+
+		await expect(converter.locator('[data-document-preview]')).toBeVisible({ timeout: 30_000 });
+		await expect(pdfNote).toBeVisible();
+		await expect(pdfNote).toHaveText('The PDF is finished and ready to download. It cannot be shown here.');
+		await expect(htmlPreview).toBeHidden();
+		expect(await htmlPreview.getAttribute('src')).toBeNull();
+
+		// The frame keeps the sandbox that made the embed impossible in the first place.
+		const sandbox = await htmlPreview.getAttribute('sandbox');
+		expect(sandbox, 'the preview frame stays sandboxed').not.toBeNull();
+		expect(sandbox).not.toContain('allow-');
+
+		const pdf = await readDownload(download);
+		expect(pdf.type).toContain('application/pdf');
+		expect(pdf.text.startsWith('%PDF-')).toBe(true);
+		expect(pdf.text).toMatch(/\/Type\s*\/Page[^s]/);
+
+		// A format that can be previewed takes the frame back and drops the note.
+		await converter.locator('[data-profile-select]').selectOption('html');
+		await converter.locator('[data-process]').click();
+		await expect(htmlPreview).toBeVisible({ timeout: 90_000 });
+		await expect(pdfNote).toBeHidden();
+
+		expect(pageErrors).toEqual([]);
+	});
+
 	test('a container Pandoc cannot open reports the reason Pandoc gave', async ({ page }) => {
 		test.setTimeout(180_000);
 		const pageErrors = collectPageErrors(page);
@@ -262,6 +412,53 @@ test.describe('image format converter artifacts', () => {
 				await expect(converter.locator('[data-output-preview-note]')).toBeHidden();
 			}
 		}
+
+		expect(pageErrors).toEqual([]);
+	});
+
+	test('the result panel counts the frames of the written file, not of the source', async ({ page }) => {
+		test.setTimeout(180_000);
+		const pageErrors = collectPageErrors(page);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/converter/image-format-converter/');
+
+		const converter = page.locator('[data-image-converter]');
+		const status = converter.locator('[data-status]');
+		const download = converter.locator('[data-download]');
+		const outputMeta = converter.locator('[data-output-meta]');
+
+		await converter.locator('[data-file]').setInputFiles(animatedGifUpload);
+		await expect(converter.locator('[data-convert]')).toBeEnabled();
+
+		// PNG cannot hold the four source frames, and the panel describes the PNG.
+		await converter.locator('[data-format]').selectOption('PNG');
+		await converter.locator('[data-convert]').click();
+		await expect(status).toHaveText('animated-loop.png was created as PNG.', { timeout: 120_000 });
+		await expect(outputMeta).toContainText('12 x 10px');
+		await expect(outputMeta).toContainText('1 frame');
+		await expect(outputMeta).not.toContainText('4 frames');
+
+		const png = await readDownload(download);
+		expect(hexAt(png.header, 0).startsWith('89504e470d0a1a0a')).toBe(true);
+		expect(hexAt(png.header, 12).startsWith('49484452'), 'IHDR').toBe(true);
+		expect(hexAt(png.header, 16).startsWith('0000000c'), 'PNG width 12').toBe(true);
+		expect(hexAt(png.header, 20).startsWith('0000000a'), 'PNG height 10').toBe(true);
+		expect(occurrences(png.text, 'IHDR'), 'a single PNG image').toBe(1);
+		expect(png.text.includes('acTL'), 'not an animated PNG').toBe(false);
+
+		// GIF keeps every frame, so the same source is reported differently.
+		await converter.locator('[data-format]').selectOption('GIF');
+		await converter.locator('[data-convert]').click();
+		await expect(status).toHaveText('animated-loop.gif was created as GIF.', { timeout: 120_000 });
+		await expect(outputMeta).toContainText('12 x 10px');
+		await expect(outputMeta).toContainText('4 frames');
+
+		const gif = await readDownload(download);
+		expect(hexAt(gif.header, 0).startsWith('474946383961')).toBe(true);
+		expect(hexAt(gif.header, 6).startsWith('0c00'), 'GIF width 12').toBe(true);
+		expect(hexAt(gif.header, 8).startsWith('0a00'), 'GIF height 10').toBe(true);
+		// 0x21 0xF9 introduces a graphic control extension: one per animation frame.
+		expect(occurrences(gif.text, '!ù'), 'four graphic control extensions').toBe(4);
 
 		expect(pageErrors).toEqual([]);
 	});
@@ -511,6 +708,31 @@ test.describe('AUP3 to WAV artifacts', () => {
 		await expect(status).toHaveText('The dry WAV mix is ready.', { timeout: 60_000 });
 		await expect(converter.locator('[data-warnings]')).toBeHidden();
 		await expect(converter.locator('[data-warning-list] li')).toHaveCount(0);
+
+		expect(pageErrors).toEqual([]);
+	});
+
+	test('the WAV download drops the .aup3 suffix and nothing else', async ({ page }) => {
+		test.setTimeout(180_000);
+		const pageErrors = collectPageErrors(page);
+		const fixture = await createAup3Fixture();
+		await page.goto('/en/tools/converter/aup3-to-wav/');
+
+		const converter = page.locator('[data-aup3-wav-converter]');
+		const download = converter.locator('[data-download]');
+
+		await converter.locator('[data-file-input]').setInputFiles({
+			name: 'live.set.2.aup3',
+			mimeType: 'application/octet-stream',
+			buffer: Buffer.from(fixture),
+		});
+		await converter.locator('[data-convert]').click();
+
+		// The tool now names the file with the shared aup3OutputName helper, which
+		// strips the .aup3 suffix rather than whatever follows the last dot.
+		await expect(converter.locator('[data-status]')).toHaveText('The dry WAV mix is ready.', { timeout: 60_000 });
+		await expect(download).toHaveAttribute('download', 'live.set.2.wav');
+		expect(await readWavHeader(download)).toMatchObject({ riff: 'RIFF', wave: 'WAVE', audioFormat: 1, bitDepth: 16 });
 
 		expect(pageErrors).toEqual([]);
 	});

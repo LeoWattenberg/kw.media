@@ -42,6 +42,20 @@ export function buildOutputName(sourceName, extension) {
 	return `${base}${extension}`;
 }
 
+/**
+ * Pandoc reports what it dropped in `warnings` while still writing a file, so a
+ * conversion that lost an image looks identical to a clean one without this.
+ */
+export function firstPandocWarning(warnings) {
+	for (const warning of Array.isArray(warnings) ? warnings : []) {
+		const text = typeof warning === 'string'
+			? warning
+			: String((warning && (warning.pretty || warning.message)) || '');
+		if (text.trim()) return text.trim();
+	}
+	return '';
+}
+
 export function buildPandocOptions(profile, outputName) {
 	const options = { to: profile.format };
 	if (profile.binary) options['output-file'] = outputName;

@@ -157,7 +157,7 @@ const copyJson = JSON.stringify(copy);
 </section>
 
 <script>
-	import { decodeAup3File, requiresAup3LargeProjectConfirmation } from '../../../lib/tools/aup3-browser';
+	import { aup3OutputName, decodeAup3File, requiresAup3LargeProjectConfirmation } from '../../../lib/tools/aup3-browser';
 	import { createWavStreamEncoder } from '../../../lib/tools/audio-codecs/wav';
 	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
 
@@ -268,7 +268,7 @@ const copyJson = JSON.stringify(copy);
 					}
 					encoder.finalize();
 					const blob = new Blob(wavChunks, { type: 'audio/wav' });
-					const outputName = buildOutputName(state.file.name);
+					const outputName = aup3OutputName(state.file.name);
 					state.outputUrl = URL.createObjectURL(blob);
 
 					download.href = state.outputUrl;
@@ -384,11 +384,6 @@ const copyJson = JSON.stringify(copy);
 					? String(error.message)
 					: String(error || copy.statusGeneric);
 			}
-		}
-
-		function buildOutputName(name) {
-			const baseName = String(name || '').replace(/\.[^.]+$/, '') || 'audacity-project';
-			return `${baseName}.wav`;
 		}
 
 		function formatDuration(seconds) {

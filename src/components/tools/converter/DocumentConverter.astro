@@ -38,6 +38,7 @@ const copyByLocale = {
 		statusPreparing: 'Datei wird vorbereitet…',
 		statusProcessing: 'Konvertierung läuft…',
 		statusReady: 'Das Dokument wurde erfolgreich konvertiert.',
+		statusReadyWarning: 'Das Dokument wurde konvertiert, aber Pandoc meldet: {warning}',
 		statusError: 'Konvertierung fehlgeschlagen: {message}',
 		statusPandocLoading: 'Pandoc WASM wird geladen…',
 		statusPandocReady: 'Pandoc WASM ist bereit.',
@@ -49,6 +50,7 @@ const copyByLocale = {
 		outputHelp: 'Prüfe die Ausgabe direkt in der Vorschau oder lade die konvertierte Datei herunter.',
 		previewTitle: 'Vorschau der konvertierten Datei',
 		previewUnavailable: 'Für dieses Zielformat ist keine sichere Browser-Vorschau verfügbar. Du kannst die Datei herunterladen.',
+		previewPdf: 'Das PDF ist fertig und steht zum Download bereit. Hier lässt es sich nicht anzeigen.',
 	},
 	en: {
 		eyebrow: 'Document tool',
@@ -67,6 +69,7 @@ const copyByLocale = {
 		statusPreparing: 'Preparing file…',
 		statusProcessing: 'Conversion in progress…',
 		statusReady: 'The document was converted successfully.',
+		statusReadyWarning: 'The document was converted, but Pandoc reported: {warning}',
 		statusError: 'Conversion failed: {message}',
 		statusPandocLoading: 'Loading Pandoc WASM…',
 		statusPandocReady: 'Pandoc WASM is ready.',
@@ -78,6 +81,7 @@ const copyByLocale = {
 		outputHelp: 'Review the output in the built-in preview or download the converted file.',
 		previewTitle: 'Converted-file preview',
 		previewUnavailable: 'This target format cannot be previewed safely in the browser. You can download the file.',
+		previewPdf: 'The PDF is finished and ready to download. It cannot be shown here.',
 	},
 } satisfies Record<Locale, Record<string, string>>;
 
@@ -121,6 +125,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 							<p>{copy.previewTitle}</p>
 							<iframe data-html-preview title={copy.previewTitle} sandbox hidden></iframe>
 							<pre data-text-preview hidden></pre>
+							<small data-pdf-preview-note hidden>{copy.previewPdf}</small>
 							<small data-preview-unavailable hidden>{copy.previewUnavailable}</small>
 						</div>
 						<p class="output-help">{copy.outputHelp}</p>
@@ -215,7 +220,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 </style>
 
 <script>
-	import { buildOutputName, buildPandocInputOptions, buildPandocOptions, createTextPdf, detectInputFormat, isBinaryInput } from '../../../lib/tools/document-converter';
+	import { buildOutputName, buildPandocInputOptions, buildPandocOptions, createTextPdf, detectInputFormat, firstPandocWarning, isBinaryInput } from '../../../lib/tools/document-converter';
 	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
 
 	(() => {
@@ -243,6 +248,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 			const documentPreview = root.querySelector('[data-document-preview]');
 			const htmlPreview = root.querySelector('[data-html-preview]');
 			const textPreview = root.querySelector('[data-text-preview]');
+			const pdfPreviewNote = root.querySelector('[data-pdf-preview-note]');
 			const previewUnavailable = root.querySelector('[data-preview-unavailable]');
 
 			const state = {
@@ -321,7 +327,12 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 						type: outputProfile.label,
 					});
 					await renderDocumentPreview(blob, url, outputProfile, output.previewHtml);
-					setStatus(copy.statusReady, 'success');
+					// Pandoc writes a file even when it had to drop something from it, so a
+					// lossy run says what was lost instead of claiming a clean conversion.
+					setStatus(
+						output.warning ? format(copy.statusReadyWarning, { warning: output.warning }) : copy.statusReady,
+						output.warning ? 'info' : 'success',
+					);
 				} catch (error) {
 					setStatus(format(copy.statusError, { message: messageFromError(error) }), 'error');
 				} finally {
@@ -350,24 +361,27 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 						: profile.preview === 'latex'
 							? await createHtmlPreview(pandoc, 'latex', result.stdout, {})
 							: null;
+					// Only the requested conversion is reported on; the preview run is a
+					// second pandoc call whose warnings say nothing about the download.
+					const report = { previewHtml, warning: firstPandocWarning(result.warnings) };
 
 					if (profile.pdf) {
-						return { blob: createTextPdf(result.stdout, buildOutputName(file.name, profile.extension)), previewHtml };
+						return { blob: createTextPdf(result.stdout, buildOutputName(file.name, profile.extension)), ...report };
 					}
 
 					if (typeof result.stdout === 'string' && result.stdout.length) {
-						return { blob: new Blob([result.stdout], { type: profile.mimeType }), previewHtml };
+						return { blob: new Blob([result.stdout], { type: profile.mimeType }), ...report };
 					}
 
 					const outputFile = result.files && result.files[outputName];
 					if (outputFile instanceof Blob) {
-						return { blob: outputFile, previewHtml };
+						return { blob: outputFile, ...report };
 					}
 					if (outputFile instanceof Uint8Array) {
-						return { blob: new Blob([outputFile], { type: profile.mimeType }), previewHtml };
+						return { blob: new Blob([outputFile], { type: profile.mimeType }), ...report };
 					}
 					if (typeof outputFile === 'string') {
-						return { blob: new Blob([outputFile], { type: profile.mimeType }), previewHtml };
+						return { blob: new Blob([outputFile], { type: profile.mimeType }), ...report };
 					}
 
 					throw new Error(pandocErrorMessage(result) || copy.statusGeneric);
@@ -491,7 +505,15 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 				resetDocumentPreview();
 				documentPreview.hidden = false;
 
-				if (profile.preview === 'pdf' || profile.format === 'html') {
+				// The preview frame stays fully sandboxed, which Chromium's PDF viewer cannot
+				// run in, so the finished PDF is offered through the download link instead of
+				// an embed that only ever renders an error page.
+				if (profile.preview === 'pdf') {
+					pdfPreviewNote.hidden = false;
+					return;
+				}
+
+				if (profile.format === 'html') {
 					htmlPreview.src = url;
 					htmlPreview.hidden = false;
 					return;
@@ -519,6 +541,7 @@ const normalizedDefaultProfile = profileDefinitions.some((profile) => profile.va
 				htmlPreview.removeAttribute('srcdoc');
 				textPreview.hidden = true;
 				textPreview.textContent = '';
+				pdfPreviewNote.hidden = true;
 				previewUnavailable.hidden = true;
 			}
 

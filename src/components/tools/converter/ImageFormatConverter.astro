@@ -205,7 +205,7 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 </section>
 
 <script>
-	import { createOutputName, fileExtension, formatFrames } from '../../../lib/tools/image-format-converter';
+	import { createOutputName, fileExtension, formatOutputMeta } from '../../../lib/tools/image-format-converter';
 	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
 
 	(() => {
@@ -357,12 +357,7 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 					outputPreviewNote.hidden = true;
 					outputImage.src = state.outputUrl;
 					outputFormat.textContent = selectedFormat.label;
-					outputMeta.textContent = format(copy.imageMeta, {
-						width: conversion.width || '?',
-						height: conversion.height || '?',
-						frames: formatFrames(conversion.frames, copy),
-						size: formatBytes(outputBlob.size),
-					});
+					outputMeta.textContent = formatOutputMeta(conversion.written, formatBytes(outputBlob.size), copy);
 					downloadLink.href = state.outputUrl;
 					downloadLink.download = outputName;
 					downloadLink.hidden = false;
@@ -382,22 +377,10 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 			}
 
 			function convertWithMagick(ImageMagick, inputBytes, selectedFormat, quality) {
-				let metadata = {
-					width: 0,
-					height: 0,
-					frames: 0,
-				};
-
 				const bytes = ImageMagick.readCollection(inputBytes, (images) => {
 					if (!images.length) {
 						throw new Error(copy.noFrames);
 					}
-
-					metadata = {
-						width: images[0].width,
-						height: images[0].height,
-						frames: images.length,
-					};
 
 					if (selectedFormat.quality) {
 						for (const image of images) {
@@ -410,8 +393,24 @@ const normalizedDefaultFormat = outputFormats.some((format) => format.value === 
 
 				return {
 					bytes,
-					...metadata,
+					written: describeWrittenImage(ImageMagick, bytes, selectedFormat),
 				};
+			}
+
+			// The result panel describes the file that was written, not the decoded source:
+			// an animated GIF written as PNG keeps a single frame, and ICO carries its own
+			// geometry. The format is named explicitly because the WASM build only decodes
+			// an ICO container when it is told what it is reading.
+			function describeWrittenImage(ImageMagick, bytes, selectedFormat) {
+				try {
+					return ImageMagick.readCollection(bytes, selectedFormat.value, (images) => ({
+						width: images.length ? images[0].width : 0,
+						height: images.length ? images[0].height : 0,
+						frames: images.length,
+					}));
+				} catch {
+					return null;
+				}
 			}
 
 			async function loadMagick() {

@@ -9,13 +9,16 @@ import {
 	buildPandocOptions,
 	createTextPdf,
 	detectInputFormat,
+	firstPandocWarning,
 	isBinaryInput,
 } from '../src/lib/tools/document-converter.js';
 import {
 	createOutputName,
 	fileExtension,
 	formatFrames,
+	formatOutputMeta,
 } from '../src/lib/tools/image-format-converter.js';
+import { aup3OutputName } from '../src/lib/tools/aup3-browser.js';
 import {
 	createWavHeader,
 	createWavStreamEncoder,
@@ -129,7 +132,7 @@ test('a corrupt DOCX leaves pandoc without output but with an explanatory stderr
 	assert.equal(result.stderr.split('\n').filter(Boolean).length, 1);
 });
 
-test('pandoc reports the dropped resources the converter still calls a success', async () => {
+test('pandoc reports the dropped resources the status line now repeats', async () => {
 	const outputProfile = profile('docx');
 	const outputName = `output${outputProfile.extension}`;
 	const result = await convert(
@@ -143,6 +146,28 @@ test('pandoc reports the dropped resources the converter still calls a success',
 	assert.equal(result.warnings.length, 1);
 	assert.equal(result.warnings[0].type, 'CouldNotFetchResource');
 	assert.match(result.warnings[0].pretty, /chart\.png/);
+
+	// The DOCX is written either way, so this text is the only thing that separates
+	// a document that lost its image from one that converted cleanly.
+	assert.equal(
+		firstPandocWarning(result.warnings),
+		'Could not fetch resource chart.png: replacing image with description',
+	);
+
+	const clean = await convert({ from: 'markdown', ...buildPandocOptions(outputProfile, outputName) }, markdown, {});
+	assert.deepEqual(clean.warnings, []);
+	assert.equal(firstPandocWarning(clean.warnings), '');
+});
+
+test('firstPandocWarning reports the first warning that carries text', () => {
+	assert.equal(firstPandocWarning(undefined), '');
+	assert.equal(firstPandocWarning([]), '');
+	assert.equal(firstPandocWarning('not a list'), '');
+	assert.equal(firstPandocWarning([{ pretty: '  Could not fetch resource logo.svg  ' }]), 'Could not fetch resource logo.svg');
+	assert.equal(firstPandocWarning([{ message: 'replacing image with description' }]), 'replacing image with description');
+	assert.equal(firstPandocWarning([{ pretty: 'pretty wins', message: 'message loses' }]), 'pretty wins');
+	assert.equal(firstPandocWarning(['a bare string warning']), 'a bare string warning');
+	assert.equal(firstPandocWarning([{}, null, { pretty: '   ' }, { pretty: 'the first real one' }]), 'the first real one');
 });
 
 test('image converter output names and frame labels survive odd input', () => {
@@ -160,6 +185,34 @@ test('image converter output names and frame labels survive odd input', () => {
 	assert.equal(formatFrames(undefined, copy), '1 frame');
 	assert.equal(formatFrames(2, copy), '2 frames');
 	assert.equal(formatFrames(3, { singleFrame: '1 frame', multipleFrames: '{count} of {total} frames' }), '3 of  frames');
+});
+
+test('the result panel describes the written file and never invents its geometry', () => {
+	const copy = { imageMeta: '{width} x {height}px | {frames} | {size}', singleFrame: '1 frame', multipleFrames: '{count} frames' };
+
+	// An animated GIF written as PNG keeps one frame, so the panel reports the PNG.
+	assert.equal(formatOutputMeta({ width: 96, height: 64, frames: 1 }, '7 KB', copy), '96 x 64px | 1 frame | 7 KB');
+	assert.equal(formatOutputMeta({ width: 12, height: 10, frames: 4 }, '1 KB', copy), '12 x 10px | 4 frames | 1 KB');
+	assert.equal(formatOutputMeta({ width: 0, height: 0, frames: 2 }, '1 KB', copy), '? x ?px | 2 frames | 1 KB');
+
+	// Bytes the converter could not read back leave only the size it measured itself.
+	assert.equal(formatOutputMeta(null, '25 KB', copy), '25 KB');
+	assert.equal(formatOutputMeta({ width: 96, height: 64, frames: 0 }, '25 KB', copy), '25 KB');
+	assert.equal(formatOutputMeta({ width: 96, height: 64, frames: Number.NaN }, '25 KB', copy), '25 KB');
+});
+
+test('the AUP3 helper names every download the .aup3 picker can hand it', () => {
+	// The tool used to keep a private copy that stripped the last extension instead
+	// of the .aup3 suffix; both agree on every name that picker produces.
+	const stripLastExtension = (name) => `${String(name || '').replace(/\.[^.]+$/, '') || 'audacity-project'}.wav`;
+
+	for (const name of ['session.aup3', 'session.AUP3', 'Browser project.aup3', 'live.set.2.aup3', 'float mix.aup3', '.aup3', '']) {
+		assert.equal(aup3OutputName(name), stripLastExtension(name), name);
+	}
+
+	assert.equal(aup3OutputName('live.set.2.aup3'), 'live.set.2.wav');
+	assert.equal(aup3OutputName('  spaced project.aup3  '), 'spaced project.wav');
+	assert.equal(aup3OutputName(null), 'audacity-project.wav');
 });
 
 test('encodeWav writes the canonical 16-bit RIFF file the AUP3 tool downloads', () => {

@@ -377,22 +377,24 @@ test.describe('visual tool interactions', () => {
 		await page.goto('/en/tools/converter/document-converter/');
 		await page.locator('[data-file-input]').setInputFiles(documentFixture);
 
+		// A PDF cannot be shown inside the sandboxed preview frame, so that profile explains itself
+		// in a note instead, and Pandoc's empty-title warning for EPUB is repeated by the status.
 		const profiles = [
-			['html', '.html', '[data-html-preview]'],
-			['markdown', '.md', '[data-text-preview]'],
-			['plain', '.txt', '[data-text-preview]'],
-			['pdf', '.pdf', '[data-html-preview]'],
-			['docx', '.docx', '[data-html-preview]'],
-			['odt', '.odt', '[data-html-preview]'],
-			['epub', '.epub', '[data-html-preview]'],
-			['latex', '.tex', '[data-html-preview]'],
-			['rtf', '.rtf', '[data-text-preview]'],
+			['html', '.html', '[data-html-preview]', 'converted successfully'],
+			['markdown', '.md', '[data-text-preview]', 'converted successfully'],
+			['plain', '.txt', '[data-text-preview]', 'converted successfully'],
+			['pdf', '.pdf', '[data-pdf-preview-note]', 'converted successfully'],
+			['docx', '.docx', '[data-html-preview]', 'converted successfully'],
+			['odt', '.odt', '[data-html-preview]', 'converted successfully'],
+			['epub', '.epub', '[data-html-preview]', 'Pandoc reported'],
+			['latex', '.tex', '[data-html-preview]', 'converted successfully'],
+			['rtf', '.rtf', '[data-text-preview]', 'converted successfully'],
 		];
 
-		for (const [value, extension, preview] of profiles) {
+		for (const [value, extension, preview, statusText] of profiles) {
 			await page.locator('[data-profile-select]').selectOption(value);
 			await page.locator('[data-process]').click();
-			await expect(page.locator('[data-status]')).toContainText('successfully', { timeout: 30000 });
+			await expect(page.locator('[data-status]')).toContainText(statusText, { timeout: 30000 });
 			await expect(page.locator('[data-download]')).toBeVisible();
 			await expect(page.locator('[data-download]')).toHaveAttribute('download', new RegExp(`\\${extension}$`));
 			await expect(page.locator(preview)).toBeVisible();
