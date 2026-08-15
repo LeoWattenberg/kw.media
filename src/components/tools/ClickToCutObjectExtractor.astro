@@ -19,7 +19,7 @@ const copy = {
 		source: 'Quelle', choose: 'Bild auswählen', hint: 'PNG, JPEG, WebP und weitere Browser-Bildformate',
 		settings: 'Extraktion', threshold: 'Masken-Schwelle', feather: 'Kanten weichzeichnen', format: 'Ausgabeformat',
 		cut: 'Objekt ausschneiden', clear: 'Zurücksetzen', result: 'Ergebnis', download: 'Objekt herunterladen',
-		exportSize: 'Ausgabe: {width} x {height}px', exportScaled: 'Ausgabe: {width} x {height}px, verkleinert von {sourceWidth} x {sourceHeight}px',
+		exportSize: 'Ausgabe: {width} x {height}px',
 		waiting: 'Wähle ein Bild und klicke auf das Objekt.', loading: 'MediaPipe-Modell wird geladen…', ready: 'Modell bereit. Klicke auf das Objekt.',
 		selected: 'Punkt gewählt. Starte Extraktion.', processing: 'Objekt wird segmentiert…', done: 'Objekt wurde ausgeschnitten.',
 		noPoint: 'Klicke zuerst auf das Objekt im Bild.', loadError: 'MediaPipe konnte nicht geladen werden: {message}', error: 'Extraktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
@@ -31,7 +31,7 @@ const copy = {
 		source: 'Source', choose: 'Choose image', hint: 'PNG, JPEG, WebP, and other browser image formats',
 		settings: 'Extraction', threshold: 'Mask threshold', feather: 'Edge feather', format: 'Output format',
 		cut: 'Cut object', clear: 'Reset', result: 'Result', download: 'Download object',
-		exportSize: 'Export: {width} x {height}px', exportScaled: 'Export: {width} x {height}px, scaled down from {sourceWidth} x {sourceHeight}px',
+		exportSize: 'Export: {width} x {height}px',
 		waiting: 'Choose an image, then click the object.', loading: 'Loading MediaPipe model…', ready: 'Model ready. Click the object.',
 		selected: 'Point selected. Ready to extract.', processing: 'Segmenting object…', done: 'Object extracted.',
 		noPoint: 'Click the object in the image first.', loadError: 'Could not load MediaPipe: {message}', error: 'Extraction failed: {message}', generic: 'Unknown error',
@@ -179,10 +179,7 @@ const copyJson = JSON.stringify(copy);
 					if (outputUrl) URL.revokeObjectURL(outputUrl);
 					outputUrl = URL.createObjectURL(blob);
 					resultImage.src = outputUrl;
-					/* Segmentation runs on a canvas capped at 1200px wide, so the export can be smaller than the source. */
-					resultSize.textContent = outputCanvas.width < image.naturalWidth || outputCanvas.height < image.naturalHeight
-						? format(copy.exportScaled, { width: outputCanvas.width, height: outputCanvas.height, sourceWidth: image.naturalWidth, sourceHeight: image.naturalHeight })
-						: format(copy.exportSize, { width: outputCanvas.width, height: outputCanvas.height });
+					resultSize.textContent = format(copy.exportSize, { width: outputCanvas.width, height: outputCanvas.height });
 					resultSize.hidden = false;
 					resultPanel.hidden = false;
 					resultFrame.hidden = false;
@@ -222,20 +219,27 @@ const copyJson = JSON.stringify(copy);
 
 			function buildCutout(result) {
 				const mask = readMask(result);
+				/*
+				 * Segmentation runs on a canvas capped at 1200px because the model is priced in
+				 * pixels, but the export is the picture the visitor handed over. The mask is
+				 * sampled proportionally, so it stretches to the full frame.
+				 */
+				const width = image.naturalWidth || canvas.width;
+				const height = image.naturalHeight || canvas.height;
 				const alphaCanvas = document.createElement('canvas');
-				alphaCanvas.width = canvas.width;
-				alphaCanvas.height = canvas.height;
+				alphaCanvas.width = width;
+				alphaCanvas.height = height;
 				const alphaContext = alphaCanvas.getContext('2d');
-				const alphaImage = alphaContext.createImageData(canvas.width, canvas.height);
+				const alphaImage = alphaContext.createImageData(width, height);
 				const threshold = Number(thresholdInput.value) / 100;
 
-				for (let y = 0; y < canvas.height; y++) {
-					for (let x = 0; x < canvas.width; x++) {
-						const maskX = Math.min(mask.width - 1, Math.floor(x * mask.width / canvas.width));
-						const maskY = Math.min(mask.height - 1, Math.floor(y * mask.height / canvas.height));
+				for (let y = 0; y < height; y++) {
+					for (let x = 0; x < width; x++) {
+						const maskX = Math.min(mask.width - 1, Math.floor(x * mask.width / width));
+						const maskY = Math.min(mask.height - 1, Math.floor(y * mask.height / height));
 						const value = mask.values[maskY * mask.width + maskX];
 						const alpha = value >= threshold ? 255 : 0;
-						const index = (y * canvas.width + x) * 4;
+						const index = (y * width + x) * 4;
 						alphaImage.data[index] = 255;
 						alphaImage.data[index + 1] = 255;
 						alphaImage.data[index + 2] = 255;
@@ -244,12 +248,13 @@ const copyJson = JSON.stringify(copy);
 				}
 				alphaContext.putImageData(alphaImage, 0, 0);
 
-				const feather = Number(featherInput.value || 0);
+				/* The slider is set against the preview, so the blur grows with the exported frame. */
+				const feather = Number(featherInput.value || 0) * (width / canvas.width);
 				const outputCanvas = document.createElement('canvas');
-				outputCanvas.width = canvas.width;
-				outputCanvas.height = canvas.height;
+				outputCanvas.width = width;
+				outputCanvas.height = height;
 				const outputContext = outputCanvas.getContext('2d');
-				outputContext.drawImage(image, 0, 0, canvas.width, canvas.height);
+				outputContext.drawImage(image, 0, 0, width, height);
 				outputContext.globalCompositeOperation = 'destination-in';
 				if (feather > 0) {
 					outputContext.filter = `blur(${feather}px)`;

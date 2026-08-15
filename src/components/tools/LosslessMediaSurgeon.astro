@@ -114,9 +114,13 @@ const copyJson = JSON.stringify(copy);
 			onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info'),
 		});
 
+		/* Once the visitor names a container, that is the container: the operation only fills in a default. */
+		let containerChosen = false;
+
 		sourceInput.addEventListener('change', update);
 		audioInput.addEventListener('change', update);
 		operation.addEventListener('change', () => { updateOperation(); update(); });
+		container.addEventListener('change', () => { containerChosen = true; clearResult(); update(); });
 		processButton.addEventListener('click', () => void process());
 		clearButton.addEventListener('click', reset);
 		updateOperation();
@@ -127,8 +131,7 @@ const copyJson = JSON.stringify(copy);
 			replacementWrap.hidden = !isReplace;
 			times.hidden = !isTrim;
 			trimNote.hidden = !isTrim;
-			if (operation.value === 'extract') container.value = 'mka';
-			else if (container.value === 'mka') container.value = 'mkv';
+			if (!containerChosen) container.value = operation.value === 'extract' ? 'mka' : 'mkv';
 		}
 
 		function update() {
@@ -201,7 +204,7 @@ const copyJson = JSON.stringify(copy);
 
 		function reset() {
 			sourceInput.value = ''; audioInput.value = ''; startInput.value = ''; endInput.value = '';
-			operation.value = 'remux'; container.value = 'mkv'; clearResult(); updateOperation(); update();
+			operation.value = 'remux'; containerChosen = false; container.value = 'mkv'; clearResult(); updateOperation(); update();
 		}
 		function clearResult() {
 			if (outputUrl) URL.revokeObjectURL(outputUrl);
