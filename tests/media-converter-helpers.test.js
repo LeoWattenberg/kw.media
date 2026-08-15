@@ -283,6 +283,43 @@ test('gif args carry the slider values into the filter chain and the loop flag',
 	assert.deepEqual(once.slice(once.indexOf('-loop'), once.indexOf('-loop') + 2), ['-loop', '-1'], 'an unchecked loop toggle writes no loop count');
 });
 
+test('a video the browser cannot read converts whole, without a seek or a duration', () => {
+	const raw = { start: '2', duration: '3', fps: '6', width: '240', colors: '32', loop: true };
+	/* The picker offers AVI, FLV, MKV and more; nothing but ffmpeg can measure some of them,
+	   so `trim: false` drops the window the number inputs could not supply. */
+	const untrimmed = normalizeGifSettings({ ...raw, trim: false });
+
+	assert.deepEqual(untrimmed, { start: null, duration: null, fps: 6, width: 240, colors: 32, loop: true });
+	assert.deepEqual(buildGifArgs('input.avi', 'output.gif', untrimmed), [
+		'-i', 'input.avi',
+		'-filter_complex', buildGifFilter(untrimmed),
+		'-loop', '0',
+		'-gifflags', '+transdiff',
+		'-y', 'output.gif',
+	]);
+	assert.ok(!buildGifArgs('input.avi', 'output.gif', untrimmed).includes('-ss'), 'no seek without a known start');
+	assert.ok(!buildGifArgs('input.avi', 'output.gif', untrimmed).includes('-t'), 'no limit without a known length');
+	/* The sliders that never needed a duration keep driving the filter chain. */
+	assert.ok(buildGifFilter(untrimmed).includes('fps=6,scale=240:-1:flags=lanczos'));
+	assert.ok(buildGifFilter(untrimmed).includes('palettegen=max_colors=32'));
+	assert.deepEqual(
+		buildGifArgs('input.avi', 'output.gif', { ...untrimmed, loop: false }).slice(-6, -4),
+		['-loop', '-1'],
+		'the loop toggle still applies without a trim window',
+	);
+
+	/* Trimming stays on for every readable video, including when the flag is passed explicitly. */
+	const trimmed = normalizeGifSettings({ ...raw, trim: true }, 10);
+	assert.deepEqual(trimmed, { start: 2, duration: 3, fps: 6, width: 240, colors: 32, loop: true });
+	assert.deepEqual(buildGifArgs('input.webm', 'output.gif', trimmed).slice(0, 4), ['-ss', '2', '-t', '3']);
+	assert.deepEqual(normalizeGifSettings(raw, 10), trimmed, 'an absent flag keeps the trim window');
+	/* A zero start is a real seek, not a missing one. */
+	assert.deepEqual(
+		buildGifArgs('input.webm', 'output.gif', normalizeGifSettings({ ...raw, start: '0' }, 10)).slice(0, 4),
+		['-ss', '0', '-t', '3'],
+	);
+});
+
 test('gif durations render as minutes and seconds', () => {
 	assert.equal(formatTime(0), '0:00');
 	assert.equal(formatTime(0.99), '0:01');

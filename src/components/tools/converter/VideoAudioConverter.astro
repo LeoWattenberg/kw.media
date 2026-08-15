@@ -33,6 +33,7 @@ const copyByLocale = {
 		clear: 'Zurücksetzen',
 		download: 'Konvertierte Datei herunterladen',
 		statusWaiting: 'Wähle eine Audiodatei oder ein Video aus, um zu starten.',
+		statusSelected: '{name} ist bereit. Wähle ein Zielformat.',
 		statusPreparing: 'Datei wird vorbereitet…',
 		statusProcessing: 'Konvertierung läuft…',
 		statusReady: 'Die Datei wurde erfolgreich konvertiert.',
@@ -63,6 +64,7 @@ const copyByLocale = {
 		clear: 'Reset',
 		download: 'Download converted file',
 		statusWaiting: 'Choose an audio file or video to start.',
+		statusSelected: '{name} is ready. Choose a target format.',
 		statusPreparing: 'Preparing file…',
 		statusProcessing: 'Conversion in progress…',
 		statusReady: 'The file was converted successfully.',
@@ -212,7 +214,7 @@ const normalizedDefaultProfile = CONVERSION_PROFILES.some((profile) => profile.v
 				showMediaPreview('source');
 				updateSelectionUi();
 				if (state.selectedFile) {
-					setStatus(copy.statusPreparing, 'info');
+					setStatus(format(copy.statusSelected, { name: state.selectedFile.name }), 'success');
 				}
 			});
 			processButton.addEventListener('click', () => {
@@ -246,7 +248,8 @@ const normalizedDefaultProfile = CONVERSION_PROFILES.some((profile) => profile.v
 					return;
 				}
 
-				setStatus(copy.statusPreparing, 'info');
+				/* Nothing is being prepared yet: the file is loaded and waiting for a target format. */
+				setStatus(format(copy.statusSelected, { name: file.name }), 'success');
 			}
 
 			async function convertFile() {
@@ -300,6 +303,8 @@ const normalizedDefaultProfile = CONVERSION_PROFILES.some((profile) => profile.v
 				return ffmpegRuntime.run(async (ffmpeg) => {
 					const inputName = `${Date.now()}-${Math.random().toString(16).slice(2)}${inputExtension(file)}`;
 					const outputName = `${inputName}${profile.extension}`;
+					/* The engine is up; now the file really is being prepared for it. */
+					setStatus(copy.statusPreparing, 'info');
 					const sourceBuffer = await file.arrayBuffer();
 
 					await ffmpeg.writeFile(inputName, new Uint8Array(sourceBuffer.slice(0)));

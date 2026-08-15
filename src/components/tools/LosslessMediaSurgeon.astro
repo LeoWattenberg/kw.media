@@ -183,6 +183,9 @@ const copyJson = JSON.stringify(copy);
 				resultMeta.textContent = `${download.download} · ${formatBytes(blob.size)}`;
 				setStatus(copy.done, 'success');
 			} catch (error) {
+				/* The failed run owns the result panel now: the download and meta of an earlier,
+				   different operation must not stay on offer next to the error. */
+				clearResult();
 				setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error');
 			} finally { updateProcessButton(); }
 		}
@@ -198,8 +201,12 @@ const copyJson = JSON.stringify(copy);
 
 		function reset() {
 			sourceInput.value = ''; audioInput.value = ''; startInput.value = ''; endInput.value = '';
-			operation.value = 'remux'; container.value = 'mkv'; download.hidden = true; resultMeta.textContent = copy.noResult;
-			if (outputUrl) URL.revokeObjectURL(outputUrl); outputUrl = null; updateOperation(); update();
+			operation.value = 'remux'; container.value = 'mkv'; clearResult(); updateOperation(); update();
+		}
+		function clearResult() {
+			if (outputUrl) URL.revokeObjectURL(outputUrl);
+			outputUrl = null; download.hidden = true; download.removeAttribute('href'); download.removeAttribute('download');
+			resultMeta.textContent = copy.noResult;
 		}
 		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
 	}

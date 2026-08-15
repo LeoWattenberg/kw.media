@@ -3,12 +3,8 @@
 // replayed from .cache/) and every result is parsed as the container it claims to be.
 import { expect, test } from '@playwright/test';
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { cacheCdnAssets } from './cdn-cache.mjs';
-
-const fixturePath = (name) => fileURLToPath(new URL(`../fixtures/${name}`, import.meta.url));
-
-const fixtureUpload = (name, mimeType) => ({ name, mimeType, buffer: readFileSync(fixturePath(name)) });
+import { createAviUpload, fixturePath, fixtureUpload } from './media-fixtures.mjs';
 
 // A one-second 8 kHz mono tone. Every audio profile resamples to 48 kHz, so the
 // rate in the produced header is proof that ffmpeg really re-encoded the file.
@@ -75,12 +71,19 @@ const readFlac = async (link) => {
 const readGif = async (link) => {
 	const bytes = new Uint8Array(await (await fetch(link.href)).arrayBuffer());
 	const head = new TextDecoder('latin1').decode(bytes.subarray(0, 4096));
+	// Every animation frame is introduced by a graphic control extension, 0x21 0xF9 0x04.
+	let frames = 0;
+	for (let index = 0; index + 2 < bytes.byteLength; index += 1) {
+		if (bytes[index] === 0x21 && bytes[index + 1] === 0xf9 && bytes[index + 2] === 0x04) frames += 1;
+	}
+
 	return {
 		signature: head.slice(0, 6),
 		width: bytes[6] | (bytes[7] << 8),
 		height: bytes[8] | (bytes[9] << 8),
 		// ffmpeg only writes the Netscape looping block when a loop count was asked for.
 		loops: head.includes('NETSCAPE2.0'),
+		frames,
 		byteLength: bytes.byteLength,
 	};
 };
@@ -121,6 +124,9 @@ test.describe('media converter outputs', () => {
 		await expect(profileSelect.locator('option')).toHaveCount(9);
 		await expect(tool.locator('[data-source-video]')).toBeVisible();
 		await expect(tool.locator('[data-file-name]')).toHaveText('tiny-clip.mp4');
+		/* Choosing a file prepares nothing: the tool is waiting for a target format and says so. */
+		await expect(status).toHaveText('tiny-clip.mp4 is ready. Choose a target format.');
+		await expect(status).toHaveAttribute('data-state', 'success');
 
 		/* An audio source narrows the list to the five audio targets. */
 		await tool.locator('[data-file-input]').setInputFiles(createToneUpload());
@@ -133,6 +139,7 @@ test.describe('media converter outputs', () => {
 		await expect(tool.locator('[data-file-meta]')).toContainText('audio/wav');
 		await expect(tool.locator('[data-converter-output]')).toBeVisible();
 		await expect(convert).toBeEnabled();
+		await expect(status).toHaveText('tone.wav is ready. Choose a target format.');
 
 		await profileSelect.selectOption('wav');
 		await convert.click();
@@ -171,7 +178,8 @@ test.describe('media converter outputs', () => {
 		await profileSelect.selectOption('flac');
 		await expect(download).toBeHidden();
 		await expect(previewToggle).toBeHidden();
-		await expect(status).not.toHaveAttribute('data-state', 'success');
+		/* Back to a selected file with nothing converted, which is what the status has to say. */
+		await expect(status).toHaveText('tone.wav is ready. Choose a target format.');
 		await expect(tool.locator('[data-source-audio]')).toBeVisible();
 		await expect(tool.locator('[data-output-audio]')).toBeHidden();
 		await expect(tool.locator('[data-result-meta]')).toHaveText('The output is generated in a matching container and downloaded right away.');
@@ -312,6 +320,91 @@ test.describe('media converter outputs', () => {
 		await expect(durationInput).toHaveValue('3');
 	});
 
+	test('Video to GIF hands ffmpeg the containers the browser cannot read', async ({ page }) => {
+		test.setTimeout(180_000);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/converter/video-to-gif/');
+
+		const noPreview = 'This container cannot be previewed in the browser. The trim controls stay off and the whole clip is converted.';
+		const tool = page.locator('[data-video-gif]');
+		const status = tool.locator('[data-status]');
+		const convert = tool.locator('[data-convert]');
+		const download = tool.locator('[data-download]');
+		const result = tool.locator('[data-result]');
+		const sourcePreview = tool.locator('[data-source-preview]');
+		const previewToggle = tool.locator('[data-preview-toggle]');
+		const startInput = tool.locator('[data-start]');
+		const durationInput = tool.locator('[data-duration]');
+		const widthInput = tool.locator('[data-width]');
+
+		/* A readable clip first, so switching to an unreadable one has real state to clear. */
+		await tool.locator('[data-file]').setInputFiles(fixtureUpload('tiny-clip.webm', 'video/webm'));
+		await expect(status).toHaveText('tiny-clip.webm is selected (3.2 KB).', { timeout: 15_000 });
+		await expect(tool.locator('[data-video-meta]')).toHaveText('160 x 120px | 0:01');
+		await expect(sourcePreview).toBeVisible();
+		await expect(startInput).toBeEnabled();
+		await expect(durationInput).toBeEnabled();
+
+		/* The picker advertises AVI, and Chromium cannot demux one, so the metadata read fails. */
+		await tool.locator('[data-file]').setInputFiles(createAviUpload());
+		await expect(status).toHaveText(noPreview, { timeout: 15_000 });
+		await expect(status).toHaveAttribute('data-state', 'info');
+		/* The file stays selected and convertible: only the browser gave up, not ffmpeg. */
+		await expect(tool.locator('[data-file-name]')).toHaveText('mjpeg-clip.avi');
+		await expect(tool.locator('[data-file-meta]')).toContainText('video/x-msvideo');
+		await expect(convert).toBeEnabled();
+		await expect(tool.locator('[data-clear]')).toBeEnabled();
+		/* No duration means no trim range, but every setting that never needed one keeps working. */
+		await expect(startInput).toBeDisabled();
+		await expect(durationInput).toBeDisabled();
+		await expect(widthInput).toBeEnabled();
+		await expect(tool.locator('[data-fps]')).toBeEnabled();
+		await expect(tool.locator('[data-colors]')).toBeEnabled();
+		await expect(tool.locator('[data-loop]')).toBeEnabled();
+		/* Nothing to show in a video element that could not read the file. */
+		await expect(sourcePreview).toBeHidden();
+		await expect(previewToggle).toBeHidden();
+		await expect(tool.locator('[data-video-meta]')).toBeEmpty();
+
+		await widthInput.fill('240');
+		await tool.locator('[data-fps]').fill('6');
+		await tool.locator('[data-colors]').fill('32');
+
+		await convert.click();
+		await expect(status).toHaveText('The GIF is ready.', { timeout: 150_000 });
+		await expect(status).toHaveAttribute('data-state', 'success');
+		await expect(result).toBeVisible();
+		await expect(tool.locator('[data-output-meta]')).toContainText('240px wide | 6 FPS | 32 colors');
+		await expect(download).toBeVisible();
+		await expect(download).toHaveAttribute('download', 'mjpeg-clip.gif');
+		/* The output is the only preview there is, so the tool offers no switch back to the source. */
+		await expect(previewToggle).toBeHidden();
+		await expect(sourcePreview).toBeHidden();
+
+		const gif = await download.evaluate(readGif);
+		expect(gif.signature).toBe('GIF89a');
+		/* 96x64 MJPEG frames scaled to the 240px the width slider reports. */
+		expect(gif.width).toBe(240);
+		expect(gif.height).toBe(160);
+		expect(gif.loops).toBe(true);
+		/* Five seconds at six frames a second. A run that had kept the three-second default
+		   window would have written 18 frames, so this is what "the whole clip" means. */
+		expect(gif.frames).toBeGreaterThan(24);
+
+		/* When ffmpeg cannot read the file either, its own failure is what the tool reports. */
+		await tool.locator('[data-file]').setInputFiles(fixtureUpload('legal-document.odt', 'application/vnd.oasis.opendocument.text'));
+		await expect(status).toHaveText(noPreview, { timeout: 15_000 });
+		await expect(download).toBeHidden();
+		await expect(result).toBeHidden();
+		await expect(convert).toBeEnabled();
+
+		await convert.click();
+		await expect(status).toHaveText('FFmpeg exited with code 1', { timeout: 150_000 });
+		await expect(status).toHaveAttribute('data-state', 'error');
+		await expect(download).toBeHidden();
+		await expect(convert).toBeEnabled();
+	});
+
 	test('Lossless Media Studio remuxes, reports a failed run, and muxes in a replacement track', async ({ page }) => {
 		test.setTimeout(180_000);
 		await cacheCdnAssets(page);
@@ -379,6 +472,11 @@ test.describe('media converter outputs', () => {
 		await expect(status).toHaveText('Processing failed: End time must be after start time', { timeout: 60_000 });
 		await expect(status).toHaveAttribute('data-state', 'error');
 		await expect(runButton).toBeEnabled();
+		/* The remux that finished before this run must not stay downloadable beside the error. */
+		await expect(download).toBeHidden();
+		await expect(resultMeta).toHaveText('No output yet.');
+		expect(await download.getAttribute('href')).toBeNull();
+		expect(await download.getAttribute('download')).toBeNull();
 
 		/* Replacing the audio needs a second file, and the picker has to admit which one it got. */
 		await operation.selectOption('replace');

@@ -1,9 +1,12 @@
 export function normalizeGifSettings(raw, maxDuration = 20) {
 	const start = clamp(Number(raw.start), 0, Math.max(0, maxDuration - 0.5));
 	const duration = clamp(Number(raw.duration), 0.5, Math.min(20, Math.max(0.5, maxDuration - start)));
+	/* Containers the browser cannot demux have no readable duration, so the trim
+	   window is unknown and `trim: false` converts the whole file instead. */
+	const trims = raw.trim !== false;
 	return {
-		start: roundToTenths(start),
-		duration: roundToTenths(duration),
+		start: trims ? roundToTenths(start) : null,
+		duration: trims ? roundToTenths(duration) : null,
 		fps: Math.round(clamp(Number(raw.fps), 6, 24)),
 		width: Math.round(clamp(Number(raw.width), 240, 960)),
 		colors: Math.round(clamp(Number(raw.colors), 32, 256)),
@@ -21,8 +24,8 @@ export function buildGifFilter(settings) {
 
 export function buildGifArgs(inputName, outputName, settings) {
 	return [
-		'-ss', String(settings.start),
-		'-t', String(settings.duration),
+		...(Number.isFinite(settings.start) ? ['-ss', String(settings.start)] : []),
+		...(Number.isFinite(settings.duration) ? ['-t', String(settings.duration)] : []),
 		'-i', inputName,
 		'-filter_complex', buildGifFilter(settings),
 		'-loop', settings.loop ? '0' : '-1',
