@@ -66,26 +66,132 @@ const dropFile = (locator, spec) => locator.evaluate((input, options) => {
 }, spec);
 
 /*
- * A real GIF built here instead of committed: one 1x1 frame per image descriptor, each carrying the
- * LZW stream a decoder expects (clear code, one pixel, end of information).
+ * A real GIF built here instead of committed: a four-colour table, one image descriptor per frame
+ * and a genuine LZW stream. Emitting a clear code before every pixel keeps the code width at the
+ * initial three bits, which is wasteful but exactly what every decoder expects to read.
  */
-const gifFixture = ({ frames = 1, name = 'loop.gif' } = {}) => {
-	const bytes = [
-		0x47, 0x49, 0x46, 0x38, 0x39, 0x61,
-		0x01, 0x00, 0x01, 0x00,
-		0x80, 0x00, 0x00,
-		0x00, 0x00, 0x00, 0xff, 0xff, 0xff,
-	];
+const gifFixture = ({ frames = [2], name = 'loop.gif', width = 96, height = 64, delay = 10, comment = '' } = {}) => {
+	const bytes = [];
+	const pushUint16 = (value) => bytes.push(value & 0xff, (value >> 8) & 0xff);
 
-	for (let index = 0; index < frames; index += 1) {
-		bytes.push(0x21, 0xf9, 0x04, 0x00, 0x0a, 0x00, 0x00, 0x00);
-		bytes.push(0x2c, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00);
-		bytes.push(0x01, 0x02, 0xc2, 0x00, 0x00);
+	bytes.push(...[...'GIF89a'].map((character) => character.charCodeAt(0)));
+	pushUint16(width);
+	pushUint16(height);
+	/* 0x81: global colour table of four entries, which is what LZW code size 2 addresses. */
+	bytes.push(0x81, 0x00, 0x00);
+	bytes.push(0x10, 0x20, 0x40, 0xd6, 0x28, 0x28, 0xf2, 0xf2, 0xf2, 0x2f, 0x8f, 0x4f);
+	bytes.push(0x21, 0xff, 0x0b);
+	bytes.push(...[...'NETSCAPE2.0'].map((character) => character.charCodeAt(0)));
+	bytes.push(0x03, 0x01, 0x00, 0x00, 0x00);
+
+	/* A comment extension is where a GIF keeps the note EXIF carries in other formats. */
+	if (comment) {
+		bytes.push(0x21, 0xfe);
+		for (let at = 0; at < comment.length; at += 255) {
+			const part = comment.slice(at, at + 255);
+			bytes.push(part.length, ...[...part].map((character) => character.charCodeAt(0)));
+		}
+		bytes.push(0x00);
+	}
+
+	for (const colourIndex of frames) {
+		bytes.push(0x21, 0xf9, 0x04, 0x00, delay & 0xff, (delay >> 8) & 0xff, 0x00, 0x00);
+		bytes.push(0x2c);
+		pushUint16(0);
+		pushUint16(0);
+		pushUint16(width);
+		pushUint16(height);
+		bytes.push(0x00, 0x02);
+
+		const codes = [];
+		for (let pixel = 0; pixel < width * height; pixel += 1) codes.push(4, colourIndex);
+		codes.push(5);
+
+		const data = [];
+		let bitBuffer = 0;
+		let bitCount = 0;
+		for (const code of codes) {
+			bitBuffer |= code << bitCount;
+			bitCount += 3;
+			while (bitCount >= 8) {
+				data.push(bitBuffer & 0xff);
+				bitBuffer >>= 8;
+				bitCount -= 8;
+			}
+		}
+		if (bitCount > 0) data.push(bitBuffer & 0xff);
+
+		for (let offset = 0; offset < data.length; offset += 255) {
+			const block = data.slice(offset, offset + 255);
+			bytes.push(block.length, ...block);
+		}
+		bytes.push(0x00);
 	}
 
 	bytes.push(0x3b);
 	return { name, mimeType: 'image/gif', buffer: Buffer.from(bytes) };
 };
+
+/*
+ * Reads a GIF the way a player parses it: 0x21 0xF9 opens a graphic control extension, one per
+ * frame, and the digest is what says the bytes are not simply the source handed back.
+ */
+const inspectGif = (page, source) => page.evaluate(async (from) => {
+	const bytes = from.href
+		? new Uint8Array(await (await fetch(from.href)).arrayBuffer())
+		: Uint8Array.from(atob(from.base64), (character) => character.charCodeAt(0));
+	let graphicControlExtensions = 0;
+	let digest = 2166136261;
+
+	for (let index = 0; index < bytes.length; index += 1) {
+		if (bytes[index] === 0x21 && bytes[index + 1] === 0xf9) graphicControlExtensions += 1;
+		digest = Math.imul(digest ^ bytes[index], 16777619) >>> 0;
+	}
+
+	/*
+	 * Following the block chain instead of scanning for a byte pair: image descriptors are the real
+	 * frame count, and a comment extension is the metadata a scrub has to leave behind.
+	 */
+	const text = (at, length) => {
+		let out = '';
+		for (let index = 0; index < length; index += 1) out += String.fromCharCode(bytes[at + index] || 0);
+		return out;
+	};
+	const colorTable = (flags) => ((flags & 0x80) ? 3 * (2 ** ((flags & 0x07) + 1)) : 0);
+	let frames = 0;
+	const comments = [];
+	let at = 13 + colorTable(bytes[10]);
+
+	while (at < bytes.length && bytes[at] !== 0x3b) {
+		if (bytes[at] === 0x21) {
+			const label = bytes[at + 1];
+			const parts = [];
+			at += 2;
+			while (at < bytes.length && bytes[at] !== 0x00) {
+				parts.push(text(at + 1, bytes[at]));
+				at += bytes[at] + 1;
+			}
+			at += 1;
+			if (label === 0xfe) comments.push(parts.join(''));
+		} else if (bytes[at] === 0x2c) {
+			frames += 1;
+			at += 10 + colorTable(bytes[at + 9]) + 1;
+			while (at < bytes.length && bytes[at] !== 0x00) at += bytes[at] + 1;
+			at += 1;
+		} else {
+			break;
+		}
+	}
+
+	return {
+		ascii: String.fromCharCode(...bytes.subarray(0, 6)),
+		byteLength: bytes.byteLength,
+		graphicControlExtensions,
+		digest,
+		frames,
+		comments,
+	};
+}, source);
 
 
 
@@ -363,32 +469,84 @@ test.describe('image tool outputs', () => {
 		expect(errors).toEqual([]);
 	});
 
-	test('Watermarker says an animated GIF leaves as a single frame', async ({ page }) => {
+	test('Watermarker keeps every frame of an animated GIF and writes a GIF back', async ({ page }) => {
+		test.setTimeout(CDN_TIMEOUT);
 		const errors = collectPageErrors(page);
+		await cacheCdnAssets(page);
 		await page.goto('/en/tools/image-video-watermark/');
 		const tool = page.locator('[data-watermarker]');
-		const notice = tool.locator('[data-animated-notice]');
+		const status = tool.locator('[data-status]');
+		const download = tool.locator('[data-download]');
+		/* Near-white, dark blue and red: three frames that differ, so a flattened export is obvious. */
+		const animated = gifFixture({ frames: [2, 0, 1] });
+		const animatedBase64 = animated.buffer.toString('base64');
 
-		await expect(notice).toBeHidden();
+		/* Nothing may announce a downgrade any more, so the notice is gone from the page entirely. */
+		await expect(tool.locator('[data-animated-notice]')).toHaveCount(0);
 
-		await tool.locator('[data-source-file]').setInputFiles(gifFixture({ frames: 3 }));
+		await tool.locator('[data-source-file]').setInputFiles(animated);
 		await expect(tool.locator('[data-source-name]')).toHaveText('loop.gif');
-		await expect(notice).toBeVisible();
-		await expect(notice).toHaveText('Animated GIFs are exported as a single frame. The output contains only the first frame.');
+		await expect(status).toContainText('loop.gif is selected');
 
-		/* A still GIF loses nothing on export, so the notice must not follow the next file. */
-		await tool.locator('[data-source-file]').setInputFiles(gifFixture({ name: 'still.gif' }));
+		await tool.locator('[data-mode]').selectOption('image');
+		await paintFile(tool.locator('[data-watermark-file]'), {
+			name: 'stamp.png',
+			width: 40,
+			height: 40,
+			background: '#ff00ff',
+		});
+		await expect(tool.locator('[data-watermark-name]')).toHaveText('stamp.png');
+		await setValue(tool.locator('[data-opacity]'), 100);
+		await setValue(tool.locator('[data-size]'), 30);
+		await tool.locator('[data-position]').selectOption('center');
+		await expect(tool.locator('[data-process]')).toBeEnabled();
+
+		await tool.locator('[data-process]').click();
+		await expect(status).toHaveText('The watermarked animated GIF is ready.', { timeout: RUN_TIMEOUT });
+		await expect(tool.locator('[data-output-image]')).toBeVisible();
+		await expect(tool.locator('[data-output-video]')).toBeHidden();
+		await expect(tool.locator('[data-output-details]')).toContainText('96 x 64px');
+		/* The panel counts the frames of the file that was written, not of the source. */
+		await expect(tool.locator('[data-output-details]')).toContainText('3 frames');
+
+		/* The animation is what was handed in, so a GIF is what has to come back out. */
+		await expect(download).toHaveAttribute('download', 'loop.gif');
+		const href = await download.getAttribute('href');
+		const produced = await inspectGif(page, { href });
+		const source = await inspectGif(page, { base64: animatedBase64 });
+
+		expect(produced.ascii).toBe('GIF89a');
+		/* One graphic control extension per frame: a flattened export would carry a single one. */
+		expect(produced.graphicControlExtensions).toBeGreaterThan(1);
+		expect(produced.graphicControlExtensions).toBeGreaterThanOrEqual(3);
+		expect(source.graphicControlExtensions).toBe(3);
+		/* Re-encoded with the stamp burned in, so the bytes cannot be the ones that went in. */
+		expect(produced.digest).not.toBe(source.digest);
+
+		/* The first frame decodes with the magenta stamp over the near-white ground of frame one. */
+		const stamp = { color: [255, 0, 255], tolerance: 24, points: [[48, 32], [2, 2]] };
+		const output = await inspectImage(page, { href }, stamp);
+		const before = await inspectImage(page, { base64: animatedBase64 }, stamp);
+
+		expect({ width: output.width, height: output.height }).toEqual({ width: 96, height: 64 });
+		expect(before.colorMatches).toBe(0);
+		expect(output.colorMatches).toBeGreaterThan(400);
+		expect(Math.abs(output.pixels[1][0] - before.pixels[1][0])).toBeLessThan(24);
+
+		/* A GIF with one frame has nothing to animate and keeps taking the canvas path. */
+		await tool.locator('[data-source-file]').setInputFiles(gifFixture({ name: 'still.gif', frames: [1] }));
 		await expect(tool.locator('[data-source-name]')).toHaveText('still.gif');
-		await expect(notice).toBeHidden();
+		await expect(status).toContainText('still.gif is selected');
+		await tool.locator('[data-process]').click();
+		await expect(status).toHaveText('The watermarked image is ready.', { timeout: RUN_TIMEOUT });
+		await expect(download).toHaveAttribute('download', 'still.png');
 
-		await tool.locator('[data-source-file]').setInputFiles(photoFixture());
-		await expect(tool.locator('[data-source-name]')).toHaveText('tiny-photo.png');
-		await expect(notice).toBeHidden();
+		const stillHref = await download.getAttribute('href');
+		const still = await inspectImage(page, { href: stillHref }, stamp);
 
-		await tool.locator('[data-source-file]').setInputFiles(gifFixture({ frames: 3 }));
-		await expect(notice).toBeVisible();
-		await tool.locator('[data-clear]').click();
-		await expect(notice).toBeHidden();
+		expect(still.head.startsWith('89504e47')).toBe(true);
+		expect({ width: still.width, height: still.height }).toEqual({ width: 96, height: 64 });
+		expect(still.colorMatches).toBeGreaterThan(400);
 
 		expect(errors).toEqual([]);
 	});
@@ -460,7 +618,7 @@ test.describe('image tool outputs', () => {
 		expect(errors).toEqual([]);
 	});
 
-	test('Object extractor reports the size it exported after the 1200px cap', async ({ page }) => {
+	test('Object extractor exports at the source resolution, not the segmentation canvas', async ({ page }) => {
 		test.setTimeout(CDN_TIMEOUT);
 		const errors = collectPageErrors(page);
 		await cacheCdnAssets(page);
@@ -482,14 +640,14 @@ test.describe('image tool outputs', () => {
 		await tool.locator('[data-cut]').click();
 		await expect(tool.locator('[data-status]')).toHaveText('Object extracted.', { timeout: RUN_TIMEOUT });
 
-		/* The cap is kept, so the visitor has to be told the export is not the size they handed in. */
-		await expect(tool.locator('[data-result-size]')).toHaveText('Export: 1200 x 300px, scaled down from 1600 x 400px');
+		/* Segmentation still runs on a 1200px canvas, but the export is the size that was handed in. */
+		await expect(tool.locator('[data-result-size]')).toHaveText('Export: 1600 x 400px');
 
 		const href = await tool.locator('[data-download]').getAttribute('href');
 		const output = await inspectImage(page, { href });
 
 		expect(output.head.startsWith('89504e47')).toBe(true);
-		expect({ width: output.width, height: output.height }).toEqual({ width: 1200, height: 300 });
+		expect({ width: output.width, height: output.height }).toEqual({ width: 1600, height: 400 });
 
 		expect(errors).toEqual([]);
 	});
@@ -592,17 +750,99 @@ test.describe('image tool outputs', () => {
 		await expect(download).toBeHidden();
 	});
 
-	/* GIF, AVIF, BMP, TIFF and SVG leave the canvas as PNG, so the note may not promise every format back. */
-	test('Metadata Remover names the formats it keeps and the ones it turns into PNG', async ({ page }) => {
+	/* Nothing is downgraded any more, so the note may not warn about a format that turns into PNG. */
+	test('Metadata Remover promises every format back in both locales', async ({ page }) => {
 		await page.goto('/en/tools/metadata-remover/');
 		await expect(page.locator('[data-preserve-note]')).toHaveText(
-			'The detected image format or media container is kept where possible. Formats the browser can display but not re-encode are saved as PNG.',
+			'The detected image format and media container are kept: GIF stays GIF, TIFF stays TIFF, an animated GIF keeps its frames, and SVG is cleaned as XML.',
 		);
 
 		await page.goto('/de/tools/metadaten-entfernen/');
 		await expect(page.locator('[data-preserve-note]')).toHaveText(
-			'Das erkannte Bildformat oder der erkannte Mediencontainer bleibt erhalten, soweit möglich. Formate, die der Browser zwar anzeigen, aber nicht neu kodieren kann, werden als PNG gespeichert.',
+			'Das erkannte Bildformat und der erkannte Mediencontainer bleiben erhalten: GIF bleibt GIF, TIFF bleibt TIFF, ein animiertes GIF behält seine Frames, und SVG wird als XML bereinigt.',
 		);
+	});
+
+	/*
+	 * A GIF used to come back as PNG because canvas.toBlob writes nothing else, which cost the file
+	 * both its container and its animation. ImageMagick writes the GIF back instead, and its strip is
+	 * what takes the comment extension — a GIF's own place for the note EXIF holds elsewhere — away.
+	 */
+	test('Metadata Remover gives back an animated GIF with its frames and without its comment', async ({ page }) => {
+		test.setTimeout(CDN_TIMEOUT);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/metadata-remover/');
+		const tool = page.locator('[data-metadata-scrubber]');
+		const download = tool.locator('[data-download]');
+		const status = tool.locator('[data-status]');
+
+		const secret = 'GPS 51.4934 N 0.0098 W';
+		const source = gifFixture({ frames: [2, 0, 1], comment: secret });
+
+		/* The reader has to find both halves in the source, or its verdict on the output means nothing. */
+		const before = await inspectGif(page, { base64: source.buffer.toString('base64') });
+		expect(before.frames).toBe(3);
+		expect(before.comments).toEqual([secret]);
+
+		await tool.locator('[data-file]').setInputFiles(source);
+		await expect(tool.locator('[data-file-name]')).toHaveText('loop.gif');
+		await expect(tool.locator('[data-scrub]')).toBeEnabled();
+
+		await tool.locator('[data-scrub]').click();
+		await expect(status).toHaveText('Metadata removed.', { timeout: RUN_TIMEOUT });
+		await expect(download).toHaveAttribute('download', 'loop-scrubbed.gif');
+		await expect(tool.locator('[data-result-meta]')).toContainText('loop-scrubbed.gif');
+
+		const href = await download.getAttribute('href');
+		const after = await inspectGif(page, { href });
+		expect(after.ascii).toMatch(/^GIF8[79]a$/);
+		expect(after.frames).toBe(3);
+		expect(after.comments).toEqual([]);
+		/* Re-encoded rather than handed straight back, and still a picture a decoder can open. */
+		expect(after.digest).not.toBe(before.digest);
+
+		const decoded = await inspectImage(page, { href });
+		expect({ width: decoded.width, height: decoded.height }).toEqual({ width: 96, height: 64 });
+	});
+
+	/* SVG is XML, so its metadata is cut out of the markup instead of being rasterised away. */
+	test('Metadata Remover cleans an SVG as markup and keeps it an SVG', async ({ page }) => {
+		test.setTimeout(CDN_TIMEOUT);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/metadata-remover/');
+		const tool = page.locator('[data-metadata-scrubber]');
+		const download = tool.locator('[data-download]');
+
+		const source = [
+			'<?xml version="1.0" encoding="UTF-8"?>',
+			'<!-- Created with Inkscape by Jane Doe -->',
+			'<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/"',
+			'  sodipodi:docname="holiday-plan.svg" width="20" height="10">',
+			'  <metadata><rdf:RDF><dc:creator>Jane Doe</dc:creator></rdf:RDF></metadata>',
+			'  <title>Blue dot</title>',
+			'  <circle cx="10" cy="5" r="4" fill="#2f80ed"/>',
+			'</svg>',
+		].join('\n');
+
+		await dropFile(tool.locator('[data-file]'), {
+			name: 'logo.svg',
+			type: 'image/svg+xml',
+			base64: Buffer.from(source, 'utf8').toString('base64'),
+		});
+		await expect(tool.locator('[data-file-name]')).toHaveText('logo.svg');
+		await tool.locator('[data-scrub]').click();
+		await expect(tool.locator('[data-status]')).toHaveText('Metadata removed.', { timeout: RUN_TIMEOUT });
+		await expect(download).toHaveAttribute('download', 'logo-scrubbed.svg');
+
+		const href = await download.getAttribute('href');
+		const svg = await page.evaluate((url) => fetch(url).then((response) => response.text()), href);
+
+		expect(svg).toContain('<circle cx="10" cy="5" r="4" fill="#2f80ed"/>');
+		expect(svg).toContain('<title>Blue dot</title>');
+		expect(svg).toContain('xmlns="http://www.w3.org/2000/svg"');
+		for (const trace of ['Jane Doe', 'holiday-plan.svg', '<metadata', 'rdf:RDF', '<!--']) {
+			expect(svg).not.toContain(trace);
+		}
 	});
 
 	test('Metadata Remover scrubs an image that arrives without a MIME type', async ({ page }) => {
@@ -635,6 +875,23 @@ test.describe('image tool outputs', () => {
 		/* The white circle in the middle of the fixture survives the re-encode. */
 		expect(webp.pixels[0][3]).toBe(255);
 		expect(Math.min(...webp.pixels[0].slice(0, 3))).toBeGreaterThan(230);
+
+		/* The committed fixture carries an ICC profile chunk, and a scrub that kept it would be no scrub. */
+		const riffChunks = (source) => page.evaluate(async (from) => {
+			const bytes = from.href
+				? new Uint8Array(await (await fetch(from.href)).arrayBuffer())
+				: Uint8Array.from(atob(from.base64), (character) => character.charCodeAt(0));
+			const names = [];
+			for (let at = 12; at + 8 <= bytes.length;) {
+				names.push(String.fromCharCode(...bytes.subarray(at, at + 4)));
+				const size = bytes[at + 4] | (bytes[at + 5] << 8) | (bytes[at + 6] << 16) | (bytes[at + 7] * 0x1000000);
+				at += 8 + size + (size % 2);
+			}
+			return names;
+		}, source);
+
+		expect(await riffChunks({ base64: fixtureFile('tiny-photo.webp', 'image/webp').buffer.toString('base64') })).toContain('ICCP');
+		expect(await riffChunks({ href })).not.toContain('ICCP');
 	});
 
 	test('Raster/SVG Studio reports its fallback and drops the other direction on a mode switch', async ({ page }) => {

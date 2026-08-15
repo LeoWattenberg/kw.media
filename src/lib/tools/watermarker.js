@@ -1,7 +1,8 @@
 /*
  * The browser cannot read the dimensions of every container the watermarker accepts (AVI, WMV and
  * some MOV files never fire loadedmetadata), so those runs take their size from the PNG frame
- * FFmpeg decodes instead. Canvas also exports a single frame, so an animated GIF has to say so.
+ * FFmpeg decodes instead. A canvas holds one frame, so an animated GIF is watermarked by FFmpeg
+ * and written back as a GIF: the frame count here decides which of the two paths a file takes.
  */
 
 const PNG_SIGNATURE = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a];
@@ -69,18 +70,18 @@ function skipSubBlocks(bytes, start) {
 	return bytes.length;
 }
 
-/** True when the GIF carries more than one image descriptor, which the canvas export flattens. */
-export function isAnimatedGif(source) {
+/** Number of image descriptors in a GIF, which is the number of frames it plays. Zero for other bytes. */
+export function countGifFrames(source) {
 	const bytes = toBytes(source);
 
 	if (!bytes || bytes.length < 14) {
-		return false;
+		return 0;
 	}
 
 	const header = readAscii(bytes, 0, 6);
 
 	if (header !== 'GIF87a' && header !== 'GIF89a') {
-		return false;
+		return 0;
 	}
 
 	let offset = 13 + colorTableBytes(bytes[10]);
@@ -91,11 +92,6 @@ export function isAnimatedGif(source) {
 
 		if (block === 0x2c) {
 			frames += 1;
-
-			if (frames > 1) {
-				return true;
-			}
-
 			offset += 10 + colorTableBytes(bytes[offset + 9]);
 			offset = skipSubBlocks(bytes, offset + 1);
 		} else if (block === 0x21) {
@@ -106,5 +102,37 @@ export function isAnimatedGif(source) {
 		}
 	}
 
-	return false;
+	return frames;
+}
+
+/** True when the GIF carries more than one image descriptor, so it has to keep its frames. */
+export function isAnimatedGif(source) {
+	return countGifFrames(source) > 1;
+}
+
+/*
+ * One pass over the animation: the still watermark is overlaid on every frame, the result is split
+ * so a palette can be generated from the watermarked frames themselves, and paletteuse writes the
+ * frames back through it. Without the palette pair FFmpeg would fall back to a fixed 256-colour
+ * table and the watermark would band badly.
+ */
+export function buildAnimatedGifFilter() {
+	return [
+		'[0:v][1:v]overlay=0:0:format=auto[stamped]',
+		'[stamped]split[colours][frames]',
+		'[colours]palettegen=stats_mode=full[palette]',
+		'[frames][palette]paletteuse=dither=sierra2_4a:diff_mode=rectangle',
+	].join(';');
+}
+
+/** FFmpeg arguments that watermark every frame of a GIF and write a GIF back. */
+export function buildAnimatedGifArgs(inputName, overlayName, outputName) {
+	return [
+		'-i', inputName,
+		'-i', overlayName,
+		'-filter_complex', buildAnimatedGifFilter(),
+		'-loop', '0',
+		'-gifflags', '+transdiff',
+		'-y', outputName,
+	];
 }

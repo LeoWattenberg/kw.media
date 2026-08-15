@@ -23,12 +23,11 @@ const copyByLocale = {
 	de: {
 		eyebrow: 'Text- & Bild-Overlays',
 		title: 'Bild- & Video-Wasserzeichen',
-		intro: 'Lege eigene Text- oder Bild-Wasserzeichen über lokale Bilder und Videos. Bilder werden per Canvas verarbeitet, Videos per FFmpeg wasm.',
+		intro: 'Lege eigene Text- oder Bild-Wasserzeichen über lokale Bilder und Videos. Bilder werden per Canvas verarbeitet, animierte GIFs und Videos per FFmpeg wasm.',
 		privacy: 'Deine Datei wird nicht hochgeladen. Die Verarbeitung läuft clientseitig in deinem Browser.',
 		sourceTitle: 'Quelldatei',
 		chooseSource: 'Bild oder Video auswählen',
 		sourceHint: 'PNG, JPEG, WebP, GIF, MP4, WebM, MOV und weitere Browser-/FFmpeg-kompatible Formate',
-		animatedGif: 'Animierte GIFs werden als Einzelbild exportiert. Die Ausgabe enthält nur das erste Bild.',
 		watermarkTitle: 'Wasserzeichen',
 		modeLabel: 'Art',
 		textMode: 'Text',
@@ -57,17 +56,21 @@ const copyByLocale = {
 			needWatermark: 'Gib einen Text ein oder wähle ein Wasserzeichen-Bild.',
 			metadataMissing: 'Die Abmessungen der Datei konnten nicht gelesen werden.',
 			processingImage: 'Bild wird verarbeitet...',
+			processingGif: 'Animiertes GIF wird vorbereitet...',
 			processingVideo: 'Video wird vorbereitet...',
 			ffmpegLoading: 'FFmpeg wasm wird geladen...',
 			ffmpegProgress: 'FFmpeg rendert... {progress}%',
 			ffmpegReady: 'FFmpeg wasm ist bereit.',
 			ffmpegTimeout: 'FFmpeg wasm hat nicht innerhalb von 90 Sekunden geladen.',
 			imageReady: 'Das Bild wurde mit Wasserzeichen erzeugt.',
+			gifReady: 'Das animierte GIF wurde mit Wasserzeichen erzeugt.',
 			videoReady: 'Das Video wurde mit Wasserzeichen erzeugt.',
 			reset: 'Das Tool wurde zurückgesetzt.',
 			meta: '{width} x {height}px | {size}',
+			gifMeta: '{width} x {height}px | {frames} Frames | {size}',
 			fileMeta: '{size} | {type}',
 			outputImage: '{name}.png',
+			outputGif: '{name}.gif',
 			outputVideo: '{name}.mp4',
 			unknownError: 'Unbekannter Fehler',
 		},
@@ -75,12 +78,11 @@ const copyByLocale = {
 	en: {
 		eyebrow: 'Text & image overlays',
 		title: 'Image & Video Watermark',
-		intro: 'Place custom text or image watermarks over local images and videos. Images are processed with Canvas, videos with FFmpeg wasm.',
+		intro: 'Place custom text or image watermarks over local images and videos. Images are processed with Canvas, animated GIFs and videos with FFmpeg wasm.',
 		privacy: 'Your file is not uploaded. Processing runs client-side in your browser.',
 		sourceTitle: 'Source file',
 		chooseSource: 'Choose image or video',
 		sourceHint: 'PNG, JPEG, WebP, GIF, MP4, WebM, MOV, and other browser/FFmpeg-compatible formats',
-		animatedGif: 'Animated GIFs are exported as a single frame. The output contains only the first frame.',
 		watermarkTitle: 'Watermark',
 		modeLabel: 'Type',
 		textMode: 'Text',
@@ -109,17 +111,21 @@ const copyByLocale = {
 			needWatermark: 'Enter watermark text or choose a watermark image.',
 			metadataMissing: 'The file dimensions could not be read.',
 			processingImage: 'Processing image...',
+			processingGif: 'Preparing animated GIF...',
 			processingVideo: 'Preparing video...',
 			ffmpegLoading: 'Loading FFmpeg wasm...',
 			ffmpegProgress: 'FFmpeg is rendering... {progress}%',
 			ffmpegReady: 'FFmpeg wasm is ready.',
 			ffmpegTimeout: 'FFmpeg wasm did not finish loading within 90 seconds.',
 			imageReady: 'The watermarked image is ready.',
+			gifReady: 'The watermarked animated GIF is ready.',
 			videoReady: 'The watermarked video is ready.',
 			reset: 'The tool has been reset.',
 			meta: '{width} x {height}px | {size}',
+			gifMeta: '{width} x {height}px | {frames} frames | {size}',
 			fileMeta: '{size} | {type}',
 			outputImage: '{name}.png',
+			outputGif: '{name}.gif',
 			outputVideo: '{name}.mp4',
 			unknownError: 'Unknown error',
 		},
@@ -151,7 +157,6 @@ const copyJson = JSON.stringify(copy.client);
 						<small data-source-meta>{copy.sourceHint}</small>
 						<input data-source-file type="file" accept="image/*,video/*,.mkv,.mov,.mp4,.webm,.avi,.m4v" />
 					</label>
-					<p class="source-note" data-animated-notice hidden>{copy.animatedGif}</p>
 					<div class="preview-card" data-output-preview hidden>
 						<div class="result-heading">
 							<p>{copy.outputPreview}</p>
@@ -225,7 +230,7 @@ const copyJson = JSON.stringify(copy.client);
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
 	import { formatBytes } from '../../lib/tools/format';
-	import { isAnimatedGif, readPngSize } from '../../lib/tools/watermarker';
+	import { buildAnimatedGifArgs, countGifFrames, isAnimatedGif, readPngSize } from '../../lib/tools/watermarker';
 
 	(() => {
 		const roots = document.querySelectorAll('[data-watermarker]:not([data-watermarker-bound])');
@@ -240,7 +245,6 @@ const copyJson = JSON.stringify(copy.client);
 			const sourceInput = root.querySelector('[data-source-file]');
 			const sourceName = root.querySelector('[data-source-name]');
 			const sourceMeta = root.querySelector('[data-source-meta]');
-			const animatedNotice = root.querySelector('[data-animated-notice]');
 			const outputPreview = root.querySelector('[data-output-preview]');
 			const modeSelect = root.querySelector('[data-mode]');
 			const textGroup = root.querySelector('[data-text-group]');
@@ -267,7 +271,7 @@ const copyJson = JSON.stringify(copy.client);
 			const outputDetails = root.querySelector('[data-output-details]');
 
 			if (
-				!sourceInput || !sourceName || !sourceMeta || !animatedNotice || !outputPreview || !modeSelect ||
+				!sourceInput || !sourceName || !sourceMeta || !outputPreview || !modeSelect ||
 				!textGroup || !colorGroup || !imageGroup || !textInput ||
 				!colorInput || !watermarkInput || !watermarkName || !positionSelect || !opacityInput ||
 				!opacityLabel || !sizeInput || !sizeLabel || !marginInput || !marginLabel || !tileInput ||
@@ -284,6 +288,7 @@ const copyJson = JSON.stringify(copy.client);
 				sourceWidth: 0,
 				sourceHeight: 0,
 				sizeUnknown: false,
+				isAnimatedGif: false,
 				watermarkFile: null,
 				watermarkUrl: null,
 				outputUrl: null,
@@ -330,12 +335,12 @@ const copyJson = JSON.stringify(copy.client);
 				state.sourceKind = null;
 				state.sourceWidth = 0;
 				state.sourceHeight = 0;
+				state.isAnimatedGif = false;
 
 				if (!file) {
 					sourceInput.value = '';
 					sourceName.textContent = defaults.sourceName;
 					sourceMeta.textContent = defaults.sourceMeta;
-					animatedNotice.hidden = true;
 					setStatus(copy.waiting, 'info');
 					updateReadyState();
 					return;
@@ -348,7 +353,8 @@ const copyJson = JSON.stringify(copy.client);
 					size: formatBytes(file.size),
 					type: file.type || state.sourceKind,
 				});
-				animatedNotice.hidden = !(await isAnimatedGifFile(file));
+				/* A GIF that plays keeps its frames, so it is rendered by FFmpeg instead of a canvas. */
+				state.isAnimatedGif = await isAnimatedGifFile(file);
 
 				try {
 					if (state.sourceKind === 'video') {
@@ -434,6 +440,8 @@ const copyJson = JSON.stringify(copy.client);
 				try {
 					if (state.sourceKind === 'video') {
 						await processVideo();
+					} else if (state.isAnimatedGif) {
+						await processAnimatedGif();
 					} else {
 						await processImage();
 					}
@@ -472,6 +480,42 @@ const copyJson = JSON.stringify(copy.client);
 				setStatus(copy.imageReady, 'success');
 			}
 
+			/*
+			 * Every frame carries the same still watermark, so it is drawn once into a transparent
+			 * PNG the size of the source and handed to FFmpeg as an overlay input.
+			 */
+			async function renderOverlayBlob(width, height) {
+				const overlayCanvas = document.createElement('canvas');
+				overlayCanvas.width = width;
+				overlayCanvas.height = height;
+				await drawWatermark(overlayCanvas.getContext('2d'), width, height);
+				return canvasToBlob(overlayCanvas, 'image/png', 0.95);
+			}
+
+			async function processAnimatedGif() {
+				setStatus(copy.processingGif, 'info');
+				const overlayBlob = await renderOverlayBlob(state.sourceWidth, state.sourceHeight);
+				const output = await renderGifWithOverlay(state.sourceFile, overlayBlob);
+				const blob = new Blob([output], { type: 'image/gif' });
+				const outputName = format(copy.outputGif, { name: baseName(state.sourceFile.name) });
+
+				state.outputUrl = URL.createObjectURL(blob);
+				outputImage.src = state.outputUrl;
+				outputImage.hidden = false;
+				outputVideo.hidden = true;
+				downloadLink.href = state.outputUrl;
+				downloadLink.download = outputName;
+				downloadLink.hidden = false;
+				outputDetails.textContent = format(copy.gifMeta, {
+					width: state.sourceWidth,
+					height: state.sourceHeight,
+					frames: countGifFrames(output),
+					size: formatBytes(blob.size),
+				});
+				outputPreview.hidden = false;
+				setStatus(copy.gifReady, 'success');
+			}
+
 			async function processVideo() {
 				setStatus(copy.processingVideo, 'info');
 
@@ -481,11 +525,7 @@ const copyJson = JSON.stringify(copy.client);
 					state.sourceHeight = size.height;
 				}
 
-				const overlayCanvas = document.createElement('canvas');
-				overlayCanvas.width = state.sourceWidth;
-				overlayCanvas.height = state.sourceHeight;
-				await drawWatermark(overlayCanvas.getContext('2d'), overlayCanvas.width, overlayCanvas.height);
-				const overlayBlob = await canvasToBlob(overlayCanvas, 'image/png', 0.95);
+				const overlayBlob = await renderOverlayBlob(state.sourceWidth, state.sourceHeight);
 				const output = await renderVideoWithOverlay(state.sourceFile, overlayBlob);
 				const blob = new Blob([output], { type: 'video/mp4' });
 				const outputName = format(copy.outputVideo, { name: baseName(state.sourceFile.name) });
@@ -564,6 +604,34 @@ const copyJson = JSON.stringify(copy.client);
 							'-movflags', '+faststart',
 							'-y', outputName,
 						]);
+
+						if (resultCode !== 0) {
+							throw new Error(`FFmpeg exited with code ${resultCode}`);
+						}
+
+						const output = await ffmpeg.readFile(outputName);
+						return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
+					} finally {
+						await ffmpeg.deleteFile(inputName).catch(() => {});
+						await ffmpeg.deleteFile(overlayName).catch(() => {});
+						await ffmpeg.deleteFile(outputName).catch(() => {});
+					}
+				});
+			}
+
+			/* The GIF goes in and a GIF comes out: FFmpeg stamps every frame and re-encodes the animation. */
+			async function renderGifWithOverlay(file, overlayBlob) {
+				return ffmpegRuntime.run(async (ffmpeg) => {
+					const stamp = Date.now();
+					const inputName = `input-${stamp}.gif`;
+					const overlayName = `watermark-${stamp}.png`;
+					const outputName = `output-${stamp}.gif`;
+
+					await ffmpeg.writeFile(inputName, new Uint8Array(await file.arrayBuffer()));
+					await ffmpeg.writeFile(overlayName, new Uint8Array(await overlayBlob.arrayBuffer()));
+
+					try {
+						const resultCode = await ffmpeg.exec(buildAnimatedGifArgs(inputName, overlayName, outputName));
 
 						if (resultCode !== 0) {
 							throw new Error(`FFmpeg exited with code ${resultCode}`);
@@ -744,6 +812,7 @@ const copyJson = JSON.stringify(copy.client);
 				state.sourceKind = null;
 				state.sourceWidth = 0;
 				state.sourceHeight = 0;
+				state.isAnimatedGif = false;
 				state.watermarkFile = null;
 				revokeUrl('sourceUrl');
 				revokeUrl('watermarkUrl');
@@ -751,7 +820,6 @@ const copyJson = JSON.stringify(copy.client);
 				sourceName.textContent = defaults.sourceName;
 				sourceMeta.textContent = defaults.sourceMeta;
 				watermarkName.textContent = defaults.watermarkName;
-				animatedNotice.hidden = true;
 				setStatus(copy.reset, 'info');
 				updateReadyState();
 			}
@@ -964,13 +1032,6 @@ const copyJson = JSON.stringify(copy.client);
 	.result-panel small {
 		color: var(--color-muted);
 		font-size: 0.88rem;
-	}
-
-	.source-note {
-		margin: 12px 0 0;
-		color: var(--color-muted);
-		font-size: 0.88rem;
-		font-weight: 750;
 	}
 
 	.file-picker input[type='file'] {
