@@ -19,9 +19,11 @@ const copy = {
 		result: 'Ergebnis', downloadYoutube: 'YouTube-Chapter herunterladen', downloadMeta: 'FFmetadata herunterladen', downloadMedia: 'Mediendatei herunterladen',
 		waiting: 'Füge Kapitel ein. Format: 00:00 Titel', ready: '{count} Kapitel erkannt.', noChapters: 'Keine gültigen Kapitel gefunden.',
 		loading: 'FFmpeg WASM wird geladen…', ffmpegReady: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%', muxing: 'Kapitel werden eingebettet…',
-		done: 'Kapitel wurden erstellt.', muxed: 'Mediendatei mit Kapiteln erstellt.', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.',
+		done: 'Kapitel wurden erstellt.', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.',
 		assumedEnd: 'Kapitel wurden erstellt. Ohne bekannte Mediendauer wird für das letzte Kapitel eine Länge von 60 Sekunden angenommen.',
-		muxedAssumedEnd: 'Mediendatei mit Kapiteln erstellt. Ohne bekannte Mediendauer wurde für das letzte Kapitel eine Länge von 60 Sekunden angenommen.',
+		muxedCopy: 'Mediendatei mit Kapiteln erstellt. Die Streams wurden verlustfrei nach {container} kopiert.',
+		muxedTranscode: 'Mediendatei mit Kapiteln erstellt. {container} kann die Quellstreams nicht aufnehmen, deshalb wurden sie nach {codec} neu kodiert.',
+		assumedTail: 'Ohne bekannte Mediendauer wurde für das letzte Kapitel eine Länge von 60 Sekunden angenommen.',
 		error: 'Kapitelverarbeitung fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', noMedia: 'Wähle zuerst eine Mediendatei.',
 	},
 	en: {
@@ -33,9 +35,11 @@ const copy = {
 		result: 'Result', downloadYoutube: 'Download YouTube chapters', downloadMeta: 'Download FFmetadata', downloadMedia: 'Download media file',
 		waiting: 'Paste chapters. Format: 00:00 Title', ready: '{count} chapters detected.', noChapters: 'No valid chapters found.',
 		loading: 'Loading FFmpeg WASM…', ffmpegReady: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%', muxing: 'Embedding chapters…',
-		done: 'Chapter files created.', muxed: 'Media file with chapters created.', timeout: 'FFmpeg WASM did not load within 90 seconds.',
+		done: 'Chapter files created.', timeout: 'FFmpeg WASM did not load within 90 seconds.',
 		assumedEnd: 'Chapter files created. Without a known media duration the last chapter is assumed to be 60 seconds long.',
-		muxedAssumedEnd: 'Media file with chapters created. Without a known media duration the last chapter was assumed to be 60 seconds long.',
+		muxedCopy: 'Media file with chapters created. The streams were copied into {container} losslessly.',
+		muxedTranscode: 'Media file with chapters created. {container} cannot carry the source streams, so they were re-encoded to {codec}.',
+		assumedTail: 'Without a known media duration the last chapter was assumed to be 60 seconds long.',
 		error: 'Chapter processing failed: {message}', generic: 'Unknown error', noMedia: 'Choose a media file first.',
 	},
 }[locale];
@@ -70,7 +74,7 @@ const copyJson = JSON.stringify(copy);
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
 	import { formatBytes } from '../../lib/tools/format';
-	import { buildFfmetadata, defaultMuxContainer, muxContainerOptions, usesAssumedEnd } from '../../lib/tools/podcast-chapters';
+	import { buildFfmetadata, defaultMuxContainer, muxAttempts, muxContainerOptions, usesAssumedEnd } from '../../lib/tools/podcast-chapters';
 
 	for (const root of document.querySelectorAll('[data-chapterizer]:not([data-bound])')) {
 		root.dataset.bound = 'true';
@@ -94,12 +98,15 @@ const copyJson = JSON.stringify(copy);
 		let metaUrl = null;
 		let mediaUrl = null;
 		let mediaDuration = Number.NaN;
+		/* Until the visitor picks a container themselves, the tool is free to follow the source. */
+		let containerChosen = false;
 		const runtime = createFfmpegRuntime({ timeoutMessage: copy.timeout, onLoading: () => setStatus(copy.loading, 'info'), onReady: () => setStatus(copy.ffmpegReady, 'success'), onProgress: (progress) => setStatus(format(copy.progress, { progress }), 'info') });
 
 		fileInput.addEventListener('change', onFile);
 		/* The player is the only thing here that knows how long the episode really is. */
 		audio.addEventListener('loadedmetadata', () => { mediaDuration = audio.duration; });
 		chaptersText.addEventListener('input', updatePreview);
+		output.addEventListener('change', () => { containerChosen = true; });
 		makeButton.addEventListener('click', makeFiles);
 		muxButton.addEventListener('click', () => void mux());
 		clearButton.addEventListener('click', reset);
@@ -117,9 +124,9 @@ const copyJson = JSON.stringify(copy);
 			fileName.textContent = file.name; fileMeta.textContent = `${formatBytes(file.size)} · ${file.type || 'media'}`;
 		}
 
-		/* A stream copy can only be poured into a container that takes the source's streams. */
-		function updateContainers(file, preferred = output.value) {
-			output.replaceChildren(...muxContainerOptions(file).map(({ value, label }) => {
+		/* Every container stays on the menu whatever the source is; only the route into it changes. */
+		function updateContainers(file, preferred = containerChosen ? output.value : '') {
+			output.replaceChildren(...muxContainerOptions().map(({ value, label }) => {
 				const option = document.createElement('option');
 				option.value = value; option.textContent = label;
 				return option;
@@ -147,7 +154,7 @@ const copyJson = JSON.stringify(copy);
 				const metadata = buildFfmetadata(chapters, mediaDuration);
 				setStatus(copy.muxing, 'info');
 				const ext = output.value;
-				const bytes = await runtime.run(async (ffmpeg) => {
+				const result = await runtime.run(async (ffmpeg) => {
 					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 					const input = `input-${stamp}${extension(file.name)}`;
 					const meta = `chapters-${stamp}.ffmetadata`;
@@ -155,21 +162,27 @@ const copyJson = JSON.stringify(copy);
 					await ffmpeg.writeFile(input, new Uint8Array(await file.arrayBuffer()));
 					await ffmpeg.writeFile(meta, new TextEncoder().encode(metadata));
 					try {
-						/* Global metadata stays with the source; only the chapters come from the ffmetadata input. */
-						const args = ['-i', input, '-i', meta, '-map_metadata', '0', '-map_chapters', '1', '-map', '0', '-c', 'copy'];
-						if (ext === 'mp4' || ext === 'm4a') args.push('-movflags', '+faststart');
-						args.push('-y', out);
-						const code = await ffmpeg.exec(args);
-						if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
-						const result = await ffmpeg.readFile(out);
-						return result instanceof Uint8Array ? result : new TextEncoder().encode(String(result));
+						/* A copy is only ever the first offer: if the muxer refuses it, the re-encode still delivers the chosen container. */
+						let code = 1;
+						let used = null;
+						for (const attempt of muxAttempts(file, ext, { input, meta, output: out })) {
+							code = await ffmpeg.exec(attempt.args);
+							if (code === 0) { used = attempt; break; }
+						}
+						if (!used) throw new Error(`FFmpeg exited with code ${code}`);
+						const bytes = await ffmpeg.readFile(out);
+						return { used, bytes: bytes instanceof Uint8Array ? bytes : new TextEncoder().encode(String(bytes)) };
 					} finally { await ffmpeg.deleteFile(input).catch(() => {}); await ffmpeg.deleteFile(meta).catch(() => {}); await ffmpeg.deleteFile(out).catch(() => {}); }
 				});
 				if (mediaUrl) URL.revokeObjectURL(mediaUrl);
-				mediaUrl = URL.createObjectURL(new Blob([bytes], { type: mime(ext) }));
+				mediaUrl = URL.createObjectURL(new Blob([result.bytes], { type: mime(ext) }));
 				mediaLink.href = mediaUrl; mediaLink.download = `${baseName(file.name)}-chapters.${ext}`; mediaLink.hidden = false;
+				/* Copying and re-encoding are not the same deal, so the status names the one this file got. */
+				const done = result.used.mode === 'copy'
+					? format(copy.muxedCopy, { container: result.used.label })
+					: format(copy.muxedTranscode, { container: result.used.label, codec: result.used.codec });
 				/* The embedded chapters carry the guessed end too, so the mux path has to admit it as well. */
-				setStatus(usesAssumedEnd(chapters, mediaDuration) ? copy.muxedAssumedEnd : copy.muxed, 'success');
+				setStatus(usesAssumedEnd(chapters, mediaDuration) ? `${done} ${copy.assumedTail}` : done, 'success');
 			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
 		}
 
@@ -214,7 +227,7 @@ const copyJson = JSON.stringify(copy);
 		}
 		function parseTime(value) { const parts = value.replace(',', '.').split(':').map(Number); const seconds = parts.pop() || 0; const minutes = parts.pop() || 0; const hours = parts.pop() || 0; return hours * 3600 + minutes * 60 + seconds; }
 		function formatTime(seconds) { const h = Math.floor(seconds / 3600); const m = Math.floor((seconds % 3600) / 60); const s = Math.floor(seconds % 60); return h ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`; }
-		function reset() { fileInput.value = ''; chaptersText.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; audio.hidden = true; audio.removeAttribute('src'); mediaDuration = Number.NaN; updateContainers(null, ''); for (const link of [youtubeLink, metaLink, mediaLink]) link.hidden = true; for (const url of [inputUrl, youtubeUrl, metaUrl, mediaUrl]) if (url) URL.revokeObjectURL(url); inputUrl = youtubeUrl = metaUrl = mediaUrl = null; updatePreview(); }
+		function reset() { fileInput.value = ''; chaptersText.value = ''; fileName.textContent = copy.choose; fileMeta.textContent = copy.hint; audio.hidden = true; audio.removeAttribute('src'); mediaDuration = Number.NaN; containerChosen = false; updateContainers(null, ''); for (const link of [youtubeLink, metaLink, mediaLink]) link.hidden = true; for (const url of [inputUrl, youtubeUrl, metaUrl, mediaUrl]) if (url) URL.revokeObjectURL(url); inputUrl = youtubeUrl = metaUrl = mediaUrl = null; updatePreview(); }
 		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
 		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
 		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }

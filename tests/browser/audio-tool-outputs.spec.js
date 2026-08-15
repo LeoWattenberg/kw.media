@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { cacheCdnAssets } from './cdn-cache.mjs';
+import { fixtureUpload } from './media-fixtures.mjs';
 
 /*
  * The audio tools all hand the user a file or a score. These tests drive the real
@@ -110,6 +111,28 @@ const assumedEndStatus = 'Chapter files created. Without a known media duration 
 const downloadText = (link) => link.evaluate(async (node) => new TextDecoder('latin1')
 	.decode(new Uint8Array(await (await fetch(node.href)).arrayBuffer())));
 
+/*
+ * The sample entry in an MP4's first track names the codec that really ended up in the
+ * file, next to the frame size for a picture track or the sample rate for a sound one.
+ * That is the difference between "the container is right" and "the streams are right".
+ */
+const mp4SampleEntry = (link) => link.evaluate(async (node) => {
+	const bytes = new Uint8Array(await (await fetch(node.href)).arrayBuffer());
+	const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+	const boxes = new TextDecoder('latin1').decode(bytes);
+	const stsd = boxes.indexOf('stsd');
+	if (stsd < 0) return { codec: 'no stsd box in the produced MP4' };
+	/* stsd: type, version+flags, entry count, then the sample entry's size and type. */
+	const entry = stsd + 16;
+	return {
+		codec: boxes.slice(entry, entry + 4),
+		width: view.getUint16(entry + 28),
+		height: view.getUint16(entry + 30),
+		/* A sound entry spends the same two bytes on the whole half of its 16.16 sample rate. */
+		sampleRate: view.getUint16(entry + 28),
+	};
+});
+
 test.describe('audio tool outputs', () => {
 	test('Podcast Chapter Editor writes exact YouTube and FFmetadata chapter text', async ({ page }) => {
 		const errors = collectPageErrors(page);
@@ -118,7 +141,7 @@ test.describe('audio tool outputs', () => {
 		const youtube = tool.locator('[data-youtube]');
 		const meta = tool.locator('[data-meta]');
 
-		/* Nothing has been muxed yet, so no container is ruled out. */
+		/* Every container the tool can write is on the menu, and none of them ever leaves it. */
 		await expect(tool.locator('[data-output] option')).toHaveText(['M4A', 'MP3', 'MP4', 'MKV']);
 		await expect(tool.locator('[data-status]')).toHaveText('4 chapters detected.');
 		await expect(tool.locator('[data-preview] li')).toHaveCount(4);
@@ -185,7 +208,7 @@ test.describe('audio tool outputs', () => {
 		expect(errors).toEqual([]);
 	});
 
-	test('Podcast Chapter Editor takes its containers and last chapter end from the media file', async ({ page }) => {
+	test('Podcast Chapter Editor keeps every container on offer and takes the last chapter end from the media file', async ({ page }) => {
 		const errors = collectPageErrors(page);
 		await page.goto('/en/tools/podcast-chapter-editor/');
 		const tool = page.locator('[data-chapterizer]');
@@ -195,13 +218,13 @@ test.describe('audio tool outputs', () => {
 		await expect(output.locator('option')).toHaveText(['M4A', 'MP3', 'MP4', 'MKV']);
 		await expect(output).toHaveValue('m4a');
 
-		/* An MP3 can be copied into MP3 or Matroska, so the M4A default has to give way. */
+		/* An MP3 starts at the container it can be copied into; the rest stay one click away. */
 		await tool.locator('[data-file]').setInputFiles({
 			name: 'episode.mp3',
 			mimeType: 'audio/mpeg',
 			buffer: Buffer.from('not a decodable mp3'),
 		});
-		await expect(output.locator('option')).toHaveText(['MP3', 'MKV']);
+		await expect(output.locator('option')).toHaveText(['M4A', 'MP3', 'MP4', 'MKV']);
 		await expect(output).toHaveValue('mp3');
 
 		/* The browser cannot read a duration out of that file, so the guess still applies. */
@@ -211,9 +234,9 @@ test.describe('audio tool outputs', () => {
 		await expect(tool.locator('[data-status]')).toHaveText(assumedEndStatus);
 		expect(await downloadText(meta)).toContain('START=300000\nEND=359999\n');
 
-		/* PCM cannot be stream-copied into any of MP3, M4A or MP4, so only Matroska is left. */
+		/* PCM cannot be stream-copied into MP3, M4A or MP4, and all three are offered anyway. */
 		await tool.locator('[data-file]').setInputFiles(createWavFixture({ name: 'episode.wav', seconds: 1 }));
-		await expect(output.locator('option')).toHaveText(['MKV']);
+		await expect(output.locator('option')).toHaveText(['M4A', 'MP3', 'MP4', 'MKV']);
 		await expect(output).toHaveValue('mkv');
 
 		/* The player is the thing that knows the episode length, so wait for it to report one. */
@@ -233,6 +256,13 @@ test.describe('audio tool outputs', () => {
 		expect(lastEnd).toBeGreaterThan(900);
 		expect(lastEnd).toBeLessThan(1100);
 
+		/* A container the visitor picked is theirs: the next file follows it instead of overruling it. */
+		await output.selectOption('m4a');
+		await tool.locator('[data-file]').setInputFiles(createWavFixture({ name: 'second-episode.wav', seconds: 1 }));
+		await expect(tool.locator('[data-file-name]')).toHaveText('second-episode.wav');
+		await expect(output).toHaveValue('m4a');
+
+		await output.selectOption('mkv');
 		await tool.locator('[data-clear]').click();
 		await expect(output.locator('option')).toHaveText(['M4A', 'MP3', 'MP4', 'MKV']);
 		await expect(output).toHaveValue('m4a');
@@ -260,7 +290,8 @@ test.describe('audio tool outputs', () => {
 		await tool.locator('[data-output]').selectOption('mkv');
 		await tool.locator('[data-mux]').click();
 
-		await expect(tool.locator('[data-status]')).toHaveText('Media file with chapters created.', { timeout: 150_000 });
+		/* Matroska takes PCM as it stands, so the run is a remux and the status has to say so. */
+		await expect(tool.locator('[data-status]')).toHaveText('Media file with chapters created. The streams were copied into MKV losslessly.', { timeout: 150_000 });
 		await expect(media).toBeVisible();
 		await expect(media).toHaveAttribute('download', 'chapter-source-chapters.mkv');
 
@@ -278,6 +309,109 @@ test.describe('audio tool outputs', () => {
 		/* The muxed file carries the old chapters, so editing them retires it too. */
 		await tool.locator('[data-chapters]').fill('00:00 Different intro');
 		await expect(media).toBeHidden();
+		expect(errors).toEqual([]);
+	});
+
+	test('Podcast Chapter Editor re-encodes a PCM source into the audio container it was asked for', async ({ page }) => {
+		test.setTimeout(180_000);
+		await cacheCdnAssets(page);
+		const errors = collectPageErrors(page);
+		await page.goto('/en/tools/podcast-chapter-editor/');
+		const tool = page.locator('[data-chapterizer]');
+		const status = tool.locator('[data-status]');
+		const media = tool.locator('[data-media]');
+
+		/* PCM is exactly what a stream copy cannot pour into an MP4-family container. */
+		await tool.locator('[data-file]').setInputFiles(createWavFixture({
+			name: 'episode.wav',
+			seconds: 1,
+			title: 'Episode 12',
+		}));
+		await expect(tool.locator('[data-output]')).toHaveValue('mkv');
+		await tool.locator('[data-output]').selectOption('m4a');
+		await tool.locator('[data-chapters]').fill('00:00 Intro\n00:00.600 Chorus');
+		await expect(status).toHaveText('2 chapters detected.');
+
+		/* With the duration known the last chapter ends with the file, so no guess is announced. */
+		await expect
+			.poll(() => tool.locator('[data-audio]').evaluate((node) => node.duration), { timeout: 15_000 })
+			.toBeGreaterThan(0.9);
+
+		await tool.locator('[data-mux]').click();
+		await expect(status).toHaveText('Media file with chapters created. M4A cannot carry the source streams, so they were re-encoded to AAC.', { timeout: 150_000 });
+		await expect(status).toHaveAttribute('data-state', 'success');
+		await expect(media).toBeVisible();
+		await expect(media).toHaveAttribute('download', 'episode-chapters.m4a');
+
+		const m4a = await inspectDownload(media);
+		expect(m4a.type).toBe('audio/mp4');
+		expect(m4a.byteLength).toBeGreaterThan(2000);
+		const m4aBytes = await downloadText(media);
+		/* An ISO base media file, and the sample entry says AAC rather than the PCM that went in. */
+		expect(m4aBytes.slice(4, 8)).toBe('ftyp');
+		const entry = await mp4SampleEntry(media);
+		expect(entry.codec).toBe('mp4a');
+		expect(entry.sampleRate).toBe(44_100);
+		expect(m4aBytes).toContain('Intro');
+		expect(m4aBytes).toContain('Chorus');
+		/* -map_metadata has to point at the media, not at the chapter file, on the re-encoding route too. */
+		expect(m4aBytes).toContain('Episode 12');
+
+		/* Same source, different container: MP3 has to arrive as an MP3, chapters and all. */
+		await tool.locator('[data-output]').selectOption('mp3');
+		await tool.locator('[data-mux]').click();
+		await expect(status).toHaveText('Media file with chapters created. MP3 cannot carry the source streams, so they were re-encoded to MP3.', { timeout: 150_000 });
+		await expect(media).toHaveAttribute('download', 'episode-chapters.mp3');
+
+		const mp3 = await inspectDownload(media);
+		expect(mp3.type).toBe('audio/mpeg');
+		/* "ID3" plus the tag version byte: the MP3 muxer always writes an ID3v2 header. */
+		expect(mp3.magic).toMatch(/^494433/);
+		expect(mp3.byteLength).toBeGreaterThan(10_000);
+		const mp3Bytes = await downloadText(media);
+		/* Chapters survive as ID3v2 CHAP frames, which is where an MP3 keeps them. */
+		expect(mp3Bytes).toContain('CHAP');
+		expect(mp3Bytes).toContain('Intro');
+		expect(mp3Bytes).toContain('Chorus');
+		expect(errors).toEqual([]);
+	});
+
+	test('Podcast Chapter Editor re-encodes a WebM source into the MP4 it was asked for', async ({ page }) => {
+		test.setTimeout(180_000);
+		await cacheCdnAssets(page);
+		const errors = collectPageErrors(page);
+		await page.goto('/en/tools/podcast-chapter-editor/');
+		const tool = page.locator('[data-chapterizer]');
+		const media = tool.locator('[data-media]');
+
+		/* VP8 has no home in an MP4, so the picture has to be re-encoded rather than the container swapped. */
+		await tool.locator('[data-file]').setInputFiles(fixtureUpload('tiny-clip.webm', 'video/webm'));
+		await expect(tool.locator('[data-file-name]')).toHaveText('tiny-clip.webm');
+		await expect(tool.locator('[data-output]')).toHaveValue('mkv');
+		await tool.locator('[data-output]').selectOption('mp4');
+		await tool.locator('[data-chapters]').fill('00:00 Intro\n00:00.400 Chorus');
+		await expect(tool.locator('[data-status]')).toHaveText('2 chapters detected.');
+
+		await tool.locator('[data-mux]').click();
+		/* The clip's duration may never reach the player, so only the route is asserted here. */
+		await expect(tool.locator('[data-status]'))
+			.toContainText('MP4 cannot carry the source streams, so they were re-encoded to H.264 + AAC.', { timeout: 150_000 });
+		await expect(tool.locator('[data-status]')).toHaveAttribute('data-state', 'success');
+		await expect(media).toHaveAttribute('download', 'tiny-clip-chapters.mp4');
+
+		const mp4 = await inspectDownload(media);
+		expect(mp4.type).toBe('video/mp4');
+		expect(mp4.byteLength).toBeGreaterThan(1000);
+		const bytes = await downloadText(media);
+		expect(bytes.slice(4, 8)).toBe('ftyp');
+
+		/* The picture is really H.264 now, and it is still the fixture's 160x120 frame. */
+		const entry = await mp4SampleEntry(media);
+		expect(entry.codec).toBe('avc1');
+		expect(entry.width).toBe(160);
+		expect(entry.height).toBe(120);
+		expect(bytes).toContain('Intro');
+		expect(bytes).toContain('Chorus');
 		expect(errors).toEqual([]);
 	});
 

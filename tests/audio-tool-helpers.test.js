@@ -31,8 +31,10 @@ import {
 	buildFfmetadata,
 	defaultMuxContainer,
 	lastChapterEnd,
+	muxAttempts,
 	muxContainerOptions,
 	muxContainers,
+	muxModes,
 	usesAssumedEnd,
 } from '../src/lib/tools/podcast-chapters.js';
 import {
@@ -297,47 +299,188 @@ test('alignment sizes its window from the sample rate and survives useless input
 	assert.equal(estimateAlignmentOffset(reference, delayed.subarray(0, 5000), { sampleRate: 44100 }), 0);
 });
 
-test('chapter mux containers only offer what a stream copy can actually write', () => {
-	// Nothing is muxed before a file is picked, so nothing is ruled out yet.
-	assert.deepEqual(muxContainers(null), ['m4a', 'mp3', 'mp4', 'mkv']);
-	assert.deepEqual(muxContainerOptions(null), [
+// The sources the chapter editor is handed, from the two it can copy straight through
+// to the ones that reach an MP4-family container only by way of an encoder.
+const CHAPTER_SOURCES = {
+	mp3: { name: 'episode.mp3', type: 'audio/mpeg' },
+	m4a: { name: 'episode.m4a', type: 'audio/mp4' },
+	mp4: { name: 'episode.mp4', type: 'video/mp4' },
+	mov: { name: 'episode.mov', type: 'video/quicktime' },
+	wav: { name: 'episode.wav', type: 'audio/wav' },
+	flac: { name: 'episode.flac', type: 'audio/flac' },
+	ogg: { name: 'episode.ogg', type: 'audio/ogg' },
+	mkv: { name: 'episode.mkv', type: 'video/x-matroska' },
+	webm: { name: 'episode.webm', type: 'video/webm' },
+	nameless: { name: 'episode', type: '' },
+};
+
+const CHAPTER_HEAD = ['-i', 'input.bin', '-i', 'chapters.ffmetadata', '-map_metadata', '0', '-map_chapters', '1'];
+
+const chapterRun = (file, container, output) => muxAttempts(file, container, {
+	input: 'input.bin',
+	meta: 'chapters.ffmetadata',
+	output,
+});
+
+test('chapter mux offers every container whatever the source is', () => {
+	const options = [
 		{ value: 'm4a', label: 'M4A' },
 		{ value: 'mp3', label: 'MP3' },
 		{ value: 'mp4', label: 'MP4' },
 		{ value: 'mkv', label: 'MKV' },
-	]);
+	];
 
-	// PCM, FLAC, Vorbis and Matroska itself only survive a copy into Matroska.
-	for (const file of [
-		{ name: 'episode.wav', type: 'audio/wav' },
-		{ name: 'episode.flac', type: 'audio/flac' },
-		{ name: 'episode.ogg', type: 'audio/ogg' },
-		{ name: 'episode.mkv', type: 'video/x-matroska' },
-		{ name: 'episode.webm', type: 'video/webm' },
-		{ name: 'episode', type: '' },
-	]) {
-		assert.deepEqual(muxContainers(file), ['mkv'], `${file.name} must not offer more than MKV`);
-		assert.deepEqual(muxContainerOptions(file), [{ value: 'mkv', label: 'MKV' }]);
-		// M4A is the markup default, and it is exactly the one a WAV cannot be copied into.
-		assert.equal(defaultMuxContainer(file, 'm4a'), 'mkv');
+	assert.deepEqual(muxContainers(), ['m4a', 'mp3', 'mp4', 'mkv']);
+	assert.deepEqual(muxContainerOptions(), options);
+
+	// PCM, FLAC, Vorbis and video used to shrink this list down to Matroska. The menu is
+	// no longer the place where a missing stream copy is settled, so it stays whole.
+	for (const file of [null, ...Object.values(CHAPTER_SOURCES)]) {
+		assert.deepEqual(muxContainers(file), ['m4a', 'mp3', 'mp4', 'mkv'], `${file?.name ?? 'no file'} must keep every container`);
+		assert.deepEqual(muxContainerOptions(file), options);
 	}
 
-	assert.deepEqual(muxContainers({ name: 'episode.mp3', type: 'audio/mpeg' }), ['mp3', 'mkv']);
-	assert.deepEqual(muxContainers({ name: 'episode.m4a', type: 'audio/mp4' }), ['m4a', 'mp4', 'mkv']);
-	assert.deepEqual(muxContainers({ name: 'episode.mp4', type: 'video/mp4' }), ['mp4', 'mkv']);
-	assert.deepEqual(muxContainers({ name: 'episode.mov', type: 'video/quicktime' }), ['mp4', 'mkv']);
+	// Without a choice of its own the tool starts at the container the source copies into.
+	assert.equal(defaultMuxContainer(null, ''), 'm4a');
+	assert.equal(defaultMuxContainer(CHAPTER_SOURCES.mp3, ''), 'mp3');
+	assert.equal(defaultMuxContainer(CHAPTER_SOURCES.m4a, undefined), 'm4a');
+	assert.equal(defaultMuxContainer(CHAPTER_SOURCES.mp4, ''), 'mp4');
+	assert.equal(defaultMuxContainer(CHAPTER_SOURCES.mov, ''), 'mp4');
+	for (const file of [CHAPTER_SOURCES.wav, CHAPTER_SOURCES.flac, CHAPTER_SOURCES.ogg, CHAPTER_SOURCES.mkv, CHAPTER_SOURCES.webm, CHAPTER_SOURCES.nameless]) {
+		assert.equal(defaultMuxContainer(file, ''), 'mkv', `${file.name} is copied into Matroska`);
+	}
 
 	// A missing or unhelpful MIME type still leaves the extension to go on.
-	assert.deepEqual(muxContainers({ name: 'episode.mp3', type: '' }), ['mp3', 'mkv']);
-	assert.deepEqual(muxContainers({ name: 'EPISODE.M4A', type: 'application/octet-stream' }), ['m4a', 'mp4', 'mkv']);
-	assert.deepEqual(muxContainers({ name: 'episode.mp4' }), ['mp4', 'mkv']);
-	assert.deepEqual(muxContainers({ type: 'audio/mpeg' }), ['mp3', 'mkv']);
+	assert.equal(defaultMuxContainer({ name: 'episode.mp3', type: '' }, ''), 'mp3');
+	assert.equal(defaultMuxContainer({ name: 'EPISODE.M4A', type: 'application/octet-stream' }, ''), 'm4a');
+	assert.equal(defaultMuxContainer({ name: 'episode.mp4' }, ''), 'mp4');
+	assert.equal(defaultMuxContainer({ type: 'audio/mpeg' }, ''), 'mp3');
 
-	// A choice that stays legal survives the next file; an illegal one falls back to the first that works.
-	assert.equal(defaultMuxContainer({ name: 'a.mp4', type: 'video/mp4' }, 'mkv'), 'mkv');
-	assert.equal(defaultMuxContainer({ name: 'a.mp4', type: 'video/mp4' }, 'm4a'), 'mp4');
-	assert.equal(defaultMuxContainer({ name: 'a.mp3', type: 'audio/mpeg' }, undefined), 'mp3');
-	assert.equal(defaultMuxContainer(null, ''), 'm4a');
+	// A choice the visitor made is never overruled, however far the source sits from it.
+	assert.equal(defaultMuxContainer(CHAPTER_SOURCES.wav, 'm4a'), 'm4a');
+	assert.equal(defaultMuxContainer(CHAPTER_SOURCES.mp4, 'mp3'), 'mp3');
+	assert.equal(defaultMuxContainer(CHAPTER_SOURCES.mp3, 'mkv'), 'mkv');
+	assert.equal(defaultMuxContainer(CHAPTER_SOURCES.mp3, 'mp4'), 'mp4');
+	// Only a container nobody offers falls back, and it falls back to the source's own.
+	assert.equal(defaultMuxContainer(CHAPTER_SOURCES.mp3, 'ogg'), 'mp3');
+});
+
+test('chapter mux copies where the container takes the source and re-encodes where it cannot', () => {
+	// A copy is lossless and quick, so it goes first wherever the container accepts the streams.
+	assert.deepEqual(muxModes(CHAPTER_SOURCES.mp3, 'mp3'), ['copy', 'transcode']);
+	assert.deepEqual(muxModes(CHAPTER_SOURCES.m4a, 'm4a'), ['copy', 'transcode']);
+	assert.deepEqual(muxModes(CHAPTER_SOURCES.m4a, 'mp4'), ['copy', 'transcode']);
+	assert.deepEqual(muxModes(CHAPTER_SOURCES.mp4, 'm4a'), ['copy', 'transcode']);
+	assert.deepEqual(muxModes(CHAPTER_SOURCES.mov, 'mp4'), ['copy', 'transcode']);
+
+	// Matroska takes every stream these tools meet, so it is copied into from anywhere.
+	for (const file of [null, ...Object.values(CHAPTER_SOURCES)]) {
+		assert.deepEqual(muxModes(file, 'mkv'), ['copy', 'transcode'], `${file?.name ?? 'no file'} is copied into Matroska`);
+	}
+
+	// The rest is re-encoded rather than refused: the container is what was asked for.
+	assert.deepEqual(muxModes(CHAPTER_SOURCES.mp3, 'm4a'), ['transcode']);
+	assert.deepEqual(muxModes(CHAPTER_SOURCES.mp3, 'mp4'), ['transcode']);
+	assert.deepEqual(muxModes(CHAPTER_SOURCES.mp4, 'mp3'), ['transcode']);
+	assert.deepEqual(muxModes(CHAPTER_SOURCES.m4a, 'mp3'), ['transcode']);
+	for (const file of [CHAPTER_SOURCES.wav, CHAPTER_SOURCES.flac, CHAPTER_SOURCES.ogg, CHAPTER_SOURCES.webm, CHAPTER_SOURCES.nameless]) {
+		for (const container of ['mp3', 'm4a', 'mp4']) {
+			assert.deepEqual(muxModes(file, container), ['transcode'], `${file.name} has to be re-encoded for ${container}`);
+		}
+	}
+
+	// Every source reaches every container by one route or the other.
+	for (const file of [null, ...Object.values(CHAPTER_SOURCES)]) {
+		for (const container of ['m4a', 'mp3', 'mp4', 'mkv']) {
+			assert.ok(muxModes(file, container).length > 0, `${file?.name ?? 'no file'} must reach ${container}`);
+		}
+	}
+});
+
+test('chapter mux builds an FFmpeg run for the container that was picked, not for the one that was easy', () => {
+	// An MP3 into MP3 is a plain remux, with the re-encode queued behind it in case the muxer balks.
+	const intoMp3 = chapterRun(CHAPTER_SOURCES.mp3, 'mp3', 'out.mp3');
+	assert.deepEqual(intoMp3.map((attempt) => attempt.mode), ['copy', 'transcode']);
+	assert.deepEqual(intoMp3[0], {
+		mode: 'copy',
+		container: 'mp3',
+		label: 'MP3',
+		codec: '',
+		args: [...CHAPTER_HEAD, '-map', '0', '-c', 'copy', '-y', 'out.mp3'],
+	});
+	assert.deepEqual(intoMp3[1], {
+		mode: 'transcode',
+		container: 'mp3',
+		label: 'MP3',
+		codec: 'MP3',
+		args: [...CHAPTER_HEAD, '-map', '0:a', '-c:a', 'libmp3lame', '-b:a', '192k', '-y', 'out.mp3'],
+	});
+
+	// PCM has no home in an MP4-family container, so AAC is what fills the M4A that was asked for.
+	const intoM4a = chapterRun(CHAPTER_SOURCES.wav, 'm4a', 'out.m4a');
+	assert.deepEqual(intoM4a, [{
+		mode: 'transcode',
+		container: 'm4a',
+		label: 'M4A',
+		codec: 'AAC',
+		args: [...CHAPTER_HEAD, '-map', '0:a', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-y', 'out.m4a'],
+	}]);
+
+	// An MP3 asked for MP4 gets AAC too, and only the audio: nothing is silently left in MP3.
+	assert.deepEqual(chapterRun(CHAPTER_SOURCES.mp3, 'mp4', 'out.mp4'), [{
+		mode: 'transcode',
+		container: 'mp4',
+		label: 'MP4',
+		codec: 'AAC',
+		args: [...CHAPTER_HEAD, '-map', '0:a', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-y', 'out.mp4'],
+	}]);
+
+	// A WebM keeps its picture on the way into MP4, which means an H.264 encode.
+	assert.deepEqual(chapterRun(CHAPTER_SOURCES.webm, 'mp4', 'out.mp4'), [{
+		mode: 'transcode',
+		container: 'mp4',
+		label: 'MP4',
+		codec: 'H.264 + AAC',
+		args: [
+			...CHAPTER_HEAD,
+			'-map', '0', '-c:v', 'libx264', '-crf', '23', '-preset', 'veryfast', '-pix_fmt', 'yuv420p',
+			'-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-y', 'out.mp4',
+		],
+	}]);
+
+	// A video source loses its picture on the way into the audio-only containers, not its chapters.
+	assert.deepEqual(chapterRun(CHAPTER_SOURCES.mp4, 'mp3', 'out.mp3')[0].args,
+		[...CHAPTER_HEAD, '-map', '0:a', '-c:a', 'libmp3lame', '-b:a', '192k', '-y', 'out.mp3']);
+
+	// Faststart belongs to the MP4 family only, and the copy keeps it.
+	const intoMp4 = chapterRun(CHAPTER_SOURCES.mp4, 'mp4', 'out.mp4');
+	assert.deepEqual(intoMp4[0].args, [...CHAPTER_HEAD, '-map', '0', '-c', 'copy', '-movflags', '+faststart', '-y', 'out.mp4']);
+	assert.deepEqual(chapterRun(CHAPTER_SOURCES.m4a, 'm4a', 'out.m4a')[0].args,
+		[...CHAPTER_HEAD, '-map', '0', '-c', 'copy', '-movflags', '+faststart', '-y', 'out.m4a']);
+
+	// Matroska is copied into, and re-encodes losslessly to FLAC if that copy is ever refused.
+	const intoMkv = chapterRun(CHAPTER_SOURCES.wav, 'mkv', 'out.mkv');
+	assert.deepEqual(intoMkv[0].args, [...CHAPTER_HEAD, '-map', '0', '-c', 'copy', '-y', 'out.mkv']);
+	assert.deepEqual(intoMkv[1], {
+		mode: 'transcode',
+		container: 'mkv',
+		label: 'MKV',
+		codec: 'FLAC',
+		args: [...CHAPTER_HEAD, '-map', '0', '-c:v', 'copy', '-c:a', 'flac', '-y', 'out.mkv'],
+	});
+
+	// Chapters come from the second input and metadata from the first, on every route.
+	for (const file of [null, ...Object.values(CHAPTER_SOURCES)]) {
+		for (const container of ['m4a', 'mp3', 'mp4', 'mkv']) {
+			for (const attempt of chapterRun(file, container, `out.${container}`)) {
+				assert.deepEqual(attempt.args.slice(0, 8), CHAPTER_HEAD);
+				assert.equal(attempt.container, container);
+				assert.equal(attempt.args.at(-1), `out.${container}`);
+				assert.equal(attempt.args.at(-2), '-y');
+				assert.equal(attempt.mode === 'copy', attempt.codec === '');
+			}
+		}
+	}
 });
 
 test('the last chapter ends at the media duration instead of a flat minute', () => {
