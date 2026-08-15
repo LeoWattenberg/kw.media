@@ -18,6 +18,7 @@ const copy = {
 		settings: 'Crop', sensitivity: 'Empfindlichkeit', output: 'Ausgabeformat', analyze: 'Balken erkennen', crop: 'Video croppen', clear: 'Zurücksetzen',
 		result: 'Ergebnis', download: 'Gecropptes Video herunterladen', waiting: 'Wähle ein Video.', selected: '{name} ist bereit.',
 		analyzing: 'Analysiere Frame…', detected: 'Crop erkannt: {w}x{h} bei {x},{y}.', none: 'Keine deutlichen Balken erkannt.',
+		tooDark: 'Das Bild an dieser Stelle ist durchgehend dunkel, dort lassen sich keine Balken messen. Videos, die mit einer Schwarzblende beginnen, kann dieses Werkzeug nicht auswerten.',
 		processing: 'FFmpeg rendert den Crop…', loading: 'FFmpeg WASM wird geladen…', ready: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%',
 		done: 'Crop abgeschlossen.', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.', error: 'Crop fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
 	},
@@ -29,6 +30,7 @@ const copy = {
 		settings: 'Crop', sensitivity: 'Sensitivity', output: 'Output format', analyze: 'Detect bars', crop: 'Crop video', clear: 'Reset',
 		result: 'Result', download: 'Download cropped video', waiting: 'Choose a video.', selected: '{name} is ready.',
 		analyzing: 'Analyzing frame…', detected: 'Crop detected: {w}x{h} at {x},{y}.', none: 'No obvious bars detected.',
+		tooDark: 'The frame sampled here is dark throughout, so no bars can be measured. This tool cannot read a video that opens on a fade from black.',
 		processing: 'FFmpeg is rendering the crop…', loading: 'Loading FFmpeg WASM…', ready: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%',
 		done: 'Crop complete.', timeout: 'FFmpeg WASM did not load within 90 seconds.', error: 'Crop failed: {message}', generic: 'Unknown error',
 	},
@@ -58,6 +60,7 @@ const copyJson = JSON.stringify(copy);
 
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+	import { detectCrop } from '../../lib/tools/crop-doctor';
 	import { formatBytes } from '../../lib/tools/format';
 
 	for (const root of document.querySelectorAll('[data-crop-doctor]:not([data-bound])')) {
@@ -111,9 +114,13 @@ const copyJson = JSON.stringify(copy);
 				const ctx = preview.getContext('2d', { willReadFrequently: true });
 				ctx.drawImage(video, 0, 0);
 				const data = ctx.getImageData(0, 0, preview.width, preview.height);
-				crop = detectCrop(data, Number(threshold.value));
-				ctx.strokeStyle = '#ff3b30'; ctx.lineWidth = Math.max(4, preview.width / 180); ctx.strokeRect(crop.x, crop.y, crop.w, crop.h);
+				const measured = detectCrop(data, Number(threshold.value));
 				preview.hidden = false;
+				/* Nothing in the sampled frame rose above the threshold, so there is no box to
+				   draw and no crop to offer — only a frame the visitor should sample elsewhere. */
+				if (measured.empty) { crop = null; cropButton.disabled = true; setStatus(copy.tooDark, 'info'); return; }
+				crop = measured;
+				ctx.strokeStyle = '#ff3b30'; ctx.lineWidth = Math.max(4, preview.width / 180); ctx.strokeRect(crop.x, crop.y, crop.w, crop.h);
 				const changed = crop.w < preview.width - 4 || crop.h < preview.height - 4;
 				cropButton.disabled = !changed;
 				setStatus(changed ? format(copy.detected, crop) : copy.none, changed ? 'success' : 'info');
@@ -151,19 +158,6 @@ const copyJson = JSON.stringify(copy);
 			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
 		}
 
-		function detectCrop(imageData, limit) {
-			const { width, height, data } = imageData;
-			const dark = (x, y) => { const i = (y * width + x) * 4; return data[i] < limit && data[i + 1] < limit && data[i + 2] < limit; };
-			const rowDark = (y) => { let hits = 0; for (let x = 0; x < width; x += 8) if (dark(x, y)) hits++; return hits / Math.ceil(width / 8) > 0.92; };
-			const colDark = (x) => { let hits = 0; for (let y = 0; y < height; y += 8) if (dark(x, y)) hits++; return hits / Math.ceil(height / 8) > 0.92; };
-			let top = 0, bottom = height - 1, left = 0, right = width - 1;
-			while (top < height / 2 && rowDark(top)) top++;
-			while (bottom > height / 2 && rowDark(bottom)) bottom--;
-			while (left < width / 2 && colDark(left)) left++;
-			while (right > width / 2 && colDark(right)) right--;
-			const even = (v) => Math.max(2, Math.floor(v / 2) * 2);
-			return { x: even(left), y: even(top), w: even(right - left + 1), h: even(bottom - top + 1) };
-		}
 		function waitForMetadata(media) {
 			if (media.readyState >= 1) return Promise.resolve();
 			if (media.error) return Promise.reject(new Error(media.error.message || copy.generic));

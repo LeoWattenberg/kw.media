@@ -21,6 +21,7 @@ const copy = {
 		analyzing: 'Analysiere Gesicht/Framing…', face: 'Gesicht erkannt. Crop-Zentrum: {x}%.', fallback: 'Kein Gesicht erkannt, Center-Crop wird verwendet.',
 		processing: 'FFmpeg rendert das Reframe…', loading: 'FFmpeg WASM wird geladen…', ready: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%',
 		done: 'Vertikales Video erstellt.', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.', error: 'Reframe fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
+		noVideo: 'Diese Datei hat keine Videospur zum Reframen.',
 	},
 	en: {
 		eyebrow: 'Face-aware vertical crop', title: 'Vertical Video Reframer',
@@ -33,6 +34,7 @@ const copy = {
 		analyzing: 'Analyzing face/framing…', face: 'Face detected. Crop center: {x}%.', fallback: 'No face detected, using center crop.',
 		processing: 'FFmpeg is rendering the reframe…', loading: 'Loading FFmpeg WASM…', ready: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%',
 		done: 'Vertical video created.', timeout: 'FFmpeg WASM did not load within 90 seconds.', error: 'Reframe failed: {message}', generic: 'Unknown error',
+		noVideo: 'This file has no video track to reframe.',
 	},
 }[locale];
 const copyJson = JSON.stringify(copy);
@@ -64,6 +66,7 @@ const copyJson = JSON.stringify(copy);
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
 	import { formatBytes } from '../../lib/tools/format';
+	import { verticalCropRect } from '../../lib/tools/vertical-reframer';
 
 	for (const root of document.querySelectorAll('[data-smart-reframer]:not([data-bound])')) {
 		root.dataset.bound = 'true';
@@ -139,14 +142,11 @@ const copyJson = JSON.stringify(copy);
 			if (!file) return;
 			try {
 				if (!video.videoWidth) await waitForMetadata(video);
+				/* An audio-only or broken stream reports no dimensions, and there is no crop
+				   to cut out of a frame that does not exist. */
+				const crop = verticalCropRect(video.videoWidth, video.videoHeight, preset.value, cropCenter);
+				if (!crop) throw new Error(copy.noVideo);
 				setStatus(copy.processing, 'info');
-				const [rw, rh] = preset.value.split(':').map(Number);
-				const targetRatio = rw / rh;
-				let cropW = video.videoWidth;
-				let cropH = Math.round(cropW / targetRatio);
-				if (cropH > video.videoHeight) { cropH = video.videoHeight; cropW = Math.round(cropH * targetRatio); }
-				const x = Math.round(Math.max(0, Math.min(video.videoWidth - cropW, cropCenter * video.videoWidth - cropW / 2)));
-				const y = Math.round(Math.max(0, (video.videoHeight - cropH) / 2));
 				const outSize = preset.value === '1:1' ? '1080:1080' : preset.value === '4:5' ? '1080:1350' : '1080:1920';
 				const bytes = await runtime.run(async (ffmpeg) => {
 					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -154,7 +154,7 @@ const copyJson = JSON.stringify(copy);
 					const output = `reframe-${stamp}.mp4`;
 					await ffmpeg.writeFile(input, new Uint8Array(await file.arrayBuffer()));
 					try {
-						const args = ['-i', input, '-vf', `crop=${cropW}:${cropH}:${x}:${y},scale=${outSize},setsar=1`, '-c:v', 'libx264', '-crf', quality.value, '-preset', 'veryfast', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-y', output];
+						const args = ['-i', input, '-vf', `crop=${crop.w}:${crop.h}:${crop.x}:${crop.y},scale=${outSize},setsar=1`, '-c:v', 'libx264', '-crf', quality.value, '-preset', 'veryfast', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', '-y', output];
 						const code = await ffmpeg.exec(args);
 						if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
 						const result = await ffmpeg.readFile(output);

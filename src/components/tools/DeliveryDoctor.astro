@@ -22,6 +22,7 @@ const copy = {
 		ready: 'Diagnose abgeschlossen.', repairing: 'FFmpeg erstellt die Reparatur…', loading: 'FFmpeg WASM wird geladen…', ffmpegReady: 'FFmpeg WASM ist bereit.',
 		progress: 'FFmpeg arbeitet… {progress}%', done: 'Reparatur abgeschlossen.', timeout: 'WASM-Engine hat nicht innerhalb von 90 Sekunden geladen.',
 		error: 'Aktion fehlgeschlagen: {message}', generic: 'Unbekannter Fehler', none: 'Keine offensichtlichen Probleme gefunden.',
+		unsupported: '{mode} lässt sich nicht in {container} schreiben. Wähle MP4, MKV oder MOV oder einen anderen Reparaturmodus.',
 		videoCodec: 'Video-Codec muss für die Web-Auslieferung eventuell transkodiert werden: {format}.',
 		audioCodec: 'Audio-Codec kann auf Plattformen für Überraschungen sorgen: {format}.',
 		oddDimensions: 'Die Videomaße sind ungerade; manche Encoder und Plattformen bevorzugen gerade Maße.',
@@ -39,6 +40,7 @@ const copy = {
 		ready: 'Diagnosis complete.', repairing: 'FFmpeg is creating the repair…', loading: 'Loading FFmpeg WASM…', ffmpegReady: 'FFmpeg WASM is ready.',
 		progress: 'FFmpeg is working… {progress}%', done: 'Repair complete.', timeout: 'WASM engine did not load within 90 seconds.',
 		error: 'Action failed: {message}', generic: 'Unknown error', none: 'No obvious delivery issues found.',
+		unsupported: '{mode} cannot be written into {container}. Choose MP4, MKV, or MOV, or pick another repair mode.',
 		videoCodec: 'Video codec may need transcoding for web delivery: {format}.',
 		audioCodec: 'Audio codec may surprise platforms: {format}.',
 		oddDimensions: 'Video dimensions are odd; some encoders and platforms prefer even dimensions.',
@@ -79,6 +81,7 @@ const copyJson = JSON.stringify(copy);
 <script>
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
 	import { analyzeMediaFile, loadMediaInfo } from '../../lib/tools/media-info-browser';
+	import { repairModeSupported } from '../../lib/tools/delivery-doctor';
 	import { formatBytes } from '../../lib/tools/format';
 
 	for (const root of document.querySelectorAll('[data-delivery-doctor]:not([data-bound])')) {
@@ -139,19 +142,27 @@ const copyJson = JSON.stringify(copy);
 		async function repair() {
 			const file = fileInput.files?.[0];
 			if (!file) return;
+			const container = output.value;
+			const repairMode = mode.value;
+			/* The pipeline cannot write these streams into this container, so say which
+			   pair is impossible instead of letting FFmpeg exit with code 1. */
+			if (!repairModeSupported(container, repairMode)) {
+				setStatus(format(copy.unsupported, { mode: copy.modes?.[repairMode] || repairMode, container: containerLabel() }), 'error');
+				return;
+			}
 			setStatus(copy.repairing, 'info');
 			try {
 				const bytes = await runtime.run(async (ffmpeg) => {
 					const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 					const input = `source-${stamp}${extension(file.name)}`;
-					const out = `delivery-${stamp}.${output.value}`;
+					const out = `delivery-${stamp}.${container}`;
 					await ffmpeg.writeFile(input, new Uint8Array(await file.arrayBuffer()));
 					try {
 						const args = ['-i', input, '-map', '0', '-map_metadata', '0'];
-						if (mode.value === 'web') args.push('-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k');
-						else if (mode.value === 'audio') args.push('-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k', '-c:s', 'copy');
+						if (repairMode === 'web') args.push('-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '160k');
+						else if (repairMode === 'audio') args.push('-c:v', 'copy', '-c:a', 'aac', '-b:a', '160k', '-c:s', 'copy');
 						else args.push('-c', 'copy');
-						if (output.value === 'mp4' || output.value === 'mov') args.push('-movflags', '+faststart');
+						if (container === 'mp4' || container === 'mov') args.push('-movflags', '+faststart');
 						args.push('-y', out);
 						const code = await ffmpeg.exec(args);
 						if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`);
@@ -163,10 +174,10 @@ const copyJson = JSON.stringify(copy);
 					}
 				});
 				if (outputUrl) URL.revokeObjectURL(outputUrl);
-				const blob = new Blob([bytes], { type: mime(output.value) });
+				const blob = new Blob([bytes], { type: mime(container) });
 				outputUrl = URL.createObjectURL(blob);
 				download.href = outputUrl;
-				download.download = `${baseName(file.name)}-delivery.${output.value}`;
+				download.download = `${baseName(file.name)}-delivery.${container}`;
 				download.hidden = false;
 				resultMeta.textContent = `${download.download} · ${formatBytes(blob.size)}`;
 				setStatus(copy.done, 'success');
@@ -211,6 +222,7 @@ const copyJson = JSON.stringify(copy);
 			if (outputUrl) URL.revokeObjectURL(outputUrl); outputUrl = null; setStatus(copy.waiting, 'info');
 		}
 		function setStatus(message, state) { status.textContent = message; status.dataset.state = state; }
+		function containerLabel() { return output.selectedOptions?.[0]?.textContent?.trim() || output.value; }
 		function format(template, values) { return Object.entries(values).reduce((text, [key, value]) => text.replace(`{${key}}`, String(value)), template); }
 		function extension(name) { const match = String(name).match(/\.[^.]+$/); return match ? match[0] : '.bin'; }
 		function baseName(name) { return String(name).replace(/\.[^.]+$/, '') || 'media'; }

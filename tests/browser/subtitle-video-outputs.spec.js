@@ -25,6 +25,71 @@ const undecodableUpload = {
 	buffer: Buffer.from('this is not a matroska file'),
 };
 
+/* A real RIFF/WAVE file, built the way the other specs build their tones. Loaded
+   into a <video> it decodes fine and reports no picture, which is the audio-only
+   source the reframer must refuse instead of cropping 0x0. */
+const createWavUpload = ({ name = 'voice-over.wav', seconds = 1, sampleRate = 44_100, frequency = 440 } = {}) => {
+	const sampleCount = Math.round(seconds * sampleRate);
+	const data = Buffer.alloc(8 + sampleCount * 2);
+	data.write('data', 0);
+	data.writeUInt32LE(sampleCount * 2, 4);
+	for (let index = 0; index < sampleCount; index += 1) {
+		data.writeInt16LE(Math.round(Math.sin(2 * Math.PI * frequency * index / sampleRate) * 16_000), 8 + index * 2);
+	}
+
+	const fmt = Buffer.alloc(24);
+	fmt.write('fmt ', 0);
+	fmt.writeUInt32LE(16, 4);
+	fmt.writeUInt16LE(1, 8);
+	fmt.writeUInt16LE(1, 10);
+	fmt.writeUInt32LE(sampleRate, 12);
+	fmt.writeUInt32LE(sampleRate * 2, 16);
+	fmt.writeUInt16LE(2, 20);
+	fmt.writeUInt16LE(16, 22);
+
+	const body = Buffer.concat([Buffer.from('WAVE', 'latin1'), fmt, data]);
+	const header = Buffer.alloc(8);
+	header.write('RIFF', 0);
+	header.writeUInt32LE(body.length, 4);
+	return { name, mimeType: 'audio/wav', buffer: Buffer.concat([header, body]) };
+};
+
+/* A clip whose every frame is black. No committed fixture is dark enough to leave
+   the crop scans with nothing to stop at, so this records one in the page exactly
+   the way scripts/generate-test-fixtures.mjs mints the committed media. */
+const recordBlackClip = async (page) => {
+	const clip = await page.evaluate(async () => {
+		const mimeType = ['video/mp4', 'video/webm;codecs=vp8', 'video/webm'].find((type) => MediaRecorder.isTypeSupported(type));
+		if (!mimeType) throw new Error('This browser cannot record a black test clip.');
+		const canvas = document.createElement('canvas');
+		canvas.width = 160;
+		canvas.height = 120;
+		const context = canvas.getContext('2d');
+		/* Chromium only pushes a frame into the stream when the canvas changes. */
+		const paint = () => { context.fillStyle = '#000000'; context.fillRect(0, 0, 160, 120); };
+		paint();
+		const recorder = new MediaRecorder(canvas.captureStream(15), { mimeType, videoBitsPerSecond: 120_000 });
+		const chunks = [];
+		recorder.ondataavailable = (event) => chunks.push(event.data);
+		recorder.start();
+		const timer = setInterval(paint, 66);
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+		clearInterval(timer);
+		await new Promise((resolve) => { recorder.onstop = resolve; recorder.stop(); });
+		const blob = new Blob(chunks, { type: mimeType });
+		return { mimeType: mimeType.split(';')[0], bytes: [...new Uint8Array(await blob.arrayBuffer())] };
+	});
+
+	/* A still black frame compresses to almost nothing, so this only proves a real
+	   container came back rather than an empty blob. */
+	expect(clip.bytes.length).toBeGreaterThan(100);
+	return {
+		name: clip.mimeType === 'video/mp4' ? 'all-black.mp4' : 'all-black.webm',
+		mimeType: clip.mimeType,
+		buffer: Buffer.from(clip.bytes),
+	};
+};
+
 const downloadText = (link) => link.evaluate(async (node) => {
 	const response = await fetch(node.href);
 	return { type: response.headers.get('content-type'), text: await response.text() };
@@ -414,6 +479,43 @@ test.describe('black bar remover', () => {
 		expect(errors).toEqual([]);
 	});
 
+	test('refuses to call an all-black frame a 2x2 crop', async ({ page }) => {
+		test.setTimeout(60_000);
+		const errors = collectClientErrors(page);
+		await page.goto('/en/tools/black-bar-remover/');
+		const tool = page.locator('[data-crop-doctor]');
+		const status = tool.locator('[data-status]');
+		const clip = await recordBlackClip(page);
+
+		await tool.locator('[data-file]').setInputFiles(clip);
+		await expect(status).toHaveText(`${clip.name} is ready.`);
+		/* The widest sensitivity, so the decoded black stays under the threshold by a margin. */
+		await tool.locator('[data-threshold]').fill('60');
+		await expect(tool.locator('[data-threshold-label]')).toHaveText('60');
+		await tool.locator('[data-analyze]').click();
+
+		/* Every row and column scan collapses onto the midpoint here, which used to be
+		   reported as a successful 2x2 crop with the export enabled. */
+		await expect(status).toHaveText('The frame sampled here is dark throughout, so no bars can be measured. This tool cannot read a video that opens on a fade from black.', { timeout: 20_000 });
+		await expect(status).toHaveAttribute('data-state', 'info');
+		await expect(tool.locator('[data-crop]')).toBeDisabled();
+		await expect(tool.locator('[data-result-panel]')).toBeHidden();
+
+		const preview = tool.locator('[data-preview]');
+		await expect(preview).toBeVisible();
+		/* The measured frame really was black, and no crop box was drawn over it. */
+		const sampled = await preview.evaluate((canvas) => {
+			const pixels = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height).data;
+			let lit = 0;
+			for (let index = 0; index < pixels.length; index += 4) {
+				if (pixels[index] >= 60 || pixels[index + 1] >= 60 || pixels[index + 2] >= 60) lit += 1;
+			}
+			return { width: canvas.width, height: canvas.height, lit };
+		});
+		expect(sampled).toEqual({ width: 160, height: 120, lit: 0 });
+		expect(errors).toEqual([]);
+	});
+
 	test('reports an undecodable file instead of analyzing forever', async ({ page }) => {
 		await page.goto('/en/tools/black-bar-remover/');
 		const tool = page.locator('[data-crop-doctor]');
@@ -446,6 +548,30 @@ test.describe('vertical video reframer', () => {
 			await expect(status).toContainText('Reframe failed:');
 			await expect(tool.locator('[data-download]')).toBeHidden();
 		}
+	});
+
+	test('refuses a source with no picture in both languages instead of cropping 0x0', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		const tool = page.locator('[data-smart-reframer]');
+		const status = tool.locator('[data-status]');
+		const refusals = [
+			['/en/tools/vertical-video-reframer/', 'Reframe failed: This file has no video track to reframe.'],
+			['/de/tools/vertikaler-video-reframer/', 'Reframe fehlgeschlagen: Diese Datei hat keine Videospur zum Reframen.'],
+		];
+
+		for (const [path, refusal] of refusals) {
+			await page.goto(path);
+			await tool.locator('[data-file]').setInputFiles(createWavUpload({ name: 'voice-over.wav' }));
+			await expect(tool.locator('[data-render]')).toBeEnabled();
+			await tool.locator('[data-render]').click();
+
+			/* videoWidth stays 0 for an audio-only stream, and `crop=0:0:0:0` is not a filter
+			   FFmpeg can run, so the refusal has to arrive before the engine is even loaded. */
+			await expect(status).toHaveText(refusal, { timeout: 20_000 });
+			await expect(status).toHaveAttribute('data-state', 'error');
+			await expect(tool.locator('[data-download]')).toBeHidden();
+		}
+		expect(errors).toEqual([]);
 	});
 
 	test('draws the analyzed frame and decides on a crop center', async ({ page }) => {
@@ -555,6 +681,41 @@ test.describe('media delivery checker', () => {
 		await expect(notes).toHaveCount(2);
 		await expect(notes.nth(1)).toHaveText('Video-Codec muss für die Web-Auslieferung eventuell transkodiert werden: VP8.');
 		await expect(tool.locator('[data-report]')).not.toContainText('Video codec may need transcoding');
+	});
+
+	test('names the container and mode it cannot combine instead of failing inside FFmpeg', async ({ page }) => {
+		const errors = collectClientErrors(page);
+		await page.goto('/en/tools/media-delivery-checker/');
+		const tool = page.locator('[data-delivery-doctor]');
+		const status = tool.locator('[data-status]');
+		const download = tool.locator('[data-download]');
+
+		await tool.locator('[data-file]').setInputFiles(fixture('tiny-clip.webm'));
+		await tool.locator('[data-output]').selectOption('webm');
+		await tool.locator('[data-mode]').selectOption('web');
+		await expect(tool.locator('[data-repair]')).toBeEnabled();
+		await tool.locator('[data-repair]').click();
+
+		/* WebM holds VP8/VP9/AV1 with Vorbis or Opus; this mode writes H.264 and AAC. */
+		await expect(status).toHaveText('Create web MP4 cannot be written into WebM. Choose MP4, MKV, or MOV, or pick another repair mode.');
+		await expect(status).toHaveAttribute('data-state', 'error');
+		await expect(download).toBeHidden();
+
+		await tool.locator('[data-mode]').selectOption('audio');
+		await tool.locator('[data-repair]').click();
+		await expect(status).toHaveText('Convert audio to AAC cannot be written into WebM. Choose MP4, MKV, or MOV, or pick another repair mode.');
+		await expect(status).toHaveAttribute('data-state', 'error');
+		await expect(download).toBeHidden();
+
+		await page.goto('/de/tools/medien-abgabepruefung/');
+		await tool.locator('[data-file]').setInputFiles(fixture('tiny-clip.webm'));
+		await tool.locator('[data-output]').selectOption('webm');
+		await tool.locator('[data-mode]').selectOption('web');
+		await tool.locator('[data-repair]').click();
+		await expect(status).toHaveText('Web-MP4 erstellen lässt sich nicht in WebM schreiben. Wähle MP4, MKV oder MOV oder einen anderen Reparaturmodus.');
+		await expect(status).toHaveAttribute('data-state', 'error');
+		await expect(download).toBeHidden();
+		expect(errors).toEqual([]);
 	});
 
 	test('repairs into the selected container', async ({ page }) => {

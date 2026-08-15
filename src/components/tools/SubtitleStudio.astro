@@ -98,8 +98,8 @@ const copyJson = JSON.stringify(copy);
 	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
 	import { fileExtension } from '../../lib/tools/media-file';
 	import { offsetCues, parseCues, toSrt, toVtt } from '../../lib/tools/offline-subtitle-studio';
-	import { buildSubtitleAss, subtitleBurnerArgs } from '../../lib/tools/subtitle-burner';
-	import { softSubtitleArgs, subtitleStudioMime, subtitleStudioOutputName } from '../../lib/tools/subtitle-studio';
+	import { subtitleBurnerArgs } from '../../lib/tools/subtitle-burner';
+	import { planSubtitleOutput, softSubtitleArgs } from '../../lib/tools/subtitle-studio';
 	import { createWhisperTranscriber, decodeAudioFile, ensureWhisperIsolation, parseWhisperLog, renderWhisperSubtitles } from '../../lib/tools/whisper-subtitle-generator';
 
 	for (const root of document.querySelectorAll('[data-combined-subtitle-studio]:not([data-bound])')) {
@@ -157,9 +157,10 @@ const copyJson = JSON.stringify(copy);
 		async function applySubtitles() {
 			const media = mediaInput.files?.[0]; if (!media) { setStatus(copy.noMedia, 'error'); return; } const cues = editedCues(); if (!cues.length) { setStatus(copy.noCues, 'error'); return; }
 			try {
-				setStatus(copy.processing, 'info'); const mode = applyMode.value; const outputContainer = mode === 'hard' ? 'mp4' : container.value;
-				const bytes = await ffmpegRuntime.run(async (ffmpeg) => { const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`; const input = `media-${stamp}${fileExtension(media.name)}`; const subtitleFile = `subtitles-${stamp}.${mode === 'hard' ? 'ass' : 'srt'}`; const output = `subtitled-${stamp}.${outputContainer}`; const subtitleBytes = mode === 'hard' ? buildSubtitleAss(cues, { mode: display.value, alignment: position.value, fontSize: fontSize.value, marginV: margin.value }) : toSrt(cues); await ffmpeg.writeFile(input, new Uint8Array(await media.arrayBuffer())); await ffmpeg.writeFile(subtitleFile, new TextEncoder().encode(subtitleBytes)); try { const args = mode === 'hard' ? subtitleBurnerArgs(input, subtitleFile, output) : softSubtitleArgs(input, subtitleFile, output, outputContainer); const code = await ffmpeg.exec(args); if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`); const rendered = await ffmpeg.readFile(output); return rendered instanceof Uint8Array ? rendered : new TextEncoder().encode(String(rendered)); } finally { await ffmpeg.deleteFile(input).catch(() => {}); await ffmpeg.deleteFile(subtitleFile).catch(() => {}); await ffmpeg.deleteFile(output).catch(() => {}); } });
-				const name = subtitleStudioOutputName(media.name, mode, outputContainer); if (outputUrl) URL.revokeObjectURL(outputUrl); outputUrl = URL.createObjectURL(new Blob([bytes], { type: subtitleStudioMime(mode, outputContainer) })); downloadMedia.href = outputUrl; downloadMedia.download = name; downloadMedia.hidden = false; result.textContent = format(copy.mediaDone, { name }); setStatus(result.textContent, 'success');
+				setStatus(copy.processing, 'info');
+				const plan = planSubtitleOutput({ mode: applyMode.value, container: container.value, cues, style: { mode: display.value, alignment: position.value, fontSize: fontSize.value, marginV: margin.value }, name: media.name });
+				const bytes = await ffmpegRuntime.run(async (ffmpeg) => { const stamp = `${Date.now()}-${Math.random().toString(16).slice(2)}`; const input = `media-${stamp}${fileExtension(media.name)}`; const subtitleFile = `subtitles-${stamp}.${plan.subtitleFormat}`; const output = `subtitled-${stamp}.${plan.container}`; await ffmpeg.writeFile(input, new Uint8Array(await media.arrayBuffer())); await ffmpeg.writeFile(subtitleFile, new TextEncoder().encode(plan.subtitles)); try { const args = plan.mode === 'hard' ? subtitleBurnerArgs(input, subtitleFile, output) : softSubtitleArgs(input, subtitleFile, output, plan.container); const code = await ffmpeg.exec(args); if (code !== 0) throw new Error(`FFmpeg exited with code ${code}`); const rendered = await ffmpeg.readFile(output); return rendered instanceof Uint8Array ? rendered : new TextEncoder().encode(String(rendered)); } finally { await ffmpeg.deleteFile(input).catch(() => {}); await ffmpeg.deleteFile(subtitleFile).catch(() => {}); await ffmpeg.deleteFile(output).catch(() => {}); } });
+				const name = plan.name; if (outputUrl) URL.revokeObjectURL(outputUrl); outputUrl = URL.createObjectURL(new Blob([bytes], { type: plan.mime })); downloadMedia.href = outputUrl; downloadMedia.download = name; downloadMedia.hidden = false; result.textContent = format(copy.mediaDone, { name }); setStatus(result.textContent, 'success');
 			} catch (error) { setStatus(format(copy.error, { message: error?.message || copy.generic }), 'error'); }
 		}
 

@@ -16,10 +16,14 @@ import {
 	subtitleOutputName,
 } from '../src/lib/tools/subtitle-burner.js';
 import {
+	planSubtitleOutput,
 	softSubtitleArgs,
 	subtitleStudioMime,
 	subtitleStudioOutputName,
 } from '../src/lib/tools/subtitle-studio.js';
+import { detectCrop } from '../src/lib/tools/crop-doctor.js';
+import { repairModeSupported } from '../src/lib/tools/delivery-doctor.js';
+import { verticalCropRect } from '../src/lib/tools/vertical-reframer.js';
 import {
 	mixAndResampleAudio,
 	parseWhisperLog,
@@ -41,6 +45,20 @@ import {
 import { baseName, fileExtension, lowerFileExtension } from '../src/lib/tools/media-file.js';
 
 const SRT_SOURCE = '1\n00:00:00,000 --> 00:00:01,000\nFirst\n\n2\n00:00:02,000 --> 00:00:04,000\nSecond';
+
+/* A grey-scale stand-in for the canvas frame the crop doctor samples: `paint`
+   returns the brightness of every channel at that pixel. */
+const frame = (width, height, paint) => {
+	const data = new Uint8ClampedArray(width * height * 4);
+	for (let y = 0; y < height; y += 1) {
+		for (let x = 0; x < width; x += 1) {
+			const index = (y * width + x) * 4;
+			data[index] = data[index + 1] = data[index + 2] = paint(x, y);
+			data[index + 3] = 255;
+		}
+	}
+	return { width, height, data };
+};
 
 test('subtitle parsing rejects blocks that cannot become cues', () => {
 	assert.deepEqual(parseCues(''), []);
@@ -158,6 +176,50 @@ test('subtitle studio names and types soft and hard outputs from the chosen cont
 	assert.ok(softSubtitleArgs('in.mp4', 'subs.srt', 'out.mp4', 'mp4').includes('mov_text'));
 });
 
+test('subtitle studio plans the container, subtitle file, name, and MIME type of one run', () => {
+	const cues = parseCues(SRT_SOURCE, 'srt');
+	/* Soft subs keep the chosen container and are muxed from an SRT sidecar. */
+	assert.deepEqual(planSubtitleOutput({ mode: 'soft', container: 'mkv', cues, name: 'clip.mp4' }), {
+		mode: 'soft',
+		container: 'mkv',
+		subtitleFormat: 'srt',
+		subtitles: toSrt(cues),
+		name: 'clip-soft-subtitles.mkv',
+		mime: 'video/x-matroska',
+	});
+	assert.deepEqual(planSubtitleOutput({ mode: 'soft', container: 'mp4', cues, name: 'clip.mkv' }), {
+		mode: 'soft',
+		container: 'mp4',
+		subtitleFormat: 'srt',
+		subtitles: toSrt(cues),
+		name: 'clip-soft-subtitles.mp4',
+		mime: 'video/mp4',
+	});
+
+	/* Hard subs are always burned into MP4, so the container select cannot reach the
+	   output, and the appearance settings have to end up in the ASS file. */
+	const hard = planSubtitleOutput({ mode: 'hard', container: 'mkv', cues, name: 'clip.mkv', style: { mode: 'karaoke', alignment: '8', fontSize: '80', marginV: '300' } });
+	assert.equal(hard.mode, 'hard');
+	assert.equal(hard.container, 'mp4');
+	assert.equal(hard.subtitleFormat, 'ass');
+	assert.equal(hard.name, 'clip-hard-subtitles.mp4');
+	assert.equal(hard.mime, 'video/mp4');
+	assert.match(hard.subtitles, /Style: Default,Arial,80/);
+	assert.match(hard.subtitles, /,8,70,70,300,1/);
+	assert.match(hard.subtitles, /Dialogue: 0,0:00:00\.00,0:00:01\.00,Default,,0,0,0,,\{\\k100\}First/);
+	assert.equal(hard.subtitles, buildSubtitleAss(cues, { mode: 'karaoke', alignment: '8', fontSize: '80', marginV: '300' }));
+
+	/* Nothing chosen yet still has to describe a writable file. */
+	assert.deepEqual(planSubtitleOutput(), {
+		mode: 'soft',
+		container: 'mkv',
+		subtitleFormat: 'srt',
+		subtitles: toSrt([]),
+		name: 'media-soft-subtitles.mkv',
+		mime: 'video/x-matroska',
+	});
+});
+
 test('whisper log parsing skips noise lines and renders both subtitle formats', () => {
 	const logs = [
 		'whisper_init_from_file_with_params_no_state: loading model',
@@ -217,6 +279,69 @@ test('media info formatting keeps unusable values visible instead of inventing n
 	assert.equal(formatBytes(1024), '1 KB');
 	assert.equal(trimNumber(5.678), '5.68');
 	assert.equal(trimNumber(0), '0');
+});
+
+test('crop detection reports an unmeasurable frame instead of a crop at the midpoint', () => {
+	/* Every sampled row and column is dark, so both scans run to the middle. Rounding
+	   that meeting point used to produce a 2x2 "crop" the tool then offered to export. */
+	const black = detectCrop(frame(160, 120, () => 0), 24);
+	assert.equal(black.empty, true);
+	assert.deepEqual(black, { x: 0, y: 0, w: 0, h: 0, empty: true });
+	/* The threshold decides what counts as content: the same flat grey frame is
+	   measurable below it and unmeasurable above it. */
+	assert.equal(detectCrop(frame(160, 120, () => 30), 24).empty, false);
+	assert.equal(detectCrop(frame(160, 120, () => 30), 40).empty, true);
+	/* A frame with no pixels at all cannot be measured either. */
+	assert.equal(detectCrop({ width: 0, height: 0, data: new Uint8ClampedArray(0) }, 24).empty, true);
+	assert.equal(detectCrop(undefined, 24).empty, true);
+
+	/* Real bars on all four sides: the box has to follow the content, not the frame. */
+	const boxed = detectCrop(frame(160, 120, (x, y) => (x >= 20 && x <= 139 && y >= 20 && y <= 99 ? 200 : 0)), 24);
+	assert.deepEqual(boxed, { x: 20, y: 20, w: 120, h: 80, empty: false });
+	/* A full-bleed frame keeps its own size, which is how the tool knows there are no
+	   bars to remove and leaves the export disabled. */
+	const full = detectCrop(frame(160, 120, () => 200), 24);
+	assert.equal(full.empty, false);
+	assert.equal(full.w, 160);
+	assert.equal(full.h, 120);
+});
+
+test('delivery repair refuses the container and mode combinations FFmpeg cannot write', () => {
+	/* WebM holds VP8/VP9/AV1 with Vorbis or Opus, and both of these modes write
+	   H.264 or AAC, so the run could only end as "FFmpeg exited with code 1". */
+	assert.equal(repairModeSupported('webm', 'web'), false);
+	assert.equal(repairModeSupported('webm', 'audio'), false);
+	/* A stream copy into WebM is the one mode a WebM source can still use. */
+	assert.equal(repairModeSupported('webm', 'copy'), true);
+	for (const container of ['mp4', 'mov', 'mkv']) {
+		for (const mode of ['copy', 'audio', 'web']) {
+			assert.equal(repairModeSupported(container, mode), true);
+		}
+	}
+	assert.equal(repairModeSupported('WebM', 'web'), false);
+	assert.equal(repairModeSupported(undefined, undefined), true);
+});
+
+test('vertical crop rects fit the preset and reject streams without dimensions', () => {
+	/* An audio-only or broken file reports no dimensions; `crop=0:0:0:0` is not a filter. */
+	assert.equal(verticalCropRect(0, 0, '9:16'), null);
+	assert.equal(verticalCropRect(0, 1080, '9:16'), null);
+	assert.equal(verticalCropRect(1920, 0, '9:16'), null);
+	assert.equal(verticalCropRect(undefined, undefined, '9:16'), null);
+	assert.equal(verticalCropRect(1920, 1080, 'square'), null);
+	assert.equal(verticalCropRect(1920, 1080, '9:0'), null);
+
+	/* 9:16 out of a landscape frame is as tall as the source and centred on the face. */
+	assert.deepEqual(verticalCropRect(1920, 1080, '9:16', 0.5), { x: 656, y: 0, w: 608, h: 1080 });
+	assert.deepEqual(verticalCropRect(1920, 1080, '1:1', 0.5), { x: 420, y: 0, w: 1080, h: 1080 });
+	assert.deepEqual(verticalCropRect(1920, 1080, '4:5', 0.5), { x: 528, y: 0, w: 864, h: 1080 });
+	/* The crop centre is clamped inside the frame at both ends. */
+	assert.deepEqual(verticalCropRect(1920, 1080, '9:16', 0), { x: 0, y: 0, w: 608, h: 1080 });
+	assert.deepEqual(verticalCropRect(1920, 1080, '9:16', 1), { x: 1312, y: 0, w: 608, h: 1080 });
+	assert.deepEqual(verticalCropRect(1920, 1080, '9:16', NaN), { x: 656, y: 0, w: 608, h: 1080 });
+	/* A source that is already 9:16 is cropped in full, and a wide 1:1 keeps its height. */
+	assert.deepEqual(verticalCropRect(720, 1280, '9:16', 0.5), { x: 0, y: 0, w: 720, h: 1280 });
+	assert.deepEqual(verticalCropRect(160, 120, '1:1', 0.5), { x: 20, y: 0, w: 120, h: 120 });
 });
 
 test('media file names survive dots, missing extensions, and empty input', () => {

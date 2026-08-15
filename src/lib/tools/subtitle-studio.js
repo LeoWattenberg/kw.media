@@ -1,3 +1,25 @@
+import { toSrt } from './offline-subtitle-studio.js';
+import { buildSubtitleAss } from './subtitle-burner.js';
+
+/*
+ * Everything the studio settles before FFmpeg starts: hard subs are always burned
+ * into MP4 and need a styled ASS file, soft subs keep the chosen container and are
+ * muxed from SRT. Name and MIME type follow from that container, so the download
+ * cannot describe a different file than the one the run writes.
+ */
+export function planSubtitleOutput({ mode = 'soft', container = 'mkv', cues = [], style = {}, name = '' } = {}) {
+	const burn = mode === 'hard';
+	const outputContainer = burn ? 'mp4' : (container || 'mkv');
+	return {
+		mode: burn ? 'hard' : 'soft',
+		container: outputContainer,
+		subtitleFormat: burn ? 'ass' : 'srt',
+		subtitles: burn ? buildSubtitleAss(cues, style) : toSrt(cues),
+		name: subtitleStudioOutputName(name, burn ? 'hard' : 'soft', outputContainer),
+		mime: subtitleStudioMime(burn ? 'hard' : 'soft', outputContainer),
+	};
+}
+
 export function softSubtitleArgs(input, subtitles, output, container = 'mkv') {
 	const args = ['-i', input, '-i', subtitles, '-map', '0', '-map', '1:0', '-c', 'copy'];
 
