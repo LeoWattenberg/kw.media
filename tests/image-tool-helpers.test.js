@@ -7,10 +7,20 @@ import { baseName, fileExtension, lowerFileExtension } from '../src/lib/tools/me
 import {
 	buildScrubMediaArgs,
 	imageExtension,
+	imageScrubEngine,
+	isAnimatedRaster,
+	magickImageFormat,
 	mediaContainerMime,
 	metadataOutputProfile,
+	stripSvgMetadata,
 } from '../src/lib/tools/metadata-privacy-scrubber.js';
-import { isAnimatedGif, readPngSize } from '../src/lib/tools/watermarker.js';
+import {
+	buildAnimatedGifArgs,
+	buildAnimatedGifFilter,
+	countGifFrames,
+	isAnimatedGif,
+	readPngSize,
+} from '../src/lib/tools/watermarker.js';
 
 const fixture = (name) => readFileSync(fileURLToPath(new URL(`fixtures/${name}`, import.meta.url)));
 
@@ -42,41 +52,104 @@ const gifBytes = ({ frames = 1, localTable = false, loop = false } = {}) => {
 	return Uint8Array.from(bytes);
 };
 
+/* A PNG becomes an APNG the moment an animation control chunk sits ahead of the image data. */
+const apngBytes = () => {
+	const png = fixture('tiny-photo.png');
+	const control = Buffer.from([
+		0x00, 0x00, 0x00, 0x08, 0x61, 0x63, 0x54, 0x4c,
+		0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00,
+	]);
+	return Buffer.concat([png.subarray(0, 33), control, png.subarray(33)]);
+};
+
+/* An animated WebP is a RIFF container whose ANIM chunk follows the extended header. */
+const animatedWebpBytes = () => {
+	const chunk = (name, data) => {
+		const header = Buffer.alloc(8);
+		header.write(name, 0, 'latin1');
+		header.writeUInt32LE(data.length, 4);
+		return Buffer.concat([header, data, Buffer.alloc(data.length % 2)]);
+	};
+	const body = Buffer.concat([
+		Buffer.from('WEBP', 'latin1'),
+		chunk('VP8X', Buffer.from([0x02, 0x00, 0x00, 0x00, 0x5f, 0x00, 0x00, 0x3f, 0x00, 0x00])),
+		chunk('ANIM', Buffer.from([0xff, 0xff, 0xff, 0xff, 0x00, 0x00])),
+	]);
+	const header = Buffer.alloc(8);
+	header.write('RIFF', 0, 'latin1');
+	header.writeUInt32LE(body.length, 4);
+	return Buffer.concat([header, body]);
+};
+
 /*
- * The Metadata Remover re-renders images through a canvas, and canvas.toBlob only
- * encodes PNG, JPEG and WebP: every other image type silently comes back as PNG.
- * The profile therefore has to name the bytes the canvas really writes, otherwise
- * the download is PNG data wearing a .gif/.avif/.bmp/.tiff extension.
+ * The scrubbed download keeps the format it arrived in. canvas.toBlob only writes PNG, JPEG and
+ * WebP, so every other image is re-encoded by ImageMagick WASM with its profiles stripped; the
+ * profile therefore names the source format, never the one that happened to be easy to write.
  */
-test('metadata scrubber profiles canvas-encodable images by the bytes the canvas writes', () => {
+test('metadata scrubber profiles every image as the format it arrived in', () => {
 	assert.deepEqual(metadataOutputProfile({ name: 'shot.png', type: 'image/png' }), { isImage: true, extension: 'png', mimeType: 'image/png' });
 	assert.deepEqual(metadataOutputProfile({ name: 'shot.jpeg', type: 'image/jpeg' }), { isImage: true, extension: 'jpg', mimeType: 'image/jpeg' });
 	assert.deepEqual(metadataOutputProfile({ name: 'SHOT.JPG', type: 'image/jpeg' }), { isImage: true, extension: 'jpg', mimeType: 'image/jpeg' });
 	assert.deepEqual(metadataOutputProfile({ name: 'shot.webp', type: 'image/webp' }), { isImage: true, extension: 'webp', mimeType: 'image/webp' });
 	assert.deepEqual(metadataOutputProfile({ name: 'pasted', type: 'image/png' }), { isImage: true, extension: 'png', mimeType: 'image/png' });
+	/* No name to read: the declared type alone still has to name the output. */
+	assert.deepEqual(metadataOutputProfile({ name: 'pasted', type: 'image/gif' }), { isImage: true, extension: 'gif', mimeType: 'image/gif' });
 
-	for (const [name, type] of [
-		['anim.gif', 'image/gif'],
-		['shot.avif', 'image/avif'],
-		['scan.bmp', 'image/bmp'],
-		['scan.tiff', 'image/tiff'],
-		['photo.heic', 'image/heic'],
-		['favicon.ico', 'image/x-icon'],
+	for (const [name, type, extension] of [
+		['anim.gif', 'image/gif', 'gif'],
+		['shot.avif', 'image/avif', 'avif'],
+		['scan.bmp', 'image/bmp', 'bmp'],
+		['scan.tiff', 'image/tiff', 'tiff'],
+		['scan.tif', 'image/tiff', 'tiff'],
+		['photo.heic', 'image/heic', 'heic'],
+		['photo.heif', 'image/heif', 'heif'],
+		['favicon.ico', 'image/x-icon', 'ico'],
+		['frame.apng', 'image/apng', 'apng'],
+		['layers.psd', 'image/vnd.adobe.photoshop', 'psd'],
 	]) {
 		assert.deepEqual(
 			metadataOutputProfile({ name, type }),
-			{ isImage: true, extension: 'png', mimeType: 'image/png' },
-			`${type} must be labelled as the PNG the canvas produces`,
+			{ isImage: true, extension, mimeType: type },
+			`${type} must come back as ${type}, not as something easier to write`,
 		);
 	}
+
+	/* A format this table has never heard of still keeps its own extension rather than becoming a PNG. */
+	assert.deepEqual(metadataOutputProfile({ name: 'render.exr', type: 'image/x-exr' }), { isImage: true, extension: 'exr', mimeType: 'image/x-exr' });
 });
 
-/* SVG is accepted by the picker (accept="image/*"), so it must never reach FFmpeg. */
-test('metadata scrubber keeps SVG out of the FFmpeg path', () => {
-	const profile = metadataOutputProfile({ name: 'logo.svg', type: 'image/svg+xml' });
+/* Each image format names the engine that can write it back and the coder ImageMagick reads it with. */
+test('metadata scrubber routes every image to an engine that writes its own format', () => {
+	assert.equal(imageScrubEngine('image/svg+xml'), 'svg');
 
-	assert.equal(profile.isImage, true);
-	assert.deepEqual(profile, { isImage: true, extension: 'png', mimeType: 'image/png' });
+	/*
+	 * Including the three a canvas could re-draw: canvas.toBlob drops EXIF but cannot be told to
+	 * drop a colour profile, and Chromium stamps its own onto the WebP it writes.
+	 */
+	for (const type of ['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/avif', 'image/bmp', 'image/tiff', 'image/heic', 'image/heif', 'image/x-icon', 'image/apng', 'image/vnd.adobe.photoshop', 'image/x-exr']) {
+		assert.equal(imageScrubEngine(type), 'magick', `${type} has to reach ImageMagick, which is the only engine that writes it`);
+	}
+
+	assert.equal(magickImageFormat('image/gif'), 'GIF');
+	assert.equal(magickImageFormat('image/tiff'), 'TIFF');
+	assert.equal(magickImageFormat('image/bmp'), 'BMP');
+	assert.equal(magickImageFormat('image/avif'), 'AVIF');
+	assert.equal(magickImageFormat('image/apng'), 'APNG');
+	assert.equal(magickImageFormat('image/x-icon'), 'ICO');
+	assert.equal(magickImageFormat('image/vnd.microsoft.icon'), 'ICO');
+	assert.equal(magickImageFormat('image/vnd.adobe.photoshop'), 'PSD');
+	assert.equal(magickImageFormat('image/png'), 'PNG');
+	/* ImageMagick spells its remaining coders like the uppercased extension, so an unknown type still gets one. */
+	assert.equal(magickImageFormat('image/x-exr', 'exr'), 'EXR');
+	assert.equal(magickImageFormat('', 'tga'), 'TGA');
+});
+
+/* SVG is XML rather than pixels: it is cleaned as text and must never reach FFmpeg or a canvas. */
+test('metadata scrubber keeps SVG an SVG', () => {
+	assert.deepEqual(metadataOutputProfile({ name: 'logo.svg', type: 'image/svg+xml' }), { isImage: true, extension: 'svg', mimeType: 'image/svg+xml' });
+	assert.deepEqual(metadataOutputProfile({ name: 'logo.svg', type: '' }), { isImage: true, extension: 'svg', mimeType: 'image/svg+xml' });
+	assert.equal(imageScrubEngine('image/svg+xml'), 'svg');
 });
 
 test('metadata scrubber keeps media containers and builds stripping arguments for them', () => {
@@ -102,11 +175,23 @@ test('metadata scrubber classifies typeless files by their extension', () => {
 	assert.deepEqual(metadataOutputProfile({ name: 'sticker.WEBP', type: '' }), { isImage: true, extension: 'webp', mimeType: 'image/webp' });
 	assert.deepEqual(metadataOutputProfile({ name: 'shot.png', type: '' }), { isImage: true, extension: 'png', mimeType: 'image/png' });
 
-	for (const name of ['anim.gif', 'shot.avif', 'scan.bmp', 'scan.tif', 'scan.tiff', 'logo.svg', 'photo.heic', 'photo.heif', 'favicon.ico', 'frame.apng']) {
+	for (const [name, extension, mimeType] of [
+		['anim.gif', 'gif', 'image/gif'],
+		['shot.avif', 'avif', 'image/avif'],
+		['scan.bmp', 'bmp', 'image/bmp'],
+		['scan.tif', 'tiff', 'image/tiff'],
+		['scan.tiff', 'tiff', 'image/tiff'],
+		['logo.svg', 'svg', 'image/svg+xml'],
+		['photo.heic', 'heic', 'image/heic'],
+		['photo.heif', 'heif', 'image/heif'],
+		['favicon.ico', 'ico', 'image/x-icon'],
+		['frame.apng', 'apng', 'image/apng'],
+		['layers.psd', 'psd', 'image/vnd.adobe.photoshop'],
+	]) {
 		assert.deepEqual(
 			metadataOutputProfile({ name, type: '' }),
-			{ isImage: true, extension: 'png', mimeType: 'image/png' },
-			`${name} must reach the canvas and be labelled as the PNG it produces`,
+			{ isImage: true, extension, mimeType },
+			`${name} must keep its own format even though nothing declared its type`,
 		);
 	}
 
@@ -124,11 +209,16 @@ test('metadata scrubber classifies typeless files by their extension', () => {
 	assert.deepEqual(metadataOutputProfile({ name: 'song.mp3', type: 'image/png' }), { isImage: true, extension: 'png', mimeType: 'image/png' });
 });
 
-test('metadata scrubber maps container extensions and canvas image types', () => {
+test('metadata scrubber maps container extensions and image types', () => {
 	assert.equal(imageExtension('image/jpeg'), 'jpg');
 	assert.equal(imageExtension('image/webp'), 'webp');
 	assert.equal(imageExtension('image/png'), 'png');
-	assert.equal(imageExtension('image/gif'), 'png');
+	assert.equal(imageExtension('image/gif'), 'gif');
+	assert.equal(imageExtension('image/tiff'), 'tiff');
+	assert.equal(imageExtension('IMAGE/BMP'), 'bmp');
+	assert.equal(imageExtension('image/svg+xml'), 'svg');
+	assert.equal(imageExtension('image/x-exr'), '');
+	assert.equal(imageExtension(''), '');
 
 	assert.equal(mediaContainerMime('wav'), 'audio/wav');
 	assert.equal(mediaContainerMime('opus'), 'audio/ogg');
@@ -136,6 +226,67 @@ test('metadata scrubber maps container extensions and canvas image types', () =>
 	assert.equal(mediaContainerMime('mp4'), 'video/mp4');
 	assert.equal(mediaContainerMime('xyz'), 'application/octet-stream');
 	assert.equal(mediaContainerMime(''), 'application/octet-stream');
+});
+
+/*
+ * PNG and WebP are the two canvas formats that can also move, and canvas.toBlob would keep only the
+ * first frame. Spotting the animation is what sends those files to ImageMagick instead.
+ */
+test('metadata scrubber spots the animated PNG and WebP a canvas would flatten', () => {
+	assert.equal(isAnimatedRaster(apngBytes(), 'image/png'), true);
+	assert.equal(isAnimatedRaster(apngBytes(), 'image/apng'), true);
+	assert.equal(isAnimatedRaster(animatedWebpBytes(), 'image/webp'), true);
+
+	/* The committed stills carry a colour profile but no frames, so they stay on the canvas path. */
+	assert.equal(isAnimatedRaster(fixture('tiny-photo.png'), 'image/png'), false);
+	assert.equal(isAnimatedRaster(fixture('tiny-photo.webp'), 'image/webp'), false);
+	assert.equal(isAnimatedRaster(fixture('tiny-photo.jpg'), 'image/jpeg'), false);
+	assert.equal(isAnimatedRaster(new Uint8Array(fixture('tiny-photo.png')), 'image/png'), false);
+
+	/* An animated GIF is never asked about: it goes to ImageMagick on format alone. */
+	assert.equal(isAnimatedRaster(gifBytes({ frames: 4 }), 'image/gif'), false);
+	assert.equal(isAnimatedRaster(new Uint8Array(0), 'image/png'), false);
+	assert.equal(isAnimatedRaster(null, 'image/png'), false);
+	assert.equal(isAnimatedRaster('not bytes', 'image/webp'), false);
+});
+
+/*
+ * SVG metadata is markup, so it is cut out of the text: rasterising the file would answer a request
+ * for a scrubbed SVG with a picture of one.
+ */
+test('metadata scrubber strips the metadata out of SVG markup and keeps the drawing', () => {
+	const source = [
+		'<?xml version="1.0" encoding="UTF-8"?>',
+		'<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>',
+		'<!-- Created with Inkscape by Jane Doe -->',
+		'<svg xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/"',
+		'  xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"',
+		'  inkscape:version="1.3" sodipodi:docname="holiday-plan.svg" width="20" height="10">',
+		'  <metadata id="metadata7"><rdf:RDF><dc:creator>Jane Doe</dc:creator></rdf:RDF></metadata>',
+		'  <sodipodi:namedview inkscape:current-layer="layer1"/>',
+		'  <x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF><dc:title>Holiday</dc:title></rdf:RDF></x:xmpmeta>',
+		'  <title>Blue dot</title>',
+		'  <circle cx="10" cy="5" r="4" fill="#2f80ed"/>',
+		'</svg>',
+	].join('\n');
+	const stripped = stripSvgMetadata(source);
+
+	for (const secret of ['Jane Doe', 'holiday-plan.svg', 'xpacket', 'inkscape:version', 'sodipodi:docname', '<metadata', 'xmpmeta', 'rdf:RDF', '<!--']) {
+		assert.ok(!stripped.includes(secret), `${secret} must not survive the scrub`);
+	}
+
+	/* The picture itself and the accessible name stay: those are content, not provenance. */
+	assert.ok(stripped.startsWith('<?xml version="1.0" encoding="UTF-8"?>'));
+	assert.ok(stripped.includes('<circle cx="10" cy="5" r="4" fill="#2f80ed"/>'));
+	assert.ok(stripped.includes('<title>Blue dot</title>'));
+	assert.ok(stripped.includes('xmlns="http://www.w3.org/2000/svg"'));
+	assert.ok(stripped.trimEnd().endsWith('</svg>'));
+
+	/* A self-closing metadata element and a plain file both have to survive the pass. */
+	assert.equal(stripSvgMetadata('<svg><metadata/><rect width="1" height="1"/></svg>'), '<svg><rect width="1" height="1"/></svg>');
+	assert.equal(stripSvgMetadata('<svg><rect width="1" height="1"/></svg>'), '<svg><rect width="1" height="1"/></svg>');
+	assert.equal(stripSvgMetadata(''), '');
+	assert.equal(stripSvgMetadata(null), '');
 });
 
 /*
@@ -170,7 +321,7 @@ test('watermarker reads the frame size out of the PNG FFmpeg writes', () => {
 	assert.equal(readPngSize(renamedChunk), null);
 });
 
-/* The canvas export keeps one frame, so an animated GIF has to be announced before the run. */
+/* A canvas holds one frame, so a GIF that plays has to be sent down the FFmpeg path instead. */
 test('watermarker recognises an animated GIF by its image descriptors', () => {
 	assert.equal(isAnimatedGif(gifBytes({ frames: 2 })), true);
 	assert.equal(isAnimatedGif(gifBytes({ frames: 12, loop: true })), true);
@@ -190,6 +341,65 @@ test('watermarker recognises an animated GIF by its image descriptors', () => {
 	assert.equal(isAnimatedGif(gifBytes({ frames: 2 }).subarray(0, 30)), false);
 	assert.equal(isAnimatedGif(new Uint8Array(0)), false);
 	assert.equal(isAnimatedGif(null), false);
+});
+
+/*
+ * The result panel reports the frames of the GIF the tool wrote, so the count has to come from the
+ * produced bytes. Truncated or foreign bytes report what is really there instead of a guess.
+ */
+test('watermarker counts the frames a GIF plays', () => {
+	assert.equal(countGifFrames(gifBytes()), 1);
+	assert.equal(countGifFrames(gifBytes({ frames: 3 })), 3);
+	assert.equal(countGifFrames(gifBytes({ frames: 12, loop: true })), 12);
+	/* A local colour table full of 0x2c bytes must be skipped, not counted as extra frames. */
+	assert.equal(countGifFrames(gifBytes({ frames: 4, localTable: true })), 4);
+	assert.equal(countGifFrames(gifBytes({ localTable: true })), 1);
+
+	assert.equal(countGifFrames(gifBytes({ frames: 2 }).subarray(0, 30)), 1);
+	assert.equal(countGifFrames(fixture('tiny-photo.png')), 0);
+	assert.equal(countGifFrames(fixture('tiny-photo.jpg')), 0);
+	assert.equal(countGifFrames(new Uint8Array(0)), 0);
+	assert.equal(countGifFrames(null), 0);
+	assert.equal(countGifFrames('not bytes'), 0);
+});
+
+/*
+ * An animated GIF is watermarked by FFmpeg and written back as a GIF: the overlay is the second
+ * input so it lies over every frame of the first, and the palette is built from the stamped frames
+ * so the watermark colours survive quantisation. Nothing in the run may reduce it to one picture.
+ */
+test('watermarker builds an FFmpeg run that stamps every GIF frame and writes a GIF back', () => {
+	const args = buildAnimatedGifArgs('input-7.gif', 'watermark-7.png', 'output-7.gif');
+
+	assert.deepEqual(args, [
+		'-i', 'input-7.gif',
+		'-i', 'watermark-7.png',
+		'-filter_complex', [
+			'[0:v][1:v]overlay=0:0:format=auto[stamped]',
+			'[stamped]split[colours][frames]',
+			'[colours]palettegen=stats_mode=full[palette]',
+			'[frames][palette]paletteuse=dither=sierra2_4a:diff_mode=rectangle',
+		].join(';'),
+		'-loop', '0',
+		'-gifflags', '+transdiff',
+		'-y', 'output-7.gif',
+	]);
+	assert.equal(args.at(-1), 'output-7.gif');
+
+	for (const flattening of ['-frames:v', '-vframes', '-update', '-f', 'image2']) {
+		assert.equal(args.includes(flattening), false, `${flattening} would export a single frame`);
+	}
+
+	const filter = buildAnimatedGifFilter();
+	assert.equal(filter, buildAnimatedGifArgs('a.gif', 'b.png', 'c.gif')[5]);
+	/* The GIF is input 0 and the still watermark input 1, so the stamp lands on the animation. */
+	assert.match(filter, /\[0:v\]\[1:v\]overlay=0:0/);
+	assert.match(filter, /\[stamped\]split\[colours\]\[frames\]/);
+	assert.match(filter, /\[colours\]palettegen[^[]*\[palette\]/);
+	assert.match(filter, /\[frames\]\[palette\]paletteuse/);
+	/* No fps filter: resampling the timeline would drop or duplicate the frames that arrived. */
+	assert.equal(filter.includes('fps='), false);
+	assert.equal(filter.includes('select='), false);
 });
 
 /* The scrubbed download is named `${baseName(file.name)}-scrubbed.${extension}`. */

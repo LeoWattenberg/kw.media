@@ -12,26 +12,32 @@ const copy = {
 	de: {
 		eyebrow: 'EXIF, XMP & Containerdaten', title: 'Metadaten entfernen',
 		intro: 'Entferne EXIF, XMP, Kapitel, Container-Tags und eingebettete Metadaten aus lokalen Medien.',
-		privacy: 'Alles bleibt im Browser. Bilder werden neu gerendert, Audio/Video per FFmpeg ohne Metadaten remuxt.',
+		privacy: 'Alles bleibt im Browser. Bilder werden per Canvas oder ImageMagick WASM in ihrem eigenen Format neu geschrieben, Audio und Video per FFmpeg ohne Metadaten remuxt.',
 		source: 'Datei', choose: 'Datei auswählen', hint: 'Bilder, Audio und Video',
-		settings: 'Bereinigung', preserve: 'Das erkannte Bildformat oder der erkannte Mediencontainer bleibt erhalten, soweit möglich. Formate, die der Browser zwar anzeigen, aber nicht neu kodieren kann, werden als PNG gespeichert.',
+		settings: 'Bereinigung', preserve: 'Das erkannte Bildformat und der erkannte Mediencontainer bleiben erhalten: GIF bleibt GIF, TIFF bleibt TIFF, ein animiertes GIF behält seine Frames, und SVG wird als XML bereinigt.',
 		metadata: 'MediaInfo-Metadaten', before: 'Vor der Bereinigung', after: 'Nach der Bereinigung', inspecting: 'Metadaten werden analysiert…', notYet: 'Nach der Bereinigung verfügbar.',
 		scrub: 'Metadaten entfernen', clear: 'Zurücksetzen', result: 'Ergebnis', download: 'Bereinigte Datei herunterladen',
 		waiting: 'Wähle eine Datei.', selected: '{name} ist bereit.', processing: 'Metadaten werden entfernt…',
 		loading: 'FFmpeg WASM wird geladen…', ffmpegReady: 'FFmpeg WASM ist bereit.', progress: 'FFmpeg arbeitet… {progress}%',
+		loadingMagick: 'ImageMagick WASM wird geladen…', magickReady: '{version} ist bereit.',
+		magickTimeout: 'ImageMagick WASM hat nicht innerhalb von 90 Sekunden geladen. Prüfe deine Verbindung und versuche es erneut.',
+		noFrames: 'ImageMagick konnte kein Bild in dieser Datei finden.',
 		done: 'Metadaten wurden entfernt.', timeout: 'FFmpeg WASM hat nicht innerhalb von 90 Sekunden geladen.',
 		error: 'Scrubbing fehlgeschlagen: {message}', generic: 'Unbekannter Fehler',
 	},
 	en: {
 		eyebrow: 'EXIF, XMP & container data', title: 'Metadata Remover',
 		intro: 'Remove EXIF, XMP, chapters, container tags, and embedded metadata from local media.',
-		privacy: 'Everything stays in the browser. Images are re-rendered; audio/video is remuxed without metadata via FFmpeg.',
+		privacy: 'Everything stays in the browser. Images are rewritten in their own format via canvas or ImageMagick WASM, audio and video are remuxed without metadata via FFmpeg.',
 		source: 'File', choose: 'Choose file', hint: 'Images, audio, and video',
-		settings: 'Scrubbing', preserve: 'The detected image format or media container is kept where possible. Formats the browser can display but not re-encode are saved as PNG.',
+		settings: 'Scrubbing', preserve: 'The detected image format and media container are kept: GIF stays GIF, TIFF stays TIFF, an animated GIF keeps its frames, and SVG is cleaned as XML.',
 		metadata: 'MediaInfo metadata', before: 'Before scrubbing', after: 'After scrubbing', inspecting: 'Analyzing metadata…', notYet: 'Available after scrubbing.',
 		scrub: 'Remove metadata', clear: 'Reset', result: 'Result', download: 'Download scrubbed file',
 		waiting: 'Choose a file.', selected: '{name} is ready.', processing: 'Removing metadata…',
 		loading: 'Loading FFmpeg WASM…', ffmpegReady: 'FFmpeg WASM is ready.', progress: 'FFmpeg is working… {progress}%',
+		loadingMagick: 'Loading ImageMagick WASM…', magickReady: '{version} is ready.',
+		magickTimeout: 'ImageMagick WASM did not finish loading within 90 seconds. Check your connection and try again.',
+		noFrames: 'ImageMagick could not find an image in this file.',
 		done: 'Metadata removed.', timeout: 'FFmpeg WASM did not load within 90 seconds.',
 		error: 'Scrubbing failed: {message}', generic: 'Unknown error',
 	},
@@ -45,7 +51,7 @@ const copyJson = JSON.stringify(copy);
 	<div class="container">
 		<div class="metadata-scrubber" data-metadata-scrubber data-copy={copyJson}>
 			<ToolPanel title={copy.source}>
-				<FilePicker label={copy.choose} name={copy.choose} hint={copy.hint} accept="image/*,audio/*,video/*,.mkv,.mov,.mp4,.webm,.wav,.m4a,.mp3,.png,.jpg,.jpeg,.webp" nameAttrs={{ 'data-file-name': true }} metaAttrs={{ 'data-file-meta': true }} inputAttrs={{ 'data-file': true }} />
+				<FilePicker label={copy.choose} name={copy.choose} hint={copy.hint} accept="image/*,audio/*,video/*,.mkv,.mov,.mp4,.webm,.wav,.m4a,.mp3,.png,.jpg,.jpeg,.webp,.apng,.avif,.bmp,.gif,.heic,.heif,.ico,.psd,.svg,.tif,.tiff" nameAttrs={{ 'data-file-name': true }} metaAttrs={{ 'data-file-meta': true }} inputAttrs={{ 'data-file': true }} />
 			</ToolPanel>
 			<ToolPanel title={copy.settings}>
 				<p class="preserve-note" data-preserve-note>{copy.preserve}</p>
@@ -73,7 +79,10 @@ const copyJson = JSON.stringify(copy);
 	import { analyzeMediaFile, loadMediaInfo } from '../../lib/tools/media-info-browser';
 	import {
 		buildScrubMediaArgs,
+		imageScrubEngine,
+		magickImageFormat,
 		metadataOutputProfile,
+		stripSvgMetadata,
 	} from '../../lib/tools/metadata-privacy-scrubber';
 
 	for (const root of document.querySelectorAll('[data-metadata-scrubber]:not([data-bound])')) {
@@ -93,6 +102,8 @@ const copyJson = JSON.stringify(copy);
 		const download = root.querySelector('[data-download]');
 		let outputUrl = null;
 		let mediaInfo = null;
+		let magick = null;
+		let magickPromise = null;
 		const runtime = createFfmpegRuntime({
 			timeoutMessage: copy.timeout,
 			onLoading: () => setStatus(copy.loading, 'info'),
@@ -124,7 +135,7 @@ const copyJson = JSON.stringify(copy);
 			setStatus(copy.processing, 'info');
 			try {
 				const profile = metadataOutputProfile(file);
-				const blob = profile.isImage ? await scrubImage(file, profile.mimeType) : await scrubMedia(file, profile);
+				const blob = await scrubFile(file, profile);
 				if (outputUrl) URL.revokeObjectURL(outputUrl);
 				outputUrl = URL.createObjectURL(blob);
 				download.href = outputUrl;
@@ -139,18 +150,81 @@ const copyJson = JSON.stringify(copy);
 			}
 		}
 
-		async function scrubImage(file, mimeType) {
-			const url = URL.createObjectURL(file);
+		/*
+		 * Every file leaves in the format it arrived in. The canvas writes PNG, JPEG and WebP, which
+		 * is the fastest way to drop a still raster's profiles; ImageMagick WASM covers the rest —
+		 * GIF, AVIF, BMP, TIFF, ICO, PSD and the animations a canvas would flatten — by reading the
+		 * source with its own coder, stripping every profile and writing that same coder back out.
+		 * SVG is markup, so its metadata is cut out of the text instead of being rasterised away.
+		 */
+		async function scrubFile(file, profile) {
+			if (!profile.isImage) return scrubMedia(file, profile);
+
+			const engine = imageScrubEngine(profile.mimeType);
+			if (engine === 'svg') return new Blob([stripSvgMetadata(await file.text())], { type: profile.mimeType });
+
+			const bytes = new Uint8Array(await file.arrayBuffer());
+			return scrubWithMagick(bytes, profile);
+		}
+
+		async function scrubWithMagick(bytes, profile) {
+			const { ImageMagick } = await loadMagick();
+			const magickFormat = magickImageFormat(profile.mimeType, profile.extension);
+			setStatus(copy.processing, 'info');
+			const written = readCollection(ImageMagick, bytes, magickFormat, (images) => {
+				if (!images.length) throw new Error(copy.noFrames);
+				/* ImageMagick's strip is what drops EXIF, IPTC, XMP, colour profiles and comments. */
+				for (const image of images) image.strip();
+				return images.write(magickFormat, (data) => new Uint8Array(data));
+			});
+			return new Blob([written], { type: profile.mimeType });
+		}
+
+		/*
+		 * Naming the coder is what lets this build open containers it does not sniff, ICO above all.
+		 * A file whose extension lies about its contents still gets the detected read as a second try.
+		 */
+		function readCollection(ImageMagick, bytes, magickFormat, run) {
+			if (!magickFormat) return ImageMagick.readCollection(bytes, run);
 			try {
-				const image = await loadImage(url);
-				const canvas = document.createElement('canvas');
-				canvas.width = image.naturalWidth;
-				canvas.height = image.naturalHeight;
-				canvas.getContext('2d').drawImage(image, 0, 0);
-				return await canvasToBlob(canvas, mimeType, 0.92);
-			} finally {
-				URL.revokeObjectURL(url);
+				return ImageMagick.readCollection(bytes, magickFormat, run);
+			} catch {
+				return ImageMagick.readCollection(bytes, run);
 			}
+		}
+
+		async function loadMagick() {
+			if (magick) return magick;
+			if (magickPromise) return magickPromise;
+
+			magickPromise = (async () => {
+				setStatus(copy.loadingMagick, 'info');
+
+				const magickVersion = '0.0.41';
+				const moduleUrl = `https://cdn.jsdelivr.net/npm/@imagemagick/magick-wasm@${magickVersion}/+esm`;
+				const wasmUrl = `https://cdn.jsdelivr.net/npm/@imagemagick/magick-wasm@${magickVersion}/dist/magick.wasm`;
+				/* Module and wasm share the 90 seconds the status copy promises, so a CDN that never answers still gives up. */
+				const deadline = Date.now() + 90000;
+				const loaded = await withTimeout(import(/* @vite-ignore */ moduleUrl), 90000, copy.magickTimeout);
+				await withTimeout(loaded.initializeImageMagick(new URL(wasmUrl)), Math.max(0, deadline - Date.now()), copy.magickTimeout);
+
+				magick = loaded;
+				setStatus(format(copy.magickReady, { version: loaded.Magick?.imageMagickVersion || 'ImageMagick WASM' }), 'success');
+				return loaded;
+			})().catch((error) => {
+				magickPromise = null;
+				throw error;
+			});
+
+			return magickPromise;
+		}
+
+		function withTimeout(promise, timeoutMs, message) {
+			let timeoutId;
+			const timeout = new Promise((_resolve, reject) => {
+				timeoutId = window.setTimeout(() => reject(new Error(message)), timeoutMs);
+			});
+			return Promise.race([promise, timeout]).finally(() => window.clearTimeout(timeoutId));
 		}
 
 		async function scrubMedia(file, profile) {
