@@ -52,7 +52,7 @@ jobs:
       # directory, so keeping it between runs saves well over a hundred megabytes of
       # third-party traffic per job and removes a CDN outage as a source of red builds.
       - name: Cache browser CDN payloads
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .cache/browser-cdn
           key: browser-cdn-${{ runner.os }}-${{ hashFiles('src/lib/ffmpeg-runtime.ts', 'src/components/tools/**/*.astro') }}
