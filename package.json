@@ -34,6 +34,7 @@
     "related:posts": "node scripts/build-related-posts.mjs",
     "translate:post": "node scripts/translate-post.mjs",
     "translate:all-missing": "node scripts/translate-all-missing-posts.mjs",
+    "sync:generated": "node scripts/generated-assets.mjs restore",
     "game:mp3-guesser": "node scripts/generate-mp3-guesser-game.mjs",
     "graph:soundscaper-commits": "node scripts/generate-commit-graph.mjs"
   },

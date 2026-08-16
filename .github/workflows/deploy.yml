@@ -45,6 +45,11 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
 
+      # The scheduled generators keep their output on the `generated` branch instead of
+      # main; it has to land in public/ before Astro copies that directory into dist.
+      - name: Restore generated assets
+        run: node scripts/generated-assets.mjs restore
+
       - name: Build site
         run: npm run build
         env:

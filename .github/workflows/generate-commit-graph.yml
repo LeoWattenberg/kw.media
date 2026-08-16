@@ -8,8 +8,10 @@ on:
 permissions:
   contents: write
 
+# Shared with the MP3 Guesser generator: both replace the whole `generated` branch, so
+# they must never publish at the same time.
 concurrency:
-  group: soundscaper-commit-graph
+  group: generated-assets
   cancel-in-progress: false
 
 jobs:
@@ -25,20 +27,18 @@ jobs:
         with:
           node-version: 22
 
+      # The generator reuses the line counts of commits the previous snapshot already
+      # covered, so it needs that snapshot before it runs.
+      - name: Restore generated assets
+        run: node scripts/generated-assets.mjs restore
+
       - name: Generate commit snapshot
         run: npm run graph:soundscaper-commits
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Commit snapshot
+      - name: Publish snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/data/soundscaper-commits.json
-
-          if git diff --cached --quiet; then
-            echo "No commit graph changes to commit."
-          else
-            git commit -m "Update Soundscaper commit graph"
-            git push
-          fi
+          node scripts/generated-assets.mjs publish "Update Soundscaper commit graph"

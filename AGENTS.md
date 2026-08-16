@@ -112,7 +112,7 @@ Games:
 - `src/data/games/*.astro` files define game page metadata and export `gameModule`.
 - Game module helpers and types live in `src/lib/game-page-module.ts`.
 - Game runtime helpers live in `src/lib/games/*.js`.
-- Generated game assets currently live under `public/games/`.
+- Generated game assets are served from `public/games/`, but they are gitignored on `main`: the scheduled workflows force-push them to the `generated` branch instead, and `npm run sync:generated` fetches them back. The same applies to `public/data/soundscaper-commits.json`. See "Generated Assets" in the README before changing a generator or the deploy workflow.
 
 Posts:
 

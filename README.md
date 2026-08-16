@@ -109,9 +109,34 @@ Run commands from the project root:
 | `npm run translate:post -- src/data/posts/.../post.md` | Translate one or more posts into the other locale |
 | `npm run translate:all-missing` | Create missing translations for all posts |
 | `npm run graph:soundscaper-commits` | Refresh `public/data/soundscaper-commits.json` for the Soundscaper commit graph tool; set `GITHUB_TOKEN` to avoid the 60-requests-per-hour anonymous limit. Line counts cost one request per commit, so known ones are reused and at most `COMMIT_GRAPH_MAX_STAT_REQUESTS` (default 600) are fetched per run |
+| `npm run game:mp3-guesser` | Build a local MP3 Guesser day under `public/games/mp3guesser/`; needs `ffmpeg` and the Freesound tokens |
+| `npm run sync:generated` | Download the current generated assets from the `generated` branch into `public/` so the commit graph and MP3 Guesser work in `npm run dev` |
 | `npm run astro -- --help` | Show Astro CLI help |
 | `npx @astrojs/upgrade` | Update Astro (fixes security issues but may break the site)|
 | `npm audit fix` | Fixes security updates without updating Astro|
+
+## Generated Assets
+
+Two scheduled workflows produce files the site serves but nobody edits by hand: the daily
+MP3 Guesser round under `public/games/mp3guesser/` and the Soundscaper commit snapshot at
+`public/data/soundscaper-commits.json`. A fresh MP3 Guesser day is roughly five megabytes
+of audio, so committing those runs to `main` would add gigabytes to the history — and to
+every clone — within a year, for files that are obsolete the next day.
+
+Both paths are therefore gitignored on `main` and live on the separate `generated` branch:
+
+- Each run restores the branch into `public/`, regenerates its own part, and force-pushes
+  the whole snapshot back as a single commit with no parent, so the branch never grows
+  beyond the current day's files. `main`'s history stays free of them.
+- The generators share one concurrency group because each publish replaces the entire
+  branch; they queue behind each other rather than overwriting one another's output.
+- The deploy workflow restores the branch into `public/` before `npm run build`, so the
+  built site ships the current assets.
+- The branch is disposable. The next scheduled run recreates it, and `git push --force`
+  is expected on it — do not merge it into `main` or base work on it.
+
+Locally, `npm run sync:generated` fetches the same snapshot into `public/`. Without it the
+commit graph tool and the MP3 Guesser page render but find no data.
 
 ## Audio Editor
 

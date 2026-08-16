@@ -8,8 +8,10 @@ on:
 permissions:
   contents: write
 
+# Shared with the commit graph generator: both replace the whole `generated` branch, so
+# they must never publish at the same time.
 concurrency:
-  group: mp3-guesser-daily
+  group: generated-assets
   cancel-in-progress: false
 
 jobs:
@@ -19,8 +21,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -32,21 +32,19 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg
 
+      # The generator reads the source history to avoid repeating a sound and prunes the
+      # days it replaces, so it needs the previous snapshot before it runs.
+      - name: Restore generated assets
+        run: node scripts/generated-assets.mjs restore
+
       - name: Generate daily game
         run: npm run game:mp3-guesser
         env:
           FREESOUND_API_TOKEN: ${{ secrets.FREESOUND_API_TOKEN }}
           FREESOUND_OAUTH_TOKEN: ${{ secrets.FREESOUND_OAUTH_TOKEN }}
 
-      - name: Commit generated game
+      - name: Publish generated game
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/games/mp3guesser
-
-          if git diff --cached --quiet; then
-            echo "No MP3 Guesser changes to commit."
-          else
-            git commit -m "Update daily MP3 Guesser"
-            git push
-          fi
+          node scripts/generated-assets.mjs publish "Update daily MP3 Guesser"
