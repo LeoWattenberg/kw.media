@@ -10,6 +10,8 @@ interface Props {
 
 const { block } = Astro.props;
 const image = block.image ? localizeMediaUrl(block.image) : undefined;
+// The portrait sits in a fixed 280px column, and keeps a 280px max-width once the block
+// stacks below 820px, so a single unconditional size is accurate at every viewport.
 const responsive = await contentImage(image);
 ---
 
@@ -21,7 +23,7 @@ const responsive = await contentImage(image);
 					<img
 						src={responsive.src}
 						srcset={responsive.srcset}
-						sizes="(max-width: 820px) 100vw, 280px"
+						sizes="280px"
 						width={responsive.width}
 						height={responsive.height}
 						alt={block.imageAlt ?? ''}

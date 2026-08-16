@@ -10,6 +10,12 @@ interface Props {
 
 const { block } = Astro.props;
 const image = block.image ? localizeMediaUrl(block.image) : undefined;
+// The image track tops out at 420.95px — .container caps at 1120px, the grid gap at 80px,
+// and the track takes 0.68 of the remaining 1.68fr — so `sizes` says 420px rather than a vw
+// share that keeps growing past that cap. 420px is also what contentWidths is built around,
+// so a 1x panel asks for the 420 variant and a 2x panel for the 840 one; rounding the last
+// 0.95px up instead would push every retina panel onto the 1260 variant for two pixels.
+// Below 820px the panel stacks and spans the container: the viewport less its 32px gutter.
 const responsive = await contentImage(image);
 ---
 
@@ -35,7 +41,7 @@ const responsive = await contentImage(image);
 					<img
 						src={responsive.src}
 						srcset={responsive.srcset}
-						sizes="(max-width: 820px) 100vw, 45vw"
+						sizes="(max-width: 820px) calc(100vw - 32px), 420px"
 						width={responsive.width}
 						height={responsive.height}
 						alt={block.imageAlt ?? ''}
