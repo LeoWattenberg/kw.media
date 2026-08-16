@@ -110,6 +110,9 @@ const responsive = await contentImage(image);
 
 	img {
 		width: 100%;
+		/* Without height:auto the hinted height from the height attribute wins over
+		   aspect-ratio, and the panel image stretches to the source's full pixel height. */
+		height: auto;
 		aspect-ratio: 4 / 5;
 		object-fit: cover;
 		border-radius: 8px;

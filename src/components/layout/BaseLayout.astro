@@ -6,7 +6,7 @@ import type { Locale } from '../../i18n';
 import { useTranslations } from '../../i18n';
 import type { AuthorProfile } from '../../data/authors';
 import { getAuthorPath } from '../../data/authors';
-import { socialImage as socialImageVariant } from '../../lib/images';
+import { assetUrl, socialImage as socialImageVariant } from '../../lib/images';
 import { localizeMediaUrl } from '../../lib/media';
 import { withBase } from '../../lib/url';
 
@@ -189,7 +189,7 @@ const profilePersonSchema =
 				url: canonicalHref,
 				jobTitle: profileAuthor.role,
 				description: profileAuthor.description[locale],
-				image: absoluteUrl(profileAuthor.image),
+				image: absoluteUrl(assetUrl(profileAuthor.image) ?? profileAuthor.image),
 				email: profileAuthor.email,
 				sameAs: profileAuthor.sameAs,
 				affiliation: { '@id': organizationId },

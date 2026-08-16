@@ -66,6 +66,10 @@ const responsive = await contentImage(image);
 
 	img {
 		width: 100%;
+		/* The width/height attributes reserve space before CSS loads, but they also land as
+		   presentational hints; without height:auto the hinted height wins and aspect-ratio
+		   never applies, stretching the portrait to the source's full pixel height. */
+		height: auto;
 		aspect-ratio: 1;
 		object-fit: cover;
 		border-radius: 8px;

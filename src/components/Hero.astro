@@ -12,16 +12,24 @@ const { block } = Astro.props;
 const heroSource = block.image ? localizeMediaUrl(block.image) : undefined;
 const processed = await heroImage(heroSource);
 // Bundled assets get resized variants; legacy uploads fall back to the original file.
-const fallbackUrl = processed?.fallbackSrc ?? (heroSource ? encodeURI(withBase(heroSource)) : undefined);
-const heroStyle = fallbackUrl
-	? [
-		`--hero-image: url("${fallbackUrl}")`,
-		processed && `--hero-image-set: image-set(${processed.imageSet})`,
-	].filter(Boolean).join('; ')
-	: undefined;
+const backgroundUrl = processed?.fallbackSrc ?? (heroSource ? encodeURI(withBase(heroSource)) : undefined);
 ---
 
-<section class:list={['hero', fallbackUrl && 'has-image']} style={heroStyle}>
+<section class:list={['hero', backgroundUrl && 'has-image']}>
+	{
+		backgroundUrl && (
+			<img
+				class="hero-background"
+				src={backgroundUrl}
+				srcset={processed?.srcset}
+				sizes="100vw"
+				alt=""
+				aria-hidden="true"
+				fetchpriority="high"
+				decoding="sync"
+			/>
+		)
+	}
 	<div class="container hero-inner">
 		<div class="hero-copy">
 			{block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
@@ -56,20 +64,23 @@ const heroStyle = fallbackUrl
 
 	.hero.has-image {
 		color: var(--color-deep-contrast);
-		background-image: var(--hero-image);
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
 	}
 
-	/* Where image-set is supported, let the browser pick a width-appropriate variant
-	   instead of always downloading the widest one. */
-	.hero.has-image {
-		background-image: var(--hero-image-set, var(--hero-image));
+	/* The background is an <img> rather than a background-image so srcset can pick a
+	   variant by viewport width; it is decorative, so it stays out of the a11y tree. */
+	.hero-background {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
 	}
 
 	.hero-inner {
 		position: relative;
+		z-index: 1;
 		width: min(1120px, calc(100% - 32px));
 	}
 

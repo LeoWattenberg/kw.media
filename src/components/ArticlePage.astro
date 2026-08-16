@@ -1,6 +1,7 @@
 ---
 import { getPostNavigation, getRelatedPosts, type Category, type SourcePost } from '../lib/source-content';
 import { withBase } from '../lib/url';
+import { contentImage } from '../lib/images';
 import { getAuthorByName, getAuthorPath } from '../data/authors';
 import { routeFor } from '../i18n';
 import ContentHtml from './blocks/ContentHtml.astro';
@@ -13,6 +14,8 @@ interface Props {
 
 const { post } = Astro.props;
 const authorProfile = getAuthorByName(post.authorName);
+// Author portraits live in src/assets, so they only exist as pipeline variants.
+const authorImage = await contentImage(authorProfile?.image);
 const authorPath = getAuthorPath(post.authorName, post.locale);
 // Tags below the page threshold have no page to link to, so they render as plain text.
 const tags = Array.isArray(post.tags)
@@ -262,7 +265,20 @@ function escapeAttribute(value: string): string {
 		authorProfile && (
 			<section class="author-block" aria-labelledby="author-block-heading">
 				<div class="container author-block-inner">
-					<img src={withBase(authorProfile.image)} alt={authorProfile.imageAlt} loading="lazy" />
+					{authorImage ? (
+						<img
+							src={authorImage.src}
+							srcset={authorImage.srcset}
+							sizes="120px"
+							width={authorImage.width}
+							height={authorImage.height}
+							alt={authorProfile.imageAlt}
+							loading="lazy"
+							decoding="async"
+						/>
+					) : (
+						<img src={withBase(authorProfile.image)} alt={authorProfile.imageAlt} loading="lazy" />
+					)}
 					<div>
 						<p class="eyebrow">{authorLabels.eyebrow}</p>
 						<h2 id="author-block-heading">{authorProfile.name}</h2>
@@ -505,6 +521,8 @@ function escapeAttribute(value: string): string {
 
 	.author-block img {
 		width: 120px;
+		/* height:auto so the height attribute's presentational hint cannot beat aspect-ratio. */
+		height: auto;
 		aspect-ratio: 1;
 		object-fit: cover;
 		border-radius: 8px;
