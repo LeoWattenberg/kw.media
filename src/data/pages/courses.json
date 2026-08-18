@@ -88,7 +88,23 @@
 						{
 							"title": "Was treiben meine Enkel im Internet?",
 							"text": "Eltern- oder Großelternabend mit 6 UE. Ein verständlicher Blick auf Online-Games, Influencer, Kostenfallen, Cybermobbing und Generationendialog."
-						}
+						},
+						{
+						    "title": "Der erste Bildschirm – Früher Medienkonsum & kindersichere Geräte",
+    						"text": "Elternabend (2–4 UE) für das 1. Schuljahr. Praktische Orientierung zu gesunden Bildschirmzeiten, altersgerechten Inhalten, Filterfunktionen und der sicheren Einrichtung von Smartphones und Tablets."
+  						},
+  						{
+    						"title": "Level Up im Kinderzimmer – Gaming, Gamification & Social Media",
+    						"text": "Elternabend (2–4 UE) für das 2. Schuljahr. Einblicke in Belohnungsmechanismen von Spielen, In-Game-Käufe, frühe Social-Media-Kontakte und wie Kinder lernen, digitale Angebote reflektiert zu nutzen."
+  						},
+  						{
+    						"title": "Vom Konsum zur Kreativität – Kinder als Content Creator",
+    						"text": "Elternabend (2–4 UE) für das 3. Schuljahr. Chancen kreativer Mediennutzung (Stop-Motion, Videos, Audio), Schutz der Privatsphäre, Recht am eigenen Bild und die sichere Begleitung junger Creators."
+  						},
+  						{
+    						"title": "Sicher vernetzt – Cybermobbing & Cybergrooming erkennen und handeln",
+    						"text": "Themenelternabend (2–4 UE) für das 4. Schuljahr in Kooperation mit Schulsozialarbeit und Schulpsychologie. Warnsignale, Dynamiken in Klassen-Chats, Prävention und konkrete Handlungsleitfäden."
+  						}
 					]
 				},
 				{
@@ -294,7 +310,23 @@
 						{
 							"title": "What Are My Grandchildren Doing Online?",
 							"text": "Parent or grandparent evening with 6 teaching units about online games, influencers, cost traps, cyberbullying and intergenerational dialogue."
-						}
+						},
+						{
+						    "title": "The First Screen: Early Media Consumption & Child-Safe Devices",
+						    "text": "Parent evening (2–4 teaching units) for 1st grade. Practical guidance on healthy screen time, age-appropriate content, filter settings and setting up safe devices at home."
+						  },
+						  {
+						    "title": "Level Up at Home: Gaming, Gamification & Social Media",
+						    "text": "Parent evening (2–4 teaching units) for 2nd grade. Insights into game reward loops, in-app purchases, early social media exposure and developing mindful digital habits."
+						  },
+						  {
+						    "title": "From Consumer to Creator: Kids Making Media",
+						    "text": "Parent evening (2–4 teaching units) for 3rd grade. Creative media opportunities (stop-motion, video, audio), privacy protection, image rights and guiding young creators responsibly."
+						  },
+						  {
+						    "title": "Connected Safely: Cyberbullying & Online Grooming Awareness",
+						    "text": "Targeted parent evening (2–4 teaching units) for 4th grade in collaboration with school social work and school psychologists. Warning signs, group chat dynamics and actionable intervention steps."
+						  }
 					]
 				},
 				{
