@@ -1,5 +1,5 @@
 ---
-import { getPostNavigation, getRelatedPosts, type Category, type SourcePost } from '../lib/source-content';
+import { getAllPosts, getPostNavigation, getRelatedPosts, type Category, type SourcePost } from '../lib/source-content';
 import { withBase } from '../lib/url';
 import { contentImage } from '../lib/images';
 import { getAuthorByName, getAuthorPath } from '../data/authors';
@@ -34,11 +34,19 @@ const structuredContent = splitStructuredContentHtml(post.contentHtml);
 const originalTranscript = structuredContent.transcriptHtml
 	? originalTranscriptHtml(structuredContent.transcriptHtml, post.locale)
 	: '';
+// Every video post is written from the transcript by the AI pipeline, so it always
+// discloses that. Translation direction is only recorded for blog posts.
+const translationOriginal = getTranslationOriginal(post);
+const disclosures = [
+	post.video ? aiGeneratedNoticeHtml(post.video.watchUrl, post.locale) : '',
+	translationOriginal ? translatedNoticeHtml(translationOriginal.path, post.locale) : '',
+].filter(Boolean);
 const articleContentHtml = [
 	structuredContent.articleHtml ?? post.contentHtml,
 	originalTranscript,
 	postSources.length ? postSourcesHtml(postSources, post.locale) : '',
 	post.postCta ? postCtaHtml(post.postCta) : '',
+	disclosures.length ? postDisclosureHtml(disclosures) : '',
 ].filter(Boolean).join('\n');
 const postNavigation = getPostNavigation(post);
 const relatedPosts = getRelatedPosts(post);
@@ -211,6 +219,45 @@ function extractMarkedHtmlPart(html: string, startMarker: string, endMarker: str
 	}
 
 	return html.slice(start + startMarker.length, end).trim();
+}
+
+/**
+ * Blog posts record translation direction in `translationKey`: `post:<id>` pointing at the
+ * post's own id marks an original, and any other id marks a translation of that post.
+ * Video posts key on `video:<youtubeId>` and never resolve here.
+ */
+function getTranslationOriginal(translatedPost: SourcePost): SourcePost | undefined {
+	const originalId = Number(translatedPost.translationKey?.match(/^post:(\d+)$/)?.[1]);
+
+	if (!Number.isInteger(originalId) || originalId === translatedPost.id) {
+		return undefined;
+	}
+
+	return getAllPosts().find((candidate) => candidate.id === originalId);
+}
+
+function aiGeneratedNoticeHtml(watchUrl: string, locale: SourcePost['locale']): string {
+	const label = locale === 'de' ? 'unseres Videos' : 'our video';
+	const link = `<a href="${escapeAttribute(watchUrl)}" rel="noopener noreferrer">${escapeHtml(label)}</a>`;
+
+	return locale === 'de'
+		? `Dieser Artikel wurde KI-generiert auf Basis ${link}.`
+		: `This article was AI generated based on ${link}.`;
+}
+
+function translatedNoticeHtml(originalPath: string, locale: SourcePost['locale']): string {
+	const label = locale === 'de' ? 'dem Original' : 'the original';
+	const link = `<a href="${escapeAttribute(withBase(originalPath))}">${escapeHtml(label)}</a>`;
+
+	return locale === 'de'
+		? `Dieser Artikel wurde automatisch aus ${link} \u00fcbersetzt.`
+		: `This article was automatically translated from ${link}.`;
+}
+
+function postDisclosureHtml(notices: string[]): string {
+	const paragraphs = notices.map((notice) => `<p>${notice}</p>`).join('');
+
+	return `<section class="post-disclosure" data-kwm-part="post-disclosure" data-nosnippet>${paragraphs}</section>`;
 }
 
 function escapeHtml(value: string): string {
