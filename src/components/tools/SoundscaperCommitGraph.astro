@@ -1,7 +1,5 @@
 ---
 import type { Locale } from '../../i18n';
-import SelectControl from './shared/SelectControl.astro';
-import ToggleControl from './shared/ToggleControl.astro';
 import ToolIntro from './shared/ToolIntro.astro';
 import ToolPanel from './shared/ToolPanel.astro';
 import ToolStatus from './shared/ToolStatus.astro';
@@ -15,9 +13,6 @@ const copy = {
 		eyebrow: 'Commit-Rhythmus', title: 'Soundscaper Commit-Graph',
 		intro: `Zeigt, zu welcher Stunde die Commits der letzten ${COMMIT_GRAPH_DAYS} Tage in ${COMMIT_GRAPH_REPO} entstanden sind.`,
 		privacy: 'Alles hier stammt aus einem Snapshot, den ein GitHub-Actions-Job regelmäßig neu erzeugt und der mit der Seite ausgeliefert wird. Dein Browser fragt GitHub nie selbst an: Die Zeilenzahlen allein kosten eine Anfrage pro Commit, weit mehr als ein Besuch je bekommen könnte.',
-		settings: 'Ansicht', repoLabel: 'Repository', windowLabel: 'Zeitraum', windowValue: `Letzte ${COMMIT_GRAPH_DAYS} Tage`,
-		timezone: 'Zeitzone', timezoneCommit: 'Commit-Zeit (wie gespeichert)', timezoneViewer: 'Deine Zeitzone',
-		merges: 'Merge-Commits einbeziehen',
 		summaryTitle: 'Überblick', statTotal: 'Commits', statActiveDays: 'Aktive Tage', statBusiestHour: 'Stärkste Stunde', statBusiestDay: 'Stärkster Tag',
 		statAdded: 'Zeilen hinzugefügt', statRemoved: 'Zeilen entfernt',
 		statPerDay: '{value} pro Tag im Schnitt', statOfDays: 'von {days} Tagen', statNet: 'Netto {value} Zeilen',
@@ -49,9 +44,6 @@ const copy = {
 		eyebrow: 'Commit rhythm', title: 'Soundscaper Commit Graph',
 		intro: `See what hour the last ${COMMIT_GRAPH_DAYS} days of commits to ${COMMIT_GRAPH_REPO} were actually made.`,
 		privacy: 'Everything here comes from a snapshot that a GitHub Actions job regenerates on a schedule and that ships with the page. Your browser never asks GitHub itself: the line counts alone cost one request per commit, far more than any one visit could be given.',
-		settings: 'View', repoLabel: 'Repository', windowLabel: 'Window', windowValue: `Last ${COMMIT_GRAPH_DAYS} days`,
-		timezone: 'Time zone', timezoneCommit: 'Commit time (as recorded)', timezoneViewer: 'Your time zone',
-		merges: 'Include merge commits',
 		summaryTitle: 'Summary', statTotal: 'Commits', statActiveDays: 'Active days', statBusiestHour: 'Busiest hour', statBusiestDay: 'Busiest day',
 		statAdded: 'Lines added', statRemoved: 'Lines removed',
 		statPerDay: '{value} per day on average', statOfDays: 'of {days} days', statNet: 'net {value} lines',
@@ -81,7 +73,6 @@ const copy = {
 	},
 }[locale];
 const copyJson = JSON.stringify(copy);
-const repoUrl = `https://github.com/${COMMIT_GRAPH_REPO}`;
 const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 ---
 
@@ -89,20 +80,7 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 <section class="section commit-graph-section tool-workspace">
 	<div class="container">
 		<div class="commit-graph" data-commit-graph data-copy={copyJson} data-locale={locale} data-snapshot-url={snapshotUrl}>
-			<ToolPanel title={copy.settings}>
-				<dl class="commit-graph-meta">
-					<dt>{copy.repoLabel}</dt>
-					<dd><a href={repoUrl} rel="noopener noreferrer" target="_blank">{COMMIT_GRAPH_REPO}</a></dd>
-					<dt>{copy.windowLabel}</dt>
-					<dd>{copy.windowValue}</dd>
-				</dl>
-				<SelectControl label={copy.timezone} selectAttrs={{ 'data-timezone': true }}>
-					<option value="commit">{copy.timezoneCommit}</option>
-					<option value="viewer">{copy.timezoneViewer}</option>
-				</SelectControl>
-				<ToggleControl label={copy.merges} inputAttrs={{ 'data-merges': true, checked: true }} />
-				<ToolStatus data-status text={copy.loading} />
-			</ToolPanel>
+			<ToolStatus class="commit-graph-status" data-status text={copy.loading} />
 			<ToolPanel title={copy.summaryTitle} data-summary-panel hidden>
 				<ul class="commit-graph-stats">
 					<li><span class="stat-label">{copy.statTotal}</span><strong data-stat-total>–</strong><span class="stat-note" data-stat-total-note></span></li>
@@ -200,8 +178,6 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 		const copy = JSON.parse(root.dataset.copy || '{}');
 		const locale = root.dataset.locale || 'en';
 		const snapshotUrl = root.dataset.snapshotUrl || COMMIT_GRAPH_SNAPSHOT_PATH;
-		const timezone = root.querySelector('[data-timezone]');
-		const merges = root.querySelector('[data-merges]');
 		const status = root.querySelector('[data-status]');
 		const summaryPanel = root.querySelector('[data-summary-panel]');
 		const hoursPanel = root.querySelector('[data-hours-panel]');
@@ -224,8 +200,6 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 		let charted = 0;
 		let loadedSnapshot = null;
 
-		timezone.addEventListener('change', renderAndReport);
-		merges.addEventListener('change', renderAndReport);
 		void load();
 
 		/*
@@ -247,8 +221,7 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 		}
 
 		/*
-		 * The status counts what the chart currently shows, so it has to be rewritten whenever the
-		 * time zone or the merge filter changes the total. Without a snapshot there is nothing to
+		 * The status counts what the chart currently shows. Without a snapshot there is nothing to
 		 * report and the failure message stays on screen.
 		 */
 		function renderAndReport() {
@@ -267,11 +240,10 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 		}
 
 		function render() {
-			const mode = timezone.value;
-			const grid = buildCommitGrid(filterCommits(commits, { includeMerges: merges.checked }), {
-				mode,
+			const grid = buildCommitGrid(filterCommits(commits), {
+				mode: 'commit',
 				days: COMMIT_GRAPH_DAYS,
-				endDayKey: todayKey(mode),
+				endDayKey: todayKey('commit'),
 			});
 			const summary = summarizeGrid(grid);
 			charted = grid.total;
@@ -456,9 +428,6 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 	.commit-graph [hidden] { display: none !important; }
 	/* Grid items default to min-width: auto, which would widen the page instead of scrolling the chart. */
 	.commit-graph .commit-graph-wide { grid-column: 1 / -1; min-width: 0; }
-	.commit-graph-meta { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0 0 14px; font-size: 0.92rem; }
-	.commit-graph-meta dt { color: var(--color-muted); }
-	.commit-graph-meta dd { margin: 0; }
 	.commit-graph-caption { margin: 0 0 14px; color: var(--color-muted); font-size: 0.92rem; }
 	.commit-graph-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 0; list-style: none; }
 	.commit-graph-stats li { display: grid; gap: 2px; }

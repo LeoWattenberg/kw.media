@@ -617,22 +617,12 @@ test.describe('visual tool interactions', () => {
 		await expect(tool.locator('[data-lines] .clipped')).toHaveCount(1);
 		await expect(peakColumn.locator('.added')).toHaveClass(/clipped/);
 		await expect(peakColumn.locator('.added')).toHaveCSS('height', '90px');
+		await expect(tool.locator('[data-merges]')).toHaveCount(0);
 
 		const filledCells = tool.locator('.heat-cell:not([data-level="0"])');
 		await expect(filledCells).toHaveCount(2);
 		const levels = await filledCells.evaluateAll((cells) => cells.map((cell) => Number(cell.dataset.level)));
 		expect(Math.max(...levels)).toBeGreaterThan(Math.min(...levels));
-
-		await tool.locator('[data-merges]').uncheck();
-		/* The status counts what the chart shows, so dropping the merge commit has to move it too. */
-		await expect(tool.locator('[data-status]')).toHaveText('3 commits from the site snapshot (1 hour old).');
-		await expect(tool.locator('[data-stat-total]')).toHaveText('3');
-		await expect(tool.locator('[data-stat-hour-note]')).toHaveText('2 commits');
-		await expect(tool.locator('[data-stat-added]')).toHaveText('+42');
-		await expect(tool.locator('[data-stat-removed]')).toHaveText('−65');
-		/* Without the merge commit nothing dwarfs the rest, so the axis goes back to an exact ceiling. */
-		await expect(tool.locator('[data-lines-caption]')).toHaveText('42 lines added and 65 removed, one bar per hour. Line counts are available for 2 of 3 commits.');
-		await expect(tool.locator('[data-lines] .clipped')).toHaveCount(0);
 
 		await expect(tool.locator('[data-reload]')).toHaveCount(0);
 		expect(githubCalls).toEqual([]);
@@ -669,8 +659,7 @@ test.describe('visual tool interactions', () => {
 		await expect(status).toHaveAttribute('data-state', 'error');
 		await expect(status).toHaveText('Could not load the snapshot: HTTP 503');
 
-		/* Redrawing an empty chart must not replace the reason with "no commits in the window". */
-		await page.locator('[data-merges]').uncheck();
+		/* The failed load stays on screen without a settings panel to trigger a redraw. */
 		await expect(status).toHaveAttribute('data-state', 'error');
 		await expect(status).toHaveText('Could not load the snapshot: HTTP 503');
 		expect(githubCalls).toEqual([]);
