@@ -2,7 +2,7 @@ name: Generate Soundscaper commit graph
 
 on:
   schedule:
-    - cron: '41 */6 * * *'
+    - cron: '41 * * * *'
   workflow_dispatch:
 
 permissions:
