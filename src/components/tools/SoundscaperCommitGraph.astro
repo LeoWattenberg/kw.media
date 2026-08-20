@@ -80,8 +80,7 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 <section class="section commit-graph-section tool-workspace">
 	<div class="container">
 		<div class="commit-graph" data-commit-graph data-copy={copyJson} data-locale={locale} data-snapshot-url={snapshotUrl}>
-			<ToolStatus class="commit-graph-status" data-status text={copy.loading} />
-			<ToolPanel title={copy.summaryTitle} data-summary-panel hidden>
+			<ToolPanel class="commit-graph-wide" title={copy.summaryTitle} data-summary-panel>
 				<ul class="commit-graph-stats">
 					<li><span class="stat-label">{copy.statTotal}</span><strong data-stat-total>–</strong><span class="stat-note" data-stat-total-note></span></li>
 					<li><span class="stat-label">{copy.statActiveDays}</span><strong data-stat-days>–</strong><span class="stat-note" data-stat-days-note></span></li>
@@ -90,6 +89,7 @@ const snapshotUrl = withBase(COMMIT_GRAPH_SNAPSHOT_PATH);
 					<li><span class="stat-label">{copy.statAdded}</span><strong data-stat-added>–</strong><span class="stat-note" data-stat-added-note></span></li>
 					<li><span class="stat-label">{copy.statRemoved}</span><strong data-stat-removed>–</strong><span class="stat-note" data-stat-removed-note></span></li>
 				</ul>
+				<ToolStatus class="commit-graph-status" data-status text={copy.loading} />
 			</ToolPanel>
 			<ToolPanel class="commit-graph-wide" title={copy.hoursTitle} data-hours-panel hidden>
 				<p class="commit-graph-caption" data-hours-caption></p>
