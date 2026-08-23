@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:XKiJKhwk7vE"
 category: "news-video"
 tags: ["YouTube Updates", "Algorithmen auf YouTube", "Aufrufe steigern", "Kommentare verwalten", "Monetarisierung auf YouTube", "Mitgliedschaften und Abonnements", "Plattform-Neuerungen", "Community-Interaktion", "YouTube-Richtlinien"]
-relatedPosts: ["/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/", "/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/", "/youtube-tipps-de/erstellt-youtube-ki-klonen-von-creatorn-youtube-creator-news/"]
+relatedPosts: ["/youtube-tipps-de/youtube-hat-die-aufrufe-um-20-aufgeblaht-und-das-ist-schlecht-fur-alle-creator-news/", "/youtube-tipps-de/youtube-updates-abonnenten-liste-shorts-views-definitionen-und-take-a-break/", "/youtube-tipps-de/youtube-news-100-publikumsmetriken-ausrollung-start-der-shorts-ki-und-was-uns-vshojo-lehrt/"]
 image: "https://i.ytimg.com/vi/XKiJKhwk7vE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=XKiJKhwk7vE"

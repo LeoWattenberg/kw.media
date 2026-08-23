@@ -9,7 +9,7 @@ modified: "2026-08-15T11:28:26"
 locale: "de"
 translationKey: "video:ENLBKsbO9ZI"
 category: "news-video"
-relatedPosts: ["/youtube-tipps-de/so-kommst-du-mit-youtube-shorts-ins-partner-programm/", "/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/", "/youtube-tipps-de/youtube-politikwechsel-siegt-die-freie-meinungsausserung/"]
+relatedPosts: ["/youtube-tipps-de/alles-wichtige-uber-die-neue-youtube-fan-funding-partner-stufe/", "/youtube-tipps-de/youtube-politikwechsel-siegt-die-freie-meinungsausserung/", "/youtube-tipps-de/wann-kommt-die-shorts-monetarisierung/"]
 image: "https://i.ytimg.com/vi/ENLBKsbO9ZI/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=ENLBKsbO9ZI"
