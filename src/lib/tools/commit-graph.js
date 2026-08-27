@@ -1,7 +1,13 @@
 export const COMMIT_GRAPH_REPO = 'LeoWattenberg/Soundscaper';
 export const COMMIT_GRAPH_DAYS = 30;
 export const COMMIT_GRAPH_PAGE_SIZE = 100;
-export const COMMIT_GRAPH_MAX_PAGES = 30;
+/*
+ * GitHub lists commits newest first, so a window that runs past this ceiling loses its oldest days
+ * rather than its newest. Soundscaper crossed three thousand commits a month in August 2026, which
+ * is what the previous cap of thirty pages allowed; twelve thousand leaves room to keep growing and
+ * still costs far fewer requests than the line counts below.
+ */
+export const COMMIT_GRAPH_MAX_PAGES = 120;
 export const COMMIT_GRAPH_HEAT_STEPS = 5;
 /*
  * A single vendored-dependency commit can change a hundred times as many lines as an ordinary hour,
