@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:VTYh7opEoNY"
 category: "news-video"
 tags: ["YouTube Ad Blockers", "Twitch Business Manager", "Platform Policies", "Monetization Strategies", "Creator Resources", "Platform Updates", "Legal Issues", "Content Monetization", "Audience Engagement"]
-relatedPosts: ["/youtube-tips-en/youtube-ad-warning-are-you-losing-revenue-dms-return/", "/youtube-tips-en/youtube-monetization-requirements-doubled-creator-news/", "/youtube-tips-en/bye-bye-creator-music-creator-news/"]
+relatedPosts: ["/youtube-tips-en/youtube-changes-ad-rules-for-gta-6-and-twitch-gets-sued-creator-news/", "/youtube-tips-en/youtube-monetization-requirements-doubled-creator-news/", "/youtube-tips-en/bye-bye-creator-music-creator-news/"]
 image: "https://i.ytimg.com/vi/VTYh7opEoNY/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=VTYh7opEoNY"

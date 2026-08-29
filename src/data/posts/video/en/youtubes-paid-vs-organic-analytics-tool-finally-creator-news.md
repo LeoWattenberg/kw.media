@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:vbJb0uVty9o"
 category: "news-video"
 tags: ["YouTube Policy Changes", "Gaming Channel Restrictions", "Gambling and Violence Enforcement", "Age Restrictions", "Demonetization", "Advanced Analytics", "Paid vs Organic Metrics", "Audience Retention Analysis", "Google Lens Integration", "Content Monetization Strategies"]
-relatedPosts: ["/youtube-tips-en/youtube-advanced-analytics-overhaul-inspiration-ai-now-in-eu/", "/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/youtube-update-strict-gambling-rules-and-changes-to-monetization-checks/"]
+relatedPosts: ["/youtube-tips-en/youtube-advanced-analytics-overhaul-inspiration-ai-now-in-eu/", "/youtube-tips-en/youtube-bans-accounts-under-16-why-ctr-is-dead/", "/youtube-tips-en/youtube-kills-seo-and-twitchs-fake-monetization-creator-news/"]
 image: "https://i.ytimg.com/vi/vbJb0uVty9o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=vbJb0uVty9o"

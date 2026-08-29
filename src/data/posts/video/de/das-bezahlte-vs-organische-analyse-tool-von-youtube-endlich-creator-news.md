@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:vbJb0uVty9o"
 category: "news-video"
 tags: ["YouTube-Richtlinien", "Gaming-Kanal-Einschränkungen", "Glücksspiel und Gewalt", "Organische vs. bezahlte Analyse", "YouTube Analytics-Update", "Community-Richtlinien-Durchsetzung", "Altersbeschränkungen für Inhalte", "Metriken-Filterung", "Werbung und organisches Wachstum"]
-relatedPosts: ["/youtube-tipps-de/uberarbeitung-der-erweiterten-youtube-analyse-inspiration-ai-jetzt-in-der-eu/", "/youtube-tipps-de/youtube-updates-youtube-fehler-loscht-werbeeinnahmen-einfuhrung-der-kollaborations-feed-funktion/", "/youtube-tipps-de/youtube-hat-den-dislike-button-wieder-einmal-abgeschafft-creator-news/"]
+relatedPosts: ["/youtube-tipps-de/uberarbeitung-der-erweiterten-youtube-analyse-inspiration-ai-jetzt-in-der-eu/", "/youtube-tipps-de/youtube-updates-youtube-fehler-loscht-werbeeinnahmen-einfuhrung-der-kollaborations-feed-funktion/", "/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/"]
 image: "https://i.ytimg.com/vi/vbJb0uVty9o/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=vbJb0uVty9o"

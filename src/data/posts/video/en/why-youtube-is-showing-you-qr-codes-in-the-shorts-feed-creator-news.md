@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:XuyGt9x2FYc"
 category: "news-video"
 tags: ["YouTube Ads", "AI-Driven Advertising", "Twitch-Updates", "TikTok Clone Removal", "Adobe AI Editor", "Project Moonlight", "YouTube Shorts Features", "QR Codes in Shorts", "Mobile Content Creation", "Desktop vs Mobile Experience"]
-relatedPosts: ["/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/", "/youtube-tips-en/we-took-your-biggest-complaints-directly-to-youtube-live-creator-news/", "/youtube-tips-en/youtube-just-killed-the-dislike-button-again-creator-news/"]
+relatedPosts: ["/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/", "/youtube-tips-en/youtube-just-killed-the-dislike-button-again-creator-news/", "/youtube-tips-en/we-took-your-biggest-complaints-directly-to-youtube-live-creator-news/"]
 image: "https://i.ytimg.com/vi/XuyGt9x2FYc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=XuyGt9x2FYc"
