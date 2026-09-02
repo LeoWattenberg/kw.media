@@ -564,7 +564,17 @@ test.describe('image tool outputs', () => {
 		);
 	};
 
-	test('Image Morph previews a distance-field morph and renders it as MP4 and WebM', async ({ page }) => {
+	/* Container bytes as latin1 text, so codec tags and alpha markers can be searched for. */
+	const readContainer = (page, href) => page.evaluate(async (url) => {
+		const bytes = new Uint8Array(await (await fetch(url)).arrayBuffer());
+		return {
+			magic: [...bytes.subarray(0, 4)].map((byte) => byte.toString(16).padStart(2, '0')).join(''),
+			text: new TextDecoder('latin1').decode(bytes),
+			byteLength: bytes.byteLength,
+		};
+	}, href);
+
+	test('Image Morph previews a distance-field morph and renders it with and without alpha', async ({ page }) => {
 		test.setTimeout(CDN_TIMEOUT);
 		const errors = collectPageErrors(page);
 		await cacheCdnAssets(page);
@@ -595,32 +605,42 @@ test.describe('image tool outputs', () => {
 
 		/*
 		 * Preview pixels at source x = 20 (square only), 50 (both) and 74 (circle only), scaled by
-		 * 320 / 96. Halfway, the overlap is solid while both lone sides have already shrunk away.
+		 * 320 / 96. Transparent output is the default, so the white paper of both PNGs is knocked
+		 * out; halfway, the overlap is solid while both lone sides have already shrunk away.
 		 */
 		const dark = (pixel) => pixel[0] < 64 && pixel[3] === 255;
-		const light = (pixel) => pixel[0] > 192 && pixel[3] === 255;
+		const clear = (pixel) => pixel[3] === 0;
 		expect(dark(await previewPixel(tool, 0, 67, 107))).toBe(true);
 		expect(dark(await previewPixel(tool, 0, 167, 107))).toBe(true);
-		expect(light(await previewPixel(tool, 0, 247, 107))).toBe(true);
-		expect(light(await previewPixel(tool, 0.5, 67, 107))).toBe(true);
+		expect(clear(await previewPixel(tool, 0, 247, 107))).toBe(true);
+		expect(clear(await previewPixel(tool, 0.5, 67, 107))).toBe(true);
 		expect(dark(await previewPixel(tool, 0.5, 167, 107))).toBe(true);
-		expect(light(await previewPixel(tool, 0.5, 247, 107))).toBe(true);
-		expect(light(await previewPixel(tool, 1, 67, 107))).toBe(true);
+		expect(clear(await previewPixel(tool, 0.5, 247, 107))).toBe(true);
+		expect(clear(await previewPixel(tool, 1, 67, 107))).toBe(true);
 		expect(dark(await previewPixel(tool, 1, 167, 107))).toBe(true);
 		expect(dark(await previewPixel(tool, 1, 247, 107))).toBe(true);
 
-		/* 0.2 s hold, 0.5 s morph at 12 fps: eleven frames, which the output meta has to report. */
-		await setValue(tool.locator('[data-hold]'), 0.2);
+		/* Keeping the pictures' own backgrounds paints the paper back in. */
+		await tool.locator('[data-background]').selectOption('source');
+		const paper = await previewPixel(tool, 0, 247, 107);
+		expect(paper[0] > 192 && paper[3] === 255).toBe(true);
+		await tool.locator('[data-background]').selectOption('transparent');
+
+		await setValue(tool.locator('[data-hold-start]'), 0.2);
 		await setValue(tool.locator('[data-duration]'), 0.5);
-		await expect(tool.locator('[data-hold-label]')).toHaveText('0.2 s');
-		await expect(tool.locator('[data-duration-label]')).toHaveText('0.5 s');
+		await setValue(tool.locator('[data-hold-end]'), 0.2);
 		await tool.locator('[data-easing]').selectOption('linear');
-		await tool.locator('[data-fps]').selectOption('12');
+		await tool.locator('[data-fps]').selectOption('24');
 		await tool.locator('[data-size]').selectOption('360');
+
+		/* 5 + 12 + 5 frames at 24 fps. MP4 has no alpha, so its frames are flattened onto the paper colour. */
+		await tool.locator('[data-format]').selectOption('mp4-h264');
 		await render.click();
-		await expect(status).toHaveText('The morph video is ready.', { timeout: RUN_TIMEOUT });
+		await expect(status).toHaveText('The video is ready: 22 frames, 0.92 s.', { timeout: RUN_TIMEOUT });
 		await expect(tool.locator('[data-result]')).toBeVisible();
-		await expect(tool.locator('[data-output-meta]')).toHaveText(/^360 x 240px \| 11 frames \| 0\.9 s \| /);
+		await expect(tool.locator('[data-output-meta]')).toContainText('360 x 240px | 24 FPS | 22 frames | 0.92 s');
+		await expect(tool.locator('[data-output-video]')).toBeVisible();
+		await expect(tool.locator('[data-output-note]')).toBeHidden();
 
 		const download = tool.locator('[data-download]');
 		await expect(download).toHaveAttribute('download', 'square-to-circle.mp4');
@@ -630,17 +650,39 @@ test.describe('image tool outputs', () => {
 		expect(mp4.byteLength).toBeGreaterThan(1000);
 		expect(await videoSize(page, mp4Href)).toEqual({ width: 360, height: 240 });
 
-		/* Looping back doubles the morph, and WebM has to come out as EBML, not as a renamed MP4. */
-		await tool.locator('[data-format]').selectOption('webm');
+		/*
+		 * Looping back adds the return morph. VP8 keeps the alpha plane, which Matroska flags with
+		 * its AlphaMode element: 0x53C0, written by ffmpeg as 53 c0 81 01 for streams with alpha.
+		 */
+		await tool.locator('[data-format]').selectOption('webm-vp8');
 		await tool.locator('[data-loop]').check();
 		await render.click();
 		const webmHref = await waitForNewHref(download, mp4Href);
-		await expect(status).toHaveText('The morph video is ready.', { timeout: RUN_TIMEOUT });
+		await expect(status).toHaveText('The video is ready: 34 frames, 1.42 s.', { timeout: RUN_TIMEOUT });
 		await expect(download).toHaveAttribute('download', 'square-to-circle.webm');
-		await expect(tool.locator('[data-output-meta]')).toContainText('17 frames | 1.4 s');
-		const webm = await readOutput(page, webmHref);
-		expect(webm.head.startsWith('1a45dfa3')).toBe(true);
+		await expect(tool.locator('[data-output-meta]')).toContainText('WebM VP8 (.webm)');
+		const webm = await readContainer(page, webmHref);
+		expect(webm.magic).toBe('1a45dfa3');
+		expect(webm.text).toContain('V_VP8');
+		expect(webm.text).toContain('S\u00c0\u0081\u0001');
 		expect(await videoSize(page, webmHref)).toEqual({ width: 360, height: 240 });
+		await expect(tool.locator('[data-output-video]')).toBeVisible();
+
+		/* QuickTime Animation cannot play in a browser, so the tool says so instead of showing a dead player. */
+		await tool.locator('[data-loop]').uncheck();
+		await tool.locator('[data-format]').selectOption('qt-animation');
+		await render.click();
+		const movHref = await waitForNewHref(download, webmHref);
+		await expect(status).toHaveText('The video is ready: 22 frames, 0.92 s.', { timeout: RUN_TIMEOUT });
+		await expect(download).toHaveAttribute('download', 'square-to-circle.mov');
+		const mov = await readContainer(page, movHref);
+		expect(mov.magic).toBe('00000014');
+		for (const tag of ['ftypqt  ', 'rle ', 'moov']) {
+			expect(mov.text).toContain(tag);
+		}
+		expect(mov.byteLength).toBeGreaterThan(200);
+		await expect(tool.locator('[data-output-video]')).toBeHidden();
+		await expect(tool.locator('[data-output-note]')).toHaveText('Browsers do not play MOV files with an alpha channel. Import the download straight into your editor.');
 
 		await tool.locator('[data-clear]').click();
 		await expect(status).toHaveText('The tool has been reset.');

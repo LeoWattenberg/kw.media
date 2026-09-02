@@ -2,14 +2,17 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 
 import {
-	EASING_IDS,
-	MORPH_FORMATS,
+	DEFAULT_MORPH_SETTINGS,
+	MORPH_BACKGROUNDS,
+	MORPH_EASINGS,
 	MORPH_FRAME_RATES,
+	MORPH_OUTPUT_FORMATS,
 	MORPH_SIZES,
+	TRANSPARENT_INK_FLOOR,
 	buildMorphLayers,
 	buildMorphVideoArgs,
 	buildTimeline,
-	ease,
+	easingFunction,
 	estimateBackground,
 	evenSize,
 	fitContain,
@@ -17,17 +20,26 @@ import {
 	framePattern,
 	hexToRgb,
 	inkMap,
-	morphFormat,
 	morphOutputName,
-	morphProgress,
+	morphTimeline,
 	normalizeHexColor,
 	normalizeMorphSettings,
 	outputDimensions,
+	outputFormat,
 	renderMorphFrame,
 	signedDistanceField,
 	squaredDistanceTransform,
-	timelineDuration,
 } from '../src/lib/tools/image-morph.js';
+import {
+	DEFAULT_MORPH_SETTINGS as SVG_DEFAULTS,
+	MORPH_EASINGS as SVG_EASINGS,
+	MORPH_FRAME_RATES as SVG_FRAME_RATES,
+	MORPH_OUTPUT_FORMATS as SVG_FORMATS,
+	buildMorphVideoArgs as buildSvgVideoArgs,
+	morphOutputName as svgOutputName,
+	morphTimeline as svgTimeline,
+	normalizeMorphSettings as normalizeSvgSettings,
+} from '../src/lib/tools/svg-morph.js';
 
 /* An RGBA raster painted by a callback that returns [r, g, b] or [r, g, b, a] for every pixel. */
 const raster = (width, height, paint) => {
@@ -49,63 +61,96 @@ const inBox = (x, y, [left, top, width, height]) => x >= left && x < left + widt
 const WHITE = [255, 255, 255];
 const BLACK = [0, 0, 0];
 const GREY = [128, 128, 128];
+const CLEAR = [0, 0, 0, 0];
 const pixelAt = (frame, width, x, y) => [...frame.subarray((y * width + x) * 4, (y * width + x) * 4 + 4)];
 const near = (actual, expected, tolerance, message) => assert.ok(Math.abs(actual - expected) <= tolerance, `${message}: ${actual} is not within ${tolerance} of ${expected}`);
 
-test('easing styles start on the first picture, end on the second, and never run backwards', () => {
-	assert.deepEqual(EASING_IDS, ['linear', 'ease-in-out', 'fast-ease-in-out', 'ease-in', 'ease-out']);
+/*
+ * The two morph tools are siblings: same interpolation styles, frame rates, timeline, output formats
+ * and encoder arguments, so a creator who learned one knows the other. This is the check that keeps
+ * them in step when either side changes.
+ */
+test('image morph shares its interpolation styles, frame rates and output formats with SVG Morph', () => {
+	assert.deepEqual(MORPH_EASINGS.map((easing) => easing.id), SVG_EASINGS.map((easing) => easing.id));
+	for (const { id, ease } of MORPH_EASINGS) {
+		const theirs = SVG_EASINGS.find((easing) => easing.id === id).ease;
+		for (let step = 0; step <= 40; step += 1) {
+			near(ease(step / 40), theirs(step / 40), 1e-12, `${id} at ${step / 40}`);
+		}
+	}
+	assert.deepEqual(MORPH_FRAME_RATES, SVG_FRAME_RATES);
 
-	for (const id of EASING_IDS) {
-		near(ease(id, 0), 0, 1e-12, `${id} at 0`);
-		near(ease(id, 1), 1, 1e-12, `${id} at 1`);
+	/* SVG Morph's alpha formats come first and unchanged; the opaque MP4 is the one addition. */
+	const shared = ({ id, extension, mime, codec, playable }) => ({ id, extension, mime, codec, playable });
+	assert.deepEqual(MORPH_OUTPUT_FORMATS.slice(0, SVG_FORMATS.length).map(shared), SVG_FORMATS.map(shared));
+	assert.ok(MORPH_OUTPUT_FORMATS.slice(0, SVG_FORMATS.length).every((format) => format.alpha));
+	assert.deepEqual(MORPH_OUTPUT_FORMATS.slice(SVG_FORMATS.length).map((format) => format.id), ['mp4-h264']);
+	assert.equal(outputFormat('mp4-h264').alpha, false);
+
+	const options = { fps: 25, framePattern: 'f-%05d.png', outputName: 'out.mov' };
+	for (const format of SVG_FORMATS) {
+		assert.deepEqual(buildMorphVideoArgs(format.id, options), buildSvgVideoArgs(format.id, options), `${format.id} arguments`);
+	}
+
+	for (const key of ['holdStart', 'holdEnd', 'duration', 'fps', 'easing', 'format']) {
+		assert.equal(DEFAULT_MORPH_SETTINGS[key], SVG_DEFAULTS[key], `default ${key}`);
+	}
+
+	const raw = { holdStart: 1, duration: 1, holdEnd: 0.4, fps: 25, easing: 'snap' };
+	const mine = morphTimeline(normalizeMorphSettings(raw));
+	const theirs = svgTimeline(normalizeSvgSettings(raw));
+	assert.equal(mine.frameCount, theirs.frameCount);
+	assert.equal(mine.totalDuration, theirs.totalDuration);
+	assert.equal(mine.loopDuration, theirs.loopDuration);
+	for (let frame = 0; frame < mine.frameCount; frame += 1) {
+		near(mine.progressAt(frame), theirs.progressAt(frame), 1e-12, `frame ${frame}`);
+	}
+	for (let tenth = 0; tenth <= 24; tenth += 1) {
+		near(mine.progressAtTime(tenth / 10), theirs.progressAtTime(tenth / 10), 1e-12, `time ${tenth / 10}`);
+	}
+
+	assert.equal(morphOutputName('Logo A.png', 'Logo B.jpg', 'webm-vp8'), svgOutputName('Logo A.svg', 'Logo B.svg', 'webm-vp8'));
+});
+
+test('easing styles pin both ends and the monotonic ones never run backwards', () => {
+	for (const { id, ease } of MORPH_EASINGS) {
+		near(ease(0), 0, 1e-9, `${id} starts at 0`);
+		near(ease(1), 1, 1e-9, `${id} ends at 1`);
+	}
+	assert.equal(easingFunction('linear')(0.5), 0.5);
+	assert.equal(easingFunction('ease-in')(0.5), 0.125);
+	assert.equal(easingFunction('ease-out')(0.5), 0.875);
+	assert.equal(easingFunction('snap')(0.5), 0.5);
+	assert.ok(easingFunction('overshoot')(0.7) > 1);
+	assert.ok(easingFunction('anticipate')(0.2) < 0);
+	assert.equal(easingFunction('unknown'), MORPH_EASINGS[0].ease);
+
+	for (const id of ['linear', 'ease-in-out', 'gentle', 'ease-in', 'ease-out', 'ease-in-fast', 'ease-out-fast', 'snap']) {
+		const ease = easingFunction(id);
 		let previous = 0;
-		for (let step = 1; step <= 20; step += 1) {
-			const value = ease(id, step / 20);
-			assert.ok(value >= previous, `${id} runs backwards at ${step / 20}`);
+		for (let step = 1; step <= 100; step += 1) {
+			const value = ease(step / 100);
+			assert.ok(value >= previous - 1e-12, `${id} is monotonic`);
 			previous = value;
 		}
 	}
-
-	/* Both symmetric styles cross the middle at one half; the fast one lingers longer at each end. */
-	near(ease('ease-in-out', 0.5), 0.5, 1e-12, 'ease-in-out midpoint');
-	near(ease('fast-ease-in-out', 0.5), 0.5, 1e-12, 'fast midpoint');
-	near(ease('ease-in-out', 0.3) + ease('ease-in-out', 0.7), 1, 1e-12, 'ease-in-out symmetry');
-	near(ease('fast-ease-in-out', 0.3) + ease('fast-ease-in-out', 0.7), 1, 1e-12, 'fast symmetry');
-	assert.ok(ease('fast-ease-in-out', 0.3) < ease('ease-in-out', 0.3));
-	assert.ok(ease('fast-ease-in-out', 0.7) > ease('ease-in-out', 0.7));
-	assert.equal(ease('ease-in', 0.5), 0.125);
-	assert.equal(ease('ease-out', 0.5), 0.875);
-
-	/* An unknown style is a linear morph, and progress outside the clip clamps to its ends. */
-	assert.equal(ease('bounce', 0.3), 0.3);
-	assert.equal(ease('linear', -1), 0);
-	assert.equal(ease('linear', 2), 1);
-	assert.equal(ease('linear', Number.NaN), 0);
 });
 
-test('morph settings clamp every control and fall back to sane defaults', () => {
-	assert.deepEqual(normalizeMorphSettings({}), {
-		hold: 1,
-		duration: 1.5,
-		easing: 'ease-in-out',
-		levels: 3,
-		size: 720,
-		fps: 30,
-		format: 'mp4',
-		background: '#ffffff',
-		loop: false,
-	});
-
+test('morph settings clamp every control, snap the frame rate and fall back to the defaults', () => {
+	assert.deepEqual(normalizeMorphSettings({}), DEFAULT_MORPH_SETTINGS);
 	assert.deepEqual(normalizeMorphSettings({
-		hold: '99', duration: 0, easing: 'bounce', levels: 12, size: 4000, fps: 200, format: 'gif', background: 'red', loop: 'yes',
+		holdStart: -3, holdEnd: '99', duration: 0, fps: '29', easing: 'nope', format: 'gif', levels: 12, size: 4000, background: 'paper', color: 'red', loop: 'yes',
 	}), {
-		hold: 10, duration: 0.1, easing: 'ease-in-out', levels: 8, size: 1920, fps: 60, format: 'mp4', background: '#ffffff', loop: true,
+		holdStart: 0, holdEnd: 10, duration: 0.1, fps: 30, easing: DEFAULT_MORPH_SETTINGS.easing, format: DEFAULT_MORPH_SETTINGS.format,
+		levels: 8, size: 1920, background: 'transparent', color: '#ffffff', loop: true,
 	});
-
-	assert.deepEqual(normalizeMorphSettings({
-		hold: 0.25, duration: 2.04, easing: 'linear', levels: '2', size: 479, fps: 24.4, format: 'webm', background: '#ABC', loop: false,
-	}), {
-		hold: 0.3, duration: 2, easing: 'linear', levels: 2, size: 480, fps: 24, format: 'webm', background: '#aabbcc', loop: false,
+	assert.equal(normalizeMorphSettings({ fps: '59' }).fps, 60);
+	assert.equal(normalizeMorphSettings({ fps: 'abc' }).fps, 30);
+	assert.equal(normalizeMorphSettings({ holdStart: 1.234 }).holdStart, 1.23);
+	assert.equal(normalizeMorphSettings({ easing: 'snap', format: 'webm-vp8' }).easing, 'snap');
+	assert.equal(normalizeMorphSettings({ format: 'mp4-h264' }).format, 'mp4-h264');
+	assert.deepEqual(normalizeMorphSettings({ size: 479, levels: '2', background: 'color', color: '#ABC' }), {
+		...DEFAULT_MORPH_SETTINGS, size: 480, levels: 2, background: 'color', color: '#aabbcc',
 	});
 
 	assert.equal(normalizeHexColor('#FFF'), '#ffffff');
@@ -115,44 +160,57 @@ test('morph settings clamp every control and fall back to sane defaults', () => 
 	assert.equal(evenSize(1), 2);
 	assert.equal(evenSize(479), 480);
 	assert.deepEqual(MORPH_SIZES, [360, 480, 720, 1080]);
-	assert.deepEqual(MORPH_FRAME_RATES, [12, 24, 30, 60]);
-	assert.deepEqual(MORPH_FORMATS.map((profile) => profile.value), ['mp4', 'webm']);
+	assert.deepEqual(MORPH_BACKGROUNDS, ['transparent', 'source', 'color']);
 });
 
-test('the timeline holds, morphs, holds, and only comes back when asked to loop', () => {
-	const settings = normalizeMorphSettings({ hold: 0.5, duration: 1, fps: 10, easing: 'linear' });
-	assert.equal(timelineDuration(settings), 2);
+test('the timeline counts hold and morph frames and only comes back when asked to loop', () => {
+	const settings = normalizeMorphSettings({ holdStart: 1, duration: 1, holdEnd: 0.4, fps: 25, easing: 'linear' });
+	const timeline = morphTimeline(settings);
+	assert.equal(timeline.startFrames, 25);
+	assert.equal(timeline.morphFrames, 25);
+	assert.equal(timeline.endFrames, 10);
+	assert.equal(timeline.backFrames, 0);
+	assert.equal(timeline.frameCount, 60);
+	assert.equal(timeline.totalDuration, 2.4);
+	assert.equal(timeline.loopDuration, 2.4);
+	assert.equal(timeline.progressAt(24), 0);
+	assert.equal(timeline.progressAt(25), 0);
+	assert.equal(timeline.progressAt(37), 0.5);
+	assert.equal(timeline.progressAt(49), 1);
+	assert.equal(timeline.progressAt(59), 1);
+	assert.equal(timeline.progressAtTime(0.5), 0);
+	assert.equal(timeline.progressAtTime(1.5), 0.5);
+	assert.equal(timeline.progressAtTime(9), 1);
+
 	const frames = buildTimeline(settings);
-	assert.equal(frames.length, 20);
+	assert.equal(frames.length, 60);
+	assert.equal(frames[0], 0);
+	near(frames[37], 0.5, 1e-6, 'middle frame');
+	assert.equal(frames[59], 1);
+	for (let index = 1; index < frames.length; index += 1) assert.ok(frames[index] >= frames[index - 1], 'a plain morph never runs backwards');
 
-	for (let index = 0; index <= 5; index += 1) assert.equal(frames[index], 0, `frame ${index} holds the first picture`);
-	near(frames[6], 0.1, 1e-6, 'first morph frame');
-	near(frames[10], 0.5, 1e-6, 'middle frame');
-	for (let index = 15; index < 20; index += 1) assert.equal(frames[index], 1, `frame ${index} holds the second picture`);
-	for (let index = 1; index < frames.length; index += 1) assert.ok(frames[index] >= frames[index - 1], 'the morph never runs backwards');
-	assert.equal(morphProgress(99, settings), 1);
-	assert.equal(morphProgress(0.5, settings), 0);
+	/* Looping mirrors the morph after the end hold and wraps, so the clip repeats without a cut. */
+	const loop = morphTimeline(normalizeMorphSettings({ holdStart: 1, duration: 1, holdEnd: 0.4, fps: 25, easing: 'linear', loop: true }));
+	assert.equal(loop.backFrames, 25);
+	assert.equal(loop.frameCount, 85);
+	assert.equal(loop.totalDuration, 3.4);
+	assert.equal(loop.loopDuration, 3.4);
+	assert.equal(loop.progressAt(59), 1);
+	assert.equal(loop.progressAt(60), 1);
+	near(loop.progressAt(72), 0.5, 1e-12, 'middle of the way back');
+	assert.equal(loop.progressAt(84), 0);
+	assert.equal(loop.progressAt(99), 0);
+	near(loop.progressAtTime(2.9), 0.5, 1e-9, 'halfway back');
+	near(loop.progressAtTime(3.4), 0, 1e-9, 'the wrap lands on the first picture');
+	near(loop.progressAtTime(-0.5), 0.5, 1e-9, 'negative time wraps into the way back');
+	near(loop.progressAtTime(1.5), 0.5, 1e-9, 'halfway out');
 
-	/* Looping appends the way back and wraps, so the clip can repeat without a cut. */
-	const loop = normalizeMorphSettings({ hold: 0.5, duration: 1, fps: 10, easing: 'linear', loop: true });
-	assert.equal(timelineDuration(loop), 3);
-	const loopFrames = buildTimeline(loop);
-	assert.equal(loopFrames.length, 30);
-	assert.equal(loopFrames[15], 1);
-	assert.equal(loopFrames[20], 1);
-	near(loopFrames[21], 0.9, 1e-6, 'first frame of the way back');
-	near(loopFrames[29], 0.1, 1e-6, 'last frame before the wrap');
-	assert.equal(morphProgress(3, loop), 0);
-	near(morphProgress(-0.1, loop), 0.1, 1e-9, 'negative time wraps into the way back');
-
-	/* The style shapes the morph frames only, never the holds. */
-	const eased = buildTimeline(normalizeMorphSettings({ hold: 0.5, duration: 1, fps: 10, easing: 'ease-in' }));
-	near(eased[10], 0.125, 1e-6, 'eased middle frame');
-	assert.equal(eased[3], 0);
-	assert.equal(eased[19], 1);
-
-	/* A clip is never shorter than two frames, or FFmpeg would have nothing to encode. */
-	assert.equal(buildTimeline(normalizeMorphSettings({ hold: 0, duration: 0.1, fps: 1 })).length, 2);
+	/* The style shapes the morph frames only, never the holds, and a morph is at least two frames long. */
+	const eased = morphTimeline(normalizeMorphSettings({ holdStart: 0, duration: 1, holdEnd: 0, fps: 25, easing: 'ease-in' }));
+	assert.equal(eased.frameCount, 25);
+	assert.equal(eased.progressAt(12), 0.125);
+	assert.equal(eased.progressAt(24), 1);
+	assert.equal(morphTimeline(normalizeMorphSettings({ duration: 0.1, fps: 24 })).morphFrames, 2);
 });
 
 test('the frame holds both pictures at the chosen long edge, even-sized and centred', () => {
@@ -206,12 +264,12 @@ test('the background is the colour the border mostly is, unless the border is se
 	assert.equal(background[1], 200);
 	assert.ok(background[2] >= 199 && background[2] <= 200);
 
-	const cutout = raster(20, 20, (x, y) => (inBox(x, y, [5, 5, 10, 10]) ? BLACK : [0, 0, 0, 0]));
+	const cutout = raster(20, 20, (x, y) => (inBox(x, y, [5, 5, 10, 10]) ? BLACK : CLEAR));
 	assert.equal(estimateBackground(cutout, 20, 20), null);
 	assert.equal(estimateBackground(new Uint8ClampedArray(0), 0, 0), null);
 });
 
-test('ink measures distance from the background and scales to the strongest ink in the picture', () => {
+test('ink measures distance from the reference colour and scales to the strongest ink in the picture', () => {
 	const two = raster(10, 10, (x, y) => (inBox(x, y, [1, 1, 4, 4]) ? BLACK : inBox(x, y, [6, 6, 4, 4]) ? GREY : WHITE));
 	const ink = inkMap(two, 10, 10, WHITE);
 	assert.equal(ink[2 * 10 + 2], 1);
@@ -225,19 +283,30 @@ test('ink measures distance from the background and scales to the strongest ink 
 	assert.ok(inkMap(raster(6, 6, () => WHITE), 6, 6, WHITE).every((value) => value === 0));
 
 	/* Transparency thins the ink: a half-transparent black pixel is half as deep as an opaque one. */
-	const faded = raster(10, 10, (x, y) => (inBox(x, y, [1, 1, 4, 4]) ? BLACK : x === 8 && y === 8 ? [0, 0, 0, 128] : [0, 0, 0, 0]));
+	const faded = raster(10, 10, (x, y) => (inBox(x, y, [1, 1, 4, 4]) ? BLACK : x === 8 && y === 8 ? [0, 0, 0, 128] : CLEAR));
 	const fadedInk = inkMap(faded, 10, 10, WHITE);
 	assert.equal(fadedInk[2 * 10 + 2], 1);
 	near(fadedInk[8 * 10 + 8], 0.5, 0.01, 'half-transparent ink');
 	assert.equal(fadedInk[0], 0);
+
+	/* A white logo on nothing has no colour distance at all; the alpha floor keeps it solid. */
+	const white = raster(10, 10, (x, y) => (inBox(x, y, [2, 2, 6, 6]) ? WHITE : CLEAR));
+	assert.equal(inkMap(white, 10, 10, WHITE)[5 * 10 + 5], 0);
+	assert.equal(inkMap(white, 10, 10, WHITE, { alphaFloor: TRANSPARENT_INK_FLOOR })[5 * 10 + 5], 1);
+	const mixed = raster(10, 10, (x, y) => (inBox(x, y, [1, 1, 4, 4]) ? BLACK : inBox(x, y, [6, 6, 4, 4]) ? WHITE : CLEAR));
+	const mixedInk = inkMap(mixed, 10, 10, WHITE, { alphaFloor: TRANSPARENT_INK_FLOOR });
+	assert.equal(mixedInk[2 * 10 + 2], 1);
+	near(mixedInk[7 * 10 + 7], TRANSPARENT_INK_FLOOR, 0.01, 'white ink on nothing');
+	assert.equal(mixedInk[0], 0);
 });
 
 test('layers nest from light to dark and carry the colour of the band each one adds', () => {
 	const width = 16;
 	const tones = raster(width, width, (x, y) => (inBox(x, y, [5, 5, 6, 6]) ? BLACK : inBox(x, y, [2, 2, 12, 12]) ? GREY : WHITE));
-	const { layers, background } = buildMorphLayers(tones, width, width, { levels: 2, background: WHITE });
+	const { layers, background, backgroundAlpha } = buildMorphLayers(tones, width, width, { levels: 2, background: WHITE });
 
 	assert.deepEqual(background, WHITE);
+	assert.equal(backgroundAlpha, 1);
 	assert.equal(layers.length, 2);
 	assert.equal(layers[0].pixels, 144);
 	assert.equal(layers[1].pixels, 36);
@@ -270,6 +339,14 @@ test('layers nest from light to dark and carry the colour of the band each one a
 	}
 
 	assert.equal(buildMorphLayers(flat, width, width, { levels: 0.2, background: WHITE }).layers.length, 1);
+
+	/* Ink can be measured against one colour while another is painted behind the layers. */
+	const knockedOut = buildMorphLayers(flat, width, width, { levels: 1, background: [10, 20, 30], backgroundAlpha: 0, reference: WHITE });
+	assert.deepEqual(knockedOut.background, [10, 20, 30]);
+	assert.equal(knockedOut.backgroundAlpha, 0);
+	assert.equal(knockedOut.layers[0].pixels, 64);
+	assert.deepEqual(knockedOut.layers[0].color, BLACK);
+	assert.equal(buildMorphLayers(flat, width, width, { backgroundAlpha: 7 }).backgroundAlpha, 1);
 });
 
 test('a morph frame reproduces each picture at its ends and blends the silhouettes between them', () => {
@@ -300,6 +377,11 @@ test('a morph frame reproduces each picture at its ends and blends the silhouett
 	assert.deepEqual(pixelAt(out, width, 12, 7), left);
 	for (let index = 3; index < out.length; index += 4) assert.equal(out[index], 255);
 
+	/* Overshooting styles push the blend past the second picture instead of failing on it. */
+	renderMorphFrame(first, second, easingFunction('overshoot')(0.7), out);
+	assert.deepEqual(pixelAt(out, width, 12, 7), [0, 0, 0, 255]);
+	for (let index = 3; index < out.length; index += 4) assert.equal(out[index], 255);
+
 	/* Backgrounds blend too, and a layer count mismatch paints what both pictures share. */
 	const plain = new Uint8ClampedArray(8);
 	renderMorphFrame(
@@ -311,25 +393,67 @@ test('a morph frame reproduces each picture at its ends and blends the silhouett
 	assert.deepEqual([...plain], [100, 100, 100, 255, 100, 100, 100, 255]);
 });
 
+test('a transparent background leaves alpha behind the ink, and flattening paints it back in', () => {
+	const width = 16;
+	const paint = (x, y) => (inBox(x, y, [2, 4, 8, 8]) ? BLACK : WHITE);
+	const knockedOut = buildMorphLayers(raster(width, width, paint), width, width, { levels: 1, background: WHITE, backgroundAlpha: 0 });
+	const opaque = buildMorphLayers(raster(width, width, paint), width, width, { levels: 1, background: WHITE });
+	const out = new Uint8ClampedArray(width * width * 4);
+
+	renderMorphFrame(knockedOut, knockedOut, 0.5, out);
+	assert.deepEqual(pixelAt(out, width, 3, 7), [0, 0, 0, 255]);
+	/* The paper is gone, but its colour stays under the zero alpha for readers that ignore alpha. */
+	assert.deepEqual(pixelAt(out, width, 12, 7), [255, 255, 255, 0]);
+
+	/* Ink on nothing morphing into ink on paper: the paper fades in with the second picture. */
+	renderMorphFrame(knockedOut, opaque, 0.5, out);
+	assert.deepEqual(pixelAt(out, width, 3, 7), [0, 0, 0, 255]);
+	assert.deepEqual(pixelAt(out, width, 12, 7), [255, 255, 255, 128]);
+
+	/* A soft edge over nothing keeps its ink colour and carries the coverage in alpha instead. */
+	const shifted = buildMorphLayers(raster(width, width, (x, y) => (inBox(x, y, [6, 4, 8, 8]) ? BLACK : WHITE)), width, width, { levels: 1, background: WHITE, backgroundAlpha: 0 });
+	renderMorphFrame(knockedOut, shifted, 0.5, out);
+	const edge = pixelAt(out, width, 3, 7);
+	assert.deepEqual(edge.slice(0, 3), [0, 0, 0]);
+	near(edge[3], 64, 1, 'quarter coverage as alpha');
+
+	/* Containers without alpha get the frame composited onto the background colour. */
+	renderMorphFrame(knockedOut, shifted, 0.5, out, { flatten: true });
+	assert.deepEqual(pixelAt(out, width, 12, 7), pixelAt(out, width, 3, 7));
+	near(pixelAt(out, width, 3, 7)[0], 191, 1, 'flattened quarter coverage');
+	assert.deepEqual(pixelAt(out, width, 0, 7), [255, 255, 255, 255]);
+	for (let index = 3; index < out.length; index += 4) assert.equal(out[index], 255);
+});
+
 test('FFmpeg reads the numbered frames at the clip frame rate and encodes the chosen container', () => {
-	assert.equal(frameFileName('morph-1', 7), 'morph-1-00007.png');
-	assert.equal(framePattern('morph-1'), 'morph-1-%05d.png');
+	assert.equal(frameFileName('morph-1-', 7), 'morph-1-00007.png');
+	assert.equal(framePattern('morph-1-'), 'morph-1-%05d.png');
 
-	const mp4 = buildMorphVideoArgs({ prefix: 'morph-1', fps: 30, format: 'mp4', outputName: 'out.mp4' });
-	assert.deepEqual(mp4.slice(0, 6), ['-framerate', '30', '-start_number', '0', '-i', 'morph-1-%05d.png']);
-	assert.ok(mp4.includes('libx264') && mp4.includes('yuv420p') && mp4.includes('+faststart'));
+	const options = { fps: 30, framePattern: 'f-%05d.png', outputName: 'out.mov' };
+	const prores = buildMorphVideoArgs('prores-4444', options);
+	assert.deepEqual(prores.slice(0, 4), ['-framerate', '30', '-i', 'f-%05d.png']);
+	assert.deepEqual(prores.slice(-4), ['-r', '30', '-y', 'out.mov']);
+	assert.ok(prores.includes('prores_ks') && prores.includes('4444') && prores.includes('yuva444p10le'));
+	assert.ok(buildMorphVideoArgs('qt-animation', options).includes('qtrle'));
+	assert.ok(buildMorphVideoArgs('png-mov', options).includes('rgba'));
+	const webm = buildMorphVideoArgs('webm-vp8', { ...options, outputName: 'out.webm' });
+	assert.ok(webm.includes('libvpx') && webm.includes('yuva420p'));
+
+	/* MP4 is the opaque one: H.264 in 4:2:0 with the moov atom up front for streaming. */
+	const mp4 = buildMorphVideoArgs('mp4-h264', { ...options, fps: 24, outputName: 'out.mp4' });
+	assert.equal(mp4[1], '24');
+	assert.ok(mp4.includes('libx264') && mp4.includes('yuv420p') && mp4.includes('+faststart') && !mp4.includes('yuva420p'));
 	assert.deepEqual(mp4.slice(-2), ['-y', 'out.mp4']);
+	assert.ok(buildMorphVideoArgs('gif', options).includes('prores_ks'));
 
-	const webm = buildMorphVideoArgs({ prefix: 'morph-1', fps: 24, format: 'webm', outputName: 'out.webm' });
-	assert.ok(webm.includes('libvpx') && !webm.includes('libx264'));
-	assert.equal(webm[1], '24');
-	assert.ok(buildMorphVideoArgs({ prefix: 'p', fps: 12, format: 'gif', outputName: 'o' }).includes('libx264'));
+	assert.equal(outputFormat('unknown').id, 'prores-4444');
+	assert.equal(outputFormat('webm-vp8').mime, 'video/webm');
+	assert.equal(outputFormat('mp4-h264').mime, 'video/mp4');
+	assert.deepEqual(MORPH_OUTPUT_FORMATS.filter((format) => format.playable).map((format) => format.id), ['webm-vp8', 'mp4-h264']);
 
-	assert.equal(morphFormat('webm').mimeType, 'video/webm');
-	assert.equal(morphFormat('gif').mimeType, 'video/mp4');
-	assert.equal(morphOutputName('cell.png', 'neuron.jpg'), 'cell-to-neuron.mp4');
-	assert.equal(morphOutputName('cell.png', 'neuron.jpg', 'webm'), 'cell-to-neuron.webm');
-	assert.equal(morphOutputName('a.b.c.png', 'd.png', 'gif'), 'a.b.c-to-d.mp4');
-	assert.equal(morphOutputName('only.png', ''), 'only.mp4');
-	assert.equal(morphOutputName('', ''), 'morph.mp4');
+	assert.equal(morphOutputName('cell.png', 'neuron.jpg', 'mp4-h264'), 'cell-to-neuron.mp4');
+	assert.equal(morphOutputName('Logo A.png', 'Logo B.jpg', 'webm-vp8'), 'logo-a-to-logo-b.webm');
+	assert.equal(morphOutputName('', undefined, 'qt-animation'), 'image-a-to-image-b.mov');
+	assert.equal(morphOutputName('Grün & Blau.png', 'x.PNG', 'prores-4444'), 'grün-blau-to-x.mov');
+	assert.equal(morphOutputName('a.b.c.png', 'd.png', 'gif'), 'a-b-c-to-d.mov');
 });

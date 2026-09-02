@@ -7,32 +7,83 @@
  * silhouettes, turns each silhouette into a signed distance field, blends the fields of both images
  * and re-thresholds the blend. Outlines stay crisp all the way through; parts that have no partner in
  * the other picture shrink away and regrow instead of ghosting.
+ *
+ * Interpolation styles, frame rates, the hold/morph/hold timeline, the output formats and their
+ * encoder arguments are the same as in the SVG Morph tool (svg-morph.js), so the two tools behave
+ * alike for the same settings; tests/image-morph.test.js checks that they stay in step.
  */
 
-import { baseName } from './media-file.js';
+export const MORPH_FRAME_RATES = [24, 25, 30, 50, 60];
 
-export const EASINGS = {
-	linear: (t) => t,
-	'ease-in-out': (t) => t * t * (3 - 2 * t),
-	/* Sits on both pictures longer and crosses the middle quickly: a steep symmetric sigmoid. */
-	'fast-ease-in-out': (t) => {
-		const rise = t ** 4;
-		const fall = (1 - t) ** 4;
-		return rise / (rise + fall);
-	},
-	'ease-in': (t) => t * t * t,
-	'ease-out': (t) => 1 - (1 - t) ** 3,
+export const MORPH_LIMITS = {
+	hold: { min: 0, max: 10 },
+	duration: { min: 0.1, max: 10 },
+	levels: { min: 1, max: 8 },
+	size: { min: 64, max: 1920 },
 };
 
-export const EASING_IDS = Object.keys(EASINGS);
+export const MORPH_SIZES = [360, 480, 720, 1080];
 
-export const MORPH_FORMATS = [
-	{ value: 'mp4', extension: '.mp4', mimeType: 'video/mp4' },
-	{ value: 'webm', extension: '.webm', mimeType: 'video/webm' },
+export const MORPH_BACKGROUNDS = ['transparent', 'source', 'color'];
+
+const backConstant = 1.70158;
+
+/* Every curve maps [0, 1] onto [0, 1] with fixed end points so the hold frames on either
+   side of the morph always show the untouched source and target pictures. */
+export const MORPH_EASINGS = [
+	{ id: 'linear', ease: (t) => t },
+	{ id: 'ease-in-out', ease: (t) => (t < 0.5 ? 4 * t * t * t : 1 - ((-2 * t + 2) ** 3) / 2) },
+	{ id: 'gentle', ease: (t) => -(Math.cos(Math.PI * t) - 1) / 2 },
+	{ id: 'ease-in', ease: (t) => t * t * t },
+	{ id: 'ease-out', ease: (t) => 1 - ((1 - t) ** 3) },
+	{ id: 'ease-in-fast', ease: (t) => (t <= 0 ? 0 : 2 ** (10 * t - 10)) },
+	{ id: 'ease-out-fast', ease: (t) => (t >= 1 ? 1 : 1 - (2 ** (-10 * t))) },
+	{
+		id: 'snap',
+		ease: (t) => {
+			if (t <= 0) return 0;
+			if (t >= 1) return 1;
+			return t < 0.5 ? (2 ** (20 * t - 10)) / 2 : (2 - (2 ** (-20 * t + 10))) / 2;
+		},
+	},
+	{ id: 'overshoot', ease: (t) => 1 + (backConstant + 1) * ((t - 1) ** 3) + backConstant * ((t - 1) ** 2) },
+	{
+		id: 'anticipate',
+		ease: (t) => {
+			const c2 = backConstant * 1.525;
+			return t < 0.5
+				? (((2 * t) ** 2) * ((c2 + 1) * 2 * t - c2)) / 2
+				: (((2 * t - 2) ** 2) * ((c2 + 1) * (t * 2 - 2) + c2) + 2) / 2;
+		},
+	},
 ];
 
-export const MORPH_SIZES = [360, 480, 720, 1080];
-export const MORPH_FRAME_RATES = [12, 24, 30, 60];
+/*
+ * The first four are SVG Morph's formats, all carrying an alpha channel. MP4 is the one addition:
+ * H.264 has no alpha, so its frames are flattened onto the morph's background colour.
+ */
+export const MORPH_OUTPUT_FORMATS = [
+	{ id: 'prores-4444', extension: 'mov', mime: 'video/quicktime', codec: 'prores_ks', playable: false, alpha: true },
+	{ id: 'qt-animation', extension: 'mov', mime: 'video/quicktime', codec: 'qtrle', playable: false, alpha: true },
+	{ id: 'png-mov', extension: 'mov', mime: 'video/quicktime', codec: 'png', playable: false, alpha: true },
+	/* VP8 rather than VP9: encoding a VP9 alpha plane aborts the ffmpeg.wasm 0.12 core and takes the page with it. */
+	{ id: 'webm-vp8', extension: 'webm', mime: 'video/webm', codec: 'libvpx', playable: true, alpha: true },
+	{ id: 'mp4-h264', extension: 'mp4', mime: 'video/mp4', codec: 'libx264', playable: true, alpha: false },
+];
+
+export const DEFAULT_MORPH_SETTINGS = {
+	holdStart: 1,
+	holdEnd: 1,
+	duration: 1.5,
+	fps: 30,
+	easing: 'ease-in-out',
+	format: 'prores-4444',
+	levels: 3,
+	size: 720,
+	background: 'transparent',
+	color: '#ffffff',
+	loop: false,
+};
 
 /*
  * Distances are capped at this share of the longer edge. An empty silhouette would otherwise be
@@ -42,23 +93,34 @@ export const MORPH_FRAME_RATES = [12, 24, 30, 60];
 const FAR_FIELD = 0.25;
 const INF = 1e20;
 
-export function ease(id, t) {
-	const clamped = Number.isFinite(t) ? Math.min(1, Math.max(0, t)) : 0;
-	return (EASINGS[id] ?? EASINGS.linear)(clamped);
+/*
+ * A picture that brings its own transparency has its silhouette in its alpha channel, not in its
+ * colours: every opaque pixel counts at least this much as ink, so a white logo on nothing is as
+ * solid as a black one while darker parts still sit in deeper tone levels.
+ */
+export const TRANSPARENT_INK_FLOOR = 0.35;
+
+export function easingFunction(id) {
+	return (MORPH_EASINGS.find((easing) => easing.id === id) ?? MORPH_EASINGS[0]).ease;
 }
 
-export function clamp(value, min, max, fallback = min) {
+export function outputFormat(id) {
+	return MORPH_OUTPUT_FORMATS.find((format) => format.id === id) ?? MORPH_OUTPUT_FORMATS[0];
+}
+
+export function clamp(value, min, max) {
 	if (!Number.isFinite(value)) {
-		return fallback;
+		return min;
 	}
 	return Math.min(max, Math.max(min, value));
 }
 
-export function roundToTenths(value) {
-	return Math.round(value * 10) / 10;
+function roundTo(value, decimals) {
+	const factor = 10 ** decimals;
+	return Math.round(value * factor) / factor;
 }
 
-/* H.264 and VP8 in yuv420p need even dimensions, so every size the tool hands FFmpeg is even. */
+/* Every encoder here accepts odd sizes except VP8's 4:2:0 planes, so even sizes keep the formats interchangeable. */
 export function evenSize(value) {
 	return Math.max(2, Math.round(value / 2) * 2);
 }
@@ -80,51 +142,74 @@ export function hexToRgb(value) {
 }
 
 export function normalizeMorphSettings(raw = {}) {
+	const defaults = DEFAULT_MORPH_SETTINGS;
+	const number = (value, fallback) => {
+		const parsed = typeof value === 'number' ? value : Number.parseFloat(String(value ?? ''));
+		return Number.isFinite(parsed) ? parsed : fallback;
+	};
+	const fps = number(raw.fps, defaults.fps);
+
 	return {
-		hold: roundToTenths(clamp(Number(raw.hold), 0, 10, 1)),
-		duration: roundToTenths(clamp(Number(raw.duration), 0.1, 10, 1.5)),
-		easing: EASING_IDS.includes(raw.easing) ? raw.easing : 'ease-in-out',
-		levels: Math.round(clamp(Number(raw.levels), 1, 8, 3)),
-		size: evenSize(clamp(Number(raw.size), 64, 1920, 720)),
-		fps: Math.round(clamp(Number(raw.fps), 1, 60, 30)),
-		format: MORPH_FORMATS.some((profile) => profile.value === raw.format) ? raw.format : 'mp4',
-		background: normalizeHexColor(raw.background),
+		holdStart: roundTo(clamp(number(raw.holdStart, defaults.holdStart), MORPH_LIMITS.hold.min, MORPH_LIMITS.hold.max), 2),
+		holdEnd: roundTo(clamp(number(raw.holdEnd, defaults.holdEnd), MORPH_LIMITS.hold.min, MORPH_LIMITS.hold.max), 2),
+		duration: roundTo(clamp(number(raw.duration, defaults.duration), MORPH_LIMITS.duration.min, MORPH_LIMITS.duration.max), 2),
+		fps: MORPH_FRAME_RATES.reduce((best, candidate) => (Math.abs(candidate - fps) < Math.abs(best - fps) ? candidate : best), MORPH_FRAME_RATES[0]),
+		easing: MORPH_EASINGS.some((easing) => easing.id === raw.easing) ? raw.easing : defaults.easing,
+		format: MORPH_OUTPUT_FORMATS.some((format) => format.id === raw.format) ? raw.format : defaults.format,
+		levels: Math.round(clamp(number(raw.levels, defaults.levels), MORPH_LIMITS.levels.min, MORPH_LIMITS.levels.max)),
+		size: evenSize(clamp(number(raw.size, defaults.size), MORPH_LIMITS.size.min, MORPH_LIMITS.size.max)),
+		background: MORPH_BACKGROUNDS.includes(raw.background) ? raw.background : defaults.background,
+		color: normalizeHexColor(raw.color, defaults.color),
 		loop: Boolean(raw.loop),
 	};
 }
 
-/* Seconds the finished clip runs: hold, morph, hold, and the way back again when it loops. */
-export function timelineDuration({ hold, duration, loop }) {
-	return loop ? 2 * (hold + duration) : 2 * hold + duration;
+/*
+ * Hold, morph, hold, counted in whole frames the way SVG Morph counts them. With `loop` the morph
+ * runs back again after the end hold, mirrored in time, so a player that repeats the file never cuts.
+ */
+export function morphTimeline(settings) {
+	const ease = easingFunction(settings.easing);
+	const startFrames = Math.round(settings.holdStart * settings.fps);
+	const morphFrames = Math.max(2, Math.round(settings.duration * settings.fps));
+	const endFrames = Math.round(settings.holdEnd * settings.fps);
+	const backFrames = settings.loop ? morphFrames : 0;
+	const frameCount = startFrames + morphFrames + endFrames + backFrames;
+	const forwardDuration = settings.holdStart + settings.duration + settings.holdEnd;
+	const loopDuration = settings.loop ? forwardDuration + settings.duration : forwardDuration;
+
+	return {
+		frameCount,
+		startFrames,
+		morphFrames,
+		endFrames,
+		backFrames,
+		totalDuration: frameCount / settings.fps,
+		loopDuration,
+		progressAt(frame) {
+			if (frame < startFrames) return 0;
+			if (frame < startFrames + morphFrames) return ease((frame - startFrames) / (morphFrames - 1));
+			if (!backFrames || frame < startFrames + morphFrames + endFrames) return 1;
+			const back = Math.min(frame - (startFrames + morphFrames + endFrames), backFrames - 1);
+			return ease(1 - back / (backFrames - 1));
+		},
+		progressAtTime(seconds) {
+			const at = settings.loop ? ((seconds % loopDuration) + loopDuration) % loopDuration : seconds;
+			if (!settings.loop || at <= forwardDuration) {
+				return ease(clamp((at - settings.holdStart) / settings.duration, 0, 1));
+			}
+			return ease(clamp(1 - (at - forwardDuration) / settings.duration, 0, 1));
+		},
+	};
 }
 
-/* Raw morph progress at a moment of the clip, before easing: 0 shows the first picture, 1 the second. */
-export function morphProgress(time, settings) {
-	const { hold, duration, loop } = settings;
-	const total = timelineDuration(settings);
-	const at = loop ? ((time % total) + total) % total : time;
-
-	if (at <= hold) {
-		return 0;
-	}
-	if (at <= hold + duration) {
-		return (at - hold) / duration;
-	}
-	if (!loop || at <= 2 * hold + duration) {
-		return 1;
-	}
-	return Math.max(0, 1 - (at - (2 * hold + duration)) / duration);
-}
-
-/* Eased progress of every frame in the clip, in playback order. */
+/** Progress of every frame in the clip, in playback order. */
 export function buildTimeline(settings) {
-	const frameCount = Math.max(2, Math.ceil(timelineDuration(settings) * settings.fps - 1e-9));
-	const frames = new Float32Array(frameCount);
-
-	for (let index = 0; index < frameCount; index += 1) {
-		frames[index] = ease(settings.easing, morphProgress(index / settings.fps, settings));
+	const timeline = morphTimeline(settings);
+	const frames = new Float32Array(timeline.frameCount);
+	for (let index = 0; index < timeline.frameCount; index += 1) {
+		frames[index] = timeline.progressAt(index);
 	}
-
 	return frames;
 }
 
@@ -282,12 +367,13 @@ export function estimateBackground(data, width, height) {
 }
 
 /*
- * Ink per pixel in 0..1: how far the colour sits from the background, weighted by alpha, and scaled so
- * the picture's own strongest ink counts as full. A mid-grey logo on white is therefore as solid as a
- * black one, and its bands are cut at the same relative depths.
+ * Ink per pixel in 0..1: how far the colour sits from the reference colour, weighted by alpha, and
+ * scaled so the picture's own strongest ink counts as full. A mid-grey logo on white is therefore as
+ * solid as a black one, and its bands are cut at the same relative depths. `alphaFloor` is the least
+ * an opaque pixel counts, for pictures whose silhouette lives in their alpha channel.
  */
-export function inkMap(data, width, height, background) {
-	const [backgroundRed, backgroundGreen, backgroundBlue] = background;
+export function inkMap(data, width, height, reference, { alphaFloor = 0 } = {}) {
+	const [referenceRed, referenceGreen, referenceBlue] = reference;
 	const size = width * height;
 	const ink = new Float32Array(size);
 	const histogram = new Uint32Array(256);
@@ -300,10 +386,11 @@ export function inkMap(data, width, height, background) {
 			continue;
 		}
 
-		const red = data[offset] - backgroundRed;
-		const green = data[offset + 1] - backgroundGreen;
-		const blue = data[offset + 2] - backgroundBlue;
-		const value = alpha * Math.sqrt((red * red + green * green + blue * blue) / 3) / 255;
+		const red = data[offset] - referenceRed;
+		const green = data[offset + 1] - referenceGreen;
+		const blue = data[offset + 2] - referenceBlue;
+		const distance = Math.sqrt((red * red + green * green + blue * blue) / 3) / 255;
+		const value = alpha * Math.max(alphaFloor, distance);
 		ink[index] = value;
 
 		if (value > 0.02) {
@@ -340,11 +427,20 @@ export function inkMap(data, width, height, background) {
  * Nested silhouettes of one picture with a signed distance field and a colour each. Layer k holds
  * every pixel at least (k + 0.5) / levels deep in ink, so later layers sit inside earlier ones and are
  * painted on top; its colour is the mean of the band it adds over the layer before it.
+ *
+ * `background` is the colour painted behind the layers and `backgroundAlpha` how opaque that paint
+ * is; `reference` is the colour ink is measured against when it differs from the paint.
  */
-export function buildMorphLayers(data, width, height, { levels = 3, background = [255, 255, 255] } = {}) {
+export function buildMorphLayers(data, width, height, {
+	levels = 3,
+	background = [255, 255, 255],
+	backgroundAlpha = 1,
+	reference = background,
+	alphaFloor = 0,
+} = {}) {
 	const count = Math.max(1, Math.round(levels));
 	const size = width * height;
-	const ink = inkMap(data, width, height, background);
+	const ink = inkMap(data, width, height, reference, { alphaFloor });
 	const limit = Math.max(width, height) * FAR_FIELD;
 	const layers = [];
 
@@ -388,20 +484,30 @@ export function buildMorphLayers(data, width, height, { levels = 3, background =
 		});
 	}
 
-	return { width, height, background: background.slice(), layers };
+	return { width, height, background: background.slice(), backgroundAlpha: clamp(backgroundAlpha, 0, 1), layers };
 }
 
 /*
- * One frame of the morph as opaque RGBA. Every layer's two fields are blended, re-thresholded at zero
- * with a two-pixel ramp for anti-aliasing, and painted in its blended colour over the blended
- * background. At t = 0 and t = 1 the ramp reproduces each source silhouette exactly.
+ * One frame of the morph as straight RGBA. Every layer's two fields are blended, re-thresholded at
+ * zero with a two-pixel ramp for anti-aliasing, and painted in its blended colour over the blended
+ * background; the background's own opacity blends too, so a picture on nothing morphs onto nothing.
+ * At t = 0 and t = 1 the ramp reproduces each source silhouette exactly. `flatten` composites the
+ * frame onto the background colour for containers without an alpha channel.
  */
-export function renderMorphFrame(first, second, t, out) {
+export function renderMorphFrame(first, second, t, out, { flatten = false } = {}) {
 	const size = first.width * first.height;
 	const mix = (from, to) => from + (to - from) * t;
-	const backgroundRed = mix(first.background[0], second.background[0]);
-	const backgroundGreen = mix(first.background[1], second.background[1]);
-	const backgroundBlue = mix(first.background[2], second.background[2]);
+	const channel = (value) => (value < 0 ? 0 : value > 255 ? 255 : value);
+	const firstAlpha = first.backgroundAlpha ?? 1;
+	const secondAlpha = second.backgroundAlpha ?? 1;
+	const backgroundRed = channel(mix(first.background[0], second.background[0]));
+	const backgroundGreen = channel(mix(first.background[1], second.background[1]));
+	const backgroundBlue = channel(mix(first.background[2], second.background[2]));
+	const backgroundAlpha = flatten ? 1 : clamp(mix(firstAlpha, secondAlpha), 0, 1);
+	/* Premultiplied, so a transparent background contributes no colour of its own. */
+	const baseRed = channel(mix(first.background[0] * firstAlpha, second.background[0] * secondAlpha));
+	const baseGreen = channel(mix(first.background[1] * firstAlpha, second.background[1] * secondAlpha));
+	const baseBlue = channel(mix(first.background[2] * firstAlpha, second.background[2] * secondAlpha));
 	const count = Math.min(first.layers.length, second.layers.length);
 	const colors = [];
 	const fields = [];
@@ -409,14 +515,19 @@ export function renderMorphFrame(first, second, t, out) {
 	for (let layer = 0; layer < count; layer += 1) {
 		const from = first.layers[layer];
 		const to = second.layers[layer];
-		colors.push([mix(from.color[0], to.color[0]), mix(from.color[1], to.color[1]), mix(from.color[2], to.color[2])]);
+		colors.push([
+			channel(mix(from.color[0], to.color[0])),
+			channel(mix(from.color[1], to.color[1])),
+			channel(mix(from.color[2], to.color[2])),
+		]);
 		fields.push([from.sdf, to.sdf]);
 	}
 
 	for (let index = 0; index < size; index += 1) {
-		let red = backgroundRed;
-		let green = backgroundGreen;
-		let blue = backgroundBlue;
+		let red = flatten ? backgroundRed : baseRed;
+		let green = flatten ? backgroundGreen : baseGreen;
+		let blue = flatten ? backgroundBlue : baseBlue;
+		let alpha = backgroundAlpha;
 
 		for (let layer = 0; layer < count; layer += 1) {
 			const from = fields[layer][0][index];
@@ -433,48 +544,61 @@ export function renderMorphFrame(first, second, t, out) {
 			red += (color[0] - red) * coverage;
 			green += (color[1] - green) * coverage;
 			blue += (color[2] - blue) * coverage;
+			alpha += (1 - alpha) * coverage;
 		}
 
 		const offset = index * 4;
-		out[offset] = red;
-		out[offset + 1] = green;
-		out[offset + 2] = blue;
-		out[offset + 3] = 255;
+		if (alpha >= 1) {
+			out[offset] = red;
+			out[offset + 1] = green;
+			out[offset + 2] = blue;
+			out[offset + 3] = 255;
+		} else if (alpha > 0) {
+			out[offset] = red / alpha;
+			out[offset + 1] = green / alpha;
+			out[offset + 2] = blue / alpha;
+			out[offset + 3] = alpha * 255;
+		} else {
+			/* Nothing here: keep the background colour under the zero alpha so opaque readers see paper, not black. */
+			out[offset] = backgroundRed;
+			out[offset + 1] = backgroundGreen;
+			out[offset + 2] = backgroundBlue;
+			out[offset + 3] = 0;
+		}
 	}
 
 	return out;
 }
 
 export function frameFileName(prefix, index) {
-	return `${prefix}-${String(index).padStart(5, '0')}.png`;
+	return `${prefix}${String(index).padStart(5, '0')}.png`;
 }
 
 export function framePattern(prefix) {
-	return `${prefix}-%05d.png`;
+	return `${prefix}%05d.png`;
 }
 
-/** FFmpeg arguments that turn the numbered PNG frames into the chosen container. */
-export function buildMorphVideoArgs({ prefix, fps, format, outputName }) {
-	const video = format === 'webm'
-		? ['-c:v', 'libvpx', '-deadline', 'realtime', '-cpu-used', '8', '-lag-in-frames', '0', '-b:v', '4M', '-pix_fmt', 'yuv420p']
-		: ['-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart'];
+/** FFmpeg arguments that turn the numbered PNG frames into the chosen container, SVG Morph's arguments for its formats. */
+export function buildMorphVideoArgs(formatId, { fps, framePattern: pattern, outputName }) {
+	const format = outputFormat(formatId);
+	const input = ['-framerate', String(fps), '-i', pattern];
+	const codecArgs = {
+		'prores-4444': ['-c:v', 'prores_ks', '-profile:v', '4444', '-pix_fmt', 'yuva444p10le', '-vendor', 'apl0'],
+		'qt-animation': ['-c:v', 'qtrle', '-pix_fmt', 'argb'],
+		'png-mov': ['-c:v', 'png', '-pix_fmt', 'rgba'],
+		'webm-vp8': ['-c:v', 'libvpx', '-pix_fmt', 'yuva420p', '-b:v', '6M', '-crf', '10', '-deadline', 'good', '-cpu-used', '2', '-auto-alt-ref', '0'],
+		'mp4-h264': ['-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart'],
+	}[format.id];
 
-	return [
-		'-framerate', String(fps),
-		'-start_number', '0',
-		'-i', framePattern(prefix),
-		...video,
-		'-y', outputName,
-	];
+	return [...input, ...codecArgs, '-r', String(fps), '-y', outputName];
 }
 
-export function morphFormat(format) {
-	return MORPH_FORMATS.find((profile) => profile.value === format) ?? MORPH_FORMATS[0];
-}
-
-export function morphOutputName(firstName, secondName, format = 'mp4') {
-	const first = baseName(firstName, '');
-	const second = baseName(secondName, '');
-	const stem = first && second ? `${first}-to-${second}` : first || second || 'morph';
-	return `${stem}${morphFormat(format).extension}`;
+export function morphOutputName(fromName, toName, formatId) {
+	const format = outputFormat(formatId);
+	const stem = (name, fallback) => String(name || '')
+		.replace(/\.[^.]+$/, '')
+		.replace(/[^\p{L}\p{N}]+/gu, '-')
+		.replace(/^-+|-+$/g, '')
+		.toLowerCase() || fallback;
+	return `${stem(fromName, 'image-a')}-to-${stem(toName, 'image-b')}.${format.extension}`;
 }
