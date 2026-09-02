@@ -1,0 +1,882 @@
+---
+import type { Locale } from '../../i18n';
+import FilePicker from './shared/FilePicker.astro';
+import RangeControl from './shared/RangeControl.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToggleControl from './shared/ToggleControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+import {
+	DEFAULT_MORPH_SETTINGS,
+	MORPH_EASINGS,
+	MORPH_FRAME_RATES,
+	MORPH_LIMITS,
+	MORPH_OUTPUT_FORMATS,
+} from '../../lib/tools/svg-morph';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Video-Tool',
+		title: 'SVG Morph',
+		intro: 'Verwandle eine SVG-Form flüssig in eine andere und exportiere die Animation als Video mit Alphakanal für Premiere, After Effects, Resolve oder das Web.',
+		privacy: 'Deine Dateien werden nicht hochgeladen. Die Forminterpolation übernimmt flubber, die Videokodierung FFmpeg wasm, beides in deinem Browser.',
+		sourceTitle: 'Formen',
+		fromLabel: 'Start-SVG',
+		toLabel: 'Ziel-SVG',
+		chooseFrom: 'Start-SVG auswählen',
+		chooseTo: 'Ziel-SVG auswählen',
+		svgHint: 'SVG mit Pfaden und Grundformen; Text vorher in Pfade umwandeln',
+		swap: 'Formen tauschen',
+		previewTitle: 'Vorschau',
+		play: 'Vorschau abspielen',
+		scrubLabel: 'Position',
+		settingsTitle: 'Animation',
+		holdStartLabel: 'Halten am Anfang (s)',
+		durationLabel: 'Morph-Dauer (s)',
+		holdEndLabel: 'Halten am Ende (s)',
+		easingLabel: 'Interpolation',
+		fpsLabel: 'Bildrate',
+		widthLabel: 'Breite (px)',
+		heightLabel: 'Höhe (px)',
+		marginLabel: 'Rand',
+		formatLabel: 'Ausgabeformat',
+		render: 'Video rendern',
+		clear: 'Zurücksetzen',
+		resultTitle: 'Ergebnis',
+		download: 'Video herunterladen',
+		easings: {
+			linear: 'Linear',
+			'ease-in-out': 'Weich (Ease-in-out)',
+			gentle: 'Sanft (Sinus)',
+			'ease-in': 'Ease-in (langsamer Start)',
+			'ease-out': 'Ease-out (langsames Ende)',
+			'ease-in-fast': 'Schnelles Ease-in (exponentiell)',
+			'ease-out-fast': 'Schnelles Ease-out (exponentiell)',
+			snap: 'Snap (exponentiell rein und raus)',
+			overshoot: 'Überschwingen (Back)',
+			anticipate: 'Ausholen und Überschwingen',
+		},
+		formats: {
+			'prores-4444': 'ProRes 4444 (.mov) – Premiere, After Effects, Resolve',
+			'qt-animation': 'QuickTime Animation (.mov) – verlustfrei, sehr kompatibel',
+			'png-mov': 'PNG in QuickTime (.mov) – verlustfrei',
+			'webm-vp8': 'WebM VP8 (.webm) – Web, OBS, Browser',
+		},
+		client: {
+			waiting: 'Wähle ein Start- und ein Ziel-SVG.',
+			fileReady: '{name} ist geladen: {shapes} Formen.',
+			skipped: '{count} Text-, use- oder Bildelemente wurden ignoriert; wandle Text vorher in Pfade um.',
+			noShapes: '{name} enthält keine füllbaren oder umrandeten Formen.',
+			invalidSvg: '{name} konnte nicht als SVG gelesen werden: {message}',
+			bothReady: 'Beide Formen sind geladen. Die Vorschau läuft, das Video kann gerendert werden.',
+			needBoth: 'Wähle zuerst beide SVG-Dateien.',
+			preparing: 'Morph wird vorbereitet...',
+			renderingFrames: 'Frame {done} von {total} wird gerendert...',
+			encoding: 'FFmpeg kodiert das Video...',
+			ffmpegProgress: 'FFmpeg kodiert... {progress}%',
+			ready: 'Das Video ist fertig: {frames} Frames, {duration} s.',
+			reset: 'Das Tool wurde zurückgesetzt.',
+			ffmpegLoading: 'FFmpeg wasm wird geladen...',
+			ffmpegReady: 'FFmpeg wasm ist bereit.',
+			ffmpegTimeout: 'FFmpeg wasm hat nicht innerhalb von 90 Sekunden geladen.',
+			outputMeta: '{format} | {width} x {height}px | {fps} FPS | {frames} Frames | {duration} s | {size}',
+			notPlayable: 'Browser spielen MOV-Dateien mit Alphakanal nicht ab. Importiere den Download direkt in dein Schnittprogramm.',
+			play: 'Vorschau abspielen',
+			pause: 'Vorschau anhalten',
+			unknownError: 'Unbekannter Fehler',
+		},
+	},
+	en: {
+		eyebrow: 'Video tool',
+		title: 'SVG Morph',
+		intro: 'Morph one SVG shape into another and export the animation as a video with an alpha channel for Premiere, After Effects, Resolve, or the web.',
+		privacy: 'Your files are not uploaded. Shape interpolation runs on flubber and the video is encoded by FFmpeg wasm, both in your browser.',
+		sourceTitle: 'Shapes',
+		fromLabel: 'Start SVG',
+		toLabel: 'End SVG',
+		chooseFrom: 'Choose start SVG',
+		chooseTo: 'Choose end SVG',
+		svgHint: 'SVG with paths and basic shapes; convert text to outlines first',
+		swap: 'Swap shapes',
+		previewTitle: 'Preview',
+		play: 'Play preview',
+		scrubLabel: 'Position',
+		settingsTitle: 'Animation',
+		holdStartLabel: 'Hold at start (s)',
+		durationLabel: 'Morph duration (s)',
+		holdEndLabel: 'Hold at end (s)',
+		easingLabel: 'Interpolation',
+		fpsLabel: 'Frame rate',
+		widthLabel: 'Width (px)',
+		heightLabel: 'Height (px)',
+		marginLabel: 'Margin',
+		formatLabel: 'Output format',
+		render: 'Render video',
+		clear: 'Reset',
+		resultTitle: 'Result',
+		download: 'Download video',
+		easings: {
+			linear: 'Linear',
+			'ease-in-out': 'Smooth (ease in-out)',
+			gentle: 'Gentle (sine)',
+			'ease-in': 'Ease-in (slow start)',
+			'ease-out': 'Ease-out (slow end)',
+			'ease-in-fast': 'Fast ease-in (exponential)',
+			'ease-out-fast': 'Fast ease-out (exponential)',
+			snap: 'Snap (exponential in and out)',
+			overshoot: 'Overshoot (back)',
+			anticipate: 'Anticipate and overshoot',
+		},
+		formats: {
+			'prores-4444': 'ProRes 4444 (.mov) – Premiere, After Effects, Resolve',
+			'qt-animation': 'QuickTime Animation (.mov) – lossless, widely supported',
+			'png-mov': 'PNG in QuickTime (.mov) – lossless',
+			'webm-vp8': 'WebM VP8 (.webm) – web, OBS, browsers',
+		},
+		client: {
+			waiting: 'Choose a start and an end SVG.',
+			fileReady: '{name} is loaded: {shapes} shapes.',
+			skipped: '{count} text, use, or image elements were ignored; convert text to outlines first.',
+			noShapes: '{name} contains no filled or stroked shapes.',
+			invalidSvg: '{name} could not be read as SVG: {message}',
+			bothReady: 'Both shapes are loaded. The preview is playing and the video can be rendered.',
+			needBoth: 'Choose both SVG files first.',
+			preparing: 'Preparing the morph...',
+			renderingFrames: 'Rendering frame {done} of {total}...',
+			encoding: 'FFmpeg is encoding the video...',
+			ffmpegProgress: 'FFmpeg is encoding... {progress}%',
+			ready: 'The video is ready: {frames} frames, {duration} s.',
+			reset: 'The tool has been reset.',
+			ffmpegLoading: 'Loading FFmpeg wasm...',
+			ffmpegReady: 'FFmpeg wasm is ready.',
+			ffmpegTimeout: 'FFmpeg wasm did not finish loading within 90 seconds.',
+			outputMeta: '{format} | {width} x {height}px | {fps} FPS | {frames} frames | {duration} s | {size}',
+			notPlayable: 'Browsers do not play MOV files with an alpha channel. Import the download straight into your editor.',
+			play: 'Play preview',
+			pause: 'Pause preview',
+			unknownError: 'Unknown error',
+		},
+	},
+} satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string>; easings: Record<string, string>; formats: Record<string, string> }>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify({ ...copy.client, formats: copy.formats });
+const defaults = DEFAULT_MORPH_SETTINGS;
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section svg-morph-section tool-workspace">
+	<div class="container">
+		<div class="svg-morph" data-svg-morph data-copy={copyJson}>
+			<div class="svg-morph-grid">
+				<ToolPanel class="svg-morph-panel" title={copy.sourceTitle}>
+					<div class="shape-pickers">
+						<div class="shape-picker">
+							<FilePicker
+								label={copy.fromLabel}
+								name={copy.chooseFrom}
+								hint={copy.svgHint}
+								accept="image/svg+xml,.svg"
+								nameAttrs={{ 'data-from-name': true }}
+								metaAttrs={{ 'data-from-meta': true }}
+								inputAttrs={{ 'data-from-file': true }}
+							/>
+							<div class="shape-thumb" data-from-thumb hidden><img data-from-image alt="" /></div>
+						</div>
+						<div class="shape-picker">
+							<FilePicker
+								label={copy.toLabel}
+								name={copy.chooseTo}
+								hint={copy.svgHint}
+								accept="image/svg+xml,.svg"
+								nameAttrs={{ 'data-to-name': true }}
+								metaAttrs={{ 'data-to-meta': true }}
+								inputAttrs={{ 'data-to-file': true }}
+							/>
+							<div class="shape-thumb" data-to-thumb hidden><img data-to-image alt="" /></div>
+						</div>
+					</div>
+					<ToolActions class="shape-actions">
+						<button class="button secondary" data-swap type="button" disabled>{copy.swap}</button>
+					</ToolActions>
+
+					<div class="preview-card" data-preview-card hidden>
+						<p>{copy.previewTitle}</p>
+						<div class="preview-frame" data-preview-frame>
+							<canvas data-preview-canvas></canvas>
+						</div>
+						<div class="preview-controls">
+							<ToggleControl label={copy.play} inputAttrs={{ 'data-play': true, checked: true }} />
+							<RangeControl
+								label={copy.scrubLabel}
+								value="0%"
+								valueAttrs={{ 'data-scrub-label': true }}
+								inputAttrs={{ 'data-scrub': true, min: 0, max: 1000, step: 1, value: 0 }}
+							/>
+						</div>
+					</div>
+
+					<div class="preview-card" data-result hidden>
+						<p>{copy.resultTitle}</p>
+						<div class="preview-frame" data-output-frame hidden>
+							<video data-output-video controls playsinline muted loop></video>
+						</div>
+						<small data-output-meta></small>
+						<small data-output-note hidden></small>
+						<a class="button primary morph-download" data-download href="#" download hidden>{copy.download}</a>
+					</div>
+				</ToolPanel>
+
+				<details class="converter-toolbar" open>
+					<summary>{copy.settingsTitle}</summary>
+					<ToolPanel class="svg-morph-panel" title={copy.settingsTitle}>
+						<div class="number-grid three">
+							<label class="number-control">
+								<span>{copy.holdStartLabel}</span>
+								<input data-hold-start type="number" min={MORPH_LIMITS.hold.min} max={MORPH_LIMITS.hold.max} step="0.1" value={defaults.holdStart} inputmode="decimal" />
+							</label>
+							<label class="number-control">
+								<span>{copy.durationLabel}</span>
+								<input data-duration type="number" min={MORPH_LIMITS.duration.min} max={MORPH_LIMITS.duration.max} step="0.1" value={defaults.duration} inputmode="decimal" />
+							</label>
+							<label class="number-control">
+								<span>{copy.holdEndLabel}</span>
+								<input data-hold-end type="number" min={MORPH_LIMITS.hold.min} max={MORPH_LIMITS.hold.max} step="0.1" value={defaults.holdEnd} inputmode="decimal" />
+							</label>
+						</div>
+						<SelectControl label={copy.easingLabel} selectAttrs={{ 'data-easing': true }}>
+							{MORPH_EASINGS.map((easing) => (
+								<option value={easing.id} selected={easing.id === defaults.easing}>{copy.easings[easing.id as keyof typeof copy.easings]}</option>
+							))}
+						</SelectControl>
+						<SelectControl label={copy.fpsLabel} selectAttrs={{ 'data-fps': true }}>
+							{MORPH_FRAME_RATES.map((fps) => (
+								<option value={fps} selected={fps === defaults.fps}>{fps} FPS</option>
+							))}
+						</SelectControl>
+						<div class="number-grid">
+							<label class="number-control">
+								<span>{copy.widthLabel}</span>
+								<input data-width type="number" min={MORPH_LIMITS.size.min} max={MORPH_LIMITS.size.max} step="2" value={defaults.width} inputmode="numeric" />
+							</label>
+							<label class="number-control">
+								<span>{copy.heightLabel}</span>
+								<input data-height type="number" min={MORPH_LIMITS.size.min} max={MORPH_LIMITS.size.max} step="2" value={defaults.height} inputmode="numeric" />
+							</label>
+						</div>
+						<RangeControl
+							label={copy.marginLabel}
+							value={`${defaults.margin}%`}
+							valueAttrs={{ 'data-margin-label': true }}
+							inputAttrs={{ 'data-margin': true, min: MORPH_LIMITS.margin.min, max: MORPH_LIMITS.margin.max, step: 1, value: defaults.margin }}
+						/>
+						<SelectControl label={copy.formatLabel} selectAttrs={{ 'data-format': true }}>
+							{MORPH_OUTPUT_FORMATS.map((format) => (
+								<option value={format.id} selected={format.id === defaults.format}>{copy.formats[format.id as keyof typeof copy.formats]}</option>
+							))}
+						</SelectControl>
+						<ToolActions>
+							<button class="button primary" data-render type="button" disabled>{copy.render}</button>
+							<button class="button secondary" data-clear type="button">{copy.clear}</button>
+						</ToolActions>
+						<ToolStatus data-status role="status" text={copy.client.waiting} />
+					</ToolPanel>
+				</details>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
+	import {
+		createMorph,
+		morphOutputName,
+		morphTimeline,
+		normalizeMorphSettings,
+		outputFormat,
+	} from '../../lib/tools/svg-morph';
+	import {
+		drawMorphFrame,
+		extractSvgShapes,
+		mountSvgDocument,
+		renderMorphVideo,
+	} from '../../lib/tools/svg-morph-browser';
+
+	(() => {
+		const roots = document.querySelectorAll('[data-svg-morph]:not([data-svg-morph-bound])');
+
+		for (const root of roots) {
+			root.dataset.svgMorphBound = 'true';
+			initSvgMorph(root);
+		}
+
+		function initSvgMorph(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const query = (selector) => root.querySelector(selector);
+			const sides = {
+				from: {
+					input: query('[data-from-file]'),
+					name: query('[data-from-name]'),
+					meta: query('[data-from-meta]'),
+					thumb: query('[data-from-thumb]'),
+					image: query('[data-from-image]'),
+				},
+				to: {
+					input: query('[data-to-file]'),
+					name: query('[data-to-name]'),
+					meta: query('[data-to-meta]'),
+					thumb: query('[data-to-thumb]'),
+					image: query('[data-to-image]'),
+				},
+			};
+			const swapButton = query('[data-swap]');
+			const previewCard = query('[data-preview-card]');
+			const previewFrame = query('[data-preview-frame]');
+			const previewCanvas = query('[data-preview-canvas]');
+			const playToggle = query('[data-play]');
+			const scrub = query('[data-scrub]');
+			const scrubLabel = query('[data-scrub-label]');
+			const holdStartInput = query('[data-hold-start]');
+			const durationInput = query('[data-duration]');
+			const holdEndInput = query('[data-hold-end]');
+			const easingSelect = query('[data-easing]');
+			const fpsSelect = query('[data-fps]');
+			const widthInput = query('[data-width]');
+			const heightInput = query('[data-height]');
+			const marginInput = query('[data-margin]');
+			const marginLabel = query('[data-margin-label]');
+			const formatSelect = query('[data-format]');
+			const renderButton = query('[data-render]');
+			const clearButton = query('[data-clear]');
+			const status = query('[data-status]');
+			const result = query('[data-result]');
+			const outputFrame = query('[data-output-frame]');
+			const outputVideo = query('[data-output-video]');
+			const outputMeta = query('[data-output-meta]');
+			const outputNote = query('[data-output-note]');
+			const downloadLink = query('[data-download]');
+
+			const required = [
+				...Object.values(sides).flatMap((side) => Object.values(side)),
+				swapButton, previewCard, previewFrame, previewCanvas, playToggle, scrub, scrubLabel,
+				holdStartInput, durationInput, holdEndInput, easingSelect, fpsSelect, widthInput, heightInput,
+				marginInput, marginLabel, formatSelect, renderButton, clearButton, status, result, outputFrame,
+				outputVideo, outputMeta, outputNote, downloadLink,
+			];
+			if (required.some((element) => !element)) {
+				return;
+			}
+
+			const state = {
+				shapes: { from: null, to: null },
+				morph: null,
+				timeline: null,
+				settings: normalizeMorphSettings({}),
+				outputUrl: null,
+				isWorking: false,
+				previewTime: 0,
+				lastTick: 0,
+				rafId: 0,
+			};
+			const defaults = {
+				from: { name: sides.from.name.textContent, meta: sides.from.meta.textContent },
+				to: { name: sides.to.name.textContent, meta: sides.to.meta.textContent },
+			};
+			const ffmpegRuntime = createFfmpegRuntime({
+				timeoutMessage: copy.ffmpegTimeout,
+				onLoading: () => setStatus(copy.ffmpegLoading, 'info'),
+				onReady: () => setStatus(copy.ffmpegReady, 'success'),
+				onProgress: (progress) => {
+					if (state.isWorking) setStatus(format(copy.ffmpegProgress, { progress }), 'info');
+				},
+			});
+			const previewContext = previewCanvas.getContext('2d');
+
+			for (const key of ['from', 'to']) {
+				sides[key].input.addEventListener('change', () => {
+					const file = sides[key].input.files && sides[key].input.files[0] ? sides[key].input.files[0] : null;
+					void loadSide(key, file);
+				});
+			}
+			swapButton.addEventListener('click', swapSides);
+			renderButton.addEventListener('click', () => {
+				void renderVideo();
+			});
+			clearButton.addEventListener('click', resetTool);
+			playToggle.addEventListener('change', () => {
+				state.lastTick = 0;
+			});
+			scrub.addEventListener('input', () => {
+				playToggle.checked = false;
+				const timeline = state.timeline;
+				if (!timeline) return;
+				state.previewTime = (Number(scrub.value) / 1000) * timeline.loopDuration;
+				drawPreview();
+			});
+			for (const input of [holdStartInput, durationInput, holdEndInput, easingSelect, fpsSelect]) {
+				input.addEventListener('input', updateTimeline);
+				input.addEventListener('change', updateTimeline);
+			}
+			for (const input of [widthInput, heightInput, marginInput]) {
+				input.addEventListener('change', () => {
+					void rebuildShapes();
+				});
+			}
+			marginInput.addEventListener('input', () => {
+				marginLabel.textContent = `${marginInput.value}%`;
+			});
+			if (typeof ResizeObserver === 'function') {
+				new ResizeObserver(() => sizePreview()).observe(previewFrame);
+			}
+
+			updateTimeline();
+			updateReadyState();
+			state.rafId = requestAnimationFrame(tick);
+
+			async function loadSide(key, file) {
+				resetOutput();
+				const side = sides[key];
+				if (state.shapes[key]?.thumbUrl) {
+					URL.revokeObjectURL(state.shapes[key].thumbUrl);
+				}
+				state.shapes[key] = null;
+				side.thumb.hidden = true;
+				side.image.removeAttribute('src');
+
+				if (!file) {
+					side.input.value = '';
+					side.name.textContent = defaults[key].name;
+					side.meta.textContent = defaults[key].meta;
+					rebuildMorph();
+					setStatus(copy.waiting, 'info');
+					updateReadyState();
+					return;
+				}
+
+				side.name.textContent = file.name;
+				side.meta.textContent = formatBytes(file.size);
+				try {
+					const text = await file.text();
+					const shapes = extractShapes(text, file.name);
+					shapes.thumbUrl = URL.createObjectURL(new Blob([text], { type: 'image/svg+xml' }));
+					state.shapes[key] = shapes;
+					side.image.src = shapes.thumbUrl;
+					side.thumb.hidden = false;
+					rebuildMorph();
+					const skipped = shapes.skipped.text + shapes.skipped.use + shapes.skipped.image;
+					const message = format(copy.fileReady, { name: file.name, shapes: shapes.units.length })
+						+ (skipped ? ` ${format(copy.skipped, { count: skipped })}` : '');
+					setStatus(state.morph ? `${message} ${copy.bothReady}` : message, skipped ? 'info' : 'success');
+				} catch (error) {
+					side.meta.textContent = defaults[key].meta;
+					setStatus(messageFromError(error, file.name), 'error');
+				} finally {
+					updateReadyState();
+				}
+			}
+
+			/* Units live in output pixel space, so a new size or margin means measuring the SVG again. */
+			function extractShapes(text, name) {
+				const settings = state.settings;
+				const mounted = mountSvgDocument(text);
+				try {
+					const extracted = extractSvgShapes(mounted, { width: settings.width, height: settings.height, margin: settings.margin });
+					if (!extracted.units.length) {
+						throw new Error(format(copy.noShapes, { name }));
+					}
+					return { text, name, units: extracted.units, skipped: extracted.skipped, thumbUrl: null };
+				} finally {
+					mounted.dispose();
+				}
+			}
+
+			async function rebuildShapes() {
+				readSettings();
+				for (const key of ['from', 'to']) {
+					const current = state.shapes[key];
+					if (!current) continue;
+					try {
+						const shapes = extractShapes(current.text, current.name);
+						shapes.thumbUrl = current.thumbUrl;
+						state.shapes[key] = shapes;
+					} catch (error) {
+						setStatus(messageFromError(error, current.name), 'error');
+					}
+				}
+				rebuildMorph();
+				sizePreview();
+			}
+
+			function rebuildMorph() {
+				const from = state.shapes.from;
+				const to = state.shapes.to;
+				state.morph = from && to ? createMorph(from.units, to.units) : null;
+				state.previewTime = 0;
+				previewCard.hidden = !state.morph;
+				if (state.morph) {
+					sizePreview();
+					drawPreview();
+				}
+				updateReadyState();
+			}
+
+			function swapSides() {
+				const from = state.shapes.from;
+				const to = state.shapes.to;
+				if (!from && !to) return;
+				resetOutput();
+				state.shapes.from = to;
+				state.shapes.to = from;
+				for (const key of ['from', 'to']) {
+					const side = sides[key];
+					const shapes = state.shapes[key];
+					side.input.value = '';
+					side.name.textContent = shapes ? shapes.name : defaults[key].name;
+					side.meta.textContent = shapes ? formatBytes(shapes.text.length) : defaults[key].meta;
+					side.thumb.hidden = !shapes;
+					if (shapes) side.image.src = shapes.thumbUrl;
+					else side.image.removeAttribute('src');
+				}
+				rebuildMorph();
+			}
+
+			function readSettings() {
+				state.settings = normalizeMorphSettings({
+					holdStart: holdStartInput.value,
+					duration: durationInput.value,
+					holdEnd: holdEndInput.value,
+					easing: easingSelect.value,
+					fps: fpsSelect.value,
+					width: widthInput.value,
+					height: heightInput.value,
+					margin: marginInput.value,
+					format: formatSelect.value,
+				});
+				widthInput.value = String(state.settings.width);
+				heightInput.value = String(state.settings.height);
+				return state.settings;
+			}
+
+			function updateTimeline() {
+				readSettings();
+				state.timeline = morphTimeline(state.settings);
+				state.previewTime = Math.min(state.previewTime, state.timeline.loopDuration);
+				if (state.morph && !playToggle.checked) drawPreview();
+			}
+
+			function sizePreview() {
+				const settings = state.settings;
+				const available = Math.max(160, previewFrame.clientWidth - 24);
+				const cssWidth = Math.min(available, 720);
+				const cssHeight = Math.max(80, Math.round((cssWidth * settings.height) / settings.width));
+				const ratio = Math.min(2, window.devicePixelRatio || 1);
+				previewCanvas.style.width = `${cssWidth}px`;
+				previewCanvas.style.height = `${cssHeight}px`;
+				previewCanvas.width = Math.round(cssWidth * ratio);
+				previewCanvas.height = Math.round(cssHeight * ratio);
+				if (state.morph) drawPreview();
+			}
+
+			function drawPreview() {
+				if (!state.morph || !state.timeline || !previewContext) return;
+				const progress = state.timeline.progressAtTime(state.previewTime);
+				previewContext.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+				drawMorphFrame(previewContext, state.morph.frame(progress), { scale: previewCanvas.width / state.settings.width });
+				const position = state.timeline.loopDuration ? state.previewTime / state.timeline.loopDuration : 0;
+				scrub.value = String(Math.round(position * 1000));
+				scrubLabel.textContent = `${Math.round(position * 100)}%`;
+			}
+
+			function tick(now) {
+				state.rafId = requestAnimationFrame(tick);
+				if (!state.morph || !state.timeline || !playToggle.checked || state.isWorking) {
+					state.lastTick = now;
+					return;
+				}
+				const elapsed = state.lastTick ? (now - state.lastTick) / 1000 : 0;
+				state.lastTick = now;
+				const loop = state.timeline.loopDuration || 1;
+				state.previewTime = (state.previewTime + elapsed) % loop;
+				drawPreview();
+			}
+
+			async function renderVideo() {
+				if (!state.morph) {
+					setStatus(copy.needBoth, 'error');
+					return;
+				}
+
+				setWorking(true);
+				resetOutput();
+				setStatus(copy.preparing, 'info');
+
+				try {
+					const settings = readSettings();
+					state.timeline = morphTimeline(settings);
+					const output = await renderMorphVideo({
+						morph: state.morph,
+						settings,
+						ffmpegRuntime,
+						onProgress: ({ phase, done, total }) => {
+							setStatus(phase === 'frames' ? format(copy.renderingFrames, { done, total }) : copy.encoding, 'info');
+						},
+					});
+					const blob = new Blob([output.bytes], { type: output.format.mime });
+					const outputName = morphOutputName(state.shapes.from.name, state.shapes.to.name, settings.format);
+					const duration = Math.round(output.duration * 100) / 100;
+
+					state.outputUrl = URL.createObjectURL(blob);
+					downloadLink.href = state.outputUrl;
+					downloadLink.download = outputName;
+					downloadLink.hidden = false;
+					outputMeta.textContent = format(copy.outputMeta, {
+						format: copy.formats[settings.format] ?? settings.format,
+						width: settings.width,
+						height: settings.height,
+						fps: settings.fps,
+						frames: output.frameCount,
+						duration,
+						size: formatBytes(blob.size),
+					});
+					const playable = outputFormat(settings.format).playable;
+					outputFrame.hidden = !playable;
+					outputNote.hidden = playable;
+					outputNote.textContent = playable ? '' : copy.notPlayable;
+					if (playable) outputVideo.src = state.outputUrl;
+					result.hidden = false;
+					setStatus(format(copy.ready, { frames: output.frameCount, duration }), 'success');
+				} catch (error) {
+					setStatus(messageFromError(error), 'error');
+				} finally {
+					setWorking(false);
+				}
+			}
+
+			function updateReadyState() {
+				const hasMorph = Boolean(state.morph);
+				const hasAny = Boolean(state.shapes.from || state.shapes.to);
+				renderButton.disabled = state.isWorking || !hasMorph;
+				swapButton.disabled = state.isWorking || !hasAny;
+				clearButton.disabled = state.isWorking || (!hasAny && !state.outputUrl);
+				for (const element of [
+					sides.from.input, sides.to.input, holdStartInput, durationInput, holdEndInput, easingSelect,
+					fpsSelect, widthInput, heightInput, marginInput, formatSelect,
+				]) {
+					element.disabled = state.isWorking;
+				}
+			}
+
+			function setWorking(isWorking) {
+				state.isWorking = isWorking;
+				updateReadyState();
+			}
+
+			function resetTool() {
+				for (const key of ['from', 'to']) {
+					const side = sides[key];
+					if (state.shapes[key]?.thumbUrl) URL.revokeObjectURL(state.shapes[key].thumbUrl);
+					state.shapes[key] = null;
+					side.input.value = '';
+					side.name.textContent = defaults[key].name;
+					side.meta.textContent = defaults[key].meta;
+					side.thumb.hidden = true;
+					side.image.removeAttribute('src');
+				}
+				resetOutput();
+				rebuildMorph();
+				setStatus(copy.reset, 'info');
+			}
+
+			function resetOutput() {
+				if (state.outputUrl) {
+					URL.revokeObjectURL(state.outputUrl);
+					state.outputUrl = null;
+				}
+				result.hidden = true;
+				outputFrame.hidden = true;
+				outputVideo.removeAttribute('src');
+				outputMeta.textContent = '';
+				outputNote.hidden = true;
+				downloadLink.hidden = true;
+				downloadLink.removeAttribute('href');
+				downloadLink.removeAttribute('download');
+			}
+
+			function setStatus(message, type) {
+				status.textContent = message;
+				status.dataset.state = type;
+			}
+
+			function messageFromError(error, name = '') {
+				const message = error && typeof error === 'object' && 'message' in error ? String(error.message) : copy.unknownError;
+				if (name && /parsed|not an SVG/i.test(message)) {
+					return format(copy.invalidSvg, { name, message });
+				}
+				return message;
+			}
+		}
+	})();
+</script>
+
+<style>
+	.svg-morph,
+	.svg-morph-grid {
+		display: grid;
+		gap: 18px;
+	}
+
+	.svg-morph [hidden] {
+		display: none !important;
+	}
+
+	.svg-morph-grid {
+		grid-template-columns: minmax(0, 1fr) minmax(300px, 0.44fr);
+		align-items: start;
+	}
+
+	.shape-pickers {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 14px;
+		margin-top: 18px;
+	}
+
+	.shape-picker {
+		display: grid;
+		gap: 10px;
+	}
+
+	.shape-picker .file-picker {
+		min-height: 140px;
+	}
+
+	.shape-thumb,
+	.preview-frame {
+		display: grid;
+		overflow: hidden;
+		place-items: center;
+		padding: 12px;
+		background-color: var(--color-checkerboard-background);
+		background-image: conic-gradient(var(--color-checkerboard-square) 25%, var(--color-transparent) 0 50%, var(--color-checkerboard-square) 0 75%, var(--color-transparent) 0);
+		background-size: 24px 24px;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.shape-thumb {
+		min-height: 96px;
+	}
+
+	.shape-thumb img {
+		display: block;
+		max-width: 100%;
+		max-height: 120px;
+		object-fit: contain;
+	}
+
+	.shape-actions {
+		margin-top: 12px;
+	}
+
+	.preview-card {
+		display: grid;
+		gap: 10px;
+		margin-top: 18px;
+	}
+
+	.preview-card p,
+	.number-control span {
+		margin: 0;
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.preview-frame {
+		min-height: 200px;
+	}
+
+	.preview-frame canvas,
+	.preview-frame video {
+		display: block;
+		max-width: 100%;
+		max-height: 480px;
+	}
+
+	.preview-controls {
+		display: grid;
+		gap: 12px;
+	}
+
+	.preview-controls .tool-range-control {
+		margin-top: 0;
+	}
+
+	.preview-card small {
+		color: var(--color-muted);
+		font-size: 0.88rem;
+	}
+
+	.morph-download {
+		justify-self: start;
+	}
+
+	.number-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 12px;
+		margin-top: 18px;
+	}
+
+	.number-grid.three {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.number-control {
+		display: grid;
+		gap: 8px;
+	}
+
+	.number-control input {
+		width: 100%;
+		min-height: 48px;
+		padding: 0 14px;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font: inherit;
+		font-weight: 800;
+	}
+
+	.number-control input:focus-visible {
+		border-color: var(--color-accent);
+		outline: 3px solid var(--color-accent-focus-soft);
+	}
+
+	@media (max-width: 880px) {
+		.svg-morph-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 560px) {
+		.shape-pickers,
+		.number-grid,
+		.number-grid.three {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

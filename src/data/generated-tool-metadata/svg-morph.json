@@ -1,0 +1,20 @@
+{
+	"/de/tools/svg-morph/": {
+		"content": [
+			"SVG Morph nimmt zwei SVG-Dateien und animiert die erste in die zweite: Konturen gleiten an ihre neue Position, Farben mischen sich, und Formen ohne Gegenstück teilen sich unterwegs auf oder verschmelzen. Das Ergebnis ist ein kurzer Clip mit echtem Alphakanal, der sich direkt über Footage in Premiere Pro, After Effects, DaVinci Resolve oder jedem anderen [Video-Workflow](/de/tools/video/) legen lässt, der transparente QuickTime-Dateien versteht.",
+			"Lade ein Start- und ein Ziel-SVG und bestimme dann das Timing: Halte die erste Form einen Moment, lege fest, wie lange der eigentliche Morph dauert, und halte die fertige Form am Ende, damit sich der Clip sauber ein- und ausschneiden lässt. Die Interpolationskurve prägt den Charakter der Bewegung, vom nüchternen linearen Tween über ein schnelles exponentielles Ease-in bis zum verspielten Überschwingen, und die Live-Vorschau zeigt die exakten Frames, bevor irgendetwas gerendert wird.",
+			"Exportiert wird als ProRes 4444, QuickTime Animation, PNG in QuickTime oder VP8-WebM, jeweils mit Transparenz und in der Bildgröße und Bildrate deiner Wahl. Der Browser zeichnet jeden Frame selbst und FFmpeg wasm kodiert die Sequenz, es wird also nichts hochgeladen und kein Plug-in benötigt. Wer nur eine flache Animation braucht, kann das Ergebnis anschließend mit dem [Video-zu-GIF-Konverter](/de/tools/converter/video-to-gif/) in ein GIF verwandeln.",
+			"Die besten Ergebnisse liefern saubere Vektorgrafiken: Pfade, Rechtecke, Kreise und Polygone mit flachen Füllungen oder Konturen. Wandle Text vor dem Export in Pfade um und löse Verläufe auf, oder schicke Rasterlogos zuerst durch das [Raster/SVG Studio](/de/tools/raster-svg-studio/). Wie jedes Werkzeug in dieser [Creator-Toolbox](/de/tools/) läuft SVG Morph vollständig auf deinem Gerät."
+		],
+		"description": "SVG Morph verwandelt eine Vektorform im Browser in eine andere und exportiert die Animation als transparentes Video für Premiere, After Effects und Web."
+	},
+	"/en/tools/svg-morph/": {
+		"content": [
+			"SVG Morph takes two SVG files and animates the first into the second: outlines glide into their new positions, colours blend, and shapes that have no counterpart split apart or merge on the way. The result is a short clip with a real alpha channel, ready to drop over footage in Premiere Pro, After Effects, DaVinci Resolve, or any [video workflow](/en/tools/video/) that accepts transparent QuickTime files.",
+			"Load a start and an end SVG, then shape the timing: hold the first shape for a moment, choose how long the morph itself takes, and hold the finished shape at the end so an editor can cut in and out cleanly. The interpolation curve decides the character of the move, from a plain linear tween to a fast exponential ease-in or a playful overshoot, and the live preview shows the exact frames before anything is rendered.",
+			"Exports come as ProRes 4444, QuickTime Animation, PNG in QuickTime, or VP8 WebM, all with transparency, at any frame size and frame rate you pick. The browser draws every frame itself and FFmpeg wasm encodes the sequence, so nothing is uploaded and no plug-ins are needed. If you only need a flat animation, the [Video to GIF converter](/en/tools/converter/video-to-gif/) can turn the result into a GIF afterwards.",
+			"Best results come from clean vector artwork: paths, rectangles, circles, and polygons with flat fills or strokes. Convert text to outlines and expand gradients before exporting, or run raster logos through the [Raster/SVG Studio](/en/tools/raster-svg-studio/) first. Like every tool in this [creator toolbox](/en/tools/), SVG Morph runs entirely on your device."
+		],
+		"description": "SVG Morph animates one vector shape into another in your browser and exports the result as a transparent video for Premiere, After Effects, and the web."
+	}
+}

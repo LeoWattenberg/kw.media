@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import SvgMorph from '../../components/tools/SvgMorph.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('svg-morph', {
+	id: 'svg-morph',
+	translations: {
+		de: {
+			id: 'svg-morph-de',
+			path: '/de/tools/svg-morph/',
+			title: 'SVG Morph',
+			description: 'Verwandle eine SVG-Form im Browser flüssig in eine andere und exportiere die Animation als Video mit Alphakanal für Premiere, After Effects und Resolve.',
+		},
+		en: {
+			id: 'svg-morph-en',
+			path: '/en/tools/svg-morph/',
+			title: 'SVG Morph',
+			description: 'Morph one SVG shape into another in your browser and export the animation as a transparent video for Premiere, After Effects, and Resolve.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<SvgMorph locale={tool.locale} />
+</ToolPageShell>

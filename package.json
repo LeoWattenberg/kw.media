@@ -42,9 +42,11 @@
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.2.9",
+    "flubber": "^0.4.2",
     "jspdf": "^4.2.1",
     "pandoc-wasm": "^1.1.0",
-    "sql.js": "1.14.1"
+    "sql.js": "1.14.1",
+    "svgpath": "^2.6.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.12.1",

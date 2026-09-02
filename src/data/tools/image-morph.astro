@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import ImageMorph from '../../components/tools/ImageMorph.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('image-morph', {
+	id: 'image-morph',
+	translations: {
+		de: {
+			id: 'image-morph-de',
+			path: '/de/tools/bild-morph/',
+			title: 'Bild-Morph',
+			description: 'Überblende zwei Bilder per Distanzfeld-Morph ineinander und exportiere die Animation clientseitig als MP4 oder WebM.',
+		},
+		en: {
+			id: 'image-morph-en',
+			path: '/en/tools/image-morph/',
+			title: 'Image Morph',
+			description: 'Morph two images into each other with a distance-field morph and export the animation as MP4 or WebM in your browser.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<ImageMorph locale={tool.locale} />
+</ToolPageShell>

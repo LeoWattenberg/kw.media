@@ -5,6 +5,18 @@
 The AUP3-to-WAV browser converter uses `sql.js` 1.14.1, distributed under the
 MIT license. Source: <https://github.com/sql-js/sql.js>
 
+## flubber
+
+The SVG Morph tool uses `flubber` 0.4.2 by Noah Veltman for shape
+interpolation, distributed under the MIT license.
+Source: <https://github.com/veltman/flubber>
+
+## svgpath
+
+The SVG Morph tool uses `svgpath` 2.6.0 to normalise and transform SVG path
+data, distributed under the MIT license.
+Source: <https://github.com/fontello/svgpath>
+
 ## Soundscaper
 
 The embedded Soundscaper application is distributed separately. Its Audacity,

@@ -551,6 +551,107 @@ test.describe('image tool outputs', () => {
 		expect(errors).toEqual([]);
 	});
 
+	/*
+	 * The preview canvas is the morph itself, so a pixel read from it at a given progress is the
+	 * assertion that the distance fields blend rather than cross-fade: a part with no partner in
+	 * the other picture is gone halfway through instead of lingering at half opacity.
+	 */
+	const previewPixel = async (tool, t, x, y) => {
+		await setValue(tool.locator('[data-scrub]'), t);
+		return tool.locator('[data-preview-canvas]').evaluate(
+			(canvas, point) => [...canvas.getContext('2d').getImageData(point.x, point.y, 1, 1).data],
+			{ x, y },
+		);
+	};
+
+	test('Image Morph previews a distance-field morph and renders it as MP4 and WebM', async ({ page }) => {
+		test.setTimeout(CDN_TIMEOUT);
+		const errors = collectPageErrors(page);
+		await cacheCdnAssets(page);
+		await page.goto('/en/tools/image-morph/');
+		const tool = page.locator('[data-image-morph]');
+		const status = tool.locator('[data-status]');
+		const render = tool.locator('[data-render]');
+
+		/* A square and a circle that overlap in the middle: each has a side the other never reaches. */
+		await paintFile(tool.locator('[data-slot="a"] [data-file]'), {
+			name: 'square.png', width: 96, height: 64, background: '#ffffff',
+			shapes: [{ type: 'rect', x: 16, y: 16, width: 40, height: 32, color: '#000000' }],
+		});
+		await expect(tool.locator('[data-slot="a"] [data-file-name]')).toHaveText('square.png');
+		await expect(tool.locator('[data-slot="a"] [data-file-meta]')).toContainText('96 x 64px');
+		await expect(status).toHaveText('square.png is loaded (96 x 64px).');
+		await expect(render).toBeDisabled();
+		await expect(tool.locator('[data-preview]')).toBeHidden();
+
+		await paintFile(tool.locator('[data-slot="b"] [data-file]'), {
+			name: 'circle.png', width: 96, height: 64, background: '#ffffff',
+			shapes: [{ type: 'circle', x: 60, y: 32, radius: 16, color: '#000000' }],
+		});
+		await expect(status).toHaveText('circle.png is loaded (96 x 64px).');
+		await expect(render).toBeEnabled();
+		await expect(tool.locator('[data-preview]')).toBeVisible();
+		await expect(tool.locator('[data-preview-canvas]')).toHaveAttribute('width', '320');
+
+		/*
+		 * Preview pixels at source x = 20 (square only), 50 (both) and 74 (circle only), scaled by
+		 * 320 / 96. Halfway, the overlap is solid while both lone sides have already shrunk away.
+		 */
+		const dark = (pixel) => pixel[0] < 64 && pixel[3] === 255;
+		const light = (pixel) => pixel[0] > 192 && pixel[3] === 255;
+		expect(dark(await previewPixel(tool, 0, 67, 107))).toBe(true);
+		expect(dark(await previewPixel(tool, 0, 167, 107))).toBe(true);
+		expect(light(await previewPixel(tool, 0, 247, 107))).toBe(true);
+		expect(light(await previewPixel(tool, 0.5, 67, 107))).toBe(true);
+		expect(dark(await previewPixel(tool, 0.5, 167, 107))).toBe(true);
+		expect(light(await previewPixel(tool, 0.5, 247, 107))).toBe(true);
+		expect(light(await previewPixel(tool, 1, 67, 107))).toBe(true);
+		expect(dark(await previewPixel(tool, 1, 167, 107))).toBe(true);
+		expect(dark(await previewPixel(tool, 1, 247, 107))).toBe(true);
+
+		/* 0.2 s hold, 0.5 s morph at 12 fps: eleven frames, which the output meta has to report. */
+		await setValue(tool.locator('[data-hold]'), 0.2);
+		await setValue(tool.locator('[data-duration]'), 0.5);
+		await expect(tool.locator('[data-hold-label]')).toHaveText('0.2 s');
+		await expect(tool.locator('[data-duration-label]')).toHaveText('0.5 s');
+		await tool.locator('[data-easing]').selectOption('linear');
+		await tool.locator('[data-fps]').selectOption('12');
+		await tool.locator('[data-size]').selectOption('360');
+		await render.click();
+		await expect(status).toHaveText('The morph video is ready.', { timeout: RUN_TIMEOUT });
+		await expect(tool.locator('[data-result]')).toBeVisible();
+		await expect(tool.locator('[data-output-meta]')).toHaveText(/^360 x 240px \| 11 frames \| 0\.9 s \| /);
+
+		const download = tool.locator('[data-download]');
+		await expect(download).toHaveAttribute('download', 'square-to-circle.mp4');
+		const mp4Href = await download.getAttribute('href');
+		const mp4 = await readOutput(page, mp4Href);
+		expect(mp4.ascii.slice(4, 8)).toBe('ftyp');
+		expect(mp4.byteLength).toBeGreaterThan(1000);
+		expect(await videoSize(page, mp4Href)).toEqual({ width: 360, height: 240 });
+
+		/* Looping back doubles the morph, and WebM has to come out as EBML, not as a renamed MP4. */
+		await tool.locator('[data-format]').selectOption('webm');
+		await tool.locator('[data-loop]').check();
+		await render.click();
+		const webmHref = await waitForNewHref(download, mp4Href);
+		await expect(status).toHaveText('The morph video is ready.', { timeout: RUN_TIMEOUT });
+		await expect(download).toHaveAttribute('download', 'square-to-circle.webm');
+		await expect(tool.locator('[data-output-meta]')).toContainText('17 frames | 1.4 s');
+		const webm = await readOutput(page, webmHref);
+		expect(webm.head.startsWith('1a45dfa3')).toBe(true);
+		expect(await videoSize(page, webmHref)).toEqual({ width: 360, height: 240 });
+
+		await tool.locator('[data-clear]').click();
+		await expect(status).toHaveText('The tool has been reset.');
+		await expect(render).toBeDisabled();
+		await expect(tool.locator('[data-preview]')).toBeHidden();
+		await expect(tool.locator('[data-result]')).toBeHidden();
+		await expect(tool.locator('[data-slot="b"] [data-file-name]')).toHaveText('Choose image');
+
+		expect(errors).toEqual([]);
+	});
+
 	test('Object extractor keeps the clicked object and drops the background', async ({ page }) => {
 		test.setTimeout(CDN_TIMEOUT);
 		const errors = collectPageErrors(page);

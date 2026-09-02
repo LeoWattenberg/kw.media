@@ -1,0 +1,897 @@
+---
+import type { Locale } from '../../i18n';
+import { MORPH_FRAME_RATES, MORPH_SIZES } from '../../lib/tools/image-morph';
+import FilePicker from './shared/FilePicker.astro';
+import RangeControl from './shared/RangeControl.astro';
+import SelectControl from './shared/SelectControl.astro';
+import ToggleControl from './shared/ToggleControl.astro';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const easings = [
+	{ value: 'linear', label: { de: 'Linear', en: 'Linear' } },
+	{ value: 'ease-in-out', label: { de: 'Weich (Ease-in-out)', en: 'Ease in-out (smooth)' } },
+	{ value: 'fast-ease-in-out', label: { de: 'Schnell in der Mitte (Fast ease-in-out)', en: 'Fast ease in-out (quick middle)' } },
+	{ value: 'ease-in', label: { de: 'Langsam starten (Ease-in)', en: 'Ease in (slow start)' } },
+	{ value: 'ease-out', label: { de: 'Langsam enden (Ease-out)', en: 'Ease out (slow end)' } },
+];
+
+const copyByLocale = {
+	de: {
+		eyebrow: 'Bilder ineinander überblenden',
+		title: 'Bild-Morph',
+		intro: 'Überblende zwei lokale Bilder per Distanzfeld-Morph ineinander und exportiere die Animation als MP4 oder WebM. Konturen bleiben scharf, statt zur Doppelbelichtung zu verschwimmen; gedacht für Logos, Icons, Strichzeichnungen und andere flächige Grafiken.',
+		privacy: 'Deine Bilder werden nicht hochgeladen. Distanzfelder, Frames und Video entstehen clientseitig in deinem Browser.',
+		firstTitle: 'Erstes Bild',
+		secondTitle: 'Zweites Bild',
+		chooseImage: 'Bild auswählen',
+		imageHint: 'PNG, JPEG, WebP, GIF, SVG und weitere browserlesbare Formate',
+		settingsTitle: 'Morph-Einstellungen',
+		holdLabel: 'Standzeit',
+		durationLabel: 'Morph-Dauer',
+		easingLabel: 'Interpolationsstil',
+		levelsLabel: 'Tonstufen',
+		sizeLabel: 'Größe (lange Kante)',
+		fpsLabel: 'Bildrate',
+		formatLabel: 'Format',
+		backgroundLabel: 'Hintergrund für transparente Bilder',
+		loopLabel: 'Zurück zum ersten Bild morphen',
+		render: 'Video rendern',
+		clear: 'Zurücksetzen',
+		previewTitle: 'Vorschau',
+		progressLabel: 'Morph-Fortschritt',
+		resultTitle: 'Ergebnis',
+		download: 'Video herunterladen',
+		client: {
+			play: 'Abspielen',
+			pause: 'Pause',
+			waiting: 'Wähle zwei Bilder aus, um zu starten.',
+			imageReady: '{name} ist geladen ({width} x {height}px).',
+			fileMeta: '{size} | {type}',
+			imageMeta: '{width} x {height}px | {size} | {background}',
+			opaque: 'eigener Hintergrund',
+			transparent: 'transparent',
+			metadataMissing: 'Das Bild konnte nicht dekodiert werden.',
+			needImages: 'Wähle zuerst zwei Bilder.',
+			preparing: 'Distanzfelder werden berechnet...',
+			renderingFrames: 'Frame {index} von {count} wird gerendert...',
+			encoding: 'Video wird kodiert...',
+			ffmpegLoading: 'FFmpeg wasm wird geladen...',
+			ffmpegReady: 'FFmpeg wasm ist bereit.',
+			ffmpegProgress: 'FFmpeg kodiert... {progress}%',
+			ffmpegTimeout: 'FFmpeg wasm hat nicht innerhalb von 90 Sekunden geladen.',
+			ready: 'Das Morph-Video ist bereit.',
+			reset: 'Das Tool wurde zurückgesetzt.',
+			outputMeta: '{width} x {height}px | {frames} Frames | {seconds} s | {size}',
+			seconds: '{value} s',
+			unknownError: 'Unbekannter Fehler',
+		},
+	},
+	en: {
+		eyebrow: 'Morph one image into another',
+		title: 'Image Morph',
+		intro: 'Morph two local images into each other with a distance-field morph and export the animation as MP4 or WebM. Outlines stay crisp instead of dissolving into a double exposure; built for logos, icons, line art and other flat artwork.',
+		privacy: 'Your images are not uploaded. Distance fields, frames and the video are computed client-side in your browser.',
+		firstTitle: 'First image',
+		secondTitle: 'Second image',
+		chooseImage: 'Choose image',
+		imageHint: 'PNG, JPEG, WebP, GIF, SVG and other browser-readable formats',
+		settingsTitle: 'Morph settings',
+		holdLabel: 'Hold',
+		durationLabel: 'Morph duration',
+		easingLabel: 'Interpolation style',
+		levelsLabel: 'Tone levels',
+		sizeLabel: 'Size (long edge)',
+		fpsLabel: 'Frame rate',
+		formatLabel: 'Format',
+		backgroundLabel: 'Background for transparent images',
+		loopLabel: 'Morph back to the first image',
+		render: 'Render video',
+		clear: 'Reset',
+		previewTitle: 'Preview',
+		progressLabel: 'Morph progress',
+		resultTitle: 'Result',
+		download: 'Download video',
+		client: {
+			play: 'Play',
+			pause: 'Pause',
+			waiting: 'Choose two images to start.',
+			imageReady: '{name} is loaded ({width} x {height}px).',
+			fileMeta: '{size} | {type}',
+			imageMeta: '{width} x {height}px | {size} | {background}',
+			opaque: 'own background',
+			transparent: 'transparent',
+			metadataMissing: 'The image could not be decoded.',
+			needImages: 'Choose two images first.',
+			preparing: 'Computing distance fields...',
+			renderingFrames: 'Rendering frame {index} of {count}...',
+			encoding: 'Encoding video...',
+			ffmpegLoading: 'Loading FFmpeg wasm...',
+			ffmpegReady: 'FFmpeg wasm is ready.',
+			ffmpegProgress: 'FFmpeg is encoding... {progress}%',
+			ffmpegTimeout: 'FFmpeg wasm did not finish loading within 90 seconds.',
+			ready: 'The morph video is ready.',
+			reset: 'The tool has been reset.',
+			outputMeta: '{width} x {height}px | {frames} frames | {seconds} s | {size}',
+			seconds: '{value} s',
+			unknownError: 'Unknown error',
+		},
+	},
+} satisfies Record<Locale, Record<string, unknown> & { client: Record<string, string> }>;
+
+const copy = copyByLocale[locale];
+const copyJson = JSON.stringify(copy.client);
+const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section image-morph-section tool-workspace">
+	<div class="container">
+		<div class="image-morph" data-image-morph data-copy={copyJson}>
+			<ToolPanel class="morph-source" title={copy.firstTitle} data-slot="a">
+				<FilePicker
+					label={copy.firstTitle}
+					name={copy.chooseImage}
+					hint={copy.imageHint}
+					accept={imageAccept}
+					nameAttrs={{ 'data-file-name': true }}
+					metaAttrs={{ 'data-file-meta': true }}
+					inputAttrs={{ 'data-file': true }}
+				/>
+				<img class="morph-thumb" data-thumb alt="" hidden />
+			</ToolPanel>
+
+			<ToolPanel class="morph-source" title={copy.secondTitle} data-slot="b">
+				<FilePicker
+					label={copy.secondTitle}
+					name={copy.chooseImage}
+					hint={copy.imageHint}
+					accept={imageAccept}
+					nameAttrs={{ 'data-file-name': true }}
+					metaAttrs={{ 'data-file-meta': true }}
+					inputAttrs={{ 'data-file': true }}
+				/>
+				<img class="morph-thumb" data-thumb alt="" hidden />
+			</ToolPanel>
+
+			<details class="morph-toolbar" open>
+				<summary>{copy.settingsTitle}</summary>
+				<ToolPanel class="morph-settings" title={copy.settingsTitle}>
+					<RangeControl
+						label={copy.holdLabel}
+						value="1.0 s"
+						valueAttrs={{ 'data-hold-label': true }}
+						inputAttrs={{ 'data-hold': true, min: 0, max: 5, step: 0.1, value: 1 }}
+					/>
+					<RangeControl
+						label={copy.durationLabel}
+						value="1.5 s"
+						valueAttrs={{ 'data-duration-label': true }}
+						inputAttrs={{ 'data-duration': true, min: 0.2, max: 5, step: 0.1, value: 1.5 }}
+					/>
+					<SelectControl label={copy.easingLabel} selectAttrs={{ 'data-easing': true }}>
+						{easings.map((easing) => <option value={easing.value} selected={easing.value === 'ease-in-out'}>{easing.label[locale]}</option>)}
+					</SelectControl>
+					<RangeControl
+						label={copy.levelsLabel}
+						value="3"
+						valueAttrs={{ 'data-levels-label': true }}
+						inputAttrs={{ 'data-levels': true, min: 1, max: 6, step: 1, value: 3 }}
+					/>
+					<SelectControl label={copy.sizeLabel} selectAttrs={{ 'data-size': true }}>
+						{MORPH_SIZES.map((size) => <option value={size} selected={size === 720}>{size}px</option>)}
+					</SelectControl>
+					<SelectControl label={copy.fpsLabel} selectAttrs={{ 'data-fps': true }}>
+						{MORPH_FRAME_RATES.map((fps) => <option value={fps} selected={fps === 30}>{fps} fps</option>)}
+					</SelectControl>
+					<SelectControl label={copy.formatLabel} selectAttrs={{ 'data-format': true }}>
+						<option value="mp4">MP4 (H.264)</option>
+						<option value="webm">WebM (VP8)</option>
+					</SelectControl>
+					<label class="morph-color">
+						<span>{copy.backgroundLabel}</span>
+						<input data-background type="color" value="#ffffff" />
+					</label>
+					<ToggleControl class="morph-toggle" label={copy.loopLabel} inputAttrs={{ 'data-loop': true }} />
+					<ToolActions>
+						<button class="button primary" data-render type="button" disabled>{copy.render}</button>
+						<button class="button secondary" data-clear type="button">{copy.clear}</button>
+					</ToolActions>
+					<ToolStatus data-status role="status" text={copy.client.waiting} />
+				</ToolPanel>
+			</details>
+
+			<ToolPanel class="morph-preview" title={copy.previewTitle} data-preview hidden>
+				<canvas class="morph-canvas" data-preview-canvas width="2" height="2"></canvas>
+				<RangeControl
+					label={copy.progressLabel}
+					value="0.00"
+					valueAttrs={{ 'data-scrub-label': true }}
+					inputAttrs={{ 'data-scrub': true, min: 0, max: 1, step: 0.001, value: 0 }}
+				/>
+				<ToolActions>
+					<button class="button secondary" data-play type="button">{copy.client.play}</button>
+				</ToolActions>
+			</ToolPanel>
+
+			<ToolPanel class="morph-result" title={copy.resultTitle} data-result hidden>
+				<video class="morph-video" data-output-video controls playsinline></video>
+				<p class="morph-output-meta" data-output-meta></p>
+				<a class="button primary" data-download href="#" download hidden>{copy.download}</a>
+			</ToolPanel>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
+	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
+	import {
+		buildMorphLayers,
+		buildMorphVideoArgs,
+		buildTimeline,
+		ease,
+		estimateBackground,
+		fitContain,
+		frameFileName,
+		hexToRgb,
+		morphFormat,
+		morphOutputName,
+		morphProgress,
+		normalizeMorphSettings,
+		outputDimensions,
+		renderMorphFrame,
+		timelineDuration,
+	} from '../../lib/tools/image-morph';
+
+	/* The live preview is computed at this long edge so scrubbing stays instant; the render uses the chosen size. */
+	const PREVIEW_EDGE = 320;
+	/* The background is read from a small copy of the picture: its border says everything needed. */
+	const SAMPLE_EDGE = 256;
+
+	(() => {
+		const roots = document.querySelectorAll('[data-image-morph]:not([data-image-morph-bound])');
+
+		for (const root of roots) {
+			root.dataset.imageMorphBound = 'true';
+			initImageMorph(root);
+		}
+
+		function initImageMorph(root) {
+			const copy = JSON.parse(root.dataset.copy || '{}');
+			const slots = ['a', 'b'].map((key) => bindSlot(root.querySelector(`[data-slot="${key}"]`)));
+			const holdInput = root.querySelector('[data-hold]');
+			const holdLabel = root.querySelector('[data-hold-label]');
+			const durationInput = root.querySelector('[data-duration]');
+			const durationLabel = root.querySelector('[data-duration-label]');
+			const easingSelect = root.querySelector('[data-easing]');
+			const levelsInput = root.querySelector('[data-levels]');
+			const levelsLabel = root.querySelector('[data-levels-label]');
+			const sizeSelect = root.querySelector('[data-size]');
+			const fpsSelect = root.querySelector('[data-fps]');
+			const formatSelect = root.querySelector('[data-format]');
+			const backgroundInput = root.querySelector('[data-background]');
+			const loopInput = root.querySelector('[data-loop]');
+			const renderButton = root.querySelector('[data-render]');
+			const clearButton = root.querySelector('[data-clear]');
+			const status = root.querySelector('[data-status]');
+			const previewPanel = root.querySelector('[data-preview]');
+			const previewCanvas = root.querySelector('[data-preview-canvas]');
+			const scrub = root.querySelector('[data-scrub]');
+			const scrubLabel = root.querySelector('[data-scrub-label]');
+			const playButton = root.querySelector('[data-play]');
+			const resultPanel = root.querySelector('[data-result]');
+			const outputVideo = root.querySelector('[data-output-video]');
+			const outputMeta = root.querySelector('[data-output-meta]');
+			const downloadLink = root.querySelector('[data-download]');
+
+			if (
+				slots.some((slot) => !slot) || !holdInput || !holdLabel || !durationInput || !durationLabel ||
+				!easingSelect || !levelsInput || !levelsLabel || !sizeSelect || !fpsSelect || !formatSelect ||
+				!backgroundInput || !loopInput || !renderButton || !clearButton || !status || !previewPanel ||
+				!previewCanvas || !scrub || !scrubLabel || !playButton || !resultPanel || !outputVideo ||
+				!outputMeta || !downloadLink
+			) {
+				return;
+			}
+
+			const [first, second] = slots;
+			const previewContext = previewCanvas.getContext('2d');
+			const state = {
+				preview: null,
+				previewToken: 0,
+				outputUrl: null,
+				isWorking: false,
+				playing: false,
+				playStart: 0,
+				frame: null,
+			};
+			const controls = [holdInput, durationInput, easingSelect, levelsInput, sizeSelect, fpsSelect, formatSelect, backgroundInput, loopInput];
+			const ffmpegRuntime = createFfmpegRuntime({
+				timeoutMessage: copy.ffmpegTimeout,
+				onLoading: () => setStatus(copy.ffmpegLoading, 'info'),
+				onReady: () => setStatus(copy.ffmpegReady, 'success'),
+				onProgress: (progress) => setStatus(format(copy.ffmpegProgress, { progress }), 'info'),
+			});
+
+			for (const slot of slots) {
+				slot.input.addEventListener('change', () => {
+					void setSlotFile(slot, slot.input.files && slot.input.files[0] ? slot.input.files[0] : null);
+				});
+			}
+			for (const input of [holdInput, durationInput, levelsInput]) {
+				input.addEventListener('input', updateRangeLabels);
+			}
+			/* Tone levels and the transparent background change the silhouettes, so the preview is rebuilt. */
+			levelsInput.addEventListener('change', rebuildPreview);
+			backgroundInput.addEventListener('input', rebuildPreview);
+			scrub.addEventListener('input', () => {
+				stopPlaying();
+				drawPreview(Number(scrub.value));
+			});
+			playButton.addEventListener('click', () => {
+				if (state.playing) {
+					stopPlaying();
+				} else {
+					startPlaying();
+				}
+			});
+			renderButton.addEventListener('click', () => {
+				void renderVideo();
+			});
+			clearButton.addEventListener('click', resetTool);
+
+			updateRangeLabels();
+			updateReadyState();
+
+			function bindSlot(panel) {
+				if (!panel) {
+					return null;
+				}
+
+				const input = panel.querySelector('[data-file]');
+				const name = panel.querySelector('[data-file-name]');
+				const meta = panel.querySelector('[data-file-meta]');
+				const thumb = panel.querySelector('[data-thumb]');
+
+				if (!input || !name || !meta || !thumb) {
+					return null;
+				}
+
+				return {
+					input,
+					name,
+					meta,
+					thumb,
+					defaults: { name: name.textContent, meta: meta.textContent },
+					file: null,
+					url: null,
+					image: null,
+					width: 0,
+					height: 0,
+					background: null,
+				};
+			}
+
+			async function setSlotFile(slot, file) {
+				resetOutput();
+				stopPlaying();
+				revokeSlotUrl(slot);
+				slot.file = file;
+				slot.image = null;
+				slot.width = 0;
+				slot.height = 0;
+				slot.background = null;
+				slot.thumb.hidden = true;
+				slot.thumb.removeAttribute('src');
+
+				if (!file) {
+					slot.input.value = '';
+					slot.name.textContent = slot.defaults.name;
+					slot.meta.textContent = slot.defaults.meta;
+					setStatus(copy.waiting, 'info');
+					updateReadyState();
+					rebuildPreview();
+					return;
+				}
+
+				slot.url = URL.createObjectURL(file);
+				slot.name.textContent = file.name;
+				slot.meta.textContent = format(copy.fileMeta, { size: formatBytes(file.size), type: file.type || 'image' });
+
+				try {
+					const image = await loadImage(slot.url);
+
+					if (slot.file !== file) {
+						return;
+					}
+
+					slot.image = image;
+					slot.width = image.naturalWidth;
+					slot.height = image.naturalHeight;
+					slot.background = estimateBackground(...sampleRaster(image));
+					slot.thumb.src = slot.url;
+					slot.thumb.hidden = false;
+					slot.meta.textContent = format(copy.imageMeta, {
+						width: slot.width,
+						height: slot.height,
+						size: formatBytes(file.size),
+						background: slot.background ? copy.opaque : copy.transparent,
+					});
+					setStatus(format(copy.imageReady, { name: file.name, width: slot.width, height: slot.height }), 'success');
+				} catch (error) {
+					setStatus(messageFromError(error), 'error');
+				} finally {
+					updateReadyState();
+					rebuildPreview();
+				}
+			}
+
+			/* A small opaque copy whose border the background estimate reads. */
+			function sampleRaster(image) {
+				const scale = Math.min(1, SAMPLE_EDGE / Math.max(image.naturalWidth, image.naturalHeight));
+				const width = Math.max(1, Math.round(image.naturalWidth * scale));
+				const height = Math.max(1, Math.round(image.naturalHeight * scale));
+				const canvas = document.createElement('canvas');
+				canvas.width = width;
+				canvas.height = height;
+				const context = canvas.getContext('2d', { willReadFrequently: true });
+				context.drawImage(image, 0, 0, width, height);
+				return [context.getImageData(0, 0, width, height).data, width, height];
+			}
+
+			/*
+			 * The picture is fitted into the frame on its own background so the letterbox reads as
+			 * background too; a transparent picture is fitted onto nothing and gets the chosen colour.
+			 */
+			function buildLayersFor(slot, width, height, settings) {
+				const canvas = document.createElement('canvas');
+				canvas.width = width;
+				canvas.height = height;
+				const context = canvas.getContext('2d', { willReadFrequently: true });
+				const background = slot.background ?? hexToRgb(settings.background);
+
+				if (slot.background) {
+					context.fillStyle = `rgb(${background[0]}, ${background[1]}, ${background[2]})`;
+					context.fillRect(0, 0, width, height);
+				}
+
+				const fit = fitContain(slot.width, slot.height, width, height);
+				context.drawImage(slot.image, fit.x, fit.y, fit.width, fit.height);
+				const data = context.getImageData(0, 0, width, height).data;
+				return buildMorphLayers(data, width, height, { levels: settings.levels, background });
+			}
+
+			function rebuildPreview() {
+				state.previewToken += 1;
+				const token = state.previewToken;
+
+				if (!first.image || !second.image) {
+					state.preview = null;
+					previewPanel.hidden = true;
+					return;
+				}
+
+				const settings = readSettings();
+				const { width, height } = outputDimensions(first, second, PREVIEW_EDGE);
+				const layers = [buildLayersFor(first, width, height, settings), buildLayersFor(second, width, height, settings)];
+
+				if (token !== state.previewToken) {
+					return;
+				}
+
+				previewCanvas.width = width;
+				previewCanvas.height = height;
+				state.preview = { first: layers[0], second: layers[1], image: previewContext.createImageData(width, height) };
+				previewPanel.hidden = false;
+				drawPreview(Number(scrub.value));
+			}
+
+			function drawPreview(t) {
+				if (!state.preview) {
+					return;
+				}
+
+				renderMorphFrame(state.preview.first, state.preview.second, t, state.preview.image.data);
+				previewContext.putImageData(state.preview.image, 0, 0);
+				scrubLabel.textContent = t.toFixed(2);
+			}
+
+			function startPlaying() {
+				if (!state.preview) {
+					return;
+				}
+
+				state.playing = true;
+				playButton.textContent = copy.pause;
+				state.playStart = performance.now();
+				state.frame = requestAnimationFrame(playTick);
+			}
+
+			function stopPlaying() {
+				state.playing = false;
+				playButton.textContent = copy.play;
+
+				if (state.frame !== null) {
+					cancelAnimationFrame(state.frame);
+					state.frame = null;
+				}
+			}
+
+			/* Plays the preview on the real clock of the clip, holds and easing included, and repeats. */
+			function playTick(now) {
+				if (!state.playing) {
+					return;
+				}
+
+				const settings = readSettings();
+				const total = timelineDuration(settings);
+				const time = ((now - state.playStart) / 1000) % total;
+				const t = ease(settings.easing, morphProgress(time, settings));
+				scrub.value = String(t);
+				drawPreview(t);
+				state.frame = requestAnimationFrame(playTick);
+			}
+
+			async function renderVideo() {
+				if (!first.image || !second.image) {
+					setStatus(copy.needImages, 'error');
+					return;
+				}
+
+				stopPlaying();
+				setWorking(true);
+				resetOutput();
+
+				try {
+					const settings = readSettings();
+					const { width, height } = outputDimensions(first, second, settings.size);
+					setStatus(copy.preparing, 'info');
+					await yieldToBrowser();
+					const layersA = buildLayersFor(first, width, height, settings);
+					await yieldToBrowser();
+					const layersB = buildLayersFor(second, width, height, settings);
+					const timeline = buildTimeline(settings);
+					const profile = morphFormat(settings.format);
+					const outputName = morphOutputName(first.file.name, second.file.name, settings.format);
+					const bytes = await encodeFrames({ layersA, layersB, timeline, width, height, settings, profile });
+					const blob = new Blob([bytes], { type: profile.mimeType });
+
+					state.outputUrl = URL.createObjectURL(blob);
+					outputVideo.src = state.outputUrl;
+					downloadLink.href = state.outputUrl;
+					downloadLink.download = outputName;
+					downloadLink.hidden = false;
+					outputMeta.textContent = format(copy.outputMeta, {
+						width,
+						height,
+						frames: timeline.length,
+						seconds: (timeline.length / settings.fps).toFixed(1),
+						size: formatBytes(blob.size),
+					});
+					resultPanel.hidden = false;
+					setStatus(copy.ready, 'success');
+				} catch (error) {
+					setStatus(messageFromError(error), 'error');
+				} finally {
+					setWorking(false);
+				}
+			}
+
+			/*
+			 * Every frame is painted on a canvas, written to FFmpeg's file system as a PNG and encoded as
+			 * an image sequence once all of them are there, so no more than one frame is held in memory
+			 * on this side at a time.
+			 */
+			async function encodeFrames({ layersA, layersB, timeline, width, height, settings, profile }) {
+				const canvas = document.createElement('canvas');
+				canvas.width = width;
+				canvas.height = height;
+				const context = canvas.getContext('2d');
+				const image = context.createImageData(width, height);
+
+				return ffmpegRuntime.run(async (ffmpeg) => {
+					const prefix = `morph-${Date.now()}`;
+					const outputName = `${prefix}${profile.extension}`;
+					let written = 0;
+
+					try {
+						for (let index = 0; index < timeline.length; index += 1) {
+							setStatus(format(copy.renderingFrames, { index: index + 1, count: timeline.length }), 'info');
+							renderMorphFrame(layersA, layersB, timeline[index], image.data);
+							context.putImageData(image, 0, 0);
+							const frame = await canvasToBlob(canvas);
+							await ffmpeg.writeFile(frameFileName(prefix, index), new Uint8Array(await frame.arrayBuffer()));
+							written += 1;
+						}
+
+						setStatus(copy.encoding, 'info');
+						const resultCode = await ffmpeg.exec(buildMorphVideoArgs({
+							prefix,
+							fps: settings.fps,
+							format: settings.format,
+							outputName,
+						}));
+
+						if (resultCode !== 0) {
+							throw new Error(`FFmpeg exited with code ${resultCode}`);
+						}
+
+						const output = await ffmpeg.readFile(outputName);
+						return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
+					} finally {
+						for (let index = 0; index < written; index += 1) {
+							await ffmpeg.deleteFile(frameFileName(prefix, index)).catch(() => {});
+						}
+						await ffmpeg.deleteFile(outputName).catch(() => {});
+					}
+				});
+			}
+
+			function readSettings() {
+				return normalizeMorphSettings({
+					hold: holdInput.value,
+					duration: durationInput.value,
+					easing: easingSelect.value,
+					levels: levelsInput.value,
+					size: sizeSelect.value,
+					fps: fpsSelect.value,
+					format: formatSelect.value,
+					background: backgroundInput.value,
+					loop: loopInput.checked,
+				});
+			}
+
+			function updateRangeLabels() {
+				holdLabel.textContent = format(copy.seconds, { value: Number(holdInput.value).toFixed(1) });
+				durationLabel.textContent = format(copy.seconds, { value: Number(durationInput.value).toFixed(1) });
+				levelsLabel.textContent = levelsInput.value;
+			}
+
+			function updateReadyState() {
+				const ready = Boolean(first.image && second.image);
+				renderButton.disabled = state.isWorking || !ready;
+				playButton.disabled = state.isWorking || !ready;
+				scrub.disabled = state.isWorking;
+				for (const slot of slots) slot.input.disabled = state.isWorking;
+				for (const control of controls) control.disabled = state.isWorking;
+				clearButton.disabled = state.isWorking || (!first.file && !second.file && !state.outputUrl);
+			}
+
+			function setWorking(isWorking) {
+				state.isWorking = isWorking;
+				updateReadyState();
+			}
+
+			function resetTool() {
+				stopPlaying();
+				for (const slot of slots) {
+					slot.input.value = '';
+					slot.file = null;
+					slot.image = null;
+					slot.width = 0;
+					slot.height = 0;
+					slot.background = null;
+					revokeSlotUrl(slot);
+					slot.thumb.hidden = true;
+					slot.thumb.removeAttribute('src');
+					slot.name.textContent = slot.defaults.name;
+					slot.meta.textContent = slot.defaults.meta;
+				}
+				resetOutput();
+				scrub.value = '0';
+				rebuildPreview();
+				setStatus(copy.reset, 'info');
+				updateReadyState();
+			}
+
+			function resetOutput() {
+				if (state.outputUrl) {
+					URL.revokeObjectURL(state.outputUrl);
+					state.outputUrl = null;
+				}
+				resultPanel.hidden = true;
+				downloadLink.hidden = true;
+				downloadLink.removeAttribute('href');
+				downloadLink.removeAttribute('download');
+				outputVideo.removeAttribute('src');
+				outputMeta.textContent = '';
+			}
+
+			function revokeSlotUrl(slot) {
+				if (slot.url) {
+					URL.revokeObjectURL(slot.url);
+					slot.url = null;
+				}
+			}
+
+			function setStatus(message, stateName) {
+				status.textContent = message;
+				status.dataset.state = stateName;
+			}
+
+			function messageFromError(error) {
+				return error instanceof Error && error.message ? error.message : copy.unknownError;
+			}
+
+			function loadImage(url) {
+				return new Promise((resolve, reject) => {
+					const image = new Image();
+					image.onload = () => {
+						if (image.naturalWidth && image.naturalHeight) {
+							resolve(image);
+						} else {
+							reject(new Error(copy.metadataMissing));
+						}
+					};
+					image.onerror = () => reject(new Error(copy.metadataMissing));
+					image.src = url;
+				});
+			}
+
+			function canvasToBlob(canvas) {
+				return new Promise((resolve, reject) => {
+					canvas.toBlob((blob) => {
+						if (blob) {
+							resolve(blob);
+						} else {
+							reject(new Error(copy.unknownError));
+						}
+					}, 'image/png');
+				});
+			}
+
+			function yieldToBrowser() {
+				return new Promise((resolve) => {
+					window.setTimeout(resolve, 0);
+				});
+			}
+		}
+	})();
+</script>
+
+<style>
+	.image-morph {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(280px, 0.8fr);
+		gap: 18px;
+		align-items: start;
+	}
+
+	.morph-toolbar {
+		display: contents;
+	}
+
+	.morph-toolbar > summary {
+		display: none;
+	}
+
+	.morph-settings {
+		grid-column: 3;
+		grid-row: 1 / span 2;
+	}
+
+	.morph-preview {
+		grid-column: 1 / span 2;
+	}
+
+	.morph-result {
+		grid-column: 1 / -1;
+	}
+
+	.morph-thumb,
+	.morph-canvas {
+		display: block;
+		width: 100%;
+		margin-top: 18px;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.morph-thumb {
+		max-height: 260px;
+		object-fit: contain;
+		background-color: var(--color-checkerboard-background);
+		background-image:
+			linear-gradient(45deg, var(--color-checkerboard-square) 25%, var(--color-transparent) 25%, var(--color-transparent) 75%, var(--color-checkerboard-square) 75%),
+			linear-gradient(45deg, var(--color-checkerboard-square) 25%, var(--color-transparent) 25%, var(--color-transparent) 75%, var(--color-checkerboard-square) 75%);
+		background-size: 20px 20px;
+		background-position: 0 0, 10px 10px;
+	}
+
+	.morph-canvas {
+		height: auto;
+		background: var(--color-surface-alt);
+	}
+
+	.morph-video {
+		display: block;
+		width: 100%;
+		margin-top: 18px;
+		background: #000;
+		border-radius: 8px;
+	}
+
+	.morph-output-meta {
+		margin: 12px 0 0;
+		color: var(--color-muted);
+		font-weight: 700;
+	}
+
+	.morph-color {
+		display: grid;
+		gap: 8px;
+		margin-top: 18px;
+	}
+
+	.morph-color span {
+		color: var(--color-accent-dark);
+		font-size: 0.78rem;
+		font-weight: 850;
+		text-transform: uppercase;
+	}
+
+	.morph-color input {
+		width: 100%;
+		height: 48px;
+		padding: 4px;
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.morph-toggle {
+		margin-top: 18px;
+	}
+
+	.morph-result .button {
+		margin-top: 14px;
+	}
+
+	@media (max-width: 960px) {
+		.image-morph {
+			grid-template-columns: 1fr;
+		}
+
+		.morph-toolbar {
+			display: block;
+			background: var(--color-surface-alt);
+			border: 1px solid var(--color-line);
+			border-radius: 8px;
+		}
+
+		.morph-toolbar > summary {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			min-height: 56px;
+			padding: 0 18px;
+			color: var(--color-ink);
+			font-weight: 850;
+			cursor: pointer;
+		}
+
+		.morph-settings {
+			grid-column: auto;
+			grid-row: auto;
+			border: 0;
+			border-top: 1px solid var(--color-line);
+			border-radius: 0 0 8px 8px;
+		}
+
+		.morph-preview,
+		.morph-result {
+			grid-column: auto;
+		}
+	}
+</style>
