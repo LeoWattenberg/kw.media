@@ -140,6 +140,35 @@ if (base) {
 		margin: 32px 0;
 	}
 
+	.content-html table {
+		display: block;
+		width: max-content;
+		max-width: 100%;
+		margin: 24px 0;
+		overflow-x: auto;
+		border-collapse: collapse;
+		font-size: 0.95rem;
+	}
+
+	.content-html th,
+	.content-html td {
+		padding: 8px 12px;
+		border-bottom: 1px solid var(--color-line);
+		color: var(--color-muted);
+		text-align: left;
+		vertical-align: top;
+	}
+
+	.content-html th {
+		background: var(--color-surface-alt);
+		color: var(--color-ink);
+		font-weight: 850;
+	}
+
+	.content-html td strong {
+		color: var(--color-ink);
+	}
+
 	.content-html iframe {
 		width: 100%;
 		max-width: 100%;
