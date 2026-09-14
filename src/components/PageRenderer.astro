@@ -6,6 +6,7 @@ import ContentHtml from './blocks/ContentHtml.astro';
 import Credentials from './blocks/Credentials.astro';
 import FaqList from './blocks/FaqList.astro';
 import PersonSpotlight from './blocks/PersonSpotlight.astro';
+import PortfolioGrid from './blocks/PortfolioGrid.astro';
 import PostList from './blocks/PostList.astro';
 import Pricing from './blocks/Pricing.astro';
 import ServiceGrid from './blocks/ServiceGrid.astro';
@@ -30,6 +31,7 @@ const headingBlock = page.blocks.some((block) => block.type === 'hero') ? undefi
 		block.type === 'html' ? <ContentHtml html={block.html} locale={page.locale} /> :
 		block.type === 'credentials' ? <Credentials block={block} locale={page.locale} /> :
 		block.type === 'services' ? <ServiceGrid block={block} /> :
+		block.type === 'portfolio' ? <PortfolioGrid block={block} /> :
 		block.type === 'stats' ? <StatsBand block={block} /> :
 		block.type === 'text' ? <TextPanel block={block} /> :
 		block.type === 'testimonials' ? <Testimonials block={block} /> :

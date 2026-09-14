@@ -69,6 +69,63 @@
 					]
 				},
 				{
+					"type": "portfolio",
+					"eyebrow": "Ausgewählte Arbeiten",
+					"title": "Von fokussierten Websites bis zu vollständigen Webanwendungen",
+					"intro": "Für sehr unterschiedliche Aufgaben gestaltet und umgesetzt: Diese Projekte machen kreative Arbeitsabläufe, öffentliche Daten und lokale Ideen zu klaren, verlässlichen digitalen Produkten.",
+					"linkLabel": "Projekt ansehen",
+					"items": [
+						{
+							"title": "Soundscaper",
+							"kind": "Kreative Webanwendung",
+							"text": "Ein Local-first-Mehrspur-Audioeditor, der Aufnahme, Schnitt, Effekte und Export in einer präzisen Browser-Oberfläche vereint.",
+							"href": "https://soundscaper.org/",
+							"image": "/assets/portfolio/soundscaper.png",
+							"imageAlt": "Soundscaper-Mehrspureditor mit mehreren Audioclips auf einer Timeline"
+						},
+						{
+							"title": "Framescaper",
+							"kind": "Kreative Webanwendung",
+							"text": "Eine ergänzende Video-Arbeitsumgebung für Compositing, Effekte und Timeline-Schnitt, die dasselbe Projektsystem wie Soundscaper nutzt.",
+							"href": "https://framescaper.org/",
+							"image": "/assets/portfolio/framescaper.png",
+							"imageAlt": "Framescaper-Videoeditor mit Vorschau sowie Video- und Audiospuren auf einer Timeline"
+						},
+						{
+							"title": "Mindscaper",
+							"kind": "Gemeinnützige Initiative",
+							"text": "Eine zweisprachige Website für eine Open-Source-Initiative für Kreativsoftware, mit markanter redaktioneller Gestaltung und klaren Wegen zu Projekten und Mitarbeit.",
+							"href": "https://mindscaper.org/",
+							"image": "/assets/portfolio/mindscaper.png",
+							"imageAlt": "Mindscaper-Startseite mit großer Typografie und illustrierten Bildschirmen"
+						},
+						{
+							"title": "Det sker på Ærø",
+							"kind": "Community-Veranstaltungsplattform",
+							"text": "Ein schneller dänischer Veranstaltungskalender, der verstreute öffentliche Termine durchsuchbar macht und Kalender-Abos sowie Browser-Erinnerungen anbietet.",
+							"href": "https://leowattenberg.github.io/aeroevents/",
+							"image": "/assets/portfolio/aeroevents.png",
+							"imageAlt": "Startseite des dänischen Veranstaltungskalenders mit historischem Ærø-Kartenmotiv"
+						},
+						{
+							"title": "ongkirstempel",
+							"kind": "Öffentliches Datenportal",
+							"text": "Ein zugängliches indonesisches Nachschlagewerk, das mehr als 360.000 offizielle Posttarif-Routen ohne Backend und Tracker durchsuchbar macht.",
+							"href": "https://ongkirstempel.id/",
+							"image": "/assets/portfolio/ongkirstempel.png",
+							"imageAlt": "Indonesische Posttarif-Suche mit Auswahlfeldern für Start und Ziel"
+						},
+						{
+							"title": "Æ Sydbane",
+							"kind": "Kampagnenwebsite",
+							"text": "Eine Kampagnenseite für eine regionale Bahninitiative, die einen komplexen Vorschlag durch eine klare Geschichte, Datenvergleiche und eine interaktive Streckenkarte vermittelt.",
+							"href": "https://sydbane.dk/",
+							"image": "/assets/portfolio/sydbane.png",
+							"imageAlt": "Gelbe Kampagnenseite von Æ Sydbane mit Nutzenkarten"
+						}
+					]
+				},
+				{
 					"type": "person",
 					"eyebrow": "Ihr Ansprechpartner",
 					"title": "Design und Management durch Leo",
@@ -160,6 +217,63 @@
 						"Landing pages and offer pages",
 						"Ongoing website care",
 						"Technical consulting and troubleshooting"
+					]
+				},
+				{
+					"type": "portfolio",
+					"eyebrow": "Selected work",
+					"title": "From focused websites to full web applications",
+					"intro": "Designed and built across very different briefs, these projects turn creative workflows, public data and community ideas into clear, dependable digital products.",
+					"linkLabel": "Visit project",
+					"items": [
+						{
+							"title": "Soundscaper",
+							"kind": "Creative web application",
+							"text": "A local-first multitrack audio editor that brings recording, editing, effects and export into a precise browser workspace.",
+							"href": "https://soundscaper.org/",
+							"image": "/assets/portfolio/soundscaper.png",
+							"imageAlt": "Soundscaper multitrack editor with several audio clips arranged on a timeline"
+						},
+						{
+							"title": "Framescaper",
+							"kind": "Creative web application",
+							"text": "A companion video workspace for compositing, effects and timeline editing, built on the same shared project system as Soundscaper.",
+							"href": "https://framescaper.org/",
+							"image": "/assets/portfolio/framescaper.png",
+							"imageAlt": "Framescaper video editor with a preview and video and audio tracks on a timeline"
+						},
+						{
+							"title": "Mindscaper",
+							"kind": "Nonprofit initiative",
+							"text": "A bilingual website for an open-source creative-software initiative, pairing a bold editorial identity with clear paths to its projects and community.",
+							"href": "https://mindscaper.org/",
+							"image": "/assets/portfolio/mindscaper.png",
+							"imageAlt": "Mindscaper homepage with bold typography and illustrated screens"
+						},
+						{
+							"title": "Det sker på Ærø",
+							"kind": "Community event platform",
+							"text": "A fast Danish event calendar that turns scattered public listings into searchable events, calendar feeds and privacy-preserving browser reminders.",
+							"href": "https://leowattenberg.github.io/aeroevents/",
+							"image": "/assets/portfolio/aeroevents.png",
+							"imageAlt": "Danish event calendar homepage beside an illustrated historical map of Ærø"
+						},
+						{
+							"title": "ongkirstempel",
+							"kind": "Public-data platform",
+							"text": "An accessible Indonesian reference site that makes more than 360,000 official postal-tariff routes searchable without a backend or trackers.",
+							"href": "https://ongkirstempel.id/",
+							"image": "/assets/portfolio/ongkirstempel.png",
+							"imageAlt": "Indonesian postal-tariff search with origin and destination selectors"
+						},
+						{
+							"title": "Æ Sydbane",
+							"kind": "Public-interest campaign",
+							"text": "A regional rail advocacy site that explains a complex proposal through a clear campaign story, data comparisons and an interactive route map.",
+							"href": "https://sydbane.dk/",
+							"image": "/assets/portfolio/sydbane.png",
+							"imageAlt": "Yellow Æ Sydbane campaign homepage with a row of benefit cards"
+						}
 					]
 				},
 				{

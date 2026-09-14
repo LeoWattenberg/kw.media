@@ -6,6 +6,7 @@ export type PageBlock =
 	| HtmlBlock
 	| CredentialsBlock
 	| ServicesBlock
+	| PortfolioBlock
 	| StatsBlock
 	| TextBlock
 	| TestimonialsBlock
@@ -52,6 +53,22 @@ export interface ServicesBlock {
 		title: string;
 		text: string;
 		href?: string;
+	}>;
+}
+
+export interface PortfolioBlock {
+	type: 'portfolio';
+	eyebrow?: string;
+	title: string;
+	intro?: string;
+	linkLabel: string;
+	items: Array<{
+		title: string;
+		kind: string;
+		text: string;
+		href: string;
+		image: string;
+		imageAlt: string;
 	}>;
 }
 

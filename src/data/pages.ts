@@ -11,6 +11,7 @@ export type {
 	HtmlBlock,
 	PageBlock,
 	PersonBlock,
+	PortfolioBlock,
 	PostListBlock,
 	PricingBlock,
 	ServicesBlock,
