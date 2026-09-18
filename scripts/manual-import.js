@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, unlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { basename, join, relative, sep } from 'node:path';
 import {
@@ -537,90 +537,112 @@ const changesBeforeImport = gitRoot ? repositoryChanges() : new Set();
 
 try {
 	for (const playlist of playlists) {
-		const entries = flatPlaylistEntries(playlist.url);
+		let entries;
+		try {
+			entries = flatPlaylistEntries(playlist.url);
+		} catch (error) {
+			console.warn(`Skipped playlist ${playlist.url}: ${errorMessage(error)}`);
+			continue;
+		}
 
 		for (const entry of entries) {
 			if (existingVideoIds.has(entry.id)) {
 				continue;
 			}
 
-			const metadata = videoMetadata(entry.id);
-			const locale = localeFor(metadata);
-			const transcript = downloadTranscript(entry.id, locale, tempDir);
+			let outputPath;
+			let translationPath;
+			let metadata;
+			try {
+				metadata = videoMetadata(entry.id);
+				const locale = localeFor(metadata);
+				const transcript = downloadTranscript(entry.id, locale, tempDir);
 
-			if (!transcript) {
-				skipped.push(`${metadata.title} (${entry.id}): no ${locale} transcript found`);
-				continue;
-			}
-
-			let cleanedTranscript = cleanTranscript(transcript, locale);
-			const transcriptLocale = detectTextLocale(cleanedTranscript);
-
-			if (transcriptLocale && transcriptLocale !== locale) {
-				console.warn(`Transcript for ${entry.id} looks ${transcriptLocale}, not ${locale}; translating before import.`);
-				cleanedTranscript = await translateTranscriptMarkdown(
-					cleanedTranscript,
-					transcriptLocale,
-					locale,
-					playlist.category,
-				);
-			}
-			const slug = uniqueSlug(slugify(metadata.title, locale), existingSlugs);
-			const routePrefix = playlist.pathPrefix ?? `/${locale === 'de' ? 'youtube-tipps-de' : 'youtube-tips-en'}`;
-			const postPath = `${routePrefix}/${slug}/`;
-			const date = isoDate(metadata.timestamp, metadata.uploadDate);
-			const currentWatchUrl = watchUrl(entry.id, playlist.defaultWatchKind);
-			const thumbnailUrl = `https://i.ytimg.com/vi/${entry.id}/maxresdefault.jpg`;
-			const post = {
-				id: nextId,
-				slug,
-				path: postPath,
-				title: metadata.title,
-				excerpt: summarizeTranscript(cleanedTranscript),
-				date,
-				modified: date,
-				locale,
-				translationKey: `video:${entry.id}`,
-				category: playlist.category,
-				image: thumbnailUrl,
-				authorName: playlist.authorName ?? 'Martin Koytek',
-				sourceUrl: currentWatchUrl,
-				video: {
-					youtubeId: entry.id,
-					embedUrl: `https://www.youtube.com/embed/${entry.id}`,
-					watchUrl: currentWatchUrl,
-					thumbnailUrl,
-				},
-				sources: extractSourceLinksFromDescription(metadata.description, {
-					sourceUrl: currentWatchUrl,
-					videoId: entry.id,
-				}),
-			};
-
-			const fileContent = `${frontmatterString(post)}\n\n${markdownBody(locale, transcriptParagraphs(cleanedTranscript))}\n`;
-			const outputPath = join(postOutputDirectory(playlist.postType ?? 'video', locale), `${slug}.md`);
-			let createdTranslation = false;
-			writeFileSync(outputPath, fileContent);
-
-			if (runAiPostProcessing) {
-				console.log(`Cleaning ${outputPath}`);
-				await cleanupPostFile(outputPath);
-			}
-
-			if (runAiPostProcessing && playlist.translate !== false) {
-				console.log(`Translating ${outputPath}`);
-				const translation = await translatePostFile(outputPath);
-				if (!translation.skipped) {
-					createdTranslation = true;
-					createdPostPaths.push(translation.targetPath);
-					translated.push(`${metadata.title} (${entry.id}) -> ${translation.targetPath}`);
+				if (!transcript) {
+					skipped.push(`${metadata.title} (${entry.id}): no ${locale} transcript found`);
+					continue;
 				}
-			}
 
-			existingVideoIds.add(entry.id);
-			nextId += createdTranslation ? 2 : 1;
-			createdPostPaths.push(outputPath);
-			created.push(`${metadata.title} (${entry.id})`);
+				let cleanedTranscript = cleanTranscript(transcript, locale);
+				const transcriptLocale = detectTextLocale(cleanedTranscript);
+
+				if (transcriptLocale && transcriptLocale !== locale) {
+					console.warn(`Transcript for ${entry.id} looks ${transcriptLocale}, not ${locale}; translating before import.`);
+					cleanedTranscript = await translateTranscriptMarkdown(
+						cleanedTranscript,
+						transcriptLocale,
+						locale,
+						playlist.category,
+					);
+				}
+				const slug = uniqueSlug(slugify(metadata.title, locale), existingSlugs);
+				const routePrefix = playlist.pathPrefix ?? `/${locale === 'de' ? 'youtube-tipps-de' : 'youtube-tips-en'}`;
+				const postPath = `${routePrefix}/${slug}/`;
+				const date = isoDate(metadata.timestamp, metadata.uploadDate);
+				const currentWatchUrl = watchUrl(entry.id, playlist.defaultWatchKind);
+				const thumbnailUrl = `https://i.ytimg.com/vi/${entry.id}/maxresdefault.jpg`;
+				const post = {
+					id: nextId,
+					slug,
+					path: postPath,
+					title: metadata.title,
+					excerpt: summarizeTranscript(cleanedTranscript),
+					date,
+					modified: date,
+					locale,
+					translationKey: `video:${entry.id}`,
+					category: playlist.category,
+					image: thumbnailUrl,
+					authorName: playlist.authorName ?? 'Martin Koytek',
+					sourceUrl: currentWatchUrl,
+					video: {
+						youtubeId: entry.id,
+						embedUrl: `https://www.youtube.com/embed/${entry.id}`,
+						watchUrl: currentWatchUrl,
+						thumbnailUrl,
+					},
+					sources: extractSourceLinksFromDescription(metadata.description, {
+						sourceUrl: currentWatchUrl,
+						videoId: entry.id,
+					}),
+				};
+
+				const fileContent = `${frontmatterString(post)}\n\n${markdownBody(locale, transcriptParagraphs(cleanedTranscript))}\n`;
+				outputPath = join(postOutputDirectory(playlist.postType ?? 'video', locale), `${slug}.md`);
+				let createdTranslation = false;
+				writeFileSync(outputPath, fileContent);
+
+				if (runAiPostProcessing) {
+					console.log(`Cleaning ${outputPath}`);
+					await cleanupPostFile(outputPath);
+				}
+
+				if (runAiPostProcessing && playlist.translate !== false) {
+					console.log(`Translating ${outputPath}`);
+					const translation = await translatePostFile(outputPath);
+					if (!translation.skipped) {
+						createdTranslation = true;
+						translationPath = translation.targetPath;
+						createdPostPaths.push(translationPath);
+						translated.push(`${metadata.title} (${entry.id}) -> ${translationPath}`);
+					}
+				}
+
+				existingVideoIds.add(entry.id);
+				nextId += createdTranslation ? 2 : 1;
+				createdPostPaths.push(outputPath);
+				created.push(`${metadata.title} (${entry.id})`);
+			} catch (error) {
+				if (translationPath && existsSync(translationPath)) {
+					unlinkSync(translationPath);
+				}
+				if (outputPath && existsSync(outputPath)) {
+					unlinkSync(outputPath);
+				}
+				const label = metadata?.title ?? entry.id;
+				skipped.push(`${label} (${entry.id}): ${errorMessage(error)}`);
+				console.warn(`Skipped ${label} (${entry.id}): ${errorMessage(error)}`);
+			}
 		}
 	}
 } finally {
@@ -629,19 +651,28 @@ try {
 
 if (runAiPostProcessing && createdPostPaths.length) {
 	console.log('Expanding imported transcript post(s)');
-	for (const postPath of createdPostPaths) {
-		console.log(`Expanding ${postPath}`);
-		await expandTranscriptPostFile(postPath);
+	for (const postPath of [...createdPostPaths]) {
+		try {
+			console.log(`Expanding ${postPath}`);
+			await expandTranscriptPostFile(postPath);
+		} catch (error) {
+			skipped.push(`${postPath}: expansion failed: ${errorMessage(error)}`);
+			console.warn(`Skipped expansion for ${postPath}: ${errorMessage(error)}`);
+		}
 	}
 
-	console.log('Generating related-post data for imported post(s)');
-	runNodeScript('build-related-posts.mjs', createdPostPaths);
-
-	console.log('Adding inline links to imported post(s)');
-	runNodeScript('add-inline-post-links.mjs', createdPostPaths);
-
-	console.log('Generating post CTAs for imported post(s)');
-	runNodeScript('generate-post-ctas.mjs', createdPostPaths);
+	for (const [scriptName, description] of [
+		['build-related-posts.mjs', 'related-post data'],
+		['add-inline-post-links.mjs', 'inline links'],
+		['generate-post-ctas.mjs', 'post CTAs'],
+	]) {
+		try {
+			console.log(`Generating ${description} for imported post(s)`);
+			runNodeScript(scriptName, createdPostPaths);
+		} catch (error) {
+			console.warn(`Skipped ${description}: ${errorMessage(error)}`);
+		}
+	}
 }
 
 if (created.length) {
@@ -679,4 +710,8 @@ function runNodeScript(scriptName, args = []) {
 	execFileSync(process.execPath, [join(process.cwd(), 'scripts', scriptName), ...args], {
 		stdio: 'inherit',
 	});
+}
+
+function errorMessage(error) {
+	return String(error?.stderr || error?.message || error).trim();
 }
