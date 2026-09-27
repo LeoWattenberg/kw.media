@@ -41,6 +41,7 @@ const copyByLocale = {
 		easingLabel: 'Interpolation',
 		fpsLabel: 'Bildrate',
 		levelsLabel: 'Tonstufen',
+		detailThresholdLabel: 'Detailschwelle (niedriger erhält blasse Details)',
 		sizeLabel: 'Größe (lange Kante)',
 		backgroundLabel: 'Hintergrund',
 		colorLabel: 'Hintergrundfarbe',
@@ -117,6 +118,7 @@ const copyByLocale = {
 		easingLabel: 'Interpolation',
 		fpsLabel: 'Frame rate',
 		levelsLabel: 'Tone levels',
+		detailThresholdLabel: 'Detail threshold (lower keeps faint details)',
 		sizeLabel: 'Size (long edge)',
 		backgroundLabel: 'Background',
 		colorLabel: 'Background colour',
@@ -254,6 +256,12 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 						valueAttrs={{ 'data-levels-label': true }}
 						inputAttrs={{ 'data-levels': true, min: MORPH_LIMITS.levels.min, max: 6, step: 1, value: defaults.levels }}
 					/>
+					<RangeControl
+						label={copy.detailThresholdLabel}
+						value={`${defaults.detailThreshold}%`}
+						valueAttrs={{ 'data-detail-threshold-label': true }}
+						inputAttrs={{ 'data-detail-threshold': true, min: MORPH_LIMITS.detailThreshold.min, max: MORPH_LIMITS.detailThreshold.max, step: 1, value: defaults.detailThreshold }}
+					/>
 					<SelectControl label={copy.sizeLabel} selectAttrs={{ 'data-size': true }}>
 						{MORPH_SIZES.map((size) => <option value={size} selected={size === defaults.size}>{size}px</option>)}
 					</SelectControl>
@@ -351,6 +359,8 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 			const fpsSelect = root.querySelector('[data-fps]');
 			const levelsInput = root.querySelector('[data-levels]');
 			const levelsLabel = root.querySelector('[data-levels-label]');
+			const detailThresholdInput = root.querySelector('[data-detail-threshold]');
+			const detailThresholdLabel = root.querySelector('[data-detail-threshold-label]');
 			const sizeSelect = root.querySelector('[data-size]');
 			const backgroundSelect = root.querySelector('[data-background]');
 			const colorGroup = root.querySelector('[data-color-group]');
@@ -374,7 +384,7 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 
 			if (
 				slots.some((slot) => !slot) || !holdStartInput || !durationInput || !holdEndInput || !easingSelect ||
-				!fpsSelect || !levelsInput || !levelsLabel || !sizeSelect || !backgroundSelect || !colorGroup ||
+				!fpsSelect || !levelsInput || !levelsLabel || !detailThresholdInput || !detailThresholdLabel || !sizeSelect || !backgroundSelect || !colorGroup ||
 				!colorInput || !formatSelect || !loopInput || !renderButton || !clearButton || !status ||
 				!previewPanel || !previewCanvas || !scrub || !scrubLabel || !playButton || !resultPanel ||
 				!outputFrame || !outputVideo || !outputMeta || !outputNote || !downloadLink
@@ -394,7 +404,7 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 				frame: null,
 			};
 			const controls = [
-				holdStartInput, durationInput, holdEndInput, easingSelect, fpsSelect, levelsInput, sizeSelect,
+				holdStartInput, durationInput, holdEndInput, easingSelect, fpsSelect, levelsInput, detailThresholdInput, sizeSelect,
 				backgroundSelect, colorInput, formatSelect, loopInput,
 			];
 			const ffmpegRuntime = createFfmpegRuntime({
@@ -412,8 +422,12 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 				});
 			}
 			levelsInput.addEventListener('input', updateLevelsLabel);
-			/* Tone levels and the background change the silhouettes or what sits behind them, so the preview is rebuilt. */
+			detailThresholdInput.addEventListener('input', () => {
+				detailThresholdLabel.textContent = `${detailThresholdInput.value}%`;
+			});
+			/* Tone levels, detail threshold and background change the silhouettes or what sits behind them. */
 			levelsInput.addEventListener('change', rebuildPreview);
+			detailThresholdInput.addEventListener('change', rebuildPreview);
 			backgroundSelect.addEventListener('change', () => {
 				updateBackgroundUi();
 				rebuildPreview();
@@ -560,8 +574,9 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 				const data = context.getImageData(0, 0, width, height).data;
 				const backgroundAlpha = settings.background === 'color' || (settings.background === 'source' && own) ? 1 : 0;
 
-				return buildMorphLayers(data, width, height, {
+			return buildMorphLayers(data, width, height, {
 					levels: settings.levels,
+					detailThreshold: settings.detailThreshold,
 					background: settings.background === 'color' ? chosen : reference,
 					backgroundAlpha,
 					reference,
@@ -755,6 +770,7 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 					easing: easingSelect.value,
 					fps: fpsSelect.value,
 					levels: levelsInput.value,
+					detailThreshold: detailThresholdInput.value,
 					size: sizeSelect.value,
 					background: backgroundSelect.value,
 					color: colorInput.value,

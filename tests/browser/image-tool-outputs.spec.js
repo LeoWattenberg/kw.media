@@ -574,6 +574,31 @@ test.describe('image tool outputs', () => {
 		};
 	}, href);
 
+	test('Image Morph detail threshold reveals faint PNG artwork in the preview', async ({ page }) => {
+		await page.goto('/en/tools/image-morph/');
+		const tool = page.locator('[data-image-morph]');
+		const picture = {
+			width: 96, height: 64, background: '#ffffff',
+			shapes: [
+				{ type: 'rect', x: 16, y: 16, width: 16, height: 16, color: '#f8f8f8' },
+				{ type: 'rect', x: 56, y: 16, width: 16, height: 16, color: '#000000' },
+			],
+		};
+		await paintFile(tool.locator('[data-slot="a"] [data-file]'), { ...picture, name: 'first.png' });
+		await paintFile(tool.locator('[data-slot="b"] [data-file]'), { ...picture, name: 'second.png' });
+		await expect(tool.locator('[data-preview]')).toBeVisible();
+		const threshold = tool.locator('[data-detail-threshold]');
+		await expect(threshold).toHaveValue('2');
+		const faint = await previewPixel(tool, 0.5, 80, 80);
+		expect(faint[0]).toBeGreaterThan(220);
+		expect(faint[0]).toBeLessThan(255);
+		expect(faint[3]).toBe(255);
+		await setValue(threshold, 10);
+		await expect(tool.locator('[data-detail-threshold-label]')).toHaveText('10%');
+		expect((await previewPixel(tool, 0.5, 80, 80))[3]).toBe(0);
+		expect((await previewPixel(tool, 0.5, 207, 80))[3]).toBe(255);
+	});
+
 	test('Image Morph previews a distance-field morph and renders it with and without alpha', async ({ page }) => {
 		test.setTimeout(CDN_TIMEOUT);
 		const errors = collectPageErrors(page);

@@ -139,16 +139,18 @@ test('easing styles pin both ends and the monotonic ones never run backwards', (
 test('morph settings clamp every control, snap the frame rate and fall back to the defaults', () => {
 	assert.deepEqual(normalizeMorphSettings({}), DEFAULT_MORPH_SETTINGS);
 	assert.deepEqual(normalizeMorphSettings({
-		holdStart: -3, holdEnd: '99', duration: 0, fps: '29', easing: 'nope', format: 'gif', levels: 12, size: 4000, background: 'paper', color: 'red', loop: 'yes',
+		holdStart: -3, holdEnd: '99', duration: 0, fps: '29', easing: 'nope', format: 'gif', levels: 12, detailThreshold: 99, size: 4000, background: 'paper', color: 'red', loop: 'yes',
 	}), {
 		holdStart: 0, holdEnd: 10, duration: 0.1, fps: 30, easing: DEFAULT_MORPH_SETTINGS.easing, format: DEFAULT_MORPH_SETTINGS.format,
-		levels: 8, size: 1920, background: 'transparent', color: '#ffffff', loop: true,
+		levels: 8, detailThreshold: 15, size: 1920, background: 'transparent', color: '#ffffff', loop: true,
 	});
 	assert.equal(normalizeMorphSettings({ fps: '59' }).fps, 60);
 	assert.equal(normalizeMorphSettings({ fps: 'abc' }).fps, 30);
 	assert.equal(normalizeMorphSettings({ holdStart: 1.234 }).holdStart, 1.23);
 	assert.equal(normalizeMorphSettings({ easing: 'snap', format: 'webm-vp8' }).easing, 'snap');
 	assert.equal(normalizeMorphSettings({ format: 'mp4-h264' }).format, 'mp4-h264');
+	assert.equal(normalizeMorphSettings({ detailThreshold: -1 }).detailThreshold, 0);
+	assert.equal(normalizeMorphSettings({ detailThreshold: '7' }).detailThreshold, 7);
 	assert.deepEqual(normalizeMorphSettings({ size: 479, levels: '2', background: 'color', color: '#ABC' }), {
 		...DEFAULT_MORPH_SETTINGS, size: 480, levels: 2, background: 'color', color: '#aabbcc',
 	});
@@ -347,6 +349,62 @@ test('layers nest from light to dark and carry the colour of the band each one a
 	assert.equal(knockedOut.layers[0].pixels, 64);
 	assert.deepEqual(knockedOut.layers[0].color, BLACK);
 	assert.equal(buildMorphLayers(flat, width, width, { backgroundAlpha: 7 }).backgroundAlpha, 1);
+});
+
+test('faint PNG details survive beside dark ink and the threshold controls their inclusion', () => {
+	const width = 16;
+	const pale = [248, 248, 248];
+	const picture = raster(width, width, (x, y) => (
+		inBox(x, y, [2, 2, 4, 4]) ? pale : inBox(x, y, [10, 10, 4, 4]) ? BLACK : WHITE
+	));
+	const out = new Uint8ClampedArray(picture.length);
+	const defaultLayers = buildMorphLayers(picture, width, width, { levels: 3, background: WHITE });
+	assert.equal(defaultLayers.layers[0].pixels, 32);
+	assert.deepEqual(defaultLayers.layers[0].color, pale);
+	renderMorphFrame(defaultLayers, defaultLayers, 0.5, out);
+	assert.deepEqual(pixelAt(out, width, 3, 3), [...pale, 255]);
+	assert.deepEqual(pixelAt(out, width, 11, 11), [...BLACK, 255]);
+
+	const higher = buildMorphLayers(picture, width, width, { levels: 3, detailThreshold: 10, background: WHITE });
+	assert.equal(higher.layers[0].pixels, 16);
+	renderMorphFrame(higher, higher, 0.5, out);
+	assert.deepEqual(pixelAt(out, width, 3, 3), [...WHITE, 255]);
+	assert.deepEqual(pixelAt(out, width, 11, 11), [...BLACK, 255]);
+
+	const barelyVisible = raster(width, width, (x, y) => (inBox(x, y, [2, 2, 4, 4]) ? [253, 253, 253] : WHITE));
+	const paleOnly = buildMorphLayers(barelyVisible, width, width, { levels: 3, background: WHITE });
+	assert.equal(paleOnly.layers[0].pixels, 16, 'a faint-only image should normalize against its own ink');
+	renderMorphFrame(paleOnly, paleOnly, 0, out);
+	assert.deepEqual(pixelAt(out, width, 3, 3), [253, 253, 253, 255]);
+});
+
+test('hold frames retain source pixels even when nearby colours share one tone band', () => {
+	const width = 16;
+	const picture = raster(width, width, (x, y) => (
+		inBox(x, y, [6, 6, 4, 4]) ? [36, 36, 36]
+			: inBox(x, y, [2, 2, 12, 12]) ? [32, 32, 32] : WHITE
+	));
+	const source = buildMorphLayers(picture, width, width, { levels: 3, background: WHITE });
+	const out = new Uint8ClampedArray(picture.length);
+	renderMorphFrame(source, source, 0, out);
+	assert.deepEqual(out, picture, 'the source-background hold is byte-for-byte the source raster');
+	renderMorphFrame(source, source, 1, out);
+	assert.deepEqual(out, picture, 'the end hold also retains the source raster');
+
+	const transparent = buildMorphLayers(picture, width, width, { levels: 3, background: WHITE, backgroundAlpha: 0 });
+	renderMorphFrame(transparent, transparent, 0, out);
+	assert.deepEqual(pixelAt(out, width, 7, 7), [36, 36, 36, 255]);
+	assert.deepEqual(pixelAt(out, width, 3, 3), [32, 32, 32, 255]);
+	assert.deepEqual(pixelAt(out, width, 0, 0), [255, 255, 255, 0]);
+
+	const cutout = raster(width, width, (x, y) => (inBox(x, y, [2, 2, 12, 12]) ? [40, 80, 120, 128] : CLEAR));
+	const withAlpha = buildMorphLayers(cutout, width, width, {
+		levels: 3, background: WHITE, backgroundAlpha: 0, alphaFloor: TRANSPARENT_INK_FLOOR,
+	});
+	renderMorphFrame(withAlpha, withAlpha, 0, out);
+	assert.deepEqual(pixelAt(out, width, 7, 7), [40, 80, 120, 128]);
+	renderMorphFrame(withAlpha, withAlpha, 0, out, { flatten: true });
+	assert.deepEqual(pixelAt(out, width, 7, 7), [147, 167, 187, 255]);
 });
 
 test('a morph frame reproduces each picture at its ends and blends the silhouettes between them', () => {

@@ -19,6 +19,7 @@ export const MORPH_LIMITS = {
 	hold: { min: 0, max: 10 },
 	duration: { min: 0.1, max: 10 },
 	levels: { min: 1, max: 8 },
+	detailThreshold: { min: 0, max: 15 },
 	size: { min: 64, max: 1920 },
 };
 
@@ -79,6 +80,7 @@ export const DEFAULT_MORPH_SETTINGS = {
 	easing: 'ease-in-out',
 	format: 'prores-4444',
 	levels: 3,
+	detailThreshold: 2,
 	size: 720,
 	background: 'transparent',
 	color: '#ffffff',
@@ -157,6 +159,7 @@ export function normalizeMorphSettings(raw = {}) {
 		easing: MORPH_EASINGS.some((easing) => easing.id === raw.easing) ? raw.easing : defaults.easing,
 		format: MORPH_OUTPUT_FORMATS.some((format) => format.id === raw.format) ? raw.format : defaults.format,
 		levels: Math.round(clamp(number(raw.levels, defaults.levels), MORPH_LIMITS.levels.min, MORPH_LIMITS.levels.max)),
+		detailThreshold: Math.round(clamp(number(raw.detailThreshold, defaults.detailThreshold), MORPH_LIMITS.detailThreshold.min, MORPH_LIMITS.detailThreshold.max)),
 		size: evenSize(clamp(number(raw.size, defaults.size), MORPH_LIMITS.size.min, MORPH_LIMITS.size.max)),
 		background: MORPH_BACKGROUNDS.includes(raw.background) ? raw.background : defaults.background,
 		color: normalizeHexColor(raw.color, defaults.color),
@@ -378,6 +381,8 @@ export function inkMap(data, width, height, reference, { alphaFloor = 0 } = {}) 
 	const ink = new Float32Array(size);
 	const histogram = new Uint32Array(256);
 	let inked = 0;
+	let flatBackground = 0;
+	let strongest = 0;
 
 	for (let index = 0; index < size; index += 1) {
 		const offset = index * 4;
@@ -392,8 +397,15 @@ export function inkMap(data, width, height, reference, { alphaFloor = 0 } = {}) 
 		const distance = Math.sqrt((red * red + green * green + blue * blue) / 3) / 255;
 		const value = alpha * Math.max(alphaFloor, distance);
 		ink[index] = value;
+		if (alpha === 1 && distance === 0) flatBackground += 1;
+		if (value > strongest) strongest = value;
+	}
 
-		if (value > 0.02) {
+	/* A flat background makes even a one-code-value difference intentional in a PNG.
+	   Keep the noise cutoff for images without a flat background and stronger ink. */
+	const cutoff = flatBackground >= size / 4 || strongest <= 0.02 ? 0 : 0.02;
+	for (const value of ink) {
+		if (value > cutoff) {
 			histogram[Math.min(255, Math.round(value * 255))] += 1;
 			inked += 1;
 		}
@@ -414,7 +426,7 @@ export function inkMap(data, width, height, reference, { alphaFloor = 0 } = {}) 
 		}
 	}
 
-	const scale = 1 / Math.max(0.2, percentile / 255);
+	const scale = 1 / Math.max(1 / 255, percentile / 255);
 	for (let index = 0; index < size; index += 1) {
 		const value = ink[index] * scale;
 		ink[index] = value > 1 ? 1 : value;
@@ -424,15 +436,16 @@ export function inkMap(data, width, height, reference, { alphaFloor = 0 } = {}) 
 }
 
 /*
- * Nested silhouettes of one picture with a signed distance field and a colour each. Layer k holds
- * every pixel at least (k + 0.5) / levels deep in ink, so later layers sit inside earlier ones and are
- * painted on top; its colour is the mean of the band it adds over the layer before it.
+ * Nested silhouettes of one picture with a signed distance field and a colour each. The first layer
+ * includes ink above the configurable detail threshold; later layers use progressively deeper tone
+ * cuts. The layers are painted from light to dark, each in the mean colour of the band it adds.
  *
  * `background` is the colour painted behind the layers and `backgroundAlpha` how opaque that paint
  * is; `reference` is the colour ink is measured against when it differs from the paint.
  */
 export function buildMorphLayers(data, width, height, {
 	levels = 3,
+	detailThreshold = DEFAULT_MORPH_SETTINGS.detailThreshold,
 	background = [255, 255, 255],
 	backgroundAlpha = 1,
 	reference = background,
@@ -443,16 +456,17 @@ export function buildMorphLayers(data, width, height, {
 	const ink = inkMap(data, width, height, reference, { alphaFloor });
 	const limit = Math.max(width, height) * FAR_FIELD;
 	const layers = [];
+	const faintThreshold = clamp(Number(detailThreshold), MORPH_LIMITS.detailThreshold.min, MORPH_LIMITS.detailThreshold.max) / 100;
 
 	for (let level = 0; level < count; level += 1) {
-		const threshold = (level + 0.5) / count;
+		const threshold = level === 0 ? faintThreshold : (level + 0.5) / count;
 		const upper = (level + 1.5) / count;
 		const mask = new Uint8Array(size);
 		const band = { count: 0, red: 0, green: 0, blue: 0 };
 		const whole = { count: 0, red: 0, green: 0, blue: 0 };
 
 		for (let index = 0; index < size; index += 1) {
-			if (ink[index] < threshold) {
+			if (ink[index] === 0 || ink[index] < threshold) {
 				continue;
 			}
 
@@ -484,17 +498,41 @@ export function buildMorphLayers(data, width, height, {
 		});
 	}
 
-	return { width, height, background: background.slice(), backgroundAlpha: clamp(backgroundAlpha, 0, 1), layers };
+	return {
+		width, height, background: background.slice(), backgroundAlpha: clamp(backgroundAlpha, 0, 1), layers,
+		sourceData: data,
+		alphaSilhouette: alphaFloor > 0,
+		preserveSourceBackground: alphaFloor === 0 && backgroundAlpha === 1
+			&& background.every((channel, index) => channel === reference[index]),
+	};
 }
 
 /*
- * One frame of the morph as straight RGBA. Every layer's two fields are blended, re-thresholded at
- * zero with a two-pixel ramp for anti-aliasing, and painted in its blended colour over the blended
- * background; the background's own opacity blends too, so a picture on nothing morphs onto nothing.
- * At t = 0 and t = 1 the ramp reproduces each source silhouette exactly. `flatten` composites the
- * frame onto the background colour for containers without an alpha channel.
+ * Hold frames retain their source pixels. If an opaque picture's background is replaced or removed,
+ * its first silhouette selects the original foreground pixels. Intermediate frames blend and redraw
+ * the distance fields in their band colours. `flatten` composites transparent frames onto the
+ * background colour for containers without an alpha channel.
  */
 export function renderMorphFrame(first, second, t, out, { flatten = false } = {}) {
+	const endpoint = t === 0 ? first : t === 1 ? second : null;
+	if (endpoint?.sourceData) {
+		const { sourceData, width, height, background, backgroundAlpha = 1, layers } = endpoint;
+		for (let index = 0; index < width * height; index += 1) {
+			const offset = index * 4;
+			const coverage = endpoint.alphaSilhouette ? sourceData[offset + 3] / 255
+				: endpoint.preserveSourceBackground ? 1 : layers[0].sdf[index] < 0 ? 1 : 0;
+			const alpha = flatten ? 1 : backgroundAlpha + (1 - backgroundAlpha) * coverage;
+			for (let channel = 0; channel < 3; channel += 1) {
+				const color = sourceData[offset + channel];
+				out[offset + channel] = flatten || backgroundAlpha > 0
+					? background[channel] * (1 - coverage) + color * coverage
+					: coverage > 0 ? color : background[channel];
+			}
+			out[offset + 3] = alpha * 255;
+		}
+		return out;
+	}
+
 	const size = first.width * first.height;
 	const mix = (from, to) => from + (to - from) * t;
 	const channel = (value) => (value < 0 ? 0 : value > 255 ? 255 : value);
