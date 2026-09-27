@@ -9,6 +9,7 @@ import {
 	MORPH_OUTPUT_FORMATS,
 	MORPH_SIZES,
 	TRANSPARENT_INK_FLOOR,
+	buildMorphConcatArgs,
 	buildMorphLayers,
 	buildMorphVideoArgs,
 	buildTimeline,
@@ -18,6 +19,7 @@ import {
 	fitContain,
 	frameFileName,
 	framePattern,
+	hasTransparency,
 	hexToRgb,
 	inkMap,
 	morphOutputName,
@@ -252,7 +254,7 @@ test('signed distance fields are euclidean, negative inside and positive outside
 	assert.ok(signedDistanceField(new Uint8Array(12).fill(1), 4, 3, 7).every((value) => value === -7));
 });
 
-test('the background is the colour the border mostly is, unless the border is see-through', () => {
+test('the background is the colour opaque border pixels mostly are, while alpha is tracked separately', () => {
 	const logo = raster(20, 20, (x, y) => (x === 0 && y === 0 ? [255, 0, 0] : inBox(x, y, [5, 5, 10, 10]) ? BLACK : WHITE));
 	assert.deepEqual(estimateBackground(logo, 20, 20), WHITE);
 
@@ -269,9 +271,12 @@ test('the background is the colour the border mostly is, unless the border is se
 	const cutout = raster(20, 20, (x, y) => (inBox(x, y, [5, 5, 10, 10]) ? BLACK : CLEAR));
 	assert.equal(estimateBackground(cutout, 20, 20), null);
 	const mixedBorder = raster(20, 20, (x, y) => (y === 0 ? CLEAR : WHITE));
-	assert.equal(estimateBackground(mixedBorder, 20, 20), null, 'a narrow transparent border must stay transparent');
+	assert.deepEqual(estimateBackground(mixedBorder, 20, 20), WHITE);
+	assert.equal(hasTransparency(mixedBorder), true, 'a narrow clear border still marks the image as carrying alpha');
 	const clearCentre = raster(20, 20, (x, y) => (inBox(x, y, [8, 8, 4, 4]) ? CLEAR : WHITE));
-	assert.equal(estimateBackground(clearCentre, 20, 20), null, 'transparency away from the border also matters');
+	assert.deepEqual(estimateBackground(clearCentre, 20, 20), WHITE);
+	assert.equal(hasTransparency(clearCentre), true, 'transparency away from the border also matters');
+	assert.equal(hasTransparency(logo), false);
 	assert.equal(estimateBackground(new Uint8ClampedArray(0), 0, 0), null);
 });
 
@@ -444,6 +449,40 @@ test('identical images keep their colour detail and partial alpha throughout the
 	assert.deepEqual(pixelAt(out, width, 7, 7), [25, 50, 75, 255]);
 });
 
+test('texture marks move with a translated silhouette instead of doubling', () => {
+	const width = 40;
+	const height = 24;
+	const picture = (boxX, markX) => raster(width, height, (x, y) => (
+		inBox(x, y, [markX, 4, 2, 16]) ? [255, 0, 0]
+			: inBox(x, y, [boxX, 4, 24, 16]) ? BLACK : WHITE
+	));
+	const first = buildMorphLayers(picture(4, 12), width, height, { background: WHITE });
+	const second = buildMorphLayers(picture(8, 16), width, height, { background: WHITE });
+	const out = new Uint8ClampedArray(width * height * 4);
+	renderMorphFrame(first, second, 0.5, out);
+	assert.deepEqual(pixelAt(out, width, 12, 10), [...BLACK, 255]);
+	assert.deepEqual(pixelAt(out, width, 14, 10), [255, 0, 0, 255]);
+	assert.deepEqual(pixelAt(out, width, 16, 10), [...BLACK, 255]);
+});
+
+test('a clear hole does not change how the surrounding opaque background is removed', () => {
+	const width = 16;
+	const picture = raster(width, width, (x, y) => (x === 8 && y === 8 ? CLEAR : WHITE));
+	const transparent = buildMorphLayers(picture, width, width, {
+		background: WHITE, backgroundAlpha: 0, sourceHasAlpha: true, knockoutBackground: true,
+	});
+	const source = buildMorphLayers(picture, width, width, {
+		background: WHITE, backgroundAlpha: 1, sourceHasAlpha: true, preserveSourceAlphaBackground: true,
+	});
+	const out = new Uint8ClampedArray(picture.length);
+	renderMorphFrame(transparent, transparent, 0.5, out);
+	assert.equal(pixelAt(out, width, 5, 5)[3], 0);
+	assert.equal(pixelAt(out, width, 8, 8)[3], 0);
+	renderMorphFrame(source, source, 0.5, out);
+	assert.deepEqual(pixelAt(out, width, 5, 5), [...WHITE, 255]);
+	assert.equal(pixelAt(out, width, 8, 8)[3], 0);
+});
+
 test('a morph frame reproduces each picture at its ends and blends the silhouettes between them', () => {
 	const width = 16;
 	const first = buildMorphLayers(raster(width, width, (x, y) => (inBox(x, y, [2, 4, 8, 8]) ? BLACK : WHITE)), width, width, { levels: 1, background: WHITE });
@@ -539,6 +578,10 @@ test('FFmpeg reads the numbered frames at the clip frame rate and encodes the ch
 	assert.equal(mp4[1], '24');
 	assert.ok(mp4.includes('libx264') && mp4.includes('yuv420p') && mp4.includes('+faststart') && !mp4.includes('yuva420p'));
 	assert.deepEqual(mp4.slice(-2), ['-y', 'out.mp4']);
+	assert.deepEqual(buildMorphConcatArgs('mp4-h264', { listName: 'segments.txt', outputName: 'out.mp4' }),
+		['-f', 'concat', '-safe', '0', '-i', 'segments.txt', '-c', 'copy', '-movflags', '+faststart', '-y', 'out.mp4']);
+	assert.deepEqual(buildMorphConcatArgs('webm-vp8', { listName: 'segments.txt', outputName: 'out.webm' }),
+		['-f', 'concat', '-safe', '0', '-i', 'segments.txt', '-c', 'copy', '-y', 'out.webm']);
 	assert.ok(buildMorphVideoArgs('gif', options).includes('prores_ks'));
 
 	assert.equal(outputFormat('unknown').id, 'prores-4444');

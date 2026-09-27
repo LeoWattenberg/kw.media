@@ -95,6 +95,7 @@ const copyByLocale = {
 			ffmpegReady: 'FFmpeg wasm ist bereit.',
 			ffmpegProgress: 'FFmpeg kodiert... {progress}%',
 			ffmpegTimeout: 'FFmpeg wasm hat nicht innerhalb von 90 Sekunden geladen.',
+			outputTooLarge: 'Das Video überschreitet die Exportgrenze von 256 MB. Verkürze es oder wähle eine kleinere Größe oder Bildrate.',
 			ready: 'Das Video ist fertig: {frames} Frames, {duration} s.',
 			settingsChanged: 'Einstellungen geändert. Rendere das Video erneut.',
 			reset: 'Das Tool wurde zurückgesetzt.',
@@ -173,6 +174,7 @@ const copyByLocale = {
 			ffmpegReady: 'FFmpeg wasm is ready.',
 			ffmpegProgress: 'FFmpeg is encoding... {progress}%',
 			ffmpegTimeout: 'FFmpeg wasm did not finish loading within 90 seconds.',
+			outputTooLarge: 'The video exceeds the 256 MB export limit. Shorten it or choose a smaller size or frame rate.',
 			ready: 'The video is ready: {frames} frames, {duration} s.',
 			settingsChanged: 'Settings changed. Render the video again.',
 			reset: 'The tool has been reset.',
@@ -321,13 +323,17 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 	import { createFfmpegRuntime } from '../../lib/ffmpeg-runtime';
 	import { formatBytes, formatTemplate as format } from '../../lib/tools/format';
 	import {
+		MORPH_FRAME_BATCH,
+		MORPH_MAX_OUTPUT_BYTES,
 		TRANSPARENT_INK_FLOOR,
+		buildMorphConcatArgs,
 		buildMorphLayers,
 		buildMorphVideoArgs,
 		estimateBackground,
 		fitContain,
 		frameFileName,
 		framePattern,
+		hasTransparency,
 		hexToRgb,
 		morphOutputName,
 		morphTimeline,
@@ -482,6 +488,7 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 					width: 0,
 					height: 0,
 					background: null,
+					hasAlpha: false,
 				};
 			}
 
@@ -494,6 +501,7 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 				slot.width = 0;
 				slot.height = 0;
 				slot.background = null;
+				slot.hasAlpha = false;
 				slot.thumb.hidden = true;
 				slot.thumb.removeAttribute('src');
 
@@ -521,14 +529,16 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 					slot.image = image;
 					slot.width = image.naturalWidth;
 					slot.height = image.naturalHeight;
-					slot.background = estimateBackground(...sampleRaster(image));
+					const [sample, sampleWidth, sampleHeight] = sampleRaster(image);
+					slot.background = estimateBackground(sample, sampleWidth, sampleHeight);
+					slot.hasAlpha = hasTransparency(sample);
 					slot.thumb.src = slot.url;
 					slot.thumb.hidden = false;
 					slot.meta.textContent = format(copy.imageMeta, {
 						width: slot.width,
 						height: slot.height,
 						size: formatBytes(file.size),
-						background: slot.background ? copy.opaque : copy.transparent,
+						background: slot.hasAlpha ? copy.transparent : slot.background ? copy.opaque : copy.transparent,
 					});
 					setStatus(format(copy.imageReady, { name: file.name, width: slot.width, height: slot.height }), 'success');
 				} catch (error) {
@@ -553,10 +563,9 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 			}
 
 			/*
-			 * A picture with its own background is fitted into the frame on that background so the
-			 * letterbox reads as background too, and its ink is measured against that colour. A picture
-			 * on nothing is fitted onto nothing and its alpha channel is the silhouette. What gets painted
-			 * behind the ink, and how opaque, is the background setting's call.
+			 * Fit on the detected background so the letterbox matches, then clear the image rectangle
+			 * before drawing. This preserves transparent holes while keeping the letterbox colour. Ink
+			 * is measured against the detected background independently of alpha.
 			 */
 			function buildLayersFor(slot, width, height, settings) {
 				const own = slot.background;
@@ -573,8 +582,10 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 				}
 
 				const fit = fitContain(slot.width, slot.height, width, height);
+				if (own) context.clearRect(fit.x, fit.y, fit.width, fit.height);
 				context.drawImage(slot.image, fit.x, fit.y, fit.width, fit.height);
 				const data = context.getImageData(0, 0, width, height).data;
+				const sourceHasAlpha = hasTransparency(data);
 				const backgroundAlpha = settings.background === 'color' || (settings.background === 'source' && own) ? 1 : 0;
 
 			return buildMorphLayers(data, width, height, {
@@ -584,6 +595,9 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 					backgroundAlpha,
 					reference,
 					alphaFloor: own ? 0 : TRANSPARENT_INK_FLOOR,
+					sourceHasAlpha,
+					knockoutBackground: Boolean(own && settings.background !== 'source'),
+					preserveSourceAlphaBackground: Boolean(own && sourceHasAlpha && settings.background === 'source'),
 				});
 			}
 
@@ -715,12 +729,7 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 				}
 			}
 
-			/*
-			 * Every frame is painted on a canvas, written to FFmpeg's file system as a PNG and encoded as
-			 * an image sequence once all of them are there, so no more than one frame is held in memory
-			 * on this side at a time. PNG keeps straight alpha, which is what the alpha encoders read;
-			 * a container without alpha gets its frames flattened onto the background colour first.
-			 */
+			/* Encode short PNG sequences, then join their video segments without re-encoding. */
 			async function encodeFrames({ layersA, layersB, timeline, width, height, settings, profile }) {
 				const canvas = document.createElement('canvas');
 				canvas.width = width;
@@ -731,35 +740,68 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 				return ffmpegRuntime.run(async (ffmpeg) => {
 					const prefix = `morph-${Date.now()}-`;
 					const outputName = `${prefix}output.${profile.extension}`;
+					const listName = `${prefix}segments.txt`;
+					const segmentNames = [];
+					let activeFramePrefix = '';
 					let written = 0;
+					let segmentBytes = 0;
+
+					async function removeFrames() {
+						for (let index = 0; index < written; index += 1) {
+							await ffmpeg.deleteFile(frameFileName(activeFramePrefix, index)).catch(() => {});
+						}
+						written = 0;
+					}
 
 					try {
-						for (let index = 0; index < timeline.frameCount; index += 1) {
-							setStatus(format(copy.renderingFrames, { index: index + 1, count: timeline.frameCount }), 'info');
-							renderMorphFrame(layersA, layersB, timeline.progressAt(index), image.data, { flatten: !profile.alpha });
-							context.putImageData(image, 0, 0);
-							const frame = await canvasToBlob(canvas);
-							await ffmpeg.writeFile(frameFileName(prefix, index), new Uint8Array(await frame.arrayBuffer()));
-							written += 1;
+						for (let start = 0; start < timeline.frameCount; start += MORPH_FRAME_BATCH) {
+							activeFramePrefix = `${prefix}batch-${segmentNames.length}-`;
+							const segmentName = `${prefix}segment-${segmentNames.length}.${profile.extension}`;
+							segmentNames.push(segmentName);
+							try {
+								const end = Math.min(start + MORPH_FRAME_BATCH, timeline.frameCount);
+								for (let index = start; index < end; index += 1) {
+									setStatus(format(copy.renderingFrames, { index: index + 1, count: timeline.frameCount }), 'info');
+									renderMorphFrame(layersA, layersB, timeline.progressAt(index), image.data, { flatten: !profile.alpha });
+									context.putImageData(image, 0, 0);
+									const frame = await canvasToBlob(canvas);
+									await ffmpeg.writeFile(frameFileName(activeFramePrefix, written), new Uint8Array(await frame.arrayBuffer()));
+									written += 1;
+								}
+
+								setStatus(copy.encoding, 'info');
+								const resultCode = await ffmpeg.exec(buildMorphVideoArgs(settings.format, {
+									fps: settings.fps,
+									framePattern: framePattern(activeFramePrefix),
+									outputName: segmentName,
+								}));
+								if (resultCode !== 0) throw new Error(`FFmpeg exited with code ${resultCode}`);
+								segmentBytes += (await ffmpeg.readFile(segmentName)).length;
+								if (segmentBytes > MORPH_MAX_OUTPUT_BYTES) throw new Error(copy.outputTooLarge);
+							} finally {
+								await removeFrames();
+							}
 						}
 
+						if (segmentNames.length === 1) {
+							const output = await ffmpeg.readFile(segmentNames[0]);
+							return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
+						}
+
+						const list = segmentNames.map((name) => `file '${name}'\n`).join('');
+						await ffmpeg.writeFile(listName, new TextEncoder().encode(list));
 						setStatus(copy.encoding, 'info');
-						const resultCode = await ffmpeg.exec(buildMorphVideoArgs(settings.format, {
-							fps: settings.fps,
-							framePattern: framePattern(prefix),
-							outputName,
-						}));
-
-						if (resultCode !== 0) {
-							throw new Error(`FFmpeg exited with code ${resultCode}`);
-						}
-
+						const resultCode = await ffmpeg.exec(buildMorphConcatArgs(settings.format, { listName, outputName }));
+						if (resultCode !== 0) throw new Error(`FFmpeg exited with code ${resultCode}`);
 						const output = await ffmpeg.readFile(outputName);
+						if (output.length > MORPH_MAX_OUTPUT_BYTES) throw new Error(copy.outputTooLarge);
 						return output instanceof Uint8Array ? output : new TextEncoder().encode(String(output));
 					} finally {
-						for (let index = 0; index < written; index += 1) {
-							await ffmpeg.deleteFile(frameFileName(prefix, index)).catch(() => {});
+						await removeFrames();
+						for (const name of segmentNames) {
+							await ffmpeg.deleteFile(name).catch(() => {});
 						}
+						await ffmpeg.deleteFile(listName).catch(() => {});
 						await ffmpeg.deleteFile(outputName).catch(() => {});
 					}
 				});
@@ -814,6 +856,7 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 					slot.width = 0;
 					slot.height = 0;
 					slot.background = null;
+					slot.hasAlpha = false;
 					revokeSlotUrl(slot);
 					slot.thumb.hidden = true;
 					slot.thumb.removeAttribute('src');

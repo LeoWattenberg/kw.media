@@ -219,6 +219,14 @@ const videoSize = (page, href) => page.evaluate((url) => new Promise((resolve, r
 	video.src = url;
 }), href);
 
+const videoDuration = (page, href) => page.evaluate((url) => new Promise((resolve, reject) => {
+	const video = document.createElement('video');
+	video.preload = 'metadata';
+	video.onloadedmetadata = () => resolve(video.duration);
+	video.onerror = () => reject(new Error('the produced video did not decode'));
+	video.src = url;
+}), href);
+
 /* Range and color inputs are driven through the events the tools listen for. */
 const setValue = (locator, value) => locator.evaluate((input, next) => {
 	input.value = next;
@@ -621,7 +629,11 @@ test.describe('image tool outputs', () => {
 		for (const progress of [0, 0.5, 1]) {
 			expect((await previewPixel(tool, progress, 160, 12))[3]).toBe(0);
 			expect((await previewPixel(tool, progress, 160, 105))[3]).toBe(128);
+			expect((await previewPixel(tool, progress, 20, 100))[3]).toBe(0);
 		}
+		await tool.locator('[data-background]').selectOption('source');
+		expect((await previewPixel(tool, 0.5, 20, 100))[3]).toBe(255);
+		expect((await previewPixel(tool, 0.5, 160, 12))[3]).toBe(0);
 	});
 
 	test('Image Morph previews a distance-field morph and renders it with and without alpha', async ({ page }) => {
@@ -699,6 +711,7 @@ test.describe('image tool outputs', () => {
 		expect(mp4.ascii.slice(4, 8)).toBe('ftyp');
 		expect(mp4.byteLength).toBeGreaterThan(1000);
 		expect(await videoSize(page, mp4Href)).toEqual({ width: 360, height: 240 });
+		expect(await videoDuration(page, mp4Href)).toBeCloseTo(22 / 24, 2);
 
 		/*
 		 * Looping back adds the return morph. VP8 keeps the alpha plane, which Matroska flags with
@@ -716,6 +729,7 @@ test.describe('image tool outputs', () => {
 		expect(webm.text).toContain('V_VP8');
 		expect(webm.text).toContain('S\u00c0\u0081\u0001');
 		expect(await videoSize(page, webmHref)).toEqual({ width: 360, height: 240 });
+		expect(await videoDuration(page, webmHref)).toBeCloseTo(34 / 24, 1);
 		await expect(tool.locator('[data-output-video]')).toBeVisible();
 
 		/* QuickTime Animation cannot play in a browser, so the tool says so instead of showing a dead player. */

@@ -24,6 +24,8 @@ export const MORPH_LIMITS = {
 };
 
 export const MORPH_SIZES = [360, 480, 720, 1080];
+export const MORPH_FRAME_BATCH = 20;
+export const MORPH_MAX_OUTPUT_BYTES = 256 * 1024 * 1024;
 
 export const MORPH_BACKGROUNDS = ['transparent', 'source', 'color'];
 
@@ -321,17 +323,14 @@ export function signedDistanceField(mask, width, height, limit = Math.hypot(widt
 }
 
 /*
- * The background is whatever colour the border of an opaque picture mostly is. Any source alpha
- * means the picture brings its own transparency, which must not be filled in as background.
+ * The background is the dominant colour of the opaque border pixels. Transparency is tracked
+ * separately: a picture may have a white background and transparent holes at the same time.
  */
 export function estimateBackground(data, width, height) {
-	for (let offset = 3; offset < data.length; offset += 4) {
-		if (data[offset] < 255) return null;
-	}
-
 	const ring = Math.max(1, Math.round(Math.min(width, height) * 0.02));
 	const bins = new Map();
 	let total = 0;
+	let opaque = 0;
 
 	for (let y = 0; y < height; y += 1) {
 		const onEdgeRow = y < ring || y >= height - ring;
@@ -342,6 +341,8 @@ export function estimateBackground(data, width, height) {
 
 			total += 1;
 			const offset = (y * width + x) * 4;
+			if (data[offset + 3] < 250) continue;
+			opaque += 1;
 			const key = ((data[offset] >> 3) << 10) | ((data[offset + 1] >> 3) << 5) | (data[offset + 2] >> 3);
 			let bin = bins.get(key);
 			if (!bin) {
@@ -355,7 +356,7 @@ export function estimateBackground(data, width, height) {
 		}
 	}
 
-	if (!total) {
+	if (!total || opaque * 2 <= total) {
 		return null;
 	}
 
@@ -365,6 +366,13 @@ export function estimateBackground(data, width, height) {
 	}
 
 	return [Math.round(best.red / best.count), Math.round(best.green / best.count), Math.round(best.blue / best.count)];
+}
+
+export function hasTransparency(data) {
+	for (let offset = 3; offset < data.length; offset += 4) {
+		if (data[offset] < 255) return true;
+	}
+	return false;
 }
 
 /*
@@ -448,6 +456,9 @@ export function buildMorphLayers(data, width, height, {
 	backgroundAlpha = 1,
 	reference = background,
 	alphaFloor = 0,
+	sourceHasAlpha = alphaFloor > 0,
+	knockoutBackground = alphaFloor === 0 && (backgroundAlpha === 0 || background.some((channel, index) => channel !== reference[index])),
+	preserveSourceAlphaBackground = false,
 } = {}) {
 	const count = Math.max(1, Math.round(levels));
 	const size = width * height;
@@ -462,6 +473,8 @@ export function buildMorphLayers(data, width, height, {
 		const mask = new Uint8Array(size);
 		const band = { count: 0, red: 0, green: 0, blue: 0 };
 		const whole = { count: 0, red: 0, green: 0, blue: 0 };
+		let sumX = 0;
+		let sumY = 0;
 
 		for (let index = 0; index < size; index += 1) {
 			if (ink[index] === 0 || ink[index] < threshold) {
@@ -469,6 +482,10 @@ export function buildMorphLayers(data, width, height, {
 			}
 
 			mask[index] = 1;
+			if (level === 0) {
+				sumX += index % width;
+				sumY += Math.floor(index / width);
+			}
 			const offset = index * 4;
 			const target = ink[index] < upper ? band : whole;
 			target.count += 1;
@@ -492,15 +509,26 @@ export function buildMorphLayers(data, width, height, {
 			threshold,
 			pixels: whole.count,
 			color,
+			centroid: level === 0 && whole.count ? [sumX / whole.count, sumY / whole.count] : null,
 			sdf: signedDistanceField(mask, width, height, limit),
 		});
+	}
+	let backgroundAlphaMap = null;
+	if (preserveSourceAlphaBackground) {
+		backgroundAlphaMap = new Uint8Array(size);
+		for (let index = 0; index < size; index += 1) {
+			const sourceAlpha = data[index * 4 + 3];
+			backgroundAlphaMap[index] = sourceAlpha === 255 || layers[0].sdf[index] >= 0 ? sourceAlpha : 0;
+		}
 	}
 
 	return {
 		width, height, background: background.slice(), backgroundAlpha: clamp(backgroundAlpha, 0, 1), layers,
 		sourceData: data,
-		alphaSilhouette: alphaFloor > 0,
-		preserveSourceBackground: alphaFloor === 0 && backgroundAlpha === 1
+		alphaSilhouette: sourceHasAlpha,
+		knockoutBackground,
+		backgroundAlphaMap,
+		preserveSourceBackground: !knockoutBackground && backgroundAlpha === 1
 			&& background.every((channel, index) => channel === reference[index]),
 	};
 }
@@ -518,14 +546,24 @@ export function renderMorphFrame(first, second, t, out, { flatten = false } = {}
 		const { sourceData, width, height, background, backgroundAlpha = 1, layers } = endpoint;
 		for (let index = 0; index < width * height; index += 1) {
 			const offset = index * 4;
-			const coverage = endpoint.alphaSilhouette ? sourceData[offset + 3] / 255
-				: endpoint.preserveSourceBackground ? 1 : layers[0].sdf[index] < 0 ? 1 : 0;
-			const alpha = flatten ? 1 : backgroundAlpha + (1 - backgroundAlpha) * coverage;
+			const sourceAlpha = sourceData[offset + 3] / 255;
+			if (endpoint.preserveSourceBackground) {
+				for (let channel = 0; channel < 3; channel += 1) {
+					out[offset + channel] = flatten
+						? background[channel] * (1 - sourceAlpha) + sourceData[offset + channel] * sourceAlpha
+						: sourceData[offset + channel];
+				}
+				out[offset + 3] = flatten ? 255 : sourceData[offset + 3];
+				continue;
+			}
+			const mask = endpoint.knockoutBackground && layers[0].sdf[index] >= 0 ? 0 : 1;
+			const coverage = mask * (endpoint.alphaSilhouette ? sourceAlpha : 1);
+			const baseAlpha = flatten ? 1 : backgroundAlpha;
+			const alpha = baseAlpha + (1 - baseAlpha) * coverage;
 			for (let channel = 0; channel < 3; channel += 1) {
-				const color = sourceData[offset + channel];
-				out[offset + channel] = flatten || backgroundAlpha > 0
-					? background[channel] * (1 - coverage) + color * coverage
-					: coverage > 0 ? color : background[channel];
+				out[offset + channel] = alpha > 0
+					? (background[channel] * baseAlpha * (1 - coverage) + sourceData[offset + channel] * coverage) / alpha
+					: background[channel];
 			}
 			out[offset + 3] = alpha * 255;
 		}
@@ -545,15 +583,17 @@ export function renderMorphFrame(first, second, t, out, { flatten = false } = {}
 	const baseRed = channel(mix(first.background[0] * firstAlpha, second.background[0] * secondAlpha));
 	const baseGreen = channel(mix(first.background[1] * firstAlpha, second.background[1] * secondAlpha));
 	const baseBlue = channel(mix(first.background[2] * firstAlpha, second.background[2] * secondAlpha));
-	const textureBaseRed = flatten ? backgroundRed : baseRed;
-	const textureBaseGreen = flatten ? backgroundGreen : baseGreen;
-	const textureBaseBlue = flatten ? backgroundBlue : baseBlue;
+	const hasBackgroundMap = Boolean(first.backgroundAlphaMap || second.backgroundAlphaMap);
 	const count = Math.min(first.layers.length, second.layers.length);
 	const colors = [];
 	const fields = [];
 	const sourcePixels = first.sourceData?.length === size * 4 && second.sourceData?.length === size * 4;
 	const textureT = clamp(t, 0, 1);
 	const clampCoverage = (value) => value < 0 ? 0 : value > 1 ? 1 : value;
+	const fromCenter = first.layers[0]?.centroid;
+	const toCenter = second.layers[0]?.centroid;
+	const shiftX = fromCenter && toCenter ? toCenter[0] - fromCenter[0] : 0;
+	const shiftY = fromCenter && toCenter ? toCenter[1] - fromCenter[1] : 0;
 
 	for (let layer = 0; layer < count; layer += 1) {
 		const from = first.layers[layer];
@@ -567,10 +607,22 @@ export function renderMorphFrame(first, second, t, out, { flatten = false } = {}
 	}
 
 	for (let index = 0; index < size; index += 1) {
-		let red = flatten ? backgroundRed : baseRed;
-		let green = flatten ? backgroundGreen : baseGreen;
-		let blue = flatten ? backgroundBlue : baseBlue;
-		let alpha = backgroundAlpha;
+		const fromPixelAlpha = first.backgroundAlphaMap ? first.backgroundAlphaMap[index] / 255 : firstAlpha;
+		const toPixelAlpha = second.backgroundAlphaMap ? second.backgroundAlphaMap[index] / 255 : secondAlpha;
+		const pixelBackgroundAlpha = hasBackgroundMap ? (flatten ? 1 : clamp(mix(fromPixelAlpha, toPixelAlpha), 0, 1)) : backgroundAlpha;
+		const pixelBaseRed = hasBackgroundMap
+			? channel(mix(first.background[0] * fromPixelAlpha, second.background[0] * toPixelAlpha)) : baseRed;
+		const pixelBaseGreen = hasBackgroundMap
+			? channel(mix(first.background[1] * fromPixelAlpha, second.background[1] * toPixelAlpha)) : baseGreen;
+		const pixelBaseBlue = hasBackgroundMap
+			? channel(mix(first.background[2] * fromPixelAlpha, second.background[2] * toPixelAlpha)) : baseBlue;
+		const pixelTextureRed = flatten ? backgroundRed : pixelBaseRed;
+		const pixelTextureGreen = flatten ? backgroundGreen : pixelBaseGreen;
+		const pixelTextureBlue = flatten ? backgroundBlue : pixelBaseBlue;
+		let red = flatten ? backgroundRed : pixelBaseRed;
+		let green = flatten ? backgroundGreen : pixelBaseGreen;
+		let blue = flatten ? backgroundBlue : pixelBaseBlue;
+		let alpha = pixelBackgroundAlpha;
 
 		for (let layer = 0; layer < count; layer += 1) {
 			const from = fields[layer][0][index];
@@ -590,32 +642,41 @@ export function renderMorphFrame(first, second, t, out, { flatten = false } = {}
 			alpha += (1 - alpha) * coverage;
 		}
 
-		/* The outer field supplies the moving edge. Source pixels supply texture and opacity where
-		   either original covers this position; the band render above fills positions between them. */
+		/* The outer field supplies the moving edge. Follow the silhouette centroids when sampling
+		   source texture, so a mark moves with a translated shape instead of appearing twice. */
 		if (sourcePixels && count) {
 			const fromField = fields[0][0][index];
 			const toField = fields[0][1][index];
-			const fromWeight = (1 - textureT) * clampCoverage((1 - fromField) * 0.5);
-			const toWeight = textureT * clampCoverage((1 - toField) * 0.5);
+			const x = index % first.width;
+			const y = Math.floor(index / first.width);
+			const fromX = Math.round(x - textureT * shiftX);
+			const fromY = Math.round(y - textureT * shiftY);
+			const toX = Math.round(x + (1 - textureT) * shiftX);
+			const toY = Math.round(y + (1 - textureT) * shiftY);
+			const fromIndex = fromX < 0 || fromX >= first.width || fromY < 0 || fromY >= first.height ? -1 : fromY * first.width + fromX;
+			const toIndex = toX < 0 || toX >= first.width || toY < 0 || toY >= first.height ? -1 : toY * first.width + toX;
+			const fromWeight = fromIndex < 0 ? 0 : (1 - textureT) * clampCoverage((1 - fields[0][0][fromIndex]) * 0.5);
+			const toWeight = toIndex < 0 ? 0 : textureT * clampCoverage((1 - fields[0][1][toIndex]) * 0.5);
 			const weight = fromWeight + toWeight;
 			if (weight > 0) {
-				const offset = index * 4;
-				const fromAlpha = first.alphaSilhouette ? first.sourceData[offset + 3] / 255 : 1;
-				const toAlpha = second.alphaSilhouette ? second.sourceData[offset + 3] / 255 : 1;
+				const fromOffset = Math.max(0, fromIndex) * 4;
+				const toOffset = Math.max(0, toIndex) * 4;
+				const fromAlpha = first.alphaSilhouette ? first.sourceData[fromOffset + 3] / 255 : 1;
+				const toAlpha = second.alphaSilhouette ? second.sourceData[toOffset + 3] / 255 : 1;
 				const fromInk = fromWeight * fromAlpha;
 				const toInk = toWeight * toAlpha;
 				const shapeCoverage = clampCoverage((1 - (fromField + (toField - fromField) * t)) * 0.5);
 				const inkCoverage = shapeCoverage * (fromInk + toInk) / weight;
-				alpha = backgroundAlpha + (1 - backgroundAlpha) * inkCoverage;
+				alpha = pixelBackgroundAlpha + (1 - pixelBackgroundAlpha) * inkCoverage;
 				if (alpha > 0) {
-					red = textureBaseRed * (1 - inkCoverage) + shapeCoverage * (
-						fromInk * first.sourceData[offset] + toInk * second.sourceData[offset]
+					red = pixelTextureRed * (1 - inkCoverage) + shapeCoverage * (
+						fromInk * first.sourceData[fromOffset] + toInk * second.sourceData[toOffset]
 					) / weight;
-					green = textureBaseGreen * (1 - inkCoverage) + shapeCoverage * (
-						fromInk * first.sourceData[offset + 1] + toInk * second.sourceData[offset + 1]
+					green = pixelTextureGreen * (1 - inkCoverage) + shapeCoverage * (
+						fromInk * first.sourceData[fromOffset + 1] + toInk * second.sourceData[toOffset + 1]
 					) / weight;
-					blue = textureBaseBlue * (1 - inkCoverage) + shapeCoverage * (
-						fromInk * first.sourceData[offset + 2] + toInk * second.sourceData[offset + 2]
+					blue = pixelTextureBlue * (1 - inkCoverage) + shapeCoverage * (
+						fromInk * first.sourceData[fromOffset + 2] + toInk * second.sourceData[toOffset + 2]
 					) / weight;
 				} else {
 					red = backgroundRed;
@@ -669,6 +730,12 @@ export function buildMorphVideoArgs(formatId, { fps, framePattern: pattern, outp
 	}[format.id];
 
 	return [...input, ...codecArgs, '-r', String(fps), '-y', outputName];
+}
+
+export function buildMorphConcatArgs(formatId, { listName, outputName }) {
+	const args = ['-f', 'concat', '-safe', '0', '-i', listName, '-c', 'copy'];
+	if (outputFormat(formatId).id === 'mp4-h264') args.push('-movflags', '+faststart');
+	return [...args, '-y', outputName];
 }
 
 export function morphOutputName(fromName, toName, formatId) {
