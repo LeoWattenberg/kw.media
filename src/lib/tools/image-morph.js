@@ -96,6 +96,8 @@ export const DEFAULT_MORPH_SETTINGS = {
  */
 const FAR_FIELD = 0.25;
 const INF = 1e20;
+const MAX_MOTION_COMPONENTS = 32;
+const motionPairCache = new WeakMap();
 
 /*
  * A picture that brings its own transparency has its silhouette in its alpha channel, not in its
@@ -216,6 +218,13 @@ export function buildTimeline(settings) {
 		frames[index] = timeline.progressAt(index);
 	}
 	return frames;
+}
+
+/** The preview uses the same frame clock as the encoded sequence. */
+export function playbackProgressAt(timeline, seconds, fps) {
+	const duration = timeline.frameCount / fps;
+	const time = ((seconds % duration) + duration) % duration;
+	return timeline.progressAt(Math.min(timeline.frameCount - 1, Math.floor(time * fps)));
 }
 
 /*
@@ -441,6 +450,113 @@ export function inkMap(data, width, height, reference, { alphaFloor = 0 } = {}) 
 	return ink;
 }
 
+/* Label connected ink regions, then give each empty pixel the nearest region's label. */
+function componentMap(mask, width, height) {
+	const size = width * height;
+	const nearest = new Int32Array(size);
+	nearest.fill(-1);
+	const queue = new Int32Array(size);
+	const components = [];
+
+	for (let index = 0; index < size; index += 1) {
+		if (!mask[index] || nearest[index] >= 0) continue;
+		const id = components.length;
+		let head = 0;
+		let tail = 1;
+		let sumX = 0;
+		let sumY = 0;
+		queue[0] = index;
+		nearest[index] = id;
+		while (head < tail) {
+			const at = queue[head++];
+			const x = at % width;
+			const y = Math.floor(at / width);
+			sumX += x;
+			sumY += y;
+			for (let dy = -1; dy <= 1; dy += 1) {
+				for (let dx = -1; dx <= 1; dx += 1) {
+					if (!dx && !dy) continue;
+					const nx = x + dx;
+					const ny = y + dy;
+					if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
+					const next = ny * width + nx;
+					if (mask[next] && nearest[next] < 0) {
+						nearest[next] = id;
+						queue[tail++] = next;
+					}
+				}
+			}
+		}
+		components.push({ count: tail, x: sumX / tail, y: sumY / tail });
+	}
+
+	let head = 0;
+	let tail = 0;
+	for (let index = 0; index < size; index += 1) {
+		if (nearest[index] >= 0) queue[tail++] = index;
+	}
+	while (head < tail) {
+		const at = queue[head++];
+		const x = at % width;
+		const y = Math.floor(at / width);
+		if (x > 0 && nearest[at - 1] < 0) { nearest[at - 1] = nearest[at]; queue[tail++] = at - 1; }
+		if (x + 1 < width && nearest[at + 1] < 0) { nearest[at + 1] = nearest[at]; queue[tail++] = at + 1; }
+		if (y > 0 && nearest[at - width] < 0) { nearest[at - width] = nearest[at]; queue[tail++] = at - width; }
+		if (y + 1 < height && nearest[at + width] < 0) { nearest[at + width] = nearest[at]; queue[tail++] = at + width; }
+	}
+	return { components, nearest };
+}
+
+function largestComponents(map) {
+	const largest = [];
+	for (let id = 0; id < map.components.length; id += 1) {
+		const component = map.components[id];
+		if (largest.length < MAX_MOTION_COMPONENTS) {
+			largest.push({ ...component, id });
+			continue;
+		}
+		let smallest = 0;
+		for (let index = 1; index < largest.length; index += 1) {
+			if (largest[index].count < largest[smallest].count) smallest = index;
+		}
+		if (component.count > largest[smallest].count) largest[smallest] = { ...component, id };
+	}
+	return largest;
+}
+
+function componentShifts(first, second) {
+	if (!first?.components.length || !second?.components.length) return null;
+	const cached = motionPairCache.get(first)?.get(second);
+	if (cached) return cached;
+	const from = largestComponents(first);
+	const to = largestComponents(second);
+	const pairs = [];
+	for (const a of from) {
+		for (const b of to) {
+			const distance = Math.hypot(a.x - b.x, a.y - b.y);
+			const sizeDifference = Math.abs(Math.log(a.count / b.count));
+			pairs.push({ a, b, cost: distance + sizeDifference * 4 });
+		}
+	}
+	pairs.sort((a, b) => a.cost - b.cost);
+	const fromShifts = new Array(first.components.length).fill(null);
+	const toShifts = new Array(second.components.length).fill(null);
+	for (const { a, b } of pairs) {
+		if (fromShifts[a.id] || toShifts[b.id]) continue;
+		const shift = [b.x - a.x, b.y - a.y];
+		fromShifts[a.id] = shift;
+		toShifts[b.id] = shift;
+	}
+	const result = { fromShifts, toShifts };
+	let pairsForFirst = motionPairCache.get(first);
+	if (!pairsForFirst) {
+		pairsForFirst = new WeakMap();
+		motionPairCache.set(first, pairsForFirst);
+	}
+	pairsForFirst.set(second, result);
+	return result;
+}
+
 /*
  * Nested silhouettes of one picture with a signed distance field and a colour each. The first layer
  * includes ink above the configurable detail threshold; later layers use progressively deeper tone
@@ -465,6 +581,7 @@ export function buildMorphLayers(data, width, height, {
 	const ink = inkMap(data, width, height, reference, { alphaFloor });
 	const limit = Math.max(width, height) * FAR_FIELD;
 	const layers = [];
+	let motion = null;
 	const faintThreshold = clamp(Number(detailThreshold), MORPH_LIMITS.detailThreshold.min, MORPH_LIMITS.detailThreshold.max) / 100;
 
 	for (let level = 0; level < count; level += 1) {
@@ -493,6 +610,7 @@ export function buildMorphLayers(data, width, height, {
 			target.green += data[offset + 1];
 			target.blue += data[offset + 2];
 		}
+		if (level === 0) motion = componentMap(mask, width, height);
 
 		/* Every pixel of the layer counts toward the whole-layer mean, the band is the exclusive part. */
 		whole.count += band.count;
@@ -514,20 +632,30 @@ export function buildMorphLayers(data, width, height, {
 		});
 	}
 	let backgroundAlphaMap = null;
+	let alphaMotion = null;
 	if (preserveSourceAlphaBackground) {
 		backgroundAlphaMap = new Uint8Array(size);
+		const holes = new Uint8Array(size);
+		let holeCount = 0;
 		for (let index = 0; index < size; index += 1) {
 			const sourceAlpha = data[index * 4 + 3];
 			backgroundAlphaMap[index] = sourceAlpha === 255 || layers[0].sdf[index] >= 0 ? sourceAlpha : 0;
+			if (backgroundAlphaMap[index] < 255) {
+				holes[index] = 1;
+				holeCount += 1;
+			}
 		}
+		if (holeCount) alphaMotion = componentMap(holes, width, height);
 	}
 
 	return {
 		width, height, background: background.slice(), backgroundAlpha: clamp(backgroundAlpha, 0, 1), layers,
 		sourceData: data,
+		motion,
 		alphaSilhouette: sourceHasAlpha,
 		knockoutBackground,
 		backgroundAlphaMap,
+		alphaMotion,
 		preserveSourceBackground: !knockoutBackground && backgroundAlpha === 1
 			&& background.every((channel, index) => channel === reference[index]),
 	};
@@ -594,6 +722,8 @@ export function renderMorphFrame(first, second, t, out, { flatten = false } = {}
 	const toCenter = second.layers[0]?.centroid;
 	const shiftX = fromCenter && toCenter ? toCenter[0] - fromCenter[0] : 0;
 	const shiftY = fromCenter && toCenter ? toCenter[1] - fromCenter[1] : 0;
+	const textureShifts = componentShifts(first.motion, second.motion);
+	const alphaShifts = componentShifts(first.alphaMotion, second.alphaMotion);
 
 	for (let layer = 0; layer < count; layer += 1) {
 		const from = first.layers[layer];
@@ -607,8 +737,24 @@ export function renderMorphFrame(first, second, t, out, { flatten = false } = {}
 	}
 
 	for (let index = 0; index < size; index += 1) {
-		const fromPixelAlpha = first.backgroundAlphaMap ? first.backgroundAlphaMap[index] / 255 : firstAlpha;
-		const toPixelAlpha = second.backgroundAlphaMap ? second.backgroundAlphaMap[index] / 255 : secondAlpha;
+		const x = index % first.width;
+		const y = Math.floor(index / first.width);
+		let fromAlphaIndex = index;
+		let toAlphaIndex = index;
+		if (alphaShifts) {
+			const fromId = first.alphaMotion.nearest[index];
+			const toId = second.alphaMotion.nearest[index];
+			const fromShift = alphaShifts.fromShifts[fromId];
+			const toShift = alphaShifts.toShifts[toId];
+			const fromX = Math.round(x - textureT * (fromShift?.[0] ?? 0));
+			const fromY = Math.round(y - textureT * (fromShift?.[1] ?? 0));
+			const toX = Math.round(x + (1 - textureT) * (toShift?.[0] ?? 0));
+			const toY = Math.round(y + (1 - textureT) * (toShift?.[1] ?? 0));
+			fromAlphaIndex = fromX < 0 || fromX >= first.width || fromY < 0 || fromY >= first.height ? -1 : fromY * first.width + fromX;
+			toAlphaIndex = toX < 0 || toX >= first.width || toY < 0 || toY >= first.height ? -1 : toY * first.width + toX;
+		}
+		const fromPixelAlpha = first.backgroundAlphaMap ? (fromAlphaIndex < 0 ? 1 : first.backgroundAlphaMap[fromAlphaIndex] / 255) : firstAlpha;
+		const toPixelAlpha = second.backgroundAlphaMap ? (toAlphaIndex < 0 ? 1 : second.backgroundAlphaMap[toAlphaIndex] / 255) : secondAlpha;
 		const pixelBackgroundAlpha = hasBackgroundMap ? (flatten ? 1 : clamp(mix(fromPixelAlpha, toPixelAlpha), 0, 1)) : backgroundAlpha;
 		const pixelBaseRed = hasBackgroundMap
 			? channel(mix(first.background[0] * fromPixelAlpha, second.background[0] * toPixelAlpha)) : baseRed;
@@ -642,21 +788,24 @@ export function renderMorphFrame(first, second, t, out, { flatten = false } = {}
 			alpha += (1 - alpha) * coverage;
 		}
 
-		/* The outer field supplies the moving edge. Follow the silhouette centroids when sampling
-		   source texture, so a mark moves with a translated shape instead of appearing twice. */
+		/* The outer field supplies the moving edge. Sample each source component along its own path. */
 		if (sourcePixels && count) {
 			const fromField = fields[0][0][index];
 			const toField = fields[0][1][index];
-			const x = index % first.width;
-			const y = Math.floor(index / first.width);
-			const fromX = Math.round(x - textureT * shiftX);
-			const fromY = Math.round(y - textureT * shiftY);
-			const toX = Math.round(x + (1 - textureT) * shiftX);
-			const toY = Math.round(y + (1 - textureT) * shiftY);
+			const fromId = first.motion?.nearest[index] ?? -1;
+			const toId = second.motion?.nearest[index] ?? -1;
+			const fromShift = textureShifts?.fromShifts[fromId];
+			const toShift = textureShifts?.toShifts[toId];
+			const fromX = Math.round(x - textureT * (textureShifts ? fromShift?.[0] ?? 0 : shiftX));
+			const fromY = Math.round(y - textureT * (textureShifts ? fromShift?.[1] ?? 0 : shiftY));
+			const toX = Math.round(x + (1 - textureT) * (textureShifts ? toShift?.[0] ?? 0 : shiftX));
+			const toY = Math.round(y + (1 - textureT) * (textureShifts ? toShift?.[1] ?? 0 : shiftY));
 			const fromIndex = fromX < 0 || fromX >= first.width || fromY < 0 || fromY >= first.height ? -1 : fromY * first.width + fromX;
 			const toIndex = toX < 0 || toX >= first.width || toY < 0 || toY >= first.height ? -1 : toY * first.width + toX;
-			const fromWeight = fromIndex < 0 ? 0 : (1 - textureT) * clampCoverage((1 - fields[0][0][fromIndex]) * 0.5);
-			const toWeight = toIndex < 0 ? 0 : textureT * clampCoverage((1 - fields[0][1][toIndex]) * 0.5);
+			const fromWeight = fromIndex < 0 || (textureShifts && first.motion.nearest[fromIndex] !== fromId)
+				? 0 : (1 - textureT) * clampCoverage((1 - fields[0][0][fromIndex]) * 0.5);
+			const toWeight = toIndex < 0 || (textureShifts && second.motion.nearest[toIndex] !== toId)
+				? 0 : textureT * clampCoverage((1 - fields[0][1][toIndex]) * 0.5);
 			const weight = fromWeight + toWeight;
 			if (weight > 0) {
 				const fromOffset = Math.max(0, fromIndex) * 4;

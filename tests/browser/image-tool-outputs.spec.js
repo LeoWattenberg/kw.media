@@ -636,6 +636,35 @@ test.describe('image tool outputs', () => {
 		expect((await previewPixel(tool, 0.5, 160, 12))[3]).toBe(0);
 	});
 
+	test('Image Morph moves separate markings and a clear hole to their halfway positions', async ({ page }) => {
+		await page.goto('/en/tools/image-morph/');
+		const tool = page.locator('[data-image-morph]');
+		const picture = (left, right, leftMark, rightMark, hole) => ({
+			width: 96, height: 64, background: '#ffffff',
+			shapes: [
+				{ type: 'rect', x: left, y: 20, width: 16, height: 24, color: '#000000' },
+				{ type: 'rect', x: right, y: 20, width: 16, height: 24, color: '#000000' },
+				{ type: 'rect', x: leftMark, y: 20, width: 2, height: 24, color: '#ff0000' },
+				{ type: 'rect', x: rightMark, y: 20, width: 2, height: 24, color: '#ff0000' },
+				{ type: 'clear', x: hole, y: 29, width: 2, height: 6 },
+			],
+		});
+		await paintFile(tool.locator('[data-slot="a"] [data-file]'), { ...picture(4, 68, 12, 76, 40), name: 'first.png' });
+		await paintFile(tool.locator('[data-slot="b"] [data-file]'), { ...picture(8, 64, 16, 72, 44), name: 'second.png' });
+		await tool.locator('[data-background]').selectOption('source');
+		await expect(tool.locator('[data-preview]')).toBeVisible();
+		for (const x of [50, 250]) {
+			const pixel = await previewPixel(tool, 0.5, x, 107);
+			expect(pixel[0]).toBeGreaterThan(230);
+			expect(pixel[1]).toBeLessThan(20);
+		}
+		for (const x of [39, 56, 239, 256]) {
+			expect((await previewPixel(tool, 0.5, x, 107))[0]).toBeLessThan(30);
+		}
+		expect((await previewPixel(tool, 0.5, 142, 107))[3]).toBe(0);
+		for (const x of [133, 149]) expect((await previewPixel(tool, 0.5, x, 107))[3]).toBe(255);
+	});
+
 	test('Image Morph previews a distance-field morph and renders it with and without alpha', async ({ page }) => {
 		test.setTimeout(CDN_TIMEOUT);
 		const errors = collectPageErrors(page);
@@ -697,12 +726,23 @@ test.describe('image tool outputs', () => {
 
 		/* 5 + 12 + 5 frames at 24 fps. MP4 has no alpha, so its frames are flattened onto the paper colour. */
 		await tool.locator('[data-format]').selectOption('mp4-h264');
+		await status.evaluate((element) => {
+			window.morphProgressSamples = [];
+			const collect = () => {
+				const match = element.textContent.match(/FFmpeg is encoding\.\.\. (\d+)%/);
+				if (match) window.morphProgressSamples.push(Number(match[1]));
+			};
+			new MutationObserver(collect).observe(element, { childList: true, characterData: true, subtree: true });
+		});
 		await render.click();
 		await expect(status).toHaveText('The video is ready: 22 frames, 0.92 s.', { timeout: RUN_TIMEOUT });
 		await expect(tool.locator('[data-result]')).toBeVisible();
 		await expect(tool.locator('[data-output-meta]')).toContainText('360 x 240px | 24 FPS | 22 frames | 0.92 s');
 		await expect(tool.locator('[data-output-video]')).toBeVisible();
 		await expect(tool.locator('[data-output-note]')).toBeHidden();
+		const progressSamples = await page.evaluate(() => window.morphProgressSamples);
+		expect(progressSamples.length).toBeGreaterThan(0);
+		expect(progressSamples).toEqual([...progressSamples].sort((a, b) => a - b));
 
 		const download = tool.locator('[data-download]');
 		await expect(download).toHaveAttribute('download', 'square-to-circle.mp4');

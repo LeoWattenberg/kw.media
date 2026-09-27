@@ -28,6 +28,7 @@ import {
 	normalizeMorphSettings,
 	outputDimensions,
 	outputFormat,
+	playbackProgressAt,
 	renderMorphFrame,
 	signedDistanceField,
 	squaredDistanceTransform,
@@ -215,6 +216,15 @@ test('the timeline counts hold and morph frames and only comes back when asked t
 	assert.equal(eased.progressAt(12), 0.125);
 	assert.equal(eased.progressAt(24), 1);
 	assert.equal(morphTimeline(normalizeMorphSettings({ duration: 0.1, fps: 24 })).morphFrames, 2);
+});
+
+test('preview playback follows the exported frame clock at short durations and loop boundaries', () => {
+	const settings = normalizeMorphSettings({ holdStart: 0, duration: 0.1, holdEnd: 0, fps: 24, easing: 'linear' });
+	const timeline = morphTimeline(settings);
+	assert.equal(timeline.frameCount, 2);
+	assert.equal(playbackProgressAt(timeline, 0, settings.fps), timeline.progressAt(0));
+	assert.equal(playbackProgressAt(timeline, 1 / 24, settings.fps), timeline.progressAt(1));
+	assert.equal(playbackProgressAt(timeline, 2 / 24, settings.fps), timeline.progressAt(0));
 });
 
 test('the frame holds both pictures at the chosen long edge, even-sized and centred', () => {
@@ -463,6 +473,38 @@ test('texture marks move with a translated silhouette instead of doubling', () =
 	assert.deepEqual(pixelAt(out, width, 12, 10), [...BLACK, 255]);
 	assert.deepEqual(pixelAt(out, width, 14, 10), [255, 0, 0, 255]);
 	assert.deepEqual(pixelAt(out, width, 16, 10), [...BLACK, 255]);
+});
+
+test('separate shapes move their texture in opposite directions', () => {
+	const width = 56;
+	const height = 20;
+	const picture = (left, right, marks) => raster(width, height, (x, y) => (
+		y >= 3 && y < 17 && marks.includes(x) ? [255, 0, 0]
+			: inBox(x, y, [left, 3, 16, 14]) || inBox(x, y, [right, 3, 16, 14]) ? BLACK : WHITE
+	));
+	const first = buildMorphLayers(picture(4, 36, [12, 44]), width, height, { background: WHITE });
+	const second = buildMorphLayers(picture(8, 32, [16, 40]), width, height, { background: WHITE });
+	const out = new Uint8ClampedArray(width * height * 4);
+	renderMorphFrame(first, second, 0.5, out);
+	for (const x of [14, 42]) assert.deepEqual(pixelAt(out, width, x, 10), [255, 0, 0, 255]);
+	for (const x of [12, 16, 40, 44]) assert.deepEqual(pixelAt(out, width, x, 10), [...BLACK, 255]);
+});
+
+test('a transparent hole moves instead of appearing twice in source-background mode', () => {
+	const width = 40;
+	const height = 20;
+	const picture = (boxX, holeX) => raster(width, height, (x, y) => (
+		x === holeX && y >= 8 && y < 12 ? CLEAR
+			: inBox(x, y, [boxX, 6, 8, 8]) ? BLACK : WHITE
+	));
+	const options = { background: WHITE, backgroundAlpha: 1, sourceHasAlpha: true, preserveSourceAlphaBackground: true };
+	const first = buildMorphLayers(picture(2, 20), width, height, options);
+	const second = buildMorphLayers(picture(6, 24), width, height, options);
+	const out = new Uint8ClampedArray(width * height * 4);
+	renderMorphFrame(first, second, 0.5, out);
+	assert.equal(pixelAt(out, width, 20, 9)[3], 255);
+	assert.equal(pixelAt(out, width, 22, 9)[3], 0);
+	assert.equal(pixelAt(out, width, 24, 9)[3], 255);
 });
 
 test('a clear hole does not change how the surrounding opaque background is removed', () => {
