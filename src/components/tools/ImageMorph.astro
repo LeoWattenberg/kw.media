@@ -96,6 +96,7 @@ const copyByLocale = {
 			ffmpegProgress: 'FFmpeg kodiert... {progress}%',
 			ffmpegTimeout: 'FFmpeg wasm hat nicht innerhalb von 90 Sekunden geladen.',
 			ready: 'Das Video ist fertig: {frames} Frames, {duration} s.',
+			settingsChanged: 'Einstellungen geändert. Rendere das Video erneut.',
 			reset: 'Das Tool wurde zurückgesetzt.',
 			outputMeta: '{format} | {width} x {height}px | {fps} FPS | {frames} Frames | {duration} s | {size}',
 			notPlayable: 'Browser spielen MOV-Dateien mit Alphakanal nicht ab. Importiere den Download direkt in dein Schnittprogramm.',
@@ -173,6 +174,7 @@ const copyByLocale = {
 			ffmpegProgress: 'FFmpeg is encoding... {progress}%',
 			ffmpegTimeout: 'FFmpeg wasm did not finish loading within 90 seconds.',
 			ready: 'The video is ready: {frames} frames, {duration} s.',
+			settingsChanged: 'Settings changed. Render the video again.',
 			reset: 'The tool has been reset.',
 			outputMeta: '{format} | {width} x {height}px | {fps} FPS | {frames} frames | {duration} s | {size}',
 			notPlayable: 'Browsers do not play MOV files with an alpha channel. Import the download straight into your editor.',
@@ -421,6 +423,7 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 					void setSlotFile(slot, slot.input.files && slot.input.files[0] ? slot.input.files[0] : null);
 				});
 			}
+			for (const control of controls) control.addEventListener('input', invalidateOutput);
 			levelsInput.addEventListener('input', updateLevelsLabel);
 			detailThresholdInput.addEventListener('input', () => {
 				detailThresholdLabel.textContent = `${detailThresholdInput.value}%`;
@@ -838,6 +841,12 @@ const imageAccept = 'image/*,.avif,.bmp,.gif,.jpeg,.jpg,.png,.svg,.webp';
 				downloadLink.removeAttribute('download');
 				outputVideo.removeAttribute('src');
 				outputMeta.textContent = '';
+			}
+
+			function invalidateOutput() {
+				if (!state.outputUrl) return;
+				resetOutput();
+				setStatus(copy.settingsChanged, 'info');
 			}
 
 			function revokeSlotUrl(slot) {

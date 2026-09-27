@@ -268,6 +268,10 @@ test('the background is the colour the border mostly is, unless the border is se
 
 	const cutout = raster(20, 20, (x, y) => (inBox(x, y, [5, 5, 10, 10]) ? BLACK : CLEAR));
 	assert.equal(estimateBackground(cutout, 20, 20), null);
+	const mixedBorder = raster(20, 20, (x, y) => (y === 0 ? CLEAR : WHITE));
+	assert.equal(estimateBackground(mixedBorder, 20, 20), null, 'a narrow transparent border must stay transparent');
+	const clearCentre = raster(20, 20, (x, y) => (inBox(x, y, [8, 8, 4, 4]) ? CLEAR : WHITE));
+	assert.equal(estimateBackground(clearCentre, 20, 20), null, 'transparency away from the border also matters');
 	assert.equal(estimateBackground(new Uint8ClampedArray(0), 0, 0), null);
 });
 
@@ -405,6 +409,39 @@ test('hold frames retain source pixels even when nearby colours share one tone b
 	assert.deepEqual(pixelAt(out, width, 7, 7), [40, 80, 120, 128]);
 	renderMorphFrame(withAlpha, withAlpha, 0, out, { flatten: true });
 	assert.deepEqual(pixelAt(out, width, 7, 7), [147, 167, 187, 255]);
+});
+
+test('identical images keep their colour detail and partial alpha throughout the morph', () => {
+	const width = 16;
+	const detail = raster(width, width, (x, y) => (
+		inBox(x, y, [6, 6, 4, 4]) ? [36, 36, 36]
+			: inBox(x, y, [2, 2, 12, 12]) ? [32, 32, 32] : WHITE
+	));
+	const opaque = buildMorphLayers(detail, width, width, { levels: 3, background: WHITE });
+	const out = new Uint8ClampedArray(detail.length);
+	for (const progress of [1 / 29, 0.5, 28 / 29]) {
+		renderMorphFrame(opaque, opaque, progress, out);
+		assert.deepEqual(out, detail, `identical opaque pictures must remain unchanged at ${progress}`);
+	}
+
+	const partial = raster(width, width, (x, y) => (
+		inBox(x, y, [2, 2, 12, 12]) ? [40, 80, 120, 128] : CLEAR
+	));
+	const cutout = buildMorphLayers(partial, width, width, {
+		levels: 3, background: WHITE, backgroundAlpha: 0, alphaFloor: TRANSPARENT_INK_FLOOR,
+	});
+	for (const progress of [1 / 29, 0.5, 28 / 29]) {
+		renderMorphFrame(cutout, cutout, progress, out);
+		assert.deepEqual(pixelAt(out, width, 7, 7), [40, 80, 120, 128]);
+		assert.equal(pixelAt(out, width, 0, 0)[3], 0);
+	}
+	renderMorphFrame(cutout, cutout, 0.5, out, { flatten: true });
+	assert.deepEqual(pixelAt(out, width, 7, 7), [147, 167, 187, 255]);
+	const onColor = buildMorphLayers(partial, width, width, {
+		levels: 3, background: [10, 20, 30], backgroundAlpha: 1, alphaFloor: TRANSPARENT_INK_FLOOR,
+	});
+	renderMorphFrame(onColor, onColor, 0.5, out);
+	assert.deepEqual(pixelAt(out, width, 7, 7), [25, 50, 75, 255]);
 });
 
 test('a morph frame reproduces each picture at its ends and blends the silhouettes between them', () => {

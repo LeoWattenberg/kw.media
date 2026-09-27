@@ -321,14 +321,17 @@ export function signedDistanceField(mask, width, height, limit = Math.hypot(widt
 }
 
 /*
- * The background is whatever colour the border of the picture mostly is. Null means the border is
- * mostly transparent, so the picture brings no background of its own.
+ * The background is whatever colour the border of an opaque picture mostly is. Any source alpha
+ * means the picture brings its own transparency, which must not be filled in as background.
  */
 export function estimateBackground(data, width, height) {
+	for (let offset = 3; offset < data.length; offset += 4) {
+		if (data[offset] < 255) return null;
+	}
+
 	const ring = Math.max(1, Math.round(Math.min(width, height) * 0.02));
 	const bins = new Map();
 	let total = 0;
-	let transparent = 0;
 
 	for (let y = 0; y < height; y += 1) {
 		const onEdgeRow = y < ring || y >= height - ring;
@@ -339,11 +342,6 @@ export function estimateBackground(data, width, height) {
 
 			total += 1;
 			const offset = (y * width + x) * 4;
-			if (data[offset + 3] < 128) {
-				transparent += 1;
-				continue;
-			}
-
 			const key = ((data[offset] >> 3) << 10) | ((data[offset + 1] >> 3) << 5) | (data[offset + 2] >> 3);
 			let bin = bins.get(key);
 			if (!bin) {
@@ -357,7 +355,7 @@ export function estimateBackground(data, width, height) {
 		}
 	}
 
-	if (!total || transparent * 2 > total) {
+	if (!total) {
 		return null;
 	}
 
@@ -509,9 +507,10 @@ export function buildMorphLayers(data, width, height, {
 
 /*
  * Hold frames retain their source pixels. If an opaque picture's background is replaced or removed,
- * its first silhouette selects the original foreground pixels. Intermediate frames blend and redraw
- * the distance fields in their band colours. `flatten` composites transparent frames onto the
- * background colour for containers without an alpha channel.
+ * its first silhouette selects the original foreground pixels. Intermediate frames blend the distance
+ * fields for shape, then use source pixels where either silhouette has a pixel to carry colour detail
+ * and partial alpha through the morph. Band colours fill newly formed areas between silhouettes.
+ * `flatten` composites transparent frames onto the background for containers without alpha.
  */
 export function renderMorphFrame(first, second, t, out, { flatten = false } = {}) {
 	const endpoint = t === 0 ? first : t === 1 ? second : null;
@@ -546,9 +545,15 @@ export function renderMorphFrame(first, second, t, out, { flatten = false } = {}
 	const baseRed = channel(mix(first.background[0] * firstAlpha, second.background[0] * secondAlpha));
 	const baseGreen = channel(mix(first.background[1] * firstAlpha, second.background[1] * secondAlpha));
 	const baseBlue = channel(mix(first.background[2] * firstAlpha, second.background[2] * secondAlpha));
+	const textureBaseRed = flatten ? backgroundRed : baseRed;
+	const textureBaseGreen = flatten ? backgroundGreen : baseGreen;
+	const textureBaseBlue = flatten ? backgroundBlue : baseBlue;
 	const count = Math.min(first.layers.length, second.layers.length);
 	const colors = [];
 	const fields = [];
+	const sourcePixels = first.sourceData?.length === size * 4 && second.sourceData?.length === size * 4;
+	const textureT = clamp(t, 0, 1);
+	const clampCoverage = (value) => value < 0 ? 0 : value > 1 ? 1 : value;
 
 	for (let layer = 0; layer < count; layer += 1) {
 		const from = first.layers[layer];
@@ -583,6 +588,41 @@ export function renderMorphFrame(first, second, t, out, { flatten = false } = {}
 			green += (color[1] - green) * coverage;
 			blue += (color[2] - blue) * coverage;
 			alpha += (1 - alpha) * coverage;
+		}
+
+		/* The outer field supplies the moving edge. Source pixels supply texture and opacity where
+		   either original covers this position; the band render above fills positions between them. */
+		if (sourcePixels && count) {
+			const fromField = fields[0][0][index];
+			const toField = fields[0][1][index];
+			const fromWeight = (1 - textureT) * clampCoverage((1 - fromField) * 0.5);
+			const toWeight = textureT * clampCoverage((1 - toField) * 0.5);
+			const weight = fromWeight + toWeight;
+			if (weight > 0) {
+				const offset = index * 4;
+				const fromAlpha = first.alphaSilhouette ? first.sourceData[offset + 3] / 255 : 1;
+				const toAlpha = second.alphaSilhouette ? second.sourceData[offset + 3] / 255 : 1;
+				const fromInk = fromWeight * fromAlpha;
+				const toInk = toWeight * toAlpha;
+				const shapeCoverage = clampCoverage((1 - (fromField + (toField - fromField) * t)) * 0.5);
+				const inkCoverage = shapeCoverage * (fromInk + toInk) / weight;
+				alpha = backgroundAlpha + (1 - backgroundAlpha) * inkCoverage;
+				if (alpha > 0) {
+					red = textureBaseRed * (1 - inkCoverage) + shapeCoverage * (
+						fromInk * first.sourceData[offset] + toInk * second.sourceData[offset]
+					) / weight;
+					green = textureBaseGreen * (1 - inkCoverage) + shapeCoverage * (
+						fromInk * first.sourceData[offset + 1] + toInk * second.sourceData[offset + 1]
+					) / weight;
+					blue = textureBaseBlue * (1 - inkCoverage) + shapeCoverage * (
+						fromInk * first.sourceData[offset + 2] + toInk * second.sourceData[offset + 2]
+					) / weight;
+				} else {
+					red = backgroundRed;
+					green = backgroundGreen;
+					blue = backgroundBlue;
+				}
+			}
 		}
 
 		const offset = index * 4;

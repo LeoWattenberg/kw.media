@@ -33,6 +33,10 @@ const paintFile = (locator, spec) => locator.evaluate(async (input, options) => 
 	context.fillRect(0, 0, options.width, options.height);
 
 	for (const shape of options.shapes || []) {
+		if (shape.type === 'clear') {
+			context.clearRect(shape.x, shape.y, shape.width, shape.height);
+			continue;
+		}
 		context.fillStyle = shape.color;
 		if (shape.type === 'circle') {
 			context.beginPath();
@@ -599,6 +603,27 @@ test.describe('image tool outputs', () => {
 		expect((await previewPixel(tool, 0.5, 207, 80))[3]).toBe(255);
 	});
 
+	test('Image Morph keeps mixed PNG transparency and partial alpha during the morph', async ({ page }) => {
+		await page.goto('/en/tools/image-morph/');
+		const tool = page.locator('[data-image-morph]');
+		const picture = {
+			width: 96, height: 64, background: '#ffffff',
+			shapes: [
+				{ type: 'clear', x: 0, y: 0, width: 96, height: 8 },
+				{ type: 'clear', x: 24, y: 20, width: 48, height: 24 },
+				{ type: 'rect', x: 24, y: 20, width: 48, height: 24, color: '#28507880' },
+			],
+		};
+		await paintFile(tool.locator('[data-slot="a"] [data-file]'), { ...picture, name: 'first.png' });
+		await paintFile(tool.locator('[data-slot="b"] [data-file]'), { ...picture, name: 'second.png' });
+		await expect(tool.locator('[data-slot="a"] [data-file-meta]')).toContainText('transparent');
+		await expect(tool.locator('[data-preview]')).toBeVisible();
+		for (const progress of [0, 0.5, 1]) {
+			expect((await previewPixel(tool, progress, 160, 12))[3]).toBe(0);
+			expect((await previewPixel(tool, progress, 160, 105))[3]).toBe(128);
+		}
+	});
+
 	test('Image Morph previews a distance-field morph and renders it with and without alpha', async ({ page }) => {
 		test.setTimeout(CDN_TIMEOUT);
 		const errors = collectPageErrors(page);
@@ -708,6 +733,10 @@ test.describe('image tool outputs', () => {
 		expect(mov.byteLength).toBeGreaterThan(200);
 		await expect(tool.locator('[data-output-video]')).toBeHidden();
 		await expect(tool.locator('[data-output-note]')).toHaveText('Browsers do not play MOV files with an alpha channel. Import the download straight into your editor.');
+		await setValue(tool.locator('[data-detail-threshold]'), 4);
+		await expect(status).toHaveText('Settings changed. Render the video again.');
+		await expect(tool.locator('[data-result]')).toBeHidden();
+		await expect(download).toBeHidden();
 
 		await tool.locator('[data-clear]').click();
 		await expect(status).toHaveText('The tool has been reset.');
