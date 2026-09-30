@@ -8,12 +8,12 @@ import { fileURLToPath } from 'node:url';
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(SCRIPT_DIR, '..');
 
-// The scheduled generators rewrite these paths and nothing else. They are kept off main
+// The scheduled game generator rewrites this path and nothing else. It is kept off main
 // because a fresh MP3 Guesser day is about five megabytes of audio: a year of daily
 // commits would add gigabytes to every clone. Instead each publish replaces the branch
 // below with a single parentless commit, so the branch never holds more than the current
-// snapshot no matter how long the generators keep running.
-const GENERATED_PATHS = ['public/data/soundscaper-commits.json', 'public/games/mp3guesser'];
+// snapshot no matter how long the generator keeps running.
+const GENERATED_PATHS = ['public/games/mp3guesser'];
 
 const BRANCH = process.env.GENERATED_BRANCH || 'generated';
 const REMOTE = process.env.GENERATED_REMOTE || 'origin';

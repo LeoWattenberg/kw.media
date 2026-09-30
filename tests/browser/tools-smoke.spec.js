@@ -100,50 +100,10 @@ const toolPages = [
 	['/en/tools/image-video-watermark/', 'Image & Video Watermark', '[data-watermarker]'],
 	['/en/tools/image-morph/', 'Image Morph', '[data-image-morph]'],
 	['/en/tools/youtube-thumbnail-preview/', 'YouTube Thumbnail Preview', '[data-thumbnail-preview]'],
-	['/en/tools/soundscaper-commit-graph/', 'Soundscaper Commit Graph', '[data-commit-graph]'],
 	['/en/tools/analyzers/', 'Analyzers', '.tool-category-grid'],
 ];
 
-/* The snapshot keys line counts by the short sha, so stubs need shas that stay distinct once truncated. */
-const commitSha = (index) => `${index}`.padEnd(40, 'f').slice(0, 7);
-
-/* The tool reads the shipped snapshot and nothing else; a call to GitHub is a regression. */
-const failOnGitHubCalls = async (page) => {
-	const calls = [];
-	await page.route('https://api.github.com/**', (route) => {
-		calls.push(route.request().url());
-		return route.abort();
-	});
-	return calls;
-};
-
-const stubCommitSnapshot = async (page, commits, generatedAt) => {
-	const merges = commits.flatMap(({ merge = false }, index) => merge ? [index] : []);
-	const body = JSON.stringify({
-		repo: 'LeoWattenberg/Soundscaper',
-		windowDays: 30,
-		truncated: false,
-		generatedAt,
-		timestamps: commits.map(({ date }) => date),
-		shas: commits.map((_, index) => commitSha(index)),
-		merges,
-		additions: commits.map(({ added = null }) => added),
-		deletions: commits.map(({ removed = null }) => removed),
-	});
-
-	await page.route('**/data/soundscaper-commits.json', (route) => route.fulfill({
-		status: 200,
-		contentType: 'application/json',
-		body,
-	}));
-};
-
 test.describe('tool pages browser smoke', () => {
-	test.beforeEach(async ({ page }) => {
-		const recent = [{ date: new Date(Date.now() - 3_600_000).toISOString() }];
-		await stubCommitSnapshot(page, recent, new Date(Date.now() - 60_000).toISOString());
-	});
-
 	for (const [path, title, selector] of toolPages) {
 		test(`${title} boots without client errors`, async ({ page }) => {
 			const errors = collectClientErrors(page);
@@ -573,64 +533,6 @@ test.describe('visual tool interactions', () => {
 		expect(errors).toEqual([]);
 	});
 
-	test('Soundscaper commit graph charts the shipped snapshot without calling GitHub', async ({ page }) => {
-		const errors = collectClientErrors(page);
-		const githubCalls = await failOnGitHubCalls(page);
-		const peak = new Date(Date.now() - 3 * 60 * 60 * 1000);
-		peak.setUTCMinutes(0, 0, 0);
-		const peakIso = peak.toISOString();
-		const earlierIso = new Date(peak.getTime() - 25 * 60 * 60 * 1000).toISOString();
-		const hourLabel = (date) => `${String(date.getUTCHours()).padStart(2, '0')}:00`;
-		const nextHour = new Date(peak.getTime() + 60 * 60 * 1000);
-
-		/*
-		 * The merge commit alone runs far past the rest, which is what puts the line axis into its
-		 * clipped mode, and the oldest commit is still waiting on the snapshot job for its counts.
-		 */
-		await stubCommitSnapshot(page, [
-			{ date: peakIso, added: 40, removed: 5 },
-			{ date: peakIso, added: 2, removed: 60 },
-			{ date: peakIso, added: 100_000, removed: 100, merge: true },
-			{ date: earlierIso },
-		], new Date(Date.now() - 90 * 60 * 1000).toISOString());
-		await page.goto('/en/tools/soundscaper-commit-graph/');
-		const tool = page.locator('[data-commit-graph]');
-
-		await expect(tool.locator('[data-status]')).toHaveAttribute('data-state', 'success');
-		await expect(tool.locator('[data-status]')).toHaveText('4 commits from the site snapshot (1 hour old).');
-		await expect(tool.locator('[data-stat-total]')).toHaveText('4');
-		await expect(tool.locator('[data-stat-hour]')).toHaveText(`${hourLabel(peak)}–${hourLabel(nextHour)}`);
-		await expect(tool.locator('[data-stat-hour-note]')).toHaveText('3 commits');
-		await expect(tool.locator('[data-bars] .time-bar')).toHaveCount(30 * 24);
-		await expect(tool.locator('[data-bars] .time-day')).toHaveCount(30);
-		await expect(tool.locator('[data-hours-table] tr')).toHaveCount(30);
-		await expect(tool.locator('.heat-cell')).toHaveCount(30 * 24);
-		await expect(tool.locator('[data-stat-added]')).toHaveText('+100,042');
-		await expect(tool.locator('[data-stat-removed]')).toHaveText('−165');
-		await expect(tool.locator('[data-stat-removed-note]')).toHaveText('net +99,877 lines');
-		await expect(tool.locator('[data-lines-caption]')).toHaveText('100,042 lines added and 165 removed, one bar per hour. Line counts are available for 3 of 4 commits. Bars past 200 lines are cut off — 1 of 720 hours.');
-		await expect(tool.locator('[data-lines] .lines-bar')).toHaveCount(30 * 24);
-
-		/* Both series are bucketed to the same hour of the same day, so one column carries them all. */
-		const peakColumn = tool.locator(`[data-lines] .lines-bar[title*="${hourLabel(peak)}–${hourLabel(nextHour)}"]:not([title*="0 added, 0 removed"])`);
-		await expect(peakColumn).toHaveCount(1);
-		await expect(peakColumn).toHaveAttribute('title', /100,042 added, 165 removed$/);
-		/* Only the hour past the ceiling breaks; the 165 removed lines below it stay a whole bar. */
-		await expect(tool.locator('[data-lines] .clipped')).toHaveCount(1);
-		await expect(peakColumn.locator('.added')).toHaveClass(/clipped/);
-		await expect(peakColumn.locator('.added')).toHaveCSS('height', '90px');
-		await expect(tool.locator('[data-merges]')).toHaveCount(0);
-
-		const filledCells = tool.locator('.heat-cell:not([data-level="0"])');
-		await expect(filledCells).toHaveCount(2);
-		const levels = await filledCells.evaluateAll((cells) => cells.map((cell) => Number(cell.dataset.level)));
-		expect(Math.max(...levels)).toBeGreaterThan(Math.min(...levels));
-
-		await expect(tool.locator('[data-reload]')).toHaveCount(0);
-		expect(githubCalls).toEqual([]);
-		expect(errors).toEqual([]);
-	});
-
 	test('VTuber preview keeps a dead 3D scene as the headline once the tracker loads', async ({ page }) => {
 		test.setTimeout(120_000);
 		/* Only the renderer is broken; the face tracker still loads and used to overwrite the reason. */
@@ -650,21 +552,6 @@ test.describe('visual tool interactions', () => {
 		await modelLoaded;
 		await expect(status).toHaveAttribute('data-state', 'error');
 		await expect(status).toContainText('The 3D scene could not start');
-	});
-
-	test('Soundscaper commit graph keeps a failed snapshot load on screen', async ({ page }) => {
-		const githubCalls = await failOnGitHubCalls(page);
-		await page.route('**/data/soundscaper-commits.json', (route) => route.fulfill({ status: 503, body: 'unavailable' }));
-
-		await page.goto('/en/tools/soundscaper-commit-graph/');
-		const status = page.locator('[data-commit-graph] [data-status]');
-		await expect(status).toHaveAttribute('data-state', 'error');
-		await expect(status).toHaveText('Could not load the snapshot: HTTP 503');
-
-		/* The failed load stays on screen without a settings panel to trigger a redraw. */
-		await expect(status).toHaveAttribute('data-state', 'error');
-		await expect(status).toHaveText('Could not load the snapshot: HTTP 503');
-		expect(githubCalls).toEqual([]);
 	});
 
 	test('Background remover previews an uploaded image before CDN-backed removal', async ({ page }) => {

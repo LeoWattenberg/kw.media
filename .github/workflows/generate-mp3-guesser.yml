@@ -8,8 +8,7 @@ on:
 permissions:
   contents: write
 
-# Shared with the commit graph generator: both replace the whole `generated` branch, so
-# they must never publish at the same time.
+# Each run replaces the whole `generated` branch, so overlapping runs must queue.
 concurrency:
   group: generated-assets
   cancel-in-progress: false

@@ -5,7 +5,6 @@ dist/
 .cache/
 
 # scheduled generator output, published to the `generated` branch instead of main
-public/data/soundscaper-commits.json
 public/games/mp3guesser/
 
 # dependencies

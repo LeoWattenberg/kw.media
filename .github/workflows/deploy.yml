@@ -8,7 +8,6 @@ on:
   workflow_run:
     workflows:
       - Generate daily MP3 Guesser
-      - Generate Soundscaper commit graph
     types:
       - completed
 
@@ -45,7 +44,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
 
-      # The scheduled generators keep their output on the `generated` branch instead of
+      # The scheduled game generator keeps its output on the `generated` branch instead of
       # main; it has to land in public/ before Astro copies that directory into dist.
       - name: Restore generated assets
         run: node scripts/generated-assets.mjs restore

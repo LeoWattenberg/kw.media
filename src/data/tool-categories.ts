@@ -166,7 +166,6 @@ export const toolCategories: ToolCategory[] = [
 			'youtube-thumbnail-preview',
 			'vtuber-preview',
 			'short-form-safe-zone-previewer',
-			'soundscaper-commit-graph',
 		],
 		translations: {
 			de: {
