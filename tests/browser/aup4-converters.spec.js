@@ -1,10 +1,12 @@
 import { expect, test } from '@playwright/test';
+import { readFile } from 'node:fs/promises';
 import initSqlJs from 'sql.js';
 import { parseAup3BinaryXml } from '../../src/lib/tools/aup3.js';
 import { decodeAup3Bytes } from '../../src/lib/tools/aup3-browser.js';
 import { createAup4Fixture } from '../aup4-fixture.js';
 
 const SQL = await initSqlJs();
+const nativeFixture = await readFile(new URL('../fixtures/audacity-4.0.1-stereo-tones.aup4', import.meta.url));
 const samples = [0, 0.5, -0.5, 1, -1, 0.125];
 const upload = (bytes, name = 'live.set.2.AUP4') => ({
 	name,
@@ -71,12 +73,77 @@ test.describe('AUP4 converter artifacts', () => {
 				const converted = projectXml(bytes, table);
 				expect(converted.attributes.version).toBe('1.3.0');
 				original.attributes.version = '1.3.0';
+				original.attributeRecords.find((record) => record.name === 'version').value = '1.3.0';
 				expect(converted).toEqual(original);
 			}
 			const decoded = await decodeAup3Bytes(bytes, { SQL });
 			expect(Array.from(decoded.channels[0])).toEqual([0.25, -0.5, 0.75, 0]);
 			expect(decoded.metadata.source).toBe('autosave');
 			expect(errors).toEqual([]);
+		});
+	}
+
+	test('native Audacity 4 repeated gain attributes produce the real stereo waveform in WAV', async ({ page }) => {
+		const errors = collectPageErrors(page);
+		await page.goto('/en/tools/converter/aup4-to-wav/');
+		const converter = page.locator('[data-aup4-wav-converter]');
+		await converter.locator('[data-file-input]').setInputFiles(upload(nativeFixture, 'native-stereo.aup4'));
+		await converter.locator('[data-format]').selectOption('float32');
+		await converter.locator('[data-convert]').click();
+		await expect(converter.locator('[data-download]')).toBeVisible({ timeout: 60_000 });
+		const wav = await readWav(converter.locator('[data-download]'));
+		expect(wav).toMatchObject({ audioFormat: 3, channels: 2, sampleRate: 48_000, decodedChannels: 2, decodedLength: 9600, byteLength: 44 + 9600 * 2 * 4 });
+		for (const start of [0, 7200]) {
+			expect(wav.allSamples[0][start + 12]).toBeCloseTo(0.25, 7);
+			expect(wav.allSamples[1][start + 6]).toBeCloseTo(0.125, 7);
+		}
+		for (const channel of wav.allSamples) expect(channel.slice(2400, 7200).every((sample) => sample === 0)).toBe(true);
+		expect(errors).toEqual([]);
+	});
+
+	test('native Audacity 4 downgrade preserves repeated typed gain attributes and audible stereo blocks', async ({ page }) => {
+		const errors = collectPageErrors(page);
+		await page.goto('/en/tools/converter/aup4-to-aup3/');
+		const converter = page.locator('[data-aup4-aup3-converter]');
+		await converter.locator('[data-file-input]').setInputFiles(upload(nativeFixture, 'native-stereo.aup4'));
+		await converter.locator('[data-convert]').click();
+		const download = converter.locator('[data-download]');
+		await expect(download).toBeVisible({ timeout: 60_000 });
+		await expect(converter.locator('[data-warning]')).toBeHidden();
+		const bytes = Uint8Array.from(await download.evaluate(async (link) => Array.from(new Uint8Array(await (await fetch(link.href)).arrayBuffer()))));
+		expect(sqlRows(bytes, 'PRAGMA integrity_check')).toEqual([['ok']]);
+		expect(sqlRows(bytes, 'SELECT * FROM sampleblocks ORDER BY blockid')).toEqual(sqlRows(nativeFixture, 'SELECT * FROM sampleblocks ORDER BY blockid'));
+		const tracks = projectXml(bytes, 'project').children.filter((node) => node.name === 'wavetrack');
+		for (const track of tracks) expect(track.attributeRecords.filter((record) => record.name === 'gain')).toEqual([{ name: 'gain', type: 4, value: 20 }, { name: 'gain', type: 10, value: 1 }]);
+		const decoded = await decodeAup3Bytes(bytes, { SQL });
+		expect(decoded.channels.length).toBe(2);
+		expect(decoded.channels[0].length).toBe(9600);
+		expect(decoded.channels[0][12]).toBe(0.25);
+		expect(decoded.channels[1][6]).toBe(0.125);
+		expect(decoded.channels[0][7212]).toBe(0.25);
+		expect(decoded.channels[1][7206]).toBe(0.125);
+		expect(errors).toEqual([]);
+	});
+
+	for (const locale of ['en', 'de']) {
+		test(`the ${locale} downgrade warns about later tempo edits while preserving actual audio`, async ({ page }) => {
+			const fixture = await createAup4Fixture({ SQL, autosave: true, projectTempo: 120, tracks: [{ clips: [{ samples, rawAudioTempo: 60, clipStretchToMatchTempo: false }] }] });
+			await page.goto(`/${locale}/tools/converter/aup4-to-aup3/`);
+			const converter = page.locator('[data-aup4-aup3-converter]');
+			await converter.locator('[data-file-input]').setInputFiles(upload(fixture));
+			await converter.locator('[data-convert]').click();
+			const download = converter.locator('[data-download]');
+			await expect(download).toBeVisible({ timeout: 60_000 });
+			const warning = converter.locator('[data-warning-code="AUP4_TEMPO_EDITING_CHANGED"]');
+			await expect(warning).toBeVisible();
+			await expect(warning).toContainText(locale === 'de' ? 'späteren Änderungen des Projekttempos' : 'later project-tempo changes');
+			const bytes = Uint8Array.from(await download.evaluate(async (link) => Array.from(new Uint8Array(await (await fetch(link.href)).arrayBuffer()))));
+			expect(sqlRows(bytes, 'SELECT * FROM sampleblocks')).toEqual(sqlRows(fixture, 'SELECT * FROM sampleblocks'));
+			const decoded = await decodeAup3Bytes(bytes, { SQL });
+			expect(Array.from(decoded.channels[0])).toEqual(samples);
+			await converter.locator('[data-reset]').click();
+			await expect(converter.locator('[data-warning]')).toBeHidden();
+			expect(await converter.locator('[data-warning]').getAttribute('data-warning-code')).toBeNull();
 		});
 	}
 
@@ -101,6 +168,7 @@ test.describe('AUP4 converter artifacts', () => {
 		test(`AUP4 to ${target} rejects invalid projects, recovers, and resets`, async ({ page }) => {
 			const errors = collectPageErrors(page);
 			const fixture = await createAup4Fixture({ SQL });
+			const futureXml = await createAup4Fixture({ SQL, projectVersion: '2.1.0' });
 			const unsupported = fixture.slice();
 			new DataView(unsupported.buffer).setUint32(60, 0x04000002, false);
 			const wrongId = fixture.slice();
@@ -112,6 +180,7 @@ test.describe('AUP4 converter artifacts', () => {
 			for (const [name, bytes] of [
 				['corrupt.aup4', new TextEncoder().encode('not a database')],
 				['future.aup4', unsupported],
+				['future-xml.aup4', futureXml],
 				['wrong-project.aup4', wrongId],
 				['truncated.aup4', fixture.slice(0, -1)],
 			]) {
@@ -192,5 +261,6 @@ const readWav = (link) => link.evaluate(async (node) => {
 		sampleRate: view.getUint32(24, true), bitDepth: view.getUint16(34, true), byteLength: bytes.byteLength,
 		decodedChannels: audio.numberOfChannels, decodedRate: audio.sampleRate, decodedLength: audio.length,
 		samples: Array.from(audio.getChannelData(0)),
+		allSamples: Array.from({ length: audio.numberOfChannels }, (_, channel) => Array.from(audio.getChannelData(channel))),
 	};
 });

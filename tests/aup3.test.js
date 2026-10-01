@@ -177,6 +177,111 @@ test('mixes linked stereo tracks, skips muted tracks, and counts logical tracks'
 	assert.equal(decoded.metadata.trackCount, 2);
 });
 
+test('solo overrides mute while excluding every nonsolo track from the export', async () => {
+	const fixture = await createAup3Fixture({
+		SQL,
+		tracks: [
+			{ mute: true, solo: true, clips: [{ samples: [0.25, -0.5, 0.75] }] },
+			{ mute: false, solo: false, clips: [{ samples: [1, 1, 1] }] },
+			{ mute: false, solo: true, clips: [{ samples: [0.125, 0.25, -0.125] }] },
+		],
+	});
+	const decoded = await decodeAup3Bytes(fixture, { SQL });
+	assert.deepEqual(Array.from(decoded.channels[0]), [0.375, -0.25, 0.625]);
+	assert.deepEqual(decoded.warnings, []);
+});
+
+test('filters frequencies above the destination Nyquist limit when track and project rates differ', async () => {
+	const fixture = await createAup3Fixture({
+		SQL,
+		sampleRate: 24_000,
+		tracks: [{ rate: 48_000, clips: [{ samples: Array.from({ length: 4_800 }, (_, index) => index % 2 ? -1 : 1) }] }],
+	});
+	const decoded = await decodeAup3Bytes(fixture, { SQL });
+	assert.equal(decoded.channels[0].length, 2_400);
+	const interior = decoded.channels[0].subarray(100, -100);
+	const rms = Math.sqrt(interior.reduce((sum, sample) => sum + sample * sample, 0) / interior.length);
+	assert.ok(rms < 1e-5, `Nyquist alias RMS ${rms} should be inaudible`);
+	assert.deepEqual(decoded.warnings, []);
+});
+
+test('resampling follows one timeline phase and preserves audio across adjacent clip joins', async () => {
+	for (const { sourceRate, outputRate, split, offset } of [
+		{ sourceRate: 48_000, outputRate: 24_000, split: 2_400, offset: 0 },
+		{ sourceRate: 48_000, outputRate: 24_000, split: 2_381, offset: 0 },
+		{ sourceRate: 48_000, outputRate: 44_100, split: 1_333, offset: 0 },
+		{ sourceRate: 44_100, outputRate: 48_000, split: 1_001, offset: 0 },
+		{ sourceRate: 48_000, outputRate: 24_000, split: 2_381, offset: -1_201 / 48_000 },
+	]) {
+		const samples = Array.from({ length: 4_800 }, (_, index) => 0.25 + (index % 2 ? -0.1 : 0.1) + 0.125 * Math.sin(2 * Math.PI * 2_000 * index / sourceRate));
+		const makeFixture = (clips) => createAup3Fixture({ SQL, sampleRate: outputRate, tracks: [{ rate: sourceRate, clips }] });
+		const whole = await decodeAup3Bytes(await makeFixture([{ samples, offset }]), { SQL });
+		const separated = await decodeAup3Bytes(await makeFixture([
+			{ samples: samples.slice(0, split), offset },
+			{ samples: samples.slice(split), offset: offset + split / sourceRate },
+		]), { SQL });
+		assert.equal(separated.channels[0].length, whole.channels[0].length);
+		for (let index = 0; index < whole.channels[0].length; index += 1) {
+			assert.ok(Math.abs(separated.channels[0][index] - whole.channels[0][index]) < 1e-6,
+				`${sourceRate} -> ${outputRate}, split ${split}, offset ${offset}, frame ${index}: ${separated.channels[0][index]} vs ${whole.channels[0][index]}`);
+		}
+	}
+});
+
+test('resampling includes filter tails across silence while excluding hidden trims and negative-time audio', async () => {
+	const sourceRate = 48_000;
+	const outputRate = 24_000;
+	const left = Array.from({ length: 401 }, (_, index) => 0.25 * Math.cos(index * 0.4));
+	const right = Array.from({ length: 499 }, (_, index) => 0.25 * Math.sin(index * 0.3));
+	const gap = Array(31).fill(0);
+	const makeFixture = (clips) => createAup3Fixture({ SQL, sampleRate: outputRate, tracks: [{ rate: sourceRate, clips }] });
+	const whole = await decodeAup3Bytes(await makeFixture([{ samples: [...left, ...gap, ...right] }]), { SQL });
+	const separated = await decodeAup3Bytes(await makeFixture([
+		{ samples: [1_000, ...left, -1_000], offset: -1 / sourceRate, trimLeft: 1 / sourceRate, trimRight: 1 / sourceRate },
+		{ samples: [1_000, ...right, -1_000], offset: (left.length + gap.length - 1) / sourceRate, trimLeft: 1 / sourceRate, trimRight: 1 / sourceRate },
+	]), { SQL });
+	assert.equal(separated.channels[0].length, whole.channels[0].length);
+	for (let index = 0; index < whole.channels[0].length; index += 1) assert.ok(Math.abs(separated.channels[0][index] - whole.channels[0][index]) < 1e-6);
+	const beforeZero = await decodeAup3Bytes(await makeFixture([{ samples: [...Array(10).fill(1_000), ...Array(10).fill(0)], offset: -10 / sourceRate }]), { SQL });
+	assert.deepEqual(Array.from(beforeZero.channels[0]), Array(5).fill(0));
+});
+
+test('unity resampling with a fractional stretched-clip phase produces finite interpolated audio', async () => {
+	const samples = Array.from({ length: 2_000 }, (_, index) => Math.sin(index * 0.2));
+	const fixture = await createAup3Fixture({ SQL, sampleRate: 48_000, tracks: [{ rate: 96_000, clips: [{ samples, offset: 1 / 96_000, stretchRatio: 2 }] }] });
+	const decoded = await decodeAup3Bytes(fixture, { SQL });
+	for (let index = 0; index < decoded.channels[0].length; index += 1) assert.ok(Number.isFinite(decoded.channels[0][index]));
+	for (let index = 100; index < 1_900; index += 1) assert.ok(Math.abs(decoded.channels[0][index] - Math.sin((index - 0.5) * 0.2)) < 0.001);
+});
+
+test('stretched clip endpoints use exact trims and snap separately on the track grid', async () => {
+	for (const { sampleRate, trackRate, offset, trimLeft, trimRight, stretch, length, expectedStart, expectedEnd } of [
+		{ sampleRate: 48_000, trackRate: 48_000, offset: 0, trimLeft: 2 / 48_000, trimRight: 0, stretch: 1.5, length: 10, expectedStart: 2, expectedEnd: 15 },
+		{ sampleRate: 48_000, trackRate: 48_000, offset: 0.6 / 48_000, trimLeft: 1.4 / 48_000, trimRight: 2.4 / 48_000, stretch: 1.5, length: 10, expectedStart: 2, expectedEnd: 13 },
+		{ sampleRate: 44_100, trackRate: 48_000, offset: 0, trimLeft: 2 / 48_000, trimRight: 0, stretch: 1.5, length: 10, expectedStart: 2, expectedEnd: 15 },
+		{ sampleRate: 48_000, trackRate: 48_000, offset: -0.5 / 48_000, trimLeft: 0, trimRight: 0, stretch: 1, length: 6, expectedStart: -1, expectedEnd: 6 },
+	]) {
+		const fixture = await createAup3Fixture({ SQL, sampleRate, tracks: [{ rate: trackRate, clips: [{ samples: Array(length).fill(0.25), offset, trimLeft, trimRight, stretchRatio: stretch }] }] });
+		const decoded = await decodeAup3Bytes(fixture, { SQL });
+		assert.equal(decoded.channels[0].length, Math.round(expectedEnd / trackRate * sampleRate));
+		const structured = await decodeAup3Bytes(fixture, { SQL, structured: true });
+		assert.equal(structured.tracks[0].clips[0].startSeconds, expectedStart / trackRate);
+		assert.equal(structured.tracks[0].clips[0].endSeconds, expectedEnd / trackRate);
+		assert.equal(structured.metadata.durationSeconds, expectedEnd / trackRate);
+	}
+});
+
+test('negative clip offsets discard only the audio before the export start', async () => {
+	for (const { offset, expected } of [
+		{ offset: -4 / 48_000, expected: [0.75, -0.75] },
+		{ offset: -2 / 48_000, expected: [0.5, -0.5, 0.75, -0.75] },
+	]) {
+		const fixture = await createAup3Fixture({ SQL, tracks: [{ clips: [{ samples: [0.25, -0.25, 0.5, -0.5, 0.75, -0.75], offset }] }] });
+		const decoded = await decodeAup3Bytes(fixture, { SQL });
+		assert.deepEqual(Array.from(decoded.channels[0]), expected);
+	}
+});
+
 test('structured AUP3 decoding preserves tracks, clips, trims, pitch, stretch, envelopes, and source channels', async () => {
 	const fixture = await createAup3Fixture({
 		SQL,

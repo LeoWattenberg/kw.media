@@ -141,7 +141,8 @@ function hasSqliteHeader(bytes) {
 }
 
 function toBytes(value) {
-	if (value instanceof Uint8Array) return value;
+	// sql.js must receive ordinary Uint8Array copy semantics, including when
+	// callers provide a Node Buffer whose slice() would alias the source.
 	if (ArrayBuffer.isView(value)) return new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
 	if (value instanceof ArrayBuffer) return new Uint8Array(value);
 	if (Array.isArray(value)) return Uint8Array.from(value);

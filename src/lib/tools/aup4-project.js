@@ -57,8 +57,8 @@ export function inspectAup4Header(input, options = {}) {
 
 /**
  * Preserve audio and editable project data while changing compatibility
- * versions. Legacy XML needs only a header edit; XML 2.0.0 also needs its root
- * version changed in the project and autosave documents for Audacity 3.7.
+ * versions, adapting XML 2.0.0 attributes in saved and autosave documents for
+ * Audacity 3.7. onWarning receives compatibility warning codes after success.
  */
 export async function convertAup4BytesToAup3(input, options = {}) {
 	if (options.signal?.aborted) throw new Aup4Error('The AUP4 conversion was cancelled.', 'ABORTED');
@@ -68,6 +68,7 @@ export async function convertAup4BytesToAup3(input, options = {}) {
 	const SQL = options.SQL || await loadSqlJs();
 	if (options.signal?.aborted) throw new Aup4Error('The AUP4 conversion was cancelled.', 'ABORTED');
 	let database;
+	const warnings = new Map();
 	try {
 		database = new SQL.Database(bytes);
 		const integrity = database.exec('PRAGMA quick_check');
@@ -89,7 +90,9 @@ export async function convertAup4BytesToAup3(input, options = {}) {
 					throw new Aup4Error('The AUP4 project description is empty.', 'INVALID_DATABASE');
 				}
 				if (table === 'project' && id === 1) hasProject = true;
-				const rewritten = rewriteAup4ProjectForAup3(dictionary, document);
+				const rewritten = rewriteAup4ProjectForAup3(dictionary, document, {
+					onWarning: (warning) => warnings.set(warning.code, warning),
+				});
 				if (rewritten.byteLength !== document.byteLength || rewritten.some((value, index) => value !== document[index])) {
 					database.run(`UPDATE ${table} SET doc = ? WHERE id = ?`, [rewritten, id]);
 					changed = true;
@@ -99,10 +102,13 @@ export async function convertAup4BytesToAup3(input, options = {}) {
 		if (!hasProject) throw new Aup4Error('The AUP4 database has no saved project.', 'INVALID_DATABASE');
 		if (changed) {
 			database.run(`PRAGMA user_version = ${AUP3_USER_VERSION}`);
-			return database.export();
+			const output = database.export();
+			for (const warning of warnings.values()) options.onWarning?.(warning);
+			return output;
 		}
 		const output = bytes.slice();
 		new DataView(output.buffer).setUint32(60, AUP3_USER_VERSION);
+		for (const warning of warnings.values()) options.onWarning?.(warning);
 		return output;
 	} catch (error) {
 		if (error instanceof Aup4Error) throw error;
@@ -120,7 +126,8 @@ export function checkAup4MemoryLimit(size, options) {
 }
 
 function toBytes(value) {
-	if (value instanceof Uint8Array) return value;
+	// Canonicalize subclasses such as Node Buffer: Buffer.slice() aliases its
+	// source, while sql.js and our output path rely on Uint8Array.slice() copying.
 	if (ArrayBuffer.isView(value)) return new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
 	if (value instanceof ArrayBuffer) return new Uint8Array(value);
 	if (Array.isArray(value)) return Uint8Array.from(value);

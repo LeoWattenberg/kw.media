@@ -34,6 +34,7 @@ function convertInWorker(buffer, options) {
 		worker.onmessage = ({ data }) => {
 			if (data?.type === 'result') finish(resolve, new Uint8Array(data.buffer));
 			else if (data?.type === 'error') finish(reject, new Aup4Error(data.message, data.code));
+			else if (data?.type === 'warning' && !settled) options.onWarning?.(data.warning);
 		};
 		worker.onerror = (event) => finish(reject, new Aup4Error(event.message || 'The AUP4 conversion worker failed.', 'WORKER_ERROR'));
 		if (options.signal?.aborted) return abort();
@@ -41,4 +42,3 @@ function convertInWorker(buffer, options) {
 		worker.postMessage({ type: 'convert', buffer, memoryLimits: resolveAudacityMemoryLimits(options) }, [buffer]);
 	});
 }
-

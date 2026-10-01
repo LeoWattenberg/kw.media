@@ -7,10 +7,15 @@ const FIELD = Object.freeze({
 	STRING: 3,
 	INT: 4,
 	BOOL: 5,
+	LONG: 6,
+	LONG_LONG: 7,
+	SIZE_T: 8,
+	FLOAT: 9,
 	DOUBLE: 10,
 	DATA: 11,
 	RAW: 12,
 	NAME: 15,
+	BLOB: 16,
 });
 
 export const AUP3_SAMPLE_FORMAT = Object.freeze({
@@ -27,14 +32,15 @@ export async function createAup3Fixture(options = {}) {
 	const database = new SQL.Database();
 	try {
 		database.run('PRAGMA application_id = 0x41554459');
+		database.run('PRAGMA user_version = 0x03070000');
 		database.run('CREATE TABLE project (id INTEGER PRIMARY KEY, dict BLOB, doc BLOB)');
 		database.run('CREATE TABLE autosave (id INTEGER PRIMARY KEY, dict BLOB, doc BLOB)');
 		database.run(`CREATE TABLE sampleblocks (
-			blockid INTEGER PRIMARY KEY,
+			blockid INTEGER PRIMARY KEY AUTOINCREMENT,
 			sampleformat INTEGER,
-			summin BLOB,
-			summax BLOB,
-			sumrms BLOB,
+			summin REAL,
+			summax REAL,
+			sumrms REAL,
 			summary256 BLOB,
 			summary64k BLOB,
 			samples BLOB
@@ -45,10 +51,13 @@ export async function createAup3Fixture(options = {}) {
 		}
 		for (const block of sampleBlocks) {
 			if (block.missing || block.id <= 0) continue;
-			database.run('INSERT INTO sampleblocks (blockid, sampleformat, samples) VALUES (?, ?, ?)', [
+			const samples = encodeSamples(block.samples, block.sampleFormat);
+			const summaries = sampleSummaries(samples, block.sampleFormat);
+			database.run('INSERT INTO sampleblocks (blockid, sampleformat, summin, summax, sumrms, summary256, summary64k, samples) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
 				block.id,
 				block.sampleFormat,
-				encodeSamples(block.samples, block.sampleFormat),
+				summaries.minimum, summaries.maximum, summaries.rms,
+				summaries.summary256, summaries.summary64k, samples,
 			]);
 		}
 		return database.export();
@@ -69,7 +78,7 @@ export function createAup3ProjectData(options = {}) {
 	const trackNodes = tracks.map((track, trackIndex) => {
 		const rate = track.rate || projectRate;
 		const clips = track.clips || (track.samples ? [{ samples: track.samples }] : []);
-		const clipNodes = clips.map((clip) => {
+		const clipNodes = clips.map((clip, clipIndex) => {
 			const format = clip.sampleFormat || track.sampleFormat || AUP3_SAMPLE_FORMAT.FLOAT32;
 			const configuredBlocks = clip.blocks || [{
 				id: clip.blockId,
@@ -84,6 +93,7 @@ export function createAup3ProjectData(options = {}) {
 				const length = id <= 0 ? -id : samples.length;
 				const node = xmlNode('waveblock', {
 					start: configured.start ?? cumulative,
+					length,
 					blockid: id,
 				});
 				if (id > 0) sampleBlocks.push({
@@ -96,41 +106,56 @@ export function createAup3ProjectData(options = {}) {
 				return node;
 			});
 			const sequence = xmlNode('sequence', {
-				maxsamples: Math.max(cumulative, 1),
+				maxsamples: Math.max(cumulative, 262144),
 				sampleformat: format,
+				effectivesampleformat: format,
 				numsamples: clip.declaredSamples ?? cumulative,
 			}, blockNodes);
 			const children = [sequence];
 			if (clip.envelope) {
 				children.push(xmlNode('envelope', { numpoints: 1 }, [xmlNode('controlpoint', { t: 0, val: 0.5 })]));
+			} else {
+				children.push(xmlNode('envelope', { numpoints: 0 }));
 			}
 			if (clip.cutline) {
 				children.push(xmlNode('waveclip', { offset: 0 }, [
-					xmlNode('sequence', { sampleformat: format, numsamples: 1 }, [xmlNode('waveblock', { start: 0, blockid: -1 })]),
+					xmlNode('sequence', { maxsamples: 262144, sampleformat: format, effectivesampleformat: format, numsamples: 1 }, [xmlNode('waveblock', { start: 0, length: 1, blockid: -1 })]),
+					xmlNode('envelope', { numpoints: 0 }),
 				]));
 			}
 			return xmlNode('waveclip', {
 				offset: clip.offset || 0,
 				trimLeft: clip.trimLeft || 0,
 				trimRight: clip.trimRight || 0,
-				...(clip.stretchRatio == null ? {} : { clipStretchRatio: clip.stretchRatio }),
-				...(clip.rawAudioTempo == null ? {} : { rawAudioTempo: clip.rawAudioTempo }),
-				...(clip.centShift == null ? {} : { centShift: clip.centShift }),
+				clipStretchRatio: clip.stretchRatio ?? 1,
+				rawAudioTempo: clip.rawAudioTempo ?? 0,
+				centShift: clip.centShift ?? 0,
+				pitchAndSpeedPreset: 0,
+				name: clip.name || `Clip ${clipIndex + 1}`,
+				colorindex: 0,
 			}, children);
 		});
 		return xmlNode('wavetrack', {
 			name: track.name || `Track ${trackIndex + 1}`,
+			isSelected: false,
+			colorindex: 0,
+			height: 150,
+			minimized: false,
 			channel: track.channel ?? 0,
-			linked: track.linked || false,
+			linked: track.linked === true ? 3 : track.linked || 0,
 			mute: track.mute || false,
 			solo: track.solo || false,
 			gain: track.gain ?? 1,
 			pan: track.pan || 0,
 			rate,
+			sampleformat: track.sampleFormat || AUP3_SAMPLE_FORMAT.FLOAT32,
 		}, clipNodes);
 	});
 	if (options.realtimeEffect) trackNodes.push(xmlNode('effects', { active: true }, [xmlNode('effectstate', { name: 'Fixture effect' })]));
 	const project = xmlNode('project', {
+		xmlns: 'http://audacity.sourceforge.net/xml/',
+		version: '1.3.0',
+		audacityversion: '3.7.9',
 		rate: projectRate,
 		projname: options.projectName || 'fixture.aup3',
 		...(options.projectTempo == null ? {} : { time_signature_tempo: options.projectTempo }),
@@ -164,9 +189,17 @@ export function serializeAup3Xml(root) {
 function writeNode(writer, node, names) {
 	const tagId = names.get(node.name);
 	writer.u8(FIELD.START_TAG).u16(tagId);
-	for (const [name, value] of Object.entries(node.attributes || {})) {
+	const records = node.attributeRecords || Object.entries(node.attributes || {}).map(([name, value]) => ({ name, value }));
+	for (const { name, value, type } of records) {
 		const nameId = names.get(name);
-		if (typeof value === 'boolean') writer.u8(FIELD.BOOL).u16(nameId).u8(value ? 1 : 0);
+		const floating = ['gain', 'pan', 'rate', 'offset', 'trimLeft', 'trimRight', 'rawAudioTempo', 'clipStretchRatio', 'clipTempo', 'time_signature_tempo'].includes(name);
+		if (type === FIELD.BLOB) writer.u8(type).u16(nameId).i32(value.length).bytes(value);
+		else if (type === FIELD.LONG_LONG) writer.u8(type).u16(nameId).i64(value);
+		else if (type === FIELD.LONG) writer.u8(type).u16(nameId).i32(value);
+		else if (type === FIELD.SIZE_T) writer.u8(type).u16(nameId).u32(value);
+		else if (type === FIELD.FLOAT) writer.u8(type).u16(nameId).f32(value).i32(9);
+		else if (type === FIELD.DOUBLE || floating && type == null) writer.u8(FIELD.DOUBLE).u16(nameId).f64(value).i32(17);
+		else if (typeof value === 'boolean') writer.u8(FIELD.BOOL).u16(nameId).u8(value ? 1 : 0);
 		else if (Number.isInteger(value) && value >= -0x80000000 && value <= 0x7fffffff) {
 			writer.u8(FIELD.INT).u16(nameId).i32(value);
 		} else if (typeof value === 'number') {
@@ -187,11 +220,48 @@ function writeNode(writer, node, names) {
 function collectNames(node, names) {
 	names.set(node.name, 0);
 	for (const name of Object.keys(node.attributes || {})) names.set(name, 0);
+	for (const { name } of node.attributeRecords || []) names.set(name, 0);
 	for (const child of node.children || []) collectNames(child, names);
 }
 
 function xmlNode(name, attributes = {}, children = [], data = '') {
 	return { name, attributes, children, data };
+}
+
+// Native sampleblocks contain float32 min/max/RMS triplets. The 256-sample
+// summary is padded to one full set of 256 entries per 64K summary entry.
+function sampleSummaries(bytes, format) {
+	const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+	const width = format >>> 16;
+	const values = Array.from({ length: bytes.length / width }, (_, index) => {
+		const offset = index * width;
+		if (format === AUP3_SAMPLE_FORMAT.INT16) return view.getInt16(offset, true) / 32768;
+		if (format === AUP3_SAMPLE_FORMAT.INT24) return view.getInt32(offset, true) / 8388608;
+		return view.getFloat32(offset, true);
+	});
+	const stats = (start, end) => {
+		let minimum = 3.4028234663852886e38;
+		let maximum = -minimum;
+		let squared = 0;
+		for (let index = start; index < end; index += 1) {
+			minimum = Math.min(minimum, values[index]);
+			maximum = Math.max(maximum, values[index]);
+			squared += values[index] * values[index];
+		}
+		return [minimum, maximum, end > start ? Math.sqrt(squared / (end - start)) : 0];
+	};
+	const frames64k = Math.ceil(values.length / 65536);
+	const summary = (size, count) => {
+		const result = new Uint8Array(count * 12);
+		const target = new DataView(result.buffer);
+		for (let frame = 0; frame < count; frame += 1) {
+			const triplet = stats(frame * size, Math.min((frame + 1) * size, values.length));
+			for (let index = 0; index < 3; index += 1) target.setFloat32(frame * 12 + index * 4, triplet[index], true);
+		}
+		return result;
+	};
+	const [minimum, maximum, rms] = stats(0, values.length);
+	return { minimum, maximum, rms, summary256: summary(256, frames64k * 256), summary64k: summary(65536, frames64k) };
 }
 
 function encodeSamples(samples, format) {
@@ -231,6 +301,21 @@ class ByteWriter {
 	i32(value) {
 		const buffer = new ArrayBuffer(4);
 		new DataView(buffer).setInt32(0, value, true);
+		return this.bytes(new Uint8Array(buffer));
+	}
+	u32(value) {
+		const buffer = new ArrayBuffer(4);
+		new DataView(buffer).setUint32(0, value, true);
+		return this.bytes(new Uint8Array(buffer));
+	}
+	i64(value) {
+		const buffer = new ArrayBuffer(8);
+		new DataView(buffer).setBigInt64(0, BigInt(value), true);
+		return this.bytes(new Uint8Array(buffer));
+	}
+	f32(value) {
+		const buffer = new ArrayBuffer(4);
+		new DataView(buffer).setFloat32(0, value, true);
 		return this.bytes(new Uint8Array(buffer));
 	}
 	f64(value) {

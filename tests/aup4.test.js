@@ -48,6 +48,7 @@ test('AUP4 to AUP3 preserves audio, project metadata, autosave, and the source b
 		assert.equal(before.attributes.version, '2.0.0');
 		assert.equal(after.attributes.version, '1.3.0');
 		before.attributes.version = '1.3.0';
+		before.attributeRecords.find((record) => record.name === 'version').value = '1.3.0';
 		assert.deepEqual(after, before);
 	}
 	const decoded = await decodeAup3Bytes(converted, { SQL });

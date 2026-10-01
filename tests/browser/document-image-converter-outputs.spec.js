@@ -573,6 +573,38 @@ test.describe('image format converter artifacts', () => {
 });
 
 test.describe('AUP3 to WAV artifacts', () => {
+	test('resampling rejects aliases and keeps adjacent clips seamless', async ({ page }) => {
+		const pageErrors = collectPageErrors(page);
+		const samples = Array.from({ length: 4800 }, (_, index) => 0.25 + (index % 2 ? -0.1 : 0.1));
+		const split = 2381;
+		const fixture = await createAup3Fixture({
+			sampleRate: 24_000,
+			tracks: [{ rate: 48_000, clips: [
+				{ samples: samples.slice(0, split) },
+				{ samples: samples.slice(split), offset: split / 48_000 },
+			] }],
+		});
+		await page.goto('/en/tools/converter/aup3-to-wav/');
+		const converter = page.locator('[data-aup3-wav-converter]');
+		await converter.locator('[data-file-input]').setInputFiles({
+			name: 'resampled clips.aup3', mimeType: 'application/octet-stream', buffer: Buffer.from(fixture),
+		});
+		await converter.locator('[data-format]').selectOption('float32');
+		await converter.locator('[data-convert]').click();
+		const download = converter.locator('[data-download]');
+		await expect(download).toBeVisible({ timeout: 60_000 });
+		expect(await readWavHeader(download)).toMatchObject({ audioFormat: 3, channels: 1, sampleRate: 24_000, dataSize: 2400 * 4 });
+		const maximumError = await download.evaluate(async (link) => {
+			const view = new DataView(await (await fetch(link.href)).arrayBuffer());
+			let maximum = 0;
+			for (let frame = 100; frame < 2300; frame += 1) maximum = Math.max(maximum, Math.abs(view.getFloat32(44 + frame * 4, true) - 0.25));
+			return maximum;
+		});
+		expect(maximumError).toBeLessThan(1e-5);
+		await expect(converter.locator('[data-warnings]')).toBeHidden();
+		expect(pageErrors).toEqual([]);
+	});
+
 	test('the 32-bit float option writes an IEEE float WAV holding the project samples', async ({ page }) => {
 		test.setTimeout(180_000);
 		const pageErrors = collectPageErrors(page);

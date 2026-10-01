@@ -25,7 +25,8 @@ const copyByLocale = {
 		largeProjectConfirm: 'Diese AUP4-Datei ist {size} groß und überschreitet 256 MB. Die Konvertierung benötigt viel Arbeitsspeicher und kann den Browser-Tab beenden. Möchtest du fortfahren?',
 		largeProjectCancelled: 'Die Konvertierung wurde abgebrochen.',
 		outputTitle: 'AUP3-Ausgabe',
-		compatibility: 'Für AUP4-Projekte mit der aktuell kompatiblen Projektstruktur. Öffne die heruntergeladene AUP3-Kopie in Audacity 3.7, um weiterzuarbeiten.',
+		compatibility: 'Für AUP4-Projekte mit der aktuell kompatiblen Projektstruktur. Öffne die heruntergeladene AUP3-Kopie in Audacity 3.7, um weiterzuarbeiten. Audacity 4 kann zusätzliche Tempo-Einstellungen speichern, die Audacity 3 nicht unterstützt.',
+		warningTempoEditing: 'Das aktuelle Audio und Clip-Timing bleiben erhalten. Audacity 3 unterstützt keine unabhängigen Clip-Tempi oder deaktivierte Tempo-Anpassung: Bei späteren Änderungen des Projekttempos können diese Clips anders gedehnt werden als in Audacity 4.',
 		convert: 'AUP3-Kopie erstellen',
 		reset: 'Zurücksetzen',
 		resultTitle: 'AUP3-Ergebnis',
@@ -49,7 +50,8 @@ const copyByLocale = {
 		largeProjectConfirm: 'This AUP4 file is {size} and exceeds 256 MB. Conversion uses substantial memory and may terminate the browser tab. Continue?',
 		largeProjectCancelled: 'Conversion cancelled.',
 		outputTitle: 'AUP3 output',
-		compatibility: 'For AUP4 projects using the currently compatible project structure. Open the downloaded AUP3 copy in Audacity 3.7 to continue editing.',
+		compatibility: 'For AUP4 projects using the currently compatible project structure. Open the downloaded AUP3 copy in Audacity 3.7 to continue editing. Audacity 4 can store additional tempo settings that Audacity 3 does not support.',
+		warningTempoEditing: 'Current audio and clip timing are preserved. Audacity 3 does not support independent clip tempos or disabled tempo matching: later project-tempo changes may stretch these clips differently from Audacity 4.',
 		convert: 'Create AUP3 copy',
 		reset: 'Reset',
 		resultTitle: 'AUP3 result',
@@ -92,6 +94,7 @@ const copyJson = JSON.stringify(copy);
 							metaAttrs={{ 'data-result-meta': true }}
 							downloadAttrs={{ 'data-download': true }}
 						/>
+						<p class="converter-note" data-warning role="note" hidden></p>
 					</div>
 				</ToolPanel>
 
@@ -135,8 +138,9 @@ const copyJson = JSON.stringify(copy);
 			const resultTitle = root.querySelector('[data-result-title]');
 			const resultMeta = root.querySelector('[data-result-meta]');
 			const download = root.querySelector('[data-download]');
+			const warning = root.querySelector('[data-warning]');
 
-			if (!fileInput || !fileName || !fileMeta || !convertButton || !resetButton || !status || !output || !resultTitle || !resultMeta || !download) {
+			if (!fileInput || !fileName || !fileMeta || !convertButton || !resetButton || !status || !output || !resultTitle || !resultMeta || !download || !warning) {
 				return;
 			}
 
@@ -185,6 +189,13 @@ const copyJson = JSON.stringify(copy);
 					const blob = await convertAup4FileToAup3(state.file, {
 						allowLargeProject,
 						signal: state.abortController.signal,
+						onWarning: (detail) => {
+							if (!state.disposed && detail.code === 'AUP4_TEMPO_EDITING_CHANGED') {
+								warning.textContent = copy.warningTempoEditing;
+								warning.hidden = false;
+								warning.dataset.warningCode = detail.code;
+							}
+						},
 					});
 					if (state.disposed) return;
 					const outputName = aup4ToAup3OutputName(state.file.name);
@@ -216,6 +227,9 @@ const copyJson = JSON.stringify(copy);
 				download.removeAttribute('href');
 				download.removeAttribute('download');
 				output.hidden = true;
+				warning.hidden = true;
+				warning.textContent = '';
+				delete warning.dataset.warningCode;
 			}
 
 			function updateControls() {

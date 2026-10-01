@@ -1,3 +1,5 @@
+import { createAudacitySampleReader, getAudacityResamplingRadius } from './audacity-resampler.js';
+
 const FIELD = Object.freeze({
 	CHAR_SIZE: 0,
 	START_TAG: 1,
@@ -72,7 +74,7 @@ export function parseAup3BinaryXml(dictionary, document, options = {}) {
  * Audacity checks the embedded XML version independently of the SQLite header.
  * https://github.com/audacity/audacity/blob/Audacity-3.7.9/libraries/lib-project-file-io/ProjectFileIO.cpp
  */
-export function rewriteAup4ProjectForAup3(dictionary, document) {
+export function rewriteAup4ProjectForAup3(dictionary, document, options = {}) {
 	const bytes = toBytes(document);
 	const fields = new Map();
 	const edits = [];
@@ -93,7 +95,7 @@ export function rewriteAup4ProjectForAup3(dictionary, document) {
 	if (project.name !== 'project') {
 		throw new Aup3Error('The Audacity document has no project root.', 'INVALID_PROJECT_XML');
 	}
-	const versionField = fields.get(project).attributes.find((field) => field.name === 'version');
+	const versionField = fields.get(project).attributes.findLast((field) => field.name === 'version');
 	if (!versionField || !['1.3.0', '2.0.0'].includes(versionField.value)) {
 		throw new Aup3Error(`Unsupported Audacity project XML version: ${versionField?.value}.`, 'UNSUPPORTED_AUP4_VERSION');
 	}
@@ -106,6 +108,7 @@ export function rewriteAup4ProjectForAup3(dictionary, document) {
 		edits.push({ start: versionField.fieldStart, end: versionField.end, bytes: replacement });
 	}
 	const projectTempo = positiveFiniteAttribute(project, ['time_signature_tempo', 'tempo'], 120);
+	let warnedTempoEditing = false;
 	for (const [node, entry] of fields) {
 		if (normalizedName(node.name) !== 'waveclip') continue;
 		const timingFields = entry.attributes.filter((field) => ['cliptempo', 'clipstretchtomatchtempo'].includes(normalizedName(field.name)));
@@ -118,7 +121,7 @@ export function rewriteAup4ProjectForAup3(dictionary, document) {
 			throw new Aup3Error('The Audacity clip has invalid tempo or stretch data.', 'INVALID_PROJECT_XML');
 		}
 		if (convertedRatio !== ratio) {
-			const ratioField = entry.attributes.find((field) => normalizedName(field.name) === 'clipstretchratio');
+			const ratioField = entry.attributes.findLast((field) => normalizedName(field.name) === 'clipstretchratio');
 			if (ratioField) {
 				const replacement = doubleXmlAttribute(ratioField.identifier, convertedRatio);
 				edits.push({ start: ratioField.fieldStart, end: ratioField.end, bytes: replacement });
@@ -126,9 +129,19 @@ export function rewriteAup4ProjectForAup3(dictionary, document) {
 				edits.push({ start: entry.insertionOffset, end: entry.insertionOffset, bytes: scopedDoubleXmlAttribute('clipStretchRatio', convertedRatio, entry.charSize) });
 			}
 		}
-		// AU3 uses the project tempo for every clip. Bake independent AU4 tempo
-		// into the stored ratio and remove those newer attributes so subsequent
-		// decoding cannot apply their tempo adjustment a second time.
+		const clipTempo = positiveFiniteAttribute(node, ['cliptempo'], Number.NaN);
+		if (!warnedTempoEditing && (!attributeBoolean(node, 'clipstretchtomatchtempo', true)
+			|| (Number.isFinite(clipTempo) && clipTempo !== projectTempo))) {
+			// AU3 OnProjectTempoChange always stretches every clip, even if raw
+			// tempo is absent (it initializes it). AU4's disabled matching and
+			// independent clip tempo cannot retain their later edit behavior.
+			// Preserve the current timing, and disclose that native limitation.
+			// https://github.com/audacity/audacity/blob/Audacity-3.7.9/libraries/lib-wave-track/WaveClip.cpp#L545-L566
+			options.onWarning?.({ code: 'AUP4_TEMPO_EDITING_CHANGED' });
+			warnedTempoEditing = true;
+		}
+		// Bake AU4's current effective stretch into AU3's project-tempo ratio.
+		// Removing the newer fields avoids applying the AU4 adjustment twice.
 		for (const field of timingFields) edits.push({ start: field.fieldStart, end: field.end, bytes: new Uint8Array() });
 	}
 	return applyBinaryXmlEdits(bytes, edits);
@@ -216,6 +229,13 @@ export async function decodeAup3Database(database, options = {}) {
 	}
 
 	const project = parseAup3BinaryXml(row.dictionary, row.document);
+	if (normalizedName(project.name) !== 'project') {
+		throw new Aup3Error('The Audacity document has no project root.', 'INVALID_PROJECT_XML');
+	}
+	const xmlVersion = attribute(project, 'version');
+	if (!['1.3.0', '2.0.0'].includes(xmlVersion)) {
+		throw new Aup3Error(`Unsupported Audacity project XML version: ${xmlVersion}.`, 'UNSUPPORTED_PROJECT_VERSION');
+	}
 	const blockStatement = database.prepare('SELECT sampleformat, samples FROM sampleblocks WHERE blockid = ? LIMIT 1');
 	try {
 		const result = await (options.structured ? decodeAup3ProjectStructure : renderAup3Project)(project, (blockId) => {
@@ -273,7 +293,7 @@ export async function decodeAup3ProjectStructure(root, loadBlock, options = {}) 
 			rate,
 			route: routes[trackIndex].route,
 			joinsPrevious: routes[trackIndex].joinsPrevious,
-			gain: finiteAttribute(node, 'gain', 1),
+			gain: audioTrackGain(node),
 			pan: clamp(finiteAttribute(node, 'pan', 0), -1, 1),
 			mute: attributeBoolean(node, 'mute', false),
 			solo: attributeBoolean(node, 'solo', false),
@@ -301,13 +321,14 @@ export async function decodeAup3ProjectStructure(root, loadBlock, options = {}) 
 			const trimRightSeconds = nonNegativeFiniteAttribute(clipNode, 'trimright', 0);
 			const sourceStart = Math.min(samples.length, Math.round(trimLeftSeconds * rate / stretch));
 			const sourceEnd = Math.max(sourceStart, samples.length - Math.round(trimRightSeconds * rate / stretch));
-			if (sourceEnd <= sourceStart) continue;
+			const timing = clipPlaybackTiming(samples.length, clipNode, rate, stretch, trimLeftSeconds, trimRightSeconds);
+			if (sourceEnd <= sourceStart || timing.endSeconds <= timing.startSeconds) continue;
 			track.clips.push({
 				name: attributeString(clipNode, 'name', `Audio ${clipIndex + 1}`),
 				channels: [samples],
 				sourceStart,
 				sourceEnd,
-				startSeconds: finiteAttribute(clipNode, 'offset', 0) + trimLeftSeconds,
+				...timing,
 				trimLeftSeconds,
 				trimRightSeconds,
 				stretch,
@@ -421,7 +442,7 @@ export async function renderAup3Project(root, loadBlock, options = {}) {
 			linked: attributeBoolean(trackNode, 'linked', false),
 			mute: attributeBoolean(trackNode, 'mute', false),
 			solo: attributeBoolean(trackNode, 'solo', false),
-			gain: finiteAttribute(trackNode, 'gain', 1),
+			gain: audioTrackGain(trackNode),
 			pan: clamp(finiteAttribute(trackNode, 'pan', 0), -1, 1),
 			clips: [],
 		};
@@ -449,12 +470,13 @@ export async function renderAup3Project(root, loadBlock, options = {}) {
 			const trimRight = nonNegativeFiniteAttribute(clipNode, 'trimright', 0);
 			const sourceStart = Math.min(sequence.length, Math.round(trimLeft * rate / stretch));
 			const sourceEnd = Math.max(sourceStart, sequence.length - Math.round(trimRight * rate / stretch));
-			if (sourceEnd <= sourceStart) continue;
+			const timing = clipPlaybackTiming(sequence.length, clipNode, rate, stretch, trimLeft, trimRight);
+			if (sourceEnd <= sourceStart || timing.endSeconds <= timing.startSeconds) continue;
 			track.clips.push({
 				samples: sequence,
 				sourceStart,
 				sourceEnd,
-				startSeconds: finiteAttribute(clipNode, 'offset', 0) + trimLeft,
+				...timing,
 				stretch,
 			});
 		}
@@ -469,9 +491,7 @@ export async function renderAup3Project(root, loadBlock, options = {}) {
 	let frameCount = 0;
 	for (const track of decodedTracks) {
 		for (const clip of track.clips) {
-			const startFrame = Math.round(clip.startSeconds * projectRate);
-			const durationFrames = Math.max(0, Math.round((clip.sourceEnd - clip.sourceStart) * projectRate * clip.stretch / track.rate));
-			frameCount = Math.max(frameCount, startFrame + durationFrames);
+			frameCount = Math.max(frameCount, Math.round(clip.endSeconds * projectRate));
 		}
 	}
 	frameCount = Math.max(1, frameCount);
@@ -487,7 +507,9 @@ export async function renderAup3Project(root, loadBlock, options = {}) {
 	const channels = Array.from({ length: outputChannelCount }, () => allocateSamples(frameCount, 'The Audacity project is too large to mix in this browser.', maxOutputFrames));
 	const anySolo = decodedTracks.some((track) => track.solo);
 	for (const track of decodedTracks) {
-		if (track.mute || (anySolo && !track.solo)) continue;
+		// Audacity's export selection uses solo exclusively whenever any track
+		// is soloed, even when a soloed track also retains its mute flag.
+		if (anySolo ? !track.solo : track.mute) continue;
 		for (const clip of track.clips) await mixClip(channels, clip, track, projectRate);
 	}
 	progress(options.onProgress, 1, 'complete');
@@ -602,11 +624,12 @@ function decodeDocument(bytes, state, options = {}) {
 		const current = requireNode(nodes);
 		const identifier = cursor.u16();
 		const attributeName = resolveName(identifier, state);
-		if (Object.hasOwn(current.attributes, attributeName)) {
-			throw new Aup3Error(`Duplicate AUP3 XML attribute: ${attributeName}.`, 'INVALID_PROJECT_XML');
-		}
 		const offset = cursor.offset;
 		const value = readAttributeValue(cursor, state, type);
+		// Audacity stores an ordered AttributesList, not an XML-style map.
+		// AU4 writes integer spectrogram gain and double track gain with the
+		// same name. Preserve every typed record for decoding and opaque data.
+		current.attributeRecords.push({ name: attributeName, type, value });
 		current.attributes[attributeName] = value;
 		options.onAttribute?.({
 			node: current, name: attributeName, identifier, type, value, fieldStart, offset, end: cursor.offset, charSize: state.charSize, depth: nodes.length,
@@ -689,22 +712,37 @@ async function decodeSequence(sequenceNode, loadBlock, { maxSamples, onBlock, wa
 
 async function mixClip(output, clip, track, outputRate) {
 	const ratio = track.rate / (outputRate * clip.stretch);
-	const durationFrames = Math.max(0, Math.round((clip.sourceEnd - clip.sourceStart) / ratio));
-	const timelineStart = Math.round(clip.startSeconds * outputRate);
+	const startTrackFrame = roundTrackSample(clip.startSeconds * track.rate);
+	const sourceOffset = clip.sourceStart - startTrackFrame / clip.stretch;
+	// MixerSource resamples the continuous WaveTrack, including silence. Use
+	// one global phase and sum each clip's complete filter support, so splitting
+	// a track into adjacent clips cannot create a dip or shift at their join.
+	// https://github.com/audacity/audacity/blob/Audacity-3.7.9/libraries/lib-mixer/MixerSource.cpp#L109-L122
+	// Its input queue starts at export time zero; negative-time audio is not
+	// available as filter context, just as hidden trims are not available.
+	const sourceStart = Math.max(clip.sourceStart, Math.ceil(sourceOffset));
+	if (sourceStart >= clip.sourceEnd) return;
+	const alignedUnity = ratio === 1 && Number.isInteger(sourceOffset);
+	const radius = alignedUnity ? 0 : getAudacityResamplingRadius(ratio);
+	const firstDestination = alignedUnity
+		? Math.max(0, Math.round(clip.startSeconds * outputRate))
+		: Math.max(0, Math.ceil((sourceStart - radius - sourceOffset) / ratio));
+	const lastDestination = alignedUnity
+		? Math.min(output[0].length, Math.round(clip.endSeconds * outputRate))
+		: Math.min(output[0].length, Math.floor((clip.sourceEnd - 1 + radius - sourceOffset) / ratio) + 1);
 	const gains = output.length === 1 ? [track.gain] : stereoGains(track);
-	let yieldAt = 1_000_000;
-	for (let outputIndex = 0; outputIndex < durationFrames; outputIndex += 1) {
-		const destination = timelineStart + outputIndex;
-		if (destination < 0 || destination >= output[0].length) continue;
-		const position = clip.sourceStart + outputIndex * ratio;
-		const sample = interpolate(clip.samples, position, clip.sourceEnd);
+	const readSample = createAudacitySampleReader(clip.samples, ratio, sourceStart, clip.sourceEnd);
+	let yieldAt = firstDestination + 65_536;
+	for (let destination = firstDestination; destination < lastDestination; destination += 1) {
+		const position = sourceOffset + destination * ratio;
+		const sample = readSample(position);
 		if (output.length === 1) output[0][destination] += sample * gains[0];
 		else {
 			output[0][destination] += sample * gains[0];
 			output[1][destination] += sample * gains[1];
 		}
-		if (outputIndex === yieldAt) {
-			yieldAt += 1_000_000;
+		if (destination === yieldAt) {
+			yieldAt += 65_536;
 			await yieldToEventLoop();
 		}
 	}
@@ -718,11 +756,20 @@ function stereoGains(track) {
 	return [left, right];
 }
 
-function interpolate(samples, position, end) {
-	const leftIndex = Math.min(end - 1, Math.max(0, Math.floor(position)));
-	const rightIndex = Math.min(end - 1, leftIndex + 1);
-	const amount = Math.max(0, Math.min(1, position - leftIndex));
-	return samples[leftIndex] + (samples[rightIndex] - samples[leftIndex]) * amount;
+function clipPlaybackTiming(sampleCount, clip, rate, stretch, trimLeft, trimRight) {
+	const offset = finiteAttribute(clip, 'offset', 0);
+	// WaveClip::GetPlayStartTime/GetPlayEndTime snap each absolute endpoint to
+	// the track's grid. Rounding source trims first loses their fractional
+	// stretched duration and can incorrectly add a frame to the export.
+	return {
+		startSeconds: roundTrackSample((offset + trimLeft) * rate) / rate,
+		endSeconds: roundTrackSample((offset + sampleCount * stretch / rate - trimRight) * rate) / rate,
+	};
+}
+
+function roundTrackSample(value) {
+	// C++ std::round resolves negative half samples away from zero.
+	return Math.sign(value) * Math.round(Math.abs(value));
 }
 
 function warnForUnsupportedProjectFeatures(project, warn) {
@@ -815,6 +862,7 @@ function linkLegacyStereoTracks(left, right, warn) {
 		const basis = leftClip || rightClip;
 		if (leftClip && rightClip && (
 			Math.abs(leftClip.startSeconds - rightClip.startSeconds) > 1e-9
+			|| Math.abs(leftClip.endSeconds - rightClip.endSeconds) > 1e-9
 			|| leftClip.sourceStart !== rightClip.sourceStart
 			|| leftClip.sourceEnd !== rightClip.sourceEnd
 		)) warn(`Linked stereo clip ${index + 1} had mismatched channel timing and was padded without flattening.`);
@@ -824,6 +872,7 @@ function linkLegacyStereoTracks(left, right, warn) {
 			channels: [padLegacyChannel(leftClip?.channels[0], frameCount), padLegacyChannel(rightClip?.channels[0], frameCount)],
 			sourceStart: Math.min(leftClip?.sourceStart ?? basis.sourceStart, rightClip?.sourceStart ?? basis.sourceStart),
 			sourceEnd: Math.max(leftClip?.sourceEnd ?? basis.sourceEnd, rightClip?.sourceEnd ?? basis.sourceEnd),
+			endSeconds: Math.max(leftClip?.endSeconds ?? basis.endSeconds, rightClip?.endSeconds ?? basis.endSeconds),
 			opaqueExtensions: {
 				...basis.opaqueExtensions,
 				aup3StereoWaveClips: [leftClip?.opaqueExtensions?.aup3WaveClip, rightClip?.opaqueExtensions?.aup3WaveClip].filter(Boolean),
@@ -877,8 +926,8 @@ function readLegacySpectrogram(node, sampleRate) {
 		maximumFrequency,
 		windowSize: legacyPowerOfTwo(integerAttribute(node, 'windowsize', 2_048), 2_048),
 		windowType: 'hann',
-		gain: clamp(finiteAttribute(node, 'spectrumgain', 20), -120, 120),
-		range: clamp(finiteAttribute(node, 'spectrumrange', 80), 1, 240),
+		gain: clamp(typedAttributeNumber(node, 'gain', [FIELD.INT, FIELD.LONG, FIELD.LONG_LONG, FIELD.SIZE_T], finiteAttribute(node, 'spectrumgain', 20)), -120, 120),
+		range: clamp(firstFiniteAttribute(node, ['range', 'spectrumrange'], 80), 1, 240),
 	};
 }
 
@@ -903,8 +952,7 @@ function structuredDurationSeconds(tracks, projectRate) {
 			continue;
 		}
 		for (const clip of track.clips) {
-			const sourceFrames = Math.max(0, clip.sourceEnd - clip.sourceStart);
-			duration = Math.max(duration, clip.startSeconds + sourceFrames / track.rate * clip.stretch);
+			duration = Math.max(duration, clip.endSeconds);
 		}
 	}
 	return duration || 1 / projectRate;
@@ -955,15 +1003,37 @@ function* walkNodes(root) {
 }
 
 function createNode(name) {
-	return { name, attributes: Object.create(null), children: [], data: '', raw: [] };
+	return { name, attributes: Object.create(null), attributeRecords: [], children: [], data: '', raw: [] };
 }
 
 function attribute(node, name) {
 	const expected = normalizedName(name);
+	let result;
 	for (const [key, value] of Object.entries(node.attributes)) {
-		if (normalizedName(key) === expected) return value;
+		if (normalizedName(key) === expected) result = value;
 	}
-	return undefined;
+	return result;
+}
+
+function typedAttributeNumber(node, name, types, fallback) {
+	const expected = normalizedName(name);
+	let result = fallback;
+	for (const record of node.attributeRecords || []) {
+		if (normalizedName(record.name) !== expected || !types.includes(record.type)) continue;
+		const value = Number(record.value);
+		if (Number.isFinite(value)) result = value;
+	}
+	return result;
+}
+
+function audioTrackGain(node) {
+	// AU4's serializers distinguish integer spectrogram gain from the double
+	// record WaveTrack writes for audio volume, despite using the same name.
+	// https://github.com/audacity/audacity/blob/Audacity-4.0.1/src/spectrogram/internal/au3/au3spectrogramsettings.cpp#L122-L135
+	// Hand-authored trees without binary records retain the public API fallback.
+	return node.attributeRecords
+		? typedAttributeNumber(node, 'gain', [FIELD.FLOAT, FIELD.DOUBLE], 1)
+		: finiteAttribute(node, 'gain', 1);
 }
 
 function attributeString(node, name, fallback) {
@@ -1148,7 +1218,7 @@ function safeInteger(value) {
 }
 
 function toBytes(value) {
-	if (value instanceof Uint8Array) return value;
+	// Binary XML rewriting and BLOB reads require copying slice semantics.
 	if (ArrayBuffer.isView(value)) return new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
 	if (value instanceof ArrayBuffer) return new Uint8Array(value);
 	if (Array.isArray(value)) return Uint8Array.from(value);
@@ -1217,6 +1287,7 @@ class ByteCursor {
  * @typedef {{
  *   name: string,
  *   attributes: Record<string, string | number | boolean | bigint | Uint8Array>,
+ *   attributeRecords?: { name: string, type: number, value: string | number | boolean | bigint | Uint8Array }[],
  *   children: Aup3Node[],
  *   data: string,
  *   raw: Uint8Array[],
