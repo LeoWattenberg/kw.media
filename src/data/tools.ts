@@ -43,6 +43,8 @@ const toolEyebrows: Record<string, Record<Locale, string>> = {
 	'audio-analyzer': { de: 'Pegel, Lautheit & Spektrum', en: 'Levels, loudness & spectrum' },
 	'audio-editor': { de: 'Aufnehmen, schneiden & mischen', en: 'Record, edit & mix' },
 	'aup3-to-wav': { de: 'Audacity-Projekte exportieren', en: 'Export Audacity projects' },
+	'aup4-to-aup3': { de: 'Audacity-Projekte weiterbearbeiten', en: 'Keep editing Audacity projects' },
+	'aup4-to-wav': { de: 'Audacity-Projekte exportieren', en: 'Export Audacity projects' },
 	'background-remover': { de: 'Einfarbige Flächen freistellen', en: 'Remove solid-color backgrounds' },
 	'background-remover-checkerboard': { de: 'Gefälschte Transparenz bereinigen', en: 'Clean up fake transparency' },
 	'click-to-cut-object-extractor': { de: 'Objekte per Klick auswählen', en: 'Select objects with a click' },

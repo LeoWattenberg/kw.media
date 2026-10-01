@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import Aup4ToAup3Converter from '../../../components/tools/converter/Aup4ToAup3Converter.astro';
+import { defineToolModule } from '../../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('aup4-to-aup3', {
+	id: 'aup4-to-aup3',
+	translations: {
+		de: {
+			id: 'aup4-to-aup3-de',
+			path: '/de/tools/converter/aup4-to-aup3/',
+			title: 'AUP4 zu AUP3',
+			description: 'Erstelle lokal im Browser eine AUP3-Kopie kompatibler Audacity-AUP4-Projekte und behalte bearbeitbare Spuren und Audiodaten.',
+		},
+		en: {
+			id: 'aup4-to-aup3-en',
+			path: '/en/tools/converter/aup4-to-aup3/',
+			title: 'AUP4 to AUP3',
+			description: 'Create an AUP3 copy of compatible Audacity AUP4 projects locally in your browser, preserving editable tracks and audio data.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<Aup4ToAup3Converter locale={tool.locale} />
+</ToolPageShell>

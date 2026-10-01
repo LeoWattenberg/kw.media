@@ -15,6 +15,7 @@ const FIELD = Object.freeze({
 	PUSH: 13,
 	POP: 14,
 	NAME: 15,
+	BLOB: 16,
 });
 
 const SAMPLE_FORMAT = Object.freeze({
@@ -48,7 +49,7 @@ export class Aup3Error extends Error {
  * @param {ArrayBuffer | ArrayBufferView | number[]} dictionary
  * @param {ArrayBuffer | ArrayBufferView | number[]} document
  */
-export function parseAup3BinaryXml(dictionary, document) {
+export function parseAup3BinaryXml(dictionary, document, options = {}) {
 	const state = {
 		charSize: 0,
 		names: new Map(),
@@ -62,7 +63,125 @@ export function parseAup3BinaryXml(dictionary, document) {
 	if (state.nameStack.length) {
 		throw new Aup3Error('The AUP3 project dictionary has unbalanced name scopes.', 'INVALID_DICTIONARY');
 	}
-	return decodeDocument(toBytes(document), state);
+	return decodeDocument(toBytes(document), state, options);
+}
+
+/**
+ * Adapt the current AUP4 document profile for Audacity 3 without re-encoding
+ * the audio, opaque extensions, raw XML records, or document-local name scopes.
+ * Audacity checks the embedded XML version independently of the SQLite header.
+ * https://github.com/audacity/audacity/blob/Audacity-3.7.9/libraries/lib-project-file-io/ProjectFileIO.cpp
+ */
+export function rewriteAup4ProjectForAup3(dictionary, document) {
+	const bytes = toBytes(document);
+	const fields = new Map();
+	const edits = [];
+	const project = parseAup3BinaryXml(dictionary, bytes, {
+		onStartTag({ node, end, charSize }) {
+			fields.set(node, { attributes: [], insertionOffset: end, charSize });
+		},
+		onAttribute(field) {
+			const entry = fields.get(field.node);
+			entry.attributes.push(field);
+			entry.insertionOffset = field.end;
+			entry.charSize = field.charSize;
+			// Audacity 3 has no FT_Blob token; these currently carry thumbnails.
+			// Keep surrounding nodes and dictionaries, which older loaders ignore.
+			if (field.type === FIELD.BLOB) edits.push({ start: field.fieldStart, end: field.end, bytes: new Uint8Array() });
+		},
+	});
+	if (project.name !== 'project') {
+		throw new Aup3Error('The Audacity document has no project root.', 'INVALID_PROJECT_XML');
+	}
+	const versionField = fields.get(project).attributes.find((field) => field.name === 'version');
+	if (!versionField || !['1.3.0', '2.0.0'].includes(versionField.value)) {
+		throw new Aup3Error(`Unsupported Audacity project XML version: ${versionField?.value}.`, 'UNSUPPORTED_AUP4_VERSION');
+	}
+	if (versionField.type !== FIELD.STRING) {
+		throw new Aup3Error('The Audacity project version has an invalid encoding.', 'INVALID_PROJECT_XML');
+	}
+	if (versionField.value !== '1.3.0') {
+		const replacement = bytes.slice(versionField.fieldStart, versionField.end);
+		replacement.set(encodeAsciiXmlString('1.3.0', versionField.charSize), versionField.offset - versionField.fieldStart + 4);
+		edits.push({ start: versionField.fieldStart, end: versionField.end, bytes: replacement });
+	}
+	const projectTempo = positiveFiniteAttribute(project, ['time_signature_tempo', 'tempo'], 120);
+	for (const [node, entry] of fields) {
+		if (normalizedName(node.name) !== 'waveclip') continue;
+		const timingFields = entry.attributes.filter((field) => ['cliptempo', 'clipstretchtomatchtempo'].includes(normalizedName(field.name)));
+		if (!timingFields.length) continue;
+		const rawTempo = positiveFiniteAttribute(node, ['rawaudiotempo'], Number.NaN);
+		const ratio = positiveFiniteAttribute(node, ['clipstretchratio', 'stretchratio'], 1);
+		const legacyTempoRatio = Number.isFinite(rawTempo) ? rawTempo / projectTempo : 1;
+		const convertedRatio = clipStretch(node, projectTempo) / legacyTempoRatio;
+		if (!Number.isFinite(convertedRatio) || convertedRatio <= 0) {
+			throw new Aup3Error('The Audacity clip has invalid tempo or stretch data.', 'INVALID_PROJECT_XML');
+		}
+		if (convertedRatio !== ratio) {
+			const ratioField = entry.attributes.find((field) => normalizedName(field.name) === 'clipstretchratio');
+			if (ratioField) {
+				const replacement = doubleXmlAttribute(ratioField.identifier, convertedRatio);
+				edits.push({ start: ratioField.fieldStart, end: ratioField.end, bytes: replacement });
+			} else {
+				edits.push({ start: entry.insertionOffset, end: entry.insertionOffset, bytes: scopedDoubleXmlAttribute('clipStretchRatio', convertedRatio, entry.charSize) });
+			}
+		}
+		// AU3 uses the project tempo for every clip. Bake independent AU4 tempo
+		// into the stored ratio and remove those newer attributes so subsequent
+		// decoding cannot apply their tempo adjustment a second time.
+		for (const field of timingFields) edits.push({ start: field.fieldStart, end: field.end, bytes: new Uint8Array() });
+	}
+	return applyBinaryXmlEdits(bytes, edits);
+}
+
+function encodeAsciiXmlString(value, charSize) {
+	const bytes = new Uint8Array(value.length * charSize);
+	for (let index = 0; index < value.length; index += 1) bytes[index * charSize] = value.charCodeAt(index);
+	return bytes;
+}
+
+function doubleXmlAttribute(identifier, value) {
+	const bytes = new Uint8Array(15);
+	const view = new DataView(bytes.buffer);
+	bytes[0] = FIELD.DOUBLE;
+	view.setUint16(1, identifier, true);
+	view.setFloat64(3, value, true);
+	view.setInt32(11, 8, true);
+	return bytes;
+}
+
+function scopedDoubleXmlAttribute(name, value, charSize) {
+	const encodedName = encodeAsciiXmlString(name, charSize);
+	// A temporary dictionary makes the inserted name independent of existing
+	// global and local IDs, then restores the exact original name scope.
+	const bytes = new Uint8Array(1 + 5 + encodedName.length + 15 + 1);
+	const view = new DataView(bytes.buffer);
+	bytes[0] = FIELD.PUSH;
+	bytes[1] = FIELD.NAME;
+	view.setUint16(2, 0, true);
+	view.setUint16(4, encodedName.length, true);
+	bytes.set(encodedName, 6);
+	bytes.set(doubleXmlAttribute(0, value), 6 + encodedName.length);
+	bytes[bytes.length - 1] = FIELD.POP;
+	return bytes;
+}
+
+function applyBinaryXmlEdits(source, edits) {
+	edits.sort((left, right) => left.start - right.start || left.end - right.end);
+	const length = edits.reduce((total, edit) => total + edit.bytes.length - (edit.end - edit.start), source.length);
+	const bytes = new Uint8Array(length);
+	let sourceOffset = 0;
+	let destinationOffset = 0;
+	for (const edit of edits) {
+		if (edit.start < sourceOffset) throw new Aup3Error('Overlapping Audacity project edits.', 'INVALID_PROJECT_XML');
+		bytes.set(source.subarray(sourceOffset, edit.start), destinationOffset);
+		destinationOffset += edit.start - sourceOffset;
+		bytes.set(edit.bytes, destinationOffset);
+		destinationOffset += edit.bytes.length;
+		sourceOffset = edit.end;
+	}
+	bytes.set(source.subarray(sourceOffset), destinationOffset);
+	return bytes;
 }
 
 /**
@@ -425,7 +544,7 @@ function decodeDictionary(bytes, state) {
 	}
 }
 
-function decodeDocument(bytes, state) {
+function decodeDocument(bytes, state, options = {}) {
 	const cursor = new ByteCursor(bytes, 'document');
 	/** @type {Aup3Node[]} */
 	const roots = [];
@@ -433,6 +552,7 @@ function decodeDocument(bytes, state) {
 	const nodes = [];
 	while (!cursor.done) {
 		countField(state);
+		const fieldStart = cursor.offset;
 		const type = cursor.u8();
 		if (type === FIELD.CHAR_SIZE) {
 			state.charSize = readCharSize(cursor);
@@ -456,6 +576,7 @@ function decodeDocument(bytes, state) {
 			if (nodes.length) nodes.at(-1).children.push(node);
 			else roots.push(node);
 			nodes.push(node);
+			options.onStartTag?.({ node, fieldStart, end: cursor.offset, charSize: state.charSize, depth: nodes.length });
 			continue;
 		}
 		if (type === FIELD.END_TAG) {
@@ -479,11 +600,17 @@ function decodeDocument(bytes, state) {
 			continue;
 		}
 		const current = requireNode(nodes);
-		const attributeName = resolveName(cursor.u16(), state);
+		const identifier = cursor.u16();
+		const attributeName = resolveName(identifier, state);
 		if (Object.hasOwn(current.attributes, attributeName)) {
 			throw new Aup3Error(`Duplicate AUP3 XML attribute: ${attributeName}.`, 'INVALID_PROJECT_XML');
 		}
-		current.attributes[attributeName] = readAttributeValue(cursor, state, type);
+		const offset = cursor.offset;
+		const value = readAttributeValue(cursor, state, type);
+		current.attributes[attributeName] = value;
+		options.onAttribute?.({
+			node: current, name: attributeName, identifier, type, value, fieldStart, offset, end: cursor.offset, charSize: state.charSize, depth: nodes.length,
+		});
 	}
 	if (nodes.length) throw new Aup3Error('The AUP3 XML has unclosed elements.', 'INVALID_PROJECT_XML');
 	if (state.nameStack.length) throw new Aup3Error('The AUP3 XML has unbalanced name scopes.', 'INVALID_PROJECT_XML');
@@ -493,6 +620,7 @@ function decodeDocument(bytes, state) {
 
 function readAttributeValue(cursor, state, type) {
 	if (type === FIELD.STRING) return decodeString(cursor.bytes(cursor.i32Length()), state.charSize);
+	if (type === FIELD.BLOB) return cursor.bytes(cursor.i32Length()).slice();
 	if (type === FIELD.INT || type === FIELD.LONG) return cursor.i32();
 	if (type === FIELD.BOOL) return cursor.u8() !== 0;
 	if (type === FIELD.LONG_LONG) return safeInteger(cursor.i64());
@@ -630,7 +758,13 @@ function warnForUnsupportedClipFeatures(clip, stretch, warn) {
 function clipStretch(clip, projectTempo) {
 	const ratio = positiveFiniteAttribute(clip, ['clipstretchratio', 'stretchratio'], 1);
 	const rawTempo = positiveFiniteAttribute(clip, ['rawaudiotempo'], Number.NaN);
-	if (Number.isFinite(rawTempo) && Number.isFinite(projectTempo) && projectTempo > 0) return ratio * rawTempo / projectTempo;
+	const clipTempo = positiveFiniteAttribute(clip, ['cliptempo'], Number.NaN);
+	// AU4 permits an independent clip tempo and disabled tempo matching. AU3
+	// and older AU4 documents omit these attributes and use the project tempo.
+	// https://github.com/audacity/audacity/blob/Audacity-4.0.1/au3/libraries/au3-wave-track/WaveClip.cpp
+	const tempo = Number.isFinite(clipTempo) ? clipTempo
+		: attributeBoolean(clip, 'clipstretchtomatchtempo', true) ? projectTempo : Number.NaN;
+	if (Number.isFinite(rawTempo) && Number.isFinite(tempo) && tempo > 0) return ratio * rawTempo / tempo;
 	return ratio;
 }
 
@@ -910,7 +1044,7 @@ function positiveInteger(value, fallback) {
 }
 
 function stripAup3Extension(name) {
-	return String(name || '').trim().replace(/\.aup3$/i, '');
+	return String(name || '').trim().replace(/\.aup[34]$/i, '');
 }
 
 function tableExists(database, name) {
@@ -1082,7 +1216,7 @@ class ByteCursor {
 /**
  * @typedef {{
  *   name: string,
- *   attributes: Record<string, string | number | boolean | bigint>,
+ *   attributes: Record<string, string | number | boolean | bigint | Uint8Array>,
  *   children: Aup3Node[],
  *   data: string,
  *   raw: Uint8Array[],

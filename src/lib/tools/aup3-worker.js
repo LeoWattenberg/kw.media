@@ -7,6 +7,7 @@ self.onmessage = async (event) => {
 			fileName: event.data.fileName,
 			memoryLimits: event.data.memoryLimits,
 			structured: Boolean(event.data.structured),
+			sourceFormat: event.data.sourceFormat,
 			onProgress(update) {
 				self.postMessage({
 					type: 'progress',

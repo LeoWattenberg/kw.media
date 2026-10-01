@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import Aup4ToWavConverter from '../../../components/tools/converter/Aup4ToWavConverter.astro';
+import { defineToolModule } from '../../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('aup4-to-wav', {
+	id: 'aup4-to-wav',
+	translations: {
+		de: {
+			id: 'aup4-to-wav-de',
+			path: '/de/tools/converter/aup4-to-wav/',
+			title: 'AUP4 zu WAV',
+			description: 'Konvertiere gespeicherte Audacity-AUP4-Projekte lokal im Browser in einen trockenen WAV-Mix.',
+		},
+		en: {
+			id: 'aup4-to-wav-en',
+			path: '/en/tools/converter/aup4-to-wav/',
+			title: 'AUP4 to WAV',
+			description: 'Convert saved Audacity AUP4 projects locally in your browser into a dry WAV mix.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<Aup4ToWavConverter locale={tool.locale} />
+</ToolPageShell>

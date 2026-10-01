@@ -1,18 +1,15 @@
 import { Aup3Error, decodeAup3Database } from './aup3.js';
+import { inspectAup4Header } from './aup4-project.js';
+import { AUDACITY_LARGE_PROJECT_THRESHOLD_BYTES as AUP3_LARGE_PROJECT_THRESHOLD_BYTES, loadSqlJs, resolveAudacityMemoryLimits as resolveMemoryLimits } from './audacity-project-runtime.js';
+
+export { AUP3_LARGE_PROJECT_THRESHOLD_BYTES, loadSqlJs, resolveMemoryLimits as resolveAup3MemoryLimits };
+export { getAudacityMemoryLimits as getAup3MemoryLimits } from './audacity-project-runtime.js';
 
 const SQLITE_HEADER = Uint8Array.from([
 	0x53, 0x51, 0x4c, 0x69, 0x74, 0x65, 0x20, 0x66,
 	0x6f, 0x72, 0x6d, 0x61, 0x74, 0x20, 0x33, 0x00,
 ]);
 const MEBIBYTE = 1024 * 1024;
-export const AUP3_LARGE_PROJECT_THRESHOLD_BYTES = 256 * MEBIBYTE;
-const MEMORY_PROFILES = Object.freeze({
-	constrained: Object.freeze({ databaseBytes: 128 * MEBIBYTE, decodedAudioBytes: 256 * MEBIBYTE, mixBytes: 384 * MEBIBYTE }),
-	standard: Object.freeze({ databaseBytes: 256 * MEBIBYTE, decodedAudioBytes: 384 * MEBIBYTE, mixBytes: 512 * MEBIBYTE }),
-	large: Object.freeze({ databaseBytes: 512 * MEBIBYTE, decodedAudioBytes: 512 * MEBIBYTE, mixBytes: 768 * MEBIBYTE }),
-});
-
-let sqlJsPromise;
 
 /**
  * Read and dry-mix an AUP3 file entirely in the browser.
@@ -37,6 +34,7 @@ export async function decodeAup3File(file, options = {}) {
 			onProgress: options.onProgress,
 			signal: options.signal,
 			structured: Boolean(options.structured),
+			sourceFormat: options.sourceFormat,
 		});
 	}
 	return decodeAup3Bytes(new Uint8Array(buffer), { ...options, fileName: file.name, memoryLimits });
@@ -58,6 +56,7 @@ export async function decodeAup3Bytes(input, options = {}) {
 	if (!hasSqliteHeader(bytes)) {
 		throw new Aup3Error('This file is not a SQLite-based Audacity AUP3 project.', 'NOT_AUP3');
 	}
+	if (options.sourceFormat === 'aup4') inspectAup4Header(bytes, { fileSize: bytes.byteLength });
 	const SQL = options.SQL || await loadSqlJs();
 	let database;
 	try {
@@ -91,32 +90,7 @@ export function requiresAup3LargeProjectConfirmation(fileSize) {
 	return Number(fileSize) > AUP3_LARGE_PROJECT_THRESHOLD_BYTES;
 }
 
-export function getAup3MemoryLimits(options = {}) {
-	if (options.allowLargeProject) return MEMORY_PROFILES.large;
-	const navigatorLike = options.navigator ?? globalThis.navigator;
-	const deviceMemory = Number(navigatorLike?.deviceMemory);
-	const mobile = Boolean(navigatorLike?.userAgentData?.mobile) || /Android|iPhone|iPad|iPod|Mobile/i.test(String(navigatorLike?.userAgent || ''));
-	return mobile || (Number.isFinite(deviceMemory) && deviceMemory > 0 && deviceMemory <= 4)
-		? MEMORY_PROFILES.constrained
-		: MEMORY_PROFILES.standard;
-}
-
-async function loadSqlJs() {
-	if (!sqlJsPromise) {
-		sqlJsPromise = Promise.all([
-			import('sql.js'),
-			import('sql.js/dist/sql-wasm-browser.wasm?url'),
-		]).then(([module, wasm]) => module.default({ locateFile: () => wasm.default }));
-	}
-	try {
-		return await sqlJsPromise;
-	} catch (error) {
-		sqlJsPromise = undefined;
-		throw error;
-	}
-}
-
-function decodeInWorker(buffer, { fileName, memoryLimits, onProgress, signal, structured }) {
+function decodeInWorker(buffer, { fileName, memoryLimits, onProgress, signal, structured, sourceFormat }) {
 	return new Promise((resolve, reject) => {
 		const worker = new Worker(new URL('./aup3-worker.js', import.meta.url), { type: 'module' });
 		let settled = false;
@@ -152,21 +126,8 @@ function decodeInWorker(buffer, { fileName, memoryLimits, onProgress, signal, st
 			return;
 		}
 		signal?.addEventListener('abort', abort, { once: true });
-		worker.postMessage({ type: 'decode', buffer, fileName, memoryLimits, structured }, [buffer]);
+		worker.postMessage({ type: 'decode', buffer, fileName, memoryLimits, structured, sourceFormat }, [buffer]);
 	});
-}
-
-function resolveMemoryLimits(options) {
-	const selected = options.memoryLimits || getAup3MemoryLimits(options);
-	return {
-		databaseBytes: boundedLimit(selected.databaseBytes, MEMORY_PROFILES.standard.databaseBytes, MEMORY_PROFILES.large.databaseBytes),
-		decodedAudioBytes: boundedLimit(selected.decodedAudioBytes, MEMORY_PROFILES.standard.decodedAudioBytes, MEMORY_PROFILES.large.decodedAudioBytes),
-		mixBytes: boundedLimit(selected.mixBytes, MEMORY_PROFILES.standard.mixBytes, MEMORY_PROFILES.large.mixBytes),
-	};
-}
-
-function boundedLimit(value, fallback, maximum) {
-	return Number.isFinite(value) && value > 0 ? Math.min(maximum, Math.floor(value)) : fallback;
 }
 
 function projectTooLargeError(databaseBytes) {
