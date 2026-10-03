@@ -9,7 +9,7 @@ modified: "2026-07-18T12:15:28"
 locale: "en"
 translationKey: "video:zt4U-e9U8Pw"
 category: "news-video"
-relatedPosts: ["/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/they-want-you-to-automate-then-ban-your-channel-creator-news/", "/youtube-tips-en/youtube-policy-shift-free-speech-wins/"]
+relatedPosts: ["/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/they-want-you-to-automate-then-ban-your-channel-creator-news/", "/youtube-tips-en/youtubes-new-shorts-crackdown-explained/"]
 image: "https://i.ytimg.com/vi/zt4U-e9U8Pw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=zt4U-e9U8Pw"

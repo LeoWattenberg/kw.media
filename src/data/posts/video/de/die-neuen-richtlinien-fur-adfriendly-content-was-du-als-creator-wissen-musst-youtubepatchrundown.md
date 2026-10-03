@@ -9,6 +9,7 @@ modified: "2023-03-11T13:00:37"
 locale: "de"
 translationKey: "video:lSKcVLNFWzA"
 category: "news-video"
+relatedPosts: ["/youtube-tipps-de/youtube-updates-anderungen-bei-der-regel-zu-schimpfwortern-neben-an-neben-anzeigen-und-live-stream-community-bestenliste/", "/youtube-tipps-de/rollen-anpassungen-jetzt-im-youtube-studio-mobile-und-richtlinien-updates-youtubepatchrundown/", "/youtube-tipps-de/ubertrifft-sich-youtube-mit-dem-anti-adblock-experiment-mal-wieder-selbst-youtubepatchrundown/"]
 image: "https://i.ytimg.com/vi/lSKcVLNFWzA/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=lSKcVLNFWzA"

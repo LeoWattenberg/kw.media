@@ -9,6 +9,7 @@ modified: "2023-09-02T10:56:41"
 locale: "de"
 translationKey: "video:6C_G3UeqTwc"
 category: "news-video"
+relatedPosts: ["/youtube-tipps-de/youtube-strike-was-nun/", "/youtube-tipps-de/folge-den-richtlinien-und-lass-deinen-kanal-strahlen/", "/youtube-tipps-de/die-neue-schutzbestimmung-von-youtube-ist-da-veo-3-update/"]
 image: "https://i.ytimg.com/vi/6C_G3UeqTwc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=6C_G3UeqTwc"

@@ -9,6 +9,7 @@ modified: "2023-09-02T10:56:41"
 locale: "en"
 translationKey: "video:6C_G3UeqTwc"
 category: "news-video"
+relatedPosts: ["/youtube-tips-en/youtubes-new-strike-protection-is-here-veo-3-update/", "/youtube-tips-en/update-for-youtube-streamers-scheduled-streams-now-linked-in-all-shorts/", "/youtube-tips-en/youtubes-new-shorts-crackdown-explained/"]
 image: "https://i.ytimg.com/vi/6C_G3UeqTwc/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=6C_G3UeqTwc"

@@ -9,6 +9,7 @@ modified: "2023-11-11T08:32:30"
 locale: "en"
 translationKey: "video:ABT5tVy05Fg"
 category: "news-video"
+relatedPosts: ["/youtube-tips-en/youtube-updates-voice-replies-shorts-promotions-and-changes-to-mid-roll-ads/", "/youtube-tips-en/longer-shorts-and-add-yours-stickers-youtubes-latest-experiments/", "/youtube-tips-en/youtube-updates-new-shorts-captions-and-hype-feature-expansion/"]
 image: "https://i.ytimg.com/vi/ABT5tVy05Fg/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=ABT5tVy05Fg"

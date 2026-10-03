@@ -9,6 +9,7 @@ modified: "2023-07-29T13:00:47"
 locale: "en"
 translationKey: "video:soHWV-Onjhk"
 category: "news-video"
+relatedPosts: ["/youtube-tips-en/vertical-live-streams-in-the-youtube-shorts-feed-latest-updates-and-features/", "/youtube-tips-en/youtube-creator-news-live-reminders-paid-hype-and-super-chat-goals/", "/youtube-tips-en/youtube-updates-chat-overlay-ads-clips-and-youtube-create-app/"]
 image: "https://i.ytimg.com/vi/soHWV-Onjhk/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=soHWV-Onjhk"

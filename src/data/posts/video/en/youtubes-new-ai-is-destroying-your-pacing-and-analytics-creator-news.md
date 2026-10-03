@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:S_Qwsk7CKB0"
 category: "news-video"
 tags: ["YouTube AI", "AI-Driven Features", "Analytics Updates", "Content Pacing", "Creative Control", "Platform Announcements", "YouTube Premium", "Mobile Features", "Educational Content", "YouTube Courses"]
-relatedPosts: ["/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/", "/youtube-tips-en/unsatisfying-or-off-putting-content-policy-update-creator-news/"]
+relatedPosts: ["/youtube-tips-en/youtube-news-100-audience-metrics-rollout-shorts-ai-launch-and-what-vshojo-teaches-us/", "/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/youtubes-new-ask-studio-ai-is-lying-to-you-twitch-drama/"]
 image: "https://i.ytimg.com/vi/S_Qwsk7CKB0/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=S_Qwsk7CKB0"

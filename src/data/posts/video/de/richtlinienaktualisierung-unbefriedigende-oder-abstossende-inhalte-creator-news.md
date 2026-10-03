@@ -9,7 +9,7 @@ modified: "2026-07-18T12:15:28"
 locale: "de"
 translationKey: "video:zt4U-e9U8Pw"
 category: "news-video"
-relatedPosts: ["/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/", "/youtube-tipps-de/youtube-politikwechsel-siegt-die-freie-meinungsausserung/", "/youtube-tipps-de/youtube-update-strengere-glucksspiel-regeln-und-anderungen-bei-monetarisierungs-checks/"]
+relatedPosts: ["/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/", "/youtube-tipps-de/youtube-patchrundown-neue-ki-richtlinien-und-funktionen/", "/youtube-tipps-de/youtube-massnahmen-gegen-neue-shorts-erklart/"]
 image: "https://i.ytimg.com/vi/zt4U-e9U8Pw/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=zt4U-e9U8Pw"

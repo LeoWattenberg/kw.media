@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:sFADjkaHI2s"
 category: "news-video"
 tags: ["YouTube Policy Changes", "Community Guidelines Check", "Pre-Publish Checks", "Automated Flagging", "YouTube Shorts Updates", "Generative Video", "Google DeepMind VU3", "Image Posts in Shorts Feed", "Multi-Aspect Streams", "Stream Across Formats"]
-relatedPosts: ["/youtube-tips-en/youtube-faq-multi-aspect-streams-fan-communities-on-desktop-and-veo-3-ai/", "/youtube-tips-en/youtubes-new-ai-monetization-rules-arent-new-and-more-youtube-updates/", "/youtube-tips-en/follow-the-guidelines-watch-your-channel-shine/"]
+relatedPosts: ["/youtube-tips-en/youtube-updates-community-guidelines-training-shorts-linking-and-more/", "/youtube-tips-en/follow-the-guidelines-watch-your-channel-shine/", "/youtube-tips-en/youtubes-new-shorts-crackdown-explained/"]
 image: "https://i.ytimg.com/vi/sFADjkaHI2s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=sFADjkaHI2s"

@@ -9,7 +9,7 @@ modified: "2026-08-29T10:08:39"
 locale: "de"
 translationKey: "video:y0Tpf9lSOpo"
 category: "news-video"
-relatedPosts: ["/youtube-tipps-de/youtube-update-strengere-glucksspiel-regeln-und-anderungen-bei-monetarisierungs-checks/", "/youtube-tipps-de/youtube-politikwechsel-siegt-die-freie-meinungsausserung/", "/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/"]
+relatedPosts: ["/youtube-tipps-de/youtube-update-strengere-glucksspiel-regeln-und-anderungen-bei-monetarisierungs-checks/", "/youtube-tipps-de/youtube-hat-den-dislike-button-wieder-einmal-abgeschafft-creator-news/", "/youtube-tipps-de/youtube-totet-seo-und-twitches-falsche-monetarisierung-creator-news/"]
 image: "https://i.ytimg.com/vi/y0Tpf9lSOpo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=y0Tpf9lSOpo"

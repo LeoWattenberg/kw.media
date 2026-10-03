@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:WWV1rfDxlcE"
 category: "news-video"
 tags: ["YouTube Updates", "A/B-Testen", "KI-Bearbeitung", "YouTube Shorts", "Titel- und Thumbnail-Optimierung", "Neue Funktionen", "Creator-Tools", "Video-Marketing", "YouTube Studio", "Community-Interaktion"]
-relatedPosts: ["/youtube-tipps-de/wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt/", "/youtube-tipps-de/a-b-testing-auf-youtube-und-playlist-abstimmung/", "/youtube-tipps-de/a-b-testing-auf-youtube-alles-was-du-fur-den-launch-im-sommer-wissen-musst/"]
+relatedPosts: ["/youtube-tipps-de/hergestellt-auf-youtube-2026-was-du-wissen-musst/", "/youtube-tipps-de/wie-man-die-neue-miniaturansicht-test-und-vergleichsfunktion-von-youtube-fur-eine-bessere-interaktion-nutzt/", "/youtube-tipps-de/was-ist-youtube-test-und-compare-bzw-thumbnail-a-b-testing/"]
 image: "https://i.ytimg.com/vi/WWV1rfDxlcE/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=WWV1rfDxlcE"

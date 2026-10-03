@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:_KvD9yQ9YUo"
 category: "short-tutorial"
 tags: ["Kommentarfilter", "Spam-Erkennung", "YouTube Studio", "Community-Einstellungen", "Strenger Modus", "Automatische Filterung", "Kommentare verwalten"]
-relatedPosts: ["/youtube-tipps-de/jetzt-neu-kanalrichtlinien/", "/youtube-tipps-de/einrichtungshinweise-leitfaden-fur-youtube-kanale/", "/youtube-tipps-de/youtubes-losung-fur-fomo-koder-neue-kanal-filter-erklart-creator-news/"]
+relatedPosts: ["/youtube-tipps-de/neuer-kommentarfilter-im-dashboard-der-sogar-gut-ist-youtubepatchrundown/", "/youtube-tipps-de/jetzt-neu-kanalrichtlinien/", "/youtube-tipps-de/youtube-werbewarnung-verlieren-sie-einnahmen-dms-sind-zuruck/"]
 image: "https://i.ytimg.com/vi/_KvD9yQ9YUo/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/shorts/_KvD9yQ9YUo"

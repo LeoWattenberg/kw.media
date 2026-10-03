@@ -10,7 +10,7 @@ locale: "de"
 translationKey: "video:sFADjkaHI2s"
 category: "news-video"
 tags: ["YouTube Updates", "Community-Richtlinien", "Vorabprüfung", "Shorts-Verbesserungen", "KI-Integration", "Kommentar-Antworten", "Kanalmanagement", "Zuschauer-Interaktion", "Algorithmus-Anpassung"]
-relatedPosts: ["/youtube-tipps-de/richtlinienaktualisierung-unbefriedigende-oder-abstossende-inhalte-creator-news/", "/youtube-tipps-de/folge-den-richtlinien-und-lass-deinen-kanal-strahlen/", "/youtube-tipps-de/die-neuen-ai-monetarisierungsregeln-von-youtube-sind-nicht-neu-und-weitere-youtube-updates/"]
+relatedPosts: ["/youtube-tipps-de/folge-den-richtlinien-und-lass-deinen-kanal-strahlen/", "/youtube-tipps-de/youtube-updates-community-guideline-training-shorts-verlinkung-und-mehr/", "/youtube-tipps-de/youtube-patchrundown-neue-ki-richtlinien-und-funktionen/"]
 image: "https://i.ytimg.com/vi/sFADjkaHI2s/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=sFADjkaHI2s"

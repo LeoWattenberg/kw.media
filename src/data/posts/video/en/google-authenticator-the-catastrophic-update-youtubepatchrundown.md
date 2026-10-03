@@ -9,6 +9,7 @@ modified: "2023-04-29T10:51:10"
 locale: "en"
 translationKey: "video:BDJY9fpPSqs"
 category: "news-video"
+relatedPosts: ["/youtube-tips-en/role-adjustments-now-in-youtube-studio-mobile-and-policy-updates-youtubepatchrundown/", "/youtube-tips-en/two-experiments-from-the-areas-of-youtube-shorts-and-youtube-policy-youtubepatchrundown/", "/youtube-tips-en/the-great-shift-of-launches-youtubepatchrundown/"]
 image: "https://i.ytimg.com/vi/BDJY9fpPSqs/maxresdefault.jpg"
 authorName: "Martin Koytek"
 sourceUrl: "https://www.youtube.com/watch?v=BDJY9fpPSqs"
