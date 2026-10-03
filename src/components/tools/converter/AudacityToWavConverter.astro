@@ -24,13 +24,14 @@ const copyByLocale = {
 		privacy: 'Deine Projektdatei bleibt lokal. Speichere und schließe das Projekt vor dem Konvertieren.',
 		sourceTitle: 'Audacity-Projekt',
 		chooseFile: 'AUP3-Projekt auswählen',
-		fileHint: 'Gespeicherte und geschlossene .aup3-Datei · Dateien über 256 MB benötigen eine Bestätigung',
+		fileHint: 'Gespeicherte und geschlossene .aup3-Datei · Dateien über {threshold} benötigen eine Bestätigung',
 		selectedFile: '{name} · {size}',
 		settingsTitle: 'WAV-Ausgabe',
 		formatLabel: 'Audioformat',
 		formatPcm16: '16-Bit PCM',
 		formatFloat32: '32-Bit Float',
-		largeProjectConfirm: 'Diese AUP3-Datei ist {size} groß und überschreitet 256 MB. Die Konvertierung benötigt viel Arbeitsspeicher und kann den Browser-Tab beenden. Möchtest du fortfahren?',
+		largeProjectConfirm: 'Diese AUP3-Datei ist {size} groß und überschreitet die empfohlene Größe von {threshold}. Du kannst die Konvertierung trotzdem versuchen. Sie benötigt viel Arbeitsspeicher und kann den Browser-Tab beenden. Möchtest du fortfahren?',
+		largeAudioConfirm: 'Das dekodierte Audio oder der WAV-Mix dieses Projekts überschreitet die empfohlene Größe für dein Gerät. Du kannst die Konvertierung mit erhöhtem Speicherbedarf erneut versuchen. Dabei kann der Browser-Tab beendet werden. Möchtest du fortfahren?',
 		largeProjectCancelled: 'Die Konvertierung wurde abgebrochen.',
 		convert: 'Trockenen WAV-Mix erzeugen',
 		reset: 'Zurücksetzen',
@@ -65,13 +66,14 @@ const copyByLocale = {
 		privacy: 'Your project file stays local. Save and close the project before converting it.',
 		sourceTitle: 'Audacity project',
 		chooseFile: 'Choose AUP3 project',
-		fileHint: 'Saved and closed .aup3 file · files over 256 MB ask before conversion',
+		fileHint: 'Saved and closed .aup3 file · files over {threshold} ask before conversion',
 		selectedFile: '{name} · {size}',
 		settingsTitle: 'WAV output',
 		formatLabel: 'Audio format',
 		formatPcm16: '16-bit PCM',
 		formatFloat32: '32-bit float',
-		largeProjectConfirm: 'This AUP3 file is {size} and exceeds 256 MB. Conversion uses substantial memory and may terminate the browser tab. Continue?',
+		largeProjectConfirm: 'This AUP3 file is {size} and exceeds {threshold}, the recommended size. You can still attempt conversion. It uses substantial memory and may terminate the browser tab. Continue?',
+		largeAudioConfirm: 'This project’s decoded audio or WAV mix exceeds the recommended size for your device. You can retry conversion with higher memory use, which may terminate the browser tab. Continue?',
 		largeProjectCancelled: 'Conversion cancelled.',
 		convert: 'Create dry WAV mix',
 		reset: 'Reset',
@@ -118,7 +120,7 @@ const copyJson = JSON.stringify(copy);
 					<FilePicker
 						label={copy.sourceTitle}
 						name={copy.chooseFile}
-						hint={copy.fileHint}
+						hint={copy.fileHint.replace('{threshold}', '256 MB')}
 						accept={`.${projectFormat}`}
 						nameAttrs={{ 'data-file-name': true }}
 						metaAttrs={{ 'data-file-meta': true }}
@@ -163,7 +165,7 @@ const copyJson = JSON.stringify(copy);
 </section>
 
 <script>
-	import { aup3OutputName, decodeAup3File, requiresAup3LargeProjectConfirmation } from '../../../lib/tools/aup3-browser';
+	import { aup3OutputName, decodeAup3File, getAup3MemoryLimits, requiresAup3LargeProjectConfirmation } from '../../../lib/tools/aup3-browser';
 	import { aup4OutputName, decodeAup4File } from '../../../lib/tools/aup4-browser';
 	import { createWavStreamEncoder } from '../../../lib/tools/audio-codecs/wav';
 	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
@@ -178,6 +180,7 @@ const copyJson = JSON.stringify(copy);
 
 		function initConverter(root) {
 			const copy = JSON.parse(root.dataset.copy || '{}');
+			const warningThreshold = formatBytes(getAup3MemoryLimits().databaseBytes);
 			const isAup4 = root.dataset.projectFormat === 'aup4';
 			const decodeProject = isAup4 ? decodeAup4File : decodeAup3File;
 			const outputNameFor = isAup4 ? aup4OutputName : aup3OutputName;
@@ -210,6 +213,7 @@ const copyJson = JSON.stringify(copy);
 				abortController: null,
 				disposed: false,
 			};
+			fileMeta.textContent = format(copy.fileHint, { threshold: warningThreshold });
 
 			fileInput.addEventListener('change', () => {
 				selectFile(fileInput.files?.[0] || null);
@@ -235,7 +239,7 @@ const copyJson = JSON.stringify(copy);
 				fileName.textContent = file?.name || copy.chooseFile;
 				fileMeta.textContent = file
 					? format(copy.selectedFile, { name: file.name, size: formatBytes(file.size) })
-					: copy.fileHint;
+					: format(copy.fileHint, { threshold: warningThreshold });
 				setStatus(file ? format(copy.statusSelected, { name: file.name }) : copy.statusWaiting, file ? 'success' : 'info');
 				updateControls();
 			}
@@ -243,8 +247,8 @@ const copyJson = JSON.stringify(copy);
 			async function convertFile() {
 				if (!state.file || state.working || state.disposed) return;
 				const needsLargeProjectConfirmation = requiresAup3LargeProjectConfirmation(state.file.size);
-				const allowLargeProject = needsLargeProjectConfirmation
-					? window.confirm(format(copy.largeProjectConfirm, { size: formatBytes(state.file.size) }))
+				let allowLargeProject = needsLargeProjectConfirmation
+					? window.confirm(format(copy.largeProjectConfirm, { size: formatBytes(state.file.size), threshold: warningThreshold }))
 					: false;
 				if (needsLargeProjectConfirmation && !allowLargeProject) {
 					setStatus(copy.largeProjectCancelled, 'info');
@@ -257,11 +261,24 @@ const copyJson = JSON.stringify(copy);
 				setStatus(copy.statusOpening, 'info');
 
 				try {
-					const decoded = await decodeProject(state.file, {
+					const decode = () => decodeProject(state.file, {
 						allowLargeProject,
 						signal: state.abortController.signal,
 						onProgress: updateDecodeProgress,
 					});
+					let decoded;
+					try {
+						decoded = await decode();
+					} catch (error) {
+						if (state.disposed || allowLargeProject || !error?.memoryLimitExceeded) throw error;
+						allowLargeProject = window.confirm(copy.largeAudioConfirm);
+						if (!allowLargeProject) {
+							setStatus(copy.largeProjectCancelled, 'info');
+							return;
+						}
+						setStatus(copy.statusOpening, 'info');
+						decoded = await decode();
+					}
 					if (state.disposed) return;
 					validateDecodedAudio(decoded);
 					setStatus(copy.statusEncoding, 'info');
@@ -370,7 +387,7 @@ const copyJson = JSON.stringify(copy);
 				fileInput.value = '';
 				state.file = null;
 				fileName.textContent = copy.chooseFile;
-				fileMeta.textContent = copy.fileHint;
+				fileMeta.textContent = format(copy.fileHint, { threshold: warningThreshold });
 				formatSelect.value = 'pcm16';
 				setStatus(copy.statusWaiting, 'info');
 				updateControls();

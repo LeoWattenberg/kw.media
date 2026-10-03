@@ -20,9 +20,9 @@ const copyByLocale = {
 		privacy: 'Deine Projektdatei bleibt lokal. Speichere und schließe das Projekt vor dem Konvertieren und behalte die Originaldatei.',
 		sourceTitle: 'Audacity-Projekt',
 		chooseFile: 'AUP4-Projekt auswählen',
-		fileHint: 'Gespeicherte und geschlossene .aup4-Datei · Dateien über 256 MB benötigen eine Bestätigung',
+		fileHint: 'Gespeicherte und geschlossene .aup4-Datei · Dateien über {threshold} benötigen eine Bestätigung',
 		selectedFile: '{name} · {size}',
-		largeProjectConfirm: 'Diese AUP4-Datei ist {size} groß und überschreitet 256 MB. Die Konvertierung benötigt viel Arbeitsspeicher und kann den Browser-Tab beenden. Möchtest du fortfahren?',
+		largeProjectConfirm: 'Diese AUP4-Datei ist {size} groß und überschreitet die empfohlene Größe von {threshold}. Du kannst die Konvertierung trotzdem versuchen. Sie benötigt viel Arbeitsspeicher und kann den Browser-Tab beenden. Möchtest du fortfahren?',
 		largeProjectCancelled: 'Die Konvertierung wurde abgebrochen.',
 		outputTitle: 'AUP3-Ausgabe',
 		compatibility: 'Für AUP4-Projekte mit der aktuell kompatiblen Projektstruktur. Öffne die heruntergeladene AUP3-Kopie in Audacity 3.7, um weiterzuarbeiten. Audacity 4 kann zusätzliche Tempo-Einstellungen speichern, die Audacity 3 nicht unterstützt.',
@@ -45,9 +45,9 @@ const copyByLocale = {
 		privacy: 'Your project file stays local. Save and close the project before converting it, and keep the original file.',
 		sourceTitle: 'Audacity project',
 		chooseFile: 'Choose AUP4 project',
-		fileHint: 'Saved and closed .aup4 file · files over 256 MB ask before conversion',
+		fileHint: 'Saved and closed .aup4 file · files over {threshold} ask before conversion',
 		selectedFile: '{name} · {size}',
-		largeProjectConfirm: 'This AUP4 file is {size} and exceeds 256 MB. Conversion uses substantial memory and may terminate the browser tab. Continue?',
+		largeProjectConfirm: 'This AUP4 file is {size} and exceeds {threshold}, the recommended size. You can still attempt conversion. It uses substantial memory and may terminate the browser tab. Continue?',
 		largeProjectCancelled: 'Conversion cancelled.',
 		outputTitle: 'AUP3 output',
 		compatibility: 'For AUP4 projects using the currently compatible project structure. Open the downloaded AUP3 copy in Audacity 3.7 to continue editing. Audacity 4 can store additional tempo settings that Audacity 3 does not support.',
@@ -79,7 +79,7 @@ const copyJson = JSON.stringify(copy);
 					<FilePicker
 						label={copy.sourceTitle}
 						name={copy.chooseFile}
-						hint={copy.fileHint}
+						hint={copy.fileHint.replace('{threshold}', '256 MB')}
 						accept=".aup4"
 						nameAttrs={{ 'data-file-name': true }}
 						metaAttrs={{ 'data-file-meta': true }}
@@ -116,7 +116,7 @@ const copyJson = JSON.stringify(copy);
 
 <script>
 	import { convertAup4FileToAup3, aup4ToAup3OutputName } from '../../../lib/tools/aup4';
-	import { requiresAup3LargeProjectConfirmation } from '../../../lib/tools/aup3-browser';
+	import { getAup3MemoryLimits, requiresAup3LargeProjectConfirmation } from '../../../lib/tools/aup3-browser';
 	import { formatBytes, formatTemplate as format } from '../../../lib/tools/format';
 
 	(() => {
@@ -128,6 +128,7 @@ const copyJson = JSON.stringify(copy);
 
 		function initConverter(root) {
 			const copy = JSON.parse(root.dataset.copy || '{}');
+			const warningThreshold = formatBytes(getAup3MemoryLimits().databaseBytes);
 			const fileInput = root.querySelector('[data-file-input]');
 			const fileName = root.querySelector('[data-file-name]');
 			const fileMeta = root.querySelector('[data-file-meta]');
@@ -145,6 +146,7 @@ const copyJson = JSON.stringify(copy);
 			}
 
 			const state = { file: null, outputUrl: null, working: false, abortController: null, disposed: false };
+			fileMeta.textContent = format(copy.fileHint, { threshold: warningThreshold });
 			fileInput.addEventListener('change', () => selectFile(fileInput.files?.[0] || null));
 			convertButton.addEventListener('click', () => void convertFile());
 			resetButton.addEventListener('click', () => {
@@ -165,7 +167,7 @@ const copyJson = JSON.stringify(copy);
 				fileName.textContent = file?.name || copy.chooseFile;
 				fileMeta.textContent = file
 					? format(copy.selectedFile, { name: file.name, size: formatBytes(file.size) })
-					: copy.fileHint;
+					: format(copy.fileHint, { threshold: warningThreshold });
 				setStatus(file ? format(copy.statusSelected, { name: file.name }) : copy.statusWaiting, file ? 'success' : 'info');
 				updateControls();
 			}
@@ -174,7 +176,7 @@ const copyJson = JSON.stringify(copy);
 				if (!state.file || state.working || state.disposed) return;
 				const needsLargeProjectConfirmation = requiresAup3LargeProjectConfirmation(state.file.size);
 				const allowLargeProject = needsLargeProjectConfirmation
-					? window.confirm(format(copy.largeProjectConfirm, { size: formatBytes(state.file.size) }))
+					? window.confirm(format(copy.largeProjectConfirm, { size: formatBytes(state.file.size), threshold: warningThreshold }))
 					: false;
 				if (needsLargeProjectConfirmation && !allowLargeProject) {
 					setStatus(copy.largeProjectCancelled, 'info');

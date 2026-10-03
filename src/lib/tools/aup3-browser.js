@@ -1,6 +1,6 @@
 import { Aup3Error, decodeAup3Database } from './aup3.js';
 import { inspectAup4Header } from './aup4-project.js';
-import { AUDACITY_LARGE_PROJECT_THRESHOLD_BYTES as AUP3_LARGE_PROJECT_THRESHOLD_BYTES, loadSqlJs, resolveAudacityMemoryLimits as resolveMemoryLimits } from './audacity-project-runtime.js';
+import { AUDACITY_LARGE_PROJECT_THRESHOLD_BYTES as AUP3_LARGE_PROJECT_THRESHOLD_BYTES, getAudacityMemoryLimits, loadSqlJs, resolveAudacityMemoryLimits as resolveMemoryLimits } from './audacity-project-runtime.js';
 
 export { AUP3_LARGE_PROJECT_THRESHOLD_BYTES, loadSqlJs, resolveMemoryLimits as resolveAup3MemoryLimits };
 export { getAudacityMemoryLimits as getAup3MemoryLimits } from './audacity-project-runtime.js';
@@ -86,8 +86,8 @@ export function aup3OutputName(name) {
 	return `${base}.wav`;
 }
 
-export function requiresAup3LargeProjectConfirmation(fileSize) {
-	return Number(fileSize) > AUP3_LARGE_PROJECT_THRESHOLD_BYTES;
+export function requiresAup3LargeProjectConfirmation(fileSize, options = {}) {
+	return Number(fileSize) > getAudacityMemoryLimits(options).databaseBytes;
 }
 
 function decodeInWorker(buffer, { fileName, memoryLimits, onProgress, signal, structured, sourceFormat }) {
@@ -117,7 +117,9 @@ function decodeInWorker(buffer, { fileName, memoryLimits, onProgress, signal, st
 				return;
 			}
 			if (event.data?.type === 'error') {
-				finish(reject, new Aup3Error(event.data.message || 'The AUP3 project could not be decoded.', event.data.code));
+				const error = new Aup3Error(event.data.message || 'The AUP3 project could not be decoded.', event.data.code);
+				error.memoryLimitExceeded = Boolean(event.data.memoryLimitExceeded);
+				finish(reject, error);
 			}
 		};
 		worker.onerror = (event) => finish(reject, new Aup3Error(event.message || 'The AUP3 decoder worker failed.', 'WORKER_ERROR'));
@@ -132,7 +134,9 @@ function decodeInWorker(buffer, { fileName, memoryLimits, onProgress, signal, st
 
 function projectTooLargeError(databaseBytes) {
 	const megabytes = Math.floor(databaseBytes / MEBIBYTE);
-	return new Aup3Error(`This AUP3 project exceeds the ${megabytes} MB limit for the selected memory mode.`, 'PROJECT_TOO_LARGE');
+	const error = new Aup3Error(`This AUP3 project exceeds the recommended ${megabytes} MB memory budget.`, 'PROJECT_TOO_LARGE');
+	error.memoryLimitExceeded = true;
+	return error;
 }
 
 function hasSqliteHeader(bytes) {

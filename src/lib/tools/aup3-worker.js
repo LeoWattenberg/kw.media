@@ -43,6 +43,7 @@ self.onmessage = async (event) => {
 			type: 'error',
 			code: error?.code || 'AUP3_ERROR',
 			message: error?.message || String(error),
+			memoryLimitExceeded: Boolean(error?.memoryLimitExceeded),
 		});
 	}
 };

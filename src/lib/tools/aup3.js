@@ -496,11 +496,11 @@ export async function renderAup3Project(root, loadBlock, options = {}) {
 	}
 	frameCount = Math.max(1, frameCount);
 	const outputChannelCount = stereo ? 2 : 1;
-	if (
-		!Number.isSafeInteger(frameCount) ||
-		frameCount * outputChannelCount * Float32Array.BYTES_PER_ELEMENT > maxMixBytes
-	) {
+	if (!Number.isSafeInteger(frameCount)) {
 		throw new Aup3Error('The Audacity project is too long to mix safely in this browser.', 'PROJECT_TOO_LARGE');
+	}
+	if (frameCount * outputChannelCount * Float32Array.BYTES_PER_ELEMENT > maxMixBytes) {
+		throw memoryBudgetExceededError('The Audacity project exceeds the recommended memory budget for its WAV mix.');
 	}
 
 	const maxOutputFrames = Math.floor(maxMixBytes / outputChannelCount / Float32Array.BYTES_PER_ELEMENT);
@@ -531,8 +531,9 @@ export async function renderAup3Project(root, loadBlock, options = {}) {
  *
  * @param {ArrayBuffer | ArrayBufferView | number[]} input
  * @param {number} sampleFormat
+ * @param {{ maxFrames?: number }} [options]
  */
-export function decodeAup3SampleBlock(input, sampleFormat) {
+export function decodeAup3SampleBlock(input, sampleFormat, options = {}) {
 	const bytes = toBytes(input);
 	const format = Number(sampleFormat);
 	const bytesPerSample = format >>> 16;
@@ -543,7 +544,7 @@ export function decodeAup3SampleBlock(input, sampleFormat) {
 		throw new Aup3Error(`Unsupported Audacity sample format: 0x${format.toString(16)}.`, 'UNSUPPORTED_SAMPLE_FORMAT');
 	}
 
-	const result = allocateSamples(bytes.byteLength / bytesPerSample, 'An AUP3 sample block is too large to decode in this browser.');
+	const result = allocateSamples(bytes.byteLength / bytesPerSample, 'An AUP3 sample block is too large to decode in this browser.', options.maxFrames);
 	const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
 	for (let index = 0, offset = 0; index < result.length; index += 1, offset += bytesPerSample) {
 		if (format === SAMPLE_FORMAT.INT16) result[index] = view.getInt16(offset, true) / 32768;
@@ -665,7 +666,7 @@ async function decodeSequence(sequenceNode, loadBlock, { maxSamples, onBlock, wa
 	const declaredFormat = integerAttribute(sequenceNode, 'sampleformat', 0);
 	const declaredSamples = nonNegativeIntegerAttribute(sequenceNode, 'numsamples', 0);
 	if (declaredSamples > maxSamples) {
-		throw new Aup3Error('The Audacity project contains too much decoded audio for this browser.', 'PROJECT_TOO_LARGE');
+		throw memoryBudgetExceededError('The Audacity project exceeds the recommended memory budget for decoded audio.');
 	}
 	let result = allocateSamples(declaredSamples, 'An Audacity sequence is too large to decode in this browser.', maxSamples);
 	let sampleCount = 0;
@@ -690,11 +691,11 @@ async function decodeSequence(sequenceNode, loadBlock, { maxSamples, onBlock, wa
 			if (declaredFormat && row.sampleFormat !== declaredFormat) {
 				warn('A sample block format differed from its sequence declaration; the block format was used.');
 			}
-			samples = decodeAup3SampleBlock(row.samples, row.sampleFormat);
+			samples = decodeAup3SampleBlock(row.samples, row.sampleFormat, { maxFrames: maxSamples - sampleCount });
 			blockLength = samples.length;
 		}
 		if (sampleCount + blockLength > maxSamples) {
-			throw new Aup3Error('The Audacity project contains too much decoded audio for this browser.', 'PROJECT_TOO_LARGE');
+			throw memoryBudgetExceededError('The Audacity project exceeds the recommended memory budget for decoded audio.');
 		}
 		if (sampleCount + blockLength > result.length) {
 			result = growSamples(result, Math.max(sampleCount + blockLength, Math.min(maxSamples, Math.max(1, result.length * 2))), maxSamples);
@@ -1231,14 +1232,21 @@ function yieldToEventLoop() {
 }
 
 function allocateSamples(length, message, maxFrames = DEFAULT_MAX_AUDIO_FRAMES) {
-	if (!Number.isSafeInteger(length) || length < 0 || length > maxFrames) {
+	if (!Number.isSafeInteger(length) || length < 0) {
 		throw new Aup3Error(message, 'PROJECT_TOO_LARGE');
 	}
+	if (length > maxFrames) throw memoryBudgetExceededError(message);
 	try {
 		return new Float32Array(length);
 	} catch (error) {
 		throw new Aup3Error(message, 'PROJECT_TOO_LARGE', { cause: error });
 	}
+}
+
+function memoryBudgetExceededError(message) {
+	const error = new Aup3Error(message, 'PROJECT_TOO_LARGE');
+	error.memoryLimitExceeded = true;
+	return error;
 }
 
 function growSamples(previous, length, maxFrames) {

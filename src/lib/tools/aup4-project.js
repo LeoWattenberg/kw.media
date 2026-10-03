@@ -121,7 +121,9 @@ export async function convertAup4BytesToAup3(input, options = {}) {
 export function checkAup4MemoryLimit(size, options) {
 	const limit = resolveAudacityMemoryLimits(options).databaseBytes;
 	if (size > limit) {
-		throw new Aup4Error(`This AUP4 project exceeds the ${Math.floor(limit / (1024 * 1024))} MB limit for the selected memory mode.`, 'PROJECT_TOO_LARGE');
+		const error = new Aup4Error(`This AUP4 project exceeds the recommended ${Math.floor(limit / (1024 * 1024))} MB memory budget.`, 'PROJECT_TOO_LARGE');
+		error.memoryLimitExceeded = true;
+		throw error;
 	}
 }
 

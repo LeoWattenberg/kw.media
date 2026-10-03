@@ -30,6 +30,8 @@ export function aup4OutputName(name) {
 function aup4Error(error) {
 	if (error instanceof Aup4Error) return error;
 	if (error instanceof TypeError) return new TypeError(error.message.replaceAll('AUP3', 'AUP4'), { cause: error });
-	return new Aup4Error(String(error?.message || error).replaceAll('AUP3', 'AUP4'),
+	const wrapped = new Aup4Error(String(error?.message || error).replaceAll('AUP3', 'AUP4'),
 		error?.code === 'NOT_AUP3' ? 'NOT_AUP4' : error?.code || 'AUP4_ERROR', { cause: error });
+	wrapped.memoryLimitExceeded = Boolean(error?.memoryLimitExceeded);
+	return wrapped;
 }
