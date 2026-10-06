@@ -4,19 +4,19 @@
 		"de": {
 			"id": "courses-de",
 			"path": "/de/kurse/",
-			"title": "Vorträge und Kurse für Schulen",
-			"description": "Medienkompetenz, KI, Fake News und Content Creation als Vorträge, Workshops und Projektkurse für Schulen.",
+			"title": "Vorträge, Workshops und Elternabende",
+			"description": "Medienkompetenz, KI, Fake News und Content Creation für Schulklassen, Lehrkräfte, Eltern und Unternehmen. Online oder vor Ort, mit Martin Koytek.",
 			"blocks": [
 				{
 					"type": "hero",
 					"eyebrow": "Medienkompetenz, KI und Content Creation",
-					"title": "Vorträge und Kurse für Schulen",
-					"text": "Wir unterrichten online oder vor Ort: praxisnah, verständlich und passend für Schüler*innen, Lehrkräfte, Elternabende und Projektwochen.",
+					"title": "Vorträge, Workshops und Elternabende",
+					"text": "Für Schulklassen, Kollegien, Eltern und Unternehmen. Ich erkläre, wie YouTube, Social Media und KI wirklich funktionieren, aus über zehn Jahren Praxis auf den Plattformen. Online oder vor Ort.",
 					"image": "/assets/creator-video-production.jpg",
 					"imageAlt": "Creator bei der Videoproduktion",
 					"actions": [
 						{
-							"label": "Kurs anfragen",
+							"label": "Termin anfragen",
 							"href": "mailto:team@kw.media",
 							"variant": "primary"
 						}
@@ -24,16 +24,16 @@
 				},
 				{
 					"type": "text",
-					"eyebrow": "Buchbar für Schulen und Bildungsträger",
-					"title": "Unterricht, der digitale Lebenswelten ernst nimmt",
+					"eyebrow": "Worum es geht",
+					"title": "Was Kinder und Jugendliche online erleben, aus erster Hand erklärt",
 					"body": [
-						"Unsere Kurse verbinden Medienkompetenz mit echter Plattformpraxis: YouTube, KI, Fake News, Social Media, Video-Produktion und digitale Berufskompetenzen.",
-						"Eine UE ist eine Übungseinheit von 45 Minuten. Viele Formate lassen sich als Einzelvortrag, Workshop, Projekttag, Online-Einheit oder Ferienkurs anpassen."
+						"Ich arbeite seit über zehn Jahren mit YouTube, betreue Kanäle und betreibe eigene. In meinen Vorträgen und Workshops geht es deshalb nicht um Theorie aus dem Lehrbuch, sondern um das, was auf den Plattformen tatsächlich passiert: wie Empfehlungen entstehen, wie Fakes gemacht werden und was KI kann und was nicht.",
+						"Eine UE ist eine Unterrichtseinheit von 45 Minuten. Die meisten Formate passe ich an Alter, Vorwissen, Technik und Zeitrahmen an, vom einstündigen Vortrag bis zur Projektwoche."
 					],
 					"checks": [
-						"Online oder offline buchbar",
-						"Für Klassen, Kurse, Medien-AGs, Projektwochen und Elternabende",
-						"Praxisnah mit Live-Demos, Übungen und echten Beispielen",
+						"Online oder vor Ort",
+						"Mit Live-Demos und echten Beispielen von den Plattformen",
+						"Für Schulklassen, Kollegien, Elternabende und Unternehmen",
 						"Dozent: Martin Koytek"
 					],
 					"image": "/assets/martinkoytek.jpg",
@@ -41,86 +41,122 @@
 				},
 				{
 					"type": "services",
-					"eyebrow": "Kurskatalog",
-					"title": "Beispiele aus unserem Programm",
-					"intro": "Die Formate werden an Alter, Vorwissen, technische Ausstattung und Zeitrahmen Ihrer Schule angepasst.",
+					"eyebrow": "Für Schulklassen",
+					"title": "Workshops und Vorträge im Unterricht",
+					"intro": "Für Jugendliche von 13 bis 18 Jahren und für Berufskollegs. Alter, Vorwissen und Ausstattung stimmen wir vorher ab.",
 					"items": [
 						{
-							"title": "Fakt oder Fake? - Wahrheit im digitalen Zeitalter",
-							"text": "Workshop für Schüler*innen ab Klasse 9. In 4-6 UE lernen Gruppen, Fake News, Deepfakes und Desinformation zu erkennen und Quellen praktisch zu prüfen."
+							"title": "Fakt oder Fake? – Wahrheit im digitalen Zeitalter",
+							"text": "Ab Klasse 9, 4–6 UE. Die Klasse prüft echte Beispiele: gefälschte Screenshots, Deepfakes und Videos, die aus dem Zusammenhang gerissen wurden. Am Ende kann jede und jeder eine Quelle selbst prüfen, mit Bild-Rückwärtssuche und einem kurzen Prüfschema."
 						},
 						{
-							"title": "KI verstehen - ganz ohne Informatik-Studium",
-							"text": "Vortrag oder Workshop ab 6 UE. Verständlicher Einstieg in ChatGPT, Bild-KI, Chancen, Grenzen, Halluzinationen und verantwortungsvolle Nutzung."
+							"title": "KI verstehen – ganz ohne Informatik-Studium",
+							"text": "Ab 6 UE, als Vortrag oder Workshop. Wie ChatGPT und Bild-KI arbeiten, warum sie sich manchmal Dinge ausdenken und wann man ihnen trauen kann. Mit Live-Demos, bei denen die KI auch mal danebenliegt."
 						},
 						{
 							"title": "Grill dich schlau: Der Creator-Snack",
-							"text": "Kompakter Impuls-Workshop für Jugendliche von 13-18 Jahren. In 2-3 UE geht es um Thumbnails, Hooks und den ersten Eindruck von Videos."
+							"text": "2–3 UE für 13- bis 18-Jährige. Warum klickt man auf das eine Video und auf das andere nicht? Wir schauen uns Thumbnails, Titel und die ersten Sekunden an und bauen das danach selbst nach."
 						},
 						{
-							"title": "Traumberuf YouTuber? - Blick hinter die Kulissen",
-							"text": "Vortrag für Jugendliche von 13-18 Jahren. In 4-6 UE sprechen wir über Technik, Algorithmus, Aufwand, Geld, Pflichten und Realitäten des Creator-Alltags."
+							"title": "Traumberuf YouTuber? – Blick hinter die Kulissen",
+							"text": "Vortrag, 4–6 UE, für 13- bis 18-Jährige. Was hinter einem Kanal steckt: Technik, Algorithmus, Arbeitszeit, Geld und Pflichten wie Impressum und Werbekennzeichnung. Mit echten Zahlen aus meinen eigenen Kanälen."
 						},
 						{
-							"title": "Traumberuf YouTuber? - Das Praxis-Camp",
-							"text": "Tageskurs mit 10 UE. Schüler*innen planen, drehen und schneiden ein eigenes vertikales Kurzvideo direkt mit dem Smartphone."
+							"title": "Traumberuf YouTuber? – Das Praxis-Camp",
+							"text": "Ein Tag, 10 UE. Die Klasse plant, dreht und schneidet ein eigenes Hochkant-Video mit dem Smartphone. Zum Schluss schauen wir uns alle Ergebnisse gemeinsam an."
 						},
 						{
 							"title": "Creator Camp: Dein Start auf YouTube & Co.",
-							"text": "Ferienkurs oder Projektwoche über 3-5 Tage. Von Idee, Storyboard, Dreh und Ton bis Schnitt, Export, Medienrecht und Abschlusspräsentation."
+							"text": "Projektwoche oder Ferienkurs über 3–5 Tage. Von der Idee über Storyboard, Dreh und Ton bis zu Schnitt, Export und Medienrecht. Am letzten Tag präsentieren die Gruppen ihre Videos."
 						},
 						{
 							"title": "Storytelling für Creator",
-							"text": "Online-Workshop mit 4-6 UE. Dramaturgie, Zuschauerbindung und Skriptstruktur für Videos, Präsentationen und Social-Media-Formate."
+							"text": "Online-Workshop, 4–6 UE. Wie man ein Video so aufbaut, dass Leute dranbleiben: Einstieg, Spannungsbogen und Skript. Das hilft auch bei Referaten und Präsentationen."
 						},
 						{
-							"title": "Content Creation - The Professional Way",
-							"text": "Praxis-Workshop mit 4-6 UE zu Kamera, Belichtung, Lichtsetzung und Ton. Ideal für Medien-AGs, Projektkurse und Berufskollegs."
+							"title": "Content Creation – The Professional Way",
+							"text": "Praxis-Workshop, 4–6 UE, gut für Medien-AGs und Berufskollegs. Kamera, Belichtung, Licht und Ton, mit der Technik, die vor Ort vorhanden ist, und ein paar Tricks, die nichts kosten."
 						},
 						{
 							"title": "Hollywood für zu Hause",
-							"text": "EDV-Workshop mit 6-8 UE. Kostenlos nutzbare Profi-Tools wie OBS Studio, GIMP und DaVinci Resolve im kompletten Produktionsworkflow."
+							"text": "EDV-Workshop, 6–8 UE. Ein kompletter Produktionsweg mit kostenlosen Profi-Programmen: aufnehmen mit OBS Studio, Grafiken mit GIMP und schneiden mit DaVinci Resolve."
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Für Lehrkräfte",
+					"title": "Pädagogische Tage und Fortbildungen",
+					"intro": "Für Kollegien, Fachschaften und Pädagogische Tage, vor Ort oder online.",
+					"items": [
+						{
+							"title": "KI im Schulalltag",
+							"text": "Pädagogischer Tag oder Fortbildung, 3–6 UE. Was ChatGPT, Copilot und Gemini bei Unterrichtsvorbereitung, Recherche und Organisation leisten, wo sie Fehler machen und wie man mit Hausaufgaben umgeht, die eine KI geschrieben hat."
 						},
 						{
 							"title": "KI-Power für den Job",
-							"text": "Kompaktseminar mit 6-8 UE für Berufskollegs, Lehrkräfte oder Oberstufe. ChatGPT, Copilot und Gemini für Text, Recherche und Organisation."
+							"text": "Kompaktseminar, 6–8 UE, für Berufskollegs, Lehrkräfte und Oberstufe. ChatGPT, Copilot und Gemini ganz konkret für Texte, Recherche und Organisation, mit Übungen am eigenen Gerät."
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Für Eltern",
+					"title": "Elternabende",
+					"intro": "Nach Schuljahr aufgebaut, damit die Themen zum Alter der Kinder passen. 2–4 UE, vor Ort oder online. Schulen in Rheinland-Pfalz können sich das Honorar über „Stark im Netz – Eltern“ einmal im Jahr bis zu 300 € erstatten lassen.",
+					"items": [
+						{
+							"title": "Der erste Bildschirm – Früher Medienkonsum & kindersichere Geräte",
+							"text": "1. Schuljahr. Wie viel Bildschirmzeit in Ordnung ist, welche Inhalte zum Alter passen und wie man Tablet und Smartphone kindersicher einrichtet. Mit Einstellungen, die Sie noch am selben Abend umsetzen können."
+						},
+						{
+							"title": "Level Up im Kinderzimmer – Gaming, Gamification & Social Media",
+							"text": "2. Schuljahr. Warum es so schwer ist, ein Spiel wegzulegen: Belohnungen, In-Game-Käufe und erste Kontakte zu Social Media. Und wie Kinder lernen, selbst zu merken, wann es genug ist."
+						},
+						{
+							"title": "Vom Konsum zur Kreativität – Kinder als Content Creator",
+							"text": "3. Schuljahr. Kinder wollen selbst Fotos, Videos und Hörspiele machen. Was sie dabei lernen und worauf es bei Privatsphäre und dem Recht am eigenen Bild ankommt."
+						},
+						{
+							"title": "Sicher vernetzt – Cybermobbing & Cybergrooming erkennen und handeln",
+							"text": "4. Schuljahr, gemeinsam mit Schulsozialarbeit und Schulpsychologie. Woran man Cybermobbing und Cybergrooming erkennt, was in Klassen-Chats passiert und was Eltern konkret tun können."
 						},
 						{
 							"title": "Was treiben meine Enkel im Internet?",
-							"text": "Eltern- oder Großelternabend mit 6 UE. Ein verständlicher Blick auf Online-Games, Influencer, Kostenfallen, Cybermobbing und Generationendialog."
+							"text": "Für Eltern und Großeltern, bis zu 6 UE. Online-Spiele, Influencer, Kostenfallen und Cybermobbing verständlich erklärt, damit man mit den Kindern darüber reden kann, ohne dass es peinlich wird."
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Für Unternehmen",
+					"title": "KI und Medienkompetenz im Betrieb",
+					"intro": "Als Inhouse-Workshop für Ihr Team oder als Impulsvortrag für Ihre Veranstaltung.",
+					"items": [
+						{
+							"title": "KI im Arbeitsalltag",
+							"text": "Workshop, 4–8 UE. Was ChatGPT, Copilot und Gemini im Büro wirklich bringen, wo sie Fehler machen und welche Daten nicht hineingehören. Mit Übungen an echten Aufgaben aus Ihrem Betrieb. Das hilft auch bei der Pflicht aus dem AI Act, die KI-Kompetenz Ihrer Beschäftigten zu fördern."
 						},
 						{
-						    "title": "Der erste Bildschirm – Früher Medienkonsum & kindersichere Geräte",
-    						"text": "Elternabend (2–4 UE) für das 1. Schuljahr. Praktische Orientierung zu gesunden Bildschirmzeiten, altersgerechten Inhalten, Filterfunktionen und der sicheren Einrichtung von Smartphones und Tablets."
-  						},
-  						{
-    						"title": "Level Up im Kinderzimmer – Gaming, Gamification & Social Media",
-    						"text": "Elternabend (2–4 UE) für das 2. Schuljahr. Einblicke in Belohnungsmechanismen von Spielen, In-Game-Käufe, frühe Social-Media-Kontakte und wie Kinder lernen, digitale Angebote reflektiert zu nutzen."
-  						},
-  						{
-    						"title": "Vom Konsum zur Kreativität – Kinder als Content Creator",
-    						"text": "Elternabend (2–4 UE) für das 3. Schuljahr. Chancen kreativer Mediennutzung (Stop-Motion, Videos, Audio), Schutz der Privatsphäre, Recht am eigenen Bild und die sichere Begleitung junger Creators."
-  						},
-  						{
-    						"title": "Sicher vernetzt – Cybermobbing & Cybergrooming erkennen und handeln",
-    						"text": "Themenelternabend (2–4 UE) für das 4. Schuljahr in Kooperation mit Schulsozialarbeit und Schulpsychologie. Warnsignale, Dynamiken in Klassen-Chats, Prävention und konkrete Handlungsleitfäden."
-  						}
+							"title": "Impulsvortrag: KI, Fakes und Desinformation",
+							"text": "30–60 Minuten für Ihre Veranstaltung. Was KI heute kann, wie gefälschte Videos und geklonte Stimmen Unternehmen treffen und was man dagegen tun kann."
+						}
 					]
 				},
 				{
 					"type": "pricing",
 					"eyebrow": "Buchungsformate",
-					"title": "Vom Impuls bis zur Projektwoche",
-					"note": "Preise und konkrete Abläufe stimmen wir nach Format, Gruppengröße, Ort, Technikbedarf und Vorbereitungsaufwand ab.",
+					"title": "Vom Vortrag bis zur Projektwoche",
+					"note": "Das Honorar richtet sich nach Format, Umfang, Ort und Vorbereitung. Sie bekommen vorab ein festes Angebot.",
 					"items": [
 						{
 							"name": "Impuls oder Vortrag",
-							"summary": "Für Einstieg, Elternabend oder Pädagogischen Tag",
+							"summary": "Für Elternabende, Pädagogische Tage und Veranstaltungen",
 							"price": "Auf Anfrage",
-							"period": "2-6 UE",
+							"period": "2–6 UE",
 							"features": [
-								"Klare Einführung ins Thema",
-								"Live-Demos und Q&A",
+								"Klarer Einstieg ins Thema",
+								"Live-Demos und Fragerunde",
 								"Online oder vor Ort"
 							],
 							"action": {
@@ -130,14 +166,14 @@
 						},
 						{
 							"name": "Workshop oder Projekttag",
-							"summary": "Für Klassen, Kurse und Medien-AGs",
+							"summary": "Für Klassen, Kurse, Medien-AGs und Teams",
 							"price": "Auf Anfrage",
-							"period": "4-10 UE",
+							"period": "4–10 UE",
 							"highlight": "Beliebt",
 							"features": [
-								"Interaktive Übungen",
-								"Material- und Technikabstimmung",
-								"Praxisnahes Arbeiten in Gruppen"
+								"Übungen in Kleingruppen",
+								"Technik und Material stimmen wir vorher ab",
+								"Ergebnisse, die die Gruppe selbst erarbeitet"
 							],
 							"action": {
 								"label": "Anfragen",
@@ -146,13 +182,13 @@
 						},
 						{
 							"name": "Projektwoche oder Ferienkurs",
-							"summary": "Für intensive Medienprojekte",
+							"summary": "Für Medienprojekte über mehrere Tage",
 							"price": "Auf Anfrage",
-							"period": "3-5 Tage",
+							"period": "3–5 Tage",
 							"features": [
-								"Konzept, Produktion und Abschlusspräsentation",
-								"Begleitete Kreativarbeit",
-								"Individuell planbarer Ablauf"
+								"Von der Idee bis zur Präsentation",
+								"Begleitete Arbeit an eigenen Projekten",
+								"Ablauf passend zu Ihrem Stundenplan"
 							],
 							"action": {
 								"label": "Anfragen",
@@ -162,31 +198,53 @@
 					]
 				},
 				{
+					"type": "text",
+					"eyebrow": "Konditionen",
+					"title": "Planbar für beide Seiten",
+					"body": [
+						"Sie bekommen vorab ein festes Angebot mit Honorar und, bei Terminen vor Ort, Fahrtkosten.",
+						"Eine Absage ist bis 21 Tage vor dem Termin kostenlos. Bei einer Absage 20 bis 8 Tage vorher berechne ich 25 % des vereinbarten Honorars, ab 7 Tagen vorher 50 %. Das gilt auch, wenn eine Veranstaltung mangels Anmeldungen ausfällt.",
+						"Der Grund ist einfach: Für jeden Termin halte ich den Tag frei und bereite ihn vor. Wer früh absagt, gibt mir die Chance, den Tag anders zu vergeben."
+					]
+				},
+				{
 					"type": "faq",
 					"title": "Häufige Fragen",
 					"items": [
 						{
-							"question": "Für welche Klassenstufen sind die Kurse geeignet?",
+							"question": "Für welches Alter sind die Formate geeignet?",
 							"answer": [
-								"Viele Formate sind für Jugendliche ab 13 Jahren oder ab Klasse 9 konzipiert. Für Oberstufe, Berufskollegs, Lehrkräfte und Elternabende passen wir Inhalte und Sprache entsprechend an."
+								"Die Workshops für Schulklassen sind für Jugendliche ab 13 Jahren bzw. ab Klasse 9 gedacht, die Elternabende sind nach den Schuljahren 1 bis 4 aufgebaut. Für Oberstufe, Berufskollegs und Kollegien passe ich Inhalte und Sprache an."
 							]
 						},
 						{
-							"question": "Kann der Kurs online stattfinden?",
+							"question": "Geht das auch online?",
 							"answer": [
-								"Ja. Viele Themen funktionieren als Online-Workshop oder Webinar. Praxisformate mit Dreh, Schnitt oder Technik profitieren oft von einem Termin vor Ort."
+								"Ja. Vorträge, Elternabende und viele Workshops funktionieren gut online. Bei Praxisformaten mit Dreh, Schnitt oder Technik lohnt sich meistens ein Termin vor Ort."
 							]
 						},
 						{
 							"question": "Was muss die Schule vorbereiten?",
 							"answer": [
-								"Das hängt vom Format ab. Für Vorträge reichen meist Beamer, Ton und Internet. Für Praxisformate stimmen wir Geräte, Software, Räume und Gruppengrößen vorab ab."
+								"Für Vorträge reichen meistens Beamer, Ton und Internet. Bei Praxisformaten stimmen wir Geräte, Software, Räume und Gruppengröße vorher ab."
 							]
 						},
 						{
-							"question": "Wer unterrichtet die Kurse?",
+							"question": "Wer bezahlt den Elternabend?",
 							"answer": [
-								"Dozent ist Martin Koytek. Er verbindet langjährige YouTube-, Medien- und Online-Marketing-Erfahrung mit verständlicher Vermittlung für unterschiedliche Zielgruppen."
+								"Das hängt vom Bundesland ab. In Rheinland-Pfalz erstattet das Pädagogische Landesinstitut über „Stark im Netz – Eltern“ jeder Schule einmal im Kalenderjahr bis zu 300 € Honorar, online bis zu 250 €. Den Antrag stellen Schulleitung, Förderverein, Elternvertretung oder Schulsozialarbeit. Anderswo übernimmt das zum Beispiel der Förderverein."
+							]
+						},
+						{
+							"question": "Was passiert, wenn wir absagen müssen?",
+							"answer": [
+								"Bis 21 Tage vor dem Termin ist eine Absage kostenlos. Danach gilt die Regel unter „Konditionen“: 25 % des Honorars bei einer Absage 20 bis 8 Tage vorher, 50 % ab 7 Tagen vorher, auch wenn zu wenige Anmeldungen der Grund sind."
+							]
+						},
+						{
+							"question": "Wer unterrichtet?",
+							"answer": [
+								"Ich, Martin Koytek. Ich bin Geschäftsführer von KW.Media, seit elf Jahren im YouTube-Produktexperten-Programm und betreibe eigene Kanäle."
 							]
 						}
 					]
@@ -194,7 +252,7 @@
 				{
 					"type": "person",
 					"eyebrow": "Dozent",
-					"title": "Unterricht mit Plattformpraxis",
+					"title": "Unterricht aus der Praxis",
 					"name": "Martin Koytek",
 					"role": "Dozent für Medienkompetenz, KI und Content Creation",
 					"image": "/assets/martinkoytek.jpg",
@@ -205,20 +263,20 @@
 						"YouTube-Produktexperte"
 					],
 					"body": [
-						"Martin Koytek erklärt digitale Plattformen, KI und Content Creation aus der Praxis heraus: verständlich, ehrlich und mit Blick auf das, was Schüler*innen wirklich online erleben."
+						"Ich erkläre Plattformen so, wie ich sie selbst nutze: als jemand, der Kanäle betreibt, Zahlen auswertet und jeden Tag sieht, was Kinder und Jugendliche online erleben. Ehrlich, auch wenn die Antwort mal unbequem ist."
 					],
 					"email": "team@kw.media"
 				},
 				{
 					"type": "cta",
-					"title": "Kurs anfragen",
-					"text": "Schicken Sie uns kurz Thema, Zielgruppe, gewünschtes Format, Ort und möglichen Zeitraum. Wir melden uns mit einem passenden Vorschlag.",
+					"title": "Termin anfragen",
+					"text": "Schreiben Sie mir kurz, was Sie sich vorstellen. Sie bekommen innerhalb von 24 Stunden eine Antwort mit einem passenden Vorschlag.",
 					"email": "team@kw.media",
 					"items": [
-						"Schule oder Bildungsträger",
-						"Klassenstufe und Gruppengröße",
+						"Schule, Einrichtung oder Unternehmen",
+						"Zielgruppe und Gruppengröße",
 						"Online oder vor Ort",
-						"Gewünschter Umfang in UE oder Tagen"
+						"Wunschzeitraum und Umfang"
 					]
 				}
 			]
@@ -226,19 +284,19 @@
 		"en": {
 			"id": "courses-en",
 			"path": "/en/lectures-courses/",
-			"title": "Lectures and Courses for Schools",
-			"description": "Media literacy, AI, fake news and content creation as lectures, workshops and project courses for schools.",
+			"title": "Lectures, Workshops and Parent Evenings",
+			"description": "Media literacy, AI, fake news and content creation for school classes, teachers, parents and companies. Online or on site, with Martin Koytek.",
 			"blocks": [
 				{
 					"type": "hero",
 					"eyebrow": "Media literacy, AI and content creation",
-					"title": "Lectures and courses for schools",
-					"text": "We teach online or on site: practical, understandable and tailored to students, teachers, parent evenings and project weeks.",
+					"title": "Lectures, workshops and parent evenings",
+					"text": "For school classes, teaching staff, parents and companies. I explain how YouTube, social media and AI really work, from more than ten years of hands-on platform experience. Online or on site.",
 					"image": "/assets/creator-video-production.jpg",
 					"imageAlt": "Creators recording a video",
 					"actions": [
 						{
-							"label": "Request a course",
+							"label": "Request a date",
 							"href": "mailto:team@kw.media",
 							"variant": "primary"
 						}
@@ -246,16 +304,16 @@
 				},
 				{
 					"type": "text",
-					"eyebrow": "For schools and education providers",
-					"title": "Teaching digital life as it actually happens",
+					"eyebrow": "What it’s about",
+					"title": "What children and teens experience online, explained first-hand",
 					"body": [
-						"Our courses connect media literacy with real platform experience: YouTube, AI, misinformation, social media, video production and digital work skills.",
-						"One teaching unit is 45 minutes. Most formats can be adapted as a lecture, workshop, project day, online session or holiday course."
+						"I’ve been working with YouTube for more than ten years, managing channels and running my own. So my lectures and workshops aren’t textbook theory. They’re about what actually happens on the platforms: how recommendations come about, how fakes are made, and what AI can and can’t do.",
+						"One teaching unit is 45 minutes. I adapt most formats to age, prior knowledge, equipment and schedule, from a one-hour lecture to a project week."
 					],
 					"checks": [
-						"Available online or on site",
-						"For classes, media clubs, project weeks and parent evenings",
-						"Practical teaching with live demos, exercises and real examples",
+						"Online or on site",
+						"Live demos and real examples from the platforms",
+						"For school classes, teaching staff, parent evenings and companies",
 						"Teacher: Martin Koytek"
 					],
 					"image": "/assets/martinkoytek.jpg",
@@ -263,85 +321,121 @@
 				},
 				{
 					"type": "services",
-					"eyebrow": "Course catalogue",
-					"title": "Examples from the programme",
-					"intro": "Formats are adapted to age, prior knowledge, technical setup and the school schedule.",
+					"eyebrow": "For school classes",
+					"title": "Workshops and lectures in class",
+					"intro": "For teenagers aged 13 to 18 and vocational schools. We agree on age, prior knowledge and equipment beforehand.",
 					"items": [
 						{
 							"title": "Fact or Fake? Truth in the Digital Age",
-							"text": "Workshop for students from grade 9. In 4-6 teaching units, groups learn how misinformation, deepfakes and source verification work."
+							"text": "From grade 9, 4–6 teaching units. The class checks real examples: fake screenshots, deepfakes and videos taken out of context. By the end, everyone can check a source themselves, with reverse image search and a short checklist."
 						},
 						{
 							"title": "Understanding AI without a Computer Science Degree",
-							"text": "Lecture or workshop from 6 teaching units. A clear introduction to ChatGPT, image AI, opportunities, limits, hallucinations and responsible use."
+							"text": "From 6 teaching units, as a lecture or workshop. How ChatGPT and image AI work, why they sometimes make things up and when you can trust them. With live demos where the AI gets things wrong, too."
 						},
 						{
 							"title": "Creator Snack: Hooks, Thumbnails and Attention",
-							"text": "Compact impulse workshop for ages 13-18. In 2-3 teaching units, students learn why videos get clicked or skipped."
+							"text": "2–3 teaching units for ages 13 to 18. Why do you click one video and skip another? We look at thumbnails, titles and the first few seconds, then recreate them ourselves."
 						},
 						{
 							"title": "Dream Job YouTuber? Behind the Scenes",
-							"text": "Lecture for ages 13-18. In 4-6 teaching units, Martin explains technology, algorithms, effort, money, obligations and creator reality."
+							"text": "Lecture, 4–6 teaching units, for ages 13 to 18. What’s behind a channel: equipment, algorithm, working hours, money, and duties like an imprint and ad disclosure. With real numbers from my own channels."
 						},
 						{
 							"title": "Mobile Creator Practice Camp",
-							"text": "One-day course with 10 teaching units. Students plan, shoot and edit their own vertical short video with a smartphone."
+							"text": "One day, 10 teaching units. The class plans, shoots and edits its own vertical video with a smartphone. At the end we watch all the results together."
 						},
 						{
 							"title": "Creator Camp: Start on YouTube & Co.",
-							"text": "Holiday course or project week over 3-5 days. From idea, storyboard, camera and sound to editing, export, media law and final screening."
+							"text": "Project week or holiday course over 3–5 days. From the idea, storyboard, filming and sound to editing, export and media law. On the last day the groups present their videos."
 						},
 						{
 							"title": "Storytelling for Creators",
-							"text": "Online workshop with 4-6 teaching units. Dramaturgy, audience retention and script structure for video, presentation and social formats."
+							"text": "Online workshop, 4–6 teaching units. How to structure a video so people keep watching: opening, arc and script. It helps with presentations, too."
 						},
 						{
 							"title": "Content Creation - The Professional Way",
-							"text": "Hands-on workshop with 4-6 teaching units covering cameras, exposure, lighting and audio for media classes and project groups."
+							"text": "Hands-on workshop, 4–6 teaching units, good for media clubs and vocational schools. Camera, exposure, lighting and sound, with whatever equipment is on site and a few tricks that cost nothing."
 						},
 						{
 							"title": "Hollywood at Home",
-							"text": "Computer lab workshop with 6-8 teaching units. Free professional tools such as OBS Studio, GIMP and DaVinci Resolve in one workflow."
+							"text": "Computer lab workshop, 6–8 teaching units. A complete production workflow with free professional software: recording with OBS Studio, graphics with GIMP and editing with DaVinci Resolve."
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "For teachers",
+					"title": "Staff training days and workshops",
+					"intro": "For teaching staff, departments and in-service training days, on site or online.",
+					"items": [
+						{
+							"title": "AI in Everyday School Life",
+							"text": "Training day or workshop, 3–6 teaching units. What ChatGPT, Copilot and Gemini can do for lesson planning, research and organisation, where they get things wrong, and how to deal with homework an AI wrote."
 						},
 						{
 							"title": "AI Power for Work",
-							"text": "Compact seminar with 6-8 teaching units for vocational schools, teachers or older students using ChatGPT, Copilot and Gemini productively."
+							"text": "Compact seminar, 6–8 teaching units, for vocational schools, teachers and older students. ChatGPT, Copilot and Gemini for writing, research and organisation, with exercises on your own device."
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "For parents",
+					"title": "Parent evenings",
+					"intro": "Built around the school year so the topics fit the children’s age. 2–4 teaching units, on site or online. Schools in Rhineland-Palatinate can have the fee reimbursed up to €300 once a year through the state programme “Stark im Netz – Eltern”.",
+					"items": [
+						{
+							"title": "The First Screen: Early Media Consumption & Child-Safe Devices",
+							"text": "1st grade. How much screen time is fine, which content suits the age, and how to set up tablets and smartphones safely. With settings you can apply the same evening."
+						},
+						{
+							"title": "Level Up at Home: Gaming, Gamification & Social Media",
+							"text": "2nd grade. Why it’s so hard to put a game down: rewards, in-game purchases and first contact with social media. And how children learn to notice when it’s enough."
+						},
+						{
+							"title": "From Consumer to Creator: Kids Making Media",
+							"text": "3rd grade. Children want to make their own photos, videos and audio plays. What they learn from it, and what matters for privacy and image rights."
+						},
+						{
+							"title": "Connected Safely: Cyberbullying & Online Grooming Awareness",
+							"text": "4th grade, together with school social work and school psychologists. How to recognise cyberbullying and online grooming, what happens in class chats and what parents can actually do."
 						},
 						{
 							"title": "What Are My Grandchildren Doing Online?",
-							"text": "Parent or grandparent evening with 6 teaching units about online games, influencers, cost traps, cyberbullying and intergenerational dialogue."
+							"text": "For parents and grandparents, up to 6 teaching units. Online games, influencers, cost traps and cyberbullying explained clearly, so you can talk to the kids about it without it getting awkward."
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "For companies",
+					"title": "AI and media literacy at work",
+					"intro": "As an in-house workshop for your team or as a keynote for your event.",
+					"items": [
+						{
+							"title": "AI at Work",
+							"text": "Workshop, 4–8 teaching units. What ChatGPT, Copilot and Gemini really do for office work, where they get things wrong and which data should never go in. With exercises on real tasks from your business. It also helps with the AI Act duty to foster your staff’s AI literacy."
 						},
 						{
-						    "title": "The First Screen: Early Media Consumption & Child-Safe Devices",
-						    "text": "Parent evening (2–4 teaching units) for 1st grade. Practical guidance on healthy screen time, age-appropriate content, filter settings and setting up safe devices at home."
-						  },
-						  {
-						    "title": "Level Up at Home: Gaming, Gamification & Social Media",
-						    "text": "Parent evening (2–4 teaching units) for 2nd grade. Insights into game reward loops, in-app purchases, early social media exposure and developing mindful digital habits."
-						  },
-						  {
-						    "title": "From Consumer to Creator: Kids Making Media",
-						    "text": "Parent evening (2–4 teaching units) for 3rd grade. Creative media opportunities (stop-motion, video, audio), privacy protection, image rights and guiding young creators responsibly."
-						  },
-						  {
-						    "title": "Connected Safely: Cyberbullying & Online Grooming Awareness",
-						    "text": "Targeted parent evening (2–4 teaching units) for 4th grade in collaboration with school social work and school psychologists. Warning signs, group chat dynamics and actionable intervention steps."
-						  }
+							"title": "Keynote: AI, Fakes and Disinformation",
+							"text": "30–60 minutes for your event. What AI can do today, how fake videos and cloned voices hit companies, and what you can do about it."
+						}
 					]
 				},
 				{
 					"type": "pricing",
 					"eyebrow": "Booking formats",
-					"title": "From short impulse to project week",
-					"note": "Pricing and structure depend on format, group size, location, technical setup and preparation needs.",
+					"title": "From a short talk to a project week",
+					"note": "The fee depends on format, length, location and preparation. You get a fixed quote up front.",
 					"items": [
 						{
 							"name": "Impulse or lecture",
-							"summary": "For introductions, parent evenings or teacher training days",
+							"summary": "For parent evenings, staff training days and events",
 							"price": "On request",
-							"period": "2-6 units",
+							"period": "2–6 units",
 							"features": [
-								"Clear topic introduction",
+								"A clear introduction to the topic",
 								"Live demos and Q&A",
 								"Online or on site"
 							],
@@ -352,14 +446,14 @@
 						},
 						{
 							"name": "Workshop or project day",
-							"summary": "For classes, courses and media clubs",
+							"summary": "For classes, courses, media clubs and teams",
 							"price": "On request",
-							"period": "4-10 units",
+							"period": "4–10 units",
 							"highlight": "Popular",
 							"features": [
-								"Interactive exercises",
-								"Material and tech planning",
-								"Practical group work"
+								"Exercises in small groups",
+								"Equipment and materials agreed beforehand",
+								"Results the group works out itself"
 							],
 							"action": {
 								"label": "Request",
@@ -368,13 +462,13 @@
 						},
 						{
 							"name": "Project week or holiday course",
-							"summary": "For intensive media projects",
+							"summary": "For media projects over several days",
 							"price": "On request",
-							"period": "3-5 days",
+							"period": "3–5 days",
 							"features": [
-								"Concept, production and final screening",
-								"Guided creative work",
-								"Individually planned schedule"
+								"From the idea to the final presentation",
+								"Guided work on the group’s own projects",
+								"Schedule that fits your timetable"
 							],
 							"action": {
 								"label": "Request",
@@ -384,31 +478,53 @@
 					]
 				},
 				{
+					"type": "text",
+					"eyebrow": "Terms",
+					"title": "Plannable for both sides",
+					"body": [
+						"You get a fixed quote up front with the fee and, for on-site dates, travel costs.",
+						"Cancelling is free up to 21 days before the date. If you cancel 20 to 8 days before, I charge 25% of the agreed fee, and 50% from 7 days before. This also applies when an event is cancelled because too few people signed up.",
+						"The reason is simple: for every date I keep the day free and prepare. An early cancellation gives me the chance to book the day elsewhere."
+					]
+				},
+				{
 					"type": "faq",
 					"title": "FAQ",
 					"items": [
 						{
-							"question": "Which age groups are the courses for?",
+							"question": "Which ages are the formats for?",
 							"answer": [
-								"Many formats are designed for students from age 13 or grade 9. We adapt the content and language for older students, vocational schools, teachers and parent evenings."
+								"The class workshops are designed for teenagers from 13 or grade 9, and the parent evenings follow school years 1 to 4. For older students, vocational schools and teaching staff, I adapt content and language."
 							]
 						},
 						{
-							"question": "Can the course happen online?",
+							"question": "Can it happen online?",
 							"answer": [
-								"Yes. Many topics work well as an online workshop or webinar. Practical formats with filming, editing or hardware usually benefit from an on-site session."
+								"Yes. Lectures, parent evenings and many workshops work well online. Hands-on formats with filming, editing or equipment are usually better on site."
 							]
 						},
 						{
 							"question": "What does the school need to prepare?",
 							"answer": [
-								"It depends on the format. Lectures usually need a projector, audio and internet. For practical courses, we agree devices, software, rooms and group sizes in advance."
+								"Lectures usually need a projector, sound and internet. For hands-on formats we agree devices, software, rooms and group size beforehand."
 							]
 						},
 						{
-							"question": "Who teaches the courses?",
+							"question": "Who pays for the parent evening?",
 							"answer": [
-								"The teacher is Martin Koytek. He combines many years of YouTube, media and online marketing experience with clear explanations for different audiences."
+								"That depends on the federal state. In Rhineland-Palatinate, the state education institute reimburses every school up to €300 per calendar year through “Stark im Netz – Eltern”, or up to €250 online. The school leadership, parents’ association, parent representatives or school social work can apply. Elsewhere, the parents’ association often covers it."
+							]
+						},
+						{
+							"question": "What if we have to cancel?",
+							"answer": [
+								"Cancelling is free up to 21 days before the date. After that the rule under “Terms” applies: 25% of the fee for cancelling 20 to 8 days before and 50% from 7 days before, even when too few sign-ups are the reason."
+							]
+						},
+						{
+							"question": "Who teaches?",
+							"answer": [
+								"I do, Martin Koytek. I’m the managing director of KW.Media, have been in the YouTube Product Expert program for eleven years and run my own channels."
 							]
 						}
 					]
@@ -416,7 +532,7 @@
 				{
 					"type": "person",
 					"eyebrow": "Teacher",
-					"title": "Platform practice in the classroom",
+					"title": "Teaching from real practice",
 					"name": "Martin Koytek",
 					"role": "Teacher for media literacy, AI and content creation",
 					"image": "/assets/martinkoytek.jpg",
@@ -427,20 +543,20 @@
 						"YouTube Product Expert"
 					],
 					"body": [
-						"Martin Koytek explains digital platforms, AI and content creation from real practice: clearly, honestly and with attention to what students actually experience online."
+						"I explain platforms the way I use them myself: as someone who runs channels, analyses the numbers and sees every day what children and teens experience online. Honestly, even when the answer is uncomfortable."
 					],
 					"email": "team@kw.media"
 				},
 				{
 					"type": "cta",
-					"title": "Request a course",
-					"text": "Send us the topic, audience, preferred format, location and possible time frame. We will reply with a fitting proposal.",
+					"title": "Request a date",
+					"text": "Send me a short note about what you have in mind. You’ll get a reply with a suitable proposal within 24 hours.",
 					"email": "team@kw.media",
 					"items": [
-						"School or education provider",
-						"Grade level and group size",
+						"School, institution or company",
+						"Audience and group size",
 						"Online or on site",
-						"Preferred length in teaching units or days"
+						"Preferred time frame and length"
 					]
 				}
 			]
