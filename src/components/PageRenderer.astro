@@ -9,11 +9,13 @@ import PersonSpotlight from './blocks/PersonSpotlight.astro';
 import PortfolioGrid from './blocks/PortfolioGrid.astro';
 import PostList from './blocks/PostList.astro';
 import Pricing from './blocks/Pricing.astro';
+import RequestForm from './blocks/RequestForm.astro';
 import ServiceGrid from './blocks/ServiceGrid.astro';
 import StatsBand from './blocks/StatsBand.astro';
 import Testimonials from './blocks/Testimonials.astro';
 import TextPanel from './blocks/TextPanel.astro';
 import YouTubePlaylist from './blocks/YouTubePlaylist.astro';
+import YouTubeVideo from './blocks/YouTubeVideo.astro';
 
 interface Props {
 	page: SitePage;
@@ -40,6 +42,8 @@ const headingBlock = page.blocks.some((block) => block.type === 'hero') ? undefi
 		block.type === 'person' ? <PersonSpotlight block={block} /> :
 		block.type === 'posts' ? <PostList block={block} locale={page.locale} primaryHeading={block === headingBlock} /> :
 		block.type === 'youtubePlaylist' ? <YouTubePlaylist block={block} locale={page.locale} /> :
+		block.type === 'youtubeVideo' ? <YouTubeVideo block={block} locale={page.locale} /> :
+		block.type === 'requestForm' ? <RequestForm block={block} /> :
 		block.type === 'cta' ? <CallToAction block={block} /> :
 		null
 	))

@@ -1,0 +1,411 @@
+{
+	"id": "channel-check",
+	"translations": {
+		"de": {
+			"id": "channel-check-de",
+			"path": "/de/kanal-check/",
+			"title": "Kanal-Check: Ich rechne deinen Kanal durch",
+			"description": "Ich gehe deine YouTube-Studio-Zahlen durch, nehme ein Video dazu auf und sage dir, was ich zuerst ändern würde. Dazu 20 Minuten Gespräch. 99 €.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Kanal-Check · 99 €",
+					"title": "Ich rechne deinen Kanal durch.",
+					"text": "Genau das, was ich in der Fallstudie mit meinem Gaming-Kanal Defender833 gemacht habe, nur mit deinen Zahlen. Du bekommst ein Video, in dem ich deine YouTube-Studio-Daten durchgehe, und danach 20 Minuten Gespräch für deine Fragen.",
+					"actions": [
+						{
+							"label": "Kanal-Check buchen",
+							"href": "#buchen",
+							"variant": "primary"
+						},
+						{
+							"label": "Fallstudie ansehen",
+							"href": "#fallstudie",
+							"variant": "secondary"
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "Das bekommst du",
+					"title": "Deine Zahlen, erklärt",
+					"items": [
+						{
+							"title": "Ein Video, 10–15 Minuten",
+							"text": "Ich gehe deine Studio-Daten durch und nehme dabei meinen Bildschirm auf. Ich schaue, wo deine Views herkommen, was wirklich Wiedergabezeit bringt und wie viele Leute wiederkommen. Wenn du mir deine Einnahmen zeigst, rechne ich auch aus, was dir eine Stunde Arbeit gerade einbringt."
+						},
+						{
+							"title": "Was ich zuerst ändern würde",
+							"text": "Zum Video bekommst du eine Mail mit den Änderungen, die ich als Erstes angehen würde, der Reihe nach und jeweils mit Begründung. Meistens sind das zwei, drei Sachen, manchmal nur eine."
+						},
+						{
+							"title": "Ein Gespräch, 20 Minuten",
+							"text": "Nachdem du das Video gesehen hast. Für deine Fragen, oder wenn du findest, dass ich mich irgendwo vertan habe. Kommt vor. Deinen Kanal kennst du besser als ich."
+						}
+					]
+				},
+				{
+					"type": "youtubeVideo",
+					"anchor": "fallstudie",
+					"eyebrow": "Fallstudie",
+					"title": "Mein eigener Kanal, genauso durchgerechnet",
+					"body": [
+						"Zwei Monate lang hatte mein Gaming-Kanal etwa 200 Views am Tag. In dem Video rechne ich ihn durch, auch die Teile, die nicht so gut aussehen. Das Video ist auf Englisch. Genau das bekommst du für deinen Kanal, auf Wunsch auf Deutsch."
+					],
+					"videoId": "jw7B_3qGB5I"
+				},
+				{
+					"type": "services",
+					"eyebrow": "So läuft's ab",
+					"title": "Vom Formular zum Gespräch",
+					"items": [
+						{
+							"title": "1. Formular ausfüllen",
+							"text": "Dein Kanal, was du mit ihm vorhast und was dich gerade nervt."
+						},
+						{
+							"title": "2. Zugriff in YouTube Studio geben",
+							"text": "Einstellungen → Berechtigungen → Einladen, Rolle „Betrachter“. Dein Passwort brauche ich nie, und du kannst mich jederzeit wieder entfernen. Wenn du deine Einnahmen nicht zeigen willst, nimm „Betrachter (eingeschränkt)“. Dann lasse ich den Geld-Teil weg."
+						},
+						{
+							"title": "3. Video, dann Gespräch",
+							"text": "Du bekommst zuerst die Rechnung. Innerhalb von 7 Werktagen nach Zahlungseingang hast du dein Video, danach suchen wir einen Termin fürs Gespräch."
+						}
+					]
+				},
+				{
+					"type": "text",
+					"title": "Passt das für dich?",
+					"body": [
+						"Ja, wenn du regelmäßig hochlädst und nicht so genau weißt, welcher Teil davon funktioniert. Klein ist kein Problem. Vor Graveyard Keeper 2 haben bei Defender833 zwei bis vier Leute im Stream zugeschaut.",
+						"Nein, wenn du jemanden suchst, der dir Wachstum verspricht. Das kann ich nicht. Ich kann dir zeigen, was deine Zahlen sagen und was ich daraus machen würde.",
+						"Ist dein Kanal erst ein paar Wochen alt, gibt es meistens noch zu wenig Daten. Schreib mir trotzdem, ich sag dir ehrlich, ob es noch zu früh ist."
+					]
+				},
+				{
+					"type": "person",
+					"eyebrow": "Wer hier rechnet",
+					"title": "Hi, ich bin Martin",
+					"name": "Martin Koytek",
+					"role": "Geschäftsführer, KW.Media",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube-Produktexperte"
+					],
+					"body": [
+						"Seit elf Jahren bin ich im YouTube-Produktexperten-Programm und beantworte dort Fragen von Creatorn. Ich betreibe auch eigene Kanäle, deshalb gibt es die Fallstudie überhaupt."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "faq",
+					"title": "Häufige Fragen",
+					"items": [
+						{
+							"question": "Brauchst du mein Passwort?",
+							"answer": [
+								"Nein. Der Zugriff läuft über die Kanalberechtigungen von YouTube, und du kannst ihn jederzeit wieder entziehen."
+							]
+						},
+						{
+							"question": "Geht das auch auf Englisch?",
+							"answer": [
+								"Ja. Video und Gespräch auf Deutsch oder Englisch, wie du magst."
+							]
+						},
+						{
+							"question": "Was passiert nach dem Gespräch?",
+							"answer": [
+								"Nichts, außer du willst. Wenn du laufende Betreuung möchtest, gibt es unsere Monatspakete auf der Creator-Seite. Im Kanal-Check ist kein Abo enthalten."
+							]
+						},
+						{
+							"question": "Wie bezahle ich?",
+							"answer": [
+								"Nach deiner Anfrage bekommst du eine Rechnung. Ich fange an, sobald sie bezahlt ist."
+							]
+						}
+					]
+				},
+				{
+					"type": "requestForm",
+					"anchor": "buchen",
+					"eyebrow": "Kanal-Check · 99 €",
+					"title": "Kanal-Check buchen",
+					"intro": "99 € inkl. MwSt., Einführungspreis für die ersten 10 Kanal-Checks. Das Formular öffnet dein E-Mail-Programm mit deinen Antworten. Gebucht ist erst, wenn du meine Antwort mit der Rechnung hast.",
+					"email": "team@kw.media",
+					"subject": "Kanal-Check – {channel}",
+					"fields": [
+						{
+							"name": "name",
+							"label": "Name",
+							"type": "text",
+							"required": true,
+							"autocomplete": "name"
+						},
+						{
+							"name": "email",
+							"label": "E-Mail",
+							"type": "email",
+							"required": true,
+							"autocomplete": "email"
+						},
+						{
+							"name": "channel",
+							"label": "Link zu deinem Kanal",
+							"type": "text",
+							"required": true
+						},
+						{
+							"name": "language",
+							"label": "Sprache für Video und Gespräch",
+							"type": "select",
+							"required": true,
+							"options": ["Deutsch", "English"]
+						},
+						{
+							"name": "goal",
+							"label": "Was willst du in den nächsten 6 Monaten mit deinem Kanal erreichen?",
+							"type": "textarea",
+							"required": true
+						},
+						{
+							"name": "problem",
+							"label": "Was nervt dich gerade?",
+							"type": "textarea",
+							"required": true
+						},
+						{
+							"name": "tried",
+							"label": "Was hast du schon ausprobiert?",
+							"type": "textarea"
+						},
+						{
+							"name": "example",
+							"label": "Ihr dürft meinen Kanal anonymisiert als Beispiel zeigen.",
+							"type": "checkbox"
+						}
+					],
+					"submitLabel": "E-Mail erstellen",
+					"privacy": {
+						"text": "Deine Angaben landen direkt in einer E-Mail an uns, auf der Website wird nichts gespeichert. Mehr dazu in unserer",
+						"linkLabel": "Datenschutzerklärung",
+						"href": "/impressum/"
+					},
+					"sent": {
+						"title": "Deine E-Mail ist fertig",
+						"text": "Dein E-Mail-Programm sollte sich mit deiner Anfrage geöffnet haben. Nichts passiert? Kopier den Text unten und schick ihn an",
+						"copyLabel": "Text kopieren",
+						"copiedLabel": "Kopiert"
+					}
+				}
+			]
+		},
+		"en": {
+			"id": "channel-check-en",
+			"path": "/en/channel-check/",
+			"title": "Channel Check: I'll do the maths on your channel",
+			"description": "I go through your YouTube Studio numbers, record a video walkthrough and tell you what I'd change first. Plus a 20-minute call. 99 €.",
+			"blocks": [
+				{
+					"type": "hero",
+					"eyebrow": "Channel Check · 99 €",
+					"title": "I'll do the maths on your channel.",
+					"text": "Same thing I did with my own gaming channel in the Defender833 case study, just with your numbers. You get a video where I walk through your YouTube Studio data, and a 20-minute call for your questions afterwards.",
+					"actions": [
+						{
+							"label": "Book a Channel Check",
+							"href": "#book",
+							"variant": "primary"
+						},
+						{
+							"label": "Watch the case study",
+							"href": "#case-study",
+							"variant": "secondary"
+						}
+					]
+				},
+				{
+					"type": "services",
+					"eyebrow": "What you get",
+					"title": "Your numbers, explained",
+					"items": [
+						{
+							"title": "A video walkthrough, 10–15 minutes",
+							"text": "I go through your Studio data and record my screen while I do it. I look at where your views come from, what actually brings watch time and how many people come back. If you share revenue data, I'll also work out what an hour of your work earns you right now."
+						},
+						{
+							"title": "What I'd change first",
+							"text": "With the video you get an email listing the changes I'd make first, in order, and why. Usually that's two or three things, sometimes only one."
+						},
+						{
+							"title": "A 20-minute call",
+							"text": "After you've watched the video. For your questions, or if you think I got something wrong. That happens, to be fair. You know your channel better than I do."
+						}
+					]
+				},
+				{
+					"type": "youtubeVideo",
+					"anchor": "case-study",
+					"eyebrow": "Case study",
+					"title": "My own channel, same maths",
+					"body": [
+						"For two months my gaming channel did about 200 views a day. In this video I do the maths on it, including the parts that don't look so great. That's what you get for your channel."
+					],
+					"videoId": "jw7B_3qGB5I"
+				},
+				{
+					"type": "services",
+					"eyebrow": "How it works",
+					"title": "From the form to the call",
+					"items": [
+						{
+							"title": "1. Fill in the form",
+							"text": "Your channel, what you want from it, and what's bugging you right now."
+						},
+						{
+							"title": "2. Give me access in YouTube Studio",
+							"text": "Settings → Permissions → Invite, role \"Viewer\". I never need your password, and you can remove me any time. If you'd rather not share revenue, pick \"Viewer (limited)\". Then I'll leave the money part out."
+						},
+						{
+							"title": "3. Video, then call",
+							"text": "You get the invoice first. Within 7 working days after payment you have your video, then we pick a time for the call."
+						}
+					]
+				},
+				{
+					"type": "text",
+					"title": "Is this for you?",
+					"body": [
+						"It is if you upload regularly and don't really know which part of it works. Small is fine. Before Graveyard Keeper 2, two to four people watched my streams on Defender833.",
+						"It isn't if you want someone to promise you growth. I can't do that. I can show you what your numbers say and what I'd do about it.",
+						"If your channel is only a few weeks old, there usually isn't enough data yet. Write me anyway and I'll tell you honestly if it's too early."
+					]
+				},
+				{
+					"type": "person",
+					"eyebrow": "Who's doing the maths",
+					"title": "Hi, I'm Martin",
+					"name": "Martin Koytek",
+					"role": "Managing director, KW.Media",
+					"image": "/assets/martinkoytek.jpg",
+					"imageAlt": "Martin Koytek",
+					"credentials": [
+						"YouTube Certified",
+						"Google Ads Partner",
+						"YouTube Product Expert"
+					],
+					"body": [
+						"I've been in the YouTube Product Expert program for eleven years, answering creator questions. I run my own channels too, which is why the case study exists in the first place."
+					],
+					"email": "team@kw.media"
+				},
+				{
+					"type": "faq",
+					"title": "FAQ",
+					"items": [
+						{
+							"question": "Do you need my password?",
+							"answer": [
+								"No. Access works through YouTube's own channel permissions, and you can remove it any time."
+							]
+						},
+						{
+							"question": "Can we do this in German?",
+							"answer": [
+								"Yes. Video and call in English or German, whatever you prefer."
+							]
+						},
+						{
+							"question": "What happens after the call?",
+							"answer": [
+								"Nothing, unless you want something to happen. If you'd like ongoing support, there are monthly plans on the creator page. The Channel Check doesn't include a subscription."
+							]
+						},
+						{
+							"question": "How do I pay?",
+							"answer": [
+								"You get an invoice after your request. I start once it's paid."
+							]
+						}
+					]
+				},
+				{
+					"type": "requestForm",
+					"anchor": "book",
+					"eyebrow": "Channel Check · 99 €",
+					"title": "Book your Channel Check",
+					"intro": "99 € incl. VAT, intro price for the first 10 Channel Checks. The form opens your email program with your answers filled in. Nothing is booked until you have my reply with the invoice.",
+					"email": "team@kw.media",
+					"subject": "Channel Check – {channel}",
+					"fields": [
+						{
+							"name": "name",
+							"label": "Name",
+							"type": "text",
+							"required": true,
+							"autocomplete": "name"
+						},
+						{
+							"name": "email",
+							"label": "Email",
+							"type": "email",
+							"required": true,
+							"autocomplete": "email"
+						},
+						{
+							"name": "channel",
+							"label": "Link to your channel",
+							"type": "text",
+							"required": true
+						},
+						{
+							"name": "language",
+							"label": "Language for video and call",
+							"type": "select",
+							"required": true,
+							"options": ["English", "Deutsch"]
+						},
+						{
+							"name": "goal",
+							"label": "What do you want from your channel in the next 6 months?",
+							"type": "textarea",
+							"required": true
+						},
+						{
+							"name": "problem",
+							"label": "What's bugging you right now?",
+							"type": "textarea",
+							"required": true
+						},
+						{
+							"name": "tried",
+							"label": "What have you already tried?",
+							"type": "textarea"
+						},
+						{
+							"name": "example",
+							"label": "You may use my channel as an anonymised example.",
+							"type": "checkbox"
+						}
+					],
+					"submitLabel": "Create email",
+					"privacy": {
+						"text": "Your answers go straight into an email to us. Nothing is stored on this website. Details in our",
+						"linkLabel": "privacy policy",
+						"href": "/impressum/"
+					},
+					"sent": {
+						"title": "Your email is ready",
+						"text": "Your email program should have opened with your request. Nothing happened? Copy the text below and send it to",
+						"copyLabel": "Copy text",
+						"copiedLabel": "Copied"
+					}
+				}
+			]
+		}
+	}
+}

@@ -18,6 +18,11 @@
 							"label": "Lass uns starten",
 							"href": "mailto:team@kw.media",
 							"variant": "primary"
+						},
+						{
+							"label": "Kanal-Check für 99 €",
+							"href": "/de/kanal-check/",
+							"variant": "secondary"
 						}
 					]
 				},
@@ -186,6 +191,11 @@
 							"label": "Contact us",
 							"href": "mailto:team@kw.media",
 							"variant": "primary"
+						},
+						{
+							"label": "Channel Check for 99 €",
+							"href": "/en/channel-check/",
+							"variant": "secondary"
 						}
 					]
 				},

@@ -14,12 +14,15 @@ export type {
 	PortfolioBlock,
 	PostListBlock,
 	PricingBlock,
+	RequestFormBlock,
+	RequestFormField,
 	ServicesBlock,
 	SitePage,
 	StatsBlock,
 	TestimonialsBlock,
 	TextBlock,
 	YouTubePlaylistBlock,
+	YouTubeVideoBlock,
 } from '../lib/page-types';
 
 interface SitePageAstroModule {

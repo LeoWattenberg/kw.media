@@ -15,6 +15,8 @@ export type PageBlock =
 	| PersonBlock
 	| PostListBlock
 	| YouTubePlaylistBlock
+	| YouTubeVideoBlock
+	| RequestFormBlock
 	| CtaBlock;
 
 export interface Action {
@@ -156,6 +158,49 @@ export interface YouTubePlaylistBlock {
 	title: string;
 	eyebrow?: string;
 	playlistId: string;
+}
+
+export interface YouTubeVideoBlock {
+	type: 'youtubeVideo';
+	anchor?: string;
+	eyebrow?: string;
+	title: string;
+	body?: string[];
+	videoId: string;
+}
+
+export interface RequestFormField {
+	name: string;
+	label: string;
+	type: 'text' | 'email' | 'url' | 'textarea' | 'select' | 'checkbox';
+	required?: boolean;
+	autocomplete?: string;
+	options?: string[];
+}
+
+// A static site has no form backend, so the request is composed into an email draft.
+// The sent panel repeats the text for visitors whose browser has no mail program set up.
+export interface RequestFormBlock {
+	type: 'requestForm';
+	anchor?: string;
+	eyebrow?: string;
+	title: string;
+	intro?: string;
+	email: string;
+	subject: string;
+	fields: RequestFormField[];
+	submitLabel: string;
+	privacy: {
+		text: string;
+		linkLabel: string;
+		href: string;
+	};
+	sent: {
+		title: string;
+		text: string;
+		copyLabel: string;
+		copiedLabel: string;
+	};
 }
 
 export interface CtaBlock {
