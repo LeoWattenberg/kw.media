@@ -1,0 +1,254 @@
+---
+import type { RequestFormBlock } from '../../data/pages';
+import { withBase } from '../../lib/url';
+
+interface Props {
+	block: RequestFormBlock;
+}
+
+const { block } = Astro.props;
+const prefix = block.anchor ?? 'request';
+const fieldId = (name: string) => `${prefix}-${name}`;
+const fieldConfig = JSON.stringify(block.fields.map(({ name, label, type }) => ({ name, label, type })));
+---
+
+<section class="section request" id={block.anchor}>
+	<div class="container request-inner">
+		<div class="section-head">
+			{block.eyebrow && <p class="eyebrow">{block.eyebrow}</p>}
+			<h2>{block.title}</h2>
+			{block.intro && <p>{block.intro}</p>}
+		</div>
+		<form class="request-form" data-request-form data-email={block.email} data-subject={block.subject} data-fields={fieldConfig}>
+			{
+				block.fields.map((field) => (
+					field.type === 'checkbox' ? (
+						<label class="check" for={fieldId(field.name)}>
+							<input id={fieldId(field.name)} name={field.name} type="checkbox" required={field.required} />
+							<span>{field.label}</span>
+						</label>
+					) : (
+						<div class:list={['field', field.type === 'textarea' && 'wide']}>
+							<label for={fieldId(field.name)}>
+								{field.label}
+								{!field.required && <span class="optional"> (optional)</span>}
+							</label>
+							{
+								field.type === 'textarea' ? (
+									<textarea id={fieldId(field.name)} name={field.name} rows="4" required={field.required} />
+								) : field.type === 'select' ? (
+									<select id={fieldId(field.name)} name={field.name} required={field.required}>
+										{field.options?.map((option) => <option value={option}>{option}</option>)}
+									</select>
+								) : (
+									<input id={fieldId(field.name)} name={field.name} type={field.type} autocomplete={field.autocomplete} required={field.required} />
+								)
+							}
+						</div>
+					)
+				))
+			}
+			<p class="privacy">
+				{block.privacy.text} <a href={withBase(block.privacy.href)}>{block.privacy.linkLabel}</a>
+			</p>
+			<button class="submit" type="submit">{block.submitLabel}</button>
+		</form>
+		<div class="sent" data-request-sent hidden>
+			<h3>{block.sent.title}</h3>
+			<p>{block.sent.text} <a href={`mailto:${block.email}`} data-request-mailto>{block.email}</a></p>
+			<textarea readonly rows="10" data-request-copy aria-label={block.sent.title}></textarea>
+			<button class="copy" type="button" data-request-copy-button data-copied-label={block.sent.copiedLabel}>{block.sent.copyLabel}</button>
+		</div>
+	</div>
+</section>
+
+<script>
+	import { buildRequestMailto, formatRequestBody, formatRequestCopy, formatRequestSubject } from '../../lib/request-form.js';
+
+	for (const form of document.querySelectorAll<HTMLFormElement>('[data-request-form]')) {
+		const fields = JSON.parse(form.dataset.fields ?? '[]');
+		const sent = form.parentElement?.querySelector<HTMLElement>('[data-request-sent]');
+		const copy = sent?.querySelector<HTMLTextAreaElement>('[data-request-copy]');
+		const copyButton = sent?.querySelector<HTMLButtonElement>('[data-request-copy-button]');
+		const mailtoLink = sent?.querySelector<HTMLAnchorElement>('[data-request-mailto]');
+		const email = form.dataset.email ?? '';
+
+		// The browser only fires submit once every required field is valid.
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const data = new FormData(form);
+			const values = Object.fromEntries(
+				fields.map((field: { name: string; type: string }) => [
+					field.name,
+					field.type === 'checkbox' ? data.has(field.name) : String(data.get(field.name) ?? ''),
+				]),
+			);
+			const body = formatRequestBody(fields, values);
+			const subject = formatRequestSubject(form.dataset.subject ?? '', values);
+			const href = buildRequestMailto({ email, subject, body });
+
+			form.dataset.mailto = href;
+			if (sent && copy) {
+				copy.value = formatRequestCopy({ email, subject, body });
+				if (mailtoLink) mailtoLink.href = href;
+				sent.hidden = false;
+			}
+			window.location.href = href;
+		});
+
+		copyButton?.addEventListener('click', async () => {
+			if (!copy) return;
+			copy.select();
+			try {
+				await navigator.clipboard.writeText(copy.value);
+				copyButton.textContent = copyButton.dataset.copiedLabel ?? copyButton.textContent;
+			} catch {
+				// Clipboard access can be refused; the text stays selected for manual copying.
+			}
+		});
+	}
+</script>
+
+<style>
+	.request {
+		background: var(--color-surface-raised);
+		scroll-margin-top: 24px;
+	}
+
+	.request-inner {
+		display: grid;
+		gap: 28px;
+	}
+
+	.request-form,
+	.sent {
+		max-width: 860px;
+	}
+
+	.section-head {
+		max-width: 760px;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: clamp(2rem, 5vw, 4rem);
+		line-height: 1;
+		letter-spacing: 0;
+	}
+
+	.section-head > p:not(.eyebrow) {
+		margin: 18px 0 0;
+		color: var(--color-muted);
+		font-size: 1.08rem;
+	}
+
+	.request-form {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 18px 20px;
+	}
+
+	.field {
+		display: grid;
+		gap: 6px;
+	}
+
+	.field.wide,
+	.check,
+	.privacy,
+	.submit {
+		grid-column: 1 / -1;
+	}
+
+	label {
+		font-weight: 700;
+	}
+
+	.optional {
+		color: var(--color-muted);
+		font-weight: 400;
+	}
+
+	input:not([type='checkbox']),
+	select,
+	textarea {
+		width: 100%;
+		min-height: 46px;
+		padding: 10px 12px;
+		color: var(--color-ink);
+		background: var(--color-control-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 6px;
+		font: inherit;
+	}
+
+	textarea {
+		resize: vertical;
+	}
+
+	input:focus-visible,
+	select:focus-visible,
+	textarea:focus-visible {
+		outline: 3px solid var(--color-accent-focus);
+		outline-offset: 1px;
+		border-color: var(--color-accent);
+	}
+
+	.check {
+		display: flex;
+		gap: 10px;
+		align-items: flex-start;
+		font-weight: 400;
+	}
+
+	.check input {
+		width: 20px;
+		height: 20px;
+		margin: 2px 0 0;
+		accent-color: var(--color-accent);
+	}
+
+	.privacy {
+		margin: 0;
+		color: var(--color-muted);
+		font-size: 0.95rem;
+	}
+
+	.submit,
+	.copy {
+		justify-self: start;
+		min-height: 46px;
+		padding: 0 18px;
+		color: var(--color-accent-on);
+		background: var(--color-accent);
+		border: 1px solid var(--color-accent);
+		border-radius: 6px;
+		font: inherit;
+		font-weight: 800;
+		cursor: pointer;
+	}
+
+	.sent {
+		display: grid;
+		gap: 12px;
+		padding: 24px;
+		background: var(--color-status-positive-background);
+		border: 1px solid var(--color-status-positive-border);
+		border-radius: 8px;
+	}
+
+	.sent[hidden] {
+		display: none;
+	}
+
+	.sent h3,
+	.sent p {
+		margin: 0;
+	}
+
+	@media (max-width: 820px) {
+		.request-form {
+			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+</style>
