@@ -100,6 +100,7 @@ const toolPages = [
 	['/en/tools/image-video-watermark/', 'Image & Video Watermark', '[data-watermarker]'],
 	['/en/tools/image-morph/', 'Image Morph', '[data-image-morph]'],
 	['/en/tools/youtube-thumbnail-preview/', 'YouTube Thumbnail Preview', '[data-thumbnail-preview]'],
+	['/en/tools/ypp-rejection-check/', 'Monetization Rejected? YPP Self-Check', '[data-ypp-check]'],
 	['/en/tools/analyzers/', 'Analyzers', '.tool-category-grid'],
 ];
 

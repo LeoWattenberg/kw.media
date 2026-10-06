@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import YppCheck from '../../components/tools/YppCheck.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('ypp-check', {
+	id: 'ypp-check',
+	translations: {
+		de: {
+			id: 'ypp-check-de',
+			path: '/de/tools/ypp-ablehnung-check/',
+			title: 'Monetarisierung abgelehnt? YPP-Selbst-Check',
+			description: 'Finde heraus, was die Richtlinie in deiner YPP-Ablehnung bedeutet, bis wann du Einspruch einlegen kannst und ob sich das lohnt.',
+		},
+		en: {
+			id: 'ypp-check-en',
+			path: '/en/tools/ypp-rejection-check/',
+			title: 'Monetization Rejected? YPP Self-Check',
+			description: 'Find out what the policy in your YPP rejection means, how long you have to appeal, and whether an appeal is worth it.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<YppCheck locale={tool.locale} />
+</ToolPageShell>

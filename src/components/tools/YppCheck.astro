@@ -1,0 +1,1352 @@
+---
+import type { Locale } from '../../i18n';
+import { MODULE_ORDER, QUESTIONS } from '../../lib/tools/ypp-check.js';
+import ToolActions from './shared/ToolActions.astro';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+import ToolStatus from './shared/ToolStatus.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const helpLanguage = locale === 'de' ? 'de' : 'en';
+const policyUrl = `https://support.google.com/youtube/answer/1311392?hl=${helpLanguage}`;
+const appealUrl = `https://support.google.com/youtube/answer/9564590?hl=${helpLanguage}`;
+
+const copy = {
+	de: {
+		eyebrow: 'YouTube-Partnerprogramm',
+		title: 'Monetarisierung abgelehnt? YPP-Selbst-Check',
+		intro: 'Finde heraus, was YouTube mit der Richtlinie in deiner Mail vermutlich meint, bis wann du Einspruch einlegen kannst und ob sich das lohnt.',
+		privacy: 'Deine Antworten bleiben in deinem Browser. Das Ergebnis ist eine Einschätzung nach den öffentlichen Richtlinien von YouTube, keine Aussage von YouTube.',
+		setupTitle: 'Was ist passiert?',
+		situation: {
+			legend: 'Was ist passiert?',
+			options: {
+				rejected: 'Meine Bewerbung fürs Partnerprogramm wurde abgelehnt',
+				'suspension-notice': 'YouTube hat angekündigt, meinen Kanal aus dem Partnerprogramm zu nehmen',
+				suspended: 'Mein Kanal wurde aus dem Partnerprogramm genommen',
+				'yellow-icons': 'Einzelne Videos haben ein gelbes oder rotes $-Symbol',
+				terminated: 'Mein Kanal wurde gekündigt',
+			},
+		},
+		exits: {
+			'yellow-icons': {
+				text: 'Das ist ein anderes Thema. Bei einzelnen Videos geht es um werbefreundliche Inhalte, nicht um das Partnerprogramm. Dieser Check hilft dir dabei nicht.',
+				link: 'Richtlinien für werbefreundliche Inhalte',
+				href: 'https://support.google.com/youtube/answer/6162278?hl=de',
+			},
+			terminated: {
+				text: 'Bei einer Kanalkündigung läuft der Einspruch anders. Dieser Check hilft dir dabei nicht.',
+				link: 'Kanal- und Kontokündigungen',
+				href: 'https://support.google.com/youtube/answer/2802168?hl=de',
+			},
+		},
+		date: {
+			label: 'Datum der Mail',
+			hint: 'Bei einer angekündigten Suspendierung das Datum der Ankündigung, bei einer Suspendierung das Datum der Suspendierung.',
+		},
+		repeat: {
+			legend: 'Wurdest du schon einmal abgelehnt, oder hast du dich schon einmal neu beworben?',
+			options: { first: 'Nein, das ist die erste Ablehnung', repeat: 'Ja' },
+		},
+		policies: {
+			legend: 'Welche Richtlinie nennt die Mail?',
+			hint: 'Du kannst mehrere auswählen.',
+			options: {
+				reused: 'Reused content',
+				repetitive: 'Repetitive bzw. generic content (ältere Mails: „Repetitious content“)',
+				offputting: 'Unsatisfying or off-putting content',
+				inauthentic: 'Inauthentic content',
+				persona: 'AI personas related to sensitive topics',
+				kids: 'Quality principles for kids and family content',
+				integrity: 'Creator integrity',
+				guidelines: 'Community Guidelines',
+				unknown: 'Weiß ich nicht mehr bzw. steht nicht drin',
+			},
+		},
+		videos: {
+			legend: 'Wie viele öffentliche Videos hat dein Kanal ungefähr?',
+			options: { 'under-50': 'Unter 50', '50-200': '50 bis 200', 'over-200': 'Mehr als 200' },
+		},
+		modules: {
+			reused: { title: 'Reused content', intro: 'Fremdes Material ist erlaubt, wenn man deutlich sieht, was du daraus gemacht hast. Die Regel gilt für den ganzen Kanal.' },
+			repetitive: { title: 'Repetitive bzw. generic content', intro: 'Gleiche Intros und Serien sind okay. Jedes Video braucht aber einen eigenen Inhalt.' },
+			offputting: { title: 'Unsatisfying or off-putting content', intro: 'Hier geht es um Schock, Manipulation und Formate, die austauschbar wirken.' },
+			persona: { title: 'AI personas', intro: 'KI-Figuren, die als Fachleute auftreten.' },
+			kids: { title: 'Kinderinhalte', intro: 'Nur relevant, wenn du Videos als „Made for Kids“ markierst.' },
+			integrity: { title: 'Creator integrity', intro: 'Künstliche Reichweite und versteckte Probleme.' },
+			guidelines: { title: 'Community-Richtlinien', intro: 'Verwarnungen und entfernte Videos.' },
+			channel: { title: 'Was die Prüfer zuerst sehen', intro: 'Laut YouTube: Hauptthema, meistgesehene und neueste Videos, Videos mit der meisten Wiedergabezeit, Titel, Thumbnails, Beschreibungen und die Kanalinfo.' },
+		},
+		questions: {
+			'r-own': {
+				label: 'Wie viel vom Bild- und Tonmaterial in deinen Videos hast du selbst aufgenommen oder erstellt?',
+				short: 'Eigenes Material',
+				options: { most: 'Fast alles', half: 'Etwa die Hälfte', little: 'Wenig', none: 'Fast nichts' },
+				text: 'YouTube muss erkennen können, dass das Video von dir ist. Je mehr fremdes Material, desto deutlicher muss dein Anteil sein: Kommentar, Erklärung oder eine eigene Geschichte.',
+			},
+			'r-add': {
+				label: 'Wenn du fremdes Material nutzt: Was fügst du vor allem hinzu?',
+				short: 'Dein Beitrag zu fremdem Material',
+				options: { commentary: 'Kommentar, Erklärung oder eine eigene Geschichte', overlays: 'Vor allem Texteinblendungen, Musik oder Effekte', nothing: 'Im Grunde nichts', 'no-foreign': 'Ich nutze kein fremdes Material' },
+				text: 'Erlaubt sind z. B. Besprechungen mit Clips, Reaktionen mit Kommentar oder fremdes Material mit eigener Story. Nicht erlaubt sind Clips, die mit wenig oder gar keiner Erzählung aneinandergereiht sind.',
+			},
+			'r-visible': {
+				label: 'Bist du in deinen Videos zu sehen oder zu hören?',
+				short: 'Du im Video',
+				options: { mostly: 'In den meisten Videos', sometimes: 'Manchmal', never: 'Nie' },
+				text: 'Videos, in denen du selbst im Mittelpunkt stehst, nennt YouTube ausdrücklich als erlaubt. Ohne Gesicht und Stimme muss dein Beitrag anders erkennbar sein.',
+			},
+			'r-compile': {
+				label: 'Stellst du Clips von anderen zusammen, z. B. aus Serien, Filmen, TikTok, Instagram oder von anderen YouTubern?',
+				short: 'Zusammenschnitte',
+				options: { no: 'Nein', narrated: 'Ja, mit eigener Erzählung oder Kommentar', plain: 'Ja, ohne' },
+				text: 'Zusammenschnitte aus Serien oder von anderen Plattformen ohne eigene Erzählung nennt YouTube ausdrücklich als nicht monetarisierbar.',
+			},
+			'r-react': {
+				label: 'Machst du Reaction-Videos? Wie reagierst du?',
+				short: 'Reactions',
+				options: { none: 'Ich mache keine', commentary: 'Mit Stimme und Kommentar', silent: 'Meist nur mit Mimik, ohne Worte' },
+				text: 'Videos, deren Views vor allem von wortlosen Reaktionen leben, nennt YouTube ausdrücklich als nicht monetarisierbar.',
+			},
+			'r-music': {
+				label: 'Lädst du Musik anderer Künstler hoch, auch verändert (schneller, langsamer, Pitch, „slowed + reverb“, Nightcore)?',
+				short: 'Musik anderer Künstler',
+				options: { no: 'Nein', yes: 'Ja' },
+				text: 'Song-Sammlungen und Songs, die nur in Tempo oder Tonhöhe verändert sind, sind nicht erlaubt, auch nicht mit Erlaubnis der Künstler.',
+			},
+			'r-reading': {
+				label: 'Liest du Texte vor, die nicht von dir sind (News, Reddit-Posts, Websites, Bücher)? Auch per KI-Stimme.',
+				short: 'Vorgelesene Texte',
+				options: { no: 'Nein', context: 'Ja, mit eigener Einordnung', only: 'Ja, im Wesentlichen nur vorgelesen' },
+				text: 'Videos, die nur fremde Texte vorlesen, nennt YouTube ausdrücklich als nicht monetarisierbar. Deine eigene Einordnung muss den Großteil ausmachen.',
+			},
+			'r-gameplay': {
+				label: 'Lädst du Gameplay ohne eigenen Kommentar hoch?',
+				short: 'Gameplay ohne Kommentar',
+				options: { no: 'Nein, bzw. kein Gaming', silent: 'Ja, eigenes Gameplay ohne Kommentar (Walkthroughs, Longplays)', cutscenes: 'Ja, vor allem Cutscenes oder „Full Movie“-Zusammenschnitte' },
+				text: 'Gameplay ohne Kommentar war in der Vergangenheit einer der häufigsten Ablehnungsgründe. Erfahrungsgemäß hilft nur eins: über mehrere Monate konsequent Videos, in denen du zu sehen oder zu hören bist.',
+			},
+			'r-meta': {
+				label: 'Steht in Titel, Beschreibung und Kanalinfo, was dein eigener Beitrag ist?',
+				short: 'Dein Beitrag in Beschreibung und Kanalinfo',
+				options: { yes: 'Ja', partly: 'Teilweise', no: 'Nein' },
+				text: 'Die Prüfer lesen auch Beschreibungen und die Kanalinfo. Erlaubt ist ausdrücklich Material, bei dem du erklärst, was du hinzugefügt hast.',
+			},
+			'g-vary': {
+				label: 'Stell dir vor, jemand schaut fünf deiner Videos am Stück. Unterscheiden sie sich inhaltlich deutlich?',
+				short: 'Abwechslung zwischen den Videos',
+				options: { yes: 'Ja', partly: 'Teilweise', no: 'Eher nicht' },
+				text: 'Gleiche Intros und Serienformate sind okay. Der Inhalt jedes Videos muss sich aber wirklich unterscheiden.',
+			},
+			'g-template': {
+				label: 'Arbeitest du mit einer festen Vorlage, in der nur Texte, Bilder oder Namen ausgetauscht werden?',
+				short: 'Vorlagen',
+				options: { no: 'Nein', 'own-content': 'Ja, aber jedes Video hat einen eigenen Inhalt oder eine eigene Story', same: 'Ja, der Großteil ist jedes Mal gleich' },
+				text: 'Videos, die nach Vorlage produziert wirken und austauschbar sind, sind nicht monetarisierbar.',
+			},
+			'g-slides': {
+				label: 'Gibt es auf deinem Kanal Diashows, Lauftext-Videos oder Listen aus Stock-Material?',
+				short: 'Diashows, Lauftext, Stock-Listen',
+				options: { no: 'Nein', voiced: 'Ja, mit Sprecher und eigener Einordnung', plain: 'Ja, ohne' },
+				text: 'Diashows, Vorlagen-Storys und Lauftext ohne Erzählung, Kommentar oder Lernwert nennt YouTube ausdrücklich als nicht monetarisierbar.',
+			},
+			'g-ai': {
+				label: 'Welche Rolle spielt KI bei deinen Videos?',
+				short: 'KI',
+				options: { none: 'Keine', helper: 'Hilfsmittel, z. B. Skript überarbeiten oder einzelne Hintergründe', pipeline: 'KI-Stimme liest KI-Text über KI-Bildern oder -Clips', automated: 'Fast komplett automatisiert' },
+				text: 'KI ist nicht verboten. Nicht monetarisierbar sind KI-Inhalte nach generischer Vorlage, die nach Massenproduktion aussehen und keine eigene Perspektive haben.',
+			},
+			'g-volume': {
+				label: 'Wie viele Videos lädst du hoch?',
+				short: 'Upload-Menge',
+				options: { normal: 'Bis zu einem pro Tag', 'several-daily': 'Mehrere pro Tag' },
+				text: 'Die Upload-Menge steht nicht in der Richtlinie. Sehr viele Uploads pro Tag wirken aber schnell wie Massenproduktion, und genau darauf achten die Prüfer.',
+			},
+			'u-shock': {
+				label: 'Arbeiten Titel oder Thumbnails mit Schock oder mit Ereignissen, die nicht passiert sind (z. B. Tod eines Promis, Katastrophe, realistische KI-Bilder)?',
+				short: 'Schock und erfundene Ereignisse',
+				options: { no: 'Nein', pointed: 'Zugespitzt, aber wahr', yes: 'Ja' },
+				text: 'Täuschende Bilder oder Geschichten, z. B. ein erfundener Promi-Tod, nennt YouTube ausdrücklich als nicht monetarisierbar.',
+			},
+			'u-disturbing': {
+				label: 'Kommen verstörende Themen (Gewalt, Verlust, Tiere in Not) immer wieder vor, ohne dass eine zusammenhängende Geschichte erzählt wird?',
+				short: 'Verstörende Themen',
+				options: { no: 'Nein', yes: 'Ja' },
+				text: 'Wiederkehrende verstörende Themen ohne zusammenhängende Geschichte nennt YouTube ausdrücklich, z. B. Tiere in übertriebener Not.',
+			},
+			'u-trends': {
+				label: 'Machst du Trend-Formate nach?',
+				short: 'Trend-Formate',
+				options: { no: 'Nein', 'own-spin': 'Ja, mit eigenem Dreh', copy: 'Ja, weitgehend 1:1' },
+				text: 'Trends sind erlaubt, wenn deine eigene Perspektive drin ist. Videos, die bestehende Formate so nachmachen, dass sie austauschbar wirken, sind es nicht.',
+			},
+			'u-ai-clips': {
+				label: 'Schneidest du KI-Clips ohne roten Faden aneinander?',
+				short: 'KI-Clips ohne roten Faden',
+				options: { no: 'Nein', yes: 'Ja' },
+				text: 'Aneinandergereihte KI-Clips ohne erkennbare Handlung nennt YouTube ausdrücklich als nicht monetarisierbar.',
+			},
+			'p-expert': {
+				label: 'Tritt in deinen Videos eine KI-Figur oder KI-Stimme als Fachperson auf und gibt Rat zu Gesundheit, Recht, Finanzen oder Politik?',
+				short: 'KI als Fachperson',
+				options: { no: 'Nein', yes: 'Ja' },
+				text: 'Solche Kanäle schließt YouTube von der Monetarisierung aus, z. B. eine KI-„Ärztin“ oder KI-Podcast-Hosts mit Finanztipps.',
+			},
+			'k-promo': {
+				label: 'Stehen in deinen Kindervideos Produkte, Marken oder Unboxing im Vordergrund?',
+				short: 'Werbelastige Kindervideos',
+				options: { no: 'Nein', yes: 'Ja' },
+				text: 'Stark werbelastige Inhalte gehören zu den Qualitätsprinzipien, die YouTube bei Kinderinhalten durchsetzt.',
+			},
+			'k-fake-edu': {
+				label: 'Versprechen Titel oder Thumbnails Lerninhalte (Farben, Zahlen), die das Video nicht liefert?',
+				short: 'Nur scheinbar lehrreich',
+				options: { no: 'Nein', yes: 'Ja' },
+				text: 'Inhalte, die Lernen versprechen und es nicht liefern, sind bei Kinderinhalten ausdrücklich ein Problem.',
+			},
+			'k-characters': {
+				label: 'Kommen bekannte Kinderfiguren in unpassenden Situationen vor, oder sind die Titel mit Schlagworten vollgestopft?',
+				short: 'Kinderfiguren und Schlagwort-Titel',
+				options: { no: 'Nein', yes: 'Ja' },
+				text: 'Bekannte Figuren in unpassenden Situationen und vollgestopfte Titel sind bei Kinderinhalten ausdrücklich ein Problem.',
+			},
+			'i-bought': {
+				label: 'Hast du jemals Views, Abos oder Likes gekauft oder bei Sub4Sub oder View-Tausch mitgemacht?',
+				short: 'Gekaufte oder getauschte Reichweite',
+				options: { no: 'Nein', yes: 'Ja' },
+				text: 'Künstlich erzeugte Views, Abos oder Likes verstoßen gegen die Integrity-Regel und können zum Ausschluss führen.',
+			},
+			'i-deleted': {
+				label: 'Hast du Videos erst Reichweite sammeln lassen und dann gelöscht oder versteckt, weil sie problematisch waren?',
+				short: 'Videos gelöscht, nachdem sie Reichweite hatten',
+				options: { no: 'Nein', yes: 'Ja' },
+				text: 'Genau das verbietet die Integrity-Regel: problematische Videos erst Reichweite sammeln lassen und dann löschen oder verstecken.',
+			},
+			'c-strikes': {
+				label: 'Hast du aktive Verwarnungen (Strikes), oder hat YouTube Videos von dir entfernt?',
+				short: 'Verwarnungen',
+				options: { no: 'Nein', yes: 'Ja' },
+				text: 'Kläre zuerst die Verwarnungen. Inhalte, die gegen die Community-Richtlinien verstoßen, sind nicht monetarisierbar.',
+			},
+			's-top': {
+				label: 'Passen deine meistgesehenen Videos zu dem, was du heute machst?',
+				short: 'Meistgesehene Videos',
+				options: { yes: 'Ja', no: 'Nein' },
+				text: 'Führt ein altes Video mit fremdem Material deine Top-Liste an, sehen die Prüfer das als Erstes.',
+			},
+			's-about': {
+				label: 'Steht in deiner Kanalinfo, was du machst und wie deine Videos entstehen?',
+				short: 'Kanalinfo',
+				options: { yes: 'Ja', no: 'Nein' },
+				text: 'Die Kanalinfo gehört zu den Stellen, die die Prüfer ausdrücklich ansehen.',
+			},
+		},
+		evaluate: 'Auswerten',
+		reset: 'Zurücksetzen',
+		status: {
+			start: 'Wähl oben aus, was passiert ist.',
+			setup: 'Gib das Datum an und wähl Richtlinie und Kanalgröße aus.',
+			missing: 'Es fehlen noch {count} Antworten.',
+			done: 'Fertig. Dein Ergebnis steht unten.',
+			exit: 'Dieser Check passt nicht zu deiner Situation.',
+		},
+		result: {
+			title: 'Dein Ergebnis',
+			levels: { ok: 'Unkritisch', warn: 'Prüfen', risk: 'Trifft vermutlich zu' },
+			nothing: 'Hier ist nichts auffällig.',
+			permission: 'Eine Erlaubnis oder Lizenz hilft bei Reused Content nicht. Die Regel hat nichts mit Urheberrecht zu tun, es geht nur darum, ob du genug Eigenes hinzufügst.',
+			policyLink: 'Zur Richtlinie',
+			deadlinesTitle: 'Deine Fristen',
+			appealBy: 'Einspruch bis {date}',
+			noticeAppeal: 'Einspruch innerhalb von 7 Tagen, also spätestens etwa am {date}. Ein Einspruch in dieser Zeit setzt die Suspendierung aus, bis entschieden ist.',
+			reapplyFrom: 'Neu bewerben ab {date}',
+			noticeReapply: 'Wird der Kanal suspendiert, kannst du dich 90 Tage danach neu bewerben.',
+			reapplyAfterFailedAppeal: 'Wenn ein Einspruch abgelehnt wird: neu bewerben erst ab {date}',
+			decision: 'Über einen Einspruch entscheidet YouTube innerhalb von 14 Tagen.',
+			studio: 'Die genaue Frist steht in YouTube Studio unter „Verdienen“ neben „Einspruch einlegen“.',
+			recommendationTitle: 'Einspruch oder überarbeiten?',
+			recommendations: {
+				fix: { title: 'Überarbeiten und neu bewerben', text: 'Nach deinen Antworten trifft zu, was YouTube bemängelt. Ein Einspruch hat dann wenig Chancen.' },
+				borderline: { title: 'Grenzfall', text: 'Ein Einspruch kann klappen, wenn du zeigen kannst, wie deine Videos entstehen. Wenn nicht: erst überarbeiten, dann neu bewerben.' },
+				appeal: { title: 'Einspruch prüfen', text: 'Nach deinen Antworten passt dein Kanal zu den Richtlinien. Vielleicht konnten die Prüfer deinen Anteil nicht erkennen. Zeig im Einspruchsvideo, wie du arbeitest, und mach deinen Beitrag in Beschreibungen und Kanalinfo sichtbar.' },
+			},
+			failedAppeal: 'Bei der ersten Ablehnung kostet ein gescheiterter Einspruch Zeit: Neu bewerben kannst du dich dann erst nach 90 statt nach 30 Tagen.',
+			longFix: 'Bei Gameplay ohne Kommentar ist der früheste Termin selten der realistische. Erfahrungsgemäß braucht es mehrere Monate neue Videos, in denen du zu sehen oder zu hören bist.',
+			deleteTitle: 'Lösch nichts, bevor du mit einem Experten gesprochen hast.',
+			deleteText: 'Vor einem Einspruch schadet Löschen, weil YouTube den Kanal im aktuellen Zustand prüft. Und auch vor einer Neubewerbung kommt es darauf an, welche Videos du wie änderst.',
+			checklistTitle: 'Checkliste fürs Einspruchsvideo',
+			checklist: [
+				'Unter 5 Minuten, neu hochgeladen, nicht gelistet, auf dem betroffenen Kanal.',
+				'Keine Infos zum Einspruch in die Beschreibung.',
+				'Die Kanal-URL in den ersten 30 Sekunden.',
+				'Konkrete Stellen der Richtlinien ansprechen und mit Beispielen von deinem Kanal belegen.',
+				'Über den Kanal als Ganzes sprechen, nicht nur über einzelne gute Videos.',
+				'Zeigen, wie du filmst und schneidest, mit dir im Bild oder als Sprecher.',
+			],
+			language: 'Zugelassen sind Arabisch, Bengali, Englisch, Französisch, Hindi, Indonesisch, Japanisch, Koreanisch, Mandarin, Portugiesisch, Russisch, Spanisch, Thai, Türkisch und Vietnamesisch. Deutsch gehört nicht dazu. Laut YouTube reichen sonst manuell erstellte englische Untertitel. Unsere Erfahrung: Ein englisch vertontes Video klappt deutlich besser.',
+			support: 'Alternativ kannst du den Einspruch über den Creator Support in YouTube Studio einreichen, falls er dort angeboten wird.',
+			appealLink: 'Vorgaben von YouTube zum Einspruch',
+			offerTitle: 'Persönliche Prüfung',
+			offers: {
+				rejection: [
+					{ name: 'Schriftlich', price: '49 €', text: 'Ich sehe mir deinen Kanal an, nenne dir die Problem-Videos und sage dir, was du ändern solltest.' },
+					{ name: 'Mit Einspruch', price: '99 €', text: 'Dazu Feedback zum Skript deines Einspruchsvideos.' },
+				],
+				scope: [
+					{ name: 'Prüfung', price: 'nach Umfang', text: 'Bei mehr als 200 Videos hängt der Aufwand stark vom Kanal ab. Schick mir den Link, dann bekommst du vorab einen festen Preis.' },
+				],
+				suspension: [
+					{ name: 'Suspendierung', price: 'ab 199 €', text: 'Ich sehe mir den Kanal an, nenne dir die Problem-Videos und helfe dir beim Einspruch. Bei einer angekündigten Suspendierung zählt jeder Tag, schreib mir dann sofort.' },
+				],
+			},
+			dub: 'Dein Einspruchsvideo vertonen wir auf Wunsch auf Englisch. Preis auf Anfrage.',
+			vat: 'Alle Preise inkl. MwSt.',
+			channelLabel: 'Link zu deinem Kanal (optional)',
+			request: 'Prüfung anfragen',
+			requestHint: 'Der Button öffnet eine E-Mail an team@kw.media mit deinem Ergebnis. Verschickt wird sie erst, wenn du in deinem E-Mail-Programm auf Senden klickst.',
+			disclaimer: 'Diese Einschätzung beruht nur auf deinen Antworten und den öffentlichen Richtlinien von YouTube. Wir sind nicht mit YouTube verbunden und können kein Ergebnis garantieren. Die Entscheidung trifft YouTube.',
+		},
+		mail: {
+			subject: 'YPP-Check',
+			situation: 'Situation',
+			date: 'Datum der Mail',
+			repeat: 'Schon einmal abgelehnt',
+			yes: 'ja',
+			no: 'nein',
+			policies: 'Richtlinien laut Mail',
+			videos: 'Öffentliche Videos',
+			channel: 'Kanal',
+			result: 'Ergebnis',
+			recommendation: 'Empfehlung',
+			offer: 'Passende Prüfung',
+		},
+	},
+	en: {
+		eyebrow: 'YouTube Partner Program',
+		title: 'Monetization Rejected? YPP Self-Check',
+		intro: 'Find out what YouTube probably means by the policy in your email, how long you have to appeal, and whether an appeal is worth it.',
+		privacy: 'Your answers stay in your browser. The result is an assessment based on YouTube’s public policies, not a statement from YouTube.',
+		setupTitle: 'What happened?',
+		situation: {
+			legend: 'What happened?',
+			options: {
+				rejected: 'My application to the Partner Program was rejected',
+				'suspension-notice': 'YouTube told me my channel is going to be suspended from the Partner Program',
+				suspended: 'My channel was suspended from the Partner Program',
+				'yellow-icons': 'Some videos have a yellow or red $ icon',
+				terminated: 'My channel was terminated',
+			},
+		},
+		exits: {
+			'yellow-icons': {
+				text: 'That’s a different topic. Single videos are about advertiser-friendly content, not about the Partner Program. This check won’t help with that.',
+				link: 'Advertiser-friendly content guidelines',
+				href: 'https://support.google.com/youtube/answer/6162278?hl=en',
+			},
+			terminated: {
+				text: 'Appeals for terminated channels work differently. This check won’t help with that.',
+				link: 'Channel or account terminations',
+				href: 'https://support.google.com/youtube/answer/2802168?hl=en',
+			},
+		},
+		date: {
+			label: 'Date of the email',
+			hint: 'For an upcoming suspension, use the date of the notice. For a suspension, use the date you were suspended.',
+		},
+		repeat: {
+			legend: 'Have you been rejected before, or have you already re-applied once?',
+			options: { first: 'No, this is my first rejection', repeat: 'Yes' },
+		},
+		policies: {
+			legend: 'Which policy does the email name?',
+			hint: 'You can pick more than one.',
+			options: {
+				reused: 'Reused content',
+				repetitive: 'Repetitive or generic content (older emails: “Repetitious content”)',
+				offputting: 'Unsatisfying or off-putting content',
+				inauthentic: 'Inauthentic content',
+				persona: 'AI personas related to sensitive topics',
+				kids: 'Quality principles for kids and family content',
+				integrity: 'Creator integrity',
+				guidelines: 'Community Guidelines',
+				unknown: 'I don’t remember, or it doesn’t say',
+			},
+		},
+		videos: {
+			legend: 'Roughly how many public videos does your channel have?',
+			options: { 'under-50': 'Under 50', '50-200': '50 to 200', 'over-200': 'More than 200' },
+		},
+		modules: {
+			reused: { title: 'Reused content', intro: 'Other people’s material is fine as long as it’s clear what you made of it. The rule applies to your whole channel.' },
+			repetitive: { title: 'Repetitive or generic content', intro: 'Same intros and series are fine. Each video still needs its own substance.' },
+			offputting: { title: 'Unsatisfying or off-putting content', intro: 'This is about shock value, manipulation and formats that feel interchangeable.' },
+			persona: { title: 'AI personas', intro: 'AI characters presented as experts.' },
+			kids: { title: 'Kids content', intro: 'Only relevant if you mark videos as “made for kids”.' },
+			integrity: { title: 'Creator integrity', intro: 'Artificial reach and hidden problems.' },
+			guidelines: { title: 'Community Guidelines', intro: 'Strikes and removed videos.' },
+			channel: { title: 'What reviewers see first', intro: 'According to YouTube: your main theme, most viewed and newest videos, the videos with the most watch time, titles, thumbnails, descriptions and your channel’s About section.' },
+		},
+		questions: {
+			'r-own': {
+				label: 'How much of the footage and audio in your videos did you record or create yourself?',
+				short: 'Own material',
+				options: { most: 'Almost all of it', half: 'About half', little: 'Not much', none: 'Almost none' },
+				text: 'YouTube has to be able to tell that the video is yours. The more material from others, the clearer your part needs to be: commentary, explanation or a story of your own.',
+			},
+			'r-add': {
+				label: 'When you use other people’s material, what do you mainly add?',
+				short: 'What you add to other people’s material',
+				options: { commentary: 'Commentary, explanation or a story of my own', overlays: 'Mostly text overlays, music or effects', nothing: 'Basically nothing', 'no-foreign': 'I don’t use other people’s material' },
+				text: 'Allowed are, for example, critical reviews with clips, reactions with commentary, or other people’s footage with your own storyline. Not allowed are clips strung together with little or no narrative.',
+			},
+			'r-visible': {
+				label: 'Can people see or hear you in your videos?',
+				short: 'You in the video',
+				options: { mostly: 'In most videos', sometimes: 'Sometimes', never: 'Never' },
+				text: 'YouTube explicitly lists content that primarily features you as allowed. Without your face or voice, your part needs to show in another way.',
+			},
+			'r-compile': {
+				label: 'Do you compile clips from others, e.g. from shows, films, TikTok, Instagram or other YouTubers?',
+				short: 'Compilations',
+				options: { no: 'No', narrated: 'Yes, with my own narrative or commentary', plain: 'Yes, without' },
+				text: 'YouTube explicitly lists compilations from shows or other platforms without a narrative of your own as not monetizable.',
+			},
+			'r-react': {
+				label: 'Do you make reaction videos? How do you react?',
+				short: 'Reactions',
+				options: { none: 'I don’t make any', commentary: 'With my voice and commentary', silent: 'Mostly facial reactions, no talking' },
+				text: 'YouTube explicitly lists content that gets its views mostly from non-verbal reactions as not monetizable.',
+			},
+			'r-music': {
+				label: 'Do you upload music by other artists, even if modified (faster, slower, pitched, “slowed + reverb”, nightcore)?',
+				short: 'Other artists’ music',
+				options: { no: 'No', yes: 'Yes' },
+				text: 'Song collections and songs that only change speed or pitch are not allowed, even with the artists’ permission.',
+			},
+			'r-reading': {
+				label: 'Do you read out texts you didn’t write (news, Reddit posts, websites, books)? AI voices count too.',
+				short: 'Read-out texts',
+				options: { no: 'No', context: 'Yes, with my own take', only: 'Yes, it’s mostly just reading' },
+				text: 'YouTube explicitly lists videos that only read out other people’s texts as not monetizable. Your own take needs to be the main part.',
+			},
+			'r-gameplay': {
+				label: 'Do you upload gameplay without your own commentary?',
+				short: 'Gameplay without commentary',
+				options: { no: 'No, or no gaming', silent: 'Yes, my own gameplay without commentary (walkthroughs, longplays)', cutscenes: 'Yes, mostly cutscenes or “full movie” edits' },
+				text: 'Gameplay without commentary has been one of the most common rejection reasons. In our experience only one thing helps: months of consistent videos where people can see or hear you.',
+			},
+			'r-meta': {
+				label: 'Do your titles, descriptions and About section say what your own contribution is?',
+				short: 'Your part in descriptions and About',
+				options: { yes: 'Yes', partly: 'Partly', no: 'No' },
+				text: 'Reviewers also read descriptions and the About section. YouTube explicitly allows material where you explain what you added.',
+			},
+			'g-vary': {
+				label: 'Imagine someone watches five of your videos in a row. Do they clearly differ in substance?',
+				short: 'Variety between videos',
+				options: { yes: 'Yes', partly: 'Partly', no: 'Not really' },
+				text: 'Same intros and series formats are fine. But the substance of each video has to be different.',
+			},
+			'g-template': {
+				label: 'Do you work with a fixed template where only text, images or names change?',
+				short: 'Templates',
+				options: { no: 'No', 'own-content': 'Yes, but each video has its own substance or story', same: 'Yes, most of it is the same every time' },
+				text: 'Videos that look template-made and feel interchangeable can’t be monetized.',
+			},
+			'g-slides': {
+				label: 'Does your channel have slideshows, scrolling-text videos or lists made from stock footage?',
+				short: 'Slideshows, scrolling text, stock lists',
+				options: { no: 'No', voiced: 'Yes, with narration and my own take', plain: 'Yes, without' },
+				text: 'YouTube explicitly lists slideshows, templated stories and scrolling text with no narrative, commentary or educational value as not monetizable.',
+			},
+			'g-ai': {
+				label: 'What role does AI play in your videos?',
+				short: 'AI',
+				options: { none: 'None', helper: 'A tool, e.g. polishing scripts or single backgrounds', pipeline: 'An AI voice reads AI text over AI images or clips', automated: 'Almost fully automated' },
+				text: 'AI isn’t banned. What can’t be monetized is AI content made from generic templates that looks mass-produced and has no perspective of your own.',
+			},
+			'g-volume': {
+				label: 'How many videos do you upload?',
+				short: 'Upload volume',
+				options: { normal: 'Up to one a day', 'several-daily': 'Several a day' },
+				text: 'Upload volume isn’t in the policy. But many uploads a day quickly look like mass production, which is exactly what reviewers look for.',
+			},
+			'u-shock': {
+				label: 'Do your titles or thumbnails use shock value or events that didn’t happen (e.g. a celebrity death, a disaster, realistic AI images)?',
+				short: 'Shock and made-up events',
+				options: { no: 'No', pointed: 'Pointed, but true', yes: 'Yes' },
+				text: 'YouTube explicitly lists deceptive imagery or stories, such as a fake celebrity death, as not monetizable.',
+			},
+			'u-disturbing': {
+				label: 'Do disturbing themes (violence, loss, animals in distress) come up again and again without a cohesive story?',
+				short: 'Disturbing themes',
+				options: { no: 'No', yes: 'Yes' },
+				text: 'YouTube explicitly names repeated disturbing themes without a cohesive narrative, e.g. animals in exaggerated distress.',
+			},
+			'u-trends': {
+				label: 'Do you copy trend formats?',
+				short: 'Trend formats',
+				options: { no: 'No', 'own-spin': 'Yes, with my own spin', copy: 'Yes, pretty much one to one' },
+				text: 'Trends are fine when your own perspective is in them. Videos that copy existing formats until they feel interchangeable are not.',
+			},
+			'u-ai-clips': {
+				label: 'Do you stitch AI clips together without a common thread?',
+				short: 'AI clips without a common thread',
+				options: { no: 'No', yes: 'Yes' },
+				text: 'YouTube explicitly lists stitched-together AI clips without a clear narrative as not monetizable.',
+			},
+			'p-expert': {
+				label: 'Does an AI character or AI voice appear as an expert in your videos and give advice on health, law, finance or politics?',
+				short: 'AI as an expert',
+				options: { no: 'No', yes: 'Yes' },
+				text: 'YouTube excludes these channels from monetization, e.g. an AI “doctor” or AI podcast hosts giving financial tips.',
+			},
+			'k-promo': {
+				label: 'Do products, brands or unboxing take centre stage in your kids videos?',
+				short: 'Heavily promotional kids videos',
+				options: { no: 'No', yes: 'Yes' },
+				text: 'Heavily promotional content is one of the quality principles YouTube enforces for kids content.',
+			},
+			'k-fake-edu': {
+				label: 'Do titles or thumbnails promise learning (colours, numbers) that the video doesn’t deliver?',
+				short: 'Deceptively educational',
+				options: { no: 'No', yes: 'Yes' },
+				text: 'Content that promises learning and doesn’t deliver is explicitly a problem for kids content.',
+			},
+			'k-characters': {
+				label: 'Do well-known kids characters appear in inappropriate situations, or are your titles stuffed with keywords?',
+				short: 'Kids characters and keyword-stuffed titles',
+				options: { no: 'No', yes: 'Yes' },
+				text: 'Well-known characters in inappropriate situations and keyword-stuffed titles are explicitly a problem for kids content.',
+			},
+			'i-bought': {
+				label: 'Have you ever bought views, subscribers or likes, or joined sub4sub or view exchanges?',
+				short: 'Bought or exchanged reach',
+				options: { no: 'No', yes: 'Yes' },
+				text: 'Artificially inflated views, subscribers or likes break the creator integrity policy and can lead to removal.',
+			},
+			'i-deleted': {
+				label: 'Have you let problematic videos collect views and then deleted or hidden them?',
+				short: 'Deleted videos after they got views',
+				options: { no: 'No', yes: 'Yes' },
+				text: 'That is exactly what the creator integrity policy forbids: letting problematic videos collect engagement, then deleting or hiding them.',
+			},
+			'c-strikes': {
+				label: 'Do you have active Community Guidelines strikes, or has YouTube removed any of your videos?',
+				short: 'Strikes',
+				options: { no: 'No', yes: 'Yes' },
+				text: 'Sort out the strikes first. Content that violates the Community Guidelines can’t be monetized.',
+			},
+			's-top': {
+				label: 'Do your most viewed videos match what you make today?',
+				short: 'Most viewed videos',
+				options: { yes: 'Yes', no: 'No' },
+				text: 'If an old video with other people’s material tops your list, that’s the first thing reviewers see.',
+			},
+			's-about': {
+				label: 'Does your About section say what you do and how your videos are made?',
+				short: 'About section',
+				options: { yes: 'Yes', no: 'No' },
+				text: 'The About section is one of the places YouTube says reviewers look at.',
+			},
+		},
+		evaluate: 'Show my result',
+		reset: 'Start over',
+		status: {
+			start: 'Start by choosing what happened.',
+			setup: 'Add the date and choose the policy and channel size.',
+			missing: '{count} questions still need an answer.',
+			done: 'Done. Your result is below.',
+			exit: 'This check doesn’t fit your situation.',
+		},
+		result: {
+			title: 'Your result',
+			levels: { ok: 'Looks fine', warn: 'Worth checking', risk: 'Probably applies' },
+			nothing: 'Nothing stands out here.',
+			permission: 'Permission or a licence doesn’t help with reused content. The rule isn’t about copyright, only about whether you add enough of your own.',
+			policyLink: 'Read the policy',
+			deadlinesTitle: 'Your deadlines',
+			appealBy: 'Appeal by {date}',
+			noticeAppeal: 'Appeal within 7 days, so by about {date}. An appeal in that window pauses the suspension until there’s a decision.',
+			reapplyFrom: 'Re-apply from {date}',
+			noticeReapply: 'If the channel is suspended, you can re-apply 90 days later.',
+			reapplyAfterFailedAppeal: 'If an appeal is rejected: re-apply only from {date}',
+			decision: 'YouTube decides on an appeal within 14 days.',
+			studio: 'The exact deadline is shown in YouTube Studio under “Earn”, next to “Start appeal”.',
+			recommendationTitle: 'Appeal or fix?',
+			recommendations: {
+				fix: { title: 'Fix your channel and re-apply', text: 'Based on your answers, what YouTube criticises does apply. An appeal then has little chance.' },
+				borderline: { title: 'Borderline', text: 'An appeal can work if you can show how your videos are made. If you can’t, fix your channel first and re-apply.' },
+				appeal: { title: 'Consider an appeal', text: 'Based on your answers, your channel fits the policies. Maybe the reviewers couldn’t tell what your part is. Show how you work in an appeal video, and make your contribution visible in descriptions and your About section.' },
+			},
+			failedAppeal: 'After a first rejection, a failed appeal costs time: you can only re-apply after 90 days instead of 30.',
+			longFix: 'With gameplay without commentary, the earliest date is rarely the realistic one. In our experience it takes months of new videos where people can see or hear you.',
+			deleteTitle: 'Don’t delete anything before you’ve talked to an expert.',
+			deleteText: 'Deleting hurts before an appeal, because YouTube reviews your channel as it is now. And before re-applying, it matters which videos you change and how.',
+			checklistTitle: 'Checklist for your appeal video',
+			checklist: [
+				'Under 5 minutes, a new upload, unlisted, on the channel you’re appealing for.',
+				'No appeal info in the description.',
+				'Your channel URL within the first 30 seconds.',
+				'Refer to specific parts of the policies and back them up with examples from your channel.',
+				'Talk about the channel as a whole, not just a few good videos.',
+				'Show how you film and edit, on camera or as a voice-over.',
+			],
+			language: 'Appeal videos must be narrated in Arabic, Bengali, English, French, Hindi, Indonesian, Japanese, Korean, Mandarin, Portuguese, Russian, Spanish, Thai, Turkish or Vietnamese. Otherwise YouTube accepts manually created English subtitles. In our experience, an English voice-over works much better.',
+			support: 'Alternatively you can appeal through Creator Support in YouTube Studio, if it’s offered there.',
+			appealLink: 'YouTube’s appeal requirements',
+			offerTitle: 'Have an expert look at it',
+			offers: {
+				rejection: [
+					{ name: 'Written', price: '€49', text: 'I go through your channel, name the videos that cause problems and tell you what to change.' },
+					{ name: 'With appeal', price: '€99', text: 'Plus feedback on the script for your appeal video.' },
+				],
+				scope: [
+					{ name: 'Review', price: 'based on scope', text: 'With more than 200 videos the effort depends a lot on the channel. Send me the link and you get a fixed price up front.' },
+				],
+				suspension: [
+					{ name: 'Suspension', price: 'from €199', text: 'I go through the channel, name the videos that cause problems and help you with the appeal. With an upcoming suspension every day counts, so write to me right away.' },
+				],
+			},
+			dub: 'We can also voice your appeal video in English. Price on request.',
+			vat: 'All prices include German VAT.',
+			channelLabel: 'Link to your channel (optional)',
+			request: 'Request a review',
+			requestHint: 'The button opens an email to team@kw.media with your result. Nothing is sent until you press send in your email program.',
+			disclaimer: 'This assessment is based only on your answers and YouTube’s public policies. We are not affiliated with YouTube and can’t guarantee any outcome. YouTube makes the decision.',
+		},
+		mail: {
+			subject: 'YPP check',
+			situation: 'Situation',
+			date: 'Date of the email',
+			repeat: 'Rejected before',
+			yes: 'yes',
+			no: 'no',
+			policies: 'Policies named in the email',
+			videos: 'Public videos',
+			channel: 'Channel',
+			result: 'Result',
+			recommendation: 'Recommendation',
+			offer: 'Matching review',
+		},
+	},
+}[locale];
+
+const situations = ['rejected', 'suspension-notice', 'suspended', 'yellow-icons', 'terminated'];
+const policies = Object.keys(copy.policies.options);
+const videoOptions = Object.keys(copy.videos.options);
+const offerKeys = Object.keys(copy.result.offers);
+const copyJson = JSON.stringify({ ...copy, policyUrl, dateLocale: locale === 'de' ? 'de-DE' : 'en-GB' });
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.privacy} />
+
+<section class="section tool-workspace ypp-section">
+	<div class="container ypp-layout">
+		<form class="ypp-check" data-ypp-check data-copy={copyJson} novalidate>
+			<ToolPanel title={copy.setupTitle}>
+				<fieldset class="ypp-question" data-field="situation">
+					<legend class="visually-hidden">{copy.situation.legend}</legend>
+					<div class="ypp-options">
+						{situations.map((id) => (
+							<label><input type="radio" name="situation" value={id} /><span>{copy.situation.options[id]}</span></label>
+						))}
+					</div>
+				</fieldset>
+				<div class="ypp-exit" data-exit hidden>
+					<p data-exit-text></p>
+					<a data-exit-link href="#" rel="noopener noreferrer" target="_blank"></a>
+				</div>
+				<div class="ypp-setup" data-setup hidden>
+					<label class="ypp-date">
+						<span>{copy.date.label}</span>
+						<input type="date" name="date" data-date />
+						<small>{copy.date.hint}</small>
+					</label>
+					<fieldset class="ypp-question" data-field="repeat" data-repeat>
+						<legend>{copy.repeat.legend}</legend>
+						<div class="ypp-options">
+							<label><input type="radio" name="repeat" value="first" /><span>{copy.repeat.options.first}</span></label>
+							<label><input type="radio" name="repeat" value="repeat" /><span>{copy.repeat.options.repeat}</span></label>
+						</div>
+					</fieldset>
+					<fieldset class="ypp-question" data-field="policies">
+						<legend>{copy.policies.legend} <small>{copy.policies.hint}</small></legend>
+						<div class="ypp-options">
+							{policies.map((id) => (
+								<label><input type="checkbox" name="policy" value={id} /><span>{copy.policies.options[id]}</span></label>
+							))}
+						</div>
+					</fieldset>
+					<fieldset class="ypp-question" data-field="videos">
+						<legend>{copy.videos.legend}</legend>
+						<div class="ypp-options ypp-options-row">
+							{videoOptions.map((id) => (
+								<label><input type="radio" name="videos" value={id} /><span>{copy.videos.options[id]}</span></label>
+							))}
+						</div>
+					</fieldset>
+				</div>
+			</ToolPanel>
+
+			{
+				MODULE_ORDER.map((module) => (
+					<ToolPanel class="ypp-module" title={copy.modules[module].title} data-module={module} hidden>
+						<p class="ypp-module-intro">{copy.modules[module].intro}</p>
+						{QUESTIONS.filter((question) => question.module === module).map((question) => (
+							<fieldset class="ypp-question" data-question={question.id}>
+								<legend>{copy.questions[question.id].label}</legend>
+								<div class="ypp-options">
+									{question.options.map((option) => (
+										<label><input type="radio" name={question.id} value={option.id} /><span>{copy.questions[question.id].options[option.id]}</span></label>
+									))}
+								</div>
+							</fieldset>
+						))}
+					</ToolPanel>
+				))
+			}
+
+			<ToolActions>
+				<button class="button primary" type="submit" data-evaluate>{copy.evaluate}</button>
+				<button class="button secondary" type="button" data-reset>{copy.reset}</button>
+			</ToolActions>
+			<ToolStatus text={copy.status.start} data-status aria-live="polite" />
+		</form>
+
+		<section class="ypp-result" data-result hidden tabindex="-1" aria-labelledby="ypp-result-title">
+			<h2 id="ypp-result-title">{copy.result.title}</h2>
+			<div class="ypp-module-results" data-module-results></div>
+
+			<div class="ypp-box">
+				<h3>{copy.result.deadlinesTitle}</h3>
+				<ul class="ypp-deadlines" data-deadlines></ul>
+				<p>{copy.result.decision}</p>
+				<p class="ypp-muted">{copy.result.studio}</p>
+			</div>
+
+			<div class="ypp-box" data-recommendation>
+				<h3>{copy.result.recommendationTitle}</h3>
+				<p class="ypp-recommendation-title" data-recommendation-title></p>
+				<p data-recommendation-text></p>
+				<p data-failed-appeal hidden>{copy.result.failedAppeal}</p>
+				<p data-long-fix hidden>{copy.result.longFix}</p>
+			</div>
+
+			<div class="ypp-warning" role="note">
+				<p><strong>{copy.result.deleteTitle}</strong></p>
+				<p>{copy.result.deleteText}</p>
+			</div>
+
+			<div class="ypp-box" data-checklist>
+				<h3>{copy.result.checklistTitle}</h3>
+				<ul class="ypp-checklist">
+					{copy.result.checklist.map((item) => <li>{item}</li>)}
+				</ul>
+				<p>{copy.result.language}</p>
+				<p class="ypp-muted">{copy.result.support}</p>
+				<a href={appealUrl} rel="noopener noreferrer" target="_blank">{copy.result.appealLink}</a>
+			</div>
+
+			<div class="ypp-box ypp-offer" data-offer>
+				<h3>{copy.result.offerTitle}</h3>
+				{offerKeys.map((key) => (
+					<div class="ypp-offer-items" data-offer-variant={key} hidden>
+						{copy.result.offers[key].map((item) => (
+							<article>
+								<p class="ypp-offer-head"><strong>{item.name}</strong><span>{item.price}</span></p>
+								<p>{item.text}</p>
+							</article>
+						))}
+					</div>
+				))}
+				<p>{copy.result.dub}</p>
+				<p class="ypp-muted">{copy.result.vat}</p>
+				<label class="ypp-channel">
+					<span>{copy.result.channelLabel}</span>
+					<input type="text" data-channel autocomplete="url" />
+				</label>
+				<a class="button primary" href="mailto:team@kw.media" data-request>{copy.result.request}</a>
+				<p class="ypp-muted">{copy.result.requestHint}</p>
+			</div>
+
+			<p class="ypp-disclaimer">{copy.result.disclaimer}</p>
+		</section>
+	</div>
+</section>
+
+<script>
+	import {
+		assessModules,
+		buildRequestMailto,
+		deadlines,
+		modulesForPolicies,
+		needsLongFix,
+		offerFor,
+		recommendation,
+		SITUATIONS,
+		unansweredQuestions,
+	} from '../../lib/tools/ypp-check.js';
+
+	for (const form of document.querySelectorAll<HTMLFormElement>('[data-ypp-check]')) {
+		const copy = JSON.parse(form.dataset.copy ?? '{}');
+		const root = form.closest('.ypp-layout') ?? document;
+		const status = form.querySelector<HTMLElement>('[data-status]');
+		const exit = form.querySelector<HTMLElement>('[data-exit]');
+		const setup = form.querySelector<HTMLElement>('[data-setup]');
+		const repeatField = form.querySelector<HTMLElement>('[data-repeat]');
+		const dateInput = form.querySelector<HTMLInputElement>('[data-date]');
+		const result = root.querySelector<HTMLElement>('[data-result]');
+		const moduleResults = root.querySelector<HTMLElement>('[data-module-results]');
+		const deadlineList = root.querySelector<HTMLElement>('[data-deadlines]');
+		const requestLink = root.querySelector<HTMLAnchorElement>('[data-request]');
+		const channelInput = root.querySelector<HTMLInputElement>('[data-channel]');
+		const dateFormat = new Intl.DateTimeFormat(copy.dateLocale, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+		let lastResult: { lines: string[] } | null = null;
+
+		const today = () => {
+			const now = new Date();
+			return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+		};
+		const formatDate = (iso: string) => dateFormat.format(new Date(`${iso}T00:00:00Z`));
+		const fill = (template: string, values: Record<string, string | number>) =>
+			template.replace(/\{(\w+)\}/g, (_, key) => String(values[key] ?? ''));
+		const setStatus = (text: string, state?: 'success' | 'error') => {
+			if (!status) return;
+			status.textContent = text;
+			if (state) status.dataset.state = state;
+			else delete status.dataset.state;
+		};
+
+		const readState = () => {
+			const data = new FormData(form);
+			const situation = String(data.get('situation') ?? '');
+			const policies = data.getAll('policy').map(String);
+			const answers: Record<string, string> = {};
+			for (const [key, value] of data.entries()) {
+				if (!['situation', 'date', 'repeat', 'policy', 'videos'].includes(key)) answers[key] = String(value);
+			}
+			return {
+				situation,
+				date: String(data.get('date') ?? ''),
+				repeat: data.get('repeat') === 'repeat',
+				repeatAnswered: data.has('repeat'),
+				policies,
+				videos: String(data.get('videos') ?? ''),
+				answers,
+			};
+		};
+
+		const activeModules = (state: ReturnType<typeof readState>) => {
+			if (!state.situation || SITUATIONS[state.situation]?.exit) return [];
+			return state.policies.length ? modulesForPolicies(state.policies) : [];
+		};
+
+		const sync = () => {
+			const state = readState();
+			const isExit = Boolean(SITUATIONS[state.situation]?.exit);
+			if (exit) {
+				exit.hidden = !isExit;
+				if (isExit) {
+					const target = copy.exits[state.situation];
+					exit.querySelector('[data-exit-text]')!.textContent = target.text;
+					const link = exit.querySelector<HTMLAnchorElement>('[data-exit-link]')!;
+					link.textContent = target.link;
+					link.href = target.href;
+					setStatus(copy.status.exit);
+				}
+			}
+			if (setup) setup.hidden = !state.situation || isExit;
+			if (repeatField) repeatField.hidden = state.situation !== 'rejected';
+			const modules = new Set(activeModules(state));
+			for (const panel of form.querySelectorAll<HTMLElement>('[data-module]')) {
+				panel.hidden = !modules.has(panel.dataset.module ?? '');
+			}
+			if (isExit && result) result.hidden = true;
+		};
+
+		const levelBadge = (level: string) => {
+			const badge = document.createElement('span');
+			badge.className = 'ypp-badge';
+			badge.dataset.level = level;
+			badge.textContent = copy.result.levels[level];
+			return badge;
+		};
+
+		const render = (state: ReturnType<typeof readState>) => {
+			const modules = activeModules(state);
+			const assessments = assessModules(modules, state.answers);
+			const advice = recommendation(assessments);
+			const dates = deadlines({ situation: state.situation, date: state.date, repeat: state.repeat });
+			const offer = offerFor({ situation: state.situation, videos: state.videos });
+
+			moduleResults!.replaceChildren();
+			for (const assessment of assessments) {
+				const card = document.createElement('article');
+				card.className = 'ypp-module-result';
+				card.dataset.level = assessment.level;
+				card.dataset.moduleResult = assessment.module;
+				const head = document.createElement('header');
+				const title = document.createElement('h3');
+				title.textContent = copy.modules[assessment.module].title;
+				head.append(levelBadge(assessment.level), title);
+				card.append(head);
+				if (assessment.flagged.length) {
+					const list = document.createElement('ul');
+					for (const flag of assessment.flagged) {
+						const question = copy.questions[flag.question];
+						const item = document.createElement('li');
+						const strong = document.createElement('strong');
+						strong.textContent = `${question.short}: ${question.options[flag.option]}. `;
+						item.append(strong, question.text);
+						item.dataset.level = flag.level;
+						list.append(item);
+					}
+					card.append(list);
+				} else {
+					const nothing = document.createElement('p');
+					nothing.textContent = copy.result.nothing;
+					card.append(nothing);
+				}
+				if (assessment.module === 'reused') {
+					const note = document.createElement('p');
+					note.className = 'ypp-muted';
+					note.textContent = copy.result.permission;
+					card.append(note);
+				}
+				if (assessment.module !== 'channel') {
+					const link = document.createElement('a');
+					link.href = copy.policyUrl;
+					link.rel = 'noopener noreferrer';
+					link.target = '_blank';
+					link.textContent = copy.result.policyLink;
+					card.append(link);
+				}
+				moduleResults!.append(card);
+			}
+
+			deadlineList!.replaceChildren();
+			const addDeadline = (text: string) => {
+				const item = document.createElement('li');
+				item.textContent = text;
+				deadlineList!.append(item);
+			};
+			if (dates) {
+				if (state.situation === 'suspension-notice') {
+					addDeadline(fill(copy.result.noticeAppeal, { date: formatDate(dates.appealBy) }));
+					addDeadline(copy.result.noticeReapply);
+				} else {
+					addDeadline(fill(copy.result.appealBy, { date: formatDate(dates.appealBy) }));
+					if (dates.reapplyFrom) addDeadline(fill(copy.result.reapplyFrom, { date: formatDate(dates.reapplyFrom) }));
+					if (dates.reapplyAfterFailedAppeal) {
+						addDeadline(fill(copy.result.reapplyAfterFailedAppeal, { date: formatDate(dates.reapplyAfterFailedAppeal) }));
+					}
+				}
+			}
+
+			const adviceCopy = copy.result.recommendations[advice];
+			root.querySelector('[data-recommendation]')!.setAttribute('data-advice', advice);
+			root.querySelector('[data-recommendation-title]')!.textContent = adviceCopy.title;
+			root.querySelector('[data-recommendation-text]')!.textContent = adviceCopy.text;
+			root.querySelector<HTMLElement>('[data-failed-appeal]')!.hidden = !(state.situation === 'rejected' && !state.repeat);
+			root.querySelector<HTMLElement>('[data-long-fix]')!.hidden = !needsLongFix(state.answers);
+			root.querySelector<HTMLElement>('[data-checklist]')!.hidden = advice === 'fix';
+			for (const variant of root.querySelectorAll<HTMLElement>('[data-offer-variant]')) {
+				variant.hidden = variant.dataset.offerVariant !== offer;
+			}
+
+			const yes = copy.mail.yes;
+			const no = copy.mail.no;
+			const lines = [
+				`${copy.mail.situation}: ${copy.situation.options[state.situation]}`,
+				`${copy.mail.date}: ${state.date ? formatDate(state.date) : '-'}`,
+				...(state.situation === 'rejected' ? [`${copy.mail.repeat}: ${state.repeat ? yes : no}`] : []),
+				`${copy.mail.policies}: ${state.policies.map((policy) => copy.policies.options[policy]).join(', ')}`,
+				`${copy.mail.videos}: ${copy.videos.options[state.videos]}`,
+				'',
+				`${copy.mail.result}:`,
+				...assessments.flatMap((assessment) => [
+					`- ${copy.modules[assessment.module].title}: ${copy.result.levels[assessment.level]}`,
+					...assessment.flagged.map((flag) => `    ${copy.questions[flag.question].short}: ${copy.questions[flag.question].options[flag.option]}`),
+				]),
+				'',
+				`${copy.mail.recommendation}: ${adviceCopy.title}`,
+				`${copy.mail.offer}: ${copy.result.offers[offer].map((item: { name: string; price: string }) => `${item.name} (${item.price})`).join(' / ')}`,
+			];
+			lastResult = { lines };
+			updateRequest();
+
+			result!.hidden = false;
+			result!.focus({ preventScroll: true });
+			result!.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		};
+
+		const updateRequest = () => {
+			if (!lastResult || !requestLink) return;
+			const channel = channelInput?.value.trim() ?? '';
+			const subject = channel ? `${copy.mail.subject} – ${channel}` : copy.mail.subject;
+			const lines = channel ? [`${copy.mail.channel}: ${channel}`, ...lastResult.lines] : lastResult.lines;
+			requestLink.href = buildRequestMailto({ email: 'team@kw.media', subject, lines });
+		};
+
+		form.addEventListener('change', () => {
+			sync();
+			if (result && !result.hidden) result.hidden = true;
+		});
+		channelInput?.addEventListener('input', updateRequest);
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const state = readState();
+			if (!state.situation || SITUATIONS[state.situation]?.exit) {
+				setStatus(state.situation ? copy.status.exit : copy.status.start, 'error');
+				return;
+			}
+			if (!deadlines({ situation: state.situation, date: state.date, repeat: state.repeat })
+				|| !state.policies.length
+				|| !state.videos
+				|| (state.situation === 'rejected' && !state.repeatAnswered)) {
+				setStatus(copy.status.setup, 'error');
+				form.querySelector<HTMLElement>('[data-setup]')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+				return;
+			}
+			const modules = activeModules(state);
+			const missing = unansweredQuestions(modules, state.answers);
+			for (const fieldset of form.querySelectorAll<HTMLElement>('[data-question]')) {
+				fieldset.toggleAttribute('data-missing', missing.some((question) => question.id === fieldset.dataset.question));
+			}
+			if (missing.length) {
+				setStatus(fill(copy.status.missing, { count: missing.length }), 'error');
+				const first = form.querySelector<HTMLElement>(`[data-question="${missing[0].id}"]`);
+				first?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+				first?.querySelector<HTMLInputElement>('input')?.focus({ preventScroll: true });
+				return;
+			}
+			setStatus(copy.status.done, 'success');
+			render(state);
+		});
+
+		form.querySelector('[data-reset]')?.addEventListener('click', () => {
+			form.reset();
+			if (dateInput) dateInput.value = today();
+			for (const fieldset of form.querySelectorAll<HTMLElement>('[data-missing]')) fieldset.removeAttribute('data-missing');
+			lastResult = null;
+			if (result) result.hidden = true;
+			sync();
+			setStatus(copy.status.start);
+		});
+
+		if (dateInput && !dateInput.value) dateInput.value = today();
+		sync();
+	}
+</script>
+
+<style>
+	.ypp-layout {
+		display: grid;
+		gap: 24px;
+		max-width: 900px;
+	}
+
+	.ypp-check {
+		display: grid;
+		gap: 18px;
+	}
+
+	.ypp-check [hidden],
+	.ypp-result[hidden],
+	.ypp-result [hidden] {
+		display: none !important;
+	}
+
+	.ypp-question {
+		margin: 18px 0 0;
+		padding: 0;
+		border: 0;
+		scroll-margin-top: 120px;
+	}
+
+	.ypp-question legend {
+		margin-bottom: 10px;
+		padding: 0;
+		color: var(--color-ink);
+		font-weight: 800;
+	}
+
+	.ypp-question legend small {
+		color: var(--color-muted);
+		font-weight: 600;
+	}
+
+	.ypp-question[data-missing] legend {
+		color: var(--color-status-negative-text);
+	}
+
+	.ypp-question[data-missing] .ypp-options label {
+		border-color: var(--color-status-negative-border);
+	}
+
+	.ypp-options {
+		display: grid;
+		gap: 8px;
+	}
+
+	.ypp-options-row {
+		grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	}
+
+	.ypp-options label {
+		display: flex;
+		gap: 10px;
+		align-items: flex-start;
+		padding: 10px 12px;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	.ypp-options label:has(input:checked) {
+		background: var(--color-accent-soft);
+		border-color: var(--color-accent-line);
+	}
+
+	.ypp-options label:has(input:focus-visible) {
+		outline: 3px solid var(--color-accent-focus);
+		outline-offset: 1px;
+	}
+
+	.ypp-options input {
+		flex: none;
+		width: 18px;
+		height: 18px;
+		margin: 2px 0 0;
+		accent-color: var(--color-accent);
+	}
+
+	.ypp-module-intro,
+	.ypp-muted {
+		color: var(--color-muted);
+	}
+
+	.ypp-module-intro {
+		margin: 10px 0 0;
+	}
+
+	.ypp-setup {
+		display: grid;
+	}
+
+	.ypp-date,
+	.ypp-channel {
+		display: grid;
+		gap: 6px;
+		margin-top: 18px;
+	}
+
+	.ypp-date span,
+	.ypp-channel span {
+		color: var(--color-ink);
+		font-weight: 800;
+	}
+
+	.ypp-date small {
+		color: var(--color-muted);
+	}
+
+	.ypp-date input,
+	.ypp-channel input {
+		width: 100%;
+		max-width: 420px;
+		min-height: 46px;
+		padding: 0 12px;
+		color: var(--color-ink);
+		background: var(--color-control-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font: inherit;
+	}
+
+	.ypp-exit {
+		margin-top: 16px;
+		padding: 14px 16px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.ypp-exit p {
+		margin: 0 0 8px;
+	}
+
+	.ypp-result {
+		display: grid;
+		gap: 18px;
+		outline: none;
+		scroll-margin-top: 24px;
+	}
+
+	.ypp-result h2 {
+		margin: 0;
+		font-size: clamp(1.8rem, 4vw, 2.6rem);
+		line-height: 1.05;
+	}
+
+	.ypp-module-results {
+		display: grid;
+		gap: 12px;
+	}
+
+	/* Module cards are built in the browser, so they carry no scoped-style attribute;
+	   their rules are global but anchored to the scoped results container. */
+	.ypp-module-results :global(.ypp-module-result),
+	.ypp-box,
+	.ypp-warning {
+		padding: clamp(16px, 3vw, 22px);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.ypp-module-results :global(.ypp-module-result[data-level='risk']) {
+		border-color: var(--color-status-negative-border);
+	}
+
+	.ypp-module-results :global(.ypp-module-result[data-level='warn']) {
+		border-color: var(--color-accent-line);
+	}
+
+	.ypp-module-results :global(.ypp-module-result header) {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		align-items: center;
+	}
+
+	.ypp-module-results :global(.ypp-module-result h3),
+	.ypp-box h3 {
+		margin: 0;
+		font-size: 1.2rem;
+	}
+
+	.ypp-module-results :global(.ypp-module-result ul),
+	.ypp-checklist,
+	.ypp-deadlines {
+		display: grid;
+		gap: 8px;
+		margin: 12px 0;
+		padding-left: 20px;
+	}
+
+	.ypp-module-results :global(.ypp-module-result p) {
+		margin: 10px 0;
+	}
+
+	.ypp-module-results :global(.ypp-muted) {
+		color: var(--color-muted);
+	}
+
+	.ypp-module-results :global(.ypp-badge) {
+		padding: 3px 10px;
+		border: 1px solid;
+		border-radius: 999px;
+		font-size: 0.85rem;
+		font-weight: 800;
+	}
+
+	.ypp-module-results :global(.ypp-badge[data-level='ok']) {
+		color: var(--color-status-positive-text);
+		background: var(--color-status-positive-background);
+		border-color: var(--color-status-positive-border);
+	}
+
+	.ypp-module-results :global(.ypp-badge[data-level='warn']) {
+		color: var(--color-accent-dark);
+		background: var(--color-accent-soft);
+		border-color: var(--color-accent-line);
+	}
+
+	.ypp-module-results :global(.ypp-badge[data-level='risk']) {
+		color: var(--color-status-negative-text);
+		background: var(--color-status-negative-background);
+		border-color: var(--color-status-negative-border);
+	}
+
+	.ypp-box p {
+		margin: 10px 0 0;
+	}
+
+	.ypp-recommendation-title {
+		font-size: 1.15rem;
+		font-weight: 850;
+	}
+
+	.ypp-warning {
+		background: var(--color-status-negative-background);
+		border-color: var(--color-status-negative-border);
+		color: var(--color-status-negative-text);
+	}
+
+	.ypp-warning p {
+		margin: 0;
+	}
+
+	.ypp-warning p + p {
+		margin-top: 6px;
+	}
+
+	.ypp-offer-items {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 12px;
+		margin-top: 12px;
+	}
+
+	.ypp-offer-items article {
+		padding: 14px;
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.ypp-offer-items article p {
+		margin: 0;
+	}
+
+	.ypp-offer-head {
+		display: flex;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 6px !important;
+	}
+
+	.ypp-offer-head span {
+		color: var(--color-accent-dark);
+		font-weight: 850;
+		white-space: nowrap;
+	}
+
+	.ypp-offer .button {
+		margin-top: 14px;
+	}
+
+	.ypp-disclaimer {
+		margin: 0;
+		color: var(--color-muted);
+		font-size: 0.92rem;
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+	}
+</style>
