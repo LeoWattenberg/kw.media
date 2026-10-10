@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { createAup3Fixture } from '../aup3-fixture.js';
+import { cacheCdnAssets } from './cdn-cache.mjs';
 
 // Committed fixtures live in tests/fixtures/. The heavy media fixtures are still
 // local-only under the gitignored reference/, so tests that need them skip in CI
@@ -336,7 +337,9 @@ test.describe('visual tool interactions', () => {
 	});
 
 	test('Document converter produces and previews every displayed output format', async ({ page }) => {
+		test.setTimeout(180_000);
 		const errors = collectClientErrors(page);
+		await cacheCdnAssets(page);
 		await page.goto('/en/tools/converter/document-converter/');
 		await page.locator('[data-file-input]').setInputFiles(documentFixture);
 
@@ -357,7 +360,7 @@ test.describe('visual tool interactions', () => {
 		for (const [value, extension, preview, statusText] of profiles) {
 			await page.locator('[data-profile-select]').selectOption(value);
 			await page.locator('[data-process]').click();
-			await expect(page.locator('[data-status]')).toContainText(statusText, { timeout: 30000 });
+			await expect(page.locator('[data-status]')).toContainText(statusText, { timeout: 90_000 });
 			await expect(page.locator('[data-download]')).toBeVisible();
 			await expect(page.locator('[data-download]')).toHaveAttribute('download', new RegExp(`\\${extension}$`));
 			await expect(page.locator(preview)).toBeVisible();
@@ -367,13 +370,15 @@ test.describe('visual tool interactions', () => {
 	});
 
 	test('Document converter converts the real ODT fixture in the browser', async ({ page }) => {
+		test.setTimeout(180_000);
 		const errors = collectClientErrors(page);
+		await cacheCdnAssets(page);
 		await page.goto('/en/tools/converter/document-converter/');
 		await page.locator('[data-file-input]').setInputFiles(odtUpload());
 		await page.locator('[data-profile-select]').selectOption('html');
 		await page.locator('[data-process]').click();
 
-		await expect(page.locator('[data-status]')).toContainText('successfully', { timeout: 30000 });
+		await expect(page.locator('[data-status]')).toContainText('successfully', { timeout: 90_000 });
 		await expect(page.locator('[data-download]')).toHaveAttribute('download', /legal document\.html$/);
 		await expect(page.locator('[data-html-preview]')).toBeVisible();
 		expect(errors).toEqual([]);
