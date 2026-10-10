@@ -9,6 +9,7 @@ modified: "2026-09-18T16:39:14"
 locale: "en"
 translationKey: "video:Mr6GEMLrTc0"
 category: "audacity"
+relatedPosts: ["/en/audacity/audacity-4-is-missing-lots-of-audacity-3-features-i-added-them/", "/audacity/mix-and-render-missing-in-audacity-4-0-how-to-do-it-anyway/", "/en/audacity/i-worked-on-audacity-4-here-is-what-you-need-to-know/"]
 image: "https://i.ytimg.com/vi/Mr6GEMLrTc0/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=Mr6GEMLrTc0"

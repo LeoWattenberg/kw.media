@@ -3,7 +3,6 @@ id: 3425
 slug: "audacity-4-is-missing-lots-of-audacity-3-features-i-added-them"
 path: "/en/audacity/audacity-4-is-missing-lots-of-audacity-3-features-i-added-them/"
 title: "Audacity 4 is missing lots of Audacity 3 features – I added them"
-seoTitle: "Audacity 4 vs Audacity 3: every missing feature"
 excerpt: "Audacity 4 is a ground-up rebuild, and rebuilds leave things behind. Here is the full accounting of what Audacity 3 could do that Audacity 4 cannot, checked against the source of both."
 date: "2026-09-04T10:00:00"
 modified: "2026-09-04T10:00:00"
@@ -11,7 +10,7 @@ locale: "en"
 translationKey: "post:3425"
 category: "audacity"
 tags: ["Audacity 4", "Audacity 3", "Soundscaper", "Audio Editing", "Feature Comparison", "Software Update", "Effects", "Macros", "Audio Export", "Open Source"]
-relatedPosts: ["/en/audacity/i-worked-on-audacity-4-here-is-what-you-need-to-know/", "/en/audacity/recording-desktop-audio-in-audacity-tutorial/", "/en/audacity/installing-ffmpeg-for-audacity-tutorial/"]
+relatedPosts: ["/audacity/missing-macros-in-audacity-4-0-here-is-the-solution/", "/audacity/mix-and-render-missing-in-audacity-4-0-how-to-do-it-anyway/", "/en/audacity/i-worked-on-audacity-4-here-is-what-you-need-to-know/"]
 image: "https://i.ytimg.com/vi/5nJuWdclGkw/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://kw.media/en/audacity/audacity-4-is-missing-lots-of-audacity-3-features-i-added-them/"

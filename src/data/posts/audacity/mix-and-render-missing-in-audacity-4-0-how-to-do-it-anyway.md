@@ -9,6 +9,7 @@ modified: "2026-09-18T16:39:16"
 locale: "en"
 translationKey: "video:M1lLdc3xXmk"
 category: "audacity"
+relatedPosts: ["/audacity/missing-macros-in-audacity-4-0-here-is-the-solution/", "/en/audacity/audacity-4-is-missing-lots-of-audacity-3-features-i-added-them/", "/audacity/want-to-use-audacity-on-android-here-is-how-with-soundscaper/"]
 image: "https://i.ytimg.com/vi/M1lLdc3xXmk/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=M1lLdc3xXmk"

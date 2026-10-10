@@ -9,6 +9,7 @@ modified: "2026-09-18T16:39:19"
 locale: "en"
 translationKey: "video:ZdoXZW2UkL8"
 category: "audacity"
+relatedPosts: ["/audacity/want-to-use-audacity-on-android-here-is-how-with-soundscaper/", "/audacity/missing-macros-in-audacity-4-0-here-is-the-solution/", "/audacity/mix-and-render-missing-in-audacity-4-0-how-to-do-it-anyway/"]
 image: "https://i.ytimg.com/vi/ZdoXZW2UkL8/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=ZdoXZW2UkL8"

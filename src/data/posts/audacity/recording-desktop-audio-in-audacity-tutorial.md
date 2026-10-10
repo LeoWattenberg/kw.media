@@ -10,7 +10,7 @@ locale: "en"
 translationKey: "video:VB0-XfW6lms"
 category: "audacity"
 tags: ["Audacity 3", "Audio Setup", "Windows WASAPI", "Desktop Audio Recording", "Loopback Devices", "Stereo Recording", "Overdub", "Audio Settings", "Sample Rate Matching"]
-relatedPosts: ["/en/audacity/installing-ffmpeg-for-audacity-fast-tutorial/", "/en/audacity/installing-ffmpeg-for-audacity-tutorial/", "/en/audacity/i-worked-on-audacity-4-here-is-what-you-need-to-know/"]
+relatedPosts: ["/audacity/how-to-install-ffmpeg-for-audacity-4-windows-mac-and-linux/", "/en/audacity/audacity-4-is-missing-lots-of-audacity-3-features-i-added-them/", "/audacity/mix-and-render-missing-in-audacity-4-0-how-to-do-it-anyway/"]
 image: "https://i.ytimg.com/vi/VB0-XfW6lms/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=VB0-XfW6lms"

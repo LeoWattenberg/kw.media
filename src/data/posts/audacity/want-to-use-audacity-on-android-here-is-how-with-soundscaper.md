@@ -9,6 +9,7 @@ modified: "2026-09-18T16:39:22"
 locale: "en"
 translationKey: "video:TJPu4Gbbqhk"
 category: "audacity"
+relatedPosts: ["/audacity/want-to-use-audacity-on-your-iphone-ios-here-is-how/", "/audacity/missing-macros-in-audacity-4-0-here-is-the-solution/", "/audacity/mix-and-render-missing-in-audacity-4-0-how-to-do-it-anyway/"]
 image: "https://i.ytimg.com/vi/TJPu4Gbbqhk/maxresdefault.jpg"
 authorName: "Leo Wattenberg"
 sourceUrl: "https://www.youtube.com/watch?v=TJPu4Gbbqhk"
