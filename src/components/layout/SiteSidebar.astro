@@ -287,9 +287,12 @@ const sidebarPages = sitePages
 		height: auto;
 	}
 
+	.site-sidebar:not(.is-collapsed) .brand img:not(.logo-small) {
+		width: 230px;
+	}
+
 	.site-sidebar:not(.is-collapsed) .brand .logo-light:not(.logo-small) {
 		display: block;
-		width: 230px;
 	}
 
 	:global(:root[data-theme='dark']) .site-sidebar:not(.is-collapsed) .brand .logo-light:not(.logo-small) {
