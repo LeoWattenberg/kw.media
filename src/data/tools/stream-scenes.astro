@@ -1,0 +1,37 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import StreamToolEmbed from '../../components/tools/StreamToolEmbed.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('stream-scenes', {
+	id: 'stream-scenes',
+	translations: {
+		de: {
+			id: 'stream-scenes-de',
+			path: '/de/tools/stream-scenes/',
+			title: 'Szenen-Screens',
+			description: 'Starting-Soon-, Pause- und Ende-Screens für deinen Stream: Countdown, Live-Chat als Box oder Laufband, Socials, Cam-Platz und eigener Hintergrund.',
+			content: [
+				'Die Szenen-Screens liefern die drei Bildschirme, die jeder Stream braucht: „Gleich geht’s los“, „Pause“ und „Ende“. Dazu gehören ein Countdown mit Minuten oder Uhrzeit, ein animierter Hintergrund oder dein eigenes Bild, deine Socials und auf Wunsch ein Platz für die Cam.',
+				'Der Twitch-Chat läuft als Box oder Laufband mit, inklusive Emotes – und was deine Mods löschen, verschwindet auch hier. Umschalten kannst du mit einem Klick, oder du bindest jede Szene fest als eigene Browserquelle in OBS ein.',
+			],
+		},
+		en: {
+			id: 'stream-scenes-en',
+			path: '/en/tools/stream-scenes/',
+			title: 'Stream Scene Screens',
+			description: 'Starting soon, break, and ending screens for your stream: a countdown, live chat as a box or ticker, socials, a cam slot, and your own background.',
+			content: [
+				'The scene screens cover the three screens every stream needs: “Starting soon”, “Break”, and “Ending”. They include a countdown in minutes or to a set time, an animated background or your own image, your socials, and an optional cam slot.',
+				'Your Twitch chat runs along as a box or ticker, emotes included – and anything your mods delete disappears here too. Switch with one click, or add each scene to OBS as its own fixed browser source.',
+			],
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<StreamToolEmbed tool={tool} streamToolId="stream-scenes" />
+</ToolPageShell>

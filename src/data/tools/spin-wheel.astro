@@ -1,0 +1,37 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import StreamToolEmbed from '../../components/tools/StreamToolEmbed.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('spin-wheel', {
+	id: 'spin-wheel',
+	translations: {
+		de: {
+			id: 'spin-wheel-de',
+			path: '/de/tools/spin-wheel/',
+			title: 'Glücksrad',
+			description: 'Glücksrad für Streams und Giveaways: eigene Liste oder Teilnahme per Chat-Befehl, fairer Zufall, Gewinner-Countdown, Konfetti und Gewinnspiel-Check.',
+			content: [
+				'Das Glücksrad entscheidet, was als Nächstes passiert – mit deiner eigenen Liste oder als Giveaway, bei dem Zuschauer per Chat-Befehl wie !join mitmachen. Das Ergebnis wird mit dem Zufallsgenerator des Browsers gezogen, jedes Feld hat exakt die gleiche Chance.',
+				'Nach dem Dreh läuft auf Wunsch ein Countdown: Schreibt der Gewinner rechtzeitig in den Chat, erscheinen ein Häkchen und seine Nachricht direkt im Bild. Für Verlosungen erinnert ein Kurz-Check an Teilnahmebedingungen, kostenlose Teilnahme und Datenschutz.',
+			],
+		},
+		en: {
+			id: 'spin-wheel-en',
+			path: '/en/tools/spin-wheel/',
+			title: 'Spin the Wheel',
+			description: 'Prize wheel for streams and giveaways: your own list or chat entries via command, fair randomness, a winner countdown, confetti, and a giveaway check.',
+			content: [
+				'The wheel decides what happens next – with your own list or as a giveaway where viewers join via a chat command like !join. The result is drawn with the browser’s random number generator, so every slice has exactly the same chance.',
+				'After the spin, an optional countdown runs: if the winner writes in chat in time, a checkmark and their message appear right on screen. For giveaways, a quick check reminds you of official rules, free entry, and privacy.',
+			],
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<StreamToolEmbed tool={tool} streamToolId="spin-wheel" />
+</ToolPageShell>

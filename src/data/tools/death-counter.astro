@@ -1,0 +1,37 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import StreamToolEmbed from '../../components/tools/StreamToolEmbed.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('death-counter', {
+	id: 'death-counter',
+	translations: {
+		de: {
+			id: 'death-counter-de',
+			path: '/de/tools/death-counter/',
+			title: 'Tod- & Challenge-Zähler',
+			description: 'Zähler für Tode, Siege und Challenges: per Klick, Taste oder Chat-Befehl deiner Mods – mit Ziel-Fortschritt, Stoppuhr, Verlauf und Overlay für OBS.',
+			content: [
+				'Der Zähler hält bis zu sechs Werte im Blick: Tode, Siege, Bosse oder was deine Challenge gerade braucht, jeweils mit Symbol und optionalem Ziel wie „3 / 10“. Dazu kommen eine Stoppuhr für Runs und drei Overlay-Formate von der schmalen Leiste bis zum großen Einzelwert.',
+				'Gezählt wird per Klick, per Taste oder mitten im Spiel per Chat: Du oder deine Mods schreiben zum Beispiel !tod. Jede Änderung landet mit Absender im Verlauf, und ein Fehler ist mit einem Tastendruck rückgängig gemacht.',
+			],
+		},
+		en: {
+			id: 'death-counter-en',
+			path: '/en/tools/death-counter/',
+			title: 'Death & Challenge Counter',
+			description: 'Counters for deaths, wins, and challenges: by click, key, or your mods’ chat command – with goal progress, a stopwatch, history, and an OBS overlay.',
+			content: [
+				'The counter tracks up to six values: deaths, wins, bosses, or whatever your challenge needs, each with a symbol and an optional goal like “3 / 10”. There is also a stopwatch for runs and three overlay formats, from a slim bar to one big number.',
+				'Count by click, by key, or mid-game via chat: you or your mods type, for example, !death. Every change is logged with who made it, and a mistake is undone with a single key press.',
+			],
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<StreamToolEmbed tool={tool} streamToolId="death-counter" />
+</ToolPageShell>

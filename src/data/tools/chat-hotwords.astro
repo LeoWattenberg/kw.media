@@ -1,0 +1,37 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import StreamToolEmbed from '../../components/tools/StreamToolEmbed.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('chat-hotwords', {
+	id: 'chat-hotwords',
+	translations: {
+		de: {
+			id: 'chat-hotwords-de',
+			path: '/de/tools/chat-hotwords/',
+			title: 'Chat-Hotwords',
+			description: 'Sieh live, was dein Chat gerade schreibt: Die häufigsten Wörter und Emotes der letzten Sekunden als Stream-Overlay – mit Spam-Schutz und Bot-Filter.',
+			content: [
+				'Bei schnellen Chats geht unter, was gerade alle schreiben. Chat-Hotwords zählt die Wörter und Emotes der letzten 10 Sekunden bis 2 Minuten und zeigt die häufigsten als Rangliste, Leiste oder Quadrat – als Overlay für den Stream oder als Überblick nur für dich.',
+				'Jede Person zählt pro Wort nur einmal, damit Spammer nichts verzerren. Füllwörter, Befehle und bekannte Bots fliegen raus, einzelne Wörter blendest du mit einem Klick aus. Zum Ausprobieren ohne Chat gibt es einen Demo-Modus.',
+			],
+		},
+		en: {
+			id: 'chat-hotwords-en',
+			path: '/en/tools/chat-hotwords/',
+			title: 'Chat Hotwords',
+			description: 'See what your chat is saying right now: the most frequent words and emotes from the last seconds as a stream overlay, with spam protection and bot filter.',
+			content: [
+				'In fast chats, it is easy to miss what everyone is typing. Chat Hotwords counts the words and emotes from the last 10 seconds up to 2 minutes and shows the most frequent ones as a ranking, a bar, or a square – as a stream overlay or as an overview just for you.',
+				'Each person counts only once per word, so spammers cannot skew the result. Filler words, commands, and known bots are filtered out, and you can hide single words with one click. A demo mode lets you try it without a chat.',
+			],
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<StreamToolEmbed tool={tool} streamToolId="chat-hotwords" />
+</ToolPageShell>

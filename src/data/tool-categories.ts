@@ -1,7 +1,7 @@
 import type { Locale } from '../i18n';
 import { virtualConverterToolIds } from './virtual-converters';
 
-export type ToolCategoryId = 'converter' | 'audio' | 'video' | 'image' | 'text' | 'analyzers';
+export type ToolCategoryId = 'converter' | 'audio' | 'video' | 'image' | 'text' | 'analyzers' | 'stream';
 
 export interface ToolCategory {
 	id: ToolCategoryId;
@@ -182,6 +182,31 @@ export const toolCategories: ToolCategory[] = [
 				eyebrow: 'Analyzers',
 				title: 'Analyzers',
 				description: 'Judge media, quality, crops, thumbnails, and production risks.',
+			},
+		},
+	},
+	{
+		id: 'stream',
+		slug: 'stream',
+		toolIds: [
+			'tier-list',
+			'stream-bingo',
+			'chat-hotwords',
+			'spin-wheel',
+			'tournament-bracket',
+			'stream-scenes',
+			'death-counter',
+		],
+		translations: {
+			de: {
+				eyebrow: 'Streaming',
+				title: 'Stream-Tools',
+				description: 'Overlays und Spiele für den Stream: Tierliste, Bingo, Glücksrad, Turnier, Szenen und Zähler – OBS-fertig und mit Twitch-Chat.',
+			},
+			en: {
+				eyebrow: 'Streaming',
+				title: 'Stream Tools',
+				description: 'Overlays and games for your stream: tier list, bingo, prize wheel, bracket, scenes, and counters – OBS-ready with Twitch chat.',
 			},
 		},
 	},

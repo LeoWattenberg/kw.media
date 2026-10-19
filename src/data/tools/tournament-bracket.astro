@@ -1,0 +1,37 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import StreamToolEmbed from '../../components/tools/StreamToolEmbed.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('tournament-bracket', {
+	id: 'tournament-bracket',
+	translations: {
+		de: {
+			id: 'tournament-bracket-de',
+			path: '/de/tools/tournament-bracket/',
+			title: 'Turnier-Bracket',
+			description: 'Turniere mit Chat-Abstimmung: bis zu 32 Teilnehmer mit Bildern, Duell-Ansicht, kompletter Turnierbaum und Export als Bild in 1:1, 9:16 oder 16:9.',
+			content: [
+				'Mit dem Turnier-Bracket lässt du deinen Chat über alles abstimmen – das beste Spiel, den besten Snack, den besten Boss. Bis zu 32 Teilnehmer, gern mit Bildern: Einfach Bilder auf die Liste ziehen, Freilose werden automatisch verteilt.',
+				'Im Duell schreiben Zuschauer 1 oder 2 in den Chat, die Mehrheit kommt weiter – oder du entscheidest selbst. Der Turnierbaum zeigt jederzeit den Stand, der Sieger bekommt seinen eigenen Screen und nach dem Stream exportierst du den Baum als Bild für Social Media.',
+			],
+		},
+		en: {
+			id: 'tournament-bracket-en',
+			path: '/en/tools/tournament-bracket/',
+			title: 'Tournament Bracket',
+			description: 'Tournaments with chat voting: up to 32 contestants with images, a duel view, the full bracket, and image exports in 1:1, 9:16, or 16:9 for social media.',
+			content: [
+				'With the tournament bracket, your chat votes on anything – the best game, the best snack, the best boss. Up to 32 contestants, with images if you like: just drop images onto the list, byes are added automatically.',
+				'In each duel, viewers type 1 or 2 in chat and the majority goes through – or you decide yourself. The bracket always shows the current state, the champion gets their own screen, and after the stream you export the bracket as an image for social media.',
+			],
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<StreamToolEmbed tool={tool} streamToolId="tournament-bracket" />
+</ToolPageShell>

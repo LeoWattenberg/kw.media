@@ -1,0 +1,171 @@
+---
+import type { ToolPage } from '../../data/tools';
+import { getToolEyebrow } from '../../data/tools';
+import { getStreamTool, streamToolFilePath, type StreamToolId } from '../../data/stream-tools';
+import { withBase } from '../../lib/url';
+import ToolIntro from './shared/ToolIntro.astro';
+
+interface Props {
+	tool: ToolPage;
+	streamToolId: StreamToolId;
+}
+
+const { tool, streamToolId } = Astro.props;
+const locale = tool.locale;
+const streamTool = getStreamTool(streamToolId);
+const filePath = withBase(streamToolFilePath(streamTool));
+const embedSrc = `${filePath}?lang=${locale}&embed=1`;
+const openHref = `${filePath}?lang=${locale}`;
+const obsUrl = new URL(`${filePath}#stream`, Astro.site ?? 'https://kw.media/').toString();
+const copy = {
+	de: {
+		note: 'Läuft komplett in deinem Browser: keine Uploads, keine Werbung, kein Login. Den Twitch-Chat liest das Tool nur mit.',
+		frameTitle: `${tool.title} (kw.media Stream-Tool)`,
+		open: 'In eigenem Tab öffnen',
+		download: 'Datei herunterladen (läuft auch offline)',
+		obsTitle: 'In OBS einbinden',
+		obsWindow: 'Im Tool auf „Stream-Fenster ↗“ klicken und das Fenster in OBS als Fensteraufnahme hinzufügen. Du steuerst alles hier, OBS zeigt nur das Bild.',
+		obsSource: 'Oder als Browserquelle mit dieser Adresse. Eingestellt wird dann direkt in OBS: Rechtsklick → „Interagieren“, F blendet die Bedienung ein.',
+		copyUrl: 'Adresse kopieren',
+		copied: 'Kopiert',
+	},
+	en: {
+		note: 'Runs entirely in your browser: no uploads, no ads, no login. The tool only reads your Twitch chat.',
+		frameTitle: `${tool.title} (kw.media stream tool)`,
+		open: 'Open in a new tab',
+		download: 'Download the file (works offline too)',
+		obsTitle: 'Add it to OBS',
+		obsWindow: 'Click “Stream window ↗” in the tool and add that window to OBS as a window capture. You control everything here, OBS only shows the picture.',
+		obsSource: 'Or use a browser source with this address. You then set it up right in OBS: right-click → “Interact”, F shows the controls.',
+		copyUrl: 'Copy address',
+		copied: 'Copied',
+	},
+}[locale];
+---
+
+<ToolIntro eyebrow={getToolEyebrow(tool)} title={tool.title} intro={tool.description} note={copy.note} />
+
+<section class="section tool-workspace stream-tool-embed" data-stream-tool-embed={streamTool.id}>
+	<div class="container stream-tool-embed__container">
+		<iframe
+			class="stream-tool-embed__frame"
+			src={embedSrc}
+			title={copy.frameTitle}
+			loading="eager"
+			allow="fullscreen; clipboard-write; autoplay"
+			allowfullscreen
+		></iframe>
+		<div class="stream-tool-embed__actions">
+			<a class="button secondary" href={openHref} target="_blank" rel="noopener" data-stream-tool-open>{copy.open}</a>
+			<a class="button secondary" href={filePath} download={`kwmedia-${streamTool.id}.html`} data-stream-tool-download>{copy.download}</a>
+		</div>
+		<div class="stream-tool-embed__obs">
+			<h2>{copy.obsTitle}</h2>
+			<ol>
+				<li>{copy.obsWindow}</li>
+				<li>
+					{copy.obsSource}
+					<span class="stream-tool-embed__url">
+						<code data-stream-tool-url>{obsUrl}</code>
+						<button type="button" class="button secondary" data-copy-url={obsUrl} data-copied-label={copy.copied}>{copy.copyUrl}</button>
+					</span>
+				</li>
+				<li>{streamTool.obsTip[locale]}</li>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<style>
+	.stream-tool-embed {
+		padding-block: 20px 42px;
+	}
+
+	.stream-tool-embed__container {
+		width: min(100% - 24px, 1720px);
+	}
+
+	.stream-tool-embed__frame {
+		display: block;
+		width: 100%;
+		height: max(820px, calc(100vh - 40px));
+		background: #2b2b2b;
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.stream-tool-embed__actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: 10px;
+		margin-top: 12px;
+	}
+
+	.stream-tool-embed__obs {
+		max-width: 900px;
+		margin-top: 28px;
+	}
+
+	.stream-tool-embed__obs h2 {
+		margin: 0 0 10px;
+		font-size: 1.4rem;
+	}
+
+	.stream-tool-embed__obs ol {
+		display: grid;
+		gap: 10px;
+		margin: 0;
+		padding-left: 22px;
+		color: var(--color-muted);
+	}
+
+	.stream-tool-embed__url {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px;
+		margin-top: 8px;
+	}
+
+	.stream-tool-embed__url code {
+		padding: 8px 10px;
+		color: var(--color-ink);
+		background: var(--color-surface-raised);
+		border: 1px solid var(--color-line);
+		border-radius: 6px;
+		overflow-wrap: anywhere;
+	}
+
+	.stream-tool-embed__url .button {
+		min-height: 38px;
+	}
+
+	@media (max-width: 900px) {
+		.stream-tool-embed { padding-top: 12px; }
+		.stream-tool-embed__container { width: 100%; }
+		.stream-tool-embed__frame { min-height: 760px; border-inline: 0; border-radius: 0; }
+		.stream-tool-embed__actions, .stream-tool-embed__obs { padding-inline: 12px; }
+	}
+</style>
+
+<script>
+	for (const button of document.querySelectorAll('[data-copy-url]')) {
+		if (!(button instanceof HTMLButtonElement)) {
+			continue;
+		}
+
+		const label = button.textContent;
+		button.addEventListener('click', async () => {
+			try {
+				await navigator.clipboard.writeText(button.dataset.copyUrl ?? '');
+				button.textContent = button.dataset.copiedLabel ?? label;
+				setTimeout(() => {
+					button.textContent = label;
+				}, 1800);
+			} catch {
+				window.getSelection()?.selectAllChildren(button.previousElementSibling ?? button);
+			}
+		});
+	}
+</script>

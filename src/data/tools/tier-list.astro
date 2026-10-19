@@ -1,0 +1,37 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import StreamToolEmbed from '../../components/tools/StreamToolEmbed.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('tier-list', {
+	id: 'tier-list',
+	translations: {
+		de: {
+			id: 'tier-list-de',
+			path: '/de/tools/tier-list/',
+			title: 'Tierliste für Streams',
+			description: 'Werbefreie Tierliste für Streams: Cam-Plätze, Chat-Voting über Twitch, Export in 1:1, 9:16 oder 16:9 und Zeitraffer-Video – alles lokal im Browser.',
+			content: [
+				'Die Tierliste ist eine werbefreie Alternative zu Tiermaker, gebaut für Streams: Bilder oder Begriffe per Drag & Drop in die Tiers ziehen, Platz für bis zu zwei Facecams freihalten und das Ergebnis als Bild in 1:1, 9:16 oder 16:9 exportieren. Auf Wunsch entsteht dazu ein Zeitraffer-Video, das zeigt, wie die Liste Stück für Stück gewachsen ist.',
+				'Mit verbundenem Twitch-Kanal stimmt dein Chat mit ab: Zuschauer wählen per Chat ein Tier, die Tierliste zeigt das Ergebnis live und „Chat vs. ich“ deckt auf, wo ihr euch uneinig seid. Bilder und Listen bleiben auf deinem Gerät, gespeichert wird nur im Browser.',
+			],
+		},
+		en: {
+			id: 'tier-list-en',
+			path: '/en/tools/tier-list/',
+			title: 'Stream Tier List',
+			description: 'Ad-free tier list for streams: cam slots, Twitch chat voting, exports in 1:1, 9:16, or 16:9 and a timelapse video – all locally in your browser.',
+			content: [
+				'The tier list is an ad-free alternative to Tiermaker, built for streams: drag images or terms into tiers, keep room for up to two face cams, and export the result as an image in 1:1, 9:16, or 16:9. A timelapse video shows how the list grew step by step.',
+				'With your Twitch channel connected, chat votes along: viewers pick a tier in chat, the tier list shows the result live, and “Chat vs. me” reveals where you disagree. Images and lists stay on your device and are only stored in your browser.',
+			],
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<StreamToolEmbed tool={tool} streamToolId="tier-list" />
+</ToolPageShell>

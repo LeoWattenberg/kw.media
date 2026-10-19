@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../../components/ToolPageShell.astro';
+import ToolCategoryOverview from '../../../components/tools/ToolCategoryOverview.astro';
+import { defineToolModule } from '../../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('stream-tools', {
+	id: 'stream-tools',
+	translations: {
+		de: {
+			id: 'stream-tools-de',
+			path: '/de/tools/stream/',
+			title: 'Stream-Tools',
+			description: 'Overlays und Spiele für deinen Stream: Tierliste, Bingo, Glücksrad, Turnier, Szenen und Zähler – OBS-fertig, mit Twitch-Chat und ohne Login.',
+		},
+		en: {
+			id: 'stream-tools-en',
+			path: '/en/tools/stream/',
+			title: 'Stream Tools',
+			description: 'Overlays and games for your stream: tier list, bingo, prize wheel, bracket, scenes, and counters – OBS-ready, with Twitch chat and no login.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<ToolCategoryOverview locale={tool.locale} categoryId="stream" />
+</ToolPageShell>
