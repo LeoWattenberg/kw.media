@@ -1,0 +1,31 @@
+<div class="card">
+  <h3 data-i18n="cardWheel"></h3>
+  <div class="field"><span data-i18n="fSource"></span><div class="seg" data-seg="mode"><button data-val="list" data-i18n="modeList"></button><button data-val="chat" data-i18n="modeChat"></button></div></div>
+  <div data-show="list">
+    <label class="field"><span data-i18n="fItems"></span><textarea data-key="items" rows="8" spellcheck="false"></textarea></label>
+    <div class="row"><button id="btnShuffle" class="small" data-i18n="shuffle"></button><button id="btnSort" class="small" data-i18n="sortAz"></button><span style="flex:1"></span><span class="muted" id="itemCount"></span></div>
+  </div>
+  <div data-show="chat">
+    <label class="field"><span data-i18n="fCmd"></span><input type="text" data-key="cmd" maxlength="24" spellcheck="false" autocomplete="off"></label>
+    <div class="field"><span data-i18n="fWho"></span><div class="seg" data-seg="who"><button data-val="all" data-i18n="whoAll"></button><button data-val="subs" data-i18n="whoSubs"></button></div></div>
+    <p class="hint-text warn" id="subsWarn" data-i18n="subsWarn" style="margin:-4px 0 12px"></p>
+    <div class="field"><span data-i18n="fClaim"></span><div class="seg" data-seg="claimSec"><button data-val="0" data-i18n="off"></button><button data-val="30">30 s</button><button data-val="60">60 s</button><button data-val="120">2 min</button></div></div>
+  </div>
+  <button id="btnGaInfo" class="small ghost ga-link" data-i18n="gaLink"></button>
+</div>
+<!--CHAT-->
+<div class="card">
+  <h3 data-i18n="cardSpin"></h3>
+  <div class="field"><span data-i18n="fDur"></span><div class="seg" data-seg="dur"><button data-val="4" data-i18n="durShort"></button><button data-val="7" data-i18n="durNormal"></button><button data-val="12" data-i18n="durLong"></button></div></div>
+  <label class="check"><input type="checkbox" data-key="autoRemove"> <span data-i18n="fAutoRemove"></span></label>
+  <label class="check"><input type="checkbox" data-key="sound"> <span data-i18n="fSound"></span></label>
+  <label class="check"><input type="checkbox" data-key="confetti"> <span data-i18n="fConfetti"></span></label>
+</div>
+<div class="card">
+  <h3 data-i18n="cardLook"></h3>
+  <label class="field"><span data-i18n="fTitle"></span><input type="text" data-key="title" maxlength="60"></label>
+  <label class="field"><span data-i18n="fWinLabel"></span><input type="text" data-key="winLabel" maxlength="60"></label>
+  <label class="field"><span data-i18n="fHint"></span><input type="text" data-key="hint" maxlength="120" data-i18n-ph="hintPh"></label>
+  <div class="field"><span data-i18n="fPalette"></span><div class="seg" data-seg="palette"><button data-val="brand">kw.media</button><button data-val="rainbow" data-i18n="palRainbow"></button></div></div>
+</div>
+<!--LAYOUT-->

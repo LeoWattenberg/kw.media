@@ -1,0 +1,43 @@
+const TOOL={key:'kwm-counter-v1',msg:'kwm-counter',streamTitle:'Zähler · Stream',formats:['row','stack','big'],hasCams:false,numKeys:['cooldown'],previewH:.5,
+  popupSize:s=>s.format==='stack'?[420,560]:s.format==='big'?[720,420]:[1200,170]};
+const TOOL_I18N={
+de:{
+  pageTitle:'Zähler · kw.media', appName:'Tod- &amp; Challenge-Zähler',
+  fmtRow:'Leiste', fmtStack:'Liste', fmtBig:'Groß',
+  cardCounters:'Zähler', addCounter:'+ Zähler hinzufügen', phName:'Name', phIcon:'💀', phCmd:'!befehl', phGoal:'Ziel', goalTitle:'Ziel (optional, 0 = keins)', cmdTitle:'Chat-Befehl',
+  fWho:'Wer darf per Chat zählen?', whoMods:'Mods', whoVip:'Mods + VIPs', whoAll:'Alle', fCooldown:'Wartezeit für Zuschauer (pro Zähler)',
+  cmdHint:'Im Chat: <b>!tod</b> = +1 · <b>!tod -</b> = −1 · <b>!tod +3</b> · <b>!tod 12</b> setzt auf 12. Bei „Alle“ dürfen Zuschauer nur +1 zählen – Mods alles. Du selbst darfst immer.',
+  cardTimer:'Stoppuhr', fShowTimer:'Stoppuhr anzeigen', fTimerName:'Name', timerDefault:'Zeit', fTimerCmd:'Chat-Befehl (Mods: start, stop, reset)',
+  cardLook:'Darstellung', fTitle:'Titel (optional)', titlePh:'z. B. Elden Ring – No-Hit-Run', fShowGoal:'Ziel-Fortschritt anzeigen', fBgMode:'Hintergrund',
+  bgCard:'Karte, Rest transparent (Browserquelle)', bgMagenta:'Karte auf Magenta (Chroma Key)', bgFull:'Volle Fläche', fFocus:'Zähler im Format „Groß“',
+  timerStart:'Start', timerPause:'Pause', timerReset:'Zurücksetzen', timerResetSure:'Wirklich?',
+  logTitle:'Verlauf', undo:'↶ Rückgängig', allZero:'Alle auf 0', allZeroSure:'Wirklich alle auf 0?', logEmpty:'Noch nichts gezählt.', logBy:'von {n}', logYou:'du',
+  goalReached:'Ziel erreicht!',
+  keysHint:'<kbd>1</kbd>–<kbd>6</kbd> Zähler +1 · <kbd>Shift</kbd>+Zahl −1 · <kbd>T</kbd> Stoppuhr · <kbd>Z</kbd> rückgängig. Tasten gehen nur, solange dieses Fenster aktiv ist – im Spiel zählst du am besten per Chat-Befehl.',
+  defNames:'Tode|Siege', tMax:'Maximal 6 Zähler', tUndone:'Rückgängig: {n} wieder auf {v}',
+  helpTitle:'So funktioniert der Zähler',
+  help1:'<b>Zähler:</b> bis zu 6 Stück, jeweils mit Name, Symbol (z. B. ein Emoji), Chat-Befehl und optionalem Ziel („3 / 10“).',
+  help2:'<b>Zählen:</b> per Klick, Tasten (solange das Fenster aktiv ist) oder – am praktischsten mitten im Spiel – per Chat: du oder deine Mods schreiben <b>!tod</b>. Optional auch VIPs oder alle Zuschauer (dann nur +1 und mit Wartezeit).',
+  help3:'<b>Vertippt?</b> Der Verlauf zeigt jede Änderung samt Absender, <kbd>Z</kbd> macht die letzte rückgängig.',
+  help4:'<b>Ins Bild:</b> „Leiste“, „Liste“ oder „Groß“ (ein Zähler riesig). Als Browserquelle mit transparentem Rest oder per Fensteraufnahme mit Magenta und Chroma Key.'
+},
+en:{
+  pageTitle:'Counter · kw.media', appName:'Death &amp; Challenge Counter',
+  fmtRow:'Bar', fmtStack:'List', fmtBig:'Big',
+  cardCounters:'Counters', addCounter:'+ Add counter', phName:'Name', phIcon:'💀', phCmd:'!command', phGoal:'Goal', goalTitle:'Goal (optional, 0 = none)', cmdTitle:'Chat command',
+  fWho:'Who can count via chat?', whoMods:'Mods', whoVip:'Mods + VIPs', whoAll:'Everyone', fCooldown:'Viewer cooldown (per counter)',
+  cmdHint:'In chat: <b>!death</b> = +1 · <b>!death -</b> = −1 · <b>!death +3</b> · <b>!death 12</b> sets it to 12. With “Everyone”, viewers can only add +1 – mods can do everything. You always can.',
+  cardTimer:'Stopwatch', fShowTimer:'Show stopwatch', fTimerName:'Name', timerDefault:'Time', fTimerCmd:'Chat command (mods: start, stop, reset)',
+  cardLook:'Look', fTitle:'Title (optional)', titlePh:'e.g. Elden Ring – no-hit run', fShowGoal:'Show goal progress', fBgMode:'Background',
+  bgCard:'Card, rest transparent (browser source)', bgMagenta:'Card on magenta (chroma key)', bgFull:'Full area', fFocus:'Counter in “Big” format',
+  timerStart:'Start', timerPause:'Pause', timerReset:'Reset', timerResetSure:'Sure?',
+  logTitle:'History', undo:'↶ Undo', allZero:'All to 0', allZeroSure:'Really reset all?', logEmpty:'Nothing counted yet.', logBy:'by {n}', logYou:'you',
+  goalReached:'Goal reached!',
+  keysHint:'<kbd>1</kbd>–<kbd>6</kbd> counter +1 · <kbd>Shift</kbd>+number −1 · <kbd>T</kbd> stopwatch · <kbd>Z</kbd> undo. Keys only work while this window is focused – in-game, chat commands are the way to go.',
+  defNames:'Deaths|Wins', tMax:'6 counters max', tUndone:'Undone: {n} back to {v}',
+  helpTitle:'How the counter works',
+  help1:'<b>Counters:</b> up to 6, each with a name, a symbol (e.g. an emoji), a chat command and an optional goal (“3 / 10”).',
+  help2:'<b>Counting:</b> by clicking, with keys (while the window is focused) or – handiest mid-game – via chat: you or your mods type <b>!death</b>. Optionally VIPs or all viewers too (then only +1 and with a cooldown).',
+  help3:'<b>Typo?</b> The history shows every change and who made it, <kbd>Z</kbd> undoes the last one.',
+  help4:'<b>On screen:</b> “Bar”, “List” or “Big” (one counter, huge). As a browser source with a transparent rest, or as a window capture with magenta and a chroma key.'
+}};

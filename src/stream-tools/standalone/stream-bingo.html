@@ -1,0 +1,1154 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Bingo · kw.media</title>
+<link rel="icon" id="favicon" href="data:,">
+<!--
+  kw.media Stream-Bingo – v0.1
+  Ein Datei, zwei Modi: Streamer (ohne #c= in der Adresse) und Zuschauer-Karte (#c=…).
+  Läuft komplett im Browser: keine Uploads, keine Werbung, kein Tracking.
+-->
+<style>
+:root{--accent:#ff6900;--accent-text:#000;--accent-glow:rgba(255,105,0,.45);--accent-soft:rgba(255,105,0,.28);--bg:#2b2b2b;--panel:#363636;--panel2:#404040;--line:#4d4d4d;--text:#fff;--muted:#b5b5b5;--font:Ubuntu,"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:14px/1.4 var(--font);-webkit-font-smoothing:antialiased}
+html.see-through,html.see-through body{background:transparent!important}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:8px 12px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;transition:background .15s,border-color .15s}
+button:hover{background:#4a4a4a;border-color:#5c5c5c}
+button:disabled{opacity:.5;cursor:default}
+button.primary{background:var(--accent);border-color:transparent;color:var(--accent-text);font-weight:700}
+button.primary:hover{filter:brightness(1.1);background:var(--accent)}
+button.ghost{background:transparent;border-color:transparent}
+button.small{padding:5px 9px;font-size:12px}
+.danger{color:#f87171}
+kbd{display:inline-block;font:700 11px/1 var(--font);padding:3px 6px;border-radius:5px;background:#2b2b2b;border:1px solid var(--line);color:var(--muted);vertical-align:middle}
+input[type=text],select,textarea{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:8px 10px;font:inherit;outline:none}
+input[type=text]:focus,select:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:70px}
+input[type=color]{width:34px;height:34px;padding:2px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);cursor:pointer}
+input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;margin:0}
+.muted{color:var(--muted)}
+
+/* ---------- Editor ---------- */
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:rgba(43,43,43,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:16px}
+.brand-logo{height:32px;width:auto;display:block}
+.brand-txt{border-left:1px solid var(--line);padding-left:16px}
+.brand b{display:block;font-size:15px;line-height:1.1}.brand small{color:var(--muted);font-size:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;padding:16px 16px 40px;max-width:1720px;margin:0 auto}
+@media (max-width:980px){.layout{grid-template-columns:1fr}}
+@media (max-width:700px){.topbar{position:static}}
+.stage-wrap{position:relative;width:100%;border-radius:14px;overflow:hidden;background:#1a1a1a;border:1px solid var(--line)}
+.panel{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
+.ctl-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.ctl-head input{flex:1;min-width:180px;width:auto}
+.ctl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px}
+.ev{justify-content:flex-start;text-align:left;white-space:normal;min-height:46px;line-height:1.2;align-items:center}
+.ev i{font-style:normal;color:var(--muted);font-size:11px;min-width:18px}
+.ev.hit{background:var(--accent);color:var(--accent-text);border-color:transparent;font-weight:700}
+.ev.hit i{color:inherit;opacity:.6}
+.ev.dim{opacity:.35}
+.log{display:flex;flex-direction:column;gap:4px;margin-top:6px;font-size:13px;color:var(--muted);max-height:150px;overflow:auto}
+.log .ok{color:#4ade80;font-weight:700}
+.side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.card h3{margin:0 0 12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+.card h3 .code{letter-spacing:.08em;color:var(--accent);font-size:12px}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field>span{font-size:12px;color:var(--muted)}
+.seg{display:flex;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:3px;gap:3px}
+.seg button{flex:1;border:0;background:transparent;padding:6px 8px;border-radius:7px}
+.seg button.on{background:var(--accent);color:var(--accent-text);font-weight:700}
+.check{display:flex;align-items:center;gap:9px;margin:8px 0;cursor:pointer;user-select:none}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hint-text{font-size:12px;color:var(--muted);margin:8px 0 0;line-height:1.45}
+.warn{color:#fbbf24}
+.colors{display:flex;gap:16px;margin-top:10px}
+.colors label{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}
+.adv{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.adv summary{cursor:pointer;color:var(--muted);font-size:12px;list-style:none;user-select:none}
+.adv summary::-webkit-details-marker{display:none}
+.adv summary::before{content:'▸ '}
+.adv[open] summary::before{content:'▾ '}
+.chat-status{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin:10px 0 4px}
+.chat-status i{width:9px;height:9px;border-radius:50%;background:#5c5c5c;flex:none}
+.chat-status.on i{background:#22c55e;box-shadow:0 0 8px #22c55e}
+.chat-status.wait i{background:#eab308}
+.chat-status.err i{background:#ef4444}
+.winlist{display:flex;flex-direction:column;gap:6px}
+.winlist .w{display:flex;align-items:center;gap:8px}
+.winlist .w b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.minicard{display:grid;gap:3px;margin-top:10px}
+.minicard div{aspect-ratio:1;border-radius:5px;background:var(--panel2);font-size:9px;line-height:1.1;display:flex;align-items:center;justify-content:center;text-align:center;padding:2px;overflow:hidden;word-break:break-word}
+.minicard .hit{background:var(--accent-soft)}
+.minicard .line{background:var(--accent);color:var(--accent-text);font-weight:700}
+.lang-btn{gap:7px}
+.lang-btn small{color:var(--muted);font-size:11px;letter-spacing:.06em}
+.menu{position:relative}
+.menu-pop{position:absolute;right:0;top:calc(100% + 6px);display:none;flex-direction:column;min-width:240px;max-width:calc(100vw - 24px);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 20px 50px rgba(0,0,0,.55);z-index:50}
+.menu.open .menu-pop{display:flex}
+.menu-pop button{background:transparent;border:0;justify-content:flex-start;padding:9px 10px;border-radius:8px;text-align:left}
+.menu-pop button:hover{background:var(--panel2)}
+.menu-pop small{color:var(--muted);margin-left:auto;padding-left:12px}
+#toast{position:fixed;left:50%;top:78px;transform:translate(-50%,-10px);opacity:0;transition:opacity .2s,transform .2s;background:#404040;border:1px solid var(--line);padding:10px 16px;border-radius:10px;z-index:3000;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#streamHint{position:fixed;top:12px;right:12px;display:none;background:rgba(54,54,54,.94);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;color:var(--muted);z-index:50}
+dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:16px;max-width:640px;width:calc(100% - 32px);padding:22px 24px}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+dialog h2{margin:0 0 6px;font-size:20px}
+dialog h4{margin:18px 0 6px}
+dialog ol{padding-left:20px;margin:6px 0}
+dialog li{margin-bottom:8px}
+dialog p,dialog li{color:#d6d6d6}
+.dlg-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:14px;flex-wrap:wrap}
+
+/* ---------- Bühne ---------- */
+.stage{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden;font-family:var(--font);color:#fff}
+.rg{position:absolute}
+.cam{display:grid;place-items:center;overflow:hidden}
+.cam.fill-placeholder{background:rgba(255,255,255,.035)}
+.cam.fill-green{background:#00ff00}
+.cam.fill-magenta{background:#ff00ff}
+.cam.fill-blue{background:#0000ff}
+.cam.fill-transparent{background:transparent}
+body:not(.streaming) .cam.fill-transparent{background:repeating-conic-gradient(#3a3a3a 0 25%,#2a2a2a 0 50%) 0 0/40px 40px}
+.cam-ph{display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(255,255,255,.3);font-weight:800;letter-spacing:.2em;font-size:22px}
+.fill-green .cam-ph{color:rgba(0,0,0,.45)}
+.fill-magenta .cam-ph,.fill-blue .cam-ph{color:rgba(255,255,255,.75)}
+.cam-ring{border:4px solid var(--accent);box-shadow:0 0 34px var(--accent-glow);pointer-events:none}
+.hdr{display:flex;flex-direction:column;justify-content:center;overflow:hidden;gap:.15em}
+.h-title{font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.h-sub{color:var(--accent);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.h-join{color:rgba(255,255,255,.72);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.board{display:grid}
+.tile{border-radius:16px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;color:rgba(255,255,255,.82);position:relative;overflow:hidden;border:2px solid rgba(255,255,255,.05)}
+.tile span{display:block;line-height:1.1;white-space:pre}
+.tile.hit{background:var(--accent);color:var(--accent-text);border-color:transparent;box-shadow:0 0 28px var(--accent-glow)}
+.tile.hit::after{content:'✓';position:absolute;right:.45em;top:.2em;font-weight:900;opacity:.55;font-size:.8em}
+.tile.new{animation:pop .6s cubic-bezier(.2,1.5,.4,1)}
+@keyframes pop{0%{transform:scale(.6);opacity:.2}100%{transform:none;opacity:1}}
+.wins{background:rgba(255,255,255,.045);border-radius:20px;padding:20px 22px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.wins h4{margin:0;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;font-size:22px;font-weight:800}
+.wl{display:flex;flex-direction:column;gap:10px}
+.wl.cols{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}
+.win{display:flex;align-items:center;gap:12px;font-weight:800;font-size:26px;min-width:0}
+.win .rk{width:1.6em;height:1.6em;border-radius:50%;background:var(--accent);color:var(--accent-text);display:grid;place-items:center;flex:none;font-size:.8em}
+.win .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.win .tm{margin-left:auto;color:rgba(255,255,255,.45);font-weight:600;font-size:.75em;flex:none}
+.wins .empty{color:rgba(255,255,255,.45);font-size:22px;font-weight:600}
+.brand-rg{display:flex;align-items:center;justify-content:flex-end;gap:1em;color:rgba(255,255,255,.45);white-space:nowrap}
+.brand-rg.on-light{color:rgba(0,0,0,.55)}
+.brand-rg img{display:block}
+.cele{position:absolute;inset:0;background:rgba(14,14,14,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;animation:fadein .35s ease;z-index:5}
+.cele.out{animation:fadeout .5s ease forwards}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes fadeout{to{opacity:0}}
+.cele .big{font-weight:900;color:var(--accent);line-height:1;text-shadow:0 0 60px var(--accent-glow);animation:pop .7s cubic-bezier(.2,1.6,.4,1)}
+.cele .who{font-weight:800;text-align:center;max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini{display:grid}
+.mini .c{background:rgba(255,255,255,.08);border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;overflow:hidden;color:rgba(255,255,255,.75)}
+.mini .c span{white-space:pre;line-height:1.1}
+.mini .c.hit{background:var(--accent-soft);color:#fff}
+.mini .c.line{background:var(--accent);color:var(--accent-text);box-shadow:0 0 24px var(--accent-glow)}
+.confetti{position:absolute;left:0;top:0;pointer-events:none;z-index:6}
+
+/* ---------- Stream-Ansicht ---------- */
+body.streaming .topbar,body.streaming .side,body.streaming .panel,body.streaming #toast{display:none!important}
+body.streaming .layout{display:block;padding:0;max-width:none}
+body.streaming .stage-wrap{position:fixed;inset:0;border:0;border-radius:0;height:auto!important;background:#000}
+html.see-through body.streaming .stage-wrap{background:transparent}
+body.streaming .editor-only{display:none!important}
+body.streaming #streamHint.show{display:block}
+
+/* ---------- Zuschauer-Karte ---------- */
+body.viewer .topbar,body.viewer .layout{display:none!important}
+#viewer{max-width:560px;margin:0 auto;padding:14px 14px 40px}
+.v-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.v-top img{height:28px}
+.v-title{font-size:26px;font-weight:800;margin:18px 0 2px;line-height:1.1;letter-spacing:-.01em}
+.v-sub{color:var(--muted);margin-bottom:14px}
+.v-sub b{color:var(--accent)}
+.v-form{display:flex;flex-direction:column;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.v-card{display:grid;gap:6px;margin:6px 0 12px}
+.v-cell{aspect-ratio:1;border-radius:10px;background:var(--panel2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;text-align:center;padding:3px;font-weight:700;cursor:pointer;user-select:none;-webkit-user-select:none;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.v-cell span{white-space:pre;line-height:1.1}
+.v-cell.on{background:var(--accent);color:var(--accent-text);border-color:transparent}
+.v-cell.line{box-shadow:0 0 0 3px #fff inset}
+.v-cell.free{background:var(--accent-soft);color:#fff;cursor:default}
+.v-banner{background:var(--accent);color:var(--accent-text);border-radius:14px;padding:14px;font-weight:800;text-align:center;font-size:17px;margin-bottom:12px;animation:pop .6s cubic-bezier(.2,1.5,.4,1)}
+.v-name{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;color:var(--muted)}
+.v-name b{color:var(--text)}
+.v-foot{display:flex;justify-content:space-between;align-items:center;margin-top:18px;color:var(--muted);font-size:12px;gap:10px;flex-wrap:wrap}
+.v-foot a{color:var(--muted);display:flex;align-items:center;gap:8px;text-decoration:none}
+.v-foot a img{height:18px}
+.v-err{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:20px}
+
+/* Eingebettet auf kw.media */
+html.embedded .topbar .brand,html.embedded #btnLang{display:none!important}
+html.embedded .topbar{justify-content:flex-end}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><img class="brand-logo" id="brandLogo" alt="kw.media"><div class="brand-txt"><b data-i18n="appName"></b><small data-i18n="tagline"></small></div></div>
+  <div class="actions">
+    <div class="menu"><button data-menu data-i18n="menuExport"></button><div class="menu-pop">
+      <button data-export="1:1" data-i18n="exp11"></button>
+      <button data-export="9:16" data-i18n="exp916"></button>
+      <button data-export="16:9" data-i18n="exp169"></button>
+    </div></div>
+    <button id="btnPopup" data-i18n="popup" data-i18n-title="popupTitle"></button>
+    <button id="btnStream" data-i18n="streamView"></button>
+    <button id="btnLang" class="ghost lang-btn"></button>
+    <button id="btnHelp" class="ghost" data-i18n-aria="help">?</button>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="left">
+    <div id="stageWrap" class="stage-wrap"><div id="stage" class="stage"></div></div>
+    <div class="panel">
+      <div class="ctl-head"><b data-i18n="ctlTitle"></b><span id="hitCount" class="muted"></span><input id="filter" type="text" data-i18n-ph="filterPh" autocomplete="off"><button id="btnUndoHit" class="small" data-i18n="undoHit"></button></div>
+      <div id="ctlGrid" class="ctl-grid"></div>
+    </div>
+    <div class="panel">
+      <b data-i18n="checkLog"></b>
+      <div id="log" class="log"></div>
+    </div>
+  </section>
+
+  <aside class="side">
+    <div class="card">
+      <h3><span data-i18n="cardRound"></span><span class="code" id="roundCode"></span></h3>
+      <label class="field"><span data-i18n="fTitle"></span><input type="text" data-key="title" maxlength="80"></label>
+      <div class="field"><span data-i18n="fSize"></span><div class="seg" data-seg="size"><button data-val="3">3×3</button><button data-val="4">4×4</button><button data-val="5">5×5</button></div></div>
+      <label class="check"><input type="checkbox" data-key="free"> <span data-i18n="fFree"></span></label>
+      <label class="field"><span data-i18n="fItems"></span><textarea data-key="itemsText" rows="8"></textarea></label>
+      <p class="hint-text" id="itemsInfo"></p>
+      <p class="hint-text warn" id="draftInfo" hidden data-i18n="draftChanged"></p>
+      <button id="btnNewRound" class="primary" style="margin-top:10px" data-i18n="newRound"></button>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="cardLink"></h3>
+      <input type="text" id="linkField" readonly>
+      <div class="row" style="margin-top:8px"><button id="btnCopy" class="small primary" data-i18n="linkCopy"></button><button id="btnOpenLink" class="small" data-i18n="linkOpen"></button><span id="linkLen" class="muted" style="font-size:12px"></span></div>
+      <p class="hint-text" id="linkInfo"></p>
+      <label class="field" style="margin-top:10px"><span data-i18n="fJoin"></span><input type="text" data-key="join" maxlength="90" data-i18n-ph="joinPh"></label>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="cardChat"></h3>
+      <label class="field"><span data-i18n="twitchChannel"></span><input type="text" data-key="chatChannel" maxlength="40" data-i18n-ph="twitchPh" autocomplete="off" spellcheck="false"></label>
+      <button id="btnChat" class="small primary"></button>
+      <div class="chat-status" id="chatStatus"><i></i><span></span></div>
+      <label class="field" style="margin-top:10px"><span data-i18n="fCmd"></span><input type="text" data-key="cmd" maxlength="20" spellcheck="false"></label>
+      <p class="hint-text" id="chatHint"></p>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="cardWinners"></h3>
+      <div id="winList" class="winlist"></div>
+      <div class="field" style="margin:14px 0 0"><span data-i18n="cardCheck"></span>
+        <div class="row"><input type="text" id="checkName" data-i18n-ph="checkPh" style="flex:1;width:auto" spellcheck="false"><button id="btnCheck" class="small" data-i18n="checkBtn"></button></div>
+      </div>
+      <div id="checkOut"></div>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="cardLayout"></h3>
+      <div class="field"><span data-i18n="fFormat"></span><div class="seg" data-seg="format"><button data-val="16:9">16:9</button><button data-val="9:16">9:16</button><button data-val="1:1">1:1</button></div></div>
+      <div class="field"><span data-i18n="camSlots"></span><div class="seg" data-seg="cams"><button data-val="0" data-i18n="none"></button><button data-val="1">1</button><button data-val="2">2</button></div></div>
+      <label class="field"><span data-i18n="camFill"></span>
+        <select data-key="camFill">
+          <option value="placeholder" data-i18n="fillPlaceholder"></option>
+          <option value="transparent" data-i18n="fillTransparent"></option>
+          <option value="magenta" data-i18n="fillMagenta"></option>
+          <option value="blue" data-i18n="fillBlue"></option>
+          <option value="green" data-i18n="fillGreen"></option>
+        </select>
+      </label>
+      <label class="check"><input type="checkbox" data-key="camRing"> <span data-i18n="camRing"></span></label>
+      <div class="colors">
+        <label><input type="color" data-key="bg"> <span data-i18n="bgColor"></span></label>
+        <label><input type="color" data-key="accent"> <span data-i18n="accentColor"></span></label>
+      </div>
+      <details class="adv"><summary data-i18n="advanced"></summary>
+        <label class="check"><input type="checkbox" data-key="brand"> <span data-i18n="showBrand"></span></label>
+      </details>
+    </div>
+  </aside>
+</main>
+
+<section id="viewer" hidden></section>
+
+<div id="toast"></div>
+<div id="streamHint" data-i18n="streamHint"></div>
+
+<dialog id="brandDlg">
+  <h2 data-i18n="brandDlgTitle"></h2>
+  <p data-i18n="brandDlgText"></p>
+  <div class="dlg-foot"><button id="brandKeep" class="ghost" data-i18n="brandKeep"></button><button id="brandOff" data-i18n="brandOffAnyway"></button><button id="brandSub" class="primary" data-i18n="brandSub"></button></div>
+</dialog>
+
+<dialog id="help">
+  <h2 data-i18n="helpTitle"></h2>
+  <ol>
+    <li data-i18n="help1"></li>
+    <li data-i18n="help2"></li>
+    <li data-i18n="help3"></li>
+    <li data-i18n="help4"></li>
+  </ol>
+  <h4 data-i18n="helpObsH"></h4>
+  <p data-i18n="helpObs"></p>
+  <h4 data-i18n="helpFairH"></h4>
+  <p data-i18n="helpFair"></p>
+  <div class="dlg-foot"><button class="primary" id="btnHelpClose" data-i18n="gotIt"></button></div>
+</dialog>
+
+<script>
+(()=>{
+'use strict';
+const KEY='kwm-bingo-v1', NAME_KEY='kwm-bingo-name', VLANG_KEY='kwm-bingo-vlang';
+/* Adresse, unter der die Bingo-Datei online liegt (z. B. https://kw.media/de/tools/bingo/).
+   Wird nur gebraucht, wenn Streamer die Datei lokal öffnen – online nimmt sie ihre eigene Adresse. */
+const HOSTED_URL='https://kw.media/stream-tools/stream-bingo.html';
+const KWM_YT='https://www.youtube.com/@koytekwattenbergmedia', KWM_SUB_URL=KWM_YT+'?sub_confirmation=1', KWM_SITE='https://kw.media/';
+const KWM_COLOR='#ff6900', KWM_BG='#1e1e1e', KWM_LOGO_AR=%%LOGO_AR%%;
+const KWM_LOGO_LIGHT='%%LOGO_LIGHT%%'; /* weiße Schrift – für dunkle Hintergründe */
+const KWM_LOGO_DARK='%%LOGO_DARK%%'; /* schwarze Schrift – für helle Hintergründe */
+const KWM_ICON='%%ICON%%'; /* Kurzlogo „kw·“ – Favicon */
+const FONT='Ubuntu, "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif';
+const FORMATS=['16:9','9:16','1:1'], FILLS=['placeholder','transparent','magenta','blue','green'];
+const CAM_SVG='<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.55-2.28A1 1 0 0 1 21 8.62v6.76a1 1 0 0 1-1.45.9L15 14"/><rect x="3" y="6" width="12" height="12" rx="2"/></svg>';
+
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const IS_VIEWER=/^#c=/.test(location.hash);
+const IS_STREAM_WIN=!IS_VIEWER&&(/stream/i.test(location.hash)||!!window.obsstudio);
+const uid=()=>'x'+Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const isHex=v=>typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v);
+const hexRgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+const mix=(a,b,t)=>{const x=hexRgb(a),y=hexRgb(b);return '#'+x.map((v,i)=>Math.round(v+(y[i]-v)*t).toString(16).padStart(2,'0')).join('');};
+const lighten=(h,t)=>mix(h,'#ffffff',t);
+const rgba=(h,a)=>{const [r,g,b]=hexRgb(h);return `rgba(${r},${g},${b},${a})`;};
+function lum(h){const L=hexRgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4);});return .2126*L[0]+.7152*L[1]+.0722*L[2];}
+const textOn=h=>lum(h)>.2?'#000000':'#ffffff';
+const brandLogoFor=bg=>{const l=lum(bg);return l<.16?KWM_LOGO_LIGHT:l>.55?KWM_LOGO_DARK:null;};
+const norm=s=>String(s||'').trim().replace(/^@+/,'').toLowerCase();
+const div=c=>{const e=document.createElement('div');if(c) e.className=c;return e;};
+const place=(el,r)=>{el.style.left=r.x+'px';el.style.top=r.y+'px';el.style.width=r.w+'px';el.style.height=r.h+'px';return el;};
+const mctx=document.createElement('canvas').getContext('2d');
+
+/* ---------- Sprachen ---------- */
+const I18N={
+de:{
+  pageTitle:'Bingo · kw.media', appName:'Stream-Bingo', tagline:'läuft lokal, ohne Werbung', langLabel:'English', langCode:'ENG', help:'Hilfe',
+  menuExport:'Export ▾', exp11:'Bild 1:1 <small>Insta · Threads · X</small>', exp916:'Bild 9:16 <small>Story · Shorts</small>', exp169:'Bild 16:9 <small>YouTube · Discord</small>',
+  popup:'Stream-Fenster ↗', popupTitle:'Eigenes Fenster für die OBS-Fensteraufnahme', streamView:'Stream-Ansicht <kbd>F</kbd>',
+  streamHint:'<kbd>Esc</kbd> zurück · <kbd>F11</kbd> Vollbild',
+  ctlTitle:'Ereignisse', filterPh:'Suchen … (Enter markiert den ersten Treffer)', undoHit:'Letztes zurücknehmen', hitsCount:'{h} von {n} passiert',
+  checkLog:'Bingo-Rufe', logEmpty:'Noch niemand hat Bingo gerufen.', logOk:'✓ @{u} – BINGO!', logNo:'✗ @{u} – noch kein Bingo (beste Reihe {b}/{s})', logDup:'@{u} hat schon gewonnen',
+  cardRound:'Runde', fTitle:'Titel', fSize:'Kartengröße', fFree:'Freifeld in der Mitte', fItems:'Ereignisse (eins pro Zeile)',
+  itemsInfo:'{n} Ereignisse · für {s}×{s} {free} brauchst du mindestens {m}', withFree:'mit Freifeld', noFree:'ohne Freifeld',
+  draftChanged:'Geändert – mit „Neue Runde starten“ übernehmen.', newRound:'Neue Runde starten',
+  confirmNewRound:'Neue Runde starten? Markierungen und Gewinner werden zurückgesetzt, und alle brauchen den neuen Link.',
+  tooFew:'Zu wenige Ereignisse: Für {s}×{s} brauchst du mindestens {m}.', tRoundStarted:'Runde {r} gestartet – jetzt den neuen Link teilen!', freeText:'FREI',
+  cardLink:'Zuschauer-Link', linkCopy:'Kopieren', linkOpen:'Testen ↗', linkLen:'{n} Zeichen', tCopied:'Link kopiert',
+  linkLong:'Zu lang für eine Twitch-Nachricht (max. 500 Zeichen) – poste ihn in Discord, ins Panel oder als Bot-Befehl, oder kürze die Ereignisse.',
+  linkOk:'Passt in eine Chat-Nachricht. Jeder öffnet den Link, gibt seinen Twitch-Namen ein und bekommt seine eigene Karte.',
+  linkLocal:'Achtung: Die Datei liegt nur auf deinem PC – Zuschauer können diesen Link nicht öffnen. Für echte Runden muss das Bingo online liegen (z. B. auf kw.media). Zum Testen klappt „Testen ↗“.',
+  fJoin:'Hinweis für Zuschauer (im Bild)', joinPh:'z. B. Karte: !karte im Chat', joinDefault:'Karte: Link im Chat · Volle Reihe? Schreib {cmd}',
+  cardChat:'Chat · Twitch', twitchChannel:'Twitch-Kanal', twitchPh:'deinkanal', connect:'Verbinden', disconnect:'Trennen', fCmd:'Chat-Befehl',
+  chatHint:'Schreibt jemand {cmd} (oder nur „bingo“), prüft das Tool seine Karte automatisch. Kein Login nötig.',
+  stOff:'Nicht verbunden', stConnecting:'Verbinde …', stReconnecting:'Verbindung weg – versuche es erneut …', stOn:'Verbunden mit #{ch}', stError:'Fehler', stNoAnswer:'#{ch} antwortet nicht – Kanalname richtig?', stImpossible:'Verbindung nicht möglich', raw:'{s}', tEnterChannel:'Bitte erst den Twitch-Kanal eintragen',
+  cardWinners:'Gewinner', noWinners:'Noch kein Bingo.', removeWinner:'Entfernen', cardCheck:'Karte von Hand prüfen', checkPh:'Twitch-Name', checkBtn:'Prüfen',
+  checkWin:'BINGO – gültige Reihe!', checkNo:'Noch kein Bingo – beste Reihe {b}/{s}.', addWinner:'Als Gewinner eintragen', alreadyWon:'Ist schon eingetragen.',
+  cardLayout:'Layout', fFormat:'Format', camSlots:'Cam-Slots', none:'Keine', camFill:'Cam-Fläche',
+  fillPlaceholder:'Platzhalter – Cam in OBS drüberlegen', fillTransparent:'Transparent – für OBS-Browserquelle', fillMagenta:'Magenta – Chroma Key (empfohlen)', fillBlue:'Blau – Chroma Key', fillGreen:'Grün – Chroma Key',
+  camRing:'Rahmen um die Cam', bgColor:'Hintergrund', accentColor:'Akzent', advanced:'Erweitert', showBrand:'„made with kw.media“ anzeigen',
+  brandDlgTitle:'Logo ausblenden?', brandDlgText:'Das Bingo ist kostenlos und werbefrei – das kleine „made with kw.media“ ist das Einzige, was wir dafür zurückbekommen. Magst du uns stattdessen mit einem Abo auf YouTube unterstützen? Ausblenden kannst du es so oder so.',
+  brandSub:'Abonnieren &amp; ausblenden', brandOffAnyway:'Trotzdem ausblenden', brandKeep:'Doch anlassen',
+  stHits:'Runde {r} · {h} von {n} Ereignissen passiert', stWinners:'Bingo!', stNoWinners:'Noch kein Bingo – wer schafft’s zuerst?', stMore:'+ {n} weitere',
+  celeBig:'BINGO!', celeSub:'hat eine volle Reihe!', tWinner:'🎉 @{u} hat Bingo!',
+  defaultTitle:'Stream-Bingo',
+  tExported:'Bild {f} exportiert', tExportFail:'Export fehlgeschlagen', tPopupBlocked:'Popup blockiert – bitte Popups für diese Datei erlauben.', tPopupOpen:'Stream-Fenster offen – in OBS als Fensteraufnahme hinzufügen.', tStorageFull:'Browser-Speicher ist voll.',
+  helpTitle:'So läuft Stream-Bingo',
+  help1:'<b>Ereignisse festlegen:</b> Trag typische Stream-Momente ein (eins pro Zeile) und klick auf „Neue Runde starten“.',
+  help2:'<b>Link teilen:</b> Kopier den Zuschauer-Link in den Chat, ins Panel oder in einen Bot-Befehl. Jeder öffnet ihn, gibt seinen Twitch-Namen ein und bekommt seine <i>eigene</i> Karte – berechnet aus Name und Runde, ganz ohne Server.',
+  help3:'<b>Markieren:</b> Passiert etwas im Stream, klick es unter „Ereignisse“ an. Die Zuschauer markieren auf ihrer Karte selbst mit.',
+  help4:'<b>Bingo rufen:</b> Wer eine volle Reihe hat (waagerecht, senkrecht oder diagonal), schreibt {cmd} in den Chat. Das Tool rechnet seine Karte nach und prüft sie gegen deine Markierungen – nur echte Bingos werden eingeblendet.',
+  helpObsH:'OBS einrichten',
+  helpObs:'Wie bei der Tierliste: „Stream-Fenster ↗“ öffnen und in OBS als Fensteraufnahme hinzufügen, die Kamera als eigene Quelle über den Cam-Slot legen – oder Cam-Fläche „Magenta“ und Chroma Key, wenn die Kamera hinter der Liste liegen soll.',
+  helpFairH:'Warum man nicht schummeln kann',
+  helpFair:'Die Karte hängt am Twitch-Namen und an der Runde. Wer einen anderen Namen eintippt, bekommt eine andere Karte – und die passt nicht zu seinem Chat-Namen. Zählen tun nur Ereignisse, die <i>du</i> markiert hast.',
+  gotIt:'Alles klar',
+  vNameLabel:'Dein Twitch-Name', vNamePh:'z. B. defender833', vShow:'Meine Karte zeigen', vChange:'Name ändern', vRound:'Runde {r}', vFor:'Karte von',
+  vHint:'Tippe ein Feld an, wenn es im Stream passiert. Deine Karte hängt an deinem Namen – nur mit deinem echten Twitch-Namen zählt dein Bingo.',
+  vBingo:'BINGO! Schreib jetzt {cmd} in den Twitch-Chat.', vReset:'Markierungen löschen', vErr:'Dieser Bingo-Link ist ungültig oder unvollständig. Frag im Chat nach dem aktuellen Link.', vOld:'Dein Browser ist zu alt für diesen Link – bitte aktualisieren.'
+},
+en:{
+  pageTitle:'Bingo · kw.media', appName:'Stream Bingo', tagline:'runs locally, no ads', langLabel:'Deutsch', langCode:'DEU', help:'Help',
+  menuExport:'Export ▾', exp11:'Image 1:1 <small>Insta · Threads · X</small>', exp916:'Image 9:16 <small>Story · Shorts</small>', exp169:'Image 16:9 <small>YouTube · Discord</small>',
+  popup:'Stream window ↗', popupTitle:'Separate window for OBS window capture', streamView:'Stream view <kbd>F</kbd>',
+  streamHint:'<kbd>Esc</kbd> back · <kbd>F11</kbd> full screen',
+  ctlTitle:'Events', filterPh:'Search … (Enter marks the first match)', undoHit:'Undo last', hitsCount:'{h} of {n} happened',
+  checkLog:'Bingo calls', logEmpty:'Nobody has called bingo yet.', logOk:'✓ @{u} – BINGO!', logNo:'✗ @{u} – no bingo yet (best line {b}/{s})', logDup:'@{u} already won',
+  cardRound:'Round', fTitle:'Title', fSize:'Card size', fFree:'Free space in the middle', fItems:'Events (one per line)',
+  itemsInfo:'{n} events · {s}×{s} {free} needs at least {m}', withFree:'with free space', noFree:'without free space',
+  draftChanged:'Changed – apply with “Start new round”.', newRound:'Start new round',
+  confirmNewRound:'Start a new round? Marks and winners are reset, and everyone needs the new link.',
+  tooFew:'Not enough events: {s}×{s} needs at least {m}.', tRoundStarted:'Round {r} started – share the new link now!', freeText:'FREE',
+  cardLink:'Viewer link', linkCopy:'Copy', linkOpen:'Test ↗', linkLen:'{n} characters', tCopied:'Link copied',
+  linkLong:'Too long for a Twitch message (max 500 characters) – post it in Discord, a panel or a bot command, or shorten the events.',
+  linkOk:'Fits into a chat message. Everyone opens the link, enters their Twitch name and gets their own card.',
+  linkLocal:'Note: this file is only on your PC – viewers can’t open this link. For real rounds the bingo has to be online (e.g. on kw.media). “Test ↗” works for trying it out.',
+  fJoin:'Note for viewers (on screen)', joinPh:'e.g. Card: !card in chat', joinDefault:'Card: link in chat · Full line? Type {cmd}',
+  cardChat:'Chat · Twitch', twitchChannel:'Twitch channel', twitchPh:'yourchannel', connect:'Connect', disconnect:'Disconnect', fCmd:'Chat command',
+  chatHint:'When someone types {cmd} (or just “bingo”), the tool checks their card automatically. No login needed.',
+  stOff:'Not connected', stConnecting:'Connecting …', stReconnecting:'Connection lost – retrying …', stOn:'Connected to #{ch}', stError:'Error', stNoAnswer:'#{ch} isn’t responding – is the channel name right?', stImpossible:'Can’t connect', raw:'{s}', tEnterChannel:'Please enter your Twitch channel first',
+  cardWinners:'Winners', noWinners:'No bingo yet.', removeWinner:'Remove', cardCheck:'Check a card manually', checkPh:'Twitch name', checkBtn:'Check',
+  checkWin:'BINGO – valid line!', checkNo:'No bingo yet – best line {b}/{s}.', addWinner:'Add as winner', alreadyWon:'Already listed.',
+  cardLayout:'Layout', fFormat:'Format', camSlots:'Cam slots', none:'None', camFill:'Cam area',
+  fillPlaceholder:'Placeholder – put your cam on top in OBS', fillTransparent:'Transparent – for an OBS browser source', fillMagenta:'Magenta – chroma key (recommended)', fillBlue:'Blue – chroma key', fillGreen:'Green – chroma key',
+  camRing:'Frame around the cam', bgColor:'Background', accentColor:'Accent', advanced:'Advanced', showBrand:'Show “made with kw.media”',
+  brandDlgTitle:'Hide the logo?', brandDlgText:'The bingo is free and ad-free – the small “made with kw.media” is all we get in return. Would you like to support us with a YouTube subscription instead? You can hide it either way.',
+  brandSub:'Subscribe &amp; hide', brandOffAnyway:'Hide anyway', brandKeep:'Keep it',
+  stHits:'Round {r} · {h} of {n} events happened', stWinners:'Bingo!', stNoWinners:'No bingo yet – who’s first?', stMore:'+ {n} more',
+  celeBig:'BINGO!', celeSub:'got a full line!', tWinner:'🎉 @{u} has bingo!',
+  defaultTitle:'Stream Bingo',
+  tExported:'Image {f} exported', tExportFail:'Export failed', tPopupBlocked:'Pop-up blocked – please allow pop-ups for this file.', tPopupOpen:'Stream window is open – add it in OBS as a window capture.', tStorageFull:'Browser storage is full.',
+  helpTitle:'How stream bingo works',
+  help1:'<b>Set the events:</b> enter typical stream moments (one per line) and click “Start new round”.',
+  help2:'<b>Share the link:</b> post the viewer link in chat, a panel or a bot command. Everyone opens it, enters their Twitch name and gets their <i>own</i> card – calculated from name and round, no server needed.',
+  help3:'<b>Mark events:</b> when something happens on stream, click it under “Events”. Viewers mark their own cards.',
+  help4:'<b>Call bingo:</b> anyone with a full line (horizontal, vertical or diagonal) types {cmd} in chat. The tool recalculates their card and checks it against your marks – only real bingos are shown.',
+  helpObsH:'Setting up OBS',
+  helpObs:'Same as the tier list: open “Stream window ↗” and add it in OBS as a window capture, then put your camera on top of the cam slot as its own source – or use the “Magenta” cam area with a chroma key if the camera should sit behind it.',
+  helpFairH:'Why nobody can cheat',
+  helpFair:'The card is tied to the Twitch name and the round. Entering a different name gives a different card – which won’t match the chat name. Only events <i>you</i> marked count.',
+  gotIt:'Got it',
+  vNameLabel:'Your Twitch name', vNamePh:'e.g. defender833', vShow:'Show my card', vChange:'Change name', vRound:'Round {r}', vFor:'Card of',
+  vHint:'Tap a square when it happens on stream. Your card is tied to your name – your bingo only counts with your real Twitch name.',
+  vBingo:'BINGO! Now type {cmd} in the Twitch chat.', vReset:'Clear marks', vErr:'This bingo link is invalid or incomplete. Ask in chat for the current link.', vOld:'Your browser is too old for this link – please update it.'
+}};
+const DEFAULT_ITEMS={
+  de:['Hund bellt','Streamer stirbt','„Nur noch eine Runde“','Rage-Moment','Chat schreibt „F“','Technik-Problem','Mikro stummgeschaltet','Raid kommt rein','Neuer Follower','Sub-Alert','Snack-Pause','Lacht über eigenen Witz','Lag','Falsche Szene','„Das war Absicht“','Boss im ersten Versuch','Musik zu laut','Es klingelt','Vergisst etwas','„Wo war ich?“','Getränk umgekippt','Spoiler im Chat','Backseat-Gaming','Kamera verrutscht','Clip-Moment'],
+  en:['Dog barks','Streamer dies','“Just one more round”','Rage moment','Chat types “F”','Tech issue','Mic muted','Raid comes in','New follower','Sub alert','Snack break','Laughs at own joke','Lag','Wrong scene','“That was on purpose”','Boss on first try','Music too loud','Doorbell rings','Forgets something','“Where was I?”','Spilled drink','Spoiler in chat','Backseat gaming','Camera slips','Clip moment']
+};
+const QS=new URLSearchParams(location.search);
+/* Sprache: ?lang=de|en (Einbettung auf kw.media) > /de/ bzw. /en/ im Pfad > gespeichert > Browser */
+const PATH_LANG=(((QS.get('lang')||'').match(/^(de|en)$/i)||[])[1]||(/\/(de|en)(\/|$)/i.exec(location.pathname)||[])[1]||'').toLowerCase();
+/* ?embed=1: läuft im Rahmen einer kw.media-Seite – Logo und Sprachknopf übernimmt die Seite */
+if(QS.get('embed')==='1') document.documentElement.classList.add('embedded');
+let LANG=(()=>{
+  if(PATH_LANG) return PATH_LANG;
+  try{const k=IS_VIEWER?VLANG_KEY:KEY, r=localStorage.getItem(k);if(IS_VIEWER){if(r==='de'||r==='en') return r;}else{const o=JSON.parse(r||'{}');if(o&&(o.lang==='de'||o.lang==='en')) return o.lang;}}catch(e){}
+  return /^de\b/i.test(navigator.language||'')?'de':'en';
+})();
+function i18n(k,p){let s=I18N[LANG][k];if(s==null) s=I18N.de[k];if(s==null) return k;return p?s.replace(/\{(\w+)\}/g,(m,n)=>p[n]!=null?String(p[n]):m):s;}
+const inLang=(lg,k,p)=>{const keep=LANG;LANG=lg;const s=i18n(k,p);LANG=keep;return s;};
+
+/* ---------- Karten-Logik (identisch für Streamer und Zuschauer) ---------- */
+function xmur3(str){let h=1779033703^str.length;for(let i=0;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),3432918353);h=h<<13|h>>>19;}return ()=>{h=Math.imul(h^(h>>>16),2246822507);h=Math.imul(h^(h>>>13),3266489909);return (h^=h>>>16)>>>0;};}
+function mulberry32(a){return ()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return ((t^t>>>14)>>>0)/4294967296;};}
+const centerOf=(size,free)=>free&&size%2?Math.floor(size*size/2):-1;
+const needCount=(size,free)=>size*size-(centerOf(size,free)>=0?1:0);
+function cardFor(name,R){
+  const n=R.size*R.size, c=centerOf(R.size,R.free), rnd=mulberry32(xmur3(R.id+'|'+norm(name))());
+  const idx=R.items.map((_,i)=>i);
+  for(let i=idx.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]];}
+  const cells=[]; let k=0;
+  for(let i=0;i<n;i++) cells.push(i===c?-1:idx[k++]);
+  return cells;
+}
+function linesOf(size){
+  const L=[];
+  for(let r=0;r<size;r++) L.push([...Array(size)].map((_,c)=>r*size+c));
+  for(let c=0;c<size;c++) L.push([...Array(size)].map((_,r)=>r*size+c));
+  L.push([...Array(size)].map((_,i)=>i*size+i)); L.push([...Array(size)].map((_,i)=>i*size+size-1-i));
+  return L;
+}
+function evalCard(size,ok){
+  let best=0;
+  for(const ln of linesOf(size)){const n=ln.filter(ok).length;if(n===size) return {line:ln,best:size};if(n>best) best=n;}
+  return {line:null,best};
+}
+
+/* ---------- Text einpassen ---------- */
+function tokens(text){
+  const out=[];
+  for(const w of String(text).split(/\s+/).filter(Boolean)) w.replace(/-/g,'-\u0000').split('\u0000').filter(Boolean).forEach((t,i)=>out.push({t,sp:i===0}));
+  return out;
+}
+function wrapText(g,text,maxW,noBreak){
+  const lines=[]; let cur='';
+  for(const {t,sp} of tokens(text)){
+    const cand=cur?cur+(sp?' ':'')+t:t;
+    if(g.measureText(cand).width<=maxW){cur=cand;continue;}
+    if(cur) lines.push(cur);
+    if(!noBreak&&g.measureText(t).width>maxW){
+      let part='';
+      for(const ch of t){if(part&&g.measureText(part+ch+'-').width>maxW){lines.push(part+'-');part=ch;}else part+=ch;}
+      cur=part;
+    }else cur=t;
+  }
+  if(cur) lines.push(cur);
+  return lines.length?lines:[''];
+}
+function fitBlock(g,text,maxW,maxH,start,weight,lh,maxLines,minFs=9){
+  start=Math.max(minFs,Math.floor(start)); let single=null, multi=null;
+  for(let fs=start;fs>=minFs;fs--){g.font=`${weight} ${fs}px ${FONT}`;if(g.measureText(text).width<=maxW&&fs*lh<=maxH){single={fs,lines:[text]};break;}}
+  for(let fs=start;fs>=minFs;fs--){g.font=`${weight} ${fs}px ${FONT}`;const l=wrapText(g,text,maxW,true);if(l.length<=maxLines&&l.every(x=>g.measureText(x).width<=maxW)&&l.length*fs*lh<=maxH){multi={fs,lines:l};break;}}
+  if(single&&(!multi||single.fs>=multi.fs*.85)) return single;
+  if(multi) return multi;
+  g.font=`${weight} ${minFs}px ${FONT}`; return {fs:minFs,lines:wrapText(g,text,maxW)};
+}
+function capFor(texts,w,h,start,lh=1.1,maxLines=5){
+  const f=texts.map(t=>fitBlock(mctx,t,w,h,start,700,lh,maxLines).fs).sort((a,b)=>a-b);
+  return f.length?f[Math.floor(f.length*.35)]:start;
+}
+function fitInto(el,text,w,h,start,lh=1.1,maxLines=5){
+  const fb=fitBlock(mctx,text,w,h,start,700,lh,maxLines);
+  let sp=el.querySelector('span'); if(!sp){sp=document.createElement('span');el.append(sp);}
+  sp.textContent=fb.lines.join('\n'); el.style.fontSize=fb.fs+'px';
+}
+
+/* ---------- Link: packen & entpacken ---------- */
+const b64u=buf=>{let s='';const b=new Uint8Array(buf);for(let i=0;i<b.length;i++) s+=String.fromCharCode(b[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');};
+const unb64u=str=>{str=str.replace(/-/g,'+').replace(/_/g,'/');while(str.length%4) str+='=';const s=atob(str),b=new Uint8Array(s.length);for(let i=0;i<s.length;i++) b[i]=s.charCodeAt(i);return b;};
+/* Kompaktes Textformat: Zeilen [Version, Größe, Freifeld, Runde, Sprache, Befehl, Titel, Ereignisse …] */
+const oneLine=x=>String(x??'').replace(/[\r\n]+/g,' ').trim();
+async function pack(o){
+  const txt=['2',o.s,o.f?1:0,oneLine(o.r),oneLine(o.l),oneLine(o.c),oneLine(o.t),...o.i.map(oneLine)].join('\n');
+  const bytes=new TextEncoder().encode(txt);
+  if(window.CompressionStream){try{const buf=await new Response(new Blob([bytes]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer();return 't'+b64u(buf);}catch(e){}}
+  return 'u'+b64u(bytes);
+}
+async function unpack(s){
+  const kind=s[0], bytes=unb64u(s.slice(1)); let txt;
+  if(kind==='t'||kind==='z'){
+    if(!window.DecompressionStream) throw new Error('old');
+    txt=new TextDecoder().decode(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer());
+  }else if(kind==='u'||kind==='j') txt=new TextDecoder().decode(bytes);
+  else throw new Error('bad');
+  if(kind==='z'||kind==='j') return JSON.parse(txt);
+  const L=txt.split('\n'); if(L[0]!=='2') throw new Error('bad');
+  return {v:1,s:+L[1],f:L[2]==='1',r:L[3],l:L[4],c:L[5],t:L[6],i:L.slice(7)};
+}
+function validPayload(d){
+  if(!d||typeof d!=='object') throw new Error('bad');
+  const size=[3,4,5].includes(d.s)?d.s:null; if(!size) throw new Error('bad');
+  const items=Array.isArray(d.i)?d.i.filter(x=>typeof x==='string').map(x=>x.slice(0,60)).slice(0,75):[];
+  const free=!!d.f; if(items.length<needCount(size,free)) throw new Error('bad');
+  return {title:String(d.t||'').slice(0,80),size,free,freeText:String(d.ft||'').slice(0,12),id:String(d.r||'').slice(0,8),lang:d.l==='en'?'en':'de',cmd:String(d.c||'!bingo').slice(0,20),items};
+}
+
+/* ======================================================================
+   ZUSCHAUER-MODUS
+   ====================================================================== */
+if(IS_VIEWER){
+  document.body.classList.add('viewer');
+  $('#favicon').href=KWM_ICON;
+  const V={data:null,name:'',err:''};
+  try{V.name=localStorage.getItem(NAME_KEY)||'';}catch(e){}
+  const vroot=$('#viewer'); vroot.hidden=false;
+  const marksKey=()=>`kwm-bingo-m-${V.data.id}-${norm(V.name)}`;
+  const getMarks=()=>{try{return new Set(JSON.parse(localStorage.getItem(marksKey())||'[]'));}catch(e){return new Set();}};
+  const setMarks=m=>{try{localStorage.setItem(marksKey(),JSON.stringify([...m]));}catch(e){}};
+  const accentVars=()=>{const r=document.documentElement.style;r.setProperty('--accent',KWM_COLOR);r.setProperty('--accent-text',textOn(KWM_COLOR));r.setProperty('--accent-soft',rgba(KWM_COLOR,.3));};
+  function render(){
+    document.documentElement.lang=LANG; document.title=(V.data&&V.data.title?V.data.title+' · ':'')+'Bingo · kw.media';
+    vroot.replaceChildren();
+    const top=div('v-top'); const lg=new Image(); lg.src=KWM_LOGO_LIGHT; lg.alt='kw.media';
+    const lb=document.createElement('button'); lb.className='ghost lang-btn'; const a=document.createElement('span'); a.textContent=i18n('langLabel'); const c=document.createElement('small'); c.textContent=i18n('langCode'); lb.append(a,c);
+    lb.onclick=()=>{LANG=LANG==='de'?'en':'de';try{localStorage.setItem(VLANG_KEY,LANG);}catch(e){}render();};
+    top.append(lg,lb); vroot.append(top);
+    if(V.err){const e=div('v-err');e.textContent=i18n(V.err);vroot.append(e);return;}
+    const D=V.data;
+    const h=div('v-title'); h.textContent=D.title||i18n('defaultTitle'); vroot.append(h);
+    const sub=div('v-sub'); const rb=document.createElement('b'); rb.textContent=i18n('vRound',{r:D.id}); sub.append(rb); vroot.append(sub);
+    if(!V.name){
+      const f=document.createElement('form'); f.className='v-form';
+      const l=document.createElement('label'); l.className='field'; const ls=document.createElement('span'); ls.textContent=i18n('vNameLabel');
+      const inp=document.createElement('input'); inp.type='text'; inp.placeholder=i18n('vNamePh'); inp.autocomplete='username'; inp.spellcheck=false; inp.required=true; inp.maxLength=40;
+      l.append(ls,inp); const b=document.createElement('button'); b.className='primary'; b.textContent=i18n('vShow');
+      f.append(l,b); f.onsubmit=e=>{e.preventDefault();const v=norm(inp.value);if(!v) return;V.name=v;try{localStorage.setItem(NAME_KEY,v);}catch(err){}render();};
+      vroot.append(f); setTimeout(()=>inp.focus(),50); footer(); return;
+    }
+    const nm=div('v-name'); const ns=document.createElement('span'); ns.textContent=i18n('vFor')+' '; const nb=document.createElement('b'); nb.textContent='@'+V.name; ns.append(nb);
+    const ch=document.createElement('button'); ch.className='small'; ch.textContent=i18n('vChange'); ch.onclick=()=>{V.name='';try{localStorage.removeItem(NAME_KEY);}catch(e){}render();};
+    nm.append(ns,ch); vroot.append(nm);
+    const cells=cardFor(V.name,D), marks=getMarks(), c0=centerOf(D.size,D.free);
+    const res=evalCard(D.size,p=>p===c0||marks.has(p)), lineSet=new Set(res.line||[]);
+    if(res.line){const bn=div('v-banner');bn.textContent=i18n('vBingo',{cmd:D.cmd});vroot.append(bn);}
+    const grid=div('v-card'); grid.style.gridTemplateColumns=`repeat(${D.size},1fr)`; vroot.append(grid);
+    const cs=(grid.clientWidth-6*(D.size-1))/D.size;
+    const vtxt=cells.map(it=>it<0?(D.freeText||i18n('freeText')):D.items[it]), vcap=capFor(vtxt,cs-8,cs-8,Math.min(20,cs*.22),1.1,5);
+    cells.forEach((it,p)=>{
+      const cel=div('v-cell'+(it<0?' free':'')+(it>=0&&marks.has(p)?' on':'')+(lineSet.has(p)?' line':''));
+      fitInto(cel,vtxt[p],cs-8,cs-8,vcap,1.1,5);
+      if(it>=0) cel.onclick=()=>{const m=getMarks();m.has(p)?m.delete(p):m.add(p);setMarks(m);render();};
+      grid.append(cel);
+    });
+    const hint=document.createElement('p'); hint.className='hint-text'; hint.textContent=i18n('vHint'); vroot.append(hint);
+    const rs=document.createElement('button'); rs.className='small'; rs.style.marginTop='10px'; rs.textContent=i18n('vReset'); rs.onclick=()=>{setMarks(new Set());render();}; vroot.append(rs);
+    footer();
+  }
+  function footer(){
+    const f=div('v-foot'); const a=document.createElement('a'); a.href=KWM_SITE; a.target='_blank'; a.rel='noopener';
+    const t=document.createElement('span'); t.textContent='made with'; const im=new Image(); im.src=KWM_LOGO_LIGHT; im.alt='kw.media'; a.append(t,im);
+    const r=document.createElement('span'); r.textContent=i18n('tagline'); f.append(r,a); vroot.append(f);
+  }
+  accentVars();
+  (async()=>{
+    try{V.data=validPayload(await unpack(decodeURIComponent(location.hash.slice(3))));
+      let saved=null; try{saved=localStorage.getItem(VLANG_KEY);}catch(e){}
+      if(!PATH_LANG&&!saved) LANG=V.data.lang;}
+    catch(e){V.err=e&&e.message==='old'?'vOld':'vErr';}
+    render();
+  })();
+  let rz=0; addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{if(V.data&&V.name) render();},150);});
+  return;
+}
+
+/* ======================================================================
+   STREAMER-MODUS
+   ====================================================================== */
+const parseItems=t=>{const seen=new Set(),out=[];for(let l of String(t||'').split(/\r?\n/)){l=l.trim().slice(0,60);const k=l.toLowerCase();if(l&&!seen.has(k)){seen.add(k);out.push(l);}if(out.length>=75) break;}return out;};
+const roundId=()=>{const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++) s+=A[Math.floor(Math.random()*A.length)];return s;};
+function defaultState(){
+  return {lang:LANG,title:inLang(LANG,'defaultTitle'),size:5,free:true,itemsText:DEFAULT_ITEMS[LANG].join('\n'),cmd:'!bingo',join:'',round:null,hits:[],winners:[],
+    format:'16:9',cams:1,camFill:'placeholder',camRing:true,brand:true,bg:KWM_BG,accent:KWM_COLOR,chatChannel:'',chatAuto:false};
+}
+function normalize(s){
+  const o=defaultState(); if(!s||typeof s!=='object') return o;
+  if(s.lang==='de'||s.lang==='en') o.lang=s.lang;
+  for(const k of ['title','itemsText','cmd','join','chatChannel']) if(typeof s[k]==='string') o[k]=s[k].slice(0,k==='itemsText'?6000:90);
+  if([3,4,5].includes(s.size)) o.size=s.size;
+  for(const k of ['free','camRing','brand','chatAuto']) if(typeof s[k]==='boolean') o[k]=s[k];
+  if(FORMATS.includes(s.format)) o.format=s.format;
+  if([0,1,2].includes(s.cams)) o.cams=s.cams;
+  if(FILLS.includes(s.camFill)) o.camFill=s.camFill;
+  if(isHex(s.bg)) o.bg=s.bg; if(isHex(s.accent)) o.accent=s.accent;
+  const R=s.round;
+  if(R&&typeof R==='object'&&typeof R.id==='string'&&[3,4,5].includes(R.size)&&Array.isArray(R.items)){
+    const items=R.items.filter(x=>typeof x==='string').map(x=>x.slice(0,60)).slice(0,75);
+    if(items.length>=needCount(R.size,!!R.free)) o.round={id:R.id.slice(0,8),size:R.size,free:!!R.free,items,ts:+R.ts||Date.now()};
+  }
+  if(o.round){
+    o.hits=Array.isArray(s.hits)?[...new Set(s.hits.filter(i=>Number.isInteger(i)&&i>=0&&i<o.round.items.length))]:[];
+    o.winners=Array.isArray(s.winners)?s.winners.filter(w=>w&&typeof w.u==='string').map(w=>({id:String(w.id||uid()),u:w.u.slice(0,40),d:String(w.d||w.u).slice(0,40),nm:String(w.nm||w.u).slice(0,40),ts:+w.ts||Date.now(),line:Array.isArray(w.line)?w.line.filter(Number.isInteger):[]})).slice(0,200):[];
+  }
+  return o;
+}
+let state=(()=>{try{const raw=localStorage.getItem(KEY);if(!raw) return defaultState();const s=normalize(JSON.parse(raw));s.lang=LANG;return s;}catch(e){return defaultState();}})();
+const stage=$('#stage'), wrap=$('#stageWrap');
+const peers=new Set(); let popupRef=null, saveT=0, bcT=0, saveWarned=false;
+const seenWinners=new Set((state.winners||[]).map(w=>w.id));
+const newHits=new Map(); const celeQueue=[]; let celeBusy=false;
+const log=[];
+
+function hitSet(){return new Set(state.hits);}
+function draftChanged(){const R=state.round;if(!R) return true;const it=parseItems(state.itemsText);return R.size!==state.size||R.free!==state.free||it.length!==R.items.length||it.some((x,i)=>x!==R.items[i]);}
+function check(names){
+  const R=state.round; if(!R) return {ok:false,best:0};
+  const H=hitSet(); let best=0;
+  for(const n of [...new Set(names.map(norm).filter(Boolean))]){
+    const cells=cardFor(n,R), c0=centerOf(R.size,R.free), r=evalCard(R.size,p=>p===c0||H.has(cells[p]));
+    if(r.line) return {ok:true,name:n,line:r.line,cells};
+    best=Math.max(best,r.best);
+  }
+  return {ok:false,best};
+}
+
+/* ---------- Commit / Speichern / Sync ---------- */
+function commit(o={}){
+  if(state.lang!==LANG){LANG=state.lang;applyLang();}
+  applyTheme();
+  if(!o.skipSidebar) renderSidebar();
+  renderStage(); renderControls(); renderWinnersSide(); renderLink(); renderLog();
+  for(const w of state.winners) if(!seenWinners.has(w.id)){seenWinners.add(w.id);if(Date.now()-w.ts<60000) celeQueue.push(w);}
+  playCele();
+  if(!o.fromPeer){clearTimeout(saveT);saveT=setTimeout(saveNow,250);clearTimeout(bcT);bcT=setTimeout(broadcast,30);}
+}
+function saveNow(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){if(!saveWarned){saveWarned=true;toast(i18n('tStorageFull'));}}}
+function broadcast(){if(!peers.size) return;const d={kwm:'bingo',state};for(const p of [...peers]){try{if(p.closed){peers.delete(p);continue;}p.postMessage(d,'*');}catch(e){peers.delete(p);}}}
+function applyIncoming(s){state=normalize(s);commit({fromPeer:true});}
+window.addEventListener('message',e=>{
+  const d=e.data; if(!d||typeof d!=='object') return;
+  if(d.kwm==='hello'){if(popupRef&&e.source===popupRef){peers.add(e.source);e.source.postMessage({kwm:'bingo',state},'*');}return;}
+  if(d.kwm==='bingo'&&d.state&&peers.has(e.source)) applyIncoming(d.state);
+});
+window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{applyIncoming(JSON.parse(e.newValue));}catch(err){}}});
+function applyTheme(){
+  const r=document.documentElement.style;
+  r.setProperty('--accent',state.accent); r.setProperty('--accent-glow',rgba(state.accent,.45)); r.setProperty('--accent-soft',rgba(state.accent,.3)); r.setProperty('--accent-text',textOn(state.accent));
+  document.documentElement.classList.toggle('see-through',document.body.classList.contains('streaming')&&state.camFill==='transparent');
+}
+
+/* ---------- Aktionen ---------- */
+function startRound(ask){
+  const items=parseItems(state.itemsText), need=needCount(state.size,state.free);
+  if(items.length<need){toast(i18n('tooFew',{s:state.size,m:need}));return false;}
+  if(ask&&state.round&&(state.hits.length||state.winners.length)&&!confirm(i18n('confirmNewRound'))) return false;
+  state.round={id:roundId(),size:state.size,free:state.free,items,ts:Date.now()};
+  state.hits=[]; state.winners=[]; log.length=0; commit();
+  if(ask) toast(i18n('tRoundStarted',{r:state.round.id}));
+  return true;
+}
+function toggleHit(i){
+  if(!state.round||i<0||i>=state.round.items.length) return;
+  const k=state.hits.indexOf(i);
+  if(k>=0) state.hits.splice(k,1); else {state.hits.push(i);newHits.set(i,Date.now());}
+  commit();
+}
+function addLog(key,p){log.unshift({key,p,ts:Date.now()});if(log.length>30) log.pop();renderLog();}
+function claim(login,display){
+  const R=state.round; if(!R) return;
+  const u=norm(login), shown=display||login;
+  if(state.winners.some(w=>w.u===u)){addLog('logDup',{u:shown});return;}
+  const r=check([login,display]);
+  if(r.ok){state.winners.push({id:uid(),u,d:shown,nm:r.name,ts:Date.now(),line:r.line});addLog('logOk',{u:shown});toast(i18n('tWinner',{u:shown}));commit();}
+  else addLog('logNo',{u:shown,b:r.best,s:R.size});
+}
+
+/* ---------- Layout ---------- */
+function computeLayout(){
+  const f=state.format,n=state.cams;
+  if(f==='9:16'){
+    const W=1080,H=1920,P=44,cams=[];
+    if(n===1) cams.push({x:0,y:0,w:1080,h:608,r:0});
+    if(n===2){cams.push({x:0,y:0,w:536,h:608,r:0});cams.push({x:544,y:0,w:536,h:608,r:0});}
+    let y=n?608+30:P;
+    const hdr={x:P,y,w:W-2*P,h:210}; y+=210+18;
+    const brand={x:P,y:H-P-28,w:W-2*P,h:28};
+    const wins={x:P,y:brand.y-14-290,w:W-2*P,h:290};
+    return {W,H,cams,hdr,board:{x:P,y,w:W-2*P,h:wins.y-18-y},wins,brand,titleFs:68,winCols:2};
+  }
+  if(f==='1:1'){
+    const W=1080,H=1080,P=40,cw=320,ch=180,cams=[];
+    for(let i=0;i<n;i++) cams.push({x:W-P-(i+1)*cw-i*16,y:P,w:cw,h:ch,r:16});
+    const hh=n?ch:150, hdr={x:P,y:P,w:W-2*P-n*(cw+20),h:hh};
+    const brand={x:P,y:H-P-26,w:W-2*P,h:26}, wins={x:P,y:brand.y-12-170,w:W-2*P,h:170}, by=P+hh+18;
+    return {W,H,cams,hdr,board:{x:P,y:by,w:W-2*P,h:wins.y-16-by},wins,brand,titleFs:52,winCols:2};
+  }
+  const W=1920,H=1080,P=48,RW=520,CH=292,rx=W-P-RW,cams=[]; let y=P;
+  for(let i=0;i<n;i++){cams.push({x:rx,y,w:RW,h:CH,r:18});y+=CH+24;}
+  const brand={x:rx,y:H-P-30,w:RW,h:30}, wins={x:rx,y,w:RW,h:brand.y-16-y}, LW=rx-P-40;
+  return {W,H,cams,hdr:{x:P,y:P,w:LW,h:160},board:{x:P,y:P+180,w:LW,h:H-P-(P+180)},wins,brand,titleFs:64,winCols:1};
+}
+function boardGrid(W,H,n,gap){
+  let best=null;
+  for(let cols=1;cols<=n;cols++){
+    const rows=Math.ceil(n/cols), w=(W-(cols-1)*gap)/cols, h=(H-(rows-1)*gap)/rows;
+    if(w<50||h<30) continue;
+    const ar=w/h, score=Math.min(w,h*2.2)*(ar>3.5?.6:1)*(ar<.8?.7:1);
+    if(!best||score>best.score) best={cols,rows,w,h,score};
+  }
+  return best||{cols:Math.ceil(Math.sqrt(n)),rows:Math.ceil(n/Math.ceil(Math.sqrt(n))),w:60,h:40};
+}
+
+/* ---------- Bühne ---------- */
+function rrPath(r){const {x,y,w,h}=r,k=r.r||0;if(!k) return `M${x} ${y}h${w}v${h}h${-w}Z`;return `M${x+k} ${y}H${x+w-k}A${k} ${k} 0 0 1 ${x+w} ${y+k}V${y+h-k}A${k} ${k} 0 0 1 ${x+w-k} ${y+h}H${x+k}A${k} ${k} 0 0 1 ${x} ${y+h-k}V${y+k}A${k} ${k} 0 0 1 ${x+k} ${y}Z`;}
+function bgLayer(L){
+  const w=document.createElement('div'), d=`M0 0H${L.W}V${L.H}H0Z`+L.cams.map(rrPath).join('');
+  w.innerHTML=`<svg class="rg" style="left:0;top:0" xmlns="http://www.w3.org/2000/svg" width="${L.W}" height="${L.H}" viewBox="0 0 ${L.W} ${L.H}"><defs><linearGradient id="kwbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${lighten(state.bg,.07)}"/><stop offset="1" stop-color="${state.bg}"/></linearGradient><radialGradient id="kwglow" cx="0" cy="0" r=".75"><stop offset="0" stop-color="${state.accent}" stop-opacity=".18"/><stop offset="1" stop-color="${state.accent}" stop-opacity="0"/></radialGradient></defs><path fill="url(#kwbg)" fill-rule="evenodd" d="${d}"/><path fill="url(#kwglow)" fill-rule="evenodd" d="${d}"/></svg>`;
+  return w.firstChild;
+}
+function camBox(r,i){
+  const c=div('rg cam fill-'+state.camFill); place(c,r); c.style.borderRadius=r.r+'px';
+  const lab=div('cam-ph'+(state.camFill==='placeholder'?'':' editor-only'));
+  lab.innerHTML=(['green','magenta','blue'].includes(state.camFill)?'':CAM_SVG)+`<span>CAM ${i+1}</span>`;
+  c.append(lab); return c;
+}
+const cmdText=()=>(state.cmd||'!bingo').trim()||'!bingo';
+function hdrBox(L){
+  const R=state.round, b=div('rg hdr'); place(b,L.hdr);
+  const t=div('h-title'), fb=fitBlock(mctx,state.title||i18n('defaultTitle'),L.hdr.w,L.hdr.h*.55,L.titleFs,800,1.05,2,20);
+  t.style.fontSize=fb.fs+'px'; t.style.whiteSpace='pre'; t.textContent=fb.lines.join('\n');
+  const fs2=Math.round(Math.max(18,L.titleFs*.36));
+  const s=div('h-sub'); s.style.fontSize=fs2+'px'; s.textContent=R?i18n('stHits',{r:R.id,h:state.hits.length,n:R.items.length}):'';
+  const j=div('h-join'); j.style.fontSize=fs2+'px'; j.textContent=state.join.trim()||i18n('joinDefault',{cmd:cmdText()});
+  b.append(t,s,j); return b;
+}
+function boardBox(L){
+  const R=state.round, b=div('rg board'); place(b,L.board); if(!R) return b;
+  const gap=Math.round(Math.min(L.board.w,L.board.h)*.012)+6, G=boardGrid(L.board.w,L.board.h,R.items.length,gap), H=hitSet(), now=Date.now();
+  b.style.gap=gap+'px'; b.style.gridTemplateColumns=`repeat(${G.cols},1fr)`; b.style.gridAutoRows=G.h+'px';
+  const cap=capFor(R.items,G.w-26,G.h-14,Math.min(38,G.h*.36),1.1,4);
+  R.items.forEach((txt,i)=>{
+    const t=div('tile'+(H.has(i)?' hit':'')+(H.has(i)&&now-(newHits.get(i)||0)<1200?' new':''));
+    fitInto(t,txt,G.w-26,G.h-14,cap,1.1,4); b.append(t);
+  });
+  return b;
+}
+function winsBox(L){
+  const b=div('rg wins'); place(b,L.wins);
+  const h=document.createElement('h4'); h.textContent=i18n('stWinners'); b.append(h);
+  const W=state.winners;
+  if(!W.length){const e=div('empty');e.textContent=i18n('stNoWinners');b.append(e);return b;}
+  const list=div('wl'+(L.winCols>1?' cols':'')), rowH=52, fit=Math.max(1,Math.floor((L.wins.h-80)/rowH))*L.winCols, show=W.length>fit?fit-1:W.length;
+  W.slice(0,show).forEach((w,i)=>{
+    const r=div('win'), rk=document.createElement('span'); rk.className='rk'; rk.textContent=i+1;
+    const nm=document.createElement('span'); nm.className='nm'; nm.textContent=w.d;
+    const tm=document.createElement('span'); tm.className='tm'; const d=new Date(w.ts); tm.textContent=`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+    r.append(rk,nm,tm); list.append(r);
+  });
+  if(W.length>show){const m=div('win');m.style.opacity='.6';m.textContent=i18n('stMore',{n:W.length-show});list.append(m);}
+  b.append(list); return b;
+}
+function brandBox(L){
+  const b=div('rg brand-rg'); place(b,L.brand); b.style.fontSize=Math.round(L.brand.h*.6)+'px';
+  const src=brandLogoFor(state.bg), t=document.createElement('span'); t.textContent='made with'; b.append(t);
+  if(src){const im=new Image();im.src=src;im.alt='kw.media';im.draggable=false;im.style.height=L.brand.h+'px';im.style.width=Math.round(L.brand.h*KWM_LOGO_AR)+'px';b.append(im);}
+  else{const w=document.createElement('b');w.textContent='kw.media';b.append(w);}
+  b.classList.toggle('on-light',lum(state.bg)>.55); return b;
+}
+let curL=null, celeEl=null, confEl=null;
+function renderStage(){
+  const L=computeLayout(); curL=L;
+  stage.style.width=L.W+'px'; stage.style.height=L.H+'px';
+  const out=[bgLayer(L)];
+  L.cams.forEach((r,i)=>{
+    if(state.camRing){const ring=div('rg cam-ring');place(ring,{x:r.x-7,y:r.y-7,w:r.w+14,h:r.h+14});ring.style.borderRadius=(r.r?r.r+7:0)+'px';out.push(ring);}
+    out.push(camBox(r,i));
+  });
+  out.push(hdrBox(L),boardBox(L),winsBox(L));
+  if(state.brand) out.push(brandBox(L));
+  if(celeEl&&celeEl._fmt!==state.format){const n=celeBox(celeEl._w);if(celeEl.classList.contains('out')) n.classList.add('out');celeEl=n;}
+  if(celeEl) out.push(celeEl);
+  if(confEl) out.push(confEl);
+  stage.replaceChildren(...out);
+  fitStage();
+}
+function fitStage(){
+  const W=parseFloat(stage.style.width)||1920,H=parseFloat(stage.style.height)||1080; let aw,ah;
+  if(document.body.classList.contains('streaming')){aw=innerWidth;ah=innerHeight;}
+  else{aw=wrap.clientWidth;const maxH=Math.max(280,innerHeight*.66),k0=Math.min(aw/W,maxH/H);ah=Math.round(H*k0);wrap.style.height=ah+'px';}
+  const k=Math.min(aw/W,ah/H);
+  stage.style.transform=`translate(${(aw-W*k)/2}px,${(ah-H*k)/2}px) scale(${k})`;
+}
+
+/* ---------- Gewinner-Einblendung ---------- */
+function celeBox(w){
+  const R=state.round, L=curL, el=div('cele'); if(!R||!L) return el;
+  const big=div('big'); big.style.fontSize=Math.round(Math.min(L.W,L.H)*.14)+'px'; big.textContent=i18n('celeBig');
+  const who=div('who'); who.style.fontSize=Math.round(Math.min(L.W,L.H)*.055)+'px'; who.textContent='@'+w.d+' '+i18n('celeSub');
+  const cells=cardFor(w.nm,R), H=hitSet(), line=new Set(w.line), c0=centerOf(R.size,R.free);
+  const area=Math.min(L.W*.8,L.H*.54), gap=Math.round(area*.015)+4, cs=Math.floor((area-gap*(R.size-1))/R.size);
+  const mini=div('mini'); mini.style.gap=gap+'px'; mini.style.gridTemplateColumns=`repeat(${R.size},${cs}px)`; mini.style.gridAutoRows=cs+'px';
+  const txt=cells.map(it=>it<0?i18n('freeText'):R.items[it]), cap=capFor(txt,cs-12,cs-12,Math.min(26,cs*.2),1.1,5);
+  cells.forEach((it,p)=>{
+    const c=div('c'+(line.has(p)?' line':(it<0||H.has(it))?' hit':''));
+    fitInto(c,txt[p],cs-12,cs-12,cap,1.1,5); mini.append(c);
+  });
+  el._w=w; el._fmt=state.format;
+  el.append(big,who,mini); return el;
+}
+function confetti(){
+  const L=curL; if(!L) return;
+  const c=document.createElement('canvas'); c.className='confetti'; c.width=L.W; c.height=L.H; stage.append(c); confEl=c;
+  const g=c.getContext('2d'), cols=[state.accent,'#ffffff','#0096ff','#ffd400','#22c55e','#ff4d8d'], P=[];
+  for(let i=0;i<220;i++) P.push({x:L.W/2+(Math.random()-.5)*L.W*.3,y:L.H*.35,vx:(Math.random()-.5)*28,vy:-Math.random()*26-8,s:8+Math.random()*12,r:Math.random()*6,vr:(Math.random()-.5)*.4,c:cols[i%cols.length]});
+  const t0=performance.now();
+  const step=t=>{
+    const dt=(t-t0)/1000; g.clearRect(0,0,L.W,L.H);
+    for(const p of P){p.vy+=.9;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;g.save();g.translate(p.x,p.y);g.rotate(p.r);g.globalAlpha=Math.max(0,1-dt/3.6);g.fillStyle=p.c;g.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);g.restore();}
+    if(dt<3.6&&confEl===c) requestAnimationFrame(step); else{c.remove();if(confEl===c) confEl=null;}
+  };
+  requestAnimationFrame(step);
+}
+function playCele(){
+  if(celeBusy||!celeQueue.length) return;
+  celeBusy=true; const w=celeQueue.shift();
+  celeEl=celeBox(w); stage.append(celeEl); confetti();
+  setTimeout(()=>{if(celeEl) celeEl.classList.add('out');},6500);
+  setTimeout(()=>{if(celeEl){celeEl.remove();celeEl=null;}celeBusy=false;playCele();},7000);
+}
+
+/* ---------- Editor-Bereiche ---------- */
+function renderSidebar(){
+  for(const el of $$('[data-key]')){if(el===document.activeElement) continue;const k=el.dataset.key;if(el.type==='checkbox') el.checked=!!state[k];else el.value=state[k];}
+  for(const seg of $$('[data-seg]')){const k=seg.dataset.seg;for(const b of seg.children) b.classList.toggle('on',String(state[k])===b.dataset.val);}
+  renderRoundInfo();
+}
+function renderRoundInfo(){
+  const it=parseItems(state.itemsText), need=needCount(state.size,state.free);
+  const info=$('#itemsInfo'); info.textContent=i18n('itemsInfo',{n:it.length,s:state.size,m:need,free:i18n(centerOf(state.size,state.free)>=0?'withFree':'noFree')});
+  info.classList.toggle('warn',it.length<need);
+  $('#draftInfo').hidden=!(state.round&&draftChanged());
+  $('#roundCode').textContent=state.round?i18n('vRound',{r:state.round.id}):'';
+  $('#chatHint').textContent=i18n('chatHint',{cmd:cmdText()});
+}
+function renderControls(){
+  const R=state.round, g=$('#ctlGrid'); if(!R){g.replaceChildren();return;}
+  const H=hitSet(), q=norm($('#filter').value);
+  g.replaceChildren(...R.items.map((txt,i)=>{
+    const b=document.createElement('button'); b.className='ev'+(H.has(i)?' hit':'')+(q&&!txt.toLowerCase().includes(q)?' dim':'');
+    const n=document.createElement('i'); n.textContent=i+1; const s=document.createElement('span'); s.textContent=txt; b.append(n,s);
+    b.onclick=()=>toggleHit(i); return b;
+  }));
+  $('#hitCount').textContent=i18n('hitsCount',{h:state.hits.length,n:R.items.length});
+}
+function renderWinnersSide(){
+  const box=$('#winList');
+  if(!state.winners.length){const e=div('muted');e.textContent=i18n('noWinners');box.replaceChildren(e);return;}
+  box.replaceChildren(...state.winners.map((w,i)=>{
+    const r=div('w'); const n=document.createElement('b'); n.textContent=`${i+1}. @${w.d}`;
+    const x=document.createElement('button'); x.className='small danger'; x.textContent='✕'; x.title=i18n('removeWinner');
+    x.onclick=()=>{state.winners=state.winners.filter(o=>o.id!==w.id);commit();}; r.append(n,x); return r;
+  }));
+}
+function renderLog(){
+  const box=$('#log');
+  if(!log.length){const e=div();e.textContent=i18n('logEmpty');box.replaceChildren(e);return;}
+  box.replaceChildren(...log.slice(0,12).map(l=>{const d=div(l.key==='logOk'?'ok':'');const t=new Date(l.ts);d.textContent=`${String(t.getHours()).padStart(2,'0')}:${String(t.getMinutes()).padStart(2,'0')}  `+i18n(l.key,l.p);return d;}));
+}
+function viewerBase(){return /^https?:$/.test(location.protocol)?location.origin+location.pathname:(HOSTED_URL||location.href.split(/[?#]/)[0]);}
+let linkKey='', linkUrl='';
+async function renderLink(){
+  const R=state.round, f=$('#linkField');
+  if(!R){f.value='';return;}
+  const payload={t:state.title,s:R.size,f:R.free,r:R.id,l:LANG,c:cmdText(),i:R.items};
+  const key=JSON.stringify(payload)+viewerBase();
+  if(key!==linkKey){linkKey=key;linkUrl=viewerBase()+'#c='+(await pack(payload));}
+  f.value=linkUrl;
+  const local=!/^https?:/.test(viewerBase()), long=linkUrl.length>500;
+  $('#linkLen').textContent=i18n('linkLen',{n:linkUrl.length});
+  const info=$('#linkInfo'); info.textContent=local?i18n('linkLocal'):long?i18n('linkLong'):i18n('linkOk');
+  info.classList.toggle('warn',local||long);
+}
+
+/* ---------- Sprache ---------- */
+function applyLang(){
+  document.documentElement.lang=LANG;
+  document.title=IS_STREAM_WIN?'Bingo · Stream':i18n('pageTitle');
+  for(const el of $$('[data-i18n]')) el.innerHTML=i18n(el.dataset.i18n,{cmd:cmdText()});
+  for(const el of $$('[data-i18n-ph]')) el.placeholder=i18n(el.dataset.i18nPh);
+  for(const el of $$('[data-i18n-title]')) el.title=i18n(el.dataset.i18nTitle);
+  for(const el of $$('[data-i18n-aria]')) el.setAttribute('aria-label',i18n(el.dataset.i18nAria));
+  const lb=$('#btnLang'); lb.innerHTML=''; const a=document.createElement('span'); a.textContent=i18n('langLabel'); const c=document.createElement('small'); c.textContent=i18n('langCode'); lb.append(a,c);
+  paintChatStatus();
+}
+
+/* ---------- Twitch-Chat (anonym, nur lesen) ---------- */
+const IRC_URL=(()=>{const u=new URLSearchParams(location.search).get('irc');return u&&/^wss?:\/\/(127\.0\.0\.1|localhost)(:\d+)?\/?$/.test(u)?u:'wss://irc-ws.chat.twitch.tv:443';})();
+const chat={ws:null,want:false,status:'off',retry:0,timer:0,joinT:0,channel:'',msg:null};
+const cleanChannel=c=>String(c||'').trim().toLowerCase().replace(/^https?:\/\/(www\.|m\.)?twitch\.tv\//,'').replace(/^[#@]/,'').replace(/[^a-z0-9_]/g,'').slice(0,25);
+function setChatStatus(st,key,params){chat.status=st;chat.msg=key?[key,params]:null;paintChatStatus();}
+function paintChatStatus(){
+  const el=$('#chatStatus'), st=chat.status;
+  el.className='chat-status '+({on:'on',connecting:'wait',reconnecting:'wait',error:'err'}[st]||'');
+  el.querySelector('span').textContent=chat.msg?i18n(chat.msg[0],chat.msg[1]):i18n({off:'stOff',connecting:'stConnecting',reconnecting:'stReconnecting',on:'stOn',error:'stError'}[st],{ch:chat.channel});
+  const b=$('#btnChat'); b.textContent=i18n(chat.want?'disconnect':'connect'); b.classList.toggle('primary',!chat.want);
+}
+function chatConnect(){
+  const ch=cleanChannel(state.chatChannel); if(!ch){toast(i18n('tEnterChannel'));return;}
+  chatDisconnect(true); chat.channel=ch; chat.want=true; chat.retry=0;
+  if(!state.chatAuto){state.chatAuto=true;commit({skipSidebar:true});}
+  openSocket();
+}
+function chatDisconnect(silent){
+  chat.want=false; clearTimeout(chat.timer); clearTimeout(chat.joinT);
+  const ws=chat.ws; chat.ws=null; if(ws){try{ws.close();}catch(e){}}
+  if(!silent&&state.chatAuto){state.chatAuto=false;commit({skipSidebar:true});}
+  setChatStatus('off');
+}
+function openSocket(){
+  setChatStatus(chat.retry?'reconnecting':'connecting');
+  let ws; try{ws=new WebSocket(IRC_URL);}catch(e){setChatStatus('error','stImpossible');return;}
+  chat.ws=ws;
+  ws.onopen=()=>{ws.send('CAP REQ :twitch.tv/tags twitch.tv/commands');ws.send('PASS SCHMOOPIIE');ws.send('NICK justinfan'+(10000+Math.floor(Math.random()*80000)));ws.send('JOIN #'+chat.channel);
+    clearTimeout(chat.joinT);chat.joinT=setTimeout(()=>{if(chat.ws===ws&&chat.status!=='on') setChatStatus('error','stNoAnswer',{ch:chat.channel});},8000);};
+  ws.onmessage=e=>{if(chat.ws!==ws) return;for(const line of String(e.data).split('\r\n')) if(line) onIrc(line,ws);};
+  ws.onclose=()=>{if(chat.ws!==ws) return;chat.ws=null;clearTimeout(chat.joinT);
+    if(chat.want){const d=Math.min(30000,1000*2**Math.min(chat.retry++,5));setChatStatus('reconnecting');chat.timer=setTimeout(()=>{if(chat.want) openSocket();},d);}else setChatStatus('off');};
+}
+function onIrc(line,ws){
+  if(line.startsWith('PING')){try{ws.send('PONG'+line.slice(4));}catch(e){}return;}
+  let rest=line; const tags={};
+  if(rest[0]==='@'){const i=rest.indexOf(' ');for(const kv of rest.slice(1,i).split(';')){const j=kv.indexOf('=');tags[kv.slice(0,j)]=kv.slice(j+1);}rest=rest.slice(i+1);}
+  const m=/^(?::(\S+) )?(\S+)(?: (.*?))?(?: :(.*))?$/.exec(rest); if(!m) return;
+  const prefix=m[1]||'',cmd=m[2],trail=m[4]||'';
+  if(cmd==='ROOMSTATE'||cmd==='366'||(cmd==='JOIN'&&/^justinfan/.test(prefix))){if(chat.status!=='on'){clearTimeout(chat.joinT);chat.retry=0;setChatStatus('on');}return;}
+  if(cmd==='RECONNECT'){try{ws.close();}catch(e){}return;}
+  if(cmd==='NOTICE'&&/fail|invalid|banned|suspend|unavailable/i.test(trail)){setChatStatus('error','raw',{s:trail.slice(0,90)});return;}
+  if(cmd==='PRIVMSG') onChatMessage({user:prefix.split('!')[0],name:(tags['display-name']||'').replace(/\\s/g,' '),text:trail});
+}
+/* Eingang für jede Chat-Quelle (Twitch jetzt, später z. B. YouTube über SYTH): {user, name, text} */
+const lastTry=new Map();
+function onChatMessage(msg){
+  const t=String(msg.text||'').trim().toLowerCase(), cmd=cmdText().toLowerCase(), first=t.split(/\s+/)[0];
+  if(!(first===cmd||t==='bingo'||t==='bingo!')) return;
+  const k=norm(msg.user), now=Date.now(); if(now-(lastTry.get(k)||0)<4000) return; lastTry.set(k,now);
+  claim(msg.user,msg.name||msg.user);
+}
+
+/* ---------- Export ---------- */
+function loadImg(src){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=src;});}
+function rr(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath();}
+function ellipsize(g,t,w){if(g.measureText(t).width<=w) return t;while(t&&g.measureText(t+'…').width>w) t=t.slice(0,-1);return t+'…';}
+function exportLayout(f){
+  if(f==='9:16') return {W:1080,H:1920,hdr:{x:64,y:80,w:952,h:230},board:{x:64,y:330,w:952,h:1130},wins:{x:64,y:1490,w:952,h:330},brand:{x:64,y:1850,w:952,h:34},titleFs:76,winCols:2};
+  if(f==='16:9') return {W:1920,H:1080,hdr:{x:56,y:44,w:1808,h:140},board:{x:56,y:204,w:1300,h:830},wins:{x:1396,y:204,w:468,h:780},brand:{x:1396,y:1004,w:468,h:30},titleFs:64,winCols:1};
+  return {W:1080,H:1080,hdr:{x:48,y:40,w:984,h:140},board:{x:48,y:196,w:984,h:640},wins:{x:48,y:852,w:984,h:166},brand:{x:48,y:1034,w:984,h:26},titleFs:56,winCols:2};
+}
+async function exportPNG(fmt){
+  try{
+    const R=state.round; if(!R) return;
+    const L=exportLayout(fmt), c=document.createElement('canvas'); c.width=L.W; c.height=L.H; const g=c.getContext('2d');
+    let gr=g.createLinearGradient(0,0,L.W,L.H); gr.addColorStop(0,lighten(state.bg,.07)); gr.addColorStop(1,state.bg); g.fillStyle=gr; g.fillRect(0,0,L.W,L.H);
+    gr=g.createRadialGradient(0,0,0,0,0,Math.max(L.W,L.H)*.75); gr.addColorStop(0,rgba(state.accent,.18)); gr.addColorStop(1,rgba(state.accent,0)); g.fillStyle=gr; g.fillRect(0,0,L.W,L.H);
+    // Kopf
+    const T=L.hdr, fb=fitBlock(g,state.title||i18n('defaultTitle'),T.w,T.h*.55,L.titleFs,800,1.05,2,20), fs2=Math.round(Math.max(18,L.titleFs*.36));
+    g.textAlign='left'; g.textBaseline='top'; g.fillStyle='#fff'; g.font=`800 ${fb.fs}px ${FONT}`;
+    const total=fb.lines.length*fb.fs*1.05+fs2*1.35; let y=T.y+(T.h-total)/2;
+    fb.lines.forEach(l=>{g.fillText(l,T.x,y);y+=fb.fs*1.05;});
+    g.font=`700 ${fs2}px ${FONT}`; g.fillStyle=state.accent; g.fillText(ellipsize(g,i18n('stHits',{r:R.id,h:state.hits.length,n:R.items.length}),T.w),T.x,y+fs2*.25);
+    // Brett
+    const B=L.board, gap=Math.round(Math.min(B.w,B.h)*.012)+6, G=boardGrid(B.w,B.h,R.items.length,gap), H=hitSet(), cap=capFor(R.items,G.w-26,G.h-14,Math.min(38,G.h*.36),1.1,4);
+    R.items.forEach((txt,i)=>{
+      const col=i%G.cols,row=Math.floor(i/G.cols),x=B.x+col*(G.w+gap),yy=B.y+row*(G.h+gap),hit=H.has(i);
+      g.fillStyle=hit?state.accent:'rgba(255,255,255,0.06)'; rr(g,x,yy,G.w,G.h,16); g.fill();
+      const f=fitBlock(g,txt,G.w-26,G.h-14,cap,700,1.1,4);
+      g.font=`700 ${f.fs}px ${FONT}`; g.fillStyle=hit?textOn(state.accent):'rgba(255,255,255,0.82)'; g.textAlign='center'; g.textBaseline='middle';
+      f.lines.forEach((l,j)=>g.fillText(l,x+G.w/2,yy+G.h/2+(j-(f.lines.length-1)/2)*f.fs*1.1));
+    });
+    // Gewinner
+    const Wn=L.wins; g.fillStyle='rgba(255,255,255,0.045)'; rr(g,Wn.x,Wn.y,Wn.w,Wn.h,20); g.fill();
+    g.textAlign='left'; g.textBaseline='top'; g.fillStyle=state.accent; g.font=`800 22px ${FONT}`; g.fillText(i18n('stWinners').toUpperCase(),Wn.x+22,Wn.y+20);
+    if(!state.winners.length){g.fillStyle='rgba(255,255,255,0.45)';g.font=`600 22px ${FONT}`;g.fillText(ellipsize(g,i18n('stNoWinners'),Wn.w-44),Wn.x+22,Wn.y+62);}
+    else{
+      const rowH=46, perCol=Math.max(1,Math.floor((Wn.h-80)/rowH)), cw=(Wn.w-44-(L.winCols-1)*24)/L.winCols, max=perCol*L.winCols;
+      state.winners.slice(0,max).forEach((w,i)=>{
+        const col=Math.floor(i/perCol), row=i%perCol, x=Wn.x+22+col*(cw+24), yy=Wn.y+64+row*rowH, r=17;
+        g.fillStyle=state.accent; g.beginPath(); g.arc(x+r,yy+r,r,0,Math.PI*2); g.fill();
+        g.fillStyle=textOn(state.accent); g.font=`800 18px ${FONT}`; g.textAlign='center'; g.textBaseline='middle'; g.fillText(String(i+1),x+r,yy+r+1);
+        g.fillStyle='#fff'; g.font=`800 24px ${FONT}`; g.textAlign='left'; g.fillText(ellipsize(g,w.d,cw-52),x+2*r+12,yy+r+1);
+      });
+    }
+    // Branding
+    if(state.brand){
+      const Bb=L.brand, fs=Math.round(Bb.h*.6), src=brandLogoFor(state.bg), light=lum(state.bg)>.55, cy=Bb.y+Bb.h/2;
+      g.textBaseline='middle'; g.textAlign='left'; g.font=`500 ${fs}px ${FONT}`; const tw=g.measureText('made with').width;
+      g.fillStyle=light?'rgba(0,0,0,.55)':'rgba(255,255,255,.45)';
+      if(src){const im=await loadImg(src), lw=Bb.h*KWM_LOGO_AR, x1=Bb.x+Bb.w-lw; g.drawImage(im,x1,Bb.y,lw,Bb.h); g.fillText('made with',x1-fs-tw,cy);}
+      else{g.font=`800 ${fs}px ${FONT}`;const w2=g.measureText('kw.media').width;g.font=`500 ${fs}px ${FONT}`;const x0=Bb.x+Bb.w-w2-tw-fs*.3;g.fillText('made with',x0,cy);g.font=`800 ${fs}px ${FONT}`;g.fillStyle=light?'rgba(0,0,0,.85)':'#fff';g.fillText('kw.media',x0+tw+fs*.3,cy);}
+    }
+    const slug=(state.title||'bingo').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,40)||'bingo';
+    c.toBlob(b=>{if(!b){toast(i18n('tExportFail'));return;}const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`${slug}-${R.id}-${fmt.replace(':','x')}.png`;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);toast(i18n('tExported',{f:fmt}));},'image/png');
+  }catch(e){console.error(e);toast(i18n('tExportFail'));}
+}
+
+/* ---------- Bedienung ---------- */
+let toastT=0;
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+let hintT=0;
+function toggleStream(on){
+  const v=on===undefined?!document.body.classList.contains('streaming'):on;
+  document.body.classList.toggle('streaming',v); applyTheme(); fitStage();
+  if(v&&!IS_STREAM_WIN){const h=$('#streamHint');h.classList.add('show');clearTimeout(hintT);hintT=setTimeout(()=>h.classList.remove('show'),2600);}
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-menu]'), open=$$('.menu.open');
+  if(t){const m=t.parentElement,was=m.classList.contains('open');open.forEach(x=>x.classList.remove('open'));if(!was) m.classList.add('open');return;}
+  if(!e.target.closest('.menu-pop')||e.target.closest('.menu-pop button')) open.forEach(x=>x.classList.remove('open'));
+  const ex=e.target.closest('[data-export]'); if(ex) exportPNG(ex.dataset.export);
+  const btn=e.target.closest('button'); if(btn) setTimeout(()=>btn.blur(),0);
+});
+const side=$('.side');
+side.addEventListener('input',e=>{
+  const el=e.target,k=el.dataset.key; if(!k||el.type==='checkbox'||el.tagName==='SELECT') return;
+  if(el.type==='color'&&!isHex(el.value)) return;
+  state[k]=el.value; commit({skipSidebar:true}); if(k==='itemsText'||k==='cmd') renderRoundInfo();
+  if(k==='cmd') for(const x of $$('[data-i18n="help4"]')) x.innerHTML=i18n('help4',{cmd:cmdText()});
+});
+side.addEventListener('change',e=>{
+  const el=e.target,k=el.dataset.key; if(!k) return;
+  if(k==='brand'&&!el.checked&&state.brand){el.checked=true;el.blur();$('#brandDlg').showModal();return;}
+  if(el.type==='checkbox'){state[k]=el.checked;commit();el.blur();}
+  else if(el.tagName==='SELECT'){if(FILLS.includes(el.value)){state[k]=el.value;commit({skipSidebar:true});}el.blur();}
+});
+side.addEventListener('click',e=>{
+  const b=e.target.closest('[data-seg] > button'); if(!b) return;
+  const k=b.parentElement.dataset.seg; state[k]=(k==='cams'||k==='size')?+b.dataset.val:b.dataset.val; commit();
+});
+$('#btnNewRound').onclick=()=>startRound(true);
+$('#btnUndoHit').onclick=()=>{if(state.hits.length){state.hits.pop();commit();}};
+$('#filter').addEventListener('input',renderControls);
+$('#filter').addEventListener('keydown',e=>{
+  if(e.key!=='Enter') return; e.preventDefault();
+  const R=state.round,q=norm(e.target.value); if(!R||!q) return;
+  const i=R.items.findIndex(x=>x.toLowerCase().includes(q)); if(i>=0){e.target.value='';toggleHit(i);}
+});
+$('#btnCopy').onclick=async()=>{const v=$('#linkField').value;if(!v) return;try{await navigator.clipboard.writeText(v);}catch(e){const f=$('#linkField');f.select();document.execCommand('copy');}toast(i18n('tCopied'));};
+$('#btnOpenLink').onclick=()=>{const v=$('#linkField').value;if(v) window.open(v,'_blank');};
+$('#linkField').onclick=e=>e.target.select();
+$('#btnCheck').onclick=()=>{
+  const name=$('#checkName').value, out=$('#checkOut'), R=state.round; out.replaceChildren(); if(!R||!norm(name)) return;
+  const r=check([name]), cells=r.ok?r.cells:cardFor(name,R), H=hitSet(), line=new Set(r.line||[]), c0=centerOf(R.size,R.free);
+  const p=document.createElement('p'); p.className='hint-text'+(r.ok?'':' warn'); p.textContent=r.ok?i18n('checkWin'):i18n('checkNo',{b:r.best,s:R.size}); out.append(p);
+  const mc=div('minicard'); mc.style.gridTemplateColumns=`repeat(${R.size},1fr)`;
+  cells.forEach((it,pos)=>{const d=div(line.has(pos)?'line':(pos===c0||H.has(it))?'hit':'');d.textContent=it<0?i18n('freeText'):R.items[it];mc.append(d);}); out.append(mc);
+  if(r.ok){
+    const u=norm(name);
+    if(state.winners.some(w=>w.u===u)){const s=document.createElement('p');s.className='hint-text';s.textContent=i18n('alreadyWon');out.append(s);}
+    else{const b=document.createElement('button');b.className='small primary';b.style.marginTop='8px';b.textContent=i18n('addWinner');b.onclick=()=>{claim(name,name.trim().replace(/^@+/,''));out.replaceChildren();};out.append(b);}
+  }
+};
+$('#checkName').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('#btnCheck').click();}});
+$('#btnChat').onclick=()=>{chat.want?chatDisconnect(false):chatConnect();};
+$('[data-key=chatChannel]').addEventListener('keydown',e=>{if(e.key==='Enter'&&!chat.want){e.preventDefault();e.target.blur();chatConnect();}});
+$('#btnStream').onclick=()=>toggleStream(true);
+$('#btnPopup').onclick=()=>{
+  const [w,h]=state.format==='16:9'?[1280,720]:state.format==='9:16'?[540,960]:[800,800];
+  popupRef=window.open(location.href.split('#')[0]+'#stream','kwm_bingo_stream',`popup=yes,width=${w},height=${h}`);
+  toast(i18n(popupRef?'tPopupOpen':'tPopupBlocked'));
+};
+$('#btnLang').onclick=()=>{
+  const nl=LANG==='de'?'en':'de';
+  if(state.title===inLang(LANG,'defaultTitle')) state.title=inLang(nl,'defaultTitle');
+  const defOld=DEFAULT_ITEMS[LANG].join('\n');
+  if(state.itemsText===defOld){
+    state.itemsText=DEFAULT_ITEMS[nl].join('\n');
+    if(state.round&&!state.hits.length&&!state.winners.length&&state.round.items.join('\n')===defOld){state.lang=nl;startRound(false);return;}
+  }
+  state.lang=nl; commit();
+};
+$('#btnHelp').onclick=()=>$('#help').showModal();
+$('#btnHelpClose').onclick=()=>$('#help').close();
+const brandOff=()=>{state.brand=false;commit();$('#brandDlg').close();};
+$('#brandSub').onclick=()=>{try{window.open(KWM_SUB_URL,'_blank','noopener');}catch(e){}brandOff();};
+$('#brandOff').onclick=brandOff;
+$('#brandKeep').onclick=()=>$('#brandDlg').close();
+const isTyping=el=>el&&(/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)||el.isContentEditable);
+document.addEventListener('keydown',e=>{
+  if(isTyping(e.target)||$('#help').open||$('#brandDlg').open) return;
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();$('#btnUndoHit').click();return;}
+  if(e.ctrlKey||e.metaKey||e.altKey) return;
+  if(e.key==='f'||e.key==='F'){e.preventDefault();toggleStream();}
+  else if(e.key==='/'){e.preventDefault();$('#filter').focus();}
+  else if(e.key==='Escape'&&document.body.classList.contains('streaming')&&!IS_STREAM_WIN) toggleStream(false);
+});
+let rz=0;
+addEventListener('resize',()=>{cancelAnimationFrame(rz);rz=requestAnimationFrame(fitStage);});
+if(window.ResizeObserver){let last=0;new ResizeObserver(()=>{const w=wrap.clientWidth;if(w!==last){last=w;requestAnimationFrame(fitStage);}}).observe(wrap);}
+
+/* ---------- Start ---------- */
+if(IS_STREAM_WIN){document.body.classList.add('streaming');}
+$('#brandLogo').src=KWM_LOGO_LIGHT; $('#favicon').href=KWM_ICON;
+applyLang(); applyTheme();
+if(state.round) commit({fromPeer:true}); else if(!startRound(false)) commit();
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>renderStage());
+if(IS_STREAM_WIN&&window.opener){peers.add(window.opener);try{window.opener.postMessage({kwm:'hello'},'*');}catch(e){}}
+if(state.chatAuto&&state.chatChannel&&!(IS_STREAM_WIN&&window.opener)) chatConnect();
+window.__kwm={get state(){return state;},get chat(){return chat.status;},cardFor:(n)=>state.round?cardFor(n,state.round):null,claim,onChatMessage,get log(){return log;}};
+})();
+</script>
+</body>
+</html>

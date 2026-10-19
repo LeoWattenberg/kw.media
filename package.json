@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:stream-tools": "node scripts/build-stream-tools.mjs",
     "test": "node --test",
     "test:coverage": "node --test --experimental-test-coverage --test-coverage-include='src/lib/tools/**/*.js' --test-coverage-lines=80 --test-coverage-branches=70 --test-coverage-functions=80 tests/*.test.js",
     "pretest:browser": "npm run build",

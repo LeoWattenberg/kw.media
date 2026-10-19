@@ -1,0 +1,24 @@
+<div class="panel wh-panel">
+  <div class="panel-head wh-ctrl">
+    <button id="btnSpin" class="primary big"></button>
+    <button id="btnOpen" class="big" data-show="chat"></button>
+    <span class="muted" id="spinInfo"></span>
+    <span style="flex:1"></span>
+    <span class="muted wh-keys" data-i18n="keysHint"></span>
+  </div>
+  <div id="resultBox" class="wh-result" hidden>
+    <div class="wh-res-main"><span class="muted" data-i18n="resLabel"></span><b id="resName"></b><span id="resClaim" class="muted"></span></div>
+    <div class="row"><button id="btnRemoveWin" class="small" data-i18n="removeWin"></button><button id="btnCloseWin" class="small" data-i18n="closeWin"></button><button id="btnAgain" class="small primary" data-i18n="spinAgain"></button></div>
+  </div>
+  <div class="wh-cols">
+    <div class="wh-col" data-show="chat">
+      <div class="panel-head"><b data-i18n="partTitle"></b><span id="partCount" class="muted"></span><span style="flex:1"></span><button id="btnTest" class="small ghost" data-i18n="addTest"></button><button id="btnClearPart" class="small ghost danger" data-i18n="clearAll"></button></div>
+      <input type="text" id="addName" data-i18n-ph="addNamePh" maxlength="40" autocomplete="off" spellcheck="false">
+      <div id="partList" class="wh-list"></div>
+    </div>
+    <div class="wh-col">
+      <div class="panel-head"><b data-i18n="histTitle"></b><span style="flex:1"></span><button id="btnCopyHist" class="small ghost" data-i18n="copy"></button><button id="btnClearHist" class="small ghost" data-i18n="clear"></button></div>
+      <div id="histList" class="wh-list"></div>
+    </div>
+  </div>
+</div>

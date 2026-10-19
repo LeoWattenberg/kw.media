@@ -1,0 +1,21 @@
+<div class="panel">
+  <div class="sc-scenes" id="sceneBtns">
+    <button data-scene="start"><kbd>1</kbd><span data-i18n="scStart"></span></button>
+    <button data-scene="brb"><kbd>2</kbd><span data-i18n="scBrb"></span></button>
+    <button data-scene="end"><kbd>3</kbd><span data-i18n="scEnd"></span></button>
+  </div>
+  <div class="sc-timer" id="timerBox">
+    <div class="sc-time"><small data-i18n="countdown"></small><b id="timeLeft">–</b></div>
+    <div class="row">
+      <button class="small" data-add="-1">−1 min</button><button class="small" data-add="1">+1 min</button><button class="small" data-add="5">+5 min</button>
+      <span class="sc-sep"></span>
+      <button class="small" data-set="5">5 min</button><button class="small" data-set="10">10 min</button><button class="small" data-set="15">15 min</button>
+      <span class="sc-sep"></span>
+      <input type="time" id="untilTime"><button class="small" id="btnUntil" data-i18n="until"></button>
+      <span class="sc-sep"></span>
+      <button class="small ghost danger" id="btnStop" data-i18n="stop"></button>
+    </div>
+  </div>
+  <div class="row sc-chatrow"><button class="small" id="btnTestMsg" data-i18n="testMsg"></button><span class="muted" id="chatInfo"></span></div>
+  <p class="hint-text" data-i18n="keysHint"></p>
+</div>
