@@ -1,0 +1,63 @@
+---
+import ChatCard from './ChatCard.astro';
+import KitToolApp from './KitToolApp.astro';
+import LayoutCard from './LayoutCard.astro';
+import config from '../../../lib/tools/stream/death-counter/config.js?raw';
+import logic from '../../../lib/tools/stream/death-counter/logic.js?raw';
+import css from '../../../lib/tools/stream/death-counter/tool.css?raw';
+---
+
+<KitToolApp title="Zähler · kw.media" css={css} config={config} logic={logic}>
+	<Fragment slot="left">
+		<div class="panel">
+			<div id="ctrlList" class="ct-ctrls"></div>
+			<div class="ct-timerctl" id="timerCtl"><span class="ct-ti">⏱</span><b id="timerVal">0:00</b><button id="btnTimer" class="primary small"></button><button id="btnTimerReset" class="small ghost" data-i18n="timerReset"></button></div>
+			<div class="panel-head" style="margin-top:12px"><b data-i18n="logTitle"></b><span style="flex:1"></span><button id="btnUndo" class="small" data-i18n="undo"></button><button id="btnZero" class="small ghost danger" data-i18n="allZero"></button></div>
+			<div id="logList" class="ct-log"></div>
+			<p class="hint-text" data-i18n="keysHint"></p>
+		</div>
+	</Fragment>
+	<Fragment slot="side">
+		<div class="card">
+			<h3 data-i18n="cardCounters"></h3>
+			<div id="ctEdit" class="ct-edit"></div>
+			<button id="btnAddCt" class="small" data-i18n="addCounter"></button>
+		</div>
+		<ChatCard>
+			<div class="field" style="margin-top:12px"><span data-i18n="fWho"></span><div class="seg" data-seg="cmdWho"><button data-val="mods" data-i18n="whoMods"></button><button data-val="vip" data-i18n="whoVip"></button><button data-val="all" data-i18n="whoAll"></button></div></div>
+			<div class="field" id="cdRow"><span data-i18n="fCooldown"></span><div class="seg" data-seg="cooldown"><button data-val="5">5 s</button><button data-val="10">10 s</button><button data-val="30">30 s</button><button data-val="60">60 s</button></div></div>
+			<p class="hint-text" data-i18n="cmdHint"></p>
+		</ChatCard>
+		<div class="card">
+			<h3 data-i18n="cardTimer"></h3>
+			<label class="check"><input type="checkbox" data-key="showTimer"> <span data-i18n="fShowTimer"></span></label>
+			<div id="timerFields">
+				<label class="field" style="margin-top:8px"><span data-i18n="fTimerName"></span><input type="text" data-key="timerName" maxlength="30" data-i18n-ph="timerDefault"></label>
+				<label class="field"><span data-i18n="fTimerCmd"></span><input type="text" data-key="timerCmd" maxlength="24" spellcheck="false" autocomplete="off"></label>
+			</div>
+		</div>
+		<div class="card">
+			<h3 data-i18n="cardLook"></h3>
+			<label class="field"><span data-i18n="fTitle"></span><input type="text" data-key="title" maxlength="60" data-i18n-ph="titlePh"></label>
+			<label class="check"><input type="checkbox" data-key="showGoal"> <span data-i18n="fShowGoal"></span></label>
+			<label class="field" style="margin-top:10px"><span data-i18n="fBgMode"></span>
+				<select data-key="bgMode">
+					<option value="card" data-i18n="bgCard"></option>
+					<option value="magenta" data-i18n="bgMagenta"></option>
+					<option value="full" data-i18n="bgFull"></option>
+				</select>
+			</label>
+			<label class="field" id="focusRow"><span data-i18n="fFocus"></span><select id="focusSel"></select></label>
+		</div>
+		<LayoutCard formats={[['row', 'fmtRow'], ['stack', 'fmtStack'], ['big', 'fmtBig']]} />
+	</Fragment>
+	<Fragment slot="help">
+		<h2 data-i18n="helpTitle"></h2>
+		<ol>
+			<li data-i18n="help1"></li>
+			<li data-i18n="help2"></li>
+			<li data-i18n="help3"></li>
+			<li data-i18n="help4"></li>
+		</ol>
+	</Fragment>
+</KitToolApp>

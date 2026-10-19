@@ -22,7 +22,7 @@ function collectErrors(page) {
 async function openTool(page, locale, id) {
 	await page.goto(`/${locale}/tools/${id}/`);
 	const iframe = page.locator('[data-stream-tool-embed] iframe');
-	await expect(iframe).toHaveAttribute('src', `/stream-tools/${id}.html?lang=${locale}&embed=1`);
+	await expect(iframe).toHaveAttribute('src', `/stream-tools/${id}/?lang=${locale}&embed=1`);
 	const frame = page.frameLocator('[data-stream-tool-embed] iframe');
 	await expect(frame.locator('#stage')).toBeVisible();
 	return frame;
@@ -41,23 +41,50 @@ test.describe('stream tool pages', () => {
 				await expect(frame.locator('.topbar .brand')).toBeHidden();
 				await expect(frame.locator('#btnLang')).toBeHidden();
 				await expect(frame.locator('#btnPopup')).toBeVisible();
-				await expect(page.locator('[data-stream-tool-download]')).toHaveAttribute('href', `/stream-tools/${tool.id}.html`);
+				await expect(page.locator('[data-stream-tool-download]')).toHaveAttribute('href', `/stream-tools/${tool.id}/`);
 				await expect(page.locator('[data-stream-tool-download]')).toHaveAttribute('download', `kwmedia-${tool.id}.html`);
-				await expect(page.locator('[data-stream-tool-open]')).toHaveAttribute('href', `/stream-tools/${tool.id}.html?lang=${locale}`);
-				await expect(page.locator('[data-stream-tool-url]')).toHaveText(`https://kw.media/stream-tools/${tool.id}.html#stream`);
+				await expect(page.locator('[data-stream-tool-open]')).toHaveAttribute('href', `/stream-tools/${tool.id}/?lang=${locale}`);
+				await expect(page.locator('[data-stream-tool-url]')).toHaveText(`https://kw.media/stream-tools/${tool.id}/#stream`);
 
 				expect(errors).toEqual([]);
 			});
 		}
 	}
 
-	test('standalone files keep their own logo and language switch outside the embed', async ({ page }) => {
+	test('the standalone app keeps its own logo and language switch outside the embed', async ({ page }) => {
 		const errors = collectErrors(page);
-		await page.goto('/stream-tools/spin-wheel.html?lang=en');
+		await page.goto('/stream-tools/spin-wheel/?lang=en');
 		await expect(page.locator('.topbar .brand')).toBeVisible();
 		await expect(page.locator('.topbar .brand')).toContainText('Spin the Wheel');
+		await expect(page.locator('.topbar .brand-logo')).toHaveJSProperty('complete', true);
+		expect(await page.locator('.topbar .brand-logo').evaluate((image) => image.naturalWidth)).toBeGreaterThan(0);
 		await expect(page.locator('#btnLang')).toContainText('Deutsch');
+		await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
 		expect(errors).toEqual([]);
+	});
+
+	test('every standalone app is one self-contained document', async ({ request }) => {
+		for (const tool of streamTools) {
+			const response = await request.get(`/stream-tools/${tool.id}/`);
+			expect(response.ok(), tool.id).toBe(true);
+			const html = await response.text();
+			expect(html, tool.id).toMatch(/^<!DOCTYPE html>/i);
+			expect(html, tool.id).not.toMatch(/<script[^>]+\bsrc=/i);
+			expect(html, tool.id).not.toMatch(/<link[^>]+rel="?stylesheet/i);
+			expect(html, tool.id).toContain('const KWM_BRAND={"light":"data:image/svg+xml;base64,');
+		}
+
+		// A downloaded bingo file still has to send viewers to the hosted app.
+		const bingo = await (await request.get('/stream-tools/stream-bingo/')).text();
+		expect(bingo).toContain('const KWM_HOSTED_URL="https://kw.media/stream-tools/stream-bingo/";');
+	});
+
+	test('the sitemap lists the tool pages but not the standalone apps', async ({ request }) => {
+		const index = await (await request.get('/sitemap-index.xml')).text();
+		const sitemaps = [...index.matchAll(/<loc>https:\/\/kw\.media(\/[^<]+)<\/loc>/g)].map((match) => match[1]);
+		const urls = (await Promise.all(sitemaps.map(async (path) => (await request.get(path)).text()))).join('\n');
+		expect(urls).toContain('https://kw.media/de/tools/spin-wheel/');
+		expect(urls).not.toContain('https://kw.media/stream-tools/');
 	});
 
 	test('the stream tools category lists all seven tools', async ({ page }) => {
@@ -97,6 +124,13 @@ test.describe('stream tools work inside the embed', () => {
 		const frame = await openTool(page, 'de', 'stream-scenes');
 		await frame.locator('#timerBox [data-set="10"]').click();
 		await expect(frame.locator('#stage .sc-cd')).toHaveText(/^(10:00|09:5\d)$/);
+	});
+
+	test('stream bingo links viewers to its app page', async ({ page }) => {
+		const frame = await openTool(page, 'en', 'stream-bingo');
+		const link = frame.locator('#linkField');
+		await expect(link).toHaveValue(/#c=t/);
+		expect(await link.inputValue()).toMatch(new RegExp(`^${new URL(page.url()).origin}/stream-tools/stream-bingo/#c=t`.replace(/[.]/g, '\\.')));
 	});
 
 	test('death counter counts up', async ({ page }) => {

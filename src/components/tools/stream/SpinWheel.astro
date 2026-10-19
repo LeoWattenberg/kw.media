@@ -1,0 +1,102 @@
+---
+import ChatCard from './ChatCard.astro';
+import KitToolApp from './KitToolApp.astro';
+import LayoutCard from './LayoutCard.astro';
+import config from '../../../lib/tools/stream/spin-wheel/config.js?raw';
+import logic from '../../../lib/tools/stream/spin-wheel/logic.js?raw';
+import css from '../../../lib/tools/stream/spin-wheel/tool.css?raw';
+---
+
+<KitToolApp title="Glücksrad · kw.media" css={css} config={config} logic={logic}>
+	<Fragment slot="left">
+		<div class="panel wh-panel">
+			<div class="panel-head wh-ctrl">
+				<button id="btnSpin" class="primary big"></button>
+				<button id="btnOpen" class="big" data-show="chat"></button>
+				<span class="muted" id="spinInfo"></span>
+				<span style="flex:1"></span>
+				<span class="muted wh-keys" data-i18n="keysHint"></span>
+			</div>
+			<div id="resultBox" class="wh-result" hidden>
+				<div class="wh-res-main"><span class="muted" data-i18n="resLabel"></span><b id="resName"></b><span id="resClaim" class="muted"></span></div>
+				<div class="row"><button id="btnRemoveWin" class="small" data-i18n="removeWin"></button><button id="btnCloseWin" class="small" data-i18n="closeWin"></button><button id="btnAgain" class="small primary" data-i18n="spinAgain"></button></div>
+			</div>
+			<div class="wh-cols">
+				<div class="wh-col" data-show="chat">
+					<div class="panel-head"><b data-i18n="partTitle"></b><span id="partCount" class="muted"></span><span style="flex:1"></span><button id="btnTest" class="small ghost" data-i18n="addTest"></button><button id="btnClearPart" class="small ghost danger" data-i18n="clearAll"></button></div>
+					<input type="text" id="addName" data-i18n-ph="addNamePh" maxlength="40" autocomplete="off" spellcheck="false">
+					<div id="partList" class="wh-list"></div>
+				</div>
+				<div class="wh-col">
+					<div class="panel-head"><b data-i18n="histTitle"></b><span style="flex:1"></span><button id="btnCopyHist" class="small ghost" data-i18n="copy"></button><button id="btnClearHist" class="small ghost" data-i18n="clear"></button></div>
+					<div id="histList" class="wh-list"></div>
+				</div>
+			</div>
+		</div>
+	</Fragment>
+	<Fragment slot="side">
+		<div class="card">
+			<h3 data-i18n="cardWheel"></h3>
+			<div class="field"><span data-i18n="fSource"></span><div class="seg" data-seg="mode"><button data-val="list" data-i18n="modeList"></button><button data-val="chat" data-i18n="modeChat"></button></div></div>
+			<div data-show="list">
+				<label class="field"><span data-i18n="fItems"></span><textarea data-key="items" rows="8" spellcheck="false"></textarea></label>
+				<div class="row"><button id="btnShuffle" class="small" data-i18n="shuffle"></button><button id="btnSort" class="small" data-i18n="sortAz"></button><span style="flex:1"></span><span class="muted" id="itemCount"></span></div>
+			</div>
+			<div data-show="chat">
+				<label class="field"><span data-i18n="fCmd"></span><input type="text" data-key="cmd" maxlength="24" spellcheck="false" autocomplete="off"></label>
+				<div class="field"><span data-i18n="fWho"></span><div class="seg" data-seg="who"><button data-val="all" data-i18n="whoAll"></button><button data-val="subs" data-i18n="whoSubs"></button></div></div>
+				<p class="hint-text warn" id="subsWarn" data-i18n="subsWarn" style="margin:-4px 0 12px"></p>
+				<div class="field"><span data-i18n="fClaim"></span><div class="seg" data-seg="claimSec"><button data-val="0" data-i18n="off"></button><button data-val="30">30 s</button><button data-val="60">60 s</button><button data-val="120">2 min</button></div></div>
+			</div>
+			<button id="btnGaInfo" class="small ghost ga-link" data-i18n="gaLink"></button>
+		</div>
+		<ChatCard />
+		<div class="card">
+			<h3 data-i18n="cardSpin"></h3>
+			<div class="field"><span data-i18n="fDur"></span><div class="seg" data-seg="dur"><button data-val="4" data-i18n="durShort"></button><button data-val="7" data-i18n="durNormal"></button><button data-val="12" data-i18n="durLong"></button></div></div>
+			<label class="check"><input type="checkbox" data-key="autoRemove"> <span data-i18n="fAutoRemove"></span></label>
+			<label class="check"><input type="checkbox" data-key="sound"> <span data-i18n="fSound"></span></label>
+			<label class="check"><input type="checkbox" data-key="confetti"> <span data-i18n="fConfetti"></span></label>
+		</div>
+		<div class="card">
+			<h3 data-i18n="cardLook"></h3>
+			<label class="field"><span data-i18n="fTitle"></span><input type="text" data-key="title" maxlength="60"></label>
+			<label class="field"><span data-i18n="fWinLabel"></span><input type="text" data-key="winLabel" maxlength="60"></label>
+			<label class="field"><span data-i18n="fHint"></span><input type="text" data-key="hint" maxlength="120" data-i18n-ph="hintPh"></label>
+			<div class="field"><span data-i18n="fPalette"></span><div class="seg" data-seg="palette"><button data-val="brand">kw.media</button><button data-val="rainbow" data-i18n="palRainbow"></button></div></div>
+		</div>
+		<LayoutCard formats={[['16:9', ''], ['9:16', ''], ['wheel', 'fmtWheel']]} cams>
+			<label class="field"><span data-i18n="fBgMode"></span>
+				<select data-key="bgMode">
+					<option value="full" data-i18n="bgFull"></option>
+					<option value="transparent" data-i18n="bgTransparent"></option>
+					<option value="magenta" data-i18n="bgMagenta"></option>
+				</select>
+			</label>
+		</LayoutCard>
+	</Fragment>
+	<Fragment slot="dialogs">
+		<dialog id="gaDlg">
+			<h2 data-i18n="gaTitle"></h2>
+			<p data-i18n="gaIntro"></p>
+			<ol>
+				<li data-i18n="ga1"></li>
+				<li data-i18n="ga2"></li>
+				<li data-i18n="ga3"></li>
+				<li data-i18n="ga4"></li>
+				<li data-i18n="ga5"></li>
+			</ol>
+			<p class="muted" data-i18n="gaTip"></p>
+			<div class="dlg-foot"><button class="primary" id="gaOk" data-i18n="gaOk"></button></div>
+		</dialog>
+	</Fragment>
+	<Fragment slot="help">
+		<h2 data-i18n="helpTitle"></h2>
+		<ol>
+			<li data-i18n="help1"></li>
+			<li data-i18n="help2"></li>
+			<li data-i18n="help3"></li>
+			<li data-i18n="help4"></li>
+		</ol>
+	</Fragment>
+</KitToolApp>

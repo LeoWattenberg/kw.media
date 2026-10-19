@@ -1,0 +1,58 @@
+---
+// Format, cam slots, colors, and the hidden branding switch shared by the kit tools.
+// Tool-specific layout fields go into the slot, right after the format switch.
+interface Props {
+	formats?: Array<[value: string, labelKey: string]>;
+	cams?: boolean;
+}
+
+const { formats = [], cams = false } = Astro.props;
+---
+
+<div class="card">
+	<h3 data-i18n="cardLayout"></h3>
+	{
+		formats.length > 0 && (
+			<div class="field">
+				<span data-i18n="fFormat" />
+				<div class="seg" data-seg="format">
+					{formats.map(([value, labelKey]) => (labelKey ? <button data-val={value} data-i18n={labelKey} /> : <button data-val={value}>{value}</button>))}
+				</div>
+			</div>
+		)
+	}
+	<slot />
+	{
+		cams && (
+			<Fragment>
+				<div class="field">
+					<span data-i18n="camSlots" />
+					<div class="seg" data-seg="cams">
+						<button data-val="0" data-i18n="none" />
+						<button data-val="1">1</button>
+						<button data-val="2">2</button>
+					</div>
+				</div>
+				<label class="field">
+					<span data-i18n="camFill" />
+					<select data-key="camFill">
+						<option value="placeholder" data-i18n="fillPlaceholder" />
+						<option value="transparent" data-i18n="fillTransparent" />
+						<option value="magenta" data-i18n="fillMagenta" />
+						<option value="blue" data-i18n="fillBlue" />
+						<option value="green" data-i18n="fillGreen" />
+					</select>
+				</label>
+				<label class="check"><input type="checkbox" data-key="camRing" /> <span data-i18n="camRing" /></label>
+			</Fragment>
+		)
+	}
+	<div class="colors">
+		<label><input type="color" data-key="bg" /> <span data-i18n="bgColor"></span></label>
+		<label><input type="color" data-key="accent" /> <span data-i18n="accentColor"></span></label>
+	</div>
+	<details class="adv">
+		<summary data-i18n="advanced"></summary>
+		<label class="check"><input type="checkbox" data-key="brand" /> <span data-i18n="showBrand"></span></label>
+	</details>
+</div>

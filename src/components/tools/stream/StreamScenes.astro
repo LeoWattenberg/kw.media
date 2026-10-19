@@ -1,0 +1,86 @@
+---
+import ChatCard from './ChatCard.astro';
+import KitToolApp from './KitToolApp.astro';
+import LayoutCard from './LayoutCard.astro';
+import config from '../../../lib/tools/stream/stream-scenes/config.js?raw';
+import logic from '../../../lib/tools/stream/stream-scenes/logic.js?raw';
+import css from '../../../lib/tools/stream/stream-scenes/tool.css?raw';
+---
+
+<KitToolApp title="Szenen · kw.media" css={css} config={config} logic={logic}>
+	<Fragment slot="left">
+		<div class="panel">
+			<div class="sc-scenes" id="sceneBtns">
+				<button data-scene="start"><kbd>1</kbd><span data-i18n="scStart"></span></button>
+				<button data-scene="brb"><kbd>2</kbd><span data-i18n="scBrb"></span></button>
+				<button data-scene="end"><kbd>3</kbd><span data-i18n="scEnd"></span></button>
+			</div>
+			<div class="sc-timer" id="timerBox">
+				<div class="sc-time"><small data-i18n="countdown"></small><b id="timeLeft">–</b></div>
+				<div class="row">
+					<button class="small" data-add="-1">−1 min</button><button class="small" data-add="1">+1 min</button><button class="small" data-add="5">+5 min</button>
+					<span class="sc-sep"></span>
+					<button class="small" data-set="5">5 min</button><button class="small" data-set="10">10 min</button><button class="small" data-set="15">15 min</button>
+					<span class="sc-sep"></span>
+					<input type="time" id="untilTime"><button class="small" id="btnUntil" data-i18n="until"></button>
+					<span class="sc-sep"></span>
+					<button class="small ghost danger" id="btnStop" data-i18n="stop"></button>
+				</div>
+			</div>
+			<div class="row sc-chatrow"><button class="small" id="btnTestMsg" data-i18n="testMsg"></button><span class="muted" id="chatInfo"></span></div>
+			<p class="hint-text" data-i18n="keysHint"></p>
+		</div>
+	</Fragment>
+	<Fragment slot="side">
+		<div class="card">
+			<h3><span data-i18n="cardTexts"></span><span id="textsFor" class="sc-for"></span></h3>
+			<div data-scene-f="start">
+				<label class="field"><span data-i18n="fTitle"></span><input type="text" data-key="startTitle" maxlength="80"></label>
+				<label class="field"><span data-i18n="fSub"></span><input type="text" data-key="startSub" maxlength="160"></label>
+				<label class="field"><span data-i18n="fDone"></span><input type="text" data-key="startDone" maxlength="60"></label>
+				<label class="check"><input type="checkbox" data-key="camStart"> <span data-i18n="fCamHere"></span></label>
+			</div>
+			<div data-scene-f="brb">
+				<label class="field"><span data-i18n="fTitle"></span><input type="text" data-key="brbTitle" maxlength="80"></label>
+				<label class="field"><span data-i18n="fSub"></span><input type="text" data-key="brbSub" maxlength="160"></label>
+				<label class="field"><span data-i18n="fDone"></span><input type="text" data-key="brbDone" maxlength="60"></label>
+				<label class="check"><input type="checkbox" data-key="camBrb"> <span data-i18n="fCamHere"></span></label>
+			</div>
+			<div data-scene-f="end">
+				<label class="field"><span data-i18n="fTitle"></span><input type="text" data-key="endTitle" maxlength="80"></label>
+				<label class="field"><span data-i18n="fSub"></span><input type="text" data-key="endSub" maxlength="160"></label>
+				<label class="field"><span data-i18n="fNext"></span><input type="text" data-key="endNext" maxlength="80"></label>
+				<label class="check"><input type="checkbox" data-key="camEnd"> <span data-i18n="fCamHere"></span></label>
+			</div>
+		</div>
+		<div class="card">
+			<h3 data-i18n="cardCountdown"></h3>
+			<label class="check"><input type="checkbox" data-key="brbAuto"> <span data-i18n="fBrbAuto"></span></label>
+			<div class="field"><span data-i18n="fBrbMin"></span><div class="seg" data-seg="brbMin"><button data-val="3">3 min</button><button data-val="5">5 min</button><button data-val="10">10 min</button><button data-val="15">15 min</button></div></div>
+			<label class="check"><input type="checkbox" data-key="showBar"> <span data-i18n="fBar"></span></label>
+		</div>
+		<ChatCard>
+			<div class="field" style="margin-top:12px"><span data-i18n="fChatMode"></span><div class="seg" data-seg="chatMode"><button data-val="box" data-i18n="cmBox"></button><button data-val="ticker" data-i18n="cmTicker"></button><button data-val="off" data-i18n="off"></button></div></div>
+			<label class="check"><input type="checkbox" data-key="noCmds"> <span data-i18n="fCmds"></span></label>
+			<label class="field"><span data-i18n="fIgnoreUsers"></span><input type="text" data-key="ignoreUsers" spellcheck="false"></label>
+		</ChatCard>
+		<div class="card">
+			<h3 data-i18n="cardLook"></h3>
+			<label class="field"><span data-i18n="fEyebrow"></span><input type="text" data-key="eyebrow" maxlength="60" data-i18n-ph="eyebrowPh"></label>
+			<label class="field"><span data-i18n="fSocials"></span><textarea data-key="socials" rows="3" data-i18n-ph="socialsPh" spellcheck="false"></textarea></label>
+			<div class="field"><span data-i18n="fBgStyle"></span><div class="seg" data-seg="bgStyle"><button data-val="blobs" data-i18n="bgBlobs"></button><button data-val="plain" data-i18n="bgPlain"></button><button data-val="image" data-i18n="bgImage"></button></div></div>
+			<div id="bgImgRow" class="row"><button class="small" id="btnBgImg" data-i18n="bgPick"></button><button class="small ghost" id="btnBgClear" data-i18n="bgClear"></button><input type="file" id="bgFile" accept="image/*" hidden></div>
+			<label class="field" id="bgDimRow" style="margin-top:10px"><span data-i18n="fBgDim"></span><input type="range" min="0" max="0.85" step="0.05" data-key="bgDim"></label>
+		</div>
+		<LayoutCard formats={[['16:9', ''], ['9:16', '']]} cams />
+	</Fragment>
+	<Fragment slot="help">
+		<h2 data-i18n="helpTitle"></h2>
+		<ol>
+			<li data-i18n="help1"></li>
+			<li data-i18n="help2"></li>
+			<li data-i18n="help3"></li>
+			<li data-i18n="help4"></li>
+		</ol>
+	</Fragment>
+</KitToolApp>

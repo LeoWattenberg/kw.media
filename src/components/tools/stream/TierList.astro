@@ -1,0 +1,161 @@
+---
+import StreamToolHtml from './StreamToolHtml.astro';
+import { streamToolBrand } from '../../../lib/tools/stream/brand';
+import css from '../../../lib/tools/stream/tier-list/tier-list.css?raw';
+import js from '../../../lib/tools/stream/tier-list/tier-list.js?raw';
+
+const script = `const KWM_BRAND=${JSON.stringify(streamToolBrand())};\n${js}`;
+---
+
+<StreamToolHtml title="Tierlist · kw.media" css={css} script={script}>
+	<header class="topbar">
+		<div class="brand"><img class="brand-logo" id="brandLogo" alt="kw.media"><div class="brand-txt"><b data-i18n="appName"></b><small data-i18n="tagline"></small></div></div>
+		<div class="actions">
+			<button id="btnAddImg" class="primary" data-i18n="addImages"></button>
+			<button id="btnAddText" data-i18n="addText"></button>
+			<div class="menu"><button data-menu data-i18n="menuList"></button><div class="menu-pop">
+				<button data-act="resetPlace" data-i18n="resetPlace"></button>
+				<button data-act="saveTpl" data-i18n="saveTpl"></button>
+				<button data-act="loadTpl" data-i18n="loadTpl"></button>
+				<button data-act="newList" class="danger" data-i18n="newList"></button>
+			</div></div>
+			<div class="menu"><button data-menu data-i18n="menuExport"></button><div class="menu-pop">
+				<button data-export="1:1" data-i18n="exp11"></button>
+				<button data-export="9:16" data-i18n="exp916"></button>
+				<button data-export="16:9" data-i18n="exp169"></button>
+				<button data-act="video" data-i18n="expVideo"></button>
+			</div></div>
+			<button id="btnPopup" data-i18n="popup" data-i18n-title="popupTitle"></button>
+			<button id="btnStream" data-i18n="streamView"></button>
+			<button id="btnLang" class="ghost lang-btn"></button>
+			<button id="btnHelp" class="ghost" data-i18n-aria="help">?</button>
+		</div>
+	</header>
+
+	<main class="layout">
+		<section class="left">
+			<div id="stageWrap" class="stage-wrap"><div id="stage" class="stage"></div></div>
+			<div class="pool-panel">
+				<div class="pool-head"><b data-i18n="pool"></b><span id="poolCount"></span><button id="btnShuffle" class="small" data-i18n="shuffle"></button><span class="hint" data-i18n="poolHint"></span></div>
+				<div id="pool" class="pool" data-drop="pool"></div>
+			</div>
+		</section>
+
+		<aside class="side">
+			<div class="card">
+				<h3 data-i18n="cardList"></h3>
+				<label class="field"><span data-i18n="fTitle"></span><input type="text" data-key="title" maxlength="120"></label>
+				<label class="field"><span data-i18n="fHandle"></span><input type="text" data-key="handle" maxlength="60" data-i18n-ph="handlePh"></label>
+				<label class="field"><span data-i18n="tierPreset"></span>
+					<select id="presetSel"><option value="" data-i18n="presetChoose"></option><option value="classic" data-i18n="presetClassic"></option><option value="meme" data-i18n="presetMeme"></option><option value="topflop" data-i18n="presetTopflop"></option></select>
+				</label>
+				<div id="tierList"></div>
+				<button id="btnAddTier" class="small" data-i18n="addTier"></button>
+			</div>
+
+			<div class="card">
+				<h3 data-i18n="cardLayout"></h3>
+				<div class="field"><span data-i18n="fFormat"></span><div class="seg" data-seg="format"><button data-val="16:9">16:9</button><button data-val="9:16">9:16</button><button data-val="1:1">1:1</button></div></div>
+				<div class="field"><span data-i18n="camSlots"></span><div class="seg" data-seg="cams"><button data-val="0" data-i18n="none"></button><button data-val="1">1</button><button data-val="2">2</button></div></div>
+				<label class="field"><span data-i18n="camFill"></span>
+					<select data-key="camFill">
+						<option value="placeholder" data-i18n="fillPlaceholder"></option>
+						<option value="transparent" data-i18n="fillTransparent"></option>
+						<option value="magenta" data-i18n="fillMagenta"></option>
+						<option value="blue" data-i18n="fillBlue"></option>
+						<option value="green" data-i18n="fillGreen"></option>
+					</select>
+				</label>
+				<label class="check"><input type="checkbox" data-key="camRing"> <span data-i18n="camRing"></span></label>
+				<div class="field" style="margin-top:10px"><span data-i18n="queue"></span><div class="seg" data-seg="queue"><button data-val="show" data-i18n="qShow"></button><button data-val="hidden" data-i18n="qHidden"></button><button data-val="off" data-i18n="off"></button></div></div>
+				<label class="check"><input type="checkbox" data-key="names"> <span data-i18n="names"></span></label>
+				<div class="field" style="margin-top:10px"><span data-i18n="logo"></span><div class="logo-row"><button id="btnLogo" class="small" data-i18n="logoPick"></button><img id="logoPrev" alt="" hidden><button id="btnLogoDel" class="small danger" hidden data-i18n="logoDel"></button></div></div>
+				<div class="colors">
+					<label><input type="color" data-key="bg"> <span data-i18n="bgColor"></span></label>
+					<label><input type="color" data-key="accent"> <span data-i18n="accentColor"></span></label>
+				</div>
+				<details class="adv"><summary data-i18n="advanced"></summary>
+					<label class="check"><input type="checkbox" data-key="brand"> <span data-i18n="showBrand"></span></label>
+				</details>
+			</div>
+
+			<div class="card">
+				<h3 data-i18n="cardItems"></h3>
+				<label class="field"><span data-i18n="textItems"></span><textarea id="textItems" rows="3" data-i18n-ph="textItemsPh"></textarea></label>
+				<button id="btnAddTexts" class="small" data-i18n="addTexts"></button>
+				<label class="check" style="margin-top:12px"><input type="checkbox" data-key="autoNext"> <span data-i18n="autoNext"></span></label>
+			</div>
+
+			<div class="card">
+				<h3 data-i18n="cardChat"></h3>
+				<label class="field"><span data-i18n="twitchChannel"></span><input type="text" data-key="chatChannel" maxlength="40" data-i18n-ph="twitchPh" autocomplete="off" spellcheck="false"></label>
+				<button id="btnChat" class="small primary"></button>
+				<div class="chat-status" id="chatStatus"><i></i><span></span></div>
+				<div class="field"><span data-i18n="countdown"></span><div class="seg" data-seg="voteTimer"><button data-val="0" data-i18n="off"></button><button data-val="15">15 s</button><button data-val="30">30 s</button><button data-val="60">60 s</button></div></div>
+				<label class="check"><input type="checkbox" data-key="voteBang"> <span data-i18n="voteBang"></span></label>
+				<label class="check"><input type="checkbox" data-key="chatBadges"> <span data-i18n="chatBadges"></span></label>
+				<p class="hint-text" data-i18n="chatHint"></p>
+			</div>
+
+			<div class="card">
+				<h3 data-i18n="cardKeys"></h3>
+				<div class="keys">
+					<kbd data-i18n="kSpace"></kbd><span data-i18n="kSpaceD"></span>
+					<kbd>1–9</kbd><span data-i18n="k19D"></span>
+					<kbd>0</kbd><span data-i18n="k0D"></span>
+					<kbd data-i18n="kDel"></kbd><span data-i18n="kDelD"></span>
+					<kbd data-i18n="kUndo"></kbd><span data-i18n="kUndoD"></span>
+					<kbd>Enter</kbd><span data-i18n="kEnterD"></span>
+					<kbd>V</kbd><span data-i18n="kVD"></span>
+					<kbd>F</kbd><span data-i18n="kFD"></span>
+				</div>
+			</div>
+		</aside>
+	</main>
+
+	<div id="trash" data-drop="trash" data-i18n="trash"></div>
+	<div id="marker"></div>
+	<div id="quick"></div>
+	<div id="fileDrop" data-i18n="fileDrop"></div>
+	<div id="toast"></div>
+	<div id="streamHint" data-i18n="streamHint"></div>
+	<input type="file" id="fileImg" accept="image/*" multiple hidden>
+	<input type="file" id="fileTpl" accept=".json,application/json" hidden>
+	<input type="file" id="fileLogo" accept="image/*" hidden>
+	<dialog id="vidDlg">
+		<h2 data-i18n="vidTitle"></h2>
+		<p data-i18n="vidIntro"></p>
+		<div class="field"><span data-i18n="fFormat"></span><div class="seg" id="vidFmt"><button data-val="9:16">9:16 · Shorts</button><button data-val="1:1">1:1</button><button data-val="16:9">16:9</button></div></div>
+		<div class="field"><span data-i18n="vidLength"></span><div class="seg" id="vidLen"><button data-val="15" data-i18n="vidApprox" data-i18n-n="15"></button><button data-val="30" data-i18n="vidApprox" data-i18n-n="30"></button><button data-val="60" data-i18n="vidApprox" data-i18n-n="60"></button></div></div>
+		<div class="vid-prev"><canvas id="vidCanvas" width="1080" height="1920"></canvas></div>
+		<div class="vid-prog"><i id="vidBar"></i></div>
+		<p id="vidInfo" class="hint-text"></p>
+		<div class="dlg-foot" style="gap:8px"><button id="vidClose" data-i18n="close"></button><button id="vidGo" class="primary" data-i18n="vidCreate"></button></div>
+	</dialog>
+
+	<dialog id="brandDlg">
+		<h2 data-i18n="brandDlgTitle"></h2>
+		<p data-i18n="brandDlgText"></p>
+		<div class="dlg-foot" style="gap:8px;flex-wrap:wrap"><button id="brandKeep" class="ghost" data-i18n="brandKeep"></button><button id="brandOff" data-i18n="brandOffAnyway"></button><button id="brandSub" class="primary" data-i18n="brandSub"></button></div>
+	</dialog>
+
+	<dialog id="help">
+		<h2 data-i18n="helpTitle"></h2>
+		<p data-i18n="helpIntro"></p>
+		<h4 data-i18n="helpObsH"></h4>
+		<ol>
+			<li data-i18n="helpObs1"></li>
+			<li data-i18n="helpObs2"></li>
+			<li data-i18n="helpObs3"></li>
+		</ol>
+		<h4 data-i18n="cardKeys"></h4>
+		<p data-i18n="helpKeys"></p>
+		<p data-i18n="helpDeck"></p>
+		<p data-i18n="helpFont"></p>
+		<h4 data-i18n="helpTlH"></h4>
+		<p data-i18n="helpTl"></p>
+		<h4 data-i18n="helpChatH"></h4>
+		<p data-i18n="helpChat"></p>
+		<div class="dlg-foot"><button class="primary" id="btnHelpClose" data-i18n="gotIt"></button></div>
+	</dialog>
+</StreamToolHtml>

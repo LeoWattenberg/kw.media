@@ -1,0 +1,30 @@
+---
+import ChatHotwords from '../../components/tools/stream/ChatHotwords.astro';
+import DeathCounter from '../../components/tools/stream/DeathCounter.astro';
+import SpinWheel from '../../components/tools/stream/SpinWheel.astro';
+import StreamBingo from '../../components/tools/stream/StreamBingo.astro';
+import StreamScenes from '../../components/tools/stream/StreamScenes.astro';
+import TierList from '../../components/tools/stream/TierList.astro';
+import TournamentBracket from '../../components/tools/stream/TournamentBracket.astro';
+import { streamTools, type StreamToolId } from '../../data/stream-tools';
+
+// Standalone app documents for the stream tools. The tool pages under /de/tools/ and
+// /en/tools/ embed these; they are also what OBS and the download link use.
+export function getStaticPaths() {
+	return streamTools.map((tool) => ({ params: { tool: tool.id } }));
+}
+
+const apps = {
+	'tier-list': TierList,
+	'stream-bingo': StreamBingo,
+	'chat-hotwords': ChatHotwords,
+	'spin-wheel': SpinWheel,
+	'tournament-bracket': TournamentBracket,
+	'stream-scenes': StreamScenes,
+	'death-counter': DeathCounter,
+} satisfies Record<StreamToolId, unknown>;
+
+const App = apps[Astro.params.tool as StreamToolId];
+---
+
+<App />

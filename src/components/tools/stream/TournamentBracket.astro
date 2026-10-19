@@ -1,0 +1,69 @@
+---
+import ChatCard from './ChatCard.astro';
+import KitToolApp from './KitToolApp.astro';
+import LayoutCard from './LayoutCard.astro';
+import config from '../../../lib/tools/stream/tournament-bracket/config.js?raw';
+import logic from '../../../lib/tools/stream/tournament-bracket/logic.js?raw';
+import css from '../../../lib/tools/stream/tournament-bracket/tool.css?raw';
+---
+
+<KitToolApp title="Turnier · kw.media" css={css} config={config} logic={logic} exportFormats={['1:1', '9:16', '16:9']}>
+	<Fragment slot="left">
+		<div class="panel">
+			<div class="panel-head tb-ctrl">
+				<button id="btnUndo" data-i18n="undo" data-i18n-title="undoTitle"></button>
+				<button id="btnVote" class="primary"></button>
+				<button id="btnA" class="tb-pick"></button>
+				<button id="btnB" class="tb-pick"></button>
+				<button id="btnNext"></button>
+				<span style="flex:1"></span>
+				<div class="seg" data-seg="view" id="viewSeg"><button data-val="duel" data-i18n="viewDuel"></button><button data-val="bracket" data-i18n="viewTree"></button></div>
+			</div>
+			<div class="tb-status"><span id="tbStatus"></span><span style="flex:1"></span><button id="btnRestart" class="small ghost danger" data-i18n="restart"></button></div>
+			<p class="hint-text" data-i18n="keysHint"></p>
+		</div>
+	</Fragment>
+	<Fragment slot="side">
+		<div class="card" id="entCard">
+			<h3><span data-i18n="cardEntries"></span><span id="entCount"></span></h3>
+			<p class="hint-text warn" id="lockNote" data-i18n="lockNote" style="margin:0 0 10px"></p>
+			<div id="entList" class="tb-ents"></div>
+			<div class="row" style="flex-wrap:nowrap"><input type="text" id="entAdd" data-i18n-ph="addPh" maxlength="60" autocomplete="off" spellcheck="false"><button id="btnImgs" data-i18n-title="imgsTitle">🖼</button></div>
+			<p class="hint-text" data-i18n="dropHint"></p>
+			<div class="row" style="margin-top:8px"><button id="btnShuffle" class="small" data-i18n="shuffle"></button><button id="btnPaste" class="small" data-i18n="paste"></button><span style="flex:1"></span><button id="btnClearEnt" class="small ghost danger" data-i18n="clearAll"></button></div>
+			<input type="file" id="imgFile" accept="image/*" hidden>
+			<input type="file" id="imgFiles" accept="image/*" multiple hidden>
+		</div>
+		<div class="card">
+			<h3 data-i18n="cardVote"></h3>
+			<p class="hint-text" data-i18n="voteHint" style="margin:0 0 10px"></p>
+			<div class="field"><span data-i18n="fVoteSec"></span><div class="seg" data-seg="voteSec"><button data-val="0" data-i18n="off"></button><button data-val="30">30 s</button><button data-val="60">60 s</button><button data-val="90">90 s</button><button data-val="120">2 min</button></div></div>
+			<label class="check"><input type="checkbox" data-key="autoVote"> <span data-i18n="fAutoVote"></span></label>
+			<label class="check"><input type="checkbox" data-key="allowChange"> <span data-i18n="fAllowChange"></span></label>
+		</div>
+		<ChatCard />
+		<div class="card">
+			<h3 data-i18n="cardLook"></h3>
+			<label class="field"><span data-i18n="fTitle"></span><input type="text" data-key="title" maxlength="80" data-i18n-ph="titleDefault"></label>
+			<label class="check"><input type="checkbox" data-key="autoTree"> <span data-i18n="fAutoTree"></span></label>
+		</div>
+		<LayoutCard formats={[['16:9', ''], ['9:16', '']]} cams />
+	</Fragment>
+	<Fragment slot="dialogs">
+		<dialog id="pasteDlg">
+			<h2 data-i18n="pasteTitle"></h2>
+			<p class="muted" data-i18n="pasteText"></p>
+			<textarea id="pasteArea" rows="10" spellcheck="false"></textarea>
+			<div class="dlg-foot"><button class="ghost" id="pasteCancel" data-i18n="cancel"></button><button class="primary" id="pasteOk" data-i18n="pasteAdd"></button></div>
+		</dialog>
+	</Fragment>
+	<Fragment slot="help">
+		<h2 data-i18n="helpTitle"></h2>
+		<ol>
+			<li data-i18n="help1"></li>
+			<li data-i18n="help2"></li>
+			<li data-i18n="help3"></li>
+			<li data-i18n="help4"></li>
+		</ol>
+	</Fragment>
+</KitToolApp>
