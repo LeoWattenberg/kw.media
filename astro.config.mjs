@@ -46,6 +46,8 @@ const redirects = {
 };
 
 const redirectSourceUrls = new Set(Object.keys(redirects).map((path) => new URL(path, site).toString()));
+// The stream tool apps are embedded by their tool pages; only those pages belong in the sitemap.
+const streamToolAppsUrl = new URL('stream-tools/', new URL(base, site)).toString();
 const postLastmodByUrl = readPostLastmodByUrl();
 
 function readPostLastmodByUrl() {
@@ -114,7 +116,7 @@ export default defineConfig({
   redirects,
 
   integrations: [sitemap({
-    filter: (page) => !redirectSourceUrls.has(page),
+    filter: (page) => !redirectSourceUrls.has(page) && !page.startsWith(streamToolAppsUrl),
     serialize: (item) => {
       const lastmod = postLastmodByUrl.get(item.url);
       return lastmod ? { ...item, lastmod } : item;

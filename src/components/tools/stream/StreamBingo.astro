@@ -1,0 +1,131 @@
+---
+import StreamToolHtml from './StreamToolHtml.astro';
+import { streamToolBrand } from '../../../lib/tools/stream/brand';
+import { streamToolPath, getStreamTool } from '../../../data/stream-tools';
+import { withBase } from '../../../lib/url';
+import css from '../../../lib/tools/stream/stream-bingo/stream-bingo.css?raw';
+import js from '../../../lib/tools/stream/stream-bingo/stream-bingo.js?raw';
+
+// Viewer links from a downloaded copy still have to open the hosted page.
+const hostedUrl = new URL(withBase(streamToolPath(getStreamTool('stream-bingo'))), Astro.site ?? 'https://kw.media/').toString();
+const script = `const KWM_BRAND=${JSON.stringify(streamToolBrand())};\nconst KWM_HOSTED_URL=${JSON.stringify(hostedUrl)};\n${js}`;
+---
+
+<StreamToolHtml title="Bingo · kw.media" css={css} script={script}>
+	<header class="topbar">
+		<div class="brand"><img class="brand-logo" id="brandLogo" alt="kw.media"><div class="brand-txt"><b data-i18n="appName"></b><small data-i18n="tagline"></small></div></div>
+		<div class="actions">
+			<div class="menu"><button data-menu data-i18n="menuExport"></button><div class="menu-pop">
+				<button data-export="1:1" data-i18n="exp11"></button>
+				<button data-export="9:16" data-i18n="exp916"></button>
+				<button data-export="16:9" data-i18n="exp169"></button>
+			</div></div>
+			<button id="btnPopup" data-i18n="popup" data-i18n-title="popupTitle"></button>
+			<button id="btnStream" data-i18n="streamView"></button>
+			<button id="btnLang" class="ghost lang-btn"></button>
+			<button id="btnHelp" class="ghost" data-i18n-aria="help">?</button>
+		</div>
+	</header>
+
+	<main class="layout">
+		<section class="left">
+			<div id="stageWrap" class="stage-wrap"><div id="stage" class="stage"></div></div>
+			<div class="panel">
+				<div class="ctl-head"><b data-i18n="ctlTitle"></b><span id="hitCount" class="muted"></span><input id="filter" type="text" data-i18n-ph="filterPh" autocomplete="off"><button id="btnUndoHit" class="small" data-i18n="undoHit"></button></div>
+				<div id="ctlGrid" class="ctl-grid"></div>
+			</div>
+			<div class="panel">
+				<b data-i18n="checkLog"></b>
+				<div id="log" class="log"></div>
+			</div>
+		</section>
+
+		<aside class="side">
+			<div class="card">
+				<h3><span data-i18n="cardRound"></span><span class="code" id="roundCode"></span></h3>
+				<label class="field"><span data-i18n="fTitle"></span><input type="text" data-key="title" maxlength="80"></label>
+				<div class="field"><span data-i18n="fSize"></span><div class="seg" data-seg="size"><button data-val="3">3×3</button><button data-val="4">4×4</button><button data-val="5">5×5</button></div></div>
+				<label class="check"><input type="checkbox" data-key="free"> <span data-i18n="fFree"></span></label>
+				<label class="field"><span data-i18n="fItems"></span><textarea data-key="itemsText" rows="8"></textarea></label>
+				<p class="hint-text" id="itemsInfo"></p>
+				<p class="hint-text warn" id="draftInfo" hidden data-i18n="draftChanged"></p>
+				<button id="btnNewRound" class="primary" style="margin-top:10px" data-i18n="newRound"></button>
+			</div>
+
+			<div class="card">
+				<h3 data-i18n="cardLink"></h3>
+				<input type="text" id="linkField" readonly>
+				<div class="row" style="margin-top:8px"><button id="btnCopy" class="small primary" data-i18n="linkCopy"></button><button id="btnOpenLink" class="small" data-i18n="linkOpen"></button><span id="linkLen" class="muted" style="font-size:12px"></span></div>
+				<p class="hint-text" id="linkInfo"></p>
+				<label class="field" style="margin-top:10px"><span data-i18n="fJoin"></span><input type="text" data-key="join" maxlength="90" data-i18n-ph="joinPh"></label>
+			</div>
+
+			<div class="card">
+				<h3 data-i18n="cardChat"></h3>
+				<label class="field"><span data-i18n="twitchChannel"></span><input type="text" data-key="chatChannel" maxlength="40" data-i18n-ph="twitchPh" autocomplete="off" spellcheck="false"></label>
+				<button id="btnChat" class="small primary"></button>
+				<div class="chat-status" id="chatStatus"><i></i><span></span></div>
+				<label class="field" style="margin-top:10px"><span data-i18n="fCmd"></span><input type="text" data-key="cmd" maxlength="20" spellcheck="false"></label>
+				<p class="hint-text" id="chatHint"></p>
+			</div>
+
+			<div class="card">
+				<h3 data-i18n="cardWinners"></h3>
+				<div id="winList" class="winlist"></div>
+				<div class="field" style="margin:14px 0 0"><span data-i18n="cardCheck"></span>
+					<div class="row"><input type="text" id="checkName" data-i18n-ph="checkPh" style="flex:1;width:auto" spellcheck="false"><button id="btnCheck" class="small" data-i18n="checkBtn"></button></div>
+				</div>
+				<div id="checkOut"></div>
+			</div>
+
+			<div class="card">
+				<h3 data-i18n="cardLayout"></h3>
+				<div class="field"><span data-i18n="fFormat"></span><div class="seg" data-seg="format"><button data-val="16:9">16:9</button><button data-val="9:16">9:16</button><button data-val="1:1">1:1</button></div></div>
+				<div class="field"><span data-i18n="camSlots"></span><div class="seg" data-seg="cams"><button data-val="0" data-i18n="none"></button><button data-val="1">1</button><button data-val="2">2</button></div></div>
+				<label class="field"><span data-i18n="camFill"></span>
+					<select data-key="camFill">
+						<option value="placeholder" data-i18n="fillPlaceholder"></option>
+						<option value="transparent" data-i18n="fillTransparent"></option>
+						<option value="magenta" data-i18n="fillMagenta"></option>
+						<option value="blue" data-i18n="fillBlue"></option>
+						<option value="green" data-i18n="fillGreen"></option>
+					</select>
+				</label>
+				<label class="check"><input type="checkbox" data-key="camRing"> <span data-i18n="camRing"></span></label>
+				<div class="colors">
+					<label><input type="color" data-key="bg"> <span data-i18n="bgColor"></span></label>
+					<label><input type="color" data-key="accent"> <span data-i18n="accentColor"></span></label>
+				</div>
+				<details class="adv"><summary data-i18n="advanced"></summary>
+					<label class="check"><input type="checkbox" data-key="brand"> <span data-i18n="showBrand"></span></label>
+				</details>
+			</div>
+		</aside>
+	</main>
+
+	<section id="viewer" hidden></section>
+
+	<div id="toast"></div>
+	<div id="streamHint" data-i18n="streamHint"></div>
+
+	<dialog id="brandDlg">
+		<h2 data-i18n="brandDlgTitle"></h2>
+		<p data-i18n="brandDlgText"></p>
+		<div class="dlg-foot"><button id="brandKeep" class="ghost" data-i18n="brandKeep"></button><button id="brandOff" data-i18n="brandOffAnyway"></button><button id="brandSub" class="primary" data-i18n="brandSub"></button></div>
+	</dialog>
+
+	<dialog id="help">
+		<h2 data-i18n="helpTitle"></h2>
+		<ol>
+			<li data-i18n="help1"></li>
+			<li data-i18n="help2"></li>
+			<li data-i18n="help3"></li>
+			<li data-i18n="help4"></li>
+		</ol>
+		<h4 data-i18n="helpObsH"></h4>
+		<p data-i18n="helpObs"></p>
+		<h4 data-i18n="helpFairH"></h4>
+		<p data-i18n="helpFair"></p>
+		<div class="dlg-foot"><button class="primary" id="btnHelpClose" data-i18n="gotIt"></button></div>
+	</dialog>
+</StreamToolHtml>

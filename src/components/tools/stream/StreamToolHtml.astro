@@ -1,0 +1,30 @@
+---
+// Complete, self-contained document for one stream tool: styles and script are inlined
+// so the page also works when downloaded, opened offline, or added to OBS.
+interface Props {
+	title: string;
+	css: string;
+	script: string;
+}
+
+const { title, css, script } = Astro.props;
+const inlineStyle = `<style>\n${css}\n</style>`;
+const inlineScript = `<script>\n${script.replace(/<\/script/gi, '<\\/script')}\n</script>`;
+---
+
+<!doctype html>
+<html lang="de">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta name="color-scheme" content="dark" />
+		<meta name="robots" content="noindex" />
+		<title>{title}</title>
+		<link rel="icon" id="favicon" href="data:," />
+		<Fragment set:html={inlineStyle} />
+	</head>
+	<body>
+		<slot />
+		<Fragment set:html={inlineScript} />
+	</body>
+</html>

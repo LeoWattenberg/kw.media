@@ -36,7 +36,7 @@ const copy = {
 
 const localizedTools = toolPages.filter((tool) => tool.locale === locale);
 const toolsById = new Map(localizedTools.map((tool) => [toolGroup(tool.id), tool]));
-const categoryPageIds = new Set(['converter', 'audio-tools', 'video-tools', 'image-tools', 'text-tools', 'analyzers']);
+const categoryPageIds = new Set(['converter', 'audio-tools', 'video-tools', 'image-tools', 'text-tools', 'analyzers', 'stream-tools']);
 const categoryFolders = toolCategories.map((category) => {
 	const translation = category.translations[locale];
 	const tools = category.toolIds.map((toolId) => toolsById.get(toolId)).filter(Boolean);

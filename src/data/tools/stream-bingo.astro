@@ -1,0 +1,37 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import StreamToolEmbed from '../../components/tools/stream/StreamToolEmbed.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('stream-bingo', {
+	id: 'stream-bingo',
+	translations: {
+		de: {
+			id: 'stream-bingo-de',
+			path: '/de/tools/stream-bingo/',
+			title: 'Stream-Bingo',
+			description: 'Bingo mit deinem Chat: Jeder Zuschauer bekommt eine eigene Karte, du markierst Stream-Momente live und Bingos per Chat-Befehl werden automatisch geprüft.',
+			content: [
+				'Beim Stream-Bingo trägst du typische Momente aus deinem Stream ein – vom bellenden Hund bis zum „nur noch eine Runde“. Zuschauer öffnen den Rundenlink, geben ihren Twitch-Namen ein und bekommen ihre eigene Karte, berechnet aus Name und Runde, ganz ohne Server.',
+				'Passiert etwas im Stream, markierst du es mit einem Klick. Wer eine volle Reihe hat, schreibt den Bingo-Befehl in den Chat: Das Tool rechnet die Karte nach, vergleicht sie mit deinen Markierungen und blendet nur echte Bingos ein.',
+			],
+		},
+		en: {
+			id: 'stream-bingo-en',
+			path: '/en/tools/stream-bingo/',
+			title: 'Stream Bingo',
+			description: 'Play bingo with your chat: every viewer gets their own card, you mark stream moments live, and bingos called via chat command are verified automatically.',
+			content: [
+				'For stream bingo, you enter typical moments from your stream – from the barking dog to “just one more round”. Viewers open the round link, enter their Twitch name, and get their own card, calculated from name and round without any server.',
+				'When something happens on stream, you mark it with one click. Anyone with a full line types the bingo command in chat: the tool recalculates their card, compares it with your marks, and only shows real bingos.',
+			],
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<StreamToolEmbed tool={tool} streamToolId="stream-bingo" />
+</ToolPageShell>

@@ -1,0 +1,65 @@
+---
+import { streamToolBrand } from '../../../lib/tools/stream/brand';
+import coreCss from '../../../lib/tools/stream/kit/core.css?raw';
+import coreJs from '../../../lib/tools/stream/kit/core.js?raw';
+import StreamToolHtml from './StreamToolHtml.astro';
+
+// Shared app frame for the kit tools: top bar, stage, side panel, dialogs, and the
+// core runtime (layout, DE/EN strings, Twitch chat, stream window) from kit/core.js.
+interface Props {
+	title: string;
+	css: string;
+	config: string;
+	logic: string;
+	exportFormats?: string[];
+}
+
+const { title, css, config, logic, exportFormats = [] } = Astro.props;
+const script = `(()=>{\n'use strict';\nconst KWM_BRAND=${JSON.stringify(streamToolBrand())};\n${config}\n${coreJs}\n${logic}\ncoreStart();\n})();`;
+---
+
+<StreamToolHtml title={title} css={`${coreCss}\n/* --- Tool --- */\n${css}`} script={script}>
+	<header class="topbar">
+		<div class="brand"><img class="brand-logo" id="brandLogo" alt="kw.media" /><div class="brand-txt"><b data-i18n="appName"></b><small data-i18n="tagline"></small></div></div>
+		<div class="actions">
+			<slot name="actions" />
+			{
+				exportFormats.length > 0 && (
+					<div class="menu">
+						<button data-menu data-i18n="menuExport" />
+						<div class="menu-pop">
+							{exportFormats.map((format) => <button data-export={format} data-i18n={`exp${format.replace(':', '')}`} />)}
+						</div>
+					</div>
+				)
+			}
+			<button id="btnPopup" data-i18n="popup" data-i18n-title="popupTitle"></button>
+			<button id="btnStream" data-i18n="streamView"></button>
+			<button id="btnLang" class="ghost lang-btn"></button>
+			<button id="btnHelp" class="ghost" data-i18n-aria="help">?</button>
+		</div>
+	</header>
+	<main class="layout">
+		<section class="left">
+			<div id="stageWrap" class="stage-wrap"><div id="stage" class="stage"></div></div>
+			<slot name="left" />
+		</section>
+		<aside class="side">
+			<slot name="side" />
+		</aside>
+	</main>
+	<div id="toast"></div>
+	<div id="streamHint" data-i18n="streamHint"></div>
+	<slot name="dialogs" />
+	<dialog id="brandDlg">
+		<h2 data-i18n="brandDlgTitle"></h2>
+		<p data-i18n="brandDlgText"></p>
+		<div class="dlg-foot"><button id="brandKeep" class="ghost" data-i18n="brandKeep"></button><button id="brandOff" data-i18n="brandOffAnyway"></button><button id="brandSub" class="primary" data-i18n="brandSub"></button></div>
+	</dialog>
+	<dialog id="help">
+		<slot name="help" />
+		<h4 data-i18n="helpObsH"></h4>
+		<p data-i18n="helpObs"></p>
+		<div class="dlg-foot"><button class="primary" id="btnHelpClose" data-i18n="gotIt"></button></div>
+	</dialog>
+</StreamToolHtml>

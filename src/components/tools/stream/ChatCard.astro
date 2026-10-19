@@ -1,0 +1,11 @@
+---
+// Twitch connection card used by every chat-enabled kit tool; extra fields go into the slot.
+---
+
+<div class="card">
+	<h3 data-i18n="cardChat"></h3>
+	<label class="field"><span data-i18n="twitchChannel"></span><input type="text" data-key="chatChannel" maxlength="40" data-i18n-ph="twitchPh" autocomplete="off" spellcheck="false" /></label>
+	<button id="btnChat" class="small primary"></button>
+	<div class="chat-status" id="chatStatus"><i></i><span></span></div>
+	<slot />
+</div>

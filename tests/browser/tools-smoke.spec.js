@@ -103,6 +103,7 @@ const toolPages = [
 	['/en/tools/youtube-thumbnail-preview/', 'YouTube Thumbnail Preview', '[data-thumbnail-preview]'],
 	['/en/tools/ypp-rejection-check/', 'Monetization Rejected? YPP Self-Check', '[data-ypp-check]'],
 	['/en/tools/analyzers/', 'Analyzers', '.tool-category-grid'],
+	['/en/tools/stream/', 'Stream Tools', '.tool-category-grid'],
 ];
 
 test.describe('tool pages browser smoke', () => {
@@ -122,7 +123,7 @@ test.describe('tool pages browser smoke', () => {
 		const errors = collectClientErrors(page);
 
 		await page.goto('/en/tools/');
-		await expect(page.locator('[data-tool-folder-card]')).toHaveCount(6);
+		await expect(page.locator('[data-tool-folder-card]')).toHaveCount(7);
 		await expect(page.getByRole('link', { name: /Audio Tools/ })).toBeVisible();
 
 		await page.locator('[data-tool-search-input]').fill('documnt');
