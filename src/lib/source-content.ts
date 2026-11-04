@@ -15,6 +15,7 @@ export interface SourcePost {
 	modified: string;
 	locale: Locale;
 	translationKey?: string;
+	aiGenerated?: boolean;
 	category: Category;
 	image?: string;
 	authorName: string;

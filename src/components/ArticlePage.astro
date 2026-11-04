@@ -37,7 +37,11 @@ const originalTranscript = structuredContent.transcriptHtml
 // Every video post is written from the transcript by the AI pipeline, so it always
 // discloses that. Translation direction is only recorded for blog posts.
 const translationOriginal = getTranslationOriginal(post);
-const aiNotice = post.video ? aiGeneratedNoticeHtml(post.video.watchUrl, post.locale) : '';
+const aiNotice = post.video
+	? aiGeneratedNoticeHtml(post.video.watchUrl, post.locale)
+	: post.aiGenerated
+		? (post.locale === 'de' ? 'Dieser Artikel wurde KI-generiert.' : 'This article was AI generated.')
+		: '';
 const disclosures = [
 	translationOriginal ? translatedNoticeHtml(translationOriginal.path, post.locale) : '',
 ].filter(Boolean);
