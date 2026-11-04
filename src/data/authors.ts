@@ -7,6 +7,7 @@ export interface AuthorProfile {
 	image: string;
 	imageAlt: string;
 	email: string;
+	website?: string;
 	credentials: string[];
 	paths: Record<Locale, string>;
 	sameAs?: string[];
@@ -18,6 +19,7 @@ export const authorProfiles = [
 	{
 		id: 'leo-wattenberg',
 		name: 'Leo Wattenberg',
+		website: 'https://leo.wattenberg.dk/',
 		role: 'Creative Director',
 		image: '/assets/Leo_mit_angel.png',
 		imageAlt: 'Leo Wattenberg',

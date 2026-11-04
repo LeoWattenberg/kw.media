@@ -347,6 +347,7 @@ function escapeAttribute(value: string): string {
 						</ul>
 						<div class="author-actions">
 							{authorPath && <a href={withBase(authorPath)}>{authorLabels.profile}</a>}
+							{authorProfile.website && <a href={authorProfile.website}>Website</a>}
 							<a href={`mailto:${authorProfile.email}`}>{authorLabels.contact}</a>
 						</div>
 					</div>
