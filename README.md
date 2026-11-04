@@ -133,8 +133,8 @@ The Soundscaper commit graph now lives on [mindscaper.org](https://mindscaper.or
 
 ## Audio Editor
 
-The `/de/tools/audio-editor/` and `/en/tools/audio-editor/` pages embed the
-standalone [Soundscaper](https://soundscaper.org) application. Set
+The `/de/tools/audio-editor/` and `/en/tools/audio-editor/` routes redirect to the
+matching language of the standalone [Soundscaper](https://soundscaper.org) application. Set
 `PUBLIC_SOUNDSCAPER_ORIGIN` during a build to target a preview deployment; it
 defaults to `https://soundscaper.org`.
 

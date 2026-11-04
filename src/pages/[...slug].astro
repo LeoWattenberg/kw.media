@@ -32,7 +32,8 @@ export function getStaticPaths() {
 		},
 	}));
 
-	const toolPaths = toolPages.map((tool) => ({
+	// Keep Soundscaper in the tool registry; astro.config.mjs redirects its old routes.
+	const toolPaths = toolPages.filter((tool) => !tool.id.startsWith('audio-editor-')).map((tool) => ({
 		params: {
 			slug: tool.path.replace(/^\/|\/$/g, ''),
 		},

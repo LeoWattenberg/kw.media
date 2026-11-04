@@ -7,8 +7,12 @@ import sitemap from '@astrojs/sitemap';
 
 const site = process.env.ASTRO_SITE ?? 'https://kw.media';
 const base = process.env.ASTRO_BASE ?? '/';
+const soundscaperOrigin = process.env.PUBLIC_SOUNDSCAPER_ORIGIN ?? 'https://soundscaper.org';
 const redirects = {
   '/de/': '/',
+
+  '/de/tools/audio-editor/': new URL('/de/', soundscaperOrigin).toString(),
+  '/en/tools/audio-editor/': new URL('/en/', soundscaperOrigin).toString(),
 
   '/ads/': '/en/ads/',
   '/b2b/': '/de/b2b/',

@@ -1,6 +1,4 @@
 ---
-import ToolPageShell from '../../components/ToolPageShell.astro';
-import AudioEditor from '../../components/tools/AudioEditor.astro';
 import { defineToolModule } from '../../lib/tool-page-module';
 
 export const toolModule = defineToolModule('audio-editor', {
@@ -21,9 +19,4 @@ export const toolModule = defineToolModule('audio-editor', {
 	},
 });
 
-const { tool, alternatePaths } = Astro.props;
 ---
-
-<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
-	<AudioEditor locale={tool.locale} />
-</ToolPageShell>

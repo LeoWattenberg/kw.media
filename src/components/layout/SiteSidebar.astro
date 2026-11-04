@@ -284,6 +284,7 @@ const sidebarPages = sitePages
 	.brand img {
 		display: none;
 		width: min(190px, 100%);
+		max-width: 100%;
 		height: auto;
 	}
 
@@ -485,6 +486,16 @@ const sidebarPages = sitePages
 
 	.sidebar-scroll-hint {
 		display: none;
+	}
+
+	@media (min-width: 901px) {
+		.site-sidebar {
+			overflow-y: auto;
+		}
+
+		.site-sidebar > * {
+			flex-shrink: 0;
+		}
 	}
 
 	@media (max-width: 900px) {
