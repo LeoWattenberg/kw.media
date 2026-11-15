@@ -11,7 +11,7 @@ const { locale } = Astro.props;
 const t = useTranslations(locale);
 ---
 
-<footer class="site-footer">
+<footer class="site-footer" lang={locale} dir="ltr">
 	<div class="container footer-grid">
 		<section>
 			<img class="footer-logo" src={withBase('/logo/logo-weiß.svg')} alt={t('siteName')} width="230" height="91" />

@@ -2,8 +2,23 @@
 import AudacityDownloads from '../../components/audacity/AudacityDownloads.astro';
 import { definePageModule } from '../../lib/site-page-module';
 import translations from './audacity-download.json';
+import { downloadCatalogs, downloadLanguages } from '../audacity-download-locales';
 
-export const pageModule = definePageModule('audacity-download', translations);
+export const pageModule = {
+	id: 'audacity-download',
+	pages: [
+		...definePageModule('audacity-download', translations).pages.map(page => ({ ...page, language: page.locale })),
+		...downloadLanguages.filter(({ language }) => language !== 'de' && language !== 'en').map(({ language, path }) => ({
+			id: `audacity-download-${language}`,
+			path,
+			locale: 'en' as const,
+			language,
+			title: downloadCatalogs[language].copy.heading,
+			description: downloadCatalogs[language].description,
+			blocks: [],
+		})),
+	],
+};
 
 const { page, alternatePaths } = Astro.props;
 ---

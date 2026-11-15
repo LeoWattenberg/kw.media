@@ -11,7 +11,7 @@ import { localizeMediaUrl } from '../../lib/media';
 import { withBase } from '../../lib/url';
 
 type SchemaType = 'WebPage' | 'BlogPosting' | 'ProfilePage';
-type AlternatePaths = Partial<Record<Locale, string>>;
+type AlternatePaths = Partial<Record<string, string>>;
 
 interface FaqItem {
 	question: string;
@@ -25,6 +25,13 @@ interface BreadcrumbItem {
 
 interface Props {
 	locale: Locale;
+	language?: string;
+	direction?: 'ltr' | 'rtl';
+	languageMenu?: {
+		current: string;
+		label: string;
+		items: Array<{ language: string; label: string; path: string; direction: 'ltr' | 'rtl' }>;
+	};
 	title: string;
 	description?: string;
 	preloadImage?: string;
@@ -45,6 +52,9 @@ interface Props {
 
 const {
 	locale,
+	language = locale,
+	direction,
+	languageMenu,
 	title,
 	description = 'Koytek Wattenberg Media',
 	preloadImage,
@@ -89,15 +99,16 @@ const socialImageHref = socialImageSrc ? absoluteUrl(socialImageSrc) : undefined
 const authorHref = authorPath ? absoluteUrl(authorPath) : undefined;
 const authorId = authorHref ? `${authorHref}#person` : undefined;
 const effectiveAlternatePaths = {
-	[locale]: canonicalPath,
+	[language]: canonicalPath,
 	...alternatePaths,
 };
 const alternateLinks = Object.entries(effectiveAlternatePaths)
-	.filter((entry): entry is [Locale, string] => Boolean(entry[1]))
+	.filter((entry): entry is [string, string] => Boolean(entry[1]))
 	.map(([hreflang, path]) => ({ hreflang, href: absoluteUrl(path) }));
+const defaultAlternate = effectiveAlternatePaths[languageMenu ? 'en' : 'de'];
 const alternateLinksWithDefault =
-	alternateLinks.length > 1 && effectiveAlternatePaths.de
-		? [...alternateLinks, { hreflang: 'x-default', href: absoluteUrl(effectiveAlternatePaths.de) }]
+	alternateLinks.length > 1 && defaultAlternate
+		? [...alternateLinks, { hreflang: 'x-default', href: absoluteUrl(defaultAlternate) }]
 		: alternateLinks;
 const ogLocaleByLocale = {
 	de: 'de_DE',
@@ -107,10 +118,16 @@ const schemaLanguageByLocale = {
 	de: 'de-DE',
 	en: 'en-US',
 } satisfies Record<Locale, string>;
+const contentLanguage = language === locale ? schemaLanguageByLocale[locale] : language;
+function openGraphLocale(language: string): string {
+	const maximized = new Intl.Locale(language).maximize();
+	return `${maximized.language}_${maximized.region}`;
+}
+const contentLocale = language === locale ? ogLocaleByLocale[locale] : openGraphLocale(language);
 const ogLocaleAlternates = alternateLinks
 	.map((alternate) => alternate.hreflang)
-	.filter((hreflang): hreflang is Locale => hreflang !== locale && hreflang in ogLocaleByLocale)
-	.map((alternateLocale) => ogLocaleByLocale[alternateLocale]);
+	.filter(hreflang => hreflang !== language)
+	.map(openGraphLocale);
 const siteUrl = absoluteUrl('/');
 const organizationId = `${siteUrl}#organization`;
 const websiteId = `${siteUrl}#website`;
@@ -160,7 +177,7 @@ const websiteSchema = {
 	url: siteUrl,
 	name: siteName,
 	publisher: { '@id': organizationId },
-	inLanguage: schemaLanguageByLocale[locale],
+	inLanguage: contentLanguage,
 };
 const webPageSchema = {
 	'@type': schemaType === 'ProfilePage' && profileAuthor ? 'ProfilePage' : 'WebPage',
@@ -178,7 +195,7 @@ const webPageSchema = {
 			: schemaType === 'ProfilePage' && profileAuthor
 				? { '@id': profilePersonId }
 				: undefined,
-	inLanguage: schemaLanguageByLocale[locale],
+	inLanguage: contentLanguage,
 };
 const profilePersonSchema =
 	schemaType === 'ProfilePage' && profileAuthor
@@ -251,7 +268,7 @@ const jsonLd = JSON.stringify({
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={language} dir={direction}>
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/png" sizes="32x32" href={withBase('/favicon-32x32.png')} />
@@ -272,7 +289,7 @@ const jsonLd = JSON.stringify({
 			content={schemaType === 'BlogPosting' ? 'article' : 'website'}
 		/>
 		<meta property="og:url" content={canonicalHref} />
-		<meta property="og:locale" content={ogLocaleByLocale[locale]} />
+		<meta property="og:locale" content={contentLocale} />
 		{ogLocaleAlternates.map((alternateLocale) => <meta property="og:locale:alternate" content={alternateLocale} />)}
 		{socialImageHref && <meta property="og:image" content={socialImageHref} />}
 		{socialImageHref && imageAlt && <meta property="og:image:alt" content={imageAlt} />}
@@ -313,12 +330,12 @@ const jsonLd = JSON.stringify({
 	</head>
 	<body>
 		<div class="site-shell">
-			<SiteSidebar locale={locale} currentPath={currentPath} alternatePaths={effectiveAlternatePaths} />
+			<SiteSidebar locale={locale} currentPath={currentPath} alternatePaths={effectiveAlternatePaths} languageMenu={languageMenu} />
 			<div class="site-content">
 				<main>
 					{
 						breadcrumbTrail.length > 1 && (
-							<nav class="breadcrumbs" aria-label={t('a11y.breadcrumb')}>
+							<nav class="breadcrumbs" aria-label={t('a11y.breadcrumb')} lang={locale}>
 								<ol class="container">
 									{breadcrumbTrail.map((item, index) => {
 										const isCurrent = index === breadcrumbTrail.length - 1;
@@ -326,7 +343,7 @@ const jsonLd = JSON.stringify({
 										return (
 											<li>
 												{isCurrent ? (
-													<span aria-current="page">{item.label}</span>
+													<span aria-current="page" lang={language}>{item.label}</span>
 												) : (
 													<a href={withBase(item.href ?? homePath)}>{item.label}</a>
 												)}

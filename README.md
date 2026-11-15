@@ -117,6 +117,8 @@ Run commands from the project root:
 
 The Audacity download pages fetch current Soundscaper release candidates and Audacity 4 release data in the browser. The checked-in download snapshot keeps links available without JavaScript or when upstream requests fail; Audacity 3 stays pinned to 3.7.9. Their comparison tables come from the existing translated Audacity feature-comparison posts, including the reviewed versions and update notes.
 
+Download-page translations live in `src/data/audacity-download-locales/`. The 27-language switcher is specific to this page family; navigation from the additional languages uses the existing English pages. Comparison text is translated after applying the shared row exclusions, column order and status styling. The full comparison links to the matching Soundscaper handbook language.
+
 ## Generated Assets
 
 The scheduled MP3 Guesser workflow produces files under `public/games/mp3guesser/`.

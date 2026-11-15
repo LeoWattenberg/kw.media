@@ -152,8 +152,8 @@ export function matchingDownloads(assets, environment) {
 			|| (a.variant ?? '').localeCompare(b.variant ?? ''));
 }
 
-export function downloadAssetLabel(asset) {
-	const architecture = { x64: 'x64 / Intel', arm64: 'ARM64', x86: '32-bit', universal: 'Universal' }[asset.architecture];
+export function downloadAssetLabel(asset, copy = {}) {
+	const architecture = { x64: 'x64 / Intel', arm64: 'ARM64', x86: copy.bits32 ?? '32-bit', universal: copy.universal ?? 'Universal' }[asset.architecture];
 	return `${platforms[asset.platform]} · ${architecture} · ${asset.format}${asset.variant ? ` (Ubuntu ${asset.variant}+)` : ''}`;
 }
 

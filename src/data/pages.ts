@@ -1,4 +1,3 @@
-import type { Locale } from '../i18n';
 import type { SitePage } from '../lib/page-types';
 import type { SitePageModule } from '../lib/site-page-module';
 
@@ -57,9 +56,9 @@ export function pageGroup(id: string) {
 	return id.replace(/-(de|en)$/, '');
 }
 
-export function getSitePageAlternatePaths(page: SitePage): Partial<Record<Locale, string>> {
-	const group = pageGroup(page.id);
-	const alternates = sitePages.filter((candidate) => pageGroup(candidate.id) === group);
+export function getSitePageAlternatePaths(page: SitePage): Partial<Record<string, string>> {
+	const module = pageModules.find(candidate => candidate.pageModule.pages.some(candidatePage => candidatePage.id === page.id));
+	const alternates = module?.pageModule.pages ?? [page];
 
-	return Object.fromEntries(alternates.map((alternate) => [alternate.locale, alternate.path])) as Partial<Record<Locale, string>>;
+	return Object.fromEntries(alternates.map((alternate) => [alternate.language ?? alternate.locale, alternate.path]));
 }

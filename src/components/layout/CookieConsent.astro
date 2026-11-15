@@ -24,7 +24,7 @@ const copy = {
 const consentCookie = 'kwm_cookie_consent';
 ---
 
-<div class="cookie-banner" data-cookie-banner hidden>
+<div class="cookie-banner" data-cookie-banner lang={locale} dir="ltr" hidden>
 	<p>{copy.text}</p>
 	<div class="cookie-actions">
 		<button type="button" class="secondary" data-cookie-decline>
@@ -158,6 +158,13 @@ const consentCookie = 'kwm_cookie_consent';
 
 	.cookie-banner[hidden] {
 		display: none;
+	}
+
+	@media (min-width: 901px) {
+		:global(html[dir='rtl']) .cookie-banner {
+			right: auto;
+			left: 18px;
+		}
 	}
 
 	p {

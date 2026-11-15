@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { DOWNLOAD_LANGUAGES, downloadComparisonUrl, downloadPagePath } from '../../src/lib/audacity-download-localization.js';
 
 const releases = JSON.parse(readFileSync(new URL('../../src/data/audacity-downloads.json', import.meta.url)));
 const card = (page, product) => page.locator(`[data-product="${product}"]`);
@@ -140,7 +141,9 @@ test('German and English comparisons follow download order and retain the transl
 		await expect(macros.locator('.comparison-symbol')).toHaveText(['★', '/', '+']);
 		await expect(page.locator('.download-comparison')).toContainText(locale === 'de' ? 'Aktualisiert am 15. November 2026' : 'Updated November 15, 2026');
 		const other = locale === 'de' ? 'en' : 'de';
-		await expect(page.locator('.site-sidebar .language-link')).toHaveAttribute('href', `/audacity/download/${other}/`);
+		await page.locator('[data-language-menu] summary').click();
+		await expect(page.locator(`[data-language-menu] a[hreflang="${other}"]`)).toHaveAttribute('href', `/audacity/download/${other}/`);
+		await expect(page.locator('.comparison-source')).toHaveAttribute('href', downloadComparisonUrl(locale));
 		await page.goto(postPath);
 		const omitted = locale === 'de'
 			? ['Jedes Label als separate Datei exportieren', 'Spuren als separate Stems exportieren', 'Audio außerhalb der Auswahl kürzen']
@@ -202,5 +205,82 @@ test('static versions, every package and comparison tables remain available with
 		await expect(card(page, product).locator('[data-download-list] a')).toHaveCount(release.assets.length);
 	}
 	await expect(page.locator('.download-comparison table')).toBeVisible();
+	await page.locator('[data-language-menu] summary').click();
+	await expect(page.locator('[data-language-menu] a')).toHaveCount(27);
+	await page.locator('[data-language-menu] a[hreflang="ja"]').click();
+	await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
+	await expect(page.locator('.download-comparison')).toContainText('マクロ');
 	await context.close();
+});
+
+for (const language of DOWNLOAD_LANGUAGES.filter(language => language !== 'en' && language !== 'de')) {
+	test(`${language} translates the download page, including comparison details, and offers all 27 languages`, async ({ page }) => {
+		const catalog = JSON.parse(readFileSync(new URL(`../../src/data/audacity-download-locales/${language}.json`, import.meta.url)));
+		await environment(page);
+		await page.goto(downloadPagePath(language));
+		await expect(page.locator('[data-audacity-downloads]')).toHaveAttribute('data-download-ready', 'true');
+		await expect(page.locator('html')).toHaveAttribute('lang', language);
+		await expect(page.locator('html')).toHaveAttribute('dir', catalog.direction);
+		await expect(page.getByRole('heading', { level: 1 })).toHaveText(catalog.copy.heading);
+		await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', catalog.description);
+		await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://kw.media${downloadPagePath(language)}`);
+		await expect(page.locator('link[rel="alternate"][hreflang]')).toHaveCount(28);
+		await expect(page.locator('link[hreflang="x-default"]')).toHaveAttribute('href', 'https://kw.media/audacity/download/en/');
+		await expect(page.locator('.comparison-source')).toHaveAttribute('href', downloadComparisonUrl(language));
+		await expect(page.locator('.download-description a')).toHaveAttribute('href', downloadComparisonUrl(language));
+		await expect(page.locator('.download-comparison table th').first()).toHaveText(catalog.comparison.Feature);
+		await expect(page.locator('.download-comparison')).toContainText(catalog.comparison.Macros);
+		await expect(page.locator('.download-comparison')).toContainText(catalog.comparison['including JS scripting']);
+		await expect(page.locator('.comparison-cell--extra')).toHaveCount(3);
+		await expect(page.locator('.comparison-cell--partial .comparison-symbol')).toHaveText('~');
+		await expect(primary(page, 'audacity4')).toHaveAttribute('href', /-x86_64\.msi$/);
+		await page.locator('[data-language-menu] summary').click();
+		await expect(page.locator('[data-language-menu] a')).toHaveCount(27);
+		await expect(page.locator('[data-language-menu] [aria-current="page"]')).toHaveText(catalog.nativeName);
+		await expect(page.locator('[data-language-menu] a[hreflang="en"]')).toHaveAttribute('href', '/audacity/download/en/');
+	});
+}
+
+test('the language switcher navigates among translated downloads, and other pages fall back to English', async ({ page }) => {
+	await environment(page);
+	await open(page);
+	await page.locator('[data-language-menu] summary').click();
+	await page.locator('[data-language-menu] a[hreflang="fr"]').click();
+	await expect(page.locator('html')).toHaveAttribute('lang', 'fr');
+	await page.locator('[data-language-menu] summary').click();
+	await page.locator('[data-language-menu] a[hreflang="ar"]').click();
+	await expect(page.locator('html')).toHaveAttribute('lang', 'ar');
+	await expect(page.locator('.site-sidebar .brand')).toHaveAttribute('href', '/en/');
+	await expect(page.locator('.breadcrumbs a').first()).toHaveAttribute('href', '/en/');
+	await page.locator('.sidebar-link').filter({ hasText: /^Audacity$/ }).click();
+	await expect(page).toHaveURL(/\/en\/audacity\/$/);
+	await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+	await expect(page.locator('[data-language-menu]')).toHaveCount(0);
+});
+
+test('RTL translations fit mobile screens and the language menu works with a collapsed sidebar', async ({ page }) => {
+	await environment(page);
+	await page.setViewportSize({ width: 1280, height: 900 });
+	await page.goto('/audacity/download/ar/');
+	await page.locator('[data-sidebar-collapse-toggle]').click();
+	await page.locator('[data-language-menu] summary').click();
+	await page.locator('[data-language-menu] a[hreflang="he"]').click();
+	await expect(page.locator('html')).toHaveAttribute('lang', 'he');
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.goto('/audacity/download/ar/');
+	await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
+	await expect(page.locator('[data-audacity-downloads]')).toHaveAttribute('data-download-ready', 'true');
+	await card(page, 'soundscaper').locator('summary').click();
+	await expect(card(page, 'soundscaper').getByRole('navigation')).toBeVisible();
+	expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+	await page.keyboard.press('Escape');
+	await page.locator('[data-language-menu] summary').click();
+	await expect(page.locator('[data-language-menu] a[hreflang="en"]')).toBeVisible();
+	expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+	for (const theme of ['light', 'dark']) {
+		await page.evaluate(theme => document.documentElement.dataset.theme = theme, theme);
+		const result = await new AxeBuilder({ page }).include('.downloads-section').include('.comparison-section').include('[data-language-menu]').analyze();
+		expect(result.violations).toEqual([]);
+	}
+	await page.screenshot({ path: 'test-results/audacity-downloads-arabic-mobile.png', fullPage: false });
 });

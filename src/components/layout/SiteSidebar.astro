@@ -3,15 +3,21 @@ import { sitePages } from '../../data/pages';
 import { localeLabels, routeFor, type Locale, useTranslations } from '../../i18n';
 import { withBase } from '../../lib/url';
 
-type AlternatePaths = Partial<Record<Locale, string>>;
+type AlternatePaths = Partial<Record<string, string>>;
 
 interface Props {
 	locale: Locale;
 	currentPath: string;
 	alternatePaths?: AlternatePaths;
+	languageMenu?: {
+		current: string;
+		label: string;
+		items: Array<{ language: string; label: string; path: string; direction: 'ltr' | 'rtl' }>;
+	};
 }
 
-const { locale, currentPath, alternatePaths = {} } = Astro.props;
+const { locale, currentPath, alternatePaths = {}, languageMenu } = Astro.props;
+const currentLanguage = languageMenu?.items.find(item => item.language === languageMenu.current);
 const t = useTranslations(locale);
 const alternateLocale = locale === 'de' ? 'en' : 'de';
 const alternatePath = alternatePaths[alternateLocale] ?? routeFor('home', alternateLocale);
@@ -78,7 +84,7 @@ const sidebarPages = sitePages
 	.sort((first, second) => pageOrder.indexOf(pageGroup(first.id)) - pageOrder.indexOf(pageGroup(second.id)));
 ---
 
-<aside class="site-sidebar" aria-label={t('a11y.siteNavigation')}>
+<aside class="site-sidebar" aria-label={t('a11y.siteNavigation')} lang={locale} dir="ltr">
 	<a class="brand" href={withBase(routeFor('home', locale))} aria-label={t('siteName')}>
 		<img class="logo-light" src={withBase('/logo/logo-schwarz.svg')} alt="" width="230" height="91" />
 		<img class="logo-dark" src={withBase('/logo/logo-weiß.svg')} alt="" width="230" height="91" />
@@ -124,10 +130,23 @@ const sidebarPages = sitePages
 			</span>
 			<span data-theme-toggle-label>{themeLabels.light}</span>
 		</button>
-		<a class="language-link" href={withBase(alternatePath)}>
+		{languageMenu && currentLanguage ? (
+			<details class="language-menu" data-language-menu>
+				<summary class="language-link" lang={currentLanguage.language} aria-label={`${languageMenu.label}: ${currentLanguage.label}`}>
+					<span class="lang-full" lang={currentLanguage.language} dir={currentLanguage.direction}>{currentLanguage.label}</span>
+					<span class="lang-small">{currentLanguage.language.split('-')[0].toUpperCase()}</span>
+					<span aria-hidden="true">⌄</span>
+				</summary>
+				<ul class="language-options" lang={currentLanguage.language} aria-label={languageMenu.label}>
+					{languageMenu.items.map(item => (
+						<li><a href={withBase(item.path)} lang={item.language} hreflang={item.language} dir={item.direction} aria-current={item.language === languageMenu.current ? 'page' : undefined}>{item.label}</a></li>
+					))}
+				</ul>
+			</details>
+		) : <a class="language-link" href={withBase(alternatePath)}>
 			<span class="lang-full">{localeLabels[alternateLocale]}</span>
 			<span class="lang-small">{collapsedLanguageLabel}</span>
-		</a>
+		</a>}
 		<button 
 			class="sidebar-collapse-toggle" 
 			type="button" 
@@ -206,6 +225,19 @@ const sidebarPages = sitePages
 			}
 		});
 
+		const languageMenu = document.querySelector<HTMLDetailsElement>('[data-language-menu]');
+		if (languageMenu) {
+			document.addEventListener('click', event => {
+				if (!languageMenu.contains(event.target as Node)) languageMenu.open = false;
+			});
+			document.addEventListener('keydown', event => {
+				if (event.key === 'Escape' && languageMenu.open) {
+					languageMenu.open = false;
+					languageMenu.querySelector('summary')?.focus();
+				}
+			});
+		}
+
 		const collapseToggle = document.querySelector<HTMLButtonElement>('[data-sidebar-collapse-toggle]');
 		if (collapseToggle) {
 			const sidebar = document.querySelector<HTMLElement>('.site-sidebar');
@@ -247,6 +279,19 @@ const sidebarPages = sitePages
 				syncSidebarCollapseState();
 				collapseToggle.addEventListener('click', toggleCollapse);
 				desktopSidebarQuery.addEventListener('change', syncSidebarCollapseState);
+				// Make room for the language list without changing the saved sidebar preference.
+				let expandedForLanguages = false;
+				languageMenu?.addEventListener('toggle', () => {
+					if (languageMenu.open && sidebar.classList.contains('is-collapsed')) {
+						expandedForLanguages = true;
+						sidebar.classList.remove('is-collapsed');
+						collapseToggle.setAttribute('aria-expanded', 'true');
+						setCollapseIcon(false);
+					} else if (!languageMenu.open && expandedForLanguages) {
+						expandedForLanguages = false;
+						syncSidebarCollapseState();
+					}
+				});
 			}
 		}
 	})();
@@ -418,6 +463,14 @@ const sidebarPages = sitePages
 		border-color: var(--color-accent);
 	}
 
+	.language-menu { position: relative; min-width: 0; }
+	.language-menu summary { gap: 8px; list-style: none; }
+	.language-menu summary::-webkit-details-marker { display: none; }
+	.language-menu .lang-full { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+	.language-options { position: absolute; z-index: 30; bottom: calc(100% + 6px); inset-inline-end: 0; width: max(100%, 210px); max-height: min(48vh, 340px); overflow-y: auto; margin: 0; padding: 8px; list-style: none; border: 1px solid var(--color-line); border-radius: 6px; background: var(--color-surface-raised); box-shadow: var(--shadow-raised); }
+	.language-options a { display: block; padding: 8px 10px; border-radius: 4px; color: var(--color-ink); text-decoration: none; }
+	.language-options a:hover, .language-options a:focus-visible, .language-options [aria-current='page'] { color: var(--color-accent-dark); background: var(--color-surface-alt); }
+
 	.site-sidebar.is-collapsed .lang-full {
 		display: none;
 	}
@@ -569,6 +622,8 @@ const sidebarPages = sitePages
 		.language-link {
 			padding: 9px 10px;
 		}
+		.language-menu { max-width: 110px; }
+		.language-options { top: calc(100% + 6px); bottom: auto; }
 
 		.sidebar-collapse-toggle {
 			display: none;

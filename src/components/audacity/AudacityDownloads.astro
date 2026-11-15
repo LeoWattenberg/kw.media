@@ -1,62 +1,27 @@
 ---
-import type { Locale } from '../../i18n';
 import { routeFor } from '../../i18n';
 import type { SitePage } from '../../lib/page-types';
 import { downloadAssetLabel, formatDownloadComparisonHtml } from '../../lib/audacity-downloads.js';
 import { getAllPosts } from '../../lib/source-content';
 import releases from '../../data/audacity-downloads.json';
+import { downloadCatalogs, downloadLanguages } from '../../data/audacity-download-locales';
+import { downloadComparisonUrl, localizeDownloadComparison } from '../../lib/audacity-download-localization.js';
 import BaseLayout from '../layout/BaseLayout.astro';
 
 interface Props {
 	page: SitePage;
-	alternatePaths: Partial<Record<Locale, string>>;
+	alternatePaths: Partial<Record<string, string>>;
 }
 
 const { page, alternatePaths } = Astro.props;
-const copy = {
-	de: {
-		eyebrow: 'Kostenlose Audio-Editoren',
-		heading: 'Audacity und Soundscaper herunterladen',
-		soundscaper: 'Soundscaper herunterladen',
-		recommended: '(empfohlen)',
-		fork: 'Ein Audacity-4-Fork mit allen Funktionen aus Audacity 3 und 4 und',
-		more: 'noch vielen weiteren',
-		latest: 'die neueste Version des beliebten Audio-Editors.',
-		classic: 'Lade Audacity 3.7.9 herunter, die bewährteste Version von Audacity.',
-		download: 'Herunterladen:',
-		online: 'Online-Version öffnen',
-		other: 'Weitere Downloads für',
-		formats: 'Andere Systeme und Formate',
-		choose: 'Wähle dein System und deine Architektur über den Pfeil.',
-		noMatch: 'Kein passender Download erkannt. Wähle ein anderes System über den Pfeil.',
-		mobile: 'Desktop-Downloads für Windows, macOS und Linux. Soundscaper läuft auch online auf deinem Gerät.',
-		comparison: 'Funktionen im Vergleich',
-		source: 'Zum vollständigen Vergleich',
-	},
-	en: {
-		eyebrow: 'Free audio editors',
-		heading: 'Download Audacity and Soundscaper',
-		soundscaper: 'Download Soundscaper',
-		recommended: '(recommended)',
-		fork: 'An Audacity 4 fork, with all features from Audacity 3 & 4, and',
-		more: 'many more',
-		latest: 'the latest version of the popular audio editor.',
-		classic: 'Download Audacity 3.7.9, the most battle-tested version of Audacity.',
-		download: 'Download',
-		online: 'Open online version',
-		other: 'Other downloads for',
-		formats: 'Other systems and formats',
-		choose: 'Choose your system and architecture using the arrow.',
-		noMatch: 'No matching download detected. Choose another system using the arrow.',
-		mobile: 'Desktop downloads for Windows, macOS and Linux. Soundscaper also runs online on your device.',
-		comparison: 'Compare features',
-		source: 'Read the full comparison',
-	},
-}[page.locale];
+const language = page.language ?? page.locale;
+const catalog = downloadCatalogs[language];
+const copy = catalog.copy;
+const comparisonUrl = downloadComparisonUrl(language);
 
 const comparisonPost = getAllPosts().find(post => post.translationKey === 'post:3425' && post.locale === page.locale);
 if (!comparisonPost) throw new Error(`Missing Audacity comparison post for ${page.locale}.`);
-const comparisonHtml = formatDownloadComparisonHtml(comparisonPost.contentHtml).replaceAll('<table>', '<table tabindex="0">');
+const comparisonHtml = localizeDownloadComparison(formatDownloadComparisonHtml(comparisonPost.contentHtml), catalog.comparison).replaceAll('<table>', '<table tabindex="0">');
 const cards = [
 	{ id: 'soundscaper', name: 'Soundscaper', release: releases.soundscaper },
 	{ id: 'audacity4', name: 'Audacity 4', release: releases.audacity4 },
@@ -66,6 +31,9 @@ const cards = [
 
 <BaseLayout
 	locale={page.locale}
+	language={language}
+	direction={catalog.direction}
+	languageMenu={{ current: language, label: copy.language, items: downloadLanguages }}
 	title={page.title}
 	description={page.description}
 	canonicalPath={page.path}
@@ -85,14 +53,14 @@ const cards = [
 							{id === 'soundscaper' ? <>{copy.soundscaper} <span>{copy.recommended}</span></> : name}
 						</h2>
 						<p class="download-description">
-							{id === 'soundscaper' ? <>{copy.fork} <a href="https://soundscaper.org/docs/start/how-soundscaper-compares/">{copy.more}</a>.</>
-								: id === 'audacity4' ? <>Audacity <span data-release-version>{release.version}</span>, {copy.latest}</>
+							{id === 'soundscaper' ? <>{copy.fork} <a href={comparisonUrl}>{copy.more}</a>.</>
+								: id === 'audacity4' ? <>Audacity <span data-release-version dir="ltr">{release.version}</span>, {copy.latest}</>
 									: copy.classic}
 						</p>
 						<div class="download-actions">
 							<div class="download-split">
 								<a class="download-main" data-primary-download href={release.url} aria-describedby={`${id}-note`}>
-									{copy.download} {id !== 'soundscaper' && 'Audacity '}<span data-release-version>{release.version}</span>
+									{copy.download} {id !== 'soundscaper' && 'Audacity '}<span data-release-version dir="ltr">{release.version}</span>
 								</a>
 								<details class="download-options">
 									<summary aria-label={`${copy.other} ${name}`}>
@@ -101,12 +69,12 @@ const cards = [
 									<nav class="download-menu" aria-label={`${copy.other} ${name}`}>
 										<p>{copy.formats}</p>
 										<ul data-download-list>
-											{release.assets.map(asset => <li><a href={asset.url}>{downloadAssetLabel(asset)}</a></li>)}
+											{release.assets.map(asset => <li><a href={asset.url}>{downloadAssetLabel(asset, copy)}</a></li>)}
 										</ul>
 									</nav>
 								</details>
 							</div>
-							{id === 'soundscaper' && <a class="online-button" href={`https://soundscaper.org/${page.locale}/`}>{copy.online} <span aria-hidden="true">↗</span></a>}
+							{id === 'soundscaper' && <a class="online-button" href={`https://soundscaper.org/${language}/`}>{copy.online} <span aria-hidden="true">↗</span></a>}
 						</div>
 						<p class="download-note" id={`${id}-note`} data-download-note aria-live="polite">{copy.choose}</p>
 					</article>
@@ -118,7 +86,7 @@ const cards = [
 		<div class="container">
 			<p class="eyebrow" id="comparison-title">{copy.comparison}</p>
 			<div class="download-comparison" set:html={comparisonHtml} />
-			<a class="comparison-source" href={comparisonPost.path}>{copy.source} →</a>
+			<a class="comparison-source" href={comparisonUrl}>{copy.source} →</a>
 		</div>
 	</section>
 </BaseLayout>
@@ -141,14 +109,14 @@ const cards = [
 			primary.href = selected?.url ?? release.url;
 			primary.dataset.choose = String(!selected);
 			card.querySelectorAll('[data-release-version]').forEach(element => { element.textContent = release.version; });
-			card.querySelector('[data-download-note]')!.textContent = selected ? downloadAssetLabel(selected)
+			card.querySelector('[data-download-note]')!.textContent = selected ? downloadAssetLabel(selected, copy)
 				: environment.platform ? (environment.architecture ? copy.noMatch : copy.choose) : copy.mobile;
 			const alternatives = [...matches.slice(1), ...release.assets.filter(asset => !matches.includes(asset))];
 			card.querySelector('[data-download-list]')!.replaceChildren(...alternatives.map(asset => {
 				const item = document.createElement('li');
 				const link = document.createElement('a');
 				link.href = asset.url;
-				link.textContent = downloadAssetLabel(asset);
+				link.textContent = downloadAssetLabel(asset, copy);
 				item.append(link);
 				return item;
 			}));
@@ -210,13 +178,13 @@ const cards = [
 	.download-actions { display: grid; gap: 12px; }
 	.download-split { position: relative; display: flex; border-radius: 6px; background: var(--color-ink); color: var(--color-surface); }
 	.recommended .download-split { background: var(--color-accent); color: var(--color-deep); }
-	.download-main { flex: 1; min-width: 0; padding: 13px 14px; border-radius: 6px 0 0 6px; overflow-wrap: anywhere; text-decoration: none; font-weight: 850; line-height: 1.35; }
+	.download-main { flex: 1; min-width: 0; padding: 13px 14px; border-start-start-radius: 6px; border-end-start-radius: 6px; overflow-wrap: anywhere; text-decoration: none; font-weight: 850; line-height: 1.35; }
 	.download-options { flex: 0 0 38px; }
-	.download-options summary { display: flex; position: absolute; top: 0; bottom: 0; right: 0; width: 38px; align-items: center; justify-content: center; border-left: 1px solid currentColor; border-radius: 0 6px 6px 0; cursor: pointer; list-style: none; }
+	.download-options summary { display: flex; position: absolute; top: 0; bottom: 0; inset-inline-end: 0; width: 38px; align-items: center; justify-content: center; border-inline-start: 1px solid currentColor; border-start-end-radius: 6px; border-end-end-radius: 6px; cursor: pointer; list-style: none; }
 	.download-options summary::-webkit-details-marker { display: none; }
 	.download-main:hover, .download-options summary:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
 	.download-main:focus-visible, summary:focus-visible, .online-button:focus-visible { outline: 3px solid var(--color-accent-dark); outline-offset: 4px; }
-	.download-menu { position: absolute; z-index: 10; top: calc(100% + 8px); right: 0; width: min(340px, calc(100vw - 48px)); max-height: 360px; overflow-y: auto; padding: 12px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 8px; box-shadow: var(--shadow-raised); }
+	.download-menu { position: absolute; z-index: 10; top: calc(100% + 8px); inset-inline-end: 0; width: min(340px, calc(100vw - 48px)); max-height: 360px; overflow-y: auto; padding: 12px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 8px; box-shadow: var(--shadow-raised); }
 	.download-menu p { margin: 4px 8px 10px; color: var(--color-muted); font-size: 0.85rem; }
 	.download-menu ul { margin: 0; padding: 0; list-style: none; }
 	.download-menu :global(a) { display: block; padding: 10px 8px; border-radius: 4px; text-decoration: none; font-size: 0.9rem; }
@@ -245,7 +213,7 @@ const cards = [
 	.download-comparison :global(a) { color: var(--color-accent-dark); }
 	.download-comparison :global(table) { display: block; width: 100%; overflow-x: auto; margin: 28px 0; border-collapse: collapse; font-size: 0.95rem; }
 	.download-comparison :global(table:focus-visible) { outline: 3px solid var(--color-accent-dark); outline-offset: 4px; }
-	.download-comparison :global(th), .download-comparison :global(td) { min-width: 145px; padding: 12px 16px; border-bottom: 1px solid var(--color-line); text-align: left; vertical-align: top; }
+	.download-comparison :global(th), .download-comparison :global(td) { min-width: 145px; padding: 12px 16px; border-bottom: 1px solid var(--color-line); text-align: start; vertical-align: top; }
 	.download-comparison :global(th) { color: var(--color-ink); background: var(--color-surface-alt); }
 	.download-comparison :global(td) { position: relative; color: var(--color-muted); }
 	.download-comparison :global(td strong) { color: var(--color-ink); }
@@ -254,7 +222,7 @@ const cards = [
 	.download-comparison :global(td.comparison-cell--partial) { color: var(--comparison-partial-text); background: var(--comparison-partial-background); }
 	.download-comparison :global(td.comparison-cell--extra) { color: var(--comparison-extra-text); background: var(--comparison-extra-background); }
 	.download-comparison :global(.comparison-cell--extra .comparison-symbol) { color: var(--comparison-extra-symbol); }
-	.download-comparison :global(.comparison-symbol) { display: inline-block; min-width: 1ch; margin-right: 0.4em; font-size: 1.2rem; font-weight: 850; line-height: 1; }
+	.download-comparison :global(.comparison-symbol) { display: inline-block; min-width: 1ch; margin-inline-end: 0.4em; font-size: 1.2rem; font-weight: 850; line-height: 1; }
 	.download-comparison :global(.comparison-status-label) { position: absolute; top: 0; left: 0; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 	@media (max-width: 1100px) {
 		.download-columns { grid-template-columns: 1fr 1fr; }
@@ -263,6 +231,6 @@ const cards = [
 	@media (max-width: 600px) {
 		.download-columns { grid-template-columns: 1fr; }
 		.download-card { padding: 24px; }
-		.download-menu { right: 0; max-width: 100%; }
+		.download-menu { max-width: 100%; }
 	}
 </style>

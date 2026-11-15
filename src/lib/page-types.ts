@@ -215,6 +215,8 @@ export interface SitePage {
 	id: string;
 	path: string;
 	locale: Locale;
+	/** Optional page-only language; locale controls the site's German/English navigation fallback. */
+	language?: string;
 	title: string;
 	description: string;
 	blocks: PageBlock[];
