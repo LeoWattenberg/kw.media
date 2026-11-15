@@ -1,0 +1,11 @@
+---
+import AudacityDownloads from '../../components/audacity/AudacityDownloads.astro';
+import { definePageModule } from '../../lib/site-page-module';
+import translations from './audacity-download.json';
+
+export const pageModule = definePageModule('audacity-download', translations);
+
+const { page, alternatePaths } = Astro.props;
+---
+
+<AudacityDownloads page={page} alternatePaths={alternatePaths} />

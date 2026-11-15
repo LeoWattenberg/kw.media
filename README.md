@@ -86,6 +86,7 @@ Run commands from the project root:
 | `npm test` | Run the Node test suite |
 | `npm run test:browser` | Build, then run the Playwright browser tests |
 | `npm run fixtures:test` | Regenerate the binary media fixtures in `tests/fixtures/` |
+| `node scripts/update-audacity-downloads.mjs` | Refresh fallback download versions and packages for `/audacity/download/de/` and `/audacity/download/en/` |
 | `npm run import:youtube` | Import new YouTube posts, clean transcripts, create translations, refresh related posts, add inline links, and commit the changed posts |
 | `IMPORT_AI=0 npm run import:youtube` | Import new YouTube posts without Ollama cleanup, translation, related posts, or inline links |
 | `IMPORT_COMMIT=0 npm run import:youtube` | Import new YouTube posts without committing the changed posts |
@@ -113,6 +114,8 @@ Run commands from the project root:
 | `npm run astro -- --help` | Show Astro CLI help |
 | `npx @astrojs/upgrade` | Update Astro (fixes security issues but may break the site)|
 | `npm audit fix` | Fixes security updates without updating Astro|
+
+The Audacity download pages fetch current Soundscaper release candidates and Audacity 4 release data in the browser. The checked-in download snapshot keeps links available without JavaScript or when upstream requests fail; Audacity 3 stays pinned to 3.7.9. Their comparison tables come from the existing translated Audacity feature-comparison posts, including the reviewed versions and update notes.
 
 ## Generated Assets
 

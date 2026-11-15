@@ -1,0 +1,17 @@
+{
+	"id": "audacity-download",
+	"translations": {
+		"de": {
+			"path": "/audacity/download/de/",
+			"title": "Audacity und Soundscaper herunterladen",
+			"description": "Lade Soundscaper, Audacity 4 oder Audacity 3.7.9 für Windows, macOS und Linux herunter und vergleiche die Funktionen.",
+			"blocks": []
+		},
+		"en": {
+			"path": "/audacity/download/en/",
+			"title": "Download Audacity and Soundscaper",
+			"description": "Download Soundscaper, Audacity 4 or Audacity 3.7.9 for Windows, macOS and Linux, and compare their features.",
+			"blocks": []
+		}
+	}
+}

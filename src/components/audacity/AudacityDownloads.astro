@@ -1,0 +1,268 @@
+---
+import type { Locale } from '../../i18n';
+import { routeFor } from '../../i18n';
+import type { SitePage } from '../../lib/page-types';
+import { downloadAssetLabel, formatDownloadComparisonHtml } from '../../lib/audacity-downloads.js';
+import { getAllPosts } from '../../lib/source-content';
+import releases from '../../data/audacity-downloads.json';
+import BaseLayout from '../layout/BaseLayout.astro';
+
+interface Props {
+	page: SitePage;
+	alternatePaths: Partial<Record<Locale, string>>;
+}
+
+const { page, alternatePaths } = Astro.props;
+const copy = {
+	de: {
+		eyebrow: 'Kostenlose Audio-Editoren',
+		heading: 'Audacity und Soundscaper herunterladen',
+		soundscaper: 'Soundscaper herunterladen',
+		recommended: '(empfohlen)',
+		fork: 'Ein Audacity-4-Fork mit allen Funktionen aus Audacity 3 und 4 und',
+		more: 'noch vielen weiteren',
+		latest: 'die neueste Version des beliebten Audio-Editors.',
+		classic: 'Lade Audacity 3.7.9 herunter, die bewährteste Version von Audacity.',
+		download: 'Herunterladen:',
+		online: 'Online-Version öffnen',
+		other: 'Weitere Downloads für',
+		formats: 'Andere Systeme und Formate',
+		choose: 'Wähle dein System und deine Architektur über den Pfeil.',
+		noMatch: 'Kein passender Download erkannt. Wähle ein anderes System über den Pfeil.',
+		mobile: 'Desktop-Downloads für Windows, macOS und Linux. Soundscaper läuft auch online auf deinem Gerät.',
+		comparison: 'Funktionen im Vergleich',
+		source: 'Zum vollständigen Vergleich',
+	},
+	en: {
+		eyebrow: 'Free audio editors',
+		heading: 'Download Audacity and Soundscaper',
+		soundscaper: 'Download Soundscaper',
+		recommended: '(recommended)',
+		fork: 'An Audacity 4 fork, with all features from Audacity 3 & 4, and',
+		more: 'many more',
+		latest: 'the latest version of the popular audio editor.',
+		classic: 'Download Audacity 3.7.9, the most battle-tested version of Audacity.',
+		download: 'Download',
+		online: 'Open online version',
+		other: 'Other downloads for',
+		formats: 'Other systems and formats',
+		choose: 'Choose your system and architecture using the arrow.',
+		noMatch: 'No matching download detected. Choose another system using the arrow.',
+		mobile: 'Desktop downloads for Windows, macOS and Linux. Soundscaper also runs online on your device.',
+		comparison: 'Compare features',
+		source: 'Read the full comparison',
+	},
+}[page.locale];
+
+const comparisonPost = getAllPosts().find(post => post.translationKey === 'post:3425' && post.locale === page.locale);
+if (!comparisonPost) throw new Error(`Missing Audacity comparison post for ${page.locale}.`);
+const comparisonHtml = formatDownloadComparisonHtml(comparisonPost.contentHtml).replaceAll('<table>', '<table tabindex="0">');
+const cards = [
+	{ id: 'soundscaper', name: 'Soundscaper', release: releases.soundscaper },
+	{ id: 'audacity4', name: 'Audacity 4', release: releases.audacity4 },
+	{ id: 'audacity3', name: 'Audacity 3', release: releases.audacity3 },
+];
+---
+
+<BaseLayout
+	locale={page.locale}
+	title={page.title}
+	description={page.description}
+	canonicalPath={page.path}
+	alternatePaths={alternatePaths}
+	breadcrumbs={[{ label: 'Audacity', href: routeFor('audacity', page.locale) }, { label: page.title, href: page.path }]}
+>
+	<section class="section downloads-section" data-audacity-downloads data-copy={JSON.stringify(copy)}>
+		<div class="container">
+			<header class="downloads-intro">
+				<p class="eyebrow">{copy.eyebrow}</p>
+				<h1>{copy.heading}</h1>
+			</header>
+			<div class="download-columns">
+				{cards.map(({ id, name, release }) => (
+					<article class:list={['download-card', { recommended: id === 'soundscaper' }]} data-product={id} aria-labelledby={`${id}-title`}>
+						<h2 id={`${id}-title`}>
+							{id === 'soundscaper' ? <>{copy.soundscaper} <span>{copy.recommended}</span></> : name}
+						</h2>
+						<p class="download-description">
+							{id === 'soundscaper' ? <>{copy.fork} <a href="https://soundscaper.org/docs/start/how-soundscaper-compares/">{copy.more}</a>.</>
+								: id === 'audacity4' ? <>Audacity <span data-release-version>{release.version}</span>, {copy.latest}</>
+									: copy.classic}
+						</p>
+						<div class="download-actions">
+							<div class="download-split">
+								<a class="download-main" data-primary-download href={release.url} aria-describedby={`${id}-note`}>
+									{copy.download} {id !== 'soundscaper' && 'Audacity '}<span data-release-version>{release.version}</span>
+								</a>
+								<details class="download-options">
+									<summary aria-label={`${copy.other} ${name}`}>
+										<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+									</summary>
+									<nav class="download-menu" aria-label={`${copy.other} ${name}`}>
+										<p>{copy.formats}</p>
+										<ul data-download-list>
+											{release.assets.map(asset => <li><a href={asset.url}>{downloadAssetLabel(asset)}</a></li>)}
+										</ul>
+									</nav>
+								</details>
+							</div>
+							{id === 'soundscaper' && <a class="online-button" href={`https://soundscaper.org/${page.locale}/`}>{copy.online} <span aria-hidden="true">↗</span></a>}
+						</div>
+						<p class="download-note" id={`${id}-note`} data-download-note aria-live="polite">{copy.choose}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+	<section class="section comparison-section" aria-labelledby="comparison-title">
+		<div class="container">
+			<p class="eyebrow" id="comparison-title">{copy.comparison}</p>
+			<div class="download-comparison" set:html={comparisonHtml} />
+			<a class="comparison-source" href={comparisonPost.path}>{copy.source} →</a>
+		</div>
+	</section>
+</BaseLayout>
+
+<script>
+	import releases from '../../data/audacity-downloads.json';
+	import { AUDACITY_RELEASES_URL, downloadAssetLabel, fetchSoundscaperRelease, getDownloadEnvironment, matchingDownloads, parseAudacityReleases } from '../../lib/audacity-downloads.js';
+
+	const root = document.querySelector<HTMLElement>('[data-audacity-downloads]');
+	if (root) {
+		const copy = JSON.parse(root.dataset.copy!);
+		const environment = await getDownloadEnvironment(navigator);
+
+		function render(id: string, release: typeof releases.soundscaper) {
+			const card = root!.querySelector<HTMLElement>(`[data-product="${id}"]`)!;
+			const primary = card.querySelector<HTMLAnchorElement>('[data-primary-download]')!;
+			const details = card.querySelector('details')!;
+			const matches = matchingDownloads(release.assets, environment);
+			const selected = matches[0];
+			primary.href = selected?.url ?? release.url;
+			primary.dataset.choose = String(!selected);
+			card.querySelectorAll('[data-release-version]').forEach(element => { element.textContent = release.version; });
+			card.querySelector('[data-download-note]')!.textContent = selected ? downloadAssetLabel(selected)
+				: environment.platform ? (environment.architecture ? copy.noMatch : copy.choose) : copy.mobile;
+			const alternatives = [...matches.slice(1), ...release.assets.filter(asset => !matches.includes(asset))];
+			card.querySelector('[data-download-list]')!.replaceChildren(...alternatives.map(asset => {
+				const item = document.createElement('li');
+				const link = document.createElement('a');
+				link.href = asset.url;
+				link.textContent = downloadAssetLabel(asset);
+				item.append(link);
+				return item;
+			}));
+			details.hidden = alternatives.length === 0;
+		}
+
+		for (const [id, release] of Object.entries(releases)) render(id, release);
+		root.dataset.downloadReady = 'true';
+
+		root.addEventListener('click', event => {
+			const target = event.target as Element;
+			const primary = target.closest<HTMLAnchorElement>('[data-primary-download]');
+			if (primary?.dataset.choose === 'true') {
+				event.preventDefault();
+				const details = primary.parentElement!.querySelector('details')!;
+				details.open = true;
+				details.querySelector('summary')!.focus();
+			}
+		});
+		const menus = [...root.querySelectorAll('details')];
+		menus.forEach(details => {
+			details.addEventListener('toggle', () => {
+				if (details.open) menus.forEach(other => { if (other !== details) other.open = false; });
+			});
+		});
+		document.addEventListener('click', event => {
+			menus.forEach(details => { if (!details.parentElement!.contains(event.target as Node)) details.open = false; });
+		});
+		document.addEventListener('keydown', event => {
+			if (event.key === 'Escape') menus.forEach(details => {
+				if (details.open) {
+					details.open = false;
+					details.querySelector('summary')!.focus();
+				}
+			});
+		});
+
+		// Keep the static fallback if either upstream is offline, rate-limited or changes its format.
+		await Promise.allSettled([
+			fetchSoundscaperRelease().then(release => render('soundscaper', release)),
+			fetch(AUDACITY_RELEASES_URL, { signal: AbortSignal.timeout(8000) }).then(async response => {
+				if (!response.ok) throw new Error('Audacity release lookup failed.');
+				render('audacity4', parseAudacityReleases(await response.text()));
+			}),
+		]);
+	}
+</script>
+
+<style>
+	.downloads-intro { margin-bottom: 36px; }
+	h1 { max-width: 23ch; margin: 0; font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: 1.1; }
+	.download-columns { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 20px; }
+	.download-card { min-width: 0; padding: clamp(18px, 2vw, 28px); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 12px; }
+	.recommended { background: var(--color-accent-soft); border-color: var(--color-accent-line); }
+	h2 { margin: 0 0 18px; font-size: 1.5rem; line-height: 1.2; }
+	h2 span { color: var(--color-accent-dark); font-size: 1rem; white-space: nowrap; }
+	.download-description { margin: 0 0 24px; color: var(--color-muted); }
+	.download-description a, .comparison-source { color: var(--color-accent-dark); font-weight: 750; }
+	.download-actions { display: grid; gap: 12px; }
+	.download-split { position: relative; display: flex; border-radius: 6px; background: var(--color-ink); color: var(--color-surface); }
+	.recommended .download-split { background: var(--color-accent); color: var(--color-deep); }
+	.download-main { flex: 1; min-width: 0; padding: 13px 14px; border-radius: 6px 0 0 6px; overflow-wrap: anywhere; text-decoration: none; font-weight: 850; line-height: 1.35; }
+	.download-options { flex: 0 0 38px; }
+	.download-options summary { display: flex; position: absolute; top: 0; bottom: 0; right: 0; width: 38px; align-items: center; justify-content: center; border-left: 1px solid currentColor; border-radius: 0 6px 6px 0; cursor: pointer; list-style: none; }
+	.download-options summary::-webkit-details-marker { display: none; }
+	.download-main:hover, .download-options summary:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
+	.download-main:focus-visible, summary:focus-visible, .online-button:focus-visible { outline: 3px solid var(--color-accent-dark); outline-offset: 4px; }
+	.download-menu { position: absolute; z-index: 10; top: calc(100% + 8px); right: 0; width: min(340px, calc(100vw - 48px)); max-height: 360px; overflow-y: auto; padding: 12px; color: var(--color-ink); background: var(--color-surface-raised); border: 1px solid var(--color-line); border-radius: 8px; box-shadow: var(--shadow-raised); }
+	.download-menu p { margin: 4px 8px 10px; color: var(--color-muted); font-size: 0.85rem; }
+	.download-menu ul { margin: 0; padding: 0; list-style: none; }
+	.download-menu :global(a) { display: block; padding: 10px 8px; border-radius: 4px; text-decoration: none; font-size: 0.9rem; }
+	.download-menu :global(a:hover), .download-menu :global(a:focus-visible) { color: var(--color-accent-dark); background: var(--color-accent-soft); }
+	.online-button { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border: 1px solid var(--color-accent-line); border-radius: 6px; text-decoration: none; font-weight: 750; }
+	.online-button:hover { background: var(--color-surface-raised); }
+	.download-note { margin: 14px 0 0; color: var(--color-muted); font-size: 0.8rem; }
+	.comparison-section { padding-top: 0; }
+	.download-comparison {
+		min-width: 0;
+		--comparison-partial-text: #715200;
+		--comparison-partial-background: #fff6d5;
+		--comparison-extra-text: #205470;
+		--comparison-extra-symbol: #2b83ba;
+		--comparison-extra-background: #eaf5ff;
+	}
+	:global(:root[data-theme='dark']) .download-comparison {
+		--comparison-partial-text: #f2d87b;
+		--comparison-partial-background: #3b3015;
+		--comparison-extra-text: #aadfff;
+		--comparison-extra-symbol: #86ceff;
+		--comparison-extra-background: #102b40;
+	}
+	.download-comparison :global(h2) { margin: 0 0 20px; font-size: clamp(1.5rem, 3vw, 2.3rem); line-height: 1.2; }
+	.download-comparison :global(p) { max-width: 85ch; color: var(--color-muted); }
+	.download-comparison :global(a) { color: var(--color-accent-dark); }
+	.download-comparison :global(table) { display: block; width: 100%; overflow-x: auto; margin: 28px 0; border-collapse: collapse; font-size: 0.95rem; }
+	.download-comparison :global(table:focus-visible) { outline: 3px solid var(--color-accent-dark); outline-offset: 4px; }
+	.download-comparison :global(th), .download-comparison :global(td) { min-width: 145px; padding: 12px 16px; border-bottom: 1px solid var(--color-line); text-align: left; vertical-align: top; }
+	.download-comparison :global(th) { color: var(--color-ink); background: var(--color-surface-alt); }
+	.download-comparison :global(td) { position: relative; color: var(--color-muted); }
+	.download-comparison :global(td strong) { color: var(--color-ink); }
+	.download-comparison :global(td.comparison-cell--yes) { color: var(--color-status-positive-text); background: var(--color-status-positive-background); }
+	.download-comparison :global(td.comparison-cell--no) { color: var(--color-status-negative-text); background: var(--color-status-negative-background); }
+	.download-comparison :global(td.comparison-cell--partial) { color: var(--comparison-partial-text); background: var(--comparison-partial-background); }
+	.download-comparison :global(td.comparison-cell--extra) { color: var(--comparison-extra-text); background: var(--comparison-extra-background); }
+	.download-comparison :global(.comparison-cell--extra .comparison-symbol) { color: var(--comparison-extra-symbol); }
+	.download-comparison :global(.comparison-symbol) { display: inline-block; min-width: 1ch; margin-right: 0.4em; font-size: 1.2rem; font-weight: 850; line-height: 1; }
+	.download-comparison :global(.comparison-status-label) { position: absolute; top: 0; left: 0; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+	@media (max-width: 1100px) {
+		.download-columns { grid-template-columns: 1fr 1fr; }
+		.recommended { grid-column: 1 / -1; }
+	}
+	@media (max-width: 600px) {
+		.download-columns { grid-template-columns: 1fr; }
+		.download-card { padding: 24px; }
+		.download-menu { right: 0; max-width: 100%; }
+	}
+</style>
