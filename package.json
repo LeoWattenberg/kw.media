@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.19",
-    "@astrojs/sitemap": "^3.7.4",
-    "astro": "^7.3.8",
+    "@astrojs/sitemap": "^3.7.6",
+    "astro": "^7.4.13",
     "flubber": "^0.4.2",
     "jspdf": "^4.2.1",
     "pandoc-wasm": "^1.1.0",
