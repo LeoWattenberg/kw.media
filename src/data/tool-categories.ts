@@ -171,6 +171,7 @@ export const toolCategories: ToolCategory[] = [
 			'vtuber-preview',
 			'short-form-safe-zone-previewer',
 			'ypp-check',
+			'youtube-cost',
 		],
 		translations: {
 			de: {

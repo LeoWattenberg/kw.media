@@ -1,0 +1,29 @@
+---
+import ToolPageShell from '../../components/ToolPageShell.astro';
+import YouTubeCost from '../../components/tools/YouTubeCost.astro';
+import { defineToolModule } from '../../lib/tool-page-module';
+
+export const toolModule = defineToolModule('youtube-cost', {
+	id: 'youtube-cost',
+	translations: {
+		de: {
+			id: 'youtube-cost-de',
+			path: '/de/tools/youtube-kanal-kosten/',
+			title: 'Was kostet dein Kanal YouTube?',
+			description: 'Rechne aus, was dein Kanal YouTube pro Jahr an Speicher, Kodierung und Auslieferung kostet, für Long-form, Shorts und Livestreams.',
+		},
+		en: {
+			id: 'youtube-cost-en',
+			path: '/en/tools/youtube-channel-cost/',
+			title: 'What Does Your Channel Cost YouTube?',
+			description: 'Estimate what your channel costs YouTube per year in storage, encoding and delivery, for long-form videos, Shorts and live streams.',
+		},
+	},
+});
+
+const { tool, alternatePaths } = Astro.props;
+---
+
+<ToolPageShell tool={tool} alternatePaths={alternatePaths}>
+	<YouTubeCost locale={tool.locale} />
+</ToolPageShell>

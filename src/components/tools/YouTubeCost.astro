@@ -1,0 +1,492 @@
+---
+import type { Locale } from '../../i18n';
+import {
+	calculateChannelCost,
+	DEFAULT_PRESET,
+	FORMAT_IDS,
+	formatEstimate,
+	formatVolume,
+	PRESET_IDS,
+	PRESETS,
+	PRICE_LEVELS,
+} from '../../lib/tools/youtube-cost.js';
+import ToolIntro from './shared/ToolIntro.astro';
+import ToolPanel from './shared/ToolPanel.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const copy = {
+	de: {
+		numberLocale: 'de-DE',
+		eyebrow: 'YouTube-Kosten',
+		title: 'Was kostet dein Kanal YouTube?',
+		intro: 'Trag ein, wie viel du hochlädst und wie viel davon geschaut wird. Du bekommst eine Schätzung, was Speichern, Kodieren und Ausliefern in einem Jahr kosten.',
+		note: 'Google veröffentlicht seine Kosten nicht, die Google-Werte sind deshalb unsere Schätzung. Deine Eingaben bleiben in deinem Browser.',
+		inputTitle: 'Dein Kanal',
+		presetLegend: 'Mit einem Modellkanal starten',
+		presets: { small: 'Kleiner Kanal', today: 'Genau an der heutigen YPP-Schwelle', 2027: 'Genau an der Schwelle ab Februar 2027' },
+		formats: { longform: 'Long-form', shorts: 'Shorts', live: 'Livestreams' },
+		fields: {
+			longform: { perWeek: 'Videos pro Woche', minutes: 'Minuten pro Video', watchHours: 'Wiedergabestunden pro Jahr' },
+			shorts: { perWeek: 'Shorts pro Woche', seconds: 'Sekunden pro Short', views: 'Shorts-Aufrufe', secondsPerView: 'Ausgelieferte Sekunden pro Aufruf' },
+			live: { perWeek: 'Streams pro Woche', hours: 'Stunden pro Stream', viewers: 'Zuschauer im Schnitt' },
+		},
+		resultTitle: 'Kosten pro Jahr',
+		stats: { google: 'Im Google-Maßstab (geschätzt)', aws: 'Derselbe Kanal zu AWS-Listenpreisen' },
+		volume: '{hours} Stunden Material, {stored} gespeichert, {delivered} ausgeliefert',
+		tableFormats: 'Kosten nach Format',
+		tableTypes: 'Wofür das Geld draufgeht (alle Formate)',
+		levelHeading: 'Preisniveau',
+		total: 'Gesamt',
+		types: { storage: 'Speicher', encoding: 'Kodierung', delivery: 'Auslieferung' },
+		levels: {
+			google: 'Google-Maßstab (geschätzt)',
+			wholesale: 'Eigene Server, Bandbreite im Großhandel',
+			aws: 'Start-up auf AWS (Listenpreis)',
+			cloudflare: 'Cloudflare Stream (Listenpreis)',
+		},
+		assumptionsTitle: 'Annahmen und Quellen',
+		assumptions: [
+			'Das Material liegt ein ganzes Jahr. Pro Stunde sind das mit allen Qualitätsstufen rund 10 GB bei Long-form, 9 GB bei Shorts und 8 GB bei Livestreams.',
+			'Ausgeliefert wird im Schnitt mit 2 Mbit/s, live mit 3 Mbit/s. YouTube veröffentlicht dazu keinen Wert.',
+			'Bei Shorts zählen auch Wischer und vorgeladene Videos. 25 Sekunden pro Aufruf sind unsere Annahme.',
+			'Die Shorts-Schwelle gilt für 90 Tage, der Speicher ist trotzdem für ein Jahr gerechnet.',
+			'Stream-Archive bekommen 15 % Wiedergabezeit obendrauf.',
+			'Bei AWS gilt die größte Mengenstufe für Speicher und Auslieferung. Kleinere Kunden zahlen pro Gigabyte mehr. Kleinere CDNs wie Bunny verlangen für die Auslieferung laut Liste weniger.',
+			'Geschätzt sind alle Google-Werte und die Kodierung auf eigenen Servern.',
+			'Nicht enthalten sind Personal, Moderation, Software und Auszahlungen an Creator.',
+			'Preise in US-Dollar, Stand November 2026.',
+		],
+		video: 'Die ganze Rechnung gibt es im Video: „YouTube Earns on You Before It Pays You“ (Englisch)',
+		offer: 'Du willst wissen, was dein Kanal dir einbringt? {page}',
+		offerLink: 'Zum Kanal-Check',
+		offerPath: '/de/kanal-check/',
+	},
+	en: {
+		numberLocale: 'en-US',
+		eyebrow: 'YouTube costs',
+		title: 'What Does Your Channel Cost YouTube?',
+		intro: 'Enter how much you upload and how much of it gets watched. You get an estimate of what storing, encoding and delivering that costs in a year.',
+		note: 'Google doesn\'t publish its costs, so the Google numbers are our estimate. Your inputs stay in your browser.',
+		inputTitle: 'Your channel',
+		presetLegend: 'Start with a model channel',
+		presets: { small: 'Small channel', today: 'Right at today\'s YPP threshold', 2027: 'Right at the threshold from February 2027' },
+		formats: { longform: 'Long-form', shorts: 'Shorts', live: 'Live streams' },
+		fields: {
+			longform: { perWeek: 'Videos per week', minutes: 'Minutes per video', watchHours: 'Watch hours per year' },
+			shorts: { perWeek: 'Shorts per week', seconds: 'Seconds per Short', views: 'Shorts views', secondsPerView: 'Seconds delivered per view' },
+			live: { perWeek: 'Streams per week', hours: 'Hours per stream', viewers: 'Average viewers' },
+		},
+		resultTitle: 'Cost per year',
+		stats: { google: 'At Google\'s scale (estimate)', aws: 'The same channel at AWS list prices' },
+		volume: '{hours} hours of material, {stored} stored, {delivered} delivered',
+		tableFormats: 'Cost by format',
+		tableTypes: 'Where the money goes (all formats)',
+		levelHeading: 'Price level',
+		total: 'Total',
+		types: { storage: 'Storage', encoding: 'Encoding', delivery: 'Delivery' },
+		levels: {
+			google: 'Google\'s scale (estimate)',
+			wholesale: 'Own servers, bandwidth bought wholesale',
+			aws: 'Start-up on AWS (list price)',
+			cloudflare: 'Cloudflare Stream (list price)',
+		},
+		assumptionsTitle: 'Assumptions and sources',
+		assumptions: [
+			'The material is stored for a full year. With all quality levels that is about 10 GB per hour for long-form, 9 GB for Shorts and 8 GB for live streams.',
+			'Delivery averages 2 Mbit/s, live 3 Mbit/s. YouTube doesn\'t publish a number for this.',
+			'Shorts also count swipes and preloaded videos. 25 seconds per view is our assumption.',
+			'The Shorts threshold covers 90 days, storage is still calculated for a year.',
+			'Stream archives get 15% watch time on top.',
+			'AWS uses the largest volume tier for storage and delivery. Smaller customers pay more per gigabyte. Smaller CDNs such as Bunny list less for delivery.',
+			'All Google values and encoding on your own servers are estimates.',
+			'Not included: staff, moderation, software and creator payouts.',
+			'Prices in US dollars, as of November 2026.',
+		],
+		video: 'The full calculation is in our video "YouTube Earns on You Before It Pays You"',
+		offer: 'Want to know what your channel earns you? {page}',
+		offerLink: 'See the Channel Check',
+		offerPath: '/en/channel-check/',
+	},
+}[locale];
+
+const sources = [
+	{ title: 'Amazon S3', url: 'https://aws.amazon.com/s3/pricing/' },
+	{ title: 'Amazon CloudFront', url: 'https://aws.amazon.com/cloudfront/pricing/' },
+	{ title: 'AWS Elemental MediaConvert', url: 'https://aws.amazon.com/mediaconvert/pricing/' },
+	{ title: 'Amazon IVS', url: 'https://aws.amazon.com/ivs/pricing/' },
+	{ title: 'Cloudflare Stream', url: 'https://developers.cloudflare.com/stream/pricing/' },
+	{ title: 'Bunny CDN', url: 'https://bunny.net/pricing/cdn/' },
+	{ title: 'TeleGeography (IP transit)', url: 'https://resources.telegeography.com/ip-transit-price-erosion-significant-regional-differences-remain' },
+	{ title: 'Google VCU (ASPLOS 2021)', url: 'https://doi.org/10.1145/3445814.3446723' },
+];
+const videoUrl = 'https://www.youtube.com/watch?v=h_shaFXu6AE';
+const typeIds = ['storage', 'encoding', 'delivery'] as const;
+const steps: Record<string, number> = { minutes: 1, hours: 0.5, viewers: 0.1, watchHours: 1, views: 1, seconds: 1, secondsPerView: 1, perWeek: 0.5 };
+
+// The default preset is rendered on the server, so the page shows a result without JavaScript.
+const initial = calculateChannelCost(PRESETS[DEFAULT_PRESET]);
+const estimate = (value: number) => formatEstimate(value, copy.numberLocale);
+const initialVolume = copy.volume
+	.replace('{hours}', new Intl.NumberFormat(copy.numberLocale, { maximumFractionDigits: 0 }).format(initial.totals.materialHours))
+	.replace('{stored}', formatVolume(initial.totals.storedGb, copy.numberLocale))
+	.replace('{delivered}', formatVolume(initial.totals.deliveredGb, copy.numberLocale));
+const [offerBefore, offerAfter] = copy.offer.split('{page}');
+const copyJson = JSON.stringify({ numberLocale: copy.numberLocale, volume: copy.volume });
+---
+
+<ToolIntro eyebrow={copy.eyebrow} title={copy.title} intro={copy.intro} note={copy.note} />
+
+<section class="section tool-workspace">
+	<div class="container cost-layout" data-youtube-cost data-copy={copyJson}>
+		<form class="cost-form" data-cost-form novalidate>
+			<ToolPanel title={copy.inputTitle}>
+				<fieldset class="cost-presets">
+					<legend>{copy.presetLegend}</legend>
+					<div class="cost-preset-buttons">
+						{PRESET_IDS.map((id) => (
+							<button class="button secondary" type="button" data-preset={id} aria-pressed={id === DEFAULT_PRESET ? 'true' : 'false'}>{copy.presets[id]}</button>
+						))}
+					</div>
+				</fieldset>
+				<div class="cost-formats">
+					{FORMAT_IDS.map((formatId) => (
+						<fieldset class="cost-format">
+							<legend>{copy.formats[formatId]}</legend>
+							{Object.entries(copy.fields[formatId] as Record<string, string>).map(([name, label]) => (
+								<label>
+									<span>{label}</span>
+									<input
+										type="number"
+										inputmode="decimal"
+										min="0"
+										step={steps[name]}
+										name={`${formatId}.${name}`}
+										value={PRESETS[DEFAULT_PRESET][formatId][name]}
+									/>
+								</label>
+							))}
+						</fieldset>
+					))}
+				</div>
+			</ToolPanel>
+		</form>
+
+		<ToolPanel title={copy.resultTitle}>
+			<div class="cost-stats" aria-live="polite">
+				{(['google', 'aws'] as const).map((levelId) => (
+					<div class="cost-stat">
+						<p>{copy.stats[levelId]}</p>
+						<strong data-stat={levelId}>{estimate(initial.levels[levelId].all.total)}</strong>
+					</div>
+				))}
+			</div>
+			<p class="cost-volume" data-volume>{initialVolume}</p>
+
+			<div class="cost-table" role="region" aria-label={copy.tableFormats} tabindex="0">
+				<table>
+					<caption>{copy.tableFormats}</caption>
+					<thead>
+						<tr>
+							<th scope="col">{copy.levelHeading}</th>
+							{FORMAT_IDS.map((formatId) => <th scope="col">{copy.formats[formatId]}</th>)}
+							<th scope="col">{copy.total}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{PRICE_LEVELS.map(({ id }) => (
+							<tr data-level={id}>
+								<th scope="row">{copy.levels[id]}</th>
+								{FORMAT_IDS.map((formatId) => (
+									<td data-cell={`${id}.${formatId}`}>{estimate(initial.levels[id].formats[formatId].total)}</td>
+								))}
+								<td data-cell={`${id}.total`}>{estimate(initial.levels[id].all.total)}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+
+			<div class="cost-table" role="region" aria-label={copy.tableTypes} tabindex="0">
+				<table>
+					<caption>{copy.tableTypes}</caption>
+					<thead>
+						<tr>
+							<th scope="col">{copy.levelHeading}</th>
+							{typeIds.map((typeId) => <th scope="col">{copy.types[typeId]}</th>)}
+						</tr>
+					</thead>
+					<tbody>
+						{PRICE_LEVELS.map(({ id }) => (
+							<tr data-level={id}>
+								<th scope="row">{copy.levels[id]}</th>
+								{typeIds.map((typeId) => (
+									<td data-cell={`${id}.${typeId}`}>{estimate(initial.levels[id].all[typeId])}</td>
+								))}
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+
+			<p><a href={videoUrl} rel="noopener noreferrer" target="_blank">{copy.video}</a></p>
+			<p>{offerBefore}<a href={copy.offerPath}>{copy.offerLink}</a>{offerAfter}</p>
+
+			<details class="cost-details">
+				<summary>{copy.assumptionsTitle}</summary>
+				<ul>
+					{copy.assumptions.map((assumption) => <li>{assumption}</li>)}
+				</ul>
+				<ul>
+					{sources.map((source) => <li><a href={source.url} rel="nofollow noopener noreferrer" target="_blank">{source.title}</a></li>)}
+				</ul>
+			</details>
+		</ToolPanel>
+	</div>
+</section>
+
+<script>
+	import { calculateChannelCost, FORMAT_IDS, formatEstimate, formatVolume, PRESETS, PRICE_LEVELS } from '../../lib/tools/youtube-cost.js';
+
+	type Fields = Record<string, string>;
+
+	for (const root of document.querySelectorAll<HTMLElement>('[data-youtube-cost]')) {
+		const form = root.querySelector<HTMLFormElement>('[data-cost-form]');
+		if (!form) continue;
+
+		const { numberLocale, volume } = JSON.parse(root.dataset.copy ?? '{}') as { numberLocale: string; volume: string };
+		const inputs = [...form.querySelectorAll<HTMLInputElement>('input[type="number"]')];
+		const presetButtons = [...form.querySelectorAll<HTMLButtonElement>('[data-preset]')];
+		const hours = new Intl.NumberFormat(numberLocale, { maximumFractionDigits: 0 });
+
+		const setText = (selector: string, text: string) => {
+			const element = root.querySelector(selector);
+			if (element) element.textContent = text;
+		};
+		const setCell = (id: string, value: number) => setText(`[data-cell="${id}"]`, formatEstimate(value, numberLocale));
+
+		const readInputs = () => {
+			const values: Record<string, Fields> = {};
+			for (const formatId of FORMAT_IDS) values[formatId] = {};
+			for (const input of inputs) {
+				const [formatId, name] = input.name.split('.');
+				values[formatId][name] = input.value;
+			}
+			return values;
+		};
+
+		const render = () => {
+			const { levels, totals } = calculateChannelCost(readInputs());
+			for (const { id } of PRICE_LEVELS) {
+				const { formats, all } = levels[id];
+				for (const formatId of FORMAT_IDS) setCell(`${id}.${formatId}`, formats[formatId].total);
+				for (const key of ['storage', 'encoding', 'delivery', 'total'] as const) setCell(`${id}.${key}`, all[key]);
+			}
+			for (const id of ['google', 'aws']) setText(`[data-stat="${id}"]`, formatEstimate(levels[id].all.total, numberLocale));
+			setText('[data-volume]', volume
+				.replace('{hours}', hours.format(totals.materialHours))
+				.replace('{stored}', formatVolume(totals.storedGb, numberLocale))
+				.replace('{delivered}', formatVolume(totals.deliveredGb, numberLocale)));
+		};
+
+		const markPreset = (id: string | null) => {
+			for (const button of presetButtons) button.setAttribute('aria-pressed', String(button.dataset.preset === id));
+		};
+
+		for (const button of presetButtons) {
+			button.addEventListener('click', () => {
+				const id = button.dataset.preset ?? '';
+				const preset = (PRESETS as Record<string, Record<string, Record<string, number>>>)[id];
+				if (!preset) return;
+				for (const input of inputs) {
+					const [formatId, name] = input.name.split('.');
+					input.value = String(preset[formatId][name]);
+				}
+				markPreset(id);
+				render();
+			});
+		}
+
+		form.addEventListener('input', () => {
+			markPreset(null);
+			render();
+		});
+		form.addEventListener('submit', (event) => event.preventDefault());
+
+		// Browsers may restore edited fields after a reload.
+		render();
+	}
+</script>
+
+<style>
+	.cost-layout {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: 24px;
+		max-width: 980px;
+	}
+
+	.cost-form {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.cost-presets,
+	.cost-format {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		min-width: 0;
+	}
+
+	.cost-presets legend,
+	.cost-format legend {
+		margin-bottom: 10px;
+		padding: 0;
+		color: var(--color-ink);
+		font-weight: 800;
+	}
+
+	.cost-presets {
+		margin-top: 14px;
+	}
+
+	.cost-preset-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+	}
+
+	.cost-preset-buttons button[aria-pressed='true'] {
+		color: var(--color-ink);
+		background: var(--color-accent-soft);
+		border-color: var(--color-accent-line);
+	}
+
+	.cost-formats {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 24px;
+		margin-top: 24px;
+	}
+
+	.cost-format label {
+		display: grid;
+		gap: 6px;
+		margin-top: 12px;
+		color: var(--color-ink);
+	}
+
+	.cost-format input {
+		width: 100%;
+		min-height: 46px;
+		padding: 0 12px;
+		color: var(--color-ink);
+		background: var(--color-control-surface);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+		font: inherit;
+	}
+
+	.cost-stats {
+		display: grid;
+		margin-top: 14px;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 12px;
+	}
+
+	.cost-stat {
+		padding: clamp(16px, 3vw, 22px);
+		background: var(--color-surface-alt);
+		border: 1px solid var(--color-line);
+		border-radius: 8px;
+	}
+
+	.cost-stat p {
+		margin: 0;
+		color: var(--color-muted);
+	}
+
+	.cost-stat strong {
+		display: block;
+		margin-top: 6px;
+		color: var(--color-ink);
+		font-size: clamp(2rem, 6vw, 3rem);
+		line-height: 1;
+	}
+
+	.cost-volume {
+		margin: 12px 0 0;
+		color: var(--color-muted);
+	}
+
+	.cost-table {
+		margin: 24px 0 0;
+		overflow-x: auto;
+	}
+
+	.cost-table:focus-visible {
+		outline: 3px solid var(--color-accent-focus);
+		outline-offset: 2px;
+	}
+
+	.cost-table table {
+		width: 100%;
+		min-width: 560px;
+		border-collapse: collapse;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.cost-table caption {
+		margin-bottom: 8px;
+		color: var(--color-ink);
+		font-weight: 800;
+		text-align: left;
+	}
+
+	.cost-table th,
+	.cost-table td {
+		padding: 10px 12px;
+		border-bottom: 1px solid var(--color-line);
+		text-align: right;
+		white-space: nowrap;
+	}
+
+	.cost-table th:first-child {
+		padding-left: 0;
+		text-align: left;
+		white-space: normal;
+	}
+
+	.cost-table thead th {
+		color: var(--color-muted);
+		font-weight: 700;
+	}
+
+	.cost-table tbody th {
+		color: var(--color-ink);
+		font-weight: 600;
+	}
+
+	.cost-table tr[data-level='google'] > * {
+		color: var(--color-accent-dark);
+		font-weight: 800;
+	}
+
+	.cost-details summary {
+		color: var(--color-ink);
+		font-weight: 800;
+		cursor: pointer;
+	}
+
+	.cost-details ul {
+		display: grid;
+		gap: 8px;
+		margin: 12px 0;
+		padding-left: 20px;
+	}
+</style>
