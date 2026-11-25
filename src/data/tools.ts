@@ -80,6 +80,7 @@ const toolEyebrows: Record<string, Record<Locale, string>> = {
 	'vtuber-preview': { de: 'Webcam-Tracking ausprobieren', en: 'Try webcam tracking' },
 	'watermarker': { de: 'Text- & Bild-Overlays', en: 'Text & image overlays' },
 	'whisper-subtitle-generator': { de: 'Sprache lokal transkribieren', en: 'Transcribe speech locally' },
+	'youtube-cost': { de: 'Speicher, Kodierung & Auslieferung', en: 'Storage, encoding & delivery' },
 	'youtube-thumbnail-preview': { de: 'Titel & Thumbnail testen', en: 'Test titles & thumbnails' },
 	'ypp-check': { de: 'Partnerprogramm-Ablehnung prüfen', en: 'Check a Partner Program rejection' },
 };
